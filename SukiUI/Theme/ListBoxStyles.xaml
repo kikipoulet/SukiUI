@@ -1,0 +1,74 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Design.PreviewWith>
+    <Border Padding="20" Background="White">
+      <ListBox>
+        <ListBoxItem>Test</ListBoxItem>
+        <ListBoxItem>Test</ListBoxItem>
+        <ListBoxItem>Test</ListBoxItem>
+        <ListBoxItem>Test</ListBoxItem>
+      </ListBox>
+    </Border>
+  </Design.PreviewWith>
+  <Style Selector="ListBox">
+    <Setter Property="TextBlock.Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+    <Setter Property="BorderThickness" Value="{DynamicResource ListBoxBorderThemeThickness}" />
+    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+  
+    <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="border"
+                ClipToBounds="{TemplateBinding ClipToBounds}"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="0"
+                CornerRadius="{TemplateBinding CornerRadius}">
+          <ScrollViewer Name="PART_ScrollViewer"
+                        HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                        VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
+                        
+                        AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}">
+            <ItemsPresenter Name="PART_ItemsPresenter"
+                            Items="{TemplateBinding Items}"
+                            ItemsPanel="{TemplateBinding ItemsPanel}"
+                            ItemTemplate="{TemplateBinding ItemTemplate}"
+                            Margin="{TemplateBinding Padding}"
+                            VirtualizationMode="{TemplateBinding VirtualizationMode}"/>
+          </ScrollViewer>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+
+  <Style Selector="ListBoxItem">
+    <Setter Property="Background" Value="Transparent"/>
+    <Setter Property="BorderThickness" Value="10 0 0 0" />
+    <Setter Property="BorderBrush" Value="{DynamicResource ThemeBackgroundBrush}" />
+    <Setter Property="Padding" Value="10 0" />
+    <Setter Property="Margin" Value="0 5" />
+  </Style>
+  <Style Selector="ListBoxItem:pointerover /template/ Ellipse">
+    
+    <Setter Property="Fill" Value="#8298f2" />
+  </Style>
+  <Style Selector="ListBoxItem:selected /template/ Ellipse">
+ 
+    <Setter Property="Fill" Value="{DynamicResource ThemeAccentBrush}" />
+  </Style>
+  <Style Selector="ListBoxItem:selected:focus /template/ Ellipse">
+   
+    <Setter Property="Fill" Value="{DynamicResource ThemeAccentBrush}" />
+  </Style>
+  <Style Selector="ListBoxItem:selected:pointerover /template/ Ellipse">
+   
+    <Setter Property="Fill" Value="#2f54eb" />
+  </Style>
+  <Style Selector="ListBoxItem:selected:focus:pointerover /template/ Ellipse">
+    
+    <Setter Property="Fill" Value="#2f54eb" />
+  </Style>
+</Styles>

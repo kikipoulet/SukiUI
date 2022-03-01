@@ -1,0 +1,15 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style Selector="Border.Card">
+        <Setter Property="Padding" Value="20" />
+        <Setter Property="CornerRadius" Value="16" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="BorderBrush" Value="#dedede" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="Margin" Value="7" />
+    </Style>
+    
+    <Style Selector="Border.Hoverable:pointerover">
+        <Setter Property="BoxShadow" Value="0 0 7 0 LightGray"></Setter>
+    </Style>
+</Styles>

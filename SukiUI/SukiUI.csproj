@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <IsPackable>true</IsPackable>
+        <Authors></Authors>
+        <Copyright></Copyright>
+        <PackageProjectUrl></PackageProjectUrl>
+        <PackageDescription></PackageDescription>
+        <Owners></Owners>
+        <PackageTags>avalonia;avaloniaui;ui;theme</PackageTags>
+        <RepositoryUrl></RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <IsPackable>true</IsPackable>
+        <RootNamespace>SukiUI</RootNamespace>
+        <Version>2.0.0</Version>
+        <FileVersion>2.0.0</FileVersion>
+        <AssemblyVersion>2.0.0</AssemblyVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <AvaloniaResource Include="**\*.xaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="LICENSE" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="0.10.12" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.10.12" />
+        <PackageReference Include="Material.Icons.Avalonia" Version="1.0.2" />
+        <PackageReference Include="Nerdbank.GitVersioning" Version="3.4.255" PrivateAssets="all" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <UpToDateCheckInput Remove="Palette\CandyPalette.xaml" />
+      <UpToDateCheckInput Remove="Palette\CitrusPalette.xaml" />
+      <UpToDateCheckInput Remove="Palette\MagmaPalette.xaml" />
+      <UpToDateCheckInput Remove="Palette\RustPalette.xaml" />
+      <UpToDateCheckInput Remove="Palette\SeaPalette.xaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AvaloniaResource Include="LICENSE" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AvaloniaXaml Update="Theme\ListBoxItemStyle.axaml">
+        <Generator>MSBuild:Compile</Generator>
+      </AvaloniaXaml>
+    </ItemGroup>
+</Project>

@@ -1,0 +1,111 @@
+<Style
+    xmlns="https://github.com/avaloniaui"
+    xmlns:sys="clr-namespace:System;assembly=netstandard"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style.Resources>
+
+        <Color x:Key="ThemeAccentColor">#0063bb</Color>
+        <Color x:Key="ThemeAccentColor2">#0063bb</Color>
+        <Color x:Key="ThemeAccentColor3">#0063bb</Color>
+        <Color x:Key="ThemeAccentColor4">#003f8e</Color>
+        <Color x:Key="ThemeAccentBadgeColor">#300063bb</Color>
+
+        <Color x:Key="ThemeCardColor">#FFFFFF</Color>
+        <Color x:Key="ThemeBackgroundColor">#FFECECEC</Color>
+        <Color x:Key="ThemeBorderLowColor">#FFF3F3F3</Color>
+        <Color x:Key="ThemeBorderMidColor">#FFECECEC</Color>
+        <Color x:Key="ThemeBorderHighColor">#FFAAAAAA</Color>
+
+        <Color x:Key="ThemeControlLowColor">#FF868999</Color>
+        <Color x:Key="ThemeControlMidColor">#FFF5F5F5</Color>
+        <Color x:Key="ThemeControlMidHighColor">#FFC2C3C9</Color>
+        <Color x:Key="ThemeControlHighColor">#FF686868</Color>
+        <Color x:Key="ThemeControlVeryHighColor">#FF5B5B5B</Color>
+
+        <Color x:Key="ThemeControlHighlightLowColor">#FFF0F0F0</Color>
+        <Color x:Key="ThemeControlHighlightMidColor">#FFD0D0D0</Color>
+        <Color x:Key="ThemeControlHighlightHighColor">#FF808080</Color>
+        <Color x:Key="ThemeForegroundColor">#FF000000</Color>
+        <Color x:Key="ThemeForegroundLowColor">#FF808080</Color>
+
+        <Color x:Key="HighlightBadgeColor">#30fd7d00</Color>
+        <Color x:Key="HighlightColor">#fd7d00</Color>
+        <Color x:Key="HighlightHoverColor">#ed6d00</Color>
+        <Color x:Key="HighlightForegroundColor">#FFFFFFFF</Color>
+        <Color x:Key="ErrorColor">#FFFF0000</Color>
+        <Color x:Key="ErrorLowColor">#AAFF0000</Color>
+
+        <SolidColorBrush Color="{DynamicResource ThemeCardColor}" x:Key="ThemeCardBrush" />
+        <SolidColorBrush Color="{DynamicResource ThemeBackgroundColor}" x:Key="ThemeBackgroundBrush" />
+        <SolidColorBrush Color="{DynamicResource ThemeBorderLowColor}" x:Key="ThemeBorderLowBrush" />
+        <SolidColorBrush Color="{DynamicResource ThemeBorderMidColor}" x:Key="ThemeBorderMidBrush" />
+        <SolidColorBrush Color="{DynamicResource ThemeBorderHighColor}" x:Key="ThemeBorderHighBrush" />
+        <SolidColorBrush Color="{DynamicResource ThemeControlLowColor}" x:Key="ThemeControlLowBrush" />
+        <SolidColorBrush Color="{DynamicResource ThemeControlMidColor}" x:Key="ThemeControlMidBrush" />
+        <SolidColorBrush Color="{DynamicResource ThemeControlMidHighColor}" x:Key="ThemeControlMidHighBrush" />
+        <SolidColorBrush Color="{DynamicResource ThemeControlHighColor}" x:Key="ThemeControlHighBrush" />
+        <SolidColorBrush Color="{DynamicResource ThemeControlVeryHighColor}" x:Key="ThemeControlVeryHighBrush" />
+        <SolidColorBrush Color="{DynamicResource ThemeControlHighlightLowColor}" x:Key="ThemeControlHighlightLowBrush" />
+        <SolidColorBrush Color="{DynamicResource ThemeControlHighlightMidColor}" x:Key="ThemeControlHighlightMidBrush" />
+        <SolidColorBrush Color="{DynamicResource ThemeControlHighlightHighColor}" x:Key="ThemeControlHighlightHighBrush" />
+        <SolidColorBrush Color="{DynamicResource ThemeForegroundColor}" x:Key="ThemeForegroundBrush" />
+        <SolidColorBrush Color="{DynamicResource ThemeForegroundLowColor}" x:Key="ThemeForegroundLowBrush" />
+
+        <SolidColorBrush Color="{DynamicResource HighlightColor}" x:Key="HighlightBrush" />
+        <SolidColorBrush Color="{DynamicResource HighlightBadgeColor}" x:Key="HighlightBadgeBrush" />
+        <SolidColorBrush Color="{DynamicResource HighlightHoverColor}" x:Key="HighlightHoverBrush" />
+        <SolidColorBrush Color="{DynamicResource HighlightForegroundColor}" x:Key="HighlightForegroundBrush" />
+        <SolidColorBrush Color="#2f54eb" x:Key="ThemeAccentBrush" />
+        <SolidColorBrush Color="{DynamicResource ThemeAccentColor2}" x:Key="ThemeAccentBrush2" />
+        <SolidColorBrush Color="{DynamicResource ThemeAccentColor3}" x:Key="ThemeAccentBrush3" />
+        <SolidColorBrush Color="{DynamicResource ThemeAccentColor4}" x:Key="ThemeAccentBrush4" />
+        <SolidColorBrush Color="{DynamicResource ThemeAccentBadgeColor}" x:Key="ThemeAccentBadgeBrush" />
+        <SolidColorBrush Color="{DynamicResource ErrorColor}" x:Key="ErrorBrush" />
+        <SolidColorBrush Color="{DynamicResource ErrorLowColor}" x:Key="ErrorLowBrush" />
+
+        <SolidColorBrush
+            Color="#444444"
+            Opacity="0.75"
+            x:Key="NotificationCardBackgroundBrush" />
+        <SolidColorBrush
+            Color="#007ACC"
+            Opacity="0.75"
+            x:Key="NotificationCardInformationBackgroundBrush" />
+        <SolidColorBrush
+            Color="#1F9E45"
+            Opacity="0.75"
+            x:Key="NotificationCardSuccessBackgroundBrush" />
+        <SolidColorBrush
+            Color="#FDB328"
+            Opacity="0.75"
+            x:Key="NotificationCardWarningBackgroundBrush" />
+        <SolidColorBrush
+            Color="#BD202C"
+            Opacity="0.75"
+            x:Key="NotificationCardErrorBackgroundBrush" />
+
+        <SolidColorBrush
+            Color="{DynamicResource ThemeAccentColor}"
+            Opacity="0.4"
+            x:Key="DatePickerFlyoutPresenterHighlightFill" />
+        <SolidColorBrush
+            Color="{DynamicResource ThemeAccentColor}"
+            Opacity="0.4"
+            x:Key="TimePickerFlyoutPresenterHighlightFill" />
+
+        <SolidColorBrush Color="Transparent" x:Key="ThemeControlTransparentBrush" />
+
+        <Thickness x:Key="ThemeBorderThickness">1,1,1,1</Thickness>
+        <sys:Double x:Key="ThemeDisabledOpacity">0.5</sys:Double>
+
+        <sys:Double x:Key="FontSizeSmall">13</sys:Double>
+        <sys:Double x:Key="FontSizeNormal">14</sys:Double>
+        <sys:Double x:Key="FontSizeLarge">14</sys:Double>
+
+        <sys:Double x:Key="ScrollBarThickness">18</sys:Double>
+        <sys:Double x:Key="ScrollBarThumbThickness">8</sys:Double>
+
+        <sys:Double x:Key="IconElementThemeHeight">20</sys:Double>
+        <sys:Double x:Key="IconElementThemeWidth">20</sys:Double>
+    </Style.Resources>
+</Style>

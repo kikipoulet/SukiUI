@@ -1,0 +1,72 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+      <Border Padding="20">
+        <StackPanel Spacing="10">
+          <ComboBox PlaceholderText="Select an item">
+            <ComboBoxItem>Item 1</ComboBoxItem>
+            <ComboBoxItem>Item 2</ComboBoxItem>
+          </ComboBox>
+          <ComboBox IsEnabled="False"
+                    Width="200"
+                    SelectedIndex="1"
+                    HorizontalContentAlignment="Center">
+            <ComboBoxItem>Item 1</ComboBoxItem>
+            <ComboBoxItem>Item 2</ComboBoxItem>
+          </ComboBox>
+        </StackPanel>
+      </Border>
+    </Design.PreviewWith>
+
+  <Style Selector="ComboBoxItem">
+    <Setter Property="Background" Value="Transparent"/>
+    <Setter Property="Padding" Value="2"/>
+    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentPresenter Name="PART_ContentPresenter"
+                          Background="{TemplateBinding Background}"
+                          BorderBrush="{TemplateBinding BorderBrush}"
+                          BorderThickness="{TemplateBinding BorderThickness}"
+                          CornerRadius="5"
+                         
+                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                          Content="{TemplateBinding Content}"
+                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                          Padding="5"/>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+
+  <Style Selector="ComboBoxItem:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="#d6e4ff"/>
+    
+  </Style>
+
+  <Style Selector="ComboBoxItem:selected > TextBlock">
+    <Setter Property="Foreground" Value="#1d39c4"/>
+  </Style>
+
+
+  <Style Selector="ComboBoxItem > TextBlock">
+    <Setter Property="Foreground" Value="Black"/>
+  </Style>
+
+  <Style Selector="ComboBoxItem:selected /template/ ContentPresenter">
+    <Setter Property="Background" Value="#d6e4ff"/>
+  </Style>
+
+  <Style Selector="ComboBoxItem:selected:focus /template/ ContentPresenter">
+    <Setter Property="Background" Value="#d6e4ff"/>
+  </Style>
+
+  <Style Selector="ComboBoxItem:selected:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="#d6e4ff"/>
+  </Style>
+
+  <Style Selector="ComboBoxItem:selected:focus:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="#d6e4ff"/>
+  </Style>
+</Styles>

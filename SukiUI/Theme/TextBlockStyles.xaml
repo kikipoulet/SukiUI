@@ -1,0 +1,52 @@
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <Design.PreviewWith>
+    <Border Background="White" Padding="20">
+      <StackPanel >
+        <TextBlock Classes="h1">h1</TextBlock>
+        <TextBlock Classes="h2">h2</TextBlock>
+        <TextBlock Classes="h3">h3</TextBlock>
+        <TextBlock Classes="h4">h4</TextBlock>
+        <TextBlock>Normal</TextBlock>
+        <TextBlock Classes="Accent">Accent</TextBlock>
+      </StackPanel>
+    </Border>
+  </Design.PreviewWith>
+  
+  <Style Selector="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource ThemeForegroundBrush}" />
+  
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+    <Style Selector="TextBox">
+        <Setter Property="FontFamily" Value="Ubuntu" />
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+  <Style Selector="TextBlock.h4">
+    <Setter Property="Margin" Value="0 7 0 10" />
+    
+    <Setter Property="FontSize" Value="20" />
+  </Style>
+    <Style Selector="TextBlock.h3">
+      
+        <Setter Property="Margin" Value="0 10 0 15" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="FontSize" Value="25" />
+    </Style>
+  <Style Selector="TextBlock.h2">
+    <Setter Property="Margin" Value="0 12 0 20" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="FontSize" Value="30" />
+  </Style>
+  <Style Selector="TextBlock.h1">
+    <Setter Property="Margin" Value="0 20 0 30" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="FontSize" Value="40" />
+  </Style>
+    <Style Selector="TextBlock.Caption">
+        <Setter Property="Foreground" Value="{DynamicResource ThemeControlHighBrush}" />
+    </Style>
+    <Style Selector="TextBlock.Accent">
+        <Setter Property="Foreground" Value="#2f54eb" />
+    </Style>
+</Styles>

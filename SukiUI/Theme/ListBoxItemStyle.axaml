@@ -1,0 +1,44 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Design.PreviewWith>
+    <Border Padding="0">
+      <ListBox>
+        <ListBoxItem IsEnabled="False">Disabled</ListBoxItem>
+        <ListBoxItem 
+                     Padding="20">
+          Test
+        </ListBoxItem>
+        <ListBoxItem>Test</ListBoxItem>
+      </ListBox>
+    </Border>
+  </Design.PreviewWith>
+
+  
+  <Style Selector="ListBoxItem">
+    <Setter Property="Background" Value="Transparent" />
+  
+    <Setter Property="Template">
+      <ControlTemplate>
+        <StackPanel Orientation="Horizontal">
+          <Ellipse  
+    Width="12"  
+    Height="12"  
+    Fill="{TemplateBinding BorderBrush}"   />
+                            <ContentPresenter Name="PART_ContentPresenter" Margin="-8,0,0,0"
+                          Background="Transparent"
+                          BorderBrush="Transparent"
+                          BorderThickness="{TemplateBinding BorderThickness}"
+                          CornerRadius="{TemplateBinding CornerRadius}"
+                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                          Content="{TemplateBinding Content}"
+                          Padding="{TemplateBinding Padding}"
+                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" />
+        </StackPanel>
+      </ControlTemplate>
+       
+        
+    </Setter>
+  </Style>
+
+</Styles>
