@@ -9,11 +9,9 @@ Planning - Ideas :
 2. More Controls -> be as close as possible to paid UI libraries
 3. Color theme ? 
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/1.png"></img>
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/3.png"></img>
-
-MessageBox and Notification
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/2.png"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Global1.png"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Global3.png"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Global2.png"></img>
 
 
 # Installation
@@ -35,6 +33,7 @@ MessageBox and Notification
 
 ## Card and Hoverable
 
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/HoverableCard.png"></img>
 ``` 
 <Border Classes="Card"></Border>
 <Border Classes="Card Hoverable"></Border>
@@ -42,6 +41,7 @@ MessageBox and Notification
 
 ## ListBox
 
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/ListBox.png"></img>
 ```
  <ListBox>
       <TextBlock>item 1</TextBlock>
@@ -52,6 +52,7 @@ MessageBox and Notification
  
 ## Buttons
 
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Buttons.png"></img>
 ```
 <Button Classes="Primary">
     <TextBlock>Primary</TextBlock>
@@ -72,6 +73,7 @@ MessageBox and Notification
 
 ## MessageBox
 
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/MessageBox.png"></img>
 ```
  SukiUI.MessageBox.MessageBox.Info(this, "Title", "This is an information message that need to be read.");
  MessageBox.Success(this, "Title", "This is an Success message that need to be read.");
@@ -80,6 +82,8 @@ MessageBox and Notification
 
 ## Notification
 
+
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Notification.png"></img>
 ```
  WindowNotificationManager notificationManager;
 
@@ -98,6 +102,8 @@ private void ShowNotification(object sender, RoutedEventArgs e)
 
 ## ComboBox
 
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/ComboBox1.png"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/ComboBox2.png"></img>
 ```
  <ComboBox PlaceholderText="Select an item">
     <ComboBoxItem>
@@ -111,18 +117,22 @@ private void ShowNotification(object sender, RoutedEventArgs e)
 
 ## ToggleSwitch
 
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Switch1.png"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Switch2.png"></img>
 ```
  <ToggleSwitch OffContent="No" OnContent="Yes" />
 ```
 
 ## ProgressBar
 
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/ProgressBar.png"></img>
 ```
 <ProgressBar  Value="60" />
 ``` 
 
 ## Menu
 
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Menu.png"></img>
 ``` 
 <Menu>
      <MenuItem Header="File">
@@ -137,36 +147,39 @@ private void ShowNotification(object sender, RoutedEventArgs e)
  
  ## DataGrid
  
+ <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/DataGrid.png"></img>
  ```
  <DataGrid AutoGenerateColumns="True" IsReadOnly="True" />
  ``` 
  
  ## Calendar
  
+ <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Calendar.png"></img>
  ```
  <Calendar></Calendar>
  ``` 
  
  ## Expender
  
+ <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Expander1.png"></img>
+  <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Expander2.png"></img>
  ```
  <Expander Header="Click To Expand">
            <TextBlock>Expanded</TextBlock>
  </Expander>
  
- <Expander Classes="Naked" Header="Click To Expand Naked">
-           <TextBlock>Expanded</TextBlock>
- </Expander>
  ``` 
  
  ## NumericUpDown
  
+ <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/NumericUpDown.png"></img>
  ``` 
  <NumericUpDown></NumericUpDown>
  ```
  
  ## RadioButton 
  
+ <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/RadioButton.png"></img>
  ```
  <StackPanel Orientation="Vertical">
            <RadioButton Margin="5">Item 1</RadioButton>
@@ -177,12 +190,14 @@ private void ShowNotification(object sender, RoutedEventArgs e)
  
  ## Slider
  
+ <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Slider.png"></img>
  ``` 
  <Slider></Slider>
  ``` 
  
  ## Tabs
  
+ <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Tab.png"></img>
  ```
  <TabControl>
         <TabItem Header="Tab 1" />
@@ -193,12 +208,15 @@ private void ShowNotification(object sender, RoutedEventArgs e)
  
  ## TextBox
  
+ <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/TextBox.png"></img>
  ``` 
  <TextBox Text="Element" />
+ <TextBox Classes="FlatTextBox" Text="Element" />
  ``` 
  
  ## TextBlock
  
+ <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/TextBlock.png"></img>
  ``` 
  <StackPanel>
       <TextBlock Classes="h1">h1</TextBlock>
@@ -212,6 +230,7 @@ private void ShowNotification(object sender, RoutedEventArgs e)
 
 ## TreeView 
 
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/TreeView.png"></img>
 ``` 
 <TreeView>
       <TreeViewItem Header="blub">
@@ -225,6 +244,7 @@ private void ShowNotification(object sender, RoutedEventArgs e)
 
 ## CircleProgressBar
 
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/CircleProgressBar.png"></img>
 ``` 
 xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
 ...
@@ -236,6 +256,7 @@ xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
 
 ## ContextMenu
 
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/ContextMenu.png"></img>
 ```
 <Border.ContextMenu>
      <ContextMenu>
@@ -248,7 +269,9 @@ xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
 ``` 
 
 ## Loading
-                        
+
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Loading.png"></img> 
+
  ``` 
 xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
 ...
