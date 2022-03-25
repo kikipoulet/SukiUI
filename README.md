@@ -294,9 +294,9 @@ xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
 </suki:GroupBox>
 ``` 
  
- ## GroupBox
+ ## PropertyGrid
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/PropertyGrid.png"></img> 
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/propertyGrid.png"></img> 
 
  ``` 
 xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
