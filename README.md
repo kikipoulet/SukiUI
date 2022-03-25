@@ -278,5 +278,34 @@ xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
 
 <suki:Loading></suki:Loading>
 ``` 
+
+## GroupBox
+
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/GroupBox.png"></img> 
+
+ ``` 
+xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+...
+
+<suki:GroupBox Header="Test Header">
+    <Grid Height="100" Width="150">
+          <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Test Content</TextBlock>
+    </Grid>
+</suki:GroupBox>
+``` 
  
+ ## GroupBox
+
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/PropertyGrid.png"></img> 
+
+ ``` 
+xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+...
+
+<suki:PropertyGrid Name="propertyGrid" />
+
+...
+
+this.FindControl<PropertyGrid>("propertyGrid").Item = new Object();
+``` 
  
