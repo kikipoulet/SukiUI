@@ -301,8 +301,8 @@
             <ControlTemplate>
                 <Border
                     Background="Transparent"
-                    BorderBrush="#dedede"
-                    BorderThickness="1"
+                    BorderBrush="#ebebeb"
+                    BorderThickness="1.5"
                     CornerRadius="5">
                     <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,*,Auto,Auto">
 

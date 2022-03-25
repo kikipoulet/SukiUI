@@ -1,10 +1,10 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style Selector="NumericUpDown">
-      <Setter Property="BorderThickness" Value="1" />
-      <Setter Property="BorderBrush" Value="#dedede"></Setter>
+      <Setter Property="BorderThickness" Value="1.5" />
+      <Setter Property="BorderBrush" Value="#ebebeb"></Setter>
       <Setter Property="CornerRadius" Value="5"></Setter>
-      <Setter Property="Background" Value="#fefefe" />
+      <Setter Property="Background" Value="White" />
       <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
       <Setter Property="Padding" Value="4" />
     </Style>

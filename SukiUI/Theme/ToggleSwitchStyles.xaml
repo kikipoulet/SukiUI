@@ -78,7 +78,7 @@
                             x:Name="PART_OnContentPresenter" />
 
                         <Border
-                            Background="LightGray"
+                            Background="#dedede"
                             BorderThickness="0"
                             CornerRadius="10"
                             Grid.Row="1"
@@ -116,11 +116,11 @@
                                 
                               </Ellipse>
 
-                                <Ellipse
-                                    Fill="White"
-                                    Height="17"
-                                    Width="17"
-                                    x:Name="SwitchKnobOff" Margin="0,0,0,0" />
+                              <Border
+                                  Background="White" CornerRadius="10" 
+                                  Height="17" 
+                                  Width="17"
+                                  x:Name="SwitchKnobOff" Margin="0,0,0,0" ></Border>
                             </Grid>
                         </Canvas>
                     </Grid>

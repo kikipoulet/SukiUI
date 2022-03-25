@@ -7,30 +7,32 @@
       </Expander>
     </Border>
   </Design.PreviewWith>
-  <Style Selector="Expander.Naked">
-    <Setter Property="BorderThickness" Value="0"></Setter>
-    <Setter Property="Background" Value="Transparent" />
-  </Style>
+
+  
+  
   <Style Selector="Expander">
     <Setter Property="CornerRadius" Value="5"></Setter>
     <Setter Property="Background" Value="#fefefe" />
-    <Setter Property="BorderThickness" Value="1"></Setter>
-    <Setter Property="BorderBrush" Value="#dedede"></Setter>
+    <Setter Property="BorderThickness" Value="1.5"></Setter>
+    <Setter Property="BorderBrush" Value="#ebebeb"></Setter>
     <Setter Property="ContentTransition">
       <Setter.Value>
         <CrossFade Duration="00:00:00.25" />
       </Setter.Value>
     </Setter>
   </Style>
+  
   <Style Selector="Expander[ExpandDirection=Down]">
     <Setter Property="Template">
       <ControlTemplate>
-        <Border Background="{TemplateBinding Background}"
-                BorderBrush="{TemplateBinding BorderBrush}"
-                BorderThickness="{TemplateBinding BorderThickness}"
-                CornerRadius="{TemplateBinding CornerRadius}">
+        <Border BorderBrush="#ebebeb" BorderThickness="1.4" CornerRadius="7" Background="White">
           <Grid RowDefinitions="Auto,*">
-            <ToggleButton Name="PART_toggle" Grid.Row="0" Content="{TemplateBinding Header}" IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}" />
+            <Border Margin="0,0,0,0" BorderThickness="0,0,0,1.4" BorderBrush="#ebebeb" Background="#f4f4f4" CornerRadius="7,7,0,0">
+              <DockPanel>
+                <TextBlock  FontWeight="DemiBold" Margin="10" HorizontalAlignment="Left" Text="{TemplateBinding Header}"></TextBlock>
+                <ToggleSwitch Margin="0,-3,0,0" OffContent="" OnContent="" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Name="PART_toggle"  Content="" IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}" />
+              </DockPanel>
+            </Border>
             <ContentPresenter Name="PART_ContentPresenter"
                               Grid.Row="1"
                               IsVisible="{TemplateBinding IsExpanded}"

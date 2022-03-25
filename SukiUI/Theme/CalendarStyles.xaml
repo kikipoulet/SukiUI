@@ -10,11 +10,11 @@
                 <Panel>
                     <Border
                         Background="Transparent"
-                        BorderBrush="#dedede"
-                        BorderThickness="{TemplateBinding BorderThickness}"
+                        BorderBrush="#ebebeb"
+                        BorderThickness="1.5"
                         CornerRadius="5">
                         <Border
-                            BorderBrush="#dedede"
+                            BorderBrush="#ebebeb"
                             BorderThickness="0"
                             CornerRadius="5">
                             <Grid Background="Transparent">

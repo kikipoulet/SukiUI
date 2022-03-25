@@ -9,8 +9,8 @@
     </Design.PreviewWith>
 
   <Style Selector="MenuItem">
-    <Setter Property="Background" Value="Transparent"/>
-    <Setter Property="BorderThickness" Value="1"/>
+    <Setter Property="Background" Value="White"/>
+    <Setter Property="BorderThickness" Value="1.5"/>
     <Setter Property="Padding" Value="6 0"/>
     <Setter Property="Template">
       <ControlTemplate>
@@ -61,12 +61,12 @@
                   Margin="10,0,0,0"
                   VerticalAlignment="Center"
                   Grid.Column="4"/>
-            <Popup Name="PART_Popup"
+            <Popup Name="PART_Popup" 
                    PlacementMode="Right"
                    IsLightDismissEnabled="False"
                    IsOpen="{TemplateBinding IsSubMenuOpen, Mode=TwoWay}">
-              <Border Background="White"
-                      BorderBrush="LightGray" CornerRadius="3"
+              <Border Background="White" BoxShadow="0 0 7 0 LightGray"
+                      BorderBrush="Transparent" CornerRadius="3"
                       BorderThickness="1.5">
                 <ScrollViewer Classes="menuscroller">
                   <ItemsPresenter Name="PART_ItemsPresenter"

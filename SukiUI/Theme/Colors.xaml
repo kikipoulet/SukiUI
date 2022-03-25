@@ -4,6 +4,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style.Resources>
 
+        <Color x:Key="MediumGray">#F4F4F4</Color>
+        <Color x:Key="BackgroundGray">#fafafa</Color>
+        <Color x:Key="BorderGray">#ebebeb</Color>
+
+
         <Color x:Key="ThemeAccentColor">#0063bb</Color>
         <Color x:Key="ThemeAccentColor2">#0063bb</Color>
         <Color x:Key="ThemeAccentColor3">#0063bb</Color>

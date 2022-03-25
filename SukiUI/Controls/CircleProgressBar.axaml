@@ -13,7 +13,7 @@
             <Arc SweepAngle="360" StartAngle="0" Stroke="WhiteSmoke" StrokeThickness="{TemplateBinding StrokeWidth}"  Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" Stretch="None" >
 
             </Arc>
-            <Arc SweepAngle="{TemplateBinding Value}" StartAngle="270" Stroke="#2f54eb" StrokeThickness="{TemplateBinding StrokeWidth}"  Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" Stretch="None" >
+            <Arc SweepAngle="{TemplateBinding Value}" StartAngle="270" Stroke="#2f54eb" StrokeThickness="{TemplateBinding StrokeWidth}"   Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" Stretch="None" >
               
             </Arc>
             <ContentControl Content="{TemplateBinding Content}" Margin="{TemplateBinding StrokeWidth}"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></ContentControl>

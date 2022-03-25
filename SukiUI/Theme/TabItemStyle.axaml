@@ -1,10 +1,18 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui">
   <Design.PreviewWith>
-    <Border Background="White" Padding="20">
-      <StackPanel Spacing="20">
-        <TabItem Header="Leaf" />
-        <TabItem Header="Arch" IsSelected="True" />
-      </StackPanel>
+    <Border Background="Red" Padding="20">
+      <TabControl Classes="FlatTabControl" Margin="5">
+        <TabItem Classes="FlatTabItem" >
+          <TabItem.Header>
+            <TextBlock>Item 1</TextBlock>
+          </TabItem.Header>
+        </TabItem>
+        <TabItem Classes="FlatTabItem" IsSelected="True" >
+          <TabItem.Header>
+            <TextBlock>Item 2</TextBlock>
+          </TabItem.Header>
+        </TabItem>
+      </TabControl>
     </Border>
   </Design.PreviewWith>
 
@@ -42,6 +50,40 @@
     </Setter>
   </Style>
 
+  <Style Selector="TabItem.FlatTabItem">
+    <Setter Property="FontSize" Value="{DynamicResource TabItemHeaderFontSize}" />
+    <Setter Property="FontWeight" Value="{DynamicResource TabItemHeaderThemeFontWeight}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource TabItemHeaderForegroundUnselected}" />
+    <Setter Property="Padding" Value="{DynamicResource TabItemHeaderMargin}" />
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="MinHeight" Value="{DynamicResource TabItemMinHeight}" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border  Name="PART_LayoutRoot" Margin="0,0,0,0"
+                 Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                Padding="{TemplateBinding Padding}">
+          <Panel>
+            
+              <ContentPresenter Name="PART_ContentPresenter"
+                                ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                Content="{TemplateBinding Header}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                TextBlock.FontFamily="{TemplateBinding FontFamily}"
+                                TextBlock.FontSize="{TemplateBinding FontSize}"
+                                TextBlock.FontWeight="{TemplateBinding FontWeight}" />
+            
+          </Panel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+
   <!-- Nornal state -->
   <Style Selector="TabItem /template/ Border#PART_LayoutRoot">
     <Setter Property="Background" Value="{Binding $parent[TabItem].Background}" />
@@ -63,15 +105,32 @@
     <Setter Property="IsVisible" Value="True" />
   </Style>
 
+  <Style Selector="TabItem.FlatTabItem:selected">
+    <Setter Property="Background" Value="White" />
+    <Setter Property="CornerRadius" Value="0"></Setter>
+    <Setter Property="TextBlock.Foreground" Value="{DynamicResource TabItemHeaderForegroundSelected}" />
+    <Setter Property="TextBlock.FontWeight" Value="DemiBold" />
+  </Style>
+  <Style Selector="TabItem:selected /template/ Border#PART_SelectedPipe">
+    <Setter Property="IsVisible" Value="True" />
+  </Style>
+
   <!-- PointerOver state -->
   <Style Selector="TabItem:pointerover /template/ Border#PART_LayoutRoot">
     <Setter Property="Background" Value="{DynamicResource TabItemHeaderBackgroundUnselectedPointerOver}" />
+    <Setter Property="TextBlock.FontWeight" Value="DemiBold" />
     <Setter Property="TextBlock.Foreground" Value="{DynamicResource TabItemHeaderForegroundUnselectedPointerOver}" />
   </Style>
 
   <!-- Selected PointerOver state -->
   <Style Selector="TabItem:selected:pointerover /template/ Border#PART_LayoutRoot">
     <Setter Property="Background" Value="{DynamicResource TabItemHeaderBackgroundSelectedPointerOver}" />
+    <Setter Property="TextBlock.FontWeight" Value="DemiBold" />
+    <Setter Property="TextBlock.Foreground" Value="{DynamicResource TabItemHeaderForegroundSelectedPointerOver}" />
+  </Style>
+
+  <Style Selector="TabItem.FlatTabItem:selected:pointerover /template/ Border#PART_LayoutRoot">
+    <Setter Property="Background" Value="White"></Setter>
     <Setter Property="TextBlock.Foreground" Value="{DynamicResource TabItemHeaderForegroundSelectedPointerOver}" />
   </Style>
 

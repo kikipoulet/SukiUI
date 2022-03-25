@@ -17,7 +17,7 @@
     <Setter Property="Template">
       <ControlTemplate>
         <LayoutTransformControl Name="PART_LayoutTransformControl" UseRenderTransform="True">
-          <Border BorderBrush="LightGray" BorderThickness="1.5" CornerRadius="{TemplateBinding CornerRadius}" Background="White" BoxShadow="0 6 8 0 LightGray" Margin="5 5 5 10">
+          <Border BorderBrush="#ebebeb" BorderThickness="1.5" CornerRadius="{TemplateBinding CornerRadius}" Background="White" BoxShadow="0 3 10 0 #dedede" Margin="5 5 25 10">
             <Border Background="White"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"

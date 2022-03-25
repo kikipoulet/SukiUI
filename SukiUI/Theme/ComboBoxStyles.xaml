@@ -22,10 +22,10 @@
 
 
   <Style Selector="ComboBox">
-    <Setter Property="BorderThickness" Value="1" />
-    <Setter Property="BorderBrush" Value="#dedede"></Setter>
+    <Setter Property="BorderThickness" Value="1.5" />
+    <Setter Property="BorderBrush" Value="#ebebeb"></Setter>
     <Setter Property="CornerRadius" Value="5"></Setter>
-    <Setter Property="Background" Value="#fefefe" />
+    <Setter Property="Background" Value="White" />
    
    
     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -76,9 +76,9 @@
                    MaxHeight="{TemplateBinding MaxDropDownHeight}"
                    PlacementTarget="{TemplateBinding}"
                    IsLightDismissEnabled="True">
-              <Border Background="#fefefe" Margin="0,5,0,0" CornerRadius="5"
-                      BorderBrush="#dedede"
-                      BorderThickness="1">
+              <Border Background="White" Margin="0,5,0,0" CornerRadius="5"
+                      BorderBrush="#ebebeb"
+                      BorderThickness="1.5">
                 <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
                               VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
                   <ItemsPresenter Name="PART_ItemsPresenter" 

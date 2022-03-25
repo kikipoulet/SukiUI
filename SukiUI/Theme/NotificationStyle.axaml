@@ -15,7 +15,7 @@
           <ReversibleStackPanel.DataTemplates>
             <DataTemplate  DataType="INotification">
               <StackPanel Background="White" Spacing="8" Margin="12" TextBlock.Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}">
-                <TextBlock Text="{Binding Title}" FontWeight="Medium" />
+                <TextBlock FontSize="18" Text="{Binding Title}" FontWeight="DemiBold" />
                 <TextBlock MaxHeight="80" Text="{Binding Message}" TextWrapping="Wrap" Margin="0,0,12,0"/>
               </StackPanel>
             </DataTemplate>

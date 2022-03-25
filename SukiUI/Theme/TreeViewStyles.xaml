@@ -18,6 +18,8 @@
   </Style>
     <Style Selector="TreeView">
       <Setter Property="CornerRadius" Value="5"></Setter>
+      <Setter Property="BorderThickness" Value="1.5"></Setter>
+      <Setter Property="BorderBrush" Value="#dedede"></Setter>
         <Setter Property="Margin" Value="0" />
         <Setter Property="Padding" Value="0" />
     </Style>

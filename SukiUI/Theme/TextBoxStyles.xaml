@@ -3,7 +3,10 @@
 
   <Design.PreviewWith>
     <Border Background="White" Padding="20">
+      <StackPanel>
       <TextBox Text="Elem"></TextBox>
+      <TextBox Classes="FlatTextBox" Text="Elem"></TextBox>
+      </StackPanel>
     </Border>
   </Design.PreviewWith>
   
@@ -24,12 +27,19 @@
       <MenuItem x:Name="TextBoxContextMenuPasteItem" Header="Paste" Command="{Binding $parent[TextBox].Paste}" IsEnabled="{Binding $parent[TextBox].CanPaste}" InputGesture="{x:Static TextBox.PasteGesture}"/>
     </ContextMenu>
   </Styles.Resources>
+
+  <Style Selector="TextBox.FlatTextBox">
+    <Setter Property="Background" Value="#f4f4f4" ></Setter> 
+    <Setter Property="BorderBrush" Value="#f4f4f4" ></Setter> 
+    
+  </Style>
+  
   <Style Selector="TextBox">
     <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
-    <Setter Property="BorderThickness" Value="1" />
-    <Setter Property="BorderBrush" Value="#dedede"></Setter>
+    <Setter Property="BorderThickness" Value="1.5" />
+    <Setter Property="BorderBrush" Value="#ebebeb"></Setter>
     <Setter Property="CornerRadius" Value="5"></Setter>
-    <Setter Property="Background" Value="#fefefe" />
+    <Setter Property="Background" Value="White" />
     <Setter Property="CaretBrush" Value="{DynamicResource ThemeForegroundBrush}" />
   
     <Setter Property="SelectionBrush" Value="{DynamicResource HighlightBrush}"/>

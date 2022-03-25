@@ -4,9 +4,9 @@
     <Setter Property="Template">
       <ControlTemplate>
         <Border Background="White"
-                BorderBrush="LightGray"
+                BorderBrush="#ebebeb"
               
-                BorderThickness="0,0,0,1"
+                BorderThickness="0,0,0,1.5"
                 CornerRadius="{TemplateBinding CornerRadius}"
                 Padding="{TemplateBinding Padding}">
           <ItemsPresenter Name="PART_ItemsPresenter"
