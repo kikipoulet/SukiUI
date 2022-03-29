@@ -1,6 +1,10 @@
 # SukiUI
 
-UI Theme for AvaloniaUI - inspired and using Citrus and Default theme 
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Suki.png"></img> Suki is the name of my dog :-)
+
+<br/>
+
+UI Theme for AvaloniaUI - inspired and using Citrus and Default theme
 
 Goal : have a simple consistent flat UI desktop theme for Avalonia other than Fluent design.
 
