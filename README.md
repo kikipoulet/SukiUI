@@ -35,24 +35,117 @@ Planning - Ideas :
 
 # Usage
 
-## Card and Hoverable
+## Desktop Page
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/HoverableCard.png"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/DesktopMenu.gif"></img>
+
 ``` 
-<Border Classes="Card"></Border>
-<Border Classes="Card Hoverable"></Border>
+<Window 
+  ...
+  Classes="NakedWindow" 
+  xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+>
+
+  <suki:DesktopPage LogoColor="#2f54eb" LogoKind="Xaml">
+    <suki:DesktopPage.MenuItems>
+      <MenuItem Header="File">
+        <MenuItem Header="File" />
+        <MenuItem Header="Edit" />
+        <MenuItem Header="Help" />
+      </MenuItem>
+      <MenuItem Header="Edit" />
+      <MenuItem Header="Help" />
+    </suki:DesktopPage.MenuItems>
+    
+    <Grid>
+          <TextBlock>Content<TextBlock/>
+    <Grid/>
+    <suki:DesktopPage/>
+<Window/>
+
+``` 
+
+## Mobile Page
+
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/MobileMenu.gif"></img>
+
+Menu for a mobile app to switch between pages and go back
+
+``` 
+<UserControl 
+  ...
+  xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+>
+
+  <suki:MobilePage  Header="Test" Name="MobileMenu" >
+    <Grid >
+      <Button Click="AddPage" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <TextBlock>Go To A Next Page</TextBlock>
+      </Button>
+    </Grid>
+  </suki:MobilePage>
+<UserControl/>
+
+``` 
+
+``` 
+
+public void NavigateToNewPage(){
+     
+     var menu = this.FindControl<MobilePage>("MobileMenu");
+     menu.NewPage("Header", new RecursivePage());
+     
+}
+
+``` 
+
+
+## ToggleSwitch
+
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Switch1.png"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Switch2.png"></img>
+```
+ <ToggleSwitch OffContent="No" OnContent="Yes" />
 ```
 
-## ListBox
+## CircleProgressBar
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/ListBox.png"></img>
-```
- <ListBox>
-      <TextBlock>item 1</TextBlock>
-      <TextBlock>item 2</TextBlock>
-      <TextBlock>item 3</TextBlock>
- </ListBox>
- ```
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/CircleProgressBar.png"></img>
+``` 
+xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+...
+
+<suki:CircleProgressBar Height="150" StrokeWidth="12" Value="50" Width="150">
+             <TextBlock Classes="h3">50 %</TextBlock>
+</suki:CircleProgressBar>
+``` 
+
+## Loading
+
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Loading.gif"></img> 
+
+ ``` 
+xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+...
+
+<suki:Loading></suki:Loading>
+``` 
+
+ ## PropertyGrid
+
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/PropertyGrid.gif"></img> 
+
+ ``` 
+xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+...
+
+<suki:PropertyGrid Name="propertyGrid" />
+
+...
+
+this.FindControl<PropertyGrid>("propertyGrid").Item = new Object();
+``` 
+
  
 ## Buttons
 
@@ -75,19 +168,11 @@ Planning - Ideas :
 </Button>
 ```
 
-## MessageBox
-
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/MessageBox.png"></img>
-```
- SukiUI.MessageBox.MessageBox.Info(this, "Title", "This is an information message that need to be read.");
- MessageBox.Success(this, "Title", "This is an Success message that need to be read.");
- MessageBox.Error(this, "Title", "This is an Success message that need to be read.");
-```
 
 ## Notification
 
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Notification.png"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Notification.gif"></img>
 ```
  WindowNotificationManager notificationManager;
 
@@ -104,10 +189,59 @@ private void ShowNotification(object sender, RoutedEventArgs e)
 }
 ```
 
+## GroupBox
+
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/GroupBox.png"></img> 
+
+ ``` 
+xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+...
+
+<suki:GroupBox Header="Test Header">
+    <Grid Height="100" Width="150">
+          <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Test Content</TextBlock>
+    </Grid>
+</suki:GroupBox>
+``` 
+ 
+ 
+ ## Tabs
+ 
+ <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Tab.png"></img>
+ ```
+ <TabControl>
+        <TabItem Header="Tab 1" />
+        <TabItem Header="Tab 2" />
+        <TabItem Header="Tab 3" />
+ </TabControl>
+ ``` 
+ 
+
+## ListBox
+
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/ListBox.png"></img>
+```
+ <ListBox>
+      <TextBlock>item 1</TextBlock>
+      <TextBlock>item 2</TextBlock>
+      <TextBlock>item 3</TextBlock>
+ </ListBox>
+ ```
+
+## MessageBox
+
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/MessageBox.png"></img>
+```
+ SukiUI.MessageBox.MessageBox.Info(this, "Title", "This is an information message that need to be read.");
+ MessageBox.Success(this, "Title", "This is an Success message that need to be read.");
+ MessageBox.Error(this, "Title", "This is an Success message that need to be read.");
+```
+
+
 ## ComboBox
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/ComboBox1.png"></img>
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/ComboBox2.png"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/ComboBox.gif"></img>
+
 ```
  <ComboBox PlaceholderText="Select an item">
     <ComboBoxItem>
@@ -119,13 +253,6 @@ private void ShowNotification(object sender, RoutedEventArgs e)
 </ComboBox>
 ```
 
-## ToggleSwitch
-
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Switch1.png"></img>
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Switch2.png"></img>
-```
- <ToggleSwitch OffContent="No" OnContent="Yes" />
-```
 
 ## ProgressBar
 
@@ -134,20 +261,13 @@ private void ShowNotification(object sender, RoutedEventArgs e)
 <ProgressBar  Value="60" />
 ``` 
 
-## Menu
+## Card and Hoverable
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Menu.png"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Hoverable.gif"></img>
 ``` 
-<Menu>
-     <MenuItem Header="File">
-             <MenuItem Header="File" />
-             <MenuItem Header="Edit" />
-             <MenuItem Header="Help" />
-     </MenuItem>
-     <MenuItem Header="Edit" />
-     <MenuItem Header="Help" />
-</Menu>
- ``` 
+<Border Classes="Card"></Border>
+<Border Classes="Card Hoverable"></Border>
+```
  
  ## DataGrid
  
@@ -163,7 +283,7 @@ private void ShowNotification(object sender, RoutedEventArgs e)
  <Calendar></Calendar>
  ``` 
  
- ## Expender
+ ## Expander
  
  <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Expander1.png"></img>
   <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Expander2.png"></img>
@@ -198,18 +318,8 @@ private void ShowNotification(object sender, RoutedEventArgs e)
  ``` 
  <Slider></Slider>
  ``` 
- 
- ## Tabs
- 
- <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Tab.png"></img>
- ```
- <TabControl>
-        <TabItem Header="Tab 1" />
-        <TabItem Header="Tab 2" />
-        <TabItem Header="Tab 3" />
- </TabControl>
- ``` 
- 
+
+
  ## TextBox
  
  <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/TextBox.png"></img>
@@ -246,17 +356,7 @@ private void ShowNotification(object sender, RoutedEventArgs e)
 </TreeView>
 ```
 
-## CircleProgressBar
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/CircleProgressBar.png"></img>
-``` 
-xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
-...
-
-<suki:CircleProgressBar Height="150" StrokeWidth="12" Value="50" Width="150">
-             <TextBlock Classes="h3">50 %</TextBlock>
-</suki:CircleProgressBar>
-``` 
 
 ## ContextMenu
 
@@ -272,44 +372,6 @@ xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
 </Border.ContextMenu>
 ``` 
 
-## Loading
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Loading.png"></img> 
 
- ``` 
-xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
-...
-
-<suki:Loading></suki:Loading>
-``` 
-
-## GroupBox
-
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/GroupBox.png"></img> 
-
- ``` 
-xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
-...
-
-<suki:GroupBox Header="Test Header">
-    <Grid Height="100" Width="150">
-          <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Test Content</TextBlock>
-    </Grid>
-</suki:GroupBox>
-``` 
- 
- ## PropertyGrid
-
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/propertyGrid.png"></img> 
-
- ``` 
-xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
-...
-
-<suki:PropertyGrid Name="propertyGrid" />
-
-...
-
-this.FindControl<PropertyGrid>("propertyGrid").Item = new Object();
-``` 
  
