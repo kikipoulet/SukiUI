@@ -8,14 +8,15 @@ UI Theme for AvaloniaUI - inspired and using Citrus and Default theme
 
 Goal : have a simple consistent flat UI desktop theme for Avalonia other than Fluent design.
 
-Planning - Ideas :
-1. Cleaner code (because the library is very young)
-2. More Controls -> be as close as possible to paid UI libraries
-3. Color theme ? 
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Global.gif"></img>
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Global1.png"></img>
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Global3.png"></img>
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Global2.png"></img>
+### Planning - Ideas :
+- Cleaner code (because the library is very young)
+- More Controls (and make actual richer)
+- Dark Theme
+- out of the box Mobile Theme !
+
+
 
 
 # Installation
@@ -143,7 +144,14 @@ xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
 
 ...
 
-this.FindControl<PropertyGrid>("propertyGrid").Item = new Object();
+this.FindControl<PropertyGrid>("propertyGrid").Item = new Person()
+{
+     Name = "Billy",
+     Partner = new Person()
+     {
+          Name = "Charles"
+     }
+};
 ``` 
 
  
