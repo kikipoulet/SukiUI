@@ -14,9 +14,10 @@
               <Border Margin="0,0,0,0" BorderThickness="0,0,0,1.4" BorderBrush="#ebebeb" Background="#f4f4f4" CornerRadius="7,7,0,0">
                 <TextBlock FontWeight="DemiBold" Margin="10" HorizontalAlignment="Left" Text="{TemplateBinding Header}"></TextBlock>
               </Border>
-           
+              <Grid >
             <ContentControl Content="{TemplateBinding Content}"  ></ContentControl>
-            </StackPanel>
+                </Grid>
+              </StackPanel>
             </Border>
         </ControlTemplate>
       </Setter>

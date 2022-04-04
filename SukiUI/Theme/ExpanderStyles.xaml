@@ -8,7 +8,15 @@
     </Border>
   </Design.PreviewWith>
 
-  
+  <Style Selector="Border.ExpanderToggle">
+    <Setter Property="Background" Value="Transparent"></Setter>
+    <Setter Property="BorderThickness" Value="0"></Setter>
+  </Style>
+
+  <Style Selector="Border.ExpanderToggle:pointerover">
+    <Setter Property="Background" Value="#ebebeb"></Setter>
+    <Setter Property="BorderThickness" Value="0"></Setter>
+  </Style>
   
   <Style Selector="Expander">
     <Setter Property="CornerRadius" Value="5"></Setter>
@@ -30,7 +38,14 @@
             <Border Margin="0,0,0,0" BorderThickness="0,0,0,1.4" BorderBrush="#ebebeb" Background="#f4f4f4" CornerRadius="7,7,0,0">
               <DockPanel>
                 <TextBlock  FontWeight="DemiBold" Margin="10" HorizontalAlignment="Left" Text="{TemplateBinding Header}"></TextBlock>
-                <ToggleSwitch Margin="0,-3,0,0" OffContent="" OnContent="" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Name="PART_toggle"  Content="" IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}" />
+               
+                <Border Margin="0,0,5,0"  HorizontalAlignment="Right" DockPanel.Dock="Right" CornerRadius="30" Classes="ExpanderToggle"  Width="25" Height="25">
+                  <ToggleButton Classes="Primary" Name="PART_toggle" Width="30" Height="30" BorderThickness="0" BorderBrush="#ebebeb"
+                          HorizontalAlignment="Center" Margin="7,0,0,0.5"
+                          VerticalAlignment="Center"
+                           IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}" />
+                </Border>
+                
               </DockPanel>
             </Border>
             <ContentPresenter Name="PART_ContentPresenter"

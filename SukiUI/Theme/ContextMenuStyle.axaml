@@ -8,9 +8,10 @@
 
   <Style Selector="ContextMenu">
      <Setter Property="Background" Value="White"></Setter>
-     <Setter Property="BorderThickness" Value="1.5"></Setter>
-    <Setter Property="BorderBrush" Value="#ebebeb" >
-     
-    </Setter>
+     <Setter Property="BorderThickness" Value="1.5,1.5,2.5,2.5"></Setter>
+    <Setter Property="BorderBrush" Value="#ebebeb" ></Setter>
+
+
+
   </Style>
 </Styles>

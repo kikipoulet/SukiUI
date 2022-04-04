@@ -5,11 +5,11 @@
       <ControlTemplate>
         <Border Background="White"
                 BorderBrush="#ebebeb"
-              
-                BorderThickness="0,0,0,1.5"
+              Height="45"
+                BorderThickness="0,0,0,0"
                 CornerRadius="{TemplateBinding CornerRadius}"
                 Padding="{TemplateBinding Padding}">
-          <ItemsPresenter Name="PART_ItemsPresenter"
+          <ItemsPresenter Name="PART_ItemsPresenter"  
                           Items="{TemplateBinding Items}"
                           ItemsPanel="{TemplateBinding ItemsPanel}"
                           ItemTemplate="{TemplateBinding ItemTemplate}"

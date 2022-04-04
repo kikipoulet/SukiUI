@@ -26,6 +26,7 @@
   <StyleInclude Source="avares://SukiUI/Theme/NotificationStyle.axaml"></StyleInclude>
   <StyleInclude Source="avares://SukiUI/Theme/NotificationCardStyle.axaml"></StyleInclude>
   <StyleInclude Source="avares://SukiUI/Theme/ContextMenuStyle.axaml"></StyleInclude>
+  <StyleInclude Source="avares://SukiUI/Theme/WindowStyles.axaml"></StyleInclude>
 
 
 </Styles>

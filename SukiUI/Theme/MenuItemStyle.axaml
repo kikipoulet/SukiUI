@@ -11,10 +11,13 @@
   <Style Selector="MenuItem">
     <Setter Property="Background" Value="White"/>
     <Setter Property="BorderThickness" Value="1.5"/>
-    <Setter Property="Padding" Value="6 0"/>
+    <Setter Property="FontSize" Value="16"></Setter>
+    <Setter Property="FontWeight" Value="DemiBold"></Setter>
+    <Setter Property="Margin" Value="5,0" ></Setter>
+
     <Setter Property="Template">
       <ControlTemplate>
-        <Border Name="root"
+        <Border Name="root" 
                 Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}"
@@ -29,9 +32,9 @@
             </Grid.ColumnDefinitions>
             <ContentPresenter Name="icon"
                               Content="{TemplateBinding Icon}"
-                              Width="16"
+                              Width="16" Margin="7"
                               Height="16"
-                              Margin="3"
+                           
                               HorizontalAlignment="Center"
                               VerticalAlignment="Center"/>
             <Path Name="check"
@@ -42,7 +45,8 @@
                   VerticalAlignment="Center"/>
             <ContentPresenter Name="PART_HeaderPresenter"
                               Content="{TemplateBinding Header}"
-                              Margin="{TemplateBinding Padding}"
+                             
+                           
                               VerticalAlignment="Center"
                               Grid.Column="2">
               <ContentPresenter.DataTemplates>
@@ -51,7 +55,7 @@
                 </DataTemplate>
               </ContentPresenter.DataTemplates>
             </ContentPresenter>
-            <TextBlock x:Name="PART_InputGestureText"
+            <TextBlock x:Name="PART_InputGestureText" 
                        Grid.Column="3"
                        Text="{TemplateBinding InputGesture, Converter={StaticResource KeyGestureConverter}}"
                        VerticalAlignment="Center"/>
@@ -116,9 +120,11 @@
                    IsLightDismissEnabled="True"
                    OverlayInputPassThroughElement="{Binding $parent[Menu]}"
                    IsOpen="{TemplateBinding IsSubMenuOpen, Mode=TwoWay}">
-              <Border Background="White" Margin="5,5,0,0"
-                      BorderBrush="LightGray" CornerRadius="3"
-                      BorderThickness="1"
+              <Border Background="White" Margin="10"
+                      BorderBrush="#f4f4f4" CornerRadius="8"
+                      BorderThickness="1.5"
+                     
+                      BoxShadow="2 2 2 2 #dedede"
              >
                 <ScrollViewer Classes="menuscroller">
                   <ItemsPresenter Name="PART_ItemsPresenter"
@@ -140,8 +146,8 @@
   </Style>
 
   <Style Selector="MenuItem:selected /template/ Border#root">
-    <Setter Property="Background" Value="#eaeaea"/>
-    <Setter Property="CornerRadius" Value="3"></Setter>
+    <Setter Property="Background" Value="#f4f4f4"/>
+    <Setter Property="CornerRadius" Value="6"></Setter>
     <Setter Property="BorderBrush" Value="#fafafa"/>
   </Style>
 

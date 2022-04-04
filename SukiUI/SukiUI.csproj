@@ -24,6 +24,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <AvaloniaXaml Remove="Theme\WindowStyles.axaml" />
+    </ItemGroup>
+
+    <ItemGroup>
       <None Remove="LICENSE" />
     </ItemGroup>
 
@@ -47,6 +51,7 @@
 
     <ItemGroup>
       <AvaloniaResource Include="LICENSE" />
+      <AvaloniaResource Include="Theme\WindowStyles.axaml" />
     </ItemGroup>
 
     <ItemGroup>

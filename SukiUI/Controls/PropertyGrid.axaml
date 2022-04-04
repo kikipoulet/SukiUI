@@ -4,7 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SukiUI.Controls.PropertyGrid">
+  
   <ScrollViewer>
-      <StackPanel Name="StackProperties"></StackPanel>
+      <StackPanel  HorizontalAlignment="Stretch" Name="StackProperties">
+        
+      </StackPanel>
   </ScrollViewer>
 </UserControl>

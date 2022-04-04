@@ -1,0 +1,39 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="SukiUI.Controls.DesktopPage" xmlns:material="using:Material.Icons.Avalonia"  xmlns:suki="clr-namespace:SukiUI.Controls">
+  <UserControl.Styles>
+    <Style Selector="suki|DesktopPage">
+      <Setter Property="Template">
+        <ControlTemplate>
+          
+          <DockPanel>
+
+            <Border DockPanel.Dock="Top"  BorderBrush="#ebebeb" BorderThickness="0,0,0,1.5" >
+              <Grid ColumnDefinitions="Auto,Auto,*" >
+                <material:MaterialIcon Grid.Column="0" Height="25" Margin="10" Width="25" Kind="{TemplateBinding LogoKind}" Foreground="{TemplateBinding LogoColor}"></material:MaterialIcon>
+                <Menu Items="{TemplateBinding MenuItems}" Grid.Column="1"  IsHitTestVisible="True"  >
+
+                </Menu>
+
+                <DockPanel   Grid.Column="2" HorizontalAlignment="Right" >
+
+                  <Button Classes="ZoomOnHover" Click="CloseHandler" Margin="0,9,9,9" BorderThickness="0"  Padding="0" Height="23" Width="23" Background="Transparent">
+                    <material:MaterialIcon Foreground="DarkRed" Height="23" Width="23" Kind="CloseCircleOutline"></material:MaterialIcon>
+
+                  </Button>
+                </DockPanel>
+              </Grid>
+            </Border>
+            <Grid Background="#fafafa">
+            <ContentControl Content="{TemplateBinding Content}" ></ContentControl>
+            </Grid>
+          </DockPanel>
+        
+        </ControlTemplate>
+      </Setter>
+    </Style>
+  </UserControl.Styles>
+</UserControl>

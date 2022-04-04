@@ -1,4 +1,6 @@
-<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Styles
+    xmlns:material="using:Material.Icons.Avalonia"
+  xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Design.PreviewWith>
         <WrapPanel
@@ -26,12 +28,14 @@
 
     <Style Selector="Button">
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="BorderBrush" Value="#ebebeb" />
+        <Setter Property="BorderBrush" Value="#dedede" />
         <Setter Property="Padding" Value="11,8" />
         <Setter Property="CornerRadius" Value="5" />
         <Setter Property="Margin" Value="5 5" />
         <Setter Property="Background" Value="#eaeaea" />
     </Style>
+
+ 
 
     <Style Selector="Button:pointerover /template/ ContentPresenter">
         <Setter Property="Background" Value="#fafafa" />
@@ -43,7 +47,16 @@
         <Setter Property="FontWeight" Value="SemiBold" />
     </Style>
 
+  <Style Selector="Button.ZoomOnHover:pointerover /template/ ContentPresenter">
+    <Setter Property="RenderTransform">
+      <Setter.Value>
+        <ScaleTransform ScaleX="1.1" ScaleY="1.1" />
+      </Setter.Value>
+    </Setter>
+  </Style>
+
     <Style Selector="Button:pressed /template/ ContentPresenter">
+      <Setter Property="Background" Value="#fafafa"></Setter>
         <Setter Property="RenderTransform">
             <Setter.Value>
                 <ScaleTransform ScaleX="0.95" ScaleY="0.95" />
