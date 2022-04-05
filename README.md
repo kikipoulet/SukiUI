@@ -1,6 +1,7 @@
 # SukiUI
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Suki.png"></img> Suki is the name of my dog :-)
+
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/suki_photo.jpg" width="200" height="200"></img> Suki is the name of my dog :-)
 
 <br/>
 
