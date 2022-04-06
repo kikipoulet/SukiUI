@@ -5,9 +5,7 @@
 
 <br/>
 
-UI Theme for AvaloniaUI - inspired and using Citrus and Default theme
-
-Goal : have a simple consistent flat UI desktop theme for Avalonia other than Fluent design.
+UI Theme and Controls for AvaloniaUI 
 
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/GlobalApp.gif"></img>
 
@@ -311,8 +309,41 @@ xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
  ```
  this.FindControl<DataGrid>("myDataGrid").Items = new List<Person>();
  ```
+
  
- ## Calendar
+ ## Slider
+ 
+ <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Slider.gif"></img>
+ ``` 
+ <Slider IsSnapToTickEnabled="True" Maximum="100" Minimum="0" TickFrequency="1" Value="50"></Slider>
+ ``` 
+
+
+ ## TextBox
+ 
+ <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/TextBox.gif"></img>
+ ``` 
+ <TextBox Classes="Prefix" Margin="5" Text="avaloniaui.net" Watermark="https://" />
+ <TextBox Classes="Suffix" Margin="5" Text="avaloniaui" Watermark="@gmail.com" />
+ <TextBox Margin="5" Text="Elem" />
+ <TextBox Classes="FlatTextBox" Text="Elem" />
+ ``` 
+ 
+ ## TextBlock
+ 
+ <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/TextBlock.png"></img>
+ ``` 
+ <StackPanel>
+      <TextBlock Classes="h1">h1</TextBlock>
+      <TextBlock Classes="h2">h2</TextBlock>
+      <TextBlock Classes="h3">h3</TextBlock>
+      <TextBlock Classes="h4">h4</TextBlock>
+      <TextBlock>Normal</TextBlock>
+      <TextBlock Classes="Accent">Accent</TextBlock>
+</StackPanel>
+``` 
+
+## Calendar
  
  <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Calendar.png"></img>
  ```
@@ -347,38 +378,6 @@ xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
            <RadioButton Margin="5">Item 3</RadioButton>
 </StackPanel>
  ```
- 
- ## Slider
- 
- <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Slider.gif"></img>
- ``` 
- <Slider IsSnapToTickEnabled="True" Maximum="100" Minimum="0" TickFrequency="1" Value="50"></Slider>
- ``` 
-
-
- ## TextBox
- 
- <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/TextBox.gif"></img>
- ``` 
- <TextBox Classes="Prefix" Margin="5" Text="avaloniaui.net" Watermark="https://" />
- <TextBox Classes="Suffix" Margin="5" Text="avaloniaui" Watermark="@gmail.com" />
- <TextBox Margin="5" Text="Elem" />
- <TextBox Classes="FlatTextBox" Text="Elem" />
- ``` 
- 
- ## TextBlock
- 
- <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/TextBlock.png"></img>
- ``` 
- <StackPanel>
-      <TextBlock Classes="h1">h1</TextBlock>
-      <TextBlock Classes="h2">h2</TextBlock>
-      <TextBlock Classes="h3">h3</TextBlock>
-      <TextBlock Classes="h4">h4</TextBlock>
-      <TextBlock>Normal</TextBlock>
-      <TextBlock Classes="Accent">Accent</TextBlock>
-</StackPanel>
-``` 
 
 ## TreeView 
 
