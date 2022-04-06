@@ -104,11 +104,29 @@ public void NavigateToNewPage(){
 
 ## ToggleSwitch
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Switch1.png"></img>
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Switch2.png"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/ToggleSwitch.gif"></img>
+
 ```
  <ToggleSwitch OffContent="No" OnContent="Yes" />
 ```
+
+## Stepper
+
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Stepper.gif"></img>
+
+
+``` 
+xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+...
+
+<suki:Stepper Name="myStep" />
+```
+
+```
+this.FindControl<Stepper>("myStep").Steps = new List<string>() { "one", "two", "thre", "four", "five" };
+this.FindControl<Stepper>("myStep").Index = 2;
+```
+
 
 ## CircleProgressBar
 
@@ -158,7 +176,7 @@ this.FindControl<PropertyGrid>("propertyGrid").Item = new Person()
  
 ## Buttons
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Buttons.png"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Buttons.gif"></img>
 ```
 <Button Classes="Primary">
     <TextBlock>Primary</TextBlock>
@@ -218,11 +236,17 @@ xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
  
  <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Tab.png"></img>
  ```
- <TabControl>
-        <TabItem Header="Tab 1" />
-        <TabItem Header="Tab 2" />
-        <TabItem Header="Tab 3" />
- </TabControl>
+  <TabControl>
+       <TabItem Header="Tab 1" />
+       <TabItem Header="Tab 2" />
+       <TabItem Header="Tab 3" />
+  </TabControl>
+  
+  <TabControl Classes="FlatTabControl">
+       <TabItem Classes="FlatTabItem" Header="Tab 1" />
+       <TabItem Classes="FlatTabItem" Header="Tab 2" />
+       <TabItem Classes="FlatTabItem" Header="Tab 3" />
+  </TabControl>
  ``` 
  
 
@@ -280,10 +304,13 @@ xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
  
  ## DataGrid
  
- <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/DataGrid.png"></img>
+ <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/DataGrid.gif"></img>
  ```
- <DataGrid AutoGenerateColumns="True" IsReadOnly="True" />
- ``` 
+ <DataGrid Name="myDataGrid" AutoGenerateColumns="True" IsReadOnly="True" />
+ ```
+ ```
+ this.FindControl<DataGrid>("myDataGrid").Items = new List<Person>();
+ ```
  
  ## Calendar
  
@@ -294,8 +321,8 @@ xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
  
  ## Expander
  
- <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Expander1.png"></img>
-  <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Expander2.png"></img>
+ <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Expander.gif"></img>
+
  ```
  <Expander Header="Click To Expand">
            <TextBlock>Expanded</TextBlock>
@@ -323,18 +350,20 @@ xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
  
  ## Slider
  
- <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Slider.png"></img>
+ <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Slider.gif"></img>
  ``` 
- <Slider></Slider>
+ <Slider IsSnapToTickEnabled="True" Maximum="100" Minimum="0" TickFrequency="1" Value="50"></Slider>
  ``` 
 
 
  ## TextBox
  
- <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/TextBox.png"></img>
+ <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/TextBox.gif"></img>
  ``` 
- <TextBox Text="Element" />
- <TextBox Classes="FlatTextBox" Text="Element" />
+ <TextBox Classes="Prefix" Margin="5" Text="avaloniaui.net" Watermark="https://" />
+ <TextBox Classes="Suffix" Margin="5" Text="avaloniaui" Watermark="@gmail.com" />
+ <TextBox Margin="5" Text="Elem" />
+ <TextBox Classes="FlatTextBox" Text="Elem" />
  ``` 
  
  ## TextBlock
@@ -353,7 +382,7 @@ xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
 
 ## TreeView 
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/TreeView.png"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/TreeView.gif"></img>
 ``` 
 <TreeView>
       <TreeViewItem Header="blub">
