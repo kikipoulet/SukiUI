@@ -9,7 +9,7 @@ UI Theme for AvaloniaUI - inspired and using Citrus and Default theme
 
 Goal : have a simple consistent flat UI desktop theme for Avalonia other than Fluent design.
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Global.gif"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/GlobalApp.gif"></img>
 
 ### Planning - Ideas :
 - Cleaner code (because the library is very young)
