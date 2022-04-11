@@ -15,9 +15,6 @@ UI Theme and Controls for AvaloniaUI
 - Dark Theme
 - out of the box Mobile Theme !
 
-
-
-
 # Installation
 
 - Install SukiUI Nuget Package
@@ -32,6 +29,15 @@ UI Theme and Controls for AvaloniaUI
     </Application.Styles>
 </Application>
 ```
+
+# Mobile (Testing Preview)
+
+Screen video of an empty android app in debug mode with avalonia mobile, trying to use Suki UI on mobile. 
+Controls need lots of small modifications (mostly sizing) but can look great on mobile.
+
+---> The goal is to make asap a style file that adapt every control to mobile to be used out of the box
+
+https://user-images.githubusercontent.com/19242427/162712044-ab5e4259-3bee-4d70-b164-c368ae141c0d.mp4
 
 # Usage
 
