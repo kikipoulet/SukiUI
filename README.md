@@ -71,6 +71,42 @@ https://user-images.githubusercontent.com/19242427/162712044-ab5e4259-3bee-4d70-
 
 ``` 
 
+## Side Menu
+
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/SideMenu.gif"></img>
+
+- YourUsercontrol.axaml
+``` 
+<Grid Name="myGrid"></Grid>
+``` 
+
+- YourUserControl.axaml.cs
+``` 
+            InitializeComponent();
+
+            this.FindControl<Grid>("myGrid").Children.Add(new SideMenu()
+            {
+                DataContext = new SideMenuModel()
+                {
+                    CurrentPage = new Grid() { Background = Brushes.WhiteSmoke },
+                    
+                    HeaderContent = new TextBlock(){Text = "Jean ValJean"},
+                    
+                    MenuItems = new List<SideMenuItem>()
+                    {
+                        new SideMenuItem()
+                        {
+                            Icon = Material.Icons.MaterialIconKind.CircleOutline,
+                            Header = "Dashboard",
+                            Content = new TextBlock(){Text = "Dashboard Page"}
+                        },
+                        
+                        ...
+                    }
+                }
+            }); 
+``` 
+
 ## Mobile Page
 
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/MobileMenu.gif"></img>
