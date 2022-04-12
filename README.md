@@ -1,5 +1,7 @@
 <div id="header" align="center">
+ <kbd>
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/suki_photo.jpg" width="200" height="200"></img> 
+  </kbd>
 <br/>
 Suki is the name of my dog :-)
 </div>
