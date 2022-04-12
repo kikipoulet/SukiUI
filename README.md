@@ -1,19 +1,55 @@
-# SukiUI
-
-
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/suki_photo.jpg" width="200" height="200"></img> Suki is the name of my dog :-)
-
+<div id="header" align="center">
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/suki_photo.jpg" width="200" height="200"></img> 
+<br/>
+Suki is the name of my dog :-)
+</div>
 <br/>
 
-UI Theme and Controls for AvaloniaUI 
+# Suki UI
+
+### UI Theme and additional Controls for AvaloniaUI ! <img src="https://www.avaloniaui.net/assets/Logo.svg"></img>
+
+
+
+
+## Overview
 
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/GlobalApp.gif"></img>
 
-### Planning - Ideas :
-- Cleaner code (because the library is very young)
-- More Controls (and make actual richer)
+## Mobile Overview (Testing Preview)
+
+<details>
+  <summary>Click to see more</summary>
+
+Screen video of an empty android app in debug mode with avalonia mobile, trying to use Suki UI on mobile. 
+Controls need lots of small modifications (mostly sizing) but can look great on mobile.
+
+---> The goal is to make asap a style file that adapt every control to mobile to be used out of the box
+
+https://user-images.githubusercontent.com/19242427/162712044-ab5e4259-3bee-4d70-b164-c368ae141c0d.mp4
+     
+</details>
+
+
+## Planning - Ideas :
+<details>
+  <summary>Click to see more</summary>
+
+### For Library
+- Improve/Clean actual code globally, there are some junk code left from active development
+- Clean MVVM Example App -> Showcase demo available with Avalonia Web on a Github page ?
+
+### For Controls
+- Write One Style file that adapt every control to Mobile usage      
+- More Controls -> do not hesitate to suggest a useful control idea
+- Test and Improve controls
+
+### For protecting myself from angry developers
 - Dark Theme
-- out of the box Mobile Theme !
+
+</details>
+
+</br>
 
 # Installation
 
@@ -30,18 +66,17 @@ UI Theme and Controls for AvaloniaUI
 </Application>
 ```
 
-# Mobile (Testing Preview)
 
-Screen video of an empty android app in debug mode with avalonia mobile, trying to use Suki UI on mobile. 
-Controls need lots of small modifications (mostly sizing) but can look great on mobile.
+</br>
 
----> The goal is to make asap a style file that adapt every control to mobile to be used out of the box
+# Controls Documentation
+</br>
 
-https://user-images.githubusercontent.com/19242427/162712044-ab5e4259-3bee-4d70-b164-c368ae141c0d.mp4
-
-# Usage
-
-## Desktop Page
+## Menu - Page Layout
+<details>
+  <summary>Click to see more</summary>
+     
+### Desktop Page
 
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/DesktopMenu.gif"></img>
 
@@ -71,7 +106,7 @@ https://user-images.githubusercontent.com/19242427/162712044-ab5e4259-3bee-4d70-
 
 ``` 
 
-## Side Menu
+### Side Menu
 
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/SideMenu.gif"></img>
 
@@ -107,7 +142,7 @@ https://user-images.githubusercontent.com/19242427/162712044-ab5e4259-3bee-4d70-
             }); 
 ``` 
 
-## Mobile Page
+### Mobile Page
 
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/MobileMenu.gif"></img>
 
@@ -141,8 +176,13 @@ public void NavigateToNewPage(){
 
 ``` 
 
+</details>
 
-## ToggleSwitch
+## Button - Input
+<details>
+  <summary>Click to see more</summary>
+
+### ToggleSwitch
 
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/ToggleSwitch.gif"></img>
 
@@ -150,7 +190,94 @@ public void NavigateToNewPage(){
  <ToggleSwitch OffContent="No" OnContent="Yes" />
 ```
 
-## Stepper
+
+### Buttons
+
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Buttons.gif"></img>
+```
+<Button Classes="Primary">
+    <TextBlock>Primary</TextBlock>
+</Button>
+<Button Classes="Secondary">
+    <TextBlock>Secondary</TextBlock>
+</Button>
+<Button>
+    <TextBlock>Neutral</TextBlock>
+</Button>
+<Button Classes="Success">
+    <TextBlock>Success</TextBlock>
+</Button>
+<Button Classes="Danger">
+    <TextBlock>Danger</TextBlock>
+</Button>
+```
+ 
+ ### Slider
+ 
+ <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Slider.gif"></img>
+ ``` 
+ <Slider IsSnapToTickEnabled="True" Maximum="100" Minimum="0" TickFrequency="1" Value="50"></Slider>
+ ``` 
+
+
+ ### TextBox
+ 
+ <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/TextBox.gif"></img>
+ ``` 
+ <TextBox Classes="Prefix" Margin="5" Text="avaloniaui.net" Watermark="https://" />
+ <TextBox Classes="Suffix" Margin="5" Text="avaloniaui" Watermark="@gmail.com" />
+ <TextBox Margin="5" Text="Elem" />
+ <TextBox Classes="FlatTextBox" Text="Elem" />
+ ``` 
+
+
+### ComboBox
+
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/ComboBox.gif"></img>
+
+```
+ <ComboBox PlaceholderText="Select an item">
+    <ComboBoxItem>
+       <TextBlock>Main Item 1</TextBlock>
+    </ComboBoxItem>
+    <ComboBoxItem>
+        <TextBlock>Main Item 2</TextBlock>
+    </ComboBoxItem>
+</ComboBox>
+```
+
+ ### NumericUpDown
+ 
+ <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/NumericUpDown.png"></img>
+ ``` 
+ <NumericUpDown></NumericUpDown>
+ ```
+ 
+ ### RadioButton 
+ 
+ <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/RadioButton.png"></img>
+ ```
+ <StackPanel Orientation="Vertical">
+           <RadioButton Margin="5">Item 1</RadioButton>
+           <RadioButton Margin="5">Item 2</RadioButton>
+           <RadioButton Margin="5">Item 3</RadioButton>
+</StackPanel>
+ ```
+ 
+ ### Calendar
+ 
+ <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Calendar.png"></img>
+ ```
+ <Calendar></Calendar>
+ ``` 
+
+</details>
+
+## Progression Visuals
+<details>
+  <summary>Click to see more</summary>
+     
+### Stepper
 
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Stepper.gif"></img>
 
@@ -168,7 +295,7 @@ this.FindControl<Stepper>("myStep").Index = 2;
 ```
 
 
-## CircleProgressBar
+### CircleProgressBar
 
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/CircleProgressBar.png"></img>
 ``` 
@@ -180,7 +307,7 @@ xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
 </suki:CircleProgressBar>
 ``` 
 
-## Loading
+### Loading
 
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Loading.gif"></img> 
 
@@ -190,8 +317,26 @@ xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
 
 <suki:Loading></suki:Loading>
 ``` 
+     
+     
+### ProgressBar
 
- ## PropertyGrid
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/ProgressBar.png"></img>
+```
+<ProgressBar  Value="60" />
+``` 
+     
+</details>
+
+
+
+
+
+ ## Data Presentation
+<details>
+  <summary>Click to see more</summary>
+
+### PropertyGrid
 
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/PropertyGrid.gif"></img> 
 
@@ -214,29 +359,67 @@ this.FindControl<PropertyGrid>("propertyGrid").Item = new Person()
 ``` 
 
  
-## Buttons
+ ### DataGrid
+ 
+ <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/DataGrid.gif"></img>
+ ```
+ <DataGrid Name="myDataGrid" AutoGenerateColumns="True" IsReadOnly="True" />
+ ```
+ ```
+ this.FindControl<DataGrid>("myDataGrid").Items = new List<Person>();
+ ```
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Buttons.gif"></img>
+### ListBox
+
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/ListBox.png"></img>
 ```
-<Button Classes="Primary">
-    <TextBlock>Primary</TextBlock>
-</Button>
-<Button Classes="Secondary">
-    <TextBlock>Secondary</TextBlock>
-</Button>
-<Button>
-    <TextBlock>Neutral</TextBlock>
-</Button>
-<Button Classes="Success">
-    <TextBlock>Success</TextBlock>
-</Button>
-<Button Classes="Danger">
-    <TextBlock>Danger</TextBlock>
-</Button>
+ <ListBox>
+      <TextBlock>item 1</TextBlock>
+      <TextBlock>item 2</TextBlock>
+      <TextBlock>item 3</TextBlock>
+ </ListBox>
+ ```
+
+
+### TreeView 
+
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/TreeView.gif"></img>
+``` 
+<TreeView>
+      <TreeViewItem Header="blub">
+          <TreeViewItem Header="blub" />
+          <TreeViewItem Header="blub" />
+      </TreeViewItem>
+      <TreeViewItem Header="blub" />
+      <TreeViewItem Header="blub" />
+</TreeView>
 ```
 
 
-## Notification
+     
+ ### GroupBox
+
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/GroupBox.png"></img> 
+
+ ``` 
+xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+...
+
+<suki:GroupBox Header="Test Header">
+    <Grid Height="100" Width="150">
+          <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Test Content</TextBlock>
+    </Grid>
+</suki:GroupBox>
+```     
+     
+     
+</details>
+
+ ## Interactivity
+<details>
+  <summary>Click to see more</summary>
+
+### Notification
 
 
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Notification.gif"></img>
@@ -255,24 +438,43 @@ private void ShowNotification(object sender, RoutedEventArgs e)
     notificationManager.Show(notif);
 }
 ```
+ ### Expander
+ 
+ <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Expander.gif"></img>
 
-## GroupBox
-
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/GroupBox.png"></img> 
-
+ ```
+ <Expander Header="Click To Expand">
+           <TextBlock>Expanded</TextBlock>
+ </Expander>
+ 
  ``` 
-xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
-...
 
-<suki:GroupBox Header="Test Header">
-    <Grid Height="100" Width="150">
-          <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Test Content</TextBlock>
-    </Grid>
-</suki:GroupBox>
-``` 
+### MessageBox
+
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/MessageBox.png"></img>
+```
+ SukiUI.MessageBox.MessageBox.Info(this, "Title", "This is an information message that need to be read.");
+ MessageBox.Success(this, "Title", "This is an Success message that need to be read.");
+ MessageBox.Error(this, "Title", "This is an Success message that need to be read.");
+```
+
+
+
+     
+</details>
+
+
  
  
- ## Tabs
+
+ 
+
+
+ ## Others
+<details>
+  <summary>Click to see more</summary>
+
+### Tabs
  
  <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Tab.png"></img>
  ```
@@ -288,90 +490,18 @@ xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
        <TabItem Classes="FlatTabItem" Header="Tab 3" />
   </TabControl>
  ``` 
- 
 
-## ListBox
-
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/ListBox.png"></img>
-```
- <ListBox>
-      <TextBlock>item 1</TextBlock>
-      <TextBlock>item 2</TextBlock>
-      <TextBlock>item 3</TextBlock>
- </ListBox>
- ```
-
-## MessageBox
-
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/MessageBox.png"></img>
-```
- SukiUI.MessageBox.MessageBox.Info(this, "Title", "This is an information message that need to be read.");
- MessageBox.Success(this, "Title", "This is an Success message that need to be read.");
- MessageBox.Error(this, "Title", "This is an Success message that need to be read.");
-```
-
-
-## ComboBox
-
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/ComboBox.gif"></img>
-
-```
- <ComboBox PlaceholderText="Select an item">
-    <ComboBoxItem>
-       <TextBlock>Main Item 1</TextBlock>
-    </ComboBoxItem>
-    <ComboBoxItem>
-        <TextBlock>Main Item 2</TextBlock>
-    </ComboBoxItem>
-</ComboBox>
-```
-
-
-## ProgressBar
-
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/ProgressBar.png"></img>
-```
-<ProgressBar  Value="60" />
-``` 
-
-## Card and Hoverable
+### Card and Hoverable
 
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Hoverable.gif"></img>
 ``` 
 <Border Classes="Card"></Border>
 <Border Classes="Card Hoverable"></Border>
 ```
- 
- ## DataGrid
- 
- <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/DataGrid.gif"></img>
- ```
- <DataGrid Name="myDataGrid" AutoGenerateColumns="True" IsReadOnly="True" />
- ```
- ```
- this.FindControl<DataGrid>("myDataGrid").Items = new List<Person>();
- ```
-
- 
- ## Slider
- 
- <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Slider.gif"></img>
- ``` 
- <Slider IsSnapToTickEnabled="True" Maximum="100" Minimum="0" TickFrequency="1" Value="50"></Slider>
- ``` 
 
 
- ## TextBox
  
- <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/TextBox.gif"></img>
- ``` 
- <TextBox Classes="Prefix" Margin="5" Text="avaloniaui.net" Watermark="https://" />
- <TextBox Classes="Suffix" Margin="5" Text="avaloniaui" Watermark="@gmail.com" />
- <TextBox Margin="5" Text="Elem" />
- <TextBox Classes="FlatTextBox" Text="Elem" />
- ``` 
- 
- ## TextBlock
+ ### TextBlock
  
  <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/TextBlock.png"></img>
  ``` 
@@ -385,59 +515,14 @@ xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
 </StackPanel>
 ``` 
 
-## Calendar
- 
- <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Calendar.png"></img>
- ```
- <Calendar></Calendar>
- ``` 
- 
- ## Expander
- 
- <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Expander.gif"></img>
 
- ```
- <Expander Header="Click To Expand">
-           <TextBlock>Expanded</TextBlock>
- </Expander>
  
- ``` 
- 
- ## NumericUpDown
- 
- <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/NumericUpDown.png"></img>
- ``` 
- <NumericUpDown></NumericUpDown>
- ```
- 
- ## RadioButton 
- 
- <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/RadioButton.png"></img>
- ```
- <StackPanel Orientation="Vertical">
-           <RadioButton Margin="5">Item 1</RadioButton>
-           <RadioButton Margin="5">Item 2</RadioButton>
-           <RadioButton Margin="5">Item 3</RadioButton>
-</StackPanel>
- ```
 
-## TreeView 
-
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/TreeView.gif"></img>
-``` 
-<TreeView>
-      <TreeViewItem Header="blub">
-          <TreeViewItem Header="blub" />
-          <TreeViewItem Header="blub" />
-      </TreeViewItem>
-      <TreeViewItem Header="blub" />
-      <TreeViewItem Header="blub" />
-</TreeView>
-```
+ 
 
 
 
-## ContextMenu
+### ContextMenu
 
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/ContextMenu.png"></img>
 ```
@@ -452,5 +537,5 @@ xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
 ``` 
 
 
-
+</details>
  
