@@ -110,6 +110,42 @@ https://user-images.githubusercontent.com/19242427/162712044-ab5e4259-3bee-4d70-
 
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/SideMenu.gif"></img>
 
+Xaml Code Method
+</br>
+<details>
+  <summary>Click to see more</summary>
+  
+  ``` 
+  <suki:SideMenu>
+      <suki:SideMenu.DataContext>
+        <suki:SideMenuModel>
+          
+          <suki:SideMenuModel.HeaderContent>
+            <TextBlock  Text="Your Custom header Here !"></TextBlock>
+          </suki:SideMenuModel.HeaderContent>
+          
+          <suki:SideMenuModel.MenuItems>
+            <suki:SideMenuItem Header="DashBoard" Icon="CircleOutline">
+              <suki:SideMenuItem.Content>
+                <TextBlock  Text="Your UserControl Here !"></TextBlock>
+              </suki:SideMenuItem.Content>
+            </suki:SideMenuItem>
+          </suki:SideMenuModel.MenuItems>
+          
+        </suki:SideMenuModel>
+      </suki:SideMenu.DataContext>
+    </suki:SideMenu>
+  ``` 
+  
+</details
+
+  
+Code-Behind method
+  </br>
+  
+<details>
+  <summary>Click to see more</summary>
+
 - YourUsercontrol.axaml
 ``` 
 <Grid Name="myGrid"></Grid>
@@ -141,6 +177,8 @@ https://user-images.githubusercontent.com/19242427/162712044-ab5e4259-3bee-4d70-
                 }
             }); 
 ``` 
+  
+</details>
 
 ### Mobile Page
 
