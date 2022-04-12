@@ -1,6 +1,6 @@
 <Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Style Selector="DataGridCell">
+  <Style Selector="DataGridCell">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
@@ -11,11 +11,11 @@
                     <ContentPresenter
                         Content="{TemplateBinding Content}"
                         ContentTemplate="{TemplateBinding ContentTemplate}"
-                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        HorizontalContentAlignment="Center" HorizontalAlignment="Center"
                         Margin="{TemplateBinding Padding}"
                         TextBlock.FontSize="25"
                         TextBlock.Foreground="{TemplateBinding Foreground}"
-                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        VerticalAlignment="Center" VerticalContentAlignment="Center" />
 
                     <Rectangle
                         Grid.Column="1"
@@ -29,29 +29,31 @@
         </Setter>
     </Style>
 
-
+ 
 
     <Style Selector="DataGridColumnHeader">
         <Setter Property="Foreground" Value="{DynamicResource ThemeForegroundBrush}" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="FontWeight" Value="DemiBold" />
 
-        <Setter Property="FontSize" Value="35" />
+      
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="SeparatorBrush" Value="{DynamicResource ThemeControlLowColor}" />
-        <Setter Property="Padding" Value="4" />
-        <Setter Property="Background" Value="{DynamicResource ThemeControlMidBrush}" />
-
+        <Setter Property="Padding" Value="12" />
+        <Setter Property="Background" Value="{DynamicResource ThemeControlMidBrush}"/>
+      
         <Setter Property="Template">
             <ControlTemplate>
-                <Grid Background="{TemplateBinding Background}" ColumnDefinitions="*,Auto">
+              <Border Background="{TemplateBinding Background}" BorderBrush="#ebebeb" BorderThickness="0,0,0,0">
+                <Grid  ColumnDefinitions="*,Auto">
 
                     <Grid
                         ColumnDefinitions="*,Auto"
                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                         Margin="{TemplateBinding Padding}"
+                
                         VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-                        <ContentPresenter
+                        <ContentPresenter 
                             Content="{TemplateBinding Content}"
                             ContentTemplate="{TemplateBinding ContentTemplate}"
                             TextBlock.FontSize="35" />
@@ -78,6 +80,7 @@
                         Width="1" />
 
                 </Grid>
+              </Border>
             </ControlTemplate>
         </Setter>
     </Style>
@@ -109,8 +112,8 @@
     </Style>
 
     <Style Selector="DataGridRow">
-        <Setter Property="Margin" Value="5,1" />
-      <Setter Property="Padding" Value="3"></Setter>
+        <Setter Property="Margin" Value="0" />
+      <Setter Property="Padding" Value="30"></Setter>
         <Setter Property="Template">
             <ControlTemplate>
                 <DataGridFrozenGrid
@@ -119,7 +122,7 @@
                     RowDefinitions="*,Auto,Auto">
 
                     <Border
-                        CornerRadius="3" Padding="3"
+                        CornerRadius="0" Padding="10" 
                         Grid.ColumnSpan="2"
                         Grid.RowSpan="2"
                         Name="BackgroundRectangle" />
@@ -282,7 +285,7 @@
 
     <Style Selector="DataGrid">
         <Setter Property="RowBackground" Value="Transparent" />
-        <Setter Property="AlternatingRowBackground" Value="Transparent" />
+        <Setter Property="AlternatingRowBackground" Value="#fcfcfc" />
         <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}" />
         <Setter Property="HeadersVisibility" Value="Column" />
         <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
@@ -301,7 +304,7 @@
             <ControlTemplate>
                 <Border
                     Background="Transparent"
-                    BorderBrush="#ebebeb"
+                    BorderBrush="#eaeaea"
                     BorderThickness="1.5"
                     CornerRadius="5">
                     <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,*,Auto,Auto">
@@ -357,6 +360,5 @@
                 </Border>
             </ControlTemplate>
         </Setter>
-    </Style>
-
+    </Style> 
 </Styles>

@@ -49,5 +49,12 @@ namespace SukiUI.Controls
             Window hostWindow = (Window)this.VisualRoot;
             hostWindow.Close();
         }
+
+        public void SetPage(Control page)
+        {
+           
+                Content = page;
+            
+        }
     }
 }

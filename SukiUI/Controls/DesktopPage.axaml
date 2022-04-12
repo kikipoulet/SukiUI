@@ -31,7 +31,7 @@
             <ContentControl Content="{TemplateBinding Content}" ></ContentControl>
             </Grid>
           </DockPanel>
-        
+          
         </ControlTemplate>
       </Setter>
     </Style>

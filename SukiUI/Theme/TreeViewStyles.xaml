@@ -18,7 +18,7 @@
   </Style>
     <Style Selector="TreeView">
       <Setter Property="CornerRadius" Value="5"></Setter>
-      <Setter Property="BorderThickness" Value="1.5"></Setter>
+      <Setter Property="BorderThickness" Value="0"></Setter>
       <Setter Property="BorderBrush" Value="#dedede"></Setter>
         <Setter Property="Margin" Value="0" />
         <Setter Property="Padding" Value="0" />
@@ -26,6 +26,10 @@
     <Style Selector="TreeViewItem">
         <Setter Property="Padding" Value="5" />
     </Style>
+
+  <Style Selector="TreeViewItem:pointerover /template/ Border#SelectionBorder">
+    <Setter Property="Background" Value="#f4f4f4"/>
+  </Style>
 
     <Style Selector="TreeViewItem:selected /template/ Border#SelectionBorder">
         <Setter Property="Background" Value="{DynamicResource ThemeAccentBrush}"/>

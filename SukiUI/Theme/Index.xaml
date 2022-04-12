@@ -4,6 +4,7 @@
     <StyleInclude Source="avares://SukiUI/Theme/TextBlockStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ButtonStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/TextBoxStyles.xaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/RichTextBoxStyles.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/BorderStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/TabControlStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ComboBoxStyles.xaml" />
@@ -27,6 +28,7 @@
   <StyleInclude Source="avares://SukiUI/Theme/NotificationCardStyle.axaml"></StyleInclude>
   <StyleInclude Source="avares://SukiUI/Theme/ContextMenuStyle.axaml"></StyleInclude>
   <StyleInclude Source="avares://SukiUI/Theme/WindowStyles.axaml"></StyleInclude>
+  <StyleInclude Source="avares://SukiUI/Theme/CheckBox.axaml"></StyleInclude>
 
 
 </Styles>

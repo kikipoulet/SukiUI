@@ -44,7 +44,7 @@
         <SolidColorBrush Color="{DynamicResource ThemeBackgroundColor}" x:Key="ThemeBackgroundBrush" />
         <SolidColorBrush Color="{DynamicResource ThemeBorderLowColor}" x:Key="ThemeBorderLowBrush" />
         <SolidColorBrush Color="{DynamicResource ThemeBorderMidColor}" x:Key="ThemeBorderMidBrush" />
-        <SolidColorBrush Color="{DynamicResource ThemeBorderHighColor}" x:Key="ThemeBorderHighBrush" />
+        <SolidColorBrush Color="#dedede" x:Key="ThemeBorderHighBrush" />
         <SolidColorBrush Color="{DynamicResource ThemeControlLowColor}" x:Key="ThemeControlLowBrush" />
         <SolidColorBrush Color="{DynamicResource ThemeControlMidColor}" x:Key="ThemeControlMidBrush" />
         <SolidColorBrush Color="{DynamicResource ThemeControlMidHighColor}" x:Key="ThemeControlMidHighBrush" />

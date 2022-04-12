@@ -39,7 +39,7 @@ namespace SukiUI.Controls
                 BackVisibility = false;
         }
         public SukiMobilePage CurrentPage;
-        public void NewPage(string header, UserControl content)
+        public void NewPage(string header, UserControl content,bool DisableComeBack = false)
         {
             
 
@@ -48,12 +48,20 @@ namespace SukiUI.Controls
 
             Pages.Push(CurrentPage);
 
+            BackVisibility = true;
+
+            if (DisableComeBack)
+            {
+                Pages.Clear();
+                BackVisibility = false;
+            }
+
             var m = new SukiMobilePage() { Header = header, Content = content };
             CurrentPage = m;
             Header = m.Header;
             Content = m.Content;
 
-            BackVisibility = true;
+            
         }
 
         Stack<SukiMobilePage> Pages = new Stack<SukiMobilePage>();

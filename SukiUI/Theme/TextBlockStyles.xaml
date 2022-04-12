@@ -15,7 +15,7 @@
   
   <Style Selector="TextBlock">
         <Setter Property="Foreground" Value="{DynamicResource ThemeForegroundBrush}" />
-  
+    <Setter Property="FontFamily" Value="avares://SukiUI/Roboto-Regular.ttf#Roboto"></Setter>
         <Setter Property="FontSize" Value="14" />
     </Style>
     <Style Selector="TextBox">

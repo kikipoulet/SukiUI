@@ -19,7 +19,19 @@
       </Setter.Value>
     </Setter>
   </Style>
+
   
+
+  <Style Selector="Border.ThumbB">
+    <Setter Property="BoxShadow" Value="0 0 4 0 #999999"></Setter>
+  </Style>
+
+  <Style Selector="Border.ThumbBorder:pointerover">
+    <Setter Property="BoxShadow" Value="0 0 7 0 #999999"></Setter>
+  </Style>
+
+  
+
   <Style Selector="Slider:horizontal">
     <Setter Property="MinWidth" Value="40"/>
     <Setter Property="MinHeight" Value="20"/>
@@ -31,29 +43,30 @@
             <RowDefinition Height="Auto" MinHeight="20"/>
             <RowDefinition Height="Auto"/>
           </Grid.RowDefinitions>
-          <Border Name="TrackBackground" Background="LightGray"  Grid.Row="1" Height="3" Margin="6,0" VerticalAlignment="Center" CornerRadius="3"/>
-
+          <Border Name="TrackBackground" Background="WhiteSmoke" BorderThickness="0"  Grid.Row="1" Height="4" Margin="8,0" VerticalAlignment="Center" CornerRadius="3"/>
+  
           <Track Name="PART_Track" Grid.Row="1" IsDirectionReversed="{TemplateBinding IsDirectionReversed}" Orientation="Horizontal">
             <Track.DecreaseButton >
-              <RepeatButton Name="PART_DecreaseButton" 
-                            Classes="Decrease" >
-              
-              </RepeatButton> 
+              <Button IsHitTestVisible="False" BorderThickness="0" Margin="8,0,-10,0" Height="4" Background="#2f54eb" HorizontalAlignment="Stretch"></Button>
             </Track.DecreaseButton>
             <Track.IncreaseButton>
               <RepeatButton Name="PART_IncreaseButton" 
                             Classes="repeattrack" />
             </Track.IncreaseButton>
-            <Thumb Name="thumb" MinWidth="20" MinHeight="20">
+            <Thumb Name="thumb">
               <Thumb.Template>
                 <ControlTemplate>
-                  <Grid>
-                    <Ellipse Stroke="Gray" Width="15" Height="15" StrokeThickness="0" Fill="#2f54eb"/>
+                  <Grid Width="32" Height="32">
+                    <Border  Margin="0,-1,0,0"
+                           BorderThickness="0" Classes="ThumbBorder ThumbB"
+                 
+                    CornerRadius="10" Width="20" Height="20"  Background="White"/>
                   </Grid>
                 </ControlTemplate>
               </Thumb.Template>
             </Thumb>
           </Track>
+          
         </Grid>
       </ControlTemplate>
     </Setter>

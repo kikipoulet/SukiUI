@@ -82,7 +82,7 @@
                 
                 Background="White" Margin="0,5,0,0" CornerRadius="5"
                       BorderBrush="#ebebeb"
-                      BorderThickness="1.5,1.5,2.5,2.5">
+                      BorderThickness="1.5,1.5,3,3">
                 <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
                               VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
                   <ItemsPresenter Name="PART_ItemsPresenter" 
@@ -104,6 +104,8 @@
   <Style Selector="ComboBox:disabled /template/ Border#border">
     <Setter Property="Opacity" Value="{DynamicResource ThemeDisabledOpacity}" />
   </Style>
+
+
 
  
   

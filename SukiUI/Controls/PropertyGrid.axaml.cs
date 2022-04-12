@@ -188,6 +188,22 @@ namespace SukiUI.Controls
                 gridItem.Children.Add(prop);
                 Grid.SetColumn(prop, 1);
             }
+            else if (property.GetValue(Item).GetType() == typeof(List<int>))
+            {
+                var scrollviewer = new ScrollViewer();
+                var stack = new StackPanel() { Orientation = Orientation.Horizontal };
+               foreach(var item in (List<int>)(property.GetValue(Item)))
+                {
+                    stack.Children.Add(new TextBlock() { Text = item.ToString() + ", " });
+                }
+
+               var grid = new Grid() { Width = Width / 2, Height = 36, HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(0, 2, 10, 2) };
+                scrollviewer.Content = stack;
+                grid.Children.Add(scrollviewer);
+                gridItem.Children.Add(grid);
+                Grid.SetColumn(grid, 1);
+            }
+
             else
             {
                 var prop = new Button() { HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(0,2,10,2), Content = "More Info"};

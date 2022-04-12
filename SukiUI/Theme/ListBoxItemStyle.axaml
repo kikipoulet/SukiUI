@@ -20,7 +20,7 @@
     <Setter Property="Template">
       <ControlTemplate>
         <StackPanel Orientation="Horizontal">
-          <Ellipse  
+          <Ellipse  Margin="0,1,0,0"
     Width="12"  
     Height="12"  
     Fill="{TemplateBinding BorderBrush}"   />

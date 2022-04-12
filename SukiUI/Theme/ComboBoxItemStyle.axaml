@@ -30,7 +30,7 @@
                           BorderBrush="{TemplateBinding BorderBrush}"
                           BorderThickness="{TemplateBinding BorderThickness}"
                           CornerRadius="5"
-                         
+                         Margin="1"
                           ContentTemplate="{TemplateBinding ContentTemplate}"
                           Content="{TemplateBinding Content}"
                           HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -46,7 +46,15 @@
   </Style>
 
   <Style Selector="ComboBoxItem:selected > TextBlock">
-    <Setter Property="Foreground" Value="#1d39c4"/>
+    <Setter Property="Foreground" Value="Black"/>
+  </Style>
+  <Style Selector="ComboBoxItem:pointerover > TextBlock">
+    <Setter Property="Foreground" Value="Black"/>
+  </Style>
+
+
+  <Style Selector="ComboBoxItem:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="#f4f4f4"/>
   </Style>
 
 
@@ -55,18 +63,18 @@
   </Style>
 
   <Style Selector="ComboBoxItem:selected /template/ ContentPresenter">
-    <Setter Property="Background" Value="#d6e4ff"/>
+    <Setter Property="Background" Value="#f4f4f4"/>
   </Style>
 
   <Style Selector="ComboBoxItem:selected:focus /template/ ContentPresenter">
-    <Setter Property="Background" Value="#d6e4ff"/>
+    <Setter Property="Background" Value="#f4f4f4"/>
   </Style>
 
   <Style Selector="ComboBoxItem:selected:pointerover /template/ ContentPresenter">
-    <Setter Property="Background" Value="#d6e4ff"/>
+    <Setter Property="Background" Value="#f4f4f4"/>
   </Style>
 
   <Style Selector="ComboBoxItem:selected:focus:pointerover /template/ ContentPresenter">
-    <Setter Property="Background" Value="#d6e4ff"/>
+    <Setter Property="Background" Value="#f4f4f4"/>
   </Style>
 </Styles>
