@@ -80,7 +80,7 @@ https://user-images.githubusercontent.com/19242427/162712044-ab5e4259-3bee-4d70-
      
 ### Desktop Page
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/DesktopMenu.gif"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/DesktopMenuAvecItems.gif"></img>
 
 ``` 
 <Window 
@@ -89,24 +89,51 @@ https://user-images.githubusercontent.com/19242427/162712044-ab5e4259-3bee-4d70-
   xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
 >
 
-  <suki:DesktopPage LogoColor="#2f54eb" LogoKind="Xaml">
-    <suki:DesktopPage.MenuItems>
-      <MenuItem Header="File">
-        <MenuItem Header="File" />
-        <MenuItem Header="Edit" />
-        <MenuItem Header="Help" />
-      </MenuItem>
-      <MenuItem Header="Edit" />
-      <MenuItem Header="Help" />
-    </suki:DesktopPage.MenuItems>
+ <suki:DesktopPage
+        Header="Suki UI Testing - New Project"
+        LogoColor="#2f54eb"
+        LogoKind="Xaml"
+        MenuVisibility="True"
+        Name="myPage">
+        <suki:DesktopPage.MenuItems>
+            <MenuItem Header="File">
+                <MenuItem Header="File" />
+                <MenuItem Header="Edit" />
+                <MenuItem Header="Help" />
+            </MenuItem>
+            <MenuItem Header="Edit" />
+            <MenuItem Header="Help" />
+        </suki:DesktopPage.MenuItems>
     
-    <Grid>
-          <TextBlock>Content<TextBlock/>
-    <Grid/>
-    <suki:DesktopPage/>
-<Window/>
+    <Grid> Content </Grid>
+    </suki:DesktopPage>
+</Window>
 
 ``` 
+
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/DesktopMenuSansItems.gif"></img>
+
+``` 
+<Window 
+  ...
+  Classes="NakedWindow" 
+  xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+>
+
+<suki:DesktopPage
+        Header="Suki UI Testing - New Project"
+        LogoColor="#2f54eb"
+        LogoKind="Xaml"
+        MenuVisibility="False"
+        Name="myPage">
+
+	<Grid> Content </Grid>
+</suki:DesktopPage>
+</Window>
+
+``` 
+
+- The DesktopPage Control can show a dialog inside the window, go to Interactivity -> Dialog to get more informations
 
 ### Side Menu
 
@@ -478,6 +505,31 @@ private void ShowNotification(object sender, RoutedEventArgs e)
     notificationManager.Show(notif);
 }
 ```
+
+### Dialog
+
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/DesktopDialog.gif"></img>
+
+Working when using DesktopPage control 
+
+Method 1 :
+```
+ // This static method will search the first DesktopPage control in your app and display the dialog
+ 
+ SukiUI.Controls.DesktopPage.ShowDialogS(  new TextBlock() { Text = "This is an example !" }  );
+
+```
+
+Method 2 :
+```
+ // Call the method directly from the DesktopPage Control
+
+ FindControl<DesktopPage>("MyDesktopPage").ShowDialog(  new TextBlock() { Text = "This is an example !" }  );
+
+```
+
+This is done with the DialogHost library ( https://github.com/AvaloniaUtils/DialogHost.Avalonia ), thanks to them !
+
  ### Expander
  
  <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Expander.gif"></img>
