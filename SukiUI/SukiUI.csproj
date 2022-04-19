@@ -17,7 +17,6 @@
         <Version>2.0.0</Version>
         <FileVersion>2.0.0</FileVersion>
         <AssemblyVersion>2.0.0</AssemblyVersion>
-        <ApplicationIcon>suki_photo.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>
@@ -26,6 +25,7 @@
 
     <ItemGroup>
       <AvaloniaXaml Remove="Theme\CheckBox.axaml" />
+      <AvaloniaXaml Remove="Theme\DialogHostStyle.axaml" />
       <AvaloniaXaml Remove="Theme\RichTextBoxStyles.axaml" />
       <AvaloniaXaml Remove="Theme\WindowStyles.axaml" />
     </ItemGroup>
@@ -41,6 +41,7 @@
 
     <ItemGroup>
         <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.10.12" />
+        <PackageReference Include="DialogHost.Avalonia" Version="0.4.0" />
         <PackageReference Include="Material.Icons.Avalonia" Version="1.0.2" />
         <PackageReference Include="Nerdbank.GitVersioning" Version="3.4.255" PrivateAssets="all" />
         <PackageReference Include="ReactiveUI" Version="13.2.10" />
@@ -58,6 +59,7 @@
       <AvaloniaResource Include="LICENSE" />
       <AvaloniaResource Include="Roboto-Regular.ttf" />
       <AvaloniaResource Include="Theme\CheckBox.axaml" />
+      <AvaloniaResource Include="Theme\DialogHostStyle.axaml" />
       <AvaloniaResource Include="Theme\RichTextBoxStyles.axaml" />
       <AvaloniaResource Include="Theme\WindowStyles.axaml" />
     </ItemGroup>

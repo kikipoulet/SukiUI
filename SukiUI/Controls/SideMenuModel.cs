@@ -7,12 +7,14 @@ using System.Text;
 
 namespace SukiUI.Controls
 {
-    public class SideMenuItem
+    public class SukiMenuItem
     {
         public string Header { get; set; } = default;
         public MaterialIconKind Icon { get; set; } = MaterialIconKind.Circle;
 
         public object Content { get; set; } = new Grid();
+
+        public List<SukiMenuItem> Items { get; set; } = new List<SukiMenuItem>();
     }
 
     public class SideMenuModel : ReactiveObject
@@ -47,9 +49,9 @@ namespace SukiUI.Controls
             set => this.RaiseAndSetIfChanged(ref headerContent, value);
         }
 
-        private List<SideMenuItem> menuItems = new List<SideMenuItem>();
+        private List<SukiMenuItem> menuItems = new List<SukiMenuItem>();
 
-        public List<SideMenuItem> MenuItems
+        public List<SukiMenuItem> MenuItems
         {
             get => menuItems;
             set => this.RaiseAndSetIfChanged(ref menuItems, value);

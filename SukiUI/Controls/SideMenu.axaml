@@ -13,9 +13,10 @@
 
     </Style>
 
+    
   </UserControl.Styles>
   <Design.DataContext>
-    <SideMenuModel />
+  
   </Design.DataContext>
 
 
@@ -64,7 +65,9 @@
     </SplitView.Pane>
 
     <Grid Background="#fafafa">
-      <ContentControl Content="{Binding CurrentPage}"></ContentControl>
+      <ContentControl Content="{Binding CurrentPage}">
+       
+      </ContentControl>
     </Grid>
   </SplitView>
 

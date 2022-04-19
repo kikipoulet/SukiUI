@@ -1,19 +1,28 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
+using Avalonia.VisualTree;
 using Material.Icons;
 using Material.Icons.Avalonia;
 using System.Collections.Generic;
+using System.Linq;
+
 namespace SukiUI.Controls
 {
+  
     public partial class DesktopPage : UserControl
     {
         public DesktopPage()
         {
             InitializeComponent();
+
+            DataContext = ViewModel;
         }
+
+        private DesktopPageViewModel ViewModel = new DesktopPageViewModel();
 
         private void InitializeComponent()
         {
@@ -43,6 +52,22 @@ namespace SukiUI.Controls
             get { return GetValue(MenuItemsProperty); }
             set { SetValue(MenuItemsProperty, value); }
         }
+        
+        public static readonly StyledProperty<string> HeaderProperty = AvaloniaProperty.Register<DesktopPage, string>(nameof(Header), defaultValue: "Avalonia UI");
+
+        public string Header
+        {
+            get { return GetValue(HeaderProperty); }
+            set { SetValue(HeaderProperty, value); }
+        }
+        
+        public static readonly StyledProperty<bool> MenuVisibilityProperty = AvaloniaProperty.Register<DesktopPage, bool>(nameof(MenuVisibility), defaultValue: false);
+
+        public bool MenuVisibility
+        {
+            get { return GetValue(MenuVisibilityProperty); }
+            set { SetValue(MenuVisibilityProperty, value); }
+        }
 
         private void CloseHandler(object sender, RoutedEventArgs e)
         {
@@ -55,6 +80,19 @@ namespace SukiUI.Controls
            
                 Content = page;
             
+        }
+
+      
+
+        public void ShowDialog(Control Content)
+        {
+            ViewModel.CurrentDialog = Content;
+            ViewModel.DialogOpen = true;
+        }
+
+        public static void ShowDialogS(Control content)
+        {
+            ((IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime).MainWindow.GetVisualDescendants().OfType<DesktopPage>().First().ShowDialog(content);
         }
     }
 }

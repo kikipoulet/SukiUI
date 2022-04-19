@@ -1,31 +1,61 @@
-<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="SukiUI.Controls.MobilePage" xmlns:material="using:Material.Icons.Avalonia"  xmlns:suki="clr-namespace:SukiUI.Controls">
-  <UserControl.Styles>
-    <Style Selector="suki|MobilePage">
-      <Setter Property="Template">
-        <ControlTemplate>
-          <DockPanel>
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="SukiUI.Controls.MobilePage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:material="using:Material.Icons.Avalonia"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:suki="clr-namespace:SukiUI.Controls"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Styles>
+        <Style Selector="suki|MobilePage">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <DockPanel>
 
-            <Border Background="White" DockPanel.Dock="Top" Height="110"  BorderBrush="#ebebeb" BorderThickness="0,0,0,2" >
-              <Grid >
-                <Button  IsVisible="{TemplateBinding BackVisibility}" Click="GoBack" Margin="15" Classes="ZoomOnHover" HorizontalAlignment="Left"  BorderThickness="0"  Padding="0" Height="50" Width="50" Background="Transparent">
-                  <material:MaterialIcon Foreground="DarkGray" Height="50" Width="50" Kind="ChevronLeft"></material:MaterialIcon>
+                        <Border
+                            Background="White"
+                            BorderBrush="#ebebeb"
+                            BorderThickness="0,0,0,2"
+                            DockPanel.Dock="Top"
+                            Height="110">
+                            <Grid>
+                                <Button
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Classes="ZoomOnHover"
+                                    Click="GoBack"
+                                    Height="50"
+                                    HorizontalAlignment="Left"
+                                    IsVisible="{TemplateBinding BackVisibility}"
+                                    Margin="15"
+                                    Padding="0"
+                                    Width="50">
+                                    <material:MaterialIcon
+                                        Foreground="DarkGray"
+                                        Height="50"
+                                        Kind="ChevronLeft"
+                                        Width="50" />
 
-                </Button>
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" FontWeight="DemiBold" Text="{TemplateBinding Header}"></TextBlock>
-              </Grid>
-            </Border>
-            <Grid Background="#fafafa">
-              <ContentControl Content="{TemplateBinding Content}" ></ContentControl>
-            </Grid>
-           
-          </DockPanel>
-        </ControlTemplate>
-      </Setter>
-    </Style>
-  </UserControl.Styles>
+                                </Button>
+                                <TextBlock
+                                    FontSize="40"
+                                    FontWeight="DemiBold"
+                                    HorizontalAlignment="Center"
+                                    Text="{TemplateBinding Header}"
+                                    VerticalAlignment="Center" />
+                            </Grid>
+                        </Border>
+                        <Grid Background="#fafafa">
+
+                            <ContentControl Content="{TemplateBinding Content}" />
+                        </Grid>
+
+                    </DockPanel>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+    </UserControl.Styles>
 </UserControl>

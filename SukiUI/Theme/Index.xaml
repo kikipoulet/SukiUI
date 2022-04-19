@@ -20,15 +20,16 @@
     <StyleInclude Source="avares://SukiUI/Theme/SliderStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/NumericUpDownStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/DataGridStyle.axaml" />
-  <StyleInclude Source="avares://SukiUI/Theme/ListBoxItemStyle.axaml"></StyleInclude>
-  <StyleInclude Source="avares://SukiUI/Theme/ComboBoxItemStyle.axaml"></StyleInclude>
-  <StyleInclude Source="avares://SukiUI/Theme/MenuItemStyle.axaml"></StyleInclude>
-  <StyleInclude Source="avares://SukiUI/Theme/TabItemStyle.axaml"></StyleInclude>
-  <StyleInclude Source="avares://SukiUI/Theme/NotificationStyle.axaml"></StyleInclude>
-  <StyleInclude Source="avares://SukiUI/Theme/NotificationCardStyle.axaml"></StyleInclude>
-  <StyleInclude Source="avares://SukiUI/Theme/ContextMenuStyle.axaml"></StyleInclude>
-  <StyleInclude Source="avares://SukiUI/Theme/WindowStyles.axaml"></StyleInclude>
-  <StyleInclude Source="avares://SukiUI/Theme/CheckBox.axaml"></StyleInclude>
-
+    <StyleInclude Source="avares://SukiUI/Theme/ListBoxItemStyle.axaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/ComboBoxItemStyle.axaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/MenuItemStyle.axaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/TabItemStyle.axaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/NotificationStyle.axaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/NotificationCardStyle.axaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/ContextMenuStyle.axaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/WindowStyles.axaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/CheckBox.axaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/DialogHostStyle.axaml" />
+    <StyleInclude Source="avares://Material.Icons.Avalonia/App.xaml" />
 
 </Styles>
