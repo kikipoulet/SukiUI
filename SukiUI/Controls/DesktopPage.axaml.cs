@@ -2,12 +2,14 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
+using Avalonia.Layout;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.VisualTree;
 using Material.Icons;
 using Material.Icons.Avalonia;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 namespace SukiUI.Controls
@@ -19,14 +21,41 @@ namespace SukiUI.Controls
         {
             InitializeComponent();
 
-            DataContext = ViewModel;
+            
+
+         //   DataContext = ViewModel;
         }
 
-        private DesktopPageViewModel ViewModel = new DesktopPageViewModel();
+        // private DesktopPageViewModel ViewModel = new DesktopPageViewModel();
 
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+        }
+
+        public static readonly StyledProperty<HorizontalAlignment> TitleHorizontalAlignmentProperty = AvaloniaProperty.Register<DesktopPage, HorizontalAlignment>(nameof(TitleHorizontalAlignment), defaultValue: HorizontalAlignment.Left);
+
+        public HorizontalAlignment TitleHorizontalAlignment
+        {
+            get { return GetValue(TitleHorizontalAlignmentProperty); }
+            set { SetValue(TitleHorizontalAlignmentProperty, value); }
+        }
+
+        public static readonly StyledProperty<double> TitleFontSizeProperty = AvaloniaProperty.Register<DesktopPage, double>(nameof(TitleFontSize), defaultValue: 14);
+
+        public double TitleFontSize
+        {
+            get { return GetValue(TitleFontSizeProperty); }
+            set { SetValue(TitleFontSizeProperty, value); }
+        }
+
+
+        public static readonly StyledProperty<FontWeight> TitleFontWeightProperty = AvaloniaProperty.Register<DesktopPage, FontWeight>(nameof(TitleFontWeight), defaultValue: FontWeight.Medium);
+
+        public FontWeight TitleFontWeight
+        {
+            get { return GetValue(TitleFontWeightProperty); }
+            set { SetValue(TitleFontWeightProperty, value); }
         }
 
         public static readonly StyledProperty<IBrush> LogoColorProperty = AvaloniaProperty.Register<DesktopPage, IBrush>(nameof(LogoColor), defaultValue: Brushes.DarkSlateBlue);
@@ -53,12 +82,12 @@ namespace SukiUI.Controls
             set { SetValue(MenuItemsProperty, value); }
         }
         
-        public static readonly StyledProperty<string> HeaderProperty = AvaloniaProperty.Register<DesktopPage, string>(nameof(Header), defaultValue: "Avalonia UI");
+        public static readonly StyledProperty<string> TitleProperty = AvaloniaProperty.Register<DesktopPage, string>(nameof(Title), defaultValue: "Avalonia UI");
 
-        public string Header
+        public string Title
         {
-            get { return GetValue(HeaderProperty); }
-            set { SetValue(HeaderProperty, value); }
+            get { return GetValue(TitleProperty); }
+            set { SetValue(TitleProperty, value); }
         }
         
         public static readonly StyledProperty<bool> MenuVisibilityProperty = AvaloniaProperty.Register<DesktopPage, bool>(nameof(MenuVisibility), defaultValue: false);
@@ -69,10 +98,32 @@ namespace SukiUI.Controls
             set { SetValue(MenuVisibilityProperty, value); }
         }
 
+        public static readonly StyledProperty<bool> IsDialogOpenProperty = AvaloniaProperty.Register<DesktopPage, bool>(nameof(IsDialogOpen), defaultValue: false);
+
+        public bool IsDialogOpen
+        {
+            get { return GetValue(IsDialogOpenProperty); }
+            set { SetValue(IsDialogOpenProperty, value); }
+        }
+
+
+        public static readonly StyledProperty<Control> DialogChildProperty = AvaloniaProperty.Register<DesktopPage, Control>(nameof(DialogChild), defaultValue: new Grid() { Height = 200, Width = 200, Background = Brushes.Red});
+
+        public Control DialogChild
+        {
+            get { return GetValue(DialogChildProperty); }
+            set { SetValue(DialogChildProperty, value); }
+        }
+
         private void CloseHandler(object sender, RoutedEventArgs e)
         {
             Window hostWindow = (Window)this.VisualRoot;
             hostWindow.Close();
+        }
+
+        private void CloseDialog(object sender, RoutedEventArgs e)
+        {
+            IsDialogOpen = false;
         }
 
         public void SetPage(Control page)
@@ -86,8 +137,13 @@ namespace SukiUI.Controls
 
         public void ShowDialog(Control Content)
         {
-            ViewModel.CurrentDialog = Content;
-            ViewModel.DialogOpen = true;
+            //    DialogContent = Content;
+            // myGridForDialog
+
+            DialogChild = Content;
+
+            IsDialogOpen = false;
+            IsDialogOpen = true;
         }
 
         public static void ShowDialogS(Control content)

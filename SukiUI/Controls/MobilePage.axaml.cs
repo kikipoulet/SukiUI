@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using System.Collections.Generic;
@@ -16,8 +17,11 @@ namespace SukiUI.Controls
         public MobilePage()
         {
             InitializeComponent();
-        
+
+            DataContext = ViewModel;
         }
+
+        private MobilePageViewModel ViewModel = new MobilePageViewModel();
 
         private void InitializeComponent()
         {
@@ -82,6 +86,14 @@ namespace SukiUI.Controls
         {
             get { return GetValue(BackVisibilityProperty); }
             set { SetValue(BackVisibilityProperty, value); }
-        } 
+        }
+
+        public void ShowDialog(Control Content)
+        {
+            ViewModel.CurrentDialog = Content;
+            ViewModel.DialogOpen = true;
+        }
+
+   
     }
 }

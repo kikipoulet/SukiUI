@@ -32,11 +32,12 @@
                                     Margin="10"
                                     Width="25" />
                                 <TextBlock
-                                    FontSize="14"
-                                    Grid.Column="1"
-                                    HorizontalAlignment="Left"
+                                    FontSize="{TemplateBinding TitleFontSize}"
+                                    FontWeight="{TemplateBinding TitleFontWeight}"
+                                    Grid.Column="1" 
+                                    HorizontalAlignment="{TemplateBinding TitleHorizontalAlignment}"
                                     IsHitTestVisible="False"
-                                    Text="{TemplateBinding Header}"
+                                    Text="{TemplateBinding Title}"
                                     VerticalAlignment="Center" />
                                 <Menu
                                     Grid.ColumnSpan="3"
@@ -69,21 +70,20 @@
                         </Border>
                         <Grid Background="#fafafa">
 
-                            <dialogHost:DialogHost IsOpen="{Binding DialogOpen}">
-                                <dialogHost:DialogHost.DialogContent>
+                            <dialogHost:DialogHost CloseOnClickAway="True" IsOpen="{TemplateBinding IsDialogOpen}" DialogContent="{TemplateBinding DialogChild}">
+                              <!--   <dialogHost:DialogHost.DialogContent>
                                     <Border BorderThickness="0" Classes="Card">
-                                        <Grid>
-                                            <ContentControl Content="{Binding CurrentDialog}" />
-
+                                        <Grid >
+                                          <ContentControl Content="{TemplateBinding DialogChild}"></ContentControl>
                                             <Button
                                                 Background="Transparent"
                                                 BorderThickness="0"
                                                 Classes="ZoomOnHover"
-                                                Command="{Binding CloseDialog}"
+                                                Click="CloseDialog"
                                                 Height="23"
                                                 HorizontalAlignment="Right"
                                                 Margin="0,-10,-10,0"
-                                                Padding="0"
+                                                Padding="0" 
                                                 VerticalAlignment="Top"
                                                 Width="23">
                                                 <material:MaterialIcon
@@ -95,8 +95,9 @@
                                             </Button>
                                         </Grid>
                                     </Border>
-                                </dialogHost:DialogHost.DialogContent>
-                                <ContentControl Content="{TemplateBinding Content}" />
+                                </dialogHost:DialogHost.DialogContent> -->
+                              <ContentControl Content="{TemplateBinding Content}" />
+                              
                             </dialogHost:DialogHost>
                         </Grid>
                     </DockPanel>
