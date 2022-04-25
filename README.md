@@ -28,7 +28,12 @@ Controls need lots of small modifications (mostly sizing) but can look great on 
 
 ---> The goal is to make asap a style file that adapt every control to mobile to be used out of the box
 
-https://user-images.githubusercontent.com/19242427/162712044-ab5e4259-3bee-4d70-b164-c368ae141c0d.mp4
+
+https://user-images.githubusercontent.com/19242427/165140972-c6cdea2d-9e66-4d1e-962f-3f8ac93dba5b.mp4
+
+25 April 2022 Edit : It's difficult to make Mobile Controls because there is a lot of bugs. Performances are terrible in debug mode and I can't compile AOT because of a bug :|
+Anyway, developing Mobile Controls (like in the video) is still a goal, but at this point it is unless until performances really improve. 
+
      
 </details>
 
