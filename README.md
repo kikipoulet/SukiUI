@@ -16,7 +16,10 @@ Suki is the name of my dog :-)
 
 ## Overview
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/GlobalApp.gif"></img>
+New Animations and Transitions :)
+Click on the gif to appreciate the controls in correct resolution
+
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/OverallView.gif"></img>
 
 ## Mobile Overview (Testing Preview)
 
@@ -294,11 +297,12 @@ public void NavigateToNewPage(){
 
  ### TextBox
  
- <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/TextBox.gif"></img>
+ <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/TextBoxBottom.gif"></img>
  ``` 
  <TextBox Classes="Prefix" Margin="5" Text="avaloniaui.net" Watermark="https://" />
  <TextBox Classes="Suffix" Margin="5" Text="avaloniaui" Watermark="@gmail.com" />
  <TextBox Margin="5" Text="Elem" />
+ <TextBox Classes="BottomBar" Margin="5" Text="BottomBar" />
  <TextBox Classes="FlatTextBox" Text="Elem" />
  ``` 
 
