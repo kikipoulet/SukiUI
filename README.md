@@ -16,10 +16,9 @@ Suki is the name of my dog :-)
 
 ## Overview
 
-New Animations and Transitions :)
-Click on the gif to appreciate the controls in correct resolution
+Most updated view of SukiUI theme and controls
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/OverallView.gif"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/DesktopDemo.gif"></img>
 
 ## Mobile Overview (Testing Preview)
 
