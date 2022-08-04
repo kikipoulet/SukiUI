@@ -1,0 +1,147 @@
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="SukiUI.Controls.MobileMenuPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dialogHost="clr-namespace:DialogHost;assembly=DialogHost.Avalonia"
+    xmlns:material="using:Material.Icons.Avalonia"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:suki="clr-namespace:SukiUI.Controls"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Styles>
+        <Style Selector="material|MaterialIcon">
+            <Setter Property="Foreground" Value="#2f54eb" />
+
+        </Style>
+
+
+    </UserControl.Styles>
+    <Design.DataContext />
+
+
+    <SplitView
+        DisplayMode="Overlay"
+        IsPaneOpen="{Binding MenuVisibility}"
+        OpenPaneLength="356">
+        <SplitView.Pane>
+            <Grid>
+                <Border
+                    BorderBrush="#ebebeb"
+                    BorderThickness="0,0,1,0"
+                    Width="356">
+                    <DockPanel Background="White">
+                        <Button
+                            Classes="Accent"
+                            Command="{Binding HideMenu}"
+                            DockPanel.Dock="Top"
+                            HorizontalAlignment="Right">
+                            <Grid>
+
+                                <material:MaterialIcon
+                                    Foreground="Black"
+                                    Height="50"
+                                    Kind="ChevronLeft"
+                                    Width="50" />
+                            </Grid>
+                        </Button>
+                        <StackPanel>
+
+                            <Grid>
+                                <ContentControl Content="{Binding HeaderContent}" />
+                            </Grid>
+                            <Grid Height="40" />
+
+                            <ItemsControl Items="{Binding MenuItems}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <RadioButton
+                                            Classes="MenuItemMobile"
+                                            Command="{Binding DataContext.ChangePage, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
+                                            CommandParameter="{Binding}"
+                                            GroupName="MenuItemsGroup"
+                                            Height="70"
+                                            HorizontalAlignment="Center"
+                                            Width="356">
+                                            <Grid>
+                                                <DockPanel Margin="25,5,5,5">
+                                                    <material:MaterialIcon
+                                                        Height="40"
+                                                        Kind="{Binding Icon}"
+                                                        Margin="15,0,0,0"
+                                                        Width="40" />
+                                                    <TextBlock
+                                                        FontSize="23"
+                                                        FontWeight="Medium"
+                                                        Margin="20,8,8,8"
+                                                        Text="{Binding Header}" />
+                                                </DockPanel>
+
+                                            </Grid>
+                                        </RadioButton>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+
+                        </StackPanel>
+                    </DockPanel>
+                </Border>
+            </Grid>
+        </SplitView.Pane>
+      <Grid Background="White">
+
+        <dialogHost:DialogHost
+            CloseOnClickAway="True"
+            DialogContent="{Binding DialogChild}"
+            IsOpen="{Binding IsDialogOpen}">
+
+          <DockPanel>
+
+            <Border
+                Background="White"
+                BorderBrush="#ebebeb"
+                BorderThickness="0,0,0,0"
+                DockPanel.Dock="Top"
+                Height="110">
+                <Grid>
+                    <Button
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Classes="ZoomOnHover"
+                        Command="{Binding ShowMenu}"
+                        Height="50"
+                        HorizontalAlignment="Left"
+                        Margin="15"
+                        Padding="0"
+                        Width="50">
+                        <material:MaterialIcon
+                            Foreground="DarkGray"
+                            Height="50"
+                            Kind="Menu"
+                            Width="50" />
+
+                    </Button>
+                    <TextBlock
+                        FontSize="40"
+                        FontWeight="DemiBold"
+                        HorizontalAlignment="Left"
+                        Margin="120,0,0,0"
+                        Text="{Binding HeaderText}"
+                        VerticalAlignment="Center" />
+                </Grid>
+            </Border>
+            
+                    <ContentControl Content="{Binding CurrentPage}" />
+
+
+          </DockPanel>
+        </dialogHost:DialogHost>
+        <Grid Background="#cccccccc" IsVisible="{Binding MenuVisibility}" />
+      </Grid>
+
+    </SplitView>
+
+</UserControl>
+

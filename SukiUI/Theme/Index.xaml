@@ -1,0 +1,35 @@
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/Colors.xaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/TextBlockStyles.xaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/ButtonStyles.xaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/TextBoxStyles.xaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/RichTextBoxStyles.axaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/BorderStyles.xaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/TabControlStyles.xaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/ComboBoxStyles.xaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/ProgressBarStyles.xaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/ListBoxStyles.xaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/ExpanderStyles.xaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/TreeViewStyles.xaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/CalendarStyles.xaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/MenuStyles.xaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/ToggleSwitchStyles.xaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/RadioButtonStyles.xaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/ToggleButtonStyles.xaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/SliderStyles.xaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/NumericUpDownStyles.xaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/DataGridStyle.axaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/ListBoxItemStyle.axaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/ComboBoxItemStyle.axaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/MenuItemStyle.axaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/TabItemStyle.axaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/NotificationStyle.axaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/NotificationCardStyle.axaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/ContextMenuStyle.axaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/WindowStyles.axaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/CheckBox.axaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/DialogHostStyle.axaml" />
+    <StyleInclude Source="avares://Material.Icons.Avalonia/App.xaml" />
+
+</Styles>
