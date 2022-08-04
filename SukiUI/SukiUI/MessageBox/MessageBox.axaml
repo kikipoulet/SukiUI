@@ -1,0 +1,90 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+          xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="200"
+        Width="500" Height="200"
+MaxWidth="500" MaxHeight="200"
+           ExtendClientAreaToDecorationsHint="True"
+        xmlns:material="using:Material.Icons.Avalonia"
+Background="White" Classes="NakedWindow"
+        x:Class="SukiUI.MessageBox.MessageBox"
+        >
+  <Window.Styles>
+    <StyleInclude Source="avares://Material.Icons.Avalonia/App.xaml"></StyleInclude>
+    <StyleInclude Source="avares://SukiUI/Theme/Index.xaml"/>
+  </Window.Styles>
+  <Grid>
+    <Grid.Styles>
+      <Style Selector="Grid.AnimatedGrid">
+        <Style.Animations>
+          <Animation Duration="0:0:4"   RepeatCount="INFINITE">
+            <KeyFrame Cue="0%">
+              <Setter Property="ScaleTransform.ScaleX" Value="1"/>
+              <Setter Property="ScaleTransform.ScaleY" Value="1"/>
+            </KeyFrame>
+            <KeyFrame Cue="80%">
+              <Setter Property="ScaleTransform.ScaleX" Value="1"/>
+              <Setter Property="ScaleTransform.ScaleY" Value="1"/>
+            </KeyFrame>
+            <KeyFrame Cue="84%">
+              <Setter Property="ScaleTransform.ScaleX" Value="0.99"/>
+              <Setter Property="ScaleTransform.ScaleY" Value="0.99"/>
+            </KeyFrame>
+            <KeyFrame Cue="88%">
+              <Setter Property="ScaleTransform.ScaleX" Value="1"/>
+              <Setter Property="ScaleTransform.ScaleY" Value="1"/>
+            </KeyFrame>
+            <KeyFrame Cue="94%">
+              <Setter Property="ScaleTransform.ScaleX" Value="0.99"/>
+              <Setter Property="ScaleTransform.ScaleY" Value="0.99"/>
+            </KeyFrame>
+            <KeyFrame Cue="100%">
+              <Setter Property="ScaleTransform.ScaleX" Value="1"/>
+              <Setter Property="ScaleTransform.ScaleY" Value="1"/>
+            </KeyFrame>
+          </Animation>
+        </Style.Animations>
+
+      </Style>
+    </Grid.Styles>
+    <Button
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Classes="ZoomOnHover"
+                                        Click="Close"
+                                        Height="23"
+                                        HorizontalAlignment="Right" VerticalAlignment="Top" Margin="12"
+                                        Padding="0"
+                                        Width="23">
+      <material:MaterialIcon
+          Foreground="DarkRed"
+          Height="23"
+          Kind="CloseCircleOutline"
+          Width="23" />
+
+    </Button>
+
+    <Grid Classes="AnimatedGrid" >
+    <material:MaterialIcon Name="Icone" DockPanel.Dock="Left" Height="50" Width="50" Margin="25,35,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"  Foreground="#2f54eb" Kind="InformationCircle"> </material:MaterialIcon>
+    </Grid>
+      
+      <TextBlock Name="Title" DockPanel.Dock="Top" Classes="h3" Margin="100,45,0,-45" HorizontalAlignment="Left" >Title</TextBlock>
+    <ScrollViewer  VerticalAlignment="Center"  HorizontalAlignment="Left" Margin="102,25,14,20">
+      <TextBlock Name="Message" FontWeight="Light" TextWrapping="Wrap" >blub this is an information messag e blublbublbuhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhb</TextBlock>
+
+    </ScrollViewer>
+    
+  
+
+
+      <Button Classes="Accent" Click="Close" Margin="0,0,0,7" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="80" DockPanel.Dock="Bottom"  >
+        <TextBlock>Close</TextBlock>
+        
+        
+      </Button>
+      
+ 
+  </Grid>
+</Window>
