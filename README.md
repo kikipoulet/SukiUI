@@ -16,7 +16,7 @@ Suki is the name of my dog :-)
 
 ## Overview
 
-Most updated view of SukiUI theme and controls
+SukiUI theme and controls in SukiUI 3.0.0 Nuget Package. Documentation will be updated Asap
 
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/DesktopDemo.gif"></img>
 
