@@ -144,7 +144,7 @@ Anyway, developing Mobile Controls (like in the video) is still a goal, but at t
 
 ### Side Menu
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/SideMenu.gif"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/SideMenu3.gif"></img>
 
 Xaml Code Method
 </br>
@@ -152,25 +152,40 @@ Xaml Code Method
   <summary>Click to see more</summary>
   
   ``` 
+  <suki:DesktopPage
+        LogoColor="#2f54eb"
+        LogoKind="Xaml"
+        MenuVisibility="False"
+        Title="Suki UI Testing - New Project">
+	
   <suki:SideMenu>
       <suki:SideMenu.DataContext>
         <suki:SideMenuModel>
           
           <suki:SideMenuModel.HeaderContent>
-            <TextBlock  Text="Your Custom header Here !"></TextBlock>
+            <!-- Header Content -->
           </suki:SideMenuModel.HeaderContent>
           
-          <suki:SideMenuModel.MenuItems>
+          <suki:SideMenuModel.MenuItems>	  
             <suki:SideMenuItem Header="DashBoard" Icon="CircleOutline">
               <suki:SideMenuItem.Content>
-                <TextBlock  Text="Your UserControl Here !"></TextBlock>
+                <!-- Dashboard Content -->
               </suki:SideMenuItem.Content>
             </suki:SideMenuItem>
+	    
+	    <!-- Other SideMenuItems ... -->
+	    
           </suki:SideMenuModel.MenuItems>
+	  
+	  <suki:SideMenuModel.FooterMenuItems>
+	  	<!-- SideMenuItems -->
+	  </suki:SideMenuModel.FooterMenuItems>
           
         </suki:SideMenuModel>
       </suki:SideMenu.DataContext>
     </suki:SideMenu>
+    
+  </suki:DesktopPage>
   ``` 
   
 </details
@@ -258,7 +273,7 @@ public void NavigateToNewPage(){
 
 ### ToggleSwitch
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/ToggleSwitch.gif"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/ToggleSwitch3.gif"></img>
 
 ```
  <ToggleSwitch OffContent="No" OnContent="Yes" />
@@ -267,28 +282,28 @@ public void NavigateToNewPage(){
 
 ### Buttons
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Buttons.gif"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Buttons3.gif"></img>
 ```
-<Button Classes="Primary">
-    <TextBlock>Primary</TextBlock>
-</Button>
-<Button Classes="Secondary">
-    <TextBlock>Secondary</TextBlock>
-</Button>
-<Button>
-    <TextBlock>Neutral</TextBlock>
-</Button>
-<Button Classes="Success">
-    <TextBlock>Success</TextBlock>
-</Button>
-<Button Classes="Danger">
-    <TextBlock>Danger</TextBlock>
-</Button>
+ <Button Classes="Primary">
+     <TextBlock>Primary</TextBlock>
+ </Button>
+ 
+ <Button Classes="Accent">
+     <TextBlock>Accent</TextBlock>
+ </Button>
+
+ <Button>
+     <TextBlock>Neutral</TextBlock>
+ </Button>
+
+ <Button Classes="Outlined">
+     <TextBlock>Outlined</TextBlock>
+ </Button>
 ```
  
  ### Slider
  
- <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Slider.gif"></img>
+ <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Slider3.gif"></img>
  ``` 
  <Slider IsSnapToTickEnabled="True" Maximum="100" Minimum="0" TickFrequency="1" Value="50"></Slider>
  ``` 
@@ -338,13 +353,7 @@ public void NavigateToNewPage(){
            <RadioButton Margin="5">Item 3</RadioButton>
 </StackPanel>
  ```
- 
- ### Calendar
- 
- <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Calendar.png"></img>
- ```
- <Calendar></Calendar>
- ``` 
+
 
 </details>
 
@@ -372,19 +381,21 @@ this.FindControl<Stepper>("myStep").Index = 2;
 
 ### CircleProgressBar
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/CircleProgressBar.png"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/CircleProgressBar3.gif"></img>
 ``` 
 xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
 ...
 
-<suki:CircleProgressBar Height="150" StrokeWidth="12" Value="50" Width="150">
-             <TextBlock Classes="h3">50 %</TextBlock>
+<suki:CircleProgressBar Height="130" StrokeWidth="11" Value="20" Width="130">
+             <TextBlock Classes="h3">20</TextBlock>
 </suki:CircleProgressBar>
 ``` 
 
+Animation coming asap : https://github.com/AvaloniaUI/Avalonia/issues/8659
+
 ### Loading
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Loading.gif"></img> 
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Loading3.gif"></img> 
 
  ``` 
 xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
@@ -396,7 +407,7 @@ xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
      
 ### ProgressBar
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/ProgressBar.png"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/ProgressBar3.gif"></img>
 ```
 <ProgressBar  Value="60" />
 ``` 
@@ -413,7 +424,7 @@ xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
 
 ### PropertyGrid
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/PropertyGrid.gif"></img> 
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/PropertyGrid3.gif"></img> 
 
  ``` 
 xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
@@ -497,7 +508,7 @@ xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
 ### Notification
 
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Notification.gif"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Notification3.gif"></img>
 ```
  WindowNotificationManager notificationManager;
 
@@ -516,15 +527,17 @@ private void ShowNotification(object sender, RoutedEventArgs e)
 
 ### Dialog
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/DesktopDialog.gif"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Dialog3.gif"></img>
 
 Working when using DesktopPage control 
 
 Method 1 :
 ```
  // This static method will search the first DesktopPage control in your app and display the dialog
+ 	SukiUI.Controls.DesktopPage.ShowDialogS(  new MyUserControl()  );
  
- SukiUI.Controls.DesktopPage.ShowDialogS(  new TextBlock() { Text = "This is an example !" }  );
+ // Close the dialog anywhere in your app
+ 	SukiUI.Controls.DesktopPage.CloseDialogS();
 
 ```
 
@@ -551,11 +564,10 @@ This is done with the DialogHost library ( https://github.com/AvaloniaUtils/Dial
 
 ### MessageBox
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/MessageBox.png"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/MessageBox3.gif"></img>
 ```
  SukiUI.MessageBox.MessageBox.Info(this, "Title", "This is an information message that need to be read.");
- MessageBox.Success(this, "Title", "This is an Success message that need to be read.");
- MessageBox.Error(this, "Title", "This is an Success message that need to be read.");
+
 ```
 
 
@@ -576,7 +588,7 @@ This is done with the DialogHost library ( https://github.com/AvaloniaUtils/Dial
 
 ### Tabs
  
- <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Tab.png"></img>
+ <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Tabs3.gif"></img>
  ```
   <TabControl>
        <TabItem Header="Tab 1" />
@@ -584,11 +596,6 @@ This is done with the DialogHost library ( https://github.com/AvaloniaUtils/Dial
        <TabItem Header="Tab 3" />
   </TabControl>
   
-  <TabControl Classes="FlatTabControl">
-       <TabItem Classes="FlatTabItem" Header="Tab 1" />
-       <TabItem Classes="FlatTabItem" Header="Tab 2" />
-       <TabItem Classes="FlatTabItem" Header="Tab 3" />
-  </TabControl>
  ``` 
 
 ### Card and Hoverable
