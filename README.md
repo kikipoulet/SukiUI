@@ -16,49 +16,19 @@ Suki is the name of my dog :-)
 
 ## Overview
 
-SukiUI theme and controls in SukiUI 3.0.0 Nuget Package. Documentation will be updated Asap
+SukiUI theme and controls in SukiUI 3.0.0 Nuget Package.
+
+### Desktop
 
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/DesktopDemo.gif"></img>
 
-## Mobile Overview (Testing Preview)
+### Mobile
 
-<details>
-  <summary>Click to see more</summary>
+Done with Avalonia 0.11 <br/>
+SukiUI with Avalonia 0.11 is not available yet because I want to make more controls for mobile use before.
 
-Screen video of an empty android app in debug mode with avalonia mobile, trying to use Suki UI on mobile. 
-Controls need lots of small modifications (mostly sizing) but can look great on mobile.
-
----> The goal is to make asap a style file that adapt every control to mobile to be used out of the box
-
-
-https://user-images.githubusercontent.com/19242427/165140972-c6cdea2d-9e66-4d1e-962f-3f8ac93dba5b.mp4
-
-25 April 2022 Edit : It's difficult to make Mobile Controls because there is a lot of bugs. Performances are terrible in debug mode and I can't compile AOT because of a bug :|
-Anyway, developing Mobile Controls (like in the video) is still a goal, but at this point it is unless until performances really improve. 
-
-     
-</details>
-
-
-## Planning - Ideas :
-<details>
-  <summary>Click to see more</summary>
-
-### For Library
-- Improve/Clean actual code globally, there are some junk code left from active development
-- Clean MVVM Example App -> Showcase demo available with Avalonia Web on a Github page ?
-
-### For Controls
-- Write One Style file that adapt every control to Mobile usage      
-- More Controls -> do not hesitate to suggest a useful control idea
-- Test and Improve controls
-
-### For protecting myself from angry developers
-- Dark Theme
-
-</details>
-
-</br>
+https://user-images.githubusercontent.com/19242427/187209227-03598bf8-c958-4577-b787-fa2ee48779d1.mp4
+ 
 
 # Installation
 
@@ -231,39 +201,7 @@ Code-Behind method
   
 </details>
 
-### Mobile Page
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/MobileMenu.gif"></img>
-
-Menu for a mobile app to switch between pages and go back
-
-``` 
-<UserControl 
-  ...
-  xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
->
-
-  <suki:MobilePage  Header="Test" Name="MobileMenu" >
-    <Grid >
-      <Button Click="AddPage" VerticalAlignment="Center" HorizontalAlignment="Center">
-        <TextBlock>Go To A Next Page</TextBlock>
-      </Button>
-    </Grid>
-  </suki:MobilePage>
-<UserControl/>
-
-``` 
-
-``` 
-
-public void NavigateToNewPage(){
-     
-     var menu = this.FindControl<MobilePage>("MobileMenu");
-     menu.NewPage("Header", new RecursivePage());
-     
-}
-
-``` 
 
 </details>
 
