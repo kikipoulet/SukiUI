@@ -67,10 +67,12 @@ https://user-images.githubusercontent.com/19242427/187209227-03598bf8-c958-4577-
 >
 
  <suki:DesktopPage
-        Header="Suki UI Testing - New Project"
+        Title="Suki UI Testing - New Project"
         LogoColor="#2f54eb"
         LogoKind="Xaml"
         MenuVisibility="True"
+        IsMaximizeButtonEnabled="False"
+        IsMinimizeButtonEnabled="False"
         Name="myPage">
         <suki:DesktopPage.MenuItems>
             <MenuItem Header="File">
@@ -98,10 +100,12 @@ https://user-images.githubusercontent.com/19242427/187209227-03598bf8-c958-4577-
 >
 
 <suki:DesktopPage
-        Header="Suki UI Testing - New Project"
+        Title="Suki UI Testing - New Project"
         LogoColor="#2f54eb"
         LogoKind="Xaml"
         MenuVisibility="False"
+        IsMaximizeButtonEnabled="False"
+        IsMinimizeButtonEnabled="False"
         Name="myPage">
 
 	<Grid> Content </Grid>
@@ -110,7 +114,8 @@ https://user-images.githubusercontent.com/19242427/187209227-03598bf8-c958-4577-
 
 ``` 
 
-- The DesktopPage Control can show a dialog inside the window, go to Interactivity -> Dialog to get more informations
+- The DesktopPage Control can show a dialog inside the window, go to `Interactivity -> Dialog` to get more information.
+- Minimize and maximize buttons can be enabled in XAML by setting `IsMinimizeButtonEnabled` and `IsMaximizeButtonEnabled` properties to `True`. Default is `False`.
 
 ### Side Menu
 
