@@ -115,6 +115,50 @@ namespace SukiUI.Controls
             set { SetValue(DialogChildProperty, value); }
         }
 
+        public static readonly StyledProperty<bool> IsMinimizeButtonEnabledProperty = AvaloniaProperty.Register<DesktopPage, bool>(nameof(IsMinimizeButtonEnabled), defaultValue: false);
+
+        public bool IsMinimizeButtonEnabled
+        {
+            get { return GetValue(IsMinimizeButtonEnabledProperty); }
+            set { SetValue(IsMinimizeButtonEnabledProperty, value); }
+        }
+
+        public static readonly StyledProperty<bool> IsMaximizeButtonEnabledProperty = AvaloniaProperty.Register<DesktopPage, bool>(nameof(IsMaximizeButtonEnabled), defaultValue: false);
+
+        public bool IsMaximizeButtonEnabled
+        {
+            get { return GetValue(IsMaximizeButtonEnabledProperty); }
+            set { SetValue(IsMaximizeButtonEnabledProperty, value); }
+        }
+
+        /// <summary>
+        /// Minimizes Avalonia window
+        /// </summary>
+        private void MinimizeHandler(object sender, RoutedEventArgs e)
+        {
+            Window hostWindow = (Window)this.VisualRoot;
+            hostWindow.WindowState = WindowState.Minimized;
+        }
+
+        /// <summary>
+        /// Maximizes Avalonia window or sets its size to original depending on window state
+        /// </summary>
+        private void MaximizeHandler(object sender, RoutedEventArgs e)
+        {
+            Window hostWindow = (Window)this.VisualRoot;
+            if (hostWindow.WindowState != WindowState.Maximized)
+            {
+                hostWindow.WindowState = WindowState.Maximized;
+            }
+            else
+            {
+                hostWindow.WindowState = WindowState.Normal;
+            }
+        }
+
+        /// <summary>
+        /// Closes Avalonia window
+        /// </summary>
         private void CloseHandler(object sender, RoutedEventArgs e)
         {
             Window hostWindow = (Window)this.VisualRoot;
