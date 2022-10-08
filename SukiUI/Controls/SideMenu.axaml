@@ -48,7 +48,7 @@
                     </Button>
                     <DockPanel>
 
-                        <Grid DockPanel.Dock="Top" IsVisible="{Binding MenuVisibility}">
+                        <Grid DockPanel.Dock="Top" IsVisible="{Binding MenuVisibility}" MinHeight="40">
                             <ContentControl Content="{Binding HeaderContent}" />
                         </Grid>
 
