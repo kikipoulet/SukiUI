@@ -121,6 +121,8 @@ https://user-images.githubusercontent.com/19242427/187209227-03598bf8-c958-4577-
 
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/SideMenu3.gif"></img>
 
+- Header content can overlap sidebar toggle button if its content is too wide. To prevent that, either design header content layout to be narrower, or set `SideMenuModel.HeaderContentOverlapsToggleSidebarButton` property to `False`. Default is `True`.  `HeaderContentOverlapsToggleSidebarButton` moves header content under the button.  
+
 Xaml Code Method
 </br>
 <details>
@@ -161,10 +163,8 @@ Xaml Code Method
     </suki:SideMenu>
     
   </suki:DesktopPage>
-  ``` 
-  
-</details
-
+  ```
+</details>
   
 Code-Behind method
   </br>
