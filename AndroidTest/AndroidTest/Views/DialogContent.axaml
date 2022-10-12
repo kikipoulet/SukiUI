@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" 
+             xmlns:material="using:Material.Icons.Avalonia"
+             x:Class="AndroidTest.Views.DialogContent">
+
+  
+  <Grid Height="150" Width="300">
+
+
+    <material:MaterialIcon Kind="CheckCircle" VerticalAlignment="Top" Margin="20" Foreground="#637FF0" Height="40" Width="40"></material:MaterialIcon>
+
+    <TextBlock Classes="h4" Margin="0,30,0,0" VerticalAlignment="Center" HorizontalAlignment="Center">An item has been added !</TextBlock>
+    
+    <TextBlock Margin="0,0,2,0"  FontWeight="DemiBold" HorizontalAlignment="Right" VerticalAlignment="Bottom" Classes="Accent">Close</TextBlock>
+    
+  </Grid>
+  
+</UserControl>

@@ -1,0 +1,88 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="1050"
+         
+             xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+xmlns:material="using:Material.Icons.Avalonia"
+             x:Class="AndroidTest.Views.Dashboard">
+  <Grid ColumnDefinitions="*,*" RowDefinitions="*,*,*">
+    <Border  Grid.Row="0" Grid.Column="0">
+      <Border Margin="10" Classes="Card">
+        <Grid Margin="-10">
+          <TextBlock Classes="h3" Margin="6,4,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="DemiBold" Text="Global Rate"></TextBlock>
+          <Border Margin="0,40,0,0" >
+            <suki:CircleProgressBar Height="105" Width="105" StrokeWidth="12" Value="63" >
+              <TextBlock Margin="7,5,0,0" Classes="h4">63 %</TextBlock>
+            </suki:CircleProgressBar>
+          </Border>
+        </Grid>
+      </Border>
+    </Border>
+    <Border  Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+      <Border Margin="10" Classes="Card">
+        <Grid Margin="-10">
+          <TextBlock Classes="h3" Margin="6,4,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="DemiBold" Text="Devices"></TextBlock>
+          <ScrollViewer VerticalScrollBarVisibility="Hidden"  Margin="0,50,-15,50">
+            
+            <StackPanel Orientation="Vertical">
+          <ListBoxItem> <TextBlock Text="Camera 1" FontSize="17"></TextBlock> </ListBoxItem>
+          <ListBoxItem> <TextBlock Text="Camera 2" FontSize="17"></TextBlock> </ListBoxItem>
+          <ListBoxItem> <TextBlock Text="Camera 3" FontSize="17"></TextBlock> </ListBoxItem>
+          <ListBoxItem> <TextBlock Text="Camera 4" FontSize="17"></TextBlock> </ListBoxItem>
+          <ListBoxItem> <TextBlock Text="Blob 1"  FontSize="17"></TextBlock> </ListBoxItem>
+          <ListBoxItem> <TextBlock Text="Blob 2"  FontSize="17"></TextBlock> </ListBoxItem>
+          <ListBoxItem> <TextBlock Text="Blob 3"  FontSize="17"></TextBlock> </ListBoxItem>
+          <ListBoxItem> <TextBlock Text="Blob 4"  FontSize="17"></TextBlock> </ListBoxItem>
+          <ListBoxItem> <TextBlock Text="Blob 5"  FontSize="17"></TextBlock> </ListBoxItem>
+          <ListBoxItem> <TextBlock Text="Door 1"  FontSize="17"></TextBlock> </ListBoxItem>
+          <ListBoxItem> <TextBlock Text="Table 1"  FontSize="17"></TextBlock> </ListBoxItem>
+          <ListBoxItem> <TextBlock Text="Microwave 1"  FontSize="17"></TextBlock> </ListBoxItem>
+          <ListBoxItem> <TextBlock Text="Microwave 2"  FontSize="17"></TextBlock> </ListBoxItem>
+          <ListBoxItem> <TextBlock Text="Microwave 3"  FontSize="17"></TextBlock> </ListBoxItem>
+          <ListBoxItem> <TextBlock Text="Microwave 4"  FontSize="17"></TextBlock> </ListBoxItem>
+          <ListBoxItem> <TextBlock Text="Iron 1" FontSize="17"></TextBlock> </ListBoxItem>
+          <ListBoxItem> <TextBlock Text="WashMachine 1"  FontSize="17"></TextBlock> </ListBoxItem>
+          <ListBoxItem> <TextBlock Text="Camera 5"  FontSize="17"></TextBlock> </ListBoxItem>
+            </StackPanel>
+        </ScrollViewer> 
+          <Button Height="40" Padding="0"  VerticalAlignment="Bottom" HorizontalAlignment="Center" Click="ShowFlyout" BorderThickness="0" Background="Transparent" Margin="0,60,0,0">
+            <StackPanel Margin="10" Orientation="Horizontal" >
+              <material:MaterialIcon Margin="0,0,7,0" Kind="Plus" Foreground="#2f54eb" Height="17" Width="17"></material:MaterialIcon>
+              <TextBlock FontWeight="Medium" Foreground="#2f54eb" VerticalAlignment="Center"   FontSize="17">Add Device</TextBlock>
+            </StackPanel>
+         
+          </Button>
+        </Grid>
+        </Border>
+    </Border>
+    <Border  Grid.Row="1" Grid.Column="0">
+      <Border Margin="10" Classes="Card">
+        <Grid Margin="-10">
+          <TextBlock Classes="h3" Margin="6,4,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="DemiBold" Text="Processing"></TextBlock>
+
+          <suki:Loading Margin="0,50,0,0" >
+    
+          </suki:Loading>
+        </Grid>
+      </Border>
+    </Border>
+    
+    <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+      <Border Margin="10" Classes="Card">
+        <Grid Margin="-10">
+          <TextBlock Classes="h3" Margin="6,4,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="DemiBold" Text="Delivery"></TextBlock>
+
+         
+
+          <suki:Stepper Name="myStep" Margin="0,20,0,0" >
+           
+          </suki:Stepper>
+          
+        </Grid>
+      </Border>
+    </Border>
+  </Grid>
+</UserControl>
