@@ -1,0 +1,95 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dialogHost="clr-namespace:DialogHost">
+    <Design.PreviewWith>
+        <dialogHost:DialogHost Name="DialogHost" Height="300" Width="300"
+                               Background="Gray">
+            <dialogHost:DialogHost.DialogContent>
+                <Grid RowDefinitions="Auto Auto">
+                    <TextBlock>You content here</TextBlock>
+                    <Button Grid.Row="1" Command="{Binding #DialogHost.CloseDialogCommand}">
+                        CLOSE
+                    </Button>
+                </Grid>
+            </dialogHost:DialogHost.DialogContent>
+            <Button Margin="8" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                    Command="{Binding #DialogHost.OpenDialogCommand}">
+                OPEN
+            </Button>
+        </dialogHost:DialogHost>
+    </Design.PreviewWith>
+
+    <Style Selector="dialogHost|DialogHost">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="DialogMargin" Value="8" />
+        <Setter Property="OverlayBackground" Value="Black"></Setter>
+        <Setter Property="dialogHost:DialogHostStyle.CornerRadius" Value="2"></Setter>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid Name="DialogHostRoot" Focusable="False">
+                    <ContentPresenter Name="ContentPresenter"
+                                      Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    <Grid Name="PART_ContentCoverGrid"
+                          Background="{TemplateBinding OverlayBackground}"
+                          Focusable="False">
+                        <Grid.Styles>
+                            <Style Selector="Grid#PART_ContentCoverGrid[Opacity=0]">
+                                <Setter Property="IsVisible" Value="False" />
+                            </Style>
+                            <Style Selector="Grid#PART_ContentCoverGrid:not(.notransitions)">
+                                <Setter Property="Transitions">
+                                    <Transitions>
+                                        <DoubleTransition Property="Opacity" Easing="LinearEasing" Duration="0.3" />
+                                    </Transitions>
+                                </Setter>
+                            </Style>
+                        </Grid.Styles>
+                    </Grid>
+                    <OverlayLayer Name="PART_OverlayLayer" />
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+        <Setter Property="PopupTemplate">
+            <ControlTemplate>
+                <Border Name="PART_ContentBackground" 
+                        CornerRadius="{Binding Path=(dialogHost:DialogHostStyle.CornerRadius), RelativeSource={RelativeSource FindAncestor, AncestorType=dialogHost:DialogHost}}"
+                        BoxShadow="1.5 1.5 8 #4c000000" ClipToBounds="False">
+                    <ContentPresenter Name="PART_ContentPresenter"
+                                      Background="{TemplateBinding Background}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      Content="{TemplateBinding Content}"
+                                      Padding="{TemplateBinding Padding}" />
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+    
+    <!-- AvaloniaUI fluent inverse color -->
+    <!-- Will be white for dark theme -->
+    <!-- And black for light theme -->
+    <Style Selector="dialogHost|DialogHost">
+        <Setter Property="OverlayBackground" Value="{DynamicResource SystemControlBackgroundBaseHighBrush}"></Setter>
+    </Style>
+    
+    <!-- Fallback color if avalonia theme not presented -->
+    <Style Selector="dialogHost|DialogHost Border#PART_ContentBackground">
+        <Setter Property="Background" Value="White"></Setter>
+    </Style>
+    <!-- AvaloniaUI fluent background color -->
+    <Style Selector="dialogHost|DialogHost Border#PART_ContentBackground">
+        <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundAltHighBrush}"></Setter>
+    </Style>
+
+    <Style Selector="dialogHost|DialogHost[IsOpen=True] /template/ Grid#PART_ContentCoverGrid">
+        <Setter Property="IsHitTestVisible" Value="True" />
+        <Setter Property="Opacity" Value="0.56" />
+    </Style>
+    <Style Selector="dialogHost|DialogHost[IsOpen=False] /template/ Grid#PART_ContentCoverGrid">
+        <Setter Property="IsHitTestVisible" Value="False" />
+        <Setter Property="Opacity" Value="0" />
+    </Style>
+</Styles>

@@ -1,0 +1,511 @@
+<Window
+    Classes="NakedWindow"
+    Title="SukiTest"
+    d:DesignHeight="450"
+    d:DesignWidth="800" 
+    mc:Ignorable="d"
+    
+    x:Class="SukiTest.MainWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:material="using:Material.Icons.Avalonia"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+    xmlns:sukiTest="clr-namespace:SukiTest"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <suki:DesktopPage
+        LogoColor="#2f54eb"
+        LogoKind="Xaml"
+        MenuVisibility="False"
+        Name="myPage"
+        Title="Suki UI Testing - New Project">
+        <suki:SideMenu >
+            <suki:SideMenu.DataContext>
+                <suki:SideMenuModel >
+
+                    <suki:SideMenuModel.HeaderContent>
+                        <StackPanel Margin="0,5,0,0">
+                            <DockPanel>
+                                <material:MaterialIcon
+                                    DockPanel.Dock="Left"
+                                    Foreground="#444444"
+                                    Height="60"
+                                    Kind="UserCircleOutline"
+                                    Margin="10,0"
+                                    Width="60" />
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock
+                                        FontSize="18"
+                                        FontWeight="DemiBold"
+                                        Text="Jean Valjean" />
+                                    <TextBlock
+                                        FontSize="12"
+                                        FontWeight="Thin"
+                                        Margin="3,1,0,0"
+                                        Text="jeanvaljean@mail.com" />
+                                </StackPanel>
+
+
+                            </DockPanel>
+                            <Border
+                                Background="LightGray"
+                                Height="0"
+                                Margin="35,10,35,20" />
+                        </StackPanel>
+                    </suki:SideMenuModel.HeaderContent>
+
+                    <suki:SideMenuModel.MenuItems>
+                        <suki:SideMenuItem Header="DashBoard" Icon="CircleOutline">
+                            <suki:SideMenuItem.Content>
+                                <ScrollViewer>
+
+                                    <WrapPanel Background="#fafafa" Orientation="Horizontal">
+
+                                        <Border Classes="Card" Width="300">
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">Buttons</TextBlock>
+                                                <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal">
+
+                                                    <Button Classes="Primary">
+                                                        <TextBlock>Primary</TextBlock>
+                                                    </Button>
+                                                    <Button Classes="Accent">
+                                                        <TextBlock>Accent</TextBlock>
+                                                    </Button>
+
+                                                    <Button>
+                                                        <TextBlock>Neutral</TextBlock>
+                                                    </Button>
+
+                                                    <Button Classes="Outlined">
+                                                        <TextBlock>Outlined</TextBlock>
+                                                    </Button>
+                                                </WrapPanel>
+
+                                            </StackPanel>
+                                        </Border>
+
+
+                                        <Border Classes="Card Hoverable" Width="300">
+
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">Hoverable Card</TextBlock>
+
+                                            </StackPanel>
+                                        </Border>
+
+
+                                        <Border Classes="Card" Width="300">
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">ListBox</TextBlock>
+                                                <ListBox Margin="10">
+                                                    <TextBlock>item 1</TextBlock>
+                                                    <TextBlock>item 2</TextBlock>
+                                                    <TextBlock>item 3</TextBlock>
+                                                </ListBox>
+                                            </StackPanel>
+                                        </Border>
+
+
+
+                                        <Border Classes="Card" Width="300">
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">MessageBox</TextBlock>
+                                                <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal">
+
+                                                    <Button Click="ShowInfoBox">
+
+                                                        <TextBlock>Show Info</TextBlock>
+                                                    </Button>
+
+
+                                                    <Button Click="ShowDialog">
+                                                        <TextBlock>Show Dialog</TextBlock>
+                                                    </Button>
+
+                                                </WrapPanel>
+                                            </StackPanel>
+                                        </Border>
+
+                                        <Border Classes="Card" Width="300">
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">Notification</TextBlock>
+                                                <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal">
+
+                                                    <Button Classes="Primary" Click="ShowNotification">
+                                                        <TextBlock>Show Notification</TextBlock>
+                                                    </Button>
+
+                                                </WrapPanel>
+                                            </StackPanel>
+                                        </Border>
+
+
+                                        <Border Classes="Card" Width="300">
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">ComboBox</TextBlock>
+                                                <ComboBox PlaceholderText="Select an item">
+                                                    <ComboBoxItem>
+                                                        <TextBlock>Main Item 1</TextBlock>
+                                                    </ComboBoxItem>
+                                                    <ComboBoxItem>
+                                                        <TextBlock>Main Item 2</TextBlock>
+                                                    </ComboBoxItem>
+                                                </ComboBox>
+                                            </StackPanel>
+                                        </Border>
+
+
+                                        <Border Classes="Card" Width="300">
+                                            <StackPanel>
+
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">ToggleSwitch</TextBlock>
+                                                <ToggleSwitch
+                                                    Margin="5"
+                                                    OffContent="No"
+                                                    OnContent="Yes" />
+                                            </StackPanel>
+                                        </Border>
+
+                                        <Border Classes="Card" Width="300">
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">Progress Bar</TextBlock>
+                                                <ProgressBar
+                                                    Margin="10"
+                                                    Name="myProgressBarLine"
+                                                    Value="20" />
+                                                <Button Click="Button_OnClickProgressBar">
+                                                    <TextBlock>Go To 60</TextBlock>
+                                                </Button>
+                                            </StackPanel>
+                                        </Border>
+
+                                        <Border Classes="Card" Width="300">
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">Menu</TextBlock>
+                                                <Menu>
+                                                    <MenuItem Header="File">
+                                                        <MenuItem Header="File" />
+                                                        <MenuItem Header="Edit" />
+                                                        <MenuItem Header="Help" />
+                                                    </MenuItem>
+                                                    <MenuItem Header="Edit" />
+                                                    <MenuItem Header="Help" />
+                                                </Menu>
+                                            </StackPanel>
+                                        </Border>
+
+                                        <Border Classes="Card" Width="600">
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">DataGrid</TextBlock>
+                                                <DataGrid
+                                                    AutoGenerateColumns="True"
+                                                    Height="180"
+                                                    IsReadOnly="True"
+                                                    Name="myDG" />
+                                            </StackPanel>
+                                        </Border>
+
+
+                                        <Border Classes="Card" Width="300">
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">Expander</TextBlock>
+                                                <Expander Header="Click To Expand">
+                                                    <TextBlock>Expanded</TextBlock>
+                                                </Expander>
+
+                                            </StackPanel>
+                                        </Border>
+
+                                        <Border Classes="Card" Width="300">
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">Numeric UpDown</TextBlock>
+                                                <NumericUpDown />
+                                            </StackPanel>
+                                        </Border>
+
+                                        <Border Classes="Card" Width="300">
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">Radio Button</TextBlock>
+                                                <StackPanel Orientation="Vertical">
+                                                    <RadioButton Margin="5">Item 1</RadioButton>
+                                                    <RadioButton Margin="5">Item 1</RadioButton>
+                                                    <RadioButton Margin="5">Item 1</RadioButton>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Border>
+
+                                        <Border Classes="Card" Width="300">
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">CheckBox</TextBlock>
+                                                <StackPanel>
+                                                    <CheckBox Margin="20" />
+                                                    <CheckBox IsChecked="True" Margin="20" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Border>
+
+                                        <Border Classes="Card" Width="300">
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">Slider</TextBlock>
+
+                                                <StackPanel
+                                                    HorizontalAlignment="Center"
+                                                    Margin="0,20"
+                                                    Orientation="Horizontal">
+                                                    <TextBlock Margin="5" VerticalAlignment="Center">Value :</TextBlock>
+                                                    <TextBox
+                                                        BorderThickness="0"
+                                                        IsHitTestVisible="False"
+                                                        Padding="10"
+                                                        Text="{Binding #SliderValue.Value}"
+                                                        Watermark="bite" />
+
+                                                </StackPanel>
+
+                                                <Slider
+                                                    IsSnapToTickEnabled="True"
+                                                    Maximum="100"
+                                                    Minimum="0"
+                                                    Name="SliderValue"
+                                                    TickFrequency="1"
+                                                    Value="50" />
+                                            </StackPanel>
+                                        </Border>
+
+                                        <Border Classes="Card" Width="300">
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">Tabs</TextBlock>
+                                                <Border Padding="20">
+                                                    <StackPanel>
+                                                        <TabControl>
+                                                            <TabItem Header="Tab 1" />
+                                                            <TabItem Header="Tab 2" />
+                                                            <TabItem Header="Tab 3" />
+                                                        </TabControl>
+
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
+                                        </Border>
+
+                                        <Border Classes="Card" Width="300">
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">TextBox</TextBlock>
+                                                <Border Padding="20">
+                                                    <StackPanel Spacing="10">
+                                                        <TextBox
+                                                            Classes="Prefix"
+                                                            Margin="5"
+                                                            Text="avaloniaui.net"
+                                                            Watermark="https://" />
+                                                        <TextBox
+                                                            Classes="Suffix"
+                                                            Margin="5"
+                                                            Text="avaloniaui"
+                                                            Watermark="@gmail.com" />
+                                                        <TextBox Margin="5" Text="Elem" />
+                                                        <TextBox
+                                                            Classes="BottomBar"
+                                                            Margin="5"
+                                                            Text="BottomBar" />
+                                                        <TextBox Classes="FlatTextBox" Text="Elem" />
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
+                                        </Border>
+
+                                        <Border Classes="Card" Width="300">
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">TextBlock</TextBlock>
+                                                <StackPanel>
+                                                    <TextBlock Classes="h1">h1</TextBlock>
+                                                    <TextBlock Classes="h2">h2</TextBlock>
+                                                    <TextBlock Classes="h3">h3</TextBlock>
+                                                    <TextBlock Classes="h3">h3</TextBlock>
+                                                    <TextBlock>Normal</TextBlock>
+                                                    <TextBlock Classes="Accent">Accent</TextBlock>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Border>
+
+                                        <Border Classes="Card" Width="300">
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">TreeView</TextBlock>
+                                                <Border
+                                                    Background="White"
+                                                    Padding="20"
+                                                    Width="200">
+                                                    <TreeView>
+                                                        <TreeViewItem Header="blub">
+                                                            <TreeViewItem Header="blub" />
+                                                            <TreeViewItem Header="blub" />
+                                                        </TreeViewItem>
+                                                        <TreeViewItem Header="blub" />
+                                                        <TreeViewItem Header="blub" />
+                                                    </TreeView>
+                                                </Border>
+                                            </StackPanel>
+                                        </Border>
+
+                                        <Border Classes="Card" Width="300">
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">CircleProgressBar</TextBlock>
+                                                <Border
+                                                    Background="White"
+                                                    Padding="20"
+                                                    Width="200">
+                                                    <suki:CircleProgressBar
+                                                        Height="130"
+                                                        Name="myProgressBar"
+                                                        StrokeWidth="11"
+                                                        Value="20"
+                                                        Width="130">
+                                                        <TextBlock
+                                                            Classes="h3"
+                                                            Margin="0,5,0,0"
+                                                            Name="TextPercent"
+                                                            Text="20"
+                                                            VerticalAlignment="Center" />
+                                                    </suki:CircleProgressBar>
+
+                                                </Border>
+                                                <Button Click="Button_OnClickProgress">
+                                                    <TextBlock>Plus</TextBlock>
+                                                </Button>
+                                            </StackPanel>
+                                        </Border>
+
+                                        <Border Classes="Card" Width="300">
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">PropertyGrid</TextBlock>
+                                                <Border
+                                                    Background="White"
+                                                    Height="400"
+                                                    Padding="20">
+                                                    <suki:PropertyGrid Name="propertyGrid" Width="250" />
+                                                </Border>
+                                            </StackPanel>
+                                        </Border>
+
+                                        <Border Classes="Card" Width="300">
+                                            <Border.ContextMenu>
+
+                                                <ContextMenu>
+                                                    <MenuItem Header="Menu item 1" />
+                                                    <MenuItem Header="Menu item 2" />
+                                                    <Separator />
+                                                    <MenuItem Header="Menu item 3" />
+                                                </ContextMenu>
+
+                                            </Border.ContextMenu>
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">ContextMenu (right click)</TextBlock>
+
+                                            </StackPanel>
+                                        </Border>
+
+                                        <Border Classes="Card" Width="300">
+
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,35">Loading</TextBlock>
+                                                <suki:Loading Name="MyLoading" />
+
+                                                <Button Click="ButtonChangeOpacity" Margin="0,20,0,0">
+                                                    <TextBlock>Change Opacity</TextBlock>
+                                                </Button>
+                                            </StackPanel>
+                                        </Border>
+
+                                        <Border Classes="Card" Width="300">
+
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">GroupBox</TextBlock>
+
+                                                <suki:GroupBox Header="Test Header">
+                                                    <Grid Height="100" Width="150">
+                                                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Test Content</TextBlock>
+                                                    </Grid>
+
+                                                </suki:GroupBox>
+                                            </StackPanel>
+                                        </Border>
+
+                                        <Border Classes="Card" Width="600">
+
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">Stepper</TextBlock>
+
+                                              <suki:Stepper Name="stepstep">
+          
+                                              </suki:Stepper>
+
+                                                <StackPanel
+                                                    HorizontalAlignment="Center"
+                                                    Margin="0,50,0,0"
+                                                    Orientation="Horizontal"
+                                                    VerticalAlignment="Center">
+                                                    <Button Click="Button_OnClick">
+                                                        <TextBlock>Previous</TextBlock>
+                                                    </Button>
+                                                    <Button Click="nextStep">
+                                                        <TextBlock>Next</TextBlock>
+                                                    </Button>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Border>
+
+
+
+                                    </WrapPanel>
+                                </ScrollViewer>
+                            </suki:SideMenuItem.Content>
+                        </suki:SideMenuItem>
+                        <suki:SideMenuItem Header="Statistics" Icon="ChartLine">
+                            <suki:SideMenuItem.Content>
+                              <TextBlock
+                                  HorizontalAlignment="Center"
+                                  Text="Stats Page"
+                                  VerticalAlignment="Center" />
+                            </suki:SideMenuItem.Content>
+                        </suki:SideMenuItem>
+                        <suki:SideMenuItem Header="Library" Icon="BookmarkMultipleOutline">
+                            <suki:SideMenuItem.Content>
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    Text="Library Page"
+                                    VerticalAlignment="Center" />
+                            </suki:SideMenuItem.Content>
+                        </suki:SideMenuItem>
+                        <suki:SideMenuItem Header="Users" Icon="UserSearchOutline">
+                            <suki:SideMenuItem.Content>
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    Text="Users Page"
+                                    VerticalAlignment="Center" />
+                            </suki:SideMenuItem.Content>
+                        </suki:SideMenuItem>
+
+                    </suki:SideMenuModel.MenuItems>
+                    <suki:SideMenuModel.FooterMenuItems>
+                        <suki:SideMenuItem Header="Settings" Icon="SettingsOutline">
+                            <suki:SideMenuItem.Content>
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    Text="Settings Page"
+                                    VerticalAlignment="Center" />
+                            </suki:SideMenuItem.Content>
+                        </suki:SideMenuItem>
+                    </suki:SideMenuModel.FooterMenuItems>
+                    <suki:SideMenuModel.CurrentPage>
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Welcome in SukiUI !</TextBlock>
+                    </suki:SideMenuModel.CurrentPage>
+                </suki:SideMenuModel>
+            </suki:SideMenu.DataContext>
+        </suki:SideMenu>
+
+    </suki:DesktopPage>
+
+</Window>
