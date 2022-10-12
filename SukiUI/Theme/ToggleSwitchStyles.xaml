@@ -15,7 +15,7 @@
         </StackPanel>
     </Design.PreviewWith>
 
-    <Style Selector="ToggleSwitch">
+    <Style Selector="ToggleSwitch" >
       <Setter Property="Foreground"  >
         <Setter.Value>
           <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%" >
@@ -106,7 +106,7 @@
                           Grid.Row="1"
                           Height="20"
                           Width="40"
-                          x:Name="SwitchKnobBounds" >
+                          x:Name="SwitchKnobBoundsn" >
                         <Border.Background>
                          
                             <LinearGradientBrush EndPoint="0%,100%" StartPoint="50%,0%" >
@@ -117,6 +117,7 @@
                         <Border.Transitions>
                           <Transitions>
                             <DoubleTransition Property="Opacity" Duration="0:0:0.5"/>
+                            <BrushTransition Property="Background" Duration="0:0:0.5" />
                           </Transitions>
                         </Border.Transitions>
                       </Border>
@@ -136,17 +137,17 @@
                               <Ellipse
                                     
                                   Fill="White"
-                                  Height="17"
-                                  Width="17"
+                                  Height="16"
+                                  Width="16"
                                   x:Name="SwitchKnobOn" Margin="0,0,0,0" >
                                 
                               </Ellipse>
 
-                              <Border
+                              <Border BoxShadow="0 0 0 0 LightGray"
                                   Background="White" CornerRadius="10" 
-                                  Height="17" 
-                                  Width="17"
-                                  x:Name="SwitchKnobOff" Margin="0,0,0,0" ></Border>
+                                  Height="16" 
+                                  Width="16"
+                                  x:Name="SwitchKnobOff" Margin="0,1,0,0" ></Border>
                             </Grid>
                         </Canvas>
                     </Grid>
@@ -164,25 +165,25 @@
 
     <!--  NormalState  -->
     <Style Selector="ToggleSwitch /template/ Grid#SwitchAreaGrid">
-        <Setter Property="Background" Value="{DynamicResource ToggleSwitchContainerBackground}" />
+        <Setter Property="Background" Value="Transparent" />
     </Style>
 
     <Style Selector="ToggleSwitch /template/ Border#OuterBorder">
-        <Setter Property="Background" Value="{DynamicResource ToggleSwitchFillOff}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource ToggleSwitchStrokeOff}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
     </Style>
 
     <Style Selector="ToggleSwitch /template/ Border#SwitchKnobBounds">
-        <Setter Property="Background" Value="{DynamicResource ToggleSwitchFillOn}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource ToggleSwitchStrokeOn}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
     </Style>
 
     <Style Selector="ToggleSwitch /template/ Ellipse#SwitchKnobOn">
-        <Setter Property="Fill" Value="{DynamicResource ToggleSwitchKnobFillOn}" />
+        <Setter Property="Fill" Value="Transparent" />
     </Style>
 
     <Style Selector="ToggleSwitch /template/ Ellipse#SwitchKnobOff">
-        <Setter Property="Fill" Value="{DynamicResource ToggleSwitchKnobFillOff}" />
+        <Setter Property="Fill" Value="Transparent" />
     </Style>
 
     <Style Selector="ToggleSwitch:not(:dragging) /template/ Grid#MovingKnobs">
@@ -198,8 +199,8 @@
 
     <!--  PointerOverState  -->
     <Style Selector="ToggleSwitch:pointerover /template/ Border#OuterBorder">
-        <Setter Property="BorderBrush" Value="{DynamicResource ToggleSwitchStrokeOffPointerOver}" />
-        <Setter Property="Background" Value="{DynamicResource ToggleSwitchFillOffPointerOver}" />
+
+        <Setter Property="Background" Value="#dedede" />
       <Setter Property="BoxShadow" Value="0 0 2 0 #dddddd"></Setter>
       <Setter Property="Transitions">
         <Transitions>
@@ -210,16 +211,24 @@
     </Style>
 
     <Style Selector="ToggleSwitch:pointerover /template/ Ellipse#SwitchKnobOff">
-        <Setter Property="Fill" Value="{DynamicResource ToggleSwitchKnobFillOffPointerOver}" />
+        <Setter Property="Fill" Value="White" />
     </Style>
 
     <Style Selector="ToggleSwitch:pointerover /template/ Ellipse#SwitchKnobOn">
-        <Setter Property="Fill" Value="{DynamicResource ToggleSwitchKnobFillOnPointerOver}" />
+        <Setter Property="Fill" Value="Transparent" />
       
     </Style>
 
     <Style Selector="ToggleSwitch:pointerover /template/ Border#SwitchKnobBounds">
-        <Setter Property="Background" Value="{DynamicResource ToggleSwitchFillOnPointerOver}" />
+      <Setter Property="Background">
+       <Setter.Value>
+          <LinearGradientBrush EndPoint="0%,100%" StartPoint="50%,0%" >
+            <GradientStop Color="#597ef7" Offset="0.1"   />
+            <GradientStop Color="#2f54eb" Offset="0.9" />
+          </LinearGradientBrush>
+        </Setter.Value> 
+      </Setter>
+      
         <Setter Property="BorderBrush" Value="{DynamicResource ToggleSwitchStrokeOnPointerOver}" />
       <Setter Property="BoxShadow" Value="0 0 1 0 #2f54eb"></Setter>
       <Setter Property="Transitions">
@@ -241,7 +250,14 @@
     </Style>
 
     <Style Selector="ToggleSwitch:pressed /template/ Border#SwitchKnobBounds">
-        <Setter Property="Background" Value="{DynamicResource ToggleSwitchFillOnPressed}" />
+      <Setter Property="Background">
+        <Setter.Value>
+          <LinearGradientBrush EndPoint="0%,100%" StartPoint="50%,0%" >
+                              <GradientStop Color="#597ef7" Offset="0.1"   />
+                              <GradientStop Color="#2f54eb" Offset="0.9" />
+                            </LinearGradientBrush>
+        </Setter.Value>
+      </Setter>
         <Setter Property="BorderBrush" Value="{DynamicResource ToggleSwitchStrokeOnPressed}" />
     </Style>
 
@@ -289,7 +305,7 @@
         <Setter Property="Opacity" Value="0" />
     </Style>
 
-    <Style Selector="ToggleSwitch:checked  /template/ Border#SwitchKnobBounds">
+    <Style Selector="ToggleSwitch:checked  /template/ Border#SwitchKnobBoundsn">
         <Setter Property="Opacity" Value="1" />
     </Style>
 
@@ -318,8 +334,9 @@
         <Setter Property="Opacity" Value="0" />
     </Style>
 
-    <Style Selector="ToggleSwitch:unchecked  /template/ Border#SwitchKnobBounds">
-        <Setter Property="Opacity" Value="0" />
+    <Style Selector="ToggleSwitch:unchecked  /template/ Border#SwitchKnobBoundsn">
+        <Setter Property="Opacity" Value="1" />
+      <Setter Property="Background" Value="#dedede"></Setter>
     </Style>
 
     <Style Selector="ToggleSwitch:unchecked /template/ ContentPresenter#PART_OffContentPresenter">

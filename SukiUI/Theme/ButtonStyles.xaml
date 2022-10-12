@@ -84,6 +84,25 @@
 
     </Style>
 
+  <Style Selector="Button.Accent:pointerover">
+    <Setter Property="Background" Value="Transparent" />
+    
+  </Style>
+
+  <Style Selector="Button.Accent:pointerover /template/ ContentPresenter">
+
+    <Setter Property="RenderTransform">
+      <Setter.Value>
+        <ScaleTransform ScaleX="1.05" ScaleY="1.05" />
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+
+  <Style Selector="Button.Accent:pressed /template/ ContentPresenter">
+    <Setter Property="Background" Value="Transparent" />
+  </Style>
+
     <!-- <Style Selector="Button:pointerover /template/ ContentPresenter">
 
         <Setter Property="Background" Value="#fafafa" />
@@ -161,6 +180,7 @@
         <Setter Property="Transitions">
             <Transitions>
                 <BrushTransition Duration="0:0:0.3" Property="Background" />
+                <BrushTransition Duration="0:0:0.3" Property="BorderBrush" />
             </Transitions>
         </Setter>
     </Style>
@@ -174,7 +194,12 @@
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
-
+      <Setter Property="Transitions">
+        <Transitions>
+          <BrushTransition Duration="0:0:0.3" Property="Foreground" />
+         
+        </Transitions>
+      </Setter>
     </Style>
 
     <Style Selector="Button.Outlined:pointerover &gt; TextBlock">

@@ -24,13 +24,13 @@
     <SplitView
         DisplayMode="Overlay"
         IsPaneOpen="{Binding MenuVisibility}"
-        OpenPaneLength="356">
+        OpenPaneLength="316">
         <SplitView.Pane>
             <Grid>
                 <Border
                     BorderBrush="#ebebeb"
                     BorderThickness="0,0,1,0"
-                    Width="356">
+                    Width="316">
                     <DockPanel Background="White">
                         <Button
                             Classes="Accent"
@@ -41,9 +41,9 @@
 
                                 <material:MaterialIcon
                                     Foreground="Black"
-                                    Height="50"
+                                    Height="35"
                                     Kind="ChevronLeft"
-                                    Width="50" />
+                                    Width="35" />
                             </Grid>
                         </Button>
                         <StackPanel>
@@ -61,18 +61,18 @@
                                             Command="{Binding DataContext.ChangePage, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
                                             CommandParameter="{Binding}"
                                             GroupName="MenuItemsGroup"
-                                            Height="70"
+                                            Height="50"
                                             HorizontalAlignment="Center"
                                             Width="356">
                                             <Grid>
-                                                <DockPanel Margin="25,5,5,5">
+                                                <DockPanel Margin="5,5,5,5">
                                                     <material:MaterialIcon
-                                                        Height="40"
+                                                        Height="22" 
                                                         Kind="{Binding Icon}"
                                                         Margin="15,0,0,0"
-                                                        Width="40" />
+                                                        Width="22" />
                                                     <TextBlock
-                                                        FontSize="23"
+                                                        Classes="h4"
                                                         FontWeight="Medium"
                                                         Margin="20,8,8,8"
                                                         Text="{Binding Header}" />
@@ -118,13 +118,13 @@
                         Width="50">
                         <material:MaterialIcon
                             Foreground="DarkGray"
-                            Height="50"
+                            Height="30"
                             Kind="Menu"
-                            Width="50" />
+                            Width="30" />
 
                     </Button>
                     <TextBlock
-                        FontSize="40"
+                        Classes="h1"
                         FontWeight="DemiBold"
                         HorizontalAlignment="Left"
                         Margin="120,0,0,0"

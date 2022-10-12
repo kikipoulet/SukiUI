@@ -40,7 +40,7 @@
                 <TextBlock  FontWeight="DemiBold" Margin="10" HorizontalAlignment="Left" Text="{TemplateBinding Header}"></TextBlock>
                
                 <Border Margin="0,0,5,0"  HorizontalAlignment="Right" DockPanel.Dock="Right" CornerRadius="30" Classes="ExpanderToggle"  Width="25" Height="25">
-                  <ToggleButton Classes="Primary" Name="PART_toggle" Width="30" Height="30" BorderThickness="0" BorderBrush="#ebebeb"
+                  <ToggleButton Classes="Primary" Background="Transparent" Name="PART_toggle" Width="30" Height="30" BorderThickness="0" BorderBrush="#ebebeb"
                           HorizontalAlignment="Center" Margin="7,0,0,0.5"
                           VerticalAlignment="Center"
                            IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}" />
@@ -48,7 +48,7 @@
                 
               </DockPanel>
             </Border>
-            <ContentPresenter Name="PART_ContentPresenter"
+            <ContentPresenter Name="PART_ContentPresentenr"
                               Grid.Row="1"
                               IsVisible="{TemplateBinding IsExpanded}"
                               ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -69,8 +69,8 @@
                 BorderThickness="{TemplateBinding BorderThickness}"
                 CornerRadius="{TemplateBinding CornerRadius}">
           <Grid RowDefinitions="*,Auto">
-            <ToggleButton Name="PART_toggle" Grid.Row="1" Content="{TemplateBinding Header}" IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}" />
-            <ContentPresenter Name="PART_ContentPresenter"
+            <ToggleButton Name="PART_togglen" Grid.Row="1" Content="{TemplateBinding Header}" IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}" />
+            <ContentPresenter Name="PART_ContentPresentern"
                               Grid.Row="0"
                               IsVisible="{TemplateBinding IsExpanded}"
                               ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -136,17 +136,11 @@
               <Path Fill="{DynamicResource ThemeForegroundBrush}"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
-                      Data="M 0 2 L 4 6 L 0 10 Z" />
+                      Data="M 0 2 L 4 6 L 0 10 Z" >
+                
+              </Path>
             </Border>
-            <ContentPresenter Name="PART_ContentPresenter"
-                              Grid.Column="1"
-                              Background="Transparent"
-                              Content="{TemplateBinding Content}"
-                              ContentTemplate="{Binding $parent[Expander].HeaderTemplate}"
-                              VerticalAlignment="Center"
-                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                              Padding="{TemplateBinding Padding}"/>
+            
           </Grid>
         </Border>
       </ControlTemplate>
@@ -160,6 +154,11 @@
       <RotateTransform Angle="90" />
     </Setter>
   </Style>
+
+  <Style Selector="Expander:down:expanded /template/ ToggleButton#PART_toggle /template/ ContentPresenter">
+    <Setter Property="Background" Value="Transparent"></Setter>
+  </Style>
+  
   <Style Selector="Expander:up:expanded /template/ ToggleButton#PART_toggle /template/ Path">
     <Setter Property="RenderTransform">
       <RotateTransform Angle="-90" />

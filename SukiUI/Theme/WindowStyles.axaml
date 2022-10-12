@@ -7,10 +7,49 @@
     </Design.PreviewWith>
 
   <Style Selector="Window.NakedWindow">
-    <Setter Property="Background" Value="White"></Setter>
+    <Setter Property="Background" Value="Transparent"></Setter>
+ 
     <Setter Property="ExtendClientAreaToDecorationsHint" Value="True"></Setter>
     <Setter Property="ExtendClientAreaChromeHints" Value="NoChrome"></Setter>
     <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="-1"></Setter>
+    <Setter Property="CornerRadius" Value="15"></Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid>
 
+
+
+          <Border x:Name="PART_Root" Margin="10" BoxShadow="0 0 15 0 LightGray" 
+               CornerRadius="10" IsHitTestVisible="False" 
+                  Background="White"
+                  BorderBrush="#dedede"
+                  BorderThickness="1.2">
+
+
+            <Border ClipToBounds="True" CornerRadius="10">
+              <Grid>
+                <Border Name="PART_TransparencyFallback" CornerRadius="10"
+                  IsHitTestVisible="False" />
+                <Border Background="{TemplateBinding Background}" CornerRadius="10"
+                        IsHitTestVisible="False" />
+                <Panel Margin="{TemplateBinding WindowDecorationMargin}" 
+                       Background="Transparent" />
+              
+              <VisualLayerManager >
+            <ContentPresenter x:Name="PART_ContentPresenter" CornerRadius="10"
+                               ContentTemplate="{TemplateBinding ContentTemplate}"
+                               Content="{TemplateBinding Content}"
+                          
+                               HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                               VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" >
+
+            </ContentPresenter>
+              </VisualLayerManager>
+              </Grid>
+            </Border>
+        </Border>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
   </Style>
 </Styles>

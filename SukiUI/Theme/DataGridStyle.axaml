@@ -13,7 +13,7 @@
                         ContentTemplate="{TemplateBinding ContentTemplate}"
                         HorizontalContentAlignment="Center" HorizontalAlignment="Center"
                         Margin="{TemplateBinding Padding}"
-                        TextBlock.FontSize="25"
+                        
                         TextBlock.Foreground="{TemplateBinding Foreground}"
                         VerticalAlignment="Center" VerticalContentAlignment="Center" />
 
@@ -56,7 +56,7 @@
                         <ContentPresenter 
                             Content="{TemplateBinding Content}"
                             ContentTemplate="{TemplateBinding ContentTemplate}"
-                            TextBlock.FontSize="35" />
+                          />
 
                         <Path
                             Data="F1 M -5.215,6.099L 5.215,6.099L 0,0L -5.215,6.099 Z "
@@ -121,8 +121,8 @@
                     Name="PART_Root"
                     RowDefinitions="*,Auto,Auto">
 
-                  <Border
-                      CornerRadius="0" Padding="10"
+                  <Border 
+                      CornerRadius="0" Padding="18"
                       Grid.ColumnSpan="2"
                       Grid.RowSpan="2"
                       Name="BackgroundRectangle" >
@@ -157,19 +157,25 @@
         </Setter>
     </Style>
 
-    <Style Selector="DataGridRow /template/ Border#BackgroundRectangle">
-      <Setter Property="Opacity" Value="0" />
-        <Setter Property="Background" Value="#2f54eb" />
+    <Style Selector="DataGridRow:nth-child(even) /template/ Border#BackgroundRectangle">
+      <Setter Property="Opacity" Value="0.3" />
+        <Setter Property="Background" Value="WhiteSmoke" />
     </Style>
 
+  <Style Selector="DataGridRow /template/ Border#BackgroundRectangle">
+    <Setter Property="Opacity" Value="0" />
+    <Setter Property="Background" Value="#2f54eb" />
+  </Style>
     <Style Selector="DataGridRow:pointerover /template/ Border#BackgroundRectangle">
    
         <Setter Property="Opacity" Value="0.1" />
+      <Setter Property="Background" Value="#2f54eb" />
     </Style>
 
     <Style Selector="DataGridRow:selected /template/ Border#BackgroundRectangle">
        
         <Setter Property="Opacity" Value="0.15" />
+      <Setter Property="Background" Value="#2f54eb" />
     </Style>
 
     <Style Selector="DataGridRow:selected">

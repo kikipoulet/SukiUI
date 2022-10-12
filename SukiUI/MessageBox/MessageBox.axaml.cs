@@ -37,7 +37,7 @@ namespace SukiUI.MessageBox
         {
             var mbox = new MessageBox(Title, Message);
             mbox.FindControl<MaterialIcon>("Icone").Kind = Material.Icons.MaterialIconKind.InformationCircle;
-            mbox.FindControl<MaterialIcon>("Icone").Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2f54eb"));
+            mbox.FindControl<MaterialIcon>("Icone").Foreground = new SolidColorBrush(Color.FromRgb(47,84,235));
             mbox.WindowStartupLocation = startupLocation;
             
             mbox.ShowDialog(owner);

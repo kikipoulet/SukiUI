@@ -42,7 +42,7 @@
 
                                 </Button>
                                 <TextBlock
-                                    FontSize="40"
+                                    FontSize="50"
                                     FontWeight="DemiBold"
                                     HorizontalAlignment="Center"
                                     Text="{TemplateBinding Header}"

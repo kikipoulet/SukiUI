@@ -6,6 +6,7 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dialogHost="clr-namespace:DialogHost;assembly=DialogHost.Avalonia"
+   
     xmlns:material="using:Material.Icons.Avalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:suki="clr-namespace:SukiUI.Controls"
@@ -14,12 +15,12 @@
         <Style Selector="suki|DesktopPage">
             <Setter Property="Template">
                 <ControlTemplate>
-                  <dialogHost:DialogHost CloseOnClickAway="True" IsOpen="{TemplateBinding IsDialogOpen}" DialogContent="{TemplateBinding DialogChild}">
+                  <dialogHost:DialogHost   CloseOnClickAway="True" IsOpen="{TemplateBinding IsDialogOpen}" DialogContent="{TemplateBinding DialogChild}">
 
                     <DockPanel>
 
-                        <Border
-                            BorderBrush="#ebebeb"
+                        <Border 
+                            BorderBrush="#ebebeb" 
                             BorderThickness="0,0,0,1.5"
                             DockPanel.Dock="Top">
                             <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto">
@@ -48,59 +49,62 @@
                                     Items="{TemplateBinding MenuItems}"
                                     Margin="0,-5,0,0" />
 
-                                <DockPanel Grid.Column="2" HorizontalAlignment="Right">
-									<!-- Minimize button -->
-									<Button
-										Background="Transparent"
-                                        BorderThickness="0"
-										Classes="ZoomOnHover"
-										Click="MinimizeHandler"
-										Height="23"
-                                        Margin="0,9,9,9"
-                                        Padding="0"
-                                        Width="23"
-										IsVisible="{TemplateBinding IsMinimizeButtonEnabled}">
-										<material:MaterialIcon
-											Height="23"
-											Kind="WindowMinimize"
-											Width="23" />
-									</Button>
-									<!-- Maximize button -->
-									<Button
-										Background="Transparent"
-                                        BorderThickness="0"
-										Classes="ZoomOnHover"
-										Click="MaximizeHandler"
-										Height="23"
-                                        Margin="0,9,9,9"
-                                        Padding="0"
-                                        Width="23"
-										IsVisible="{TemplateBinding IsMaximizeButtonEnabled}">
-										<material:MaterialIcon
-											Height="23"
-											Kind="WindowMaximize"
-											Width="23" />
-									</Button>
-									<!-- Close button -->
-                                    <Button
-                                        Background="Transparent"
-                                        BorderThickness="0"
-                                        Classes="ZoomOnHover"
-                                        Click="CloseHandler"
+                                <DockPanel Grid.Column="2" Margin="0,0,5,0" HorizontalAlignment="Right">
+
+                                  <!-- Minimize button -->
+                                  <Button
+                                    Background="Transparent"
+                                                        BorderThickness="0"
+                                    Classes="ZoomOnHover"
+                                    Click="MinimizeHandler"
+                                    Height="23"
+                                                        Margin="0,2,1,0"
+                                                        Padding="0"
+                                                        Width="23"
+                                    IsVisible="{TemplateBinding IsMinimizeButtonEnabled}">
+                                    <material:MaterialIcon Margin="0,5,0,0"
+                                      Height="14" Foreground="Gray"
+                                      Kind="WindowMinimize"
+                                      Width="14" />
+                                  </Button>
+                                  <!-- Maximize button -->
+                                  <Button
+                                    Background="Transparent"
+                                                        BorderThickness="0"
+                                    Classes="ZoomOnHover"
+                                    Click="MaximizeHandler"
+                                    Height="23"
+                                                        Margin="0,2,1,0"
+                                                        Padding="0"
+                                                        Width="23"
+                                    IsVisible="{TemplateBinding IsMaximizeButtonEnabled}">
+                                    <material:MaterialIcon
+                                      Height="14" Foreground="Gray"
+                                      Kind="WindowRestore"
+                                      Width="14" />
+                                  </Button>
+                                  <!-- Close button -->
+                         
+                                  <Button
+                                       Background="Transparent"
+                                       BorderThickness="0"
+                                       Classes="Accent"
+                                       Click="CloseHandler"
+                                       Height="23"
+                                       Margin="0,9,9,9"
+                                       Padding="0"
+                                       Width="23">
+                                    <material:MaterialIcon 
+                                        Foreground="DarkRed"
                                         Height="23"
-                                        Margin="0,9,9,9"
-                                        Padding="0"
-                                        Width="23">
-                                        <material:MaterialIcon
-                                            Foreground="DarkRed"
-                                            Height="23"
-                                            Kind="CloseCircleOutline"
-                                            Width="23" />
-                                    </Button>
+                                        Kind="CloseCircleOutline"
+                                        Width="23" />
+
+                                  </Button>
                                 </DockPanel>
                             </Grid>
                         </Border>
-                        <Grid Background="#fafafa">
+                        <Grid Background="Transparent">
 
                            
                               <ContentControl Content="{TemplateBinding Content}" />

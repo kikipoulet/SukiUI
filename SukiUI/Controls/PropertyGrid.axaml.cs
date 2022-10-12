@@ -157,7 +157,7 @@ namespace SukiUI.Controls
 
             else if (property.GetValue(Item).GetType() == typeof(int))
             {
-                var prop = new NumericUpDown() {  Width = Width / 2.5, Height = 36, Value = Double.Parse(property.GetValue(Item).ToString()), Increment = 1, Padding = new Thickness(0,0,5,0), HorizontalAlignment = HorizontalAlignment.Right, HorizontalContentAlignment = HorizontalAlignment.Right,  Margin = new Thickness(0,2,10,2)};
+                var prop = new NumericUpDown() {  Width = Width / 2.5, Height = 36, Value = Decimal.Parse(property.GetValue(Item).ToString()), Increment = 1, Padding = new Thickness(0,0,5,0), HorizontalAlignment = HorizontalAlignment.Right, HorizontalContentAlignment = HorizontalAlignment.Right,  Margin = new Thickness(0,2,10,2)};
                 prop.GetObservable(NumericUpDown.ValueProperty).Subscribe(value => property.SetValue(Item,Int32.Parse( value.ToString())));
                 gridItem.Children.Add(prop);
                 Grid.SetColumn(prop, 1);
@@ -165,8 +165,8 @@ namespace SukiUI.Controls
 
             else if (property.GetValue(Item).GetType() == typeof(double))
             {
-                var prop = new NumericUpDown() { Width = Width / 2.5 , Height = 36, Value = (double)property.GetValue(Item), Increment= 0.001, Padding = new Thickness(0,0,5,0), HorizontalAlignment = HorizontalAlignment.Right, HorizontalContentAlignment = HorizontalAlignment.Right, Margin = new Thickness(0,2,10,2) };
-                prop.GetObservable(NumericUpDown.ValueProperty).Subscribe(value => property.SetValue(Item, value));
+                var prop = new NumericUpDown() { Width = Width / 2.5 , Height = 36, Value = (decimal?)(double)property.GetValue(Item), Increment= 0.001M, Padding = new Thickness(0,0,5,0), HorizontalAlignment = HorizontalAlignment.Right, HorizontalContentAlignment = HorizontalAlignment.Right, Margin = new Thickness(0,2,10,2) };
+                prop.GetObservable(NumericUpDown.ValueProperty).Subscribe(value => property.SetValue(Item, Double.Parse(value.ToString())));
                 gridItem.Children.Add(prop);
                 Grid.SetColumn(prop, 1);
             }

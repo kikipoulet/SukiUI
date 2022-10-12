@@ -20,7 +20,7 @@
     <Style Selector="TabItem">
         <Setter Property="FontSize" Value="{DynamicResource TabItemHeaderFontSize}" />
         <Setter Property="FontWeight" Value="{DynamicResource TabItemHeaderThemeFontWeight}" />
-        <Setter Property="Background" Value="{DynamicResource TabItemHeaderBackgroundUnselected}" />
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource TabItemHeaderForegroundUnselected}" />
         <Setter Property="Padding" Value="{DynamicResource TabItemHeaderMargin}" />
         <Setter Property="Margin" Value="0" />
@@ -32,14 +32,15 @@
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
                     CornerRadius="{TemplateBinding CornerRadius}"
-                    Name="PART_LayoutRoot"
+                    Name="PART_LayoutRootn"
+                    Background="Transparent"
                     Padding="{TemplateBinding Padding}">
                     <Panel>
                         <ContentPresenter
                             Content="{TemplateBinding Header}"
                             ContentTemplate="{TemplateBinding HeaderTemplate}"
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            Name="PART_ContentPresenter"
+                            Name="PART_ContentPresentern"
                             Padding="7,12"
                             TextBlock.FontFamily="{TemplateBinding FontFamily}"
                             TextBlock.FontSize="{TemplateBinding FontSize}"
@@ -79,7 +80,7 @@
                     BorderThickness="{TemplateBinding BorderThickness}"
                     CornerRadius="{TemplateBinding CornerRadius}"
                     Margin="0,0,0,0"
-                    Name="PART_LayoutRoot"
+                    Name="PART_LayoutRootn"
                     Padding="{TemplateBinding Padding}">
                     <Panel>
 
@@ -109,7 +110,7 @@
     </Style>
 
     <!--  Selected state  -->
-    <!--  We don't use selector to PART_LayoutRoot, so developer can override selected item background with TabStripItem.Background  -->
+    <!--  We don't use selector to PART_LayoutRootn, so developer can override selected item background with TabStripItem.Background  -->
     <Style Selector="TabItem:selected">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="CornerRadius" Value="5" />

@@ -39,14 +39,14 @@
                                 </LinearGradientBrush>
 
                             </Arc.Stroke>
-                            <!--   <Arc.Transitions>
+                           <Arc.Transitions>
                                 <Transitions>
                                     <DoubleTransition
                                         Duration="0:0:0.8"
                                         Easing="CircularEaseOut"
                                         Property="SweepAngle" />
                                 </Transitions>
-                            </Arc.Transitions>-->
+                            </Arc.Transitions>
                         </Arc>
                         <ContentControl
                             Content="{TemplateBinding Content}"

@@ -115,7 +115,7 @@ namespace SukiUI.Controls
             set { SetValue(DialogChildProperty, value); }
         }
 
-        public static readonly StyledProperty<bool> IsMinimizeButtonEnabledProperty = AvaloniaProperty.Register<DesktopPage, bool>(nameof(IsMinimizeButtonEnabled), defaultValue: false);
+        public static readonly StyledProperty<bool> IsMinimizeButtonEnabledProperty = AvaloniaProperty.Register<DesktopPage, bool>(nameof(IsMinimizeButtonEnabled), defaultValue: true);
 
         public bool IsMinimizeButtonEnabled
         {
@@ -123,7 +123,7 @@ namespace SukiUI.Controls
             set { SetValue(IsMinimizeButtonEnabledProperty, value); }
         }
 
-        public static readonly StyledProperty<bool> IsMaximizeButtonEnabledProperty = AvaloniaProperty.Register<DesktopPage, bool>(nameof(IsMaximizeButtonEnabled), defaultValue: false);
+        public static readonly StyledProperty<bool> IsMaximizeButtonEnabledProperty = AvaloniaProperty.Register<DesktopPage, bool>(nameof(IsMaximizeButtonEnabled), defaultValue: true);
 
         public bool IsMaximizeButtonEnabled
         {
@@ -159,6 +159,7 @@ namespace SukiUI.Controls
         /// <summary>
         /// Closes Avalonia window
         /// </summary>
+
         private void CloseHandler(object sender, RoutedEventArgs e)
         {
             Window hostWindow = (Window)this.VisualRoot;

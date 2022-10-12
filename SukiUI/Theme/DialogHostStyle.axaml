@@ -23,8 +23,8 @@
   <Style Selector="dialogHost|DialogHost">
     <Setter Property="HorizontalAlignment" Value="Stretch" />
     <Setter Property="VerticalAlignment" Value="Stretch" />
-    <Setter Property="DialogMargin" Value="8" />
-    <Setter Property="OverlayBackground" Value="Gray"></Setter>
+    <Setter Property="OverlayBackground" Value="Red"></Setter>
+    
     <Setter Property="dialogHost:DialogHostStyle.CornerRadius" Value="2"></Setter>
     <Setter Property="Template">
       <ControlTemplate>
@@ -35,7 +35,7 @@
                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
           <Grid Name="PART_ContentCoverGrid"
-                Background="Gray"
+                Background="WhiteSmoke"
                 Focusable="False">
             <Grid.Styles>
               <Style Selector="Grid#PART_ContentCoverGrid[Opacity=0]">
@@ -44,26 +44,30 @@
               <Style Selector="Grid#PART_ContentCoverGrid:not(.notransitions)">
                 <Setter Property="Transitions">
                   <Transitions>
-                    <DoubleTransition Property="Opacity" Easing="LinearEasing" Duration="0:0:0.1" />
+                    <DoubleTransition Property="Opacity" Easing="LinearEasing" Duration="0:0:0.5" />
                   </Transitions>
                 </Setter>
               </Style>
             </Grid.Styles>
           </Grid>
-          <OverlayLayer Name="PART_OverlayLayer" />
+          <OverlayLayer Name="PART_OverlayLayer" >
+   
+          </OverlayLayer>
         </Grid>
       </ControlTemplate>
     </Setter>
     <Setter Property="PopupTemplate">
       <ControlTemplate>
-        <VisualLayerManager IsPopup="True" Name="PART_DialogPopupRoot" ClipToBounds="False">
-          <Border Name="PART_ContentBackground"
+        <VisualLayerManager  IsPopup="True" Name="PART_DialogPopupRoot" ClipToBounds="False">
+          <Border Name="PART_ContentBackground"  
                 Background="Transparent" ClipToBounds="False">
             <ContentPresenter Name="PART_ContentPresenter"
                               Background="{TemplateBinding Background}"
                               ContentTemplate="{TemplateBinding ContentTemplate}"
                               Content="{TemplateBinding Content}"
-                              Padding="{TemplateBinding Padding}" />
+                              Padding="{TemplateBinding Padding}" >
+         
+            </ContentPresenter>
           </Border>
         </VisualLayerManager>
       </ControlTemplate>
@@ -115,10 +119,10 @@
 
   <Style Selector="dialogHost|DialogOverlayPopupHost[IsOpen=True][DisableOpeningAnimation=False]">
     <Style.Animations>
-      <Animation Duration="0:0:0.1" Easing="SineEaseInOut" FillMode="Both">
+      <Animation Duration="0:0:0.4" Easing="SineEaseInOut" FillMode="Both">
         <KeyFrame Cue="0%">
-          <Setter Property="ScaleTransform.ScaleY" Value="0" />
-          <Setter Property="ScaleTransform.ScaleX" Value="0" />
+          <Setter Property="ScaleTransform.ScaleY" Value="0.7" />
+          <Setter Property="ScaleTransform.ScaleX" Value="0.7" />
           <Setter Property="Opacity" Value="0" />
         </KeyFrame>
         <KeyFrame Cue="100%">
@@ -132,20 +136,20 @@
 
   <Style Selector="dialogHost|DialogOverlayPopupHost[IsOpen=False][DisableOpeningAnimation=False]">
     <Style.Animations>
-      <Animation Duration="0:0:0.3" Easing="SineEaseInOut" FillMode="Both">
+      <Animation Duration="0:0:0.5" Easing="SineEaseInOut" FillMode="Both">
         <KeyFrame Cue="0%">
           <Setter Property="ScaleTransform.ScaleY" Value="1" />
           <Setter Property="ScaleTransform.ScaleX" Value="1" />
           <Setter Property="Opacity" Value="1" />
         </KeyFrame>
         <KeyFrame Cue="60%">
-          <Setter Property="ScaleTransform.ScaleY" Value="1" />
-          <Setter Property="ScaleTransform.ScaleX" Value="1" />
+          <Setter Property="ScaleTransform.ScaleY" Value="0.8" />
+          <Setter Property="ScaleTransform.ScaleX" Value="0.8" />
           <Setter Property="Opacity" Value="1" />
         </KeyFrame>
         <KeyFrame Cue="100%">
-          <Setter Property="ScaleTransform.ScaleY" Value="0.5" />
-          <Setter Property="ScaleTransform.ScaleX" Value="0.5" />
+          <Setter Property="ScaleTransform.ScaleY" Value="0.7" />
+          <Setter Property="ScaleTransform.ScaleX" Value="0.7" />
           <Setter Property="Opacity" Value="0" />
           <Setter Property="IsActuallyOpen" Value="False"></Setter>
         </KeyFrame>

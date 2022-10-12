@@ -20,7 +20,7 @@ namespace SukiUI.Controls
 
     public class SideMenuModel : ReactiveObject
     {
-        
+
 
         private bool menuvisibility = true;
 
@@ -63,7 +63,7 @@ namespace SukiUI.Controls
             get => menuItems;
             set => this.RaiseAndSetIfChanged(ref menuItems, value);
         }
-        
+
         private List<SideMenuItem> footermenuItems = new List<SideMenuItem>();
 
         public List<SideMenuItem> FooterMenuItems
@@ -79,7 +79,7 @@ namespace SukiUI.Controls
         }
 
 
-        private bool headerContentOverlapsToggleSidebarButton = true;
+        private bool headerContentOverlapsToggleSidebarButton = false;
         /// <summary>
         /// Defines if header content can overlap sidebar visibility button.
         /// If true - they can take the same spot in the UI, which can lead to bugs when the content is too wide.

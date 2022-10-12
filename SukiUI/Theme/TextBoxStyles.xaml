@@ -17,7 +17,7 @@
                     Width="200" />
                 <TextBox
                     Classes="BottomBar"
-                    Height="25"
+                    Height="35"
                     Margin="5"
                     Text="Elem"
                     Width="200" />
@@ -321,7 +321,7 @@
 
     <Style Selector="TextBox">
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="BorderThickness" Value="1.2" />
+        <Setter Property="BorderThickness" Value="1.4" />
 
         <Setter Property="BorderBrush" Value="#dedede" />
         <Setter Property="CornerRadius" Value="5" />
@@ -353,8 +353,8 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderBrush}"
                             ClipToBounds="True"
-                            CornerRadius="1"
-                            Margin="-1"
+                            CornerRadius="2"
+                            Margin="1,-1,1,-1"
                             Name="borderbottom">
                             <Border.Transitions>
                                 <Transitions>

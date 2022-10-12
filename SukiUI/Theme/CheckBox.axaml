@@ -1,6 +1,6 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
-        <Border Background="WhiteSmoke" Padding="20">
+        <Border Background="White" Padding="20">
             <StackPanel>
                 <CheckBox Margin="20" />
                 <CheckBox IsChecked="True" Margin="20" />
@@ -22,8 +22,8 @@
                 <Grid ColumnDefinitions="Auto,*">
                     <Border
                         Background="{TemplateBinding Background}"
-                        BorderBrush="#dedede"
-                        BorderThickness="{TemplateBinding BorderThickness}"
+                        BorderBrush="#eaeaea"
+                        BorderThickness="1"
                         CornerRadius="18"
                         Height="18"
                         Name="border"
@@ -74,6 +74,11 @@
         <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderHighBrush}" />
         <Setter Property="BoxShadow" Value="0 0 3 LightGray" />
     </Style>
+
+  <Style Selector="CheckBox /template/ Border#border">
+    <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderHighBrush}" />
+   
+  </Style>
 
     <Style Selector="CheckBox:checked /template/ Border#border">
         <Setter Property="Background" Value="#84cd80" />

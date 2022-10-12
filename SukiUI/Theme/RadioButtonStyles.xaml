@@ -28,7 +28,14 @@
     <Style Selector="RadioButton.MenuItemMobile:checked /template/ Border">
         <Setter Property="CornerRadius" Value="0,50,50,0" />
 
-        <Setter Property="Background" Value="#eeeeee" />
+      <Setter Property="Background"  >
+        <Setter.Value>
+          <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
+            <GradientStop Color="#637ff0" Offset="0.1" />
+            <GradientStop Color="#4969ed" Offset="0.6" />
+          </LinearGradientBrush>
+        </Setter.Value>
+      </Setter>
     </Style>
 
 
@@ -43,7 +50,7 @@
                     <Border
                         Background="{TemplateBinding Background}"
                         Margin="0,0,40,0"
-                        Width="356">
+                        Width="296">
                         <ContentPresenter
                             Content="{TemplateBinding Content}"
                             ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -58,9 +65,24 @@
             </ControlTemplate>
         </Setter>
     </Style>
+  <Style Selector="RadioButton.MenuItemMobile:checked  TextBlock">
+    <Setter Property="Foreground" Value="White" />
+    <Setter Property="FontWeight" Value="DemiBold" />
+  </Style>
 
 
-    <Style Selector="RadioButton.MenuItem">
+  <Style Selector="RadioButton.MenuItemMobile material|MaterialIcon">
+    <Setter Property="Foreground" Value="#333333" />
+
+  </Style>
+
+  <Style Selector="RadioButton.MenuItemMobile:checked material|MaterialIcon">
+    <Setter Property="Foreground" Value="White" />
+
+  </Style>
+  
+
+  <Style Selector="RadioButton.MenuItem">
         <Setter Property="Height" Value="50" />
         <Setter Property="Margin" Value="-30,0,5,0" />
         <Setter Property="Background" Value="Transparent" />
@@ -160,7 +182,7 @@
 
 
     <Style Selector="RadioButton.MenuItem:checked">
-        <Setter Property="BorderThickness" Value="0,0,5,0" />
+        <Setter Property="BorderThickness" Value="0,0,0,0" />
         <Setter Property="BorderBrush">
             <RadialGradientBrush>
                 <GradientStop Color="#2f54eb" Offset="0.1" />
@@ -184,7 +206,7 @@
             </Transitions>
 
         </Setter>
-        <Setter Property="BorderThickness" Value="0,0,5,0" />
+        <Setter Property="BorderThickness" Value="0,0,0,0" />
         <Setter Property="BorderBrush">
             <RadialGradientBrush>
                 <GradientStop Color="#2f54eb" Offset="0.1" />

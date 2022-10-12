@@ -30,7 +30,7 @@
               </Transitions>
             </Ellipse.Transitions>
           </Ellipse>
-                            <ContentPresenter Name="PART_ContentPresenter" Margin="-8,0,0,0"
+                            <ContentPresenter Name="PART_ContentPresentern" Margin="-8,0,0,0"
                           Background="Transparent"
                           BorderBrush="Transparent"
                           BorderThickness="{TemplateBinding BorderThickness}"
@@ -47,4 +47,12 @@
     </Setter>
   </Style>
 
+  <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresentern">
+    <Setter Property="Background" Value="Transparent"></Setter>
+  </Style>
+
+
+  <Style Selector="ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresentern">
+    <Setter Property="Background" Value="Transparent"></Setter>
+  </Style>
 </Styles>
