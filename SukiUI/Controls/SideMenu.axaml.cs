@@ -15,8 +15,6 @@ namespace SukiUI.Controls
         public SideMenu()
         {
             InitializeComponent();
-
-
         }
 
         private void InitializeComponent()

@@ -10,99 +10,122 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:suki="clr-namespace:SukiUI.Controls"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <UserControl.Styles>
-        <Style Selector="material|MaterialIcon">
-            <Setter Property="Foreground" Value="#444444" />
+	<UserControl.Styles>
+		<Style Selector="material|MaterialIcon">
+			<Setter Property="Foreground" Value="#444444" />
 
-        </Style>
-
-
-    </UserControl.Styles>
-    <Design.DataContext />
+		</Style>
 
 
-    <SplitView
+	</UserControl.Styles>
+	<Design.DataContext />
+
+
+	<SplitView
         DisplayMode="CompactInline"
         IsPaneOpen="{Binding MenuVisibility}"
         OpenPaneLength="256"
         PaneClosing="PaneIsClosing">
 
-        <SplitView.Pane>
-            <Border BorderBrush="#ebebeb" BorderThickness="0,0,1.5,0">
-                <Grid Background="White">
-                    <Button
-                        Classes="Accent"
-                        Command="{Binding ChangeMenuVisibility}"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Top">
-                        <Grid>
-                            <material:MaterialIcon
-                                Foreground="Black"
-                                IsVisible="{Binding !MenuVisibility}"
-                                Kind="ChevronRight" />
-                            <material:MaterialIcon
-                                Foreground="Black"
-                                IsVisible="{Binding MenuVisibility}"
-                                Kind="ChevronLeft" />
-                        </Grid>
-                    </Button>
-                    <DockPanel>
+		<SplitView.Pane>
+			<Border BorderBrush="#ebebeb" BorderThickness="0,0,1.5,0">
+				<Grid Background="White">
+					<!-- This sidebar toggle button is used when header content can overlap it-->
+					<Button
+							Classes="Accent"
+							Command="{Binding ChangeMenuVisibility}"
+							HorizontalAlignment="Right"
+							VerticalAlignment="Top"
+							IsVisible="{Binding HeaderContentOverlapsToggleSidebarButton}">
+						<Grid>
+							<material:MaterialIcon
+								Foreground="Black"
+								IsVisible="{Binding !MenuVisibility}"
+								Kind="ChevronRight" />
+							<material:MaterialIcon
+								Foreground="Black"
+								IsVisible="{Binding MenuVisibility}"
+								Kind="ChevronLeft" />
+						</Grid>
+					</Button>
 
-                        <Grid DockPanel.Dock="Top" IsVisible="{Binding MenuVisibility}">
-                            <ContentControl Content="{Binding HeaderContent}" />
-                        </Grid>
+					<DockPanel>
+						<!-- This sidebar toggle button can't be overlapped by header content -->
+						<Button
+							IsVisible="{Binding !HeaderContentOverlapsToggleSidebarButton}"
+                            Classes="Accent"
+                            Command="{Binding ChangeMenuVisibility}"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top" DockPanel.Dock="Top">
+							<Grid>
+								<material:MaterialIcon
+									Foreground="Black"
+									IsVisible="{Binding !MenuVisibility}"
+									Kind="ChevronRight" />
+								<material:MaterialIcon
+									Foreground="Black"
+									IsVisible="{Binding MenuVisibility}"
+									Kind="ChevronLeft" />
+							</Grid>
+						</Button>
 
-                        <Grid
+
+						<Grid DockPanel.Dock="Top" IsVisible="{Binding MenuVisibility}" MinHeight="{Binding HeaderMinHeight}">
+							<ContentControl Content="{Binding HeaderContent}" />
+						</Grid>
+
+						<!-- Used to move menu icons down when sidebar is closed-->
+						<Grid
                             DockPanel.Dock="Top"
                             Height="40"
-                            IsVisible="{Binding !MenuVisibility}" />
+                            IsVisible="{Binding SpacerEnabled}" />
 
 
-                        <ItemsControl
+						<ItemsControl
                             DockPanel.Dock="Bottom"
                             Items="{Binding FooterMenuItems}"
                             Margin="0,0,0,10">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <RadioButton
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<RadioButton
                                         Classes="MenuItem"
                                         Command="{Binding DataContext.ChangePage, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
                                         CommandParameter="{Binding Content}"
                                         GroupName="MenuItemsGroup"
                                         HorizontalAlignment="Center"
                                         Width="295">
-                                        <Grid Margin="15,0,0,0">
-                                            <DockPanel IsVisible="{Binding DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" Margin="55,5,5,5">
-                                                <material:MaterialIcon
+										<Grid Margin="15,0,0,0">
+											<DockPanel IsVisible="{Binding DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" Margin="55,5,5,5">
+												<material:MaterialIcon
                                                     Height="22"
                                                     Kind="{Binding Icon}"
                                                     Width="22" />
-                                                <TextBlock
+												<TextBlock
                                                     FontSize="16"
                                                     FontWeight="Medium"
                                                     Margin="15,8,8,8"
                                                     Text="{Binding Header}" />
-                                            </DockPanel>
-                                            <Border HorizontalAlignment="Center" IsVisible="{Binding !DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}">
-                                                <material:MaterialIcon
+											</DockPanel>
+											<Border HorizontalAlignment="Center" IsVisible="{Binding !DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}">
+												<material:MaterialIcon
                                                     Height="22"
                                                     HorizontalAlignment="Center"
                                                     Kind="{Binding Icon}"
                                                     Margin="30,0,10,0"
                                                     VerticalAlignment="Center"
                                                     Width="22" />
-                                            </Border>
-                                        </Grid>
-                                    </RadioButton>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+											</Border>
+										</Grid>
+									</RadioButton>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
 
-                        <ScrollViewer>
-                            <ItemsControl Items="{Binding MenuItems}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <RadioButton
+						<ScrollViewer>
+							<ItemsControl Items="{Binding MenuItems}">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<RadioButton
                                             Classes="MenuItem"
                                             Command="{Binding DataContext.ChangePage, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
                                             CommandParameter="{Binding Content}"
@@ -112,44 +135,44 @@
 
 
 
-                                            <Grid Margin="15,0,0,0">
-                                                <DockPanel IsVisible="{Binding DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" Margin="55,5,5,5">
-                                                    <material:MaterialIcon
+											<Grid Margin="15,0,0,0">
+												<DockPanel IsVisible="{Binding DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" Margin="55,5,5,5">
+													<material:MaterialIcon
                                                         Height="22"
                                                         Kind="{Binding Icon}"
                                                         Width="22" />
-                                                    <TextBlock
+													<TextBlock
                                                         FontSize="16"
                                                         FontWeight="Medium"
                                                         Margin="15,8,8,8"
                                                         Text="{Binding Header}" />
-                                                </DockPanel>
-                                                <Border HorizontalAlignment="Center" IsVisible="{Binding !DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}">
-                                                    <material:MaterialIcon
+												</DockPanel>
+												<Border HorizontalAlignment="Center" IsVisible="{Binding !DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}">
+													<material:MaterialIcon
                                                         Height="22"
                                                         HorizontalAlignment="Center"
                                                         Kind="{Binding Icon}"
                                                         Margin="30,0,10,0"
                                                         VerticalAlignment="Center"
                                                         Width="22" />
-                                                </Border>
-                                            </Grid>
-                                        </RadioButton>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
+												</Border>
+											</Grid>
+										</RadioButton>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
 
 
-                        </ScrollViewer>
-                    </DockPanel>
-                </Grid>
-            </Border>
-        </SplitView.Pane>
+						</ScrollViewer>
+					</DockPanel>
+				</Grid>
+			</Border>
+		</SplitView.Pane>
 
-        <Grid Background="#fafafa">
-            <ContentControl Content="{Binding CurrentPage}" />
+		<Grid Background="#fafafa">
+			<ContentControl Content="{Binding CurrentPage}" />
 
-        </Grid>
-    </SplitView>
+		</Grid>
+	</SplitView>
 
 </UserControl>

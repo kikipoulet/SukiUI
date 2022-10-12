@@ -1,4 +1,5 @@
-﻿using Avalonia.Controls;
+﻿using Avalonia;
+using Avalonia.Controls;
 using Material.Icons;
 using ReactiveUI;
 using System;
@@ -19,7 +20,6 @@ namespace SukiUI.Controls
 
     public class SideMenuModel : ReactiveObject
     {
-
         
 
         private bool menuvisibility = true;
@@ -27,7 +27,11 @@ namespace SukiUI.Controls
         public bool MenuVisibility
         {
             get => menuvisibility;
-            set => this.RaiseAndSetIfChanged(ref menuvisibility, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref menuvisibility, value);
+                this.RaisePropertyChanged("SpacerEnabled");
+            }
         }
 
         public void ChangeMenuVisibility()
@@ -73,5 +77,30 @@ namespace SukiUI.Controls
         {
             CurrentPage = o;
         }
+
+
+        private bool headerContentOverlapsToggleSidebarButton = true;
+        /// <summary>
+        /// Defines if header content can overlap sidebar visibility button.
+        /// If true - they can take the same spot in the UI, which can lead to bugs when the content is too wide.
+        /// If false - header content moves below the sidebar button.
+        /// Default is true.
+        /// </summary>
+        public bool HeaderContentOverlapsToggleSidebarButton
+        {
+            get => headerContentOverlapsToggleSidebarButton;
+            set => this.RaiseAndSetIfChanged(ref headerContentOverlapsToggleSidebarButton, value);
+        }
+
+        /// <summary>
+        /// Defines if element that moves menu buttons down is enabled.
+        /// </summary>
+        // Property name must be equal to string inside MenuVisibility property.
+        private bool SpacerEnabled
+        {
+            get { return HeaderContentOverlapsToggleSidebarButton && !MenuVisibility; }
+        }
+
+        public int HeaderMinHeight { get => HeaderContentOverlapsToggleSidebarButton ? 40 : 0; }
     }
 }
