@@ -1,50 +1,81 @@
-<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="AndroidTest.Views.ViewMobileMenu"
-              xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
-               xmlns:views="clr-namespace:AndroidTest.Views"
-xmlns:material="using:Material.Icons.Avalonia">
-  <suki:MobileMenuPage Name="myMenu">
-    <suki:MobileMenuPage.DataContext>
-      <suki:MobileMenuPageViewModel MenuVisibility="False">
-        <suki:MobileMenuPageViewModel.HeaderContent>
-          <StackPanel HorizontalAlignment="Center">
-            
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="AndroidTest.Views.ViewMobileMenu"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:material="using:Material.Icons.Avalonia"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+    xmlns:views="clr-namespace:AndroidTest.Views"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <suki:MobileMenuPage Name="myMenu">
+        <suki:MobileMenuPage.DataContext>
+            <suki:MobileMenuPageViewModel MenuVisibility="False">
+                <suki:MobileMenuPageViewModel.HeaderContent>
+                    <StackPanel HorizontalAlignment="Center">
 
-              <material:MaterialIcon HorizontalAlignment="Center" DockPanel.Dock="Left" Kind="UserCircleOutline" Margin="0,20,0,0" Height="100" Width="100" Foreground="DarkGray"></material:MaterialIcon>
-             
-              <TextBlock HorizontalAlignment="Center" Text="Jean Valjean" FontSize="23" FontWeight="DemiBold" Margin="0,10,0,0"></TextBlock>
-              <TextBlock HorizontalAlignment="Center" Text="JeanValjean@mymail.com"  FontSize="15" FontWeight="Thin" Margin="0,0,0,0"></TextBlock>
-          
-           
-            <Border Height="1" Width="260" HorizontalAlignment="Center" Background="LightGray" Margin="0,15,0,0"></Border>
-          </StackPanel>
-        </suki:MobileMenuPageViewModel.HeaderContent>
 
-        <suki:MobileMenuPageViewModel.MenuItems>
-          <suki:SideMenuItem Header="DashBoard" Icon="CircleOutline">
-            <suki:SideMenuItem.Content>
-              <views:Dashboard></views:Dashboard>
-            </suki:SideMenuItem.Content>
-          </suki:SideMenuItem>
+                        <material:MaterialIcon
+                            DockPanel.Dock="Left"
+                            Foreground="DarkGray"
+                            Height="100"
+                            HorizontalAlignment="Center"
+                            Kind="UserCircleOutline"
+                            Margin="0,20,0,0"
+                            Width="100" />
 
-          <suki:SideMenuItem Header="Settings" Icon="Settings">
-            <suki:SideMenuItem.Content>
-              <views:SettingsPage></views:SettingsPage>
-            </suki:SideMenuItem.Content>
-          </suki:SideMenuItem>
+                        <TextBlock
+                            FontSize="23"
+                            FontWeight="DemiBold"
+                            HorizontalAlignment="Center"
+                            Margin="0,10,0,0"
+                            Text="Jean Valjean" />
+                        <TextBlock
+                            FontSize="15"
+                            FontWeight="Thin"
+                            HorizontalAlignment="Center"
+                            Margin="0,0,0,0"
+                            Text="JeanValjean@mymail.com" />
 
-          <suki:SideMenuItem Header="Login" Icon="Login">
-            <suki:SideMenuItem.Content>
-              <views:MainView></views:MainView>
-            </suki:SideMenuItem.Content>
-          </suki:SideMenuItem>
-        </suki:MobileMenuPageViewModel.MenuItems>
-      </suki:MobileMenuPageViewModel>
-    </suki:MobileMenuPage.DataContext>
-  </suki:MobileMenuPage>
+
+                        <Border
+                            Background="LightGray"
+                            Height="1"
+                            HorizontalAlignment="Center"
+                            Margin="0,15,0,0"
+                            Width="260" />
+                    </StackPanel>
+                </suki:MobileMenuPageViewModel.HeaderContent>
+
+                <suki:MobileMenuPageViewModel.MenuItems>
+                    <suki:SideMenuItem Header="DashBoard" Icon="CircleOutline">
+                        <suki:SideMenuItem.Content>
+                            <suki:ClassicMobilePage Header="DashBoard">
+                                <views:Dashboard />
+                            </suki:ClassicMobilePage>
+                        </suki:SideMenuItem.Content>
+                    </suki:SideMenuItem>
+
+                    <suki:SideMenuItem Header="Settings" Icon="Settings">
+                        <suki:SideMenuItem.Content>
+                            <suki:SliverMobilePage Header="Settings">
+                                <views:SettingsPage />
+                            </suki:SliverMobilePage>
+                        </suki:SideMenuItem.Content>
+                    </suki:SideMenuItem>
+
+                    <suki:SideMenuItem Header="Login" Icon="Login">
+                        <suki:SideMenuItem.Content>
+                            <suki:ClassicMobilePage Header="Login">
+                                <views:MainView />
+                            </suki:ClassicMobilePage>
+                        </suki:SideMenuItem.Content>
+                    </suki:SideMenuItem>
+                </suki:MobileMenuPageViewModel.MenuItems>
+            </suki:MobileMenuPageViewModel>
+        </suki:MobileMenuPage.DataContext>
+    </suki:MobileMenuPage>
 
 </UserControl>

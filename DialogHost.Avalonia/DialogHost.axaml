@@ -55,7 +55,7 @@
         </Setter>
         <Setter Property="PopupTemplate">
             <ControlTemplate>
-                <Border Name="PART_ContentBackground" 
+                <Border Name="PART_ContentBackground"
                         CornerRadius="{Binding Path=(dialogHost:DialogHostStyle.CornerRadius), RelativeSource={RelativeSource FindAncestor, AncestorType=dialogHost:DialogHost}}"
                         BoxShadow="1.5 1.5 8 #4c000000" ClipToBounds="False">
                     <ContentPresenter Name="PART_ContentPresenter"

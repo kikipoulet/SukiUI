@@ -7,7 +7,7 @@
             <StackPanel>
                 <RadioButton Margin="10">
 
-                    <TextBlock>test 2</TextBlock>
+                     <TextBlock>test 2</TextBlock>
 
 
                 </RadioButton>
@@ -28,14 +28,14 @@
     <Style Selector="RadioButton.MenuItemMobile:checked /template/ Border">
         <Setter Property="CornerRadius" Value="0,50,50,0" />
 
-      <Setter Property="Background"  >
-        <Setter.Value>
-          <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
-            <GradientStop Color="#637ff0" Offset="0.1" />
-            <GradientStop Color="#4969ed" Offset="0.6" />
-          </LinearGradientBrush>
-        </Setter.Value>
-      </Setter>
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
+                    <GradientStop Color="#637ff0" Offset="0.1" />
+                    <GradientStop Color="#4969ed" Offset="0.6" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
     </Style>
 
 
@@ -65,24 +65,24 @@
             </ControlTemplate>
         </Setter>
     </Style>
-  <Style Selector="RadioButton.MenuItemMobile:checked  TextBlock">
-    <Setter Property="Foreground" Value="White" />
-    <Setter Property="FontWeight" Value="DemiBold" />
-  </Style>
+    <Style Selector="RadioButton.MenuItemMobile:checked  TextBlock">
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontWeight" Value="DemiBold" />
+    </Style>
 
 
-  <Style Selector="RadioButton.MenuItemMobile material|MaterialIcon">
-    <Setter Property="Foreground" Value="#333333" />
+    <Style Selector="RadioButton.MenuItemMobile material|MaterialIcon">
+        <Setter Property="Foreground" Value="#333333" />
 
-  </Style>
+    </Style>
 
-  <Style Selector="RadioButton.MenuItemMobile:checked material|MaterialIcon">
-    <Setter Property="Foreground" Value="White" />
+    <Style Selector="RadioButton.MenuItemMobile:checked material|MaterialIcon">
+        <Setter Property="Foreground" Value="White" />
 
-  </Style>
-  
+    </Style>
 
-  <Style Selector="RadioButton.MenuItem">
+
+    <Style Selector="RadioButton.MenuItem">
         <Setter Property="Height" Value="50" />
         <Setter Property="Margin" Value="-30,0,5,0" />
         <Setter Property="Background" Value="Transparent" />

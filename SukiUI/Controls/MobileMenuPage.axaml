@@ -67,7 +67,7 @@
                                             <Grid>
                                                 <DockPanel Margin="5,5,5,5">
                                                     <material:MaterialIcon
-                                                        Height="22" 
+                                                        Height="22"
                                                         Kind="{Binding Icon}"
                                                         Margin="15,0,0,0"
                                                         Width="22" />
@@ -90,22 +90,18 @@
                 </Border>
             </Grid>
         </SplitView.Pane>
-      <Grid Background="White">
+        <Grid Background="White">
 
-        <dialogHost:DialogHost
-            CloseOnClickAway="True"
-            DialogContent="{Binding DialogChild}"
-            IsOpen="{Binding IsDialogOpen}">
+            <dialogHost:DialogHost
+                CloseOnClickAway="True"
+                DialogContent="{Binding DialogChild}"
+                IsOpen="{Binding IsDialogOpen}">
 
-          <DockPanel>
-
-            <Border
-                Background="White"
-                BorderBrush="#ebebeb"
-                BorderThickness="0,0,0,0"
-                DockPanel.Dock="Top"
-                Height="110">
                 <Grid>
+
+                    <ContentControl Content="{Binding CurrentPage}" />
+
+
                     <Button
                         Background="Transparent"
                         BorderThickness="0"
@@ -113,8 +109,9 @@
                         Command="{Binding ShowMenu}"
                         Height="50"
                         HorizontalAlignment="Left"
-                        Margin="15"
+                        Margin="15,20,0,0"
                         Padding="0"
+                        VerticalAlignment="Top"
                         Width="50">
                         <material:MaterialIcon
                             Foreground="DarkGray"
@@ -123,23 +120,12 @@
                             Width="30" />
 
                     </Button>
-                    <TextBlock
-                        Classes="h1"
-                        FontWeight="DemiBold"
-                        HorizontalAlignment="Left"
-                        Margin="120,0,0,0"
-                        Text="{Binding HeaderText}"
-                        VerticalAlignment="Center" />
+
+
                 </Grid>
-            </Border>
-            
-                    <ContentControl Content="{Binding CurrentPage}" />
-
-
-          </DockPanel>
-        </dialogHost:DialogHost>
-        <Grid Background="#cccccccc" IsVisible="{Binding MenuVisibility}" />
-      </Grid>
+            </dialogHost:DialogHost>
+            <Grid Background="#cccccccc" IsVisible="{Binding MenuVisibility}" />
+        </Grid>
 
     </SplitView>
 

@@ -87,25 +87,10 @@
                                         </Border>
 
 
-                                        <Border Classes="Card Hoverable" Width="300">
-
-                                            <StackPanel>
-                                                <TextBlock Classes="h3" Margin="5,0,0,15">Hoverable Card</TextBlock>
-
-                                            </StackPanel>
-                                        </Border>
 
 
-                                        <Border Classes="Card" Width="300">
-                                            <StackPanel>
-                                                <TextBlock Classes="h3" Margin="5,0,0,15">ListBox</TextBlock>
-                                                <ListBox Margin="10">
-                                                    <TextBlock>item 1</TextBlock>
-                                                    <TextBlock>item 2</TextBlock>
-                                                    <TextBlock>item 3</TextBlock>
-                                                </ListBox>
-                                            </StackPanel>
-                                        </Border>
+
+
 
 
 
@@ -141,6 +126,34 @@
                                             </StackPanel>
                                         </Border>
 
+                                        <Border Classes="Card" Width="300">
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">Slider</TextBlock>
+
+                                                <StackPanel
+                                                    HorizontalAlignment="Center"
+                                                    Margin="0,20"
+                                                    Orientation="Horizontal">
+                                                    <TextBlock Margin="5" VerticalAlignment="Center">Value :</TextBlock>
+                                                    <TextBox
+                                                        BorderThickness="0"
+                                                        IsHitTestVisible="False"
+                                                        Padding="10"
+                                                        Text="{Binding #SliderValue.Value}"
+                                                        Watermark="bite" />
+
+                                                </StackPanel>
+
+                                                <Slider
+                                                    IsSnapToTickEnabled="True"
+                                                    Maximum="100"
+                                                    Minimum="0"
+                                                    Name="SliderValue"
+                                                    TickFrequency="1"
+                                                    Value="50" />
+                                            </StackPanel>
+                                        </Border>
+
 
                                         <Border Classes="Card" Width="300">
                                             <StackPanel>
@@ -168,6 +181,28 @@
                                             </StackPanel>
                                         </Border>
 
+                                        <Border Classes="Card" Width="600">
+
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">Stepper</TextBlock>
+
+                                                <suki:Stepper Name="stepstep" />
+
+                                                <StackPanel
+                                                    HorizontalAlignment="Center"
+                                                    Margin="0,50,0,0"
+                                                    Orientation="Horizontal"
+                                                    VerticalAlignment="Center">
+                                                    <Button Click="Button_OnClick">
+                                                        <TextBlock>Previous</TextBlock>
+                                                    </Button>
+                                                    <Button Click="nextStep">
+                                                        <TextBlock>Next</TextBlock>
+                                                    </Button>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Border>
+
                                         <Border Classes="Card" Width="300">
                                             <StackPanel>
                                                 <TextBlock Classes="h3" Margin="5,0,0,15">Progress Bar</TextBlock>
@@ -180,6 +215,46 @@
                                                 </Button>
                                             </StackPanel>
                                         </Border>
+
+                                        <Border Classes="Card" Width="300">
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">CircleProgressBar</TextBlock>
+                                                <Border
+                                                    Background="White"
+                                                    Padding="20"
+                                                    Width="200">
+                                                    <suki:CircleProgressBar
+                                                        Height="130"
+                                                        Name="myProgressBar"
+                                                        StrokeWidth="11"
+                                                        Value="20"
+                                                        Width="130">
+                                                        <TextBlock
+                                                            Classes="h3"
+                                                            Margin="0,5,0,0"
+                                                            Name="TextPercent"
+                                                            Text="20"
+                                                            VerticalAlignment="Center" />
+                                                    </suki:CircleProgressBar>
+
+                                                </Border>
+                                                <Button Click="Button_OnClickProgress">
+                                                    <TextBlock>Plus</TextBlock>
+                                                </Button>
+                                            </StackPanel>
+                                        </Border>
+
+                                        <Border Classes="Card" Width="600">
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">DataGrid</TextBlock>
+                                                <DataGrid
+                                                    AutoGenerateColumns="True"
+                                                    Height="180"
+                                                    IsReadOnly="True"
+                                                    Name="myDG" />
+                                            </StackPanel>
+                                        </Border>
+
 
                                         <Border Classes="Card" Width="300">
                                             <StackPanel>
@@ -196,16 +271,6 @@
                                             </StackPanel>
                                         </Border>
 
-                                        <Border Classes="Card" Width="600">
-                                            <StackPanel>
-                                                <TextBlock Classes="h3" Margin="5,0,0,15">DataGrid</TextBlock>
-                                                <DataGrid
-                                                    AutoGenerateColumns="True"
-                                                    Height="180"
-                                                    IsReadOnly="True"
-                                                    Name="myDG" />
-                                            </StackPanel>
-                                        </Border>
 
 
                                         <Border Classes="Card" Width="300">
@@ -248,31 +313,16 @@
 
                                         <Border Classes="Card" Width="300">
                                             <StackPanel>
-                                                <TextBlock Classes="h3" Margin="5,0,0,15">Slider</TextBlock>
-
-                                                <StackPanel
-                                                    HorizontalAlignment="Center"
-                                                    Margin="0,20"
-                                                    Orientation="Horizontal">
-                                                    <TextBlock Margin="5" VerticalAlignment="Center">Value :</TextBlock>
-                                                    <TextBox
-                                                        BorderThickness="0"
-                                                        IsHitTestVisible="False"
-                                                        Padding="10"
-                                                        Text="{Binding #SliderValue.Value}"
-                                                        Watermark="bite" />
-
-                                                </StackPanel>
-
-                                                <Slider
-                                                    IsSnapToTickEnabled="True"
-                                                    Maximum="100"
-                                                    Minimum="0"
-                                                    Name="SliderValue"
-                                                    TickFrequency="1"
-                                                    Value="50" />
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">ListBox</TextBlock>
+                                                <ListBox Margin="10">
+                                                    <TextBlock>item 1</TextBlock>
+                                                    <TextBlock>item 2</TextBlock>
+                                                    <TextBlock>item 3</TextBlock>
+                                                </ListBox>
                                             </StackPanel>
                                         </Border>
+
+
 
                                         <Border Classes="Card" Width="300">
                                             <StackPanel>
@@ -349,33 +399,15 @@
                                             </StackPanel>
                                         </Border>
 
-                                        <Border Classes="Card" Width="300">
-                                            <StackPanel>
-                                                <TextBlock Classes="h3" Margin="5,0,0,15">CircleProgressBar</TextBlock>
-                                                <Border
-                                                    Background="White"
-                                                    Padding="20"
-                                                    Width="200">
-                                                    <suki:CircleProgressBar
-                                                        Height="130"
-                                                        Name="myProgressBar"
-                                                        StrokeWidth="11"
-                                                        Value="20"
-                                                        Width="130">
-                                                        <TextBlock
-                                                            Classes="h3"
-                                                            Margin="0,5,0,0"
-                                                            Name="TextPercent"
-                                                            Text="20"
-                                                            VerticalAlignment="Center" />
-                                                    </suki:CircleProgressBar>
+                                        <Border Classes="Card Hoverable" Width="300">
 
-                                                </Border>
-                                                <Button Click="Button_OnClickProgress">
-                                                    <TextBlock>Plus</TextBlock>
-                                                </Button>
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">Hoverable Card</TextBlock>
+
                                             </StackPanel>
                                         </Border>
+
+
 
                                         <Border Classes="Card" Width="300">
                                             <StackPanel>
@@ -432,27 +464,7 @@
                                             </StackPanel>
                                         </Border>
 
-                                        <Border Classes="Card" Width="600">
 
-                                            <StackPanel>
-                                                <TextBlock Classes="h3" Margin="5,0,0,15">Stepper</TextBlock>
-
-                                                <suki:Stepper Name="stepstep" />
-
-                                                <StackPanel
-                                                    HorizontalAlignment="Center"
-                                                    Margin="0,50,0,0"
-                                                    Orientation="Horizontal"
-                                                    VerticalAlignment="Center">
-                                                    <Button Click="Button_OnClick">
-                                                        <TextBlock>Previous</TextBlock>
-                                                    </Button>
-                                                    <Button Click="nextStep">
-                                                        <TextBlock>Next</TextBlock>
-                                                    </Button>
-                                                </StackPanel>
-                                            </StackPanel>
-                                        </Border>
 
 
 

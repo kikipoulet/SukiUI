@@ -6,24 +6,25 @@
         <x:Double x:Key="ToggleSwitchThemeMinWidth">0</x:Double>
     </Styles.Resources>
     <Design.PreviewWith>
-        <StackPanel Background="White"
+        <StackPanel
+            Background="White"
             Margin="20"
             Spacing="24"
             Width="250">
-               <ToggleSwitch />
-            
+            <ToggleSwitch />
+
         </StackPanel>
     </Design.PreviewWith>
 
-    <Style Selector="ToggleSwitch" >
-      <Setter Property="Foreground"  >
-        <Setter.Value>
-          <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%" >
-            <GradientStop Color="#597ef7" Offset="0.1"   />
-            <GradientStop Color="#2f54eb" Offset="0.6" />
-          </LinearGradientBrush>
-        </Setter.Value>
-      </Setter>
+    <Style Selector="ToggleSwitch">
+        <Setter Property="Foreground">
+            <Setter.Value>
+                <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
+                    <GradientStop Color="#597ef7" Offset="0.1" />
+                    <GradientStop Color="#2f54eb" Offset="0.6" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
@@ -84,43 +85,42 @@
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                             x:Name="PART_OnContentPresenter" />
 
-                      <Border
-                          Background="#dedede"
-                          BorderThickness="0"
-                          CornerRadius="10"
-                          Grid.Row="1"
-                          Height="20"
-                          Width="40"
-                          x:Name="OuterBorder" >
-                        <Border.Transitions>
-                          <Transitions>
-                            <DoubleTransition Property="Opacity" Duration="0:0:0.5"/>
-                          </Transitions>
-                        </Border.Transitions>
-                      </Border>
+                        <Border
+                            Background="#dedede"
+                            BorderThickness="0"
+                            CornerRadius="10"
+                            Grid.Row="1"
+                            Height="20"
+                            Width="40"
+                            x:Name="OuterBorder">
+                            <Border.Transitions>
+                                <Transitions>
+                                    <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
+                                </Transitions>
+                            </Border.Transitions>
+                        </Border>
 
-                      <Border
-                          
-                          BorderThickness="0"
-                          CornerRadius="10"
-                          Grid.Row="1"
-                          Height="20"
-                          Width="40"
-                          x:Name="SwitchKnobBoundsn" >
-                        <Border.Background>
-                         
-                            <LinearGradientBrush EndPoint="0%,100%" StartPoint="50%,0%" >
-                              <GradientStop Color="#597ef7" Offset="0.1"   />
-                              <GradientStop Color="#2f54eb" Offset="0.9" />
-                            </LinearGradientBrush>
-                        </Border.Background>
-                        <Border.Transitions>
-                          <Transitions>
-                            <DoubleTransition Property="Opacity" Duration="0:0:0.5"/>
-                            <BrushTransition Property="Background" Duration="0:0:0.5" />
-                          </Transitions>
-                        </Border.Transitions>
-                      </Border>
+                        <Border
+                            BorderThickness="0"
+                            CornerRadius="10"
+                            Grid.Row="1"
+                            Height="20"
+                            Width="40"
+                            x:Name="SwitchKnobBoundsn">
+                            <Border.Background>
+
+                                <LinearGradientBrush EndPoint="0%,100%" StartPoint="50%,0%">
+                                    <GradientStop Color="#597ef7" Offset="0.1" />
+                                    <GradientStop Color="#2f54eb" Offset="0.9" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Border.Transitions>
+                                <Transitions>
+                                    <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
+                                    <BrushTransition Duration="0:0:0.20" Property="Background" />
+                                </Transitions>
+                            </Border.Transitions>
+                        </Border>
 
                         <Canvas
                             Grid.Row="1"
@@ -134,20 +134,21 @@
                                 Width="20"
                                 x:Name="MovingKnobs">
 
-                              <Ellipse
-                                    
-                                  Fill="White"
-                                  Height="16"
-                                  Width="16"
-                                  x:Name="SwitchKnobOn" Margin="0,0,0,0" >
-                                
-                              </Ellipse>
+                                <Ellipse
+                                    Fill="White"
+                                    Height="16"
+                                    Margin="0,0,0,0"
+                                    Width="16"
+                                    x:Name="SwitchKnobOn" />
 
-                              <Border BoxShadow="0 0 0 0 LightGray"
-                                  Background="White" CornerRadius="10" 
-                                  Height="16" 
-                                  Width="16"
-                                  x:Name="SwitchKnobOff" Margin="0,1,0,0" ></Border>
+                                <Border
+                                    Background="White"
+                                    BoxShadow="0 0 0 0 LightGray"
+                                    CornerRadius="10"
+                                    Height="16"
+                                    Margin="0,1,0,0"
+                                    Width="16"
+                                    x:Name="SwitchKnobOff" />
                             </Grid>
                         </Canvas>
                     </Grid>
@@ -190,7 +191,7 @@
         <Setter Property="Transitions">
             <Transitions>
                 <DoubleTransition
-                    Duration="0:0:0.5"
+                    Duration="0:0:0.20"
                     Easing="CircularEaseOut"
                     Property="Canvas.Left" />
             </Transitions>
@@ -201,12 +202,12 @@
     <Style Selector="ToggleSwitch:pointerover /template/ Border#OuterBorder">
 
         <Setter Property="Background" Value="#dedede" />
-      <Setter Property="BoxShadow" Value="0 0 2 0 #dddddd"></Setter>
-      <Setter Property="Transitions">
-        <Transitions>
-          <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.15"></BoxShadowsTransition>
-        </Transitions>
-      </Setter>
+        <Setter Property="BoxShadow" Value="0 0 2 0 #dddddd" />
+        <Setter Property="Transitions">
+            <Transitions>
+                <BoxShadowsTransition Duration="0:0:0.15" Property="BoxShadow" />
+            </Transitions>
+        </Setter>
 
     </Style>
 
@@ -216,26 +217,26 @@
 
     <Style Selector="ToggleSwitch:pointerover /template/ Ellipse#SwitchKnobOn">
         <Setter Property="Fill" Value="Transparent" />
-      
+
     </Style>
 
     <Style Selector="ToggleSwitch:pointerover /template/ Border#SwitchKnobBounds">
-      <Setter Property="Background">
-       <Setter.Value>
-          <LinearGradientBrush EndPoint="0%,100%" StartPoint="50%,0%" >
-            <GradientStop Color="#597ef7" Offset="0.1"   />
-            <GradientStop Color="#2f54eb" Offset="0.9" />
-          </LinearGradientBrush>
-        </Setter.Value> 
-      </Setter>
-      
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush EndPoint="0%,100%" StartPoint="50%,0%">
+                    <GradientStop Color="#597ef7" Offset="0.1" />
+                    <GradientStop Color="#2f54eb" Offset="0.9" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+
         <Setter Property="BorderBrush" Value="{DynamicResource ToggleSwitchStrokeOnPointerOver}" />
-      <Setter Property="BoxShadow" Value="0 0 1 0 #2f54eb"></Setter>
-      <Setter Property="Transitions">
-        <Transitions>
-          <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.15"></BoxShadowsTransition>
-        </Transitions>
-      </Setter>
+        <Setter Property="BoxShadow" Value="0 0 1 0 #2f54eb" />
+        <Setter Property="Transitions">
+            <Transitions>
+                <BoxShadowsTransition Duration="0:0:0.15" Property="BoxShadow" />
+            </Transitions>
+        </Setter>
 
     </Style>
 
@@ -250,14 +251,15 @@
     </Style>
 
     <Style Selector="ToggleSwitch:pressed /template/ Border#SwitchKnobBounds">
-      <Setter Property="Background">
-        <Setter.Value>
-          <LinearGradientBrush EndPoint="0%,100%" StartPoint="50%,0%" >
-                              <GradientStop Color="#597ef7" Offset="0.1"   />
-                              <GradientStop Color="#2f54eb" Offset="0.9" />
-                            </LinearGradientBrush>
-        </Setter.Value>
-      </Setter>
+
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush EndPoint="0%,100%" StartPoint="50%,0%">
+                    <GradientStop Color="#597ef7" Offset="0.1" />
+                    <GradientStop Color="#2f54eb" Offset="0.9" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
         <Setter Property="BorderBrush" Value="{DynamicResource ToggleSwitchStrokeOnPressed}" />
     </Style>
 
@@ -336,7 +338,7 @@
 
     <Style Selector="ToggleSwitch:unchecked  /template/ Border#SwitchKnobBoundsn">
         <Setter Property="Opacity" Value="1" />
-      <Setter Property="Background" Value="#dedede"></Setter>
+        <Setter Property="Background" Value="#dedede" />
     </Style>
 
     <Style Selector="ToggleSwitch:unchecked /template/ ContentPresenter#PART_OffContentPresenter">
