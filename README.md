@@ -36,6 +36,10 @@ Done with Avalonia 0.11 <br/>
 # Installation
 
 - Install SukiUI Nuget Package
+```
+ - for Avalonia 0.11, use SukiUI 4.0.0.0
+ - for Avalonia 0.10, use SukiUI 3.0.0.0
+```
 - Reference SukiUI in your App.axaml file
 
 ```
