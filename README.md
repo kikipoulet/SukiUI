@@ -20,19 +20,26 @@ SukiUI theme and controls in SukiUI 3.0.0 Nuget Package.
 
 ### Desktop
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/DesktopDemo.gif"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/DesktopShow.gif"></img>
 
 ### Mobile
 
 Done with Avalonia 0.11 <br/>
-SukiUI with Avalonia 0.11 is not available yet because I want to make more controls for mobile use before.
-
-https://user-images.githubusercontent.com/19242427/187209227-03598bf8-c958-4577-b787-fa2ee48779d1.mp4
+<kbd>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/dashboard.gif" ></img> 
+</kbd>
+<kbd>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/settings.gif" style="float:left" ></img>
+</kbd>
  
 
 # Installation
 
 - Install SukiUI Nuget Package
+```
+ - for Avalonia 0.11, use SukiUI 4.0.0.0
+ - for Avalonia 0.10, use SukiUI 3.0.0.0
+```
 - Reference SukiUI in your App.axaml file
 
 ```
