@@ -1,4 +1,4 @@
-﻿<Styles xmlns="https://github.com/avaloniaui">
+﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:material="using:Material.Icons.Avalonia">
     <Design.PreviewWith>
         <Border Background="Red" Padding="20">
             <TabControl Margin="5">
@@ -166,6 +166,7 @@
         <Setter Property="CornerRadius" Value="5" />
         <Setter Property="TextBlock.Foreground" Value="{DynamicResource TabItemHeaderForegroundSelected}" />
         <Setter Property="TextBlock.FontWeight" Value="DemiBold" />
+       
 
     </Style>
 

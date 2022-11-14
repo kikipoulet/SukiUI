@@ -173,9 +173,10 @@
                         Kind="NotificationsNone"
                         Margin="0,5,0,0"
                         Width="25" />
-                    <ToggleSwitch Margin="0,6,0,0"
+                    <ToggleSwitch
                         DockPanel.Dock="Right"
                         IsChecked="True"
+                        Margin="0,6,0,0"
                         OffContent=""
                         OnContent="">
                         <ToggleSwitch.OffContent>
@@ -281,7 +282,122 @@
                         DockPanel.Dock="Left"
                         Foreground="#333333"
                         Height="20"
-                        Kind="Help"
+                        Kind="Devices"
+                        Margin="0,5,0,0"
+                        Width="25" />
+
+                    <suki:MobileNumericUpDown DockPanel.Dock="Right" Margin="0,2,0,-6" />
+
+                    <TextBlock
+                        FontSize="19"
+                        FontWeight="Medium"
+                        Margin="30,8,0,0"
+                        Text="Devices"
+                        VerticalAlignment="Center" />
+                </DockPanel>
+            </Border>
+
+            <Border Background="White">
+                <Border
+                    Background="LightGray"
+                    BorderBrush="Transparent"
+                    Height="1"
+                    HorizontalAlignment="Stretch"
+                    Margin="50,0,60,0" />
+            </Border>
+
+            <Border Background="White">
+                <StackPanel>
+                    <DockPanel Margin="20,11,30,16">
+                        <material:MaterialIcon
+                            DockPanel.Dock="Left"
+                            Foreground="#333333"
+                            Height="20"
+                            Kind="Money"
+                            Margin="0,5,0,0"
+                            Width="25" />
+
+                        <StackPanel
+                            DockPanel.Dock="Right"
+                            Margin="0,-3,0,0"
+                            Orientation="Horizontal">
+
+                            <RadioButton
+                                Classes="Chips"
+                                IsChecked="True"
+                                Margin="5">
+                                <TextBlock Text="€" />
+                            </RadioButton>
+                            <RadioButton Classes="Chips" Margin="5">
+                                <TextBlock Text="$" />
+                            </RadioButton>
+                        </StackPanel>
+
+                        <TextBlock
+                            FontSize="19"
+                            FontWeight="Medium"
+                            Margin="30,6,0,0"
+                            Text="Currency"
+                            VerticalAlignment="Center" />
+                    </DockPanel>
+
+                </StackPanel>
+            </Border>
+
+
+
+            <Grid Height="10" />
+
+            <Border Background="White">
+                <DockPanel Margin="20,11,30,16">
+                    <material:MaterialIcon
+                        DockPanel.Dock="Left"
+                        Foreground="#333333"
+                        Height="25"
+                        Kind="LightbulbOnOutline"
+                        Margin="0,5,0,0"
+                        Width="25" />
+                    <ToggleSwitch
+                        DockPanel.Dock="Right"
+                        Margin="0,6,0,0"
+                        OffContent=""
+                        OnContent="">
+                        <ToggleSwitch.OffContent>
+                            <TextBlock Text="" />
+                        </ToggleSwitch.OffContent>
+                        <ToggleSwitch.OnContent>
+                            <TextBlock Text="" />
+                        </ToggleSwitch.OnContent>
+
+                        <ToggleSwitch.RenderTransform>
+                            <ScaleTransform ScaleX="1.4" ScaleY="1.4" />
+                        </ToggleSwitch.RenderTransform>
+                    </ToggleSwitch>
+                    <TextBlock
+                        FontSize="19"
+                        FontWeight="Medium"
+                        Margin="30,8,0,0"
+                        Text="Dark Theme"
+                        VerticalAlignment="Center" />
+                </DockPanel>
+            </Border>
+            <Border Background="White">
+
+                <Border
+                    Background="LightGray"
+                    BorderBrush="Transparent"
+                    Height="1"
+                    HorizontalAlignment="Stretch"
+                    Margin="50,0,60,0" />
+            </Border>
+
+            <Border Background="White">
+                <DockPanel Margin="20,11,30,16">
+                    <material:MaterialIcon
+                        DockPanel.Dock="Left"
+                        Foreground="#333333"
+                        Height="25"
+                        Kind="Language"
                         Margin="0,5,0,0"
                         Width="25" />
                     <material:MaterialIcon
@@ -296,12 +412,16 @@
                         FontSize="19"
                         FontWeight="Medium"
                         Margin="30,8,0,0"
-                        Text="Help"
+                        Text="Langage"
                         VerticalAlignment="Center" />
                 </DockPanel>
             </Border>
 
+
+
+
             <Border Background="White">
+
                 <Border
                     Background="LightGray"
                     BorderBrush="Transparent"
@@ -310,191 +430,80 @@
                     Margin="50,0,60,0" />
             </Border>
 
+            <Border Background="White">
+                <DockPanel Margin="20,11,30,16">
+                    <material:MaterialIcon
+                        DockPanel.Dock="Left"
+                        Foreground="#333333"
+                        Height="25"
+                        Kind="NotificationsNone"
+                        Margin="0,5,0,0"
+                        Width="25" />
+                    <ToggleSwitch
+                        DockPanel.Dock="Right"
+                        IsChecked="True"
+                        Margin="0,6,0,0"
+                        OffContent=""
+                        OnContent="">
+                        <ToggleSwitch.OffContent>
+                            <TextBlock Text="" />
+                        </ToggleSwitch.OffContent>
+                        <ToggleSwitch.OnContent>
+                            <TextBlock Text="" />
+                        </ToggleSwitch.OnContent>
+                        <ToggleSwitch.RenderTransform>
+                            <ScaleTransform ScaleX="1.4" ScaleY="1.4" />
+                        </ToggleSwitch.RenderTransform>
+                    </ToggleSwitch>
+                    <TextBlock
+                        FontSize="19"
+                        FontWeight="Medium"
+                        Margin="30,8,0,0"
+                        Text="Notifications"
+                        VerticalAlignment="Center" />
+                </DockPanel>
+            </Border>
 
+            <Border Background="White">
+
+                <Border
+                    Background="LightGray"
+                    BorderBrush="Transparent"
+                    Height="1"
+                    HorizontalAlignment="Stretch"
+                    Margin="50,0,60,0" />
+            </Border>
 
             <Border Background="White">
                 <DockPanel Margin="20,11,30,16">
                     <material:MaterialIcon
                         DockPanel.Dock="Left"
                         Foreground="#333333"
-                        Height="20"
-                        Kind="Update"
-                        Margin="0,7,0,0"
-                        Width="25" />
-                    <material:MaterialIcon
-                        DockPanel.Dock="Right"
-                        Foreground="DarkGray"
                         Height="25"
-                        Kind="ChevronRight"
-                        Margin="0,6,5,0"
+                        Kind="Brightness3"
+                        Margin="0,5,0,0"
+                        VerticalAlignment="Top"
                         Width="25" />
-
+                    <Slider
+                        DockPanel.Dock="Bottom"
+                        Margin="23,0,5,0"
+                        Maximum="100"
+                        Minimum="0"
+                        Value="67" />
                     <TextBlock
                         FontSize="19"
                         FontWeight="Medium"
                         Margin="30,8,0,0"
-                        Text="Update"
+                        Text="Brightness"
                         VerticalAlignment="Center" />
+
+
+
+
                 </DockPanel>
             </Border>
 
             <Grid Height="10" />
-
-          <Border Background="White">
-            <DockPanel Margin="20,11,30,16">
-              <material:MaterialIcon
-                  DockPanel.Dock="Left"
-                  Foreground="#333333"
-                  Height="25"
-                  Kind="LightbulbOnOutline"
-                  Margin="0,5,0,0"
-                  Width="25" />
-              <ToggleSwitch
-                  DockPanel.Dock="Right"
-                  Margin="0,6,0,0"
-                  OffContent=""
-                  OnContent="">
-                <ToggleSwitch.OffContent>
-                  <TextBlock Text="" />
-                </ToggleSwitch.OffContent>
-                <ToggleSwitch.OnContent>
-                  <TextBlock Text="" />
-                </ToggleSwitch.OnContent>
-
-                <ToggleSwitch.RenderTransform>
-                  <ScaleTransform ScaleX="1.4" ScaleY="1.4" />
-                </ToggleSwitch.RenderTransform>
-              </ToggleSwitch>
-              <TextBlock
-                  FontSize="19"
-                  FontWeight="Medium"
-                  Margin="30,8,0,0"
-                  Text="Dark Theme"
-                  VerticalAlignment="Center" />
-            </DockPanel>
-          </Border>
-          <Border Background="White">
-
-            <Border
-                Background="LightGray"
-                BorderBrush="Transparent"
-                Height="1"
-                HorizontalAlignment="Stretch"
-                Margin="50,0,60,0" />
-          </Border>
-
-          <Border Background="White">
-            <DockPanel Margin="20,11,30,16">
-              <material:MaterialIcon
-                  DockPanel.Dock="Left"
-                  Foreground="#333333"
-                  Height="25"
-                  Kind="Language"
-                  Margin="0,5,0,0"
-                  Width="25" />
-              <material:MaterialIcon
-                  DockPanel.Dock="Right"
-                  Foreground="DarkGray"
-                  Height="25"
-                  Kind="ChevronRight"
-                  Margin="0,6,5,0"
-                  Width="25" />
-
-              <TextBlock
-                  FontSize="19"
-                  FontWeight="Medium"
-                  Margin="30,8,0,0"
-                  Text="Langage"
-                  VerticalAlignment="Center" />
-            </DockPanel>
-          </Border>
-
-
-
-
-          <Border Background="White">
-
-            <Border
-                Background="LightGray"
-                BorderBrush="Transparent"
-                Height="1"
-                HorizontalAlignment="Stretch"
-                Margin="50,0,60,0" />
-          </Border>
-
-          <Border Background="White">
-            <DockPanel Margin="20,11,30,16">
-              <material:MaterialIcon
-                  DockPanel.Dock="Left"
-                  Foreground="#333333"
-                  Height="25"
-                  Kind="NotificationsNone"
-                  Margin="0,5,0,0"
-                  Width="25" />
-              <ToggleSwitch Margin="0,6,0,0"
-                  DockPanel.Dock="Right"
-                  IsChecked="True"
-                  OffContent=""
-                  OnContent="">
-                <ToggleSwitch.OffContent>
-                  <TextBlock Text="" />
-                </ToggleSwitch.OffContent>
-                <ToggleSwitch.OnContent>
-                  <TextBlock Text="" />
-                </ToggleSwitch.OnContent>
-                <ToggleSwitch.RenderTransform>
-                  <ScaleTransform ScaleX="1.4" ScaleY="1.4" />
-                </ToggleSwitch.RenderTransform>
-              </ToggleSwitch>
-              <TextBlock
-                  FontSize="19"
-                  FontWeight="Medium"
-                  Margin="30,8,0,0"
-                  Text="Notifications"
-                  VerticalAlignment="Center" />
-            </DockPanel>
-          </Border>
-
-          <Border Background="White">
-
-            <Border
-                Background="LightGray"
-                BorderBrush="Transparent"
-                Height="1"
-                HorizontalAlignment="Stretch"
-                Margin="50,0,60,0" />
-          </Border>
-
-          <Border Background="White">
-            <DockPanel Margin="20,11,30,16">
-              <material:MaterialIcon
-                  DockPanel.Dock="Left"
-                  Foreground="#333333"
-                  Height="25"
-                  Kind="Brightness3"
-                  Margin="0,5,0,0"
-                  VerticalAlignment="Top"
-                  Width="25" />
-              <Slider
-                  DockPanel.Dock="Bottom"
-                  Margin="23,0,5,0"
-                  Maximum="100"
-                  Minimum="0"
-                  Value="67" />
-              <TextBlock
-                  FontSize="19"
-                  FontWeight="Medium"
-                  Margin="30,8,0,0"
-                  Text="Brightness"
-                  VerticalAlignment="Center" />
-
-
-
-
-            </DockPanel>
-          </Border>
-
-          <Grid Height="10" />
 
 
             <Border Background="White">
@@ -570,7 +579,6 @@
             </Border>
 
 
-
             <Border Background="White">
                 <DockPanel Margin="20,11,30,16">
                     <material:MaterialIcon
@@ -597,9 +605,10 @@
                 </DockPanel>
             </Border>
 
+
             <Grid Height="10" />
 
-         
+
 
 
         </StackPanel>

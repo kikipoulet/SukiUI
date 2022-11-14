@@ -4,17 +4,17 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <Border Background="White" Padding="20">
-            <StackPanel>
-                <RadioButton Margin="10">
+            <StackPanel Orientation="Horizontal">
+                <RadioButton Classes="Chips" Margin="5">
 
-                     <TextBlock>test 2</TextBlock>
+                    <TextBlock>test 2</TextBlock>
 
 
                 </RadioButton>
-                <RadioButton Classes="MenuItemMobile" Margin="10">
+                <RadioButton Classes="Chips" Margin="5">
                     <TextBlock>test 2</TextBlock>
                 </RadioButton>
-                <RadioButton Classes="MenuItemMobile" Margin="10">
+                <RadioButton Classes="Chips" Margin="5">
                     <TextBlock>test 3</TextBlock>
                 </RadioButton>
 
@@ -23,6 +23,49 @@
     </Design.PreviewWith>
 
 
+    <Style Selector="RadioButton.Chips">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="LightGray" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="50" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid>
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        Margin="0,0,0,0"
+                        Padding="10">
+                        <ContentPresenter
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            HorizontalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            Margin="15,0,15,0"
+                            Name="PART_ContentPresenter"
+                            RecognizesAccessKey="True"
+                            VerticalAlignment="Center" />
+                    </Border>
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <Style Selector="RadioButton.Chips TextBlock">
+        <Setter Property="Foreground" Value="Gray" />
+    </Style>
+
+
+    <Style Selector="RadioButton.Chips:checked  TextBlock">
+        <Setter Property="Foreground" Value="#2f54eb" />
+    </Style>
+
+    <Style Selector="RadioButton.Chips:checked  Border">
+        <Setter Property="BorderBrush" Value="#2f54eb" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
 
 
     <Style Selector="RadioButton.MenuItemMobile:checked /template/ Border">
@@ -100,12 +143,12 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="0,0,0,0">
+                        CornerRadius="15">
                         <ContentPresenter
                             Content="{TemplateBinding Content}"
                             ContentTemplate="{TemplateBinding ContentTemplate}"
                             Grid.Column="1"
-                            Margin="0,0,0,0"
+                            Margin="0,2,0,0"
                             Name="PART_ContentPresenter"
                             RecognizesAccessKey="True"
                             VerticalAlignment="Center" />
@@ -213,15 +256,10 @@
                 <GradientStop Color="#597ef7" Offset="0.6" />
             </RadialGradientBrush>
         </Setter>
-        <Setter Property="Background" Value="#fafafa" />
+        <Setter Property="Background" Value="#F6F8FF" />
     </Style>
     <Style Selector="RadioButton.MenuItem:checked  TextBlock">
-        <Setter Property="Foreground">
-            <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
-                <GradientStop Color="#597ef7" Offset="0.1" />
-                <GradientStop Color="#2f54eb" Offset="0.6" />
-            </LinearGradientBrush>
-        </Setter>
+        <Setter Property="Foreground" Value="#2f54eb" />
         <Setter Property="FontWeight" Value="DemiBold" />
     </Style>
 

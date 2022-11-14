@@ -1,163 +1,182 @@
-﻿<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:dialogHost="clr-namespace:DialogHost;assembly=DialogHost.Avalonia"
-        >
-  <Design.PreviewWith>
-    <dialogHost:DialogHost Name="DialogHost" Height="300" Width="300"
-                           >
-      <dialogHost:DialogHost.DialogContent>
-        <Grid RowDefinitions="Auto Auto">
-          <TextBlock>You content here</TextBlock>
-          <Button Grid.Row="1" Command="{Binding #DialogHost.CloseDialogCommand}">
-            CLOSE
-          </Button>
-        </Grid>
-      </dialogHost:DialogHost.DialogContent>
-      <Button Margin="8" HorizontalAlignment="Center" VerticalAlignment="Bottom"
-              Command="{Binding #DialogHost.OpenDialogCommand}">
-        OPEN
-      </Button>
-    </dialogHost:DialogHost>
-  </Design.PreviewWith>
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:dialogHost="clr-namespace:DialogHost;assembly=DialogHost.Avalonia"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <dialogHost:DialogHost
+            Height="300"
+            Name="DialogHost"
+            Width="300">
+            <dialogHost:DialogHost.DialogContent>
+                <Grid RowDefinitions="Auto Auto">
+                    <TextBlock>You content here</TextBlock>
+                    <Button Command="{Binding #DialogHost.CloseDialogCommand}" Grid.Row="1">
+                        CLOSE
+                    </Button>
+                </Grid>
+            </dialogHost:DialogHost.DialogContent>
+            <Button
+                Command="{Binding #DialogHost.OpenDialogCommand}"
+                HorizontalAlignment="Center"
+                Margin="8"
+                VerticalAlignment="Bottom">
+                OPEN
+            </Button>
+        </dialogHost:DialogHost>
+    </Design.PreviewWith>
 
-  <Style Selector="dialogHost|DialogHost">
-    <Setter Property="HorizontalAlignment" Value="Stretch" />
-    <Setter Property="VerticalAlignment" Value="Stretch" />
-    <Setter Property="OverlayBackground" Value="Red"></Setter>
-    
-    <Setter Property="dialogHost:DialogHostStyle.CornerRadius" Value="2"></Setter>
-    <Setter Property="Template">
-      <ControlTemplate>
-        <Grid Name="DialogHostRoot" Focusable="False">
-          <ContentPresenter Name="ContentPresenter"
+    <Style Selector="dialogHost|DialogHost">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="OverlayBackground" Value="Red" />
+
+        <Setter Property="dialogHost:DialogHostStyle.CornerRadius" Value="2" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid Focusable="False" Name="DialogHostRoot">
+                    <ContentPresenter
+                        Content="{TemplateBinding Content}"
+                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        Name="ContentPresenter"
+                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    <Grid
+                        Background="#aaaaaa"
+                        Focusable="False"
+                        Name="PART_ContentCoverGrid">
+                        <Grid.Styles>
+                            <Style Selector="Grid#PART_ContentCoverGrid[Opacity=0]">
+                                <Setter Property="IsVisible" Value="False" />
+                            </Style>
+                            <Style Selector="Grid#PART_ContentCoverGrid:not(.notransitions)">
+                                <Setter Property="Transitions">
+                                    <Transitions>
+                                        <DoubleTransition
+                                            Duration="0:0:0.5"
+                                            Easing="LinearEasing"
+                                            Property="Opacity" />
+                                    </Transitions>
+                                </Setter>
+                            </Style>
+                        </Grid.Styles>
+                    </Grid>
+                    <OverlayLayer Name="PART_OverlayLayer" />
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+        <Setter Property="PopupTemplate">
+            <ControlTemplate>
+                <VisualLayerManager
+                    ClipToBounds="False"
+                    IsPopup="True"
+                    Name="PART_DialogPopupRoot">
+                    <Border
+                        Background="Transparent"
+                        ClipToBounds="False"
+                        Name="PART_ContentBackground">
+                        <ContentPresenter
+                            Background="{TemplateBinding Background}"
                             Content="{TemplateBinding Content}"
                             ContentTemplate="{TemplateBinding ContentTemplate}"
-                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
-          <Grid Name="PART_ContentCoverGrid"
-                Background="LightGray"
-                Focusable="False">
-            <Grid.Styles>
-              <Style Selector="Grid#PART_ContentCoverGrid[Opacity=0]">
-                <Setter Property="IsVisible" Value="False" />
-              </Style>
-              <Style Selector="Grid#PART_ContentCoverGrid:not(.notransitions)">
-                <Setter Property="Transitions">
-                  <Transitions>
-                    <DoubleTransition Property="Opacity" Easing="LinearEasing" Duration="0:0:0.5" />
-                  </Transitions>
-                </Setter>
-              </Style>
-            </Grid.Styles>
-          </Grid>
-          <OverlayLayer Name="PART_OverlayLayer" >
-   
-          </OverlayLayer>
-        </Grid>
-      </ControlTemplate>
-    </Setter>
-    <Setter Property="PopupTemplate">
-      <ControlTemplate>
-        <VisualLayerManager  IsPopup="True" Name="PART_DialogPopupRoot" ClipToBounds="False">
-          <Border Name="PART_ContentBackground"  
-                Background="Transparent" ClipToBounds="False">
-            <ContentPresenter Name="PART_ContentPresenter"
-                              Background="{TemplateBinding Background}"
-                              ContentTemplate="{TemplateBinding ContentTemplate}"
-                              Content="{TemplateBinding Content}"
-                              Padding="{TemplateBinding Padding}" >
-         
-            </ContentPresenter>
-          </Border>
-        </VisualLayerManager>
-      </ControlTemplate>
-    </Setter>
-  </Style>
-
-  <!-- AvaloniaUI fluent inverse color -->
-  <!-- Will be white for dark theme -->
-  <!-- And black for light theme -->
-  <Style Selector="dialogHost|DialogHost">
-    <Setter Property="OverlayBackground" Value="{DynamicResource SystemControlBackgroundBaseHighBrush}"></Setter>
-  </Style>
-
-  <!-- Fallback color if avalonia theme not presented -->
-  <Style Selector="dialogHost|DialogHost Border#PART_ContentBackground">
-    <Setter Property="Background" Value="White"></Setter>
-  </Style>
-  <!-- AvaloniaUI fluent background color -->
-  <Style Selector="dialogHost|DialogHost Border#PART_ContentBackground">
-    <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundAltHighBrush}"></Setter>
-  </Style>
-
-  <Style Selector="dialogHost|DialogHost[IsOpen=True] /template/ Grid#PART_ContentCoverGrid">
-    <Setter Property="IsHitTestVisible" Value="True" />
-    <Setter Property="Opacity" Value="0.56" />
-  </Style>
-  <Style Selector="dialogHost|DialogHost[IsOpen=False] /template/ Grid#PART_ContentCoverGrid">
-    <Setter Property="IsHitTestVisible" Value="False" />
-    <Setter Property="Opacity" Value="0" />
-  </Style>
-
-  
-  
-  
-  <Style Selector="dialogHost|DialogOverlayPopupHost">
-
-    <Setter Property="Template">
-      <ControlTemplate>
-        <VisualLayerManager IsPopup="True" Name="PART_DialogPopupRoot">
-          <ContentPresenter Name="PART_ContentPresenter"
-                            Background="Red"
-                            ContentTemplate="{TemplateBinding ContentTemplate}"
-                            Content="{TemplateBinding Content}"
+                            Name="PART_ContentPresenter"
                             Padding="{TemplateBinding Padding}" />
-        </VisualLayerManager>
-      </ControlTemplate>
-    </Setter>
-  </Style>
+                    </Border>
+                </VisualLayerManager>
+            </ControlTemplate>
+        </Setter>
+    </Style>
 
-  <Style Selector="dialogHost|DialogOverlayPopupHost[IsOpen=True][DisableOpeningAnimation=False]">
-    <Style.Animations>
-      <Animation Duration="0:0:0.15" Easing="SineEaseInOut" FillMode="Both">
-        <KeyFrame Cue="0%">
-          <Setter Property="ScaleTransform.ScaleY" Value="0.9" />
-          <Setter Property="ScaleTransform.ScaleX" Value="0.9" />
-          <Setter Property="Opacity" Value="0" />
-        </KeyFrame>
-        <KeyFrame Cue="100%">
-          <Setter Property="ScaleTransform.ScaleY" Value="1" />
-          <Setter Property="ScaleTransform.ScaleX" Value="1" />
-          <Setter Property="Opacity" Value="1" />
-        </KeyFrame>
-      </Animation>
-    </Style.Animations>
-  </Style>
+    <!--  AvaloniaUI fluent inverse color  -->
+    <!--  Will be white for dark theme  -->
+    <!--  And black for light theme  -->
+    <Style Selector="dialogHost|DialogHost">
+        <Setter Property="OverlayBackground" Value="{DynamicResource SystemControlBackgroundBaseHighBrush}" />
+    </Style>
 
-  <Style Selector="dialogHost|DialogOverlayPopupHost[IsOpen=False][DisableOpeningAnimation=False]">
-    <Style.Animations>
-      <Animation Duration="0:0:0.2" Easing="SineEaseInOut" FillMode="Both">
-        <KeyFrame Cue="0%">
-          <Setter Property="ScaleTransform.ScaleY" Value="1" />
-          <Setter Property="ScaleTransform.ScaleX" Value="1" />
-          <Setter Property="Opacity" Value="1" />
-        </KeyFrame>
-        <KeyFrame Cue="60%">
-          <Setter Property="ScaleTransform.ScaleY" Value="0.9" />
-          <Setter Property="ScaleTransform.ScaleX" Value="0.9" />
-          <Setter Property="Opacity" Value="1" />
-        </KeyFrame>
-        <KeyFrame Cue="100%">
-          <Setter Property="ScaleTransform.ScaleY" Value="0.85" />
-          <Setter Property="ScaleTransform.ScaleX" Value="0.85" />
-          <Setter Property="Opacity" Value="0" />
-          <Setter Property="IsActuallyOpen" Value="False"></Setter>
-        </KeyFrame>
-      </Animation>
-    </Style.Animations>
-  </Style>
+    <!--  Fallback color if avalonia theme not presented  -->
+    <Style Selector="dialogHost|DialogHost Border#PART_ContentBackground">
+        <Setter Property="Background" Value="White" />
+    </Style>
+    <!--  AvaloniaUI fluent background color  -->
+    <Style Selector="dialogHost|DialogHost Border#PART_ContentBackground">
+        <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundAltHighBrush}" />
+    </Style>
 
-  <Style Selector="dialogHost|DialogOverlayPopupHost[IsOpen=False][DisableOpeningAnimation=True]">
-    <Setter Property="IsActuallyOpen" Value="False"></Setter>
-  </Style>
+    <Style Selector="dialogHost|DialogHost[IsOpen=True] /template/ Grid#PART_ContentCoverGrid">
+        <Setter Property="IsHitTestVisible" Value="True" />
+        <Setter Property="Opacity" Value="0.56" />
+    </Style>
+    <Style Selector="dialogHost|DialogHost[IsOpen=False] /template/ Grid#PART_ContentCoverGrid">
+        <Setter Property="IsHitTestVisible" Value="False" />
+        <Setter Property="Opacity" Value="0" />
+    </Style>
+
+
+
+
+    <Style Selector="dialogHost|DialogOverlayPopupHost">
+
+        <Setter Property="Template">
+            <ControlTemplate>
+                <VisualLayerManager IsPopup="True" Name="PART_DialogPopupRoot">
+                    <ContentPresenter
+                        Background="Red"
+                        Content="{TemplateBinding Content}"
+                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                        Name="PART_ContentPresenter"
+                        Padding="{TemplateBinding Padding}" />
+                </VisualLayerManager>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <Style Selector="dialogHost|DialogOverlayPopupHost[IsOpen=True][DisableOpeningAnimation=False]">
+        <Style.Animations>
+            <Animation
+                Duration="0:0:0.1"
+                Easing="SineEaseInOut"
+                FillMode="Both">
+                <KeyFrame Cue="0%">
+                    <Setter Property="ScaleTransform.ScaleY" Value="0.95" />
+                    <Setter Property="ScaleTransform.ScaleX" Value="0.95" />
+                    <Setter Property="Opacity" Value="0" />
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="ScaleTransform.ScaleY" Value="1" />
+                    <Setter Property="ScaleTransform.ScaleX" Value="1" />
+                    <Setter Property="Opacity" Value="1" />
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+
+    <Style Selector="dialogHost|DialogOverlayPopupHost[IsOpen=False][DisableOpeningAnimation=False]">
+        <Style.Animations>
+            <Animation
+                Duration="0:0:0.1"
+                Easing="SineEaseInOut"
+                FillMode="Both">
+                <KeyFrame Cue="0%">
+                    <Setter Property="ScaleTransform.ScaleY" Value="1" />
+                    <Setter Property="ScaleTransform.ScaleX" Value="1" />
+                    <Setter Property="Opacity" Value="1" />
+                </KeyFrame>
+                <KeyFrame Cue="60%">
+                    <Setter Property="ScaleTransform.ScaleY" Value="0.95" />
+                    <Setter Property="ScaleTransform.ScaleX" Value="0.95" />
+                    <Setter Property="Opacity" Value="1" />
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="ScaleTransform.ScaleY" Value="0.95" />
+                    <Setter Property="ScaleTransform.ScaleX" Value="0.95" />
+                    <Setter Property="Opacity" Value="0" />
+                    <Setter Property="IsActuallyOpen" Value="False" />
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+
+    <Style Selector="dialogHost|DialogOverlayPopupHost[IsOpen=False][DisableOpeningAnimation=True]">
+        <Setter Property="IsActuallyOpen" Value="False" />
+    </Style>
 </Styles>
