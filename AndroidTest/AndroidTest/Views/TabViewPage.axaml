@@ -1,0 +1,23 @@
+﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="AndroidTest.Views.TabViewPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <TabControl Classes="MobileTabView">
+        <TabItem Classes="MobileTabItem" Header="Tab 1">
+            <Grid Background="WhiteSmoke" />
+        </TabItem>
+        <TabItem Classes="MobileTabItem" Header="Tab 2">
+            <Grid Background="LightGray" />
+        </TabItem>
+        <TabItem Classes="MobileTabItem" Header="Tab 3">
+            <Grid Background="WhiteSmoke" />
+        </TabItem>
+
+
+    </TabControl>
+</UserControl>

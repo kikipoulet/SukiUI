@@ -73,6 +73,14 @@
                             </suki:ClassicMobilePage>
                         </suki:SideMenuItem.Content>
                     </suki:SideMenuItem>
+
+                    <suki:SideMenuItem Header="Tab View" Icon="Tab">
+                        <suki:SideMenuItem.Content>
+                            <suki:ClassicMobilePage Header="Tab View">
+                                <views:TabViewPage />
+                            </suki:ClassicMobilePage>
+                        </suki:SideMenuItem.Content>
+                    </suki:SideMenuItem>
                 </suki:MobileMenuPageViewModel.MenuItems>
             </suki:MobileMenuPageViewModel>
         </suki:MobileMenuPage.DataContext>
