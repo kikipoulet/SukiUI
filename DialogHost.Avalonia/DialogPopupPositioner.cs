@@ -27,7 +27,7 @@ namespace DialogHost {
            
             
             var horizontalMargin = (parameters.AnchorRectangle.Width - parameters.Size.Width) / 2;
-            var verticalMargin = (parameters.AnchorRectangle.Height - parameters.Size.Height) /1.1 ;
+            var verticalMargin = (parameters.AnchorRectangle.Height - parameters.Size.Height) /1.05 ;
             _popup.MoveAndResize(new Point(horizontalMargin, verticalMargin), parameters.Size / _popup.Scaling);
         }
     }

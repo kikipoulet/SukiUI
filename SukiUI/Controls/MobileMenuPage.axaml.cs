@@ -31,7 +31,13 @@ namespace SukiUI.Controls
             model.IsDialogOpen = false;
             model.IsDialogOpen = true;
         }
-        
+
+        public void CloseDialog()
+        {
+            var model = (MobileMenuPageViewModel)this.DataContext;
+
+            model.IsDialogOpen = false;
+        }
         public static void ShowDialogS(Control content, bool showAtBottom = false)
         {
             try
@@ -52,6 +58,26 @@ namespace SukiUI.Controls
                     Console.WriteLine("Unable to show a dialog. " + ex.Message);
                 }
                 
+            }
+        }
+        
+        public static void CloseDialogS()
+        {
+            try
+            {
+                ((ISingleViewApplicationLifetime)Application.Current.ApplicationLifetime).MainView.GetVisualDescendants().OfType<MobileMenuPage>().First().CloseDialog();
+            }
+            catch (Exception exc)
+            {
+                try
+                {
+                    ((IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime).MainWindow
+                        .GetVisualDescendants().OfType<MobileMenuPage>().First().CloseDialog();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
         }
 

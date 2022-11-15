@@ -9,7 +9,7 @@
     </Design.PreviewWith>
 
     <Style Selector="CheckBox">
-   
+
         <Setter Property="Foreground" Value="{DynamicResource ThemeForegroundBrush}" />
         <Setter Property="Background" Value="White" />
         <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderMidBrush}" />
@@ -29,12 +29,12 @@
                         Name="border"
                         VerticalAlignment="Center"
                         Width="18">
-                      <Border.Transitions>
-                        <Transitions>
-                          <BrushTransition Property="Background" Duration="0:0:0.15"></BrushTransition>
+                        <Border.Transitions>
+                            <Transitions>
+                                <BrushTransition Duration="0:0:0.15" Property="Background" />
 
-                        </Transitions>
-                      </Border.Transitions>
+                            </Transitions>
+                        </Border.Transitions>
                         <Panel>
                             <Path
                                 Data="M 1145.607177734375,430 C1145.607177734375,430 1141.449951171875,435.0772705078125 1141.449951171875,435.0772705078125 1141.449951171875,435.0772705078125 1139.232177734375,433.0999755859375 1139.232177734375,433.0999755859375 1139.232177734375,433.0999755859375 1138,434.5538330078125 1138,434.5538330078125 1138,434.5538330078125 1141.482177734375,438 1141.482177734375,438 1141.482177734375,438 1141.96875,437.9375 1141.96875,437.9375 1141.96875,437.9375 1147,431.34619140625 1147,431.34619140625 1147,431.34619140625 1145.607177734375,430 1145.607177734375,430 z"
@@ -45,14 +45,7 @@
                                 Stretch="Uniform"
                                 VerticalAlignment="Center"
                                 Width="11" />
-                            <Rectangle
-                                Fill="{DynamicResource HighlightBrush}"
-                                Height="10"
-                                HorizontalAlignment="Center"
-                                Name="indeterminateMark"
-                                Stretch="Uniform"
-                                VerticalAlignment="Center"
-                                Width="10" />
+
                         </Panel>
                     </Border>
                     <ContentPresenter
@@ -75,16 +68,23 @@
         <Setter Property="BoxShadow" Value="0 0 3 LightGray" />
     </Style>
 
-  <Style Selector="CheckBox /template/ Border#border">
-    <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderHighBrush}" />
-   
-  </Style>
+    <Style Selector="CheckBox /template/ Border#border">
+        <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderHighBrush}" />
+
+    </Style>
 
     <Style Selector="CheckBox:checked /template/ Border#border">
-        <Setter Property="Background" Value="#84cd80" />
-      
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
+                    <GradientStop Color="#597ef7" Offset="0.1" />
+                    <GradientStop Color="#2f54eb" Offset="0.6" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+
     </Style>
-  
+
     <Style Selector="CheckBox /template/ Path#checkMark">
         <Setter Property="IsVisible" Value="False" />
     </Style>

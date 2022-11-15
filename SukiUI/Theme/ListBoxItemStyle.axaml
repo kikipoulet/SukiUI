@@ -1,58 +1,69 @@
-﻿<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-  <Design.PreviewWith>
-    <Border Padding="0">
-      <ListBox>
-        <ListBoxItem IsEnabled="False">Disabled</ListBoxItem>
-        <ListBoxItem 
-                     Padding="20">
-          Test
-        </ListBoxItem>
-        <ListBoxItem>Test</ListBoxItem>
-      </ListBox>
-    </Border>
-  </Design.PreviewWith>
-
-  
-  <Style Selector="ListBoxItem">
-    <Setter Property="Background" Value="Transparent" />
-  
-    <Setter Property="Template">
-      <ControlTemplate>
-        <StackPanel Orientation="Horizontal">
-          <Ellipse  Margin="0,1,0,0"
-    Width="12"
-    Height="12"
-    Fill="{TemplateBinding BorderBrush}"   >
-            <Ellipse.Transitions>
-              <Transitions>
-                <BrushTransition Property="Fill" Duration="0:0:0.15"></BrushTransition>
-              </Transitions>
-            </Ellipse.Transitions>
-          </Ellipse>
-                            <ContentPresenter Name="PART_ContentPresentern" Margin="-8,0,0,0"
-                          Background="Transparent"
-                          BorderBrush="Transparent"
-                          BorderThickness="{TemplateBinding BorderThickness}"
-                          CornerRadius="{TemplateBinding CornerRadius}"
-                          ContentTemplate="{TemplateBinding ContentTemplate}"
-                          Content="{TemplateBinding Content}"
-                          Padding="{TemplateBinding Padding}"
-                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" />
-        </StackPanel>
-      </ControlTemplate>
-       
-        
-    </Setter>
-  </Style>
-
-  <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresentern">
-    <Setter Property="Background" Value="Transparent"></Setter>
-  </Style>
+﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="0">
+            <ListBox>
+                <ListBoxItem>Disabled</ListBoxItem>
+                <ListBoxItem>
+                    Test
+                </ListBoxItem>
+                <ListBoxItem>Test</ListBoxItem>
+            </ListBox>
+        </Border>
+    </Design.PreviewWith>
 
 
-  <Style Selector="ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresentern">
-    <Setter Property="Background" Value="Transparent"></Setter>
-  </Style>
+
+    <Style Selector="ListBoxItem">
+        <Setter Property="Background" Value="Transparent" />
+
+        <Setter Property="Template">
+            <ControlTemplate>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox IsEnabled="False" />
+                    <ContentPresenter
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Content="{TemplateBinding Content}"
+                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        Margin="-8,0,0,0"
+                        Name="PART_ContentPresentern"
+                        Padding="{TemplateBinding Padding}"
+                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                </StackPanel>
+            </ControlTemplate>
+
+
+        </Setter>
+    </Style>
+
+    <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresentern">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+
+
+    <Style Selector="ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresentern">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+
+    <Style Selector="ListBoxItem">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="10 0 0 0" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ThemeBackgroundBrush}" />
+        <Setter Property="Padding" Value="10 0" />
+        <Setter Property="Margin" Value="0 5" />
+    </Style>
+
+    <Style Selector="ListBoxItem:selected /template/ CheckBox">
+
+        <Setter Property="IsChecked" Value="True" />
+    </Style>
+
+    <Style Selector="ListBoxItem /template/ CheckBox">
+
+        <Setter Property="IsChecked" Value="False" />
+    </Style>
+
 </Styles>

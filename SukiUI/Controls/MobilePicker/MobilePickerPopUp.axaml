@@ -1,0 +1,51 @@
+﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="SukiUI.Controls.MobilePicker.MobilePickerPopUp"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mobilePicker="clr-namespace:SukiUI.Controls.MobilePicker"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.DataContext>
+        <mobilePicker:MobilePickerPopUpVM />
+    </UserControl.DataContext>
+    <Border
+        BorderThickness="0"
+        Classes="ElevatedCard"
+        Height="250"
+        Width="350">
+        <DockPanel>
+            <Button
+                Classes="Accent"
+                Click="DoneClick"
+                DockPanel.Dock="Top"
+                HorizontalAlignment="Right"
+                Margin="-10">
+                <TextBlock
+                    FontSize="16"
+                    FontWeight="DemiBold"
+                    Text="Done" />
+            </Button>
+
+            <Grid>
+                <ListBox
+                    Items="{Binding Items}"
+                    ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                    SelectedItem="{Binding SelectedItem}"
+                    VerticalAlignment="Center">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock
+                                FontSize="19"
+                                Padding="2"
+                                Text="{Binding}" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+
+        </DockPanel>
+    </Border>
+</UserControl>

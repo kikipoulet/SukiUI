@@ -166,7 +166,7 @@ namespace SukiUI.Controls
             hostWindow.Close();
         }
 
-        private void CloseDialog(object sender, RoutedEventArgs e)
+        public void CloseDialog(object sender, RoutedEventArgs e)
         {
             IsDialogOpen = false;
         }
