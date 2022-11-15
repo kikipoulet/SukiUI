@@ -42,6 +42,12 @@ namespace DialogHost {
                 nameof(IsOpen),
                 o => o.IsOpen,
                 (o, v) => o.IsOpen = v);
+        
+        public static readonly DirectProperty<DialogHost, bool> IsBottomProperty =
+            AvaloniaProperty.RegisterDirect<DialogHost, bool>(
+                nameof(IsBottom),
+                o => o.IsBottom,
+                (o, v) => o.IsBottom = v);
 
         public static readonly RoutedEvent DialogOpenedEvent =
             RoutedEvent.Register<DialogHost, DialogOpenedEventArgs>(nameof(DialogOpened), RoutingStrategies.Bubble);
@@ -114,6 +120,7 @@ namespace DialogHost {
         private bool _internalIsOpen;
 
         private bool _isOpen;
+        private bool _isBottom;
 
         private ICommand _openDialogCommand;
 
@@ -180,6 +187,15 @@ namespace DialogHost {
                 IsOpenPropertyChangedCallback(this, value);
             }
         }
+        
+        public bool IsBottom {
+            get => _isBottom;
+            set {
+                SetAndRaise(IsBottomProperty, ref _isBottom, value);
+               
+            }
+        }
+
 
         public bool CloseOnClickAway {
             get => _closeOnClickAway;
@@ -365,6 +381,8 @@ namespace DialogHost {
             if (newValue) {
                 dialogHost.CurrentSession = new DialogSession(dialogHost);
                 dialogHost._restoreFocusDialogClose = FocusManager.Instance.Current;
+
+                dialogHost._overlayPopupHost.IsAtBottom = dialogHost.IsBottom;
                 
                 if (dialogHost._overlayPopupHost != null)
                     dialogHost._overlayPopupHost.IsOpen = true;

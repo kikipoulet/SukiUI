@@ -13,8 +13,21 @@ namespace DialogHost {
 
         public void Update(PopupPositionerParameters parameters) {
             // Simplify calculations
+
+            double heightFactor = (parameters.Anchor & PopupAnchor.Bottom) != 0 ? 1.05 : 2;
+            
             var horizontalMargin = (parameters.AnchorRectangle.Width - parameters.Size.Width) / 2;
-            var verticalMargin = (parameters.AnchorRectangle.Height - parameters.Size.Height) / 2;
+            var verticalMargin = (parameters.AnchorRectangle.Height - parameters.Size.Height) /heightFactor ;
+            _popup.MoveAndResize(new Point(horizontalMargin, verticalMargin), parameters.Size / _popup.Scaling);
+        }
+        
+        public void UpdateAtBottom(PopupPositionerParameters parameters) {
+            // Simplify calculations
+
+           
+            
+            var horizontalMargin = (parameters.AnchorRectangle.Width - parameters.Size.Width) / 2;
+            var verticalMargin = (parameters.AnchorRectangle.Height - parameters.Size.Height) /1.1 ;
             _popup.MoveAndResize(new Point(horizontalMargin, verticalMargin), parameters.Size / _popup.Scaling);
         }
     }

@@ -95,6 +95,7 @@
             <dialogHost:DialogHost
                 CloseOnClickAway="True"
                 DialogContent="{Binding DialogChild}"
+                IsBottom="{Binding DialogAtBottom}"
                 IsOpen="{Binding IsDialogOpen}">
 
                 <Grid>

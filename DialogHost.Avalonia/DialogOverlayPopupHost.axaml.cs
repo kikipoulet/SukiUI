@@ -19,6 +19,12 @@ namespace DialogHost {
                 nameof(IsOpen),
                 o => o.IsOpen,
                 (o, v) => o.IsOpen = v);
+        
+        public static readonly DirectProperty<DialogOverlayPopupHost, bool> IsAtBottomProperty =
+            AvaloniaProperty.RegisterDirect<DialogOverlayPopupHost, bool>(
+                nameof(IsAtBottom),
+                o => o.IsAtBottom,
+                (o, v) => o.IsAtBottom = v);
 
         public static readonly DirectProperty<DialogOverlayPopupHost, bool> IsActuallyOpenProperty =
             AvaloniaProperty.RegisterDirect<DialogOverlayPopupHost, bool>(
@@ -36,6 +42,7 @@ namespace DialogHost {
         private bool _isActuallyOpen;
         private bool _disableOpeningAnimation;
         private bool _isOpen;
+        private bool _isAtBottom;
         private Point _lastRequestedPosition;
         private DialogPopupPositioner _popupPositioner;
         private PopupPositionerParameters _positionerParameters = new PopupPositionerParameters();
@@ -52,6 +59,14 @@ namespace DialogHost {
             set {
                 SetAndRaise(IsOpenProperty, ref _isOpen, value);
                 if (value) IsActuallyOpen = true;
+            }
+        }
+        
+        public bool IsAtBottom {
+            get => _isAtBottom;
+            set {
+                SetAndRaise(IsAtBottomProperty, ref _isAtBottom, value);
+             
             }
         }
 
@@ -191,7 +206,10 @@ namespace DialogHost {
                 return;
             if (_shown)
             {
-                _popupPositioner.Update(_positionerParameters);
+                if(_isAtBottom)
+                    _popupPositioner.UpdateAtBottom(_positionerParameters);
+                else
+                    _popupPositioner.Update(_positionerParameters);
             }
         }
 

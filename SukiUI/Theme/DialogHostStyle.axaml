@@ -116,6 +116,8 @@
 
     <Style Selector="dialogHost|DialogOverlayPopupHost">
 
+        <Setter Property="VerticalAlignment" Value="Bottom" />
+        <Setter Property="VerticalContentAlignment" Value="Bottom" />
         <Setter Property="Template">
             <ControlTemplate>
                 <VisualLayerManager IsPopup="True" Name="PART_DialogPopupRoot">
@@ -129,6 +131,8 @@
             </ControlTemplate>
         </Setter>
     </Style>
+
+
 
     <Style Selector="dialogHost|DialogOverlayPopupHost[IsOpen=True][DisableOpeningAnimation=False]">
         <Style.Animations>

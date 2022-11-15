@@ -31,7 +31,7 @@ namespace AndroidTest.Views
         private void ShowFlyout(object sender, RoutedEventArgs e)
         {
 
-            MyMenu.menu.ShowDialog(
+            MobileMenuPage.ShowDialogS(
                 new Border()
                 {
                     Classes = new Classes(new List<string>() { "ElevatedCard"}), BorderThickness = new Thickness(0), 

@@ -24,6 +24,14 @@ namespace SukiUI.Controls
             get => isdialogopen;
             set => this.RaiseAndSetIfChanged(ref isdialogopen, value);
         }
+        
+        private bool dialogatbottom = false;
+
+        public bool DialogAtBottom
+        {
+            get => dialogatbottom;
+            set => this.RaiseAndSetIfChanged(ref dialogatbottom, value);
+        }
 
 
         private Control dialogchild = new Grid();
