@@ -20,6 +20,7 @@
         MenuVisibility="False"
         Name="myPage"
         Title="Suki UI Testing - New Project">
+
         <suki:SideMenu>
             <suki:SideMenu.DataContext>
                 <suki:SideMenuModel>

@@ -19,7 +19,11 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox IsEnabled="False" />
+                    <CheckBox IsEnabled="False" Margin="2">
+                        <CheckBox.RenderTransform>
+                            <ScaleTransform ScaleX="1.2" ScaleY="1.2" />
+                        </CheckBox.RenderTransform>
+                    </CheckBox>
                     <ContentPresenter
                         Background="Transparent"
                         BorderBrush="Transparent"
@@ -31,7 +35,8 @@
                         Margin="-8,0,0,0"
                         Name="PART_ContentPresentern"
                         Padding="{TemplateBinding Padding}"
-                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        VerticalAlignment="Center"
+                        VerticalContentAlignment="Center" />
                 </StackPanel>
             </ControlTemplate>
 

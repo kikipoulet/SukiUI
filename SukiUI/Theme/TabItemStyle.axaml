@@ -1,8 +1,11 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:material="using:Material.Icons.Avalonia">
     <Design.PreviewWith>
-        <Border Background="Red" Padding="20">
-            <TabControl Margin="5">
-                <TabItem>
+        <Border
+            Background="Red"
+            Padding="20"
+            Width="300">
+            <TabControl Classes="MobileTabView" Margin="5">
+                <TabItem Classes="MobileTabItem">
                     <TabItem.Header>
                         <TextBlock>Item 1</TextBlock>
                     </TabItem.Header>
@@ -18,7 +21,7 @@
 
 
     <Style Selector="TabItem">
-        <Setter Property="FontSize" Value="{DynamicResource TabItemHeaderFontSize}" />
+        <Setter Property="FontSize" Value="50" />
         <Setter Property="FontWeight" Value="{DynamicResource TabItemHeaderThemeFontWeight}" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource TabItemHeaderForegroundUnselected}" />
@@ -64,57 +67,10 @@
         </Setter>
     </Style>
 
-    <Style Selector="TabItem.MobileTabItem">
-        <Setter Property="FontSize" Value="50" />
-        <Setter Property="FontWeight" Value="{DynamicResource TabItemHeaderThemeFontWeight}" />
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{DynamicResource TabItemHeaderForegroundUnselected}" />
-        <Setter Property="Padding" Value="{DynamicResource TabItemHeaderMargin}" />
-        <Setter Property="Margin" Value="0" />
-        <Setter Property="MinHeight" Value="{DynamicResource TabItemMinHeight}" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Template">
-            <ControlTemplate>
-                <Border
-                    Background="Transparent"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}"
-                    CornerRadius="{TemplateBinding CornerRadius}"
-                    Name="PART_LayoutRootn"
-                    Padding="{TemplateBinding Padding}">
-                    <Panel>
-                        <ContentPresenter
-                            Content="{TemplateBinding Header}"
-                            ContentTemplate="{TemplateBinding HeaderTemplate}"
-                            HorizontalAlignment="Center"
-                            HorizontalContentAlignment="Center"
-                            Name="PART_ContentPresentern"
-                            Padding="7,12"
-                            TextBlock.FontFamily="{TemplateBinding FontFamily}"
-                            TextBlock.FontSize="{TemplateBinding FontSize}"
-                            TextBlock.FontWeight="{TemplateBinding FontWeight}"
-                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-                        <Border
-                            Background="#2f54eb"
-                            CornerRadius="10"
-                            Height="7"
-                            Margin="0,5,0,0"
-                            Name="PART_SelectedPipe"
-                            Width="7">
-                            <Border.Transitions>
-                                <Transitions>
-                                    <DoubleTransition Duration="0:0:0.3" Property="Opacity" />
-                                </Transitions>
-                            </Border.Transitions>
-                        </Border>
-                    </Panel>
-                </Border>
-            </ControlTemplate>
-        </Setter>
-    </Style>
+
 
     <Style Selector="TabItem.FlatTabItem">
-        <Setter Property="FontSize" Value="{DynamicResource TabItemHeaderFontSize}" />
+        <Setter Property="FontSize" Value="50" />
         <Setter Property="FontWeight" Value="{DynamicResource TabItemHeaderThemeFontWeight}" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource TabItemHeaderForegroundUnselected}" />
@@ -166,7 +122,7 @@
         <Setter Property="CornerRadius" Value="5" />
         <Setter Property="TextBlock.Foreground" Value="{DynamicResource TabItemHeaderForegroundSelected}" />
         <Setter Property="TextBlock.FontWeight" Value="DemiBold" />
-       
+
 
     </Style>
 
@@ -239,5 +195,61 @@
     </Style>
     <Style Selector="TabItem[TabStripPlacement=Right]">
         <Setter Property="HorizontalContentAlignment" Value="Right" />
+    </Style>
+
+
+    <Style Selector="TabItem.MobileTabItem">
+        <Setter Property="FontSize" Value="50" />
+        <Setter Property="FontWeight" Value="{DynamicResource TabItemHeaderThemeFontWeight}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource TabItemHeaderForegroundUnselected}" />
+        <Setter Property="Padding" Value="{DynamicResource TabItemHeaderMargin}" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="MinHeight" Value="{DynamicResource TabItemMinHeight}" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border
+                    Background="Transparent"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    Name="PART_LayoutRootn"
+                    Padding="{TemplateBinding Padding}">
+                    <Panel>
+
+                        <ContentPresenter
+                            Content="{TemplateBinding Header}"
+                            ContentTemplate="{TemplateBinding HeaderTemplate}"
+                            HorizontalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            Name="PART_ContentPresentern"
+                            Padding="10,12"
+                            TextBlock.FontFamily="{TemplateBinding FontFamily}"
+                            TextBlock.FontSize="{TemplateBinding FontSize}"
+                            TextBlock.FontWeight="{TemplateBinding FontWeight}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                            <ContentPresenter.RenderTransform>
+                                <ScaleTransform ScaleX="1.35" ScaleY="1.35" />
+                            </ContentPresenter.RenderTransform>
+                        </ContentPresenter>
+
+                        <Border
+                            Background="#2f54eb"
+                            CornerRadius="10"
+                            Height="7"
+                            Margin="0,15,0,0"
+                            Name="PART_SelectedPipe"
+                            Width="7">
+                            <Border.Transitions>
+                                <Transitions>
+                                    <DoubleTransition Duration="0:0:0.3" Property="Opacity" />
+                                </Transitions>
+                            </Border.Transitions>
+                        </Border>
+                    </Panel>
+                </Border>
+            </ControlTemplate>
+        </Setter>
     </Style>
 </Styles>

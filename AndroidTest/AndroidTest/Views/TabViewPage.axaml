@@ -9,13 +9,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <TabControl Classes="MobileTabView">
         <TabItem Classes="MobileTabItem" Header="Tab 1">
-            <Grid Background="WhiteSmoke" />
+          <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Tab 1"></TextBlock>
+
         </TabItem>
         <TabItem Classes="MobileTabItem" Header="Tab 2">
-            <Grid Background="LightGray" />
+          <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Tab 2"></TextBlock>
+
         </TabItem>
         <TabItem Classes="MobileTabItem" Header="Tab 3">
-            <Grid Background="WhiteSmoke" />
+          <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Tab 3"></TextBlock>
         </TabItem>
 
 

@@ -76,8 +76,8 @@
 
                     <suki:SideMenuItem Header="Tab View" Icon="Tab">
                         <suki:SideMenuItem.Content>
-                            <suki:ClassicMobilePage Header="Tab View">
-                                <views:TabViewPage />
+                            <suki:ClassicMobilePage Header="Page Header">
+                                <Grid />
                             </suki:ClassicMobilePage>
                         </suki:SideMenuItem.Content>
                     </suki:SideMenuItem>

@@ -1,0 +1,40 @@
+﻿<UserControl
+    mc:Ignorable="d"
+    x:Class="SukiUI.Controls.MobileNumberPicker.MobileNumberPicker"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:controls="clr-namespace:SukiUI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:material="using:Material.Icons.Avalonia"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mobileNumberPicker="clr-namespace:SukiUI.Controls.MobileNumberPicker"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <controls:IntToStringConverter x:Key="ToStringConverter" />
+    </UserControl.Resources>
+    <UserControl.Styles>
+        <Style Selector="mobileNumberPicker|MobileNumberPicker">
+            <Setter Property="Template">
+                <ControlTemplate>
+
+                    <Button Classes="Accent" Click="OpenPopup">
+                        <Border
+                            Background="#fafafa"
+                            BorderThickness="0"
+                            CornerRadius="30"
+                            Padding="10,5">
+
+                            <TextBlock
+                                FontSize="18"
+                                Foreground="Black"
+                                Margin="0,1,0,0"
+                                Text="{TemplateBinding Value,
+                                                       Converter={StaticResource ToStringConverter}}" />
+
+                        </Border>
+                    </Button>
+
+                </ControlTemplate>
+            </Setter>
+        </Style>
+    </UserControl.Styles>
+</UserControl>

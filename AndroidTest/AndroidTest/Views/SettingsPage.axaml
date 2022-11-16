@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:material="using:Material.Icons.Avalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mobileNumberPicker="clr-namespace:SukiUI.Controls.MobileNumberPicker;assembly=SukiUI"
     xmlns:mobilePicker="clr-namespace:SukiUI.Controls.MobilePicker;assembly=SukiUI"
     xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
     xmlns:system="clr-namespace:System;assembly=netstandard"
@@ -293,7 +294,7 @@
                                 Margin="5">
                                 <TextBlock Text="$" />
                             </RadioButton>
-                            
+
                         </StackPanel>
 
                         <TextBlock
@@ -472,22 +473,20 @@
                         DockPanel.Dock="Left"
                         Foreground="#333333"
                         Height="25"
-                        Kind="BatteryOutline"
+                        Kind="BabyFaceOutline"
                         Margin="0,5,0,0"
                         Width="25" />
-                    <material:MaterialIcon
+
+                    <mobileNumberPicker:MobileNumberPicker
                         DockPanel.Dock="Right"
-                        Foreground="DarkGray"
-                        Height="25"
-                        Kind="ChevronRight"
-                        Margin="0,6,5,0"
-                        Width="25" />
+                        Margin="-15"
+                        Value="5" />
 
                     <TextBlock
                         FontSize="19"
                         FontWeight="Medium"
                         Margin="30,8,0,0"
-                        Text="Battery"
+                        Text="Age"
                         VerticalAlignment="Center" />
                 </DockPanel>
             </Border>
