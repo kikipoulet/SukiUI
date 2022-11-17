@@ -58,4 +58,4 @@ Done with Avalonia 0.11 <br/>
 # Documentation
 </br>
 
-Documentation is on the wiki of this repo
+Documentation is on the [Wiki](https://github.com/kikipoulet/SukiUI/wiki) of this repo
