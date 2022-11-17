@@ -26,11 +26,12 @@ SukiUI theme and controls in SukiUI 3.0.0 Nuget Package.
 
 Done with Avalonia 0.11 <br/>
 <kbd>
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/dashboard.gif" ></img> 
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/MobileOverview.gif" style="float:left" ></img>
 </kbd>
 <kbd>
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/settings.gif" style="float:left" ></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/dashboard.gif" ></img> 
 </kbd>
+
  
 
 # Installation
