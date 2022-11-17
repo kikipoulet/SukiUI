@@ -7,24 +7,22 @@ Suki is the name of my dog :-)
 </div>
 <br/>
 
-# Suki UI
+# ✨ SukiUI
 
-### UI Theme and additional Controls for AvaloniaUI ! <img src="https://www.avaloniaui.net/assets/Logo.svg"></img>
+### UI Theme, Desktop and Mobile Controls for AvaloniaUI ! <img src="https://www.avaloniaui.net/img/logo/avalonia-white-purple.svg"></img>
+
+<br/>
+
+Documentation is on the [Wiki](https://github.com/kikipoulet/SukiUI/wiki) of this repository
+<br/>
 
 
-
-
-## Overview
-
-SukiUI theme and controls in SukiUI 3.0.0 Nuget Package.
-
-### Desktop
+## 🖥️ Desktop Overview
 
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/DesktopShow.gif"></img>
 
-### Mobile
+## 📱 Mobile Overview
 
-Done with Avalonia 0.11 <br/>
 <kbd>
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/MobileOverview.gif" style="float:left" ></img>
 </kbd>
@@ -34,13 +32,13 @@ Done with Avalonia 0.11 <br/>
 
  
 
-# Installation
+## 📦 Installation
 
 - Install SukiUI Nuget Package
-```
- - for Avalonia 0.11, use SukiUI 4.0.0.0
- - for Avalonia 0.10, use SukiUI 3.0.0.0
-```
+
+  Avalonia 0.11 -> SukiUI 4.0.0.0 <br/>
+  Avalonia 0.10 -> SukiUI 3.0.0.0
+
 - Reference SukiUI in your App.axaml file
 
 ```
@@ -56,7 +54,6 @@ Done with Avalonia 0.11 <br/>
 
 </br>
 
-# Documentation
-</br>
+Documentation is on the [Wiki](https://github.com/kikipoulet/SukiUI/wiki) of this repository
 
-Documentation is on the [Wiki](https://github.com/kikipoulet/SukiUI/wiki) of this repo
+
