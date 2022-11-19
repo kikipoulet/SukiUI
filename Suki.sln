@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AndroidTest.Android", "Andr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AndroidTest.Desktop", "AndroidTest\AndroidTest.Desktop\AndroidTest.Desktop.csproj", "{E1997A59-0858-4DA2-BECF-7485E826316A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DialogHost.Avalonia", "DialogHost.Avalonia\DialogHost.Avalonia.csproj", "{34A47D26-FAD9-4513-8F50-19E4EA6F8C9A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,10 +41,6 @@ Global
 		{E1997A59-0858-4DA2-BECF-7485E826316A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1997A59-0858-4DA2-BECF-7485E826316A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1997A59-0858-4DA2-BECF-7485E826316A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{34A47D26-FAD9-4513-8F50-19E4EA6F8C9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{34A47D26-FAD9-4513-8F50-19E4EA6F8C9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{34A47D26-FAD9-4513-8F50-19E4EA6F8C9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{34A47D26-FAD9-4513-8F50-19E4EA6F8C9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

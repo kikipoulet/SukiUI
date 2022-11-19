@@ -1,0 +1,10 @@
+﻿<Style
+    xmlns="https://github.com/avaloniaui"
+    xmlns:sys="clr-namespace:System;assembly=netstandard"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style.Resources>
+
+        <Color x:Key="SukiBackground">#333333</Color>
+        <Color x:Key="SukiText">#eeeeee</Color>
+    </Style.Resources>
+</Style>

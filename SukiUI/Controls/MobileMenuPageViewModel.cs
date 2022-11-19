@@ -3,12 +3,18 @@ using Material.Icons;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reactive;
 using System.Text;
+using Avalonia.Threading;
 
 namespace SukiUI.Controls
 {
-    public class MobileMenuPageViewModel : ReactiveObject
+    public class MobileMenuPageViewModel :  ReactiveObject
     {
+        
+        
+        
         private string headertext = "Home";
 
         public string HeaderText
@@ -54,7 +60,7 @@ namespace SukiUI.Controls
             MenuVisibility = false;
         }
 
-        private bool menuvisibility = true;
+        private bool menuvisibility = false;
 
         public bool MenuVisibility
         {
@@ -92,11 +98,22 @@ namespace SukiUI.Controls
             set => this.RaiseAndSetIfChanged(ref menuItems, value);
         }
 
+        public MobileMenuPageViewModel()
+        {
+            
+                DoTheThing = ReactiveCommand.Create<SideMenuItem>(ChangePage);
+            
+            
+        }
+
+        public ReactiveCommand<SideMenuItem, Unit> DoTheThing { get; set; }
         public void ChangePage(SideMenuItem o)
         {
-            HeaderText = o.Header;
-            CurrentPage = o.Content;
-            MenuVisibility = false; 
+        Console.WriteLine(o);
+                HeaderText = o.Header;
+                CurrentPage = o.Content;
+                MenuVisibility = false; 
+            
         }
     }
 }

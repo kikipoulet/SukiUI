@@ -38,15 +38,21 @@
                         CornerRadius="{TemplateBinding CornerRadius}"
                         Margin="0,0,0,0"
                         Padding="10">
-                        <ContentPresenter
-                            Content="{TemplateBinding Content}"
-                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                        <StackPanel
                             HorizontalAlignment="Center"
-                            HorizontalContentAlignment="Center"
-                            Margin="15,0,15,0"
-                            Name="PART_ContentPresenter"
-                            RecognizesAccessKey="True"
-                            VerticalAlignment="Center" />
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center">
+
+                            <ContentPresenter
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                HorizontalAlignment="Center"
+                                HorizontalContentAlignment="Center"
+                                Margin="15,0,15,0"
+                                Name="PART_ContentPresenter"
+                                RecognizesAccessKey="True"
+                                VerticalAlignment="Center" />
+                        </StackPanel>
                     </Border>
                 </Grid>
             </ControlTemplate>

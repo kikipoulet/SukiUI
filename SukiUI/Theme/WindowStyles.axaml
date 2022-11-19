@@ -1,55 +1,50 @@
-﻿<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <Border Padding="20">
-            <!-- Add Controls for Previewer Here -->
+            <!--  Add Controls for Previewer Here  -->
         </Border>
     </Design.PreviewWith>
 
-  <Style Selector="Window.NakedWindow">
-    <Setter Property="Background" Value="Transparent"></Setter>
- 
-    <Setter Property="ExtendClientAreaToDecorationsHint" Value="True"></Setter>
-    <Setter Property="ExtendClientAreaChromeHints" Value="NoChrome"></Setter>
-    <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="-1"></Setter>
-    <Setter Property="CornerRadius" Value="15"></Setter>
-    <Setter Property="Template">
-      <ControlTemplate>
-        <Grid>
+    <Style Selector="Window.NakedWindow">
+        <Setter Property="Background" Value="Transparent" />
+
+        <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
+        <Setter Property="ExtendClientAreaChromeHints" Value="NoChrome" />
+        <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="-1" />
+        <Setter Property="CornerRadius" Value="15" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid>
 
 
 
-          <Border x:Name="PART_Root" Margin="10" BoxShadow="0 0 15 0 LightGray" 
-               CornerRadius="10" IsHitTestVisible="False" 
-                  Background="White"
-                  BorderBrush="#dedede"
-                  BorderThickness="1.2">
+                    <Border
+                        Background="{StaticResource SukiBackground}"
+                        BorderBrush="#dedede"
+                        BorderThickness="1.2"
+                        BoxShadow="0 0 15 0 LightGray"
+                        CornerRadius="10"
+                        IsHitTestVisible="False"
+                        Margin="10"
+                        x:Name="PART_Root" />
+
+                    <Grid IsHitTestVisible="True" Margin="11">
 
 
-            <Border ClipToBounds="True" CornerRadius="10">
-              <Grid>
-                <Border Name="PART_TransparencyFallback" CornerRadius="10"
-                  IsHitTestVisible="False" />
-                <Border Background="{TemplateBinding Background}" CornerRadius="10"
-                        IsHitTestVisible="False" />
-                <Panel Margin="{TemplateBinding WindowDecorationMargin}" 
-                       Background="Transparent" />
-              
-              <VisualLayerManager >
-            <ContentPresenter x:Name="PART_ContentPresenter" CornerRadius="10"
-                               ContentTemplate="{TemplateBinding ContentTemplate}"
-                               Content="{TemplateBinding Content}"
-                          
-                               HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                               VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" >
+                        <VisualLayerManager IsHitTestVisible="True">
+                            <ContentPresenter
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                CornerRadius="10"
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                IsHitTestVisible="True"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                x:Name="PART_ContentPresenter" />
+                        </VisualLayerManager>
+                    </Grid>
 
-            </ContentPresenter>
-              </VisualLayerManager>
-              </Grid>
-            </Border>
-        </Border>
-        </Grid>
-      </ControlTemplate>
-    </Setter>
-  </Style>
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+    </Style>
 </Styles>

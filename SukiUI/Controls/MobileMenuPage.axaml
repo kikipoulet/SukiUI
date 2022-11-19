@@ -5,7 +5,7 @@
     x:Class="SukiUI.Controls.MobileMenuPage"
     xmlns="https://github.com/avaloniaui"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:dialogHost="clr-namespace:DialogHost;assembly=DialogHost.Avalonia"
+    xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
     xmlns:material="using:Material.Icons.Avalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:suki="clr-namespace:SukiUI.Controls"
@@ -53,16 +53,22 @@
                             </Grid>
                             <Grid Height="40" />
 
-                            <ItemsControl Items="{Binding MenuItems}">
+
+                            <ItemsControl
+                                IsEnabled="True"
+                                IsHitTestVisible="True"
+                                Items="{Binding MenuItems}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <RadioButton
                                             Classes="MenuItemMobile"
-                                            Command="{Binding DataContext.ChangePage, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
+                                            Command="{Binding DataContext.DoTheThing, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type suki:MobileMenuPage}}}"
                                             CommandParameter="{Binding}"
                                             GroupName="MenuItemsGroup"
                                             Height="50"
                                             HorizontalAlignment="Center"
+                                            IsEnabled="True"
+                                            IsHitTestVisible="True"
                                             Width="356">
                                             <Grid>
                                                 <DockPanel Margin="5,5,5,5">
@@ -80,6 +86,31 @@
 
                                             </Grid>
                                         </RadioButton>
+                                        <!--  <RadioButton
+                                            Command="{Binding DataContext.ChangePage, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
+                                            CommandParameter="{Binding}"
+                                            GroupName="MenuItemsGroup"
+                                            Height="50"
+                                            HorizontalAlignment="Center"
+                                            IsEnabled="True"
+                                            IsHitTestVisible="True"
+                                            Width="356">
+                                            <Grid>
+                                                <DockPanel Margin="5,5,5,5">
+                                                    <material:MaterialIcon
+                                                        Height="22"
+                                                        Kind="{Binding Icon}"
+                                                        Margin="15,0,0,0"
+                                                        Width="22" />
+                                                    <TextBlock
+                                                        Classes="h4"
+                                                        FontWeight="Medium"
+                                                        Margin="20,8,8,8"
+                                                        Text="{Binding Header}" />
+                                                </DockPanel>
+
+                                            </Grid>
+                                        </RadioButton>-->
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
@@ -92,10 +123,9 @@
         </SplitView.Pane>
         <Grid Background="White">
 
-            <dialogHost:DialogHost
+            <dialogHostAvalonia:DialogHost
                 CloseOnClickAway="True"
                 DialogContent="{Binding DialogChild}"
-                IsBottom="{Binding DialogAtBottom}"
                 IsOpen="{Binding IsDialogOpen}">
 
                 <Grid>
@@ -124,7 +154,7 @@
 
 
                 </Grid>
-            </dialogHost:DialogHost>
+            </dialogHostAvalonia:DialogHost>
             <Grid Background="#cccccccc" IsVisible="{Binding MenuVisibility}" />
         </Grid>
 

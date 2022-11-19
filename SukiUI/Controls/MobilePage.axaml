@@ -4,8 +4,8 @@
     mc:Ignorable="d"
     x:Class="SukiUI.Controls.MobilePage"
     xmlns="https://github.com/avaloniaui"
-       xmlns:dialogHost="clr-namespace:DialogHost;assembly=DialogHost.Avalonia"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
     xmlns:material="using:Material.Icons.Avalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:suki="clr-namespace:SukiUI.Controls"
@@ -51,11 +51,14 @@
                         </Border>
                         <Grid Background="#fafafa">
 
-                          <dialogHost:DialogHost CloseOnClickAway="True" IsOpen="{TemplateBinding IsDialogOpen}" DialogContent="{TemplateBinding DialogChild}">
+                            <dialogHostAvalonia:DialogHost
+                                CloseOnClickAway="True"
+                                DialogContent="{TemplateBinding DialogChild}"
+                                IsOpen="{TemplateBinding IsDialogOpen}">
 
-                            <ContentControl Content="{TemplateBinding Content}" />
-                          </dialogHost:DialogHost>
-                           
+                                <ContentControl Content="{TemplateBinding Content}" />
+                            </dialogHostAvalonia:DialogHost>
+
                         </Grid>
 
                     </DockPanel>

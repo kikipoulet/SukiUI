@@ -14,7 +14,7 @@
     <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0-preview1" />
     <PackageReference Include="Material.Icons.Avalonia" Version="1.2.0" />
     <PackageReference Include="OxyPlot.Avalonia" Version="2.1.0-Preview1" />
-	<PackageReference Include="XamlNameReferenceGenerator" Version="1.3.4" />
+	<PackageReference Include="XamlNameReferenceGenerator" Version="1.4.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\SukiUI\SukiUI.csproj" />

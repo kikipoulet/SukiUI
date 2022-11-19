@@ -85,7 +85,7 @@
             <Grid Height="10" />
 
 
-            <Border Background="White">
+          <Border Background="White">
                 <DockPanel Margin="20,11,30,16">
                     <material:MaterialIcon
                         DockPanel.Dock="Left"
@@ -117,7 +117,7 @@
                         Text="Dark Theme"
                         VerticalAlignment="Center" />
                 </DockPanel>
-            </Border>
+            </Border> 
             <Border Background="White">
 
                 <Border
@@ -213,7 +213,7 @@
                         Margin="0,5,0,0"
                         Width="25" />
 
-                    <suki:MobileNumericUpDown DockPanel.Dock="Right" Margin="0,2,0,-6" />
+                    <suki:MobileNumericUpDown Margin="0,2,0,-6" Value="5" />
 
                     <TextBlock
                         FontSize="19"
@@ -322,7 +322,10 @@
                         Margin="0,5,0,0"
                         Width="25" />
 
-                    <mobilePicker:MobilePicker DockPanel.Dock="Right" Margin="-5,0,-5,-11">
+                    <mobilePicker:MobilePicker
+                        DockPanel.Dock="Right"
+                        Margin="-5,0,-5,-11"
+                        SelectedItem="France">
                         <mobilePicker:MobilePicker.Items>
                             <system:String>Germany</system:String>
                             <system:String>USA</system:String>
@@ -390,8 +393,7 @@
                     HorizontalAlignment="Stretch"
                     Margin="50,0,60,0" />
             </Border>
-
-            <Border Background="White">
+  <Border Background="White">
                 <DockPanel Margin="20,11,30,16">
                     <material:MaterialIcon
                         DockPanel.Dock="Left"
@@ -423,7 +425,7 @@
                         Text="Notifications"
                         VerticalAlignment="Center" />
                 </DockPanel>
-            </Border>
+            </Border> 
 
             <Border Background="White">
 
