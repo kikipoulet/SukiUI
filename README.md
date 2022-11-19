@@ -7,55 +7,39 @@ Suki is the name of my dog :-)
 </div>
 <br/>
 
-# Suki UI
+# ✨ SukiUI
 
-### UI Theme and additional Controls for AvaloniaUI ! <img src="https://www.avaloniaui.net/assets/Logo.svg"></img>
+### UI Theme, Desktop and Mobile Controls for AvaloniaUI ! <img src="https://www.avaloniaui.net/img/logo/avalonia-white-purple.svg"></img>
+
+<br/>
+
+Documentation is on the [Wiki](https://github.com/kikipoulet/SukiUI/wiki) of this repository
+<br/>
 
 
-
-
-## Overview
-
-SukiUI theme and controls in SukiUI 3.0.0 Nuget Package.
-
-### Desktop
+## 🖥️ Desktop Overview
 
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/DesktopShow.gif"></img>
 
-### Mobile
+## 📱 Mobile Overview
 
-Done with Avalonia 0.11 <br/>
+<kbd>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/MobileOverview.gif" style="float:left" ></img>
+</kbd>
 <kbd>
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/dashboard.gif" ></img> 
 </kbd>
-<kbd>
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/settings.gif" style="float:left" ></img>
-</kbd>
+
  
 
-# Installation
+## 📦 Installation
 
-- Install SukiUI Nuget Package
-```
- - for Avalonia 0.11, use SukiUI 4.0.0.0
- - for Avalonia 0.10, use SukiUI 3.0.0.0
-```
-- Reference SukiUI in your App.axaml file
-
-```
-<Application ...>
-     <Application.Styles>
-        ...
-        <StyleInclude Source="avares://SukiUI/Theme/Index.xaml"/>
-        ...
-    </Application.Styles>
-</Application>
-```
+- working on migration to Avalonia 0.11 on nuget.org, installation with nuget.org is coming in few days .. Sorry for the inconvenience
+- Or just download this repository to test SukiUI.
 
 
 </br>
 
-# Documentation
-</br>
+Documentation is on the [Wiki](https://github.com/kikipoulet/SukiUI/wiki) of this repository
 
-Documentation is on the wiki of this repo
+
