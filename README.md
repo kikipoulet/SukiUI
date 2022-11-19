@@ -34,22 +34,8 @@ Documentation is on the [Wiki](https://github.com/kikipoulet/SukiUI/wiki) of thi
 
 ## 📦 Installation
 
-- Install SukiUI Nuget Package
-
-  Avalonia 0.11 -> SukiUI 4.0.0.0 <br/>
-  Avalonia 0.10 -> SukiUI 3.0.0.0
-
-- Reference SukiUI in your App.axaml file
-
-```
-<Application ...>
-     <Application.Styles>
-        ...
-        <StyleInclude Source="avares://SukiUI/Theme/Index.xaml"/>
-        ...
-    </Application.Styles>
-</Application>
-```
+- working on migration to Avalonia 0.11 on nuget.org, installation with nuget.org is coming in few days .. Sorry for the inconvenience
+- Or just download this repository to test SukiUI.
 
 
 </br>
