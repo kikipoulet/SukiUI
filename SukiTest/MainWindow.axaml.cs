@@ -84,7 +84,7 @@ namespace SukiTest
 
         private void ShowInfoBox(object sender, RoutedEventArgs e)
         {
-            MessageBox.Info(this, "Info", "Here is a random Information message", WindowStartupLocation.CenterScreen);
+            MessageBox.Info(this, "Info", "Here is a random Information message");
          //   SukiUI.Controls.DesktopPage.ShowDialogS(new TextBlock() { Text = "This is an example !", Margin = new Thickness(30) });
         }
 
@@ -149,6 +149,11 @@ namespace SukiTest
         {
             var loading = this.FindControl<Loading>("MyLoading");
             loading.Opacity = Math.Abs(loading.Opacity - 1);
+        }
+
+        private void ChangeTheme(object? sender, RoutedEventArgs e)
+        {
+            SukiUI.ColorTheme.LoadDarkTheme(Application.Current);
         }
     }
 }

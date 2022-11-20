@@ -134,7 +134,7 @@
                                 Height="20"
                                 Width="20"
                                 x:Name="PART_MovingKnobs">
-                              <Grid x:Name="MovingKnobs">
+                           
                                 <Ellipse
                                     Fill="White"
                                     Height="16"
@@ -150,7 +150,7 @@
                                     Margin="0,1,0,0"
                                     Width="16"
                                     x:Name="PART_SwitchKnobOff" />
-                              </Grid>
+                             
                             </Grid>
                         </Canvas>
                     </Grid>

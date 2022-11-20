@@ -14,7 +14,7 @@
     </Design.PreviewWith>
 
     <Style Selector="TextBlock">
-        <Setter Property="Foreground" Value="{StaticResource SukiText}" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
         <Setter Property="FontFamily" Value="avares://SukiUI/Roboto-Regular.ttf#Roboto" />
         <Setter Property="FontSize" Value="15" />
     </Style>

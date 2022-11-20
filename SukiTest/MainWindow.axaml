@@ -68,8 +68,8 @@
                                                 <TextBlock Classes="h3" Margin="5,0,0,15">Buttons</TextBlock>
                                                 <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal">
 
-                                                    <Button Classes="Primary">
-                                                        <TextBlock>Primary</TextBlock>
+                                                    <Button Classes="Primary" Click="ChangeTheme">
+                                                        <TextBlock>Change Theme</TextBlock>
                                                     </Button>
                                                     <Button Classes="Accent">
                                                         <TextBlock>Accent</TextBlock>

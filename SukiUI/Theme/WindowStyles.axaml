@@ -19,7 +19,7 @@
 
 
                     <Border
-                        Background="{StaticResource SukiBackground}"
+                        Background="{DynamicResource SukiBackground}"
                         BorderBrush="#dedede"
                         BorderThickness="1.2"
                         BoxShadow="0 0 15 0 LightGray"
