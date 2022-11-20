@@ -32,14 +32,13 @@ Documentation is on the [Wiki](https://github.com/kikipoulet/SukiUI/wiki) of thi
 
  
 
-## 📦 Installation
+## 📦 Usage
 
-- working on migration to Avalonia 0.11 on nuget.org, installation with nuget.org is coming in few days .. Sorry for the inconvenience
-- Or just download this repository to test SukiUI.
+[Installation](https://github.com/kikipoulet/SukiUI/wiki/1.-Installation)
 
 
 </br>
 
-Documentation is on the [Wiki](https://github.com/kikipoulet/SukiUI/wiki) of this repository
+[Controls Documentation](https://github.com/kikipoulet/SukiUI/wiki/2.-Controls) 
 
 
