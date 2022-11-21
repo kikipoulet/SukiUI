@@ -30,7 +30,16 @@ Documentation is on the [Wiki](https://github.com/kikipoulet/SukiUI/wiki) of thi
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/dashboard.gif" ></img> 
 </kbd>
 
- 
+## 🛠️ Currently Working on .. 
+
+<details>
+  <summary>Click me .. 🤫</summary>
+
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/DarkTheme.gif"></img>
+
+
+
+</details>
 
 ## 📦 Usage
 
