@@ -234,15 +234,15 @@
         <Setter Property="BorderThickness" Value="0,0,0,0" />
         <Setter Property="BorderBrush">
             <RadialGradientBrush>
-                <GradientStop Color="#2f54eb" Offset="0.1" />
-                <GradientStop Color="#597ef7" Offset="0.6" />
+                <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.1" />
+                <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.6" />
             </RadialGradientBrush>
         </Setter>
         <Setter Property="Margin" Value="-30,5,5,5" />
     </Style>
 
     <Style Selector="RadioButton.MenuItem:pointerover /template/ Border">
-        <Setter Property="Background" Value="#fafafa" />
+        <Setter Property="Background" Value="{DynamicResource SukiLightBackground}" />
 
 
     </Style>
@@ -258,19 +258,19 @@
         <Setter Property="BorderThickness" Value="0,0,0,0" />
         <Setter Property="BorderBrush">
             <RadialGradientBrush>
-                <GradientStop Color="#2f54eb" Offset="0.1" />
-                <GradientStop Color="#597ef7" Offset="0.6" />
+                <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.1" />
+                <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.6" />
             </RadialGradientBrush>
         </Setter>
-        <Setter Property="Background" Value="#F6F8FF" />
+        <Setter Property="Background" Value="{DynamicResource SukiLightColoredBackground}" />
     </Style>
     <Style Selector="RadioButton.MenuItem:checked  TextBlock">
-        <Setter Property="Foreground" Value="#2f54eb" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
         <Setter Property="FontWeight" Value="DemiBold" />
     </Style>
 
     <Style Selector="RadioButton.MenuItem:checked  material|MaterialIcon">
-        <Setter Property="Foreground" Value="#2f54eb" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
 
     </Style>
 

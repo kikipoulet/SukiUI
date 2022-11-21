@@ -2,15 +2,15 @@
     <Style Selector="ProgressBar">
 
         <Setter Property="CornerRadius" Value="4" />
-        <Setter Property="Background" Value="WhiteSmoke" />
-      <Setter Property="Foreground"  >
-        <Setter.Value>
-          <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%" >
-            <GradientStop Color="#597ef7" Offset="0.1"   />
-            <GradientStop Color="#2f54eb" Offset="0.6" />
-          </LinearGradientBrush>
-        </Setter.Value>
-      </Setter>
+        <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
+        <Setter Property="Foreground">
+            <Setter.Value>
+                <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
+                    <GradientStop Color="#597ef7" Offset="0.1" />
+                    <GradientStop Color="#2f54eb" Offset="0.6" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
         <Setter Property="Template">
             <ControlTemplate>
                 <Grid>
@@ -21,19 +21,22 @@
                         CornerRadius="{TemplateBinding CornerRadius}"
                         Height="8">
                         <Panel>
-                          <Border
-                              Background="{TemplateBinding Foreground}"
-                              CornerRadius="{TemplateBinding CornerRadius}"
-                              Height="8"
-                              IsVisible="{Binding !IsIndeterminate, RelativeSource={RelativeSource TemplatedParent}}"
-                              Name="PART_Indicator" >
+                            <Border
+                                Background="{TemplateBinding Foreground}"
+                                CornerRadius="{TemplateBinding CornerRadius}"
+                                Height="8"
+                                IsVisible="{Binding !IsIndeterminate, RelativeSource={RelativeSource TemplatedParent}}"
+                                Name="PART_Indicator">
 
-                            <Border.Transitions>
-                              <Transitions>
-                                <DoubleTransition Property="Width" Easing="CircularEaseOut" Duration="0:0:0.8"></DoubleTransition>
-                              </Transitions>
-                            </Border.Transitions>
-                          </Border>
+                                <Border.Transitions>
+                                    <Transitions>
+                                        <DoubleTransition
+                                            Duration="0:0:0.8"
+                                            Easing="CircularEaseOut"
+                                            Property="Width" />
+                                    </Transitions>
+                                </Border.Transitions>
+                            </Border>
                             <Border
                                 Background="{TemplateBinding Foreground}"
                                 CornerRadius="{TemplateBinding CornerRadius}"

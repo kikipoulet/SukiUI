@@ -27,12 +27,12 @@
     </Design.PreviewWith>
 
     <Style Selector="Button">
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="BorderBrush" Value="#e2e2e2" />
+        <Setter Property="BorderThickness" Value="1.2" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiMediumBorderBrush}" />
         <Setter Property="Padding" Value="11,10,11,8" />
         <Setter Property="CornerRadius" Value="5" />
         <Setter Property="Margin" Value="5 5" />
-        <Setter Property="Background" Value="#eaeaea" />
+        <Setter Property="Background" Value="{DynamicResource SukiStrongBackground}" />
         <Setter Property="Transitions">
             <Transitions>
                 <BrushTransition Duration="0:0:0.2" Property="Background" />
@@ -40,15 +40,23 @@
         </Setter>
     </Style>
 
+    <Style Selector="Button:pointerover /template/ ContentPresenter">
+
+        <Setter Property="BorderBrush" Value="Transparent" />
+
+    </Style>
+
     <Style Selector="Button:pointerover">
         <Setter Property="Background">
             <Setter.Value>
                 <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
-                    <GradientStop Color="#eaeaea" Offset="0.1" />
-                    <GradientStop Color="#e2e2e2" Offset="0.6" />
+                    <GradientStop Color="{DynamicResource SukiStrongBackground}" Offset="0.1" />
+                    <GradientStop Color="{DynamicResource SukiMediumBorderBrush}" Offset="0.6" />
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiMediumBorderBrush}" />
+
     </Style>
 
 
@@ -56,11 +64,12 @@
         <Setter Property="Background">
             <Setter.Value>
                 <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
-                    <GradientStop Color="#eaeaea" Offset="0.1" />
-                    <GradientStop Color="#e2e2e2" Offset="0.6" />
+                    <GradientStop Color="{DynamicResource SukiStrongBackground}" Offset="0.1" />
+                    <GradientStop Color="{DynamicResource SukiMediumBorderBrush}" Offset="0.6" />
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiMediumBorderBrush}" />
     </Style>
 
     <Style Selector="Button.Accent">
@@ -84,24 +93,24 @@
 
     </Style>
 
-  <Style Selector="Button.Accent:pointerover">
-    <Setter Property="Background" Value="Transparent" />
-    
-  </Style>
+    <Style Selector="Button.Accent:pointerover">
+        <Setter Property="Background" Value="Transparent" />
 
-  <Style Selector="Button.Accent:pointerover /template/ ContentPresenter">
+    </Style>
 
-    <Setter Property="RenderTransform">
-      <Setter.Value>
-        <ScaleTransform ScaleX="1.05" ScaleY="1.05" />
-      </Setter.Value>
-    </Setter>
-  </Style>
+    <Style Selector="Button.Accent:pointerover /template/ ContentPresenter">
+
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <ScaleTransform ScaleX="1.05" ScaleY="1.05" />
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 
-  <Style Selector="Button.Accent:pressed /template/ ContentPresenter">
-    <Setter Property="Background" Value="Transparent" />
-  </Style>
+    <Style Selector="Button.Accent:pressed /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
 
     <!-- <Style Selector="Button:pointerover /template/ ContentPresenter">
 
@@ -131,8 +140,8 @@
         <Setter Property="Background">
             <Setter.Value>
                 <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
-                    <GradientStop Color="#597ef7" Offset="0.1" />
-                    <GradientStop Color="#2f54eb" Offset="0.6" />
+                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.1" />
+                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.6" />
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
@@ -194,12 +203,12 @@
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
-      <Setter Property="Transitions">
-        <Transitions>
-          <BrushTransition Duration="0:0:0.3" Property="Foreground" />
-         
-        </Transitions>
-      </Setter>
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Duration="0:0:0.3" Property="Foreground" />
+
+            </Transitions>
+        </Setter>
     </Style>
 
     <Style Selector="Button.Outlined:pointerover &gt; TextBlock">

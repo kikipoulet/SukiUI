@@ -323,13 +323,14 @@
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="BorderThickness" Value="1.4" />
 
-        <Setter Property="BorderBrush" Value="#dedede" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
         <Setter Property="CornerRadius" Value="5" />
-        <Setter Property="Background" Value="White" />
-        <Setter Property="CaretBrush" Value="{DynamicResource ThemeForegroundBrush}" />
+        <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
 
+
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
         <Setter Property="SelectionBrush" Value="{DynamicResource HighlightBrush}" />
-        <Setter Property="SelectionForegroundBrush" Value="{DynamicResource HighlightForegroundBrush}" />
+
         <Setter Property="Padding" Value="6,8,5,6" />
         <Setter Property="ContextFlyout" Value="{StaticResource DefaultTextBoxContextFlyout}" />
 
@@ -374,7 +375,6 @@
                                     <TextBlock
                                         DockPanel.Dock="Top"
                                         FontSize="{DynamicResource FontSizeSmall}"
-                                        Foreground="{DynamicResource ThemeAccentBrush}"
                                         Name="floatingWatermark"
                                         Text="{TemplateBinding Watermark}">
                                         <TextBlock.IsVisible>
@@ -423,6 +423,7 @@
                                                         Text="{TemplateBinding Text,
                                                                                Mode=TwoWay}"
                                                         TextAlignment="{TemplateBinding TextAlignment}"
+                                                        TextBlock.Foreground="{TemplateBinding Foreground}"
                                                         TextWrapping="{TemplateBinding TextWrapping}" />
                                                 </Panel>
                                             </ScrollViewer>

@@ -28,8 +28,8 @@
         PaneClosing="PaneIsClosing">
 
         <SplitView.Pane>
-            <Border BorderBrush="#ebebeb" BorderThickness="0,0,1.5,0">
-                <Grid Background="White">
+            <Border BorderBrush="{DynamicResource SukiBorderBrush}" BorderThickness="0,0,1.5,0">
+                <Grid Background="{DynamicResource SukiBackground}">
                     <!--  This sidebar toggle button is used when header content can overlap it  -->
                     <Button
                         Classes="Accent"
@@ -39,11 +39,11 @@
                         VerticalAlignment="Top">
                         <Grid>
                             <material:MaterialIcon
-                                Foreground="Black"
+                                Foreground="{DynamicResource SukiText}"
                                 IsVisible="{Binding !MenuVisibility}"
                                 Kind="ChevronRight" />
                             <material:MaterialIcon
-                                Foreground="Black"
+                                Foreground="{DynamicResource SukiText}"
                                 IsVisible="{Binding MenuVisibility}"
                                 Kind="ChevronLeft" />
                         </Grid>
@@ -60,11 +60,11 @@
                             VerticalAlignment="Top">
                             <Grid>
                                 <material:MaterialIcon
-                                    Foreground="Black"
+                                    Foreground="{DynamicResource SukiText}"
                                     IsVisible="{Binding !MenuVisibility}"
                                     Kind="ChevronRight" />
                                 <material:MaterialIcon
-                                    Foreground="Black"
+                                    Foreground="{DynamicResource SukiText}"
                                     IsVisible="{Binding MenuVisibility}"
                                     Kind="ChevronLeft" />
                             </Grid>
@@ -102,6 +102,7 @@
                                         <Grid Margin="-30,1,0,0">
                                             <DockPanel IsVisible="{Binding DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" Margin="55,5,5,5">
                                                 <material:MaterialIcon
+                                                    Foreground="{DynamicResource SukiText}"
                                                     Height="22"
                                                     Kind="{Binding Icon}"
                                                     Width="22" />
@@ -113,6 +114,7 @@
                                             </DockPanel>
                                             <Border HorizontalAlignment="Center" IsVisible="{Binding !DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}">
                                                 <material:MaterialIcon
+                                                    Foreground="{DynamicResource SukiText}"
                                                     Height="22"
                                                     HorizontalAlignment="Center"
                                                     Kind="{Binding Icon}"
@@ -144,6 +146,7 @@
                                             <Grid Margin="-30,1,0,0">
                                                 <DockPanel IsVisible="{Binding DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" Margin="55,5,5,5">
                                                     <material:MaterialIcon
+                                                        Foreground="{DynamicResource SukiText}"
                                                         Height="22"
                                                         Kind="{Binding Icon}"
                                                         Width="22" />
@@ -155,6 +158,7 @@
                                                 </DockPanel>
                                                 <Border HorizontalAlignment="Center" IsVisible="{Binding !DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}">
                                                     <material:MaterialIcon
+                                                        Foreground="{DynamicResource SukiText}"
                                                         Height="22"
                                                         HorizontalAlignment="Center"
                                                         Kind="{Binding Icon}"
@@ -175,7 +179,7 @@
             </Border>
         </SplitView.Pane>
 
-        <Grid Background="#fafafa">
+        <Grid Background="{DynamicResource SukiLightBackground}">
             <ContentControl Content="{Binding CurrentPage}" />
 
         </Grid>

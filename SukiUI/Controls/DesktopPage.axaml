@@ -22,7 +22,7 @@
                         <DockPanel>
 
                             <Border
-                                BorderBrush="#ebebeb"
+                                BorderBrush="{DynamicResource SukiBorderBrush}"
                                 BorderThickness="0,0,0,1.5"
                                 DockPanel.Dock="Top">
                                 <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto">

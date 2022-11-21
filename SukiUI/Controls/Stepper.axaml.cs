@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Avalonia.Layout;
 using Avalonia.Media;
 
@@ -68,13 +69,15 @@ namespace SukiUI.Controls
 
         private void AddStep(string step, int index,Grid grid)
         {
-            Brush PrimaryColor = new SolidColorBrush(Color.FromRgb(47, 84, 235));
-            Brush DisabledColor = new SolidColorBrush(Color.FromRgb(222, 222, 222));
+
+         
+            Brush PrimaryColor = new SolidColorBrush( (Color)Application.Current.FindResource("SukiPrimaryColor"));
+            Brush DisabledColor =  new SolidColorBrush( (Color)Application.Current.FindResource("SukiControlBorderBrush"));
             
             var griditem = new Grid(){ ColumnDefinitions = new ColumnDefinitions(){new ColumnDefinition(), new ColumnDefinition()}};
 
-            var line = new Border() { CornerRadius = new CornerRadius(3),  Margin = new Thickness(-5,0,23,0), Background = Brushes.WhiteSmoke, Height = 2, HorizontalAlignment = HorizontalAlignment.Stretch, VerticalAlignment = VerticalAlignment.Center };
-            var line1 = new Border() { CornerRadius = new CornerRadius(3),  Margin = new Thickness(23,0,-5,0), Background = Brushes.WhiteSmoke, Height = 2, HorizontalAlignment = HorizontalAlignment.Stretch, VerticalAlignment = VerticalAlignment.Center };
+            var line = new Border() { CornerRadius = new CornerRadius(3),  Margin = new Thickness(-5,0,23,0), Background = DisabledColor, Height = 2, HorizontalAlignment = HorizontalAlignment.Stretch, VerticalAlignment = VerticalAlignment.Center };
+            var line1 = new Border() { CornerRadius = new CornerRadius(3),  Margin = new Thickness(23,0,-5,0), Background = DisabledColor, Height = 2, HorizontalAlignment = HorizontalAlignment.Stretch, VerticalAlignment = VerticalAlignment.Center };
 
             if (index == 0)
                 line.IsVisible = false;
@@ -110,14 +113,14 @@ namespace SukiUI.Controls
             }
             else if (index < Index)
             {
-                circle.Background = Brushes.White;
+                circle.Background = Brushes.Transparent;
                 circle.BorderThickness = new Thickness(1.5);
                 circle.BorderBrush = PrimaryColor;
                 circle.Child = new TextBlock() {VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center, Text = (index + 1).ToString(), Foreground = PrimaryColor};
             }
             else
             {
-                circle.Background = Brushes.White;
+                circle.Background = Brushes.Transparent;
                 circle.BorderThickness = new Thickness(1.5);
                 circle.BorderBrush = DisabledColor;
                 circle.Child = new TextBlock() { VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center, Text = (index + 1).ToString(), Foreground = DisabledColor};

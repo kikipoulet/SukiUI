@@ -1,10 +1,23 @@
 ﻿<Style
+    x:Class="SukiUI.Light"
     xmlns="https://github.com/avaloniaui"
     xmlns:sys="clr-namespace:System;assembly=netstandard"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style.Resources>
 
+        <Color x:Key="SukiPrimaryColor">#2f54eb</Color>
+        <Color x:Key="SukiPrimaryColorGradient">#597ef7</Color>
+
+
         <Color x:Key="SukiBackground">#FFFFFF</Color>
-      <Color x:Key="SukiText">#111111</Color>
+        <Color x:Key="SukiLightBackground">#fafafa</Color>
+        <Color x:Key="SukiLightColoredBackground">#F6F8FF</Color>
+        <Color x:Key="SukiStrongBackground">#eaeaea</Color>
+        <Color x:Key="SukiText">#111111</Color>
+        <Color x:Key="SukiBorderBrush">#ebebeb</Color>
+        <Color x:Key="SukiControlBorderBrush">#dedede</Color>
+        <Color x:Key="SukiControlTouchBackground">#FFFFFF</Color>
+        <Color x:Key="SukiMediumBorderBrush">#e2e2e2</Color>
+        <Color x:Key="SukiLightBorderBrush">#f4f4f4</Color>
     </Style.Resources>
 </Style>

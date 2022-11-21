@@ -128,29 +128,29 @@
                             HorizontalAlignment="Left"
                             Width="20"
                             x:Name="PART_SwitchKnob">
-                          
+
 
                             <Grid
                                 Height="20"
                                 Width="20"
                                 x:Name="PART_MovingKnobs">
-                           
+
                                 <Ellipse
-                                    Fill="White"
+                                    Fill="{DynamicResource SukiControlTouchBackground}"
                                     Height="16"
                                     Margin="-1,00,0,0"
                                     Width="16"
                                     x:Name="PART_SwitchKnobOn" />
 
                                 <Border
-                                    Background="White"
+                                    Background="{DynamicResource SukiControlTouchBackground}"
                                     BoxShadow="0 0 0 0 LightGray"
                                     CornerRadius="10"
                                     Height="16"
                                     Margin="0,1,0,0"
                                     Width="16"
                                     x:Name="PART_SwitchKnobOff" />
-                             
+
                             </Grid>
                         </Canvas>
                     </Grid>
@@ -200,16 +200,16 @@
         </Setter>
     </Style>
 
-  <Style Selector="ToggleSwitch:not(:dragging) /template/ Grid#MovingKnobs">
-    <Setter Property="Transitions">
-      <Transitions>
-        <DoubleTransition
-            Duration="0:0:0.20"
-            Easing="CircularEaseOut"
-            Property="Canvas.Left" />
-      </Transitions>
-    </Setter>
-  </Style>
+    <Style Selector="ToggleSwitch:not(:dragging) /template/ Grid#MovingKnobs">
+        <Setter Property="Transitions">
+            <Transitions>
+                <DoubleTransition
+                    Duration="0:0:0.20"
+                    Easing="CircularEaseOut"
+                    Property="Canvas.Left" />
+            </Transitions>
+        </Setter>
+    </Style>
 
     <!--  PointerOverState  -->
     <Style Selector="ToggleSwitch:pointerover /template/ Border#OuterBorder">

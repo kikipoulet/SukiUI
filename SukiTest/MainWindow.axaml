@@ -30,7 +30,7 @@
                             <DockPanel>
                                 <material:MaterialIcon
                                     DockPanel.Dock="Left"
-                                    Foreground="#444444"
+                                    Foreground="{DynamicResource SukiText}"
                                     Height="60"
                                     Kind="UserCircleOutline"
                                     Margin="10,0"
@@ -61,7 +61,7 @@
                             <suki:SideMenuItem.Content>
                                 <ScrollViewer>
 
-                                    <WrapPanel Background="#fafafa" Orientation="Horizontal">
+                                    <WrapPanel Orientation="Horizontal">
 
                                         <Border Classes="Card" Width="300">
                                             <StackPanel>

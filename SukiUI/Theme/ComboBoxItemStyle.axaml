@@ -1,80 +1,75 @@
-﻿<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
-      <Border Padding="20">
-        <StackPanel Spacing="10">
-          <ComboBox PlaceholderText="Select an item">
-            <ComboBoxItem>Item 1</ComboBoxItem>
-            <ComboBoxItem>Item 2</ComboBoxItem>
-          </ComboBox>
-          <ComboBox IsEnabled="False"
-                    Width="200"
+        <Border Padding="20">
+            <StackPanel Spacing="10">
+                <ComboBox PlaceholderText="Select an item">
+                    <ComboBoxItem>Item 1</ComboBoxItem>
+                    <ComboBoxItem>Item 2</ComboBoxItem>
+                </ComboBox>
+                <ComboBox
+                    HorizontalContentAlignment="Center"
+                    IsEnabled="False"
                     SelectedIndex="1"
-                    HorizontalContentAlignment="Center">
-            <ComboBoxItem>Item 1</ComboBoxItem>
-            <ComboBoxItem>Item 2</ComboBoxItem>
-          </ComboBox>
-        </StackPanel>
-      </Border>
+                    Width="200">
+                    <ComboBoxItem>Item 1</ComboBoxItem>
+                    <ComboBoxItem>Item 2</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+        </Border>
     </Design.PreviewWith>
 
-  <Style Selector="ComboBoxItem">
-    <Setter Property="Background" Value="Transparent"/>
-    <Setter Property="Padding" Value="2"/>
-    <Setter Property="HorizontalAlignment" Value="Stretch"/>
-    <Setter Property="HorizontalContentAlignment" Value="Left"/>
-    <Setter Property="Template">
-      <ControlTemplate>
-        <ContentPresenter Name="PART_ContentPresenter"
-                          Background="{TemplateBinding Background}"
-                          BorderBrush="{TemplateBinding BorderBrush}"
-                          BorderThickness="{TemplateBinding BorderThickness}"
-                          CornerRadius="5"
-                         Margin="1"
-                          ContentTemplate="{TemplateBinding ContentTemplate}"
-                          Content="{TemplateBinding Content}"
-                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                          Padding="5"/>
-      </ControlTemplate>
-    </Setter>
-  </Style>
+    <Style Selector="ComboBoxItem">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Padding" Value="2" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ContentPresenter
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Content="{TemplateBinding Content}"
+                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                    CornerRadius="5"
+                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                    Margin="1"
+                    Name="PART_ContentPresenter"
+                    Padding="5"
+                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+            </ControlTemplate>
+        </Setter>
+    </Style>
 
-  <Style Selector="ComboBoxItem:pointerover /template/ ContentPresenter">
-    <Setter Property="Background" Value="#d6e4ff"/>
-    
-  </Style>
+    <Style Selector="ComboBoxItem:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#d6e4ff" />
 
-  <Style Selector="ComboBoxItem:selected > TextBlock">
-    <Setter Property="Foreground" Value="Black"/>
-  </Style>
-  <Style Selector="ComboBoxItem:pointerover > TextBlock">
-    <Setter Property="Foreground" Value="Black"/>
-  </Style>
+    </Style>
 
 
-  <Style Selector="ComboBoxItem:pointerover /template/ ContentPresenter">
-    <Setter Property="Background" Value="#f4f4f4"/>
-  </Style>
+
+    <Style Selector="ComboBoxItem:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
+    </Style>
 
 
-  <Style Selector="ComboBoxItem > TextBlock">
-    <Setter Property="Foreground" Value="Black"/>
-  </Style>
+    <Style Selector="ComboBoxItem &gt; TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource Sukitext}" />
+    </Style>
 
-  <Style Selector="ComboBoxItem:selected /template/ ContentPresenter">
-    <Setter Property="Background" Value="#f4f4f4"/>
-  </Style>
+    <Style Selector="ComboBoxItem:selected /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
+    </Style>
 
-  <Style Selector="ComboBoxItem:selected:focus /template/ ContentPresenter">
-    <Setter Property="Background" Value="#f4f4f4"/>
-  </Style>
+    <Style Selector="ComboBoxItem:selected:focus /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
+    </Style>
 
-  <Style Selector="ComboBoxItem:selected:pointerover /template/ ContentPresenter">
-    <Setter Property="Background" Value="#f4f4f4"/>
-  </Style>
+    <Style Selector="ComboBoxItem:selected:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
+    </Style>
 
-  <Style Selector="ComboBoxItem:selected:focus:pointerover /template/ ContentPresenter">
-    <Setter Property="Background" Value="#f4f4f4"/>
-  </Style>
+    <Style Selector="ComboBoxItem:selected:focus:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
+    </Style>
 </Styles>

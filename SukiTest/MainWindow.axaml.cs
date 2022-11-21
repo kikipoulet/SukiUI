@@ -151,9 +151,15 @@ namespace SukiTest
             loading.Opacity = Math.Abs(loading.Opacity - 1);
         }
 
+        private int i = 0;
         private void ChangeTheme(object? sender, RoutedEventArgs e)
         {
-            SukiUI.ColorTheme.LoadDarkTheme(Application.Current);
+            if(i%2 == 0)
+                SukiUI.ColorTheme.LoadDarkTheme(Application.Current);
+            else
+                SukiUI.ColorTheme.LoadLightTheme(Application.Current);
+            
+            i++;
         }
     }
 }

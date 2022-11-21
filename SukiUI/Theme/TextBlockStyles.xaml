@@ -18,6 +18,9 @@
         <Setter Property="FontFamily" Value="avares://SukiUI/Roboto-Regular.ttf#Roboto" />
         <Setter Property="FontSize" Value="15" />
     </Style>
+
+
+
     <Style Selector="TextBox">
         <Setter Property="FontFamily" Value="avares://SukiUI/Roboto-Regular.ttf#Roboto" />
         <Setter Property="FontSize" Value="15" />

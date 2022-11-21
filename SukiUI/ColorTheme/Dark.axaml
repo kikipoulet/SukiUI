@@ -5,7 +5,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style.Resources>
 
+        <Color x:Key="SukiPrimaryColorGradient">#2f54eb</Color>
+        <Color x:Key="SukiPrimaryColor">#2244CF</Color>
+
         <Color x:Key="SukiBackground">#333333</Color>
-        <Color x:Key="SukiText">#eeeeee</Color>
+        <Color x:Key="SukiLightBackground">#393939</Color>
+        <Color x:Key="SukiLightColoredBackground">#404040</Color>
+        <Color x:Key="SukiStrongBackground">#444444</Color>
+        <Color x:Key="SukiControlTouchBackground">#505050</Color>
+        <Color x:Key="SukiText">#dddddd</Color>
+        <Color x:Key="SukiBorderBrush">#454545</Color>
+        <Color x:Key="SukiControlBorderBrush">#505050</Color>
+        <Color x:Key="SukiMediumBorderBrush">#494949</Color>
+        <Color x:Key="SukiLightBorderBrush">#444444</Color>
     </Style.Resources>
 </Style>
