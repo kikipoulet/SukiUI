@@ -1,0 +1,36 @@
+﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="SukiUI.Controls.BusyArea"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:suki="clr-namespace:SukiUI.Controls"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Styles>
+        <Style Selector="suki|BusyArea">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Grid>
+                        <ContentControl Content="{TemplateBinding Content}" />
+                        <Grid
+                            Background="White"
+                            IsHitTestVisible="False"
+                            Name="myGrid"
+                            Opacity="{TemplateBinding LoadingOpacity}">
+                            <suki:Loading
+                                HorizontalAlignment="Center"
+                                IsHitTestVisible="False"
+                                Opacity="{TemplateBinding LoadingOpacity}"
+                                VerticalAlignment="Center" />
+                        </Grid>
+
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+    </UserControl.Styles>
+</UserControl>
+

@@ -15,7 +15,7 @@
             <Setter Property="Template">
                 <ControlTemplate>
                     <dialogHostAvalonia:DialogHost
-                        CloseOnClickAway="True"
+                        CloseOnClickAway="False"
                         DialogContent="{TemplateBinding DialogChild}"
                         IsOpen="{TemplateBinding IsDialogOpen}">
 

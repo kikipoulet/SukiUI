@@ -17,45 +17,80 @@
     </Design.DataContext>
 
 
-      <Grid>
-        <Border Name="Signborder" Background="White" >
-          <DockPanel Margin="30"  >
-            <material:MaterialIcon DockPanel.Dock="Top" Kind="Xaml" Foreground="LightBlue" Height="130" Margin="0,5,0,10" Width="130"></material:MaterialIcon>
-           
-          
-            
-            <!--   <TextBox Height="50" FontSize="22" Classes="Prefix" Margin="20,80,20,20" Text="Jean" Watermark="Username :" /> -->
+    <Grid>
+        <Border Background="White" Name="Signborder">
+            <DockPanel Margin="30">
+                <material:MaterialIcon
+                    DockPanel.Dock="Top"
+                    Foreground="LightBlue"
+                    Height="130"
+                    Kind="Xaml"
+                    Margin="0,5,0,10"
+                    Width="130" />
 
-            <Border VerticalAlignment="Center" Classes="Card">
-            
-            <StackPanel  >
-             
-              <TextBox Classes="Prefix" Foreground="Black" Padding="8"  FontSize="17" Margin="10,10,10,10" Text="Jean" Watermark="Username "  />
-              <TextBox Classes="Prefix" Foreground="Black" Padding="8"  FontSize="17" Margin="10,5,10,10" Text="*******" Watermark="Password "  />
 
-              <Button Classes="Primary" CornerRadius="50" Padding="10,5" Margin="0,25,0,0"  HorizontalAlignment="Center">
-                <StackPanel Orientation="Horizontal" Margin="40,7" >
-                  <material:MaterialIcon Margin="0,0,12,0" Kind="Pen" Foreground="White" Height="20" Width="20"></material:MaterialIcon>
-                  <TextBlock FontWeight="Medium" Foreground="White" VerticalAlignment="Center"  FontSize="19">Log In</TextBlock>
-                </StackPanel>
-              </Button>
 
-              <Button Classes="Accent" Margin="0,10,0,0">
-                <TextBlock FontSize="15" Text="Sign In"></TextBlock>
-              </Button>
+                <!--   <TextBox Height="50" FontSize="22" Classes="Prefix" Margin="20,80,20,20" Text="Jean" Watermark="Username :" /> -->
 
-            </StackPanel>
-            </Border>
-</DockPanel>
-            </Border>
+                <Border Classes="Card" VerticalAlignment="Center">
 
-    
+                    <StackPanel>
 
-         
-    
-    
-       
-      </Grid>
+                        <TextBox
+                            Classes="Prefix"
+                            FontSize="17"
+                            Foreground="Black"
+                            Margin="10,10,10,10"
+                            Padding="8"
+                            Text="Jean"
+                            Watermark="Username " />
+                        <TextBox
+                            Classes="Prefix"
+                            FontSize="17"
+                            Foreground="Black"
+                            Margin="10,5,10,10"
+                            Padding="8"
+                            Text="*******"
+                            Watermark="Password " />
+
+                        <Button
+                            Classes="Primary"
+                            CornerRadius="50"
+                            HorizontalAlignment="Center"
+                            Margin="0,25,0,0"
+                            Padding="10,5">
+                            <StackPanel Margin="40,7" Orientation="Horizontal">
+                                <material:MaterialIcon
+                                    Foreground="White"
+                                    Height="20"
+                                    Kind="Pen"
+                                    Margin="0,0,12,0"
+                                    Width="20" />
+                                <TextBlock
+                                    FontSize="19"
+                                    FontWeight="Medium"
+                                    Foreground="White"
+                                    Text="Log In"
+                                    VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+
+                        <Button Classes="Accent" Margin="0,10,0,0">
+                            <TextBlock FontSize="15" Text="Sign In" />
+                        </Button>
+
+                    </StackPanel>
+                </Border>
+            </DockPanel>
+        </Border>
+
+
+
+
+
+
+
+    </Grid>
 
 
 </UserControl>

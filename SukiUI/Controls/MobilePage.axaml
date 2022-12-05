@@ -52,7 +52,7 @@
                         <Grid Background="#fafafa">
 
                             <dialogHostAvalonia:DialogHost
-                                CloseOnClickAway="True"
+                                CloseOnClickAway="False"
                                 DialogContent="{TemplateBinding DialogChild}"
                                 IsOpen="{TemplateBinding IsDialogOpen}">
 

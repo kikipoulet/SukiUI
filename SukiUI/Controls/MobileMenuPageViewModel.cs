@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reactive;
 using System.Text;
 using Avalonia.Threading;
+using DialogHostAvalonia.Positioners;
 
 namespace SukiUI.Controls
 {
@@ -31,6 +32,8 @@ namespace SukiUI.Controls
             set => this.RaiseAndSetIfChanged(ref isdialogopen, value);
         }
         
+        
+        
         private bool dialogatbottom = false;
 
         public bool DialogAtBottom
@@ -38,6 +41,15 @@ namespace SukiUI.Controls
             get => dialogatbottom;
             set => this.RaiseAndSetIfChanged(ref dialogatbottom, value);
         }
+        
+        private AlignmentDialogPopupPositioner dialogPosition = new AlignmentDialogPopupPositioner();
+
+        public AlignmentDialogPopupPositioner DialogPosition
+        {
+            get => dialogPosition;
+            set => this.RaiseAndSetIfChanged(ref dialogPosition, value);
+        }
+
 
 
         private Control dialogchild = new Grid();
@@ -74,13 +86,7 @@ namespace SukiUI.Controls
 
         }
 
-        private object currentPage = new Grid();
-
-        public object CurrentPage
-        {
-            get => currentPage;
-            set => this.RaiseAndSetIfChanged(ref currentPage, value);
-        }
+       
 
         private object headerContent = new Grid();
 
@@ -95,15 +101,26 @@ namespace SukiUI.Controls
         public List<SideMenuItem> MenuItems
         {
             get => menuItems;
-            set => this.RaiseAndSetIfChanged(ref menuItems, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref menuItems, value);
+            }
+        }
+        
+        private object currentPage = new Grid();
+
+        public object CurrentPage
+        {
+            get => currentPage;
+            set => this.RaiseAndSetIfChanged(ref currentPage, value);
         }
 
         public MobileMenuPageViewModel()
         {
             
                 DoTheThing = ReactiveCommand.Create<SideMenuItem>(ChangePage);
-            
-            
+               
+                
         }
 
         public ReactiveCommand<SideMenuItem, Unit> DoTheThing { get; set; }

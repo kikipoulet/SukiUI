@@ -465,6 +465,26 @@
                                             </StackPanel>
                                         </Border>
 
+                                        <Border Classes="Card" Width="300">
+
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">Busy Area</TextBlock>
+
+
+                                                <suki:BusyArea Name="myBusyArea">
+                                                    <Button
+                                                        Classes="Primary"
+                                                        Click="BusyMe"
+                                                        Height="40"
+                                                        Margin="50"
+                                                        Width="120">
+                                                        <TextBlock Text="Click to Busy me" />
+                                                    </Button>
+                                                </suki:BusyArea>
+
+
+                                            </StackPanel>
+                                        </Border>
 
 
 

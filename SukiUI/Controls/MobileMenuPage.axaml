@@ -124,9 +124,10 @@
         <Grid Background="White">
 
             <dialogHostAvalonia:DialogHost
-                CloseOnClickAway="True"
+                CloseOnClickAway="False"
                 DialogContent="{Binding DialogChild}"
-                IsOpen="{Binding IsDialogOpen}">
+                IsOpen="{Binding IsDialogOpen}"
+                PopupPositioner="{Binding DialogPosition}">
 
                 <Grid>
 

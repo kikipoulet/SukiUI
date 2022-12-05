@@ -4,8 +4,10 @@ using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Layout;
 using Avalonia.Markup.Xaml;
 using Avalonia.VisualTree;
+using DialogHostAvalonia.Positioners;
 
 namespace SukiUI.Controls
 {
@@ -14,6 +16,7 @@ namespace SukiUI.Controls
         public MobileMenuPage()
         {
             InitializeComponent();
+
         }
 
         private void InitializeComponent()
@@ -40,18 +43,20 @@ namespace SukiUI.Controls
         }
         public static void ShowDialogS(Control content, bool showAtBottom = false)
         {
+
+            MobileMenuPage mbmp = null;
+            
             try
             {
-                ((ISingleViewApplicationLifetime)Application.Current.ApplicationLifetime).MainView
-                    .GetVisualDescendants().OfType<MobileMenuPage>().First().ShowDialog(content, showAtBottom);
+                mbmp = ((ISingleViewApplicationLifetime)Application.Current.ApplicationLifetime).MainView.GetVisualDescendants().OfType<MobileMenuPage>().First();
+                
             }
             catch (Exception exc)
             {
                 Debug.WriteLine("Unable to open dialog in the Mobile view, trying desktop.");
                 try
                 {
-                    ((IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime).MainWindow
-                        .GetVisualDescendants().OfType<MobileMenuPage>().First().ShowDialog(content, showAtBottom);
+                    mbmp = ((IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime).MainWindow.GetVisualDescendants().OfType<MobileMenuPage>().First();
                 }
                 catch (Exception ex)
                 {
@@ -59,6 +64,14 @@ namespace SukiUI.Controls
                 }
                 
             }
+            
+            var model = (MobileMenuPageViewModel)mbmp.DataContext;
+            if (showAtBottom)
+                model.DialogPosition = new AlignmentDialogPopupPositioner(){ VerticalAlignment = VerticalAlignment.Bottom, HorizontalAlignment = HorizontalAlignment.Center, Margin = new Thickness(10)};
+            else
+                model.DialogPosition = new AlignmentDialogPopupPositioner(){VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center};
+
+            mbmp.ShowDialog(content, showAtBottom);
         }
         
         public static void CloseDialogS()

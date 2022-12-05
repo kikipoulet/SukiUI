@@ -161,5 +161,10 @@ namespace SukiTest
             
             i++;
         }
+
+        private void BusyMe(object? sender, RoutedEventArgs e)
+        {
+            this.FindControl<BusyArea>("myBusyArea").IsBusy = true;
+        }
     }
 }
