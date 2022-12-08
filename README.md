@@ -14,7 +14,12 @@ Suki is the name of my dog :-)
 <br/>
 
 Documentation is on the [Wiki](https://github.com/kikipoulet/SukiUI/wiki) of this repository
-<br/>
+<br/><br/>
+Recently done :
+- new Toast Control for Mobile App
+- new BusyArea control
+- new TabControl style for Mobile App
+- Work on Dark Theme
 
 
 ## 🖥️ Desktop Overview
