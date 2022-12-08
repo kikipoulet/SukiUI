@@ -480,14 +480,17 @@
 
 
                                                 <suki:BusyArea Name="myBusyArea">
-                                                    <Button
-                                                        Classes="Primary"
-                                                        Click="BusyMe"
-                                                        Height="40"
-                                                        Margin="50"
-                                                        Width="120">
-                                                        <TextBlock Text="Click to Busy me" />
-                                                    </Button>
+                                                    <StackPanel>
+                                                        <TextBlock Margin="15" Text="Content " />
+                                                        <Button
+                                                            Classes="Primary"
+                                                            Click="BusyMe"
+                                                            Height="40"
+                                                            Margin="50"
+                                                            Width="120">
+                                                            <TextBlock Text="Click to Busy this area" />
+                                                        </Button>
+                                                    </StackPanel>
                                                 </suki:BusyArea>
 
 

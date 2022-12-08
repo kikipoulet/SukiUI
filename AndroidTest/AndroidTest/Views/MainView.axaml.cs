@@ -40,9 +40,7 @@ namespace AndroidTest.Views
                 });
                
             });
-            
 
-           
         }
 
         private void LogInTest(object sender, RoutedEventArgs e)

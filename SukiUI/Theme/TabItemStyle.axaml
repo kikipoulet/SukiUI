@@ -259,7 +259,7 @@
 
     <Style Selector="TabItem.MobileTabItem material|MaterialIcon">
 
-        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="Foreground" Value="#555555" />
 
     </Style>
 

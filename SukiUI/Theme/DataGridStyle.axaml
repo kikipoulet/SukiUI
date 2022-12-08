@@ -1,6 +1,6 @@
 <Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-  <Style Selector="DataGridCell">
+    <Style Selector="DataGridCell">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
@@ -11,11 +11,12 @@
                     <ContentPresenter
                         Content="{TemplateBinding Content}"
                         ContentTemplate="{TemplateBinding ContentTemplate}"
-                        HorizontalContentAlignment="Center" HorizontalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        HorizontalContentAlignment="Center"
                         Margin="{TemplateBinding Padding}"
-                        
                         TextBlock.Foreground="{TemplateBinding Foreground}"
-                        VerticalAlignment="Center" VerticalContentAlignment="Center" />
+                        VerticalAlignment="Center"
+                        VerticalContentAlignment="Center" />
 
                     <Rectangle
                         Grid.Column="1"
@@ -29,58 +30,57 @@
         </Setter>
     </Style>
 
- 
+
 
     <Style Selector="DataGridColumnHeader">
         <Setter Property="Foreground" Value="{DynamicResource ThemeForegroundBrush}" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="FontWeight" Value="DemiBold" />
 
-      
+
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="SeparatorBrush" Value="{DynamicResource ThemeControlLowColor}" />
         <Setter Property="Padding" Value="12" />
-        <Setter Property="Background" Value="{DynamicResource ThemeControlMidBrush}"/>
-      
+        <Setter Property="Background" Value="{DynamicResource ThemeControlMidBrush}" />
+
         <Setter Property="Template">
             <ControlTemplate>
-              <Border Background="{TemplateBinding Background}" BorderBrush="#ebebeb" BorderThickness="0,0,0,0">
-                <Grid  ColumnDefinitions="*,Auto">
+                <Border
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="#ebebeb"
+                    BorderThickness="0,0,0,0">
+                    <Grid ColumnDefinitions="*,Auto">
 
-                    <Grid
-                        ColumnDefinitions="*,Auto"
-                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                        Margin="{TemplateBinding Padding}"
-                
-                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-                        <ContentPresenter 
-                            Content="{TemplateBinding Content}"
-                            ContentTemplate="{TemplateBinding ContentTemplate}"
-                          />
+                        <Grid
+                            ColumnDefinitions="*,Auto"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            Margin="{TemplateBinding Padding}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                            <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" />
 
-                        <Path
-                            Data="F1 M -5.215,6.099L 5.215,6.099L 0,0L -5.215,6.099 Z "
-                            Fill="{TemplateBinding Foreground}"
+                            <Path
+                                Data="F1 M -5.215,6.099L 5.215,6.099L 0,0L -5.215,6.099 Z "
+                                Fill="{TemplateBinding Foreground}"
+                                Grid.Column="1"
+                                HorizontalAlignment="Left"
+                                Margin="4,0,0,0"
+                                Name="SortIcon"
+                                Stretch="Uniform"
+                                VerticalAlignment="Center"
+                                Width="8" />
+
+                        </Grid>
+
+                        <Rectangle
+                            Fill="{TemplateBinding SeparatorBrush}"
                             Grid.Column="1"
-                            HorizontalAlignment="Left"
-                            Margin="4,0,0,0"
-                            Name="SortIcon"
-                            Stretch="Uniform"
-                            VerticalAlignment="Center"
-                            Width="8" />
+                            IsVisible="False"
+                            Name="VerticalSeparator"
+                            VerticalAlignment="Stretch"
+                            Width="1" />
 
                     </Grid>
-
-                    <Rectangle
-                        Fill="{TemplateBinding SeparatorBrush}"
-                        Grid.Column="1"
-                        IsVisible="False"
-                        Name="VerticalSeparator"
-                        VerticalAlignment="Stretch"
-                        Width="1" />
-
-                </Grid>
-              </Border>
+                </Border>
             </ControlTemplate>
         </Setter>
     </Style>
@@ -113,33 +113,35 @@
 
     <Style Selector="DataGridRow">
         <Setter Property="Margin" Value="0" />
-      <Setter Property="Padding" Value="30"></Setter>
+        <Setter Property="Padding" Value="30" />
         <Setter Property="Template">
             <ControlTemplate>
-                <DataGridFrozenGrid 
+                <DataGridFrozenGrid
                     ColumnDefinitions="Auto,*"
                     Name="PART_Root"
                     RowDefinitions="*,Auto,Auto">
 
-                  <Border 
-                      CornerRadius="0" Padding="18"
-                      Grid.ColumnSpan="2"
-                      Grid.RowSpan="2"
-                      Name="BackgroundRectangle" >
-                    <Border.Transitions>
-                      <Transitions>
-                        <DoubleTransition Property="Opacity" Duration="0:0:0.15"></DoubleTransition>
-                      </Transitions>
-                    </Border.Transitions>
-                  </Border>
+                    <Border
+                        CornerRadius="0"
+                        Grid.ColumnSpan="2"
+                        Grid.RowSpan="2"
+                        Name="BackgroundRectangle"
+                        Padding="18">
+                        <Border.Transitions>
+                            <Transitions>
+                                <DoubleTransition Duration="0:0:0.15" Property="Opacity" />
+                            </Transitions>
+                        </Border.Transitions>
+                    </Border>
 
-                    <DataGridRowHeader 
+                    <DataGridRowHeader
                         DataGridFrozenGrid.IsFrozen="True"
                         Grid.RowSpan="3"
                         Name="PART_RowHeader" />
-                    <DataGridCellsPresenter Margin="6"
+                    <DataGridCellsPresenter
                         DataGridFrozenGrid.IsFrozen="True"
                         Grid.Column="1"
+                        Margin="6"
                         Name="PART_CellsPresenter" />
                     <DataGridDetailsPresenter
                         Grid.Column="1"
@@ -158,24 +160,24 @@
     </Style>
 
     <Style Selector="DataGridRow:nth-child(even) /template/ Border#BackgroundRectangle">
-      <Setter Property="Opacity" Value="0.3" />
+        <Setter Property="Opacity" Value="0.3" />
         <Setter Property="Background" Value="WhiteSmoke" />
     </Style>
 
-  <Style Selector="DataGridRow /template/ Border#BackgroundRectangle">
-    <Setter Property="Opacity" Value="0" />
-    <Setter Property="Background" Value="#2f54eb" />
-  </Style>
+    <Style Selector="DataGridRow /template/ Border#BackgroundRectangle">
+        <Setter Property="Opacity" Value="0" />
+        <Setter Property="Background" Value="#2f54eb" />
+    </Style>
     <Style Selector="DataGridRow:pointerover /template/ Border#BackgroundRectangle">
-   
+
         <Setter Property="Opacity" Value="0.1" />
-      <Setter Property="Background" Value="#2f54eb" />
+        <Setter Property="Background" Value="#2f54eb" />
     </Style>
 
     <Style Selector="DataGridRow:selected /template/ Border#BackgroundRectangle">
-       
+
         <Setter Property="Opacity" Value="0.15" />
-      <Setter Property="Background" Value="#2f54eb" />
+        <Setter Property="Background" Value="#2f54eb" />
     </Style>
 
     <Style Selector="DataGridRow:selected">
@@ -190,7 +192,7 @@
                     ColumnDefinitions="Auto,*"
                     RowDefinitions="*,*,Auto"
                     x:Name="PART_Root">
-                    <Border 
+                    <Border
                         BorderBrush="{TemplateBinding SeparatorBrush}"
                         BorderThickness="0,0,1,0"
                         Grid.ColumnSpan="2"
@@ -296,6 +298,7 @@
     </Style>
 
     <Style Selector="DataGrid">
+
         <Setter Property="RowBackground" Value="Transparent" />
         <Setter Property="AlternatingRowBackground" Value="#fcfcfc" />
         <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}" />
@@ -325,7 +328,7 @@
                         <DataGridColumnHeadersPresenter Grid.Column="1" Name="PART_ColumnHeadersPresenter" />
                         <DataGridColumnHeader Grid.Column="2" Name="PART_TopRightCornerHeader" />
                         <Rectangle
-                            Fill="{DynamicResource ThemeControlMidHighBrush}"
+                            Fill="Transparent"
                             Grid.ColumnSpan="3"
                             Height="1"
                             Name="PART_ColumnHeadersAndRowsSeparator"
@@ -333,23 +336,14 @@
                             VerticalAlignment="Bottom" />
 
                         <DataGridRowsPresenter
-                            Grid.ColumnSpan="2"
+                            Grid.ColumnSpan="3"
                             Grid.Row="1"
                             Name="PART_RowsPresenter">
                             <DataGridRowsPresenter.GestureRecognizers>
                                 <ScrollGestureRecognizer CanHorizontallyScroll="True" CanVerticallyScroll="True" />
                             </DataGridRowsPresenter.GestureRecognizers>
                         </DataGridRowsPresenter>
-                        <Rectangle
-                            Fill="{DynamicResource ThemeControlMidHighBrush}"
-                            Grid.Column="2"
-                            Grid.Row="2"
-                            Name="PART_BottomRightCorner" />
-                        <Rectangle
-                            Fill="{DynamicResource ThemeControlMidHighBrush}"
-                            Grid.ColumnSpan="2"
-                            Grid.Row="2"
-                            Name="BottomLeftCorner" />
+
                         <ScrollBar
                             Grid.Column="2"
                             Grid.Row="1"
@@ -361,7 +355,7 @@
                             ColumnDefinitions="Auto,*"
                             Grid.Column="1"
                             Grid.Row="2">
-                            <Rectangle Name="PART_FrozenColumnScrollBarSpacer" />
+
                             <ScrollBar
                                 Grid.Column="1"
                                 Height="{DynamicResource ScrollBarThickness}"
@@ -372,5 +366,5 @@
                 </Border>
             </ControlTemplate>
         </Setter>
-    </Style> 
+    </Style>
 </Styles>
