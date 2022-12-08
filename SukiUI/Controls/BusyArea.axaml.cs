@@ -23,21 +23,10 @@ public partial class BusyArea : UserControl
         get { return GetValue(IsBusyProperty); }
         set
         {
-           
-            LoadingOpacity = value ? 1 : 0;
+            
             SetValue(IsBusyProperty, value );
         }
     }
     
-    public static readonly StyledProperty<double> LoadingOpacityProperty = AvaloniaProperty.Register<BusyArea, double>(nameof(LoadingOpacity), defaultValue: 0);
-
-    public double LoadingOpacity
-    {
-        get { return GetValue(LoadingOpacityProperty); }
-        set
-        {
-            
-            SetValue(LoadingOpacityProperty, value );
-        }
-    }
+  
 }

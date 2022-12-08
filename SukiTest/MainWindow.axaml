@@ -182,6 +182,14 @@
                                             </StackPanel>
                                         </Border>
 
+                                        <Border Classes="Card" Width="300">
+                                            <StackPanel>
+
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">ToggleButton</TextBlock>
+                                                <ToggleButton Classes="Switch" Margin="5" />
+                                            </StackPanel>
+                                        </Border>
+
                                         <Border Classes="Card" Width="600">
 
                                             <StackPanel>

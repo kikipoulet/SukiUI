@@ -85,7 +85,7 @@
             <Grid Height="10" />
 
 
-          <Border Background="White">
+            <Border Background="White">
                 <DockPanel Margin="20,11,30,16">
                     <material:MaterialIcon
                         DockPanel.Dock="Left"
@@ -94,22 +94,16 @@
                         Kind="LightbulbOnOutline"
                         Margin="0,5,0,0"
                         Width="25" />
-                    <ToggleSwitch
+                    <ToggleButton
+                        Classes="Switch"
                         DockPanel.Dock="Right"
-                        Margin="0,6,0,0"
-                        OffContent=""
-                        OnContent="">
-                        <ToggleSwitch.OffContent>
-                            <TextBlock Text="" />
-                        </ToggleSwitch.OffContent>
-                        <ToggleSwitch.OnContent>
-                            <TextBlock Text="" />
-                        </ToggleSwitch.OnContent>
+                        Margin="0,8,0,0">
 
-                        <ToggleSwitch.RenderTransform>
+
+                        <ToggleButton.RenderTransform>
                             <ScaleTransform ScaleX="1.4" ScaleY="1.4" />
-                        </ToggleSwitch.RenderTransform>
-                    </ToggleSwitch>
+                        </ToggleButton.RenderTransform>
+                    </ToggleButton>
                     <TextBlock
                         FontSize="19"
                         FontWeight="Medium"
@@ -117,7 +111,7 @@
                         Text="Dark Theme"
                         VerticalAlignment="Center" />
                 </DockPanel>
-            </Border> 
+            </Border>
             <Border Background="White">
 
                 <Border
@@ -213,7 +207,7 @@
                         Margin="0,5,0,0"
                         Width="25" />
 
-                    <suki:MobileNumericUpDown Margin="0,2,0,-6" Value="5" />
+                    <suki:MobileNumericUpDown DockPanel.Dock="Right" Margin="0,2,0,-6" Value="5" />
 
                     <TextBlock
                         FontSize="19"
@@ -393,7 +387,7 @@
                     HorizontalAlignment="Stretch"
                     Margin="50,0,60,0" />
             </Border>
-  <Border Background="White">
+            <Border Background="White">
                 <DockPanel Margin="20,11,30,16">
                     <material:MaterialIcon
                         DockPanel.Dock="Left"
@@ -402,22 +396,16 @@
                         Kind="NotificationsNone"
                         Margin="0,5,0,0"
                         Width="25" />
-                    <ToggleSwitch
+                    <ToggleButton
+                        Classes="Switch"
                         DockPanel.Dock="Right"
                         IsChecked="True"
-                        Margin="0,6,0,0"
-                        OffContent=""
-                        OnContent="">
-                        <ToggleSwitch.OffContent>
-                            <TextBlock Text="" />
-                        </ToggleSwitch.OffContent>
-                        <ToggleSwitch.OnContent>
-                            <TextBlock Text="" />
-                        </ToggleSwitch.OnContent>
-                        <ToggleSwitch.RenderTransform>
-                            <ScaleTransform ScaleX="1.3" ScaleY="1.3" />
-                        </ToggleSwitch.RenderTransform>
-                    </ToggleSwitch>
+                        Margin="0,8,0,0">
+
+                        <ToggleButton.RenderTransform>
+                            <ScaleTransform ScaleX="1.4" ScaleY="1.4" />
+                        </ToggleButton.RenderTransform>
+                    </ToggleButton>
                     <TextBlock
                         FontSize="19"
                         FontWeight="Medium"
@@ -425,7 +413,7 @@
                         Text="Notifications"
                         VerticalAlignment="Center" />
                 </DockPanel>
-            </Border> 
+            </Border>
 
             <Border Background="White">
 

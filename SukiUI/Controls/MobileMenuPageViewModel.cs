@@ -6,8 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
 using System.Text;
+using Avalonia;
 using Avalonia.Threading;
-using DialogHostAvalonia.Positioners;
+//using DialogHostAvalonia.Positioners;
 
 namespace SukiUI.Controls
 {
@@ -32,7 +33,30 @@ namespace SukiUI.Controls
             set => this.RaiseAndSetIfChanged(ref isdialogopen, value);
         }
         
+        private double toastOpacity = 0;
+
+        public double ToastOpacity
+        {
+            get => toastOpacity;
+            set => this.RaiseAndSetIfChanged(ref toastOpacity, value);
+        }
         
+        private Control toastMessage = new Grid();
+
+        public Control ContentToast
+        {
+            get => toastMessage;
+            set => this.RaiseAndSetIfChanged(ref toastMessage, value);
+        }
+        
+        private Thickness toastMargin = new Thickness(0,125,0,0);
+
+        public Thickness ToastMargin
+        {
+            get => toastMargin;
+            set => this.RaiseAndSetIfChanged(ref toastMargin, value);
+        }
+
         
         private bool dialogatbottom = false;
 
@@ -42,13 +66,13 @@ namespace SukiUI.Controls
             set => this.RaiseAndSetIfChanged(ref dialogatbottom, value);
         }
         
-        private AlignmentDialogPopupPositioner dialogPosition = new AlignmentDialogPopupPositioner();
+       /* private AlignmentDialogPopupPositioner dialogPosition = new AlignmentDialogPopupPositioner();
 
         public AlignmentDialogPopupPositioner DialogPosition
         {
             get => dialogPosition;
             set => this.RaiseAndSetIfChanged(ref dialogPosition, value);
-        }
+        } */
 
 
 

@@ -1,13 +1,156 @@
-<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-   <Style Selector="ToggleButton">
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Padding" Value="14" />
-      <Setter Property="CornerRadius" Value="5"></Setter>
-        <Setter Property="Background" Value="{DynamicResource ThemeBorderHighBrush}" />
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <StackPanel
+            Background="White"
+            Margin="20"
+            Spacing="24"
+            Width="250">
+            <ToggleButton Classes="Switch" IsChecked="False" />
+
+        </StackPanel>
+    </Design.PreviewWith>
+
+    <Style Selector="ToggleButton.Switch">
+        <Setter Property="Foreground">
+            <Setter.Value>
+                <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
+                    <GradientStop Color="#597ef7" Offset="0.1" />
+                    <GradientStop Color="#2f54eb" Offset="0.6" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid Background="Transparent" RowDefinitions="Auto,*">
+
+                    <ContentPresenter
+                        Content="{TemplateBinding Content}"
+                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                        Grid.Row="0"
+                        RecognizesAccessKey="True"
+                        VerticalAlignment="Top"
+                        x:Name="PART_ContentPresenter" />
+
+                    <Grid
+                        Grid.Row="1"
+                        HorizontalAlignment="Left"
+                        MinWidth="{DynamicResource ToggleSwitchThemeMinWidth}"
+                        VerticalAlignment="Top">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="{DynamicResource ToggleSwitchPreContentMargin}" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="{DynamicResource ToggleSwitchPostContentMargin}" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition MaxWidth="12" Width="12" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid
+                            Grid.ColumnSpan="3"
+                            Grid.RowSpan="3"
+                            Margin="0,5"
+                            TemplatedControl.IsTemplateFocusTarget="True"
+                            x:Name="SwitchAreaGrid" />
+
+
+                        <Border
+                            Background="#dedede"
+                            BorderThickness="0"
+                            CornerRadius="10"
+                            Grid.Row="1"
+                            Height="20"
+                            Width="40"
+                            x:Name="OuterBorder">
+                            <Border.Transitions>
+                                <Transitions>
+                                    <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
+                                </Transitions>
+                            </Border.Transitions>
+                        </Border>
+
+                        <Border
+                            Background="#dedede"
+                            BorderThickness="0"
+                            CornerRadius="10"
+                            Grid.Row="1"
+                            Height="20"
+                            Width="40"
+                            x:Name="SwitchBackground">
+
+                            <Border.Transitions>
+                                <Transitions>
+                                    <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
+                                    <BrushTransition Duration="0:0:0.20" Property="Background" />
+                                </Transitions>
+                            </Border.Transitions>
+                        </Border>
+
+                        <Canvas
+                            Grid.Row="1"
+                            Height="20"
+                            HorizontalAlignment="Left"
+                            Width="20"
+                            x:Name="PART_SwitchKnob">
+
+
+
+
+
+                            <Border 
+                                Background="{DynamicResource SukiControlTouchBackground}"
+                                BoxShadow="0 0 0 0 DarkGray"
+                                Canvas.Left="2"
+                                Canvas.Top="2"
+                                CornerRadius="10"
+                                Height="16"
+                                Margin="0,0,0,0"
+                                Width="16"
+                                x:Name="SwitchKnob">
+                              <Border></Border>
+                                <Border.Transitions>
+                                    <Transitions>
+                                        <DoubleTransition Duration="0:0:0.20" Property="Canvas.Left">
+                                            <DoubleTransition.Easing>
+                                                <CircularEaseOut />
+                                            </DoubleTransition.Easing>
+                                        </DoubleTransition>
+                                    </Transitions>
+                                </Border.Transitions>
+                            </Border>
+
+
+                        </Canvas>
+                    </Grid>
+                </Grid>
+            </ControlTemplate>
+        </Setter>
     </Style>
 
-    <Style Selector="ToggleButton > TextBlock">
+    <Style Selector="ToggleButton.Switch:checked /template/ Border#SwitchKnob">
+        <Setter Property="Canvas.Left" Value="22" />
+    </Style>
+
+    <Style Selector="ToggleButton.Switch:checked /template/ Border#SwitchBackground">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush EndPoint="0%,100%" StartPoint="50%,0%">
+                    <GradientStop Color="#597ef7" Offset="0.1" />
+                    <GradientStop Color="#2f54eb" Offset="0.9" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style Selector="ToggleButton &gt; TextBlock">
         <Setter Property="Foreground" Value="Black" />
     </Style>
     <Style Selector="ToggleButton /template/ ContentPresenter">
@@ -15,7 +158,7 @@
     </Style>
     <Style Selector="ToggleButton:pointerover">
         <Setter Property="Background" Value="{DynamicResource ThemeBorderHighBrush}" />
-      <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="BorderThickness" Value="0" />
     </Style>
     <Style Selector="ToggleButton:pressed /template/ ContentPresenter">
         <Setter Property="Background" Value="Transparent" />
@@ -23,11 +166,11 @@
     <Style Selector="ToggleButton:checked /template/ ContentPresenter">
         <Setter Property="Background" Value="Transparent" />
     </Style>
-    
+
     <Style Selector="ToggleButton.Primary">
         <Setter Property="Background" Value="{DynamicResource ThemeBorderHighBrush}" />
     </Style>
-    <Style Selector="ToggleButton.Primary > TextBlock">
+    <Style Selector="ToggleButton.Primary &gt; TextBlock">
         <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrush}" />
     </Style>
     <Style Selector="ToggleButton.Primary /template/ ContentPresenter">
@@ -41,5 +184,5 @@
     </Style>
     <Style Selector="ToggleButton.Primary:checked /template/ ContentPresenter">
         <Setter Property="Background" Value="{DynamicResource ThemeAccentBrush}" />
-    </Style> 
+    </Style>
 </Styles>

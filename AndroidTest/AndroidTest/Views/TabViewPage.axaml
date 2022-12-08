@@ -4,21 +4,67 @@
     mc:Ignorable="d"
     x:Class="AndroidTest.Views.TabViewPage"
     xmlns="https://github.com/avaloniaui"
+    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <TabControl Classes="MobileTabView">
-        <TabItem Classes="MobileTabItem" Header="Tab 1">
-          <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Tab 1"></TextBlock>
+        <TabItem Classes="MobileTabItem">
+            <TabItem.Header>
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <avalonia:MaterialIcon
+                        Height="35"
+                        Kind="HandCoinOutline"
+                        Margin="0"
+                        VerticalAlignment="Top"
+                        Width="25" />
+                    <TextBlock FontSize="12" Text="Sales" />
+                </StackPanel>
+            </TabItem.Header>
+            <TextBlock
+                HorizontalAlignment="Center"
+                Text="Sales"
+                VerticalAlignment="Center" />
 
         </TabItem>
-        <TabItem Classes="MobileTabItem" Header="Tab 2">
-          <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Tab 2"></TextBlock>
+        <TabItem Classes="MobileTabItem">
+            <TabItem.Header>
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <avalonia:MaterialIcon
+                        Height="35"
+                        Kind="Xaml"
+                        Margin="0"
+                        VerticalAlignment="Top"
+                        Width="30" />
+                    <TextBlock FontSize="12" Text="Dashboard" />
+                </StackPanel>
+            </TabItem.Header>
+            <TextBlock
+                HorizontalAlignment="Center"
+                Text="Dashboard"
+                VerticalAlignment="Center" />
 
         </TabItem>
-        <TabItem Classes="MobileTabItem" Header="Tab 3">
-          <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Tab 3"></TextBlock>
+
+        <TabItem Classes="MobileTabItem">
+            <TabItem.Header>
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <avalonia:MaterialIcon
+                        Height="35"
+                        Kind="SettingsOutline"
+                        Margin="0"
+                        VerticalAlignment="Top"
+                        Width="25" />
+                    <TextBlock FontSize="12" Text="Settings" />
+                </StackPanel>
+            </TabItem.Header>
+            <TextBlock
+                HorizontalAlignment="Center"
+                Text="Settings"
+                VerticalAlignment="Center" />
+
         </TabItem>
+
 
 
     </TabControl>

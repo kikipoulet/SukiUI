@@ -228,28 +228,45 @@
                             TextBlock.FontFamily="{TemplateBinding FontFamily}"
                             TextBlock.FontSize="{TemplateBinding FontSize}"
                             TextBlock.FontWeight="{TemplateBinding FontWeight}"
-                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-                            <ContentPresenter.RenderTransform>
-                                <ScaleTransform ScaleX="1.35" ScaleY="1.35" />
-                            </ContentPresenter.RenderTransform>
-                        </ContentPresenter>
+                            TextBlock.Foreground="{TemplateBinding Foreground}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
 
-                        <Border
-                            Background="#2f54eb"
-                            CornerRadius="10"
-                            Height="7"
-                            Margin="0,15,0,0"
-                            Name="PART_SelectedPipe"
-                            Width="7">
-                            <Border.Transitions>
-                                <Transitions>
-                                    <DoubleTransition Duration="0:0:0.3" Property="Opacity" />
-                                </Transitions>
-                            </Border.Transitions>
-                        </Border>
+
                     </Panel>
                 </Border>
             </ControlTemplate>
         </Setter>
     </Style>
+
+    <Style Selector="TabItem.MobileTabItem ContentPresenter">
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <ScaleTransform ScaleX="1.10" ScaleY="1.10" />
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="TextBlock.Foreground" Value="Black" />
+    </Style>
+
+    <Style Selector="TabItem.MobileTabItem:selected ContentPresenter">
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <ScaleTransform ScaleX="1.40" ScaleY="1.40" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="TextBlock.Foreground" Value="#2f54eb" />
+    </Style>
+
+    <Style Selector="TabItem.MobileTabItem material|MaterialIcon">
+
+        <Setter Property="Foreground" Value="Black" />
+
+    </Style>
+
+    <Style Selector="TabItem.MobileTabItem:selected material|MaterialIcon">
+
+        <Setter Property="Foreground" Value="#2f54eb" />
+
+    </Style>
+
 </Styles>

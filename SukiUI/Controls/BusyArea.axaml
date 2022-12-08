@@ -14,23 +14,35 @@
                 <ControlTemplate>
                     <Grid>
                         <ContentControl Content="{TemplateBinding Content}" />
-                        <Grid
-                            Background="White"
+
+                        <suki:Loading
+                            HorizontalAlignment="Center"
                             IsHitTestVisible="False"
-                            Name="myGrid"
-                            Opacity="{TemplateBinding LoadingOpacity}">
-                            <suki:Loading
-                                HorizontalAlignment="Center"
-                                IsHitTestVisible="False"
-                                Opacity="{TemplateBinding LoadingOpacity}"
-                                VerticalAlignment="Center" />
-                        </Grid>
+                            VerticalAlignment="Center" />
 
 
                     </Grid>
                 </ControlTemplate>
             </Setter>
         </Style>
+
+
+        <Style Selector="suki|BusyArea[IsBusy=True] suki|Loading">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+
+        <Style Selector="suki|BusyArea[IsBusy=False] suki|Loading">
+            <Setter Property="Opacity" Value="0" />
+        </Style>
+
+        <Style Selector="suki|BusyArea[IsBusy=True] ContentControl">
+            <Setter Property="Opacity" Value="0" />
+        </Style>
+
+        <Style Selector="suki|BusyArea[IsBusy=False] ContentControl">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+
     </UserControl.Styles>
 </UserControl>
 

@@ -26,13 +26,15 @@
             Text="An item has been added !"
             VerticalAlignment="Center" />
 
-        <TextBlock
+        <Button
             Classes="Accent"
+            Click="HandlerClose"
             FontWeight="DemiBold"
             HorizontalAlignment="Right"
-            Margin="0,0,2,0"
-            Text="Close"
-            VerticalAlignment="Bottom" />
+            Margin="-10"
+            VerticalAlignment="Bottom">
+            <TextBlock Text="Close" />
+        </Button>
 
     </Grid>
 

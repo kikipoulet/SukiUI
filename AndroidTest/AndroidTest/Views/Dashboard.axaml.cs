@@ -1,3 +1,4 @@
+using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
@@ -14,6 +15,10 @@ namespace AndroidTest.Views
 {
     public partial class Dashboard : UserControl
     {
+        private static readonly Lazy<Dashboard> lazy =
+            new Lazy<Dashboard>(() => new Dashboard());
+        
+        public static Dashboard Instance { get { return lazy.Value; } }
         public Dashboard()
         {
             InitializeComponent();

@@ -18,6 +18,7 @@
         <FileVersion>2.0.0</FileVersion>
         <AssemblyVersion>2.0.0</AssemblyVersion>
         <LangVersion>10</LangVersion>
+        <UserSecretsId>712f85e4-12d3-41b0-a417-5714a113666f</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -43,7 +44,7 @@
     <ItemGroup>
         <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.0-preview1" />
         <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.0-preview1" />
-        <PackageReference Include="DialogHost.Avalonia" Version="0.7.0-preview1" />
+        <PackageReference Include="DialogHost.Avalonia" Version="0.6.0" />
         <PackageReference Include="Material.Icons.Avalonia" Version="1.2.0" />
         <PackageReference Include="Nerdbank.GitVersioning" Version="3.6.65-alpha" PrivateAssets="all" />
         <PackageReference Include="ReactiveUI" Version="18.3.1" />

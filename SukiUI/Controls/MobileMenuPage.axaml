@@ -126,8 +126,9 @@
             <dialogHostAvalonia:DialogHost
                 CloseOnClickAway="False"
                 DialogContent="{Binding DialogChild}"
-                IsOpen="{Binding IsDialogOpen}"
-                PopupPositioner="{Binding DialogPosition}">
+                IsOpen="{Binding IsDialogOpen}">
+                <!--  PopupPositioner="{Binding DialogPosition}"  -->
+
 
                 <Grid>
 
@@ -152,6 +153,34 @@
                             Width="30" />
 
                     </Button>
+
+                    <Border
+                        Background="White"
+                        BorderBrush="#dedede"
+                        BorderThickness="1"
+                        BoxShadow="0 4 12 LightGray"
+                        CornerRadius="30"
+                        HorizontalAlignment="Center"
+                        IsHitTestVisible="False"
+                        Margin="{Binding ToastMargin}"
+                        Opacity="{Binding ToastOpacity}"
+                        VerticalAlignment="Top">
+                        <Border.Transitions>
+                            <Transitions>
+                                <DoubleTransition Duration="0:0:0.4" Property="Opacity">
+                                    <DoubleTransition.Easing>
+                                        <ExponentialEaseOut />
+                                    </DoubleTransition.Easing>
+                                </DoubleTransition>
+                                <ThicknessTransition Duration="0:0:0.4" Property="Margin">
+                                    <ThicknessTransition.Easing>
+                                        <ExponentialEaseOut />
+                                    </ThicknessTransition.Easing>
+                                </ThicknessTransition>
+                            </Transitions>
+                        </Border.Transitions>
+                        <ContentControl Content="{Binding ContentToast}" />
+                    </Border>
 
 
                 </Grid>

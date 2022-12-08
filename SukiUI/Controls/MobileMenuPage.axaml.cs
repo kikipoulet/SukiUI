@@ -1,13 +1,15 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Layout;
 using Avalonia.Markup.Xaml;
 using Avalonia.VisualTree;
-using DialogHostAvalonia.Positioners;
+// using DialogHostAvalonia.Positioners;
 
 namespace SukiUI.Controls
 {
@@ -34,6 +36,23 @@ namespace SukiUI.Controls
             model.IsDialogOpen = false;
             model.IsDialogOpen = true;
         }
+        
+        public void ShowToast(Control Message, int seconds)
+        {
+            var model = (MobileMenuPageViewModel)this.DataContext;
+
+            model.ToastOpacity = 1;
+            model.ContentToast = Message;
+            model.ToastMargin = new Thickness(0, 100, 0, 0);
+
+            Task.Run((() =>
+            {
+                Thread.Sleep(seconds * 1000);
+                model.ToastOpacity = 0;
+                model.ToastMargin = new Thickness(0, 125, 0, 0);
+            }));
+        }
+        
 
         public void CloseDialog()
         {
@@ -41,6 +60,34 @@ namespace SukiUI.Controls
 
             model.IsDialogOpen = false;
         }
+        
+        public static void ShowToastS(Control Content, int seconds)
+        {
+
+            MobileMenuPage mbmp = null;
+            
+            try
+            {
+                mbmp = ((ISingleViewApplicationLifetime)Application.Current.ApplicationLifetime).MainView.GetVisualDescendants().OfType<MobileMenuPage>().First();
+                
+            }
+            catch (Exception exc)
+            {
+                Debug.WriteLine("Unable to open dialog in the Mobile view, trying desktop.");
+                try
+                {
+                    mbmp = ((IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime).MainWindow.GetVisualDescendants().OfType<MobileMenuPage>().First();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Unable to show a dialog. " + ex.Message);
+                }
+                
+            }
+            
+            mbmp.ShowToast(Content, seconds);
+        }
+
         public static void ShowDialogS(Control content, bool showAtBottom = false)
         {
 
@@ -66,10 +113,10 @@ namespace SukiUI.Controls
             }
             
             var model = (MobileMenuPageViewModel)mbmp.DataContext;
-            if (showAtBottom)
-                model.DialogPosition = new AlignmentDialogPopupPositioner(){ VerticalAlignment = VerticalAlignment.Bottom, HorizontalAlignment = HorizontalAlignment.Center, Margin = new Thickness(10)};
+         /*  if (showAtBottom)
+                model.DialogPosition = new AlignmentDialogPopupPositioner(){ VerticalAlignment = VerticalAlignment.Bottom, HorizontalAlignment = HorizontalAlignment.Center, Margin = new Thickness(10,10,0,10)};
             else
-                model.DialogPosition = new AlignmentDialogPopupPositioner(){VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center};
+                model.DialogPosition = new AlignmentDialogPopupPositioner(){VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center}; */
 
             mbmp.ShowDialog(content, showAtBottom);
         }

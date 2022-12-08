@@ -27,7 +27,7 @@ public partial class MobileNumberPickerPopup : UserControl
         AvaloniaXamlLoader.Load(this);
     }
 
-    public MobileNumberPicker _MobileNumberPicker;
+    public MobileNumberPicker _MobileNumberPicker = null;
     
     public int CurrentValue = 0;
 
@@ -44,7 +44,8 @@ public partial class MobileNumberPickerPopup : UserControl
     {
         isScrolling = false;
         var difference = (StartingPosition.Y - e.GetPosition(this.FindControl<TextBlock>("CurrentValueText")).Y ) /5;
-        _MobileNumberPicker.Value = ((int)(CurrentValue + difference));
+       
+         _MobileNumberPicker.Value = ((int)(CurrentValue + difference));
        CurrentValue = ((int)(CurrentValue + difference));
     }
 

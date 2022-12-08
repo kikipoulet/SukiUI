@@ -12,7 +12,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <suki:MobileMenuPage Name="myMenu">
         <suki:MobileMenuPage.DataContext>
-            <suki:MobileMenuPageViewModel MenuVisibility="True">
+            <suki:MobileMenuPageViewModel>
+                <suki:MobileMenuPageViewModel.CurrentPage>
+                    <suki:ClassicMobilePage Header="DashBoard">
+                        <views:Dashboard />
+                    </suki:ClassicMobilePage>
+                </suki:MobileMenuPageViewModel.CurrentPage>
                 <suki:MobileMenuPageViewModel.HeaderContent>
                     <StackPanel HorizontalAlignment="Center">
 
@@ -76,8 +81,8 @@
 
                     <suki:SideMenuItem Header="Tab View" Icon="Tab">
                         <suki:SideMenuItem.Content>
-                            <suki:ClassicMobilePage Header="Page Header">
-                                <Grid />
+                            <suki:ClassicMobilePage Header="Tabs">
+                                <views:TabViewPage />
                             </suki:ClassicMobilePage>
                         </suki:SideMenuItem.Content>
                     </suki:SideMenuItem>
