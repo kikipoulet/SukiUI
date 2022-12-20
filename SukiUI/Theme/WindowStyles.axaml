@@ -22,7 +22,7 @@
                         Background="{DynamicResource SukiBackground}"
                         BorderBrush="{DynamicResource SukiControlBorderBrush}"
                         BorderThickness="1.2"
-                        BoxShadow="0 0 15 0 LightGray"
+                        BoxShadow="0 0 10 0 Gray"
                         CornerRadius="10"
                         IsHitTestVisible="False"
                         Margin="10"

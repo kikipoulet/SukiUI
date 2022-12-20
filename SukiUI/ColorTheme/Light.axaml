@@ -19,5 +19,7 @@
         <Color x:Key="SukiControlTouchBackground">#FFFFFF</Color>
         <Color x:Key="SukiMediumBorderBrush">#e2e2e2</Color>
         <Color x:Key="SukiLightBorderBrush">#f4f4f4</Color>
+
+
     </Style.Resources>
 </Style>

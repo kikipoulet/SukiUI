@@ -1,5 +1,5 @@
 <Window
-    Background="White"
+    Background="{DynamicResource SukiBackground}"
     Classes="NakedWindow"
     ExtendClientAreaToDecorationsHint="True"
     Height="200"

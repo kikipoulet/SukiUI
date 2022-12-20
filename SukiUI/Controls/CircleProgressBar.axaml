@@ -17,7 +17,7 @@
                             Height="{TemplateBinding Height}"
                             StartAngle="0"
                             Stretch="None"
-                            Stroke="WhiteSmoke"
+                            Stroke="{DynamicResource SukiLightBorderBrush}"
                             StrokeThickness="{TemplateBinding StrokeWidth}"
                             SweepAngle="360"
                             Width="{TemplateBinding Width}" />
@@ -34,12 +34,12 @@
 
 
                                 <LinearGradientBrush EndPoint="100%,100%" StartPoint="0%,0%">
-                                    <GradientStop Color="#597ef7" Offset="0.1" />
-                                    <GradientStop Color="#2f54eb" Offset="0.6" />
+                                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.1" />
+                                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.6" />
                                 </LinearGradientBrush>
 
                             </Arc.Stroke>
-                           <Arc.Transitions>
+                            <Arc.Transitions>
                                 <Transitions>
                                     <DoubleTransition
                                         Duration="0:0:0.8"

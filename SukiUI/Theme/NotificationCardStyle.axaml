@@ -1,6 +1,6 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
-        <Border Background="White" Padding="0">
+        <Border Background="{DynamicResource SukiBackground}" Padding="0">
             <NotificationCard Content="Testing" />
         </Border>
     </Design.PreviewWith>
@@ -8,7 +8,7 @@
         <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="Width" Value="350" />
         <Setter Property="FontSize" Value="14" />
-        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiBackground}" />
         <Setter Property="RenderTransformOrigin" Value="50%,75%" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Background" Value="Yellow" />
@@ -17,14 +17,14 @@
             <ControlTemplate>
                 <LayoutTransformControl Name="PART_LayoutTransformControl" UseRenderTransform="True">
                     <Border
-                        Background="White"
-                        BorderBrush="#ebebeb"
+                        Background="{DynamicResource SukiBackground}"
+                        BorderBrush="{DynamicResource SukiBorderBrush}"
                         BorderThickness="1"
-                        BoxShadow="0 3 10 0 #eaeaea"
+                        BoxShadow="0 2 6 0 Gray"
                         CornerRadius="{TemplateBinding CornerRadius}"
                         Margin="5,5,25,10">
                         <Border
-                            Background="White"
+                            Background="{DynamicResource SukiBackground}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             ClipToBounds="True"
@@ -107,18 +107,18 @@
     </Style>
 
     <Style Selector="NotificationCard /template/ Panel#PART_HeaderBar">
-        <Setter Property="Background" Value="White" />
+        <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
     </Style>
     <Style Selector="NotificationCard:information /template/ Panel#PART_HeaderBar">
-        <Setter Property="Background" Value="White" />
+        <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
     </Style>
     <Style Selector="NotificationCard:success /template/ Panel#PART_HeaderBar">
-        <Setter Property="Background" Value="White" />
+        <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
     </Style>
     <Style Selector="NotificationCard:warning /template/ Panel#PART_HeaderBar">
-        <Setter Property="Background" Value="White" />
+        <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
     </Style>
     <Style Selector="NotificationCard:error /template/ Panel#PART_HeaderBar">
-        <Setter Property="Background" Value="White" />
+        <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
     </Style>
 </Styles>

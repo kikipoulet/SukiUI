@@ -50,7 +50,7 @@
                                     <ControlTemplate>
                                         <Grid>
                                             <Border
-                                                Background="#dedede"
+                                                Background="{DynamicResource SukiControlBorderBrush}"
                                                 CornerRadius="10"
                                                 Margin="0,3" />
                                         </Grid>
@@ -101,7 +101,7 @@
                                     <ControlTemplate>
                                         <Grid>
                                             <Border
-                                                Background="#dedede"
+                                                Background="{DynamicResource SukiControlBorderBrush}"
                                                 CornerRadius="10"
                                                 Height="10"
                                                 Margin="3,0" />

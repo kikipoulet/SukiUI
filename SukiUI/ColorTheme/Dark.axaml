@@ -18,5 +18,7 @@
         <Color x:Key="SukiControlBorderBrush">#505050</Color>
         <Color x:Key="SukiMediumBorderBrush">#494949</Color>
         <Color x:Key="SukiLightBorderBrush">#444444</Color>
+
+
     </Style.Resources>
 </Style>

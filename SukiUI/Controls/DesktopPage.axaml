@@ -119,7 +119,7 @@
                         </DockPanel>
 
                         <Grid
-                            Background="#aaaaaa"
+                            Background="{DynamicResource SukiControlBorderBrush}"
                             IsHitTestVisible="{TemplateBinding IsDialogOpen}"
                             Name="gridDialog"
                             Opacity="0">
@@ -131,7 +131,7 @@
                         </Grid>
 
                         <Border
-                            Background="White"
+                            Background="{DynamicResource SukiBackground}"
                             Classes.opened="{TemplateBinding IsDialogOpen}"
                             CornerRadius="15"
                             HorizontalAlignment="Center"

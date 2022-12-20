@@ -262,15 +262,15 @@
                 <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.6" />
             </RadialGradientBrush>
         </Setter>
-        <Setter Property="Background" Value="{DynamicResource SukiLightColoredBackground}" />
+        <Setter Property="Background" Value="{DynamicResource SukiLightBackground}" />
     </Style>
     <Style Selector="RadioButton.MenuItem:checked  TextBlock">
-        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+        <!-- <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" /> -->
         <Setter Property="FontWeight" Value="DemiBold" />
     </Style>
 
     <Style Selector="RadioButton.MenuItem:checked  material|MaterialIcon">
-        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+        <!--  <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" /> -->
 
     </Style>
 

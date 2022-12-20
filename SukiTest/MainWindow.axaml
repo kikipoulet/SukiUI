@@ -254,10 +254,7 @@
                                         <Border Classes="Card" Width="300">
                                             <StackPanel>
                                                 <TextBlock Classes="h3" Margin="5,0,0,15">CircleProgressBar</TextBlock>
-                                                <Border
-                                                    Background="White"
-                                                    Padding="20"
-                                                    Width="200">
+                                                <Border Padding="20" Width="200">
                                                     <suki:CircleProgressBar
                                                         Height="130"
                                                         Name="myProgressBar"

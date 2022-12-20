@@ -1,5 +1,23 @@
 <Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <DataGrid>
+                <DataGrid.Columns>
 
+                    <DataGridTextColumn Binding="{Binding Name}" Header="Name" />
+
+                    <DataGridTemplateColumn Header="Birthday">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <DatePicker BorderThickness="0" SelectedDate="{Binding Birthday}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+    </Design.PreviewWith>
     <Style Selector="DataGridCell">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -41,14 +59,15 @@
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="SeparatorBrush" Value="{DynamicResource ThemeControlLowColor}" />
         <Setter Property="Padding" Value="12" />
-        <Setter Property="Background" Value="{DynamicResource ThemeControlMidBrush}" />
+        <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
 
         <Setter Property="Template">
             <ControlTemplate>
                 <Border
                     Background="{TemplateBinding Background}"
-                    BorderBrush="#ebebeb"
-                    BorderThickness="0,0,0,0">
+                    BorderBrush="{DynamicResource SukiBorderBrush}"
+                    BorderThickness="0,0,0,0"
+                    CornerRadius="0">
                     <Grid ColumnDefinitions="*,Auto">
 
                         <Grid
@@ -56,11 +75,14 @@
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                             Margin="{TemplateBinding Padding}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-                            <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" />
+                            <ContentPresenter
+                                Background=""
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}" />
 
                             <Path
                                 Data="F1 M -5.215,6.099L 5.215,6.099L 0,0L -5.215,6.099 Z "
-                                Fill="{TemplateBinding Foreground}"
+                                Fill="Red"
                                 Grid.Column="1"
                                 HorizontalAlignment="Left"
                                 Margin="4,0,0,0"
@@ -71,13 +93,7 @@
 
                         </Grid>
 
-                        <Rectangle
-                            Fill="{TemplateBinding SeparatorBrush}"
-                            Grid.Column="1"
-                            IsVisible="False"
-                            Name="VerticalSeparator"
-                            VerticalAlignment="Stretch"
-                            Width="1" />
+
 
                     </Grid>
                 </Border>
@@ -161,27 +177,27 @@
 
     <Style Selector="DataGridRow:nth-child(even) /template/ Border#BackgroundRectangle">
         <Setter Property="Opacity" Value="0.3" />
-        <Setter Property="Background" Value="WhiteSmoke" />
+        <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
     </Style>
 
     <Style Selector="DataGridRow /template/ Border#BackgroundRectangle">
         <Setter Property="Opacity" Value="0" />
-        <Setter Property="Background" Value="#2f54eb" />
+        <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
     </Style>
     <Style Selector="DataGridRow:pointerover /template/ Border#BackgroundRectangle">
 
         <Setter Property="Opacity" Value="0.1" />
-        <Setter Property="Background" Value="#2f54eb" />
+        <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
     </Style>
 
     <Style Selector="DataGridRow:selected /template/ Border#BackgroundRectangle">
 
         <Setter Property="Opacity" Value="0.15" />
-        <Setter Property="Background" Value="#2f54eb" />
+        <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
     </Style>
 
     <Style Selector="DataGridRow:selected">
-        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiBackground}" />
     </Style>
 
     <Style Selector="DataGridRowHeader">
@@ -203,7 +219,7 @@
                         </Grid>
                     </Border>
                     <Rectangle
-                        Fill="{TemplateBinding SeparatorBrush}"
+                        Fill="Red"
                         Grid.ColumnSpan="2"
                         Grid.Row="2"
                         Height="1"
@@ -283,7 +299,7 @@
                     Width="20">
                     <Path
                         Data="M 0 2 L 4 6 L 0 10 Z"
-                        Fill="{TemplateBinding Foreground}"
+                        Fill="Red"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center" />
                 </Border>
@@ -300,8 +316,8 @@
     <Style Selector="DataGrid">
 
         <Setter Property="RowBackground" Value="Transparent" />
-        <Setter Property="AlternatingRowBackground" Value="#fcfcfc" />
-        <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}" />
+        <Setter Property="AlternatingRowBackground" Value="{DynamicResource SukiLightBackground}" />
+        <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
         <Setter Property="HeadersVisibility" Value="Column" />
         <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
         <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
@@ -312,14 +328,14 @@
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="DropLocationIndicatorTemplate">
             <Template>
-                <Rectangle Fill="{DynamicResource ThemeBorderHighColor}" Width="2" />
+                <Rectangle Fill="Red" Width="2" />
             </Template>
         </Setter>
         <Setter Property="Template">
             <ControlTemplate>
                 <Border
                     Background="Transparent"
-                    BorderBrush="#eaeaea"
+                    BorderBrush="{DynamicResource SukiStrongBackground}"
                     BorderThickness="1.5"
                     CornerRadius="5">
                     <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,*,Auto,Auto">
@@ -328,7 +344,7 @@
                         <DataGridColumnHeadersPresenter Grid.Column="1" Name="PART_ColumnHeadersPresenter" />
                         <DataGridColumnHeader Grid.Column="2" Name="PART_TopRightCornerHeader" />
                         <Rectangle
-                            Fill="Transparent"
+                            Fill="Red"
                             Grid.ColumnSpan="3"
                             Height="1"
                             Name="PART_ColumnHeadersAndRowsSeparator"
