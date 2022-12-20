@@ -189,6 +189,11 @@ namespace SukiUI.Controls
 
             IsDialogOpen = false;
             IsDialogOpen = true;
+
+            
+            
+            
+            
         }
 
         public static void ShowDialogS(Control content)

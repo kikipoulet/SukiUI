@@ -12,8 +12,15 @@
             <Button Classes="Primary">
                 <TextBlock>Primary</TextBlock>
             </Button>
+
+
+
             <Button Classes="Accent">
                 <TextBlock>Accent</TextBlock>
+            </Button>
+
+            <Button Classes="Primary Rounded">
+                <TextBlock>Primary Round</TextBlock>
             </Button>
 
             <Button>
@@ -39,6 +46,8 @@
             </Transitions>
         </Setter>
     </Style>
+
+
 
     <Style Selector="Button:pointerover /template/ ContentPresenter">
 
@@ -172,6 +181,8 @@
     <!--    -->
 
 
+
+
     <!--    -->
 
     <Style Selector="Button.Outlined">
@@ -244,28 +255,6 @@
 
     <!--    -->
 
-    <Style Selector="Button.Secondary">
-        <Setter Property="Background" Value="#f0f5ff" />
-        <Setter Property="BorderBrush" Value="#f0f5ff" />
-        <Setter Property="Transitions">
-            <Transitions>
-                <DoubleTransition Duration="0:0:2" Property="Opacity" />
-            </Transitions>
-        </Setter>
-    </Style>
-
-
-    <Style Selector="Button.Secondary &gt; TextBlock">
-        <Setter Property="Foreground" Value="#1d39c4" />
-    </Style>
-    <Style Selector="Button.Secondary:pointerover /template/ ContentPresenter">
-        <!--  <Setter Property="Background" Value="#f0f5ff" /> -->
-        <Setter Property="Opacity" Value="0.95" />
-    </Style>
-    <Style Selector="Button.Secondary:pressed /template/ ContentPresenter">
-        <Setter Property="Opacity" Value="0.95" />
-
-    </Style>
 
     <Style Selector="Button.Success">
         <Setter Property="Background" Value="#cdf2ca" />
@@ -293,5 +282,10 @@
     </Style>
     <Style Selector="Button.Danger:pressed /template/ ContentPresenter">
         <Setter Property="Background" Value="#f5d7d7" />
+    </Style>
+
+    <Style Selector="Button.Rounded">
+        <Setter Property="CornerRadius" Value="100" />
+        <Setter Property="Padding" Value="20,10,20,8" />
     </Style>
 </Styles>

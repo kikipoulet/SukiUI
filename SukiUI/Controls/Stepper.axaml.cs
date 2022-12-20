@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Avalonia.Layout;
 using Avalonia.Media;
+using Material.Icons;
+using Material.Icons.Avalonia;
 
 namespace SukiUI.Controls
 {
@@ -23,8 +25,7 @@ namespace SukiUI.Controls
             
         }
 
-        public static readonly StyledProperty<int> IndexProperty =
-       AvaloniaProperty.Register<Stepper, int>(nameof(Index), defaultValue: 0);
+        public static readonly StyledProperty<int> IndexProperty = AvaloniaProperty.Register<Stepper, int>(nameof(Index), defaultValue: 0);
 
         public int Index
         {

@@ -71,6 +71,10 @@
                                                     <Button Classes="Primary" Click="ChangeTheme">
                                                         <TextBlock>Change Theme</TextBlock>
                                                     </Button>
+
+
+
+
                                                     <Button Classes="Accent">
                                                         <TextBlock>Accent</TextBlock>
                                                     </Button>
@@ -82,6 +86,12 @@
                                                     <Button Classes="Outlined">
                                                         <TextBlock>Outlined</TextBlock>
                                                     </Button>
+
+                                                    <Button Classes="Primary Rounded">
+                                                        <TextBlock>Primary Rounded</TextBlock>
+                                                    </Button>
+
+
                                                 </WrapPanel>
 
                                             </StackPanel>
@@ -222,6 +232,22 @@
                                                 <Button Click="Button_OnClickProgressBar">
                                                     <TextBlock>Go To 60</TextBlock>
                                                 </Button>
+                                            </StackPanel>
+                                        </Border>
+
+                                        <Border Classes="Card" Width="300">
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">PercentProgress Bar</TextBlock>
+                                                <suki:PercentProgressBar Name="myPercentProgress" Value="24" />
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Button Click="GoTo50">
+                                                        <TextBlock>Go To 50</TextBlock>
+                                                    </Button>
+                                                    <Button Click="Button_OnClickProgressBar">
+                                                        <TextBlock>Go To 100</TextBlock>
+                                                    </Button>
+                                                </StackPanel>
+
                                             </StackPanel>
                                         </Border>
 

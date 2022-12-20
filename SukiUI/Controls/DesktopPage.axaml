@@ -14,10 +14,7 @@
         <Style Selector="suki|DesktopPage">
             <Setter Property="Template">
                 <ControlTemplate>
-                    <dialogHostAvalonia:DialogHost
-                        CloseOnClickAway="False"
-                        DialogContent="{TemplateBinding DialogChild}"
-                        IsOpen="{TemplateBinding IsDialogOpen}">
+                    <Grid>
 
                         <DockPanel>
 
@@ -120,9 +117,62 @@
 
                             </Grid>
                         </DockPanel>
-                    </dialogHostAvalonia:DialogHost>
+
+                        <Grid
+                            Background="#aaaaaa"
+                            IsHitTestVisible="{TemplateBinding IsDialogOpen}"
+                            Name="gridDialog"
+                            Opacity="0">
+                            <Grid.Transitions>
+                                <Transitions>
+                                    <DoubleTransition Duration="0:0:0.1" Property="Opacity" />
+                                </Transitions>
+                            </Grid.Transitions>
+                        </Grid>
+
+                        <Border
+                            Background="White"
+                            Classes.opened="{TemplateBinding IsDialogOpen}"
+                            CornerRadius="15"
+                            HorizontalAlignment="Center"
+                            IsHitTestVisible="{TemplateBinding IsDialogOpen}"
+                            Margin="0,15,0,0"
+                            Name="borderDialog"
+                            Opacity="0"
+                            Padding="10"
+                            VerticalAlignment="Center">
+                            <Border.Transitions>
+                                <Transitions>
+                                    <ThicknessTransition Duration="0:0:0.2" Property="Margin">
+                                        <ThicknessTransition.Easing>
+                                            <CircularEaseOut />
+                                        </ThicknessTransition.Easing>
+                                    </ThicknessTransition>
+                                    <DoubleTransition Duration="0:0:0.2" Property="Opacity" />
+                                    <TransformOperationsTransition Duration="0:0:0.2" Property="RenderTransform">
+                                        <TransformOperationsTransition.Easing>
+                                            <CircularEaseOut />
+                                        </TransformOperationsTransition.Easing>
+                                    </TransformOperationsTransition>
+                                </Transitions>
+                            </Border.Transitions>
+
+                            <ContentControl Content="{TemplateBinding DialogChild}" />
+                        </Border>
+
+                    </Grid>
                 </ControlTemplate>
             </Setter>
+        </Style>
+
+
+
+        <Style Selector="suki|DesktopPage[IsDialogOpen=true] Border#borderDialog">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+
+        <Style Selector="suki|DesktopPage[IsDialogOpen=true] Grid#gridDialog">
+            <Setter Property="Opacity" Value="0.56" />
         </Style>
     </UserControl.Styles>
 </UserControl>

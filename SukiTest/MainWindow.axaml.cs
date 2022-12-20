@@ -133,6 +133,7 @@ namespace SukiTest
         private void Button_OnClickProgressBar(object? sender, RoutedEventArgs e)
         {
             this.FindControl<ProgressBar>("myProgressBarLine").Value = 60;
+            this.FindControl<PercentProgressBar>("myPercentProgress").Value = 100;
 
         }
         private void Button_OnClick(object? sender, RoutedEventArgs e)
@@ -165,6 +166,11 @@ namespace SukiTest
         private void BusyMe(object? sender, RoutedEventArgs e)
         {
             this.FindControl<BusyArea>("myBusyArea").IsBusy = true;
+        }
+
+        private void GoTo50(object? sender, RoutedEventArgs e)
+        {
+            this.FindControl<PercentProgressBar>("myPercentProgress").Value = 50;
         }
     }
 }

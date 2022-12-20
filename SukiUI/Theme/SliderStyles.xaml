@@ -70,13 +70,13 @@
                         Name="PART_Track"
                         Orientation="Horizontal">
                         <Track.DecreaseButton>
-                            <Button
-                                BorderThickness="0"
-                                Height="4"
+                            <RepeatButton
+                                BorderThickness="0" CornerRadius="10"
+                                Height="4" 
                                 HorizontalAlignment="Stretch"
-                                IsHitTestVisible="False"
+                               Name="PART_DecreaseButton"
                                 Margin="8,0,-10,0">
-                                <Button.Background>
+                                <RepeatButton.Background>
 
 
                                     <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
@@ -84,8 +84,8 @@
                                         <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.6" />
                                     </LinearGradientBrush>
 
-                                </Button.Background>
-                            </Button>
+                                </RepeatButton.Background>
+                            </RepeatButton>
                         </Track.DecreaseButton>
                         <Track.IncreaseButton>
                             <RepeatButton Classes="repeattrack" Name="PART_IncreaseButton" />

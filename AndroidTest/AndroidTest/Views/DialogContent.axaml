@@ -31,7 +31,7 @@
             Click="HandlerClose"
             FontWeight="DemiBold"
             HorizontalAlignment="Right"
-            Margin="-10"
+            Margin="0"
             VerticalAlignment="Bottom">
             <TextBlock Text="Close" />
         </Button>

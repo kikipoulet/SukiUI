@@ -37,12 +37,8 @@ namespace AndroidTest.Views
         {
 
             MobileMenuPage.ShowDialogS(
-                new Border()
-                {
-                    Classes = new Classes(new List<string>() { "ElevatedCard"}), BorderThickness = new Thickness(0), 
-                    Child = new DialogContent(),
-                    
-                });
+                 new DialogContent()
+            );
 
 
 

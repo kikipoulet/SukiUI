@@ -16,6 +16,13 @@
 
         </Style>
 
+        <Style Selector="suki|MobileMenuPage Border#borderDialog">
+            <Setter Property="RenderTransform" Value="scale(0.92)" />
+        </Style>
+
+        <Style Selector="suki|MobileMenuPage Border.opened#borderDialog">
+            <Setter Property="RenderTransform" Value="scale(1)" />
+        </Style>
 
     </UserControl.Styles>
     <Design.DataContext />
@@ -123,68 +130,105 @@
         </SplitView.Pane>
         <Grid Background="White">
 
-            <dialogHostAvalonia:DialogHost
-                CloseOnClickAway="False"
-                DialogContent="{Binding DialogChild}"
-                IsOpen="{Binding IsDialogOpen}">
+            <Grid Name="dialogGrid">
                 <!--  PopupPositioner="{Binding DialogPosition}"  -->
 
 
-                <Grid>
-
-                    <ContentControl Content="{Binding CurrentPage}" />
 
 
-                    <Button
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Classes="ZoomOnHover"
-                        Command="{Binding ShowMenu}"
-                        Height="50"
-                        HorizontalAlignment="Left"
-                        Margin="15,20,0,0"
-                        Padding="0"
-                        VerticalAlignment="Top"
-                        Width="50">
-                        <material:MaterialIcon
-                            Foreground="DarkGray"
-                            Height="30"
-                            Kind="Menu"
-                            Width="30" />
-
-                    </Button>
-
-                    <Border
-                        Background="White"
-                        BorderBrush="#dedede"
-                        BorderThickness="1"
-                        BoxShadow="0 4 12 LightGray"
-                        CornerRadius="30"
-                        HorizontalAlignment="Center"
-                        IsHitTestVisible="False"
-                        Margin="{Binding ToastMargin}"
-                        Opacity="{Binding ToastOpacity}"
-                        VerticalAlignment="Top">
-                        <Border.Transitions>
-                            <Transitions>
-                                <DoubleTransition Duration="0:0:0.4" Property="Opacity">
-                                    <DoubleTransition.Easing>
-                                        <ExponentialEaseOut />
-                                    </DoubleTransition.Easing>
-                                </DoubleTransition>
-                                <ThicknessTransition Duration="0:0:0.4" Property="Margin">
-                                    <ThicknessTransition.Easing>
-                                        <ExponentialEaseOut />
-                                    </ThicknessTransition.Easing>
-                                </ThicknessTransition>
-                            </Transitions>
-                        </Border.Transitions>
-                        <ContentControl Content="{Binding ContentToast}" />
-                    </Border>
+                <ContentControl Content="{Binding CurrentPage}" />
 
 
+                <Button
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Classes="ZoomOnHover"
+                    Command="{Binding ShowMenu}"
+                    Height="50"
+                    HorizontalAlignment="Left"
+                    Margin="15,20,0,0"
+                    Padding="0"
+                    VerticalAlignment="Top"
+                    Width="50">
+                    <material:MaterialIcon
+                        Foreground="DarkGray"
+                        Height="30"
+                        Kind="Menu"
+                        Width="30" />
+
+                </Button>
+
+                <Border
+                    Background="White"
+                    BorderBrush="#dedede"
+                    BorderThickness="1"
+                    BoxShadow="0 4 12 LightGray"
+                    CornerRadius="30"
+                    HorizontalAlignment="Center"
+                    IsHitTestVisible="False"
+                    Margin="{Binding ToastMargin}"
+                    Opacity="{Binding ToastOpacity}"
+                    VerticalAlignment="Top">
+                    <Border.Transitions>
+                        <Transitions>
+                            <DoubleTransition Duration="0:0:0.4" Property="Opacity">
+                                <DoubleTransition.Easing>
+                                    <ExponentialEaseOut />
+                                </DoubleTransition.Easing>
+                            </DoubleTransition>
+                            <ThicknessTransition Duration="0:0:0.4" Property="Margin">
+                                <ThicknessTransition.Easing>
+                                    <ExponentialEaseOut />
+                                </ThicknessTransition.Easing>
+                            </ThicknessTransition>
+                        </Transitions>
+                    </Border.Transitions>
+                    <ContentControl Content="{Binding ContentToast}" />
+                </Border>
+
+
+                <Grid
+                    Background="#aaaaaa"
+                    IsHitTestVisible="{Binding IsDialogOpen}"
+                    Name="gridDialog"
+                    Opacity="0">
+                    <Grid.Transitions>
+                        <Transitions>
+                            <DoubleTransition Duration="0:0:0.1" Property="Opacity" />
+                        </Transitions>
+                    </Grid.Transitions>
                 </Grid>
-            </dialogHostAvalonia:DialogHost>
+
+                <Border
+                    Background="White"
+                    Classes.opened="{Binding IsDialogOpen}"
+                    CornerRadius="15"
+                    HorizontalAlignment="Center"
+                    IsHitTestVisible="{Binding IsDialogOpen}"
+                    Margin="0,15,0,0"
+                    Name="borderDialog"
+                    Opacity="0"
+                    Padding="10"
+                    VerticalAlignment="Center">
+                    <Border.Transitions>
+                        <Transitions>
+                            <ThicknessTransition Duration="0:0:0.2" Property="Margin">
+                                <ThicknessTransition.Easing>
+                                    <CircularEaseOut />
+                                </ThicknessTransition.Easing>
+                            </ThicknessTransition>
+                            <DoubleTransition Duration="0:0:0.2" Property="Opacity" />
+                            <TransformOperationsTransition Duration="0:0:0.2" Property="RenderTransform">
+                                <TransformOperationsTransition.Easing>
+                                    <CircularEaseOut />
+                                </TransformOperationsTransition.Easing>
+                            </TransformOperationsTransition>
+                        </Transitions>
+                    </Border.Transitions>
+
+                    <ContentControl Content="{Binding DialogChild}" />
+                </Border>
+            </Grid>
             <Grid Background="#cccccccc" IsVisible="{Binding MenuVisibility}" />
         </Grid>
 

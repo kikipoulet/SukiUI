@@ -33,6 +33,11 @@ namespace SukiUI.Controls
             set => this.RaiseAndSetIfChanged(ref isdialogopen, value);
         }
         
+     
+
+        
+        
+        
         private double toastOpacity = 0;
 
         public double ToastOpacity
@@ -40,7 +45,7 @@ namespace SukiUI.Controls
             get => toastOpacity;
             set => this.RaiseAndSetIfChanged(ref toastOpacity, value);
         }
-        
+
         private Control toastMessage = new Grid();
 
         public Control ContentToast
@@ -58,13 +63,6 @@ namespace SukiUI.Controls
         }
 
         
-        private bool dialogatbottom = false;
-
-        public bool DialogAtBottom
-        {
-            get => dialogatbottom;
-            set => this.RaiseAndSetIfChanged(ref dialogatbottom, value);
-        }
         
        /* private AlignmentDialogPopupPositioner dialogPosition = new AlignmentDialogPopupPositioner();
 

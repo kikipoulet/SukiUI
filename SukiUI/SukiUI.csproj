@@ -44,7 +44,6 @@
     <ItemGroup>
         <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.0-preview1" />
         <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.0-preview1" />
-        <PackageReference Include="DialogHost.Avalonia" Version="0.6.0" />
         <PackageReference Include="Material.Icons.Avalonia" Version="1.2.0" />
         <PackageReference Include="Nerdbank.GitVersioning" Version="3.6.65-alpha" PrivateAssets="all" />
         <PackageReference Include="ReactiveUI" Version="18.3.1" />
@@ -62,7 +61,6 @@
       <AvaloniaResource Include="LICENSE" />
       <AvaloniaResource Include="Roboto-Regular.ttf" />
       <AvaloniaResource Include="Theme\CheckBox.axaml" />
-      <AvaloniaResource Include="Theme\DialogHostStyle.axaml" />
       <AvaloniaResource Include="Theme\RichTextBoxStyles.axaml" />
       <AvaloniaResource Include="Theme\WindowStyles.axaml" />
     </ItemGroup>

@@ -1,0 +1,53 @@
+﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="SukiUI.Controls.PercentProgressBar"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DockPanel>
+        <Grid DockPanel.Dock="Right">
+            <TextBlock
+                FontSize="13"
+                Margin="10"
+                Name="textPercent"
+                Text="64 %"
+                VerticalAlignment="Center">
+                <TextBlock.Transitions>
+                    <Transitions>
+                        <DoubleTransition Duration="0:0:0.2" Property="Opacity" />
+                    </Transitions>
+                </TextBlock.Transitions>
+            </TextBlock>
+
+            <avalonia:MaterialIcon
+                Foreground="Green"
+                Height="20"
+                Kind="CheckCircleOutline"
+                Margin="10"
+                Name="iconPercent"
+                Opacity="0"
+                Width="20">
+                <avalonia:MaterialIcon.Transitions>
+                    <Transitions>
+                        <DoubleTransition Duration="0:0:0.4" Property="Opacity" />
+                    </Transitions>
+                </avalonia:MaterialIcon.Transitions>
+            </avalonia:MaterialIcon>
+        </Grid>
+        <ProgressBar
+            Maximum="100"
+            Minimum="0"
+            Name="barPercent"
+            Value="50">
+            <ProgressBar.Transitions>
+                <Transitions>
+                    <BrushTransition Duration="0:0:0.4" Property="Foreground" />
+                </Transitions>
+            </ProgressBar.Transitions>
+        </ProgressBar>
+    </DockPanel>
+</UserControl>

@@ -8,18 +8,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Border
-        BorderThickness="0"
-        Classes="ElevatedCard"
-        Height="150"
-        Width="350">
+    <Border Height="120" Width="350">
         <DockPanel>
             <Button
                 Classes="Accent"
                 Click="DoneClick"
                 DockPanel.Dock="Top"
                 HorizontalAlignment="Right"
-                Margin="-10">
+                Margin="-3">
                 <TextBlock
                     FontSize="16"
                     FontWeight="DemiBold"
@@ -29,7 +25,7 @@
             <Grid
                 Height="100"
                 HorizontalAlignment="Center"
-                Margin="0,0,0,0"
+                Margin="0,-20,0,0"
                 PointerMoved="PointerMoved"
                 PointerPressed="PointerPressed"
                 PointerReleased="PointerReleased"

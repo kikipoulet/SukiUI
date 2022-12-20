@@ -20,7 +20,7 @@
 
                     <Border
                         Background="{DynamicResource SukiBackground}"
-                        BorderBrush="#dedede"
+                        BorderBrush="{DynamicResource SukiControlBorderBrush}"
                         BorderThickness="1.2"
                         BoxShadow="0 0 15 0 LightGray"
                         CornerRadius="10"

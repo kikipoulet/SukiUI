@@ -29,16 +29,38 @@ namespace SukiUI.Controls
         public void ShowDialog(Control content, bool showAtBottom = false)
         {
             var model = (MobileMenuPageViewModel)this.DataContext;
-
-            model.DialogAtBottom = showAtBottom;
             
             model.DialogChild = content;
             model.IsDialogOpen = false;
             model.IsDialogOpen = true;
+
+            var gridBackground = this.FindControl<Grid>("gridDialog");
+            var borderDialog = this.FindControl<Border>("borderDialog");
+
+            if (showAtBottom)
+            {
+                borderDialog.VerticalAlignment = VerticalAlignment.Bottom;
+                borderDialog.Margin = new Thickness(0,0,0,20);
+            }
+            else
+            {
+                borderDialog.VerticalAlignment = VerticalAlignment.Center;
+                borderDialog.Margin = new Thickness(0,0,0,0);
+            }
+                
+
+            borderDialog.Opacity = 1;
+            gridBackground.Opacity = 0.56;
+            
+            
+            
         }
         
         public void ShowToast(Control Message, int seconds)
         {
+
+           
+            
             var model = (MobileMenuPageViewModel)this.DataContext;
 
             model.ToastOpacity = 1;
@@ -58,7 +80,16 @@ namespace SukiUI.Controls
         {
             var model = (MobileMenuPageViewModel)this.DataContext;
 
+            
             model.IsDialogOpen = false;
+            
+            
+            var gridBackground = this.FindControl<Grid>("gridDialog");
+            var borderDialog = this.FindControl<Border>("borderDialog");
+
+            borderDialog.Opacity = 0;
+            gridBackground.Opacity = 0;
+            borderDialog.Margin = new Thickness(0,15,0,0);
         }
         
         public static void ShowToastS(Control Content, int seconds)

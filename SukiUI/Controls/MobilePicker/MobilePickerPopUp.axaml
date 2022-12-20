@@ -11,28 +11,24 @@
     <UserControl.DataContext>
         <mobilePicker:MobilePickerPopUpVM />
     </UserControl.DataContext>
-    <Border
-        BorderThickness="0"
-        Classes="ElevatedCard"
-        Height="250"
-        Width="350">
+    <Border Height="200" Width="300">
         <DockPanel>
             <Button
                 Classes="Accent"
                 Click="DoneClick"
                 DockPanel.Dock="Top"
                 HorizontalAlignment="Right"
-                Margin="-10">
+                Margin="-3">
                 <TextBlock
                     FontSize="16"
                     FontWeight="DemiBold"
                     Text="Done" />
             </Button>
 
-            <Grid>
-                <ListBox
+            <Grid Margin="0,5,0,10">
+                <ListBox 
                     Items="{Binding Items}"
-                    ScrollViewer.VerticalScrollBarVisibility="Hidden"
+               
                     SelectedItem="{Binding SelectedItem}"
                     VerticalAlignment="Center">
                     <ListBox.ItemTemplate>
