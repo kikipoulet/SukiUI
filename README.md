@@ -16,15 +16,15 @@ Suki is the name of my dog :-)
 Documentation is on the [Wiki](https://github.com/kikipoulet/SukiUI/wiki) of this repository
 <br/><br/>
 Recently done :
-- new Toast Control for Mobile App
-- new BusyArea control
-- new TabControl style for Mobile App
-- Work on Dark Theme
+- **Dark Theme**      🎉🎉🎉 
+
 
 
 ## 🖥️ Desktop Overview
 
+
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/DesktopShow.gif"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/DesktopDarkMode.gif"></img>
 
 ## 📱 Mobile Overview
 
@@ -34,17 +34,10 @@ Recently done :
 <kbd>
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/dashboard.gif" ></img> 
 </kbd>
+<kbd>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/MobileDarkMode.gif" ></img> 
+</kbd>
 
-## 🛠️ Currently Working on .. 
-
-<details>
-  <summary>Click me .. 🤫</summary>
-
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/DarkTheme.gif"></img>
-
-
-
-</details>
 
 ## 📦 Usage
 
