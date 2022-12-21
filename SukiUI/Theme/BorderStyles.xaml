@@ -13,7 +13,7 @@
         <Setter Property="CornerRadius" Value="13" />
         <Setter Property="BorderThickness" Value="1.5" />
         <Setter Property="BorderBrush" Value="#f4f4f4" />
-        <Setter Property="Background" Value="White" />
+        <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
         <Setter Property="Margin" Value="7" />
         <Setter Property="BoxShadow" Value="0 0 18 0 LightGray" />
     </Style>

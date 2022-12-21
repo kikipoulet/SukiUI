@@ -60,7 +60,7 @@
         <SolidColorBrush Color="{DynamicResource HighlightBadgeColor}" x:Key="HighlightBadgeBrush" />
         <SolidColorBrush Color="{DynamicResource HighlightHoverColor}" x:Key="HighlightHoverBrush" />
         <SolidColorBrush Color="{DynamicResource HighlightForegroundColor}" x:Key="HighlightForegroundBrush" />
-        <SolidColorBrush Color="#2f54eb" x:Key="ThemeAccentBrush" />
+        <SolidColorBrush Color="{DynamicResource SukiPrimaryColor}" x:Key="ThemeAccentBrush" />
         <SolidColorBrush Color="{DynamicResource ThemeAccentColor2}" x:Key="ThemeAccentBrush2" />
         <SolidColorBrush Color="{DynamicResource ThemeAccentColor3}" x:Key="ThemeAccentBrush3" />
         <SolidColorBrush Color="{DynamicResource ThemeAccentColor4}" x:Key="ThemeAccentBrush4" />

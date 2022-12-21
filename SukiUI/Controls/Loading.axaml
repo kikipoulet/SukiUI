@@ -43,22 +43,22 @@
 
                         <Canvas>
                             <Ellipse
-                                Fill="#2f54eb"
+                                Fill="{DynamicResource SukiPrimaryColor}"
                                 Height="12"
                                 Margin="20,0"
                                 Width="12" />
                             <Ellipse
-                                Fill="#2f54eb"
+                                Fill="{DynamicResource SukiPrimaryColor}"
                                 Height="12"
                                 Margin="0,20"
                                 Width="12" />
                             <Ellipse
-                                Fill="#2f54eb"
+                                Fill="{DynamicResource SukiPrimaryColor}"
                                 Height="12"
                                 Margin="40,20,0,0"
                                 Width="12" />
                             <Ellipse
-                                Fill="#2f54eb"
+                                Fill="{DynamicResource SukiPrimaryColor}"
                                 Height="12"
                                 Margin="20,40,0,0"
                                 Width="12" />

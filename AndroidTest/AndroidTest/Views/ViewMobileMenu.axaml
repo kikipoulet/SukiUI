@@ -20,8 +20,15 @@
                 </suki:MobileMenuPageViewModel.CurrentPage>
                 <suki:MobileMenuPageViewModel.HeaderContent>
                     <StackPanel HorizontalAlignment="Center">
-
-
+                        <Button
+                            Classes="Accent"
+                            Click="ChangeTheme"
+                            HorizontalAlignment="Left">
+                            <material:MaterialIcon
+                                Height="30"
+                                Kind="Bulb"
+                                Width="30" />
+                        </Button>
                         <material:MaterialIcon
                             DockPanel.Dock="Left"
                             Foreground="DarkGray"

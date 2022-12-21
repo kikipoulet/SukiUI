@@ -209,11 +209,13 @@ namespace SukiUI.Controls
                 var prop = new Button() {Classes =new Classes( "Accent"),HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(0,6,10,2), Content = new TextBlock(){Text = "More Info"}};
                 prop.Click += (object sender, Avalonia.Interactivity.RoutedEventArgs e) => {
 
-                    var content = new Border() { Background = Brushes.White, Width = 300, Padding = new Thickness(5), 
+                    var content = new Border() { Background = new SolidColorBrush( (Color)Application.Current.FindResource("SukiBackground")), Width = 300, Padding = new Thickness(5), 
                         Child = new PropertyGrid() { Item = property.GetValue(Item), Width = 280, HorizontalAlignment = HorizontalAlignment.Center } };
                 
+                    
 
-                    var window = new Window() { Height = 500, Width = 300, Content = content };
+                    var window = new Window() { Height = 500, Width = 300, Content =  content
+                    };
                     window.ShowDialog((Window)this.VisualRoot);
                 };
 

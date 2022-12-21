@@ -11,10 +11,7 @@
     xmlns:suki="clr-namespace:SukiUI.Controls"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <UserControl.Styles>
-        <Style Selector="material|MaterialIcon">
-            <Setter Property="Foreground" Value="#2f54eb" />
 
-        </Style>
 
         <Style Selector="suki|MobileMenuPage Border#borderDialog">
             <Setter Property="RenderTransform" Value="scale(0.92)" />
@@ -31,14 +28,15 @@
     <SplitView
         DisplayMode="Overlay"
         IsPaneOpen="{Binding MenuVisibility}"
-        OpenPaneLength="316">
+        OpenPaneLength="316"
+        UseLightDismissOverlayMode="True">
         <SplitView.Pane>
             <Grid>
                 <Border
-                    BorderBrush="#ebebeb"
+                    BorderBrush="{DynamicResource SukiBorderBrush}"
                     BorderThickness="0,0,1,0"
                     Width="316">
-                    <DockPanel Background="White">
+                    <DockPanel Background="{DynamicResource SukiBackground}">
                         <Button
                             Classes="Accent"
                             Command="{Binding HideMenu}"
@@ -47,7 +45,7 @@
                             <Grid>
 
                                 <material:MaterialIcon
-                                    Foreground="Black"
+                                    Foreground="{DynamicResource SukiText}"
                                     Height="35"
                                     Kind="ChevronLeft"
                                     Width="35" />
@@ -128,7 +126,7 @@
                 </Border>
             </Grid>
         </SplitView.Pane>
-        <Grid Background="White">
+        <Grid Background="{DynamicResource SukiBackground}">
 
             <Grid Name="dialogGrid">
                 <!--  PopupPositioner="{Binding DialogPosition}"  -->
@@ -159,8 +157,8 @@
                 </Button>
 
                 <Border
-                    Background="White"
-                    BorderBrush="#dedede"
+                    Background="{DynamicResource SukiBackground}"
+                    BorderBrush="{DynamicResource SukiControlBorderBrush}"
                     BorderThickness="1"
                     BoxShadow="0 4 12 LightGray"
                     CornerRadius="30"
@@ -200,7 +198,7 @@
                 </Grid>
 
                 <Border
-                    Background="White"
+                    Background="{DynamicResource SukiBackground}"
                     Classes.opened="{Binding IsDialogOpen}"
                     CornerRadius="15"
                     HorizontalAlignment="Center"

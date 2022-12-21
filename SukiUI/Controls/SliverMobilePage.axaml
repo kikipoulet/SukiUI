@@ -22,11 +22,11 @@
                         </Grid.Resources>
                         <Border
                             Background="Transparent"
-                            BorderBrush="#ebebeb"
+                            BorderBrush="{DynamicResource SukiBorderBrush}"
                             BorderThickness="0,0,0,0"
-                            VerticalAlignment="Top"
-                            Height="{Binding #scrollView.Offset, Converter={StaticResource HeightConverter}}">
-                          
+                            Height="{Binding #scrollView.Offset, Converter={StaticResource HeightConverter}}"
+                            VerticalAlignment="Top">
+
                             <Grid Margin="{Binding #scrollView.Offset, Converter={StaticResource MarginConverter}}">
                                 <TextBlock
                                     Classes="h1"
@@ -38,11 +38,14 @@
                                     VerticalAlignment="Center" />
                             </Grid>
                         </Border>
-                        <ScrollViewer Margin="0,100,0,0" Name="scrollView" VerticalScrollBarVisibility="Hidden">
-                          <StackPanel>
-                            <Grid Height="70"></Grid>
-                            <ContentControl Content="{TemplateBinding Content}" />
-                          </StackPanel>
+                        <ScrollViewer
+                            Margin="0,100,0,0"
+                            Name="scrollView"
+                            VerticalScrollBarVisibility="Hidden">
+                            <StackPanel>
+                                <Grid Height="70" />
+                                <ContentControl Content="{TemplateBinding Content}" />
+                            </StackPanel>
                         </ScrollViewer>
                     </Grid>
 

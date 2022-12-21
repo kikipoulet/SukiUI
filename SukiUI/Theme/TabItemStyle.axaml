@@ -51,7 +51,7 @@
                             TextBlock.FontWeight="{TemplateBinding FontWeight}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                         <Border
-                            Background="#2f54eb"
+                            Background="{DynamicResource SukiPrimaryColor}"
                             CornerRadius="10"
                             Height="3"
                             Name="PART_SelectedPipe">
@@ -135,7 +135,7 @@
     </Style>
 
     <Style Selector="TabItem.FlatTabItem:selected">
-        <Setter Property="Background" Value="White" />
+        <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
         <Setter Property="CornerRadius" Value="0" />
         <Setter Property="TextBlock.Foreground" Value="{DynamicResource TabItemHeaderForegroundSelected}" />
         <Setter Property="TextBlock.FontWeight" Value="DemiBold" />
@@ -254,18 +254,18 @@
                 <ScaleTransform ScaleX="1.40" ScaleY="1.40" />
             </Setter.Value>
         </Setter>
-        <Setter Property="TextBlock.Foreground" Value="#2f54eb" />
+        <Setter Property="TextBlock.Foreground" Value="{DynamicResource SukiPrimaryColor}" />
     </Style>
 
     <Style Selector="TabItem.MobileTabItem material|MaterialIcon">
 
-        <Setter Property="Foreground" Value="#555555" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
 
     </Style>
 
     <Style Selector="TabItem.MobileTabItem:selected material|MaterialIcon">
 
-        <Setter Property="Foreground" Value="#2f54eb" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
 
     </Style>
 

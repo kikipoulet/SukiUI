@@ -16,7 +16,7 @@
 
                     <DockPanel>
                         <Border
-                            Background="White"
+                            Background="{DynamicResource SukiBackground}"
                             BorderBrush="#ebebeb"
                             BorderThickness="0,0,0,0"
                             DockPanel.Dock="Top"

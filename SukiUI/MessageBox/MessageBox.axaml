@@ -76,7 +76,7 @@
         <Grid Classes="AnimatedGrid">
             <material:MaterialIcon
                 DockPanel.Dock="Left"
-                Foreground="#2f54eb"
+                Foreground="{DynamicResource SukiPrimaryColor}"
                 Height="50"
                 HorizontalAlignment="Left"
                 Kind="InformationCircle"

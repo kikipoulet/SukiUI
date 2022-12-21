@@ -1,7 +1,7 @@
 <Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <StackPanel
-            Background="White"
+            Background="{DynamicResource SukiBackground}"
             Margin="20"
             Spacing="24"
             Width="250">
@@ -14,8 +14,8 @@
         <Setter Property="Foreground">
             <Setter.Value>
                 <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
-                    <GradientStop Color="#597ef7" Offset="0.1" />
-                    <GradientStop Color="#2f54eb" Offset="0.6" />
+                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.1" />
+                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.6" />
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
@@ -63,7 +63,7 @@
 
 
                         <Border
-                            Background="#dedede"
+                            Background="{DynamicResource SukiControlBorderBrush}"
                             BorderThickness="0"
                             CornerRadius="10"
                             Grid.Row="1"
@@ -78,7 +78,7 @@
                         </Border>
 
                         <Border
-                            Background="#dedede"
+                            Background="{DynamicResource SukiControlBorderBrush}"
                             BorderThickness="0"
                             CornerRadius="10"
                             Grid.Row="1"
@@ -105,8 +105,8 @@
 
 
 
-                            <Border 
-                                Background="{DynamicResource SukiControlTouchBackground}"
+                            <Border
+                                Background="{DynamicResource SukiBackground}"
                                 BoxShadow="0 0 0 0 DarkGray"
                                 Canvas.Left="2"
                                 Canvas.Top="2"
@@ -115,7 +115,7 @@
                                 Margin="0,0,0,0"
                                 Width="16"
                                 x:Name="SwitchKnob">
-                              <Border></Border>
+                                <Border />
                                 <Border.Transitions>
                                     <Transitions>
                                         <DoubleTransition Duration="0:0:0.20" Property="Canvas.Left">
@@ -143,21 +143,19 @@
         <Setter Property="Background">
             <Setter.Value>
                 <LinearGradientBrush EndPoint="0%,100%" StartPoint="50%,0%">
-                    <GradientStop Color="#597ef7" Offset="0.1" />
-                    <GradientStop Color="#2f54eb" Offset="0.9" />
+                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.1" />
+                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.9" />
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
     </Style>
 
-    <Style Selector="ToggleButton &gt; TextBlock">
-        <Setter Property="Foreground" Value="Black" />
-    </Style>
+
     <Style Selector="ToggleButton /template/ ContentPresenter">
         <Setter Property="CornerRadius" Value="5" />
     </Style>
     <Style Selector="ToggleButton:pointerover">
-        <Setter Property="Background" Value="{DynamicResource ThemeBorderHighBrush}" />
+        <Setter Property="Background" Value="{DynamicResource SukiLightBackground}" />
         <Setter Property="BorderThickness" Value="0" />
     </Style>
     <Style Selector="ToggleButton:pressed /template/ ContentPresenter">

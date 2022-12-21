@@ -5,7 +5,7 @@
     <Design.PreviewWith>
         <Border Background="White" Padding="20">
             <StackPanel Orientation="Horizontal">
-                <RadioButton Classes="Chips" Margin="5">
+                <RadioButton Margin="5">
 
                     <TextBlock>test 2</TextBlock>
 
@@ -25,7 +25,7 @@
 
     <Style Selector="RadioButton.Chips">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="LightGray" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="CornerRadius" Value="50" />
         <Setter Property="Template">
@@ -60,16 +60,16 @@
     </Style>
 
     <Style Selector="RadioButton.Chips TextBlock">
-        <Setter Property="Foreground" Value="Gray" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiControlBorderBrush}" />
     </Style>
 
 
     <Style Selector="RadioButton.Chips:checked  TextBlock">
-        <Setter Property="Foreground" Value="#2f54eb" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
     </Style>
 
     <Style Selector="RadioButton.Chips:checked  Border">
-        <Setter Property="BorderBrush" Value="#2f54eb" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
         <Setter Property="BorderThickness" Value="1" />
     </Style>
 
@@ -120,8 +120,8 @@
     </Style>
 
 
-    <Style Selector="RadioButton.MenuItemMobile material|MaterialIcon">
-        <Setter Property="Foreground" Value="#333333" />
+    <Style Selector="material|MaterialIcon">
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
 
     </Style>
 
@@ -167,7 +167,7 @@
     <Style Selector="RadioButton">
 
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="#dedede" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
         <Setter Property="BorderThickness" Value="1.2" />
         <Setter Property="Template">
             <ControlTemplate>
@@ -186,14 +186,14 @@
                         </Ellipse.Transitions>
                     </Ellipse>
                     <Ellipse
-                        Fill="#2f54eb"
-                        Height="10"
+                        Fill="{DynamicResource SukiPrimaryColor}"
+                        Height="9"
                         HorizontalAlignment="Center"
                         Name="checkMark"
                         Stretch="Uniform"
                         UseLayoutRounding="False"
                         VerticalAlignment="Center"
-                        Width="10">
+                        Width="9">
                         <Ellipse.Transitions>
                             <Transitions>
                                 <BrushTransition Duration="0:0:0.2" Property="Fill" />
@@ -202,13 +202,13 @@
                     </Ellipse>
                     <Ellipse
                         Fill="{DynamicResource ThemeAccentBrush}"
-                        Height="10"
+                        Height="9"
                         HorizontalAlignment="Center"
                         Name="indeterminateMark"
                         Stretch="Uniform"
                         UseLayoutRounding="False"
                         VerticalAlignment="Center"
-                        Width="10">
+                        Width="9">
                         <Ellipse.Transitions>
                             <Transitions>
                                 <BrushTransition Duration="0:0:0.2" Property="Fill" />
@@ -279,7 +279,7 @@
 
 
     <Style Selector="RadioButton:pointerover /template/ Ellipse#border">
-        <Setter Property="Stroke" Value="{DynamicResource ThemeBorderHighBrush}" />
+        <Setter Property="Stroke" Value="{DynamicResource SukiBorderBrush}" />
     </Style>
     <Style Selector="RadioButton /template/ Ellipse#checkMark">
         <Setter Property="Fill" Value="Transparent" />
@@ -287,7 +287,7 @@
     </Style>
 
     <Style Selector="RadioButton:checked /template/ Ellipse#checkMark">
-        <Setter Property="Fill" Value="#2f54eb" />
+        <Setter Property="Fill" Value="{DynamicResource SukiPrimaryColor}" />
     </Style>
 
     <Style Selector="RadioButton /template/ Ellipse#indeterminateMark">

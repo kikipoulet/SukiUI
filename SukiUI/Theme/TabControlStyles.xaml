@@ -45,7 +45,7 @@
     <Style Selector="TabControl.FlatTabControl">
         <Setter Property="Margin" Value="0" />
         <Setter Property="Padding" Value="{DynamicResource TabItemMargin}" />
-        <Setter Property="Background" Value="#f4f4f4" />
+        <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Border

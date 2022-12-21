@@ -1,17 +1,16 @@
-﻿<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <Border Padding="20">
-            <!-- Add Controls for Previewer Here -->
+            <!--  Add Controls for Previewer Here  -->
         </Border>
     </Design.PreviewWith>
 
-  <Style Selector="ContextMenu">
-     <Setter Property="Background" Value="White"></Setter>
-     <Setter Property="BorderThickness" Value="1.2,1.2,2,2"></Setter>
-    <Setter Property="BorderBrush" Value="#dedede" ></Setter>
+    <Style Selector="ContextMenu">
+        <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
+        <Setter Property="BorderThickness" Value="1.2,1.2,2,2" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
 
 
 
-  </Style>
+    </Style>
 </Styles>

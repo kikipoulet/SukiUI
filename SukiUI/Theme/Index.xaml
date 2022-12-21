@@ -1,7 +1,7 @@
 <Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <SimpleTheme Mode="Light" />
 
-    <StyleInclude Source="avares://SukiUI/ColorTheme/Dark.axaml" />
+    <StyleInclude Source="avares://SukiUI/ColorTheme/Light.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/Colors.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/TextBlockStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ButtonStyles.xaml" />
@@ -12,7 +12,7 @@
     <StyleInclude Source="avares://SukiUI/Theme/ComboBoxStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ProgressBarStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ListBoxStyles.xaml" />
-    <StyleInclude Source="avares://SukiUI/Theme/ExpanderStyles.xaml" />
+
     <StyleInclude Source="avares://SukiUI/Theme/TreeViewStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/CalendarStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/MenuStyles.xaml" />
@@ -32,6 +32,7 @@
     <StyleInclude Source="avares://SukiUI/Theme/WindowStyles.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/CheckBox.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ScrollBarStyle.axaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/ExpanderStyles.xaml" />
     <StyleInclude Source="avares://Material.Icons.Avalonia/App.xaml" />
 
 </Styles>

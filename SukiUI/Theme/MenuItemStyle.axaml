@@ -10,7 +10,7 @@
     </Design.PreviewWith>
 
     <Style Selector="MenuItem">
-        <Setter Property="Background" Value="White" />
+        <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
         <Setter Property="BorderThickness" Value="1.5" />
         <Setter Property="FontSize" Value="16" />
         <Setter Property="FontWeight" Value="Medium" />
@@ -98,7 +98,7 @@
                             Name="PART_Popup"
                             PlacementMode="Right">
                             <Border
-                                Background="White"
+                                Background="{DynamicResource SukiBackground}"
                                 BorderBrush="Transparent"
                                 BorderThickness="1.5"
                                 BoxShadow="0 0 7 0 LightGray"
@@ -119,6 +119,10 @@
         </Setter>
     </Style>
 
+    <Style Selector="MenuItem:pointerover">
+        <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
+    </Style>
+
     <Style Selector="MenuItem:separator">
         <Setter Property="Template">
             <ControlTemplate>
@@ -136,7 +140,7 @@
             <ControlTemplate>
                 <Border
                     Background="{TemplateBinding Background}"
-                    BorderBrush="LightGray"
+                    BorderBrush="{DynamicResource SukiLightBorderBrush}"
                     BorderThickness="0,0,0,0"
                     CornerRadius="{TemplateBinding CornerRadius}"
                     Name="root">
@@ -179,8 +183,8 @@
                             Name="PART_Popup"
                             OverlayInputPassThroughElement="{Binding $parent[Menu]}">
                             <Border
-                                Background="White"
-                                BorderBrush="#dedede"
+                                Background="{DynamicResource SukiBackground}"
+                                BorderBrush="{DynamicResource SukiControlBorderBrush}"
                                 BorderThickness="1.2,1.2,2.5,2.5"
                                 CornerRadius="6"
                                 Margin="0">
@@ -200,14 +204,18 @@
         </Setter>
     </Style>
 
+    <Style Selector="Menu &gt; MenuItem:pointerover">
+        <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
+    </Style>
+
     <Style Selector="MenuItem /template/ ItemsPresenter#PART_ItemsPresenter">
         <Setter Property="Margin" Value="2" />
     </Style>
 
     <Style Selector="MenuItem:selected /template/ Border#root">
-        <Setter Property="Background" Value="#f4f4f4" />
+        <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
         <Setter Property="CornerRadius" Value="6" />
-        <Setter Property="BorderBrush" Value="#fafafa" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiLightBorderBrush}" />
     </Style>
 
 

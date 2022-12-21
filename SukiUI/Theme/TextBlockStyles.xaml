@@ -1,4 +1,7 @@
-<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:materail="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Design.PreviewWith>
         <Border Background="White" Padding="20">
@@ -50,6 +53,10 @@
         <Setter Property="Foreground" Value="{DynamicResource ThemeControlHighBrush}" />
     </Style>
     <Style Selector="TextBlock.Accent">
-        <Setter Property="Foreground" Value="#2f54eb" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+    </Style>
+
+    <Style Selector="materail|MaterialIcon">
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
     </Style>
 </Styles>

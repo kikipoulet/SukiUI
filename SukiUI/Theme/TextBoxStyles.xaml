@@ -1,7 +1,7 @@
 <Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Design.PreviewWith>
-        <Border Background="White" Padding="20">
+        <Border Background="{DynamicResource SukiBackground}" Padding="20">
             <StackPanel>
                 <TextBox
                     Classes="Prefix"
@@ -75,17 +75,17 @@
     </Styles.Resources>
 
     <Style Selector="TextBox.FlatTextBox">
-        <Setter Property="Background" Value="#f4f4f4" />
-        <Setter Property="BorderBrush" Value="#f4f4f4" />
+        <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiLightBorderBrush}" />
 
     </Style>
 
     <Style Selector="TextBox.Prefix">
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="BorderThickness" Value="1.2" />
-        <Setter Property="BorderBrush" Value="#dedede" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
         <Setter Property="CornerRadius" Value="5" />
-        <Setter Property="Background" Value="White" />
+        <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
         <Setter Property="CaretBrush" Value="{DynamicResource ThemeForegroundBrush}" />
 
         <Setter Property="SelectionBrush" Value="{DynamicResource HighlightBrush}" />
@@ -110,8 +110,8 @@
                     <DockPanel>
 
                         <Border
-                            Background="#f4f4f4"
-                            BorderBrush="#dedede"
+                            Background="{DynamicResource SukiLightBorderBrush}"
+                            BorderBrush="{DynamicResource SukiControlBorderBrush}"
                             BorderThickness="0,0,1.2,0"
                             CornerRadius="5,0,0,5"
                             DockPanel.Dock="Left"
@@ -201,9 +201,9 @@
     <Style Selector="TextBox.Suffix">
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="BorderThickness" Value="1.2" />
-        <Setter Property="BorderBrush" Value="#dedede" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
         <Setter Property="CornerRadius" Value="5" />
-        <Setter Property="Background" Value="White" />
+        <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
         <Setter Property="CaretBrush" Value="{DynamicResource ThemeForegroundBrush}" />
 
         <Setter Property="SelectionBrush" Value="{DynamicResource HighlightBrush}" />
@@ -228,8 +228,8 @@
                     <DockPanel>
 
                         <Border
-                            Background="#f4f4f4"
-                            BorderBrush="#dedede"
+                            Background="{DynamicResource SukiLightBorderBrush}"
+                            BorderBrush="{DynamicResource SukiControlBorderBrush}"
                             BorderThickness="1.2,0,0,0"
                             CornerRadius="0,5,5,0"
                             DockPanel.Dock="Right"
@@ -442,7 +442,7 @@
         </Setter>
     </Style>
     <Style Selector="TextBox:pointerover /template/ Border#border">
-        <Setter Property="BorderBrush" Value="#cccccc" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiBorderBrush}" />
 
     </Style>
 
@@ -452,7 +452,7 @@
     </Style>
 
     <Style Selector="TextBox:pointerover /template/ Border#borderbottom">
-        <Setter Property="BorderBrush" Value="#cccccc" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiBorderBrush}" />
 
     </Style>
 
@@ -464,11 +464,11 @@
 
 
     <Style Selector="TextBox:focus /template/ Border#borderbottom">
-        <Setter Property="BorderBrush" Value="#2f54eb" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
 
     </Style>
     <Style Selector="TextBox:focus /template/ Border#border">
-        <Setter Property="BorderBrush" Value="#cccccc" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiMediumBorderBrush}" />
 
     </Style>
     <Style Selector="TextBox:error /template/ Border#border">

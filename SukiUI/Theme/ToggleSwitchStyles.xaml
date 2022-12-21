@@ -20,8 +20,8 @@
         <Setter Property="Foreground">
             <Setter.Value>
                 <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
-                    <GradientStop Color="#597ef7" Offset="0.1" />
-                    <GradientStop Color="#2f54eb" Offset="0.6" />
+                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.1" />
+                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.6" />
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
@@ -110,8 +110,8 @@
                             <Border.Background>
 
                                 <LinearGradientBrush EndPoint="0%,100%" StartPoint="50%,0%">
-                                    <GradientStop Color="#597ef7" Offset="0.1" />
-                                    <GradientStop Color="#2f54eb" Offset="0.9" />
+                                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.1" />
+                                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.9" />
                                 </LinearGradientBrush>
                             </Border.Background>
                             <Border.Transitions>
@@ -230,8 +230,8 @@
         <Setter Property="Background">
             <Setter.Value>
                 <LinearGradientBrush EndPoint="0%,100%" StartPoint="50%,0%">
-                    <GradientStop Color="#597ef7" Offset="0.1" />
-                    <GradientStop Color="#2f54eb" Offset="0.9" />
+                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.1" />
+                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.9" />
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>

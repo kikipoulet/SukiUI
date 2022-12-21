@@ -1,21 +1,22 @@
-<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-  <Style Selector="Menu">
-    <Setter Property="Template">
-      <ControlTemplate>
-        <Border Background="White"
-                BorderBrush="#ebebeb"
-              Height="45"
-                BorderThickness="0,0,0,0"
-                CornerRadius="{TemplateBinding CornerRadius}"
-                Padding="{TemplateBinding Padding}">
-          <ItemsPresenter Name="PART_ItemsPresenter"  
-                          Items="{TemplateBinding Items}"
-                          ItemsPanel="{TemplateBinding ItemsPanel}"
-                          ItemTemplate="{TemplateBinding ItemTemplate}"
-                          KeyboardNavigation.TabNavigation="Continue"/>
-        </Border>
-      </ControlTemplate>
-    </Setter>
-  </Style>
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style Selector="Menu">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border
+                    Background="{DynamicResource SukiBackground}"
+                    BorderBrush="{DynamicResource SukiBorderBrush}"
+                    BorderThickness="0,0,0,0"
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    Height="45"
+                    Padding="{TemplateBinding Padding}">
+                    <ItemsPresenter
+                        ItemTemplate="{TemplateBinding ItemTemplate}"
+                        Items="{TemplateBinding Items}"
+                        ItemsPanel="{TemplateBinding ItemsPanel}"
+                        KeyboardNavigation.TabNavigation="Continue"
+                        Name="PART_ItemsPresenter" />
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
 </Styles>

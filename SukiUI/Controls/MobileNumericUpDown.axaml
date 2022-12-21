@@ -27,7 +27,7 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center">
                             <material:MaterialIcon
-                                Foreground="#2f54eb"
+                                Foreground="{DynamicResource SukiPrimaryColor}"
                                 Height="23"
                                 Kind="MinusCircleOutline"
                                 Width="23" />
@@ -41,7 +41,7 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center">
                             <material:MaterialIcon
-                                Foreground="#2f54eb"
+                                Foreground="{DynamicResource SukiPrimaryColor}"
                                 Height="23"
                                 Kind="PlusCircleOutline"
                                 Width="23" />

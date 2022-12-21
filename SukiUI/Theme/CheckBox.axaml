@@ -11,7 +11,7 @@
     <Style Selector="CheckBox">
 
         <Setter Property="Foreground" Value="{DynamicResource ThemeForegroundBrush}" />
-        <Setter Property="Background" Value="White" />
+        <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
         <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderMidBrush}" />
         <Setter Property="BorderThickness" Value="0.5" />
         <Setter Property="Padding" Value="4,0,0,0" />
@@ -22,7 +22,7 @@
                 <Grid ColumnDefinitions="Auto,*">
                     <Border
                         Background="{TemplateBinding Background}"
-                        BorderBrush="#eaeaea"
+                        BorderBrush="{DynamicResource SukiStrongBackground}"
                         BorderThickness="1"
                         CornerRadius="18"
                         Height="18"
@@ -38,7 +38,7 @@
                         <Panel>
                             <Path
                                 Data="M 1145.607177734375,430 C1145.607177734375,430 1141.449951171875,435.0772705078125 1141.449951171875,435.0772705078125 1141.449951171875,435.0772705078125 1139.232177734375,433.0999755859375 1139.232177734375,433.0999755859375 1139.232177734375,433.0999755859375 1138,434.5538330078125 1138,434.5538330078125 1138,434.5538330078125 1141.482177734375,438 1141.482177734375,438 1141.482177734375,438 1141.96875,437.9375 1141.96875,437.9375 1141.96875,437.9375 1147,431.34619140625 1147,431.34619140625 1147,431.34619140625 1145.607177734375,430 1145.607177734375,430 z"
-                                Fill="White"
+                                Fill="{DynamicResource SukiBackground}"
                                 Height="10"
                                 HorizontalAlignment="Center"
                                 Name="checkMark"
@@ -64,12 +64,12 @@
         </Setter>
     </Style>
     <Style Selector="CheckBox:pointerover /template/ Border#border">
-        <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderHighBrush}" />
-        <Setter Property="BoxShadow" Value="0 0 3 LightGray" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiBorderBrush}" />
+
     </Style>
 
     <Style Selector="CheckBox /template/ Border#border">
-        <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderHighBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
 
     </Style>
 
@@ -77,8 +77,8 @@
         <Setter Property="Background">
             <Setter.Value>
                 <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
-                    <GradientStop Color="#597ef7" Offset="0.1" />
-                    <GradientStop Color="#2f54eb" Offset="0.6" />
+                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.1" />
+                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.6" />
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>

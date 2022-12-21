@@ -292,13 +292,31 @@
                                             <StackPanel>
                                                 <TextBlock Classes="h3" Margin="5,0,0,15">Menu</TextBlock>
                                                 <Menu>
-                                                    <MenuItem Header="File">
-                                                        <MenuItem Header="File" />
-                                                        <MenuItem Header="Edit" />
-                                                        <MenuItem Header="Help" />
+                                                    <MenuItem>
+                                                        <MenuItem.Header>
+                                                            <TextBlock Text="File" />
+                                                        </MenuItem.Header>
+                                                        <MenuItem>
+                                                            <MenuItem.Header>
+                                                                <TextBlock Text="Edit" />
+                                                            </MenuItem.Header>
+                                                        </MenuItem>
+                                                        <MenuItem>
+                                                            <MenuItem.Header>
+                                                                <TextBlock Text="Help" />
+                                                            </MenuItem.Header>
+                                                        </MenuItem>
                                                     </MenuItem>
-                                                    <MenuItem Header="Edit" />
-                                                    <MenuItem Header="Help" />
+                                                    <MenuItem>
+                                                        <MenuItem.Header>
+                                                            <TextBlock Text="Edit" />
+                                                        </MenuItem.Header>
+                                                    </MenuItem>
+                                                    <MenuItem>
+                                                        <MenuItem.Header>
+                                                            <TextBlock Text="Help" />
+                                                        </MenuItem.Header>
+                                                    </MenuItem>
                                                 </Menu>
                                             </StackPanel>
                                         </Border>
@@ -326,9 +344,15 @@
                                             <StackPanel>
                                                 <TextBlock Classes="h3" Margin="5,0,0,15">Radio Button</TextBlock>
                                                 <StackPanel Orientation="Vertical">
-                                                    <RadioButton Margin="5">Item 1</RadioButton>
-                                                    <RadioButton Margin="5">Item 1</RadioButton>
-                                                    <RadioButton Margin="5">Item 1</RadioButton>
+                                                    <RadioButton Margin="5">
+                                                        <TextBlock Text="Item 1" />
+                                                    </RadioButton>
+                                                    <RadioButton Margin="5">
+                                                        <TextBlock Text="Item 2" />
+                                                    </RadioButton>
+                                                    <RadioButton Margin="5">
+                                                        <TextBlock Text="Item 3" />
+                                                    </RadioButton>
                                                 </StackPanel>
                                             </StackPanel>
                                         </Border>
@@ -415,10 +439,7 @@
                                         <Border Classes="Card" Width="300">
                                             <StackPanel>
                                                 <TextBlock Classes="h3" Margin="5,0,0,15">TreeView</TextBlock>
-                                                <Border
-                                                    Background="White"
-                                                    Padding="20"
-                                                    Width="200">
+                                                <Border Padding="20" Width="200">
                                                     <TreeView>
                                                         <TreeViewItem Header="blub">
                                                             <TreeViewItem Header="blub" />
@@ -444,10 +465,7 @@
                                         <Border Classes="Card" Width="300">
                                             <StackPanel>
                                                 <TextBlock Classes="h3" Margin="5,0,0,15">PropertyGrid</TextBlock>
-                                                <Border
-                                                    Background="White"
-                                                    Height="400"
-                                                    Padding="20">
+                                                <Border Height="400" Padding="20">
                                                     <suki:PropertyGrid Name="propertyGrid" Width="250" />
                                                 </Border>
                                             </StackPanel>
