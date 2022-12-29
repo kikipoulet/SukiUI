@@ -6,11 +6,7 @@ using Avalonia.Android;
 namespace AndroidTest.Android
 {
     [Activity(Label = "AndroidTest.Android", Theme = "@style/MyTheme.NoActionBar", Icon = "@drawable/icon", LaunchMode = LaunchMode.SingleInstance, ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize)]
-    public class MainActivity : AvaloniaActivity<App>
+    public class MainActivity : AvaloniaMainActivity
     {
-        protected override AppBuilder CustomizeAppBuilder(AppBuilder builder)
-        {
-            return base.CustomizeAppBuilder(builder);
-        }
     }
 }

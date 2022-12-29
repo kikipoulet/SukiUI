@@ -1,4 +1,11 @@
 <Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Styles.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://SukiUI/Theme/SplitView.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Styles.Resources>
     <SimpleTheme Mode="Light" />
 
     <StyleInclude Source="avares://SukiUI/ColorTheme/Light.axaml" />
@@ -12,7 +19,6 @@
     <StyleInclude Source="avares://SukiUI/Theme/ComboBoxStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ProgressBarStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ListBoxStyles.xaml" />
-
     <StyleInclude Source="avares://SukiUI/Theme/TreeViewStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/CalendarStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/MenuStyles.xaml" />

@@ -9,9 +9,14 @@
     xmlns:material="using:Material.Icons.Avalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:suki="clr-namespace:SukiUI.Controls"
+    xmlns:system="clr-namespace:System;assembly=netstandard"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <system:TimeSpan x:Key="SplitViewPaneAnimationOpenDuration">00:00:02.2</system:TimeSpan>
+        <system:TimeSpan x:Key="SplitViewPaneAnimationCloseDuration">00:00:02.1</system:TimeSpan>
+        <Easing x:Key="SplitViewPaneAnimationEasing">0.1,0.9,0.2,1.0</Easing>
+    </UserControl.Resources>
     <UserControl.Styles>
-
 
         <Style Selector="suki|MobileMenuPage Border#borderDialog">
             <Setter Property="RenderTransform" Value="scale(0.92)" />
@@ -26,10 +31,14 @@
 
 
     <SplitView
-        DisplayMode="Overlay"
+        CompactPaneLength="0"
+        DisplayMode="CompactOverlay"
         IsPaneOpen="{Binding MenuVisibility}"
         OpenPaneLength="316"
         UseLightDismissOverlayMode="True">
+        <SplitView.Transitions>
+            <Transitions />
+        </SplitView.Transitions>
         <SplitView.Pane>
             <Grid>
                 <Border

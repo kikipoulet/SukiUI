@@ -59,7 +59,7 @@
                 </StackPanel>
             </TabItem.Header>
 
-            <touchKeyboard:TouchKeyboard />
+            <touchKeyboard:TouchKeyboard Text="Test" />
 
         </TabItem>
 

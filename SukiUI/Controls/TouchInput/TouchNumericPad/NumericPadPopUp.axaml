@@ -1,0 +1,145 @@
+﻿<UserControl
+    Height="420"
+    Width="300"
+    mc:Ignorable="d"
+    x:Class="SukiUI.Controls.TouchInput.TouchNumericPad.NumericPadPopUp"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid
+            ColumnDefinitions="*,*,*"
+            Margin="20,80,20,20"
+            RowDefinitions="*,*,*,*">
+            <Button
+                Click="AddNumber"
+                Grid.Column="0"
+                Grid.Row="0">
+                <TextBlock
+                    FontSize="20"
+                    FontWeight="DemiBold"
+                    Text="7" />
+            </Button>
+            <Button
+                Click="AddNumber"
+                Grid.Column="1"
+                Grid.Row="0">
+                <TextBlock
+                    FontSize="20"
+                    FontWeight="DemiBold"
+                    Text="8" />
+            </Button>
+            <Button
+                Click="AddNumber"
+                Grid.Column="2"
+                Grid.Row="0">
+                <TextBlock
+                    FontSize="20"
+                    FontWeight="DemiBold"
+                    Text="9" />
+            </Button>
+            <Button
+                Click="AddNumber"
+                Grid.Column="0"
+                Grid.Row="1">
+                <TextBlock
+                    FontSize="20"
+                    FontWeight="DemiBold"
+                    Text="4" />
+            </Button>
+            <Button
+                Click="AddNumber"
+                Grid.Column="1"
+                Grid.Row="1">
+                <TextBlock
+                    FontSize="20"
+                    FontWeight="DemiBold"
+                    Text="5" />
+            </Button>
+            <Button
+                Click="AddNumber"
+                Grid.Column="2"
+                Grid.Row="1">
+                <TextBlock
+                    FontSize="20"
+                    FontWeight="DemiBold"
+                    Text="6" />
+            </Button>
+            <Button
+                Click="AddNumber"
+                Grid.Column="0"
+                Grid.Row="2">
+                <TextBlock
+                    FontSize="20"
+                    FontWeight="DemiBold"
+                    Text="1" />
+            </Button>
+            <Button
+                Click="AddNumber"
+                Grid.Column="1"
+                Grid.Row="2">
+                <TextBlock
+                    FontSize="20"
+                    FontWeight="DemiBold"
+                    Text="2" />
+            </Button>
+            <Button
+                Click="AddNumber"
+                Grid.Column="2"
+                Grid.Row="2">
+                <TextBlock
+                    FontSize="20"
+                    FontWeight="DemiBold"
+                    Text="3" />
+            </Button>
+            <Button
+                Click="RemoveChar"
+                Grid.Column="0"
+                Grid.Row="3">
+                <avalonia:MaterialIcon
+                    Height="22"
+                    Kind="ArrowLeft"
+                    Width="22" />
+            </Button>
+            <Button
+                Click="AddNumber"
+                Grid.Column="1"
+                Grid.Row="3">
+                <TextBlock
+                    FontSize="20"
+                    FontWeight="DemiBold"
+                    Text="0" />
+            </Button>
+            <Button
+                Click="AddNumber"
+                Grid.Column="2"
+                Grid.Row="3">
+                <TextBlock
+                    FontSize="20"
+                    FontWeight="DemiBold"
+                    Text="," />
+            </Button>
+        </Grid>
+        <TextBlock
+            FontSize="30"
+            FontStyle="Italic"
+            HorizontalAlignment="Center"
+            Margin="10,23,10,0"
+            Name="TextNombre"
+            Padding="10"
+            TextWrapping="WrapWithOverflow"
+            VerticalAlignment="Top" />
+        <Button
+            Classes="Accent"
+            Click="Close"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top">
+            <TextBlock
+                FontSize="16"
+                FontWeight="DemiBold"
+                Text="Done" />
+        </Button>
+    </Grid>
+</UserControl>

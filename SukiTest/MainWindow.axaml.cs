@@ -16,6 +16,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.VisualTree;
 using System.Linq;
 using Avalonia.Controls.Primitives;
+using SukiUI.Controls.TouchInput.TouchNumericPad;
 
 namespace SukiTest
 {
@@ -85,7 +86,8 @@ namespace SukiTest
         private void ShowInfoBox(object sender, RoutedEventArgs e)
         {
             MessageBox.Info(this, "Info", "Here is a random Information message");
-         //   SukiUI.Controls.DesktopPage.ShowDialogS(new TextBlock() { Text = "This is an example !", Margin = new Thickness(30) });
+            
+            
         }
 
         private void ShowDialog(object sender, RoutedEventArgs e)
