@@ -41,31 +41,33 @@
         </SplitView.Transitions>
         <SplitView.Pane>
             <Grid>
-                <Border
-                    BorderBrush="{DynamicResource SukiBorderBrush}"
-                    BorderThickness="0,0,1,0"
-                    Width="316">
-                    <DockPanel Background="{DynamicResource SukiBackground}">
-                        <Button
-                            Classes="Accent"
-                            Command="{Binding HideMenu}"
-                            DockPanel.Dock="Top"
-                            HorizontalAlignment="Right">
-                            <Grid>
+                <Border BorderBrush="{DynamicResource SukiBorderBrush}" BorderThickness="0,0,1,0">
+                    <Canvas Background="{DynamicResource SukiBackground}">
+                        <StackPanel Margin="-20,0,0,0">
 
-                                <material:MaterialIcon
-                                    Foreground="{DynamicResource SukiText}"
-                                    Height="35"
-                                    Kind="ChevronLeft"
-                                    Width="35" />
-                            </Grid>
-                        </Button>
-                        <StackPanel>
+                            <Button
+                                Classes="Accent"
+                                Command="{Binding HideMenu}"
+                                HorizontalAlignment="Right"
+                                Margin="0,5,25,0">
+                                <Grid>
+
+                                    <material:MaterialIcon
+                                        Foreground="{DynamicResource SukiText}"
+                                        Height="35"
+                                        Kind="ChevronLeft"
+                                        Width="35" />
+                                </Grid>
+                            </Button>
+
+
+
 
                             <Grid>
                                 <ContentControl Content="{Binding HeaderContent}" />
                             </Grid>
                             <Grid Height="40" />
+
 
 
                             <ItemsControl
@@ -130,8 +132,9 @@
                             </ItemsControl>
 
 
+
                         </StackPanel>
-                    </DockPanel>
+                    </Canvas>
                 </Border>
             </Grid>
         </SplitView.Pane>
