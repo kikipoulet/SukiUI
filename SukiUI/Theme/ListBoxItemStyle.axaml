@@ -1,4 +1,7 @@
-﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <Border Padding="0">
             <ListBox>
@@ -11,9 +14,70 @@
         </Border>
     </Design.PreviewWith>
 
-
+    <Style Selector="ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresentern">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="TextBlock.Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+    </Style>
 
     <Style Selector="ListBoxItem">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Padding" Value="4,2" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border
+                    CornerRadius="6"
+                    Margin="0,0,10,0"
+                    Name="BorderBasicStyle"
+                    Padding="8,4">
+                    <DockPanel>
+                        <avalonia:MaterialIcon
+                            DockPanel.Dock="Right"
+                            Foreground="{DynamicResource SukiPrimaryColor}"
+                            Kind="Check"
+                            Name="CheckSelected" />
+                        <ContentPresenter
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            Margin="0,0,0,0"
+                            Name="PART_ContentPresentern"
+                            Padding="{TemplateBinding Padding}"
+                            VerticalAlignment="Center"
+                            VerticalContentAlignment="Center" />
+                    </DockPanel>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+
+
+
+
+    <Style Selector="ListBoxItem:selected /template/ avalonia|MaterialIcon#CheckSelected">
+        <Setter Property="IsVisible" Value="True" />
+    </Style>
+
+    <Style Selector="ListBoxItem /template/ avalonia|MaterialIcon#CheckSelected">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+
+    <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresentern">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+
+    <Style Selector="ListBoxItem:selected /template/ Border#BorderBasicStyle">
+        <Setter Property="Background" Value="{DynamicResource SukiLightColoredBackground}" />
+    </Style>
+    <Style Selector="ListBoxItem:pointerover /template/ Border#BorderBasicStyle">
+        <Setter Property="Background" Value="{DynamicResource SukiLightBackground}" />
+    </Style>
+
+    <Style Selector="ListBoxItem.WithCheck">
         <Setter Property="Background" Value="Transparent" />
 
         <Setter Property="Template">
@@ -44,16 +108,20 @@
         </Setter>
     </Style>
 
-    <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresentern">
+    <Style Selector="ListBoxItem.WithCheck:selected /template/ ContentPresenter#PART_ContentPresentern">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+
+    <Style Selector="ListBoxItem.WithCheck:pointerover /template/ ContentPresenter#PART_ContentPresentern">
         <Setter Property="Background" Value="Transparent" />
     </Style>
 
 
-    <Style Selector="ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresentern">
+    <Style Selector="ListBoxItem.WithCheck:selected /template/ ContentPresenter#PART_ContentPresentern">
         <Setter Property="Background" Value="Transparent" />
     </Style>
 
-    <Style Selector="ListBoxItem">
+    <Style Selector="ListBoxItem.WithCheck">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="10 0 0 0" />
         <Setter Property="BorderBrush" Value="{DynamicResource ThemeBackgroundBrush}" />
@@ -61,12 +129,12 @@
         <Setter Property="Margin" Value="0 5" />
     </Style>
 
-    <Style Selector="ListBoxItem:selected /template/ CheckBox">
+    <Style Selector="ListBoxItem.WithCheck:selected /template/ CheckBox">
 
         <Setter Property="IsChecked" Value="True" />
     </Style>
 
-    <Style Selector="ListBoxItem /template/ CheckBox">
+    <Style Selector="ListBoxItem.WithCheck /template/ CheckBox">
 
         <Setter Property="IsChecked" Value="False" />
     </Style>

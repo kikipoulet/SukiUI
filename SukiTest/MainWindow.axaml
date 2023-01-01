@@ -371,9 +371,9 @@
                                             <StackPanel>
                                                 <TextBlock Classes="h3" Margin="5,0,0,15">ListBox</TextBlock>
                                                 <ListBox Margin="10">
-                                                    <TextBlock>item 1</TextBlock>
-                                                    <TextBlock>item 2</TextBlock>
-                                                    <TextBlock>item 3</TextBlock>
+                                                    <TextBlock Text="item 1" />
+                                                    <TextBlock Text="item 2" />
+                                                    <TextBlock Text="item 3" />
                                                 </ListBox>
                                             </StackPanel>
                                         </Border>
@@ -534,6 +534,17 @@
                                                     </StackPanel>
                                                 </suki:BusyArea>
 
+
+                                            </StackPanel>
+                                        </Border>
+
+                                        <Border Classes="Card" Width="300">
+
+                                            <StackPanel>
+                                                <TextBlock Classes="h3" Margin="5,0,0,15">DatePicker</TextBlock>
+
+
+                                                <DatePicker Height="60" Width="200" />
 
                                             </StackPanel>
                                         </Border>

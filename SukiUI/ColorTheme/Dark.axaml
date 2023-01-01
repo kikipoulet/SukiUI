@@ -10,7 +10,7 @@
 
         <Color x:Key="SukiBackground">#333333</Color>
         <Color x:Key="SukiLightBackground">#393939</Color>
-        <Color x:Key="SukiLightColoredBackground">#404040</Color>
+        <Color x:Key="SukiLightColoredBackground">#393939</Color>
         <Color x:Key="SukiStrongBackground">#444444</Color>
         <Color x:Key="SukiControlTouchBackground">#505050</Color>
         <Color x:Key="SukiText">#dddddd</Color>

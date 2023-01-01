@@ -1,11 +1,5 @@
 <Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Styles.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceInclude Source="avares://SukiUI/Theme/SplitView.axaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Styles.Resources>
+
     <SimpleTheme Mode="Light" />
 
     <StyleInclude Source="avares://SukiUI/ColorTheme/Light.axaml" />
@@ -40,5 +34,12 @@
     <StyleInclude Source="avares://SukiUI/Theme/ScrollBarStyle.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ExpanderStyles.xaml" />
     <StyleInclude Source="avares://Material.Icons.Avalonia/App.xaml" />
-
+    <Styles.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://SukiUI/Theme/SplitView.axaml" />
+                <ResourceInclude Source="avares://SukiUI/Theme/DatePicker.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Styles.Resources>
 </Styles>

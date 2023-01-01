@@ -82,7 +82,7 @@
 
                             <Path
                                 Data="F1 M -5.215,6.099L 5.215,6.099L 0,0L -5.215,6.099 Z "
-                                Fill="Red"
+                                Fill="Transparent"
                                 Grid.Column="1"
                                 HorizontalAlignment="Left"
                                 Margin="4,0,0,0"
@@ -219,7 +219,7 @@
                         </Grid>
                     </Border>
                     <Rectangle
-                        Fill="Red"
+                        Fill="Transparent"
                         Grid.ColumnSpan="2"
                         Grid.Row="2"
                         Height="1"
@@ -299,7 +299,7 @@
                     Width="20">
                     <Path
                         Data="M 0 2 L 4 6 L 0 10 Z"
-                        Fill="Red"
+                        Fill="Transparent"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center" />
                 </Border>
@@ -328,7 +328,7 @@
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="DropLocationIndicatorTemplate">
             <Template>
-                <Rectangle Fill="Red" Width="2" />
+                <Rectangle Fill="Transparent" Width="2" />
             </Template>
         </Setter>
         <Setter Property="Template">
@@ -344,7 +344,7 @@
                         <DataGridColumnHeadersPresenter Grid.Column="1" Name="PART_ColumnHeadersPresenter" />
                         <DataGridColumnHeader Grid.Column="2" Name="PART_TopRightCornerHeader" />
                         <Rectangle
-                            Fill="Red"
+                            Fill="Transparent"
                             Grid.ColumnSpan="3"
                             Height="1"
                             Name="PART_ColumnHeadersAndRowsSeparator"
