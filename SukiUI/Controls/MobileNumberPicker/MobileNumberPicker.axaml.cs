@@ -1,6 +1,7 @@
 ﻿using System;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Data;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using SukiUI.Controls.MobilePicker;
@@ -20,14 +21,27 @@ public partial class MobileNumberPicker : UserControl
     }
 
     
-    public static readonly StyledProperty<int> ValueProperty =
-        AvaloniaProperty.Register<MobileNumberPicker, int>(nameof(Value), defaultValue: 5);
-
+    private int _value;
+    
+    /// <summary>
+    /// Gets the current value.
+    /// </summary>
     public int Value
     {
-        get { return GetValue(ValueProperty); }
-        set { SetValue(ValueProperty, value ); }
+        get => _value;
+        set => SetAndRaise(ValueProperty, ref _value, value );
     }
+    
+    /// <summary>
+    /// Defines the <see cref="Value"/> property.
+    /// </summary>
+    public static readonly DirectProperty<MobileNumberPicker, int> ValueProperty =
+        AvaloniaProperty.RegisterDirect<MobileNumberPicker, int>(
+            nameof(Value),
+            o => o.Value,
+            (o, v) => o.Value = v,
+            defaultBindingMode: BindingMode.TwoWay,
+            enableDataValidation: true);
     
     public static readonly StyledProperty<int> MinimumProperty =
         AvaloniaProperty.Register<MobileNumberPicker, int>(nameof(Minimum), defaultValue: 0);
