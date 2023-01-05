@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style.Resources>
 
-        <Color x:Key="SukiPrimaryColorGradient">#85a5ff</Color>
+        <Color x:Key="SukiPrimaryColorGradient">#2f54eb</Color>
         <Color x:Key="SukiPrimaryColor">#597ef7</Color>
 
         <Color x:Key="SukiBackground">#333333</Color>

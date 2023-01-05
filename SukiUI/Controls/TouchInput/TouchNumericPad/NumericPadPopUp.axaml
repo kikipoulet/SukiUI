@@ -119,7 +119,7 @@
                 <TextBlock
                     FontSize="20"
                     FontWeight="DemiBold"
-                    Text="," />
+                    Text="." />
             </Button>
         </Grid>
         <TextBlock

@@ -14,7 +14,7 @@
     <StyleInclude Source="avares://SukiUI/Theme/ProgressBarStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ListBoxStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/TreeViewStyles.xaml" />
-    <StyleInclude Source="avares://SukiUI/Theme/CalendarStyles.xaml" />
+
     <StyleInclude Source="avares://SukiUI/Theme/MenuStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ToggleSwitchStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/RadioButtonStyles.xaml" />

@@ -19,6 +19,11 @@
         <Setter Property="TextBlock.Foreground" Value="{DynamicResource SukiPrimaryColor}" />
     </Style>
 
+    <Style Selector="ListBoxItem:selected /template/ TextBlock">
+
+        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+    </Style>
+
     <Style Selector="ListBoxItem">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Padding" Value="4,2" />

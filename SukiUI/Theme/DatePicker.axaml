@@ -137,7 +137,7 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Border
-                    BoxShadow="2 2 9 0 LightGray"
+                    BoxShadow="2 2 9 0 Gray"
                     Classes="Card"
                     MaxHeight="290"
                     MaxWidth="350"

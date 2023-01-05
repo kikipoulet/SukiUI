@@ -186,7 +186,7 @@
     <!--    -->
 
     <Style Selector="Button.Outlined">
-        <Setter Property="BorderThickness" Value="1.2" />
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="BorderBrush">
             <Setter.Value>
                 <LinearGradientBrush EndPoint="0%,100%" StartPoint="50%,-20%">

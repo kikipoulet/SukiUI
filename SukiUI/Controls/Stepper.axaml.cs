@@ -4,10 +4,12 @@ using Avalonia.Markup.Xaml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Avalonia.Data;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Material.Icons;
 using Material.Icons.Avalonia;
+using System.Collections.ObjectModel;
 
 namespace SukiUI.Controls
 {
@@ -24,47 +26,64 @@ namespace SukiUI.Controls
             AvaloniaXamlLoader.Load(this);
             
         }
-
-        public static readonly StyledProperty<int> IndexProperty = AvaloniaProperty.Register<Stepper, int>(nameof(Index), defaultValue: 0);
+        
+        
+        private int _index;
+    
+        public static readonly DirectProperty<Stepper, int> IndexProperty =
+            AvaloniaProperty.RegisterDirect<Stepper, int>(nameof(Index), numpicker => numpicker.Index,
+                (numpicker, v) => numpicker.Index = v, defaultBindingMode: BindingMode.TwoWay, enableDataValidation: true);
 
         public int Index
         {
-            get { return GetValue(IndexProperty); }
+            get { return _index; }
             set
             {
-                if (value < 0 || value > Steps.Count -1)
-                    return;
-                SetValue(IndexProperty, value ); 
-                Update(); }
+                SetAndRaise(IndexProperty, ref _index, value);
+                Update();
+            }
         }
 
-        public static readonly StyledProperty<List<string>> StepsProperty =
-          AvaloniaProperty.Register<Stepper, List<string>>(nameof(Steps), defaultValue: new List<string>() { "stepper"});
 
-        public List<string> Steps
+
+        private ObservableCollection<string> _steps;
+
+        public static readonly DirectProperty<Stepper, ObservableCollection<string>> StepsProperty =
+            AvaloniaProperty.RegisterDirect<Stepper, ObservableCollection<string>>(nameof(Steps), numpicker => numpicker.Steps,
+                (numpicker, v) => numpicker.Steps = v, defaultBindingMode: BindingMode.TwoWay, enableDataValidation: true);
+
+        public ObservableCollection<string> Steps
         {
-            get { return GetValue(StepsProperty); }
-            set { SetValue(StepsProperty, value); Update(); }
+            get { return _steps; }
+            set
+            {
+                SetAndRaise(StepsProperty, ref _steps, value);
+                Update();
+            }
         }
+
 
         public void Update()
         {
-            Grid grid = this.FindControl<Grid>("gridStepper");
-            grid.Children.Clear();
-
-            SetColumnDefinitions(grid);
-            
-            for (var i = 0; i < Steps.Count; i++)
+            try
             {
-                AddStep(Steps[i], i, grid);
-            }
-            
+                Grid grid = this.FindControl<Grid>("gridStepper");
+                grid.Children.Clear();
+
+                SetColumnDefinitions(grid);
+
+                for (var i = 0; i < Steps.Count; i++)
+                {
+                    AddStep(Steps[i], i, grid);
+                }
+            }catch(Exception exc) { }
         }
 
         private void SetColumnDefinitions(Grid grid)
         {
             var columns = new ColumnDefinitions();
-            Steps.ForEach(s => columns.Add(new ColumnDefinition()));
+            foreach(var s in Steps)
+                columns.Add(new ColumnDefinition());
             grid.ColumnDefinitions = columns;
         }
 

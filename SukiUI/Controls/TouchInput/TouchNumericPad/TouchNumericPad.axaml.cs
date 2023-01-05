@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Data;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 
@@ -27,16 +28,21 @@ public partial class TouchNumericPad : UserControl
         MobileMenuPage.ShowDialogS(dialog,true);
     }
     
-    public static readonly StyledProperty<double> ValueProperty =
-        AvaloniaProperty.Register<TouchNumericPad, double>(nameof(Value), defaultValue: 100);
+    private double _value;
+    
+    public static readonly DirectProperty<TouchNumericPad, double> ValueProperty =
+        AvaloniaProperty.RegisterDirect<TouchNumericPad, double>(nameof(Value), numpicker => numpicker.Value,
+            (numpicker, v) => numpicker.Value = v, defaultBindingMode: BindingMode.TwoWay, enableDataValidation: true);
 
     public double Value
     {
-        get { return GetValue(ValueProperty); }
+        get { return _value; }
         set
         {
-            SetValue(ValueProperty, value );
+            SetAndRaise(ValueProperty, ref _value, value);
             this.FindControl<TextBlock>("textValue").Text = Value.ToString();
         }
     }
+    
+    
 }

@@ -20,24 +20,30 @@ public partial class MobileNumericUpDown : UserControl
     {
         AvaloniaXamlLoader.Load(this);
     }
-    
-    public static readonly StyledProperty<int> ValueProperty =
-        AvaloniaProperty.Register<MobileNumericUpDown, int>(nameof(Value), defaultValue: 0);
+
+    private int _value;
+
+    public static readonly DirectProperty<MobileNumericUpDown, int> ValueProperty =
+        AvaloniaProperty.RegisterDirect<MobileNumericUpDown, int>(nameof(Value), numpicker => numpicker.Value,
+            (numpicker, v) => numpicker.Value = v, defaultBindingMode: BindingMode.TwoWay, enableDataValidation: true);
 
     public int Value
     {
-        get { return GetValue(ValueProperty); }
-        set { SetValue(ValueProperty, value ); }
+        get { return _value; }
+        set
+        {
+            SetAndRaise(ValueProperty, ref _value, value);
+        }
     }
 
     private void ButtonPlus(object sender, RoutedEventArgs e)
     {
-        Value++;
+        Value = Value + 1;
     }
     
     private void ButtonMinus(object sender, RoutedEventArgs e)
     {
-        Value--;
+        Value = Value - 1;
     }
 }
 

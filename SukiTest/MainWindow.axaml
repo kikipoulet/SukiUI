@@ -545,7 +545,10 @@
 
 
                                                 <DatePicker Height="60" Width="200" />
-
+                                                <Calendar
+                                                    Height="300"
+                                                    SelectionMode="SingleDate"
+                                                    Width="300" />
                                             </StackPanel>
                                         </Border>
 

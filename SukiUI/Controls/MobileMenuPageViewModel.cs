@@ -3,6 +3,7 @@ using Material.Icons;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reactive;
 using System.Text;
@@ -12,17 +13,21 @@ using Avalonia.Threading;
 
 namespace SukiUI.Controls
 {
-    public class MobileMenuPageViewModel :  ReactiveObject
+    public class MobileMenuPageViewModel : INotifyPropertyChanged
     {
         
-        
+        public event PropertyChangedEventHandler PropertyChanged;
         
         private string headertext = "Home";
 
         public string HeaderText
         {
             get => headertext;
-            set => this.RaiseAndSetIfChanged(ref headertext, value);
+            set 
+            {
+                headertext = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HeaderText)));
+            }
         }
 
         private bool isdialogopen = false;
@@ -30,20 +35,24 @@ namespace SukiUI.Controls
         public bool IsDialogOpen
         {
             get => isdialogopen;
-            set => this.RaiseAndSetIfChanged(ref isdialogopen, value);
+            set 
+            {
+                isdialogopen = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsDialogOpen)));
+            }
         }
-        
-     
 
-        
-        
-        
+
         private double toastOpacity = 0;
 
         public double ToastOpacity
         {
             get => toastOpacity;
-            set => this.RaiseAndSetIfChanged(ref toastOpacity, value);
+            set 
+            {
+                toastOpacity = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ToastOpacity)));
+            }
         }
 
         private Control toastMessage = new Grid();
@@ -51,7 +60,11 @@ namespace SukiUI.Controls
         public Control ContentToast
         {
             get => toastMessage;
-            set => this.RaiseAndSetIfChanged(ref toastMessage, value);
+            set 
+            {
+                toastMessage = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ContentToast)));
+            }
         }
         
         private Thickness toastMargin = new Thickness(0,125,0,0);
@@ -59,7 +72,11 @@ namespace SukiUI.Controls
         public Thickness ToastMargin
         {
             get => toastMargin;
-            set => this.RaiseAndSetIfChanged(ref toastMargin, value);
+            set 
+            {
+                toastMargin = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ToastMargin)));
+            }
         }
 
         
@@ -79,7 +96,11 @@ namespace SukiUI.Controls
         public Control DialogChild
         {
             get => dialogchild;
-            set => this.RaiseAndSetIfChanged(ref dialogchild, value);
+            set 
+            {
+                dialogchild = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DialogChild)));
+            }
         }
 
 
@@ -99,7 +120,11 @@ namespace SukiUI.Controls
         public bool MenuVisibility
         {
             get => menuvisibility;
-            set => this.RaiseAndSetIfChanged(ref menuvisibility, value);
+            set 
+            {
+                menuvisibility = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MenuVisibility)));
+            }
         }
 
         public void ChangeMenuVisibility()
@@ -115,7 +140,11 @@ namespace SukiUI.Controls
         public object HeaderContent
         {
             get => headerContent;
-            set => this.RaiseAndSetIfChanged(ref headerContent, value);
+            set 
+            {
+                headerContent = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HeaderContent)));
+            }
         }
 
         private List<SideMenuItem> menuItems = new List<SideMenuItem>();
@@ -123,9 +152,10 @@ namespace SukiUI.Controls
         public List<SideMenuItem> MenuItems
         {
             get => menuItems;
-            set
+            set 
             {
-                this.RaiseAndSetIfChanged(ref menuItems, value);
+                menuItems = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MenuItems)));
             }
         }
         
@@ -134,25 +164,28 @@ namespace SukiUI.Controls
         public object CurrentPage
         {
             get => currentPage;
-            set => this.RaiseAndSetIfChanged(ref currentPage, value);
+            set 
+            {
+                currentPage = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentPage)));
+            }
         }
 
         public MobileMenuPageViewModel()
         {
-            
-                DoTheThing = ReactiveCommand.Create<SideMenuItem>(ChangePage);
-               
-                
+            DoTheThing = ReactiveCommand.Create<SideMenuItem>(ChangePage);
         }
 
         public ReactiveCommand<SideMenuItem, Unit> DoTheThing { get; set; }
         public void ChangePage(SideMenuItem o)
         {
-        Console.WriteLine(o);
+            Dispatcher.UIThread.InvokeAsync(() =>
+            {
+                Console.WriteLine(o);
                 HeaderText = o.Header;
                 CurrentPage = o.Content;
-                MenuVisibility = false; 
-            
+                MenuVisibility = false;
+            });
         }
     }
 }
