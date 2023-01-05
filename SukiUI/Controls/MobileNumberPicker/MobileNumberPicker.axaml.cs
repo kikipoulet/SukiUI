@@ -19,8 +19,6 @@ public partial class MobileNumberPicker : UserControl
     {
         AvaloniaXamlLoader.Load(this);
     }
-
-    
     private int _value;
     
     /// <summary>
@@ -43,30 +41,40 @@ public partial class MobileNumberPicker : UserControl
             defaultBindingMode: BindingMode.TwoWay,
             enableDataValidation: true);
     
-    public static readonly StyledProperty<int> MinimumProperty =
-        AvaloniaProperty.Register<MobileNumberPicker, int>(nameof(Minimum), defaultValue: 0);
-
+    /// <summary>
+    /// Gets or sets the minimum allowed value.
+    /// </summary>
     public int Minimum
     {
         get { return GetValue(MinimumProperty); }
         set { SetValue(MinimumProperty, value ); }
     }
     
-    public static readonly StyledProperty<int> MaximumProperty =
-        AvaloniaProperty.Register<MobileNumberPicker, int>(nameof(Maximum), defaultValue: 100);
-
+    /// <summary>
+    /// Defines the <see cref="Minimum"/> property.
+    /// </summary>
+    public static readonly StyledProperty<int> MinimumProperty =
+        AvaloniaProperty.Register<MobileNumberPicker, int>(nameof(Minimum), defaultValue: 0);
+    
+    /// <summary>
+    /// Gets or sets the maximum allowed value.
+    /// </summary>
     public int Maximum
     {
         get { return GetValue(MaximumProperty); }
         set { SetValue(MaximumProperty, value ); }
     }
     
+    /// <summary>
+    /// Defines the <see cref="Maximum"/> property.
+    /// </summary>
+    public static readonly StyledProperty<int> MaximumProperty =
+        AvaloniaProperty.Register<MobileNumberPicker, int>(nameof(Maximum), defaultValue: 100);
+    
     private void OpenPopup(object sender, RoutedEventArgs e)
     {
         var control = new MobileNumberPickerPopup(this);
     
-
-        
         MobileMenuPage.ShowDialogS(control , true);
     }
 }
