@@ -1,6 +1,6 @@
 ﻿<UserControl
-    Height="330"
-    Width="800"
+    Height="300"
+    Width="650"
     mc:Ignorable="d"
     x:Class="SukiUI.Controls.TouchInput.TouchKeyboard.TouchKeyboardPopUp"
     xmlns="https://github.com/avaloniaui"
@@ -12,7 +12,7 @@
         <StackPanel>
             <Grid
                 ColumnDefinitions="*,*,*,*,*,*,*,*,*,*"
-                Height="64"
+                Height="60"
                 Margin="20,100,20,0">
                 <Button
                     Click="AddChar"

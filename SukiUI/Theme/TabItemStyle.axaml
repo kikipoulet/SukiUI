@@ -1,9 +1,9 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:material="using:Material.Icons.Avalonia">
     <Design.PreviewWith>
         <Border
-            Background="Red"
+            Background="White"
             Padding="20"
-            Width="300">
+            Width="500">
             <TabControl Classes="MobileTabView" Margin="5">
                 <TabItem Classes="MobileTabItem">
                     <TabItem.Header>
@@ -210,27 +210,37 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Border
-                    Background="Transparent"
+                    Background="{DynamicResource SukiBackground}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
-                    CornerRadius="{TemplateBinding CornerRadius}"
+                    CornerRadius="100"
                     Name="PART_LayoutRootn"
                     Padding="{TemplateBinding Padding}">
+
                     <Panel>
-
-                        <ContentPresenter
-                            Content="{TemplateBinding Header}"
-                            ContentTemplate="{TemplateBinding HeaderTemplate}"
+                        <Border
+                            CornerRadius="50"
                             HorizontalAlignment="Center"
-                            HorizontalContentAlignment="Center"
-                            Name="PART_ContentPresentern"
-                            Padding="10,12"
-                            TextBlock.FontFamily="{TemplateBinding FontFamily}"
-                            TextBlock.FontSize="{TemplateBinding FontSize}"
-                            TextBlock.FontWeight="{TemplateBinding FontWeight}"
-                            TextBlock.Foreground="{TemplateBinding Foreground}"
-                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-
+                            Name="SelectedBorder"
+                            Padding="20,0"
+                            VerticalAlignment="Center">
+                            <Border.Transitions>
+                                <Transitions>
+                                    <BrushTransition Duration="00:00:00.2" Property="Background" />
+                                </Transitions>
+                            </Border.Transitions>
+                            <ContentPresenter
+                                Content="{TemplateBinding Header}"
+                                ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                HorizontalContentAlignment="Center"
+                                Name="PART_ContentPresentern"
+                                Padding="10,12"
+                                TextBlock.FontFamily="{TemplateBinding FontFamily}"
+                                TextBlock.FontSize="{TemplateBinding FontSize}"
+                                TextBlock.FontWeight="{TemplateBinding FontWeight}"
+                                TextBlock.Foreground="{TemplateBinding Foreground}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
 
                     </Panel>
                 </Border>
@@ -238,22 +248,22 @@
         </Setter>
     </Style>
 
+    <Style Selector="TabItem.MobileTabItem Border#SelectedBorder">
+        <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
+    </Style>
+
+    <Style Selector="TabItem.MobileTabItem:selected Border#SelectedBorder">
+        <Setter Property="Background" Value="{DynamicResource SukiLightBackground}" />
+    </Style>
+
     <Style Selector="TabItem.MobileTabItem ContentPresenter">
-        <Setter Property="RenderTransform">
-            <Setter.Value>
-                <ScaleTransform ScaleX="1.10" ScaleY="1.10" />
-            </Setter.Value>
-        </Setter>
+
 
         <Setter Property="TextBlock.Foreground" Value="Black" />
     </Style>
 
     <Style Selector="TabItem.MobileTabItem:selected ContentPresenter">
-        <Setter Property="RenderTransform">
-            <Setter.Value>
-                <ScaleTransform ScaleX="1.40" ScaleY="1.40" />
-            </Setter.Value>
-        </Setter>
+
         <Setter Property="TextBlock.Foreground" Value="{DynamicResource SukiPrimaryColor}" />
     </Style>
 
