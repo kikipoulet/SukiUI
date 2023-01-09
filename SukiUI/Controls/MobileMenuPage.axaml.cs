@@ -8,6 +8,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Layout;
 using Avalonia.Markup.Xaml;
+using Avalonia.Threading;
 using Avalonia.VisualTree;
 // using DialogHostAvalonia.Positioners;
 
@@ -58,20 +59,27 @@ namespace SukiUI.Controls
         
         public void ShowToast(Control Message, int seconds)
         {
-
-           
-            
             var model = (MobileMenuPageViewModel)this.DataContext;
 
-            model.ToastOpacity = 1;
-            model.ContentToast = Message;
-            model.ToastMargin = new Thickness(0, 100, 0, 0);
+            Dispatcher.UIThread.InvokeAsync(() =>
+            {
 
+
+               
+
+                model.ToastOpacity = 1;
+                model.ContentToast = Message;
+                model.ToastMargin = new Thickness(0, 100, 0, 0);
+            });
+            
             Task.Run((() =>
             {
                 Thread.Sleep(seconds * 1000);
-                model.ToastOpacity = 0;
-                model.ToastMargin = new Thickness(0, 125, 0, 0);
+                Dispatcher.UIThread.InvokeAsync(() =>
+                {
+                    model.ToastOpacity = 0;
+                    model.ToastMargin = new Thickness(0, 125, 0, 0);
+                });
             }));
         }
         
@@ -119,6 +127,42 @@ namespace SukiUI.Controls
             mbmp.ShowToast(Content, seconds);
         }
 
+        public static void WaitUntilDialogClosed()
+        {
+            MobileMenuPage mbmp = null;
+            try
+            {
+                mbmp = ((ISingleViewApplicationLifetime)Application.Current.ApplicationLifetime).MainView.GetVisualDescendants().OfType<MobileMenuPage>().First();
+                
+            }
+            catch (Exception exc)
+            {
+                Debug.WriteLine("Unable to open dialog in the Mobile view, trying desktop.");
+                try
+                {
+                    mbmp = ((IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime).MainWindow.GetVisualDescendants().OfType<MobileMenuPage>().First();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Unable to show a dialog. " + ex.Message);
+                }
+                
+            }
+
+            MobileMenuPageViewModel model = null; 
+                
+               Dispatcher.UIThread.InvokeAsync((() => model = (MobileMenuPageViewModel)mbmp.DataContext));
+
+            bool flag = true;
+
+            do
+            {
+                Dispatcher.UIThread.InvokeAsync(() => flag = model.IsDialogOpen);
+                Thread.Sleep(200);
+            } while (flag);
+                
+        }
+        
         public static void ShowDialogS(Control content, bool showAtBottom = false)
         {
 

@@ -11,6 +11,8 @@ using Material.Icons.Avalonia;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading;
+using Avalonia.Threading;
 
 namespace SukiUI.Controls
 {
@@ -192,13 +194,27 @@ namespace SukiUI.Controls
 
             
             
-            
-            
         }
 
         public static void ShowDialogS(Control content)
         {
             ((IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime).MainWindow.GetVisualDescendants().OfType<DesktopPage>().First().ShowDialog(content);
+        }
+        
+        public static void WaitUntilDialogClosed()
+        {
+            DesktopPage page = null;
+                
+            Dispatcher.UIThread.InvokeAsync(() => page = ((IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime).MainWindow.GetVisualDescendants().OfType<DesktopPage>().First());
+
+            bool flag = true;
+
+            do
+            {
+                Dispatcher.UIThread.InvokeAsync(() => flag = page.IsDialogOpen);
+                Thread.Sleep(200);
+            } while (flag);
+                
         }
 
         public static void CloseDialogS()

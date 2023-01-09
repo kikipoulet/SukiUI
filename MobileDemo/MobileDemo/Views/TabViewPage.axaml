@@ -23,10 +23,7 @@
                     <TextBlock FontSize="12" Text="Sales" />
                 </StackPanel>
             </TabItem.Header>
-            <TextBlock
-                HorizontalAlignment="Center"
-                Text="Sales"
-                VerticalAlignment="Center" />
+            <Button Click="Button_OnClick">Test Wait</Button>
 
         </TabItem>
         <TabItem Classes="MobileTabItem">

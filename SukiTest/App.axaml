@@ -6,7 +6,7 @@
 
 
         <StyleInclude Source="avares://SukiUI/Theme/Index.xaml" />
-        <StyleInclude Source="avares://SukiUI/ColorTheme/Dark.axaml" />
+
 
         <StyleInclude Source="avares://Material.Icons.Avalonia/App.xaml" />
 

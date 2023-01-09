@@ -61,13 +61,15 @@ namespace SukiTest
             {
                 this.FindControl<DataGrid>("myDG").Items = liste;
 
-                this.FindControl<Stepper>("stepstep").Steps = new List<string>() { "one", "two", "thre", "four", "five" };
+                this.FindControl<Stepper>("stepstep").Steps = new ObservableCollection<string>() { "one", "two", "thre", "four", "five" };
                 this.FindControl<Stepper>("stepstep").Index = 2;
            
 
 
                  this.FindControl<PropertyGrid>("propertyGrid").Item = new Person() { Adult = true, Age = 20,Name = "Billy", Partner = new Person() };
 
+                 this.FindControl<ListBox>("listTest").Items = new ObservableCollection<string>() { "one", "two", "thre", "four", "five" };
+                 
             }
             catch { }
 

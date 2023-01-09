@@ -50,9 +50,7 @@
                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                             Margin="0,0,0,0"
                             Name="PART_ContentPresentern"
-                            Padding="{TemplateBinding Padding}"
-                            VerticalAlignment="Center"
-                            VerticalContentAlignment="Center" />
+                            Padding="{TemplateBinding Padding}" />
                     </DockPanel>
                 </Border>
             </ControlTemplate>
@@ -76,7 +74,7 @@
     </Style>
 
     <Style Selector="ListBoxItem:selected /template/ Border#BorderBasicStyle">
-        <Setter Property="Background" Value="{DynamicResource SukiLightColoredBackground}" />
+        <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
     </Style>
     <Style Selector="ListBoxItem:pointerover /template/ Border#BorderBasicStyle">
         <Setter Property="Background" Value="{DynamicResource SukiLightBackground}" />
