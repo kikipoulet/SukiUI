@@ -21,8 +21,8 @@
         Color="{DynamicResource ThemeControlLowColor}"
         Opacity="0.6"
         x:Key="SplitViewLightDismissOverlayBackground" />
-    <sys:TimeSpan x:Key="SplitViewPaneAnimationOpenDuration">00:00:0.3</sys:TimeSpan>
-    <sys:TimeSpan x:Key="SplitViewPaneAnimationCloseDuration">00:00:0.3</sys:TimeSpan>
+    <sys:TimeSpan x:Key="SplitViewPaneAnimationOpenDuration">00:00:0.4</sys:TimeSpan>
+    <sys:TimeSpan x:Key="SplitViewPaneAnimationCloseDuration">00:00:0.4</sys:TimeSpan>
 
     <!-- Not used here (directly), but preserving for reference
         <x:String x:Key="SplitViewPaneAnimationOpenPreDuration">00:00:00.19999</x:String>-->

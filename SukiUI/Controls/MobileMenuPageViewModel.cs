@@ -7,6 +7,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reactive;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Threading;
 //using DialogHostAvalonia.Positioners;
@@ -179,13 +181,18 @@ namespace SukiUI.Controls
         public ReactiveCommand<SideMenuItem, Unit> DoTheThing { get; set; }
         public void ChangePage(SideMenuItem o)
         {
-            Dispatcher.UIThread.InvokeAsync(() =>
-            {
+            
                 Console.WriteLine(o);
                 HeaderText = o.Header;
                 CurrentPage = o.Content;
-                MenuVisibility = false;
-            });
+
+                Task.Run(() =>
+                {
+                    Thread.Sleep(50);
+                    MenuVisibility = false;
+                });
+                
+            
         }
     }
 }

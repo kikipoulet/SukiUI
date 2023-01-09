@@ -10,6 +10,7 @@ using SukiUI.Controls;
 //using LiveChartsCore.SkiaSharpView;
 //using LiveChartsCore.SkiaSharpView.Avalonia;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace AndroidTest.Views
 {
@@ -23,7 +24,7 @@ namespace AndroidTest.Views
         {
             InitializeComponent();
 
-            this.FindControl<Stepper>("myStep").Steps = new List<string>() { "Ordered", "Sent", "In Progress", "Delivered" };
+            this.FindControl<Stepper>("myStep").Steps = new ObservableCollection<string>() { "Ordered", "Sent", "In Progress", "Delivered" };
             this.FindControl<Stepper>("myStep").Index = 2;
 
         }
