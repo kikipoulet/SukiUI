@@ -50,13 +50,7 @@
         <PackageReference Include="ReactiveUI" Version="18.3.1" />
     </ItemGroup>
 
-    <ItemGroup>
-      <UpToDateCheckInput Remove="Palette\CandyPalette.xaml" />
-      <UpToDateCheckInput Remove="Palette\CitrusPalette.xaml" />
-      <UpToDateCheckInput Remove="Palette\MagmaPalette.xaml" />
-      <UpToDateCheckInput Remove="Palette\RustPalette.xaml" />
-      <UpToDateCheckInput Remove="Palette\SeaPalette.xaml" />
-    </ItemGroup>
+ 
 
     <ItemGroup>
       <AvaloniaResource Include="LICENSE" />
@@ -79,13 +73,5 @@
         <Generator>MSBuild:Compile</Generator>
       </AvaloniaXaml>
     </ItemGroup>
-
-    <ItemGroup>
-      <Reference Include="Avalonia.Controls">
-        <HintPath>..\..\..\..\..\.nuget\packages\avalonia\0.10.999-cibuild0019213-beta\lib\netstandard2.0\Avalonia.Controls.dll</HintPath>
-      </Reference>
-      <Reference Include="Avalonia.ReactiveUI">
-        <HintPath>..\..\..\..\..\.nuget\packages\avalonia.reactiveui\0.10.999-cibuild0019213-beta\lib\netstandard2.0\Avalonia.ReactiveUI.dll</HintPath>
-      </Reference>
-    </ItemGroup>
+    
 </Project>
