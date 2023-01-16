@@ -24,7 +24,7 @@ Recently done :
 ## 🖥️ Desktop Overview
 
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/DesktopShow.gif"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/overall.gif"></img>
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/DesktopDarkMode.gif"></img>
 
 ## 📱 Mobile Overview
