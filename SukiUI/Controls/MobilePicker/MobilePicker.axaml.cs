@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Data;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 
@@ -19,14 +20,23 @@ public partial class MobilePicker : UserControl
         AvaloniaXamlLoader.Load(this);
     }
     
-    public static readonly StyledProperty<string> SelectedItemProperty =
-        AvaloniaProperty.Register<MobilePicker, string>(nameof(SelectedItem), defaultValue: "default");
 
+    
+    
+    private string _selectedItem;
     public string SelectedItem
     {
-        get { return GetValue(SelectedItemProperty); }
-        set { SetValue(SelectedItemProperty, value ); }
+        get => _selectedItem;
+        set => SetAndRaise(SelectedItemProperty, ref _selectedItem, value );
     }
+    public static readonly DirectProperty<MobilePicker, string> SelectedItemProperty =
+        AvaloniaProperty.RegisterDirect<MobilePicker, string>(
+            nameof(SelectedItem),
+            o => o.SelectedItem,
+            (o, v) => o.SelectedItem = v,
+            defaultBindingMode: BindingMode.TwoWay,
+            enableDataValidation: true);
+    
     
     public static readonly StyledProperty<ObservableCollection<string>> ItemsProperty =
         AvaloniaProperty.Register<MobilePicker, ObservableCollection<string>>(nameof(Items), defaultValue: new ObservableCollection<string>());

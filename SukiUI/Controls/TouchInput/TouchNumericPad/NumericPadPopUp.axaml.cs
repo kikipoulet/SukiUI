@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -33,13 +34,16 @@ public partial class NumericPadPopUp : UserControl
 
     private void RemoveChar(object sender, RoutedEventArgs e)
     {
-        CurrentText = CurrentText.Remove(CurrentText.Length - 1);
-        _textBlock.Text = CurrentText;
+        try
+        {
+            CurrentText = CurrentText.Remove(CurrentText.Length - 1);
+            _textBlock.Text = CurrentText;
+        }catch(Exception exc){}
     }
 
     private void Close(object sender, RoutedEventArgs e)
     {
-        rootControl.Value = Double.Parse(CurrentText);
+        rootControl.Value = Double.Parse(CurrentText, CultureInfo.InvariantCulture);
         MobileMenuPage.CloseDialogS();
     }
 }

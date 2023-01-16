@@ -80,7 +80,10 @@ public partial class TouchKeyboardPopUp : UserControl
 
     private void ButtonBackspace(object sender, RoutedEventArgs e)
     {
-        CurrentText = CurrentText.Remove(CurrentText.Length - 1);
-        _textBlock.Text = CurrentText;
+        try
+        {
+            CurrentText = CurrentText.Remove(CurrentText.Length - 1);
+            _textBlock.Text = CurrentText;
+        }catch(Exception exc){}
     }
 }
