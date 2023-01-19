@@ -45,7 +45,7 @@ namespace AndroidTest.Views
 
         private void LogInTest(object sender, RoutedEventArgs e)
         {
-            MobileMenuPage.ShowToastS(new TextBlock(){ FontSize = 20, Text = "You're logged in !", Margin = new Thickness(40,20), VerticalAlignment = VerticalAlignment.Center}, 5);
+            InteractiveContainer.ShowToast(new TextBlock(){ FontSize = 20, Text = "You're logged in !", Margin = new Thickness(40,20), VerticalAlignment = VerticalAlignment.Center}, 5);
         }
     }
 }

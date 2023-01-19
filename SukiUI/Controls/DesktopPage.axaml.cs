@@ -99,23 +99,7 @@ namespace SukiUI.Controls
             get { return GetValue(MenuVisibilityProperty); }
             set { SetValue(MenuVisibilityProperty, value); }
         }
-
-        public static readonly StyledProperty<bool> IsDialogOpenProperty = AvaloniaProperty.Register<DesktopPage, bool>(nameof(IsDialogOpen), defaultValue: false);
-
-        public bool IsDialogOpen
-        {
-            get { return GetValue(IsDialogOpenProperty); }
-            set { SetValue(IsDialogOpenProperty, value); }
-        }
-
-
-        public static readonly StyledProperty<Control> DialogChildProperty = AvaloniaProperty.Register<DesktopPage, Control>(nameof(DialogChild), defaultValue: new Grid() {});
-
-        public Control DialogChild
-        {
-            get { return GetValue(DialogChildProperty); }
-            set { SetValue(DialogChildProperty, value); }
-        }
+        
 
         public static readonly StyledProperty<bool> IsMinimizeButtonEnabledProperty = AvaloniaProperty.Register<DesktopPage, bool>(nameof(IsMinimizeButtonEnabled), defaultValue: true);
 
@@ -168,10 +152,7 @@ namespace SukiUI.Controls
             hostWindow.Close();
         }
 
-        public void CloseDialog(object sender, RoutedEventArgs e)
-        {
-            IsDialogOpen = false;
-        }
+
 
         public void SetPage(Control page)
         {
@@ -182,44 +163,5 @@ namespace SukiUI.Controls
 
       
 
-        public void ShowDialog(Control Content)
-        {
-            //    DialogContent = Content;
-            // myGridForDialog
-
-            DialogChild = Content;
-
-            IsDialogOpen = false;
-            IsDialogOpen = true;
-
-            
-            
-        }
-
-        public static void ShowDialogS(Control content)
-        {
-            ((IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime).MainWindow.GetVisualDescendants().OfType<DesktopPage>().First().ShowDialog(content);
-        }
-        
-        public static void WaitUntilDialogClosed()
-        {
-            DesktopPage page = null;
-                
-            Dispatcher.UIThread.InvokeAsync(() => page = ((IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime).MainWindow.GetVisualDescendants().OfType<DesktopPage>().First());
-
-            bool flag = true;
-
-            do
-            {
-                Dispatcher.UIThread.InvokeAsync(() => flag = page.IsDialogOpen);
-                Thread.Sleep(200);
-            } while (flag);
-                
-        }
-
-        public static void CloseDialogS()
-        {
-            ((IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime).MainWindow.GetVisualDescendants().OfType<DesktopPage>().First().CloseDialog(null,null);
-        }
     }
 }

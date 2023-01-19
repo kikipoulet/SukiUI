@@ -37,7 +37,7 @@ namespace AndroidTest.Views
         private void ShowFlyout(object sender, RoutedEventArgs e)
         {
 
-            MobileMenuPage.ShowDialogS(
+            InteractiveContainer.ShowDialog(
                  new DialogContent()
             );
 

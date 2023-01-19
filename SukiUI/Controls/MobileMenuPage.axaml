@@ -138,11 +138,11 @@
                 </Border>
             </Grid>
         </SplitView.Pane>
-        <Grid Background="{DynamicResource SukiBackground}">
 
-            <Grid Name="dialogGrid">
-                <!--  PopupPositioner="{Binding DialogPosition}"  -->
 
+        <suki:InteractiveContainer>
+            <!--  PopupPositioner="{Binding DialogPosition}"  -->
+            <Grid Background="{DynamicResource SukiBackground}">
 
 
 
@@ -168,79 +168,10 @@
 
                 </Button>
 
-                <Border
-                    Background="{DynamicResource SukiBackground}"
-                    BorderBrush="{DynamicResource SukiControlBorderBrush}"
-                    BorderThickness="1"
-                    BoxShadow="0 4 12 LightGray"
-                    CornerRadius="30"
-                    HorizontalAlignment="Center"
-                    IsHitTestVisible="False"
-                    Margin="{Binding ToastMargin}"
-                    Opacity="{Binding ToastOpacity}"
-                    VerticalAlignment="Top">
-                    <Border.Transitions>
-                        <Transitions>
-                            <DoubleTransition Duration="0:0:0.4" Property="Opacity">
-                                <DoubleTransition.Easing>
-                                    <ExponentialEaseOut />
-                                </DoubleTransition.Easing>
-                            </DoubleTransition>
-                            <ThicknessTransition Duration="0:0:0.4" Property="Margin">
-                                <ThicknessTransition.Easing>
-                                    <ExponentialEaseOut />
-                                </ThicknessTransition.Easing>
-                            </ThicknessTransition>
-                        </Transitions>
-                    </Border.Transitions>
-                    <ContentControl Content="{Binding ContentToast}" />
-                </Border>
-
-
-                <Grid
-                    Background="#aaaaaa"
-                    IsHitTestVisible="{Binding IsDialogOpen}"
-                    Name="gridDialog"
-                    Opacity="0">
-                    <Grid.Transitions>
-                        <Transitions>
-                            <DoubleTransition Duration="0:0:0.1" Property="Opacity" />
-                        </Transitions>
-                    </Grid.Transitions>
-                </Grid>
-
-                <Border
-                    Background="{DynamicResource SukiBackground}"
-                    Classes.opened="{Binding IsDialogOpen}"
-                    CornerRadius="15"
-                    HorizontalAlignment="Center"
-                    IsHitTestVisible="{Binding IsDialogOpen}"
-                    Margin="0,15,0,0"
-                    Name="borderDialog"
-                    Opacity="0"
-                    Padding="10"
-                    VerticalAlignment="Center">
-                    <Border.Transitions>
-                        <Transitions>
-                            <ThicknessTransition Duration="0:0:0.2" Property="Margin">
-                                <ThicknessTransition.Easing>
-                                    <CircularEaseOut />
-                                </ThicknessTransition.Easing>
-                            </ThicknessTransition>
-                            <DoubleTransition Duration="0:0:0.2" Property="Opacity" />
-                            <TransformOperationsTransition Duration="0:0:0.2" Property="RenderTransform">
-                                <TransformOperationsTransition.Easing>
-                                    <CircularEaseOut />
-                                </TransformOperationsTransition.Easing>
-                            </TransformOperationsTransition>
-                        </Transitions>
-                    </Border.Transitions>
-
-                    <ContentControl Content="{Binding DialogChild}" />
-                </Border>
+                <Grid Background="#cccccccc" IsVisible="{Binding MenuVisibility}" />
             </Grid>
-            <Grid Background="#cccccccc" IsVisible="{Binding MenuVisibility}" />
-        </Grid>
+        </suki:InteractiveContainer>
+
 
     </SplitView>
 

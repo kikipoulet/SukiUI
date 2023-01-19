@@ -23,7 +23,7 @@ public partial class MobilePickerPopUp : UserControl
 
     private void DoneClick(object sender, RoutedEventArgs e)
     {
-        MobileMenuPage.CloseDialogS();
+        InteractiveContainer.CloseDialog();
         var model = ((MobilePickerPopUpVM)DataContext);
 
         model.mobilePicker.SelectedItem = model.SelectedItem;

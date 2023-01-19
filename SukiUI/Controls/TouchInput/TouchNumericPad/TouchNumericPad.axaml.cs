@@ -30,7 +30,7 @@ public partial class TouchNumericPad : UserControl
         dialog.Height = PopupHeight;
         dialog.Width = PopupWidth;
         
-        MobileMenuPage.ShowDialogS(dialog,true);
+       InteractiveContainer.ShowDialog(dialog,true);
     }
     
     private double _value;

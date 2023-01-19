@@ -30,7 +30,7 @@ public partial class TouchKeyboard : UserControl
         dialog.Height = PopupHeight;
         dialog.Width = PopupWidth;
         
-        MobileMenuPage.ShowDialogS(dialog,true);
+        InteractiveContainer.ShowDialog(dialog,true);
     }
     
     

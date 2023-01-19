@@ -94,7 +94,7 @@ namespace SukiTest
 
         private void ShowDialog(object sender, RoutedEventArgs e)
         {
-           SukiUI.Controls.DesktopPage.ShowDialogS(new DialogContent());
+           InteractiveContainer.ShowDialog(new DialogContent());
         }
         private void ShowSuccessBox(object sender, RoutedEventArgs e)
         {

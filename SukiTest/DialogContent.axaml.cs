@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using SukiUI.Controls;
 
 namespace SukiTest
 {
@@ -19,7 +20,7 @@ namespace SukiTest
 
         private void CloseDialog(object sender, RoutedEventArgs e)
         {
-            SukiUI.Controls.DesktopPage.CloseDialogS();
+            InteractiveContainer.CloseDialog();
         }
     }
 }

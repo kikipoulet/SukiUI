@@ -34,7 +34,7 @@ public partial class TouchKeyboardPopUp : UserControl
     private void Close(object sender, RoutedEventArgs e)
     {
         rootControl.Text = CurrentText;
-        MobileMenuPage.CloseDialogS();
+        InteractiveContainer.CloseDialog();
     }
     
     private string CurrentText = "";

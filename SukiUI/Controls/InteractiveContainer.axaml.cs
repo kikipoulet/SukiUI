@@ -26,13 +26,66 @@ public partial class InteractiveContainer : UserControl
         AvaloniaXamlLoader.Load(this);
     }
     
-    public static readonly StyledProperty<Control> PageContentProperty = AvaloniaProperty.Register<InteractiveContainer, Control>(nameof(PageContent), defaultValue: new Grid());
+    public static readonly StyledProperty<bool> ShowAtBottomProperty = AvaloniaProperty.Register<InteractiveContainer, bool>(nameof(InteractiveContainer), defaultValue: false);
 
-    public Control PageContent
+    public bool ShowAtBottom
     {
-        get { return GetValue(PageContentProperty); }
-        set { SetValue(PageContentProperty, value); this.FindControl<ContentControl>("GeneralContent").Content = value; }
+        get { return GetValue(ShowAtBottomProperty); }
+        set
+        {
+            
+            SetValue(ShowAtBottomProperty, value );
+        }
     }
+    
+    public static readonly StyledProperty<bool> IsDialogOpenProperty = AvaloniaProperty.Register<InteractiveContainer, bool>(nameof(InteractiveContainer), defaultValue: false);
+
+    public bool IsDialogOpen
+    {
+        get { return GetValue(IsDialogOpenProperty); }
+        set
+        {
+            
+            SetValue(IsDialogOpenProperty, value );
+        }
+    }
+    
+    public static readonly StyledProperty<bool> IsToastOpenProperty = AvaloniaProperty.Register<InteractiveContainer, bool>(nameof(InteractiveContainer), defaultValue: false);
+
+    public bool IsToastOpen
+    {
+        get { return GetValue(IsToastOpenProperty); }
+        set
+        {
+            
+            SetValue(IsToastOpenProperty, value );
+        }
+    }
+    
+    public static readonly StyledProperty<Control> DialogContentProperty = AvaloniaProperty.Register<InteractiveContainer, Control>(nameof(InteractiveContainer), defaultValue: new Grid());
+
+    public Control DialogContent
+    {
+        get { return GetValue(DialogContentProperty); }
+        set
+        {
+            
+            SetValue(DialogContentProperty, value );
+        }
+    }
+    
+    public static readonly StyledProperty<Control> ToastContentProperty = AvaloniaProperty.Register<InteractiveContainer, Control>(nameof(InteractiveContainer), defaultValue: new Grid());
+
+    public Control ToastContent
+    {
+        get { return GetValue(ToastContentProperty); }
+        set
+        {
+            
+            SetValue(ToastContentProperty, value );
+        }
+    }
+
 
 
     private static InteractiveContainer GetInteractiveContainerInstance()
@@ -65,73 +118,51 @@ public partial class InteractiveContainer : UserControl
     public static void ShowToast(Control Message, int seconds)
     {
         var container = GetInteractiveContainerInstance();
-        ContentControl ct = container.FindControl<ContentControl>("ToastContent");
-        Border bd = container.FindControl<Border>("ToastBorder");
-        
-        Dispatcher.UIThread.InvokeAsync(() =>
-        {
-            bd.Opacity = 1;
-            ct.Content = Message;
-            bd.Margin = new Thickness(0, 100, 0, 0);
-        });
+
+        container.ToastContent = Message;
+        container.IsToastOpen = true;
+
             
         Task.Run((() =>
         {
             Thread.Sleep(seconds * 1000);
             Dispatcher.UIThread.InvokeAsync(() =>
             {
-                bd.Opacity = 0;
-                bd.Margin = new Thickness(0, 125, 0, 0);
+                container.IsToastOpen = false;
             });
         }));
     }
 
     public static void CloseDialog()
     {
-        var container = GetInteractiveContainerInstance();
-
-        Border DialogBorder = container.FindControl<Border>("borderDialog");
-        
-
-        DialogBorder.Opacity = 0;
-        DialogBorder.IsHitTestVisible = false;
-        IsDialogOpen = false;
-        container.FindControl<Grid>("gridDialog").Opacity = 0;
-        container.FindControl<Grid>("gridDialog").IsHitTestVisible = false;
+        GetInteractiveContainerInstance().IsDialogOpen = false;
     }
 
     public static void WaitUntilDialogIsClosed()
     {
-        while (IsDialogOpen)
+        var container = GetInteractiveContainerInstance();
+        bool flag = true;
+
+        do
+        {
+            Dispatcher.UIThread.InvokeAsync(() =>
+            {
+                flag = container.IsDialogOpen;
+            });
+            
             Thread.Sleep(200);
+        } while (flag);
+           
     }
 
-    public static bool IsDialogOpen { get; set; } = false;
+
     
     public static void ShowDialog(Control content, bool showAtBottom = false)
     {
         var container = GetInteractiveContainerInstance();
-        IsDialogOpen = true;
-        Border DialogBorder = container.FindControl<Border>("borderDialog");
 
-        container.FindControl<ContentControl>("DialogContent").Content = content;
-        
-        if (showAtBottom)
-        {
-            DialogBorder.VerticalAlignment = VerticalAlignment.Bottom;
-            DialogBorder.Margin = new Thickness(0,0,0,20);
-        }
-        else
-        {
-            DialogBorder.VerticalAlignment = VerticalAlignment.Center;
-            DialogBorder.Margin = new Thickness(0,0,0,0);
-        }
-        
-        DialogBorder.Opacity = 1;
-        DialogBorder.IsHitTestVisible = true;
-       
-       container.FindControl<Grid>("gridDialog").Opacity = 0.56;
-       container.FindControl<Grid>("gridDialog").IsHitTestVisible = true;
-
+        container.IsDialogOpen = true;
+        container.DialogContent = content;
+        container.ShowAtBottom = showAtBottom;
     }
 }

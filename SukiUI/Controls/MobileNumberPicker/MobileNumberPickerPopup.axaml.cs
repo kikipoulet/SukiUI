@@ -107,7 +107,7 @@ public partial class MobileNumberPickerPopup : UserControl
 
     private void DoneClick(object sender, RoutedEventArgs e)
     {
-        MobileMenuPage.CloseDialogS();
+        InteractiveContainer.CloseDialog();
        
     }
 }

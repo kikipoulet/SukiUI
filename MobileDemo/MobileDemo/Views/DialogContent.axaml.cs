@@ -20,7 +20,7 @@ namespace AndroidTest.Views
 
         private void HandlerClose(object sender, RoutedEventArgs e)
         {
-            MobileMenuPage.CloseDialogS();
+            InteractiveContainer.CloseDialog();
         }
     }
 }

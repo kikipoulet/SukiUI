@@ -75,6 +75,6 @@ public partial class MobileNumberPicker : UserControl
     {
         var control = new MobileNumberPickerPopup(this);
     
-        MobileMenuPage.ShowDialogS(control , true);
+        InteractiveContainer.ShowDialog(control , true);
     }
 }

@@ -23,6 +23,12 @@ public partial class TabViewPage : UserControl
 
     private void Button_OnClick(object? sender, RoutedEventArgs e)
     {
-       InteractiveContainer.ShowToast(new TextBlock(){Text = "test"}, 5);
+        var button = new Button() { Content = "close" };
+
+        button.Click += (o, args) => InteractiveContainer.CloseDialog();
+        
+        InteractiveContainer.ShowToast(button, 5);
+
+        
     }
 }

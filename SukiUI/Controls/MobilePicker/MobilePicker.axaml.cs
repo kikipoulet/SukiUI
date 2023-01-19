@@ -62,7 +62,7 @@ public partial class MobilePicker : UserControl
         control.Width = PopupWidth;
         control.FindControl<Border>("rootBorder").RenderTransform = PopupScale;
         
-        MobileMenuPage.ShowDialogS(control , true);
+        InteractiveContainer.ShowDialog(control , true);
  
        
     }

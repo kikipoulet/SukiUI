@@ -12,12 +12,12 @@
     xmlns:touchNumericPad="clr-namespace:SukiUI.Controls.TouchInput.TouchNumericPad;assembly=SukiUI"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <controls:InteractiveContainer Height="300" Width="300">
-        <controls:InteractiveContainer.PageContent>
-            <Button Click="Button_OnClick">
-                Test Wait
-            </Button>
-        </controls:InteractiveContainer.PageContent>
+    <controls:InteractiveContainer>
+
+        <Button Click="Button_OnClick">
+            Test Wait
+        </Button>
+
     </controls:InteractiveContainer>
 
 </UserControl>
