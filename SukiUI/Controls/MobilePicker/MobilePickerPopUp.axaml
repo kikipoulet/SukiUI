@@ -11,7 +11,12 @@
     <UserControl.DataContext>
         <mobilePicker:MobilePickerPopUpVM />
     </UserControl.DataContext>
-    <Border Height="200" Width="300">
+    <Border
+        Height="200"
+        HorizontalAlignment="Center"
+        Name="rootBorder"
+        VerticalAlignment="Center"
+        Width="300">
         <DockPanel>
             <Button
                 Classes="Accent"
@@ -26,9 +31,8 @@
             </Button>
 
             <Grid Margin="0,5,0,10">
-                <ListBox 
+                <ListBox
                     Items="{Binding Items}"
-               
                     SelectedItem="{Binding SelectedItem}"
                     VerticalAlignment="Center">
                     <ListBox.ItemTemplate>

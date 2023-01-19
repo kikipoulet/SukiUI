@@ -4,6 +4,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Threading;
 using SukiUI.Controls;
 
 namespace AndroidTest.Views;
@@ -22,14 +23,6 @@ public partial class TabViewPage : UserControl
 
     private void Button_OnClick(object? sender, RoutedEventArgs e)
     {
-        MobileMenuPage.ShowDialogS(new DialogContent());
-
-        Task.Run(() =>
-        {
-            MobileMenuPage.WaitUntilDialogClosed();
-        
-            Console.WriteLine("test");
-        });
-        
+       InteractiveContainer.ShowToast(new TextBlock(){Text = "test"}, 5);
     }
 }

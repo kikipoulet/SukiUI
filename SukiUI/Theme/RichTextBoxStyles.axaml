@@ -6,7 +6,7 @@
         <Border Background="{DynamicResource SukiBackground}" Padding="20">
             <StackPanel>
 
-                <suki:RichTextBox Prefix="Test :" Text="issou" />
+                <suki:RichTextBox Prefix="Test :" Text="test" />
 
             </StackPanel>
         </Border>

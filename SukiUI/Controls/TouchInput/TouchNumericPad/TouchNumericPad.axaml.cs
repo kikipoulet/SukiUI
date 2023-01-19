@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
 
 namespace SukiUI.Controls.TouchInput.TouchNumericPad;
 
@@ -24,6 +25,10 @@ public partial class TouchNumericPad : UserControl
         {
             rootControl = this
         };
+
+        dialog.RenderTransform = PopupScale;
+        dialog.Height = PopupHeight;
+        dialog.Width = PopupWidth;
         
         MobileMenuPage.ShowDialogS(dialog,true);
     }
@@ -44,5 +49,42 @@ public partial class TouchNumericPad : UserControl
         }
     }
     
+    
+        
+    public static readonly StyledProperty<ScaleTransform> PopupScaleProperty = AvaloniaProperty.Register<TouchNumericPad, ScaleTransform>(nameof(TouchNumericPad), defaultValue: new ScaleTransform());
+
+    public ScaleTransform PopupScale
+    {
+        get { return GetValue(PopupScaleProperty); }
+        set
+        {
+            
+            SetValue(PopupScaleProperty, value );
+        }
+    }
+    
+    public static readonly StyledProperty<int> PopupHeightProperty = AvaloniaProperty.Register<TouchNumericPad, int>(nameof(TouchNumericPad), defaultValue: 400);
+
+    public int PopupHeight
+    {
+        get { return GetValue(PopupHeightProperty); }
+        set
+        {
+            
+            SetValue(PopupHeightProperty, value );
+        }
+    }
+    
+    public static readonly StyledProperty<int> PopupWidthProperty = AvaloniaProperty.Register<TouchNumericPad, int>(nameof(TouchNumericPad), defaultValue: 300);
+
+    public int PopupWidth
+    {
+        get { return GetValue(PopupWidthProperty); }
+        set
+        {
+            
+            SetValue(PopupWidthProperty, value );
+        }
+    }
     
 }

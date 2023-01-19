@@ -5,62 +5,19 @@
     x:Class="AndroidTest.Views.TabViewPage"
     xmlns="https://github.com/avaloniaui"
     xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+    xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:touchKeyboard="clr-namespace:SukiUI.Controls.TouchInput.TouchKeyboard;assembly=SukiUI"
     xmlns:touchNumericPad="clr-namespace:SukiUI.Controls.TouchInput.TouchNumericPad;assembly=SukiUI"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <TabControl Classes="MobileTabView">
-        <TabItem Classes="MobileTabItem">
-            <TabItem.Header>
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <avalonia:MaterialIcon
-                        Height="35"
-                        Kind="HandCoinOutline"
-                        Margin="0"
-                        VerticalAlignment="Top"
-                        Width="25" />
-                    <TextBlock FontSize="12" Text="Sales" />
-                </StackPanel>
-            </TabItem.Header>
-            <Button Click="Button_OnClick">Test Wait</Button>
 
-        </TabItem>
-        <TabItem Classes="MobileTabItem">
-            <TabItem.Header>
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <avalonia:MaterialIcon
-                        Height="35"
-                        Kind="Xaml"
-                        Margin="0"
-                        VerticalAlignment="Top"
-                        Width="30" />
-                    <TextBlock FontSize="12" Text="Dashboard" />
-                </StackPanel>
-            </TabItem.Header>
+    <controls:InteractiveContainer Height="300" Width="300">
+        <controls:InteractiveContainer.PageContent>
+            <Button Click="Button_OnClick">
+                Test Wait
+            </Button>
+        </controls:InteractiveContainer.PageContent>
+    </controls:InteractiveContainer>
 
-            <touchNumericPad:TouchNumericPad Value="1000" />
-
-        </TabItem>
-
-        <TabItem Classes="MobileTabItem">
-            <TabItem.Header>
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <avalonia:MaterialIcon
-                        Height="35"
-                        Kind="SettingsOutline"
-                        Margin="0"
-                        VerticalAlignment="Top"
-                        Width="25" />
-                    <TextBlock FontSize="12" Text="Settings" />
-                </StackPanel>
-            </TabItem.Header>
-
-            <touchKeyboard:TouchKeyboard Text="Test" />
-
-        </TabItem>
-
-
-
-    </TabControl>
 </UserControl>

@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
 
 namespace SukiUI.Controls.TouchInput.TouchKeyboard;
 
@@ -24,8 +25,49 @@ public partial class TouchKeyboard : UserControl
         {
             
         };
+
+        dialog.RenderTransform = PopupScale;
+        dialog.Height = PopupHeight;
+        dialog.Width = PopupWidth;
         
         MobileMenuPage.ShowDialogS(dialog,true);
+    }
+    
+    
+    public static readonly StyledProperty<ScaleTransform> PopupScaleProperty = AvaloniaProperty.Register<TouchKeyboard, ScaleTransform>(nameof(TouchKeyboard), defaultValue: new ScaleTransform());
+
+    public ScaleTransform PopupScale
+    {
+        get { return GetValue(PopupScaleProperty); }
+        set
+        {
+            
+            SetValue(PopupScaleProperty, value );
+        }
+    }
+    
+    public static readonly StyledProperty<int> PopupHeightProperty = AvaloniaProperty.Register<TouchKeyboard, int>(nameof(TouchKeyboard), defaultValue: 400);
+
+    public int PopupHeight
+    {
+        get { return GetValue(PopupHeightProperty); }
+        set
+        {
+            
+            SetValue(PopupHeightProperty, value );
+        }
+    }
+    
+    public static readonly StyledProperty<int> PopupWidthProperty = AvaloniaProperty.Register<TouchKeyboard, int>(nameof(TouchKeyboard), defaultValue: 900);
+
+    public int PopupWidth
+    {
+        get { return GetValue(PopupWidthProperty); }
+        set
+        {
+            
+            SetValue(PopupWidthProperty, value );
+        }
     }
 
     private string _text;

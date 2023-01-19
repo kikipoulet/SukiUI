@@ -1,6 +1,4 @@
 ﻿<UserControl
-    Height="300"
-    Width="650"
     mc:Ignorable="d"
     x:Class="SukiUI.Controls.TouchInput.TouchKeyboard.TouchKeyboardPopUp"
     xmlns="https://github.com/avaloniaui"

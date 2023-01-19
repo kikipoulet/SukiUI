@@ -5,6 +5,8 @@ using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
+using SukiUI.Controls.TouchInput.TouchNumericPad;
 
 namespace SukiUI.Controls.MobilePicker;
 
@@ -55,9 +57,51 @@ public partial class MobilePicker : UserControl
         vm.Items = Items;
         vm.SelectedItem = SelectedItem;
         vm.mobilePicker = this;
+
+        control.Height = PopupHeight;
+        control.Width = PopupWidth;
+        control.FindControl<Border>("rootBorder").RenderTransform = PopupScale;
         
         MobileMenuPage.ShowDialogS(control , true);
  
        
     }
+    
+            
+    public static readonly StyledProperty<ScaleTransform> PopupScaleProperty = AvaloniaProperty.Register<MobilePicker, ScaleTransform>(nameof(MobilePicker), defaultValue: new ScaleTransform());
+
+    public ScaleTransform PopupScale
+    {
+        get { return GetValue(PopupScaleProperty); }
+        set
+        {
+            
+            SetValue(PopupScaleProperty, value );
+        }
+    }
+    
+    public static readonly StyledProperty<int> PopupHeightProperty = AvaloniaProperty.Register<MobilePicker, int>(nameof(MobilePicker), defaultValue: 200);
+
+    public int PopupHeight
+    {
+        get { return GetValue(PopupHeightProperty); }
+        set
+        {
+            
+            SetValue(PopupHeightProperty, value );
+        }
+    }
+    
+    public static readonly StyledProperty<int> PopupWidthProperty = AvaloniaProperty.Register<MobilePicker, int>(nameof(MobilePicker), defaultValue: 300);
+
+    public int PopupWidth
+    {
+        get { return GetValue(PopupWidthProperty); }
+        set
+        {
+            
+            SetValue(PopupWidthProperty, value );
+        }
+    }
+
 }
