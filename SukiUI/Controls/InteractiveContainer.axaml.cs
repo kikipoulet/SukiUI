@@ -140,7 +140,12 @@ public partial class InteractiveContainer : UserControl
 
     public static void WaitUntilDialogIsClosed()
     {
-        var container = GetInteractiveContainerInstance();
+        InteractiveContainer container = null;
+
+        Dispatcher.UIThread.InvokeAsync(() =>
+        {
+            container = GetInteractiveContainerInstance();
+        });
         bool flag = true;
 
         do

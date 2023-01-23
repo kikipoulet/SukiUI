@@ -15,7 +15,7 @@ public partial class NumericPadPopUp : UserControl
         _textBlock = this.FindControl<TextBlock>("TextNombre");
     }
 
-    public TouchNumericPad rootControl;
+    public TouchNumericPad rootControl = null;
     
     private void InitializeComponent()
     {
@@ -24,7 +24,7 @@ public partial class NumericPadPopUp : UserControl
 
     private TextBlock _textBlock;
 
-    private string CurrentText = "";
+    public string CurrentText = "";
 
     private void AddNumber(object sender, RoutedEventArgs e)
     {
@@ -43,7 +43,9 @@ public partial class NumericPadPopUp : UserControl
 
     private void Close(object sender, RoutedEventArgs e)
     {
-        rootControl.Value = Double.Parse(CurrentText, CultureInfo.InvariantCulture);
+        if(rootControl != null)
+            rootControl.Value = Double.Parse(CurrentText, CultureInfo.InvariantCulture);
+        
         InteractiveContainer.CloseDialog();
     }
 }
