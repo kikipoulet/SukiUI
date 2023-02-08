@@ -14,10 +14,7 @@ Suki is the name of my dog :-)
 <br/>
 
 Documentation is on the [Wiki](https://github.com/kikipoulet/SukiUI/wiki) of this repository
-<br/><br/>
-Recently done :
-- [Input Controls for embedded touch devices without keyboard](https://github.com/kikipoulet/SukiUI/wiki/5.-Input-Controls-for-Touch-Devices)
-- **Dark Theme**      🎉🎉🎉 
+
 
 
 
