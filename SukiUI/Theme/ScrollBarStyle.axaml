@@ -51,7 +51,7 @@
                                         <Grid>
                                             <Border
                                                 Background="{DynamicResource SukiControlBorderBrush}"
-                                                CornerRadius="10"
+                                                CornerRadius="{DynamicResource MediumCornerRadius}"
                                                 Margin="0,3" />
                                         </Grid>
                                     </ControlTemplate>

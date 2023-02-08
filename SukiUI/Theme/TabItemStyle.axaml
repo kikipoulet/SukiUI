@@ -52,7 +52,7 @@
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                         <Border
                             Background="{DynamicResource SukiPrimaryColor}"
-                            CornerRadius="10"
+                            CornerRadius="{DynamicResource MediumCornerRadius}"
                             Height="3"
                             Name="PART_SelectedPipe">
                             <Border.Transitions>
@@ -119,7 +119,7 @@
     <!--  We don't use selector to PART_LayoutRootn, so developer can override selected item background with TabStripItem.Background  -->
     <Style Selector="TabItem:selected">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
         <Setter Property="TextBlock.Foreground" Value="{DynamicResource TabItemHeaderForegroundSelected}" />
         <Setter Property="TextBlock.FontWeight" Value="DemiBold" />
 

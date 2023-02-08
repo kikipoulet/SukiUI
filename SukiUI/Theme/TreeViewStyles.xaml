@@ -15,11 +15,11 @@
         </Border>
     </Design.PreviewWith>
     <Style Selector="TreeViewItem">
-        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
         <Setter Property="Margin" Value="1" />
     </Style>
     <Style Selector="TreeView">
-        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="BorderBrush" Value="#dedede" />
         <Setter Property="Margin" Value="0" />

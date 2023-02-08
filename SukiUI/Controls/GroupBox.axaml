@@ -15,7 +15,7 @@
                     <Border
                         BorderBrush="{DynamicResource SukiBorderBrush}"
                         BorderThickness="1.4"
-                        CornerRadius="7">
+                        CornerRadius="{DynamicResource SmallCornerRadius}">
                         <StackPanel>
                             <Border
                                 Background="{DynamicResource SukiLightBorderBrush}"

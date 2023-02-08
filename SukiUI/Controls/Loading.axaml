@@ -42,25 +42,32 @@
 
 
                         <Canvas>
-                            <Ellipse
-                                Fill="{DynamicResource SukiPrimaryColor}"
+                            <Border
+                                Background="{DynamicResource SukiPrimaryColor}"
+                                CornerRadius="{DynamicResource MediumCornerRadius}"
                                 Height="12"
                                 Margin="20,0"
                                 Width="12" />
-                            <Ellipse
-                                Fill="{DynamicResource SukiPrimaryColor}"
+                            <Border
+                                Background="{DynamicResource SukiPrimaryColor}"
+                                CornerRadius="{DynamicResource MediumCornerRadius}"
                                 Height="12"
                                 Margin="0,20"
+                                Opacity="0.96"
                                 Width="12" />
-                            <Ellipse
-                                Fill="{DynamicResource SukiPrimaryColor}"
+                            <Border
+                                Background="{DynamicResource SukiPrimaryColor}"
+                                CornerRadius="{DynamicResource MediumCornerRadius}"
                                 Height="12"
                                 Margin="40,20,0,0"
+                                Opacity="0.92"
                                 Width="12" />
-                            <Ellipse
-                                Fill="{DynamicResource SukiPrimaryColor}"
+                            <Border
+                                Background="{DynamicResource SukiPrimaryColor}"
+                                CornerRadius="{DynamicResource MediumCornerRadius}"
                                 Height="12"
                                 Margin="20,40,0,0"
+                                Opacity="0.88"
                                 Width="12" />
 
                         </Canvas>

@@ -6,9 +6,12 @@
 
 
         <StyleInclude Source="avares://SukiUI/Theme/Index.xaml" />
-
-
         <StyleInclude Source="avares://Material.Icons.Avalonia/App.xaml" />
 
     </Application.Styles>
+
+    <Application.Resources>
+        <Color x:Key="SukiPrimaryColor">ForestGreen</Color>
+        <Color x:Key="SukiPrimaryColorGradient">Green</Color>
+    </Application.Resources>
 </Application>

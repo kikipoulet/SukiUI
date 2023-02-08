@@ -24,7 +24,7 @@
     <Style Selector="ComboBox">
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
-        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -115,7 +115,7 @@
                                         BorderBrush="{DynamicResource SukiControlBorderBrush}"
                                         BorderThickness="1,1,1,1"
                                         BoxShadow="1 1 5 0 LightGray"
-                                        CornerRadius="5"
+                                        CornerRadius="{DynamicResource SmallCornerRadius}"
                                         Margin="10,-10,0,0">
                                         <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
                                             <ItemsPresenter

@@ -45,7 +45,7 @@
                         <ContentPresenter
                             Content="{TemplateBinding Content}"
                             ContentTemplate="{TemplateBinding ContentTemplate}"
-                            CornerRadius="5"
+                            CornerRadius="{DynamicResource SmallCornerRadius}"
                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                             Margin="1"
                             Name="PART_ContentPresenter"

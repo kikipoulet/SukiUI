@@ -37,9 +37,13 @@
     <StyleInclude Source="avares://Material.Icons.Avalonia/App.xaml" />
     <Styles.Resources>
         <ResourceDictionary>
+            <CornerRadius x:Key="SmallCornerRadius">6</CornerRadius>
+            <CornerRadius x:Key="MediumCornerRadius">13</CornerRadius>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="avares://SukiUI/Theme/SplitView.axaml" />
                 <ResourceInclude Source="avares://SukiUI/Theme/DatePicker.axaml" />
+
+
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Styles.Resources>

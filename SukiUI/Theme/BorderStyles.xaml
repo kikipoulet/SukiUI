@@ -1,7 +1,7 @@
 <Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style Selector="Border.Card">
         <Setter Property="Padding" Value="20" />
-        <Setter Property="CornerRadius" Value="13" />
+        <Setter Property="CornerRadius" Value="{DynamicResource MediumCornerRadius}" />
         <Setter Property="BorderThickness" Value="1.5" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiLightBorderBrush}" />
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
@@ -10,7 +10,7 @@
 
     <Style Selector="Border.ElevatedCard">
         <Setter Property="Padding" Value="20" />
-        <Setter Property="CornerRadius" Value="13" />
+        <Setter Property="CornerRadius" Value="{DynamicResource MediumCornerRadius}" />
         <Setter Property="BorderThickness" Value="1.5" />
         <Setter Property="BorderBrush" Value="#f4f4f4" />
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />

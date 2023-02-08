@@ -337,7 +337,7 @@
                     Background="Transparent"
                     BorderBrush="{DynamicResource SukiStrongBackground}"
                     BorderThickness="1.5"
-                    CornerRadius="5">
+                    CornerRadius="{DynamicResource SmallCornerRadius}">
                     <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,*,Auto,Auto">
 
                         <DataGridColumnHeader Name="PART_TopLeftCornerHeader" Width="22" />

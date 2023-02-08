@@ -65,7 +65,7 @@
                         <Border
                             Background="{DynamicResource SukiControlBorderBrush}"
                             BorderThickness="0"
-                            CornerRadius="10"
+                            CornerRadius="{DynamicResource MediumCornerRadius}"
                             Grid.Row="1"
                             Height="20"
                             Width="40"
@@ -80,7 +80,7 @@
                         <Border
                             Background="{DynamicResource SukiControlBorderBrush}"
                             BorderThickness="0"
-                            CornerRadius="10"
+                            CornerRadius="{DynamicResource MediumCornerRadius}"
                             Grid.Row="1"
                             Height="20"
                             Width="40"
@@ -110,7 +110,7 @@
                                 BoxShadow="0 0 0 0 DarkGray"
                                 Canvas.Left="2"
                                 Canvas.Top="2"
-                                CornerRadius="10"
+                                CornerRadius="{DynamicResource MediumCornerRadius}"
                                 Height="16"
                                 Margin="0,0,0,0"
                                 Width="16"
@@ -152,7 +152,7 @@
 
 
     <Style Selector="ToggleButton /template/ ContentPresenter">
-        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
     </Style>
     <Style Selector="ToggleButton:pointerover">
         <Setter Property="Background" Value="{DynamicResource SukiLightBackground}" />
@@ -172,7 +172,7 @@
         <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrush}" />
     </Style>
     <Style Selector="ToggleButton.Primary /template/ ContentPresenter">
-        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
     </Style>
     <Style Selector="ToggleButton.Primary:pointerover">
         <Setter Property="Background" Value="{DynamicResource ThemeBorderHighBrush}" />
