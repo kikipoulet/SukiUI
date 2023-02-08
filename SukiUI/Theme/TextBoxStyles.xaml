@@ -205,6 +205,10 @@
         </Setter>
     </Style>
 
+    <Style Selector="TextBox.NoShadow /template/ Border">
+        <Setter Property="BoxShadow" Value="0 0 0 0 Gray" />
+    </Style>
+
     <Style Selector="TextBox.Suffix">
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="BorderThickness" Value="1.2" />

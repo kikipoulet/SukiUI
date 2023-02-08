@@ -2,8 +2,8 @@
     Background="{DynamicResource SukiBackground}"
     Classes="NakedWindow"
     ExtendClientAreaToDecorationsHint="True"
-    Height="200"
-    MaxHeight="200"
+    Height="150"
+    MaxHeight="150"
     MaxWidth="500"
     Width="500"
     d:DesignHeight="200"
@@ -54,6 +54,7 @@
 
             </Style>
         </Grid.Styles>
+        <Grid Background="{DynamicResource SukiBackground}" IsHitTestVisible="False" />
         <Button
             Background="Transparent"
             BorderThickness="0"
@@ -94,7 +95,7 @@
             Name="Title" />
         <ScrollViewer
             HorizontalAlignment="Left"
-            Margin="102,25,14,20"
+            Margin="102,45,14,10"
             VerticalAlignment="Center">
             <TextBlock
                 FontWeight="Light"

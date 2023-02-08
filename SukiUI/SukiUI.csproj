@@ -38,16 +38,16 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="11.0.0-preview1" />
+        <PackageReference Include="Avalonia" Version="11.0.0-preview5" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.0-preview1" />
-        <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.0-preview1" />
+        <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.0-preview5" />
+        <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.0-preview5" />
         <PackageReference Include="DialogHost.Avalonia" Version="0.6.0" />
-        <PackageReference Include="Material.Icons.Avalonia" Version="1.2.0" />
+        <PackageReference Include="Material.Icons.Avalonia" Version="2.0.0-preview2" />
         <PackageReference Include="Nerdbank.GitVersioning" Version="3.6.65-alpha" PrivateAssets="all" />
-        <PackageReference Include="ReactiveUI" Version="18.3.1" />
+        <PackageReference Include="ReactiveUI" Version="18.4.20" />
     </ItemGroup>
 
  

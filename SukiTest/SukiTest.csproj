@@ -8,11 +8,11 @@
         <None Remove=".gitignore" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="11.0.0-preview4" />
-        <PackageReference Include="Avalonia.Desktop" Version="11.0.0-preview4" />
-        <PackageReference Include="Avalonia.Diagnostics" Version="11.0.0-preview4" />
-        <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.0-preview4" />
-        <PackageReference Include="Material.Icons.Avalonia" Version="1.2.0" />
+        <PackageReference Include="Avalonia" Version="11.0.0-preview5" />
+        <PackageReference Include="Avalonia.Desktop" Version="11.0.0-preview5" />
+        <PackageReference Include="Avalonia.Diagnostics" Version="11.0.0-preview5" />
+        <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.0-preview5" />
+        <PackageReference Include="Material.Icons.Avalonia" Version="2.0.0-preview2" />
    
     </ItemGroup>
     <ItemGroup>

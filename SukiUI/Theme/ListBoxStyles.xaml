@@ -32,12 +32,9 @@
                         Name="PART_ScrollViewer"
                         VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
                         <ItemsPresenter
-                            ItemTemplate="{TemplateBinding ItemTemplate}"
-                            Items="{TemplateBinding Items}"
                             ItemsPanel="{TemplateBinding ItemsPanel}"
                             Margin="{TemplateBinding Padding}"
-                            Name="PART_ItemsPresenter"
-                            VirtualizationMode="{TemplateBinding VirtualizationMode}" />
+                            Name="PART_ItemsPresenter" />
                     </ScrollViewer>
                 </Border>
             </ControlTemplate>

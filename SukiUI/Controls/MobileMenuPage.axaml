@@ -140,7 +140,7 @@
         </SplitView.Pane>
 
 
-        <suki:InteractiveContainer>
+
             <!--  PopupPositioner="{Binding DialogPosition}"  -->
             <Grid Background="{DynamicResource SukiBackground}">
 
@@ -170,7 +170,7 @@
 
                 <Grid Background="#cccccccc" IsVisible="{Binding MenuVisibility}" />
             </Grid>
-        </suki:InteractiveContainer>
+
 
 
     </SplitView>

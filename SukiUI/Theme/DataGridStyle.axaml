@@ -316,7 +316,7 @@
     <Style Selector="DataGrid">
 
         <Setter Property="RowBackground" Value="Transparent" />
-        <Setter Property="AlternatingRowBackground" Value="{DynamicResource SukiLightBackground}" />
+
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
         <Setter Property="HeadersVisibility" Value="Column" />
         <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />

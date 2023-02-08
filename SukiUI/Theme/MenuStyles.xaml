@@ -10,8 +10,6 @@
                     Height="45"
                     Padding="{TemplateBinding Padding}">
                     <ItemsPresenter
-                        ItemTemplate="{TemplateBinding ItemTemplate}"
-                        Items="{TemplateBinding Items}"
                         ItemsPanel="{TemplateBinding ItemsPanel}"
                         KeyboardNavigation.TabNavigation="Continue"
                         Name="PART_ItemsPresenter" />

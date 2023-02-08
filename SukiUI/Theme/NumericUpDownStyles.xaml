@@ -6,12 +6,50 @@
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Padding" Value="4" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ButtonSpinner
+                    AllowSpin="{TemplateBinding AllowSpin}"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    ButtonSpinnerLocation="{TemplateBinding ButtonSpinnerLocation}"
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    HorizontalContentAlignment="Stretch"
+                    Margin="5,1"
+                    Name="PART_Spinner"
+                    ShowButtonSpinner="{TemplateBinding ShowButtonSpinner}"
+                    VerticalContentAlignment="Stretch">
+                    <TextBox
+                        AcceptsReturn="False"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Classes="NoShadow"
+                        DataValidationErrors.Errors="{TemplateBinding (DataValidationErrors.Errors)}"
+                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        IsReadOnly="{TemplateBinding IsReadOnly}"
+                        Margin="0"
+                        MinWidth="20"
+                        Name="PART_TextBox"
+                        Padding="{TemplateBinding Padding}"
+                        Text="{TemplateBinding Text}"
+                        TextWrapping="NoWrap"
+                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                        Watermark="{TemplateBinding Watermark}" />
+                </ButtonSpinner>
+            </ControlTemplate>
+        </Setter>
     </Style>
     <Style Selector="NumericUpDown /template/ ButtonSpinner /template/ Border">
         <Setter Property="CornerRadius" Value="5" />
     </Style>
+    <Style Selector="NumericUpDown /template/ Border">
+        <Setter Property="BorderThickness" Value="0" />
+
+    </Style>
     <Style Selector="NumericUpDown:pointerover /template/ TextBox">
         <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
     </Style>
     <Style Selector="NumericUpDown:pressed /template/ TextBox">

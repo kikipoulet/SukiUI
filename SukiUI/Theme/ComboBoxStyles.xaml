@@ -119,12 +119,9 @@
                                         Margin="10,-10,0,0">
                                         <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
                                             <ItemsPresenter
-                                                ItemTemplate="{TemplateBinding ItemTemplate}"
-                                                Items="{TemplateBinding Items}"
                                                 ItemsPanel="{TemplateBinding ItemsPanel}"
                                                 Margin="0,3,0,0"
-                                                Name="PART_ItemsPresenter"
-                                                VirtualizationMode="{TemplateBinding VirtualizationMode}" />
+                                                Name="PART_ItemsPresenter" />
                                         </ScrollViewer>
                                     </Border>
                                 </Border>

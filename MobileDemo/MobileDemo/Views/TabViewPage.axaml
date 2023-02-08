@@ -10,14 +10,4 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:touchKeyboard="clr-namespace:SukiUI.Controls.TouchInput.TouchKeyboard;assembly=SukiUI"
     xmlns:touchNumericPad="clr-namespace:SukiUI.Controls.TouchInput.TouchNumericPad;assembly=SukiUI"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-
-    <controls:InteractiveContainer>
-
-        <Button Click="Button_OnClick">
-            Test Wait
-        </Button>
-
-    </controls:InteractiveContainer>
-
-</UserControl>
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" />

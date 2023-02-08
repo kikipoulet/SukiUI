@@ -42,12 +42,6 @@
             Maximum="100"
             Minimum="0"
             Name="barPercent"
-            Value="50">
-            <ProgressBar.Transitions>
-                <Transitions>
-                    <BrushTransition Duration="0:0:0.4" Property="Foreground" />
-                </Transitions>
-            </ProgressBar.Transitions>
-        </ProgressBar>
+            Value="50" />
     </DockPanel>
 </UserControl>

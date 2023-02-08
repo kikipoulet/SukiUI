@@ -51,7 +51,7 @@ namespace SukiTest
             new Person(){Name = "jean", Age = 17, Adult = false}, new Person(){Name = "Anne", Age = 25, Woman = true, Man = false},
             new Person(){Name = "jean", Age = 17, Adult = false}, new Person(){Name = "Anne", Age = 25, Woman = true, Man = false}};
 
-        WindowNotificationManager notificationManager;
+        private WindowNotificationManager notificationManager;
    
 
         public MainWindow()
@@ -73,7 +73,7 @@ namespace SukiTest
             }
             catch { }
 
-            notificationManager = new WindowNotificationManager(this); 
+           
 
 #if DEBUG
             this.AttachDevTools();
@@ -109,6 +109,9 @@ namespace SukiTest
 
         private void ShowNotification(object sender, RoutedEventArgs e)
         {
+            if(notificationManager == null)
+                notificationManager = new WindowNotificationManager(this);
+            
             try
             {
                 var notif = new Avalonia.Controls.Notifications.Notification("title", "message");

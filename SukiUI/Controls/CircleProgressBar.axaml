@@ -33,10 +33,10 @@
                             <Arc.Stroke>
 
 
-                                <LinearGradientBrush EndPoint="100%,100%" StartPoint="0%,0%">
+                                <RadialGradientBrush>
                                     <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.1" />
                                     <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.6" />
-                                </LinearGradientBrush>
+                                </RadialGradientBrush>
 
                             </Arc.Stroke>
                             <Arc.Transitions>

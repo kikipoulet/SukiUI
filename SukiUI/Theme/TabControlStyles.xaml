@@ -58,8 +58,6 @@
                     <DockPanel>
                         <ItemsPresenter
                             DockPanel.Dock="{TemplateBinding TabStripPlacement}"
-                            ItemTemplate="{TemplateBinding ItemTemplate}"
-                            Items="{TemplateBinding Items}"
                             ItemsPanel="{TemplateBinding ItemsPanel}"
                             Margin="0,0,0,-2"
                             Name="PART_ItemsPresenter" />
@@ -95,8 +93,6 @@
                     <DockPanel>
                         <ItemsPresenter
                             DockPanel.Dock="{TemplateBinding TabStripPlacement}"
-                            ItemTemplate="{TemplateBinding ItemTemplate}"
-                            Items="{TemplateBinding Items}"
                             ItemsPanel="{TemplateBinding ItemsPanel}"
                             Name="PART_ItemsPresenter" />
                         <ContentPresenter
@@ -137,11 +133,7 @@
                     HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                     VerticalAlignment="{TemplateBinding VerticalAlignment}">
                     <DockPanel>
-                        <ItemsPresenter
-                            DockPanel.Dock="{TemplateBinding TabStripPlacement}"
-                            ItemTemplate="{TemplateBinding ItemTemplate}"
-                            Items="{TemplateBinding Items}"
-                            Name="PART_ItemsPresenter">
+                        <ItemsPresenter DockPanel.Dock="{TemplateBinding TabStripPlacement}" Name="PART_ItemsPresenter">
                             <ItemsPresenter.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <UniformGrid Columns="{Binding Items}" Rows="1" />

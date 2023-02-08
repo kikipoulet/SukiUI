@@ -315,12 +315,8 @@
                     <mobilePicker:MobilePicker
                         DockPanel.Dock="Right"
                         Margin="-5,0,-5,-11"
-                        PopupHeight="400"
-                        PopupWidth="600"
                         SelectedItem="France">
-                        <mobilePicker:MobilePicker.PopupScale>
-                            <ScaleTransform ScaleX="2" ScaleY="2" />
-                        </mobilePicker:MobilePicker.PopupScale>
+
                         <mobilePicker:MobilePicker.Items>
                             <system:String>Germany</system:String>
                             <system:String>USA</system:String>

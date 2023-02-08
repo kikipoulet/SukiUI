@@ -33,11 +33,13 @@ public partial class TouchKeyboardPopUp : UserControl
 
     private void Close(object sender, RoutedEventArgs e)
     {
-        rootControl.Text = CurrentText;
+        if(rootControl != null)
+            rootControl.Text = CurrentText;
+
         InteractiveContainer.CloseDialog();
     }
     
-    private string CurrentText = "";
+    public string CurrentText = "";
     private TextBlock _textBlock;
     
     private void AddChar(object sender, RoutedEventArgs e)
