@@ -24,7 +24,7 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{DynamicResource SukiStrongBackground}"
                         BorderThickness="1"
-                        CornerRadius="18"
+                        CornerRadius="{DynamicResource MediumCornerRadius}"
                         Height="18"
                         Name="border"
                         VerticalAlignment="Center"

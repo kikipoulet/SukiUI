@@ -30,7 +30,7 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Border
-                    CornerRadius="6"
+                    CornerRadius="{DynamicResource SmallCornerRadius}"
                     Margin="0,0,10,0"
                     Name="BorderBasicStyle"
                     Padding="8,4">

@@ -194,27 +194,7 @@
                                                 </StackPanel>
                                             </Border>
 
-                                            <Border Classes="Card" Width="600">
 
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">Stepper</TextBlock>
-
-                                                    <suki:Stepper Name="stepstep" />
-
-                                                    <StackPanel
-                                                        HorizontalAlignment="Center"
-                                                        Margin="0,50,0,0"
-                                                        Orientation="Horizontal"
-                                                        VerticalAlignment="Center">
-                                                        <Button Click="Button_OnClick">
-                                                            <TextBlock>Previous</TextBlock>
-                                                        </Button>
-                                                        <Button Click="nextStep">
-                                                            <TextBlock>Next</TextBlock>
-                                                        </Button>
-                                                    </StackPanel>
-                                                </StackPanel>
-                                            </Border>
 
                                             <Border Classes="Card" Width="300">
                                                 <StackPanel>
@@ -230,30 +210,7 @@
                                             </Border>
 
 
-                                            <Border Classes="Card" Width="300">
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">CircleProgressBar</TextBlock>
-                                                    <Border Padding="20" Width="200">
-                                                        <suki:CircleProgressBar
-                                                            Height="130"
-                                                            Name="myProgressBar"
-                                                            StrokeWidth="11"
-                                                            Value="20"
-                                                            Width="130">
-                                                            <TextBlock
-                                                                Classes="h3"
-                                                                Margin="0,5,0,0"
-                                                                Name="TextPercent"
-                                                                Text="20"
-                                                                VerticalAlignment="Center" />
-                                                        </suki:CircleProgressBar>
 
-                                                    </Border>
-                                                    <Button Click="Button_OnClickProgress">
-                                                        <TextBlock>Plus</TextBlock>
-                                                    </Button>
-                                                </StackPanel>
-                                            </Border>
 
                                             <Border Classes="Card" Width="600">
                                                 <StackPanel>
@@ -368,7 +325,27 @@
                                                 </StackPanel>
                                             </Border>
 
+                                            <Border Classes="Card" Width="600">
 
+                                                <StackPanel>
+                                                    <TextBlock Classes="h3" Margin="5,0,0,15">Stepper</TextBlock>
+
+                                                    <suki:Stepper Name="stepstep" />
+
+                                                    <StackPanel
+                                                        HorizontalAlignment="Center"
+                                                        Margin="0,50,0,0"
+                                                        Orientation="Horizontal"
+                                                        VerticalAlignment="Center">
+                                                        <Button Click="Button_OnClick">
+                                                            <TextBlock>Previous</TextBlock>
+                                                        </Button>
+                                                        <Button Click="nextStep">
+                                                            <TextBlock>Next</TextBlock>
+                                                        </Button>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </Border>
 
                                             <Border Classes="Card" Width="600">
                                                 <StackPanel>
@@ -412,6 +389,31 @@
 
                                                         </StackPanel>
                                                     </Border>
+                                                </StackPanel>
+                                            </Border>
+
+                                            <Border Classes="Card" Width="300">
+                                                <StackPanel>
+                                                    <TextBlock Classes="h3" Margin="5,0,0,15">CircleProgressBar</TextBlock>
+                                                    <Border Padding="20" Width="200">
+                                                        <suki:CircleProgressBar
+                                                            Height="130"
+                                                            Name="myProgressBar"
+                                                            StrokeWidth="11"
+                                                            Value="20"
+                                                            Width="130">
+                                                            <TextBlock
+                                                                Classes="h3"
+                                                                Margin="0,5,0,0"
+                                                                Name="TextPercent"
+                                                                Text="20"
+                                                                VerticalAlignment="Center" />
+                                                        </suki:CircleProgressBar>
+
+                                                    </Border>
+                                                    <Button Click="Button_OnClickProgress">
+                                                        <TextBlock>Plus</TextBlock>
+                                                    </Button>
                                                 </StackPanel>
                                             </Border>
 

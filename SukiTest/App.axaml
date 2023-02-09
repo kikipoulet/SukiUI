@@ -11,7 +11,7 @@
     </Application.Styles>
 
     <Application.Resources>
-        <Color x:Key="SukiPrimaryColor">ForestGreen</Color>
-        <Color x:Key="SukiPrimaryColorGradient">Green</Color>
+        <CornerRadius x:Key="SmallCornerRadius">0</CornerRadius>
+        <CornerRadius x:Key="MediumCornerRadius">0</CornerRadius>
     </Application.Resources>
 </Application>
