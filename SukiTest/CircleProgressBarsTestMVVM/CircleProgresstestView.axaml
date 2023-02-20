@@ -1,0 +1,24 @@
+﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="SukiTest.CircleProgressBarsTestMVVM.CircleProgresstestView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:circleProgressBarsTestMvvm="clr-namespace:SukiTest.CircleProgressBarsTestMVVM"
+    xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.DataContext>
+        <circleProgressBarsTestMvvm:CircleProgressTestVM />
+    </UserControl.DataContext>
+    <StackPanel>
+        <controls:CircleProgressBar Margin="20" Value="{Binding Value}">
+            <TextBlock Classes="h3" Text="{Binding Value}" />
+        </controls:CircleProgressBar>
+
+        <Button Classes="Accent" Command="{Binding Add10}">
+            <TextBlock Text="Add 10" />
+        </Button>
+    </StackPanel>
+</UserControl>

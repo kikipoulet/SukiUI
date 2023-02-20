@@ -6,6 +6,7 @@
     mc:Ignorable="d"
     x:Class="SukiTest.MainWindow"
     xmlns="https://github.com/avaloniaui"
+    xmlns:circleProgressBarsTestMvvm="clr-namespace:SukiTest.CircleProgressBarsTestMVVM"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:material="using:Material.Icons.Avalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -551,10 +552,7 @@
                             </suki:SideMenuItem>
                             <suki:SideMenuItem Header="Statistics" Icon="ChartLine">
                                 <suki:SideMenuItem.Content>
-                                    <TextBlock
-                                        HorizontalAlignment="Center"
-                                        Text="Stats Page"
-                                        VerticalAlignment="Center" />
+                                    <circleProgressBarsTestMvvm:CircleProgresstestView />
                                 </suki:SideMenuItem.Content>
                             </suki:SideMenuItem>
                             <suki:SideMenuItem Header="Library" Icon="BookmarkMultipleOutline">

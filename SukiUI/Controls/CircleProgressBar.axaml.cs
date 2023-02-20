@@ -1,5 +1,7 @@
+using System;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Data;
 using Avalonia.Markup.Xaml;
 
 namespace SukiUI.Controls
@@ -15,15 +17,29 @@ namespace SukiUI.Controls
         {
             AvaloniaXamlLoader.Load(this);
         }
-
-        public static readonly StyledProperty<int> ValueProperty =
-        AvaloniaProperty.Register<CircleProgressBar, int>(nameof(Value), defaultValue: 50);
-
+        
+        private int _value = 50;
         public int Value
         {
-            get { return GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, (int)(value*3.6)); }
+            get => _value;
+            set
+            {
+                SetAndRaise(ValueProperty, ref _value, (int)(value * 3.6));
+            }
         }
+
+        /// <summary>
+        /// Defines the <see cref="Value"/> property.
+        /// </summary>
+        public static readonly DirectProperty<CircleProgressBar, int> ValueProperty =
+            AvaloniaProperty.RegisterDirect<CircleProgressBar, int>(
+                nameof(Value),
+                o => o.Value,
+                (o, v) => o.Value = v,
+                defaultBindingMode: BindingMode.OneWay,
+                enableDataValidation: true);
+
+ 
 
         public static readonly StyledProperty<int> HeightProperty =
         AvaloniaProperty.Register<CircleProgressBar, int>(nameof(Height), defaultValue: 150);
