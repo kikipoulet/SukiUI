@@ -18,13 +18,23 @@ Documentation is on the [Wiki](https://github.com/kikipoulet/SukiUI/wiki) of thi
 
 
 
-## 🖥️ Desktop Overview
+## 🖥️📱 Controls Overview
 
 
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/overall.gif"></img>
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/DesktopDarkMode.gif"></img>
+<kbd>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/MobileOverview.gif" style="float:left" ></img>
+</kbd>
 
-## 📱 Mobile Overview
+## 👐 Features
+
+### Desktop Controls
+
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/overall.gif"></img>
+
+[Desktop Controls Documentation](https://github.com/kikipoulet/SukiUI/wiki/3.-Controls)
+
+### Mobile Controls
 
 <kbd>
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/MobileOverview.gif" style="float:left" ></img>
@@ -32,9 +42,32 @@ Documentation is on the [Wiki](https://github.com/kikipoulet/SukiUI/wiki) of thi
 <kbd>
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/dashboard.gif" ></img> 
 </kbd>
+
+
+[Mobile Controls Documentation](https://github.com/kikipoulet/SukiUI/wiki/4.-Mobile-Controls)
+
+### Personalization 
+
+[Personalization Documentation](https://github.com/kikipoulet/SukiUI/wiki/2.-Personalization)
+
+- Dark Theme
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/DarkTheme.gif"></img>
 <kbd>
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/MobileDarkMode.gif" ></img> 
 </kbd>
+
+- Custom Primary Colors
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/PCGreen.png"></img>
+
+- CornerRadius Global Customization
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/cubic.png"></img>
+
+### Interactivity 
+
+InteractiveContainer control permits you to easily use Dialog and Toast to add Interactivity in your App.
+
+<img  src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/MobileDialog.gif"></img>
+<img  src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Toast.gif"></img>
 
 
 ## 📦 Usage
