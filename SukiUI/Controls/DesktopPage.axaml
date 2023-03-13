@@ -64,7 +64,7 @@
                                     <Button
                                         Background="Transparent"
                                         BorderThickness="0"
-                                        Classes="ZoomOnHover"
+                                        Classes="Accent"
                                         Click="MinimizeHandler"
                                         Height="23"
                                         IsVisible="{TemplateBinding IsMinimizeButtonEnabled}"
@@ -82,7 +82,7 @@
                                     <Button
                                         Background="Transparent"
                                         BorderThickness="0"
-                                        Classes="ZoomOnHover"
+                                        Classes="Accent"
                                         Click="MaximizeHandler"
                                         Height="23"
                                         IsVisible="{TemplateBinding IsMaximizeButtonEnabled}"
@@ -104,9 +104,9 @@
                                         Click="CloseHandler"
                                         Height="23"
                                         IsHitTestVisible="True"
-                                        Margin="0,9,9,9"
+                                        Margin="0,9,15,9"
                                         Padding="0"
-                                        Width="23">
+                                        Width="25">
                                         <material:MaterialIcon
                                             Foreground="DarkRed"
                                             Height="23"

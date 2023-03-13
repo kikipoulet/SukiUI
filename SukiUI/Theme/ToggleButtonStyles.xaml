@@ -72,7 +72,7 @@
                             x:Name="OuterBorder">
                             <Border.Transitions>
                                 <Transitions>
-                                    <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
+                                    <DoubleTransition Duration="0:0:0.30" Property="Opacity" />
                                 </Transitions>
                             </Border.Transitions>
                         </Border>
@@ -88,8 +88,8 @@
 
                             <Border.Transitions>
                                 <Transitions>
-                                    <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
-                                    <BrushTransition Duration="0:0:0.20" Property="Background" />
+                                    <DoubleTransition Duration="0:0:0.30" Property="Opacity" />
+                                    <BrushTransition Duration="0:0:0.30" Property="Background" />
                                 </Transitions>
                             </Border.Transitions>
                         </Border>
@@ -107,7 +107,7 @@
 
                             <Border
                                 Background="{DynamicResource SukiBackground}"
-                                BoxShadow="0 0 0 0 DarkGray"
+                                BoxShadow="0 1 5 0 #b1b1b1"
                                 Canvas.Left="2"
                                 Canvas.Top="2"
                                 CornerRadius="{DynamicResource MediumCornerRadius}"
@@ -118,11 +118,8 @@
                                 <Border />
                                 <Border.Transitions>
                                     <Transitions>
-                                        <DoubleTransition Duration="0:0:0.20" Property="Canvas.Left">
-                                            <DoubleTransition.Easing>
-                                                <CircularEaseOut />
-                                            </DoubleTransition.Easing>
-                                        </DoubleTransition>
+
+                                        <BoxShadowsTransition Duration="0:0:0.30" Property="BoxShadow" />
                                     </Transitions>
                                 </Border.Transitions>
                             </Border>
@@ -135,12 +132,96 @@
         </Setter>
     </Style>
 
-    <Style Selector="ToggleButton.Switch:checked /template/ Border#SwitchKnob">
-        <Setter Property="Canvas.Left" Value="22" />
+    <Style Selector="ToggleButton.Switch:unchecked /template/ Border#SwitchKnob">
+        <Style.Animations>
+            <Animation Duration="0:0:0.3">
+
+                <KeyFrame Cue="0%">
+                    <Setter Property="Width" Value="16" />
+                    <Setter Property="Canvas.Left" Value="22" />
+                </KeyFrame>
+
+                <KeyFrame Cue="20%">
+                    <Setter Property="Width" Value="20" />
+                    <Setter Property="Canvas.Left" Value="18" />
+                </KeyFrame>
+
+                <KeyFrame Cue="100%">
+                    <Setter Property="Width" Value="16" />
+                    <Setter Property="Canvas.Left" Value="2" />
+                </KeyFrame>
+
+            </Animation>
+        </Style.Animations>
+
     </Style>
+
+    <Style Selector="ToggleButton.Switch:checked /template/ Border#SwitchKnob">
+
+        <Setter Property="BoxShadow" Value="0 1 5 0 #555555" />
+        <Style.Animations>
+            <Animation Duration="0:0:0.3" FillMode="Both">
+
+                <KeyFrame Cue="0%">
+                    <Setter Property="Width" Value="16" />
+                    <Setter Property="Canvas.Left" Value="2" />
+                </KeyFrame>
+
+                <KeyFrame Cue="20%">
+                    <Setter Property="Width" Value="20" />
+                    <Setter Property="Canvas.Left" Value="2" />
+                </KeyFrame>
+
+                <KeyFrame Cue="100%">
+                    <Setter Property="Width" Value="16" />
+                    <Setter Property="Canvas.Left" Value="22" />
+                </KeyFrame>
+
+            </Animation>
+        </Style.Animations>
+
+    </Style>
+
+
+    <!--  <Style Selector="ToggleButton.Switch:pressed[IsChecked=False] /template/ Border#SwitchKnob">
+        <Style.Animations>
+            <Animation Duration="0:0:0.2">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Width" Value="16" />
+                </KeyFrame>
+
+                <KeyFrame Cue="100%">
+                    <Setter Property="Width" Value="20" />
+                </KeyFrame>
+
+            </Animation>
+        </Style.Animations>
+
+    </Style>
+
+    <Style Selector="ToggleButton.Switch:pressed[IsChecked=True] /template/ Border#SwitchKnob">
+        <Style.Animations>
+            <Animation Duration="0:0:0.2">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Width" Value="16" />
+                    <Setter Property="Canvas.Left" Value="22" />
+                </KeyFrame>
+
+                <KeyFrame Cue="100%">
+                    <Setter Property="Width" Value="20" />
+                    <Setter Property="Canvas.Left" Value="18" />
+                </KeyFrame>
+
+            </Animation>
+        </Style.Animations>
+        <Setter Property="Width" Value="20" />
+
+    </Style>-->
+
 
     <Style Selector="ToggleButton.Switch:checked /template/ Border#SwitchBackground">
         <Setter Property="Background">
+
             <Setter.Value>
                 <LinearGradientBrush EndPoint="0%,100%" StartPoint="50%,0%">
                     <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.1" />
@@ -152,7 +233,7 @@
 
 
     <Style Selector="ToggleButton /template/ ContentPresenter">
-        <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
+        <Setter Property="CornerRadius" Value="5" />
     </Style>
     <Style Selector="ToggleButton:pointerover">
         <Setter Property="Background" Value="{DynamicResource SukiLightBackground}" />
@@ -172,7 +253,7 @@
         <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrush}" />
     </Style>
     <Style Selector="ToggleButton.Primary /template/ ContentPresenter">
-        <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
+        <Setter Property="CornerRadius" Value="5" />
     </Style>
     <Style Selector="ToggleButton.Primary:pointerover">
         <Setter Property="Background" Value="{DynamicResource ThemeBorderHighBrush}" />

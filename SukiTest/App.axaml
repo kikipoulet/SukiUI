@@ -10,8 +10,4 @@
 
     </Application.Styles>
 
-    <Application.Resources>
-        <CornerRadius x:Key="SmallCornerRadius">0</CornerRadius>
-        <CornerRadius x:Key="MediumCornerRadius">0</CornerRadius>
-    </Application.Resources>
 </Application>

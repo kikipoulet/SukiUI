@@ -1,4 +1,7 @@
-<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <Border Padding="0">
             <Expander Header="Click Here">
@@ -32,18 +35,9 @@
     <Style Selector="Expander[ExpandDirection=Down]">
         <Setter Property="Template">
             <ControlTemplate>
-                <Border
-                    Background="{DynamicResource SukiBackground}"
-                    BorderBrush="{DynamicResource SukiBorderBrush}"
-                    BorderThickness="1.4"
-                    CornerRadius="{DynamicResource SmallCornerRadius}">
+                <Border>
                     <Grid RowDefinitions="Auto,*">
-                        <Border
-                            Background="{DynamicResource SukiLightBorderBrush}"
-                            BorderBrush="{DynamicResource SukiBorderBrush}"
-                            BorderThickness="0,0,0,1.4"
-                            CornerRadius="7,7,0,0"
-                            Margin="0,0,0,0">
+                        <Border BorderBrush="{DynamicResource SukiControlBorderBrush}" BorderThickness="0,0,0,1.2">
                             <DockPanel>
                                 <TextBlock
                                     FontWeight="DemiBold"
@@ -188,11 +182,18 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Width="20">
-                            <Path
-                                Data="M 0 2 L 4 6 L 0 10 Z"
-                                Fill="{DynamicResource SukiText}"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center" />
+                            <Grid>
+                                <avalonia:MaterialIcon
+                                    Height="20"
+                                    Kind="Plus"
+                                    Name="PlusIcon"
+                                    Width="20" />
+                                <avalonia:MaterialIcon
+                                    Height="20"
+                                    Kind="Minus"
+                                    Name="MinusIcon"
+                                    Width="20" />
+                            </Grid>
                         </Border>
 
                     </Grid>
@@ -204,11 +205,16 @@
         <Setter Property="BorderBrush" Value="Transparent" />
 
     </Style>
-    <Style Selector="Expander:down:expanded /template/ ToggleButton#PART_toggle /template/ Path">
-        <Setter Property="RenderTransform">
-            <RotateTransform Angle="90" />
-        </Setter>
+    <Style Selector="Expander /template/ ToggleButton#PART_toggle /template/ avalonia|MaterialIcon#PlusIcon">
+        <Setter Property="IsVisible" Value="True" />
     </Style>
+    <Style Selector="Expander:expanded /template/ ToggleButton#PART_toggle /template/ avalonia|MaterialIcon#PlusIcon">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+
+
+
+
 
     <Style Selector="Expander:down:expanded /template/ ToggleButton#PART_toggle /template/ ContentPresenter">
         <Setter Property="Background" Value="Transparent" />

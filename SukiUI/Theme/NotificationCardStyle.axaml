@@ -6,23 +6,24 @@
     </Design.PreviewWith>
     <Style Selector="NotificationCard">
         <Setter Property="UseLayoutRounding" Value="True" />
-        <Setter Property="Width" Value="350" />
+        <Setter Property="Width" Value="400" />
+        <Setter Property="Height" Value="130" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="Foreground" Value="{DynamicResource SukiBackground}" />
         <Setter Property="RenderTransformOrigin" Value="50%,75%" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Background" Value="Yellow" />
-        <Setter Property="CornerRadius" Value="{DynamicResource MediumCornerRadius}" />
+        <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
         <Setter Property="Template">
             <ControlTemplate>
                 <LayoutTransformControl Name="PART_LayoutTransformControl" UseRenderTransform="True">
                     <Border
                         Background="{DynamicResource SukiBackground}"
-                        BorderBrush="{DynamicResource SukiBorderBrush}"
+                        BorderBrush="{DynamicResource SukiControlBorderBrush}"
                         BorderThickness="1"
-                        BoxShadow="0 2 6 0 Gray"
+                        BoxShadow="0 2 25 0 #dedede"
                         CornerRadius="{TemplateBinding CornerRadius}"
-                        Margin="5,5,25,10">
+                        Margin="25,25,25,25">
                         <Border
                             Background="{DynamicResource SukiBackground}"
                             BorderBrush="{TemplateBinding BorderBrush}"

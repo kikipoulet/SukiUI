@@ -126,18 +126,29 @@
                                                 </StackPanel>
                                             </Border>
 
-                                            <Border Classes="Card" Width="300">
+
+                                            <Border Classes="Card" Width="600">
+
                                                 <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">Notification</TextBlock>
-                                                    <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                                    <TextBlock Classes="h3" Margin="5,0,0,15">Stepper</TextBlock>
 
-                                                        <Button Classes="Primary" Click="ShowNotification">
-                                                            <TextBlock>Show Notification</TextBlock>
+                                                    <suki:Stepper Name="stepstep" />
+
+                                                    <StackPanel
+                                                        HorizontalAlignment="Center"
+                                                        Margin="0,50,0,0"
+                                                        Orientation="Horizontal"
+                                                        VerticalAlignment="Center">
+                                                        <Button Click="Button_OnClick">
+                                                            <TextBlock>Previous</TextBlock>
                                                         </Button>
-
-                                                    </WrapPanel>
+                                                        <Button Click="nextStep">
+                                                            <TextBlock>Next</TextBlock>
+                                                        </Button>
+                                                    </StackPanel>
                                                 </StackPanel>
                                             </Border>
+
 
                                             <Border Classes="Card" Width="300">
                                                 <StackPanel>
@@ -149,7 +160,9 @@
                                                         Orientation="Horizontal">
                                                         <TextBlock Margin="5" VerticalAlignment="Center">Value :</TextBlock>
                                                         <TextBox
+                                                            Background="Transparent"
                                                             BorderThickness="0"
+                                                            Classes="FlatTextBox"
                                                             IsHitTestVisible="False"
                                                             Padding="10"
                                                             Text="{Binding #SliderValue.Value}"
@@ -192,6 +205,11 @@
 
                                                     <TextBlock Classes="h3" Margin="5,0,0,15">ToggleButton</TextBlock>
                                                     <ToggleButton Classes="Switch" Margin="5" />
+                                                    <ToggleButton Classes="Switch" Margin="5">
+                                                        <ToggleButton.RenderTransform>
+                                                            <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
+                                                        </ToggleButton.RenderTransform>
+                                                    </ToggleButton>
                                                 </StackPanel>
                                             </Border>
 
@@ -213,14 +231,154 @@
 
 
 
-                                            <Border Classes="Card" Width="600">
+                                            <Border
+                                                Classes="Card"
+                                                Height="300"
+                                                Width="900">
                                                 <StackPanel>
                                                     <TextBlock Classes="h3" Margin="5,0,0,15">DataGrid</TextBlock>
                                                     <DataGrid
                                                         AutoGenerateColumns="True"
-                                                        Height="180"
+                                                        Height="220"
                                                         IsReadOnly="True"
                                                         Name="myDG" />
+                                                </StackPanel>
+                                            </Border>
+
+                                            <Border
+                                                Classes="Card"
+                                                ClipToBounds="True"
+                                                Height="300"
+                                                Width="300">
+                                                <StackPanel>
+                                                    <TextBlock Classes="h3" Margin="5,0,0,15">PropertyGrid</TextBlock>
+                                                    <Border Height="250" Padding="20">
+                                                        <suki:PropertyGrid Name="propertyGrid" Width="250" />
+                                                    </Border>
+                                                </StackPanel>
+                                            </Border>
+
+                                            <Border Classes="Card" Width="300">
+                                                <StackPanel>
+                                                    <TextBlock Classes="h3" Margin="5,0,0,15">CircleProgressBar</TextBlock>
+                                                    <Border Padding="20" Width="200">
+                                                        <suki:CircleProgressBar
+                                                            Height="130"
+                                                            Name="myProgressBar"
+                                                            StrokeWidth="11"
+                                                            Value="20"
+                                                            Width="130">
+                                                            <TextBlock
+                                                                Classes="h3"
+                                                                Margin="0,5,0,0"
+                                                                Name="TextPercent"
+                                                                Text="20"
+                                                                VerticalAlignment="Center" />
+                                                        </suki:CircleProgressBar>
+
+                                                    </Border>
+                                                    <Button Click="Button_OnClickProgress">
+                                                        <TextBlock>Plus</TextBlock>
+                                                    </Button>
+                                                </StackPanel>
+                                            </Border>
+
+                                            <Border Classes="Card" Width="300">
+                                                <StackPanel>
+                                                    <TextBlock Classes="h3" Margin="5,0,0,15">TextBox</TextBlock>
+                                                    <Border Padding="20">
+                                                        <StackPanel Spacing="10">
+                                                            <TextBox Margin="2" Text="Normal" />
+
+                                                            <TextBox
+                                                                Classes="BottomBar"
+                                                                Margin="2"
+                                                                Text="BottomBar" />
+                                                            <TextBox Classes="FlatTextBox" Text="Elem" />
+                                                            <TextBox
+                                                                Classes="Prefix"
+                                                                Margin="2"
+                                                                Text="avaloniaui.net"
+                                                                Watermark="https://" />
+                                                            <TextBox
+                                                                Classes="Suffix"
+                                                                Margin="2"
+                                                                Text="avaloniaui"
+                                                                Watermark="@gmail.com" />
+
+
+                                                        </StackPanel>
+                                                    </Border>
+                                                </StackPanel>
+                                            </Border>
+
+                                            <Border Classes="Card" Width="600">
+                                                <StackPanel>
+                                                    <TextBlock Classes="h3" Margin="5,0,0,15">Tabs</TextBlock>
+                                                    <Border Padding="20">
+                                                        <StackPanel>
+                                                            <TabControl>
+                                                                <TabItem Header="Tab 1">
+
+                                                                    <circleProgressBarsTestMvvm:CircleProgresstestView />
+
+                                                                </TabItem>
+                                                                <TabItem Header="Tab 2" />
+                                                                <TabItem Header="Tab 3" />
+                                                            </TabControl>
+
+                                                        </StackPanel>
+                                                    </Border>
+                                                </StackPanel>
+                                            </Border>
+
+                                            <Border Classes="Card" Width="300">
+
+                                                <StackPanel>
+                                                    <TextBlock Classes="h3" Margin="5,0,0,35">Loading</TextBlock>
+                                                    <suki:Loading Name="MyLoading" />
+
+                                                    <Button Click="ButtonChangeOpacity" Margin="0,20,0,0">
+                                                        <TextBlock>Change Opacity</TextBlock>
+                                                    </Button>
+                                                </StackPanel>
+                                            </Border>
+
+                                            <Border Classes="Card" Width="300">
+                                                <StackPanel>
+                                                    <TextBlock Classes="h3" Margin="5,0,0,15">Expander</TextBlock>
+                                                    <StackPanel>
+                                                        <Expander Header="Question 1 ?">
+                                                            <TextBlock Margin="20,5">Answer</TextBlock>
+                                                        </Expander>
+
+                                                        <Expander Header="Question 2 ?">
+                                                            <TextBlock Margin="20,5">Answer</TextBlock>
+                                                        </Expander>
+
+                                                        <Expander Header="Question 3 ?">
+                                                            <TextBlock Margin="20,5">Answer</TextBlock>
+                                                        </Expander>
+
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </Border>
+
+                                            <Border Classes="Card" Width="300">
+                                                <StackPanel>
+                                                    <TextBlock Classes="h3" Margin="5,0,0,15">ListBox</TextBlock>
+                                                    <ListBox Margin="10" Name="listTest" />
+                                                </StackPanel>
+                                            </Border>
+
+
+                                            <Border Classes="Card" Width="300">
+                                                <StackPanel>
+                                                    <TextBlock Classes="h3" Margin="5,0,0,15">CheckBox</TextBlock>
+                                                    <StackPanel>
+                                                        <CheckBox Margin="20" />
+                                                        <CheckBox IsChecked="True" Margin="20" />
+                                                    </StackPanel>
                                                 </StackPanel>
                                             </Border>
 
@@ -275,15 +433,7 @@
 
 
 
-                                            <Border Classes="Card" Width="300">
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">Expander</TextBlock>
-                                                    <Expander Header="Click To Expand">
-                                                        <TextBlock>Expanded</TextBlock>
-                                                    </Expander>
 
-                                                </StackPanel>
-                                            </Border>
 
                                             <Border Classes="Card" Width="300">
                                                 <StackPanel>
@@ -309,114 +459,28 @@
                                                 </StackPanel>
                                             </Border>
 
-                                            <Border Classes="Card" Width="300">
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">CheckBox</TextBlock>
-                                                    <StackPanel>
-                                                        <CheckBox Margin="20" />
-                                                        <CheckBox IsChecked="True" Margin="20" />
-                                                    </StackPanel>
-                                                </StackPanel>
-                                            </Border>
+
+
+
 
                                             <Border Classes="Card" Width="300">
                                                 <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">ListBox</TextBlock>
-                                                    <ListBox Margin="10" Name="listTest" />
-                                                </StackPanel>
-                                            </Border>
+                                                    <TextBlock Classes="h3" Margin="5,0,0,15">Notification</TextBlock>
+                                                    <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal">
 
-                                            <Border Classes="Card" Width="600">
-
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">Stepper</TextBlock>
-
-                                                    <suki:Stepper Name="stepstep" />
-
-                                                    <StackPanel
-                                                        HorizontalAlignment="Center"
-                                                        Margin="0,50,0,0"
-                                                        Orientation="Horizontal"
-                                                        VerticalAlignment="Center">
-                                                        <Button Click="Button_OnClick">
-                                                            <TextBlock>Previous</TextBlock>
+                                                        <Button Classes="Primary" Click="ShowNotification">
+                                                            <TextBlock>Show Notification</TextBlock>
                                                         </Button>
-                                                        <Button Click="nextStep">
-                                                            <TextBlock>Next</TextBlock>
-                                                        </Button>
-                                                    </StackPanel>
+
+                                                    </WrapPanel>
                                                 </StackPanel>
                                             </Border>
 
-                                            <Border Classes="Card" Width="600">
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">Tabs</TextBlock>
-                                                    <Border Padding="20">
-                                                        <StackPanel>
-                                                            <TabControl>
-                                                                <TabItem Header="Tab 1" />
-                                                                <TabItem Header="Tab 2" />
-                                                                <TabItem Header="Tab 3" />
-                                                            </TabControl>
-
-                                                        </StackPanel>
-                                                    </Border>
-                                                </StackPanel>
-                                            </Border>
-
-                                            <Border Classes="Card" Width="300">
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">TextBox</TextBlock>
-                                                    <Border Padding="20">
-                                                        <StackPanel Spacing="10">
-                                                            <TextBox Margin="2" Text="Normal" />
-
-                                                            <TextBox
-                                                                Classes="BottomBar"
-                                                                Margin="2"
-                                                                Text="BottomBar" />
-                                                            <TextBox Classes="FlatTextBox" Text="Elem" />
-                                                            <TextBox
-                                                                Classes="Prefix"
-                                                                Margin="2"
-                                                                Text="avaloniaui.net"
-                                                                Watermark="https://" />
-                                                            <TextBox
-                                                                Classes="Suffix"
-                                                                Margin="2"
-                                                                Text="avaloniaui"
-                                                                Watermark="@gmail.com" />
 
 
-                                                        </StackPanel>
-                                                    </Border>
-                                                </StackPanel>
-                                            </Border>
 
-                                            <Border Classes="Card" Width="300">
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">CircleProgressBar</TextBlock>
-                                                    <Border Padding="20" Width="200">
-                                                        <suki:CircleProgressBar
-                                                            Height="130"
-                                                            Name="myProgressBar"
-                                                            StrokeWidth="11"
-                                                            Value="20"
-                                                            Width="130">
-                                                            <TextBlock
-                                                                Classes="h3"
-                                                                Margin="0,5,0,0"
-                                                                Name="TextPercent"
-                                                                Text="20"
-                                                                VerticalAlignment="Center" />
-                                                        </suki:CircleProgressBar>
 
-                                                    </Border>
-                                                    <Button Click="Button_OnClickProgress">
-                                                        <TextBlock>Plus</TextBlock>
-                                                    </Button>
-                                                </StackPanel>
-                                            </Border>
+
 
                                             <Border Classes="Card" Width="300">
                                                 <StackPanel>
@@ -458,14 +522,7 @@
 
 
 
-                                            <Border Classes="Card" Width="300">
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">PropertyGrid</TextBlock>
-                                                    <Border Height="400" Padding="20">
-                                                        <suki:PropertyGrid Name="propertyGrid" Width="250" />
-                                                    </Border>
-                                                </StackPanel>
-                                            </Border>
+
 
                                             <Border Classes="Card" Width="300">
                                                 <Border.ContextMenu>
@@ -484,17 +541,7 @@
                                                 </StackPanel>
                                             </Border>
 
-                                            <Border Classes="Card" Width="300">
 
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,35">Loading</TextBlock>
-                                                    <suki:Loading Name="MyLoading" />
-
-                                                    <Button Click="ButtonChangeOpacity" Margin="0,20,0,0">
-                                                        <TextBlock>Change Opacity</TextBlock>
-                                                    </Button>
-                                                </StackPanel>
-                                            </Border>
 
                                             <Border Classes="Card" Width="300">
 

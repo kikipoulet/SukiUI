@@ -64,9 +64,9 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Border
-                    Background="{TemplateBinding Background}"
-                    BorderBrush="{DynamicResource SukiBorderBrush}"
-                    BorderThickness="0,0,0,0"
+                    Background="Transparent"
+                    BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                    BorderThickness="0,0,0,1.5"
                     CornerRadius="0">
                     <Grid ColumnDefinitions="*,Auto">
 
@@ -138,17 +138,13 @@
                     RowDefinitions="*,Auto,Auto">
 
                     <Border
+                        BorderBrush="{DynamicResource SukiBorderBrush}"
+                        BorderThickness="0,0,0,1"
                         CornerRadius="0"
                         Grid.ColumnSpan="2"
                         Grid.RowSpan="2"
                         Name="BackgroundRectangle"
-                        Padding="18">
-                        <Border.Transitions>
-                            <Transitions>
-                                <DoubleTransition Duration="0:0:0.15" Property="Opacity" />
-                            </Transitions>
-                        </Border.Transitions>
-                    </Border>
+                        Padding="18" />
 
                     <DataGridRowHeader
                         DataGridFrozenGrid.IsFrozen="True"
@@ -176,13 +172,13 @@
     </Style>
 
     <Style Selector="DataGridRow:nth-child(even) /template/ Border#BackgroundRectangle">
-        <Setter Property="Opacity" Value="0.3" />
-        <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
+        <Setter Property="Opacity" Value="1" />
+        <Setter Property="Background" Value="Transparent" />
     </Style>
 
     <Style Selector="DataGridRow /template/ Border#BackgroundRectangle">
-        <Setter Property="Opacity" Value="0" />
-        <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
+        <Setter Property="Opacity" Value="1" />
+        <Setter Property="Background" Value="Transparent" />
     </Style>
     <Style Selector="DataGridRow:pointerover /template/ Border#BackgroundRectangle">
 
@@ -333,11 +329,7 @@
         </Setter>
         <Setter Property="Template">
             <ControlTemplate>
-                <Border
-                    Background="Transparent"
-                    BorderBrush="{DynamicResource SukiStrongBackground}"
-                    BorderThickness="1.5"
-                    CornerRadius="{DynamicResource SmallCornerRadius}">
+                <Border Background="Transparent" BorderThickness="0">
                     <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,*,Auto,Auto">
 
                         <DataGridColumnHeader Name="PART_TopLeftCornerHeader" Width="22" />

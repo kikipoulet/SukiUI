@@ -173,8 +173,8 @@ namespace SukiUI.Controls
 
             else if (property.GetValue(Item).GetType() == typeof(bool))
             {
-                var prop = new ToggleSwitch() {  OnContent = new Grid() { Background = Brushes.Transparent}, Height = 36,  OffContent = new Grid() { Background = Brushes.Transparent }, HorizontalContentAlignment = HorizontalAlignment.Right, HorizontalAlignment = HorizontalAlignment.Right, IsChecked = (bool)property.GetValue(Item) };
-                prop.GetObservable(ToggleSwitch.IsCheckedProperty).Subscribe(value => property.SetValue(Item, value));
+                var prop = new ToggleButton() { Classes = new Classes(new string[]{"Switch"}), Height = 36, Margin  = new Thickness(0,0,5,0), HorizontalContentAlignment = HorizontalAlignment.Right, HorizontalAlignment = HorizontalAlignment.Right, IsChecked = (bool)property.GetValue(Item) };
+                prop.GetObservable(ToggleButton.IsCheckedProperty).Subscribe(value => property.SetValue(Item, (bool)value));
                 gridItem.Children.Add(prop);
                 Grid.SetColumn(prop, 1);
             } 
@@ -183,7 +183,7 @@ namespace SukiUI.Controls
             {
                 var type = property.GetValue(Item).GetType();
                 var names = Enum.GetNames(type);
-                var prop = new ComboBox() { Width = Width / 2.5 , Items = Enum.GetValues(type), SelectedItem = property.GetValue(Item), Height = 36, HorizontalContentAlignment = HorizontalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(0,2,10, 2) };
+                var prop = new ComboBox() { Width = Width / 2.5 , Items = Enum.GetValues(type), SelectedItem = property.GetValue(Item), Height = 36, HorizontalContentAlignment = HorizontalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(0,2,0, 2) };
                 prop.GetObservable(ComboBox.SelectedItemProperty).Subscribe(value => property.SetValue(Item, value));
                 gridItem.Children.Add(prop);
                 Grid.SetColumn(prop, 1);

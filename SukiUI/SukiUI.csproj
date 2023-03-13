@@ -73,5 +73,12 @@
         <Generator>MSBuild:Compile</Generator>
       </AvaloniaXaml>
     </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Controls\WaveProgress\WaveProgress.axaml.cs">
+        <DependentUpon>WaveProgress.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
     
 </Project>

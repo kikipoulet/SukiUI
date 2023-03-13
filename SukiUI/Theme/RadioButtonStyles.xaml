@@ -186,14 +186,14 @@
                         </Ellipse.Transitions>
                     </Ellipse>
                     <Ellipse
-                        Fill="{DynamicResource SukiPrimaryColor}"
-                        Height="9"
+                        Height="6"
                         HorizontalAlignment="Center"
+                        Margin="0,0,0,0"
                         Name="checkMark"
                         Stretch="Uniform"
                         UseLayoutRounding="False"
                         VerticalAlignment="Center"
-                        Width="9">
+                        Width="6">
                         <Ellipse.Transitions>
                             <Transitions>
                                 <BrushTransition Duration="0:0:0.2" Property="Fill" />
@@ -286,8 +286,11 @@
 
     </Style>
 
-    <Style Selector="RadioButton:checked /template/ Ellipse#checkMark">
+    <Style Selector="RadioButton:checked /template/ Ellipse#border">
         <Setter Property="Fill" Value="{DynamicResource SukiPrimaryColor}" />
+    </Style>
+    <Style Selector="RadioButton:checked /template/ Ellipse#checkMark">
+        <Setter Property="Fill" Value="{DynamicResource SukiBackground}" />
     </Style>
 
     <Style Selector="RadioButton /template/ Ellipse#indeterminateMark">

@@ -27,7 +27,7 @@
                             BorderBrush="{DynamicResource SukiControlBorderBrush}"
                             BorderThickness="1"
                             BoxShadow="0 4 12 LightGray"
-                            CornerRadius="{DynamicResource MediumCornerRadius}"
+                            CornerRadius="30"
                             HorizontalAlignment="Center"
                             IsHitTestVisible="False"
                             Margin="0,125,0,0"
@@ -52,13 +52,13 @@
 
 
                         <Grid
-                            Background="#aaaaaa"
+                            Background="{DynamicResource SukiText}"
                             IsHitTestVisible="False"
                             Name="gridDialog"
                             Opacity="0">
                             <Grid.Transitions>
                                 <Transitions>
-                                    <DoubleTransition Duration="0:0:0.1" Property="Opacity" />
+                                    <DoubleTransition Duration="0:0:0.3" Property="Opacity" />
                                 </Transitions>
                             </Grid.Transitions>
                         </Grid>
@@ -66,23 +66,24 @@
                         <Border
                             Background="{DynamicResource SukiBackground}"
                             Classes.opened="False"
-                            CornerRadius="{DynamicResource MediumCornerRadius}"
+                            CornerRadius="15"
                             HorizontalAlignment="Center"
                             IsHitTestVisible="False"
-                            Margin="0,15,0,0"
                             Name="borderDialog"
                             Opacity="0"
                             Padding="10"
                             VerticalAlignment="Center">
                             <Border.Transitions>
                                 <Transitions>
-                                    <ThicknessTransition Duration="0:0:0.2" Property="Margin">
+
+
+                                    <ThicknessTransition Duration="0:0:0.35" Property="Margin">
                                         <ThicknessTransition.Easing>
                                             <CircularEaseOut />
                                         </ThicknessTransition.Easing>
                                     </ThicknessTransition>
-                                    <DoubleTransition Duration="0:0:0.2" Property="Opacity" />
-                                    <TransformOperationsTransition Duration="0:0:0.2" Property="RenderTransform">
+                                    <DoubleTransition Duration="0:0:0.15" Property="Opacity" />
+                                    <TransformOperationsTransition Duration="0:0:0.35" Property="RenderTransform">
                                         <TransformOperationsTransition.Easing>
                                             <CircularEaseOut />
                                         </TransformOperationsTransition.Easing>
@@ -109,28 +110,35 @@
         </Style>
 
         <Style Selector="suki|InteractiveContainer[IsDialogOpen=True] Grid#gridDialog">
-            <Setter Property="Opacity" Value="0.56" />
+            <Setter Property="Opacity" Value="0.5" />
             <Setter Property="IsHitTestVisible" Value="True" />
+
         </Style>
 
         <Style Selector="suki|InteractiveContainer[IsDialogOpen=False] Grid#gridDialog">
+
             <Setter Property="Opacity" Value="0" />
             <Setter Property="IsHitTestVisible" Value="False" />
         </Style>
 
         <Style Selector="suki|InteractiveContainer[IsDialogOpen=True] Border#borderDialog">
+            <Setter Property="Margin" Value="0,25,0,0" />
             <Setter Property="Opacity" Value="1" />
             <Setter Property="IsHitTestVisible" Value="True" />
+            <Setter Property="RenderTransform" Value="scale(1)" />
         </Style>
 
         <Style Selector="suki|InteractiveContainer[IsDialogOpen=False] Border#borderDialog">
             <Setter Property="Opacity" Value="0" />
             <Setter Property="IsHitTestVisible" Value="False" />
+            <Setter Property="RenderTransform" Value="scale(0.7)" />
+            <Setter Property="Margin" Value="0,125,0,0" />
         </Style>
 
         <Style Selector="suki|InteractiveContainer[ShowAtBottom=True] Border#borderDialog">
             <Setter Property="VerticalAlignment" Value="Bottom" />
             <Setter Property="Margin" Value="0,0,0,20" />
+
         </Style>
 
         <Style Selector="suki|InteractiveContainer[ShowAtBottom=False] Border#borderDialog">
