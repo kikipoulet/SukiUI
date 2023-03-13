@@ -15,7 +15,13 @@ Suki is the name of my dog :-)
 
 Documentation is on the [Wiki](https://github.com/kikipoulet/SukiUI/wiki) of this repository
 
+Note : Some gifs in the documentation aren't the latest design. Latest design is shown in the first controls overview gif.
 
+Latest changes (4.6.5 nuget) :
+- New WaveProgress control ✨
+- Button default style redesign
+- Switch and Dialog animation improvements
+- Datagrid, expander, RadioButton, Propertygrid, ContextMenu style updated
 
 
 ## 🖥️📱 Controls Overview
