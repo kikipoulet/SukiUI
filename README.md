@@ -33,7 +33,7 @@ Latest changes (4.6.5 nuget) :
 
 <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/doverall.gif"></img>
 <kbd>
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/MobileOverview.gif" style="float:left" ></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/androiddemostack.gif" style="float:left" ></img>
 </kbd>
 
 ## 👐 Features
