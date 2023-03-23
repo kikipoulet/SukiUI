@@ -15,15 +15,25 @@ Suki is the name of my dog :-)
 
 Documentation is on the [Wiki](https://github.com/kikipoulet/SukiUI/wiki) of this repository
 
+Note : Some gifs in the documentation aren't the latest design. Latest design is shown in the first controls overview gif.
 
+Latest Changes (4.6.6 nuget) :
+- New MobileStack control [MobileStack Wiki](https://github.com/kikipoulet/SukiUI/wiki/4.-Mobile-Controls#mobile-stack) 
+- Use Android Back button with MobileStack control !
+
+Latest changes (4.6.5 nuget) :
+- New WaveProgress control ✨
+- Button default style redesign
+- Switch and Dialog animation improvements
+- Datagrid, expander, RadioButton, Propertygrid, ContextMenu style updated
 
 
 ## 🖥️📱 Controls Overview
 
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/overall.gif"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/doverall.gif"></img>
 <kbd>
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/MobileOverview.gif" style="float:left" ></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/androiddemostack.gif" style="float:left" ></img>
 </kbd>
 
 ## 👐 Features
