@@ -17,6 +17,10 @@ Documentation is on the [Wiki](https://github.com/kikipoulet/SukiUI/wiki) of thi
 
 Note : Some gifs in the documentation aren't the latest design. Latest design is shown in the first controls overview gif.
 
+Latest Changes (4.6.6 nuget) :
+- New MobileStack control [MobileStack Wiki](https://github.com/kikipoulet/SukiUI/wiki/4.-Mobile-Controls#mobile-stack) 
+- Use Android Back button with MobileStack control !
+
 Latest changes (4.6.5 nuget) :
 - New WaveProgress control ✨
 - Button default style redesign
