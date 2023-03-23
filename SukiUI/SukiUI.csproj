@@ -46,8 +46,7 @@
         <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.0-preview5" />
         <PackageReference Include="DialogHost.Avalonia" Version="0.6.0" />
         <PackageReference Include="Material.Icons.Avalonia" Version="2.0.0-preview2" />
-        <PackageReference Include="Nerdbank.GitVersioning" Version="3.6.65-alpha" PrivateAssets="all" />
-        <PackageReference Include="ReactiveUI" Version="18.4.20" />
+        <PackageReference Include="ReactiveUI" Version="18.4.26" />
     </ItemGroup>
 
  
@@ -75,6 +74,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Compile Update="Controls\MobileStack.axaml.cs">
+        <DependentUpon>MobileStack.axaml</DependentUpon>
+      </Compile>
       <Compile Update="Controls\WaveProgress\WaveProgress.axaml.cs">
         <DependentUpon>WaveProgress.axaml</DependentUpon>
         <SubType>Code</SubType>

@@ -46,5 +46,9 @@ namespace AndroidTest.Views
         }
 
 
+        private void GoToSettings(object? sender, RoutedEventArgs e)
+        {
+            MobileStack.Push(new SettingsPage());
+        }
     }
 }

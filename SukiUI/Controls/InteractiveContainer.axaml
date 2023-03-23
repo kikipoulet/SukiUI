@@ -70,7 +70,7 @@
                             HorizontalAlignment="Center"
                             IsHitTestVisible="False"
                             Name="borderDialog"
-                            Opacity="0"
+                            Opacity="0" 
                             Padding="10"
                             VerticalAlignment="Center">
                             <Border.Transitions>

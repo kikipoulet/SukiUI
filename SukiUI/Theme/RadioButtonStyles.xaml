@@ -139,7 +139,7 @@
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Transitions">
             <Transitions>
-                <ThicknessTransition Duration="0:0:0.2" Property="Margin" />
+                <ThicknessTransition Duration="0:0:0.4" Property="Margin" />
             </Transitions>
         </Setter>
         <Setter Property="Template">
@@ -181,7 +181,7 @@
                         Width="18">
                         <Ellipse.Transitions>
                             <Transitions>
-                                <BrushTransition Duration="0:0:0.2" Property="Fill" />
+                                <BrushTransition Duration="0:0:0.4" Property="Fill" />
                             </Transitions>
                         </Ellipse.Transitions>
                     </Ellipse>
@@ -196,7 +196,7 @@
                         Width="6">
                         <Ellipse.Transitions>
                             <Transitions>
-                                <BrushTransition Duration="0:0:0.2" Property="Fill" />
+                                <BrushTransition Duration="0:0:0.4" Property="Fill" />
                             </Transitions>
                         </Ellipse.Transitions>
                     </Ellipse>
@@ -211,7 +211,7 @@
                         Width="9">
                         <Ellipse.Transitions>
                             <Transitions>
-                                <BrushTransition Duration="0:0:0.2" Property="Fill" />
+                                <BrushTransition Duration="0:0:0.4" Property="Fill" />
                             </Transitions>
                         </Ellipse.Transitions>
                     </Ellipse>

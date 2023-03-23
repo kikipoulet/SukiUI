@@ -1,0 +1,40 @@
+﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="SukiUI.Controls.Rating"
+    x:Name="RatingRoot"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <UserControl.Styles>
+        <Style Selector="ToggleButton.Star">
+            <Setter Property="Margin" Value="2" />
+            <Setter Property="Template">
+                <ControlTemplate>
+
+                    <avalonia:MaterialIcon
+                        Foreground="{TemplateBinding Background}"
+                        Height="20"
+                        Kind="Star"
+                        Width="20" />
+
+                </ControlTemplate>
+            </Setter>
+            <Setter Property="Background" Value="{DynamicResource SukiStrongBackground}" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Duration="0:0:0.25" Property="Background" />
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="ToggleButton.Star:checked">
+            <Setter Property="Background" Value="#FFEA00" />
+        </Style>
+    </UserControl.Styles>
+
+    <StackPanel Orientation="Horizontal" x:Name="StarPanel" />
+</UserControl>

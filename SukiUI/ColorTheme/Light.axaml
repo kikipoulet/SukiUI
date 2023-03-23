@@ -1,6 +1,8 @@
 ﻿<Style
     x:Class="SukiUI.Light"
     xmlns="https://github.com/avaloniaui"
+    xmlns:media="clr-namespace:Avalonia.Media;assembly=Avalonia.Visuals"
+    xmlns:primitives="clr-namespace:Avalonia.Controls.Primitives;assembly=Avalonia.Controls"
     xmlns:sys="clr-namespace:System;assembly=netstandard"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style.Resources>

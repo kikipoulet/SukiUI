@@ -10,7 +10,10 @@
     xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
     xmlns:system="clr-namespace:System;assembly=System.Runtime"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Grid ColumnDefinitions="*,*" RowDefinitions="*,*,*">
+    <Grid
+        Background="{DynamicResource SukiBackground}"
+        ColumnDefinitions="*,*"
+        RowDefinitions="*,*,*">
         <Border Grid.Column="0" Grid.Row="0">
             <Border Classes="Card" Margin="10">
                 <Grid Margin="-10">
@@ -108,7 +111,7 @@
                             </ListBoxItem>
                         </StackPanel>
                     </ScrollViewer>
-                    <Button
+                    <Button Classes="Accent"
                         Background="Transparent"
                         BorderThickness="0"
                         Click="ShowFlyout"
@@ -136,21 +139,29 @@
                 </Grid>
             </Border>
         </Border>
-        <Border Grid.Column="0" Grid.Row="1">
-            <Border Classes="Card" Margin="10">
-                <Grid Margin="-10">
-                    <TextBlock
-                        Classes="h3"
-                        FontWeight="DemiBold"
-                        HorizontalAlignment="Left"
-                        Margin="6,4,0,0"
-                        Text="Processing"
-                        VerticalAlignment="Top" />
+        <Button
+            Classes="Card"
+            Click="GoToSettings"
+            Grid.Column="0"
+            Grid.Row="1"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch">
+            <Grid
+                HorizontalAlignment="Stretch"
+                Margin="-10"
+                VerticalAlignment="Stretch">
+                <TextBlock
+                    Classes="h3"
+                    FontWeight="DemiBold"
+                    HorizontalAlignment="Left"
+                    Margin="6,4,0,0"
+                    Text="Settings"
+                    VerticalAlignment="Top" />
 
-                    <suki:Loading Margin="0,50,0,0" />
-                </Grid>
-            </Border>
-        </Border>
+                <suki:Loading Margin="0,50,0,0" />
+            </Grid>
+        </Button>
+
 
         <Border
             Grid.Column="0"

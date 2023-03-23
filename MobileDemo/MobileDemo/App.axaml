@@ -12,8 +12,5 @@
         <StyleInclude Source="avares://Material.Icons.Avalonia/App.xaml" />
 
     </Application.Styles>
-    <Application.Resources>
-        <CornerRadius x:Key="SmallCornerRadius">0</CornerRadius>
-        <CornerRadius x:Key="MediumCornerRadius">0</CornerRadius>
-    </Application.Resources>
+  
 </Application>

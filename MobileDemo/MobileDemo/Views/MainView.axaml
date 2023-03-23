@@ -53,6 +53,7 @@
 
                         <Button
                             Classes="Primary"
+                            Click="Vibrate"
                             CornerRadius="50"
                             HorizontalAlignment="Center"
                             Margin="0,25,0,0"
@@ -88,7 +89,17 @@
 
 
 
-
+        <Button
+            Classes="Accent"
+            Click="Button_OnClick"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top">
+            <material:MaterialIcon
+                Foreground="#555555"
+                Height="55"
+                Kind="ArrowLeft"
+                Width="55" />
+        </Button>
 
 
     </Grid>
