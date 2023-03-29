@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using Avalonia.VisualTree;
 using System.Linq;
+using Avalonia.Interactivity;
 
 namespace SukiUI.Controls
 {
@@ -22,7 +23,7 @@ namespace SukiUI.Controls
             AvaloniaXamlLoader.Load(this);
         }
 
-        private void PaneIsClosing(object sender, SplitViewPaneClosingEventArgs ev)
+        private void PaneIsClosing(object sender, CancelRoutedEventArgs ev)
         {
             ((SideMenuModel)this.DataContext).MenuVisibility = false;
         }

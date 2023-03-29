@@ -52,7 +52,10 @@
                         Margin="6,4,0,0"
                         Text="Devices"
                         VerticalAlignment="Top" />
-                    <ScrollViewer Margin="0,50,-15,50" VerticalScrollBarVisibility="Hidden">
+                    <ScrollViewer
+                        IsScrollInertiaEnabled="True"
+                        Margin="0,50,-15,50"
+                        VerticalScrollBarVisibility="Hidden">
 
                         <StackPanel Orientation="Vertical">
                             <ListBoxItem>
@@ -111,9 +114,10 @@
                             </ListBoxItem>
                         </StackPanel>
                     </ScrollViewer>
-                    <Button Classes="Accent"
+                    <Button
                         Background="Transparent"
                         BorderThickness="0"
+                        Classes="Accent"
                         Click="ShowFlyout"
                         Height="40"
                         HorizontalAlignment="Center"

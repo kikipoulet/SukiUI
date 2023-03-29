@@ -22,6 +22,11 @@
         <Setter Property="FontSize" Value="15" />
     </Style>
 
+    <Style Selector="TextBlock[FontWeight=DemiBold]">
+
+        <Setter Property="FontFamily" Value="avares://SukiUI/Roboto-Medium.ttf#Roboto" />
+    </Style>
+
 
 
     <Style Selector="TextBox">

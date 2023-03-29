@@ -579,7 +579,6 @@
                                                             <Button
                                                                 Classes="Primary"
                                                                 Click="BusyMe"
-                                                                Height="40"
                                                                 Margin="50"
                                                                 Width="120">
                                                                 <TextBlock Text="Click to Busy this area" />

@@ -38,7 +38,7 @@ namespace SukiUI.Controls
         public object? Convert( object? value, Type targetType, object? parameter, CultureInfo culture )
         {
 
-            double Offset =  ((Vector)value).Y;
+            double Offset =  ((Vector)value).Y * 0.7;
 
       
             double Height = 170 - (Offset);
@@ -62,7 +62,7 @@ namespace SukiUI.Controls
 
         public object? Convert( object? value, Type targetType, object? parameter, CultureInfo culture )
         {
-            double offset = ((Vector)value).Y;
+            double offset = ((Vector)value).Y * 0.7;
 
            
 
@@ -85,7 +85,7 @@ namespace SukiUI.Controls
 
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            double offset = ((Vector)value).Y;
+            double offset = ((Vector)value).Y * 0.7;
 
             if (offset > 70)
                 offset = 70;
@@ -106,7 +106,7 @@ namespace SukiUI.Controls
 
         public object? Convert( object? value, Type targetType, object? parameter, CultureInfo culture )
         {
-            double Offset =  ((Vector)value).Y;
+            double Offset =  ((Vector)value).Y * 0.7;
 
          
 

@@ -38,7 +38,8 @@
                                     VerticalAlignment="Center" />
                             </Grid>
                         </Border>
-                        <ScrollViewer
+                        <ScrollViewer 
+                            IsScrollInertiaEnabled="True"
                             Margin="0,100,0,0"
                             Name="scrollView"
                             VerticalScrollBarVisibility="Hidden">

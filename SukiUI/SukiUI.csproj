@@ -23,6 +23,8 @@
 
     <ItemGroup>
         <AvaloniaResource Include="**\*.xaml" />
+        <None Remove="Roboto-Medium.ttf" />
+        <AvaloniaResource Include="Roboto-Medium.ttf" />
     </ItemGroup>
 
     <ItemGroup>
@@ -38,14 +40,13 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="11.0.0-preview5" />
+        <PackageReference Include="Avalonia" Version="11.0.0-preview6" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.0-preview5" />
-        <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.0-preview5" />
-        <PackageReference Include="DialogHost.Avalonia" Version="0.6.0" />
-        <PackageReference Include="Material.Icons.Avalonia" Version="2.0.0-preview2" />
+        <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.0-preview6" />
+        <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.0-preview6" />
+        <PackageReference Include="Material.Icons.Avalonia" Version="2.0.0-preview3" />
         <PackageReference Include="ReactiveUI" Version="18.4.26" />
     </ItemGroup>
 

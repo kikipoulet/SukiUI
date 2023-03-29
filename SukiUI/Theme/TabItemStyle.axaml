@@ -36,37 +36,51 @@
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
                     CornerRadius="{TemplateBinding CornerRadius}"
+                    Margin="7,0"
                     Name="PART_LayoutRootn"
                     Padding="{TemplateBinding Padding}">
-                    <Panel>
+                    <StackPanel>
+
                         <ContentPresenter
                             Content="{TemplateBinding Header}"
                             ContentTemplate="{TemplateBinding HeaderTemplate}"
                             HorizontalAlignment="Center"
                             HorizontalContentAlignment="Center"
                             Name="PART_ContentPresentern"
-                            Padding="7,12"
+                            Padding="7,5"
                             TextBlock.FontFamily="{TemplateBinding FontFamily}"
                             TextBlock.FontSize="{TemplateBinding FontSize}"
                             TextBlock.FontWeight="{TemplateBinding FontWeight}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+
                         <Border
-                            Background="{DynamicResource SukiPrimaryColor}"
-                            CornerRadius="{DynamicResource MediumCornerRadius}"
+                            CornerRadius="55"
                             Height="3"
-                            Name="PART_SelectedPipe">
+                            Margin="10,0"
+                            Name="BarSelected"
+                            Opacity="0">
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
+                                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.1" />
+                                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.6" />
+                                </LinearGradientBrush>
+                            </Border.Background>
                             <Border.Transitions>
                                 <Transitions>
                                     <DoubleTransition Duration="0:0:0.3" Property="Opacity" />
                                 </Transitions>
                             </Border.Transitions>
                         </Border>
-                    </Panel>
+
+                    </StackPanel>
                 </Border>
             </ControlTemplate>
         </Setter>
     </Style>
 
+    <Style Selector="TabItem:selected /template/ Border#BarSelected">
+        <Setter Property="Opacity" Value="1" />
+    </Style>
 
 
     <Style Selector="TabItem.FlatTabItem">
@@ -149,13 +163,13 @@
     <!--  Pressed state  -->
     <Style Selector="TabItem:pressed /template/ Border#PART_LayoutRoot">
         <Setter Property="Background" Value="{DynamicResource TabItemHeaderBackgroundUnselectedPressed}" />
-        <!--   <Setter Property="TextBlock.Foreground" Value="{DynamicResource TabItemHeaderForegroundUnselectedPressed}" /> -->
+        <Setter Property="TextBlock.Foreground" Value="Red" />
     </Style>
 
     <!--  Selected Pressed state  -->
     <Style Selector="TabItem:selected:pressed /template/ Border#PART_LayoutRoot">
         <Setter Property="Background" Value="{DynamicResource TabItemHeaderBackgroundSelectedPressed}" />
-        <Setter Property="TextBlock.Foreground" Value="{DynamicResource TabItemHeaderForegroundSelectedPressed}" />
+        <Setter Property="TextBlock.Foreground" Value="Red" />
     </Style>
 
     <!--  Disabled state  -->
@@ -202,7 +216,7 @@
         <Setter Property="FontSize" Value="50" />
         <Setter Property="FontWeight" Value="{DynamicResource TabItemHeaderThemeFontWeight}" />
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{DynamicResource TabItemHeaderForegroundUnselected}" />
+        <Setter Property="Foreground" Value="Red" />
         <Setter Property="Padding" Value="{DynamicResource TabItemHeaderMargin}" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="MinHeight" Value="{DynamicResource TabItemMinHeight}" />
@@ -252,6 +266,10 @@
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
     </Style>
 
+    <Style Selector="TabItem.MobileTabItem:pointerover Border#SelectedBorder">
+        <Setter Property="Background" Value="{DynamicResource SukiLightBackground}" />
+    </Style>
+
     <Style Selector="TabItem.MobileTabItem:selected Border#SelectedBorder">
         <Setter Property="Background" Value="{DynamicResource SukiLightBackground}" />
     </Style>
@@ -262,9 +280,17 @@
         <Setter Property="TextBlock.Foreground" Value="Black" />
     </Style>
 
+
+    <Style Selector="TabItem.MobileTabItem:pointerover ContentPresenter">
+
+
+        <Setter Property="TextBlock.FontWeight" Value="Normal" />
+    </Style>
+
     <Style Selector="TabItem.MobileTabItem:selected ContentPresenter">
 
         <Setter Property="TextBlock.Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+        <Setter Property="TextBlock.FontWeight" Value="DemiBold" />
     </Style>
 
     <Style Selector="TabItem.MobileTabItem material|MaterialIcon">

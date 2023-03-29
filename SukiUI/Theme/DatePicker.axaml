@@ -248,23 +248,25 @@
                             <Button
                                 Classes="Accent"
                                 HorizontalAlignment="Left"
-                                Margin="0,60,0,0"
+                                Margin="0,80,0,0"
                                 Name="PART_DismissButton"
                                 VerticalAlignment="Bottom"
+                                VerticalContentAlignment="Center"
                                 Width="100">
                                 <TextBlock
                                     Foreground="{DynamicResource SukiText}"
+                                    Margin="0,18,0,0"
                                     Text="Cancel"
                                     VerticalAlignment="Center" />
                             </Button>
                             <Button
                                 Classes="Primary Rounded"
-                                Height="40"
+                                Height="46"
                                 HorizontalAlignment="Right"
                                 Margin="0,20,0,0"
                                 Name="PART_AcceptButton"
                                 VerticalAlignment="Bottom"
-                                Width="100">
+                                Width="120">
 
                                 <StackPanel Orientation="Horizontal">
                                     <avalonia:MaterialIcon Foreground="White" Kind="Check" />
