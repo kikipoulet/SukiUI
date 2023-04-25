@@ -87,7 +87,7 @@
 
                         <ItemsControl
                             DockPanel.Dock="Bottom"
-                            Items="{Binding FooterMenuItems}"
+                            ItemsSource="{Binding FooterMenuItems}"
                             Margin="0,0,0,10">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
@@ -129,7 +129,7 @@
                         </ItemsControl>
 
                         <ScrollViewer>
-                            <ItemsControl Items="{Binding MenuItems}">
+                            <ItemsControl ItemsSource="{Binding MenuItems}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <RadioButton

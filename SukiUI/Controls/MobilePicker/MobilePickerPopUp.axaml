@@ -32,7 +32,7 @@
 
             <Grid Margin="0,5,0,10">
                 <ListBox
-                    Items="{Binding Items}"
+                    ItemsSource="{Binding Items}"
                     SelectedItem="{Binding SelectedItem}"
                     VerticalAlignment="Center">
                     <ListBox.ItemTemplate>

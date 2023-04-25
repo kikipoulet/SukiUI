@@ -58,7 +58,7 @@ namespace SukiUI.Controls;
 
             for (int i = 1; i <= MaxStars; i++)
             {
-                var starButton = new ToggleButton { Content = i.ToString(), Classes = new Classes("Star") };
+                var starButton = new ToggleButton { Content = i.ToString(), Classes = {"Star"} };
                 starButton.Click += OnStarClick;
                 
                 starPanel.Children.Add(starButton);

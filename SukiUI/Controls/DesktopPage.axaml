@@ -50,7 +50,8 @@
                                         Grid.Row="1"
                                         IsHitTestVisible="True"
                                         IsVisible="{TemplateBinding MenuVisibility}"
-                                        Items="{TemplateBinding MenuItems}"
+                                        
+                                        ItemsSource="{TemplateBinding MenuItems}"
                                         Margin="0,-5,0,0" />
 
 

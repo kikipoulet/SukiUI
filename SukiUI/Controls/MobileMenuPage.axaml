@@ -73,7 +73,7 @@
                             <ItemsControl
                                 IsEnabled="True"
                                 IsHitTestVisible="True"
-                                Items="{Binding MenuItems}">
+                                ItemsSource="{Binding MenuItems}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <RadioButton

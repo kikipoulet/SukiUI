@@ -173,7 +173,7 @@ namespace SukiUI.Controls
 
             else if (property.GetValue(Item).GetType() == typeof(bool))
             {
-                var prop = new ToggleButton() { Classes = new Classes(new string[]{"Switch"}), Height = 36, Margin  = new Thickness(0,0,5,0), HorizontalContentAlignment = HorizontalAlignment.Right, HorizontalAlignment = HorizontalAlignment.Right, IsChecked = (bool)property.GetValue(Item) };
+                var prop = new ToggleButton() { Classes =  {"Switch"}, Height = 36, Margin  = new Thickness(0,0,5,0), HorizontalContentAlignment = HorizontalAlignment.Right, HorizontalAlignment = HorizontalAlignment.Right, IsChecked = (bool)property.GetValue(Item) };
                 prop.GetObservable(ToggleButton.IsCheckedProperty).Subscribe(value => property.SetValue(Item, (bool)value));
                 gridItem.Children.Add(prop);
                 Grid.SetColumn(prop, 1);
@@ -183,7 +183,7 @@ namespace SukiUI.Controls
             {
                 var type = property.GetValue(Item).GetType();
                 var names = Enum.GetNames(type);
-                var prop = new ComboBox() { Width = Width / 2.5 , Items = Enum.GetValues(type), SelectedItem = property.GetValue(Item), Height = 36, HorizontalContentAlignment = HorizontalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(0,2,0, 2) };
+                var prop = new ComboBox() { Width = Width / 2.5 , ItemsSource = Enum.GetValues(type), SelectedItem = property.GetValue(Item), Height = 36, HorizontalContentAlignment = HorizontalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(0,2,0, 2) };
                 prop.GetObservable(ComboBox.SelectedItemProperty).Subscribe(value => property.SetValue(Item, value));
                 gridItem.Children.Add(prop);
                 Grid.SetColumn(prop, 1);
@@ -206,7 +206,7 @@ namespace SukiUI.Controls
 
             else
             {
-                var prop = new Button() {Classes =new Classes( "Accent"),HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(0,6,10,2), Content = new TextBlock(){Text = "More Info"}};
+                var prop = new Button() {Classes = {"Accent"},HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(0,6,10,2), Content = new TextBlock(){Text = "More Info"}};
                 prop.Click += (object sender, Avalonia.Interactivity.RoutedEventArgs e) => {
 
                     var content = new Border() { Background = new SolidColorBrush( (Color)Application.Current.FindResource("SukiBackground")), Width = 300, Padding = new Thickness(5), 

@@ -59,7 +59,7 @@ namespace SukiTest
             InitializeComponent();
             try
             {
-                this.FindControl<DataGrid>("myDG").Items = liste;
+                this.FindControl<DataGrid>("myDG").ItemsSource = liste;
 
                 this.FindControl<Stepper>("stepstep").Steps = new ObservableCollection<string>() { "one", "two", "thre", "four", "five" };
                 this.FindControl<Stepper>("stepstep").Index = 2;
@@ -68,7 +68,7 @@ namespace SukiTest
 
                  this.FindControl<PropertyGrid>("propertyGrid").Item = new Person() { Adult = true, Age = 20,Name = "Billy", Partner = new Person() };
 
-                 this.FindControl<ListBox>("listTest").Items = new ObservableCollection<string>() { "one", "two", "thre", "four", "five" };
+                 this.FindControl<ListBox>("listTest").ItemsSource = new ObservableCollection<string>() { "one", "two", "thre", "four", "five" };
                  
             }
             catch { }
