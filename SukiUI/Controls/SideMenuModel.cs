@@ -20,8 +20,6 @@ namespace SukiUI.Controls
 
     public class SideMenuModel : ReactiveObject
     {
-
-
         private bool menuvisibility = true;
 
         public bool MenuVisibility

@@ -13,6 +13,8 @@ namespace SukiUI.Controls
 
     public partial class SideMenu : UserControl
     {
+        public delegate void MenuItemChangedEventHandler(object sender, string header);
+        public event MenuItemChangedEventHandler MenuItemChanged;
         public SideMenu()
         {
             InitializeComponent();
@@ -28,5 +30,16 @@ namespace SukiUI.Controls
             ((SideMenuModel)this.DataContext).MenuVisibility = false;
         }
 
+        private void MenuItemSelectedChanged(object sender, RoutedEventArgs e)
+        {
+            RadioButton rButton = (RadioButton)sender;
+            if (rButton.IsChecked != true)
+                return;
+            try
+            {
+                string header = ((TextBlock)((DockPanel)((Grid)rButton.Content).Children.First()).Children.Last()).Text;
+                MenuItemChanged?.Invoke(this, header);
+            }catch(Exception exc){}
+        }
     }
 }

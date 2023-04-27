@@ -23,7 +23,7 @@
             Name="myPage"
             Title="Suki UI Testing - New Project">
 
-            <suki:SideMenu>
+            <suki:SideMenu MenuItemChanged="SideMenu_OnMenuItemChanged">
                 <suki:SideMenu.DataContext>
                     <suki:SideMenuModel>
 

@@ -179,5 +179,10 @@ namespace SukiTest
         {
             this.FindControl<PercentProgressBar>("myPercentProgress").Value = 50;
         }
+
+        private void SideMenu_OnMenuItemChanged(object sender, string header)
+        {
+            MessageBox.Info(this,"title",header);
+        }
     }
 }

@@ -18,7 +18,7 @@
 
 
     </UserControl.Styles>
-    <Design.DataContext />
+    
 
 
     <SplitView
@@ -95,8 +95,8 @@
                                         Classes="MenuItem"
                                         Command="{Binding DataContext.ChangePage, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
                                         CommandParameter="{Binding Content}"
-                                        GroupName="MenuItemsGroup"
-                                        HorizontalAlignment="Center"
+                                        GroupName="MenuItemsGroup" IsCheckedChanged="MenuItemSelectedChanged"
+                                        HorizontalAlignment="Center" 
                                         Margin="0,0,0,0"
                                         Width="215">
                                         <Grid Margin="-30,1,0,0">
@@ -133,6 +133,7 @@
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <RadioButton
+                                            IsCheckedChanged="MenuItemSelectedChanged"
                                             Classes="MenuItem"
                                             Command="{Binding DataContext.ChangePage, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
                                             CommandParameter="{Binding Content}"
