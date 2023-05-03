@@ -17,12 +17,7 @@ Documentation is on the [Wiki](https://github.com/kikipoulet/SukiUI/wiki) of thi
 
 Note : Some gifs in the documentation aren't the latest design. Latest design is shown in the first controls overview gif.
 
-Latest changes (4.7 nuget) :
-- using Avalonia preview7
-- New WaveProgress control ✨
-- Button default style redesign
-- Switch and Dialog animation improvements
-- Datagrid, expander, RadioButton, Propertygrid, ContextMenu style updated
+### Little Project that use SukiUI : [C# AI Assistant](https://github.com/kikipoulet/AI_Csharp_Assistant) 🚀
 
 
 ## 🖥️📱 Controls Overview
