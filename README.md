@@ -15,7 +15,7 @@ Suki is the name of my dog :-)
 
 Documentation is on the [Wiki](https://github.com/kikipoulet/SukiUI/wiki) of this repository
 
-Note : Some gifs in the documentation aren't the latest design. Latest design is shown in the first controls overview gif.
+Last version 4.7.2 : Dark Mode changes with better shadows support, some minor animations
 
 ### Little Project that use SukiUI : [C# AI Assistant](https://github.com/kikipoulet/AI_Csharp_Assistant) 🚀
 
