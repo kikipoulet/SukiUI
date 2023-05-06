@@ -15,29 +15,17 @@ Suki is the name of my dog :-)
 
 Documentation is on the [Wiki](https://github.com/kikipoulet/SukiUI/wiki) of this repository
 
-Note : Some gifs in the documentation aren't the latest design. Latest design is shown in the first controls overview gif.
+Last version 4.7.5 : Better Dark Theme, [New Window Winui Style](https://github.com/kikipoulet/SukiUI/wiki/3.-Controls#winui-page-layout)
 
-Latest changes (4.7 nuget) :
-- using Avalonia preview7
-- New WaveProgress control ✨
-- Button default style redesign
-- Switch and Dialog animation improvements
-- Datagrid, expander, RadioButton, Propertygrid, ContextMenu style updated
+### Little Project that use SukiUI : [C# AI Assistant](https://github.com/kikipoulet/AI_Csharp_Assistant) 🚀
 
-
-## 🖥️📱 Controls Overview
-
-
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/doverall.gif"></img>
-<kbd>
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/androiddemostack.gif" style="float:left" ></img>
-</kbd>
 
 ## 👐 Features
 
 ### Desktop Controls
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/overall.gif"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/winuidark.png"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/doverall.gif"></img>
 
 [Desktop Controls Documentation](https://github.com/kikipoulet/SukiUI/wiki/3.-Controls)
 
