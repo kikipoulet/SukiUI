@@ -15,24 +15,17 @@ Suki is the name of my dog :-)
 
 Documentation is on the [Wiki](https://github.com/kikipoulet/SukiUI/wiki) of this repository
 
-Last version 4.7.2 : Dark Mode changes with better shadows support, some minor animations
+### Last version 4.7.5 : Better Dark Theme, New Window Winui Style 
 
 ### Little Project that use SukiUI : [C# AI Assistant](https://github.com/kikipoulet/AI_Csharp_Assistant) 🚀
 
-
-## 🖥️📱 Controls Overview
-
-
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/doverall.gif"></img>
-<kbd>
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/androiddemostack.gif" style="float:left" ></img>
-</kbd>
 
 ## 👐 Features
 
 ### Desktop Controls
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/overall.gif"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/winuidark.png"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/doverall.gif"></img>
 
 [Desktop Controls Documentation](https://github.com/kikipoulet/SukiUI/wiki/3.-Controls)
 
