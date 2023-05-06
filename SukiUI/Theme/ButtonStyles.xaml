@@ -1,7 +1,8 @@
 <Styles
     xmlns="https://github.com/avaloniaui"
     xmlns:material="using:Material.Icons.Avalonia"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=netstandard">
 
     <Design.PreviewWith>
         <WrapPanel
@@ -48,17 +49,19 @@
                     Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
-                    BoxShadow="0 0 3 0 #eaeaea"
                     Content="{TemplateBinding Content}"
                     ContentTemplate="{TemplateBinding ContentTemplate}"
                     CornerRadius="{TemplateBinding CornerRadius}"
                     HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                     Margin="4"
+                    BoxShadow="{DynamicResource SukiLowShadow}"
                     Name="PART_ContentPresenter"
                     Padding="{TemplateBinding Padding}"
                     RecognizesAccessKey="True"
                     TextElement.Foreground="{TemplateBinding Foreground}"
-                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" >
+                    
+                </ContentPresenter>
             </ControlTemplate>
         </Setter>
         <Setter Property="Transitions">
@@ -325,7 +328,7 @@
 
     <Style Selector="Button.Primary /template/ ContentPresenter">
 
-        <Setter Property="BoxShadow" Value="0 0 3 0 #eaeaea" />
+        <Setter Property="BoxShadow" Value="{DynamicResource SukiLowShadow}" />
     </Style>
 
     <Style Selector="Button.Card">

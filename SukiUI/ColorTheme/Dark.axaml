@@ -8,17 +8,20 @@
         <Color x:Key="SukiPrimaryColorGradient">#2f54eb</Color>
         <Color x:Key="SukiPrimaryColor">#597ef7</Color>
 
-        <Color x:Key="SukiBackground">#333333</Color>
-        <Color x:Key="SukiLightBackground">#393939</Color>
-        <Color x:Key="SukiLightColoredBackground">#393939</Color>
-        <Color x:Key="SukiStrongBackground">#444444</Color>
+        <Color x:Key="SukiBackground">#222222</Color>
+        <Color x:Key="SukiLightBackground">#252525</Color>
+        <Color x:Key="SukiLightColoredBackground">#252525</Color>
+        <Color x:Key="SukiStrongBackground">#292929</Color>
         <Color x:Key="SukiControlTouchBackground">#505050</Color>
         <Color x:Key="SukiText">#dddddd</Color>
-        <Color x:Key="SukiBorderBrush">#454545</Color>
+        <Color x:Key="SukiBorderBrush">#353535</Color>
         <Color x:Key="SukiControlBorderBrush">#505050</Color>
         <Color x:Key="SukiMediumBorderBrush">#494949</Color>
-        <Color x:Key="SukiLightBorderBrush">#444444</Color>
+        <Color x:Key="SukiLightBorderBrush">#333333</Color>
+        <Color x:Key="SukiDialogBackground">#444444</Color>
 
-
+        <BoxShadows x:Key="SukiLowShadow">0 0 3 0 #292929</BoxShadows>
+        <BoxShadows x:Key="SukiSwitchShadow">0 1 5 0 #555555</BoxShadows>
+        <BoxShadows x:Key="SukiPopupShadow">1 1 5 0 #404040</BoxShadows>
     </Style.Resources>
 </Style>

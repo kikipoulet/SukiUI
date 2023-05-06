@@ -70,15 +70,20 @@
 
                             </DockPanel>
                         </Border>
-                        <ContentPresenter
+                        <Grid Name="GridExp" Grid.Row="1" Margin="0,0,0,-400">
+                            <Grid.Transitions>
+                                <Transitions>
+                               <ThicknessTransition Property="Margin" Duration="0:0:0.4"></ThicknessTransition>
+                                    </Transitions>
+                            </Grid.Transitions>
+                            <ContentPresenter
                             Content="{TemplateBinding Content}"
                             ContentTemplate="{TemplateBinding ContentTemplate}"
-                            Grid.Row="1"
                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            IsVisible="{TemplateBinding IsExpanded}"
                             Name="PART_ContentPresentenr"
                             Padding="{TemplateBinding Padding}"
                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Grid>
                     </Grid>
                 </Border>
             </ControlTemplate>
@@ -184,12 +189,12 @@
                             Width="20">
                             <Grid>
                                 <avalonia:MaterialIcon
-                                    Height="20"
+                                    Height="20" Foreground="{DynamicResource SukiText}"
                                     Kind="Plus"
                                     Name="PlusIcon"
                                     Width="20" />
                                 <avalonia:MaterialIcon
-                                    Height="20"
+                                    Height="20" Foreground="{DynamicResource SukiText}"
                                     Kind="Minus"
                                     Name="MinusIcon"
                                     Width="20" />
@@ -218,6 +223,12 @@
 
     <Style Selector="Expander:down:expanded /template/ ToggleButton#PART_toggle /template/ ContentPresenter">
         <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="Expander:down /template/ Grid#GridExp">
+        <Setter Property="Margin" Value="0,0,0,-400" />
+    </Style>
+    <Style Selector="Expander:down:expanded /template/ Grid#GridExp">
+        <Setter Property="Margin" Value="0" />
     </Style>
 
     <Style Selector="Expander:up:expanded /template/ ToggleButton#PART_toggle /template/ Path">

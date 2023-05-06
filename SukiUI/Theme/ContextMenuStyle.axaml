@@ -17,12 +17,13 @@
                     Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
-                    BoxShadow="0 0 7 0 #dedede"
+                    BoxShadow="{DynamicResource SukiSwitchShadow}"
                     CornerRadius="{TemplateBinding CornerRadius}"
                     Margin="10"
                     Padding="{TemplateBinding Padding}">
                     <ScrollViewer Theme="{StaticResource SimpleMenuScrollViewer}">
                         <ItemsPresenter
+                            
                             HorizontalAlignment="Left"
                             ItemsPanel="{TemplateBinding ItemsPanel}"
                             KeyboardNavigation.TabNavigation="Continue"

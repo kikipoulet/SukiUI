@@ -105,7 +105,7 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        BoxShadow="0 0 3 0 #eaeaea"
+                        BoxShadow="{DynamicResource SukiLowShadow}"
                         CornerRadius="{TemplateBinding CornerRadius}"
                         Name="border">
                         <Border.Transitions>
@@ -116,14 +116,15 @@
                         <DockPanel>
 
                             <Border
-                                Background="{DynamicResource SukiLightBorderBrush}"
+                                Background="Transparent"
                                 BorderBrush="{DynamicResource SukiControlBorderBrush}"
-                                BorderThickness="0,0,1.2,0"
+                                BorderThickness="0,0,0,0"
                                 CornerRadius="5,0,0,5"
                                 DockPanel.Dock="Left"
                                 Margin="0,0,0,0"
                                 Padding="8,5">
                                 <TextBlock
+                                    Foreground="Gray"
                                     FontSize="{TemplateBinding FontSize}"
                                     HorizontalAlignment="Center"
                                     Text="{TemplateBinding Watermark}"
@@ -229,7 +230,7 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        BoxShadow="0 0 3 0 #eaeaea"
+                        BoxShadow="{DynamicResource SukiLowShadow}"
                         CornerRadius="{TemplateBinding CornerRadius}"
                         Name="border">
                         <Border.Transitions>
@@ -240,14 +241,15 @@
                         <DockPanel>
 
                             <Border
-                                Background="{DynamicResource SukiLightBorderBrush}"
+                                Background="Transparent"
                                 BorderBrush="{DynamicResource SukiControlBorderBrush}"
-                                BorderThickness="1.2,0,0,0"
+                                BorderThickness="0,0,0,0"
                                 CornerRadius="0,5,5,0"
                                 DockPanel.Dock="Right"
                                 Margin="0,0,0,0"
                                 Padding="8,5">
                                 <TextBlock
+                                    Foreground="Gray"
                                     HorizontalAlignment="Center"
                                     Text="{TemplateBinding Watermark}"
                                     VerticalAlignment="Center" />
@@ -356,7 +358,7 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        BoxShadow="0 0 3 0 #eaeaea"
+                        BoxShadow="{DynamicResource SukiLowShadow}"
                         CornerRadius="{TemplateBinding CornerRadius}"
                         Name="border">
                         <Border.Transitions>

@@ -72,7 +72,7 @@
 
 
     <Style Selector="ComboBoxItem &gt; TextBlock">
-        <Setter Property="Foreground" Value="{DynamicResource Sukitext}" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
     </Style>
 
     <Style Selector="ComboBoxItem:selected /template/ ContentPresenter">

@@ -5,7 +5,7 @@
     x:Class="SukiUI.Controls.DesktopPage"
     xmlns="https://github.com/avaloniaui"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+    
     xmlns:material="using:Material.Icons.Avalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:suki="clr-namespace:SukiUI.Controls"
@@ -18,13 +18,12 @@
 
                     <DockPanel>
 
-                        <Border
+                        <Border Name="BottomBorder"
                             BorderBrush="{DynamicResource SukiBorderBrush}"
-                            BorderThickness="0,0,0,1.5"
                             DockPanel.Dock="Top">
                             <Grid>
                                 <Grid
-                                    Background="{DynamicResource SukiBackground}"
+                                    Background="Transparent"
                                     ColumnDefinitions="Auto,*,Auto"
                                     IsHitTestVisible="False"
                                     RowDefinitions="Auto,Auto">
@@ -128,6 +127,12 @@
             </Setter>
         </Style>
 
+        <Style Selector="suki|DesktopPage /template/ Border#BottomBorder" >
+            <Setter Property="BorderThickness" Value="0,0,0,1"></Setter>
+        </Style>
+        <Style Selector="suki|DesktopPage[ShowBottomBorder=False] /template/ Border#BottomBorder" >
+            <Setter Property="BorderThickness" Value="0,0,0,0"></Setter>
+        </Style>
 
     </UserControl.Styles>
 </UserControl>

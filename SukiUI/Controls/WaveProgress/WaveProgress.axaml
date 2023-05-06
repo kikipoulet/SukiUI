@@ -20,7 +20,7 @@
                         Background="Transparent"
                         BorderBrush="{DynamicResource SukiControlBorderBrush}"
                         BorderThickness="1.2"
-                        BoxShadow="0 0 3 0 LightGray"
+                        BoxShadow="{DynamicResource SukiLowShadow}"
                         Canvas.Bottom="20"
                         Canvas.Left="20"
                         Canvas.Right="20"

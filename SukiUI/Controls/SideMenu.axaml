@@ -28,8 +28,8 @@
         PaneClosing="PaneIsClosing">
 
         <SplitView.Pane>
-            <Border BorderBrush="{DynamicResource SukiBorderBrush}" BorderThickness="0,0,1.5,0">
-                <Grid Background="{DynamicResource SukiBackground}">
+            <Border >
+                <Grid Background="Transparent">
                     <!--  This sidebar toggle button is used when header content can overlap it  -->
                     <Button
                         Classes="Accent"
@@ -92,6 +92,7 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <RadioButton
+                                     
                                         Classes="MenuItem"
                                         Command="{Binding DataContext.ChangePage, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
                                         CommandParameter="{Binding Content}"
@@ -180,10 +181,10 @@
             </Border>
         </SplitView.Pane>
 
-        <Grid Background="{DynamicResource SukiLightBackground}">
+        <Border Name="ContentBorder" BorderBrush="{DynamicResource SukiBorderBrush}" BorderThickness="1,0,0,0" Background="{DynamicResource SukiLightBackground}">
             <ContentControl Content="{Binding CurrentPage}" />
 
-        </Grid>
+        </Border>
     </SplitView>
 
 </UserControl>

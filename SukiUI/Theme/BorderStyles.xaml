@@ -2,8 +2,8 @@
     <Style Selector="Border.Card">
         <Setter Property="Padding" Value="20" />
         <Setter Property="CornerRadius" Value="{DynamicResource MediumCornerRadius}" />
-        <Setter Property="BorderThickness" Value="1.5" />
-        <Setter Property="BorderBrush" Value="{DynamicResource SukiLightBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiBorderBrush}" />
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
         <Setter Property="Margin" Value="7" />
     </Style>

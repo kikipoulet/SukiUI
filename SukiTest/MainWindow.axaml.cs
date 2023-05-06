@@ -182,7 +182,14 @@ namespace SukiTest
 
         private void SideMenu_OnMenuItemChanged(object sender, string header)
         {
-            MessageBox.Info(this,"title",header);
+           // MessageBox.Info(this,"title",header);
+        }
+        
+        // Write a function that returns the sum of two numbers.
+
+        private void ShowToast(object? sender, RoutedEventArgs e)
+        {
+            InteractiveContainer.ShowToast(new TextBlock(){Text = "Hello World !", Margin = new Thickness(15,8)}, 5);
         }
     }
 }

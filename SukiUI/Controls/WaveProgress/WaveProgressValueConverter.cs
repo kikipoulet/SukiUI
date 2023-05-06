@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Globalization;
+using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
@@ -41,7 +43,7 @@ public class WaveProgressValueColorConverter : IValueConverter
             if (((int)value) > 50)
                 return Brushes.White;
             else
-                return Brushes.Black;
+                return (Brush) Application.Current.FindResource("SukiText");
         }
         catch
         {

@@ -4,7 +4,11 @@ using Material.Icons;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SukiUI.Controls
 {
@@ -20,6 +24,16 @@ namespace SukiUI.Controls
 
     public class SideMenuModel : ReactiveObject
     {
+        public SideMenuModel()
+        {
+            Task.Run(() =>
+            {
+                // Not proud of this but here we go
+                Thread.Sleep(1500);
+                ChangePage(MenuItems.First().Content);
+            });
+        }
+        
         private bool menuvisibility = true;
 
         public bool MenuVisibility
@@ -54,12 +68,16 @@ namespace SukiUI.Controls
             set => this.RaiseAndSetIfChanged(ref headerContent, value);
         }
 
-        private List<SideMenuItem> menuItems = new List<SideMenuItem>();
+        private ObservableCollection<SideMenuItem> menuItems = new ObservableCollection<SideMenuItem>();
 
-        public List<SideMenuItem> MenuItems
+        public ObservableCollection<SideMenuItem> MenuItems
         {
             get => menuItems;
-            set => this.RaiseAndSetIfChanged(ref menuItems, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref menuItems, value);
+                
+            }
         }
 
         private List<SideMenuItem> footermenuItems = new List<SideMenuItem>();

@@ -39,7 +39,7 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        BoxShadow="0 0 3 0 #eaeaea"
+                        BoxShadow="{DynamicResource SukiLowShadow}"
                         CornerRadius="{TemplateBinding CornerRadius}"
                         Name="border">
                         <Border.Transitions>
@@ -114,7 +114,7 @@
                                         Background="{DynamicResource SukiBackground}"
                                         BorderBrush="{DynamicResource SukiControlBorderBrush}"
                                         BorderThickness="1,1,1,1"
-                                        BoxShadow="1 1 5 0 LightGray"
+                                        BoxShadow="{DynamicResource SukiPopupShadow}"
                                         CornerRadius="{DynamicResource SmallCornerRadius}"
                                         Margin="10,-10,0,0">
                                         <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">

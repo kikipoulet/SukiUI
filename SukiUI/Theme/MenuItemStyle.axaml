@@ -101,7 +101,7 @@
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                BoxShadow="0 0 7 0 #dedede"
+                                BoxShadow="{DynamicResource SukiSwitchShadow}"
                                 CornerRadius="{TemplateBinding CornerRadius}"
                                 Margin="10">
                                 <ScrollViewer Classes="menuscroller">
@@ -185,7 +185,7 @@
                                 Background="{DynamicResource SukiBackground}"
                                 BorderBrush="{DynamicResource SukiControlBorderBrush}"
                                 BorderThickness="1"
-                                BoxShadow="0 0 7 0 #dedede"
+                                BoxShadow="{DynamicResource SukiPopupShadow}"
                                 CornerRadius="{DynamicResource SmallCornerRadius}"
                                 Margin="10">
                                 <ScrollViewer Classes="menuscroller">

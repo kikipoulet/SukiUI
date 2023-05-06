@@ -1,5 +1,5 @@
 <Window
-    Classes="NakedWindow"
+    Classes="NakedWindow Blurred"
     Title="SukiTest"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -21,9 +21,10 @@
             LogoKind="Xaml"
             MenuVisibility="False"
             Name="myPage"
+           ShowBottomBorder="False"
             Title="Suki UI Testing - New Project">
 
-            <suki:SideMenu MenuItemChanged="SideMenu_OnMenuItemChanged">
+            <suki:SideMenu WinUIStyle="True"  MenuItemChanged="SideMenu_OnMenuItemChanged">
                 <suki:SideMenu.DataContext>
                     <suki:SideMenuModel>
 
@@ -132,6 +133,9 @@
                                                             <TextBlock>Show Dialog</TextBlock>
                                                         </Button>
 
+                                                        <Button Click="ShowToast">
+                                                            <TextBlock>Show Toast</TextBlock>
+                                                        </Button>
                                                     </WrapPanel>
                                                 </StackPanel>
                                             </Border>

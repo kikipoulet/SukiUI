@@ -92,6 +92,14 @@ namespace SukiUI.Controls
             set { SetValue(TitleProperty, value); }
         }
         
+        public static readonly StyledProperty<bool> ShowBottomBorderProperty = AvaloniaProperty.Register<DesktopPage, bool>(nameof(ShowBottomBorder), defaultValue: true);
+
+        public bool ShowBottomBorder
+        {
+            get { return GetValue(ShowBottomBorderProperty); }
+            set { SetValue(ShowBottomBorderProperty, value); }
+        }
+        
         public static readonly StyledProperty<bool> MenuVisibilityProperty = AvaloniaProperty.Register<DesktopPage, bool>(nameof(MenuVisibility), defaultValue: false);
 
         public bool MenuVisibility

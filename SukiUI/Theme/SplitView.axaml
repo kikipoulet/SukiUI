@@ -43,7 +43,7 @@
                         </Grid.ColumnDefinitions>
 
                         <Panel
-                            Background="{TemplateBinding PaneBackground}"
+                            Background="Transparent"
                             ClipToBounds="True"
                             HorizontalAlignment="Left"
                             Name="PART_PaneRoot"

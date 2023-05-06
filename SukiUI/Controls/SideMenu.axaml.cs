@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Avalonia.VisualTree;
 using System.Linq;
 using Avalonia.Interactivity;
+using Avalonia.Media;
 
 namespace SukiUI.Controls
 {
@@ -15,6 +16,24 @@ namespace SukiUI.Controls
     {
         public delegate void MenuItemChangedEventHandler(object sender, string header);
         public event MenuItemChangedEventHandler MenuItemChanged;
+        
+        public static readonly StyledProperty<bool> WinUIStyleProperty = AvaloniaProperty.Register<SideMenu, bool>(nameof(WinUIStyle), defaultValue: false);
+
+        public bool WinUIStyle
+        {
+            get { return GetValue(WinUIStyleProperty); }
+            set
+            {
+                SetValue(WinUIStyleProperty, value);
+                if (!value)
+                    return;
+                
+                var border = this.FindControl<Border>("ContentBorder");
+                border.BorderThickness = new Thickness(1,1,0,0);
+                border.CornerRadius = new CornerRadius(13, 0, 0, 0);
+              
+            }
+        }
         public SideMenu()
         {
             InitializeComponent();

@@ -12,21 +12,13 @@
         <Style Selector="suki|InteractiveContainer">
             <Setter Property="Template">
                 <ControlTemplate>
-
-
-
                     <Grid>
-
                         <ContentControl Content="{TemplateBinding Content}" />
-
-
-
-
                         <Border
                             Background="{DynamicResource SukiBackground}"
                             BorderBrush="{DynamicResource SukiControlBorderBrush}"
                             BorderThickness="1"
-                            BoxShadow="0 4 12 LightGray"
+                            BoxShadow="{DynamicResource SukiPopupShadow}"
                             CornerRadius="30"
                             HorizontalAlignment="Center"
                             IsHitTestVisible="False"
@@ -35,12 +27,12 @@
                             VerticalAlignment="Top">
                             <Border.Transitions>
                                 <Transitions>
-                                    <DoubleTransition Duration="0:0:0.4" Property="Opacity">
+                                    <DoubleTransition Duration="0:0:0.3" Property="Opacity">
                                         <DoubleTransition.Easing>
                                             <ExponentialEaseOut />
                                         </DoubleTransition.Easing>
                                     </DoubleTransition>
-                                    <ThicknessTransition Duration="0:0:0.4" Property="Margin">
+                                    <ThicknessTransition Duration="0:0:0.3" Property="Margin">
                                         <ThicknessTransition.Easing>
                                             <ExponentialEaseOut />
                                         </ThicknessTransition.Easing>
@@ -52,13 +44,13 @@
 
 
                         <Grid
-                            Background="{DynamicResource SukiText}"
+                            Background="{DynamicResource SukiDialogBackground}"
                             IsHitTestVisible="False"
                             Name="gridDialog"
                             Opacity="0">
                             <Grid.Transitions>
                                 <Transitions>
-                                    <DoubleTransition Duration="0:0:0.3" Property="Opacity" />
+                                    <DoubleTransition Duration="0:0:0.2" Property="Opacity" />
                                 </Transitions>
                             </Grid.Transitions>
                         </Grid>
@@ -77,13 +69,13 @@
                                 <Transitions>
 
 
-                                    <ThicknessTransition Duration="0:0:0.35" Property="Margin">
+                                    <ThicknessTransition Duration="0:0:0.25" Property="Margin">
                                         <ThicknessTransition.Easing>
                                             <CircularEaseOut />
                                         </ThicknessTransition.Easing>
                                     </ThicknessTransition>
                                     <DoubleTransition Duration="0:0:0.15" Property="Opacity" />
-                                    <TransformOperationsTransition Duration="0:0:0.35" Property="RenderTransform">
+                                    <TransformOperationsTransition Duration="0:0:0.25" Property="RenderTransform">
                                         <TransformOperationsTransition.Easing>
                                             <CircularEaseOut />
                                         </TransformOperationsTransition.Easing>
@@ -110,7 +102,7 @@
         </Style>
 
         <Style Selector="suki|InteractiveContainer[IsDialogOpen=True] Grid#gridDialog">
-            <Setter Property="Opacity" Value="0.5" />
+            <Setter Property="Opacity" Value="0.3" />
             <Setter Property="IsHitTestVisible" Value="True" />
 
         </Style>
