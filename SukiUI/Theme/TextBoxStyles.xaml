@@ -344,7 +344,7 @@
 
 
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
-        <Setter Property="SelectionBrush" Value="{DynamicResource HighlightBrush}" />
+        <Setter Property="SelectionBrush" Value="{DynamicResource SukiBorderBrush}" />
         <Setter Property="MinHeight" Value="45" />
         <Setter Property="Padding" Value="6,8,5,6" />
         <Setter Property="ContextFlyout" Value="{StaticResource DefaultTextBoxContextFlyout}" />
@@ -427,7 +427,7 @@
                                                         TextAlignment="{TemplateBinding TextAlignment}"
                                                         TextWrapping="{TemplateBinding TextWrapping}" />
                                                     <TextPresenter
-                                                        CaretBrush="{TemplateBinding CaretBrush}"
+                                                        CaretBrush="{DynamicResource SukiText}"
                                                         CaretIndex="{TemplateBinding CaretIndex}"
                                                         Name="PART_TextPresenter"
                                                         PasswordChar="{TemplateBinding PasswordChar}"

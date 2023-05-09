@@ -154,7 +154,7 @@
                             Content="{TemplateBinding Content}"
                             ContentTemplate="{TemplateBinding ContentTemplate}"
                             Grid.Column="1"
-                            Margin="0,2,0,0"
+                            Margin="0,2,-40,0"
                             Name="PART_ContentPresenter"
                             RecognizesAccessKey="True"
                             VerticalAlignment="Center" />
@@ -231,6 +231,7 @@
 
 
     <Style Selector="RadioButton.MenuItem:checked">
+        <Setter Property="TextBlock.FontWeight" Value="DemiBold"></Setter>
         <Setter Property="BorderThickness" Value="0,0,0,0" />
         <Setter Property="BorderBrush">
             <RadialGradientBrush>
@@ -242,8 +243,8 @@
     </Style>
 
     <Style Selector="RadioButton.MenuItem:pointerover /template/ Border">
-        <Setter Property="Background" Value="{DynamicResource SukiLightBackground}" />
-
+       
+        <Setter Property="Background" Value="{DynamicResource SukiLightBackground}"></Setter>
 
     </Style>
 
@@ -255,23 +256,71 @@
             </Transitions>
 
         </Setter>
-        <Setter Property="BorderThickness" Value="0,0,0,0" />
-        <Setter Property="BorderBrush">
-            <RadialGradientBrush>
-                <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.1" />
-                <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.6" />
-            </RadialGradientBrush>
-        </Setter>
-        <Setter Property="Background" Value="{DynamicResource SukiLightBackground}" />
+        
+        <Setter Property="TextBlock.FontWeight" Value="DemiBold" />
+        <Setter Property="Background" Value="{DynamicResource SukiLightBackground}"></Setter>
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiBorderBrush}"></Setter>
+        <Setter Property="BorderThickness" Value="1"></Setter>
     </Style>
+    
+    <Style Selector="RadioButton.MenuItem /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Transitions">
+
+            <Transitions>
+                <ThicknessTransition Duration="0:0:0.25" Property="Margin" />
+            </Transitions>
+
+        </Setter>
+        </Style>
+    
+    <Style Selector="RadioButton.MenuItem:checked /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Transitions">
+
+            <Transitions>
+                <ThicknessTransition Duration="0:0:0.25" Property="Margin" />
+            </Transitions>
+
+        </Setter>
+        <Setter Property="Margin" Value="-40,2,0,0"></Setter>
+    </Style>
+    
     <Style Selector="RadioButton.MenuItem:checked  TextBlock">
         <!-- <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" /> -->
-        <Setter Property="FontWeight" Value="DemiBold" />
+        
+    </Style>
+    
+    <Style Selector="RadioButton.MenuItem  material|MaterialIcon">
+        <!--  <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" /> -->
+        <Setter Property="Transitions">
+
+            <Transitions>
+                <DoubleTransition Duration="0:0:0.2" Property="Opacity" />
+            </Transitions>
+
+        </Setter>
     </Style>
 
-    <Style Selector="RadioButton.MenuItem:checked  material|MaterialIcon">
+    <Style Selector="RadioButton.MenuItem:checked  material|MaterialIcon#LongIco">
         <!--  <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" /> -->
+        <Setter Property="Transitions">
 
+            <Transitions>
+                <DoubleTransition Duration="0:0:0.2" Property="Opacity" />
+            </Transitions>
+
+        </Setter>
+        <Setter Property="Opacity" Value="0"></Setter>
+    </Style>
+
+    <Style Selector="RadioButton.MenuItem:checked  material|MaterialIcon#ShortIco">
+        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" /> 
+        <Setter Property="Transitions">
+
+            <Transitions>
+                <BrushTransition Duration="0:0:0.2" Property="Foreground" />
+            </Transitions>
+
+        </Setter>
     </Style>
 
 
