@@ -34,7 +34,7 @@
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Border Margin="5,0,16,0" Padding="5">
+                <Border Margin="0,0,9,0" Padding="5">
                     <Border
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
@@ -109,7 +109,7 @@
                                 Name="PART_Popup"
                                 PlacementTarget="{TemplateBinding}">
 
-                                <Border Padding="10">
+                                <Border Padding="5,10,5,5">
                                     <Border
                                         Background="{DynamicResource SukiBackground}"
                                         BorderBrush="{DynamicResource SukiControlBorderBrush}"
