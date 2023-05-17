@@ -4,7 +4,7 @@
             <!--  Add Controls for Previewer Here  -->
         </Border>
     </Design.PreviewWith>
-
+<!--
     <Style Selector="WindowNotificationManager">
         <Setter Property="Margin" Value="0 0" />
         <Setter Property="Background" Value="Red" />
@@ -62,4 +62,5 @@
         <Setter Property="VerticalAlignment" Value="Bottom" />
         <Setter Property="HorizontalAlignment" Value="Right" />
     </Style>
+    -->
 </Styles>
