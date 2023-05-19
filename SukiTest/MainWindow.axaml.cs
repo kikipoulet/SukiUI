@@ -107,11 +107,15 @@ namespace SukiTest
             MessageBox.Error(this, "Error", "This is an Error message that need to be read because it is dangerous to ... ");
         }
 
-        private void ShowNotification(object sender, RoutedEventArgs e)
+        protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
+            base.OnApplyTemplate(e);
             if(notificationManager == null)
                 notificationManager = new WindowNotificationManager(this);
-            
+        }
+
+        private void ShowNotification(object sender, RoutedEventArgs e)
+        {
             try
             {
                 var notif = new Avalonia.Controls.Notifications.Notification("Info", "message");
