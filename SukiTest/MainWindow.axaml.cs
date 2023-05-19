@@ -114,11 +114,21 @@ namespace SukiTest
             
             try
             {
-                var notif = new Avalonia.Controls.Notifications.Notification("title", "message");
+                var notif = new Avalonia.Controls.Notifications.Notification("Info", "message");
                 notificationManager.Position = NotificationPosition.BottomRight;
                 notificationManager.Show(notif);
 
-
+                notif = new Avalonia.Controls.Notifications.Notification("Error", "message", NotificationType.Error);
+                notificationManager.Position = NotificationPosition.BottomRight;
+                notificationManager.Show(notif);
+                
+                notif = new Avalonia.Controls.Notifications.Notification("Warning", "message", NotificationType.Warning);
+                notificationManager.Position = NotificationPosition.BottomRight;
+                notificationManager.Show(notif);
+                
+                notif = new Avalonia.Controls.Notifications.Notification("Success", "message", NotificationType.Success);
+                notificationManager.Position = NotificationPosition.BottomRight;
+                notificationManager.Show(notif);
             }catch(Exception exc)
             {
                 Console.WriteLine(exc.Message);

@@ -4,7 +4,7 @@
             <!--  Add Controls for Previewer Here  -->
         </Border>
     </Design.PreviewWith>
-<!--
+
     <Style Selector="WindowNotificationManager">
         <Setter Property="Margin" Value="0 0" />
         <Setter Property="Background" Value="Red" />
@@ -17,7 +17,7 @@
                                 Background="{DynamicResource SukiBackground}"
                                 Margin="12"
                                 Spacing="8"
-                                TextBlock.Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}">
+                                TextBlock.Foreground="{DynamicResource SukiText}">
                                 <TextBlock
                                     FontSize="18"
                                     FontWeight="DemiBold"
@@ -62,5 +62,5 @@
         <Setter Property="VerticalAlignment" Value="Bottom" />
         <Setter Property="HorizontalAlignment" Value="Right" />
     </Style>
-    -->
+    
 </Styles>
