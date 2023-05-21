@@ -15,7 +15,9 @@ Suki is the name of my dog :-)
 
 Documentation is on the [Wiki](https://github.com/kikipoulet/SukiUI/wiki) of this repository
 
-Last version 4.7.5 : Better Dark Theme, [New Window Winui Style](https://github.com/kikipoulet/SukiUI/wiki/3.-Controls#winui-page-layout)
+Last Version 4.8 : Notification, ComboBox,Propertygrid,DatePicker, Dark Theme Improvements/fixes
+
+Version 4.7.5 : Better Dark Theme, [New Window Winui Style](https://github.com/kikipoulet/SukiUI/wiki/3.-Controls#winui-page-layout)
 
 ### Little Project that use SukiUI : [C# AI Assistant](https://github.com/kikipoulet/AI_Csharp_Assistant) 🚀
 
