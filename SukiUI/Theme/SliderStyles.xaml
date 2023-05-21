@@ -27,17 +27,28 @@
 
     <Style Selector="Border.ThumbB">
         <Setter Property="BoxShadow" Value="0 0 4 0 #999999" />
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}"/>
         <Setter Property="Transitions">
             <Transitions>
-                <BoxShadowsTransition Duration="0:0:0.15" Property="BoxShadow" />
+                <BoxShadowsTransition Duration="0:0:0.3" Property="BoxShadow" />
+              
             </Transitions>
         </Setter>
 
     </Style>
+    
+    <Style Selector="Border.ThumbBorder">
+        <Setter Property="Transitions">
+            <Transitions>
+                <ThicknessTransition Duration="0:0:0.1" Property="BorderThickness" />
+            </Transitions>
+        </Setter>
+    </Style>
 
     <Style Selector="Border.ThumbBorder:pointerover">
         <Setter Property="BoxShadow" Value="0 0 7 0 #999999" />
-
+        <Setter Property="BorderThickness" Value="1.5"/>
 
     </Style>
 
@@ -91,24 +102,27 @@
                         <Track.IncreaseButton>
                             <RepeatButton Classes="repeattrack" Name="PART_IncreaseButton" />
                         </Track.IncreaseButton>
-                        <Thumb Name="thumb">
+                        <Thumb Name="thumb" >
                             <Thumb.Template>
                                 <ControlTemplate>
                                     <Grid Height="32" Width="32">
                                         <Border
-                                            Background="White"
+                                            Background="White" 
                                             BorderThickness="0"
                                             Classes="ThumbBorder ThumbB"
                                             CornerRadius="{DynamicResource MediumCornerRadius}"
                                             Height="20"
                                             Margin="0,-1,0,0"
-                                            Width="20" />
+                                            Width="20" >
+                                          
+                                        </Border>
                                     </Grid>
                                 </ControlTemplate>
                             </Thumb.Template>
                         </Thumb>
                     </Track>
 
+                    
                 </Grid>
             </ControlTemplate>
         </Setter>

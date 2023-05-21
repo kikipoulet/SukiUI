@@ -41,50 +41,51 @@
         <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource ThemeControlHighlightMidBrush}" />
         <Setter Property="BorderThickness" Value="1" />
+      
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Template">
             <ControlTemplate>
                 <DataValidationErrors>
-                    <Grid Margin="{TemplateBinding Padding}" Name="LayoutRoot">
+                    <Grid Margin="0,0,0,0" Name="LayoutRoot">
 
                         <Button
-                            Background="Transparent"
+                            Background="Transparent" 
                             IsEnabled="{TemplateBinding IsEnabled}"
-                            MaxWidth="{DynamicResource DatePickerThemeMaxWidth}"
-                            MinWidth="{DynamicResource DatePickerThemeMinWidth}"
-                            Name="PART_FlyoutButton"
+                           Height="45"
+                            Name="PART_FlyoutButton" BorderThickness="1"
                             TemplatedControl.IsTemplateFocusTarget="True">
-                            <Grid
+                            <Grid ColumnDefinitions="Auto,Auto">
+                            <Grid Grid.Column="0"
                                 ColumnDefinitions="78*,Auto,132*,Auto,78*"
                                 Name="PART_ButtonContentGrid"
                                 VerticalAlignment="Center">
-                                <TextBlock
+                                <TextBlock Foreground="{DynamicResource SukiText}"
                                     FontFamily="{TemplateBinding FontFamily}"
                                     FontSize="{TemplateBinding FontSize}"
                                     FontWeight="{TemplateBinding FontWeight}"
                                     HorizontalAlignment="Center"
                                     Name="PART_DayTextBlock"
-                                    Padding="{DynamicResource DatePickerHostPadding}"
+                                    Padding="0,-1,0,0"
                                     Text="day"
                                     VerticalAlignment="Center" />
-                                <TextBlock
-                                    FontFamily="{TemplateBinding FontFamily}"
-                                    FontSize="{TemplateBinding FontSize}"
-                                    FontWeight="{TemplateBinding FontWeight}"
-                                    Name="PART_MonthTextBlock"
-                                    Padding="{DynamicResource DatePickerHostMonthPadding}"
-                                    Text="month"
-                                    TextAlignment="Left" />
-                                <TextBlock
-                                    FontFamily="{TemplateBinding FontFamily}"
-                                    FontSize="{TemplateBinding FontSize}"
-                                    FontWeight="{TemplateBinding FontWeight}"
-                                    HorizontalAlignment="Center"
-                                    Margin="8,0,0,0"
-                                    Name="PART_YearTextBlock"
-                                    Padding="{DynamicResource DatePickerHostPadding}"
-                                    Text="year" />
+                                <TextBlock Foreground="{DynamicResource SukiText}"
+                                           FontFamily="{TemplateBinding FontFamily}"
+                                           FontSize="{TemplateBinding FontSize}"
+                                           FontWeight="{TemplateBinding FontWeight}"
+                                           Name="PART_MonthTextBlock"
+                                           Padding="5,-2,0,0"
+                                           Text="month"
+                                           TextAlignment="Left" />
+                                <TextBlock Foreground="{DynamicResource SukiText}"
+                                           FontFamily="{TemplateBinding FontFamily}"
+                                           FontSize="{TemplateBinding FontSize}"
+                                           FontWeight="{TemplateBinding FontWeight}"
+                                           HorizontalAlignment="Center"
+                                           Margin="8,0,0,0"
+                                           Name="PART_YearTextBlock"
+                                           Padding="0,-2,0,0"
+                                           Text="year" />
                                 <Rectangle
                                     Fill="{DynamicResource DatePickerSpacerFill}"
                                     Grid.Column="1"
@@ -97,6 +98,9 @@
                                     HorizontalAlignment="Center"
                                     Width="1"
                                     x:Name="PART_SecondSpacer" />
+                                 </Grid>
+                                <avalonia:MaterialIcon Margin="12,0,0,0" Grid.Column="1"  Kind="Calendar" HorizontalAlignment="Right" Foreground="{DynamicResource SukiText}" ></avalonia:MaterialIcon>
+                                
                             </Grid>
                         </Button>
 

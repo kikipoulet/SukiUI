@@ -9,6 +9,7 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Avalonia" Version="11.0.0-preview8" />
+        <PackageReference Include="Avalonia.Controls.PanAndZoom" Version="11.0.0-preview8" />
         <PackageReference Include="Avalonia.Desktop" Version="11.0.0-preview8" />
         <PackageReference Include="Avalonia.Diagnostics" Version="11.0.0-preview8" />
         <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0-preview8" />

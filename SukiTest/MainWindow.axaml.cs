@@ -35,7 +35,7 @@ namespace SukiTest
 
         public double JustADouble { get; set; } = 20;
         
-        
+        public DateTime Birth { get; set; } = DateTime.Now;
         public bool Woman { get; set; } = false;
         public bool Man { get; set; } = true;
 

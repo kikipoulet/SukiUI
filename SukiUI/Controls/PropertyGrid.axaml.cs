@@ -154,6 +154,13 @@ namespace SukiUI.Controls
                 Grid.SetColumn(prop, 1);
          
             }
+            else if(property.GetValue(Item).GetType() == typeof(DateTime))
+            {
+                var prop = new DatePicker() { Height = 38,  SelectedDate = (DateTime) property.GetValue(Item), Padding = new Thickness(6,6,0,6),HorizontalAlignment = HorizontalAlignment.Right,  Margin = new Thickness(0,2,10,2)};
+                prop.GetObservable(DatePicker.SelectedDateProperty).Subscribe(value => property.SetValue(Item, ((DateTimeOffset)value).Date));
+                gridItem.Children.Add(prop);
+                Grid.SetColumn(prop, 1);
+            }
 
             else if (property.GetValue(Item).GetType() == typeof(int))
             {

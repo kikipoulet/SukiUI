@@ -1,5 +1,5 @@
 <Window
-    Classes="NakedWindow Blurred"
+    Classes="NakedWindow"
     Title="SukiTest"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -199,6 +199,9 @@
                                                 Classes="Card"
                                                 Height="250"
                                                 Width="300">
+                                                <ZoomBorder Name="ZoomBorder" Stretch="None" ZoomSpeed="1.2"
+                                                                Background="Transparent" ClipToBounds="True" Focusable="True"
+                                                                VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                                                 <StackPanel>
                                                     <TextBlock Classes="h3" Margin="5,0,0,15">ComboBox</TextBlock>
                                                     <ComboBox PlaceholderText="Select an item">
@@ -210,6 +213,7 @@
                                                         </ComboBoxItem>
                                                     </ComboBox>
                                                 </StackPanel>
+                                                    </ZoomBorder>
                                             </Border>
 
 
@@ -600,7 +604,7 @@
                                                     <TextBlock Classes="h3" Margin="5,0,0,15">DatePicker</TextBlock>
 
 
-                                                    <DatePicker Height="60" Width="200" />
+                                                    <DatePicker  />
 
                                                 </StackPanel>
                                             </Border>
