@@ -107,7 +107,7 @@
                                 Background="Transparent"
                                 BorderThickness="0"
                                 ClickMode="Press"
-                                Focusable="False"
+                                Focusable="False" CornerRadius="{DynamicResource SmallCornerRadius}"
                                 Grid.Column="1"
                                 IsChecked="{TemplateBinding IsDropDownOpen,
                                                             Mode=TwoWay}"
