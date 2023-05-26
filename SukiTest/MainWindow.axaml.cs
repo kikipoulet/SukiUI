@@ -173,7 +173,7 @@ namespace SukiTest
             loading.Opacity = Math.Abs(loading.Opacity - 1);
         }
 
-        private int i = 1;
+        private int i = 0;
         private void ChangeTheme(object? sender, RoutedEventArgs e)
         {
             if(i%2 == 0)
