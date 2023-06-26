@@ -1,8 +1,8 @@
 <Styles
     xmlns="https://github.com/avaloniaui"
     xmlns:material="using:Material.Icons.Avalonia"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:system="clr-namespace:System;assembly=netstandard">
+    xmlns:system="clr-namespace:System;assembly=netstandard"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Design.PreviewWith>
         <WrapPanel
@@ -49,19 +49,17 @@
                     Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
+                    BoxShadow="{DynamicResource SukiLowShadow}"
                     Content="{TemplateBinding Content}"
                     ContentTemplate="{TemplateBinding ContentTemplate}"
                     CornerRadius="{TemplateBinding CornerRadius}"
                     HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                     Margin="4"
-                    BoxShadow="{DynamicResource SukiLowShadow}"
                     Name="PART_ContentPresenter"
                     Padding="{TemplateBinding Padding}"
                     RecognizesAccessKey="True"
                     TextElement.Foreground="{TemplateBinding Foreground}"
-                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" >
-                    
-                </ContentPresenter>
+                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
             </ControlTemplate>
         </Setter>
         <Setter Property="Transitions">
@@ -122,9 +120,10 @@
     <Style Selector="Button.Accent &gt; TextBlock">
         <Setter Property="Foreground">
             <Setter.Value>
-                <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
-                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.1" />
-                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.6" />
+                <LinearGradientBrush EndPoint="50%,100%" StartPoint="48%,0%">
+
+                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.8" />
+                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="1" />
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
@@ -177,9 +176,10 @@
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Background">
             <Setter.Value>
-                <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
-                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.1" />
-                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.6" />
+                <LinearGradientBrush EndPoint="50%,100%" StartPoint="48%,0%">
+
+                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.4" />
+                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="1" />
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
@@ -218,9 +218,10 @@
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="BorderBrush">
             <Setter.Value>
-                <LinearGradientBrush EndPoint="0%,100%" StartPoint="50%,-20%">
-                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.1" />
-                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.6" />
+                <LinearGradientBrush EndPoint="50%,100%" StartPoint="48%,0%">
+
+                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.5" />
+                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="1" />
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
@@ -237,9 +238,10 @@
     <Style Selector="Button.Outlined &gt; TextBlock">
         <Setter Property="Foreground">
             <Setter.Value>
-                <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
-                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.1" />
-                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.6" />
+                <LinearGradientBrush EndPoint="50%,100%" StartPoint="48%,0%">
+
+                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.5" />
+                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="1" />
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
@@ -262,9 +264,10 @@
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="Background">
             <Setter.Value>
-                <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
-                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.1" />
-                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.6" />
+                <LinearGradientBrush EndPoint="50%,100%" StartPoint="48%,0%">
+
+                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.5" />
+                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="1" />
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
@@ -275,9 +278,10 @@
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="Background">
             <Setter.Value>
-                <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
-                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.1" />
-                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.6" />
+                <LinearGradientBrush EndPoint="50%,100%" StartPoint="48%,0%">
+
+                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.5" />
+                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="1" />
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
