@@ -40,14 +40,14 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="11.0.0-preview8" />
+        <PackageReference Include="Avalonia" Version="11.0.0-rc1.1" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.0-preview8" />
-        <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.0-preview8" />
-        <PackageReference Include="Material.Icons.Avalonia" Version="2.0.0-preview3" />
-        <PackageReference Include="ReactiveUI" Version="18.4.26" />
+        <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.0-rc1.1" />
+        <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.0-rc1.1" />
+        <PackageReference Include="Material.Icons.Avalonia" Version="2.0.1" />
+        <PackageReference Include="ReactiveUI" Version="19.2.1" />
     </ItemGroup>
 
  
