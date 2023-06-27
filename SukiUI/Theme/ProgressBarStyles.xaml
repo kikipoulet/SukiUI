@@ -1,13 +1,22 @@
 <Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Design.PreviewWith>
+        <Grid>
+            <ProgressBar
+                Height="6"
+                Value="50"
+                Width="100" />
+        </Grid>
+    </Design.PreviewWith>
     <Style Selector="ProgressBar">
 
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
         <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
         <Setter Property="Foreground">
             <Setter.Value>
-                <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
-                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.1" />
-                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.6" />
+                <LinearGradientBrush EndPoint="100%,50%" StartPoint="0%,50%">
+                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.5" />
+                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="1" />
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
