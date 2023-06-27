@@ -254,6 +254,10 @@
 
     </Style>
 
+    <Style Selector="RadioButton.MenuItem:checked  TextBlock">
+        <Setter Property="FontWeight" Value="DemiBold" />
+    </Style>
+
     <Style Selector="RadioButton.MenuItem:checked /template/ Border">
         <Setter Property="Transitions">
 

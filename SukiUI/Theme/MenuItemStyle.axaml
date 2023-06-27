@@ -96,14 +96,14 @@
                                                      Mode=TwoWay}"
                             MinWidth="0"
                             Name="PART_Popup"
-                            PlacementMode="Right">
+                            Placement="Right">
                             <Border
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 BoxShadow="{DynamicResource SukiSwitchShadow}"
                                 CornerRadius="{TemplateBinding CornerRadius}"
-                                Margin="10">
+                                Margin="10,10,10,10">
                                 <ScrollViewer Classes="menuscroller">
                                     <ItemsPresenter
                                         Grid.IsSharedSizeScope="True"
@@ -180,7 +180,8 @@
                             IsOpen="{TemplateBinding IsSubMenuOpen,
                                                      Mode=TwoWay}"
                             Name="PART_Popup"
-                            OverlayInputPassThroughElement="{Binding $parent[Menu]}">
+                            OverlayInputPassThroughElement="{Binding $parent[Menu]}"
+                            Placement="BottomEdgeAlignedLeft">
                             <Border
                                 Background="{DynamicResource SukiBackground}"
                                 BorderBrush="{DynamicResource SukiControlBorderBrush}"
