@@ -1,5 +1,5 @@
 <UserControl
-    Height="150"
+    Height="110"
     Width="300"
     x:Class="SukiTest.DialogContent"
     xmlns="https://github.com/avaloniaui"
@@ -15,7 +15,7 @@
             Foreground="DarkGreen"
             Height="40"
             Kind="Xaml"
-            Margin="15"
+            Margin="7"
             VerticalAlignment="Top"
             Width="40" />
 
@@ -35,10 +35,10 @@
             Click="CloseDialog"
             FontWeight="DemiBold"
             HorizontalAlignment="Right"
-            Margin="10"
+            Margin="0,-15"
             Padding="2"
             VerticalAlignment="Bottom">
-            <TextBlock>Close</TextBlock>
+            <TextBlock Text="Close" />
         </Button>
 
 

@@ -21,10 +21,10 @@
             LogoKind="Xaml"
             MenuVisibility="False"
             Name="myPage"
-           ShowBottomBorder="False"
+            ShowBottomBorder="False"
             Title="Suki UI Testing - New Project">
 
-            <suki:SideMenu WinUIStyle="True"  MenuItemChanged="SideMenu_OnMenuItemChanged">
+            <suki:SideMenu MenuItemChanged="SideMenu_OnMenuItemChanged" WinUIStyle="True">
                 <suki:SideMenu.DataContext>
                     <suki:SideMenuModel>
 
@@ -66,20 +66,60 @@
 
                                         <WrapPanel Orientation="Horizontal">
 
-                                            <Border Classes="Card" Width="300">
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">Rating</TextBlock>
-                                                    <WrapPanel
+
+                                            <Grid Margin="25">
+                                                <Border
+                                                    Classes="Card"
+                                                    Margin="0,0,0,25"
+                                                    Width="300">
+                                                    <StackPanel>
+                                                        <material:MaterialIcon
+                                                            Foreground="{DynamicResource SukiPrimaryColor}"
+                                                            Height="30"
+                                                            HorizontalAlignment="Center"
+                                                            Kind="MicrosoftEdge"
+                                                            Margin="10"
+                                                            Width="30" />
+
+                                                        <TextBlock
+                                                            FontSize="18"
+                                                            FontWeight="DemiBold"
+                                                            HorizontalAlignment="Center"
+                                                            Margin="0,5,0,27"
+                                                            Text="Sign-in to your account" />
+
+                                                        <TextBlock
+                                                            FontWeight="DemiBold"
+                                                            Margin="6,0,0,3"
+                                                            Text="Username" />
+                                                        <TextBox />
+
+                                                        <TextBlock
+                                                            FontWeight="DemiBold"
+                                                            Margin="6,18,0,3"
+                                                            Text="Password" />
+                                                        <TextBox Margin="0,0,0,25" PasswordChar="*" />
+                                                    </StackPanel>
+                                                </Border>
+                                                <Button
+                                                    Classes="Rounded Primary"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Bottom"
+                                                    Width="160">
+                                                    <StackPanel
                                                         HorizontalAlignment="Center"
                                                         Orientation="Horizontal"
                                                         VerticalAlignment="Center">
+                                                        <material:MaterialIcon Foreground="White" Kind="Login" />
+                                                        <TextBlock
+                                                            FontWeight="DemiBold"
+                                                            Foreground="White"
+                                                            Margin="10,0,0,0"
+                                                            Text="Sign In" />
+                                                    </StackPanel>
+                                                </Button>
+                                            </Grid>
 
-                                                        <suki:Rating MaxStars="10" SelectedStars="4" />
-
-                                                    </WrapPanel>
-
-                                                </StackPanel>
-                                            </Border>
 
 
 
@@ -97,19 +137,19 @@
 
 
                                                         <Button Classes="Accent">
-                                                            <TextBlock>Accent</TextBlock>
+                                                            <TextBlock Text="Accent" />
                                                         </Button>
 
                                                         <Button>
-                                                            <TextBlock>Neutral</TextBlock>
+                                                            <TextBlock Text="Neutral" />
                                                         </Button>
 
                                                         <Button Classes="Outlined">
-                                                            <TextBlock>Outlined</TextBlock>
+                                                            <TextBlock Text="Outlined" />
                                                         </Button>
 
                                                         <Button Classes="Primary Rounded">
-                                                            <TextBlock>Primary Rounded</TextBlock>
+                                                            <TextBlock Text="Primary Rounded" />
                                                         </Button>
 
 
@@ -199,21 +239,27 @@
                                                 Classes="Card"
                                                 Height="250"
                                                 Width="300">
-                                                <ZoomBorder Name="ZoomBorder" Stretch="None" ZoomSpeed="1.2"
-                                                                Background="Transparent" ClipToBounds="True" Focusable="True"
-                                                                VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">ComboBox</TextBlock>
-                                                    <ComboBox PlaceholderText="Select an item">
-                                                        <ComboBoxItem>
-                                                            <TextBlock>Main Item 1</TextBlock>
-                                                        </ComboBoxItem>
-                                                        <ComboBoxItem>
-                                                            <TextBlock>Main Item 2</TextBlock>
-                                                        </ComboBoxItem>
-                                                    </ComboBox>
-                                                </StackPanel>
-                                                    </ZoomBorder>
+                                                <ZoomBorder
+                                                    Background="Transparent"
+                                                    ClipToBounds="True"
+                                                    Focusable="True"
+                                                    HorizontalAlignment="Stretch"
+                                                    Name="ZoomBorder"
+                                                    Stretch="None"
+                                                    VerticalAlignment="Stretch"
+                                                    ZoomSpeed="1.2">
+                                                    <StackPanel>
+                                                        <TextBlock Classes="h3" Margin="5,0,0,15">ComboBox</TextBlock>
+                                                        <ComboBox PlaceholderText="Select an item">
+                                                            <ComboBoxItem>
+                                                                <TextBlock>Main Item 1</TextBlock>
+                                                            </ComboBoxItem>
+                                                            <ComboBoxItem>
+                                                                <TextBlock>Main Item 2</TextBlock>
+                                                            </ComboBoxItem>
+                                                        </ComboBox>
+                                                    </StackPanel>
+                                                </ZoomBorder>
                                             </Border>
 
 
@@ -604,7 +650,7 @@
                                                     <TextBlock Classes="h3" Margin="5,0,0,15">DatePicker</TextBlock>
 
 
-                                                    <DatePicker  />
+                                                    <DatePicker />
 
                                                 </StackPanel>
                                             </Border>

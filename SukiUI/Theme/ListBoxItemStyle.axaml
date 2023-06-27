@@ -74,7 +74,7 @@
     </Style>
 
     <Style Selector="ListBoxItem:selected /template/ Border#BorderBasicStyle">
-        <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
+        <Setter Property="Background" Value="{DynamicResource SukiLightBackground}" />
     </Style>
     <Style Selector="ListBoxItem:pointerover /template/ Border#BorderBasicStyle">
         <Setter Property="Background" Value="{DynamicResource SukiLightBackground}" />

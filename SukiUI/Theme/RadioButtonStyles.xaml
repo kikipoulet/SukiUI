@@ -11,7 +11,7 @@
 
 
                 </RadioButton>
-                <RadioButton Classes="Chips" Margin="5">
+                <RadioButton Margin="5">
                     <TextBlock>test 2</TextBlock>
                 </RadioButton>
                 <RadioButton Classes="Chips" Margin="5">
@@ -182,21 +182,25 @@
                         <Ellipse.Transitions>
                             <Transitions>
                                 <BrushTransition Duration="0:0:0.4" Property="Fill" />
+                                <DoubleTransition Duration="0:0:0.4" Property="Width" />
+                                <DoubleTransition Duration="0:0:0.4" Property="Height" />
                             </Transitions>
                         </Ellipse.Transitions>
                     </Ellipse>
                     <Ellipse
-                        Height="6"
+                        Height="16"
                         HorizontalAlignment="Center"
                         Margin="0,0,0,0"
                         Name="checkMark"
                         Stretch="Uniform"
                         UseLayoutRounding="False"
                         VerticalAlignment="Center"
-                        Width="6">
+                        Width="16">
                         <Ellipse.Transitions>
                             <Transitions>
                                 <BrushTransition Duration="0:0:0.4" Property="Fill" />
+                                <DoubleTransition Duration="0:0:0.3" Property="Width" />
+                                <DoubleTransition Duration="0:0:0.3" Property="Height" />
                             </Transitions>
                         </Ellipse.Transitions>
                     </Ellipse>
@@ -212,6 +216,8 @@
                         <Ellipse.Transitions>
                             <Transitions>
                                 <BrushTransition Duration="0:0:0.4" Property="Fill" />
+                                <DoubleTransition Duration="0:0:0.4" Property="Width" />
+                                <DoubleTransition Duration="0:0:0.4" Property="Height" />
                             </Transitions>
                         </Ellipse.Transitions>
                     </Ellipse>
@@ -231,7 +237,7 @@
 
 
     <Style Selector="RadioButton.MenuItem:checked">
-        <Setter Property="TextBlock.FontWeight" Value="DemiBold"></Setter>
+        <Setter Property="TextBlock.FontWeight" Value="DemiBold" />
         <Setter Property="BorderThickness" Value="0,0,0,0" />
         <Setter Property="BorderBrush">
             <RadialGradientBrush>
@@ -243,8 +249,8 @@
     </Style>
 
     <Style Selector="RadioButton.MenuItem:pointerover /template/ Border">
-       
-        <Setter Property="Background" Value="{DynamicResource SukiLightBackground}"></Setter>
+
+        <Setter Property="Background" Value="{DynamicResource SukiLightBackground}" />
 
     </Style>
 
@@ -256,13 +262,13 @@
             </Transitions>
 
         </Setter>
-        
+
         <Setter Property="TextBlock.FontWeight" Value="DemiBold" />
-        <Setter Property="Background" Value="{DynamicResource SukiLightBackground}"></Setter>
-        <Setter Property="BorderBrush" Value="{DynamicResource SukiBorderBrush}"></Setter>
-        <Setter Property="BorderThickness" Value="1"></Setter>
+        <Setter Property="Background" Value="{DynamicResource SukiLightBackground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
     </Style>
-    
+
     <Style Selector="RadioButton.MenuItem /template/ ContentPresenter#PART_ContentPresenter">
         <Setter Property="Transitions">
 
@@ -271,8 +277,8 @@
             </Transitions>
 
         </Setter>
-        </Style>
-    
+    </Style>
+
     <Style Selector="RadioButton.MenuItem:checked /template/ ContentPresenter#PART_ContentPresenter">
         <Setter Property="Transitions">
 
@@ -281,14 +287,14 @@
             </Transitions>
 
         </Setter>
-        <Setter Property="Margin" Value="-40,2,0,0"></Setter>
+        <Setter Property="Margin" Value="-40,2,0,0" />
     </Style>
-    
+
     <Style Selector="RadioButton.MenuItem:checked  TextBlock">
         <!-- <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" /> -->
-        
+
     </Style>
-    
+
     <Style Selector="RadioButton.MenuItem  material|MaterialIcon">
         <!--  <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" /> -->
         <Setter Property="Transitions">
@@ -309,15 +315,16 @@
             </Transitions>
 
         </Setter>
-        <Setter Property="Opacity" Value="0"></Setter>
+        <Setter Property="Opacity" Value="0" />
     </Style>
 
     <Style Selector="RadioButton.MenuItem:checked  material|MaterialIcon#ShortIco">
-        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" /> 
+        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
         <Setter Property="Transitions">
 
             <Transitions>
                 <BrushTransition Duration="0:0:0.2" Property="Foreground" />
+
             </Transitions>
 
         </Setter>
@@ -331,15 +338,20 @@
         <Setter Property="Stroke" Value="{DynamicResource SukiBorderBrush}" />
     </Style>
     <Style Selector="RadioButton /template/ Ellipse#checkMark">
-        <Setter Property="Fill" Value="Transparent" />
-
+        <Setter Property="Fill" Value="{DynamicResource SukiBackground}" />
+        <Setter Property="Width" Value="12" />
+        <Setter Property="Height" Value="12" />
+        <Setter Property="IsVisible" Value="True" />
     </Style>
 
-    <Style Selector="RadioButton:checked /template/ Ellipse#border">
+    <Style Selector="RadioButton /template/ Ellipse#border">
         <Setter Property="Fill" Value="{DynamicResource SukiPrimaryColor}" />
     </Style>
     <Style Selector="RadioButton:checked /template/ Ellipse#checkMark">
         <Setter Property="Fill" Value="{DynamicResource SukiBackground}" />
+        <Setter Property="Width" Value="7" />
+        <Setter Property="Height" Value="7" />
+
     </Style>
 
     <Style Selector="RadioButton /template/ Ellipse#indeterminateMark">

@@ -19,7 +19,7 @@
     <Style Selector="TextBlock">
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
         <Setter Property="FontFamily" Value="avares://SukiUI/Roboto-Regular.ttf#Roboto" />
-        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontSize" Value="14" />
     </Style>
 
     <Style Selector="TextBlock[FontWeight=DemiBold]">

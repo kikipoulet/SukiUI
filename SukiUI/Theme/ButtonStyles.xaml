@@ -9,6 +9,7 @@
             Background="{DynamicResource SukiBackground}"
             HorizontalAlignment="Center"
             Orientation="Horizontal">
+            <TextBox Text="test" Width="100" />
 
             <Button Classes="Primary">
                 <TextBlock>Primary</TextBlock>
@@ -35,12 +36,12 @@
     </Design.PreviewWith>
 
     <Style Selector="Button">
-
+        <Setter Property="Height" Value="43" />
         <Setter Property="BorderThickness" Value="1.2" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiMediumBorderBrush}" />
-        <Setter Property="Padding" Value="11,10,11,8" />
+        <Setter Property="Padding" Value="18,9,18,8" />
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
-        <Setter Property="Margin" Value="5 5" />
+        <Setter Property="Margin" Value="5" />
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
 
         <Setter Property="Template">
@@ -54,7 +55,7 @@
                     ContentTemplate="{TemplateBinding ContentTemplate}"
                     CornerRadius="{TemplateBinding CornerRadius}"
                     HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                    Margin="4"
+                    Margin="4,4,4,4"
                     Name="PART_ContentPresenter"
                     Padding="{TemplateBinding Padding}"
                     RecognizesAccessKey="True"
@@ -123,7 +124,7 @@
                 <LinearGradientBrush EndPoint="50%,100%" StartPoint="48%,0%">
 
                     <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.8" />
-                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="1" />
+                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="1" />
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
@@ -156,7 +157,7 @@
     </Style>-->
 
     <Style Selector="Button &gt; TextBlock">
-        <Setter Property="FontSize" Value="13" />
+        <Setter Property="FontWeight" Value="DemiBold" />
 
     </Style>
 
@@ -173,12 +174,13 @@
     <!--    -->
 
     <Style Selector="Button.Primary">
+        <Setter Property="Padding" Value="18,10,18,8" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Background">
             <Setter.Value>
                 <LinearGradientBrush EndPoint="50%,100%" StartPoint="48%,0%">
 
-                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.4" />
+                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.5" />
                     <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="1" />
                 </LinearGradientBrush>
             </Setter.Value>
@@ -216,15 +218,7 @@
 
     <Style Selector="Button.Outlined">
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="BorderBrush">
-            <Setter.Value>
-                <LinearGradientBrush EndPoint="50%,100%" StartPoint="48%,0%">
-
-                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.5" />
-                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="1" />
-                </LinearGradientBrush>
-            </Setter.Value>
-        </Setter>
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
         <Setter Property="Background" Value="Transparent" />
 
         <Setter Property="Transitions">
@@ -236,15 +230,7 @@
     </Style>
 
     <Style Selector="Button.Outlined &gt; TextBlock">
-        <Setter Property="Foreground">
-            <Setter.Value>
-                <LinearGradientBrush EndPoint="50%,100%" StartPoint="48%,0%">
-
-                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.5" />
-                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="1" />
-                </LinearGradientBrush>
-            </Setter.Value>
-        </Setter>
+        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
         <Setter Property="Transitions">
             <Transitions>
                 <BrushTransition Duration="0:0:0.3" Property="Foreground" />
@@ -321,7 +307,7 @@
 
     <Style Selector="Button.Rounded">
         <Setter Property="CornerRadius" Value="100" />
-        <Setter Property="Padding" Value="20,10,20,8" />
+        <Setter Property="Padding" Value="25,10,25,8" />
     </Style>
 
     <Style Selector="Button.Accent /template/ ContentPresenter">

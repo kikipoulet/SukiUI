@@ -3,9 +3,9 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:media="clr-namespace:Avalonia.Media;assembly=Avalonia.Visuals"
     xmlns:primitives="clr-namespace:Avalonia.Controls.Primitives;assembly=Avalonia.Controls"
+    xmlns:sukiUi="clr-namespace:SukiUI"
     xmlns:sys="clr-namespace:System;assembly=netstandard"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:sukiUi="clr-namespace:SukiUI">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style.Resources>
 
         <Color x:Key="SukiPrimaryColor">#2f54eb</Color>
@@ -23,13 +23,13 @@
         <Color x:Key="SukiMediumBorderBrush">#e2e2e2</Color>
         <Color x:Key="SukiLightBorderBrush">#f4f4f4</Color>
         <Color x:Key="SukiDialogBackground">Gray</Color>
-        
-        <BoxShadows x:Key="SukiLowShadow">0 0 3 0 #eaeaea</BoxShadows>
-        <BoxShadows x:Key="SukiSwitchShadow">0 1 3 0 #b1b1b1</BoxShadows>
-        <BoxShadows x:Key="SukiPopupShadow">1 1 5 0 LightGray</BoxShadows>
-        
 
-        
+        <BoxShadows x:Key="SukiLowShadow">0 0 3 0 #eaeaea</BoxShadows>
+        <BoxShadows x:Key="SukiSwitchShadow">0 1 3 0 #c1c1c1</BoxShadows>
+        <BoxShadows x:Key="SukiPopupShadow">1 1 5 0 LightGray</BoxShadows>
+
+
+
 
     </Style.Resources>
 </Style>

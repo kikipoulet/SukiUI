@@ -1,7 +1,13 @@
-<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Design.PreviewWith>
-        <Border Background="{DynamicResource SukiBackground}" Padding="20">
+        <Border
+            Background="{DynamicResource SukiBackground}"
+            Padding="20"
+            Width="300">
             <StackPanel>
                 <TextBox
                     Classes="Prefix"
@@ -17,16 +23,53 @@
                     Width="200" />
                 <TextBox
                     Classes="BottomBar"
-                    Height="35"
                     Margin="5"
                     Text="Elem"
                     Width="200" />
                 <TextBox
-                    Height="35"
                     Margin="5"
                     Text="Elem"
                     Width="200" />
                 <TextBox Classes="FlatTextBox" Text="Elem" />
+
+                <Grid>
+                    <Border Classes="Card" Margin="0,0,0,25">
+                        <StackPanel>
+                            <TextBlock
+                                FontSize="13"
+                                FontWeight="DemiBold"
+                                Margin="6,0,0,3"
+                                Text="Username" />
+                            <TextBox />
+
+                            <TextBlock
+                                FontSize="13"
+                                FontWeight="DemiBold"
+                                Margin="6,18,0,3"
+                                Text="Password" />
+                            <TextBox Margin="0,0,0,20" />
+                        </StackPanel>
+                    </Border>
+                    <Button
+                        Classes="Rounded Primary"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Bottom"
+                        Width="160">
+                        <StackPanel
+                            HorizontalAlignment="Center"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center">
+                            <avalonia:MaterialIcon Foreground="White" Kind="Login" />
+                            <TextBlock
+                                FontSize="13"
+                                FontWeight="DemiBold"
+                                Foreground="White"
+                                Margin="10,0,0,0"
+                                Text="Sign In" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+
             </StackPanel>
         </Border>
     </Design.PreviewWith>
@@ -125,7 +168,6 @@
                                 Padding="8,5">
                                 <TextBlock
                                     Foreground="Gray"
-                                    FontSize="{TemplateBinding FontSize}"
                                     HorizontalAlignment="Center"
                                     Text="{TemplateBinding Watermark}"
                                     VerticalAlignment="Center" />
@@ -140,7 +182,6 @@
 
                                 <TextBlock
                                     DockPanel.Dock="Top"
-                                    FontSize="{DynamicResource FontSizeSmall}"
                                     Foreground="{DynamicResource ThemeAccentBrush}"
                                     Name="floatingWatermark"
                                     Text="{TemplateBinding Watermark}">
@@ -264,7 +305,6 @@
 
                                 <TextBlock
                                     DockPanel.Dock="Top"
-                                    FontSize="{DynamicResource FontSizeSmall}"
                                     Foreground="{DynamicResource ThemeAccentBrush}"
                                     Name="floatingWatermark"
                                     Text="{TemplateBinding Watermark}">
@@ -341,7 +381,7 @@
         <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
-
+        <Setter Property="Height" Value="43" />
 
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
         <Setter Property="SelectionBrush" Value="{DynamicResource SukiBorderBrush}" />
@@ -390,7 +430,6 @@
 
                                     <TextBlock
                                         DockPanel.Dock="Top"
-                                        FontSize="{DynamicResource FontSizeSmall}"
                                         Name="floatingWatermark"
                                         Text="{TemplateBinding Watermark}">
                                         <TextBlock.IsVisible>
@@ -418,7 +457,6 @@
                                                 VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
                                                 <Panel>
                                                     <TextBlock
-                                                        FontSize="{TemplateBinding FontSize}"
                                                         IsVisible="{TemplateBinding Text,
                                                                                     Converter={x:Static StringConverters.IsNullOrEmpty}}"
                                                         Name="watermark"
@@ -429,6 +467,7 @@
                                                     <TextPresenter
                                                         CaretBrush="{DynamicResource SukiText}"
                                                         CaretIndex="{TemplateBinding CaretIndex}"
+                                                        FontSize="14"
                                                         Name="PART_TextPresenter"
                                                         PasswordChar="{TemplateBinding PasswordChar}"
                                                         RevealPassword="{TemplateBinding RevealPassword}"

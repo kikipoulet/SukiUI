@@ -50,7 +50,7 @@
                         <Grid ColumnDefinitions="*,Auto">
                             <Grid.Styles>
                                 <Style Selector="Popup#PART_Popup[IsOpen=true]">
-                                   
+
                                     <Style.Animations>
                                         <Animation
                                             Duration="0:0:0.3"
@@ -58,18 +58,18 @@
                                             FillMode="Forward">
                                             <KeyFrame Cue="0%">
                                                 <Setter Property="Width" Value="0" />
-                                               
+
                                             </KeyFrame>
                                             <KeyFrame Cue="100%">
                                                 <Setter Property="Width" Value="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}" />
-                                               
+
                                             </KeyFrame>
                                         </Animation>
                                     </Style.Animations>
                                 </Style>
-                                
+
                                 <Style Selector="Popup#PART_Popup[IsOpen=false]">
-                                    
+
                                     <Style.Animations>
                                         <Animation
                                             Duration="0:0:0.3"
@@ -77,11 +77,11 @@
                                             FillMode="Forward">
                                             <KeyFrame Cue="0%">
                                                 <Setter Property="Width" Value="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}" />
-                                                
+
                                             </KeyFrame>
                                             <KeyFrame Cue="100%">
                                                 <Setter Property="Width" Value="0" />
-                                               
+
                                             </KeyFrame>
                                         </Animation>
                                     </Style.Animations>
@@ -107,7 +107,8 @@
                                 Background="Transparent"
                                 BorderThickness="0"
                                 ClickMode="Press"
-                                Focusable="False" CornerRadius="{DynamicResource SmallCornerRadius}"
+                                CornerRadius="{DynamicResource SmallCornerRadius}"
+                                Focusable="False"
                                 Grid.Column="1"
                                 IsChecked="{TemplateBinding IsDropDownOpen,
                                                             Mode=TwoWay}"
@@ -129,7 +130,7 @@
                                 MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                 Name="PART_Popup"
                                 PlacementTarget="{TemplateBinding}">
-                               
+
 
                                 <Border Padding="5,10,5,5">
                                     <Border
@@ -152,7 +153,7 @@
                     </Border>
                 </Border>
             </ControlTemplate>
-        </Setter> 
+        </Setter>
     </Style>
     <Style Selector="ComboBox:pointerover /template/ Border#border">
         <Setter Property="BorderBrush" Value="{DynamicResource SukiLightBorderBrush}" />

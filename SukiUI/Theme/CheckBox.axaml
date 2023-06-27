@@ -24,11 +24,11 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{DynamicResource SukiStrongBackground}"
                         BorderThickness="1"
-                        CornerRadius="{DynamicResource MediumCornerRadius}"
-                        Height="18"
+                        CornerRadius="{DynamicResource SmallCornerRadius}"
+                        Height="20"
                         Name="border"
                         VerticalAlignment="Center"
-                        Width="18">
+                        Width="20">
                         <Border.Transitions>
                             <Transitions>
                                 <BrushTransition Duration="0:0:0.15" Property="Background" />
@@ -39,12 +39,13 @@
                             <Path
                                 Data="M 1145.607177734375,430 C1145.607177734375,430 1141.449951171875,435.0772705078125 1141.449951171875,435.0772705078125 1141.449951171875,435.0772705078125 1139.232177734375,433.0999755859375 1139.232177734375,433.0999755859375 1139.232177734375,433.0999755859375 1138,434.5538330078125 1138,434.5538330078125 1138,434.5538330078125 1141.482177734375,438 1141.482177734375,438 1141.482177734375,438 1141.96875,437.9375 1141.96875,437.9375 1141.96875,437.9375 1147,431.34619140625 1147,431.34619140625 1147,431.34619140625 1145.607177734375,430 1145.607177734375,430 z"
                                 Fill="{DynamicResource SukiBackground}"
-                                Height="10"
+                                Height="9"
                                 HorizontalAlignment="Center"
+                                Margin="1,1,0,0"
                                 Name="checkMark"
                                 Stretch="Uniform"
                                 VerticalAlignment="Center"
-                                Width="11" />
+                                Width="9" />
 
                         </Panel>
                     </Border>
