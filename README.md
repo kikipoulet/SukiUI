@@ -15,17 +15,20 @@ Suki is the name of my dog :-)
 
 Documentation is on the [Wiki](https://github.com/kikipoulet/SukiUI/wiki) of this repository
 
-SukiUI 4.9.0 : Update to Avalonia Release Candidate
+### SukiUI 5.0.0 : 
+ - Lots of slight design changes, please see the gif just below 
+ - the look of the controls are now almost definitive. (Only the stepper will change soon)
+ - I plan to replace all the images of the documentation because some are really old
+ - Like usual, do not hesitate to suggest new controls idea that could benefit the library
 
-### Little Project that use SukiUI : [C# AI Assistant](https://github.com/kikipoulet/AI_Csharp_Assistant) 🚀
 
-
-## 👐 Features
+## 👐 Demo
 
 ### Desktop Controls
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/winuidark.png"></img>
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/doverall.gif"></img>
+Some desktop design "sketch" using SukiUI 5.0.0 :
+
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/totaldemo.gif"></img>
 
 [Desktop Controls Documentation](https://github.com/kikipoulet/SukiUI/wiki/3.-Controls)
 
@@ -40,29 +43,6 @@ SukiUI 4.9.0 : Update to Avalonia Release Candidate
 
 
 [Mobile Controls Documentation](https://github.com/kikipoulet/SukiUI/wiki/4.-Mobile-Controls)
-
-### Personalization 
-
-[Personalization Documentation](https://github.com/kikipoulet/SukiUI/wiki/2.-Personalization)
-
-- Dark Theme
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/DarkTheme.gif"></img>
-<kbd>
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/MobileDarkMode.gif" ></img> 
-</kbd>
-
-- Custom Primary Colors
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/PCGreen.png"></img>
-
-- CornerRadius Global Customization
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/cubic.png"></img>
-
-### Interactivity 
-
-InteractiveContainer control permits you to easily use Dialog and Toast to add Interactivity in your App.
-
-<img  src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/MobileDialog.gif"></img>
-<img  src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Toast.gif"></img>
 
 
 ## 📦 Usage
