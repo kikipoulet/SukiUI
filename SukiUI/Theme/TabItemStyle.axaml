@@ -53,6 +53,7 @@
                             TextBlock.FontWeight="{TemplateBinding FontWeight}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
 
+
                         <Border
                             CornerRadius="55"
                             Height="3"

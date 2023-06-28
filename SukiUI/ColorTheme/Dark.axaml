@@ -14,6 +14,7 @@
         <Color x:Key="SukiStrongBackground">#292929</Color>
         <Color x:Key="SukiControlTouchBackground">#505050</Color>
         <Color x:Key="SukiText">#dddddd</Color>
+        <Color x:Key="SukiLowText">DarkGray</Color>
         <Color x:Key="SukiBorderBrush">#353535</Color>
         <Color x:Key="SukiControlBorderBrush">#505050</Color>
         <Color x:Key="SukiMediumBorderBrush">#494949</Color>

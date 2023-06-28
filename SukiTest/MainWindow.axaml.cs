@@ -15,7 +15,9 @@ using Avalonia.Media;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.VisualTree;
 using System.Linq;
+using System.Threading;
 using Avalonia.Controls.Primitives;
+using Avalonia.Threading;
 using SukiUI.Controls.TouchInput.TouchNumericPad;
 
 namespace SukiTest
@@ -45,11 +47,22 @@ namespace SukiTest
 
         public List<int> ListOfInts { get; set; } = new List<int>() { 1,2,3,4,5,6,7,8,9,10};
     }
+
+    public class Invoice
+    {
+        public int Id { get; set; } = 20;
+        public string BillingName { get; set; } 
+        public int Amount { get; set; }
+        public bool Paid { get; set; }
+    }
+    
     public partial class MainWindow : Window
     {
-        private ObservableCollection<Person> liste { get; set; }= new ObservableCollection<Person>() {
-            new Person(){Name = "jean", Age = 17, Adult = false}, new Person(){Name = "Anne", Age = 25, Woman = true, Man = false},
-            new Person(){Name = "jean", Age = 17, Adult = false}, new Person(){Name = "Anne", Age = 25, Woman = true, Man = false}};
+        private ObservableCollection<Invoice> liste { get; set; }= new ObservableCollection<Invoice>() {
+            new Invoice(){Id = 15364, BillingName = "Jean", Amount = 156, Paid = true},
+            new Invoice(){Id = 45689, BillingName = "Fantine", Amount = 82, Paid = false},
+   
+    };
 
         private WindowNotificationManager notificationManager;
    
@@ -61,8 +74,8 @@ namespace SukiTest
             {
                 this.FindControl<DataGrid>("myDG").ItemsSource = liste;
 
-                this.FindControl<Stepper>("stepstep").Steps = new ObservableCollection<string>() { "one", "two", "thre", "four", "five" };
-                this.FindControl<Stepper>("stepstep").Index = 2;
+                this.FindControl<Stepper>("stepS").Steps = new ObservableCollection<string>() { "Sent", "In Progress", "Delivered" };
+                this.FindControl<Stepper>("stepS").Index = 1;
            
 
 
@@ -118,7 +131,7 @@ namespace SukiTest
         {
             try
             {
-                var notif = new Avalonia.Controls.Notifications.Notification("Info", "message");
+             /*   var notif = new Avalonia.Controls.Notifications.Notification("Info", "message");
                 notificationManager.Position = NotificationPosition.BottomRight;
                 notificationManager.Show(notif);
 
@@ -128,9 +141,9 @@ namespace SukiTest
                 
                 notif = new Avalonia.Controls.Notifications.Notification("Warning", "message", NotificationType.Warning);
                 notificationManager.Position = NotificationPosition.BottomRight;
-                notificationManager.Show(notif);
+                notificationManager.Show(notif); */
                 
-                notif = new Avalonia.Controls.Notifications.Notification("Success", "message", NotificationType.Success);
+                var notif = new Avalonia.Controls.Notifications.Notification("Success", "A new invoice has been created.", NotificationType.Success);
                 notificationManager.Position = NotificationPosition.BottomRight;
                 notificationManager.Show(notif);
             }catch(Exception exc)
@@ -204,6 +217,22 @@ namespace SukiTest
         private void ShowToast(object? sender, RoutedEventArgs e)
         {
             InteractiveContainer.ShowToast(new TextBlock(){Text = "Hello World !", Margin = new Thickness(15,8)}, 5);
+        }
+
+        private void SetBusy(object? sender, RoutedEventArgs e)
+        {
+            this.FindControl<BusyArea>("BusySignIn").IsBusy = true;
+
+            Task.Run(() =>
+            {
+                Thread.Sleep(3000);
+                Dispatcher.UIThread.Invoke(() =>
+                {
+                    this.FindControl<BusyArea>("BusySignIn").IsBusy = false;
+                    InteractiveContainer.ShowToast(new TextBlock(){Text = "Success !", Margin = new Thickness(15,8)}, 5);
+
+                });
+            });
         }
     }
 }

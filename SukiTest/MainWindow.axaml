@@ -2,7 +2,7 @@
     Classes="NakedWindow"
     Title="SukiTest"
     d:DesignHeight="4050"
-    d:DesignWidth="1000"
+    d:DesignWidth="1350"
     mc:Ignorable="d"
     x:Class="SukiTest.MainWindow"
     xmlns="https://github.com/avaloniaui"
@@ -26,11 +26,18 @@
 
             <suki:SideMenu MenuItemChanged="SideMenu_OnMenuItemChanged" WinUIStyle="True">
                 <suki:SideMenu.DataContext>
-                    <suki:SideMenuModel>
+                    <suki:SideMenuModel HeaderContentOverlapsToggleSidebarButton="True">
 
                         <suki:SideMenuModel.HeaderContent>
-                            <StackPanel Margin="0,0,0,0">
-                                <DockPanel>
+                            <StackPanel Margin="0,4,0,0">
+                                <Button
+                                    Classes="Accent"
+                                    Click="ChangeTheme"
+                                    HorizontalAlignment="Left"
+                                    Margin="0,0,0,0">
+                                    <material:MaterialIcon Foreground="{DynamicResource SukiText}" Kind="LightbulbOutline" />
+                                </Button>
+                                <DockPanel Margin="0,20,0,0">
                                     <material:MaterialIcon
                                         DockPanel.Dock="Left"
                                         Foreground="{DynamicResource SukiText}"
@@ -48,6 +55,7 @@
                                             FontWeight="Thin"
                                             Margin="3,1,0,0"
                                             Text="jean@mail.com" />
+
                                     </StackPanel>
 
 
@@ -72,37 +80,40 @@
                                                     Classes="Card"
                                                     Margin="0,0,0,25"
                                                     Width="300">
-                                                    <StackPanel>
-                                                        <material:MaterialIcon
-                                                            Foreground="{DynamicResource SukiPrimaryColor}"
-                                                            Height="30"
-                                                            HorizontalAlignment="Center"
-                                                            Kind="MicrosoftEdge"
-                                                            Margin="10"
-                                                            Width="30" />
+                                                    <suki:BusyArea Name="BusySignIn">
+                                                        <StackPanel>
+                                                            <material:MaterialIcon
+                                                                Foreground="{DynamicResource SukiPrimaryColor}"
+                                                                Height="30"
+                                                                HorizontalAlignment="Center"
+                                                                Kind="MicrosoftEdge"
+                                                                Margin="10"
+                                                                Width="30" />
 
-                                                        <TextBlock
-                                                            FontSize="18"
-                                                            FontWeight="DemiBold"
-                                                            HorizontalAlignment="Center"
-                                                            Margin="0,5,0,27"
-                                                            Text="Sign-in to your account" />
+                                                            <TextBlock
+                                                                FontSize="18"
+                                                                FontWeight="DemiBold"
+                                                                HorizontalAlignment="Center"
+                                                                Margin="0,5,0,27"
+                                                                Text="Sign-in to your account" />
 
-                                                        <TextBlock
-                                                            FontWeight="DemiBold"
-                                                            Margin="6,0,0,3"
-                                                            Text="Username" />
-                                                        <TextBox />
+                                                            <TextBlock
+                                                                FontWeight="DemiBold"
+                                                                Margin="6,0,0,3"
+                                                                Text="Username" />
+                                                            <TextBox />
 
-                                                        <TextBlock
-                                                            FontWeight="DemiBold"
-                                                            Margin="6,18,0,3"
-                                                            Text="Password" />
-                                                        <TextBox Margin="0,0,0,25" PasswordChar="*" />
-                                                    </StackPanel>
+                                                            <TextBlock
+                                                                FontWeight="DemiBold"
+                                                                Margin="6,18,0,3"
+                                                                Text="Password" />
+                                                            <TextBox Margin="0,0,0,25" PasswordChar="*" />
+                                                        </StackPanel>
+                                                    </suki:BusyArea>
                                                 </Border>
                                                 <Button
                                                     Classes="Primary Rounded"
+                                                    Click="SetBusy"
                                                     HorizontalAlignment="Center"
                                                     VerticalAlignment="Bottom"
                                                     Width="160">
@@ -125,7 +136,7 @@
                                                     Classes="Card"
                                                     Height="80"
                                                     Margin="15"
-                                                    Width="350">
+                                                    Width="300">
                                                     <Grid>
 
 
@@ -140,7 +151,7 @@
 
                                                             <TextBlock
                                                                 FontSize="12"
-                                                                Foreground="Gray"
+                                                                Foreground="{DynamicResource SukiLowText}"
                                                                 Margin="0,10,0,0"
                                                                 Text="Presentation.pdf" />
                                                         </StackPanel>
@@ -167,7 +178,7 @@
                                                 <Border
                                                     Classes="Card"
                                                     Margin="15"
-                                                    Width="350">
+                                                    Width="300">
                                                     <StackPanel>
                                                         <TextBlock
                                                             FontSize="16"
@@ -177,7 +188,7 @@
                                                         <Grid Margin="0,18,0,0">
                                                             <TextBlock
                                                                 FontSize="13"
-                                                                Foreground="#555555"
+                                                                Foreground="{DynamicResource SukiLowText}"
                                                                 HorizontalAlignment="Left"
                                                                 Text="Project Workforce" />
                                                             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
@@ -195,7 +206,7 @@
                                                         <Grid Margin="0,13,0,0">
                                                             <TextBlock
                                                                 FontSize="13"
-                                                                Foreground="#555555"
+                                                                Foreground="{DynamicResource SukiLowText}"
                                                                 HorizontalAlignment="Left"
                                                                 Text="Project Velocity" />
                                                             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
@@ -214,7 +225,7 @@
                                                         <Grid Margin="0,13,0,0">
                                                             <TextBlock
                                                                 FontSize="13"
-                                                                Foreground="#555555"
+                                                                Foreground="{DynamicResource SukiLowText}"
                                                                 HorizontalAlignment="Left"
                                                                 Text="Critical Hours" />
                                                             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
@@ -235,537 +246,286 @@
 
                                             </StackPanel>
 
+                                            <Border
+                                                Classes="Card"
+                                                Height="320"
+                                                Margin="15"
+                                                VerticalAlignment="Top"
+                                                Width="300">
+                                                <Grid>
 
-                                            <Border Classes="Card" Width="300">
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">Buttons</TextBlock>
-                                                    <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal">
-
-                                                        <Button Classes="Primary" Click="ChangeTheme">
-                                                            <TextBlock>Change Theme</TextBlock>
-                                                        </Button>
-
-
-
-
-                                                        <Button Classes="Accent">
-                                                            <TextBlock Text="Accent" />
-                                                        </Button>
-
-                                                        <Button>
-                                                            <TextBlock Text="Neutral" />
-                                                        </Button>
-
-                                                        <Button Classes="Outlined">
-                                                            <TextBlock Text="Outlined" />
-                                                        </Button>
-
-                                                        <Button Classes="Primary Rounded">
-                                                            <TextBlock Text="Primary Rounded" />
-                                                        </Button>
-
-
-                                                    </WrapPanel>
-
-                                                </StackPanel>
-                                            </Border>
-
-                                            <Border Classes="Card" Width="300">
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">MessageBox</TextBlock>
-                                                    <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal">
-
-                                                        <Button Click="ShowInfoBox">
-
-                                                            <TextBlock>Show Info</TextBlock>
-                                                        </Button>
-
-
-                                                        <Button Click="ShowDialog">
-                                                            <TextBlock>Show Dialog</TextBlock>
-                                                        </Button>
-
-                                                        <Button Click="ShowToast">
-                                                            <TextBlock>Show Toast</TextBlock>
-                                                        </Button>
-                                                    </WrapPanel>
-                                                </StackPanel>
-                                            </Border>
-
-
-                                            <Border Classes="Card" Width="600">
-
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">Stepper</TextBlock>
-
-                                                    <suki:Stepper Name="stepstep" />
-
-                                                    <StackPanel
+                                                    <TextBlock
+                                                        FontSize="16"
+                                                        FontWeight="DemiBold"
+                                                        Text="Humidity" />
+                                                    <Viewbox
+                                                        Height="175"
                                                         HorizontalAlignment="Center"
-                                                        Margin="0,50,0,0"
-                                                        Orientation="Horizontal"
-                                                        VerticalAlignment="Center">
-                                                        <Button Click="Button_OnClick">
-                                                            <TextBlock>Previous</TextBlock>
-                                                        </Button>
-                                                        <Button Click="nextStep">
-                                                            <TextBlock>Next</TextBlock>
-                                                        </Button>
-                                                    </StackPanel>
-                                                </StackPanel>
+                                                        Margin="0,0,0,5"
+                                                        VerticalAlignment="Center"
+                                                        Width="175">
+                                                        <suki:WaveProgress Value="{Binding Value, ElementName=SliderT}" />
+                                                    </Viewbox>
+
+                                                    <DockPanel VerticalAlignment="Bottom">
+                                                        <material:MaterialIcon
+                                                            DockPanel.Dock="Left"
+                                                            Foreground="#666666"
+                                                            Height="20"
+                                                            Kind="TemperatureLow"
+                                                            Width="20" />
+                                                        <material:MaterialIcon
+                                                            DockPanel.Dock="Right"
+                                                            Foreground="#666666"
+                                                            Height="20"
+                                                            Kind="TemperatureHigh"
+                                                            Width="20" />
+                                                        <Slider
+                                                            Margin="8,0"
+                                                            Maximum="100"
+                                                            Minimum="0"
+                                                            Name="SliderT"
+                                                            Value="23" />
+                                                    </DockPanel>
+
+                                                </Grid>
                                             </Border>
-
-
-                                            <Border Classes="Card" Width="300">
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">Slider</TextBlock>
-
-                                                    <StackPanel
-                                                        HorizontalAlignment="Center"
-                                                        Margin="0,20"
-                                                        Orientation="Horizontal">
-                                                        <TextBlock Margin="5" VerticalAlignment="Center">Value :</TextBlock>
-                                                        <TextBox
-                                                            Background="Transparent"
-                                                            BorderThickness="0"
-                                                            Classes="FlatTextBox"
-                                                            IsHitTestVisible="False"
-                                                            Padding="10"
-                                                            Text="{Binding #SliderValue.Value}"
-                                                            Watermark="bite" />
-
-                                                    </StackPanel>
-
-                                                    <Slider
-                                                        IsSnapToTickEnabled="True"
-                                                        Maximum="100"
-                                                        Minimum="0"
-                                                        Name="SliderValue"
-                                                        TickFrequency="1"
-                                                        Value="50" />
-                                                </StackPanel>
-                                            </Border>
-
 
                                             <Border
                                                 Classes="Card"
-                                                Height="250"
-                                                Width="300">
-                                                <ZoomBorder
-                                                    Background="Transparent"
-                                                    ClipToBounds="True"
-                                                    Focusable="True"
-                                                    HorizontalAlignment="Stretch"
-                                                    Name="ZoomBorder"
-                                                    Stretch="None"
-                                                    VerticalAlignment="Stretch"
-                                                    ZoomSpeed="1.2">
+                                                Margin="15"
+                                                VerticalAlignment="Top"
+                                                Width="500">
+                                                <Grid>
                                                     <StackPanel>
-                                                        <TextBlock Classes="h3" Margin="5,0,0,15">ComboBox</TextBlock>
-                                                        <ComboBox PlaceholderText="Select an item">
-                                                            <ComboBoxItem>
-                                                                <TextBlock>Main Item 1</TextBlock>
-                                                            </ComboBoxItem>
-                                                            <ComboBoxItem>
-                                                                <TextBlock>Main Item 2</TextBlock>
-                                                            </ComboBoxItem>
-                                                        </ComboBox>
-                                                    </StackPanel>
-                                                </ZoomBorder>
-                                            </Border>
-
-
-
-                                            <Border Classes="Card" Width="300">
-                                                <StackPanel>
-
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">ToggleButton</TextBlock>
-                                                    <ToggleButton Classes="Switch" Margin="5" />
-                                                    <ToggleButton Classes="Switch" Margin="5">
-                                                        <ToggleButton.RenderTransform>
-                                                            <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
-                                                        </ToggleButton.RenderTransform>
-                                                    </ToggleButton>
-                                                </StackPanel>
-                                            </Border>
-
-
-
-                                            <Border Classes="Card" Width="300">
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">Progress Bar</TextBlock>
-                                                    <ProgressBar
-                                                        Margin="10"
-                                                        Name="myProgressBarLine"
-                                                        Value="20" />
-                                                    <Button Click="Button_OnClickProgressBar">
-                                                        <TextBlock>Go To 60</TextBlock>
-                                                    </Button>
-                                                </StackPanel>
-                                            </Border>
-
-
-
-
-                                            <Border
-                                                Classes="Card"
-                                                Height="300"
-                                                Width="900">
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">DataGrid</TextBlock>
-                                                    <DataGrid
-                                                        AutoGenerateColumns="True"
-                                                        Height="220"
-                                                        IsReadOnly="True"
-                                                        Name="myDG" />
-                                                </StackPanel>
-                                            </Border>
-
-                                            <Border
-                                                Classes="Card"
-                                                ClipToBounds="True"
-                                                Height="300"
-                                                Width="300">
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">PropertyGrid</TextBlock>
-                                                    <Border Height="250" Padding="20">
-                                                        <suki:PropertyGrid Name="propertyGrid" Width="250" />
-                                                    </Border>
-                                                </StackPanel>
-                                            </Border>
-
-                                            <Border Classes="Card" Width="300">
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">CircleProgressBar</TextBlock>
-                                                    <Border Padding="20" Width="200">
-                                                        <suki:CircleProgressBar
-                                                            Height="130"
-                                                            Name="myProgressBar"
-                                                            StrokeWidth="11"
-                                                            Value="20"
-                                                            Width="130">
+                                                        <StackPanel>
                                                             <TextBlock
-                                                                Classes="h3"
-                                                                Margin="0,5,0,0"
-                                                                Name="TextPercent"
-                                                                Text="20"
+                                                                FontWeight="DemiBold"
+                                                                HorizontalAlignment="Left"
+                                                                Text="Notify me when .."
+                                                                VerticalAlignment="Top" />
+                                                            <StackPanel Margin="0,8,0,0">
+                                                                <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                                                                    <CheckBox IsChecked="True" />
+                                                                    <TextBlock
+                                                                        FontSize="13"
+                                                                        Foreground="{DynamicResource SukiLowText}"
+                                                                        Margin="8,0,0,0"
+                                                                        Text="Daily updates"
+                                                                        VerticalAlignment="Center" />
+                                                                </StackPanel>
+                                                                <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                                                                    <CheckBox IsChecked="True" />
+                                                                    <TextBlock
+                                                                        FontSize="13"
+                                                                        Foreground="{DynamicResource SukiLowText}"
+                                                                        Margin="8,0,0,0"
+                                                                        Text="New event"
+                                                                        VerticalAlignment="Center" />
+                                                                </StackPanel>
+                                                                <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                                                                    <CheckBox IsChecked="False" />
+                                                                    <TextBlock
+                                                                        FontSize="13"
+                                                                        Foreground="{DynamicResource SukiLowText}"
+                                                                        Margin="8,0,0,0"
+                                                                        Text="When added on new team"
+                                                                        VerticalAlignment="Center" />
+                                                                </StackPanel>
+                                                            </StackPanel>
+                                                        </StackPanel>
+                                                        <Grid Margin="0,30,0,0">
+                                                            <ToggleButton
+                                                                Classes="Switch"
+                                                                HorizontalAlignment="Right"
+                                                                IsChecked="True"
                                                                 VerticalAlignment="Center" />
-                                                        </suki:CircleProgressBar>
+                                                            <TextBlock
+                                                                FontWeight="DemiBold"
+                                                                HorizontalAlignment="Left"
+                                                                Text="Mobile Notifications"
+                                                                VerticalAlignment="Top" />
 
-                                                    </Border>
-                                                    <Button Click="Button_OnClickProgress">
-                                                        <TextBlock>Plus</TextBlock>
-                                                    </Button>
-                                                </StackPanel>
-                                            </Border>
-
-                                            <Border Classes="Card" Width="300">
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">TextBox</TextBlock>
-                                                    <Border Padding="20">
-                                                        <StackPanel Spacing="10">
-                                                            <TextBox Margin="2" Text="Normal" />
-
-                                                            <TextBox
-                                                                Classes="BottomBar"
-                                                                Margin="2"
-                                                                Text="BottomBar" />
-                                                            <TextBox Classes="FlatTextBox" Text="Elem" />
-                                                            <TextBox
-                                                                Classes="Prefix"
-                                                                Margin="2"
-                                                                Text="avaloniaui.net"
-                                                                Watermark="https://" />
-                                                            <TextBox
-                                                                Classes="Suffix"
-                                                                Margin="2"
-                                                                Text="avaloniaui"
-                                                                Watermark="@gmail.com" />
-
-
-                                                        </StackPanel>
-                                                    </Border>
-                                                </StackPanel>
-                                            </Border>
-
-                                            <Border Classes="Card" Width="600">
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">Tabs</TextBlock>
-                                                    <Border Padding="20">
-                                                        <StackPanel>
-                                                            <TabControl>
-                                                                <TabItem Header="Tab 1">
-
-                                                                    <circleProgressBarsTestMvvm:CircleProgresstestView />
-
-                                                                </TabItem>
-                                                                <TabItem Header="Tab 2" />
-                                                                <TabItem Header="Tab 3" />
-                                                            </TabControl>
-
-                                                        </StackPanel>
-                                                    </Border>
-                                                </StackPanel>
-                                            </Border>
-
-                                            <Border Classes="Card" Width="300">
-
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,35">Loading</TextBlock>
-                                                    <suki:Loading Name="MyLoading" />
-
-                                                    <Button Click="ButtonChangeOpacity" Margin="0,20,0,0">
-                                                        <TextBlock>Change Opacity</TextBlock>
-                                                    </Button>
-                                                </StackPanel>
-                                            </Border>
-
-                                            <Border Classes="Card" Width="300">
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">Expander</TextBlock>
-                                                    <StackPanel>
-                                                        <Expander Header="Question 1 ?">
-                                                            <TextBlock Margin="20,5">Answer</TextBlock>
-                                                        </Expander>
-
-                                                        <Expander Header="Question 2 ?">
-                                                            <TextBlock Margin="20,5">Answer</TextBlock>
-                                                        </Expander>
-
-                                                        <Expander Header="Question 3 ?">
-                                                            <TextBlock Margin="20,5">Answer</TextBlock>
-                                                        </Expander>
-
-                                                    </StackPanel>
-                                                </StackPanel>
-                                            </Border>
-
-                                            <Border Classes="Card" Width="300">
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">ListBox</TextBlock>
-                                                    <ListBox Margin="10" Name="listTest" />
-                                                </StackPanel>
-                                            </Border>
-
-
-                                            <Border Classes="Card" Width="300">
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">CheckBox</TextBlock>
-                                                    <StackPanel>
-                                                        <CheckBox Margin="20" />
-                                                        <CheckBox IsChecked="True" Margin="20" />
-                                                    </StackPanel>
-                                                </StackPanel>
-                                            </Border>
-
-                                            <Border Classes="Card" Width="300">
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">PercentProgress Bar</TextBlock>
-                                                    <suki:PercentProgressBar Name="myPercentProgress" Value="24" />
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <Button Click="GoTo50">
-                                                            <TextBlock>Go To 50</TextBlock>
-                                                        </Button>
-                                                        <Button Click="Button_OnClickProgressBar">
-                                                            <TextBlock>Go To 100</TextBlock>
-                                                        </Button>
-                                                    </StackPanel>
-
-                                                </StackPanel>
-                                            </Border>
-
-                                            <Border Classes="Card" Width="300">
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">Menu</TextBlock>
-                                                    <Menu>
-                                                        <MenuItem>
-                                                            <MenuItem.Header>
-                                                                <TextBlock Text="File" />
-                                                            </MenuItem.Header>
-                                                            <MenuItem>
-                                                                <MenuItem.Header>
-                                                                    <TextBlock Text="Edit" />
-                                                                </MenuItem.Header>
-                                                            </MenuItem>
-                                                            <MenuItem>
-                                                                <MenuItem.Header>
-                                                                    <TextBlock Text="Help" />
-                                                                </MenuItem.Header>
-                                                            </MenuItem>
-                                                        </MenuItem>
-                                                        <MenuItem>
-                                                            <MenuItem.Header>
-                                                                <TextBlock Text="Edit" />
-                                                            </MenuItem.Header>
-                                                        </MenuItem>
-                                                        <MenuItem>
-                                                            <MenuItem.Header>
-                                                                <TextBlock Text="Help" />
-                                                            </MenuItem.Header>
-                                                        </MenuItem>
-                                                    </Menu>
-                                                </StackPanel>
-                                            </Border>
-
-
-
-
-
-                                            <Border Classes="Card" Width="300">
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">Numeric UpDown</TextBlock>
-                                                    <NumericUpDown />
-                                                </StackPanel>
-                                            </Border>
-
-                                            <Border Classes="Card" Width="300">
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">Radio Button</TextBlock>
-                                                    <StackPanel Orientation="Vertical">
-                                                        <RadioButton Margin="5">
-                                                            <TextBlock Text="Item 1" />
-                                                        </RadioButton>
-                                                        <RadioButton Margin="5">
-                                                            <TextBlock Text="Item 2" />
-                                                        </RadioButton>
-                                                        <RadioButton Margin="5">
-                                                            <TextBlock Text="Item 3" />
-                                                        </RadioButton>
-                                                    </StackPanel>
-                                                </StackPanel>
-                                            </Border>
-
-
-
-
-
-                                            <Border Classes="Card" Width="300">
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">Notification</TextBlock>
-                                                    <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal">
-
-                                                        <Button Classes="Primary" Click="ShowNotification">
-                                                            <TextBlock>Show Notification</TextBlock>
-                                                        </Button>
-
-                                                    </WrapPanel>
-                                                </StackPanel>
-                                            </Border>
-
-
-
-
-
-
-
-                                            <Border Classes="Card" Width="300">
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">TextBlock</TextBlock>
-                                                    <StackPanel>
-                                                        <TextBlock Classes="h1">h1</TextBlock>
-                                                        <TextBlock Classes="h2">h2</TextBlock>
-                                                        <TextBlock Classes="h3">h3</TextBlock>
-                                                        <TextBlock Classes="h3">h3</TextBlock>
-                                                        <TextBlock>Normal</TextBlock>
-                                                        <TextBlock Classes="Accent">Accent</TextBlock>
-                                                    </StackPanel>
-                                                </StackPanel>
-                                            </Border>
-
-                                            <Border Classes="Card" Width="300">
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">TreeView</TextBlock>
-                                                    <Border Padding="20" Width="200">
-                                                        <TreeView>
-                                                            <TreeViewItem Header="blub">
-                                                                <TreeViewItem Header="blub" />
-                                                                <TreeViewItem Header="blub" />
-                                                            </TreeViewItem>
-                                                            <TreeViewItem Header="blub" />
-                                                            <TreeViewItem Header="blub" />
-                                                        </TreeView>
-                                                    </Border>
-                                                </StackPanel>
-                                            </Border>
-
-                                            <Border Classes="Card Hoverable" Width="300">
-
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">Hoverable Card</TextBlock>
-
-                                                </StackPanel>
-                                            </Border>
-
-
-
-
-
-                                            <Border Classes="Card" Width="300">
-                                                <Border.ContextMenu>
-
-                                                    <ContextMenu>
-                                                        <MenuItem Header="Menu item 1" />
-                                                        <MenuItem Header="Menu item 2" />
-                                                        <Separator />
-                                                        <MenuItem Header="Menu item 3" />
-                                                    </ContextMenu>
-
-                                                </Border.ContextMenu>
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">ContextMenu (right click)</TextBlock>
-
-                                                </StackPanel>
-                                            </Border>
-
-
-
-                                            <Border Classes="Card" Width="300">
-
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">GroupBox</TextBlock>
-
-                                                    <suki:GroupBox Header="Test Header">
-                                                        <Grid Height="100" Width="150">
-                                                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Test Content</TextBlock>
+                                                            <TextBlock
+                                                                FontSize="13"
+                                                                Foreground="{DynamicResource SukiLowText}"
+                                                                HorizontalAlignment="Left"
+                                                                Margin="0,22,0,0"
+                                                                Text="Receive push notifications on your mobile phone."
+                                                                TextWrapping="Wrap"
+                                                                VerticalAlignment="Bottom"
+                                                                Width="300" />
                                                         </Grid>
+                                                        <Grid Margin="0,30,0,0">
+                                                            <ToggleButton
+                                                                Classes="Switch"
+                                                                HorizontalAlignment="Right"
+                                                                IsChecked="False"
+                                                                VerticalAlignment="Center" />
+                                                            <TextBlock
+                                                                FontWeight="DemiBold"
+                                                                HorizontalAlignment="Left"
+                                                                Text="Desktop Notifications"
+                                                                VerticalAlignment="Top" />
 
-                                                    </suki:GroupBox>
-                                                </StackPanel>
-                                            </Border>
+                                                            <TextBlock
+                                                                FontSize="13"
+                                                                Foreground="{DynamicResource SukiLowText}"
+                                                                HorizontalAlignment="Left"
+                                                                Margin="0,22,0,0"
+                                                                Text="Receive push notifications on your computer."
+                                                                TextWrapping="Wrap"
+                                                                VerticalAlignment="Bottom"
+                                                                Width="300" />
+                                                        </Grid>
+                                                        <StackPanel Margin="0,30,0,0">
 
-                                            <Border Classes="Card" Width="300">
+                                                            <TextBlock
+                                                                FontWeight="DemiBold"
+                                                                HorizontalAlignment="Left"
+                                                                Text="Language"
+                                                                VerticalAlignment="Top" />
 
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">Busy Area</TextBlock>
+                                                            <RadioButton Margin="0,13,0,0">
+                                                                <TextBlock
+                                                                    FontSize="13"
+                                                                    Foreground="{DynamicResource SukiLowText}"
+                                                                    Margin="8,0,0,0"
+                                                                    Text="English"
+                                                                    VerticalAlignment="Center" />
+                                                            </RadioButton>
+                                                            <RadioButton IsChecked="True" Margin="0,5,0,0">
+                                                                <TextBlock
+                                                                    FontSize="13"
+                                                                    Foreground="{DynamicResource SukiLowText}"
+                                                                    Margin="8,0,0,0"
+                                                                    Text="Chinese"
+                                                                    VerticalAlignment="Center" />
+                                                            </RadioButton>
+                                                            <RadioButton Margin="0,5,0,0">
+                                                                <TextBlock
+                                                                    FontSize="13"
+                                                                    Foreground="{DynamicResource SukiLowText}"
+                                                                    Margin="8,0,0,0"
+                                                                    Text="Japanese"
+                                                                    VerticalAlignment="Center" />
+                                                            </RadioButton>
 
 
-                                                    <suki:BusyArea Name="myBusyArea">
-                                                        <StackPanel>
-                                                            <TextBlock Margin="15" Text="Content " />
-                                                            <Button
-                                                                Classes="Primary"
-                                                                Click="BusyMe"
-                                                                Margin="50"
-                                                                Width="120">
-                                                                <TextBlock Text="Click to Busy this area" />
-                                                            </Button>
+
                                                         </StackPanel>
-                                                    </suki:BusyArea>
-
-
-                                                </StackPanel>
+                                                    </StackPanel>
+                                                    <Button
+                                                        Classes="Accent"
+                                                        Click="ShowDialog"
+                                                        HorizontalAlignment="Right"
+                                                        Margin="-10"
+                                                        VerticalAlignment="Top">
+                                                        <TextBlock Text="Create Link" />
+                                                    </Button>
+                                                </Grid>
                                             </Border>
 
-                                            <Border Classes="Card" Width="300">
+                                            <StackPanel>
+                                                <Border
+                                                    Classes="Card"
+                                                    Height="281"
+                                                    Margin="15"
+                                                    Width="430">
+                                                    <TabControl>
+                                                        <TabItem>
+                                                            <TabItem.Header>
+                                                                <TextBlock FontSize="16" Text="Invoices" />
+                                                            </TabItem.Header>
+                                                            <Grid>
 
-                                                <StackPanel>
-                                                    <TextBlock Classes="h3" Margin="5,0,0,15">DatePicker</TextBlock>
+
+                                                                <DataGrid
+                                                                    AutoGenerateColumns="True"
+                                                                    IsReadOnly="True"
+                                                                    Margin="15,10,15,0"
+                                                                    Name="myDG"
+                                                                    VerticalAlignment="Top" />
+                                                                <Button
+                                                                    Click="ShowNotification"
+                                                                    HorizontalAlignment="Right"
+                                                                    VerticalAlignment="Bottom">
+                                                                    <TextBlock Text="New Invoice" />
+                                                                </Button>
+                                                            </Grid>
+                                                        </TabItem>
+                                                        <TabItem>
+                                                            <TabItem.Header>
+                                                                <TextBlock FontSize="16" Text="Questions" />
+                                                            </TabItem.Header>
+                                                            <StackPanel Margin="0,10,0,0">
+                                                                <Expander Header="What is your cancellation policy ?">
+                                                                    <TextBlock
+                                                                        FontSize="13"
+                                                                        Margin="15,15"
+                                                                        TextWrapping="Wrap">
+                                                                        We understand that things change. You can cancel your plan at any time and we'll refund you.
+                                                                    </TextBlock>
+                                                                </Expander>
+
+                                                                <Expander Header="Can I change my plan later ?">
+                                                                    <TextBlock Margin="20,5">Answer</TextBlock>
+                                                                </Expander>
+
+                                                                <Expander Header="How do I change my account email ?">
+                                                                    <TextBlock Margin="20,5">Answer</TextBlock>
+                                                                </Expander>
+
+                                                            </StackPanel>
+                                                        </TabItem>
+
+                                                    </TabControl>
+                                                </Border>
+                                                <Border
+                                                    Classes="Card"
+                                                    Height="85"
+                                                    Margin="15"
+                                                    Width="430">
+                                                    <suki:Stepper Margin="-40,-28,-40,-15" Name="stepS" />
+                                                </Border>
+                                            </StackPanel>
 
 
-                                                    <DatePicker />
 
-                                                </StackPanel>
-                                            </Border>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                                         </WrapPanel>

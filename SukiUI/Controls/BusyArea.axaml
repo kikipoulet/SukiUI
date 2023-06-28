@@ -36,7 +36,7 @@
         </Style>
 
         <Style Selector="suki|BusyArea[IsBusy=True] ContentControl">
-            <Setter Property="Opacity" Value="0" />
+            <Setter Property="Opacity" Value="0.1" />
         </Style>
 
         <Style Selector="suki|BusyArea[IsBusy=False] ContentControl">

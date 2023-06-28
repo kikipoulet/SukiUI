@@ -1,48 +1,63 @@
 <UserControl
-    Height="110"
-    Width="300"
     x:Class="SukiTest.DialogContent"
     xmlns="https://github.com/avaloniaui"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:material="using:Material.Icons.Avalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-
-    <Grid>
-
-
-        <material:MaterialIcon
-            Foreground="DarkGreen"
-            Height="40"
-            Kind="Xaml"
-            Margin="7"
-            VerticalAlignment="Top"
-            Width="40" />
+    <StackPanel Margin="10" Width="450">
+        <TextBlock
+            FontSize="16"
+            FontWeight="DemiBold"
+            Text="Create Link" />
 
         <TextBlock
-            Classes="h4"
-            FontSize="15"
-            HorizontalAlignment="Center"
-            Margin="0,5,0,0"
-            VerticalAlignment="Center">
-            This is a random message !
-        </TextBlock>
-
-
-
-        <Button
-            Classes="Accent"
-            Click="CloseDialog"
             FontWeight="DemiBold"
+            Margin="0,27,0,0"
+            Text="Expiry date" />
+        <DatePicker Margin="-9,2,0,0" />
+
+        <DockPanel>
+            <TextBlock
+                DockPanel.Dock="Left"
+                FontWeight="DemiBold"
+                Margin="0,20,0,0"
+                Text="Temporary access"
+                VerticalAlignment="Top" />
+            <ToggleButton
+                Classes="Switch"
+                DockPanel.Dock="Right"
+                IsChecked="True"
+                Margin="0,12,-8,0"
+                VerticalAlignment="Bottom" />
+            <Grid />
+        </DockPanel>
+        <TextBlock
+            FontSize="13"
+            Foreground="DarkGray"
+            HorizontalAlignment="Left"
+            Margin="0,1,0,0"
+            Text="Members are automatically removed from campaign after closing tab or log out."
+            TextWrapping="Wrap"
+            Width="320" />
+
+        <StackPanel
             HorizontalAlignment="Right"
-            Margin="0,-15"
-            Padding="2"
-            VerticalAlignment="Bottom">
-            <TextBlock Text="Close" />
-        </Button>
+            Margin="0,35,-8,-8"
+            Orientation="Horizontal">
+            <Button Classes="Rounded" Click="CloseDialog">
+                <TextBlock Text="Cancel" />
+            </Button>
+            <Button Classes="Primary Rounded" Click="CloseDialog">
+                <TextBlock Text="Generate" />
+            </Button>
+        </StackPanel>
+
+    </StackPanel>
 
 
 
-    </Grid>
+
+
 
 </UserControl>

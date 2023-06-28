@@ -4,7 +4,10 @@
     xmlns:sys="using:System"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
-        <Border Height="500" Padding="20">
+        <Border
+            Height="500"
+            Padding="20"
+            Width="1000">
             <StackPanel Spacing="20" VerticalAlignment="Center">
                 <DatePicker Height="60" />
                 <DatePicker CornerRadius="10" />
@@ -41,7 +44,7 @@
         <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource ThemeControlHighlightMidBrush}" />
         <Setter Property="BorderThickness" Value="1" />
-      
+
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Template">
@@ -50,57 +53,67 @@
                     <Grid Margin="0,0,0,0" Name="LayoutRoot">
 
                         <Button
-                            Background="Transparent" 
+                            Background="Transparent"
+                            BorderThickness="1"
+                            Height="45"
                             IsEnabled="{TemplateBinding IsEnabled}"
-                           Height="45"
-                            Name="PART_FlyoutButton" BorderThickness="1"
+                            Name="PART_FlyoutButton"
                             TemplatedControl.IsTemplateFocusTarget="True">
                             <Grid ColumnDefinitions="Auto,Auto">
-                            <Grid Grid.Column="0"
-                                ColumnDefinitions="78*,Auto,132*,Auto,78*"
-                                Name="PART_ButtonContentGrid"
-                                VerticalAlignment="Center">
-                                <TextBlock Foreground="{DynamicResource SukiText}"
-                                    FontFamily="{TemplateBinding FontFamily}"
-                                    FontSize="{TemplateBinding FontSize}"
-                                    FontWeight="{TemplateBinding FontWeight}"
-                                    HorizontalAlignment="Center"
-                                    Name="PART_DayTextBlock"
-                                    Padding="0,-1,0,0"
-                                    Text="day"
-                                    VerticalAlignment="Center" />
-                                <TextBlock Foreground="{DynamicResource SukiText}"
-                                           FontFamily="{TemplateBinding FontFamily}"
-                                           FontSize="{TemplateBinding FontSize}"
-                                           FontWeight="{TemplateBinding FontWeight}"
-                                           Name="PART_MonthTextBlock"
-                                           Padding="5,-2,0,0"
-                                           Text="month"
-                                           TextAlignment="Left" />
-                                <TextBlock Foreground="{DynamicResource SukiText}"
-                                           FontFamily="{TemplateBinding FontFamily}"
-                                           FontSize="{TemplateBinding FontSize}"
-                                           FontWeight="{TemplateBinding FontWeight}"
-                                           HorizontalAlignment="Center"
-                                           Margin="8,0,0,0"
-                                           Name="PART_YearTextBlock"
-                                           Padding="0,-2,0,0"
-                                           Text="year" />
-                                <Rectangle
-                                    Fill="{DynamicResource DatePickerSpacerFill}"
+                                <Grid
+                                    ColumnDefinitions="78*,Auto,132*,Auto,78*"
+                                    Grid.Column="0"
+                                    Name="PART_ButtonContentGrid"
+                                    VerticalAlignment="Center">
+                                    <TextBlock
+                                        FontFamily="{TemplateBinding FontFamily}"
+                                        FontSize="{TemplateBinding FontSize}"
+                                        FontWeight="{TemplateBinding FontWeight}"
+                                        Foreground="{DynamicResource SukiText}"
+                                        HorizontalAlignment="Center"
+                                        Name="PART_DayTextBlock"
+                                        Padding="0,-1,0,0"
+                                        Text="day"
+                                        VerticalAlignment="Center" />
+                                    <TextBlock
+                                        FontFamily="{TemplateBinding FontFamily}"
+                                        FontSize="{TemplateBinding FontSize}"
+                                        FontWeight="{TemplateBinding FontWeight}"
+                                        Foreground="{DynamicResource SukiText}"
+                                        Name="PART_MonthTextBlock"
+                                        Padding="5,-2,0,0"
+                                        Text="month"
+                                        TextAlignment="Left" />
+                                    <TextBlock
+                                        FontFamily="{TemplateBinding FontFamily}"
+                                        FontSize="{TemplateBinding FontSize}"
+                                        FontWeight="{TemplateBinding FontWeight}"
+                                        Foreground="{DynamicResource SukiText}"
+                                        HorizontalAlignment="Center"
+                                        Margin="8,0,0,0"
+                                        Name="PART_YearTextBlock"
+                                        Padding="0,-2,0,0"
+                                        Text="year" />
+                                    <Rectangle
+                                        Fill="{DynamicResource DatePickerSpacerFill}"
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Center"
+                                        Width="1"
+                                        x:Name="PART_FirstSpacer" />
+                                    <Rectangle
+                                        Fill="{DynamicResource DatePickerSpacerFill}"
+                                        Grid.Column="3"
+                                        HorizontalAlignment="Center"
+                                        Width="1"
+                                        x:Name="PART_SecondSpacer" />
+                                </Grid>
+                                <avalonia:MaterialIcon
+                                    Foreground="{DynamicResource SukiText}"
                                     Grid.Column="1"
-                                    HorizontalAlignment="Center"
-                                    Width="1"
-                                    x:Name="PART_FirstSpacer" />
-                                <Rectangle
-                                    Fill="{DynamicResource DatePickerSpacerFill}"
-                                    Grid.Column="3"
-                                    HorizontalAlignment="Center"
-                                    Width="1"
-                                    x:Name="PART_SecondSpacer" />
-                                 </Grid>
-                                <avalonia:MaterialIcon Margin="12,0,0,0" Grid.Column="1"  Kind="Calendar" HorizontalAlignment="Right" Foreground="{DynamicResource SukiText}" ></avalonia:MaterialIcon>
-                                
+                                    HorizontalAlignment="Right"
+                                    Kind="Calendar"
+                                    Margin="12,0,0,0" />
+
                             </Grid>
                         </Button>
 
@@ -143,7 +156,7 @@
                 <Border
                     BoxShadow="{DynamicResource SukiPopupShadow}"
                     Classes="Card"
-                    MaxHeight="290"
+                    MaxHeight="260"
                     MaxWidth="350"
                     Name="Background"
                     Padding="{DynamicResource DateTimeFlyoutBorderPadding}">
@@ -244,12 +257,13 @@
 
                         <StackPanel
                             Grid.Row="1"
-                            Height="60"
+                            Height="40"
                             HorizontalAlignment="Right"
+                            Margin="0,0,0,-12"
                             Name="AcceptDismissGrid"
                             Orientation="Horizontal"
                             VerticalAlignment="Bottom">
-                            <Button
+                            <!--    <Button
                                 Classes="Accent"
                                 HorizontalAlignment="Left"
                                 Margin="0,80,0,0"
@@ -262,20 +276,19 @@
                                     Margin="0,18,0,0"
                                     Text="Cancel"
                                     VerticalAlignment="Center" />
-                            </Button>
+                            </Button>-->
                             <Button
-                                Classes="Primary Rounded"
-                                Height="46"
+                                Classes="Accent"
                                 HorizontalAlignment="Right"
-                                Margin="0,20,0,0"
+                                Margin="0,20,0,-20"
                                 Name="PART_AcceptButton"
-                                VerticalAlignment="Bottom"
-                                Width="120">
+                                VerticalAlignment="Bottom">
 
                                 <StackPanel Orientation="Horizontal">
-                                    <avalonia:MaterialIcon Foreground="White" Kind="Check" />
+                                    <avalonia:MaterialIcon Foreground="{DynamicResource SukiPrimaryColor}" Kind="Check" />
                                     <TextBlock
-                                        Foreground="White"
+                                        FontWeight="DemiBold"
+                                        Foreground="{DynamicResource SukiPrimaryColor}"
                                         Margin="8,0,0,0"
                                         Text="Apply" />
                                 </StackPanel>
