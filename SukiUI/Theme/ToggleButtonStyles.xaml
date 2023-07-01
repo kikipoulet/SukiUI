@@ -19,6 +19,9 @@
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
+        <Setter Property="RenderTransform">
+            <ScaleTransform ScaleX="1.1" ScaleY="1.1"></ScaleTransform>
+        </Setter>
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />

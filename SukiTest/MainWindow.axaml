@@ -487,7 +487,7 @@
                                                     Margin="15"
                                                     Width="430">
                                                     
-                                                    <suki:Stepper Margin="-2,5,-4,0"  Name="stepS" />
+                                                    <suki:Stepper Margin="0,5,-4,0"  Name="stepS" />
                                                 </Border>
                                             </StackPanel>
 
