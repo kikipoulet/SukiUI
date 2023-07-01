@@ -9,6 +9,6 @@
     xmlns:suki="clr-namespace:SukiUI.Controls"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Grid Name="gridStepper" />
+    <Grid Name="gridStepper" Margin="0,0,-45,0" />
 
 </UserControl>

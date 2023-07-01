@@ -94,73 +94,53 @@ namespace SukiUI.Controls
             Brush PrimaryColor = new SolidColorBrush( (Color)Application.Current.FindResource("SukiPrimaryColor"));
             Brush DisabledColor =  new SolidColorBrush( (Color)Application.Current.FindResource("SukiControlBorderBrush"));
             
-            var griditem = new Grid(){ ColumnDefinitions = new ColumnDefinitions(){new ColumnDefinition(), new ColumnDefinition()}};
+            var griditem = new Grid(){ ColumnDefinitions = new ColumnDefinitions(){new ColumnDefinition( GridLength.Auto), new ColumnDefinition(GridLength.Star), new ColumnDefinition(GridLength.Auto)}};
 
-            var line = new Border() { CornerRadius = new CornerRadius(3),  Margin = new Thickness(-5,0,23,0), Background = DisabledColor, Height = 2, HorizontalAlignment = HorizontalAlignment.Stretch, VerticalAlignment = VerticalAlignment.Center };
-            var line1 = new Border() { CornerRadius = new CornerRadius(3),  Margin = new Thickness(23,0,-5,0), Background = DisabledColor, Height = 2, HorizontalAlignment = HorizontalAlignment.Stretch, VerticalAlignment = VerticalAlignment.Center };
-
-            if (index == 0)
-                line.IsVisible = false;
-            if (index == Steps.Count -1)
-                line1.IsVisible = false;
-
-            if (index == Index)
-                line.Background = PrimaryColor;
-
-            if (index < Index)
-            {
-                line1.Background = PrimaryColor;
-                line.Background = PrimaryColor;
-            }
+            var icon = new MaterialIcon() { Kind = MaterialIconKind.ChevronRight, Margin = new Thickness(0,0,20,0)};
+            if (index == Steps.Count - 1)
+                icon.IsVisible = false;
             
-            Grid.SetColumn(line,0);
-            Grid.SetColumn(line1,1);
-            
-            griditem.Children.Add(line);
-            griditem.Children.Add(line1);
+   
+            Grid.SetColumn(icon,2);
+            griditem.Children.Add(icon);
 
             var gridBorder = new Grid();
             
             var circle = new Border()
-                { Margin = new Thickness(0,0,0,2), Height = 30, Width = 30, CornerRadius = new CornerRadius(25), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center };
+                { Margin = new Thickness(0,0,0,2), Height = 24, Width = 24, CornerRadius = new CornerRadius(25), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center };
 
-            if (index == Index)
+            if (index <= Index)
             {
                 circle.Background = PrimaryColor;
                 
                 circle.BorderThickness = new Thickness(0);
-                circle.Child = new TextBlock() {VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center, Text = (index + 1).ToString(), Foreground = Brushes.White};
-            }
-            else if (index < Index)
-            {
-                circle.Background = Brushes.Transparent;
-                circle.BorderThickness = new Thickness(1.5);
-                circle.BorderBrush = PrimaryColor;
-                circle.Child = new TextBlock() {VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center, Text = (index + 1).ToString(), Foreground = PrimaryColor};
+                circle.Child = new TextBlock() {VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center, Text = (index + 1).ToString(), FontSize = 13, Foreground = Brushes.White};
             }
             else
             {
-                circle.Background = Brushes.Transparent;
-                circle.BorderThickness = new Thickness(1.5);
-                circle.BorderBrush = DisabledColor;
-                circle.Child = new TextBlock() { VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center, Text = (index + 1).ToString(), Foreground = DisabledColor};
+                circle.Background = DisabledColor;
+                
+                circle.BorderThickness = new Thickness(0);
+                circle.Child = new TextBlock() {VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center, Text = (index + 1).ToString(), FontSize = 13, Foreground = Brushes.White};
             }
             
+            Grid.SetColumn(circle,0);
+            griditem.Children.Add(circle);
 
-            
-            
-            gridBorder.Children.Add(circle);
-            
-            gridBorder.Children.Add(new TextBlock()
+            var t = new TextBlock()
             {
-                FontWeight = index == Index ? FontWeight.Medium: FontWeight.Normal,
-                Text = step, VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center, Margin = new Thickness(0,55,0,0)
-            });
+                FontWeight = index <= Index ? FontWeight.DemiBold : FontWeight.Normal, Margin = new Thickness(10,0,0,0),
+                Text = step, VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Left, 
+            };
+            
+            Grid.SetColumn(t,1);
+            griditem.Children.Add(t);
             
             Grid.SetColumn(griditem,index);
-            Grid.SetColumn(gridBorder,index);
+           
             grid.Children.Add(griditem);
-            grid.Children.Add(gridBorder);
+         
         }
     }
 }

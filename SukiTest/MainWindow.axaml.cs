@@ -74,7 +74,7 @@ namespace SukiTest
             {
                 this.FindControl<DataGrid>("myDG").ItemsSource = liste;
 
-                this.FindControl<Stepper>("stepS").Steps = new ObservableCollection<string>() { "Sent", "In Progress", "Delivered" };
+                this.FindControl<Stepper>("stepS").Steps = new ObservableCollection<string>() { "Sent", "Progress", "Delivered" };
                 this.FindControl<Stepper>("stepS").Index = 1;
            
 
