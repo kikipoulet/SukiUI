@@ -4,8 +4,18 @@
     xmlns:sys="clr-namespace:System;assembly=netstandard"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
-        <Border Padding="20">
-            <!--  Add Controls for Previewer Here  -->
+        <Border Width="400" Height="400" Padding="20">
+            <Menu>
+                <MenuItem Header="file">
+                    <MenuItem Header="More">
+                        <MenuItem Header="Add"></MenuItem>
+                        <MenuItem Header="Delete"></MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="And"></MenuItem>
+                    <MenuItem Header="More"></MenuItem>
+
+                </MenuItem>
+            </Menu>
         </Border>
     </Design.PreviewWith>
 
@@ -28,7 +38,7 @@
                             <Style Selector="Popup#PART_Popup[IsOpen=true]">
                                 <Style.Animations>
                                     <Animation
-                                        Duration="0:0:1"
+                                        Duration="0:0:0.4"
                                         Easing="CircularEaseOut"
                                         FillMode="Forward">
                                         <KeyFrame Cue="0%">
@@ -94,16 +104,16 @@
                             IsLightDismissEnabled="False"
                             IsOpen="{TemplateBinding IsSubMenuOpen,
                                                      Mode=TwoWay}"
-                            MinWidth="0"
-                            Name="PART_Popup"
+                            MinWidth="0" Margin="10,0,0,0"
+                            Name="PART_Popup" 
                             Placement="Right">
                             <Border
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{DynamicResource SukiBackground}"
+                                BorderBrush="{DynamicResource SukiBorderBrush}"
+                                BorderThickness="1"
                                 BoxShadow="{DynamicResource SukiSwitchShadow}"
-                                CornerRadius="{TemplateBinding CornerRadius}"
-                                Margin="10,10,10,10">
+                                CornerRadius="{DynamicResource SmallCornerRadius}"
+                                Margin="15,10,10,10">
                                 <ScrollViewer Classes="menuscroller">
                                     <ItemsPresenter
                                         Grid.IsSharedSizeScope="True"
