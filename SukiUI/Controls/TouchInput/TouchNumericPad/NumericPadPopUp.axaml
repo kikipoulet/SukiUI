@@ -13,120 +13,120 @@
             ColumnDefinitions="*,*,*"
             Margin="20,80,20,20"
             RowDefinitions="*,*,*,*">
-            <Button
-                Click="AddNumber"
-                Grid.Column="0"
-                Grid.Row="0">
+            <Button Height="75" Width="75" Padding="0,0,0,0" Margin="0"
+                    Click="AddNumber"
+                    Grid.Column="0"
+                    Grid.Row="0">
                 <TextBlock
-                    FontSize="20"
+                    FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"
                     FontWeight="DemiBold"
                     Text="7" />
             </Button>
-            <Button
-                Click="AddNumber"
-                Grid.Column="1"
-                Grid.Row="0">
-                <TextBlock
-                    FontSize="20"
-                    FontWeight="DemiBold"
-                    Text="8" />
+            <Button Height="75" Width="75" Padding="0,0,0,0" Margin="0"
+                    Click="AddNumber"
+                    Grid.Column="1"
+                    Grid.Row="0">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                           FontSize="20"
+                           FontWeight="DemiBold"
+                           Text="8" />
             </Button>
-            <Button
-                Click="AddNumber"
-                Grid.Column="2"
-                Grid.Row="0">
-                <TextBlock
-                    FontSize="20"
-                    FontWeight="DemiBold"
-                    Text="9" />
+            <Button Height="75" Width="75" Padding="0,0,0,0" Margin="0"
+                    Click="AddNumber"
+                    Grid.Column="2"
+                    Grid.Row="0">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                           FontSize="20"
+                           FontWeight="DemiBold"
+                           Text="9" />
             </Button>
-            <Button
-                Click="AddNumber"
-                Grid.Column="0"
-                Grid.Row="1">
-                <TextBlock
-                    FontSize="20"
-                    FontWeight="DemiBold"
-                    Text="4" />
+            <Button Height="75" Width="75" Padding="0,0,0,0" Margin="0"
+                    Click="AddNumber"
+                    Grid.Column="0"
+                    Grid.Row="1">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                           FontSize="20"
+                           FontWeight="DemiBold"
+                           Text="4" />
             </Button>
-            <Button
-                Click="AddNumber"
-                Grid.Column="1"
-                Grid.Row="1">
-                <TextBlock
-                    FontSize="20"
-                    FontWeight="DemiBold"
-                    Text="5" />
+            <Button Height="75" Width="75" Padding="0,0,0,0" Margin="0"
+                    Click="AddNumber"
+                    Grid.Column="1"
+                    Grid.Row="1">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                           FontSize="20"
+                           FontWeight="DemiBold"
+                           Text="5" />
             </Button>
-            <Button
-                Click="AddNumber"
-                Grid.Column="2"
-                Grid.Row="1">
-                <TextBlock
-                    FontSize="20"
-                    FontWeight="DemiBold"
-                    Text="6" />
+            <Button Height="75" Width="75" Padding="0,0,0,0" Margin="0"
+                    Click="AddNumber"
+                    Grid.Column="2"
+                    Grid.Row="1">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                           FontSize="20"
+                           FontWeight="DemiBold"
+                           Text="6" />
             </Button>
-            <Button
-                Click="AddNumber"
-                Grid.Column="0"
-                Grid.Row="2">
-                <TextBlock
-                    FontSize="20"
-                    FontWeight="DemiBold"
-                    Text="1" />
+            <Button Height="75" Width="75" Padding="0,0,0,0" Margin="0"
+                    Click="AddNumber"
+                    Grid.Column="0"
+                    Grid.Row="2">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                           FontSize="20"
+                           FontWeight="DemiBold"
+                           Text="1" />
             </Button>
-            <Button
-                Click="AddNumber"
-                Grid.Column="1"
-                Grid.Row="2">
-                <TextBlock
-                    FontSize="20"
-                    FontWeight="DemiBold"
-                    Text="2" />
+            <Button Height="75" Width="75" Padding="0,0,0,0" Margin="0"
+                    Click="AddNumber"
+                    Grid.Column="1"
+                    Grid.Row="2">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                           FontSize="20"
+                           FontWeight="DemiBold"
+                           Text="2" />
             </Button>
-            <Button
-                Click="AddNumber"
-                Grid.Column="2"
-                Grid.Row="2">
-                <TextBlock
-                    FontSize="20"
-                    FontWeight="DemiBold"
-                    Text="3" />
+            <Button Height="75" Width="75" Padding="0,0,0,0" Margin="0"
+                    Click="AddNumber"
+                    Grid.Column="2"
+                    Grid.Row="2">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                           FontSize="20"
+                           FontWeight="DemiBold"
+                           Text="3" />
             </Button>
-            <Button
-                Click="RemoveChar"
-                Grid.Column="0"
-                Grid.Row="3">
+            <Button Height="75" Width="75" Padding="0,0,0,0" Margin="0"
+                    Click="RemoveChar"
+                    Grid.Column="0"
+                    Grid.Row="3">
                 <avalonia:MaterialIcon
                     Height="22"
                     Kind="ArrowLeft"
                     Width="22" />
             </Button>
-            <Button
-                Click="AddNumber"
-                Grid.Column="1"
-                Grid.Row="3">
-                <TextBlock
-                    FontSize="20"
-                    FontWeight="DemiBold"
-                    Text="0" />
+            <Button Height="75" Width="75" Padding="0,0,0,0" Margin="0"
+                    Click="AddNumber"
+                    Grid.Column="1"
+                    Grid.Row="3">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                           FontSize="20"
+                           FontWeight="DemiBold"
+                           Text="0" />
             </Button>
-            <Button
-                Click="AddNumber"
-                Grid.Column="2"
-                Grid.Row="3">
-                <TextBlock
-                    FontSize="20"
-                    FontWeight="DemiBold"
-                    Text="." />
+            <Button Height="75" Width="75" Padding="0,0,0,0" Margin="0"
+                    Click="AddNumber"
+                    Grid.Column="2"
+                    Grid.Row="3">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                           FontSize="20"
+                           FontWeight="DemiBold"
+                           Text="." />
             </Button>
         </Grid>
         <TextBlock
             FontSize="30"
             FontStyle="Italic"
             HorizontalAlignment="Center"
-            Margin="10,23,10,0"
+            Margin="10,15,10,0"
             Name="TextNombre"
             Padding="10"
             TextWrapping="WrapWithOverflow"

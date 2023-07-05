@@ -46,7 +46,7 @@ public partial class TouchKeyboard : UserControl
         }
     }
     
-    public static readonly StyledProperty<int> PopupHeightProperty = AvaloniaProperty.Register<TouchKeyboard, int>(nameof(TouchKeyboard), defaultValue: 400);
+    public static readonly StyledProperty<int> PopupHeightProperty = AvaloniaProperty.Register<TouchKeyboard, int>(nameof(TouchKeyboard), defaultValue: 300);
 
     public int PopupHeight
     {

@@ -12,7 +12,9 @@
     xmlns:mobilePicker="clr-namespace:SukiUI.Controls.MobilePicker;assembly=SukiUI"
     xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
     xmlns:system="clr-namespace:System;assembly=netstandard"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:touchNumericPad="clr-namespace:SukiUI.Controls.TouchInput.TouchNumericPad;assembly=SukiUI"
+    xmlns:touchKeyboard="clr-namespace:SukiUI.Controls.TouchInput.TouchKeyboard;assembly=SukiUI">
     <Grid>
         <suki:SliverMobilePage Header="Settings">
             <DockPanel>
@@ -465,10 +467,8 @@
                                 Margin="0,5,0,0"
                                 Width="25" />
 
-                            <mobileNumberPicker:MobileNumberPicker
-                                DockPanel.Dock="Right"
-                                Margin="-15"
-                                Value="5" />
+                            <touchNumericPad:TouchNumericPad Value="20" DockPanel.Dock="Right" />
+
 
                             <TextBlock
                                 FontSize="19"
@@ -498,13 +498,7 @@
                                 Kind="Help"
                                 Margin="0,5,0,0"
                                 Width="25" />
-                            <material:MaterialIcon
-                                DockPanel.Dock="Right"
-                                Foreground="DarkGray"
-                                Height="25"
-                                Kind="ChevronRight"
-                                Margin="0,6,5,0"
-                                Width="25" />
+                            <touchKeyboard:TouchKeyboard DockPanel.Dock="Right" Text="Test" />
 
                             <TextBlock
                                 FontSize="19"

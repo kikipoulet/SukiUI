@@ -63,7 +63,7 @@ public partial class TouchNumericPad : UserControl
         }
     }
     
-    public static readonly StyledProperty<int> PopupHeightProperty = AvaloniaProperty.Register<TouchNumericPad, int>(nameof(TouchNumericPad), defaultValue: 400);
+    public static readonly StyledProperty<int> PopupHeightProperty = AvaloniaProperty.Register<TouchNumericPad, int>(nameof(TouchNumericPad), defaultValue: 405);
 
     public int PopupHeight
     {

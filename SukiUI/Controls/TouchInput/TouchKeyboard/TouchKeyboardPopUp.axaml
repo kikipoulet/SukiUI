@@ -12,91 +12,91 @@
                 ColumnDefinitions="*,*,*,*,*,*,*,*,*,*"
                 Height="60"
                 Margin="20,100,20,0">
-                <Button
-                    Click="AddChar"
+                <Button Height="55" Padding="6,4,0,0" Margin="0" 
+                    Click="AddChar" 
                     Grid.Column="0"
                     Grid.Row="0">
-                    <TextBlock
-                        FontSize="20"
+                    <TextBlock 
+                        FontSize="20"  
                         FontWeight="DemiBold"
                         Text="q" />
                 </Button>
-                <Button
-                    Click="AddChar"
-                    Grid.Column="1"
-                    Grid.Row="0">
+                <Button Height="55" Padding="6,4,0,0" Margin="0"
+                        Click="AddChar"
+                        Grid.Column="1"
+                        Grid.Row="0">
                     <TextBlock
                         FontSize="20"
                         FontWeight="DemiBold"
                         Text="w" />
                 </Button>
-                <Button
-                    Click="AddChar"
-                    Grid.Column="2"
-                    Grid.Row="0">
+                <Button Height="55" Padding="6,4,0,0" Margin="0"
+                        Click="AddChar"
+                        Grid.Column="2"
+                        Grid.Row="0">
                     <TextBlock
                         FontSize="20"
                         FontWeight="DemiBold"
                         Text="e" />
                 </Button>
-                <Button
-                    Click="AddChar"
-                    Grid.Column="3"
-                    Grid.Row="0">
+                <Button Height="55" Padding="6,4,0,0" Margin="0"
+                        Click="AddChar"
+                        Grid.Column="3"
+                        Grid.Row="0">
                     <TextBlock
                         FontSize="20"
                         FontWeight="DemiBold"
                         Text="r" />
                 </Button>
-                <Button
-                    Click="AddChar"
-                    Grid.Column="4"
-                    Grid.Row="0">
+                <Button Height="55" Padding="6,4,0,0" Margin="0"
+                        Click="AddChar"
+                        Grid.Column="4"
+                        Grid.Row="0">
                     <TextBlock
                         FontSize="20"
                         FontWeight="DemiBold"
                         Text="t" />
                 </Button>
-                <Button
-                    Click="AddChar"
-                    Grid.Column="5"
-                    Grid.Row="0">
+                <Button Height="55" Padding="6,4,0,0" Margin="0"
+                        Click="AddChar"
+                        Grid.Column="5"
+                        Grid.Row="0">
                     <TextBlock
                         FontSize="20"
                         FontWeight="DemiBold"
                         Text="y" />
                 </Button>
-                <Button
-                    Click="AddChar"
-                    Grid.Column="6"
-                    Grid.Row="0">
+                <Button Height="55" Padding="6,4,0,0" Margin="0"
+                        Click="AddChar"
+                        Grid.Column="6"
+                        Grid.Row="0">
                     <TextBlock
                         FontSize="20"
                         FontWeight="DemiBold"
                         Text="u" />
                 </Button>
-                <Button
-                    Click="AddChar"
-                    Grid.Column="7"
-                    Grid.Row="0">
+                <Button Height="55" Padding="6,4,0,0" Margin="0"
+                        Click="AddChar"
+                        Grid.Column="7"
+                        Grid.Row="0">
                     <TextBlock
                         FontSize="20"
                         FontWeight="DemiBold"
                         Text="i" />
                 </Button>
-                <Button
-                    Click="AddChar"
-                    Grid.Column="8"
-                    Grid.Row="0">
+                <Button Height="55" Padding="6,4,0,0" Margin="0"
+                        Click="AddChar"
+                        Grid.Column="8"
+                        Grid.Row="0">
                     <TextBlock
                         FontSize="20"
                         FontWeight="DemiBold"
                         Text="o" />
                 </Button>
-                <Button
-                    Click="AddChar"
-                    Grid.Column="9"
-                    Grid.Row="0">
+                <Button Height="55" Padding="6,4,0,0" Margin="0"
+                        Click="AddChar"
+                        Grid.Column="9"
+                        Grid.Row="0">
                     <TextBlock
                         FontSize="20"
                         FontWeight="DemiBold"
@@ -109,82 +109,82 @@
                 ColumnDefinitions="*,*,*,*,*,*,*,*,*"
                 Height="64"
                 Margin="45,0,45,0">
-                <Button
-                    Click="AddChar"
-                    Grid.Column="0"
-                    Grid.Row="0">
+                <Button Height="55" Padding="6,4,0,0" Margin="0"
+                        Click="AddChar"
+                        Grid.Column="0"
+                        Grid.Row="0">
                     <TextBlock
                         FontSize="20"
                         FontWeight="DemiBold"
                         Text="a" />
                 </Button>
-                <Button
-                    Click="AddChar"
-                    Grid.Column="1"
-                    Grid.Row="0">
+                <Button Height="55" Padding="6,4,0,0" Margin="0"
+                        Click="AddChar"
+                        Grid.Column="1"
+                        Grid.Row="0">
                     <TextBlock
                         FontSize="20"
                         FontWeight="DemiBold"
                         Text="s" />
                 </Button>
-                <Button
-                    Click="AddChar"
-                    Grid.Column="2"
-                    Grid.Row="0">
+                <Button Height="55" Padding="6,4,0,0" Margin="0"
+                        Click="AddChar"
+                        Grid.Column="2"
+                        Grid.Row="0">
                     <TextBlock
                         FontSize="20"
                         FontWeight="DemiBold"
                         Text="d" />
                 </Button>
-                <Button
-                    Click="AddChar"
-                    Grid.Column="3"
-                    Grid.Row="0">
+                <Button Height="55" Padding="6,4,0,0" Margin="0"
+                        Click="AddChar"
+                        Grid.Column="3"
+                        Grid.Row="0">
                     <TextBlock
                         FontSize="20"
                         FontWeight="DemiBold"
                         Text="f" />
                 </Button>
-                <Button
-                    Click="AddChar"
-                    Grid.Column="4"
-                    Grid.Row="0">
+                <Button Height="55" Padding="6,4,0,0" Margin="0"
+                        Click="AddChar"
+                        Grid.Column="4"
+                        Grid.Row="0">
                     <TextBlock
                         FontSize="20"
                         FontWeight="DemiBold"
                         Text="g" />
                 </Button>
-                <Button
-                    Click="AddChar"
-                    Grid.Column="5"
-                    Grid.Row="0">
+                <Button Height="55" Padding="6,4,0,0" Margin="0"
+                        Click="AddChar"
+                        Grid.Column="5"
+                        Grid.Row="0">
                     <TextBlock
                         FontSize="20"
                         FontWeight="DemiBold"
                         Text="h" />
                 </Button>
-                <Button
-                    Click="AddChar"
-                    Grid.Column="6"
-                    Grid.Row="0">
+                <Button Height="55" Padding="6,4,0,0" Margin="0"
+                        Click="AddChar"
+                        Grid.Column="6"
+                        Grid.Row="0">
                     <TextBlock
                         FontSize="20"
                         FontWeight="DemiBold"
                         Text="j" />
                 </Button>
-                <Button
-                    Click="AddChar"
-                    Grid.Column="7"
-                    Grid.Row="0">
+                <Button Height="55" Padding="6,4,0,0" Margin="0"
+                        Click="AddChar"
+                        Grid.Column="7"
+                        Grid.Row="0">
                     <TextBlock
                         FontSize="20"
                         FontWeight="DemiBold"
                         Text="k" />
                 </Button>
-                <Button
-                    Click="AddChar"
-                    Grid.Column="8"
-                    Grid.Row="0">
+                <Button Height="55" Padding="6,4,0,0" Margin="0"
+                        Click="AddChar"
+                        Grid.Column="8"
+                        Grid.Row="0">
                     <TextBlock
                         FontSize="20"
                         FontWeight="DemiBold"
@@ -199,18 +199,18 @@
                 Height="64"
                 Margin="20,0,20,0">
                 <Grid Grid.Column="0" Grid.Row="0">
-                    <Button Click="ButtonCapsOff_OnClick" Name="ButtonCapsOff">
+                    <Button Height="55" Padding="6,4,0,0" Margin="0" Click="ButtonCapsOff_OnClick" Name="ButtonCapsOff">
 
                         <avalonia:MaterialIcon
                             Height="22"
                             Kind="KeyboardCaps"
                             Width="22" />
                     </Button>
-                    <Button
-                        Classes="Primary"
-                        Click="ButtonCapsOn_OnClick"
-                        IsVisible="False"
-                        Name="ButtonCapsOn">
+                    <Button Height="55" Padding="6,4,0,0" Margin="0"
+                            Classes="Primary"
+                            Click="ButtonCapsOn_OnClick"
+                            IsVisible="False"
+                            Name="ButtonCapsOn">
 
                         <avalonia:MaterialIcon
                             Foreground="White"
@@ -219,82 +219,82 @@
                             Width="22" />
                     </Button>
                 </Grid>
-                <Button
-                    Click="AddChar"
-                    Grid.Column="1"
-                    Grid.Row="0">
+                <Button Height="55" Padding="6,4,0,0" Margin="0"
+                        Click="AddChar"
+                        Grid.Column="1"
+                        Grid.Row="0">
                     <TextBlock
                         FontSize="20"
                         FontWeight="DemiBold"
                         Text="z" />
                 </Button>
-                <Button
-                    Click="AddChar"
-                    Grid.Column="2"
-                    Grid.Row="0">
+                <Button Height="55" Padding="6,4,0,0" Margin="0"
+                        Click="AddChar"
+                        Grid.Column="2"
+                        Grid.Row="0">
                     <TextBlock
                         FontSize="20"
                         FontWeight="DemiBold"
                         Text="x" />
                 </Button>
-                <Button
-                    Click="AddChar"
-                    Grid.Column="3"
-                    Grid.Row="0">
+                <Button Height="55" Padding="6,4,0,0" Margin="0"
+                        Click="AddChar"
+                        Grid.Column="3"
+                        Grid.Row="0">
                     <TextBlock
                         FontSize="20"
                         FontWeight="DemiBold"
                         Text="c" />
                 </Button>
-                <Button
-                    Click="AddChar"
-                    Grid.Column="4"
-                    Grid.Row="0">
+                <Button Height="55" Padding="6,4,0,0" Margin="0"
+                        Click="AddChar"
+                        Grid.Column="4"
+                        Grid.Row="0">
                     <TextBlock
                         FontSize="20"
                         FontWeight="DemiBold"
                         Text="v" />
                 </Button>
-                <Button
-                    Click="AddChar"
-                    Grid.Column="5"
-                    Grid.Row="0">
+                <Button Height="55" Padding="6,4,0,0" Margin="0"
+                        Click="AddChar"
+                        Grid.Column="5"
+                        Grid.Row="0">
                     <TextBlock
                         FontSize="20"
                         FontWeight="DemiBold"
                         Text="b" />
                 </Button>
-                <Button
-                    Click="AddChar"
-                    Grid.Column="6"
-                    Grid.Row="0">
+                <Button Height="55" Padding="6,4,0,0" Margin="0"
+                        Click="AddChar"
+                        Grid.Column="6"
+                        Grid.Row="0">
                     <TextBlock
                         FontSize="20"
                         FontWeight="DemiBold"
                         Text="n" />
                 </Button>
-                <Button
-                    Click="AddChar"
-                    Grid.Column="7"
-                    Grid.Row="0">
+                <Button Height="55" Padding="6,4,0,0" Margin="0"
+                        Click="AddChar"
+                        Grid.Column="7"
+                        Grid.Row="0">
                     <TextBlock
                         FontSize="20"
                         FontWeight="DemiBold"
                         Text="m" />
                 </Button>
-                <Button
-                    Click="AddChar"
-                    Grid.Column="8"
-                    Grid.Row="0">
+                <Button Height="55" Padding="6,4,0,0" Margin="0"
+                        Click="AddChar"
+                        Grid.Column="8"
+                        Grid.Row="0">
                     <TextBlock
                         FontSize="20"
                         FontWeight="DemiBold"
                         Text="." />
                 </Button>
-                <Button
-                    Click="ButtonBackspace"
-                    Grid.Column="9"
-                    Grid.Row="0">
+                <Button Height="55" Padding="6,4,0,0" Margin="0"
+                        Click="ButtonBackspace"
+                        Grid.Column="9"
+                        Grid.Row="0">
                     <avalonia:MaterialIcon
                         Height="22"
                         Kind="BackspaceOutline"

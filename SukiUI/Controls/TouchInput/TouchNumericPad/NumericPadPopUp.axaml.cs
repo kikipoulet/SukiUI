@@ -43,9 +43,15 @@ public partial class NumericPadPopUp : UserControl
 
     private void Close(object sender, RoutedEventArgs e)
     {
-        if(rootControl != null)
-            rootControl.Value = Double.Parse(CurrentText, CultureInfo.InvariantCulture);
-        
+        try
+        {
+            if (rootControl != null)
+                rootControl.Value = Double.Parse(CurrentText, CultureInfo.InvariantCulture);
+        }
+        catch 
+        {
+        }
+
         InteractiveContainer.CloseDialog();
     }
 }
