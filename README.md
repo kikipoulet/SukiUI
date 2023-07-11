@@ -17,7 +17,7 @@ Documentation is on the [Wiki](https://github.com/kikipoulet/SukiUI/wiki) of thi
 
 ### SukiUI 5.0.0 : 
  - Lots of slight design changes, please see the gif just below 
- - the look of the controls are now almost definitive. (Only the stepper will change soon)
+ - the look of the controls are now almost definitive. 
  - I plan to replace all the images of the documentation because some are really old
  - Like usual, do not hesitate to suggest new controls idea that could benefit the library
 
