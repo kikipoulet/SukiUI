@@ -63,55 +63,50 @@
                                     <!--  Minimize button  -->
                                     <Button
                                         Background="Transparent"
+                                        Cursor="Hand"
                                         BorderThickness="0"
                                         Classes="Accent"
                                         Click="MinimizeHandler"
                                         Height="23"
                                         IsVisible="{TemplateBinding IsMinimizeButtonEnabled}"
-                                        Margin="0,2,1,0"
-                                        Padding="0"
                                         Width="23">
                                         <material:MaterialIcon
-                                            Foreground="Gray"
                                             Height="14"
                                             Kind="WindowMinimize"
-                                            Margin="0,5,0,0"
                                             Width="14" />
                                     </Button>
                                     <!--  Maximize button  -->
                                     <Button
                                         Background="Transparent"
+                                        Cursor="Hand"
                                         BorderThickness="0"
                                         Classes="Accent"
                                         Click="MaximizeHandler"
                                         Height="23"
                                         IsVisible="{TemplateBinding IsMaximizeButtonEnabled}"
-                                        Margin="0,2,1,0"
-                                        Padding="0"
                                         Width="23">
                                         <material:MaterialIcon
-                                            Foreground="Gray"
                                             Height="14"
-                                            Kind="WindowRestore"
+                                            x:Name="MaximizeMaterialIcon"
+                                            Classes="WindowMaximize"
                                             Width="14" />
                                     </Button>
+                                    
                                     <!--  Close button  -->
-
                                     <Button
                                         Background="Transparent"
+                                        Cursor="Hand"
                                         BorderThickness="0"
                                         Classes="Accent"
                                         Click="CloseHandler"
                                         Height="23"
                                         IsHitTestVisible="True"
-                                        Margin="0,9,15,9"
                                         Padding="0"
                                         Width="25">
                                         <material:MaterialIcon
-                                            Foreground="DarkRed"
-                                            Height="23"
-                                            Kind="CloseCircleOutline"
-                                            Width="23" />
+                                            Height="18"
+                                            Kind="WindowClose"
+                                            Width="18" />
 
                                     </Button>
                                 </DockPanel>
@@ -125,6 +120,13 @@
 
                 </ControlTemplate>
             </Setter>
+        </Style>
+        
+        <Style Selector="material|MaterialIcon.WindowMaximize">
+            <Setter Property="Kind" Value="WindowMaximize"></Setter>
+        </Style>
+        <Style Selector="material|MaterialIcon.WindowRestore">
+            <Setter Property="Kind" Value="WindowRestore"></Setter>
         </Style>
 
         <Style Selector="suki|DesktopPage /template/ Border#BottomBorder" >
