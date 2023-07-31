@@ -491,6 +491,15 @@
                                                     
                                                     <suki:Stepper Margin="0,5,-4,0"  Name="stepS" />
                                                 </Border>
+                                                
+                                                <Border
+                                                    Classes="Card"
+                                                    Height="200"
+                                                    Margin="15"
+                                                    Width="430">
+                                                    
+                                                    <suki:GroupBox Header="Message"/>
+                                                </Border>
                                             </StackPanel>
 
 
