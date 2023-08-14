@@ -16,7 +16,7 @@
                         BorderBrush="{DynamicResource SukiBorderBrush}"
                         BorderThickness="1.4"
                         CornerRadius="{DynamicResource SmallCornerRadius}">
-                        <StackPanel>
+                        <Grid RowDefinitions="Auto,*">
                             <Border
                                 Background="{DynamicResource SukiLightBorderBrush}"
                                 BorderBrush="{DynamicResource SukiBorderBrush}"
@@ -29,10 +29,17 @@
                                     Margin="10"
                                     Text="{TemplateBinding Header}" />
                             </Border>
-                            <Grid>
-                                <ContentControl Content="{TemplateBinding Content}" />
+                            <Grid Grid.Row="1" >
+                                <TextBox 
+                                         Text="{TemplateBinding Text,Mode=TwoWay}"
+                                         AcceptsReturn="True"
+                                         TextWrapping="Wrap"
+                                         VerticalContentAlignment="Top" 
+                                         Height="{Binding $parent.Height}"
+                                         Padding="0"/>
                             </Grid>
-                        </StackPanel>
+                            
+                        </Grid>
                     </Border>
                 </ControlTemplate>
             </Setter>

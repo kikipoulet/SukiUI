@@ -140,13 +140,19 @@ namespace SukiUI.Controls
         private void MaximizeHandler(object sender, RoutedEventArgs e)
         {
             Window hostWindow = (Window)this.VisualRoot;
+            var icon = this.GetVisualDescendants().OfType<MaterialIcon>().FirstOrDefault(x => (x.Name ?? "").Equals("MaximizeMaterialIcon"));
+            
             if (hostWindow.WindowState != WindowState.Maximized)
             {
                 hostWindow.WindowState = WindowState.Maximized;
+                icon?.Classes.Remove("WindowMaximize");
+                icon?.Classes.Add("WindowRestore");
             }
             else
             {
                 hostWindow.WindowState = WindowState.Normal;
+                icon?.Classes.Remove("WindowRestore");
+                icon?.Classes.Add("WindowMaximize");
             }
         }
 
