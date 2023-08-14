@@ -12,35 +12,11 @@
         <Style Selector="suki|GroupBox">
             <Setter Property="Template">
                 <ControlTemplate>
-                    <Border
-                        BorderBrush="{DynamicResource SukiBorderBrush}"
-                        BorderThickness="1.4"
-                        CornerRadius="{DynamicResource SmallCornerRadius}">
-                        <Grid RowDefinitions="Auto,*">
-                            <Border
-                                Background="{DynamicResource SukiLightBorderBrush}"
-                                BorderBrush="{DynamicResource SukiBorderBrush}"
-                                BorderThickness="0,0,0,1.4"
-                                CornerRadius="7,7,0,0"
-                                Margin="0,0,0,0">
-                                <TextBlock
-                                    FontWeight="DemiBold"
-                                    HorizontalAlignment="Left"
-                                    Margin="10"
-                                    Text="{TemplateBinding Header}" />
-                            </Border>
-                            <Grid Grid.Row="1" >
-                                <TextBox 
-                                         Text="{TemplateBinding Text,Mode=TwoWay}"
-                                         AcceptsReturn="True"
-                                         TextWrapping="Wrap"
-                                         VerticalContentAlignment="Top" 
-                                         Height="{Binding $parent.Height}"
-                                         Padding="0"/>
-                            </Grid>
-                            
-                        </Grid>
-                    </Border>
+                    <StackPanel>
+                        <TextBlock Margin="0,30,0,0" Text="{TemplateBinding Header}" Foreground="{DynamicResource SukiLowText}" ></TextBlock>
+                        <Border Height="1" BorderThickness="0" Margin="0,10,0,10" Background="{DynamicResource SukiControlBorderBrush}"></Border>
+                        <ContentControl Content="{TemplateBinding Content}" />
+                    </StackPanel>
                 </ControlTemplate>
             </Setter>
         </Style>

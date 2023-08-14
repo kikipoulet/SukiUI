@@ -498,7 +498,9 @@
                                                     Margin="15"
                                                     Width="430">
                                                     
-                                                    <suki:GroupBox Header="Message"/>
+                                                    <suki:GroupBox Header="Message">
+                                                        <TextBlock Text="Test"></TextBlock>
+                                                    </suki:GroupBox>
                                                 </Border>
                                             </StackPanel>
 

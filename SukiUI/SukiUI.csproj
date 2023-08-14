@@ -25,6 +25,10 @@
         <AvaloniaResource Include="**\*.xaml" />
         <None Remove="Roboto-Medium.ttf" />
         <AvaloniaResource Include="Roboto-Medium.ttf" />
+        <AvaloniaXaml Remove="ColorTheme\Dark.axaml" />
+        <AvaloniaResource Include="ColorTheme\Dark.axaml" />
+        <AvaloniaXaml Remove="ColorTheme\Light.axaml" />
+        <AvaloniaResource Include="ColorTheme\Light.axaml" />
     </ItemGroup>
 
     <ItemGroup>
