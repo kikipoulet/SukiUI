@@ -28,7 +28,9 @@ Documentation is on the [Wiki](https://github.com/kikipoulet/SukiUI/wiki) of thi
 
 Some desktop design "sketch" using SukiUI 5.0.0 :
 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/totaldemo.gif"></img>
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Resume.gif"></img>
+
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/ResumeDark.gif"></img>
 
 [Desktop Controls Documentation](https://github.com/kikipoulet/SukiUI/wiki/3.-Controls)
 
