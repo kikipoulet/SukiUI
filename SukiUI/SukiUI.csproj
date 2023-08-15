@@ -5,20 +5,21 @@
         <IsPackable>true</IsPackable>
         <Authors></Authors>
         <Copyright></Copyright>
-        <PackageProjectUrl></PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/kikipoulet/SukiUI</PackageProjectUrl>
         <PackageDescription></PackageDescription>
         <Owners></Owners>
         <PackageTags>avalonia;avaloniaui;ui;theme</PackageTags>
-        <RepositoryUrl></RepositoryUrl>
+        <RepositoryUrl>https://github.com/kikipoulet/SukiUI</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <IsPackable>true</IsPackable>
         <RootNamespace>SukiUI</RootNamespace>
-        <Version>2.0.0</Version>
+        <Version>5.0.2</Version>
         <FileVersion>2.0.0</FileVersion>
         <AssemblyVersion>2.0.0</AssemblyVersion>
         <LangVersion>10</LangVersion>
         <UserSecretsId>712f85e4-12d3-41b0-a417-5714a113666f</UserSecretsId>
+        <Description>https://github.com/kikipoulet/SukiUI</Description>
     </PropertyGroup>
 
     <ItemGroup>

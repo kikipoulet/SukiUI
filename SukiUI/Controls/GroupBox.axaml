@@ -13,7 +13,7 @@
             <Setter Property="Template">
                 <ControlTemplate>
                     <StackPanel>
-                        <TextBlock Margin="0,30,0,0" Text="{TemplateBinding Header}" Foreground="{DynamicResource SukiLowText}" ></TextBlock>
+                        <TextBlock Margin="0,0,0,0" Text="{TemplateBinding Header}" Foreground="{DynamicResource SukiLowText}" ></TextBlock>
                         <Border Height="1" BorderThickness="0" Margin="0,10,0,10" Background="{DynamicResource SukiControlBorderBrush}"></Border>
                         <ContentControl Content="{TemplateBinding Content}" />
                     </StackPanel>

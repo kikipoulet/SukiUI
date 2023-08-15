@@ -492,55 +492,42 @@
                                                     <suki:Stepper Margin="0,5,-4,0"  Name="stepS" />
                                                 </Border>
                                                 
-                                                <Border
-                                                    Classes="Card"
-                                                    Height="200"
-                                                    Margin="15"
-                                                    Width="430">
-                                                    
-                                                    <suki:GroupBox Header="Message">
-                                                        <TextBlock Text="Test"></TextBlock>
-                                                    </suki:GroupBox>
-                                                </Border>
+                                                
                                             </StackPanel>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                                            <Border
+                                                    Classes="Card"
+                                                    Height="270"
+                                                    Margin="15"
+                                                    Width="961">
+                                                    
+                                                    <suki:GroupBox  Header="Change Plan">
+                                                        <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,25,0,0">
+                                                            <RadioButton IsChecked="True" Height="130" Width="210" Margin="8" Classes="GigaChips">
+                                                                <StackPanel Margin="7" HorizontalAlignment="Left">
+                                                                    <TextBlock Margin="5,8,5,4" Text="HOBBY" FontSize="12" FontWeight="DemiBold"  Foreground="{DynamicResource SukiLowText}"></TextBlock>
+                                                                    <TextBlock Margin="5,8" Text="1 Gb" FontSize="23" FontWeight="DemiBold" ></TextBlock>
+                                                                    <TextBlock TextWrapping="Wrap" Margin="5,3" Text="Plan for a moderate use as hobby." FontSize="15" Foreground="{DynamicResource SukiLowText}"></TextBlock>
+                                                                </StackPanel>
+                                                            </RadioButton>
+                                                            <RadioButton Height="130" Width="210" Margin="8" Classes="GigaChips">
+                                                                <StackPanel Margin="7" HorizontalAlignment="Left">
+                                                                    <TextBlock Margin="5,8,5,4" Text="PROFESSIONAL" FontSize="12" FontWeight="DemiBold"  Foreground="{DynamicResource SukiLowText}"></TextBlock>
+                                                                    <TextBlock Margin="5,8" Text="5 Gb" FontSize="23" FontWeight="DemiBold" ></TextBlock>
+                                                                    <TextBlock TextWrapping="Wrap" Margin="5,3" Text="Plan for a professional use in an application." FontSize="15" Foreground="{DynamicResource SukiLowText}"></TextBlock>
+                                                                </StackPanel>
+                                                            </RadioButton>
+                                                            <RadioButton Height="130" Width="210" Margin="8" Classes="GigaChips">
+                                                                <StackPanel Margin="7" HorizontalAlignment="Left">
+                                                                    <TextBlock Margin="5,8,5,4" Text="COMPANY" FontSize="12" FontWeight="DemiBold"  Foreground="{DynamicResource SukiLowText}"></TextBlock>
+                                                                    <TextBlock Margin="5,8" Text="50 Gb" FontSize="23" FontWeight="DemiBold" ></TextBlock>
+                                                                    <TextBlock TextWrapping="Wrap" Margin="5,3" Text="Plan for a industrial use in a company." FontSize="15" Foreground="{DynamicResource SukiLowText}"></TextBlock>
+                                                                </StackPanel>
+                                                            </RadioButton>
+                                                        </WrapPanel>
+                                                    </suki:GroupBox>
+                                                </Border>
 
                                         </WrapPanel>
                                     </ScrollViewer>

@@ -14,7 +14,7 @@
 
         <Color x:Key="SukiBackground">#FFFFFF</Color>
         <Color x:Key="SukiLightBackground">#fbfbfb</Color>
-        <Color x:Key="SukiLightColoredBackground">#f0f5ff</Color>
+        <Color x:Key="SukiLightColoredBackground">#F7FAFF</Color>
         <Color x:Key="SukiStrongBackground">#eaeaea</Color>
         <Color x:Key="SukiText">#222222</Color>
         <Color x:Key="SukiLowText">#666666</Color>

@@ -6,6 +6,7 @@
 
     <Application.Styles>
         <StyleInclude Source="avares://SukiUI/Theme/Index.xaml" />
+        
         <avalonia:MaterialIconStyles />
     </Application.Styles>
 
