@@ -13,7 +13,8 @@
     xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
     xmlns:sukiTest="clr-namespace:SukiTest"
     xmlns:system="clr-namespace:System;assembly=System.Runtime"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel">
 
     <suki:InteractiveContainer>
         <suki:DesktopPage
@@ -560,10 +561,31 @@
                         <suki:SideMenuModel.FooterMenuItems>
                             <suki:SideMenuItem Header="Settings" Icon="SettingsOutline">
                                 <suki:SideMenuItem.Content>
-                                    <TextBlock
-                                        HorizontalAlignment="Center"
-                                        Text="Settings Page"
-                                        VerticalAlignment="Center" />
+                                    
+                                    
+                                    <suki:SettingsLayout>
+                                        <suki:SettingsLayout.Items>
+                                            <objectModel:ObservableCollection x:TypeArguments="suki:SettingsLayoutItem">
+                                            <suki:SettingsLayoutItem Header="Introduction">
+                                                <suki:SettingsLayoutItem.Content>
+                                                    <Border Background="LightGray" Height="300" ></Border>
+                                                </suki:SettingsLayoutItem.Content>
+                                            </suki:SettingsLayoutItem>
+                                            <suki:SettingsLayoutItem Header="Settings Part 1">
+                                                <suki:SettingsLayoutItem.Content>
+                                                    <Border Background="LightGray" Height="300"></Border>
+                                                </suki:SettingsLayoutItem.Content>
+                                            </suki:SettingsLayoutItem>
+                                            <suki:SettingsLayoutItem Header="Settings Part 2">
+                                                <suki:SettingsLayoutItem.Content>
+                                                    <Border Background="LightGray" Height="300" ></Border>
+                                                </suki:SettingsLayoutItem.Content>
+                                            </suki:SettingsLayoutItem>
+                                                </objectModel:ObservableCollection>
+                                        </suki:SettingsLayout.Items>
+                                    </suki:SettingsLayout>
+                                    
+                                    
                                 </suki:SideMenuItem.Content>
                             </suki:SideMenuItem>
                         </suki:SideMenuModel.FooterMenuItems>

@@ -76,7 +76,8 @@ namespace SukiUI.Controls
             set { SetValue(LogoKindProperty, value); }
         }
 
-        public static readonly StyledProperty<List<MenuItem>> MenuItemsProperty = AvaloniaProperty.Register<DesktopPage, List<MenuItem>>(nameof(MenuItems), defaultValue: new List<MenuItem>());
+        public static readonly StyledProperty<List<MenuItem>> MenuItemsProperty = 
+            AvaloniaProperty.Register<DesktopPage, List<MenuItem>>(nameof(MenuItems), defaultValue: new List<MenuItem>());
 
         public List<MenuItem> MenuItems
         {
