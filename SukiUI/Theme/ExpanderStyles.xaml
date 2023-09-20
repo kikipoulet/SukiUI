@@ -39,11 +39,11 @@
                     <Grid RowDefinitions="Auto,*">
                         <Border BorderBrush="{DynamicResource SukiControlBorderBrush}" BorderThickness="0,0,0,1.2">
                             <DockPanel>
-                                <TextBlock
+                                <ContentControl
                                     FontWeight="DemiBold"
                                     HorizontalAlignment="Left"
                                     Margin="10"
-                                    Text="{TemplateBinding Header}" />
+                                    Content="{TemplateBinding Header}" />
 
                                 <Border
                                     Classes="ExpanderToggle"

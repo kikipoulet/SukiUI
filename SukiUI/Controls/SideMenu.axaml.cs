@@ -30,8 +30,9 @@ namespace SukiUI.Controls
                 
                 var border = this.FindControl<Border>("ContentBorder");
                 border.BorderThickness = new Thickness(1,1,0,0);
-                border.CornerRadius = new CornerRadius(13, 0, 0, 0);
-              
+                border.CornerRadius = new CornerRadius(13, 0, 0,0);
+                
+
             }
         }
         public SideMenu()

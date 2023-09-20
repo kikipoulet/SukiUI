@@ -467,7 +467,7 @@
                                 Margin="0,5,0,0"
                                 Width="25" />
 
-                            <touchNumericPad:TouchNumericPad Value="20" DockPanel.Dock="Right" />
+                            <touchNumericPad:TouchNumericPad PopupHeight="500" PopupWidth="350" Value="20" DockPanel.Dock="Right" />
 
 
                             <TextBlock

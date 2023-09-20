@@ -525,7 +525,7 @@
 
     </Style>
     <Style Selector="TextBox:focus /template/ Border#border">
-        <Setter Property="BorderBrush" Value="{DynamicResource SukiMediumBorderBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
 
     </Style>
     <Style Selector="TextBox:error /template/ Border#border">

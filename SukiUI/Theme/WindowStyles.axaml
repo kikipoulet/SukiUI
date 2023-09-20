@@ -11,7 +11,7 @@
         <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
         <Setter Property="ExtendClientAreaChromeHints" Value="NoChrome" />
         <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="-1" />
-        <Setter Property="Background" Value="{DynamicResource SukiBackground}"></Setter>
+        <Setter Property="Background" Value="{DynamicResource SukiLightBackground}"></Setter>
         <Setter Property="CornerRadius" Value="15" />
         <Setter Property="Template">
             <ControlTemplate>
@@ -41,12 +41,12 @@
     </Style>
     
     <Style Selector="Window.Blurred">
-        <Setter Property="TransparencyBackgroundFallback" Value="{DynamicResource SukiBackground}"></Setter>
+        <Setter Property="TransparencyBackgroundFallback" Value="{DynamicResource SukiLightBackground}"></Setter>
         <Setter Property="TransparencyLevelHint" Value="AcrylicBlur"></Setter>
         <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
         <Setter Property="ExtendClientAreaChromeHints" Value="NoChrome" />
         <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="-1" />
-        <Setter Property="Background" Value="{DynamicResource SukiBackground}"></Setter>
+        <Setter Property="Background" Value="{DynamicResource SukiLightBackground}"></Setter>
         <Setter Property="CornerRadius" Value="15" />
         <Setter Property="Template">
             <ControlTemplate>

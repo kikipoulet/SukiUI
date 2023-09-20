@@ -70,7 +70,7 @@
                         <suki:SideMenuModel.MenuItems>
                             <suki:SideMenuItem Header="DashBoard" Icon="CircleOutline">
                                 <suki:SideMenuItem.Content>
-                                    <ScrollViewer>
+                                    <ScrollViewer  VerticalScrollBarVisibility="Hidden">
 
                                         <WrapPanel Orientation="Horizontal">
 
@@ -462,6 +462,7 @@
                                                             </TabItem.Header>
                                                             <StackPanel Margin="0,10,0,0">
                                                                 <Expander Header="What is your cancellation policy ?">
+                                                                  
                                                                     <TextBlock
                                                                         FontSize="13"
                                                                         Margin="15,15"

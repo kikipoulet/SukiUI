@@ -202,7 +202,7 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Grid>
-                    <Border
+                    <Border Margin="0,0,0,0"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
@@ -313,6 +313,7 @@
 
     <Style Selector="RadioButton.MenuItem:checked  TextBlock">
         <Setter Property="FontWeight" Value="DemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
     </Style>
 
     <Style Selector="RadioButton.MenuItem:checked /template/ Border">
@@ -325,9 +326,10 @@
         </Setter>
 
         <Setter Property="TextBlock.FontWeight" Value="DemiBold" />
-        <Setter Property="Background" Value="{DynamicResource SukiLightBackground}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource SukiBorderBrush}" />
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="TextBlock.Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+        <Setter Property="Background" Value="{DynamicResource SukiIntBorderBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColorGradient}" />
+        <Setter Property="BorderThickness" Value="0,0,0,0" />
     </Style>
 
     <Style Selector="RadioButton.MenuItem /template/ ContentPresenter#PART_ContentPresenter">

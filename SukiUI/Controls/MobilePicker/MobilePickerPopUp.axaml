@@ -25,7 +25,7 @@
                 HorizontalAlignment="Right"
                 Margin="-3">
                 <TextBlock
-                    FontSize="16"
+                    FontSize="20"
                     FontWeight="DemiBold"
                     Text="Done" />
             </Button>

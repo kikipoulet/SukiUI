@@ -88,7 +88,7 @@
                         <ItemsControl
                             DockPanel.Dock="Bottom"
                             ItemsSource="{Binding FooterMenuItems}"
-                            Margin="0,0,0,10">
+                            Margin="0,0,0,12">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <RadioButton
@@ -109,22 +109,7 @@
                                                     Kind="{Binding Icon}"
                                                     Name="LongIco"
                                                     Width="22" />
-                                                <Border
-                                                    CornerRadius="2"
-                                                    DockPanel.Dock="Right"
-                                                    Height="30"
-                                                    Margin="0,-1,4,0"
-                                                    VerticalAlignment="Center"
-                                                    Width="3">
-                                                    <Border.Background>
-
-                                                        <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
-                                                            <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.1" />
-                                                            <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.6" />
-                                                        </LinearGradientBrush>
-
-                                                    </Border.Background>
-                                                </Border>
+                                                
                                                 <TextBlock
                                                     FontSize="14"
                                                     Margin="15,8,8,8"
@@ -184,22 +169,7 @@
                                                         Kind="{Binding Icon}"
                                                         Name="LongIco"
                                                         Width="22" />
-                                                    <Border
-                                                        CornerRadius="2"
-                                                        DockPanel.Dock="Right"
-                                                        Height="30"
-                                                        Margin="0,-1,4,0"
-                                                        VerticalAlignment="Center"
-                                                        Width="3">
-                                                        <Border.Background>
-
-                                                            <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
-                                                                <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.1" />
-                                                                <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.6" />
-                                                            </LinearGradientBrush>
-
-                                                        </Border.Background>
-                                                    </Border>
+                                                    
                                                     <TextBlock
                                                         FontSize="14"
                                                         Margin="15,8,8,8"
@@ -241,10 +211,10 @@
         </SplitView.Pane>
 
         <Border
-            Background="{DynamicResource SukiLightBackground}"
+            Background="{DynamicResource SukiBackground}"
             BorderBrush="{DynamicResource SukiBorderBrush}"
             BorderThickness="1,0,0,0"
-            Margin="0,0,0,0"
+            Margin="0,0,0,0" 
             Name="ContentBorder">
             <ContentControl Content="{Binding CurrentPage}" />
 
