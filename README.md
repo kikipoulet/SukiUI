@@ -15,11 +15,13 @@ Suki is the name of my dog :-)
 
 Documentation is on the [Wiki](https://github.com/kikipoulet/SukiUI/wiki) of this repository
 
-### SukiUI 5.0.0 : 
- - Lots of slight design changes, please see the gif just below 
- - the look of the controls are now almost definitive. 
- - I plan to replace all the images of the documentation because some are really old
- - Like usual, do not hesitate to suggest new controls idea that could benefit the library
+### New Control : SettingsLayout : 
+
+ Orginazing a nice and elegant settings page has always been a kind of nightmare/mystery to me. How to organize these little TextBoxes and Switches in so much window space ? How to handle the window resizing ? ..
+ 
+ This is why I ended up with this control to try to solve that layout problem while trying to be elegant and responsive in the style of SukiUI. [SettingsLayout Documentation](https://github.com/kikipoulet/SukiUI/wiki/3.-Controls#settingslayout)
+
+ <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/settingslayoutPage.gif"></img>
 
 
 ## 👐 Demo
