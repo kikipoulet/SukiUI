@@ -1,17 +1,144 @@
-<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="SukiUI.Controls.SettingsLayout">
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="SukiUI.Controls.SettingsLayout"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Styles>
+        <Style Selector="RadioButton">
+
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderMidBrush}" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <ThicknessTransition Duration="0:0:0.4" Property="Margin" />
+                </Transitions>
+            </Setter>
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Grid HorizontalAlignment="Left">
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="8"
+                            Height="45"
+                            HorizontalAlignment="Left"
+                            Margin="20,2,5,0"
+                            Padding="20,4,12,4"
+                            Width="250">
+                            <StackPanel
+                                HorizontalAlignment="Left"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                                <Ellipse
+                                    Fill="{DynamicResource SukiPrimaryColor}"
+                                    Height="5"
+                                    Margin="2,0,20,0"
+                                    Name="EL"
+                                    Width="5" />
+                                <ContentPresenter
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    Grid.Column="1"
+                                    Name="PART_ContentPresenter"
+                                    RecognizesAccessKey="True"
+                                    VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+
+        <Style Selector="RadioButton:checked">
+            <Setter Property="TextBlock.FontWeight" Value="DemiBold" />
+
+            <Setter Property="BorderThickness" Value="0,0,0,0" />
+            <Setter Property="BorderBrush">
+                <RadialGradientBrush>
+                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.1" />
+                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.6" />
+                </RadialGradientBrush>
+            </Setter>
+
+        </Style>
+
+        <Style Selector="RadioButton:pointerover /template/ Border">
+
+            <Setter Property="Background" Value="{DynamicResource SukiLightBackground}" />
+
+        </Style>
+
+        <Style Selector="RadioButton  TextBlock">
+            <Setter Property="FontSize" Value="50" />
+        </Style>
+
+
+        <Style Selector="RadioButton:checked  TextBlock">
+            <Setter Property="FontWeight" Value="DemiBold" />
+            <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+        </Style>
+
+        <Style Selector="RadioButton  Ellipse">
+            <Setter Property="Opacity" Value="0" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Duration="0:0:0.3" Property="Opacity" />
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="RadioButton:checked  Ellipse">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+
+        <Style Selector="RadioButton /template/ Border">
+            <Setter Property="TextBlock.FontSize" Value="16" />
+        </Style>
+
+        <Style Selector="RadioButton:checked /template/ Border">
+            <Setter Property="Transitions">
+
+                <Transitions>
+                    <BrushTransition Duration="0:0:0.15" Property="Background" />
+                </Transitions>
+
+            </Setter>
+
+            <Setter Property="TextBlock.FontWeight" Value="DemiBold" />
+            <Setter Property="TextBlock.Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+            <Setter Property="Background" Value="{DynamicResource SukiIntBorderBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColorGradient}" />
+            <Setter Property="BorderThickness" Value="0,0,0,0" />
+        </Style>
+
+        <Style Selector="RadioButton /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Transitions">
+
+                <Transitions>
+                    <ThicknessTransition Duration="0:0:0.25" Property="Margin" />
+                </Transitions>
+
+            </Setter>
+        </Style>
+
+
+    </UserControl.Styles>
+
     <DockPanel SizeChanged="SizeChanged">
-        <StackPanel Name="StackSummary" DockPanel.Dock="Left" Width="400">
-            
-        </StackPanel>
+        <StackPanel
+            DockPanel.Dock="Left"
+            HorizontalAlignment="Left"
+            Margin="0,25,0,0"
+            Name="StackSummary"
+            Width="400" />
         <ScrollViewer Name="MyScroll">
-        <StackPanel Name="StackItems">
-            
-        </StackPanel>
+            <StackPanel Margin="-10,0" Name="StackItems" />
         </ScrollViewer>
     </DockPanel>
 </UserControl>

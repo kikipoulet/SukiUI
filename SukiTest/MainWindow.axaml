@@ -1,8 +1,8 @@
 <Window
     Classes="NakedWindow"
     Title="SukiTest"
-    d:DesignHeight="4050"
-    d:DesignWidth="1350"
+    d:DesignHeight="1050"
+    d:DesignWidth="1050"
     mc:Ignorable="d"
     x:Class="SukiTest.MainWindow"
     xmlns="https://github.com/avaloniaui"
@@ -10,11 +10,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:material="using:Material.Icons.Avalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
     xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
     xmlns:sukiTest="clr-namespace:SukiTest"
     xmlns:system="clr-namespace:System;assembly=System.Runtime"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <suki:InteractiveContainer>
         <suki:DesktopPage
@@ -71,7 +71,7 @@
                         <suki:SideMenuModel.MenuItems>
                             <suki:SideMenuItem Header="DashBoard" Icon="CircleOutline">
                                 <suki:SideMenuItem.Content>
-                                    <ScrollViewer  VerticalScrollBarVisibility="Hidden">
+                                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
 
                                         <WrapPanel Orientation="Horizontal">
 
@@ -103,8 +103,8 @@
                                                                 Margin="6,0,0,3"
                                                                 Text="Username" />
                                                             <TextBox />
-                                                            
-                                                         
+
+
 
                                                             <TextBlock
                                                                 FontWeight="DemiBold"
@@ -462,8 +462,14 @@
                                                                 <TextBlock FontSize="16" Text="Questions" />
                                                             </TabItem.Header>
                                                             <StackPanel Margin="0,10,0,0">
-                                                                <Expander Header="What is your cancellation policy ?">
-                                                                  
+                                                                <Expander>
+                                                                    <Expander.Header>
+                                                                        <StackPanel Orientation="Horizontal">
+                                                                            <material:MaterialIcon Kind="Lock" />
+                                                                            <TextBlock Text="Test Lock" />
+                                                                        </StackPanel>
+                                                                    </Expander.Header>
+
                                                                     <TextBlock
                                                                         FontSize="13"
                                                                         Margin="15,15"
@@ -490,46 +496,104 @@
                                                     Height="85"
                                                     Margin="15"
                                                     Width="430">
-                                                    
-                                                    <suki:Stepper Margin="0,5,-4,0"  Name="stepS" />
+
+                                                    <suki:Stepper Margin="0,5,-4,0" Name="stepS" />
                                                 </Border>
-                                                
-                                                
+
+
                                             </StackPanel>
 
 
                                             <Border
-                                                    Classes="Card"
-                                                    Height="270"
-                                                    Margin="15"
-                                                    Width="961">
-                                                    
-                                                    <suki:GroupBox  Header="Change Plan">
-                                                        <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,25,0,0">
-                                                            <RadioButton IsChecked="True" Height="130" Width="210" Margin="8" Classes="GigaChips">
-                                                                <StackPanel Margin="7" HorizontalAlignment="Left">
-                                                                    <TextBlock Margin="5,8,5,4" Text="HOBBY" FontSize="12" FontWeight="DemiBold"  Foreground="{DynamicResource SukiLowText}"></TextBlock>
-                                                                    <TextBlock Margin="5,8" Text="1 Gb" FontSize="23" FontWeight="DemiBold" ></TextBlock>
-                                                                    <TextBlock TextWrapping="Wrap" Margin="5,3" Text="Plan for a moderate use as hobby." FontSize="15" Foreground="{DynamicResource SukiLowText}"></TextBlock>
-                                                                </StackPanel>
-                                                            </RadioButton>
-                                                            <RadioButton Height="130" Width="210" Margin="8" Classes="GigaChips">
-                                                                <StackPanel Margin="7" HorizontalAlignment="Left">
-                                                                    <TextBlock Margin="5,8,5,4" Text="PROFESSIONAL" FontSize="12" FontWeight="DemiBold"  Foreground="{DynamicResource SukiLowText}"></TextBlock>
-                                                                    <TextBlock Margin="5,8" Text="5 Gb" FontSize="23" FontWeight="DemiBold" ></TextBlock>
-                                                                    <TextBlock TextWrapping="Wrap" Margin="5,3" Text="Plan for a professional use in an application." FontSize="15" Foreground="{DynamicResource SukiLowText}"></TextBlock>
-                                                                </StackPanel>
-                                                            </RadioButton>
-                                                            <RadioButton Height="130" Width="210" Margin="8" Classes="GigaChips">
-                                                                <StackPanel Margin="7" HorizontalAlignment="Left">
-                                                                    <TextBlock Margin="5,8,5,4" Text="COMPANY" FontSize="12" FontWeight="DemiBold"  Foreground="{DynamicResource SukiLowText}"></TextBlock>
-                                                                    <TextBlock Margin="5,8" Text="50 Gb" FontSize="23" FontWeight="DemiBold" ></TextBlock>
-                                                                    <TextBlock TextWrapping="Wrap" Margin="5,3" Text="Plan for a industrial use in a company." FontSize="15" Foreground="{DynamicResource SukiLowText}"></TextBlock>
-                                                                </StackPanel>
-                                                            </RadioButton>
-                                                        </WrapPanel>
-                                                    </suki:GroupBox>
-                                                </Border>
+                                                Classes="Card"
+                                                Height="270"
+                                                Margin="15"
+                                                Width="961">
+
+                                                <suki:GroupBox Header="Change Plan">
+                                                    <WrapPanel
+                                                        HorizontalAlignment="Center"
+                                                        Margin="0,25,0,0"
+                                                        VerticalAlignment="Center">
+                                                        <RadioButton
+                                                            Classes="GigaChips"
+                                                            Height="130"
+                                                            IsChecked="True"
+                                                            Margin="8"
+                                                            Width="210">
+                                                            <StackPanel HorizontalAlignment="Left" Margin="7">
+                                                                <TextBlock
+                                                                    FontSize="12"
+                                                                    FontWeight="DemiBold"
+                                                                    Foreground="{DynamicResource SukiLowText}"
+                                                                    Margin="5,8,5,4"
+                                                                    Text="HOBBY" />
+                                                                <TextBlock
+                                                                    FontSize="23"
+                                                                    FontWeight="DemiBold"
+                                                                    Margin="5,8"
+                                                                    Text="1 Gb" />
+                                                                <TextBlock
+                                                                    FontSize="15"
+                                                                    Foreground="{DynamicResource SukiLowText}"
+                                                                    Margin="5,3"
+                                                                    Text="Plan for a moderate use as hobby."
+                                                                    TextWrapping="Wrap" />
+                                                            </StackPanel>
+                                                        </RadioButton>
+                                                        <RadioButton
+                                                            Classes="GigaChips"
+                                                            Height="130"
+                                                            Margin="8"
+                                                            Width="210">
+                                                            <StackPanel HorizontalAlignment="Left" Margin="7">
+                                                                <TextBlock
+                                                                    FontSize="12"
+                                                                    FontWeight="DemiBold"
+                                                                    Foreground="{DynamicResource SukiLowText}"
+                                                                    Margin="5,8,5,4"
+                                                                    Text="PROFESSIONAL" />
+                                                                <TextBlock
+                                                                    FontSize="23"
+                                                                    FontWeight="DemiBold"
+                                                                    Margin="5,8"
+                                                                    Text="5 Gb" />
+                                                                <TextBlock
+                                                                    FontSize="15"
+                                                                    Foreground="{DynamicResource SukiLowText}"
+                                                                    Margin="5,3"
+                                                                    Text="Plan for a professional use in an application."
+                                                                    TextWrapping="Wrap" />
+                                                            </StackPanel>
+                                                        </RadioButton>
+                                                        <RadioButton
+                                                            Classes="GigaChips"
+                                                            Height="130"
+                                                            Margin="8"
+                                                            Width="210">
+                                                            <StackPanel HorizontalAlignment="Left" Margin="7">
+                                                                <TextBlock
+                                                                    FontSize="12"
+                                                                    FontWeight="DemiBold"
+                                                                    Foreground="{DynamicResource SukiLowText}"
+                                                                    Margin="5,8,5,4"
+                                                                    Text="COMPANY" />
+                                                                <TextBlock
+                                                                    FontSize="23"
+                                                                    FontWeight="DemiBold"
+                                                                    Margin="5,8"
+                                                                    Text="50 Gb" />
+                                                                <TextBlock
+                                                                    FontSize="15"
+                                                                    Foreground="{DynamicResource SukiLowText}"
+                                                                    Margin="5,3"
+                                                                    Text="Plan for a industrial use in a company."
+                                                                    TextWrapping="Wrap" />
+                                                            </StackPanel>
+                                                        </RadioButton>
+                                                    </WrapPanel>
+                                                </suki:GroupBox>
+                                            </Border>
 
                                         </WrapPanel>
                                     </ScrollViewer>
@@ -561,31 +625,218 @@
                         <suki:SideMenuModel.FooterMenuItems>
                             <suki:SideMenuItem Header="Settings" Icon="SettingsOutline">
                                 <suki:SideMenuItem.Content>
-                                    
-                                    
-                                    <suki:SettingsLayout>
-                                        <suki:SettingsLayout.Items>
-                                            <objectModel:ObservableCollection x:TypeArguments="suki:SettingsLayoutItem">
-                                            <suki:SettingsLayoutItem Header="Introduction">
-                                                <suki:SettingsLayoutItem.Content>
-                                                    <Border Background="LightGray" Height="300" ></Border>
-                                                </suki:SettingsLayoutItem.Content>
-                                            </suki:SettingsLayoutItem>
-                                            <suki:SettingsLayoutItem Header="Settings Part 1">
-                                                <suki:SettingsLayoutItem.Content>
-                                                    <Border Background="LightGray" Height="300"></Border>
-                                                </suki:SettingsLayoutItem.Content>
-                                            </suki:SettingsLayoutItem>
-                                            <suki:SettingsLayoutItem Header="Settings Part 2">
-                                                <suki:SettingsLayoutItem.Content>
-                                                    <Border Background="LightGray" Height="300" ></Border>
-                                                </suki:SettingsLayoutItem.Content>
-                                            </suki:SettingsLayoutItem>
+
+                                    <DockPanel Margin="40,20">
+                                        <StackPanel DockPanel.Dock="Top">
+                                            <TextBlock Classes="h2" Text="Settings" />
+                                            <Border
+                                                Background="{DynamicResource SukiControlBorderBrush}"
+                                                Height="1"
+                                                Margin="0,-20,0,0" />
+                                        </StackPanel>
+
+                                        <suki:SettingsLayout>
+                                            <suki:SettingsLayout.Items>
+                                                <objectModel:ObservableCollection x:TypeArguments="suki:SettingsLayoutItem">
+                                                    <suki:SettingsLayoutItem Header="Profile Informations">
+                                                        <suki:SettingsLayoutItem.Content>
+                                                            <StackPanel>
+
+                                                                <DockPanel Margin="0,15">
+                                                                    <TextBox
+                                                                        DockPanel.Dock="Right"
+                                                                        Text="myUsername"
+                                                                        Width="150" />
+                                                                    <StackPanel HorizontalAlignment="Left" Margin="0,0,20,0">
+                                                                        <TextBlock
+                                                                            FontSize="15"
+                                                                            FontWeight="DemiBold"
+                                                                            Text="Username" />
+                                                                        <TextBlock
+                                                                            FontSize="13"
+                                                                            Margin="0,7,0,0"
+                                                                            Text="The name that peoples will see when they will try to contact you"
+                                                                            TextWrapping="Wrap" />
+                                                                    </StackPanel>
+                                                                </DockPanel>
+                                                                <DockPanel Margin="0,15">
+                                                                    <TextBox
+                                                                        DockPanel.Dock="Right"
+                                                                        Text="myUsername@email.com"
+                                                                        Width="150" />
+                                                                    <StackPanel HorizontalAlignment="Left" Margin="0,0,20,0">
+                                                                        <TextBlock
+                                                                            FontSize="15"
+                                                                            FontWeight="DemiBold"
+                                                                            Text="Email" />
+                                                                        <TextBlock
+                                                                            FontSize="13"
+                                                                            Margin="0,7,0,0"
+                                                                            Text="The email used to get back your password if you forget it in the future"
+                                                                            TextWrapping="Wrap" />
+                                                                    </StackPanel>
+                                                                </DockPanel>
+
+                                                                <DockPanel Margin="0,15">
+                                                                    <ToggleButton
+                                                                        Classes="Switch"
+                                                                        DockPanel.Dock="Right"
+                                                                        IsChecked="True"
+                                                                        VerticalAlignment="Top" />
+                                                                    <StackPanel HorizontalAlignment="Left" Margin="0,0,20,0">
+                                                                        <TextBlock
+                                                                            FontSize="15"
+                                                                            FontWeight="DemiBold"
+                                                                            Text="Connected Status" />
+                                                                        <TextBlock
+                                                                            FontSize="13"
+                                                                            Margin="0,7,0,0"
+                                                                            Text="Let people see if you are connected and ready to chat or not"
+                                                                            TextWrapping="Wrap" />
+                                                                    </StackPanel>
+                                                                </DockPanel>
+
+                                                                <DockPanel Margin="0,15">
+                                                                    <TextBlock
+                                                                        DockPanel.Dock="Right"
+                                                                        FontSize="14"
+                                                                        FontWeight="DemiBold"
+                                                                        Text="English" />
+                                                                    <StackPanel HorizontalAlignment="Left" Margin="0,0,20,0">
+                                                                        <TextBlock
+                                                                            FontSize="15"
+                                                                            FontWeight="DemiBold"
+                                                                            Text="Langage" />
+                                                                        <TextBlock
+                                                                            FontSize="13"
+                                                                            Margin="0,7,0,0"
+                                                                            Text="The langage used in your favorite apps"
+                                                                            TextWrapping="Wrap" />
+                                                                    </StackPanel>
+                                                                </DockPanel>
+                                                            </StackPanel>
+                                                        </suki:SettingsLayoutItem.Content>
+                                                    </suki:SettingsLayoutItem>
+                                                    <suki:SettingsLayoutItem Header="Privacy">
+                                                        <suki:SettingsLayoutItem.Content>
+                                                            <StackPanel>
+                                                                <DockPanel Margin="0,15">
+                                                                    <ToggleButton
+                                                                        Classes="Switch"
+                                                                        DockPanel.Dock="Right"
+                                                                        IsChecked="True"
+                                                                        VerticalAlignment="Top" />
+                                                                    <StackPanel HorizontalAlignment="Left" Margin="0,0,20,0">
+                                                                        <TextBlock
+                                                                            FontSize="15"
+                                                                            FontWeight="DemiBold"
+                                                                            Text="Allow people to find me" />
+                                                                        <TextBlock
+                                                                            FontSize="13"
+                                                                            Margin="0,7,0,0"
+                                                                            Text="Allow people with your cell number to connect with you"
+                                                                            TextWrapping="Wrap" />
+                                                                    </StackPanel>
+                                                                </DockPanel>
+                                                                <DockPanel Margin="0,15">
+                                                                    <ToggleButton
+                                                                        Classes="Switch"
+                                                                        DockPanel.Dock="Right"
+                                                                        IsChecked="False"
+                                                                        VerticalAlignment="Top" />
+                                                                    <StackPanel HorizontalAlignment="Left" Margin="0,0,20,0">
+                                                                        <TextBlock
+                                                                            FontSize="15"
+                                                                            FontWeight="DemiBold"
+                                                                            Text="Allow people to add me" />
+                                                                        <TextBlock
+                                                                            FontSize="13"
+                                                                            Margin="0,7,0,0"
+                                                                            Text="Allow your contacs to add you into groups"
+                                                                            TextWrapping="Wrap" />
+                                                                    </StackPanel>
+                                                                </DockPanel>
+
+                                                                <DockPanel Margin="0,15">
+                                                                    <ToggleButton
+                                                                        Classes="Switch"
+                                                                        DockPanel.Dock="Right"
+                                                                        IsChecked="False"
+                                                                        VerticalAlignment="Top" />
+                                                                    <StackPanel HorizontalAlignment="Left" Margin="0,0,20,0">
+                                                                        <TextBlock
+                                                                            FontSize="15"
+                                                                            FontWeight="DemiBold"
+                                                                            Text="Sync your contacts" />
+                                                                        <TextBlock
+                                                                            FontSize="13"
+                                                                            Margin="0,7,0,0"
+                                                                            Text="Allow us to access your contacts to help you find your friends"
+                                                                            TextWrapping="Wrap" />
+                                                                    </StackPanel>
+                                                                </DockPanel>
+
+                                                                <DockPanel Margin="0,15">
+                                                                    <ToggleButton
+                                                                        Classes="Switch"
+                                                                        DockPanel.Dock="Right"
+                                                                        IsChecked="True"
+                                                                        VerticalAlignment="Top" />
+                                                                    <StackPanel HorizontalAlignment="Left" Margin="0,0,20,0">
+                                                                        <TextBlock
+                                                                            FontSize="15"
+                                                                            FontWeight="DemiBold"
+                                                                            Text="Notifications" />
+                                                                        <TextBlock
+                                                                            FontSize="13"
+                                                                            Margin="0,7,0,0"
+                                                                            Text="Allow us to send you notifications for promotional products or discounts. Notifications can also be used to contact your friends."
+                                                                            TextWrapping="Wrap" />
+                                                                    </StackPanel>
+                                                                </DockPanel>
+                                                            </StackPanel>
+                                                        </suki:SettingsLayoutItem.Content>
+                                                    </suki:SettingsLayoutItem>
+                                                    <suki:SettingsLayoutItem Header="Billing">
+                                                        <suki:SettingsLayoutItem.Content>
+                                                            <DataGrid
+                                                                AutoGenerateColumns="True"
+                                                                IsReadOnly="True"
+                                                                Name="GridBilling" />
+                                                        </suki:SettingsLayoutItem.Content>
+                                                    </suki:SettingsLayoutItem>
+
+                                                    <suki:SettingsLayoutItem Header="Delete Account">
+                                                        <suki:SettingsLayoutItem.Content>
+                                                            <StackPanel>
+                                                                <DockPanel Margin="0,15">
+                                                                    <Button
+                                                                        DockPanel.Dock="Right"
+                                                                        Margin="0,-8,0,0"
+                                                                        VerticalAlignment="Top">
+                                                                        <TextBlock Text="Delete" />
+                                                                    </Button>
+                                                                    <StackPanel HorizontalAlignment="Left" Margin="0,0,20,0">
+                                                                        <TextBlock
+                                                                            FontSize="15"
+                                                                            FontWeight="DemiBold"
+                                                                            Text="Delete" />
+                                                                        <TextBlock
+                                                                            FontSize="13"
+                                                                            Margin="0,7,0,0"
+                                                                            Text="Delete your account forever and loose all your data"
+                                                                            TextWrapping="Wrap" />
+                                                                    </StackPanel>
+                                                                </DockPanel>
+                                                                <Border Height="400" />
+                                                            </StackPanel>
+                                                        </suki:SettingsLayoutItem.Content>
+                                                    </suki:SettingsLayoutItem>
                                                 </objectModel:ObservableCollection>
-                                        </suki:SettingsLayout.Items>
-                                    </suki:SettingsLayout>
-                                    
-                                    
+                                            </suki:SettingsLayout.Items>
+                                        </suki:SettingsLayout>
+
+                                    </DockPanel>
                                 </suki:SideMenuItem.Content>
                             </suki:SideMenuItem>
                         </suki:SideMenuModel.FooterMenuItems>

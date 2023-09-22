@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Animation;
 using Avalonia.Animation.Easings;
@@ -29,16 +31,6 @@ public partial class SettingsLayout : UserControl
        
     }
 
-    protected override void OnLoaded(RoutedEventArgs e)
-    {
-        
-        base.OnLoaded(e);
-    }
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-    }
 
     private void InitializeComponent()
     {
@@ -76,6 +68,11 @@ public partial class SettingsLayout : UserControl
         
         stackItems.Children.Clear();
         stackSummary.Children.Clear();
+
+        List<RadioButton> radios = new List<RadioButton>();
+        List<Border> borders = new List<Border>();
+        
+        stackItems.Children.Add(new Border(){Height = 8});
         
         foreach (var settingsLayoutItem in Items)
         {
@@ -90,6 +87,8 @@ public partial class SettingsLayout : UserControl
                     Child = settingsLayoutItem.Content
                 }
             };
+            
+            borders.Add(border);
             stackItems.Children.Add(border);
 
             var summaryButton = new RadioButton()
@@ -98,27 +97,99 @@ public partial class SettingsLayout : UserControl
             };
             summaryButton.Click += (sender, args) =>
             {
+                if (isAnimatingScroll)
+                    return;
                 var x = border.TranslatePoint(new Point(), stackItems);
                 
                 if(x.HasValue)
-                    myScroll.Offset = new Vector(0, x.Value.Y);
+                   AnimateScroll(x.Value.Y);  // myScroll.Offset = new Vector(0, x.Value.Y);
             };
+            radios.Add(summaryButton);
             stackSummary.Children.Add(summaryButton);
         }
         
         stackSummary.Children.Add(new Border(){Height = 300});
+
+        myScroll.ScrollChanged += (sender, args) =>
+        {
+            if (isAnimatingScroll)
+                return;
+
+            var OffsetY = myScroll.Offset.Y;
+            
+            var l = borders.Select(b => Math.Abs(b.TranslatePoint(new Point(), stackItems).Value.Y - OffsetY)).ToList();
+            radios[l.IndexOf(l.Min())].IsChecked = true;
+        };
     }
 
     private void SizeChanged(object sender, SizeChangedEventArgs e)
     {
-      var currentwidth = this.FindControl<StackPanel>("StackSummary").Width;
+        if (isAnimatingWidth)
+            return;
+
+        var currentwidth = this.FindControl<StackPanel>("StackSummary").Width;
       var desiredSize = e.NewSize.Width > 1000 ? 400 : 0;
-      if (desiredSize != currentwidth && (currentwidth == 0 || currentwidth == 400))
+      
+      if(desiredSize != currentwidth)
+        if ( (currentwidth == 0 || currentwidth == 400))
           AnimateSummaryWidth(this.FindControl<StackPanel>("StackSummary").Width, desiredSize);
+
+      
+      if (e.NewSize.Width <= 1000 && e.NewSize.Width > 850)
+         AnimateItemsMargin(new Thickness(100, 0));
+      else if (e.NewSize.Width <= 850 && e.NewSize.Width > 700)
+          AnimateItemsMargin(new Thickness(50, 0));
+      else
+          AnimateItemsMargin( new Thickness(-10,0));
+    }
+
+    private bool isAnimatingWidth = false;
+    private bool isAnimatingMargin = false;
+    private bool isAnimatingScroll = false;
+    
+    private void AnimateItemsMargin(Thickness desiredSize)
+    {
+
+        if (isAnimatingMargin)
+            return;
+        
+        var stackItems = this.FindControl<StackPanel>("StackItems");
+        if (stackItems.Margin.Left == desiredSize.Left)
+            return;
+        
+        isAnimatingMargin = true;
+        
+        new Animation
+        {
+            Duration = TimeSpan.FromMilliseconds(800), FillMode = FillMode.Forward,
+            Easing = new CubicEaseInOut(),
+            IterationCount = new IterationCount(1), PlaybackDirection = PlaybackDirection.Normal, 
+            Children =
+            {
+                new KeyFrame()
+                {
+                    Setters = { new Setter { Property = MarginProperty, Value = stackItems.Margin } },
+                    KeyTime = TimeSpan.FromSeconds(0)
+                },
+                new KeyFrame()
+                {
+                    Setters = { new Setter { Property = MarginProperty, Value = desiredSize } },
+                    KeyTime = TimeSpan.FromMilliseconds(800)
+                }
+            }
+        }.RunAsync(stackItems);
+
+        Task.Run(() =>
+        {
+            Thread.Sleep(1000);
+            isAnimatingMargin = false;
+        });
     }
 
     private void AnimateSummaryWidth(double current, double desiredSize)
     {
+        isAnimatingWidth = true;
+        
         new Animation
         {
             Duration = TimeSpan.FromMilliseconds(800), FillMode = FillMode.Forward,
@@ -138,5 +209,44 @@ public partial class SettingsLayout : UserControl
                 }
             }
         }.RunAsync(this.FindControl<StackPanel>("StackSummary"));
+
+        Task.Run(() =>
+        {
+            Thread.Sleep(1000);
+            isAnimatingWidth = false;
+        });
+    }
+
+    private void AnimateScroll( double desiredScroll)
+    {
+       
+        isAnimatingScroll = true;
+        var myscroll = this.FindControl<ScrollViewer>("MyScroll");
+        
+        new Animation
+        {
+            Duration = TimeSpan.FromMilliseconds(800), FillMode = FillMode.Forward,
+            Easing = new CubicEaseInOut(),
+            IterationCount = new IterationCount(1), PlaybackDirection = PlaybackDirection.Normal, 
+            Children =
+            {
+                new KeyFrame()
+                {
+                    Setters = { new Setter { Property = ScrollViewer.OffsetProperty, Value = myscroll.Offset } },
+                    KeyTime = TimeSpan.FromSeconds(0)
+                },
+                new KeyFrame()
+                {
+                    Setters = { new Setter { Property = ScrollViewer.OffsetProperty, Value = new Vector(myscroll.Offset.X, desiredScroll) } },
+                    KeyTime = TimeSpan.FromMilliseconds(800)
+                }
+            }
+        }.RunAsync(this.FindControl<ScrollViewer>("MyScroll"));
+
+        Task.Run(() =>
+        {
+            Thread.Sleep(1000);
+            isAnimatingScroll = false;
+        });
     }
 }

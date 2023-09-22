@@ -61,7 +61,10 @@ namespace SukiTest
         private ObservableCollection<Invoice> liste { get; set; }= new ObservableCollection<Invoice>() {
             new Invoice(){Id = 15364, BillingName = "Jean", Amount = 156, Paid = true},
             new Invoice(){Id = 45689, BillingName = "Fantine", Amount = 82, Paid = false},
-   
+            new Invoice(){Id = 15364, BillingName = "Jean", Amount = 156, Paid = true},
+            new Invoice(){Id = 45689, BillingName = "Fantine", Amount = 82, Paid = false},
+            new Invoice(){Id = 15364, BillingName = "Jean", Amount = 156, Paid = true},
+            new Invoice(){Id = 45689, BillingName = "Fantine", Amount = 82, Paid = false},
     };
 
         private WindowNotificationManager notificationManager;
@@ -73,6 +76,7 @@ namespace SukiTest
             try
             {
                 this.FindControl<DataGrid>("myDG").ItemsSource = liste;
+                this.FindControl<DataGrid>("GridBilling").ItemsSource = liste;
 
                 this.FindControl<Stepper>("stepS").Steps = new ObservableCollection<string>() { "Sent", "Progress", "Delivered" };
                 this.FindControl<Stepper>("stepS").Index = 1;
