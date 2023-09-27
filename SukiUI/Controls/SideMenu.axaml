@@ -109,7 +109,7 @@
                                                     Kind="{Binding Icon}"
                                                     Name="LongIco"
                                                     Width="22" />
-                                                
+
                                                 <TextBlock
                                                     FontSize="14"
                                                     Margin="15,8,8,8"
@@ -169,7 +169,7 @@
                                                         Kind="{Binding Icon}"
                                                         Name="LongIco"
                                                         Width="22" />
-                                                    
+
                                                     <TextBlock
                                                         FontSize="14"
                                                         Margin="15,8,8,8"
@@ -214,9 +214,9 @@
             Background="{DynamicResource SukiBackground}"
             BorderBrush="{DynamicResource SukiBorderBrush}"
             BorderThickness="1,0,0,0"
-            Margin="0,0,0,0" 
+            Margin="0,0,0,0"
             Name="ContentBorder">
-            <ContentControl Content="{Binding CurrentPage}" />
+            <TransitioningContentControl Content="{Binding CurrentPage}" />
 
         </Border>
     </SplitView>

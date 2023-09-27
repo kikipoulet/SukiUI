@@ -238,5 +238,17 @@ namespace SukiTest
                 });
             });
         }
+
+        private void changepage(object? sender, RoutedEventArgs e)
+        {
+            var b = new Button(){Content = "go to"};
+            b.Click += (o, args) =>
+            {
+               
+                this.FindControl<StackPage>("StackSettings").Push("Wifi", new Grid() );
+            };
+            
+            this.FindControl<StackPage>("StackSettings").Push("Network",b );
+        }
     }
 }

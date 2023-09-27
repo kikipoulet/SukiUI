@@ -5,12 +5,19 @@
     x:Class="SukiUI.Controls.DesktopPage"
     xmlns="https://github.com/avaloniaui"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    
     xmlns:material="using:Material.Icons.Avalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:suki="clr-namespace:SukiUI.Controls"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <UserControl.Styles>
+
+        <Style Selector="Button.HoverableWindowButton:pointerover">
+            <Setter Property="Background" Value="{DynamicResource SukiBorderBrush}" />
+        </Style>
+        <Style Selector="Button.HoverableWindowButtonRed:pointerover">
+            <Setter Property="Background" Value="#44ff0000" />
+        </Style>
+
         <Style Selector="suki|DesktopPage">
             <Setter Property="Template">
                 <ControlTemplate>
@@ -18,9 +25,10 @@
 
                     <DockPanel>
 
-                        <Border Name="BottomBorder"
+                        <Border
                             BorderBrush="{DynamicResource SukiBorderBrush}"
-                            DockPanel.Dock="Top">
+                            DockPanel.Dock="Top"
+                            Name="BottomBorder">
                             <Grid>
                                 <Grid
                                     Background="Transparent"
@@ -49,67 +57,78 @@
                                         Grid.Row="1"
                                         IsHitTestVisible="True"
                                         IsVisible="{TemplateBinding MenuVisibility}"
-                                        
                                         ItemsSource="{TemplateBinding MenuItems}"
                                         Margin="0,-5,0,0" />
 
 
                                 </Grid>
-                                <DockPanel
+                                <StackPanel
                                     Grid.Column="2"
                                     HorizontalAlignment="Right"
-                                    Margin="0,0,5,0">
+                                    Margin="0,0,5,0"
+                                    Orientation="Horizontal"
+                                    Spacing="-5">
 
                                     <!--  Minimize button  -->
                                     <Button
                                         Background="Transparent"
-                                        Cursor="Hand"
                                         BorderThickness="0"
-                                        Classes="Accent"
+                                        Classes="Accent Rounded HoverableWindowButton"
                                         Click="MinimizeHandler"
-                                        Height="23"
+                                        CornerRadius="20"
+                                        Cursor="Hand"
+                                        Height="35"
                                         IsVisible="{TemplateBinding IsMinimizeButtonEnabled}"
-                                        Width="23">
+                                        Margin="-50,-5"
+                                        Width="35">
                                         <material:MaterialIcon
-                                            Height="14"
+                                            Height="15"
                                             Kind="WindowMinimize"
-                                            Width="14" />
+                                            Margin="-12,0,10,0"
+                                            Width="15" />
                                     </Button>
                                     <!--  Maximize button  -->
                                     <Button
                                         Background="Transparent"
-                                        Cursor="Hand"
                                         BorderThickness="0"
-                                        Classes="Accent"
+                                        Classes="Accent Rounded HoverableWindowButton"
                                         Click="MaximizeHandler"
-                                        Height="23"
+                                        CornerRadius="20"
+                                        Cursor="Hand"
+                                        Height="35"
                                         IsVisible="{TemplateBinding IsMaximizeButtonEnabled}"
-                                        Width="23">
+                                        Margin="-50,-5"
+                                        Width="35">
                                         <material:MaterialIcon
-                                            Height="14"
-                                            x:Name="MaximizeMaterialIcon"
                                             Classes="WindowMaximize"
-                                            Width="14" />
+                                            Height="14"
+                                            Margin="-12,-1,10,0"
+                                            Width="14"
+                                            x:Name="MaximizeMaterialIcon" />
                                     </Button>
-                                    
+
                                     <!--  Close button  -->
                                     <Button
                                         Background="Transparent"
-                                        Cursor="Hand"
                                         BorderThickness="0"
-                                        Classes="Accent"
+                                        Classes="Accent Rounded HoverableWindowButtonRed"
                                         Click="CloseHandler"
-                                        Height="23"
+                                        CornerRadius="20"
+                                        Cursor="Hand"
+                                        Height="30"
                                         IsHitTestVisible="True"
-                                        Padding="0"
-                                        Width="25">
+                                        Margin="-50,-5"
+                                        Width="30">
                                         <material:MaterialIcon
-                                            Height="18"
+                                            Height="16"
+                                            HorizontalAlignment="Center"
                                             Kind="WindowClose"
-                                            Width="18" />
+                                            Margin="-14,-2,14,0"
+                                            VerticalAlignment="Center"
+                                            Width="16" />
 
                                     </Button>
-                                </DockPanel>
+                                </StackPanel>
                             </Grid>
                         </Border>
 
@@ -121,19 +140,19 @@
                 </ControlTemplate>
             </Setter>
         </Style>
-        
+
         <Style Selector="material|MaterialIcon.WindowMaximize">
-            <Setter Property="Kind" Value="WindowMaximize"></Setter>
+            <Setter Property="Kind" Value="WindowMaximize" />
         </Style>
         <Style Selector="material|MaterialIcon.WindowRestore">
-            <Setter Property="Kind" Value="WindowRestore"></Setter>
+            <Setter Property="Kind" Value="WindowRestore" />
         </Style>
 
-        <Style Selector="suki|DesktopPage /template/ Border#BottomBorder" >
-            <Setter Property="BorderThickness" Value="0,0,0,1"></Setter>
+        <Style Selector="suki|DesktopPage /template/ Border#BottomBorder">
+            <Setter Property="BorderThickness" Value="0,0,0,1" />
         </Style>
-        <Style Selector="suki|DesktopPage[ShowBottomBorder=False] /template/ Border#BottomBorder" >
-            <Setter Property="BorderThickness" Value="0,0,0,0"></Setter>
+        <Style Selector="suki|DesktopPage[ShowBottomBorder=False] /template/ Border#BottomBorder">
+            <Setter Property="BorderThickness" Value="0,0,0,0" />
         </Style>
 
     </UserControl.Styles>
