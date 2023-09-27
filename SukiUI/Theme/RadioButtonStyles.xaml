@@ -73,7 +73,7 @@
         <Setter Property="BorderThickness" Value="1" />
     </Style>
 
-<Style Selector="RadioButton.GigaChips">
+    <Style Selector="RadioButton.GigaChips">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
         <Setter Property="BorderThickness" Value="1" />
@@ -86,29 +86,37 @@
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding CornerRadius}"
-                        Margin="0,0,0,0" Name="BigBorder"
+                        Margin="0,0,0,0"
+                        Name="BigBorder"
                         Padding="0">
                         <Border.Transitions>
                             <Transitions>
-                                <ThicknessTransition Duration="00:00:0.2" Property="BorderThickness"></ThicknessTransition>
-                                <BrushTransition Duration="00:00:0.2" Property="Background"></BrushTransition>
-                                <BrushTransition Duration="00:00:0.2" Property="BorderBrush"></BrushTransition>
+                                <ThicknessTransition Duration="00:00:0.2" Property="BorderThickness" />
+                                <BrushTransition Duration="00:00:0.2" Property="Background" />
+                                <BrushTransition Duration="00:00:0.2" Property="BorderBrush" />
                             </Transitions>
                         </Border.Transitions>
-                        
+
 
                         <ContentPresenter
-                                Content="{TemplateBinding Content}"
-                                ContentTemplate="{TemplateBinding ContentTemplate}"
-                                Name="PART_ContentPresenter"
-                                RecognizesAccessKey="True"/>
-                            
-                      
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Name="PART_ContentPresenter"
+                            RecognizesAccessKey="True" />
+
+
                     </Border>
-                    <material:MaterialIcon Height="20" Width="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Kind="CheckCircle" Foreground="{DynamicResource SukiPrimaryColor}">
+                    <material:MaterialIcon
+                        Foreground="{DynamicResource SukiPrimaryColor}"
+                        Height="20"
+                        HorizontalAlignment="Right"
+                        Kind="CheckCircle"
+                        Margin="10"
+                        VerticalAlignment="Top"
+                        Width="20">
                         <material:MaterialIcon.Transitions>
                             <Transitions>
-                                <DoubleTransition Property="Opacity" Duration="00:00:0.2"></DoubleTransition>
+                                <DoubleTransition Duration="00:00:0.2" Property="Opacity" />
                             </Transitions>
                         </material:MaterialIcon.Transitions>
                     </material:MaterialIcon>
@@ -119,18 +127,18 @@
 
     <Style Selector="RadioButton.GigaChips:checked  Border#BigBorder">
         <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
-        <Setter Property="Background" Value="{DynamicResource SukiLightColoredBackground}" />
+        <Setter Property="Background" Value="{DynamicResource SukiLightIntBorderBrush}" />
         <Setter Property="BorderThickness" Value="2" />
     </Style>
-    
+
     <Style Selector="RadioButton.GigaChips  material|MaterialIcon">
-        <Setter Property="Opacity" Value="0"></Setter>
+        <Setter Property="Opacity" Value="0" />
     </Style>
-    
+
     <Style Selector="RadioButton.GigaChips:checked  material|MaterialIcon">
-        <Setter Property="Opacity" Value="1"></Setter>
+        <Setter Property="Opacity" Value="1" />
     </Style>
-    
+
     <Style Selector="RadioButton.MenuItemMobile:checked /template/ Border">
         <Setter Property="CornerRadius" Value="0,50,50,0" />
 
@@ -202,11 +210,12 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Grid>
-                    <Border Margin="0,0,0,0"
+                    <Border
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="{DynamicResource MediumCornerRadius}">
+                        CornerRadius="{DynamicResource MediumCornerRadius}"
+                        Margin="0,0,0,0">
                         <ContentPresenter
                             Content="{TemplateBinding Content}"
                             ContentTemplate="{TemplateBinding ContentTemplate}"

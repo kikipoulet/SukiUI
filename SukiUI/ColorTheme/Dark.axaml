@@ -8,7 +8,7 @@
         <Color x:Key="SukiPrimaryColorGradient">#2f54eb</Color>
         <Color x:Key="SukiPrimaryColor">#597ef7</Color>
 
-        <Color x:Key="SukiBackground">#252525</Color>
+        <Color x:Key="SukiBackground">#282828</Color>
         <Color x:Key="SukiLightBackground">#303030</Color>
         <Color x:Key="SukiLightColoredBackground">#303030</Color>
         <Color x:Key="SukiStrongBackground">#353535</Color>
@@ -19,6 +19,7 @@
         <Color x:Key="SukiControlBorderBrush">#606060</Color>
         <Color x:Key="SukiMediumBorderBrush">#555555</Color>
         <Color x:Key="SukiIntBorderBrush">#55515171</Color>
+        <Color x:Key="SukiLightIntBorderBrush">#4a515171</Color>
         <Color x:Key="SukiLightBorderBrush">#454545</Color>
         <Color x:Key="SukiDialogBackground">#505050</Color>
 
