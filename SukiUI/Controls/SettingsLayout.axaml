@@ -130,7 +130,7 @@
 
     </UserControl.Styles>
 
-    <DockPanel SizeChanged="SizeChanged">
+    <DockPanel MaxWidth="1400" SizeChanged="SizeChanged">
         <StackPanel
             DockPanel.Dock="Left"
             HorizontalAlignment="Left"

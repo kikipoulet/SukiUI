@@ -19,12 +19,17 @@
     <suki:InteractiveContainer>
         <suki:DesktopPage
             LogoColor="#2f54eb"
-            LogoKind="Xaml"
             MenuVisibility="False"
             Name="myPage"
             ShowBottomBorder="False"
             Title="Suki UI Testing - New Project">
-
+            <suki:DesktopPage.LogoContent>
+                <material:MaterialIcon
+                    Foreground="{DynamicResource SukiPrimaryColor}"
+                    Height="25"
+                    Kind="MicrosoftXaml"
+                    Width="25" />
+            </suki:DesktopPage.LogoContent>
             <suki:SideMenu MenuItemChanged="SideMenu_OnMenuItemChanged" WinUIStyle="True">
                 <suki:SideMenu.DataContext>
                     <suki:SideMenuModel HeaderContentOverlapsToggleSidebarButton="True">
@@ -69,7 +74,13 @@
                         </suki:SideMenuModel.HeaderContent>
 
                         <suki:SideMenuModel.MenuItems>
-                            <suki:SideMenuItem Header="DashBoard" Icon="CircleOutline">
+                            <suki:SideMenuItem Header="DashBoard">
+                                <suki:SideMenuItem.Icon>
+                                    <material:MaterialIcon
+                                        Height="24"
+                                        Kind="CircleOutline"
+                                        Width="24" />
+                                </suki:SideMenuItem.Icon>
                                 <suki:SideMenuItem.Content>
                                     <ScrollViewer VerticalScrollBarVisibility="Hidden">
 
@@ -612,7 +623,13 @@
                                         VerticalAlignment="Center" />
                                 </suki:SideMenuItem.Content>
                             </suki:SideMenuItem>
-                            <suki:SideMenuItem Header="Users" Icon="UserSearchOutline">
+                            <suki:SideMenuItem Header="Users">
+                                <suki:SideMenuItem.Icon>
+                                    <material:MaterialIcon
+                                        Height="24"
+                                        Kind="UserSettings"
+                                        Width="24" />
+                                </suki:SideMenuItem.Icon>
                                 <suki:SideMenuItem.Content>
                                     <suki:StackPage Header="Settings" Name="StackSettings">
                                         <suki:StackPage.Content>
@@ -628,7 +645,13 @@
 
                         </suki:SideMenuModel.MenuItems>
                         <suki:SideMenuModel.FooterMenuItems>
-                            <suki:SideMenuItem Header="Settings" Icon="SettingsOutline">
+                            <suki:SideMenuItem Header="Settings">
+                                <suki:SideMenuItem.Icon>
+                                    <material:MaterialIcon
+                                        Height="24"
+                                        Kind="SettingsOutline"
+                                        Width="24" />
+                                </suki:SideMenuItem.Icon>
                                 <suki:SideMenuItem.Content>
 
                                     <suki:StackPage Header="Settings">

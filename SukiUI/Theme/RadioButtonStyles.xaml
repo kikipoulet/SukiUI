@@ -378,29 +378,20 @@
         </Setter>
     </Style>
 
-    <Style Selector="RadioButton.MenuItem:checked  material|MaterialIcon#LongIco">
+    <Style Selector="RadioButton.MenuItem:checked  ContentControl">
         <!--  <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" /> -->
         <Setter Property="Transitions">
 
             <Transitions>
                 <DoubleTransition Duration="0:0:0.2" Property="Opacity" />
+                <ThicknessTransition Duration="0:0:0.2" Property="Margin" />
             </Transitions>
 
         </Setter>
+        <!-- <Setter Property="Padding" Value="-52,0,0,0" /> -->
         <Setter Property="Opacity" Value="0" />
     </Style>
 
-    <Style Selector="RadioButton.MenuItem:checked  material|MaterialIcon#ShortIco">
-        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
-        <Setter Property="Transitions">
-
-            <Transitions>
-                <BrushTransition Duration="0:0:0.2" Property="Foreground" />
-
-            </Transitions>
-
-        </Setter>
-    </Style>
 
 
 

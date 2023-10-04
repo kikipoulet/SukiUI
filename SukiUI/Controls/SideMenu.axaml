@@ -101,42 +101,25 @@
                                         Margin="0,0,0,0"
                                         Width="180">
                                         <Grid Margin="-30,1,0,0">
+                                            <DockPanel Margin="0,5,5,5">
 
-                                            <DockPanel IsVisible="{Binding DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" Margin="55,5,5,5">
-                                                <material:MaterialIcon
-                                                    Foreground="{DynamicResource SukiText}"
-                                                    Height="22"
-                                                    Kind="{Binding Icon}"
-                                                    Name="LongIco"
-                                                    Width="22" />
+
+                                                <Border Width="55" />
+                                                <Border IsVisible="{Binding !DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" Width="52" />
+
+                                                <ContentControl
+                                                    Content="{Binding Icon}"
+                                                    Height="24"
+                                                    Margin="2,0,10,0"
+                                                    Width="24" />
 
                                                 <TextBlock
                                                     FontSize="14"
+                                                    IsVisible="{Binding DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
                                                     Margin="15,8,8,8"
                                                     Text="{Binding Header}" />
                                             </DockPanel>
-                                            <Border HorizontalAlignment="Center" IsVisible="{Binding !DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}">
-                                                <Grid>
-                                                    <material:MaterialIcon
-                                                        Foreground="{DynamicResource SukiText}"
-                                                        Height="22"
-                                                        HorizontalAlignment="Center"
-                                                        Kind="{Binding Icon}"
-                                                        Margin="2,0,10,0"
-                                                        Name="ShortIcon"
-                                                        VerticalAlignment="Center"
-                                                        Width="22" />
-                                                    <material:MaterialIcon
-                                                        Foreground="{DynamicResource SukiText}"
-                                                        Height="22"
-                                                        HorizontalAlignment="Right"
-                                                        Kind="{Binding Icon}"
-                                                        Margin="2,0,-30,0"
-                                                        VerticalAlignment="Center"
-                                                        Width="22" />
 
-                                                </Grid>
-                                            </Border>
                                         </Grid>
                                     </RadioButton>
                                 </DataTemplate>
@@ -162,41 +145,34 @@
 
 
                                             <Grid Margin="-30,1,0,0">
-                                                <DockPanel IsVisible="{Binding DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" Margin="55,5,5,5">
-                                                    <material:MaterialIcon
-                                                        Foreground="{DynamicResource SukiText}"
-                                                        Height="22"
-                                                        Kind="{Binding Icon}"
-                                                        Name="LongIco"
-                                                        Width="22" />
+                                                <DockPanel Margin="0,5,5,5">
+
+
+                                                    <Border Width="55" />
+                                                    <Border IsVisible="{Binding !DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" Width="52" />
+
+
+                                                    <ContentControl
+                                                        Content="{Binding Icon}"
+                                                        Height="24"
+                                                        Margin="2,0,10,0"
+                                                        Width="24" />
 
                                                     <TextBlock
                                                         FontSize="14"
+                                                        IsVisible="{Binding DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
                                                         Margin="15,8,8,8"
                                                         Text="{Binding Header}" />
+                                                    <material:MaterialIcon
+                                                        Height="24"
+                                                        IsVisible="{Binding !DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
+                                                        Kind="CircleOutline"
+                                                        Margin="-65,0,0,0"
+                                                        Width="24" />
                                                 </DockPanel>
-                                                <Border HorizontalAlignment="Center" IsVisible="{Binding !DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}">
-                                                    <Grid>
-                                                        <material:MaterialIcon
-                                                            Foreground="{DynamicResource SukiText}"
-                                                            Height="22"
-                                                            HorizontalAlignment="Center"
-                                                            Kind="{Binding Icon}"
-                                                            Margin="2,0,10,0"
-                                                            Name="ShortIcon"
-                                                            VerticalAlignment="Center"
-                                                            Width="22" />
-                                                        <material:MaterialIcon
-                                                            Foreground="{DynamicResource SukiText}"
-                                                            Height="22"
-                                                            HorizontalAlignment="Right"
-                                                            Kind="{Binding Icon}"
-                                                            Margin="2,0,-30,0"
-                                                            VerticalAlignment="Center"
-                                                            Width="22" />
 
-                                                    </Grid>
-                                                </Border>
+
+
                                             </Grid>
                                         </RadioButton>
                                     </DataTemplate>

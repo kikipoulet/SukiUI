@@ -35,15 +35,12 @@
                                     ColumnDefinitions="Auto,*,Auto"
                                     IsHitTestVisible="False"
                                     RowDefinitions="Auto,Auto">
-                                    <material:MaterialIcon
-                                        Foreground="{TemplateBinding LogoColor}"
+                                    <ContentControl
+                                        Content="{TemplateBinding LogoContent}"
                                         Grid.Column="0"
-                                        Height="25"
                                         HorizontalAlignment="Left"
                                         IsHitTestVisible="False"
-                                        Kind="{TemplateBinding LogoKind}"
-                                        Margin="10"
-                                        Width="25" />
+                                        Margin="10" />
                                     <TextBlock
                                         FontSize="{TemplateBinding TitleFontSize}"
                                         FontWeight="{TemplateBinding TitleFontWeight}"

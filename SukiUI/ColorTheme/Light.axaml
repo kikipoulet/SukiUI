@@ -12,7 +12,7 @@
         <Color x:Key="SukiPrimaryColorGradient">#597ef7</Color>
 
 
-        <Color x:Key="SukiBackground">#fafafa</Color>
+        <Color x:Key="SukiBackground">#fcfcfc</Color>
         <Color x:Key="SukiLightBackground">#f9f9f9</Color>
         <Color x:Key="SukiLightColoredBackground">#E7EFFF</Color>
         <Color x:Key="SukiStrongBackground">#eaeaea</Color>

@@ -43,7 +43,7 @@ namespace SukiUI.Controls
             set { SetValue(TitleHorizontalAlignmentProperty, value); }
         }
 
-        public static readonly StyledProperty<double> TitleFontSizeProperty = AvaloniaProperty.Register<DesktopPage, double>(nameof(TitleFontSize), defaultValue: 14);
+        public static readonly StyledProperty<double> TitleFontSizeProperty = AvaloniaProperty.Register<DesktopPage, double>(nameof(TitleFontSize), defaultValue: 13);
 
         public double TitleFontSize
         {
@@ -52,7 +52,7 @@ namespace SukiUI.Controls
         }
 
 
-        public static readonly StyledProperty<FontWeight> TitleFontWeightProperty = AvaloniaProperty.Register<DesktopPage, FontWeight>(nameof(TitleFontWeight), defaultValue: FontWeight.Medium);
+        public static readonly StyledProperty<FontWeight> TitleFontWeightProperty = AvaloniaProperty.Register<DesktopPage, FontWeight>(nameof(TitleFontWeight), defaultValue: FontWeight.DemiBold);
 
         public FontWeight TitleFontWeight
         {
@@ -68,12 +68,12 @@ namespace SukiUI.Controls
             set { SetValue(LogoColorProperty, value); }
         }
 
-        public static readonly StyledProperty<MaterialIconKind> LogoKindProperty = AvaloniaProperty.Register<DesktopPage, MaterialIconKind>(nameof(LogoKind), defaultValue: MaterialIconKind.DotNet);
+        public static readonly StyledProperty<Control> LogoContentProperty = AvaloniaProperty.Register<DesktopPage, Control>(nameof(LogoContent), defaultValue: new Border());
 
-        public MaterialIconKind LogoKind
+        public Control LogoContent
         {
-            get { return GetValue(LogoKindProperty); }
-            set { SetValue(LogoKindProperty, value); }
+            get { return GetValue(LogoContentProperty); }
+            set { SetValue(LogoContentProperty, value); }
         }
 
         public static readonly StyledProperty<List<MenuItem>> MenuItemsProperty = 
