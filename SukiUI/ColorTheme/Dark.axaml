@@ -9,6 +9,7 @@
         <Color x:Key="SukiPrimaryColor">#597ef7</Color>
 
         <Color x:Key="SukiBackground">#282828</Color>
+        <Color x:Key="SukiCardBackground">#252525</Color>
         <Color x:Key="SukiLightBackground">#303030</Color>
         <Color x:Key="SukiLightColoredBackground">#303030</Color>
         <Color x:Key="SukiStrongBackground">#353535</Color>

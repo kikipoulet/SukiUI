@@ -4,6 +4,7 @@
     mc:Ignorable="d"
     x:Class="SukiUI.Controls.GroupBox"
     xmlns="https://github.com/avaloniaui"
+    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:suki="clr-namespace:SukiUI.Controls"
@@ -13,8 +14,22 @@
             <Setter Property="Template">
                 <ControlTemplate>
                     <StackPanel>
-                        <TextBlock Margin="0,0,0,0" Text="{TemplateBinding Header}" Foreground="{DynamicResource SukiLowText}" ></TextBlock>
-                        <Border Height="1" BorderThickness="0" Margin="0,10,0,10" Background="{DynamicResource SukiControlBorderBrush}"></Border>
+                        <ContentControl Content="{TemplateBinding Header}" Margin="0,0,0,0">
+                            <ContentControl.Styles>
+                                <Style Selector="TextBlock">
+                                    <Setter Property="Foreground" Value="{DynamicResource SukiLowText}" />
+                                </Style>
+                                <Style Selector="avalonia|MaterialIcon">
+                                    <Setter Property="Foreground" Value="{DynamicResource SukiLowText}" />
+                                </Style>
+                            </ContentControl.Styles>
+                        </ContentControl>
+
+                        <Border
+                            Background="{DynamicResource SukiControlBorderBrush}"
+                            BorderThickness="0"
+                            Height="1"
+                            Margin="0,10,0,10" />
                         <ContentControl Content="{TemplateBinding Content}" />
                     </StackPanel>
                 </ControlTemplate>

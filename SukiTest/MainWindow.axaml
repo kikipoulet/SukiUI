@@ -521,7 +521,13 @@
                                                 Margin="15"
                                                 Width="961">
 
-                                                <suki:GroupBox Header="Change Plan">
+                                                <suki:GroupBox>
+                                                    <suki:GroupBox.Header>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <material:MaterialIcon Foreground="{DynamicResource SukiLowText}" Kind="Dollar" />
+                                                            <TextBlock Margin="5,0,0,0" Text="Change Plan" />
+                                                        </StackPanel>
+                                                    </suki:GroupBox.Header>
                                                     <WrapPanel
                                                         HorizontalAlignment="Center"
                                                         Margin="0,25,0,0"

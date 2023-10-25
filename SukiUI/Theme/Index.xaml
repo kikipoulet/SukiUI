@@ -1,5 +1,7 @@
-<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia">
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <SimpleTheme />
 
@@ -35,13 +37,13 @@
     <StyleInclude Source="avares://SukiUI/Theme/CheckBox.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ScrollBarStyle.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ExpanderStyles.xaml" />
-    
+
     <avalonia:MaterialIconStyles />
-    
+
     <Styles.Resources>
         <ResourceDictionary>
-            <CornerRadius x:Key="SmallCornerRadius">6</CornerRadius>
-            <CornerRadius x:Key="MediumCornerRadius">13</CornerRadius>
+            <CornerRadius x:Key="SmallCornerRadius">7</CornerRadius>
+            <CornerRadius x:Key="MediumCornerRadius">15</CornerRadius>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="avares://SukiUI/Theme/SplitView.axaml" />
                 <ResourceInclude Source="avares://SukiUI/Theme/DatePicker.axaml" />

@@ -1,30 +1,33 @@
 <Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
+
     <Design.PreviewWith>
         <WrapPanel
             Background="{DynamicResource SukiBackground}"
             HorizontalAlignment="Center"
             Orientation="Horizontal">
-            <Border Height="100" Width="100" Classes="Card"></Border>
+            <Border
+                Classes="Card"
+                Height="100"
+                Width="100" />
         </WrapPanel>
     </Design.PreviewWith>
-    
+
     <Style Selector="Border.Card">
         <Setter Property="Padding" Value="20" />
         <Setter Property="CornerRadius" Value="{DynamicResource MediumCornerRadius}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiBorderBrush}" />
-        <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
+        <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
         <Setter Property="Margin" Value="7" />
     </Style>
-    
+
     <Style Selector="Border.GradientCard">
         <Setter Property="Padding" Value="20" />
         <Setter Property="CornerRadius" Value="{DynamicResource MediumCornerRadius}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiBorderBrush}" />
-        <Setter Property="Background" >
-            <RadialGradientBrush Center="120%,-220%" GradientOrigin="120%,-220%" Radius="3"> 
+        <Setter Property="Background">
+            <RadialGradientBrush Center="120%,-220%" GradientOrigin="120%,-220%" Radius="3">
                 <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.4" />
                 <GradientStop Color="Transparent" Offset="1" />
             </RadialGradientBrush>

@@ -80,7 +80,7 @@ public partial class SettingsLayout : UserControl
             border.Child = new GroupBox()
             {
                 Margin = new Thickness(10,20),
-                Header = settingsLayoutItem.Header,
+                Header = new TextBlock(){Text = settingsLayoutItem.Header},
                 Content = new Border()
                 {
                     Margin = new Thickness(35,12),

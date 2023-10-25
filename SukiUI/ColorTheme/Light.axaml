@@ -13,6 +13,7 @@
 
 
         <Color x:Key="SukiBackground">#fcfcfc</Color>
+        <Color x:Key="SukiCardBackground">#fdfdfd</Color>
         <Color x:Key="SukiLightBackground">#f9f9f9</Color>
         <Color x:Key="SukiLightColoredBackground">#E7EFFF</Color>
         <Color x:Key="SukiStrongBackground">#eaeaea</Color>

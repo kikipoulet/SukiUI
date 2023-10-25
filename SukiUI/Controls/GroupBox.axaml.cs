@@ -17,10 +17,10 @@ namespace SukiUI.Controls
             AvaloniaXamlLoader.Load(this);
         }
 
-        public static readonly StyledProperty<string> HeaderProperty =
-            AvaloniaProperty.Register<GroupBox, string>(nameof(Header), defaultValue: "Header");
+        public static readonly StyledProperty<Control> HeaderProperty =
+            AvaloniaProperty.Register<GroupBox, Control>(nameof(Header), defaultValue: new TextBlock(){Text ="Header"});
 
-        public string Header
+        public Control Header
         {
             get { return GetValue(HeaderProperty); }
             set { SetValue(HeaderProperty, value); }
