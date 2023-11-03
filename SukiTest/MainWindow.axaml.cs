@@ -19,6 +19,7 @@ using System.Threading;
 using Avalonia.Controls.Primitives;
 using Avalonia.Threading;
 using SukiUI.Controls.TouchInput.TouchNumericPad;
+using SukiUI.Theme;
 
 namespace SukiTest
 {
@@ -233,8 +234,7 @@ namespace SukiTest
                 Dispatcher.UIThread.Invoke(() =>
                 {
                     this.FindControl<BusyArea>("BusySignIn").IsBusy = false;
-                    InteractiveContainer.ShowToast(new TextBlock(){Text = "Success !", Margin = new Thickness(15,8)}, 5);
-
+                    this.Get<TextBox>("PasswordTextBox").Error("Wrong Password");
                 });
             });
         }

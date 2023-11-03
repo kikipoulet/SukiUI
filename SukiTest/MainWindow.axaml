@@ -14,7 +14,8 @@
     xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
     xmlns:sukiTest="clr-namespace:SukiTest"
     xmlns:system="clr-namespace:System;assembly=System.Runtime"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:theme="clr-namespace:SukiUI.Theme;assembly=SukiUI">
 
     <suki:InteractiveContainer>
         <suki:DesktopPage
@@ -113,7 +114,7 @@
                                                                 FontWeight="DemiBold"
                                                                 Margin="6,0,0,3"
                                                                 Text="Username" />
-                                                            <TextBox />
+                                                            <TextBox Watermark="Username"  />
 
 
 
@@ -121,7 +122,7 @@
                                                                 FontWeight="DemiBold"
                                                                 Margin="6,18,0,3"
                                                                 Text="Password" />
-                                                            <TextBox Margin="0,0,0,25" PasswordChar="*" />
+                                                            <TextBox Name="PasswordTextBox" Margin="0,0,0,25" PasswordChar="*" />
                                                         </StackPanel>
                                                     </suki:BusyArea>
                                                 </Border>

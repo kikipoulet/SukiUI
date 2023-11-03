@@ -1,7 +1,8 @@
 <Styles
     xmlns="https://github.com/avaloniaui"
     xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:theme="clr-namespace:SukiUI.Theme">
 
     <Design.PreviewWith>
         <Border
@@ -394,6 +395,9 @@
             <ControlTemplate>
 
                 <Border Padding="5">
+                    <Border.Resources>
+                        <theme:StringToDoubleConverter x:Key="StringToDoubleC"></theme:StringToDoubleConverter>
+                    </Border.Resources>
                     <Border
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
@@ -418,10 +422,9 @@
                                     <BrushTransition Duration="0:0:0.2" Property="BorderBrush" />
                                 </Transitions>
                             </Border.Transitions>
-                            <DockPanel>
+                            
 
-
-
+                                
 
                                 <DockPanel
                                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -452,7 +455,7 @@
                                                 Grid.ColumnSpan="1" />
                                             <ScrollViewer
                                                 Grid.Column="1"
-                                                Grid.ColumnSpan="1"
+                                               
                                                 HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
                                                 VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
                                                 <Panel>
@@ -460,11 +463,11 @@
                                                         IsVisible="{TemplateBinding Text,
                                                                                     Converter={x:Static StringConverters.IsNullOrEmpty}}"
                                                         Name="watermark"
-                                                        Opacity="0.5"
+                                                        Opacity="0.5" Margin="0,2,0,0"
                                                         Text="{TemplateBinding Watermark}"
                                                         TextAlignment="{TemplateBinding TextAlignment}"
                                                         TextWrapping="{TemplateBinding TextWrapping}" />
-                                                    <TextPresenter
+                                                    <TextPresenter Margin="0,2,0,0"
                                                         CaretBrush="{DynamicResource SukiText}"
                                                         CaretIndex="{TemplateBinding CaretIndex}"
                                                         FontSize="14"
@@ -482,13 +485,17 @@
                                                         TextWrapping="{TemplateBinding TextWrapping}" />
                                                 </Panel>
                                             </ScrollViewer>
-                                            <ContentPresenter
-                                                Content="{TemplateBinding InnerRightContent}"
-                                                Grid.Column="2"
-                                                Grid.ColumnSpan="1" />
+                                            <theme:TextEraserButton Opacity="{TemplateBinding Text, Converter={StaticResource StringToDoubleC}}" Text="{TemplateBinding Text, Mode=TwoWay}"  Grid.Column="2" Margin="5,0,0,0"  >
+                                                <theme:TextEraserButton.Transitions>
+                                                    <Transitions>
+                                                        <DoubleTransition Property="Opacity" Duration="0:0:0.35"></DoubleTransition>
+                                                    </Transitions>
+                                                </theme:TextEraserButton.Transitions>
+                                                     </theme:TextEraserButton>
+                                            
                                         </Grid>
                                     </DataValidationErrors>
-                                </DockPanel>
+                            
                             </DockPanel>
                         </Border>
                     </Border>

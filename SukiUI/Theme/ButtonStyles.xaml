@@ -41,7 +41,7 @@
         <Setter Property="BorderBrush" Value="{DynamicResource SukiMediumBorderBrush}" />
         <Setter Property="Padding" Value="18,9,18,8" />
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
-        <Setter Property="Margin" Value="5" />
+        <Setter Property="Margin" Value="4" />
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
 
         <Setter Property="Template">
@@ -55,7 +55,7 @@
                     ContentTemplate="{TemplateBinding ContentTemplate}"
                     CornerRadius="{TemplateBinding CornerRadius}"
                     HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                    Margin="4,4,4,4"
+                    Margin="{TemplateBinding Margin}"
                     Name="PART_ContentPresenter"
                     Padding="{TemplateBinding Padding}"
                     RecognizesAccessKey="True"
@@ -117,6 +117,15 @@
         <Setter Property="Margin" Value="5 5" />
         <Setter Property="Background" Value="Transparent" />
     </Style>
+    
+    <Style Selector="Button.Void">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
 
     <Style Selector="Button.Accent &gt; TextBlock">
         <Setter Property="Foreground">
@@ -137,6 +146,15 @@
     </Style>
 
     <Style Selector="Button.Accent:pointerover /template/ ContentPresenter">
+
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <ScaleTransform ScaleX="1.03" ScaleY="1.03" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style Selector="Button.Void:pointerover /template/ ContentPresenter">
 
         <Setter Property="RenderTransform">
             <Setter.Value>
@@ -315,6 +333,12 @@
         <Setter Property="BoxShadow" Value="0 0 0 0 Transparent" />
 
     </Style>
+    
+    <Style Selector="Button.Void /template/ ContentPresenter">
+
+        <Setter Property="BoxShadow" Value="0 0 0 0 Transparent" />
+
+    </Style>
 
     <Style Selector="Button.Primary /template/ ContentPresenter">
 
@@ -348,5 +372,6 @@
         </Setter>
     </Style>
 
+    
 
 </Styles>
