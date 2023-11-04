@@ -2,7 +2,8 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:material="using:Material.Icons.Avalonia"
     xmlns:system="clr-namespace:System;assembly=netstandard"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  xmlns:theme="clr-namespace:SukiUI.Theme"
+    xmlns:controls="clr-namespace:SukiUI.Controls">
 
     <Design.PreviewWith>
         <WrapPanel
@@ -46,21 +47,42 @@
 
         <Setter Property="Template">
             <ControlTemplate>
-                <ContentPresenter
+             
+                    
+                    <Border
                     Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
                     BoxShadow="{DynamicResource SukiLowShadow}"
-                    Content="{TemplateBinding Content}"
-                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                    
+                    
                     CornerRadius="{TemplateBinding CornerRadius}"
-                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                   
                     Margin="{TemplateBinding Margin}"
-                    Name="PART_ContentPresenter"
+                  
                     Padding="{TemplateBinding Padding}"
-                    RecognizesAccessKey="True"
+                    
                     TextElement.Foreground="{TemplateBinding Foreground}"
-                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                     >
+                   <Border.Resources>
+                       <theme:BoolToWidthProgressConverter x:Key="WidthConverter" />
+                   </Border.Resources>
+                       <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                           <Viewbox  Width="{TemplateBinding theme:ButtonExtensions.ShowProgress, Converter={StaticResource WidthConverter}}"  Height="18" >
+                              <Viewbox.Transitions>
+                                  <Transitions>
+                                      <DoubleTransition Property="Width" Duration="0:0:0.3"></DoubleTransition>
+                                  </Transitions>
+                              </Viewbox.Transitions>
+                               <controls:Loading Margin="10,0"  Classes="White"></controls:Loading>
+                           </Viewbox>
+                           <ContentPresenter  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" RecognizesAccessKey="True"  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}"></ContentPresenter>
+                           </StackPanel>
+          
+                </Border>
+                        
+                
+              
             </ControlTemplate>
         </Setter>
         <Setter Property="Transitions">
@@ -87,7 +109,7 @@
 
     </Style>
 
-    <Style Selector="Button /template/ ContentPresenter">
+    <Style Selector="Button /template/ Border">
         <Setter Property="Transitions">
             <Transitions>
                 <BrushTransition Duration="0:0:0.3" Property="BorderBrush" />
@@ -95,7 +117,7 @@
         </Setter>
     </Style>
 
-    <Style Selector="Button:pointerover /template/ ContentPresenter">
+    <Style Selector="Button:pointerover /template/ Border">
         <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColorGradient}" />
     </Style>
 
@@ -104,7 +126,7 @@
 
 
 
-    <Style Selector="Button:pressed /template/ ContentPresenter">
+    <Style Selector="Button:pressed /template/ Border">
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
     </Style>
@@ -145,7 +167,7 @@
 
     </Style>
 
-    <Style Selector="Button.Accent:pointerover /template/ ContentPresenter">
+    <Style Selector="Button.Accent:pointerover /template/ Border">
 
         <Setter Property="RenderTransform">
             <Setter.Value>
@@ -154,7 +176,7 @@
         </Setter>
     </Style>
     
-    <Style Selector="Button.Void:pointerover /template/ ContentPresenter">
+    <Style Selector="Button.Void:pointerover /template/ Border">
 
         <Setter Property="RenderTransform">
             <Setter.Value>
@@ -164,7 +186,7 @@
     </Style>
 
 
-    <Style Selector="Button.Accent:pressed /template/ ContentPresenter">
+    <Style Selector="Button.Accent:pressed /template/ Border">
         <Setter Property="Background" Value="Transparent" />
     </Style>
 
@@ -180,7 +202,7 @@
     </Style>
 
 
-    <Style Selector="Button:pressed /template/ ContentPresenter">
+    <Style Selector="Button:pressed /template/ Border">
 
         <Setter Property="RenderTransform">
             <Setter.Value>
@@ -222,7 +244,7 @@
     </Style>
 
 
-    <Style Selector="Button.Primary:pressed /template/ ContentPresenter">
+    <Style Selector="Button.Primary:pressed /template/ Border">
         <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
     </Style>
 
@@ -278,7 +300,7 @@
     </Style>
 
 
-    <Style Selector="Button.Outlined:pressed /template/ ContentPresenter">
+    <Style Selector="Button.Outlined:pressed /template/ Border">
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="Background">
             <Setter.Value>
@@ -302,10 +324,10 @@
     <Style Selector="Button.Success &gt; TextBlock">
         <Setter Property="Foreground" Value="#13831c" />
     </Style>
-    <Style Selector="Button.Success:pointerover /template/ ContentPresenter">
+    <Style Selector="Button.Success:pointerover /template/ Border">
         <Setter Property="Background" Value="#d7f5db" />
     </Style>
-    <Style Selector="Button.Success:pressed /template/ ContentPresenter">
+    <Style Selector="Button.Success:pressed /template/ Border">
         <Setter Property="Background" Value="#d7f5db" />
     </Style>
 
@@ -316,10 +338,10 @@
     <Style Selector="Button.Danger &gt; TextBlock">
         <Setter Property="Foreground" Value="#831313" />
     </Style>
-    <Style Selector="Button.Danger:pointerover /template/ ContentPresenter">
+    <Style Selector="Button.Danger:pointerover /template/ Border">
         <Setter Property="Background" Value="#f5d7d7" />
     </Style>
-    <Style Selector="Button.Danger:pressed /template/ ContentPresenter">
+    <Style Selector="Button.Danger:pressed /template/ Border">
         <Setter Property="Background" Value="#f5d7d7" />
     </Style>
 
@@ -328,19 +350,19 @@
         <Setter Property="Padding" Value="25,10,25,8" />
     </Style>
 
-    <Style Selector="Button.Accent /template/ ContentPresenter">
+    <Style Selector="Button.Accent /template/ Border">
 
         <Setter Property="BoxShadow" Value="0 0 0 0 Transparent" />
 
     </Style>
     
-    <Style Selector="Button.Void /template/ ContentPresenter">
+    <Style Selector="Button.Void /template/ Border">
 
         <Setter Property="BoxShadow" Value="0 0 0 0 Transparent" />
 
     </Style>
 
-    <Style Selector="Button.Primary /template/ ContentPresenter">
+    <Style Selector="Button.Primary /template/ Border">
 
         <Setter Property="BoxShadow" Value="{DynamicResource SukiLowShadow}" />
     </Style>

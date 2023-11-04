@@ -226,15 +226,17 @@ namespace SukiTest
 
         private void SetBusy(object? sender, RoutedEventArgs e)
         {
-            this.FindControl<BusyArea>("BusySignIn").IsBusy = true;
-
+           
+            this.Get<Button>("ButtonSignIn").ShowProgress();
+            
             Task.Run(() =>
             {
                 Thread.Sleep(3000);
                 Dispatcher.UIThread.Invoke(() =>
                 {
-                    this.FindControl<BusyArea>("BusySignIn").IsBusy = false;
+                   
                     this.Get<TextBox>("PasswordTextBox").Error("Wrong Password");
+                    this.Get<Button>("ButtonSignIn").HideProgress();
                 });
             });
         }

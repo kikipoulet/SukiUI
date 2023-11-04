@@ -70,7 +70,7 @@
 
     <Style Selector="RadioButton.Chips:checked  Border">
         <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderThickness" Value="1.5" />
     </Style>
 
     <Style Selector="RadioButton.GigaChips">
@@ -78,6 +78,7 @@
         <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="CornerRadius" Value="{DynamicResource MediumCornerRadius}" />
+        <Setter Property="Margin" Value="0" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Grid>
@@ -86,7 +87,7 @@
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding CornerRadius}"
-                        Margin="0,0,0,0"
+                        Margin="4"
                         Name="BigBorder"
                         Padding="0">
                         <Border.Transitions>
@@ -94,6 +95,8 @@
                                 <ThicknessTransition Duration="00:00:0.2" Property="BorderThickness" />
                                 <BrushTransition Duration="00:00:0.2" Property="Background" />
                                 <BrushTransition Duration="00:00:0.2" Property="BorderBrush" />
+                                <ThicknessTransition Duration="0:0:0.1" Property="Margin">
+                                </ThicknessTransition>
                             </Transitions>
                         </Border.Transitions>
 
@@ -129,6 +132,7 @@
         <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
         <Setter Property="Background" Value="{DynamicResource SukiLightIntBorderBrush}" />
         <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="Margin" Value="0" />
     </Style>
 
     <Style Selector="RadioButton.GigaChips  material|MaterialIcon">

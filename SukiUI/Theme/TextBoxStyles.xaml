@@ -449,10 +449,9 @@
                                     <DataValidationErrors>
 
                                         <Grid ColumnDefinitions="Auto,*,Auto">
-                                            <ContentPresenter
-                                                Content="{TemplateBinding InnerLeftContent}"
-                                                Grid.Column="0"
-                                                Grid.ColumnSpan="1" />
+                                            <Grid>
+                                                <TextBlock FontSize="13" Margin="0,2,3,0" Foreground="{DynamicResource SukiLowText}" Text="{TemplateBinding theme:TextBoxExtensions.Prefix}"></TextBlock>
+                                            </Grid>
                                             <ScrollViewer
                                                 Grid.Column="1"
                                                
@@ -485,7 +484,7 @@
                                                         TextWrapping="{TemplateBinding TextWrapping}" />
                                                 </Panel>
                                             </ScrollViewer>
-                                            <theme:TextEraserButton Opacity="{TemplateBinding Text, Converter={StaticResource StringToDoubleC}}" Text="{TemplateBinding Text, Mode=TwoWay}"  Grid.Column="2" Margin="5,0,0,0"  >
+                                            <theme:TextEraserButton IsVisible="{TemplateBinding theme:TextBoxExtensions.AddDeleteButton}" Opacity="{TemplateBinding Text, Converter={StaticResource StringToDoubleC}}" Text="{TemplateBinding Text, Mode=TwoWay}"  Grid.Column="2" Margin="5,0,0,0"  >
                                                 <theme:TextEraserButton.Transitions>
                                                     <Transitions>
                                                         <DoubleTransition Property="Opacity" Duration="0:0:0.35"></DoubleTransition>

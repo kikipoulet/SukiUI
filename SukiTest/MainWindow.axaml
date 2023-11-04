@@ -114,7 +114,7 @@
                                                                 FontWeight="DemiBold"
                                                                 Margin="6,0,0,3"
                                                                 Text="Username" />
-                                                            <TextBox Watermark="Username"  />
+                                                            <TextBox theme:TextBoxExtensions.Prefix="" Watermark="Username"  />
 
 
 
@@ -122,27 +122,23 @@
                                                                 FontWeight="DemiBold"
                                                                 Margin="6,18,0,3"
                                                                 Text="Password" />
-                                                            <TextBox Name="PasswordTextBox" Margin="0,0,0,25" PasswordChar="*" />
+                                                            <TextBox theme:TextBoxExtensions.AddDeleteButton="False" Name="PasswordTextBox" Margin="0,0,0,25" PasswordChar="*" />
                                                         </StackPanel>
                                                     </suki:BusyArea>
                                                 </Border>
-                                                <Button
+                                                <Button Name="ButtonSignIn"
                                                     Classes="Primary Rounded"
-                                                    Click="SetBusy"
+                                                    Click="SetBusy" theme:ButtonExtensions.ShowProgress="False"
                                                     HorizontalAlignment="Center"
                                                     VerticalAlignment="Bottom"
                                                     Width="160">
-                                                    <StackPanel
-                                                        HorizontalAlignment="Center"
-                                                        Orientation="Horizontal"
-                                                        VerticalAlignment="Center">
-                                                        <material:MaterialIcon Foreground="White" Kind="Login" />
+                                                  
                                                         <TextBlock
                                                             FontWeight="DemiBold"
                                                             Foreground="White"
-                                                            Margin="10,0,0,0"
+                                                            Margin="0,0,0,0"
                                                             Text="Sign In" />
-                                                    </StackPanel>
+                                                
                                                 </Button>
                                             </Grid>
 
@@ -434,7 +430,7 @@
                                                         Classes="Accent"
                                                         Click="ShowDialog"
                                                         HorizontalAlignment="Right"
-                                                        Margin="-10"
+                                                        Margin="0"
                                                         VerticalAlignment="Top">
                                                         <TextBlock Text="Create Link" />
                                                     </Button>

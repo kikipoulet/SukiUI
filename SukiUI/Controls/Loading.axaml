@@ -9,7 +9,102 @@
     xmlns:suki="clr-namespace:SukiUI.Controls"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <UserControl.Styles>
-        <Style Selector="suki|Loading">
+         <Style Selector="suki|Loading">
+            <Style.Setters>
+                <Setter Property="Transitions">
+                    <Transitions>
+                        <DoubleTransition Duration="0:0:0.35" Property="Opacity" />
+                    </Transitions>
+                </Setter>
+            </Style.Setters>
+            <Style.Animations>
+                <Animation
+                    Duration="0:0:1.5"
+                    
+                    FillMode="None"
+                    IterationCount="INFINITE"
+                    PlaybackDirection="Normal">
+                    <Animation.Easing>
+                        <QuadraticEaseInOut></QuadraticEaseInOut>
+                    </Animation.Easing>
+                    <KeyFrame Cue="0%">
+                        <Setter Property="RotateTransform.Angle" Value="0" />
+                    </KeyFrame>
+                    <KeyFrame Cue="30%">
+                        <Setter Property="RotateTransform.Angle" Value="0" />
+                    </KeyFrame>
+
+                    <KeyFrame Cue="100%">
+                        <Setter Property="RotateTransform.Angle" Value="360" />
+                    </KeyFrame>
+                </Animation>
+             
+            </Style.Animations>
+            <Setter Property="Template">
+                <ControlTemplate>
+                  
+
+                        <Arc
+                            Height="52"
+                            StartAngle="270"
+                            Stretch="None"
+                            StrokeJoin="Round"
+                            StrokeLineCap="Round"
+                            StrokeThickness="4"
+                            SweepAngle="30"
+                            Width="52">
+                            <Arc.Stroke>
+
+
+                                <RadialGradientBrush>
+                                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.1" />
+                                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.6" />
+                                </RadialGradientBrush>
+
+                            </Arc.Stroke>
+                            <Arc.Transitions>
+                                <Transitions>
+                                    <DoubleTransition
+                                        Duration="0:0:0.8"
+                                        Easing="CircularEaseOut"
+                                        Property="SweepAngle" />
+                                </Transitions>
+                            </Arc.Transitions>
+                        </Arc>
+
+                </ControlTemplate>
+            </Setter>
+        </Style>
+        
+        <Style Selector="suki|Loading.White /template/ Arc">
+            <Setter Property="Stroke" Value="#fafafa"></Setter>
+        </Style>
+        
+        <Style Selector="suki|Loading /template/ Arc">
+          
+            <Style.Animations>
+                <Animation
+                    Duration="0:0:1.5"
+                    Easing="QuadraticEaseInOut"
+                    FillMode="None"
+                    IterationCount="INFINITE"
+                    PlaybackDirection="Normal">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="SweepAngle" Value="60" />
+                    </KeyFrame>
+
+                    <KeyFrame Cue="50%">
+                        <Setter Property="SweepAngle" Value="250" />
+                    </KeyFrame>
+                    
+                    <KeyFrame Cue="100%">
+                        <Setter Property="SweepAngle" Value="60" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+            </Style>
+        
+        <Style Selector="suki|Loading.Variant">
             <Style.Setters>
                 <Setter Property="Transitions">
                     <Transitions>
