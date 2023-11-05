@@ -62,7 +62,7 @@ So, please do not hesitate to suggest a micro interaction like this first exampl
 
 </details>
 
-
+You have an idea ? A simple critic of the library ? Do not hesitate to send me an email to share your personal feedback.
 
 ## 👐 Demo
 
