@@ -15,13 +15,53 @@ Suki is the name of my dog :-)
 
 Documentation is on the [Wiki](https://github.com/kikipoulet/SukiUI/wiki) of this repository
 
-### New Control : SettingsLayout : 
+<details>
+  <summary>🎉 New 5.1.0 Release Notes</summary>
+ <br/>
+  - Some new animations and slight style changes <br/>
+  - Switch animation smoother and reacting when long press before switching when released  <br/>
+  <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/SwitchNewAnimation.gif"></img>  <br/><br/>
+  - Trying to add features to existing controls to add rich interactions trough AttachedProperties and extensions methods.
+  <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/FeaturfulControls.gif"></img>  <br/><br/>
 
- Orginazing a nice and elegant settings page has always been a kind of nightmare/mystery to me. How to organize these little TextBoxes and Switches in so much window space ? How to handle the window resizing ? ..
+  New code involved :<br/>
+
+  ```
+  ButtonSignIn.ShowProgress();   // Use ShowProgress Method on a Button to show Loading Circle
+  ButtonSignIn.HideProgress();   // Hide the Loading Circle
+
+  PasswordTextBox.Error("Wrong Password");   // Trigger the error animation with a custom message
+ 
+  ```
+
+  Moreover, I want to create "quick animations" that can be triggered on any control via extension methods. For new there are : 
+
+  <br/>
+
+  ```
+  AnyControl.Vibrate(TimeSpan.FromSeconds(1));   // Make the control vibrate during 1 second
+  AnyControl.Jump();   // Make the control do a double jump animation
+
+  AnyControl.Animate<double>(WidthProperty, 100, 200);    // animate the width of a control from 100 to 200
+ 
+  ```
+<br/>
+I want to focus the development of the library on these kind of interactions. I consider the style of the library almost definitive, and now it is important to make the controls rich and featureful. These kind of interactions are now the user projection of the quality of the software, so it is important to me to make it acessible for the desktop developers and included in the library. <br/> <br/>
+So, please do not hesitate to suggest a micro interaction like this first example.
+
+</details>
+
+<details>
+  <summary> New Control : SettingsLayout</summary>
+ 
+   Orginazing a nice and elegant settings page has always been a kind of nightmare/mystery to me. How to organize these little TextBoxes and Switches in so much window space ? How to handle the window resizing ? ..
  
  This is why I ended up with this control to try to solve that layout problem while trying to be elegant and responsive in the style of SukiUI. [SettingsLayout Documentation](https://github.com/kikipoulet/SukiUI/wiki/3.-Controls#settingslayout)
 
  <img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/settingslayoutPage.gif"></img>
+
+</details>
+
 
 
 ## 👐 Demo
