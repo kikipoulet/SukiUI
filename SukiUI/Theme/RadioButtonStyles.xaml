@@ -25,7 +25,7 @@
 
     <Style Selector="RadioButton.Chips">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
+        <Setter Property="BorderBrush" Value="#77555555" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="CornerRadius" Value="50" />
         <Setter Property="Template">
@@ -60,7 +60,7 @@
     </Style>
 
     <Style Selector="RadioButton.Chips TextBlock">
-        <Setter Property="Foreground" Value="{DynamicResource SukiControlBorderBrush}" />
+        <Setter Property="Foreground" Value="#77555555" />
     </Style>
 
 
@@ -95,8 +95,7 @@
                                 <ThicknessTransition Duration="00:00:0.2" Property="BorderThickness" />
                                 <BrushTransition Duration="00:00:0.2" Property="Background" />
                                 <BrushTransition Duration="00:00:0.2" Property="BorderBrush" />
-                                <ThicknessTransition Duration="0:0:0.1" Property="Margin">
-                                </ThicknessTransition>
+                                <ThicknessTransition Duration="0:0:0.1" Property="Margin" />
                             </Transitions>
                         </Border.Transitions>
 

@@ -47,7 +47,7 @@ public static class TextBoxExtensions
             textbox.ContextFlyout = new Flyout()
             {
                 Placement = PlacementMode.BottomEdgeAlignedLeft,
-               Content  = new TextBlock() { Text = message, FontWeight = FontWeight.DemiBold, Foreground = Brushes.IndianRed}
+               Content  = new TextBlock() { Text = message, FontWeight = FontWeight.Thin, Foreground = Brushes.IndianRed}
                 
             };
             textbox.ContextFlyout.ShowAt(textbox);

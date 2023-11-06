@@ -159,7 +159,7 @@ public partial class SettingsLayout : UserControl
         
         isAnimatingMargin = true;
         
-        new Animation
+        new Avalonia.Animation.Animation
         {
             Duration = TimeSpan.FromMilliseconds(800), FillMode = FillMode.Forward,
             Easing = new CubicEaseInOut(),

@@ -1,0 +1,216 @@
+﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="SukiTest.StackTest"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <controls:StackPage Header="Settings">
+        <controls:StackPage.Content>
+            <controls:SettingsLayout>
+                <controls:SettingsLayout.Items>
+                    <objectModel:ObservableCollection x:TypeArguments="controls:SettingsLayoutItem">
+                        <controls:SettingsLayoutItem Header="Profile Informations">
+                            <controls:SettingsLayoutItem.Content>
+                                <StackPanel>
+
+                                    <DockPanel Margin="0,15">
+                                        <TextBox
+                                            DockPanel.Dock="Right"
+                                            Text="myUsername"
+                                            Width="150" />
+                                        <StackPanel HorizontalAlignment="Left" Margin="0,0,20,0">
+                                            <TextBlock
+                                                FontSize="15"
+                                                FontWeight="DemiBold"
+                                                Text="Username" />
+                                            <TextBlock
+                                                FontSize="13"
+                                                Margin="0,7,0,0"
+                                                Text="The name that peoples will see when they will try to contact you"
+                                                TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </DockPanel>
+                                    <DockPanel Margin="0,15">
+                                        <TextBox
+                                            DockPanel.Dock="Right"
+                                            Text="myUsername@email.com"
+                                            Width="150" />
+                                        <StackPanel HorizontalAlignment="Left" Margin="0,0,20,0">
+                                            <TextBlock
+                                                FontSize="15"
+                                                FontWeight="DemiBold"
+                                                Text="Email" />
+                                            <TextBlock
+                                                FontSize="13"
+                                                Margin="0,7,0,0"
+                                                Text="The email used to get back your password if you forget it in the future"
+                                                TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </DockPanel>
+
+                                    <DockPanel Margin="0,15">
+                                        <ToggleButton
+                                            Classes="Switch"
+                                            DockPanel.Dock="Right"
+                                            IsChecked="True"
+                                            VerticalAlignment="Top" />
+                                        <StackPanel HorizontalAlignment="Left" Margin="0,0,20,0">
+                                            <TextBlock
+                                                FontSize="15"
+                                                FontWeight="DemiBold"
+                                                Text="Connected Status" />
+                                            <TextBlock
+                                                FontSize="13"
+                                                Margin="0,7,0,0"
+                                                Text="Let people see if you are connected and ready to chat or not"
+                                                TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </DockPanel>
+
+                                    <DockPanel Margin="0,15">
+                                        <TextBlock
+                                            DockPanel.Dock="Right"
+                                            FontSize="14"
+                                            FontWeight="DemiBold"
+                                            Text="English" />
+                                        <StackPanel HorizontalAlignment="Left" Margin="0,0,20,0">
+                                            <TextBlock
+                                                FontSize="15"
+                                                FontWeight="DemiBold"
+                                                Text="Langage" />
+                                            <TextBlock
+                                                FontSize="13"
+                                                Margin="0,7,0,0"
+                                                Text="The langage used in your favorite apps"
+                                                TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </DockPanel>
+                                </StackPanel>
+                            </controls:SettingsLayoutItem.Content>
+                        </controls:SettingsLayoutItem>
+                        <controls:SettingsLayoutItem Header="Privacy">
+                            <controls:SettingsLayoutItem.Content>
+                                <StackPanel>
+                                    <DockPanel Margin="0,15">
+                                        <ToggleButton
+                                            Classes="Switch"
+                                            DockPanel.Dock="Right"
+                                            IsChecked="True"
+                                            VerticalAlignment="Top" />
+                                        <StackPanel HorizontalAlignment="Left" Margin="0,0,20,0">
+                                            <TextBlock
+                                                FontSize="15"
+                                                FontWeight="DemiBold"
+                                                Text="Allow people to find me" />
+                                            <TextBlock
+                                                FontSize="13"
+                                                Margin="0,7,0,0"
+                                                Text="Allow people with your cell number to connect with you"
+                                                TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </DockPanel>
+                                    <DockPanel Margin="0,15">
+                                        <ToggleButton
+                                            Classes="Switch"
+                                            DockPanel.Dock="Right"
+                                            IsChecked="False"
+                                            VerticalAlignment="Top" />
+                                        <StackPanel HorizontalAlignment="Left" Margin="0,0,20,0">
+                                            <TextBlock
+                                                FontSize="15"
+                                                FontWeight="DemiBold"
+                                                Text="Allow people to add me" />
+                                            <TextBlock
+                                                FontSize="13"
+                                                Margin="0,7,0,0"
+                                                Text="Allow your contacs to add you into groups"
+                                                TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </DockPanel>
+
+                                    <DockPanel Margin="0,15">
+                                        <ToggleButton
+                                            Classes="Switch"
+                                            DockPanel.Dock="Right"
+                                            IsChecked="False"
+                                            VerticalAlignment="Top" />
+                                        <StackPanel HorizontalAlignment="Left" Margin="0,0,20,0">
+                                            <TextBlock
+                                                FontSize="15"
+                                                FontWeight="DemiBold"
+                                                Text="Sync your contacts" />
+                                            <TextBlock
+                                                FontSize="13"
+                                                Margin="0,7,0,0"
+                                                Text="Allow us to access your contacts to help you find your friends"
+                                                TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </DockPanel>
+
+                                    <DockPanel Margin="0,15">
+                                        <ToggleButton
+                                            Classes="Switch"
+                                            DockPanel.Dock="Right"
+                                            IsChecked="True"
+                                            VerticalAlignment="Top" />
+                                        <StackPanel HorizontalAlignment="Left" Margin="0,0,20,0">
+                                            <TextBlock
+                                                FontSize="15"
+                                                FontWeight="DemiBold"
+                                                Text="Notifications" />
+                                            <TextBlock
+                                                FontSize="13"
+                                                Margin="0,7,0,0"
+                                                Text="Allow us to send you notifications for promotional products or discounts. Notifications can also be used to contact your friends."
+                                                TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </DockPanel>
+                                </StackPanel>
+                            </controls:SettingsLayoutItem.Content>
+                        </controls:SettingsLayoutItem>
+                        <controls:SettingsLayoutItem Header="Billing">
+                            <controls:SettingsLayoutItem.Content>
+                                <DataGrid
+                                    AutoGenerateColumns="True"
+                                    IsReadOnly="True"
+                                    Name="GridBilling" />
+                            </controls:SettingsLayoutItem.Content>
+                        </controls:SettingsLayoutItem>
+
+                        <controls:SettingsLayoutItem Header="Delete Account">
+                            <controls:SettingsLayoutItem.Content>
+                                <StackPanel>
+                                    <DockPanel Margin="0,15">
+                                        <Button
+                                            DockPanel.Dock="Right"
+                                            Margin="0,-8,0,0"
+                                            VerticalAlignment="Top">
+                                            <TextBlock Text="Delete" />
+                                        </Button>
+                                        <StackPanel HorizontalAlignment="Left" Margin="0,0,20,0">
+                                            <TextBlock
+                                                FontSize="15"
+                                                FontWeight="DemiBold"
+                                                Text="Delete" />
+                                            <TextBlock
+                                                FontSize="13"
+                                                Margin="0,7,0,0"
+                                                Text="Delete your account forever and loose all your data"
+                                                TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </DockPanel>
+                                    <Border Height="400" />
+                                </StackPanel>
+                            </controls:SettingsLayoutItem.Content>
+                        </controls:SettingsLayoutItem>
+                    </objectModel:ObservableCollection>
+                </controls:SettingsLayout.Items>
+            </controls:SettingsLayout>
+        </controls:StackPage.Content>
+    </controls:StackPage>
+</UserControl>

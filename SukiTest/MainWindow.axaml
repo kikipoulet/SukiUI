@@ -14,8 +14,8 @@
     xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
     xmlns:sukiTest="clr-namespace:SukiTest"
     xmlns:system="clr-namespace:System;assembly=System.Runtime"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:theme="clr-namespace:SukiUI.Theme;assembly=SukiUI">
+    xmlns:theme="clr-namespace:SukiUI.Theme;assembly=SukiUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <suki:InteractiveContainer>
         <suki:DesktopPage
@@ -114,7 +114,7 @@
                                                                 FontWeight="DemiBold"
                                                                 Margin="6,0,0,3"
                                                                 Text="Username" />
-                                                            <TextBox theme:TextBoxExtensions.Prefix="" Watermark="Username"  />
+                                                            <TextBox Watermark="Username" theme:TextBoxExtensions.Prefix="" />
 
 
 
@@ -122,23 +122,28 @@
                                                                 FontWeight="DemiBold"
                                                                 Margin="6,18,0,3"
                                                                 Text="Password" />
-                                                            <TextBox theme:TextBoxExtensions.AddDeleteButton="False" Name="PasswordTextBox" Margin="0,0,0,25" PasswordChar="*" />
+                                                            <TextBox
+                                                                Margin="0,0,0,25"
+                                                                Name="PasswordTextBox"
+                                                                PasswordChar="*"
+                                                                theme:TextBoxExtensions.AddDeleteButton="False" />
                                                         </StackPanel>
                                                     </suki:BusyArea>
                                                 </Border>
-                                                <Button Name="ButtonSignIn"
+                                                <Button
                                                     Classes="Primary Rounded"
-                                                    Click="SetBusy" theme:ButtonExtensions.ShowProgress="False"
+                                                    Click="SetBusy"
                                                     HorizontalAlignment="Center"
+                                                    Name="ButtonSignIn"
                                                     VerticalAlignment="Bottom"
                                                     Width="160">
-                                                  
-                                                        <TextBlock
-                                                            FontWeight="DemiBold"
-                                                            Foreground="White"
-                                                            Margin="0,0,0,0"
-                                                            Text="Sign In" />
-                                                
+
+                                                    <TextBlock
+                                                        FontWeight="DemiBold"
+                                                        Foreground="White"
+                                                        Margin="0,0,0,0"
+                                                        Text="Sign In" />
+
                                                 </Button>
                                             </Grid>
 
@@ -636,11 +641,14 @@
                                 <suki:SideMenuItem.Content>
                                     <suki:StackPage Header="Settings" Name="StackSettings">
                                         <suki:StackPage.Content>
+                                            <WrapPanel>
+                                                <Border Height="150" Width="150">
+                                                    <Button Classes="Primary" Click="changepage">
+                                                        <TextBlock Text="test" />
+                                                    </Button>
+                                                </Border>
 
-                                            <Button Classes="Primary" Click="changepage">
-                                                <TextBlock Text="test" />
-                                            </Button>
-
+                                            </WrapPanel>
                                         </suki:StackPage.Content>
                                     </suki:StackPage>
                                 </suki:SideMenuItem.Content>
@@ -657,210 +665,7 @@
                                 </suki:SideMenuItem.Icon>
                                 <suki:SideMenuItem.Content>
 
-                                    <suki:StackPage Header="Settings">
-                                        <suki:StackPage.Content>
-                                            <suki:SettingsLayout>
-                                                <suki:SettingsLayout.Items>
-                                                    <objectModel:ObservableCollection x:TypeArguments="suki:SettingsLayoutItem">
-                                                        <suki:SettingsLayoutItem Header="Profile Informations">
-                                                            <suki:SettingsLayoutItem.Content>
-                                                                <StackPanel>
-
-                                                                    <DockPanel Margin="0,15">
-                                                                        <TextBox
-                                                                            DockPanel.Dock="Right"
-                                                                            Text="myUsername"
-                                                                            Width="150" />
-                                                                        <StackPanel HorizontalAlignment="Left" Margin="0,0,20,0">
-                                                                            <TextBlock
-                                                                                FontSize="15"
-                                                                                FontWeight="DemiBold"
-                                                                                Text="Username" />
-                                                                            <TextBlock
-                                                                                FontSize="13"
-                                                                                Margin="0,7,0,0"
-                                                                                Text="The name that peoples will see when they will try to contact you"
-                                                                                TextWrapping="Wrap" />
-                                                                        </StackPanel>
-                                                                    </DockPanel>
-                                                                    <DockPanel Margin="0,15">
-                                                                        <TextBox
-                                                                            DockPanel.Dock="Right"
-                                                                            Text="myUsername@email.com"
-                                                                            Width="150" />
-                                                                        <StackPanel HorizontalAlignment="Left" Margin="0,0,20,0">
-                                                                            <TextBlock
-                                                                                FontSize="15"
-                                                                                FontWeight="DemiBold"
-                                                                                Text="Email" />
-                                                                            <TextBlock
-                                                                                FontSize="13"
-                                                                                Margin="0,7,0,0"
-                                                                                Text="The email used to get back your password if you forget it in the future"
-                                                                                TextWrapping="Wrap" />
-                                                                        </StackPanel>
-                                                                    </DockPanel>
-
-                                                                    <DockPanel Margin="0,15">
-                                                                        <ToggleButton
-                                                                            Classes="Switch"
-                                                                            DockPanel.Dock="Right"
-                                                                            IsChecked="True"
-                                                                            VerticalAlignment="Top" />
-                                                                        <StackPanel HorizontalAlignment="Left" Margin="0,0,20,0">
-                                                                            <TextBlock
-                                                                                FontSize="15"
-                                                                                FontWeight="DemiBold"
-                                                                                Text="Connected Status" />
-                                                                            <TextBlock
-                                                                                FontSize="13"
-                                                                                Margin="0,7,0,0"
-                                                                                Text="Let people see if you are connected and ready to chat or not"
-                                                                                TextWrapping="Wrap" />
-                                                                        </StackPanel>
-                                                                    </DockPanel>
-
-                                                                    <DockPanel Margin="0,15">
-                                                                        <TextBlock
-                                                                            DockPanel.Dock="Right"
-                                                                            FontSize="14"
-                                                                            FontWeight="DemiBold"
-                                                                            Text="English" />
-                                                                        <StackPanel HorizontalAlignment="Left" Margin="0,0,20,0">
-                                                                            <TextBlock
-                                                                                FontSize="15"
-                                                                                FontWeight="DemiBold"
-                                                                                Text="Langage" />
-                                                                            <TextBlock
-                                                                                FontSize="13"
-                                                                                Margin="0,7,0,0"
-                                                                                Text="The langage used in your favorite apps"
-                                                                                TextWrapping="Wrap" />
-                                                                        </StackPanel>
-                                                                    </DockPanel>
-                                                                </StackPanel>
-                                                            </suki:SettingsLayoutItem.Content>
-                                                        </suki:SettingsLayoutItem>
-                                                        <suki:SettingsLayoutItem Header="Privacy">
-                                                            <suki:SettingsLayoutItem.Content>
-                                                                <StackPanel>
-                                                                    <DockPanel Margin="0,15">
-                                                                        <ToggleButton
-                                                                            Classes="Switch"
-                                                                            DockPanel.Dock="Right"
-                                                                            IsChecked="True"
-                                                                            VerticalAlignment="Top" />
-                                                                        <StackPanel HorizontalAlignment="Left" Margin="0,0,20,0">
-                                                                            <TextBlock
-                                                                                FontSize="15"
-                                                                                FontWeight="DemiBold"
-                                                                                Text="Allow people to find me" />
-                                                                            <TextBlock
-                                                                                FontSize="13"
-                                                                                Margin="0,7,0,0"
-                                                                                Text="Allow people with your cell number to connect with you"
-                                                                                TextWrapping="Wrap" />
-                                                                        </StackPanel>
-                                                                    </DockPanel>
-                                                                    <DockPanel Margin="0,15">
-                                                                        <ToggleButton
-                                                                            Classes="Switch"
-                                                                            DockPanel.Dock="Right"
-                                                                            IsChecked="False"
-                                                                            VerticalAlignment="Top" />
-                                                                        <StackPanel HorizontalAlignment="Left" Margin="0,0,20,0">
-                                                                            <TextBlock
-                                                                                FontSize="15"
-                                                                                FontWeight="DemiBold"
-                                                                                Text="Allow people to add me" />
-                                                                            <TextBlock
-                                                                                FontSize="13"
-                                                                                Margin="0,7,0,0"
-                                                                                Text="Allow your contacs to add you into groups"
-                                                                                TextWrapping="Wrap" />
-                                                                        </StackPanel>
-                                                                    </DockPanel>
-
-                                                                    <DockPanel Margin="0,15">
-                                                                        <ToggleButton
-                                                                            Classes="Switch"
-                                                                            DockPanel.Dock="Right"
-                                                                            IsChecked="False"
-                                                                            VerticalAlignment="Top" />
-                                                                        <StackPanel HorizontalAlignment="Left" Margin="0,0,20,0">
-                                                                            <TextBlock
-                                                                                FontSize="15"
-                                                                                FontWeight="DemiBold"
-                                                                                Text="Sync your contacts" />
-                                                                            <TextBlock
-                                                                                FontSize="13"
-                                                                                Margin="0,7,0,0"
-                                                                                Text="Allow us to access your contacts to help you find your friends"
-                                                                                TextWrapping="Wrap" />
-                                                                        </StackPanel>
-                                                                    </DockPanel>
-
-                                                                    <DockPanel Margin="0,15">
-                                                                        <ToggleButton
-                                                                            Classes="Switch"
-                                                                            DockPanel.Dock="Right"
-                                                                            IsChecked="True"
-                                                                            VerticalAlignment="Top" />
-                                                                        <StackPanel HorizontalAlignment="Left" Margin="0,0,20,0">
-                                                                            <TextBlock
-                                                                                FontSize="15"
-                                                                                FontWeight="DemiBold"
-                                                                                Text="Notifications" />
-                                                                            <TextBlock
-                                                                                FontSize="13"
-                                                                                Margin="0,7,0,0"
-                                                                                Text="Allow us to send you notifications for promotional products or discounts. Notifications can also be used to contact your friends."
-                                                                                TextWrapping="Wrap" />
-                                                                        </StackPanel>
-                                                                    </DockPanel>
-                                                                </StackPanel>
-                                                            </suki:SettingsLayoutItem.Content>
-                                                        </suki:SettingsLayoutItem>
-                                                        <suki:SettingsLayoutItem Header="Billing">
-                                                            <suki:SettingsLayoutItem.Content>
-                                                                <DataGrid
-                                                                    AutoGenerateColumns="True"
-                                                                    IsReadOnly="True"
-                                                                    Name="GridBilling" />
-                                                            </suki:SettingsLayoutItem.Content>
-                                                        </suki:SettingsLayoutItem>
-
-                                                        <suki:SettingsLayoutItem Header="Delete Account">
-                                                            <suki:SettingsLayoutItem.Content>
-                                                                <StackPanel>
-                                                                    <DockPanel Margin="0,15">
-                                                                        <Button
-                                                                            DockPanel.Dock="Right"
-                                                                            Margin="0,-8,0,0"
-                                                                            VerticalAlignment="Top">
-                                                                            <TextBlock Text="Delete" />
-                                                                        </Button>
-                                                                        <StackPanel HorizontalAlignment="Left" Margin="0,0,20,0">
-                                                                            <TextBlock
-                                                                                FontSize="15"
-                                                                                FontWeight="DemiBold"
-                                                                                Text="Delete" />
-                                                                            <TextBlock
-                                                                                FontSize="13"
-                                                                                Margin="0,7,0,0"
-                                                                                Text="Delete your account forever and loose all your data"
-                                                                                TextWrapping="Wrap" />
-                                                                        </StackPanel>
-                                                                    </DockPanel>
-                                                                    <Border Height="400" />
-                                                                </StackPanel>
-                                                            </suki:SettingsLayoutItem.Content>
-                                                        </suki:SettingsLayoutItem>
-                                                    </objectModel:ObservableCollection>
-                                                </suki:SettingsLayout.Items>
-                                            </suki:SettingsLayout>
-                                        </suki:StackPage.Content>
-                                    </suki:StackPage>
+                                    <sukiTest:StackTest />
 
                                 </suki:SideMenuItem.Content>
                             </suki:SideMenuItem>
