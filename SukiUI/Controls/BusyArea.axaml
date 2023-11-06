@@ -15,7 +15,7 @@
                     <Grid>
                         <ContentControl Content="{TemplateBinding Content}" />
 
-                        <suki:Loading
+                        <suki:Loading Name="LoadingBusyArea"
                             HorizontalAlignment="Center"
                             IsHitTestVisible="False"
                             VerticalAlignment="Center" />
@@ -27,11 +27,11 @@
         </Style>
 
 
-        <Style Selector="suki|BusyArea[IsBusy=True] suki|Loading">
+        <Style Selector="suki|BusyArea[IsBusy=True] suki|Loading#LoadingBusyArea">
             <Setter Property="Opacity" Value="1" />
         </Style>
 
-        <Style Selector="suki|BusyArea[IsBusy=False] suki|Loading">
+        <Style Selector="suki|BusyArea[IsBusy=False] suki|Loading#LoadingBusyArea">
             <Setter Property="Opacity" Value="0" />
         </Style>
 
