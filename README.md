@@ -9,11 +9,15 @@ Suki is the name of my dog :-)
 
 # ✨ SukiUI
 
-### UI Theme, Desktop and Mobile Controls for AvaloniaUI ! <img src="https://www.avaloniaui.net/img/logo/avalonia-white-purple.svg"></img>
+### Desktop UI Library for AvaloniaUI ! <img src="https://www.avaloniaui.net/img/logo/avalonia-white-purple.svg"></img>
 
 <br/>
 
-Documentation is on the [Wiki](https://github.com/kikipoulet/SukiUI/wiki) of this repository
+⚠️ Mobile Controls will be removed in a future version and moved to a new mobile library named [Cheryl UI](https://github.com/kikipoulet/CherylUI)
+<br/><br/>
+A lot of work has been done on mobile controls to create a 'serious' mobile solution for Avalonia in [Cheryl UI](https://github.com/kikipoulet/CherylUI). SukiUI will now focus only on desktop controls.
+<br/><br/>
+<br/>
 
 <details>
   <summary>🎉 New 5.1.0 Release Notes</summary>
