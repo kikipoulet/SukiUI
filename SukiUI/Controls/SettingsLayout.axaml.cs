@@ -93,7 +93,7 @@ public partial class SettingsLayout : UserControl
 
             var summaryButton = new RadioButton()
             {
-                Content = settingsLayoutItem.Header
+                Content = settingsLayoutItem.Header, Classes = { new string[]{"MenuChip"} }
             };
             summaryButton.Click += (sender, args) =>
             {

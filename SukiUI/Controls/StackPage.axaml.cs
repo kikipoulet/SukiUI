@@ -59,7 +59,7 @@ public partial class StackPage : UserControl
     private void UpdateHeaders()
     {
         var stackHeaders = this.FindControl<StackPanel>("StackHeader");
-        var currentControl = this.FindControl<TransitioningContentControl>("CurrentPage");
+        var currentControl = this.FindControl<ContentControl>("CurrentPage");
         
         stackHeaders.Children.Clear();
 

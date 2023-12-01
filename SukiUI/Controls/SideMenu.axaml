@@ -6,6 +6,7 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:controls="clr-namespace:Avalonia;assembly=Avalonia.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:glassMorphism="clr-namespace:SukiUI.Controls.GlassMorphism"
     xmlns:material="using:Material.Icons.Avalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:suki="clr-namespace:SukiUI.Controls"
@@ -30,6 +31,13 @@
         <SplitView.Pane>
             <Border>
                 <Grid Background="Transparent">
+
+                    <glassMorphism:GlassCard
+                        BorderThickness="0"
+                        CornerRadius="0"
+                        IsVisible="False"
+                        Name="Glass" />
+
                     <!--  This sidebar toggle button is used when header content can overlap it  -->
                     <Button
                         Classes="Accent"

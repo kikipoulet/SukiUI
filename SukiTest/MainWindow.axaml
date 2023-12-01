@@ -8,6 +8,7 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:circleProgressBarsTestMvvm="clr-namespace:SukiTest.CircleProgressBarsTestMVVM"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:glassMorphism="clr-namespace:SukiUI.Controls.GlassMorphism;assembly=SukiUI"
     xmlns:material="using:Material.Icons.Avalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
@@ -18,6 +19,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <suki:InteractiveContainer>
+
+
         <suki:DesktopPage
             LogoColor="#2f54eb"
             MenuVisibility="False"
@@ -678,5 +681,6 @@
             </suki:SideMenu>
 
         </suki:DesktopPage>
+
     </suki:InteractiveContainer>
 </Window>

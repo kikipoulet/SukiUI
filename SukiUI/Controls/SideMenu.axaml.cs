@@ -10,6 +10,7 @@ using System.Linq;
 using Avalonia.Data.Converters;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using SukiUI.Controls.GlassMorphism;
 
 namespace SukiUI.Controls
 {
@@ -19,6 +20,21 @@ namespace SukiUI.Controls
     {
         public delegate void MenuItemChangedEventHandler(object sender, string header);
         public event MenuItemChangedEventHandler MenuItemChanged;
+        
+           
+        public static readonly StyledProperty<bool> IsGlassBackgroundProperty =
+            AvaloniaProperty.Register<SideMenu, bool>(nameof(IsGlassBackground), false);
+
+        public bool IsGlassBackground
+        {
+            get => GetValue(IsGlassBackgroundProperty);
+            set
+            {
+                SetValue(IsGlassBackgroundProperty, value);
+                this.Get<GlassCard>("Glass").IsVisible = value;
+            } 
+        }
+
         
         public static readonly StyledProperty<bool> WinUIStyleProperty = AvaloniaProperty.Register<SideMenu, bool>(nameof(WinUIStyle), defaultValue: false);
 

@@ -20,6 +20,7 @@
         <LangVersion>10</LangVersion>
         <UserSecretsId>712f85e4-12d3-41b0-a417-5714a113666f</UserSecretsId>
         <Description>https://github.com/kikipoulet/SukiUI</Description>
+        <PackageVersion>5.1.2</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -29,7 +30,16 @@
         <AvaloniaXaml Remove="ColorTheme\Dark.axaml" />
         <AvaloniaResource Include="ColorTheme\Dark.axaml" />
         <AvaloniaXaml Remove="ColorTheme\Light.axaml" />
-        <AvaloniaResource Include="ColorTheme\Light.axaml" />
+        <None Remove="CustomFont\Quicksand-Bold.ttf" />
+        <AvaloniaResource Include="CustomFont\Quicksand-Bold.ttf" />
+        <None Remove="CustomFont\Quicksand-Light.ttf" />
+        <AvaloniaResource Include="CustomFont\Quicksand-Light.ttf" />
+        <None Remove="CustomFont\Quicksand-Medium.ttf" />
+        <AvaloniaResource Include="CustomFont\Quicksand-Medium.ttf" />
+        <None Remove="CustomFont\Quicksand-Regular.ttf" />
+        <AvaloniaResource Include="CustomFont\Quicksand-Regular.ttf" />
+        <None Remove="CustomFont\Quicksand-SemiBold.ttf" />
+        <AvaloniaResource Include="CustomFont\Quicksand-SemiBold.ttf" />
     </ItemGroup>
 
     <ItemGroup>
@@ -45,12 +55,14 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="11.0.0-rc2.1" />
+        <PackageReference Include="Avalonia" Version="11.0.5" />
+        <PackageReference Include="Avalonia.Skia" Version="11.0.5" />
+        <PackageReference Include="SkiaSharp" Version="2.88.6" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.0-rc2.1" />
-        <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.0-rc2.1" />
+        <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.5" />
+        <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.5" />
         <PackageReference Include="Material.Icons.Avalonia" Version="2.0.1" />
         <PackageReference Include="ReactiveUI" Version="19.2.1" />
     </ItemGroup>
@@ -66,6 +78,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <AvaloniaResource Include="ColorTheme\Light.axaml" />
       <Content Include="suki_photo.ico" />
     </ItemGroup>
 

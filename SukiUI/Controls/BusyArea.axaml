@@ -15,9 +15,10 @@
                     <Grid>
                         <ContentControl Content="{TemplateBinding Content}" />
 
-                        <suki:Loading Name="LoadingBusyArea"
+                        <suki:Loading
                             HorizontalAlignment="Center"
                             IsHitTestVisible="False"
+                            Name="LoadingBusyArea"
                             VerticalAlignment="Center" />
 
 

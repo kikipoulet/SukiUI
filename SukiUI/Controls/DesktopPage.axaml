@@ -5,6 +5,7 @@
     x:Class="SukiUI.Controls.DesktopPage"
     xmlns="https://github.com/avaloniaui"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:glassMorphism="clr-namespace:SukiUI.Controls.GlassMorphism"
     xmlns:material="using:Material.Icons.Avalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:suki="clr-namespace:SukiUI.Controls"
@@ -30,6 +31,10 @@
                             DockPanel.Dock="Top"
                             Name="BottomBorder">
                             <Grid>
+                                <glassMorphism:GlassCard
+                                    BorderThickness="0"
+                                    CornerRadius="0"
+                                    IsVisible="{TemplateBinding IsGlassBackground}" />
                                 <Grid
                                     Background="Transparent"
                                     ColumnDefinitions="Auto,*,Auto"

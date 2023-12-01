@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <UserControl.Styles>
-        <Style Selector="RadioButton">
+        <Style Selector="RadioButton.MenuChip">
 
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderMidBrush}" />
@@ -55,7 +55,7 @@
             </Setter>
         </Style>
 
-        <Style Selector="RadioButton:checked">
+        <Style Selector="RadioButton.MenuChip:checked">
             <Setter Property="TextBlock.FontWeight" Value="DemiBold" />
 
             <Setter Property="BorderThickness" Value="0,0,0,0" />
@@ -68,23 +68,23 @@
 
         </Style>
 
-        <Style Selector="RadioButton:pointerover /template/ Border">
+        <Style Selector="RadioButton.MenuChip:pointerover /template/ Border">
 
             <Setter Property="Background" Value="{DynamicResource SukiLightBackground}" />
 
         </Style>
 
-        <Style Selector="RadioButton  TextBlock">
+        <Style Selector="RadioButton.MenuChip  TextBlock">
             <Setter Property="FontSize" Value="50" />
         </Style>
 
 
-        <Style Selector="RadioButton:checked  TextBlock">
+        <Style Selector="RadioButton.MenuChip:checked  TextBlock">
             <Setter Property="FontWeight" Value="DemiBold" />
             <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
         </Style>
 
-        <Style Selector="RadioButton  Ellipse">
+        <Style Selector="RadioButton.MenuChip  Ellipse">
             <Setter Property="Opacity" Value="0" />
             <Setter Property="Transitions">
                 <Transitions>
@@ -93,15 +93,15 @@
             </Setter>
         </Style>
 
-        <Style Selector="RadioButton:checked  Ellipse">
+        <Style Selector="RadioButton.MenuChip:checked  Ellipse">
             <Setter Property="Opacity" Value="1" />
         </Style>
 
-        <Style Selector="RadioButton /template/ Border">
+        <Style Selector="RadioButton.MenuChip /template/ Border">
             <Setter Property="TextBlock.FontSize" Value="16" />
         </Style>
 
-        <Style Selector="RadioButton:checked /template/ Border">
+        <Style Selector="RadioButton.MenuChip:checked /template/ Border">
             <Setter Property="Transitions">
 
                 <Transitions>
@@ -117,7 +117,7 @@
             <Setter Property="BorderThickness" Value="0,0,0,0" />
         </Style>
 
-        <Style Selector="RadioButton /template/ ContentPresenter#PART_ContentPresenter">
+        <Style Selector="RadioButton.MenuChip /template/ ContentPresenter#PART_ContentPresenter">
             <Setter Property="Transitions">
 
                 <Transitions>

@@ -50,6 +50,6 @@
                 Margin="0,-20,0,0" />
         </StackPanel>
 
-        <TransitioningContentControl Name="CurrentPage" />
+        <ContentControl Name="CurrentPage" />
     </DockPanel>
 </UserControl>

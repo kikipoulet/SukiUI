@@ -75,6 +75,15 @@ namespace SukiUI.Controls
             get { return GetValue(LogoContentProperty); }
             set { SetValue(LogoContentProperty, value); }
         }
+        
+        public static readonly StyledProperty<bool> IsGlassBackgroundProperty =
+            AvaloniaProperty.Register<DesktopPage, bool>(nameof(IsGlassBackground), false);
+
+        public bool IsGlassBackground
+        {
+            get => GetValue(IsGlassBackgroundProperty);
+            set => SetValue(IsGlassBackgroundProperty, value);
+        }
 
         public static readonly StyledProperty<List<MenuItem>> MenuItemsProperty = 
             AvaloniaProperty.Register<DesktopPage, List<MenuItem>>(nameof(MenuItems), defaultValue: new List<MenuItem>());

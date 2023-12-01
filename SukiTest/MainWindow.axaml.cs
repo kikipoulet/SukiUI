@@ -17,6 +17,7 @@ using Avalonia.VisualTree;
 using System.Linq;
 using System.Threading;
 using Avalonia.Controls.Primitives;
+using Avalonia.Styling;
 using Avalonia.Threading;
 using SukiUI.Controls.TouchInput.TouchNumericPad;
 using SukiUI.Theme;
@@ -195,9 +196,10 @@ namespace SukiTest
         private void ChangeTheme(object? sender, RoutedEventArgs e)
         {
             if(i%2 == 0)
-                SukiUI.ColorTheme.LoadDarkTheme(Application.Current);
+                Application.Current.RequestedThemeVariant = ThemeVariant.Dark;
+            
             else
-                SukiUI.ColorTheme.LoadLightTheme(Application.Current);
+                Application.Current.RequestedThemeVariant = ThemeVariant.Light;
             
             i++;
         }
