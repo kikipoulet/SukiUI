@@ -4,6 +4,7 @@
     mc:Ignorable="d"
     x:Class="SukiUI.Controls.SettingsLayout"
     xmlns="https://github.com/avaloniaui"
+    xmlns:controls="clr-namespace:SukiUI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
@@ -127,18 +128,27 @@
             </Setter>
         </Style>
 
+        <Style Selector="controls|SettingsLayout">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <DockPanel MaxWidth="1400" SizeChanged="SizeChanged">
+
+
+                        <StackPanel
+                            DockPanel.Dock="Left"
+                            HorizontalAlignment="Left"
+                            Margin="0,25,0,0"
+                            Name="StackSummary"
+                            Width="400" />
+                        <ScrollViewer Name="MyScroll">
+                            <StackPanel Margin="-10,0" Name="StackItems" />
+                        </ScrollViewer>
+                    </DockPanel>
+                </ControlTemplate>
+            </Setter>
+        </Style>
 
     </UserControl.Styles>
 
-    <DockPanel MaxWidth="1400" SizeChanged="SizeChanged">
-        <StackPanel
-            DockPanel.Dock="Left"
-            HorizontalAlignment="Left"
-            Margin="0,25,0,0"
-            Name="StackSummary"
-            Width="400" />
-        <ScrollViewer Name="MyScroll">
-            <StackPanel Margin="-10,0" Name="StackItems" />
-        </ScrollViewer>
-    </DockPanel>
+
 </UserControl>

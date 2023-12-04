@@ -34,7 +34,8 @@
                                 <glassMorphism:GlassCard
                                     BorderThickness="0"
                                     CornerRadius="0"
-                                    IsVisible="{TemplateBinding IsGlassBackground}" />
+                                    IsHitTestVisible="False"
+                                    IsVisible="{DynamicResource GlassEnabled}" />
                                 <Grid
                                     Background="Transparent"
                                     ColumnDefinitions="Auto,*,Auto"

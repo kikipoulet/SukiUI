@@ -35,7 +35,7 @@
                     <glassMorphism:GlassCard
                         BorderThickness="0"
                         CornerRadius="0"
-                        IsVisible="False"
+                        IsVisible="{DynamicResource GlassEnabled}"
                         Name="Glass" />
 
                     <!--  This sidebar toggle button is used when header content can overlap it  -->

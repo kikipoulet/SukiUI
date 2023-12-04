@@ -20,7 +20,7 @@
     </Style>
 
     <Style Selector="ListBoxItem:selected  TextBlock">
-<Setter Property="FontWeight" Value="DemiBold"></Setter>
+        <Setter Property="FontWeight" Value="DemiBold" />
         <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
     </Style>
 
@@ -35,11 +35,14 @@
                     Name="BorderBasicStyle"
                     Padding="8,4">
                     <DockPanel>
-                        <avalonia:MaterialIcon Margin="0,0,0,0"
+                        <avalonia:MaterialIcon
                             DockPanel.Dock="Right"
                             Foreground="{DynamicResource SukiPrimaryColor}"
-                            Kind="CheckCircle" Height="20" Width="20"
-                            Name="CheckSelected" />
+                            Height="20"
+                            Kind="CheckCircle"
+                            Margin="0,0,0,0"
+                            Name="CheckSelected"
+                            Width="20" />
                         <ContentPresenter
                             Background="Transparent"
                             BorderBrush="Transparent"
@@ -74,10 +77,10 @@
     </Style>
 
     <Style Selector="ListBoxItem:selected /template/ Border#BorderBasicStyle">
-        <Setter Property="Background" Value="#f5f5ff" />
+        <Setter Property="Background" Value="{DynamicResource SukiLightColoredBackground}" />
     </Style>
     <Style Selector="ListBoxItem:pointerover /template/ Border#BorderBasicStyle">
-        <Setter Property="Background" Value="#f8f8ff" />
+        <Setter Property="Background" Value="{DynamicResource SukiLightBackground}" />
     </Style>
 
     <Style Selector="ListBoxItem.WithCheck">

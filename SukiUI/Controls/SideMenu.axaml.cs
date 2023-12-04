@@ -22,18 +22,7 @@ namespace SukiUI.Controls
         public event MenuItemChangedEventHandler MenuItemChanged;
         
            
-        public static readonly StyledProperty<bool> IsGlassBackgroundProperty =
-            AvaloniaProperty.Register<SideMenu, bool>(nameof(IsGlassBackground), false);
-
-        public bool IsGlassBackground
-        {
-            get => GetValue(IsGlassBackgroundProperty);
-            set
-            {
-                SetValue(IsGlassBackgroundProperty, value);
-                this.Get<GlassCard>("Glass").IsVisible = value;
-            } 
-        }
+      
 
         
         public static readonly StyledProperty<bool> WinUIStyleProperty = AvaloniaProperty.Register<SideMenu, bool>(nameof(WinUIStyle), defaultValue: false);

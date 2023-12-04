@@ -4,8 +4,10 @@ using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
+using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
+using Avalonia.Styling;
 using Material.Icons;
 using Material.Icons.Avalonia;
 
@@ -21,6 +23,12 @@ public partial class StackPage : UserControl
     private void InitializeComponent()
     {
         AvaloniaXamlLoader.Load(this);
+    }
+    
+    protected override void OnDetachedFromLogicalTree(LogicalTreeAttachmentEventArgs e)
+    {
+       Pages.Clear();
+       UpdateHeaders();
     }
     
     public static readonly StyledProperty<string> HeaderProperty =
@@ -89,7 +97,18 @@ public partial class StackPage : UserControl
     private void AddChevron()
     {
         var stackHeaders = this.FindControl<StackPanel>("StackHeader");
-        var lowcolor = new SolidColorBrush( (Color)Application.Current.FindResource("SukiLowText"));
+        var c = Application.Current.FindResource("SukiLowText");
+        SolidColorBrush lowcolor = new SolidColorBrush(Colors.Black, 0.65);
+        if(Application.Current.ActualThemeVariant == ThemeVariant.Dark)
+            lowcolor = new SolidColorBrush(Colors.White, 0.65);
+        
+        try
+        {
+            lowcolor = new SolidColorBrush((Color)c);
+        }
+        catch
+        {
+        }
         
         stackHeaders.Children.Add(new MaterialIcon()
         {
@@ -104,7 +123,19 @@ public partial class StackPage : UserControl
     {
         
         var stackHeaders = this.FindControl<StackPanel>("StackHeader");
-        var lowcolor = new SolidColorBrush( (Color)Application.Current.FindResource("SukiLowText"));
+        var c = Application.Current.FindResource("SukiLowText");
+        SolidColorBrush lowcolor = new SolidColorBrush(Colors.Black, 0.65);
+        
+        if(Application.Current.ActualThemeVariant == ThemeVariant.Dark)
+            lowcolor = new SolidColorBrush(Colors.White, 0.65);
+        
+        try
+        {
+            lowcolor = new SolidColorBrush((Color)c);
+        }
+        catch
+        {
+        }
 
         var button = new TextBlock()
         {

@@ -9,8 +9,11 @@ using Avalonia;
 using Avalonia.Animation;
 using Avalonia.Animation.Easings;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
+using Avalonia.Controls.Templates;
 using Avalonia.Data;
 using Avalonia.Interactivity;
+using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
 using DynamicData;
@@ -28,9 +31,25 @@ public partial class SettingsLayout : UserControl
     public SettingsLayout()
     {
         InitializeComponent();
-       
     }
 
+    protected override void OnAttachedToLogicalTree(LogicalTreeAttachmentEventArgs e)
+    {
+        base.OnAttachedToLogicalTree(e);
+
+    }
+
+    protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+    {
+        base.OnApplyTemplate(e);
+        UpdateItems();
+    }
+
+    
+    protected override void OnDetachedFromLogicalTree(LogicalTreeAttachmentEventArgs e)
+    {
+       
+    }
 
     private void InitializeComponent()
     {
@@ -53,15 +72,18 @@ public partial class SettingsLayout : UserControl
         set
         {
             SetAndRaise(StepsProperty, ref _items, value);
-            UpdateItems(); 
+         //   UpdateItems(); 
         }
     }
 
     private void UpdateItems()
     {
-        var stackItems = this.FindControl<StackPanel>("StackItems");
-        var stackSummary = this.FindControl<StackPanel>("StackSummary");
-        var myScroll = this.FindControl<ScrollViewer>("MyScroll");
+
+     
+       
+        var stackSummary = (StackPanel) this.GetTemplateChildren().First(n => n.Name == "StackSummary");
+        var myScroll = (ScrollViewer) this.GetTemplateChildren().First(n => n.Name == "MyScroll");
+        var stackItems = (StackPanel) myScroll.Content;
         
         if (stackItems == null)
             return;
@@ -93,7 +115,7 @@ public partial class SettingsLayout : UserControl
 
             var summaryButton = new RadioButton()
             {
-                Content = settingsLayoutItem.Header, Classes = { new string[]{"MenuChip"} }
+                Content = new TextBlock(){Text = settingsLayoutItem.Header, FontSize = 17}, Classes = { new string[]{"MenuChip"} }
             };
             summaryButton.Click += (sender, args) =>
             {
@@ -127,12 +149,12 @@ public partial class SettingsLayout : UserControl
         if (isAnimatingWidth)
             return;
 
-        var currentwidth = this.FindControl<StackPanel>("StackSummary").Width;
+        var currentwidth = this.GetTemplateChildren().First(n => n.Name == "StackSummary").Width;
       var desiredSize = e.NewSize.Width > 1000 ? 400 : 0;
       
       if(desiredSize != currentwidth)
         if ( (currentwidth == 0 || currentwidth == 400))
-          AnimateSummaryWidth(this.FindControl<StackPanel>("StackSummary").Width, desiredSize);
+          AnimateSummaryWidth( this.GetTemplateChildren().First(n => n.Name == "StackSummary").Width, desiredSize);
 
       
       if (e.NewSize.Width <= 1000 && e.NewSize.Width > 850)
@@ -153,7 +175,10 @@ public partial class SettingsLayout : UserControl
         if (isAnimatingMargin)
             return;
         
-        var stackItems = this.FindControl<StackPanel>("StackItems");
+        var myScroll = (ScrollViewer) this.GetTemplateChildren().First(n => n.Name == "MyScroll");
+        var stackItems = (StackPanel) myScroll.Content;
+        
+    
         if (stackItems.Margin.Left == desiredSize.Left)
             return;
         
@@ -208,7 +233,7 @@ public partial class SettingsLayout : UserControl
                     KeyTime = TimeSpan.FromMilliseconds(800)
                 }
             }
-        }.RunAsync(this.FindControl<StackPanel>("StackSummary"));
+        }.RunAsync(this.GetTemplateChildren().First(n => n.Name == "StackSummary"));
 
         Task.Run(() =>
         {
@@ -221,7 +246,8 @@ public partial class SettingsLayout : UserControl
     {
        
         isAnimatingScroll = true;
-        var myscroll = this.FindControl<ScrollViewer>("MyScroll");
+        var myscroll = (ScrollViewer) this.GetTemplateChildren().First(n => n.Name == "MyScroll");
+        
         
         new Animation
         {
@@ -241,7 +267,7 @@ public partial class SettingsLayout : UserControl
                     KeyTime = TimeSpan.FromMilliseconds(800)
                 }
             }
-        }.RunAsync(this.FindControl<ScrollViewer>("MyScroll"));
+        }.RunAsync(myscroll);
 
         Task.Run(() =>
         {

@@ -23,4 +23,8 @@
     <ItemGroup>
       <UpToDateCheckInput Remove="DialogContent.axaml" />
     </ItemGroup>
+    <ItemGroup>
+      <None Remove="received_2641909289437169.jpeg" />
+      <AvaloniaResource Include="received_2641909289437169.jpeg" />
+    </ItemGroup>
 </Project>

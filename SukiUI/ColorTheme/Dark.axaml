@@ -29,5 +29,10 @@
 
     <system:Boolean x:Key="IsDark">True</system:Boolean>
     <system:Boolean x:Key="IsLight">False</system:Boolean>
+    <Color x:Key="GlassBorderBrush">#252729</Color>
 
+    <system:Double x:Key="GlassOpacityDark">0.5</system:Double>
+    <system:Double x:Key="GlassOpacityLight">0.57</system:Double>
+    <system:Boolean x:Key="GlassEnabled">False</system:Boolean>
+    <system:Boolean x:Key="GlassDisabled">True</system:Boolean>
 </ResourceDictionary>

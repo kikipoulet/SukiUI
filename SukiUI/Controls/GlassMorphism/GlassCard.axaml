@@ -11,26 +11,37 @@
     <UserControl.Styles>
         <Style Selector="glassMorphism|GlassCard">
             <Setter Property="BorderBrush" Value="{DynamicResource GlassBorderBrush}" />
+            <Setter Property="Padding" Value="20" />
+
             <Setter Property="Template">
                 <ControlTemplate>
+
                     <Grid>
+
 
                         <Border
                             Background="Transparent"
                             ClipToBounds="True"
                             CornerRadius="{TemplateBinding CornerRadius}">
 
-                            <Grid>
 
+                            <Grid>
                                 <Border
-                                    Background="White"
+                                    Background="#aaffffff"
                                     CornerRadius="{TemplateBinding CornerRadius}"
                                     IsVisible="{DynamicResource IsLight}"
-                                    Opacity="0.4" />
+                                    Opacity="{DynamicResource GlassOpacityLight}" />
+
+                                <Border
+                                    Background="#3b3b3b"
+                                    CornerRadius="{TemplateBinding CornerRadius}"
+                                    IsVisible="{DynamicResource IsDark}"
+                                    Opacity="{DynamicResource GlassOpacityDark}" />
+
 
                                 <glassMorphism:BlurBackground />
 
-                                <ContentControl Content="{TemplateBinding Content}" Margin="10" />
+                                <ContentControl Content="{TemplateBinding Content}" Margin="{TemplateBinding Padding}" />
                             </Grid>
                         </Border>
                         <Border

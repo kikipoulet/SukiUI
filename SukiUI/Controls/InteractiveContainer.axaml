@@ -13,6 +13,18 @@
             <Setter Property="Template">
                 <ControlTemplate>
                     <Grid>
+
+                        <Grid IsHitTestVisible="False" IsVisible="{DynamicResource GlassEnabled}">
+                            <Image
+                                IsVisible="{DynamicResource IsDark}"
+                                Source="../Assets/gradient_dark_strong.png"
+                                Stretch="UniformToFill" />
+                            <Image
+                                IsVisible="{DynamicResource IsLight}"
+                                Source="../Assets/mesh-gradient-light.png"
+                                Stretch="UniformToFill" />
+                        </Grid>
+
                         <ContentControl Content="{TemplateBinding Content}" />
                         <Border
                             Background="{DynamicResource SukiBackground}"
@@ -46,6 +58,7 @@
                         <Grid
                             Background="{DynamicResource SukiDialogBackground}"
                             IsHitTestVisible="False"
+                            IsVisible="{DynamicResource GlassDisabled}"
                             Name="gridDialog"
                             Opacity="0">
                             <Grid.Transitions>

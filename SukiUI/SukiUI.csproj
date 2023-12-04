@@ -40,6 +40,10 @@
         <AvaloniaResource Include="CustomFont\Quicksand-Regular.ttf" />
         <None Remove="CustomFont\Quicksand-SemiBold.ttf" />
         <AvaloniaResource Include="CustomFont\Quicksand-SemiBold.ttf" />
+        <None Remove="Assets\gradient_dark_strong.png" />
+        <AvaloniaResource Include="Assets\gradient_dark_strong.png" />
+        <None Remove="Assets\mesh-gradient-light.png" />
+        <AvaloniaResource Include="Assets\mesh-gradient-light.png" />
     </ItemGroup>
 
     <ItemGroup>
