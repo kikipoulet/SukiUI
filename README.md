@@ -18,7 +18,8 @@ Suki is the name of my dog :-)
 <br/>
 Working on adding glassmorphism to the library 🫣
 
-![image](https://github.com/kikipoulet/SukiUI/assets/19242427/0951bc7b-b905-40dc-8b93-3c39b2d3a4ec)
+![image](https://github.com/kikipoulet/SukiUI/assets/19242427/eb98356a-dbc1-4a0b-9849-869e0f947b33)
+
 
 
 ## 👐 Demo
