@@ -23,10 +23,22 @@
 
         <suki:DesktopPage
             LogoColor="#2f54eb"
-            MenuVisibility="False"
+            MenuVisibility="True"
             Name="myPage"
-            ShowBottomBorder="False"
+            ShowBottomBorder="True"
             Title="Suki UI Testing - New Project">
+            <suki:DesktopPage.MenuItems>
+                <MenuItem Header="File">
+                    <MenuItem Foreground="{DynamicResource SukiText}" Header="Test 56" >
+                        <MenuItem Foreground="{DynamicResource SukiText}" Header="Edit" />
+                    </MenuItem>
+                    <MenuItem Foreground="{DynamicResource SukiText}" Header="Test" />
+                    <MenuItem Foreground="{DynamicResource SukiText}" Header="Test" />
+                    <MenuItem Foreground="{DynamicResource SukiText}" Header="Test" />
+                </MenuItem>
+                <MenuItem Foreground="{DynamicResource SukiText}" Header="Edit" />
+                <MenuItem Foreground="{DynamicResource SukiText}" Header="Help" />
+            </suki:DesktopPage.MenuItems>
             <suki:DesktopPage.LogoContent>
                 <material:MaterialIcon
                     Foreground="{DynamicResource SukiPrimaryColor}"
@@ -629,10 +641,7 @@
                             </suki:SideMenuItem>
                             <suki:SideMenuItem Header="Library" Icon="BookmarkMultipleOutline">
                                 <suki:SideMenuItem.Content>
-                                    <TextBlock
-                                        HorizontalAlignment="Center"
-                                        Text="Library Page"
-                                        VerticalAlignment="Center" />
+                                    <circleProgressBarsTestMvvm:CircleProgresstestView />
                                 </suki:SideMenuItem.Content>
                             </suki:SideMenuItem>
                             <suki:SideMenuItem Header="Users">

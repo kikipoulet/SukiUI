@@ -5,6 +5,7 @@
     x:Class="SukiUI.Controls.InteractiveContainer"
     xmlns="https://github.com/avaloniaui"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:glassMorphism="clr-namespace:SukiUI.Controls.GlassMorphism"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:suki="clr-namespace:SukiUI.Controls"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
@@ -24,8 +25,9 @@
                                 Source="../Assets/mesh-gradient-light.png"
                                 Stretch="UniformToFill" />
                         </Grid>
-
-                        <ContentControl Content="{TemplateBinding Content}" />
+                        <Grid Name="GridChildContent">
+                            <ContentControl Content="{TemplateBinding Content}" />
+                        </Grid>
                         <Border
                             Background="{DynamicResource SukiBackground}"
                             BorderBrush="{DynamicResource SukiControlBorderBrush}"
@@ -76,7 +78,7 @@
                             IsHitTestVisible="False"
                             Name="borderDialog"
                             Opacity="0"
-                            Padding="10"
+                            Padding="0"
                             VerticalAlignment="Center">
                             <Border.Transitions>
                                 <Transitions>
@@ -95,8 +97,11 @@
                                     </TransformOperationsTransition>
                                 </Transitions>
                             </Border.Transitions>
-
-                            <ContentControl Content="{TemplateBinding DialogContent}" />
+                            <Grid>
+                                <glassMorphism:GlassCard IsVisible="{DynamicResource GlassEnabled}" Name="Glass1" />
+                                <glassMorphism:GlassCard IsVisible="{DynamicResource GlassEnabled}" Name="Glass2" />
+                                <ContentControl Content="{TemplateBinding DialogContent}" Margin="10" />
+                            </Grid>
                         </Border>
                     </Grid>
                 </ControlTemplate>
@@ -124,6 +129,11 @@
 
             <Setter Property="Opacity" Value="0" />
             <Setter Property="IsHitTestVisible" Value="False" />
+        </Style>
+
+        <Style Selector="suki|InteractiveContainer[IsDialogOpen=True] Grid#GridChildContent">
+            <Setter Property="IsHitTestVisible" Value="False" />
+            <Setter Property="Effect" Value="blur(9)" />
         </Style>
 
         <Style Selector="suki|InteractiveContainer[IsDialogOpen=True] Border#borderDialog">

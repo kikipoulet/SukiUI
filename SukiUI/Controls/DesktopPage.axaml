@@ -36,11 +36,12 @@
                                     CornerRadius="0"
                                     IsHitTestVisible="False"
                                     IsVisible="{DynamicResource GlassEnabled}" />
+                                <StackPanel>
                                 <Grid
                                     Background="Transparent"
-                                    ColumnDefinitions="Auto,*,Auto"
+                                    ColumnDefinitions="Auto,*"
                                     IsHitTestVisible="False"
-                                    RowDefinitions="Auto,Auto">
+                                   >
                                     <ContentControl
                                         Content="{TemplateBinding LogoContent}"
                                         Grid.Column="0"
@@ -55,18 +56,19 @@
                                         IsHitTestVisible="False"
                                         Text="{TemplateBinding Title}"
                                         VerticalAlignment="Center" />
-                                    <Menu
-                                        Grid.ColumnSpan="3"
-                                        Grid.Row="1"
-                                        IsHitTestVisible="True"
-                                        IsVisible="{TemplateBinding MenuVisibility}"
-                                        ItemsSource="{TemplateBinding MenuItems}"
-                                        Margin="0,-5,0,0" />
+                                   
 
 
                                 </Grid>
+                                    <Menu
+                                        
+                                        IsHitTestVisible="True"
+                                        IsVisible="{TemplateBinding MenuVisibility}"
+                                        ItemsSource="{TemplateBinding MenuItems}"
+                                        Margin="5,-5,0,0" />
+                                </StackPanel>
                                 <StackPanel
-                                    Grid.Column="2"
+                                    Grid.Column="2" VerticalAlignment="Top"
                                     HorizontalAlignment="Right"
                                     Margin="0,0,5,0"
                                     Orientation="Horizontal"

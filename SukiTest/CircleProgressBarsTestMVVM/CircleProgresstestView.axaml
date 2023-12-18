@@ -1,7 +1,6 @@
 ﻿<UserControl
     Background="{DynamicResource SukiBackground}"
-    Height="320"
-    Width="250"
+  
     mc:Ignorable="d"
     x:Class="SukiTest.CircleProgressBarsTestMVVM.CircleProgresstestView"
     xmlns="https://github.com/avaloniaui"
@@ -10,19 +9,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <UserControl.DataContext>
-        <circleProgressBarsTestMvvm:TestVM />
-    </UserControl.DataContext>
-    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-        <controls:WaveProgress
-            HorizontalAlignment="Center"
-            Value="{Binding Progress}"
-            VerticalAlignment="Center" />
-        <Button
-            Command="{Binding Increase10}"
-            Margin="20"
-            Width="100">
-            <TextBlock Text="Add 10" />
-        </Button>
-    </StackPanel>
+    <Grid >
+   
+    </Grid >
 </UserControl>

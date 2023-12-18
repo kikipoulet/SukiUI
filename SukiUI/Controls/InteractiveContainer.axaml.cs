@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Controls.Templates;
 using Avalonia.Layout;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
@@ -162,12 +163,16 @@ public partial class InteractiveContainer : UserControl
 
 
     
-    public static void ShowDialog(Control content, bool showAtBottom = false)
+    public static void ShowDialog(Control content, bool showAtBottom = false, bool showCardBehind = true)
     {
         var container = GetInteractiveContainerInstance();
 
         container.IsDialogOpen = true;
         container.DialogContent = content;
         container.ShowAtBottom = showAtBottom;
+
+        container.GetTemplateChildren().First(n => n.Name == "Glass1").Opacity = showCardBehind ? 1 : 0;
+        container.GetTemplateChildren().First(n => n.Name == "Glass2").Opacity = showCardBehind ? 1 : 0;
+          
     }
 }
