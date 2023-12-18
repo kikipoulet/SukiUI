@@ -16,9 +16,10 @@ Suki is the name of my dog :-)
 ⚠️ Mobile Controls will be removed in a future version and moved to a new mobile library named [Cheryl UI](https://github.com/kikipoulet/CherylUI)
 <br/><br/>
 <br/>
-Working on adding glassmorphism to the library 🫣
+### 5.2 Release : Adding [Glassmorphism](https://github.com/kikipoulet/SukiUI/wiki/5.-Glassmorphism)
 
-![image](https://github.com/kikipoulet/SukiUI/assets/19242427/0951bc7b-b905-40dc-8b93-3c39b2d3a4ec)
+![image](https://github.com/kikipoulet/SukiUI/assets/19242427/eb98356a-dbc1-4a0b-9849-869e0f947b33)
+
 
 
 ## 👐 Demo
