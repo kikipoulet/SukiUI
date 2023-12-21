@@ -3,22 +3,19 @@
     xmlns:system="clr-namespace:System;assembly=netstandard"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Color x:Key="SukiPrimaryColorGradient">#2f54eb</Color>
-    <Color x:Key="SukiPrimaryColor">#597ef7</Color>
 
-    <Color x:Key="SukiBackground">#282828</Color>
-    <Color x:Key="SukiCardBackground">#252525</Color>
-    <Color x:Key="SukiLightBackground">#303030</Color>
+
+    <Color x:Key="SukiCardBackground">#353535</Color>
+
     <Color x:Key="SukiLightColoredBackground">#303030</Color>
     <Color x:Key="SukiStrongBackground">#353535</Color>
     <Color x:Key="SukiControlTouchBackground">#505050</Color>
-    <Color x:Key="SukiText">#dbdbdb</Color>
-    <Color x:Key="SukiLowText">#b5b5b5</Color>
+
     <Color x:Key="SukiBorderBrush">#353535</Color>
     <Color x:Key="SukiControlBorderBrush">#606060</Color>
     <Color x:Key="SukiMediumBorderBrush">#555555</Color>
-    <Color x:Key="SukiIntBorderBrush">#55515171</Color>
-    <Color x:Key="SukiLightIntBorderBrush">#4a515171</Color>
+    <Color x:Key="SukiIntBorderBrush">#322F43</Color>
+    <Color x:Key="SukiLightIntBorderBrush">#323440</Color>
     <Color x:Key="SukiLightBorderBrush">#454545</Color>
     <Color x:Key="SukiDialogBackground">#505050</Color>
 
@@ -33,6 +30,15 @@
 
     <system:Double x:Key="GlassOpacityDark">0.5</system:Double>
     <system:Double x:Key="GlassOpacityLight">0.57</system:Double>
-    <system:Boolean x:Key="GlassEnabled">False</system:Boolean>
-    <system:Boolean x:Key="GlassDisabled">True</system:Boolean>
+
+
+    <Color x:Key="SukiBackground">Transparent</Color>
+    <Color x:Key="SukiLightBackground">Transparent</Color>
+    <system:Boolean x:Key="GlassEnabled">True</system:Boolean>
+    <system:Boolean x:Key="GlassDisabled">False</system:Boolean>
+
+    <Color x:Key="SukiText">#edffffff</Color>
+    <Color x:Key="SukiLowText">#caffffff</Color>
+    <Color x:Key="SukiPrimaryColorGradient">#0A59F7</Color>
+    <Color x:Key="SukiPrimaryColor">#0A59F7</Color>
 </ResourceDictionary>

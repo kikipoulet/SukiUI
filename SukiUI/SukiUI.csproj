@@ -44,6 +44,12 @@
         <AvaloniaResource Include="Assets\gradient_dark_strong.png" />
         <None Remove="Assets\mesh-gradient-light.png" />
         <AvaloniaResource Include="Assets\mesh-gradient-light.png" />
+        <AvaloniaResource Include="Assets\mesh-gradient (1).png" />
+        <None Remove="Assets\mesh-gradient (1).png" />
+        <AvaloniaResource Include="Assets\mesh-gradient (1).png" />
+        <None Remove="Assets\20221019_182415.jpg" />
+        <None Remove="Assets\PXL_20221019_161528265.jpg" />
+        <AvaloniaResource Include="Assets\PXL_20221019_161528265.jpg" />
     </ItemGroup>
 
     <ItemGroup>
@@ -83,6 +89,11 @@
 
     <ItemGroup>
       <AvaloniaResource Include="ColorTheme\Light.axaml" />
+      <AvaloniaResource Include="CustomFont\Quicksand-Bold.ttf" />
+      <AvaloniaResource Include="CustomFont\Quicksand-Light.ttf" />
+      <AvaloniaResource Include="CustomFont\Quicksand-Medium.ttf" />
+      <AvaloniaResource Include="CustomFont\Quicksand-Regular.ttf" />
+      <AvaloniaResource Include="CustomFont\Quicksand-SemiBold.ttf" />
       <Content Include="suki_photo.ico" />
     </ItemGroup>
 

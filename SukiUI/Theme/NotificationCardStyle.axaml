@@ -1,5 +1,7 @@
-﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia">
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <Border Background="{DynamicResource SukiBackground}" Padding="0">
             <NotificationCard Content="Testing" />
@@ -10,7 +12,7 @@
         <Setter Property="Width" Value="400" />
         <Setter Property="Height" Value="110" />
         <Setter Property="FontSize" Value="14" />
-        <Setter Property="Foreground" Value="{DynamicResource SukiBackground}" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiCardBackground}" />
         <Setter Property="RenderTransformOrigin" Value="50%,75%" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Background" Value="Yellow" />
@@ -19,23 +21,32 @@
             <ControlTemplate>
                 <LayoutTransformControl Name="PART_LayoutTransformControl" UseRenderTransform="True">
                     <Border
-                        Background="{DynamicResource SukiBackground}"
+                        Background="{DynamicResource SukiCardBackground}"
                         BorderBrush="{DynamicResource SukiControlBorderBrush}"
                         BorderThickness="1"
                         BoxShadow="{DynamicResource SukiPopupShadow}"
                         CornerRadius="10"
                         Margin="15,15,15,15">
                         <Border
-                            Background="{DynamicResource SukiBackground}"
+                            Background="{DynamicResource SukiCardBackground}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             ClipToBounds="True"
                             CornerRadius="10">
                             <DockPanel>
-                                <avalonia:MaterialIcon Height="26" Width="26" Kind="InformationCircle" DockPanel.Dock="Left" Margin="11,11,5,5" VerticalAlignment="Top" Foreground="{DynamicResource SukiPrimaryColor}"></avalonia:MaterialIcon>
-                                <Panel Classes="TextBold"
+                                <avalonia:MaterialIcon
+                                    DockPanel.Dock="Left"
+                                    Foreground="{DynamicResource SukiPrimaryColor}"
+                                    Height="26"
+                                    Kind="InformationCircle"
+                                    Margin="11,11,5,5"
+                                    VerticalAlignment="Top"
+                                    Width="26" />
+                                <Panel
+                                    Classes="TextBold"
                                     DockPanel.Dock="Top"
-                                    Height="4"  Margin="0,-3,0,0"
+                                    Height="4"
+                                    Margin="0,-3,0,0"
                                     x:Name="PART_HeaderBar" />
                                 <ContentControl Content="{TemplateBinding Content}" Name="PART_Content" />
                             </DockPanel>
@@ -45,11 +56,11 @@
             </ControlTemplate>
         </Setter>
 
-        
+
     </Style>
-    
+
     <Style Selector="Panel.TextBold /template/ TextBlock">
-        <Setter Property="FontWeight" Value="DemiBold"></Setter>
+        <Setter Property="FontWeight" Value="DemiBold" />
     </Style>
 
     <Style Selector="NotificationCard/template/ ContentControl#PART_Content">
@@ -93,35 +104,44 @@
     </Style>
 
     <Style Selector="NotificationCard /template/ Panel#PART_HeaderBar">
-        <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
+        <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
     </Style>
     <Style Selector="NotificationCard /template/ Panel#PART_HeaderBar">
-        <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
+        <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
     </Style>
     <Style Selector="NotificationCard:success">
-        
+
         <Setter Property="Template">
             <ControlTemplate>
                 <LayoutTransformControl Name="PART_LayoutTransformControl" UseRenderTransform="True">
                     <Border
-                        Background="{DynamicResource SukiBackground}"
+                        Background="{DynamicResource SukiCardBackground}"
                         BorderBrush="{DynamicResource SukiControlBorderBrush}"
                         BorderThickness="1"
                         BoxShadow="{DynamicResource SukiPopupShadow}"
                         CornerRadius="10"
                         Margin="15,15,15,15">
                         <Border
-                            Background="{DynamicResource SukiBackground}"
+                            Background="{DynamicResource SukiCardBackground}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             ClipToBounds="True"
                             CornerRadius="10">
                             <DockPanel>
-                                <avalonia:MaterialIcon Height="26" Width="26" Kind="CheckCircle" DockPanel.Dock="Left" Margin="11,11,5,5" VerticalAlignment="Top" Foreground="ForestGreen"></avalonia:MaterialIcon>
-                                <Panel Classes="TextBold"
-                                       DockPanel.Dock="Top"
-                                       Height="4"  Margin="0,-3,0,0"
-                                       x:Name="PART_HeaderBar" />
+                                <avalonia:MaterialIcon
+                                    DockPanel.Dock="Left"
+                                    Foreground="ForestGreen"
+                                    Height="26"
+                                    Kind="CheckCircle"
+                                    Margin="11,11,5,5"
+                                    VerticalAlignment="Top"
+                                    Width="26" />
+                                <Panel
+                                    Classes="TextBold"
+                                    DockPanel.Dock="Top"
+                                    Height="4"
+                                    Margin="0,-3,0,0"
+                                    x:Name="PART_HeaderBar" />
                                 <ContentControl Content="{TemplateBinding Content}" Name="PART_Content" />
                             </DockPanel>
                         </Border>
@@ -131,28 +151,37 @@
         </Setter>
     </Style>
     <Style Selector="NotificationCard:warning">
-         <Setter Property="Template">
+        <Setter Property="Template">
             <ControlTemplate>
                 <LayoutTransformControl Name="PART_LayoutTransformControl" UseRenderTransform="True">
                     <Border
-                        Background="{DynamicResource SukiBackground}"
+                        Background="{DynamicResource SukiCardBackground}"
                         BorderBrush="{DynamicResource SukiControlBorderBrush}"
                         BorderThickness="1"
                         BoxShadow="{DynamicResource SukiPopupShadow}"
                         CornerRadius="10"
                         Margin="15,15,15,15">
                         <Border
-                            Background="{DynamicResource SukiBackground}"
+                            Background="{DynamicResource SukiCardBackground}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             ClipToBounds="True"
                             CornerRadius="10">
                             <DockPanel>
-                                <avalonia:MaterialIcon Height="26" Width="26" Kind="WarningCircle" DockPanel.Dock="Left" Margin="11,11,5,5" VerticalAlignment="Top" Foreground="DarkOrange"></avalonia:MaterialIcon>
-                                <Panel Classes="TextBold"
-                                       DockPanel.Dock="Top"
-                                       Height="4"  Margin="0,-3,0,0"
-                                       x:Name="PART_HeaderBar" />
+                                <avalonia:MaterialIcon
+                                    DockPanel.Dock="Left"
+                                    Foreground="DarkOrange"
+                                    Height="26"
+                                    Kind="WarningCircle"
+                                    Margin="11,11,5,5"
+                                    VerticalAlignment="Top"
+                                    Width="26" />
+                                <Panel
+                                    Classes="TextBold"
+                                    DockPanel.Dock="Top"
+                                    Height="4"
+                                    Margin="0,-3,0,0"
+                                    x:Name="PART_HeaderBar" />
                                 <ContentControl Content="{TemplateBinding Content}" Name="PART_Content" />
                             </DockPanel>
                         </Border>
@@ -162,28 +191,37 @@
         </Setter>
     </Style>
     <Style Selector="NotificationCard:error">
-       <Setter Property="Template">
+        <Setter Property="Template">
             <ControlTemplate>
                 <LayoutTransformControl Name="PART_LayoutTransformControl" UseRenderTransform="True">
                     <Border
-                        Background="{DynamicResource SukiBackground}"
+                        Background="{DynamicResource SukiCardBackground}"
                         BorderBrush="{DynamicResource SukiControlBorderBrush}"
                         BorderThickness="1"
                         BoxShadow="{DynamicResource SukiPopupShadow}"
                         CornerRadius="10"
                         Margin="15,15,15,15">
                         <Border
-                            Background="{DynamicResource SukiBackground}"
+                            Background="{DynamicResource SukiCardBackground}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             ClipToBounds="True"
                             CornerRadius="10">
                             <DockPanel>
-                                <avalonia:MaterialIcon Height="26" Width="26" Kind="Error" DockPanel.Dock="Left" Margin="11,11,5,5" VerticalAlignment="Top" Foreground="DarkRed"></avalonia:MaterialIcon>
-                                <Panel Classes="TextBold"
-                                       DockPanel.Dock="Top"
-                                       Height="4"  Margin="0,-3,0,0"
-                                       x:Name="PART_HeaderBar" />
+                                <avalonia:MaterialIcon
+                                    DockPanel.Dock="Left"
+                                    Foreground="DarkRed"
+                                    Height="26"
+                                    Kind="Error"
+                                    Margin="11,11,5,5"
+                                    VerticalAlignment="Top"
+                                    Width="26" />
+                                <Panel
+                                    Classes="TextBold"
+                                    DockPanel.Dock="Top"
+                                    Height="4"
+                                    Margin="0,-3,0,0"
+                                    x:Name="PART_HeaderBar" />
                                 <ContentControl Content="{TemplateBinding Content}" Name="PART_Content" />
                             </DockPanel>
                         </Border>

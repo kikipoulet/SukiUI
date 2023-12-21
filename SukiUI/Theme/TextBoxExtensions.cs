@@ -25,7 +25,7 @@ public static class TextBoxExtensions
     } 
     
     public static readonly AttachedProperty<bool> AddDeleteButtonProperty =
-        AvaloniaProperty.RegisterAttached<TextBox, bool>("AddDeleteButton",typeof(TextBox),  defaultValue: true);
+        AvaloniaProperty.RegisterAttached<TextBox, bool>("AddDeleteButton",typeof(TextBox),  defaultValue: false);
 
     public static bool GetAddDeleteButton(TextBox textBox)
     {

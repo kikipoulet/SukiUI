@@ -173,6 +173,7 @@ public partial class InteractiveContainer : UserControl
 
         container.GetTemplateChildren().First(n => n.Name == "Glass1").Opacity = showCardBehind ? 1 : 0;
         container.GetTemplateChildren().First(n => n.Name == "Glass2").Opacity = showCardBehind ? 1 : 0;
+        container.GetTemplateChildren().First(n => n.Name == "Glass3").Opacity = showCardBehind ? 1 : 0;
           
     }
 }

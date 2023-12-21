@@ -6,21 +6,17 @@
     <Color x:Key="SukiPrimaryColorGradient">#597ef7</Color>
 
 
-    <Color x:Key="SukiBackground">#fcfcfc</Color>
-    <Color x:Key="SukiCardBackground">#fdfdfd</Color>
-    <Color x:Key="SukiLightBackground">#f9f9f9</Color>
+
     <Color x:Key="SukiLightColoredBackground">#E7EFFF</Color>
     <Color x:Key="SukiStrongBackground">#eaeaea</Color>
-    <Color x:Key="SukiText">#222222</Color>
-    <Color x:Key="SukiLowText">#555555</Color>
+
     <Color x:Key="SukiBorderBrush">#ebebeb</Color>
 
-    <Color x:Key="SukiControlBorderBrush">#dedede</Color>
     <Color x:Key="SukiControlTouchBackground">#FFFFFF</Color>
     <Color x:Key="SukiMediumBorderBrush">#e2e2e2</Color>
-    <Color x:Key="SukiIntBorderBrush">#EEEEF9</Color>
-    <Color x:Key="SukiLightIntBorderBrush">#77f2f2fc</Color>
-    <Color x:Key="SukiLightBorderBrush">#f4f4f4</Color>
+    <Color x:Key="SukiIntBorderBrush">#faeaeafa</Color>
+    <Color x:Key="SukiLightIntBorderBrush">#77eeeeff</Color>
+
     <Color x:Key="SukiDialogBackground">Gray</Color>
 
     <BoxShadows x:Key="SukiLowShadow">0 0 3 0 #eaeaea</BoxShadows>
@@ -33,7 +29,17 @@
     <Color x:Key="GlassBorderBrush">#e3e3e7</Color>
 
     <system:Double x:Key="GlassOpacityDark">0.5</system:Double>
-    <system:Double x:Key="GlassOpacityLight">0.57</system:Double>
-    <system:Boolean x:Key="GlassEnabled">False</system:Boolean>
-    <system:Boolean x:Key="GlassDisabled">True</system:Boolean>
+    <system:Double x:Key="GlassOpacityLight">0.66</system:Double>
+
+
+    <Color x:Key="SukiBackground">Transparent</Color>
+    <Color x:Key="SukiLightBackground">Transparent</Color>
+    <system:Boolean x:Key="GlassEnabled">True</system:Boolean>
+    <system:Boolean x:Key="GlassDisabled">False</system:Boolean>
+
+    <Color x:Key="SukiText">#222222</Color>
+    <Color x:Key="SukiLowText">#555555</Color>
+    <Color x:Key="SukiCardBackground">#fafafa</Color>
+    <Color x:Key="SukiLightBorderBrush">#f1f1f1</Color>
+    <Color x:Key="SukiControlBorderBrush">#cecece</Color>
 </ResourceDictionary>

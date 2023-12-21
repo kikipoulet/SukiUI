@@ -46,7 +46,7 @@
             Margin="0,35,-8,-8"
             Orientation="Horizontal">
             <Button Classes="Rounded" Click="CloseDialog">
-                <TextBlock Text="Cancel" />
+                <TextBlock Margin="0,-2,0,2" Text="Cancel" />
             </Button>
             <Button Classes="Primary Rounded" Click="CloseDialog">
                 <TextBlock Text="Generate" />

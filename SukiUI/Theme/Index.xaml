@@ -42,6 +42,7 @@
 
     <Styles.Resources>
         <ResourceDictionary>
+            
             <ResourceDictionary.ThemeDictionaries>
 
                 <ResourceInclude Source="../ColorTheme/Light.axaml" x:Key="Light" />
@@ -57,7 +58,7 @@
                 <ResourceInclude Source="avares://SukiUI/Theme/SplitView.axaml" />
                 <ResourceInclude Source="avares://SukiUI/Theme/DatePicker.axaml" />
 
-
+                <ResourceInclude Source="../ColorTheme/Light.axaml"  />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Styles.Resources>

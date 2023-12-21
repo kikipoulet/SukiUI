@@ -2,6 +2,11 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:theme="clr-namespace:SukiUI.Theme"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <NumericUpDown />
+        </Border>
+    </Design.PreviewWith>
     <Style Selector="NumericUpDown">
         <Setter Property="BorderThickness" Value="1.2" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />

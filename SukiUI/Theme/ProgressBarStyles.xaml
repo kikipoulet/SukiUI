@@ -11,7 +11,7 @@
     <Style Selector="ProgressBar">
 
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
-        <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
+        <Setter Property="Background" Value="{DynamicResource SukiBorderBrush}" />
         <Setter Property="Foreground">
             <Setter.Value>
                 <LinearGradientBrush EndPoint="100%,50%" StartPoint="0%,50%">

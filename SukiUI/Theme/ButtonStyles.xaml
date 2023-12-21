@@ -112,7 +112,7 @@
 
 
     <Style Selector="Button:pressed /template/ Border">
-        <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
+        <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
     </Style>
 
@@ -357,7 +357,7 @@
         <Setter Property="CornerRadius" Value="{DynamicResource MediumCornerRadius}" />
         <Setter Property="BorderThickness" Value="1.5" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiLightBorderBrush}" />
-        <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
+        <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
         <Setter Property="Margin" Value="7" />
         <Setter Property="Template">
             <ControlTemplate>

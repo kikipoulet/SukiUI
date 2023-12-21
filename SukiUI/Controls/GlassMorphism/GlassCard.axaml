@@ -16,41 +16,36 @@
             <Setter Property="Template">
                 <ControlTemplate>
 
-                    <Grid>
 
 
-                        <Border
-                            Background="Transparent"
-                            ClipToBounds="True"
-                            CornerRadius="{TemplateBinding CornerRadius}">
+                    <Border
+                        Background="Transparent"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
 
 
-                            <Grid>
-                                <Border
-                                    Background="#aaffffff"
-                                    CornerRadius="{TemplateBinding CornerRadius}"
-                                    IsVisible="{DynamicResource IsLight}"
-                                    Opacity="{DynamicResource GlassOpacityLight}" />
+                        <Grid>
+                            <Border
+                                Background="#aaffffff"
+                                CornerRadius="{TemplateBinding CornerRadius}"
+                                IsVisible="{DynamicResource IsLight}"
+                                Opacity="{DynamicResource GlassOpacityLight}" />
 
-                                <Border
-                                    Background="#3b3b3b"
-                                    CornerRadius="{TemplateBinding CornerRadius}"
-                                    IsVisible="{DynamicResource IsDark}"
-                                    Opacity="{DynamicResource GlassOpacityDark}" />
+                            <Border
+                                Background="#3b3b3b"
+                                CornerRadius="{TemplateBinding CornerRadius}"
+                                IsVisible="{DynamicResource IsDark}"
+                                Opacity="{DynamicResource GlassOpacityDark}" />
 
 
-                                <glassMorphism:BlurBackground />
+                            <!--   <glassMorphism:BlurBackground /> -->
 
-                                <ContentControl Content="{TemplateBinding Content}" Margin="{TemplateBinding Padding}" />
-                            </Grid>
-                        </Border>
-                        <Border
-                            Background="Transparent"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="{TemplateBinding CornerRadius}"
-                            IsHitTestVisible="False" />
-                    </Grid>
+                            <ContentControl Content="{TemplateBinding Content}" Margin="{TemplateBinding Padding}" />
+                        </Grid>
+                    </Border>
+
+
                 </ControlTemplate>
             </Setter>
         </Style>

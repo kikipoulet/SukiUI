@@ -209,29 +209,29 @@
                                             Grid.ColumnSpan="1"
                                             HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
                                             VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
-                                            <Panel>
+                                            <Panel Margin="0,0,0,0">
                                                 <TextBlock
                                                     IsVisible="{TemplateBinding Text,
                                                                                 Converter={x:Static StringConverters.IsNullOrEmpty}}"
                                                     Name="watermark"
-                                                    Opacity="0.5"
+                                                    Opacity="0.5" 
                                                     Text="{TemplateBinding Watermark}"
                                                     TextAlignment="{TemplateBinding TextAlignment}"
                                                     TextWrapping="{TemplateBinding TextWrapping}" />
                                                 <TextPresenter
-                                                    CaretBrush="{TemplateBinding CaretBrush}"
-                                                    CaretIndex="{TemplateBinding CaretIndex}"
-                                                    Name="PART_TextPresenter"
-                                                    PasswordChar="{TemplateBinding PasswordChar}"
-                                                    RevealPassword="{TemplateBinding RevealPassword}"
-                                                    SelectionBrush="{TemplateBinding SelectionBrush}"
-                                                    SelectionEnd="{TemplateBinding SelectionEnd}"
-                                                    SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
-                                                    SelectionStart="{TemplateBinding SelectionStart}"
-                                                    Text="{TemplateBinding Text,
+                                                               CaretBrush="{TemplateBinding CaretBrush}"
+                                                               CaretIndex="{TemplateBinding CaretIndex}"
+                                                               Name="PART_TextPresenter"
+                                                               PasswordChar="{TemplateBinding PasswordChar}"
+                                                               RevealPassword="{TemplateBinding RevealPassword}"
+                                                               SelectionBrush="{TemplateBinding SelectionBrush}"
+                                                               SelectionEnd="{TemplateBinding SelectionEnd}"
+                                                               SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                                                               SelectionStart="{TemplateBinding SelectionStart}"
+                                                               Text="{TemplateBinding Text,
                                                                            Mode=TwoWay}"
-                                                    TextAlignment="{TemplateBinding TextAlignment}"
-                                                    TextWrapping="{TemplateBinding TextWrapping}" />
+                                                               TextAlignment="{TemplateBinding TextAlignment}"
+                                                               TextWrapping="{TemplateBinding TextWrapping}" />
                                             </Panel>
                                         </ScrollViewer>
                                         <ContentPresenter
@@ -457,16 +457,16 @@
                                                
                                                 HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
                                                 VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
-                                                <Panel>
+                                                <Panel >
                                                     <TextBlock
                                                         IsVisible="{TemplateBinding Text,
                                                                                     Converter={x:Static StringConverters.IsNullOrEmpty}}"
                                                         Name="watermark"
-                                                        Opacity="0.5" Margin="0,2,0,0"
+                                                        Opacity="0.5" Margin="0,1,0,0"
                                                         Text="{TemplateBinding Watermark}"
                                                         TextAlignment="{TemplateBinding TextAlignment}"
                                                         TextWrapping="{TemplateBinding TextWrapping}" />
-                                                    <TextPresenter Margin="0,2,0,0"
+                                                    <TextPresenter Margin="0,1,0,0"
                                                         CaretBrush="{DynamicResource SukiText}"
                                                         CaretIndex="{TemplateBinding CaretIndex}"
                                                         FontSize="14"

@@ -5,6 +5,7 @@ using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
+using Avalonia.Styling;
 
 namespace SukiUI.Controls;
 
@@ -41,9 +42,9 @@ public class WaveProgressValueColorConverter : IValueConverter
         try
         {
             if (((int)value) > 50)
-                return Brushes.White;
+                return Brushes.GhostWhite;
             else
-                return (Brush) Application.Current.FindResource("SukiText");
+                return Application.Current.ActualThemeVariant == ThemeVariant.Dark ? Brushes.GhostWhite : Brushes.Black;
         }
         catch
         {

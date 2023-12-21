@@ -93,7 +93,7 @@
                         <Border.Transitions>
                             <Transitions>
                                 <ThicknessTransition Duration="00:00:0.2" Property="BorderThickness" />
-                                <BrushTransition Duration="00:00:0.2" Property="Background" />
+                               
                                 <BrushTransition Duration="00:00:0.2" Property="BorderBrush" />
                                 <ThicknessTransition Duration="0:0:0.1" Property="Margin" />
                             </Transitions>
@@ -404,7 +404,7 @@
         <Setter Property="Stroke" Value="{DynamicResource SukiBorderBrush}" />
     </Style>
     <Style Selector="RadioButton /template/ Ellipse#checkMark">
-        <Setter Property="Fill" Value="{DynamicResource SukiBackground}" />
+        <Setter Property="Fill" Value="{DynamicResource SukiCardBackground}" />
         <Setter Property="Width" Value="12" />
         <Setter Property="Height" Value="12" />
         <Setter Property="IsVisible" Value="True" />
@@ -414,7 +414,7 @@
         <Setter Property="Fill" Value="{DynamicResource SukiPrimaryColor}" />
     </Style>
     <Style Selector="RadioButton:checked /template/ Ellipse#checkMark">
-        <Setter Property="Fill" Value="{DynamicResource SukiBackground}" />
+        <Setter Property="Fill" Value="White" />
         <Setter Property="Width" Value="7" />
         <Setter Property="Height" Value="7" />
 

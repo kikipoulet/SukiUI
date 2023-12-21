@@ -19,6 +19,8 @@ using System.Threading;
 using Avalonia.Controls.Primitives;
 using Avalonia.Styling;
 using Avalonia.Threading;
+using SkiaSharp;
+using SukiUI.Controls.GlassMorphism;
 using SukiUI.Controls.TouchInput.TouchNumericPad;
 using SukiUI.Theme;
 
@@ -75,19 +77,34 @@ namespace SukiTest
         public MainWindow()
         {
             InitializeComponent();
+         
+          /*   this.Get<ComboBox>("stp").ItemsSource = new List<SKBlendMode>()
+            {
+                SKBlendMode.Clear,SKBlendMode.Color,SKBlendMode.Darken, SKBlendMode.Difference, SKBlendMode.Dst, SKBlendMode.Exclusion, SKBlendMode.Hue, SKBlendMode.Lighten,
+                SKBlendMode.Luminosity, SKBlendMode.Modulate, SKBlendMode.Multiply, SKBlendMode.Overlay, SKBlendMode.Plus, SKBlendMode.Saturation, SKBlendMode.Screen, SKBlendMode.Src
+                ,SKBlendMode.Xor, SKBlendMode.ColorBurn, SKBlendMode.ColorDodge, SKBlendMode.DstIn, SKBlendMode.DstOut, SKBlendMode.DstOver, SKBlendMode.HardLight
+                ,SKBlendMode.SoftLight, SKBlendMode.SrcIn, SKBlendMode.SrcOut, SKBlendMode.SrcOut,SKBlendMode.SrcOver, SKBlendMode.DstATop, SKBlendMode.SrcATop
+            };
+
+            this.Get<ComboBox>("stp").SelectionChanged += (sender, args) =>
+            {
+                BlurBackground.blendmodedark = (SKBlendMode)this.Get<ComboBox>("stp").SelectedItem;
+            }; */
+            
+            
             try
             {
                 this.FindControl<DataGrid>("myDG").ItemsSource = liste;
-                this.FindControl<DataGrid>("GridBilling").ItemsSource = liste;
+             //   this.FindControl<DataGrid>("GridBilling").ItemsSource = liste;
 
                 this.FindControl<Stepper>("stepS").Steps = new ObservableCollection<string>() { "Sent", "Progress", "Delivered" };
                 this.FindControl<Stepper>("stepS").Index = 1;
            
 
 
-                 this.FindControl<PropertyGrid>("propertyGrid").Item = new Person() { Adult = true, Age = 20,Name = "Billy", Partner = new Person() };
+              //   this.FindControl<PropertyGrid>("propertyGrid").Item = new Person() { Adult = true, Age = 20,Name = "Billy", Partner = new Person() };
 
-                 this.FindControl<ListBox>("listTest").ItemsSource = new ObservableCollection<string>() { "one", "two", "thre", "four", "five" };
+             //    this.FindControl<ListBox>("listTest").ItemsSource = new ObservableCollection<string>() { "one", "two", "thre", "four", "five" };
                  
             }
             catch { }

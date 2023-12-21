@@ -1,5 +1,8 @@
-﻿using Avalonia;
+﻿using System;
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 
@@ -10,7 +13,12 @@ public partial class GlassCard : UserControl
     public GlassCard()
     {
         InitializeComponent();
+
+       
+     
     }
+
+    
 
     private void InitializeComponent()
     {
@@ -21,14 +29,7 @@ public partial class GlassCard : UserControl
         AvaloniaProperty.Register<GlassCard, CornerRadius>(nameof(CornerRadius), new CornerRadius(20));
 
     
-    public static readonly StyledProperty<IBrush> BorderBrushProperty =
-        AvaloniaProperty.Register<GlassCard, IBrush>(nameof(BorderBrush), Brushes.Black);
-
-    public IBrush BorderBrush
-    {
-        get => GetValue(BorderBrushProperty);
-        set => SetValue(BorderBrushProperty, value);
-    }
+ 
     
     public CornerRadius CornerRadius
     {
@@ -44,4 +45,7 @@ public partial class GlassCard : UserControl
         get => GetValue(BorderThicknessProperty);
         set => SetValue(BorderThicknessProperty, value);
     }
+    
+    
+    
 }

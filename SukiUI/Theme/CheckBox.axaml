@@ -11,7 +11,7 @@
     <Style Selector="CheckBox">
 
         <Setter Property="Foreground" Value="{DynamicResource ThemeForegroundBrush}" />
-        <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
+        <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
         <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderMidBrush}" />
         <Setter Property="BorderThickness" Value="0.5" />
         <Setter Property="Padding" Value="4,0,0,0" />
@@ -24,11 +24,11 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{DynamicResource SukiStrongBackground}"
                         BorderThickness="1"
-                        CornerRadius="{DynamicResource SmallCornerRadius}"
-                        Height="18"
+                        CornerRadius="6"
+                        Height="20"
                         Name="border"
                         VerticalAlignment="Center"
-                        Width="18">
+                        Width="20">
                         <Border.Transitions>
                             <Transitions>
                                 <BrushTransition Duration="0:0:0.15" Property="Background" />
@@ -38,14 +38,14 @@
                         <Panel>
                             <Path
                                 Data="M 1145.607177734375,430 C1145.607177734375,430 1141.449951171875,435.0772705078125 1141.449951171875,435.0772705078125 1141.449951171875,435.0772705078125 1139.232177734375,433.0999755859375 1139.232177734375,433.0999755859375 1139.232177734375,433.0999755859375 1138,434.5538330078125 1138,434.5538330078125 1138,434.5538330078125 1141.482177734375,438 1141.482177734375,438 1141.482177734375,438 1141.96875,437.9375 1141.96875,437.9375 1141.96875,437.9375 1147,431.34619140625 1147,431.34619140625 1147,431.34619140625 1145.607177734375,430 1145.607177734375,430 z"
-                                Fill="{DynamicResource SukiBackground}"
-                                Height="8"
+                                Fill="White"
+                                Height="9"
                                 HorizontalAlignment="Center"
-                                Margin="1,2,0,0"
+                                Margin="1,1,0,0"
                                 Name="checkMark"
                                 Stretch="Uniform"
                                 VerticalAlignment="Center"
-                                Width="8" />
+                                Width="9" />
 
                         </Panel>
                     </Border>

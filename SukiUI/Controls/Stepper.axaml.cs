@@ -89,11 +89,16 @@ namespace SukiUI.Controls
 
         private void AddStep(string step, int index,Grid grid)
         {
+            Brush PrimaryColor = new SolidColorBrush(Colors.DodgerBlue); 
+            Brush DisabledColor = new SolidColorBrush(Color.FromArgb(100,150,150,150)); 
 
-         
-            Brush PrimaryColor = new SolidColorBrush( (Color)Application.Current.FindResource("SukiPrimaryColor"));
-            Brush DisabledColor =  new SolidColorBrush( (Color)Application.Current.FindResource("SukiControlBorderBrush"));
-            
+            try
+            {
+
+                PrimaryColor = new SolidColorBrush((Color)Application.Current.FindResource("SukiPrimaryColor"));
+               
+            }catch{}
+
             var griditem = new Grid(){ ColumnDefinitions = new ColumnDefinitions(){new ColumnDefinition( GridLength.Auto), new ColumnDefinition(GridLength.Star), new ColumnDefinition(GridLength.Auto)}};
 
             var icon = new MaterialIcon() { Kind = MaterialIconKind.ChevronRight, Margin = new Thickness(0,0,20,0)};

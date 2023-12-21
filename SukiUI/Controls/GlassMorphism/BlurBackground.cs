@@ -9,6 +9,7 @@ using Avalonia.Platform;
 using Avalonia.Rendering.SceneGraph;
 using Avalonia.Skia;
 using Avalonia.Styling;
+using Avalonia.Threading;
 using SkiaSharp;
 namespace SukiUI.Controls.GlassMorphism;
 
@@ -44,6 +45,8 @@ namespace SukiUI.Controls.GlassMorphism;
         {
             AffectsRender<BlurBackground>(MaterialProperty);
         }
+
+        public static SKBlendMode blendmodedark = SKBlendMode.Clear;
         
         private static SKShader s_acrylicNoiseShader;
         class BlurBehindRenderOperation : ICustomDrawOperation
@@ -79,6 +82,7 @@ namespace SukiUI.Controls.GlassMorphism;
 
                 return SKColorFilter.CreateTable(a, c, c, c);
             }
+
             
             public void Render(ImmediateDrawingContext context)
             {
@@ -92,40 +96,55 @@ namespace SukiUI.Controls.GlassMorphism;
                 
                 
                 using var backgroundSnapshot = lease.SkSurface.Snapshot();
+                
                 using var backdropShader = SKShader.CreateImage(backgroundSnapshot, SKShaderTileMode.Clamp,
                     SKShaderTileMode.Clamp, currentInvertedTransform);
                 
                 using var blurred = SKSurface.Create(lease.GrContext, false, new SKImageInfo(
-                    (int)Math.Ceiling(_bounds.Width),
-                    (int)Math.Ceiling(_bounds.Height), SKImageInfo.PlatformColorType, SKAlphaType.Premul));
-                using(var filter = SKImageFilter.CreateBlur(6, 6, SKShaderTileMode.Clamp))
+                    (int)Math.Ceiling(_bounds.Width ),
+                    (int)Math.Ceiling(_bounds.Height ), SKImageInfo.PlatformColorType, SKAlphaType.Premul));
+                using(var filter = SKImageFilter.CreateBlur(3,3))
                 using (var blurPaint = new SKPaint
                        {
                            Shader = backdropShader,
                            ImageFilter = filter
+                         
                        })
-                    blurred.Canvas.DrawRect(5, 5, (float)_bounds.Width-20, (float)_bounds.Height-20, blurPaint);
+                    blurred.Canvas.DrawRect(0,0, (float)_bounds.Width, (float)_bounds.Height, blurPaint);
+
+
+
+              
                 using (var blurSnap = blurred.Snapshot())
-                    using(var blurSnapShader = SKShader.CreateImage(blurSnap))
+                using (var blurSnapShader = SKShader.CreateImage(blurSnap))
+                {
+                    
                     using (var blurSnapPaint = new SKPaint
                            {
                                Shader = blurSnapShader,
-                               IsAntialias = true
+                               IsAntialias = false, 
+                                
                            })
-                        canvas.DrawRect(0, 0, (float)_bounds.Width, (float)_bounds.Height, blurSnapPaint);
 
-                    //return;
-           /*     using var acrylliPaint = new SKPaint();
-           /*     acrylliPaint.IsAntialias = true;
+
+                        canvas.DrawRect(0, 0, (float)_bounds.Width , (float)_bounds.Height , blurSnapPaint);
+                } 
+            
+
+
+                return;
+                
+                using var acrylliPaint = new SKPaint();
+                acrylliPaint.IsAntialias = true;
                 
                 double opacity = 1;
 
                 const double noiseOpacity = 0.01;
 
-             /*   var tintColor = _material.TintColor;
+                var tintColor = _material.TintColor;
                 var tint = new SKColor(tintColor.R, tintColor.G, tintColor.B, tintColor.A);
 
-             /*   if (s_acrylicNoiseShader == null)
+                if (s_acrylicNoiseShader == null)
                 {
                     using (var stream = typeof(SkiaPlatform).Assembly.GetManifestResourceStream("Avalonia.Skia.Assets.NoiseAsset_256X256_PNG.png"))
                     using (var bitmap = SKBitmap.Decode(stream))
@@ -135,7 +154,7 @@ namespace SukiUI.Controls.GlassMorphism;
                     }
                 }
 
-              /*  using (var backdrop = SKShader.CreateColor(new SKColor(_material.MaterialColor.R, _material.MaterialColor.G, _material.MaterialColor.B, _material.MaterialColor.A)))
+                using (var backdrop = SKShader.CreateColor(new SKColor(_material.MaterialColor.R, _material.MaterialColor.G, _material.MaterialColor.B, _material.MaterialColor.A)))
                 using (var tintShader = SKShader.CreateColor(tint))
                 using (var effectiveTint = SKShader.CreateCompose(backdrop, tintShader))
                 using (var compose = SKShader.CreateCompose(effectiveTint, s_acrylicNoiseShader))
@@ -144,7 +163,7 @@ namespace SukiUI.Controls.GlassMorphism;
                     acrylliPaint.IsAntialias = true;
                  
                     canvas.DrawRect(0, 0, (float)_bounds.Width, (float)_bounds.Height, acrylliPaint);
-                } */
+                } 
             }
 
             public Rect Bounds => _bounds.Inflate(4);

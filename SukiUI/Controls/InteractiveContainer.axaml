@@ -22,8 +22,10 @@
                                 Stretch="UniformToFill" />
                             <Image
                                 IsVisible="{DynamicResource IsLight}"
-                                Source="../Assets/mesh-gradient-light.png"
+                                Source="../Assets/mesh-gradient (1).png"
                                 Stretch="UniformToFill" />
+
+
                         </Grid>
                         <Grid Name="GridChildContent">
                             <ContentControl Content="{TemplateBinding Content}" />
@@ -100,6 +102,7 @@
                             <Grid>
                                 <glassMorphism:GlassCard IsVisible="{DynamicResource GlassEnabled}" Name="Glass1" />
                                 <glassMorphism:GlassCard IsVisible="{DynamicResource GlassEnabled}" Name="Glass2" />
+                                <glassMorphism:GlassCard IsVisible="{DynamicResource GlassEnabled}" Name="Glass3" />
                                 <ContentControl Content="{TemplateBinding DialogContent}" Margin="10" />
                             </Grid>
                         </Border>
@@ -133,7 +136,7 @@
 
         <Style Selector="suki|InteractiveContainer[IsDialogOpen=True] Grid#GridChildContent">
             <Setter Property="IsHitTestVisible" Value="False" />
-            <Setter Property="Effect" Value="blur(9)" />
+            <Setter Property="Effect" Value="blur(15)" />
         </Style>
 
         <Style Selector="suki|InteractiveContainer[IsDialogOpen=True] Border#borderDialog">

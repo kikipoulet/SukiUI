@@ -1,9 +1,12 @@
-<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:glassMorphism="clr-namespace:SukiUI.Controls.GlassMorphism"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Design.PreviewWith>
         <Border Padding="20">
             <StackPanel Spacing="10">
-                <ComboBox PlaceholderText="Select an item">
+                <ComboBox Margin="0,0,50,0" PlaceholderText="Select an item">
                     <ComboBoxItem>Item 1</ComboBoxItem>
                     <ComboBoxItem>Item 2</ComboBoxItem>
                 </ComboBox>
@@ -133,20 +136,22 @@
 
 
                                 <Border Padding="5,10,5,5">
-                                    <Border
-                                        Background="{DynamicResource SukiBackground}"
-                                        BorderBrush="{DynamicResource SukiControlBorderBrush}"
-                                        BorderThickness="1,1,1,1"
-                                        BoxShadow="{DynamicResource SukiPopupShadow}"
-                                        CornerRadius="{DynamicResource SmallCornerRadius}"
-                                        Margin="10,-10,0,0">
-                                        <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
-                                            <ItemsPresenter
-                                                ItemsPanel="{TemplateBinding ItemsPanel}"
-                                                Margin="0,3,0,0"
-                                                Name="PART_ItemsPresenter" />
-                                        </ScrollViewer>
-                                    </Border>
+                                    <Grid>
+                                        <Border
+                                            Background="{DynamicResource SukiCardBackground}"
+                                            BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                                            BorderThickness="1,1,1,1"
+                                            BoxShadow="{DynamicResource SukiPopupShadow}"
+                                            CornerRadius="{DynamicResource SmallCornerRadius}"
+                                            Margin="10,-10,0,0">
+                                            <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                                                <ItemsPresenter
+                                                    ItemsPanel="{TemplateBinding ItemsPanel}"
+                                                    Margin="0,3,0,0"
+                                                    Name="PART_ItemsPresenter" />
+                                            </ScrollViewer>
+                                        </Border>
+                                    </Grid>
                                 </Border>
                             </Popup>
                         </Grid>
