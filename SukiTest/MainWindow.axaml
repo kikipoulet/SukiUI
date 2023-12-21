@@ -82,6 +82,7 @@
                             <suki:SideMenuItem Header="DashBoard">
                                 <suki:SideMenuItem.Icon>
                                     <material:MaterialIcon
+                                        Foreground="{DynamicResource SukiText}"
                                         Height="24"
                                         Kind="CircleOutline"
                                         Width="24" />
@@ -462,12 +463,7 @@
                                                                         Margin="15,10,15,0"
                                                                         Name="myDG"
                                                                         VerticalAlignment="Top" />
-                                                                    <Button
-                                                                        Click="ShowNotification"
-                                                                        HorizontalAlignment="Right"
-                                                                        VerticalAlignment="Bottom">
-                                                                        <TextBlock Text="New Invoice" />
-                                                                    </Button>
+
                                                                 </Grid>
                                                             </TabItem>
                                                             <TabItem>
@@ -618,7 +614,14 @@
                                     </ScrollViewer>
                                 </suki:SideMenuItem.Content>
                             </suki:SideMenuItem>
-                            <suki:SideMenuItem Header="Statistics" Icon="ChartLine">
+                            <suki:SideMenuItem Header="Statistics">
+                                <suki:SideMenuItem.Icon>
+                                    <material:MaterialIcon
+                                        Foreground="{DynamicResource SukiText}"
+                                        Height="24"
+                                        Kind="ChartLine"
+                                        Width="24" />
+                                </suki:SideMenuItem.Icon>
                                 <suki:SideMenuItem.Content>
                                     <Grid>
                                         <Image Source="received_2641909289437169.jpeg" />
@@ -630,7 +633,14 @@
                                     </Grid>
                                 </suki:SideMenuItem.Content>
                             </suki:SideMenuItem>
-                            <suki:SideMenuItem Header="Library" Icon="BookmarkMultipleOutline">
+                            <suki:SideMenuItem Header="Library">
+                                <suki:SideMenuItem.Icon>
+                                    <material:MaterialIcon
+                                        Foreground="{DynamicResource SukiText}"
+                                        Height="24"
+                                        Kind="BookmarkMultipleOutline"
+                                        Width="24" />
+                                </suki:SideMenuItem.Icon>
                                 <suki:SideMenuItem.Content>
                                     <circleProgressBarsTestMvvm:CircleProgresstestView />
                                 </suki:SideMenuItem.Content>
@@ -638,6 +648,7 @@
                             <suki:SideMenuItem Header="Users">
                                 <suki:SideMenuItem.Icon>
                                     <material:MaterialIcon
+                                        Foreground="{DynamicResource SukiText}"
                                         Height="24"
                                         Kind="UserSettings"
                                         Width="24" />
