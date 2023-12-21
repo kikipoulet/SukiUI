@@ -14,25 +14,12 @@ Suki is the name of my dog :-)
 <br/>
 
 ⚠️ Mobile Controls will be removed in a future version and moved to a new mobile library named [Cheryl UI](https://github.com/kikipoulet/CherylUI)
-<br/><br/>
 <br/>
-### 5.2 Release : Adding [Glassmorphism](https://github.com/kikipoulet/SukiUI/wiki/5.-Glassmorphism)
-
-![image](https://github.com/kikipoulet/SukiUI/assets/19242427/eb98356a-dbc1-4a0b-9849-869e0f947b33)
-
+<br/>
+### 5.3 Release 
 
 
-## 👐 Demo
-
-### Desktop Controls
-
-Some desktop design "sketch" using SukiUI 5.0.0 :
-
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/Resume.gif"></img>
-
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/ResumeDark.gif"></img>
-
-[Desktop Controls Documentation](https://github.com/kikipoulet/SukiUI/wiki/3.-Controls)
+![global2](https://github.com/kikipoulet/SukiUI/assets/19242427/dc20dae7-0f10-44fe-ba5a-08f261eb53b1)
 
 
 
