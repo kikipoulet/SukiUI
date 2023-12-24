@@ -26,7 +26,7 @@
 
                     <DockPanel>
 
-                        <Border
+                        <suki:WindowTitleBar
                             BorderBrush="{DynamicResource SukiBorderBrush}"
                             DockPanel.Dock="Top"
                             Name="BottomBorder">
@@ -34,38 +34,34 @@
                                 <glassMorphism:GlassCard
                                     BorderThickness="0"
                                     CornerRadius="0"
-                                    IsHitTestVisible="False"
+                                    IsHitTestVisible="True"
                                     IsVisible="{DynamicResource GlassEnabled}" />
                                 <StackPanel>
-                                <Grid
-                                    Background="Transparent"
-                                    ColumnDefinitions="Auto,*"
-                                    IsHitTestVisible="False"
-                                   >
-                                    <ContentControl
-                                        Content="{TemplateBinding LogoContent}"
-                                        Grid.Column="0"
-                                        HorizontalAlignment="Left"
-                                        IsHitTestVisible="False"
-                                        Margin="10" />
-                                    <TextBlock
-                                        FontSize="{TemplateBinding TitleFontSize}"
-                                        FontWeight="{TemplateBinding TitleFontWeight}"
-                                        Grid.Column="1"
-                                        HorizontalAlignment="{TemplateBinding TitleHorizontalAlignment}"
-                                        IsHitTestVisible="False"
-                                        Text="{TemplateBinding Title}"
-                                        VerticalAlignment="Center" />
-                                   
+                                    <Grid
+                                        Background="Transparent"
+                                        ColumnDefinitions="Auto,*"
+                                        IsHitTestVisible="False">
+                                        <ContentControl
+                                            Content="{TemplateBinding LogoContent}"
+                                            Grid.Column="0"
+                                            HorizontalAlignment="Left"
+                                            IsHitTestVisible="False"
+                                            Margin="10" />
+                                        <TextBlock
+                                            FontSize="{TemplateBinding TitleFontSize}"
+                                            FontWeight="{TemplateBinding TitleFontWeight}"
+                                            Grid.Column="1"
+                                            HorizontalAlignment="{TemplateBinding TitleHorizontalAlignment}"
+                                            IsHitTestVisible="False"
+                                            Text="{TemplateBinding Title}"
+                                            VerticalAlignment="Center" />
 
 
-                                </Grid>
-                                    <Menu
-                                        
-                                        IsHitTestVisible="True"
-                                        IsVisible="{TemplateBinding MenuVisibility}"
-                                        ItemsSource="{TemplateBinding MenuItems}"
-                                        Margin="5,-5,0,0" />
+                                    </Grid>
+                                    <Menu IsHitTestVisible="True"
+                                          IsVisible="{TemplateBinding MenuVisibility}"
+                                          ItemsSource="{TemplateBinding MenuItems}"
+                                          Margin="5,-5,0,0" />
                                 </StackPanel>
                                 <StackPanel
                                     Grid.Column="2" VerticalAlignment="Top"
@@ -135,7 +131,7 @@
                                     </Button>
                                 </StackPanel>
                             </Grid>
-                        </Border>
+                        </suki:WindowTitleBar>
 
                         <ContentControl Content="{TemplateBinding Content}" />
 
@@ -153,10 +149,10 @@
             <Setter Property="Kind" Value="WindowRestore" />
         </Style>
 
-        <Style Selector="suki|DesktopPage /template/ Border#BottomBorder">
+        <Style Selector="suki|DesktopPage /template/ suki|WindowTitleBar#BottomBorder">
             <Setter Property="BorderThickness" Value="0,0,0,1" />
         </Style>
-        <Style Selector="suki|DesktopPage[ShowBottomBorder=False] /template/ Border#BottomBorder">
+        <Style Selector="suki|DesktopPage[ShowBottomBorder=False] /template/ suki|WindowTitleBar#BottomBorder">
             <Setter Property="BorderThickness" Value="0,0,0,0" />
         </Style>
 

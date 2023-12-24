@@ -22,9 +22,6 @@ namespace SukiUI.Controls
         public DesktopPage()
         {
             InitializeComponent();
-
-            
-
          //   DataContext = ViewModel;
         }
 
