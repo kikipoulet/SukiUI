@@ -247,6 +247,7 @@ namespace SukiTest
         {
            
             this.Get<Button>("ButtonSignIn").ShowProgress();
+            this.Get<BusyArea>("BusySignIn").IsBusy = true;
             
             Task.Run(() =>
             {
@@ -256,6 +257,7 @@ namespace SukiTest
                    
                     this.Get<TextBox>("PasswordTextBox").Error("Wrong Password");
                     this.Get<Button>("ButtonSignIn").HideProgress();
+                    this.Get<BusyArea>("BusySignIn").IsBusy = false;
                 });
             });
         }

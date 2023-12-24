@@ -17,7 +17,7 @@ public class WindowTitleBar : Border
     {
         base.OnInitialized();
         if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-            _window = desktop.MainWindow;
+            _window ??= desktop.MainWindow;
     }
 
     protected override void OnPointerPressed(PointerPressedEventArgs e)
