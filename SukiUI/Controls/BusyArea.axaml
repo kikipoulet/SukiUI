@@ -19,7 +19,8 @@
                                    VerticalAlignment="Center"
                                    Name="LoadingBusyArea">
                             <TextBlock DockPanel.Dock="Bottom"
-                                       Margin="5"
+                                       Margin="10"
+                                       FontWeight="Bold"
                                        Text="{TemplateBinding BusyText}"
                                        IsVisible="{TemplateBinding BusyText, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
                             <suki:Loading HorizontalAlignment="Center"
