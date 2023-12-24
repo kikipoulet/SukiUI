@@ -624,7 +624,7 @@
                                 </suki:SideMenuItem.Icon>
                                 <suki:SideMenuItem.Content>
                                     <Grid>
-                                        <Image Source="received_2641909289437169.jpeg" />
+                                        <Image Source="" />
                                         <glassMorphism:GlassCard
                                             Height="200"
                                             HorizontalAlignment="Center"

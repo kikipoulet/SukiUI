@@ -5,7 +5,6 @@
     x:Class="SukiUI.Controls.MobileMenuPage"
     xmlns="https://github.com/avaloniaui"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
     xmlns:material="using:Material.Icons.Avalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:suki="clr-namespace:SukiUI.Controls"
@@ -27,7 +26,9 @@
         </Style>
 
     </UserControl.Styles>
-    <Design.DataContext />
+    <Design.DataContext>
+        <suki:MobileMenuPageViewModel />
+    </Design.DataContext>
 
 
     <SplitView
@@ -61,13 +62,10 @@
                             </Button>
 
 
-
-
                             <Grid>
                                 <ContentControl Content="{Binding HeaderContent}" />
                             </Grid>
                             <Grid Height="40" />
-
 
 
                             <ItemsControl
@@ -132,7 +130,6 @@
                             </ItemsControl>
 
 
-
                         </StackPanel>
                     </Canvas>
                 </Border>
@@ -140,40 +137,36 @@
         </SplitView.Pane>
 
 
-
-            <!--  PopupPositioner="{Binding DialogPosition}"  -->
-            <Grid Background="{DynamicResource SukiBackground}">
-
+        <!--  PopupPositioner="{Binding DialogPosition}"  -->
+        <Grid Background="{DynamicResource SukiBackground}">
 
 
-                <ContentControl Content="{Binding CurrentPage}" />
+            <ContentControl Content="{Binding CurrentPage}" />
 
 
-                <Button
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Classes="ZoomOnHover"
-                    Command="{Binding ShowMenu}"
-                    Height="50"
-                    HorizontalAlignment="Left"
-                    Margin="15,20,0,0"
-                    Padding="0"
-                    VerticalAlignment="Top"
-                    Width="50">
-                    <material:MaterialIcon
-                        Foreground="DarkGray"
-                        Height="30"
-                        Kind="Menu"
-                        Width="30" />
+            <Button
+                Background="Transparent"
+                BorderThickness="0"
+                Classes="ZoomOnHover"
+                Command="{Binding ShowMenu}"
+                Height="50"
+                HorizontalAlignment="Left"
+                Margin="15,20,0,0"
+                Padding="0"
+                VerticalAlignment="Top"
+                Width="50">
+                <material:MaterialIcon
+                    Foreground="DarkGray"
+                    Height="30"
+                    Kind="Menu"
+                    Width="30" />
 
-                </Button>
+            </Button>
 
-                <Grid Background="#cccccccc" IsVisible="{Binding MenuVisibility}" />
-            </Grid>
-
+            <Grid Background="#cccccccc" IsVisible="{Binding MenuVisibility}" />
+        </Grid>
 
 
     </SplitView>
 
 </UserControl>
-

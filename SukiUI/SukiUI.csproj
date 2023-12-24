@@ -48,8 +48,6 @@
         <None Remove="Assets\mesh-gradient (1).png" />
         <AvaloniaResource Include="Assets\mesh-gradient (1).png" />
         <None Remove="Assets\20221019_182415.jpg" />
-        <None Remove="Assets\PXL_20221019_161528265.jpg" />
-        <AvaloniaResource Include="Assets\PXL_20221019_161528265.jpg" />
     </ItemGroup>
 
     <ItemGroup>
