@@ -37,11 +37,11 @@
                         IsVisible="{Binding HeaderContentOverlapsToggleSidebarButton}"
                         VerticalAlignment="Top">
                         <Grid>
-                            <PathIcon Foreground="{DynamicResource SukiText}"
+                            <PathIcon Foreground="{DynamicResource SukiText}" Height="12" Width="12"
                                       IsVisible="{Binding !MenuVisibility}"
                                       Data="{x:Static content:Icons.ChevronRight}" />
                             <PathIcon Foreground="{DynamicResource SukiText}"
-                                      IsVisible="{Binding MenuVisibility}"
+                                      IsVisible="{Binding MenuVisibility}" Height="12" Width="12"
                                       Data="{x:Static content:Icons.ChevronLeft}" />
                         </Grid>
                     </Button>
