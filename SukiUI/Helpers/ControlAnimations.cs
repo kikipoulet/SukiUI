@@ -76,6 +76,8 @@ public static class ControlAnimationHelper
         
    
     }
+    
+   
     public static void Vibrate(this Animatable control, TimeSpan duration )
     {
         var count = duration.TotalMilliseconds / 75;

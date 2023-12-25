@@ -41,12 +41,12 @@
             TextWrapping="Wrap"
             Width="320" />
 
-        <StackPanel
+        <StackPanel Spacing="15"
             HorizontalAlignment="Right"
-            Margin="0,35,-8,-8"
+            Margin="0,35,0,0"
             Orientation="Horizontal">
             <Button Classes="Rounded" Click="CloseDialog">
-                <TextBlock Margin="0,-2,0,2" Text="Cancel" />
+                <TextBlock  Text="Cancel" />
             </Button>
             <Button Classes="Primary Rounded" Click="CloseDialog">
                 <TextBlock Text="Generate" />

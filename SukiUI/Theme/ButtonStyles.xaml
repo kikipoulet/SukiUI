@@ -23,14 +23,14 @@
         <Setter Property="BorderBrush" Value="{DynamicResource SukiMediumBorderBrush}" />
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
-
+        <Setter Property="Padding" Value="25,5"></Setter>
         <Setter Property="Template">
             <ControlTemplate>
                 <Border
                     Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
-                    BoxShadow="{DynamicResource SukiLowShadow}"
+                    BoxShadow="{DynamicResource SukiLowShadow}" Padding="{TemplateBinding Padding}"
                     CornerRadius="{TemplateBinding CornerRadius}"
                     TextElement.Foreground="{TemplateBinding Foreground}">
                     <Border.Resources>
@@ -66,6 +66,8 @@
     </Style>
 
     <Style Selector="Button &gt; TextBlock">
+        
+        <Setter Property="FontSize" Value="16"></Setter>
         <Setter Property="Transitions">
             <Transitions>
                 <BrushTransition Duration="0:0:0.3" Property="Foreground" />
@@ -182,7 +184,7 @@
     <!--    -->
 
     <Style Selector="Button.Primary">
-        <Setter Property="Padding" Value="18,10,18,8" />
+        <Setter Property="Padding" Value="25,6, 25, 4"></Setter>
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Background">
             <Setter.Value>
