@@ -66,13 +66,13 @@
     <ItemGroup>
         <PackageReference Include="Avalonia" Version="11.0.5" />
         <PackageReference Include="Avalonia.Skia" Version="11.0.5" />
+        <PackageReference Include="Material.Icons.Avalonia" Version="2.1.0" />
         <PackageReference Include="SkiaSharp" Version="2.88.6" />
     </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.5" />
         <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.5" />
-        <PackageReference Include="Material.Icons.Avalonia" Version="2.1.0" />
         <PackageReference Include="ReactiveUI" Version="19.2.1" />
     </ItemGroup>
 

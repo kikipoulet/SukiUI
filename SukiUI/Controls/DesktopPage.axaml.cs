@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading;
+using Avalonia.Controls.Shapes;
 using Avalonia.Threading;
 
 namespace SukiUI.Controls
@@ -140,7 +141,7 @@ namespace SukiUI.Controls
         private void MaximizeHandler(object sender, RoutedEventArgs e)
         {
             Window hostWindow = (Window)this.VisualRoot;
-            var icon = this.GetVisualDescendants().OfType<MaterialIcon>().FirstOrDefault(x => (x.Name ?? "").Equals("MaximizeMaterialIcon"));
+            var icon = this.GetVisualDescendants().OfType<PathIcon>().FirstOrDefault(x => (x.Name ?? "").Equals("MaximizeIcon"));
             
             if (hostWindow.WindowState != WindowState.Maximized)
             {

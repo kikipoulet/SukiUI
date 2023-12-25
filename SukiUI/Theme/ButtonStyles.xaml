@@ -27,23 +27,17 @@
         <Setter Property="Height" Value="43" />
         <Setter Property="BorderThickness" Value="1.2" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiMediumBorderBrush}" />
-        <Setter Property="Padding" Value="18,9,18,8" />
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
-        <Setter Property="Margin" Value="4" />
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
 
         <Setter Property="Template">
             <ControlTemplate>
-
-
                 <Border
                     Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
                     BoxShadow="{DynamicResource SukiLowShadow}"
                     CornerRadius="{TemplateBinding CornerRadius}"
-                    Margin="4"
-                    Padding="{TemplateBinding Padding}"
                     TextElement.Foreground="{TemplateBinding Foreground}">
                     <Border.Resources>
                         <theme:BoolToWidthProgressConverter x:Key="WidthConverter" />
@@ -55,7 +49,7 @@
                                     <DoubleTransition Duration="0:0:0.3" Property="Width" />
                                 </Transitions>
                             </Viewbox.Transitions>
-                            <controls:Loading Classes="White" Margin="10,0" />
+                            <controls:Loading Classes="White"/>
                         </Viewbox>
                         <ContentPresenter
                             Content="{TemplateBinding Content}"
@@ -332,7 +326,6 @@
 
     <Style Selector="Button.Rounded">
         <Setter Property="CornerRadius" Value="100" />
-        <Setter Property="Padding" Value="25,10,25,8" />
     </Style>
 
     <Style Selector="Button.Accent /template/ Border">
