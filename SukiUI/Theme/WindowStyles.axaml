@@ -1,4 +1,5 @@
-﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:icons="clr-namespace:SukiUI.Icons">
     <Style Selector="Window.NakedWindow">
         <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
         <Setter Property="ExtendClientAreaChromeHints" Value="NoChrome" />
@@ -24,6 +25,14 @@
                 </Grid>
             </ControlTemplate>
         </Setter>
+    </Style>
+    
+    <Style Selector="Window.NakedWindow[WindowState=Maximized] PathIcon#MaximizeIcon">
+        <Setter Property="Data" Value="{x:Static icons:AppIcons.WindowRestore}" />
+    </Style>
+    
+    <Style Selector="Window.NakedWindow[WindowState=Normal] PathIcon#MaximizeIcon">
+        <Setter Property="Data" Value="{x:Static icons:AppIcons.WindowMaximize}" />
     </Style>
 
     <Style Selector="Window.Blurred">

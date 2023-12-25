@@ -31,7 +31,7 @@
                                 <StackPanel>
                                     <Grid Background="Transparent"
                                           ColumnDefinitions="Auto,*"
-                                          IsHitTestVisible="False" 
+                                          IsHitTestVisible="False"
                                           VerticalAlignment="Center">
                                         <ContentControl
                                             Content="{TemplateBinding LogoContent}"
@@ -104,12 +104,6 @@
             <Setter Property="Height" Value="10" />
             <Setter Property="Width" Value="10" />
             <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
-        </Style>
-        <Style Selector="PathIcon.WindowMaximize">
-            <Setter Property="Data" Value="{x:Static icons:AppIcons.WindowMaximize}" />
-        </Style>
-        <Style Selector="PathIcon.WindowRestore">
-            <Setter Property="Data" Value="{x:Static icons:AppIcons.WindowRestore}" />
         </Style>
 
         <Style Selector="Button.WindowControlsButton">

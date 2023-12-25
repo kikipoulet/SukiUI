@@ -149,7 +149,7 @@ namespace SukiUI.Controls
         /// </summary>
         private void MinimizeHandler(object sender, RoutedEventArgs e)
         {
-            Window hostWindow = (Window)this.VisualRoot;
+            if (VisualRoot is not Window hostWindow) return;
             hostWindow.WindowState = WindowState.Minimized;
         }
 
@@ -158,22 +158,11 @@ namespace SukiUI.Controls
         /// </summary>
         private void MaximizeHandler(object sender, RoutedEventArgs e)
         {
-            Window hostWindow = (Window)this.VisualRoot;
-            var icon = this.GetVisualDescendants().OfType<PathIcon>()
-                .FirstOrDefault(x => (x.Name ?? "").Equals("MaximizeIcon"));
+            if (VisualRoot is not Window hostWindow) return;
 
-            if (hostWindow.WindowState != WindowState.Maximized)
-            {
-                hostWindow.WindowState = WindowState.Maximized;
-                icon?.Classes.Remove("WindowMaximize");
-                icon?.Classes.Add("WindowRestore");
-            }
-            else
-            {
-                hostWindow.WindowState = WindowState.Normal;
-                icon?.Classes.Remove("WindowRestore");
-                icon?.Classes.Add("WindowMaximize");
-            }
+            hostWindow.WindowState = hostWindow.WindowState == WindowState.Maximized
+                ? WindowState.Normal
+                : WindowState.Maximized;
         }
 
         /// <summary>
@@ -181,11 +170,10 @@ namespace SukiUI.Controls
         /// </summary>
         private void CloseHandler(object sender, RoutedEventArgs e)
         {
-            Window hostWindow = (Window)this.VisualRoot;
+            if (VisualRoot is not Window hostWindow) return;
             hostWindow.Close();
         }
-
-
+        
         public void SetPage(Control page)
         {
             Content = page;
