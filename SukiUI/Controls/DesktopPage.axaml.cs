@@ -1,13 +1,10 @@
-using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
-using Avalonia.VisualTree;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
 using Avalonia.Controls.Presenters;
 using Avalonia.Styling;

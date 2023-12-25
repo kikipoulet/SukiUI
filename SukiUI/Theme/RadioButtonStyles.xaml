@@ -1,7 +1,6 @@
-<Styles
-    xmlns="https://github.com/avaloniaui"
-    xmlns:material="using:Material.Icons.Avalonia"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:content="clr-namespace:SukiUI.Content">
     <Design.PreviewWith>
         <Border Background="White" Padding="20">
             <StackPanel Orientation="Horizontal">
@@ -93,7 +92,7 @@
                         <Border.Transitions>
                             <Transitions>
                                 <ThicknessTransition Duration="00:00:0.2" Property="BorderThickness" />
-                               
+
                                 <BrushTransition Duration="00:00:0.2" Property="BorderBrush" />
                                 <ThicknessTransition Duration="0:0:0.1" Property="Margin" />
                             </Transitions>
@@ -108,20 +107,19 @@
 
 
                     </Border>
-                    <material:MaterialIcon
-                        Foreground="{DynamicResource SukiPrimaryColor}"
-                        Height="20"
-                        HorizontalAlignment="Right"
-                        Kind="CheckCircle"
-                        Margin="10"
-                        VerticalAlignment="Top"
-                        Width="20">
-                        <material:MaterialIcon.Transitions>
+                    <PathIcon Foreground="{DynamicResource SukiPrimaryColor}"
+                              Height="20"
+                              HorizontalAlignment="Right"
+                              Data="{x:Static content:Icons.CircleCheck}"
+                              Margin="10"
+                              VerticalAlignment="Top"
+                              Width="20">
+                        <PathIcon.Transitions>
                             <Transitions>
                                 <DoubleTransition Duration="00:00:0.2" Property="Opacity" />
                             </Transitions>
-                        </material:MaterialIcon.Transitions>
-                    </material:MaterialIcon>
+                        </PathIcon.Transitions>
+                    </PathIcon>
                 </Grid>
             </ControlTemplate>
         </Setter>
@@ -134,11 +132,11 @@
         <Setter Property="Margin" Value="0" />
     </Style>
 
-    <Style Selector="RadioButton.GigaChips  material|MaterialIcon">
+    <Style Selector="RadioButton.GigaChips PathIcon">
         <Setter Property="Opacity" Value="0" />
     </Style>
 
-    <Style Selector="RadioButton.GigaChips:checked  material|MaterialIcon">
+    <Style Selector="RadioButton.GigaChips:checked PathIcon">
         <Setter Property="Opacity" Value="1" />
     </Style>
 
@@ -154,7 +152,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
 
 
     <Style Selector="RadioButton.MenuItemMobile">
@@ -186,19 +183,15 @@
         <Setter Property="Foreground" Value="White" />
         <Setter Property="FontWeight" Value="DemiBold" />
     </Style>
-
-
-    <Style Selector="material|MaterialIcon">
+    
+    <Style Selector="PathIcon">
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
-
     </Style>
 
-    <Style Selector="RadioButton.MenuItemMobile:checked material|MaterialIcon">
+    <Style Selector="RadioButton.MenuItemMobile:checked PathIcon">
         <Setter Property="Foreground" Value="White" />
-
     </Style>
-
-
+    
     <Style Selector="RadioButton.MenuItem">
         <Setter Property="Height" Value="50" />
         <Setter Property="Margin" Value="-30,0,5,0" />
@@ -234,7 +227,6 @@
     </Style>
 
     <Style Selector="RadioButton">
-
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
         <Setter Property="BorderThickness" Value="1.2" />
@@ -304,7 +296,6 @@
     </Style>
 
 
-
     <Style Selector="RadioButton.MenuItem:checked">
         <Setter Property="TextBlock.FontWeight" Value="DemiBold" />
         <Setter Property="BorderThickness" Value="0,0,0,0" />
@@ -370,7 +361,7 @@
 
     </Style>
 
-    <Style Selector="RadioButton.MenuItem  material|MaterialIcon">
+    <Style Selector="RadioButton.MenuItem  PathIcon">
         <!--  <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" /> -->
         <Setter Property="Transitions">
 
@@ -394,10 +385,6 @@
         <!-- <Setter Property="Padding" Value="-52,0,0,0" /> -->
         <Setter Property="Opacity" Value="0" />
     </Style>
-
-
-
-
 
 
     <Style Selector="RadioButton:pointerover /template/ Ellipse#border">

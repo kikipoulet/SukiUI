@@ -8,8 +8,7 @@ using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Styling;
-using Material.Icons;
-using Material.Icons.Avalonia;
+using SukiUI.Content;
 
 namespace SukiUI.Controls;
 
@@ -110,9 +109,9 @@ public partial class StackPage : UserControl
         {
         }
         
-        stackHeaders.Children.Add(new MaterialIcon()
+        stackHeaders.Children.Add(new PathIcon()
         {
-            Kind = MaterialIconKind.ChevronRight,
+            Data = Icons.ChevronRight,
             Foreground = lowcolor,
             Height = 24, Width = 24, Margin = new Thickness(15,-3,15,0),
             HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center

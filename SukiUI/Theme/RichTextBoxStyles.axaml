@@ -1,17 +1,11 @@
-﻿<Styles
-    xmlns="https://github.com/avaloniaui"
-    xmlns:suki="clr-namespace:SukiUI.Controls"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:suki="clr-namespace:SukiUI.Controls"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <Border Background="{DynamicResource SukiBackground}" Padding="20">
             <StackPanel>
-
-                <suki:RichTextBox Prefix="Test :" Text="test" />
-
+                <!-- <suki:RichTextBox Prefix="Test :" Text="test" /> -->
             </StackPanel>
         </Border>
     </Design.PreviewWith>
-
-
-
 </Styles>

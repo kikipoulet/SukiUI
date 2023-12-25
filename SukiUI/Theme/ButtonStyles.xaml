@@ -1,15 +1,11 @@
 <Styles
     xmlns="https://github.com/avaloniaui"
     xmlns:controls="clr-namespace:SukiUI.Controls"
-    xmlns:material="using:Material.Icons.Avalonia"
-    xmlns:system="clr-namespace:System;assembly=netstandard"
     xmlns:theme="clr-namespace:SukiUI.Theme"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Design.PreviewWith>
         <Grid Height="300" Width="300">
-
-
             <Button
                 Classes="Primary"
                 Height="48"
@@ -18,8 +14,6 @@
                 Width="100">
                 <TextBlock>Primary</TextBlock>
             </Button>
-
-
         </Grid>
     </Design.PreviewWith>
 
@@ -99,11 +93,6 @@
     <Style Selector="Button:pointerover /template/ Border">
         <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColorGradient}" />
     </Style>
-
-
-
-
-
 
     <Style Selector="Button:pressed /template/ Border">
         <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
@@ -227,13 +216,6 @@
         <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
     </Style>
 
-
-    <!--    -->
-
-
-
-
-    <!--    -->
 
     <Style Selector="Button.Outlined">
         <Setter Property="BorderThickness" Value="1" />
@@ -371,7 +353,4 @@
             </ControlTemplate>
         </Setter>
     </Style>
-
-
-
 </Styles>

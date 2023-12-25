@@ -1,24 +1,20 @@
-<Window
-    Background="{DynamicResource SukiBackground}"
-    Classes="NakedWindow"
-    ExtendClientAreaToDecorationsHint="True"
-    Height="150"
-    MaxHeight="150"
-    MaxWidth="500"
-    Width="500"
-    d:DesignHeight="200"
-    d:DesignWidth="500"
-    mc:Ignorable="d"
-    x:Class="SukiUI.MessageBox.MessageBox"
-    xmlns="https://github.com/avaloniaui"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:material="using:Material.Icons.Avalonia"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Window.Styles>
-        <material:MaterialIconStyles />
-    </Window.Styles>
+<Window Background="{DynamicResource SukiBackground}"
+        Classes="NakedWindow"
+        ExtendClientAreaToDecorationsHint="True"
+        Height="150"
+        MaxHeight="150"
+        MaxWidth="500"
+        Width="500"
+        d:DesignHeight="200"
+        d:DesignWidth="500"
+        mc:Ignorable="d"
+        x:Class="SukiUI.MessageBox.MessageBox"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:content="clr-namespace:SukiUI.Content">
     <Grid>
         <Grid.Styles>
             <Style Selector="Grid.AnimatedGrid">
@@ -64,24 +60,20 @@
             Padding="0"
             VerticalAlignment="Top"
             Width="23">
-            <material:MaterialIcon
-                Foreground="DarkRed"
-                Height="23"
-                Kind="CloseCircleOutline"
-                Width="23" />
+            <PathIcon Foreground="DarkRed"
+                      Data="{x:Static content:Icons.CircleOutlineClose}" />
         </Button>
 
         <Grid Classes="AnimatedGrid">
-            <material:MaterialIcon
-                DockPanel.Dock="Left"
-                Foreground="{DynamicResource SukiPrimaryColor}"
-                Height="50"
-                HorizontalAlignment="Left"
-                Kind="InformationCircle"
-                Margin="25,35,0,0"
-                Name="Icone"
-                VerticalAlignment="Top"
-                Width="50" />
+            <PathIcon DockPanel.Dock="Left"
+                      Data="{x:Static content:Icons.CircleInformation}"
+                      Foreground="{DynamicResource SukiPrimaryColor}"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Top"
+                      Margin="25,35,0,0"
+                      Width="50"
+                      Height="50"
+                      Name="InfoIcon" />
         </Grid>
 
         <TextBlock

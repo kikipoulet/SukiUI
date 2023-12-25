@@ -5,10 +5,10 @@
     x:Class="SukiUI.Controls.MobileNumericUpDown"
     xmlns="https://github.com/avaloniaui"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:material="using:Material.Icons.Avalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:suki="clr-namespace:SukiUI.Controls"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:content="clr-namespace:SukiUI.Content">
     <UserControl.Resources>
         <suki:IntToStringConverter x:Key="ToStringConverter" />
     </UserControl.Resources>
@@ -18,42 +18,31 @@
             <Setter Property="Template">
                 <ControlTemplate>
                     <DockPanel VerticalAlignment="Center">
-                        <Button
-                            Background="Transparent"
-                            BorderThickness="0"
-                            Classes="Accent"
-                            Click="ButtonMinus"
-                            DockPanel.Dock="Left"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center">
-                            <material:MaterialIcon
-                                Foreground="{DynamicResource SukiPrimaryColor}"
-                                Height="23"
-                                Kind="MinusCircleOutline"
-                                Width="23" />
+                        <Button Background="Transparent"
+                                BorderThickness="0"
+                                Classes="Accent"
+                                Click="ButtonMinus"
+                                DockPanel.Dock="Left"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                            <PathIcon Data="{x:Static content:Icons.CircleOutlineMinus}"
+                                      Foreground="{DynamicResource SukiPrimaryColor}" />
                         </Button>
-                        <Button
-                            Background="Transparent"
-                            BorderThickness="0"
-                            Classes="Accent"
-                            Click="ButtonPlus"
-                            DockPanel.Dock="Right"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center">
-                            <material:MaterialIcon
-                                Foreground="{DynamicResource SukiPrimaryColor}"
-                                Height="23"
-                                Kind="PlusCircleOutline"
-                                Width="23" />
-
+                        <Button Background="Transparent"
+                                BorderThickness="0"
+                                Classes="Accent"
+                                Click="ButtonPlus"
+                                DockPanel.Dock="Right"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                            <PathIcon Data="{x:Static content:Icons.CircleOutlinePlus}"
+                                      Foreground="{DynamicResource SukiPrimaryColor}"/>
                         </Button>
-                        <TextBlock
-                            FontSize="20"
-                            HorizontalAlignment="Center"
-                            Margin="5,0"
-                            Text="{TemplateBinding Value,
-                                                   Converter={StaticResource ToStringConverter}}"
-                            VerticalAlignment="Center" />
+                        <TextBlock FontSize="20"
+                                   HorizontalAlignment="Center"
+                                   Margin="5,0"
+                                   Text="{TemplateBinding Value,Converter={StaticResource ToStringConverter}}"
+                                   VerticalAlignment="Center" />
                     </DockPanel>
                 </ControlTemplate>
             </Setter>

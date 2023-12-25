@@ -1,16 +1,13 @@
 ﻿using Avalonia.Controls;
-using Material.Icons;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Reactive;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia;
-using Avalonia.Threading;
+
 //using DialogHostAvalonia.Positioners;
 
 namespace SukiUI.Controls

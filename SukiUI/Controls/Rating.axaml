@@ -5,23 +5,18 @@
     x:Class="SukiUI.Controls.Rating"
     x:Name="RatingRoot"
     xmlns="https://github.com/avaloniaui"
-    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:content="clr-namespace:SukiUI.Content">
 
     <UserControl.Styles>
         <Style Selector="ToggleButton.Star">
             <Setter Property="Margin" Value="2" />
             <Setter Property="Template">
                 <ControlTemplate>
-
-                    <avalonia:MaterialIcon
-                        Foreground="{TemplateBinding Background}"
-                        Height="20"
-                        Kind="Star"
-                        Width="20" />
-
+                    <PathIcon Data="{x:Static content:Icons.Star}"
+                              Foreground="{TemplateBinding Background}" />
                 </ControlTemplate>
             </Setter>
             <Setter Property="Background" Value="{DynamicResource SukiStrongBackground}" />

@@ -1,6 +1,5 @@
 <Styles
     xmlns="https://github.com/avaloniaui"
-    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
 
@@ -37,8 +36,6 @@
     <StyleInclude Source="avares://SukiUI/Theme/CheckBox.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ScrollBarStyle.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ExpanderStyles.xaml" />
-
-    <avalonia:MaterialIconStyles />
 
     <Styles.Resources>
         <ResourceDictionary>

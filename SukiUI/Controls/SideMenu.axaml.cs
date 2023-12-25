@@ -1,16 +1,9 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using Material.Icons;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using Avalonia.VisualTree;
 using System.Linq;
-using Avalonia.Data.Converters;
 using Avalonia.Interactivity;
-using Avalonia.Media;
-using SukiUI.Controls.GlassMorphism;
 
 namespace SukiUI.Controls
 {

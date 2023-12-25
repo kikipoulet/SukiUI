@@ -1,7 +1,7 @@
 <Styles
     xmlns="https://github.com/avaloniaui"
-    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:icons="clr-namespace:SukiUI.Content">
     <Design.PreviewWith>
         <Border Padding="0">
             <Expander Header="Click Here">
@@ -188,16 +188,12 @@
                             VerticalAlignment="Center"
                             Width="20">
                             <Grid>
-                                <avalonia:MaterialIcon
-                                    Height="20" Foreground="{DynamicResource SukiText}"
-                                    Kind="Plus"
-                                    Name="PlusIcon"
-                                    Width="20" />
-                                <avalonia:MaterialIcon
-                                    Height="20" Foreground="{DynamicResource SukiText}"
-                                    Kind="Minus"
-                                    Name="MinusIcon"
-                                    Width="20" />
+                                <PathIcon Data="{x:Static icons:Icons.Plus}"
+                                          Foreground="{DynamicResource SukiText}"
+                                          Name="PlusIcon"/>
+                                <PathIcon Data="{x:Static icons:Icons.Minus}"
+                                          Foreground="{DynamicResource SukiText}"
+                                          Name="MinusIcon"/>
                             </Grid>
                         </Border>
 
@@ -210,10 +206,10 @@
         <Setter Property="BorderBrush" Value="Transparent" />
 
     </Style>
-    <Style Selector="Expander /template/ ToggleButton#PART_toggle /template/ avalonia|MaterialIcon#PlusIcon">
+    <Style Selector="Expander /template/ ToggleButton#PART_toggle /template/ PathIcon#PlusIcon">
         <Setter Property="IsVisible" Value="True" />
     </Style>
-    <Style Selector="Expander:expanded /template/ ToggleButton#PART_toggle /template/ avalonia|MaterialIcon#PlusIcon">
+    <Style Selector="Expander:expanded /template/ ToggleButton#PART_toggle /template/ PathIcon#PlusIcon">
         <Setter Property="IsVisible" Value="False" />
     </Style>
 

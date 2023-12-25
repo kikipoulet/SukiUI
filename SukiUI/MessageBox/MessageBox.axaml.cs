@@ -1,13 +1,16 @@
 using Avalonia.Controls;
+using Avalonia.Controls.Shapes;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
-using Material.Icons.Avalonia;
+using SukiUI.Content;
 
 namespace SukiUI.MessageBox
 {
     public partial class MessageBox : Window
     {
+        private static readonly SolidColorBrush InfoBrush = new(Color.FromRgb(47, 84, 235));
+        
         public MessageBox()
         {
             InitializeComponent();
@@ -29,8 +32,9 @@ namespace SukiUI.MessageBox
         public static void Info(Window owner, string Title, string Message, WindowStartupLocation startupLocation = WindowStartupLocation.CenterScreen)
         {
             var mbox = new MessageBox(Title, Message);
-            mbox.FindControl<MaterialIcon>("Icone").Kind = Material.Icons.MaterialIconKind.InformationCircle;
-            mbox.FindControl<MaterialIcon>("Icone").Foreground = new SolidColorBrush(Color.FromRgb(47,84,235));
+            if (mbox.FindControl<PathIcon>("InfoIcon") is not { } icon) return;
+            icon.Data = Icons.CircleInformation;
+            icon.Foreground = InfoBrush;
             mbox.WindowStartupLocation = startupLocation;
             mbox.ShowDialog(owner);
         }
@@ -38,8 +42,9 @@ namespace SukiUI.MessageBox
         public static void Success(Window owner, string Title, string Message, WindowStartupLocation startupLocation = WindowStartupLocation.CenterScreen)
         {
             var mbox = new MessageBox(Title, Message);
-            mbox.FindControl<MaterialIcon>("Icone").Kind = Material.Icons.MaterialIconKind.CheckboxMarkedCircleOutline;
-            mbox.FindControl<MaterialIcon>("Icone").Foreground = Brushes.DarkGreen;
+            if (mbox.FindControl<PathIcon>("InfoIcon") is not { } icon) return;
+            icon.Data = Icons.CheckboxMarkedCircle;
+            icon.Foreground = Brushes.DarkGreen;
             mbox.WindowStartupLocation = startupLocation;
             mbox.ShowDialog(owner);
         }
@@ -47,8 +52,9 @@ namespace SukiUI.MessageBox
         public static void Error(Window owner, string Title, string Message, WindowStartupLocation startupLocation = WindowStartupLocation.CenterScreen)
         {
             var mbox = new MessageBox(Title, Message);
-            mbox.FindControl<MaterialIcon>("Icone").Kind = Material.Icons.MaterialIconKind.CloseCircleOutline;
-            mbox.FindControl<MaterialIcon>("Icone").Foreground = Brushes.DarkRed;
+            if (mbox.FindControl<PathIcon>("InfoIcon") is not { } icon) return;
+            icon.Data = Icons.CloseCircle;
+            icon.Foreground = Brushes.DarkRed;
             mbox.WindowStartupLocation = startupLocation;
             mbox.ShowDialog(owner);
         }
