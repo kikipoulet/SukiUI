@@ -13,12 +13,6 @@
     xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia">
     <UserControl.Styles>
 
-        <Style Selector="Button.HoverableWindowButton:pointerover">
-            <Setter Property="Background" Value="{DynamicResource SukiBorderBrush}" />
-        </Style>
-        <Style Selector="Button.HoverableWindowButtonRed:pointerover">
-            <Setter Property="Background" Value="#44ff0000" />
-        </Style>
 
         <Style Selector="suki|DesktopPage">
             <Setter Property="Template">
@@ -35,10 +29,10 @@
                                     IsHitTestVisible="True"
                                     IsVisible="{DynamicResource GlassEnabled}" />
                                 <StackPanel>
-                                    <Grid
-                                        Background="Transparent"
-                                        ColumnDefinitions="Auto,*"
-                                        IsHitTestVisible="False">
+                                    <Grid Background="Transparent"
+                                          ColumnDefinitions="Auto,*"
+                                          IsHitTestVisible="False" 
+                                          VerticalAlignment="Center">
                                         <ContentControl
                                             Content="{TemplateBinding LogoContent}"
                                             Grid.Column="0"
@@ -62,7 +56,7 @@
                                           Margin="5,-5,0,0" />
                                 </StackPanel>
                                 <StackPanel Grid.Column="2"
-                                            VerticalAlignment="Top"
+                                            VerticalAlignment="Center"
                                             HorizontalAlignment="Right"
                                             Margin="0,0,5,0"
                                             Orientation="Horizontal"
@@ -70,60 +64,29 @@
                                             Spacing="-7">
 
                                     <!--  Close button  -->
-                                    <Button
-                                        Background="Transparent"
-                                        BorderThickness="0"
-                                        Classes="Accent Rounded HoverableWindowButtonRed"
-                                        Click="CloseHandler"
-                                        CornerRadius="20"
-                                        Cursor="Hand"
-                                        Height="35"
-                                        IsHitTestVisible="True"
-                                        Width="35">
-                                        <avalonia:MaterialIcon
-                                            Height="16"
-                                            HorizontalAlignment="Center"
-                                            Kind="WindowClose"
-                                            VerticalAlignment="Center"
-                                            Width="16" />
+                                    <Button BorderThickness="0"
+                                            Classes="Accent Rounded HoverableWindowButtonRed WindowControlsButton"
+                                            Click="CloseHandler"
+                                            IsHitTestVisible="True">
+                                        <PathIcon Classes="WindowControlsIcon"
+                                                  Data="{x:Static icons:AppIcons.WindowClose}" />
                                     </Button>
 
                                     <!--  Maximize button  -->
-                                    <Button Background="Transparent"
-                                            BorderThickness="0"
-                                            Classes="Accent Rounded HoverableWindowButton"
+                                    <Button Classes="Accent Rounded HoverableWindowButton WindowControlsButton"
                                             Click="MaximizeHandler"
-                                            CornerRadius="20"
-                                            Cursor="Hand"
-                                            Height="35"
-                                            IsVisible="{TemplateBinding IsMaximizeButtonEnabled}"
-                                            Width="35">
-                                        <PathIcon Foreground="White"
-                                                  Margin="1"
-                                                  Height="10"
-                                                  Width="10"
-                                                  HorizontalAlignment="Center"
-                                                  VerticalAlignment="Center"
-                                                  x:Name="MaximizeIcon"
-                                                  Classes="WindowMaximize"
+                                            IsVisible="{TemplateBinding IsMaximizeButtonEnabled}">
+                                        <PathIcon x:Name="MaximizeIcon"
+                                                  Classes="WindowMaximize WindowControlsIcon"
                                                   Data="{x:Static icons:AppIcons.WindowMaximize}" />
                                     </Button>
 
                                     <!--  Minimize button  -->
-                                    <Button
-                                        Background="Transparent"
-                                        BorderThickness="0"
-                                        Classes="Accent Rounded HoverableWindowButton"
-                                        Click="MinimizeHandler"
-                                        CornerRadius="20"
-                                        Cursor="Hand"
-                                        Height="35"
-                                        IsVisible="{TemplateBinding IsMinimizeButtonEnabled}"
-                                        Width="35">
-                                        <avalonia:MaterialIcon
-                                            Height="15"
-                                            Kind="WindowMinimize"
-                                            Width="15" />
+                                    <Button Classes="Accent Rounded HoverableWindowButton WindowControlsButton"
+                                            Click="MinimizeHandler"
+                                            IsVisible="{TemplateBinding IsMinimizeButtonEnabled}">
+                                        <PathIcon Classes="WindowControlsIcon"
+                                                  Data="{x:Static icons:AppIcons.WindowMinimize}" />
                                     </Button>
 
                                 </StackPanel>
@@ -137,11 +100,31 @@
             </Setter>
         </Style>
 
+        <Style Selector="PathIcon.WindowControlsIcon">
+            <Setter Property="Height" Value="10" />
+            <Setter Property="Width" Value="10" />
+            <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+        </Style>
         <Style Selector="PathIcon.WindowMaximize">
             <Setter Property="Data" Value="{x:Static icons:AppIcons.WindowMaximize}" />
         </Style>
         <Style Selector="PathIcon.WindowRestore">
             <Setter Property="Data" Value="{x:Static icons:AppIcons.WindowRestore}" />
+        </Style>
+
+        <Style Selector="Button.WindowControlsButton">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="Height" Value="25" />
+            <Setter Property="Width" Value="25" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <Style Selector="Button.HoverableWindowButton:pointerover">
+            <Setter Property="Background" Value="{DynamicResource SukiBorderBrush}" />
+        </Style>
+        <Style Selector="Button.HoverableWindowButtonRed:pointerover">
+            <Setter Property="Background" Value="#44ff0000" />
         </Style>
 
         <Style Selector="suki|DesktopPage /template/ suki|WindowTitleBar#BottomBorder">
