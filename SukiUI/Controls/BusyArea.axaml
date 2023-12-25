@@ -20,7 +20,7 @@
                                    Name="LoadingBusyArea">
                             <TextBlock DockPanel.Dock="Bottom"
                                        Margin="10"
-                                       FontWeight="Bold"
+                                       FontWeight="DemiBold"
                                        Text="{TemplateBinding BusyText}"
                                        IsVisible="{TemplateBinding BusyText, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
                             <suki:Loading HorizontalAlignment="Center"
@@ -33,12 +33,28 @@
         </Style>
 
 
+        <Style Selector="suki|BusyArea DockPanel#LoadingBusyArea">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.3"></DoubleTransition>
+                </Transitions>
+            </Setter>
+        </Style>
+        
         <Style Selector="suki|BusyArea[IsBusy=True] DockPanel#LoadingBusyArea">
             <Setter Property="Opacity" Value="1" />
         </Style>
 
         <Style Selector="suki|BusyArea[IsBusy=False] DockPanel#LoadingBusyArea">
             <Setter Property="Opacity" Value="0" />
+        </Style>
+        
+        <Style Selector="suki|BusyArea ContentControl">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.3"></DoubleTransition>
+                </Transitions>
+            </Setter>
         </Style>
 
         <Style Selector="suki|BusyArea[IsBusy=True] ContentControl">
