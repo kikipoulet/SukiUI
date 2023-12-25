@@ -98,7 +98,7 @@ namespace SukiUI.Controls
 
             var griditem = new Grid(){ ColumnDefinitions = new ColumnDefinitions(){new ColumnDefinition( GridLength.Auto), new ColumnDefinition(GridLength.Star), new ColumnDefinition(GridLength.Auto)}};
 
-            var icon = new PathIcon() { Data = Icons.ChevronRight, Margin = new Thickness(0,0,20,0)};
+            var icon = new PathIcon() { Height = 10, Width = 10, Data = Icons.ChevronRight, Margin = new Thickness(0,0,20,0)};
             if (index == Steps.Count - 1)
                 icon.IsVisible = false;
             

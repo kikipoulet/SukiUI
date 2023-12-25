@@ -462,7 +462,7 @@
                                                         IsVisible="{TemplateBinding Text,
                                                                                     Converter={x:Static StringConverters.IsNullOrEmpty}}"
                                                         Name="watermark"
-                                                        Opacity="0.5" Margin="0,1,0,0"
+                                                        Opacity="0.5" 
                                                         Text="{TemplateBinding Watermark}"
                                                         TextAlignment="{TemplateBinding TextAlignment}"
                                                         TextWrapping="{TemplateBinding TextWrapping}" />
