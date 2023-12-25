@@ -59,8 +59,7 @@
                                             HorizontalAlignment="Right"
                                             Margin="0,0,5,0"
                                             Orientation="Horizontal"
-                                            FlowDirection="RightToLeft"
-                                            Spacing="-7">
+                                            FlowDirection="RightToLeft">
 
                                     <!--  Close button  -->
                                     <Button BorderThickness="0"
@@ -75,16 +74,16 @@
                                     <Button Classes="Accent Rounded HoverableWindowButton WindowControlsButton"
                                             Click="MaximizeHandler"
                                             IsVisible="{TemplateBinding IsMaximizeButtonEnabled}">
-                                        <PathIcon x:Name="MaximizeIcon"
+                                        <PathIcon x:Name="MaximizeIcon" Width="8" Height="8"
                                                   Classes="WindowMaximize WindowControlsIcon"
                                                   Data="{x:Static icons:Icons.WindowMaximize}" />
                                     </Button>
 
                                     <!--  Minimize button  -->
                                     <Button Classes="Accent Rounded HoverableWindowButton WindowControlsButton"
-                                            Click="MinimizeHandler"
+                                            Click="MinimizeHandler" VerticalContentAlignment="Bottom"
                                             IsVisible="{TemplateBinding IsMinimizeButtonEnabled}">
-                                        <PathIcon Classes="WindowControlsIcon"
+                                        <PathIcon Margin="0,0,0,4" Classes="WindowControlsIcon" VerticalAlignment="Bottom"
                                                   Data="{x:Static icons:Icons.WindowMinimize}" />
                                     </Button>
 
@@ -112,6 +111,7 @@
             <Setter Property="Width" Value="25" />
             <Setter Property="Cursor" Value="Hand" />
             <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Padding" Value="0"></Setter>
         </Style>
         <Style Selector="Button.HoverableWindowButton:pointerover">
             <Setter Property="Background" Value="{DynamicResource SukiBorderBrush}" />
