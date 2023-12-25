@@ -4,30 +4,21 @@
     mc:Ignorable="d"
     x:Class="SukiUI.Controls.SideMenu"
     xmlns="https://github.com/avaloniaui"
-    xmlns:controls="clr-namespace:Avalonia;assembly=Avalonia.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:glassMorphism="clr-namespace:SukiUI.Controls.GlassMorphism"
-    xmlns:material="using:Material.Icons.Avalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:suki="clr-namespace:SukiUI.Controls"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:content="clr-namespace:SukiUI.Content">
     <UserControl.Styles>
-        <Style Selector="material|MaterialIcon">
+        <Style Selector="PathIcon">
             <Setter Property="Foreground" Value="#444444" />
-
         </Style>
-
-
     </UserControl.Styles>
 
-
-
-    <SplitView
-        DisplayMode="CompactInline"
-        IsPaneOpen="{Binding MenuVisibility}"
-        OpenPaneLength="220"
-        PaneClosing="PaneIsClosing">
-
+    <SplitView DisplayMode="CompactInline"
+               IsPaneOpen="{Binding MenuVisibility}"
+               OpenPaneLength="220"
+               PaneClosing="PaneIsClosing">
         <SplitView.Pane>
             <Border>
                 <Grid Background="Transparent">
@@ -46,38 +37,32 @@
                         IsVisible="{Binding HeaderContentOverlapsToggleSidebarButton}"
                         VerticalAlignment="Top">
                         <Grid>
-                            <material:MaterialIcon
-                                Foreground="{DynamicResource SukiText}"
-                                IsVisible="{Binding !MenuVisibility}"
-                                Kind="ChevronRight" />
-                            <material:MaterialIcon
-                                Foreground="{DynamicResource SukiText}"
-                                IsVisible="{Binding MenuVisibility}"
-                                Kind="ChevronLeft" />
+                            <PathIcon Foreground="{DynamicResource SukiText}"
+                                      IsVisible="{Binding !MenuVisibility}"
+                                      Data="{x:Static content:Icons.ChevronRight}" />
+                            <PathIcon Foreground="{DynamicResource SukiText}"
+                                      IsVisible="{Binding MenuVisibility}"
+                                      Data="{x:Static content:Icons.ChevronLeft}" />
                         </Grid>
                     </Button>
 
                     <DockPanel>
                         <!--  This sidebar toggle button can't be overlapped by header content  -->
-                        <Button
-                            Classes="Accent"
-                            Command="{Binding ChangeMenuVisibility}"
-                            DockPanel.Dock="Top"
-                            HorizontalAlignment="Right"
-                            IsVisible="{Binding !HeaderContentOverlapsToggleSidebarButton}"
-                            VerticalAlignment="Top">
+                        <Button Classes="Accent"
+                                Command="{Binding ChangeMenuVisibility}"
+                                DockPanel.Dock="Top"
+                                HorizontalAlignment="Right"
+                                IsVisible="{Binding !HeaderContentOverlapsToggleSidebarButton}"
+                                VerticalAlignment="Top">
                             <Grid>
-                                <material:MaterialIcon
-                                    Foreground="{DynamicResource SukiText}"
-                                    IsVisible="{Binding !MenuVisibility}"
-                                    Kind="ChevronRight" />
-                                <material:MaterialIcon
-                                    Foreground="{DynamicResource SukiText}"
-                                    IsVisible="{Binding MenuVisibility}"
-                                    Kind="ChevronLeft" />
+                                <PathIcon Foreground="{DynamicResource SukiText}"
+                                          IsVisible="{Binding !MenuVisibility}"
+                                          Data="{x:Static content:Icons.ChevronRight}" />
+                                <PathIcon Foreground="{DynamicResource SukiText}"
+                                          IsVisible="{Binding MenuVisibility}"
+                                          Data="{x:Static content:Icons.ChevronLeft}" />
                             </Grid>
                         </Button>
-
 
                         <Grid
                             DockPanel.Dock="Top"
@@ -87,11 +72,9 @@
                         </Grid>
 
                         <!--  Used to move menu icons down when sidebar is closed  -->
-                        <Grid
-                            DockPanel.Dock="Top"
-                            Height="40"
-                            IsVisible="{Binding SpacerEnabled}" />
-
+                        <Grid DockPanel.Dock="Top"
+                              Height="40"
+                              IsVisible="{Binding SpacerEnabled}" />
 
                         <ItemsControl
                             DockPanel.Dock="Bottom"
@@ -99,33 +82,32 @@
                             Margin="0,0,0,12">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <RadioButton
-                                        Classes="MenuItem"
-                                        Command="{Binding DataContext.ChangePage, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
-                                        CommandParameter="{Binding Content}"
-                                        GroupName="MenuItemsGroup"
-                                        HorizontalAlignment="Center"
-                                        IsCheckedChanged="MenuItemSelectedChanged"
-                                        Margin="0,0,0,0"
-                                        Width="180">
+                                    <RadioButton Classes="MenuItem"
+                                                 Command="{Binding DataContext.ChangePage, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
+                                                 CommandParameter="{Binding Content}"
+                                                 GroupName="MenuItemsGroup"
+                                                 HorizontalAlignment="Center"
+                                                 IsCheckedChanged="MenuItemSelectedChanged"
+                                                 Margin="0,0,0,0"
+                                                 Width="180">
                                         <Grid Margin="-30,1,0,0">
                                             <DockPanel Margin="0,5,5,5">
 
 
                                                 <Border Width="55" />
-                                                <Border IsVisible="{Binding !DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" Width="52" />
+                                                <Border
+                                                    IsVisible="{Binding !DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
+                                                    Width="52" />
 
-                                                <ContentControl
-                                                    Content="{Binding Icon}"
-                                                    Height="24"
-                                                    Margin="2,0,10,0"
-                                                    Width="24" />
+                                                <ContentControl Content="{Binding Icon}"
+                                                                Height="24"
+                                                                Margin="2,0,10,0"
+                                                                Width="24" />
 
-                                                <TextBlock
-                                                    FontSize="14"
-                                                    IsVisible="{Binding DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
-                                                    Margin="15,8,8,8"
-                                                    Text="{Binding Header}" />
+                                                <TextBlock FontSize="14"
+                                                           IsVisible="{Binding DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
+                                                           Margin="15,8,8,8"
+                                                           Text="{Binding Header}" />
                                             </DockPanel>
 
                                         </Grid>
@@ -139,17 +121,15 @@
                             <ItemsControl ItemsSource="{Binding MenuItems}" Margin="0,15,0,0">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <RadioButton
-                                            Classes="MenuItem"
-                                            Command="{Binding DataContext.ChangePage, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
-                                            CommandParameter="{Binding Content}"
-                                            GroupName="MenuItemsGroup"
-                                            Height="50"
-                                            HorizontalAlignment="Center"
-                                            IsCheckedChanged="MenuItemSelectedChanged"
-                                            Margin="0,0,0,0"
-                                            Width="180">
-
+                                        <RadioButton Classes="MenuItem"
+                                                     Command="{Binding DataContext.ChangePage, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
+                                                     CommandParameter="{Binding Content}"
+                                                     GroupName="MenuItemsGroup"
+                                                     Height="50"
+                                                     HorizontalAlignment="Center"
+                                                     IsCheckedChanged="MenuItemSelectedChanged"
+                                                     Margin="0,0,0,0"
+                                                     Width="180">
 
 
                                             <Grid Margin="-30,1,0,0">
@@ -157,7 +137,9 @@
 
 
                                                     <Border Width="55" />
-                                                    <Border IsVisible="{Binding !DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" Width="52" />
+                                                    <Border
+                                                        IsVisible="{Binding !DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
+                                                        Width="52" />
 
 
                                                     <ContentControl
@@ -171,14 +153,11 @@
                                                         IsVisible="{Binding DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
                                                         Margin="15,8,8,8"
                                                         Text="{Binding Header}" />
-                                                    <material:MaterialIcon
-                                                        Height="24"
+                                                    <PathIcon
                                                         IsVisible="{Binding !DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
-                                                        Kind="CircleOutline"
-                                                        Margin="-65,0,0,0"
-                                                        Width="24" />
+                                                        Data="{x:Static content:Icons.CircleOutline}"
+                                                        Margin="-65,0,0,0" />
                                                 </DockPanel>
-
 
 
                                             </Grid>

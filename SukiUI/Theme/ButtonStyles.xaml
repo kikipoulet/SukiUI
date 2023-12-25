@@ -1,15 +1,11 @@
 <Styles
     xmlns="https://github.com/avaloniaui"
     xmlns:controls="clr-namespace:SukiUI.Controls"
-    xmlns:material="using:Material.Icons.Avalonia"
-    xmlns:system="clr-namespace:System;assembly=netstandard"
     xmlns:theme="clr-namespace:SukiUI.Theme"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Design.PreviewWith>
         <Grid Height="300" Width="300">
-
-
             <Button
                 Classes="Primary"
                 Height="48"
@@ -18,8 +14,6 @@
                 Width="100">
                 <TextBlock>Primary</TextBlock>
             </Button>
-
-
         </Grid>
     </Design.PreviewWith>
 
@@ -27,23 +21,17 @@
         <Setter Property="Height" Value="43" />
         <Setter Property="BorderThickness" Value="1.2" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiMediumBorderBrush}" />
-        <Setter Property="Padding" Value="18,9,18,8" />
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
-        <Setter Property="Margin" Value="4" />
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
 
         <Setter Property="Template">
             <ControlTemplate>
-
-
                 <Border
                     Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
                     BoxShadow="{DynamicResource SukiLowShadow}"
                     CornerRadius="{TemplateBinding CornerRadius}"
-                    Margin="4"
-                    Padding="{TemplateBinding Padding}"
                     TextElement.Foreground="{TemplateBinding Foreground}">
                     <Border.Resources>
                         <theme:BoolToWidthProgressConverter x:Key="WidthConverter" />
@@ -55,7 +43,7 @@
                                     <DoubleTransition Duration="0:0:0.3" Property="Width" />
                                 </Transitions>
                             </Viewbox.Transitions>
-                            <controls:Loading Classes="White" Margin="10,0" />
+                            <controls:Loading Classes="White"/>
                         </Viewbox>
                         <ContentPresenter
                             Content="{TemplateBinding Content}"
@@ -105,11 +93,6 @@
     <Style Selector="Button:pointerover /template/ Border">
         <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColorGradient}" />
     </Style>
-
-
-
-
-
 
     <Style Selector="Button:pressed /template/ Border">
         <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
@@ -234,13 +217,6 @@
     </Style>
 
 
-    <!--    -->
-
-
-
-
-    <!--    -->
-
     <Style Selector="Button.Outlined">
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
@@ -332,7 +308,6 @@
 
     <Style Selector="Button.Rounded">
         <Setter Property="CornerRadius" Value="100" />
-        <Setter Property="Padding" Value="25,10,25,8" />
     </Style>
 
     <Style Selector="Button.Accent /template/ Border">
@@ -378,7 +353,4 @@
             </ControlTemplate>
         </Setter>
     </Style>
-
-
-
 </Styles>

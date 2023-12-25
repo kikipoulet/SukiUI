@@ -1,8 +1,8 @@
 <Styles
     xmlns="https://github.com/avaloniaui"
-    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:theme="clr-namespace:SukiUI.Theme">
+    xmlns:theme="clr-namespace:SukiUI.Theme"
+    xmlns:content="clr-namespace:SukiUI.Content">
 
     <Design.PreviewWith>
         <Border
@@ -60,7 +60,7 @@
                             HorizontalAlignment="Center"
                             Orientation="Horizontal"
                             VerticalAlignment="Center">
-                            <avalonia:MaterialIcon Foreground="White" Kind="Login" />
+                            <PathIcon Foreground="White" Data="{x:Static content:Icons.Login}" />
                             <TextBlock
                                 FontSize="13"
                                 FontWeight="DemiBold"

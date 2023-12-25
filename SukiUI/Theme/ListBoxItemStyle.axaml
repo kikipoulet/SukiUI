@@ -1,7 +1,6 @@
-﻿<Styles
-    xmlns="https://github.com/avaloniaui"
-    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:content="clr-namespace:SukiUI.Content">
     <Design.PreviewWith>
         <Border Padding="0">
             <ListBox>
@@ -35,14 +34,11 @@
                     Name="BorderBasicStyle"
                     Padding="8,4">
                     <DockPanel>
-                        <avalonia:MaterialIcon
-                            DockPanel.Dock="Right"
-                            Foreground="{DynamicResource SukiPrimaryColor}"
-                            Height="20"
-                            Kind="CheckCircle"
-                            Margin="0,0,0,0"
-                            Name="CheckSelected"
-                            Width="20" />
+                        <PathIcon DockPanel.Dock="Right"
+                                  Foreground="{DynamicResource SukiPrimaryColor}"
+                                  Data="{x:Static content:Icons.CircleCheck}"
+                                  Margin="0,0,0,0"
+                                  Name="CheckSelected"/>
                         <ContentPresenter
                             Background="Transparent"
                             BorderBrush="Transparent"
@@ -61,14 +57,11 @@
     </Style>
 
 
-
-
-
-    <Style Selector="ListBoxItem:selected /template/ avalonia|MaterialIcon#CheckSelected">
+    <Style Selector="ListBoxItem:selected /template/ PathIcon#CheckSelected">
         <Setter Property="IsVisible" Value="True" />
     </Style>
 
-    <Style Selector="ListBoxItem /template/ avalonia|MaterialIcon#CheckSelected">
+    <Style Selector="ListBoxItem /template/ PathIcon#CheckSelected">
         <Setter Property="IsVisible" Value="False" />
     </Style>
 

@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary
     xmlns="https://github.com/avaloniaui"
-    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
     xmlns:sys="using:System"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:icons="clr-namespace:SukiUI.Content">
     <Design.PreviewWith>
         <Border
             Height="500"
@@ -107,12 +107,11 @@
                                         Width="1"
                                         x:Name="PART_SecondSpacer" />
                                 </Grid>
-                                <avalonia:MaterialIcon
-                                    Foreground="{DynamicResource SukiText}"
-                                    Grid.Column="1"
-                                    HorizontalAlignment="Right"
-                                    Kind="Calendar"
-                                    Margin="12,0,0,0" />
+                                <PathIcon Grid.Column="1"
+                                          Foreground="{DynamicResource SukiText}"
+                                          HorizontalAlignment="Right"
+                                          Margin="12,0,0,0"
+                                          Data="{x:Static icons:Icons.Calendar}"/>
 
                             </Grid>
                         </Button>
@@ -285,7 +284,8 @@
                                 VerticalAlignment="Bottom">
 
                                 <StackPanel Orientation="Horizontal">
-                                    <avalonia:MaterialIcon Foreground="{DynamicResource SukiPrimaryColor}" Kind="Check" />
+                                    <PathIcon Data="{x:Static icons:Icons.Check}"
+                                              Foreground="{DynamicResource SukiPrimaryColor}"/>
                                     <TextBlock
                                         FontWeight="DemiBold"
                                         Foreground="{DynamicResource SukiPrimaryColor}"

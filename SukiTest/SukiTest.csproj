@@ -14,7 +14,7 @@
         <PackageReference Include="Avalonia.Diagnostics" Version="11.0.5" />
         <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.5" />
         <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.5" />
-        <PackageReference Include="Material.Icons.Avalonia" Version="2.0.1" />
+        <PackageReference Include="Material.Icons.Avalonia" Version="2.1.0" />
    
     </ItemGroup>
     <ItemGroup>
@@ -22,9 +22,5 @@
     </ItemGroup>
     <ItemGroup>
       <UpToDateCheckInput Remove="DialogContent.axaml" />
-    </ItemGroup>
-    <ItemGroup>
-      <None Remove="received_2641909289437169.jpeg" />
-      <AvaloniaResource Include="received_2641909289437169.jpeg" />
     </ItemGroup>
 </Project>

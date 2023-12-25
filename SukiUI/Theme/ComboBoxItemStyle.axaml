@@ -1,7 +1,7 @@
 ﻿<Styles
     xmlns="https://github.com/avaloniaui"
-    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:icons="clr-namespace:SukiUI.Content">
     <Design.PreviewWith>
         <Border Padding="20">
             <StackPanel Spacing="10">
@@ -37,11 +37,10 @@
                     Name="BorderBasicStyle"
                     Padding="5,0">
                     <DockPanel>
-                        <avalonia:MaterialIcon
-                            DockPanel.Dock="Right"
-                            Foreground="{DynamicResource SukiPrimaryColor}"
-                            Kind="Check"
-                            Name="CheckSelected" />
+                        <PathIcon DockPanel.Dock="Right" 
+                                  Foreground="{DynamicResource SukiPrimaryColor}"
+                                  Data="{x:Static icons:Icons.Check}"
+                                  Name="CheckSelected"/>
                         <ContentPresenter
                             Content="{TemplateBinding Content}"
                             ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -58,11 +57,11 @@
         </Setter>
     </Style>
 
-    <Style Selector="ComboBoxItem /template/ avalonia|MaterialIcon#CheckSelected">
+    <Style Selector="ComboBoxItem /template/ PathIcon#CheckSelected">
         <Setter Property="IsVisible" Value="False" />
     </Style>
 
-    <Style Selector="ComboBoxItem:selected /template/ avalonia|MaterialIcon#CheckSelected">
+    <Style Selector="ComboBoxItem:selected /template/ PathIcon#CheckSelected">
         <Setter Property="IsVisible" Value="True" />
     </Style>
 
@@ -92,12 +91,9 @@
     </Style>
 
 
-
-
     <Style Selector="ComboBoxItem:pointerover /template/ Border#BorderBasicStyle">
         <Setter Property="Background" Value="{DynamicResource SukiLightBackground}" />
     </Style>
-
 
 
     <Style Selector="ComboBoxItem:selected /template/ Border#BorderBasicStyle">

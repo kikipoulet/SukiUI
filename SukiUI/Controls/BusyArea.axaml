@@ -14,25 +14,30 @@
                 <ControlTemplate>
                     <Grid>
                         <ContentControl Content="{TemplateBinding Content}" />
-
-                        <suki:Loading
-                            HorizontalAlignment="Center"
-                            IsHitTestVisible="False"
-                            Name="LoadingBusyArea"
-                            VerticalAlignment="Center" />
-
-
+                        <DockPanel LastChildFill="True"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Name="LoadingBusyArea">
+                            <TextBlock DockPanel.Dock="Bottom"
+                                       Margin="10"
+                                       FontWeight="Bold"
+                                       Text="{TemplateBinding BusyText}"
+                                       IsVisible="{TemplateBinding BusyText, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                            <suki:Loading HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          IsHitTestVisible="False"/>
+                        </DockPanel>
                     </Grid>
                 </ControlTemplate>
             </Setter>
         </Style>
 
 
-        <Style Selector="suki|BusyArea[IsBusy=True] suki|Loading#LoadingBusyArea">
+        <Style Selector="suki|BusyArea[IsBusy=True] DockPanel#LoadingBusyArea">
             <Setter Property="Opacity" Value="1" />
         </Style>
 
-        <Style Selector="suki|BusyArea[IsBusy=False] suki|Loading#LoadingBusyArea">
+        <Style Selector="suki|BusyArea[IsBusy=False] DockPanel#LoadingBusyArea">
             <Setter Property="Opacity" Value="0" />
         </Style>
 
@@ -46,4 +51,3 @@
 
     </UserControl.Styles>
 </UserControl>
-

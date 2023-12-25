@@ -1,47 +1,40 @@
-﻿<UserControl
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    mc:Ignorable="d"
-    x:Class="SukiUI.Controls.PercentProgressBar"
-    xmlns="https://github.com/avaloniaui"
-    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<UserControl d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d"
+             x:Class="SukiUI.Controls.PercentProgressBar"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:content="clr-namespace:SukiUI.Content">
     <DockPanel>
         <Grid DockPanel.Dock="Right">
-            <TextBlock
-                FontSize="13"
-                Margin="10"
-                Name="textPercent"
-                Text="64 %"
-                VerticalAlignment="Center">
+            <TextBlock FontSize="13"
+                       Margin="10"
+                       Name="textPercent"
+                       Text="64 %"
+                       VerticalAlignment="Center">
                 <TextBlock.Transitions>
                     <Transitions>
                         <DoubleTransition Duration="0:0:0.2" Property="Opacity" />
                     </Transitions>
                 </TextBlock.Transitions>
             </TextBlock>
-
-            <avalonia:MaterialIcon
-                Foreground="Green"
-                Height="20"
-                Kind="CheckCircleOutline"
-                Margin="10"
-                Name="iconPercent"
-                Opacity="0"
-                Width="20">
-                <avalonia:MaterialIcon.Transitions>
+            <PathIcon Data="{x:Static content:Icons.CircleOutlineCheck}"
+                      Foreground="Green"
+                      Margin="10"
+                      Name="iconPercent"
+                      Opacity="0">
+                <PathIcon.Transitions>
                     <Transitions>
                         <DoubleTransition Duration="0:0:0.4" Property="Opacity" />
                     </Transitions>
-                </avalonia:MaterialIcon.Transitions>
-            </avalonia:MaterialIcon>
+                </PathIcon.Transitions>
+            </PathIcon>
         </Grid>
-        <ProgressBar
-            Maximum="100"
-            Minimum="0"
-            Name="barPercent"
-            Value="50" />
+        <ProgressBar Maximum="100"
+                     Minimum="0"
+                     Name="barPercent"
+                     Value="50" />
     </DockPanel>
 </UserControl>

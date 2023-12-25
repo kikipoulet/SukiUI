@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Globalization;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Data;
-using Avalonia.Data.Converters;
 using Avalonia.Media;
 using Avalonia.Platform;
 using Avalonia.Rendering.SceneGraph;
 using Avalonia.Skia;
 using Avalonia.Styling;
-using Avalonia.Threading;
 using SkiaSharp;
 namespace SukiUI.Controls.GlassMorphism;
 

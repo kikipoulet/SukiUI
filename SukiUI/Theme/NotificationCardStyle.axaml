@@ -1,7 +1,6 @@
-﻿<Styles
-    xmlns="https://github.com/avaloniaui"
-    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:content="clr-namespace:SukiUI.Content">
     <Design.PreviewWith>
         <Border Background="{DynamicResource SukiBackground}" Padding="0">
             <NotificationCard Content="Testing" />
@@ -34,14 +33,12 @@
                             ClipToBounds="True"
                             CornerRadius="10">
                             <DockPanel>
-                                <avalonia:MaterialIcon
+                                <PathIcon
                                     DockPanel.Dock="Left"
                                     Foreground="{DynamicResource SukiPrimaryColor}"
-                                    Height="26"
-                                    Kind="InformationCircle"
+                                    Data="{x:Static content:Icons.CircleInformation}"
                                     Margin="11,11,5,5"
-                                    VerticalAlignment="Top"
-                                    Width="26" />
+                                    VerticalAlignment="Top" />
                                 <Panel
                                     Classes="TextBold"
                                     DockPanel.Dock="Top"
@@ -128,14 +125,11 @@
                             ClipToBounds="True"
                             CornerRadius="10">
                             <DockPanel>
-                                <avalonia:MaterialIcon
-                                    DockPanel.Dock="Left"
-                                    Foreground="ForestGreen"
-                                    Height="26"
-                                    Kind="CheckCircle"
-                                    Margin="11,11,5,5"
-                                    VerticalAlignment="Top"
-                                    Width="26" />
+                                <PathIcon DockPanel.Dock="Left"
+                                          Foreground="ForestGreen"
+                                          Data="{x:Static content:Icons.CircleCheck}"
+                                          Margin="11,11,5,5"
+                                          VerticalAlignment="Top"/>
                                 <Panel
                                     Classes="TextBold"
                                     DockPanel.Dock="Top"
@@ -168,14 +162,11 @@
                             ClipToBounds="True"
                             CornerRadius="10">
                             <DockPanel>
-                                <avalonia:MaterialIcon
-                                    DockPanel.Dock="Left"
+                                <PathIcon DockPanel.Dock="Left"
                                     Foreground="DarkOrange"
-                                    Height="26"
-                                    Kind="WarningCircle"
+                                    Data="{x:Static content:Icons.CircleWarning}"
                                     Margin="11,11,5,5"
-                                    VerticalAlignment="Top"
-                                    Width="26" />
+                                    VerticalAlignment="Top"/>
                                 <Panel
                                     Classes="TextBold"
                                     DockPanel.Dock="Top"
@@ -208,11 +199,10 @@
                             ClipToBounds="True"
                             CornerRadius="10">
                             <DockPanel>
-                                <avalonia:MaterialIcon
-                                    DockPanel.Dock="Left"
+                                <PathIcon DockPanel.Dock="Left"
                                     Foreground="DarkRed"
                                     Height="26"
-                                    Kind="Error"
+                                    Data="{x:Static content:Icons.Error}"
                                     Margin="11,11,5,5"
                                     VerticalAlignment="Top"
                                     Width="26" />

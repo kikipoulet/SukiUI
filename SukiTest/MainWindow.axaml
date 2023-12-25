@@ -46,7 +46,8 @@
                                     Click="ChangeTheme"
                                     HorizontalAlignment="Left"
                                     Margin="0,0,0,0">
-                                    <material:MaterialIcon Foreground="{DynamicResource SukiText}" Kind="LightbulbOutline" />
+                                    <material:MaterialIcon Foreground="{DynamicResource SukiText}"
+                                                           Kind="LightbulbOutline" />
                                 </Button>
                                 <DockPanel Margin="0,20,0,0">
                                     <material:MaterialIcon
@@ -93,10 +94,10 @@
                                             <WrapPanel Orientation="Horizontal">
 
 
-
                                                 <Grid Margin="15">
                                                     <glassMorphism:GlassCard Margin="0,0,0,25" Width="300">
-                                                        <suki:BusyArea Name="BusySignIn">
+                                                        <suki:BusyArea Name="BusySignIn"
+                                                                       BusyText="Signing In...">
                                                             <StackPanel>
                                                                 <material:MaterialIcon
                                                                     Foreground="{DynamicResource SukiPrimaryColor}"
@@ -117,9 +118,8 @@
                                                                     FontWeight="DemiBold"
                                                                     Margin="6,0,0,3"
                                                                     Text="Username" />
-                                                                <TextBox Watermark="Username" theme:TextBoxExtensions.Prefix="" />
-
-
+                                                                <TextBox Watermark="Username"
+                                                                         theme:TextBoxExtensions.Prefix="" />
 
                                                                 <TextBlock
                                                                     FontWeight="DemiBold"
@@ -158,7 +158,8 @@
                                                         <Grid>
 
 
-                                                            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+                                                            <StackPanel HorizontalAlignment="Left"
+                                                                        VerticalAlignment="Top">
                                                                 <TextBlock
                                                                     FontSize="16"
                                                                     FontWeight="DemiBold"
@@ -207,7 +208,8 @@
                                                                     Foreground="{DynamicResource SukiLowText}"
                                                                     HorizontalAlignment="Left"
                                                                     Text="Project Workforce" />
-                                                                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                                                <StackPanel HorizontalAlignment="Right"
+                                                                            Orientation="Horizontal">
                                                                     <TextBlock
                                                                         FontSize="13"
                                                                         Foreground="Green"
@@ -226,7 +228,8 @@
                                                                     Foreground="{DynamicResource SukiLowText}"
                                                                     HorizontalAlignment="Left"
                                                                     Text="Project Velocity" />
-                                                                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                                                <StackPanel HorizontalAlignment="Right"
+                                                                            Orientation="Horizontal">
                                                                     <TextBlock
                                                                         FontSize="13"
                                                                         Foreground="Red"
@@ -246,7 +249,8 @@
                                                                     Foreground="{DynamicResource SukiLowText}"
                                                                     HorizontalAlignment="Left"
                                                                     Text="Critical Hours" />
-                                                                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                                                <StackPanel HorizontalAlignment="Right"
+                                                                            Orientation="Horizontal">
                                                                     <TextBlock
                                                                         FontSize="13"
                                                                         Foreground="Green"
@@ -282,7 +286,8 @@
                                                             Margin="0,0,0,5"
                                                             VerticalAlignment="Center"
                                                             Width="175">
-                                                            <suki:WaveProgress Value="{Binding Value, ElementName=SliderT}" />
+                                                            <suki:WaveProgress
+                                                                Value="{Binding Value, ElementName=SliderT}" />
                                                         </Viewbox>
 
                                                         <DockPanel VerticalAlignment="Bottom">
@@ -323,7 +328,8 @@
                                                                     Text="Notify me when .."
                                                                     VerticalAlignment="Top" />
                                                                 <StackPanel Margin="0,8,0,0">
-                                                                    <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                                                                    <StackPanel Margin="0,5,0,0"
+                                                                        Orientation="Horizontal">
                                                                         <CheckBox IsChecked="True" />
                                                                         <TextBlock
                                                                             FontSize="13"
@@ -332,7 +338,8 @@
                                                                             Text="Daily updates"
                                                                             VerticalAlignment="Center" />
                                                                     </StackPanel>
-                                                                    <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                                                                    <StackPanel Margin="0,5,0,0"
+                                                                        Orientation="Horizontal">
                                                                         <CheckBox IsChecked="True" />
                                                                         <TextBlock
                                                                             FontSize="13"
@@ -341,7 +348,8 @@
                                                                             Text="New event"
                                                                             VerticalAlignment="Center" />
                                                                     </StackPanel>
-                                                                    <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                                                                    <StackPanel Margin="0,5,0,0"
+                                                                        Orientation="Horizontal">
                                                                         <CheckBox IsChecked="False" />
                                                                         <TextBlock
                                                                             FontSize="13"
@@ -430,7 +438,6 @@
                                                                 </RadioButton>
 
 
-
                                                             </StackPanel>
                                                         </StackPanel>
                                                         <Button
@@ -491,7 +498,8 @@
                                                                         <TextBlock Margin="20,5">Answer</TextBlock>
                                                                     </Expander>
 
-                                                                    <Expander Header="How do I change my account email ?">
+                                                                    <Expander
+                                                                        Header="How do I change my account email ?">
                                                                         <TextBlock Margin="20,5">Answer</TextBlock>
                                                                     </Expander>
 
@@ -520,7 +528,9 @@
                                                     <suki:GroupBox>
                                                         <suki:GroupBox.Header>
                                                             <StackPanel Orientation="Horizontal">
-                                                                <material:MaterialIcon Foreground="{DynamicResource SukiLowText}" Kind="Dollar" />
+                                                                <material:MaterialIcon
+                                                                    Foreground="{DynamicResource SukiLowText}"
+                                                                    Kind="Dollar" />
                                                                 <TextBlock Margin="5,0,0,0" Text="Change Plan" />
                                                             </StackPanel>
                                                         </suki:GroupBox.Header>
@@ -624,7 +634,7 @@
                                 </suki:SideMenuItem.Icon>
                                 <suki:SideMenuItem.Content>
                                     <Grid>
-                                        <Image Source="received_2641909289437169.jpeg" />
+                                        <Image Source="" />
                                         <glassMorphism:GlassCard
                                             Height="200"
                                             HorizontalAlignment="Center"

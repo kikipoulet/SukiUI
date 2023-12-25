@@ -2,14 +2,11 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Avalonia.Data;
 using Avalonia.Layout;
 using Avalonia.Media;
-using Material.Icons;
-using Material.Icons.Avalonia;
 using System.Collections.ObjectModel;
+using SukiUI.Content;
 
 namespace SukiUI.Controls
 {
@@ -101,7 +98,7 @@ namespace SukiUI.Controls
 
             var griditem = new Grid(){ ColumnDefinitions = new ColumnDefinitions(){new ColumnDefinition( GridLength.Auto), new ColumnDefinition(GridLength.Star), new ColumnDefinition(GridLength.Auto)}};
 
-            var icon = new MaterialIcon() { Kind = MaterialIconKind.ChevronRight, Margin = new Thickness(0,0,20,0)};
+            var icon = new PathIcon() { Data = Icons.ChevronRight, Margin = new Thickness(0,0,20,0)};
             if (index == Steps.Count - 1)
                 icon.IsVisible = false;
             

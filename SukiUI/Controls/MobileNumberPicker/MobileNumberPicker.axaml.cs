@@ -1,10 +1,8 @@
-﻿using System;
-using Avalonia;
+﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using SukiUI.Controls.MobilePicker;
 
 namespace SukiUI.Controls.MobileNumberPicker;
 

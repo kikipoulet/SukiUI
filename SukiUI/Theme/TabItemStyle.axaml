@@ -1,4 +1,4 @@
-﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:material="using:Material.Icons.Avalonia">
+﻿<Styles xmlns="https://github.com/avaloniaui">
     <Design.PreviewWith>
         <Border
             Background="White"
@@ -294,13 +294,13 @@
         <Setter Property="TextBlock.FontWeight" Value="DemiBold" />
     </Style>
 
-    <Style Selector="TabItem.MobileTabItem material|MaterialIcon">
+    <Style Selector="TabItem.MobileTabItem PathIcon">
 
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
 
     </Style>
 
-    <Style Selector="TabItem.MobileTabItem:selected material|MaterialIcon">
+    <Style Selector="TabItem.MobileTabItem:selected PathIcon">
 
         <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
 

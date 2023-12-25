@@ -76,25 +76,23 @@
                             Margin="{TemplateBinding Padding}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
                             <ContentPresenter
-                                Background=""
+                                Background="Transparent"
                                 Content="{TemplateBinding Content}"
                                 ContentTemplate="{TemplateBinding ContentTemplate}" />
 
                             <Path
                                 Data="F1 M -5.215,6.099L 5.215,6.099L 0,0L -5.215,6.099 Z "
-                                Fill="Transparent"
+                                Fill="{DynamicResource SukiText}"
                                 Grid.Column="1"
+                                IsVisible="True"
+                                Opacity="0"
                                 HorizontalAlignment="Left"
                                 Margin="4,0,0,0"
                                 Name="SortIcon"
                                 Stretch="Uniform"
                                 VerticalAlignment="Center"
                                 Width="8" />
-
                         </Grid>
-
-
-
                     </Grid>
                 </Border>
             </ControlTemplate>
@@ -106,7 +104,7 @@
     </Style>
 
     <Style Selector="DataGridColumnHeader /template/ Path#SortIcon">
-        <Setter Property="IsVisible" Value="False" />
+        <Setter Property="Opacity" Value="0"/>
         <Setter Property="RenderTransform">
             <Setter.Value>
                 <ScaleTransform ScaleX="0.9" ScaleY="0.9" />
@@ -115,11 +113,11 @@
     </Style>
 
     <Style Selector="DataGridColumnHeader:sortascending /template/ Path#SortIcon">
-        <Setter Property="IsVisible" Value="True" />
+        <Setter Property="Opacity" Value="1"/>
     </Style>
 
     <Style Selector="DataGridColumnHeader:sortdescending /template/ Path#SortIcon">
-        <Setter Property="IsVisible" Value="True" />
+        <Setter Property="Opacity" Value="1"/>
         <Setter Property="RenderTransform">
             <Setter.Value>
                 <ScaleTransform ScaleX="0.9" ScaleY="-0.9" />

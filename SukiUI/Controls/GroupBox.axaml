@@ -4,7 +4,6 @@
     mc:Ignorable="d"
     x:Class="SukiUI.Controls.GroupBox"
     xmlns="https://github.com/avaloniaui"
-    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:suki="clr-namespace:SukiUI.Controls"
@@ -19,7 +18,7 @@
                                 <Style Selector="TextBlock">
                                     <Setter Property="Foreground" Value="{DynamicResource SukiLowText}" />
                                 </Style>
-                                <Style Selector="avalonia|MaterialIcon">
+                                <Style Selector="PathIcon">
                                     <Setter Property="Foreground" Value="{DynamicResource SukiLowText}" />
                                 </Style>
                             </ContentControl.Styles>

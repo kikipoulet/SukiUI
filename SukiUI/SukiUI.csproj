@@ -21,6 +21,7 @@
         <UserSecretsId>712f85e4-12d3-41b0-a417-5714a113666f</UserSecretsId>
         <Description>https://github.com/kikipoulet/SukiUI</Description>
         <PackageVersion>5.1.2</PackageVersion>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
@@ -48,8 +49,6 @@
         <None Remove="Assets\mesh-gradient (1).png" />
         <AvaloniaResource Include="Assets\mesh-gradient (1).png" />
         <None Remove="Assets\20221019_182415.jpg" />
-        <None Remove="Assets\PXL_20221019_161528265.jpg" />
-        <AvaloniaResource Include="Assets\PXL_20221019_161528265.jpg" />
     </ItemGroup>
 
     <ItemGroup>
@@ -73,7 +72,6 @@
     <ItemGroup>
         <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.5" />
         <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.5" />
-        <PackageReference Include="Material.Icons.Avalonia" Version="2.0.1" />
         <PackageReference Include="ReactiveUI" Version="19.2.1" />
     </ItemGroup>
 
