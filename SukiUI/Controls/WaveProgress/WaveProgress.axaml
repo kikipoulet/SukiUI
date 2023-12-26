@@ -34,6 +34,7 @@
                             <suki:WaveProgressValueConverter x:Key="WValueConvert" />
                             <suki:WaveProgressValueTextConverter x:Key="WValueTextConvert" />
                             <suki:WaveProgressValueColorConverter x:Key="WValueColorConvert" />
+                           <suki:WaveProgressGradientOffsetConverter x:Key="WGradientConverter"></suki:WaveProgressGradientOffsetConverter>
                         </Border.Resources>
 
 
@@ -52,17 +53,10 @@
                                                                      Converter={StaticResource WValueConvert}}"
                                         Classes="WaveAnimatedFast"
                                         Data="M 0,50 H 700 V 350 H 0 M 0,50 C 25,55 75,45 100,50 S 175,55 200,50 S 275,45 300,50 S 375,55 400,50 S 475,45 500,50 S 575,55 600,50 S 675,45 700,50"
-                                        Opacity="0.45"
+                                        Opacity="0.45" Fill="{TemplateBinding Value,
+                                                                 Converter={StaticResource WGradientConverter}}"
                                         StrokeThickness="0">
-                                        <Path.Fill>
-
-                                            <LinearGradientBrush EndPoint="50%,100%" StartPoint="50%,0%">
-                                                <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.5" />
-                                                <GradientStop Color="{DynamicResource SukiBackground}" Offset="0.9" />
-                                            </LinearGradientBrush>
-
-
-                                        </Path.Fill>
+                                        
                                         <Path.Transitions>
                                             <Transitions>
                                                 <DoubleTransition Duration="0:0:1.5" Property="Canvas.Top">
@@ -78,7 +72,8 @@
                                                                      Converter={StaticResource WValueConvert}}"
                                         Classes="WaveAnimated"
                                         Data="M 0,50 H 700 V 350 H 0 M 0,50 C 25,55 75,45 100,50 S 175,55 200,50 S 275,45 300,50 S 375,55 400,50 S 475,45 500,50 S 575,55 600,50 S 675,45 700,50"
-                                        Opacity="0.8"
+                                        Opacity="0.8" Fill="{TemplateBinding Value,
+                                                                 Converter={StaticResource WGradientConverter}}"
                                         StrokeThickness="0">
                                         <Path.Transitions>
                                             <Transitions>
@@ -89,15 +84,7 @@
                                                 </DoubleTransition>
                                             </Transitions>
                                         </Path.Transitions>
-                                        <Path.Fill>
-
-                                            <LinearGradientBrush EndPoint="50%,100%" StartPoint="50%,0%">
-                                                <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0" />
-                                                <GradientStop Color="{DynamicResource SukiBackground}" Offset="1" />
-                                            </LinearGradientBrush>
-
-
-                                        </Path.Fill>
+                                        
                                     </Path>
 
 
