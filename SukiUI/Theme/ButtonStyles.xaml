@@ -37,23 +37,23 @@
                         <theme:BoolToWidthProgressConverter x:Key="WidthConverter" />
                     </Border.Resources>
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <Viewbox Height="18" Width="{TemplateBinding theme:ButtonExtensions.ShowProgress, Converter={StaticResource WidthConverter}}">
+                        <Viewbox Height="18"
+                                 Width="{TemplateBinding theme:ButtonExtensions.ShowProgress, Converter={StaticResource WidthConverter}}">
                             <Viewbox.Transitions>
                                 <Transitions>
                                     <DoubleTransition Duration="0:0:0.3" Property="Width" />
                                 </Transitions>
                             </Viewbox.Transitions>
-                            <controls:Loading Classes="White"/>
+                            <controls:Loading Classes="White" />
                         </Viewbox>
-                        <ContentPresenter
-                            Content="{TemplateBinding Content}"
-                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            RecognizesAccessKey="True"
-                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        <ContentPresenter Foreground="{DynamicResource SukiText}"
+                                          Content="{TemplateBinding Content}"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          RecognizesAccessKey="True"
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
                     </StackPanel>
 
                 </Border>
-
 
 
             </ControlTemplate>
@@ -66,7 +66,7 @@
     </Style>
 
     <Style Selector="Button &gt; TextBlock">
-        
+
         <Setter Property="FontSize" Value="16"></Setter>
         <Setter Property="Transitions">
             <Transitions>
@@ -246,7 +246,6 @@
         <Setter Property="Foreground" Value="White" />
 
     </Style>
-
 
 
     <Style Selector="Button.Outlined:pointerover">

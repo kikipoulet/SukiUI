@@ -41,13 +41,11 @@
 
                         <suki:SideMenuModel.HeaderContent>
                             <StackPanel Margin="0,4,0,0">
-                                <Button
-                                    Classes="Accent"
-                                    Click="ChangeTheme"
-                                    HorizontalAlignment="Left"
-                                    Margin="0,0,0,0">
-                                    <material:MaterialIcon Foreground="{DynamicResource SukiText}"
-                                                           Kind="LightbulbOutline" />
+                                <Button Classes="Accent"
+                                        Click="ChangeTheme"
+                                        HorizontalAlignment="Left"
+                                        Margin="0,0,0,0">
+                                    <material:MaterialIcon Kind="LightbulbOutline" />
                                 </Button>
                                 <DockPanel Margin="0,20,0,0">
                                     <material:MaterialIcon
@@ -133,21 +131,14 @@
                                                             </StackPanel>
                                                         </suki:BusyArea>
                                                     </glassMorphism:GlassCard>
-                                                    <Button
-                                                        Classes="Primary Rounded"
-                                                        Click="SetBusy"
-                                                        HorizontalAlignment="Center"
-                                                        Name="ButtonSignIn"
-                                                        VerticalAlignment="Bottom" Margin="0,0,0,7"
-                                                        Width="160" Height="40">
-
-                                                        <TextBlock
-                                                            FontWeight="DemiBold"
-                                                            Foreground="White"
-                                                            Margin="0,0,0,0"
-                                                            Text="Sign In" />
-
-                                                    </Button>
+                                                    <Button Classes="Primary Rounded"
+                                                            Click="SetBusy"
+                                                            HorizontalAlignment="Center"
+                                                            Name="ButtonSignIn"
+                                                            VerticalAlignment="Bottom" Margin="0,0,0,7"
+                                                            Width="160" Height="40"
+                                                            Content="Sign In"
+                                                            FontWeight="DemiBold" />
                                                 </Grid>
 
                                                 <StackPanel>
@@ -156,45 +147,36 @@
                                                         Margin="15"
                                                         Width="300">
                                                         <Grid>
-
-
                                                             <StackPanel HorizontalAlignment="Left"
                                                                         VerticalAlignment="Top">
-                                                                <TextBlock
-                                                                    FontSize="16"
-                                                                    FontWeight="DemiBold"
-                                                                    Text="Uploading File .." />
-
-                                                                <TextBlock
-                                                                    FontSize="12"
-                                                                    Foreground="{DynamicResource SukiLowText}"
-                                                                    Margin="2,4,0,0"
-                                                                    Text="Presentation.pdf" />
+                                                                <TextBlock FontSize="16"
+                                                                           FontWeight="DemiBold"
+                                                                           Text="Uploading File .." />
+                                                                <TextBlock FontSize="12"
+                                                                           Foreground="{DynamicResource SukiLowText}"
+                                                                           Margin="2,4,0,0"
+                                                                           Text="Presentation.pdf" />
                                                             </StackPanel>
-                                                            <suki:CircleProgressBar
-                                                                Height="37"
+                                                            <suki:CircleProgressBar Height="37"
                                                                 HorizontalAlignment="Right"
                                                                 Margin="-55,-65,-10,-65"
                                                                 StrokeWidth="4"
                                                                 Value="67"
                                                                 VerticalAlignment="Center"
                                                                 Width="37">
-                                                                <TextBlock
-                                                                    FontSize="13"
-                                                                    FontWeight="DemiBold"
-                                                                    HorizontalAlignment="Center"
-                                                                    Margin="1,1,0,0"
-                                                                    Text="67"
-                                                                    VerticalAlignment="Center" />
+                                                                <TextBlock FontSize="13"
+                                                                           FontWeight="DemiBold"
+                                                                           HorizontalAlignment="Center"
+                                                                           Margin="1,1,0,0"
+                                                                           Text="67"
+                                                                           VerticalAlignment="Center" />
                                                             </suki:CircleProgressBar>
-
                                                         </Grid>
                                                     </glassMorphism:GlassCard>
 
-                                                    <glassMorphism:GlassCard
-                                                        Classes="Card"
-                                                        Margin="15"
-                                                        Width="300">
+                                                    <glassMorphism:GlassCard Classes="Card"
+                                                                             Margin="15"
+                                                                             Width="300">
                                                         <StackPanel>
                                                             <TextBlock
                                                                 FontSize="16"
@@ -445,9 +427,8 @@
                                                             Click="ShowDialog"
                                                             HorizontalAlignment="Right"
                                                             Margin="0"
-                                                            VerticalAlignment="Top">
-                                                            <TextBlock Text="Create Link" />
-                                                        </Button>
+                                                            VerticalAlignment="Top"
+                                                            Content="Create Link" />
                                                     </Grid>
                                                 </glassMorphism:GlassCard>
 
@@ -668,9 +649,7 @@
                                         <suki:StackPage.Content>
                                             <WrapPanel>
                                                 <Border Height="150" Width="150">
-                                                    <Button Classes="Primary" Click="changepage">
-                                                        <TextBlock Text="test" />
-                                                    </Button>
+                                                    <Button Classes="Primary" Click="changepage" Content="test" />
                                                 </Border>
 
                                             </WrapPanel>
