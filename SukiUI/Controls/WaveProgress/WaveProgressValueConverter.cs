@@ -54,3 +54,38 @@ public class WaveProgressValueTextConverter : IValueConverter
         throw new NotSupportedException();
     }
 }
+
+public class WaveProgressGradientOffsetConverter : IValueConverter
+{
+    public static readonly WaveProgressGradientOffsetConverter Instance = new();
+
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        if (value is not int)
+            return Brushes.Blue;
+
+        double v = System.Convert.ToDouble(value);
+        v /= 100;
+        v += 0.2;
+        if (v > 1)
+            v = 1;
+
+        return new LinearGradientBrush()
+        {
+            EndPoint = new RelativePoint(0.5, 1, RelativeUnit.Relative),
+            StartPoint = new RelativePoint(0.5, 0, RelativeUnit.Relative),
+            GradientStops = new GradientStops()
+            {
+                new GradientStop() { Color = Colors.Blue, Offset = 0 },
+                new GradientStop() { Color = Colors.Transparent, Offset = v }
+            }
+
+        };
+
+    }
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        throw new NotSupportedException();
+    }
+}
