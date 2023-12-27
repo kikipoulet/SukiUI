@@ -84,7 +84,7 @@
                                 <DataTemplate>
                                     <RadioButton Classes="MenuItem"
                                                  Command="{Binding DataContext.ChangePage, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
-                                                 CommandParameter="{Binding Content}"
+                                                 CommandParameter="{Binding }"
                                                  GroupName="MenuItemsGroup"
                                                  HorizontalAlignment="Center"
                                                  IsCheckedChanged="MenuItemSelectedChanged"
@@ -123,7 +123,7 @@
                                     <DataTemplate>
                                         <RadioButton Classes="MenuItem"
                                                      Command="{Binding DataContext.ChangePage, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
-                                                     CommandParameter="{Binding Content}"
+                                                     CommandParameter="{Binding }"
                                                      GroupName="MenuItemsGroup"
                                                      Height="50"
                                                      HorizontalAlignment="Center"
@@ -179,7 +179,8 @@
             BorderThickness="1,0,0,0"
             Margin="0,0,0,0"
             Name="ContentBorder">
-            <ContentControl Content="{Binding CurrentPage}" />
+            <TransitioningContentControl Content="{Binding CurrentPage}" >
+            </TransitioningContentControl>
 
         </Border>
     </SplitView>

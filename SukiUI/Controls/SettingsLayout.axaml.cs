@@ -14,6 +14,7 @@ using Avalonia.Data;
 using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
+using Avalonia.Threading;
 using DynamicData;
 
 namespace SukiUI.Controls;
@@ -29,12 +30,13 @@ public partial class SettingsLayout : UserControl
     public SettingsLayout()
     {
         InitializeComponent();
+        
     }
 
     protected override void OnAttachedToLogicalTree(LogicalTreeAttachmentEventArgs e)
     {
+        
         base.OnAttachedToLogicalTree(e);
-
     }
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)

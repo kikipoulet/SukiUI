@@ -1,10 +1,13 @@
-﻿using Avalonia.Controls;
+﻿using System;
+using Avalonia.Controls;
 using ReactiveUI;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Avalonia.Metadata;
+using Avalonia.Threading;
 
 namespace SukiUI.Controls
 {
@@ -13,9 +16,9 @@ namespace SukiUI.Controls
         public string Header { get; set; } = default;
         public object Icon { get; set; } = new Border();
 
-        public object Content { get; set; } = new Grid();
 
-        public List<SideMenuItem> Items { get; set; } = new List<SideMenuItem>();
+
+        [DataType] public Type? ContentType { get; set; } = typeof(Grid);
     }
 
     public class SideMenuModel : ReactiveObject
@@ -26,7 +29,7 @@ namespace SukiUI.Controls
             {
                 // Not proud of this but here we go
                 Thread.Sleep(1500);
-                ChangePage(MenuItems.First().Content);
+                ChangePage(MenuItems.First());
             });
         }
         
@@ -87,7 +90,13 @@ namespace SukiUI.Controls
 
         public void ChangePage(object o)
         {
-            CurrentPage = o;
+            SideMenuItem sidemenuitem = (SideMenuItem)o;
+
+            Dispatcher.UIThread.InvokeAsync(() =>
+            {
+                CurrentPage = Activator.CreateInstance(sidemenuitem.ContentType);
+            });
+            
         }
 
 
