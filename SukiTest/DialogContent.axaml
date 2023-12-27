@@ -5,7 +5,7 @@
     xmlns:material="using:Material.Icons.Avalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <StackPanel Margin="10" Width="450">
+    <StackPanel Margin="30" Width="450">
         <TextBlock
             FontSize="16"
             FontWeight="DemiBold"
