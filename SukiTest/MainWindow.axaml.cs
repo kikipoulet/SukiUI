@@ -10,18 +10,10 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using SukiUI.Controls;
 using SukiUI.MessageBox;
-
-using Avalonia.Media;
-using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.VisualTree;
-using System.Linq;
 using System.Threading;
 using Avalonia.Controls.Primitives;
 using Avalonia.Styling;
 using Avalonia.Threading;
-using SkiaSharp;
-using SukiUI.Controls.GlassMorphism;
-using SukiUI.Controls.TouchInput.TouchNumericPad;
 using SukiUI.Theme;
 
 namespace SukiTest
@@ -130,7 +122,7 @@ namespace SukiTest
 
         private void ShowDialog(object sender, RoutedEventArgs e)
         {
-           InteractiveContainer.ShowDialog(new DialogContent());
+           InteractiveContainer.ShowDialog(new DialogContent(), allowBackgroundClose:true);
         }
         private void ShowSuccessBox(object sender, RoutedEventArgs e)
         {

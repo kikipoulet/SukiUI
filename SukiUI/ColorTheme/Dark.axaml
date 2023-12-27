@@ -34,8 +34,6 @@
 
     <Color x:Key="SukiBackground">Transparent</Color>
     <Color x:Key="SukiLightBackground">Transparent</Color>
-    <system:Boolean x:Key="GlassEnabled">True</system:Boolean>
-    <system:Boolean x:Key="GlassDisabled">False</system:Boolean>
 
     <Color x:Key="SukiText">#edffffff</Color>
     <Color x:Key="SukiLowText">#caffffff</Color>

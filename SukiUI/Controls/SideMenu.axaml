@@ -8,7 +8,8 @@
     xmlns:glassMorphism="clr-namespace:SukiUI.Controls.GlassMorphism"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:content="clr-namespace:SukiUI.Content">
+    xmlns:content="clr-namespace:SukiUI.Content"
+    xmlns:suki="clr-namespace:SukiUI.Controls">
     <UserControl.Styles>
         <Style Selector="PathIcon">
             <Setter Property="Foreground" Value="#444444" />
@@ -23,10 +24,9 @@
             <Border>
                 <Grid Background="Transparent">
 
-                    <glassMorphism:GlassCard
+                    <suki:GlassCard
                         BorderThickness="0"
                         CornerRadius="0"
-                        IsVisible="{DynamicResource GlassEnabled}"
                         Name="Glass" />
 
                     <!--  This sidebar toggle button is used when header content can overlap it  -->

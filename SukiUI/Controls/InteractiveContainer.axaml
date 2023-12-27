@@ -5,7 +5,6 @@
     x:Class="SukiUI.Controls.InteractiveContainer"
     xmlns="https://github.com/avaloniaui"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:glassMorphism="clr-namespace:SukiUI.Controls.GlassMorphism"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:suki="clr-namespace:SukiUI.Controls"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
@@ -14,8 +13,7 @@
             <Setter Property="Template">
                 <ControlTemplate>
                     <Grid>
-
-                        <Grid IsHitTestVisible="False" IsVisible="{DynamicResource GlassEnabled}">
+                        <Grid IsHitTestVisible="False">
                             <Image
                                 IsVisible="{DynamicResource IsDark}"
                                 Source="../Assets/gradient_dark_strong.png"
@@ -24,8 +22,6 @@
                                 IsVisible="{DynamicResource IsLight}"
                                 Source="../Assets/mesh-gradient (1).png"
                                 Stretch="UniformToFill" />
-
-
                         </Grid>
                         <Grid Name="GridChildContent">
                             <ContentControl Content="{TemplateBinding Content}" />
@@ -58,19 +54,11 @@
                             <ContentControl Content="{TemplateBinding ToastContent}" />
                         </Border>
 
-
-                        <Grid
-                            Background="{DynamicResource SukiDialogBackground}"
+                        <suki:DialogBackground
                             IsHitTestVisible="False"
-                            IsVisible="{DynamicResource GlassDisabled}"
-                            Name="gridDialog"
-                            Opacity="0">
-                            <Grid.Transitions>
-                                <Transitions>
-                                    <DoubleTransition Duration="0:0:0.2" Property="Opacity" />
-                                </Transitions>
-                            </Grid.Transitions>
-                        </Grid>
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Background="Transparent" />
 
                         <Border
                             Background="{DynamicResource SukiBackground}"
@@ -80,12 +68,9 @@
                             IsHitTestVisible="False"
                             Name="borderDialog"
                             Opacity="0"
-                            Padding="0"
                             VerticalAlignment="Center">
                             <Border.Transitions>
                                 <Transitions>
-
-
                                     <ThicknessTransition Duration="0:0:0.25" Property="Margin">
                                         <ThicknessTransition.Easing>
                                             <CircularEaseOut />
@@ -100,83 +85,94 @@
                                 </Transitions>
                             </Border.Transitions>
                             <Grid>
-                                <Border Name="BorderDialog1"  Classes="Card" Background="{DynamicResource SukiCardBackground}"/>
-                                <ContentControl Content="{TemplateBinding DialogContent}" />
-                                
+                                <Border Name="BorderDialog1" Classes="Card"
+                                        Background="{DynamicResource SukiCardBackground}" />
+                                <ContentControl Content="{TemplateBinding DialogContent}" Margin="20" />
                             </Grid>
                         </Border>
                     </Grid>
                 </ControlTemplate>
             </Setter>
         </Style>
-
-
-        <Style Selector="suki|InteractiveContainer[IsToastOpen=True] Border#ToastBorder">
-            <Setter Property="Opacity" Value="1" />
-            <Setter Property="Margin" Value="0,100,0,0" />
-        </Style>
-
-        <Style Selector="suki|InteractiveContainer[IsToastOpen=False] Border#ToastBorder">
-            <Setter Property="Opacity" Value="0" />
-            <Setter Property="Margin" Value="0,125,0,0" />
-        </Style>
-
-        <Style Selector="suki|InteractiveContainer[IsDialogOpen=True] Grid#gridDialog">
-            <Setter Property="Opacity" Value="0.3" />
-            <Setter Property="IsHitTestVisible" Value="True" />
-
-        </Style>
-
-        <Style Selector="suki|InteractiveContainer[IsDialogOpen=False] Grid#gridDialog">
-
-            <Setter Property="Opacity" Value="0" />
-            <Setter Property="IsHitTestVisible" Value="False" />
-        </Style>
-
-        <Style Selector="suki|InteractiveContainer[IsDialogOpen=True] Grid#GridChildContent">
-            <Setter Property="IsHitTestVisible" Value="False" />
-            <Style.Animations>
-                <Animation FillMode="Forward" Duration="0:0:0.5"> 
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Effect" Value="blur(0)" />
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Effect" Value="blur(18)" />
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-           
+        
+        <Style Selector="suki|InteractiveContainer[IsDialogOpen=True]">
+            
+            <Style Selector="^ Grid#gridDialog">
+                <Setter Property="Opacity" Value="0.3" />
+                <Setter Property="IsHitTestVisible" Value="True" />
+            </Style>
+            
+            <Style Selector="^ Border#ToastBorder">
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="Margin" Value="0,100,0,0" />
+            </Style>
+            
+            <Style Selector="^ suki|DialogBackground">
+                <Setter Property="IsHitTestVisible" Value="True" />
+            </Style>
+            
+            <Style Selector="^ Grid#GridChildContent">
+                <Setter Property="IsHitTestVisible" Value="False" />
+                <Style.Animations>
+                    <Animation FillMode="Forward" Duration="0:0:0.5">
+                        <KeyFrame Cue="0%">
+                            <Setter Property="Effect" Value="blur(0)" />
+                        </KeyFrame>
+                        <KeyFrame Cue="100%">
+                            <Setter Property="Effect" Value="blur(18)" />
+                        </KeyFrame>
+                    </Animation>
+                </Style.Animations>
+            </Style>
+            
+            <Style Selector="^ Border#borderDialog">
+                <Setter Property="Margin" Value="0,25,0,0" />
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="IsHitTestVisible" Value="True" />
+                <Setter Property="RenderTransform" Value="scale(1)" />
+            </Style>
+            
         </Style>
         
-        <Style Selector="suki|InteractiveContainer[IsDialogOpen=False] Grid#GridChildContent">
-            <Setter Property="IsHitTestVisible" Value="True" />
-            <Style.Animations>
-                <Animation FillMode="Forward" Duration="0:0:0.25"> 
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Effect" Value="blur(18)" />
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Effect" Value="blur(0)" />
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-           
+        <Style Selector="suki|InteractiveContainer[IsDialogOpen=False]">
+            
+            <Style Selector="^ Grid#gridDialog">
+                <Setter Property="Opacity" Value="0" />
+                <Setter Property="IsHitTestVisible" Value="False" />
+            </Style>
+            
+            <Style Selector="^ Border#ToastBorder">
+                <Setter Property="Opacity" Value="0" />
+                <Setter Property="Margin" Value="0,125,0,0" />
+            </Style>
+            
+            <Style Selector="^ suki|DialogBackground">
+                <Setter Property="IsHitTestVisible" Value="False" />
+            </Style>
+            
+            <Style Selector="^ Grid#GridChildContent">
+                <Setter Property="IsHitTestVisible" Value="True" />
+                <Style.Animations>
+                    <Animation FillMode="Forward" Duration="0:0:0.25">
+                        <KeyFrame Cue="0%">
+                            <Setter Property="Effect" Value="blur(18)" />
+                        </KeyFrame>
+                        <KeyFrame Cue="100%">
+                            <Setter Property="Effect" Value="blur(0)" />
+                        </KeyFrame>
+                    </Animation>
+                </Style.Animations>
+            </Style>
+            
+            <Style Selector="^ Border#borderDialog">
+                <Setter Property="Opacity" Value="0" />
+                <Setter Property="IsHitTestVisible" Value="False" />
+                <Setter Property="RenderTransform" Value="scale(0.7)" />
+                <Setter Property="Margin" Value="0,125,0,0" />
+            </Style>
+            
         </Style>
-
-        <Style Selector="suki|InteractiveContainer[IsDialogOpen=True] Border#borderDialog">
-            <Setter Property="Margin" Value="0,25,0,0" />
-            <Setter Property="Opacity" Value="1" />
-            <Setter Property="IsHitTestVisible" Value="True" />
-            <Setter Property="RenderTransform" Value="scale(1)" />
-        </Style>
-
-        <Style Selector="suki|InteractiveContainer[IsDialogOpen=False] Border#borderDialog">
-            <Setter Property="Opacity" Value="0" />
-            <Setter Property="IsHitTestVisible" Value="False" />
-            <Setter Property="RenderTransform" Value="scale(0.7)" />
-            <Setter Property="Margin" Value="0,125,0,0" />
-        </Style>
-
+        
         <Style Selector="suki|InteractiveContainer[ShowAtBottom=True] Border#borderDialog">
             <Setter Property="VerticalAlignment" Value="Bottom" />
             <Setter Property="Margin" Value="0,0,0,20" />
