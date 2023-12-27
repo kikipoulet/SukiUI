@@ -14,7 +14,7 @@
         <TextBlock FontWeight="DemiBold"
                    Margin="0,27,0,0"
                    Text="Expiry date" />
-        <DatePicker Margin="-9,2,0,0" />
+        <DatePicker Margin="0,10,0,0" />
 
         <DockPanel>
             <TextBlock
