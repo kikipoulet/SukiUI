@@ -119,7 +119,7 @@
                             <Setter Property="Effect" Value="blur(0)" />
                         </KeyFrame>
                         <KeyFrame Cue="100%">
-                            <Setter Property="Effect" Value="blur(18)" />
+                            <Setter Property="Effect" Value="blur(8)" />
                         </KeyFrame>
                     </Animation>
                 </Style.Animations>
@@ -155,7 +155,7 @@
                 <Style.Animations>
                     <Animation FillMode="Forward" Duration="0:0:0.25">
                         <KeyFrame Cue="0%">
-                            <Setter Property="Effect" Value="blur(18)" />
+                            <Setter Property="Effect" Value="blur(8)" />
                         </KeyFrame>
                         <KeyFrame Cue="100%">
                             <Setter Property="Effect" Value="blur(0)" />
