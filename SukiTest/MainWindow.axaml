@@ -136,8 +136,8 @@
                                                             Name="ButtonSignIn"
                                                             VerticalAlignment="Bottom" Margin="0,0,0,7"
                                                             Width="160" Height="40"
-                                                            Content="Sign In"
-                                                            FontWeight="DemiBold" />
+                                                           
+                                                            FontWeight="DemiBold" >Sign In</Button>
                                                 </Grid>
 
                                                 <StackPanel>

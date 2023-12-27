@@ -17,7 +17,7 @@
     <Color x:Key="SukiIntBorderBrush">#322F43</Color>
     <Color x:Key="SukiLightIntBorderBrush">#323440</Color>
     <Color x:Key="SukiLightBorderBrush">#454545</Color>
-    <Color x:Key="SukiDialogBackground">#505050</Color>
+    <Color x:Key="SukiDialogBackground">#000000</Color>
 
     <BoxShadows x:Key="SukiLowShadow">0 0 3 0 #353535</BoxShadows>
     <BoxShadows x:Key="SukiSwitchShadow">0 1 5 0 #555555</BoxShadows>

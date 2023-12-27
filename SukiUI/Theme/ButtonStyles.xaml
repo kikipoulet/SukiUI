@@ -46,7 +46,8 @@
                             </Viewbox.Transitions>
                             <controls:Loading Classes="White" />
                         </Viewbox>
-                        <ContentPresenter Foreground="{DynamicResource SukiText}"
+                        <ContentPresenter FontWeight="DemiBold" FontFamily="avares://SukiUI/CustomFont#Quicksand"
+                          FontSize="16"
                                           Content="{TemplateBinding Content}"
                                           HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           RecognizesAccessKey="True"
@@ -66,7 +67,6 @@
     </Style>
 
     <Style Selector="Button &gt; TextBlock">
-
         <Setter Property="FontSize" Value="16"></Setter>
         <Setter Property="Transitions">
             <Transitions>
@@ -80,6 +80,24 @@
     </Style>
 
     <Style Selector="Button:pressed &gt; TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+    </Style>
+    
+    <Style Selector="Button /template/ ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+        <Setter Property="FontSize" Value="16"></Setter>
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Duration="0:0:0.3" Property="Foreground" />
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <Style Selector="Button:pointerover /template/ ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+    </Style>
+
+    <Style Selector="Button:pressed /template/ ContentPresenter">
         <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
 
     </Style>
@@ -129,7 +147,11 @@
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
-
+    </Style>
+    
+    <Style Selector="Button.Accent /template/ ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}">
+        </Setter>
     </Style>
 
     <Style Selector="Button.Accent:pointerover">
@@ -208,6 +230,10 @@
         <Setter Property="Foreground" Value="White" />
 
     </Style>
+    
+    <Style Selector="Button.Primary /template/ ContentPresenter">
+        <Setter Property="Foreground" Value="White" />
+    </Style>
 
     <Style Selector="Button.Primary:pointerover">
         <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
@@ -243,6 +269,21 @@
     </Style>
 
     <Style Selector="Button.Outlined:pointerover &gt; TextBlock">
+        <Setter Property="Foreground" Value="White" />
+
+    </Style>
+    
+    <Style Selector="Button.Outlined /template/ ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Duration="0:0:0.3" Property="Foreground" />
+
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <Style Selector="Button.Outlined:pointerover /template/ ContentPresenter">
         <Setter Property="Foreground" Value="White" />
 
     </Style>
