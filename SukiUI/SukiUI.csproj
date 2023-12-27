@@ -106,13 +106,15 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Controls\MobileStack.axaml.cs">
-        <DependentUpon>MobileStack.axaml</DependentUpon>
-      </Compile>
       <Compile Update="Controls\WaveProgress\WaveProgress.axaml.cs">
         <DependentUpon>WaveProgress.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <UpToDateCheckInput Remove="Controls\MobileNumberPicker\MobileNumberPicker.axaml" />
+      <UpToDateCheckInput Remove="Controls\MobileNumberPicker\MobileNumberPickerPopup.axaml" />
     </ItemGroup>
     
 </Project>

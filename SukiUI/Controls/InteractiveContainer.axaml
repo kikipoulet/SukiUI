@@ -100,10 +100,9 @@
                                 </Transitions>
                             </Border.Transitions>
                             <Grid>
-                                <glassMorphism:GlassCard IsVisible="{DynamicResource GlassEnabled}" Name="Glass1" />
-                                <glassMorphism:GlassCard IsVisible="{DynamicResource GlassEnabled}" Name="Glass2" />
-                                <glassMorphism:GlassCard IsVisible="{DynamicResource GlassEnabled}" Name="Glass3" />
-                                <ContentControl Content="{TemplateBinding DialogContent}" Margin="10" />
+                                <Border Name="BorderDialog1"  Classes="Card" Background="{DynamicResource SukiCardBackground}"/>
+                                <ContentControl Content="{TemplateBinding DialogContent}" />
+                                
                             </Grid>
                         </Border>
                     </Grid>
@@ -136,7 +135,32 @@
 
         <Style Selector="suki|InteractiveContainer[IsDialogOpen=True] Grid#GridChildContent">
             <Setter Property="IsHitTestVisible" Value="False" />
-            <Setter Property="Effect" Value="blur(15)" />
+            <Style.Animations>
+                <Animation FillMode="Forward" Duration="0:0:0.5"> 
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Effect" Value="blur(0)" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Effect" Value="blur(18)" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+           
+        </Style>
+        
+        <Style Selector="suki|InteractiveContainer[IsDialogOpen=False] Grid#GridChildContent">
+            <Setter Property="IsHitTestVisible" Value="True" />
+            <Style.Animations>
+                <Animation FillMode="Forward" Duration="0:0:0.25"> 
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Effect" Value="blur(18)" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Effect" Value="blur(0)" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+           
         </Style>
 
         <Style Selector="suki|InteractiveContainer[IsDialogOpen=True] Border#borderDialog">

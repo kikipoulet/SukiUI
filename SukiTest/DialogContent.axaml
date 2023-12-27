@@ -6,9 +6,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <StackPanel Margin="10" Width="450">
-        <TextBlock FontSize="16"
-                   FontWeight="DemiBold"
-                   Text="Create Link" />
+        <TextBlock
+            FontSize="16"
+            FontWeight="DemiBold"
+            Text="Create Link" />
 
         <TextBlock FontWeight="DemiBold"
                    Margin="0,27,0,0"
