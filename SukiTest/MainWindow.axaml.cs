@@ -10,18 +10,10 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using SukiUI.Controls;
 using SukiUI.MessageBox;
-
-using Avalonia.Media;
-using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.VisualTree;
-using System.Linq;
 using System.Threading;
 using Avalonia.Controls.Primitives;
 using Avalonia.Styling;
 using Avalonia.Threading;
-using SkiaSharp;
-using SukiUI.Controls.GlassMorphism;
-using SukiUI.Controls.TouchInput.TouchNumericPad;
 using SukiUI.Theme;
 
 namespace SukiTest

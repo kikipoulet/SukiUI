@@ -14,9 +14,12 @@ namespace SukiUI.Controls;
 
 public partial class InteractiveContainer : UserControl
 {
+    private readonly IDataTemplate? _viewLocator;
+    
     public InteractiveContainer()
     {
         InitializeComponent();
+        _viewLocator = Application.Current?.DataTemplates.FirstOrDefault();
     }
 
     private void InitializeComponent()
@@ -165,7 +168,7 @@ public partial class InteractiveContainer : UserControl
         if (content is Control c)
             control = c;
         else
-            control = Application.Current?.DataTemplates.FirstOrDefault()?.Build(content) 
+            control = container._viewLocator?.Build(content) 
                       ?? new TextBlock { Text = "No Suitable View Locator Available." } ;
         
         container.IsDialogOpen = true;
