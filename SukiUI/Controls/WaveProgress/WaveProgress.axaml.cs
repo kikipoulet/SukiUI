@@ -10,6 +10,11 @@ public partial class WaveProgress : UserControl
     public WaveProgress()
     {
         InitializeComponent();
+        Application.Current.ActualThemeVariantChanged += (sender, args) =>
+        {
+            Value++;
+            Value--;
+        };
     }
 
     private void InitializeComponent()
