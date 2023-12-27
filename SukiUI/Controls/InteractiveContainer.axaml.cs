@@ -159,13 +159,31 @@ public partial class InteractiveContainer : UserControl
     }
 
 
-    
-    public static void ShowDialog(Control content, bool showAtBottom = false, bool showCardBehind = true)
+    /// <summary>
+    /// Shows a dialog in the <see cref="InteractiveContainer"/>
+    /// Can display ViewModels if provided, if a suitable ViewLocator has been registered with Avalonia.
+    /// </summary>
+    /// <param name="content">Content to display.</param>
+    /// <param name="showAtBottom"></param>
+    /// <param name="showCardBehind"></param>
+    public static void ShowDialog(object? content, bool showAtBottom = false, bool showCardBehind = true)
     {
         var container = GetInteractiveContainerInstance();
 
+        Control? control;
+
+        if (content is Control c)
+        {
+            control = c;
+        }
+        else
+        {
+            control = Application.Current?.DataTemplates.FirstOrDefault()?.Build(content);
+            control ??= new TextBlock { Text = "No Suitable View Locator Available." };
+        }
+        
         container.IsDialogOpen = true;
-        container.DialogContent = content;
+        container.DialogContent = control;
         container.ShowAtBottom = showAtBottom;
 
         container.GetTemplateChildren().First(n => n.Name == "Glass1").Opacity = showCardBehind ? 1 : 0;
