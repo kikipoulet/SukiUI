@@ -7,14 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SukiUI", "SukiUI\SukiUI.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SukiTest", "SukiTest\SukiTest.csproj", "{5EA7B23A-8DDD-494E-B881-ABF184331467}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileDemo", "MobileDemo\MobileDemo\MobileDemo.csproj", "{5647D11D-6B08-4DD9-B23C-6955142D7492}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileDemo.Android", "MobileDemo\MobileDemo.Android\MobileDemo.Android.csproj", "{22DA8EBB-0FD0-4274-8A5A-A8115E117AAB}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileDemo.Desktop", "MobileDemo\MobileDemo.Desktop\MobileDemo.Desktop.csproj", "{B736BCC7-11FA-46EB-99FA-5B2D7AF6D0FD}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileDemo.Web", "MobileDemo\MobileDemo.Web\MobileDemo.Web.csproj", "{73AC1E6F-D0AA-4682-859A-20952AE83E93}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,24 +21,6 @@ Global
 		{5EA7B23A-8DDD-494E-B881-ABF184331467}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5EA7B23A-8DDD-494E-B881-ABF184331467}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5EA7B23A-8DDD-494E-B881-ABF184331467}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5647D11D-6B08-4DD9-B23C-6955142D7492}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5647D11D-6B08-4DD9-B23C-6955142D7492}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5647D11D-6B08-4DD9-B23C-6955142D7492}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5647D11D-6B08-4DD9-B23C-6955142D7492}.Release|Any CPU.Build.0 = Release|Any CPU
-		{22DA8EBB-0FD0-4274-8A5A-A8115E117AAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{22DA8EBB-0FD0-4274-8A5A-A8115E117AAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{22DA8EBB-0FD0-4274-8A5A-A8115E117AAB}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{22DA8EBB-0FD0-4274-8A5A-A8115E117AAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{22DA8EBB-0FD0-4274-8A5A-A8115E117AAB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{22DA8EBB-0FD0-4274-8A5A-A8115E117AAB}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{B736BCC7-11FA-46EB-99FA-5B2D7AF6D0FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B736BCC7-11FA-46EB-99FA-5B2D7AF6D0FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B736BCC7-11FA-46EB-99FA-5B2D7AF6D0FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B736BCC7-11FA-46EB-99FA-5B2D7AF6D0FD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{73AC1E6F-D0AA-4682-859A-20952AE83E93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{73AC1E6F-D0AA-4682-859A-20952AE83E93}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{73AC1E6F-D0AA-4682-859A-20952AE83E93}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{73AC1E6F-D0AA-4682-859A-20952AE83E93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
