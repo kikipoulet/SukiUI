@@ -130,7 +130,7 @@ namespace SukiTest
 
         private void ShowDialog(object sender, RoutedEventArgs e)
         {
-           InteractiveContainer.ShowDialog(new DialogContent());
+           InteractiveContainer.ShowDialog(new DialogContent(), allowBackgroundClose:true);
         }
         private void ShowSuccessBox(object sender, RoutedEventArgs e)
         {

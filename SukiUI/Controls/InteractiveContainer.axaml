@@ -14,8 +14,7 @@
             <Setter Property="Template">
                 <ControlTemplate>
                     <Grid>
-
-                        <Grid IsHitTestVisible="False" IsVisible="{DynamicResource GlassEnabled}">
+                        <Grid IsHitTestVisible="False">
                             <Image
                                 IsVisible="{DynamicResource IsDark}"
                                 Source="../Assets/gradient_dark_strong.png"
@@ -24,8 +23,6 @@
                                 IsVisible="{DynamicResource IsLight}"
                                 Source="../Assets/mesh-gradient (1).png"
                                 Stretch="UniformToFill" />
-
-
                         </Grid>
                         <Grid Name="GridChildContent">
                             <ContentControl Content="{TemplateBinding Content}" />
@@ -58,19 +55,11 @@
                             <ContentControl Content="{TemplateBinding ToastContent}" />
                         </Border>
 
-
-                        <Grid
-                            Background="{DynamicResource SukiDialogBackground}"
+                        <suki:DialogBackground
                             IsHitTestVisible="False"
-                            IsVisible="{DynamicResource GlassDisabled}"
-                            Name="gridDialog"
-                            Opacity="0">
-                            <Grid.Transitions>
-                                <Transitions>
-                                    <DoubleTransition Duration="0:0:0.2" Property="Opacity" />
-                                </Transitions>
-                            </Grid.Transitions>
-                        </Grid>
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Background="Transparent" />
 
                         <Border
                             Background="{DynamicResource SukiBackground}"
@@ -80,7 +69,6 @@
                             IsHitTestVisible="False"
                             Name="borderDialog"
                             Opacity="0"
-                            Padding="0"
                             VerticalAlignment="Center">
                             <Border.Transitions>
                                 <Transitions>
@@ -100,9 +88,9 @@
                                 </Transitions>
                             </Border.Transitions>
                             <Grid>
-                                <Border Name="BorderDialog1"  Classes="Card" Background="{DynamicResource SukiCardBackground}"/>
-                                <ContentControl Content="{TemplateBinding DialogContent}" />
-                                
+                                <Border Name="BorderDialog1" Classes="Card"
+                                        Background="{DynamicResource SukiCardBackground}" />
+                                <ContentControl Content="{TemplateBinding DialogContent}" Margin="20" />
                             </Grid>
                         </Border>
                     </Grid>
@@ -128,15 +116,21 @@
         </Style>
 
         <Style Selector="suki|InteractiveContainer[IsDialogOpen=False] Grid#gridDialog">
-
             <Setter Property="Opacity" Value="0" />
+            <Setter Property="IsHitTestVisible" Value="False" />
+        </Style>
+
+        <Style Selector="suki|InteractiveContainer[IsDialogOpen=True] suki|DialogBackground">
+            <Setter Property="IsHitTestVisible" Value="True" />
+        </Style>
+        <Style Selector="suki|InteractiveContainer[IsDialogOpen=False] suki|DialogBackground">
             <Setter Property="IsHitTestVisible" Value="False" />
         </Style>
 
         <Style Selector="suki|InteractiveContainer[IsDialogOpen=True] Grid#GridChildContent">
             <Setter Property="IsHitTestVisible" Value="False" />
             <Style.Animations>
-                <Animation FillMode="Forward" Duration="0:0:0.5"> 
+                <Animation FillMode="Forward" Duration="0:0:0.5">
                     <KeyFrame Cue="0%">
                         <Setter Property="Effect" Value="blur(0)" />
                     </KeyFrame>
@@ -145,13 +139,13 @@
                     </KeyFrame>
                 </Animation>
             </Style.Animations>
-           
+
         </Style>
-        
+
         <Style Selector="suki|InteractiveContainer[IsDialogOpen=False] Grid#GridChildContent">
             <Setter Property="IsHitTestVisible" Value="True" />
             <Style.Animations>
-                <Animation FillMode="Forward" Duration="0:0:0.25"> 
+                <Animation FillMode="Forward" Duration="0:0:0.25">
                     <KeyFrame Cue="0%">
                         <Setter Property="Effect" Value="blur(18)" />
                     </KeyFrame>
@@ -160,7 +154,7 @@
                     </KeyFrame>
                 </Animation>
             </Style.Animations>
-           
+
         </Style>
 
         <Style Selector="suki|InteractiveContainer[IsDialogOpen=True] Border#borderDialog">

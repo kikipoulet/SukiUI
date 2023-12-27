@@ -22,11 +22,10 @@
                             DockPanel.Dock="Top"
                             Name="BottomBorder">
                             <Grid>
-                                <glassMorphism:GlassCard
+                                <suki:GlassCard
                                     BorderThickness="0"
                                     CornerRadius="0"
-                                    IsHitTestVisible="True"
-                                    IsVisible="{DynamicResource GlassEnabled}" />
+                                    IsHitTestVisible="True" />
                                 <StackPanel>
                                     <Grid Background="Transparent"
                                           ColumnDefinitions="Auto,*"

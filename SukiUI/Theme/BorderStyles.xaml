@@ -13,12 +13,11 @@
     </Design.PreviewWith>
 
     <Style Selector="Border.Card">
-        <Setter Property="Padding" Value="20" />
+        <Setter Property="Padding" Value="20"/>
         <Setter Property="CornerRadius" Value="{DynamicResource MediumCornerRadius}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiBorderBrush}" />
         <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
-        <Setter Property="Margin" Value="7" />
     </Style>
 
     <Style Selector="Border.GradientCard">

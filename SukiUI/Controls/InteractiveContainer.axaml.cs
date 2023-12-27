@@ -25,83 +25,65 @@ public partial class InteractiveContainer : UserControl
     }
     
     public static readonly StyledProperty<bool> ShowAtBottomProperty = AvaloniaProperty.Register<InteractiveContainer, bool>(nameof(InteractiveContainer), defaultValue: false);
-
     public bool ShowAtBottom
     {
-        get { return GetValue(ShowAtBottomProperty); }
-        set
-        {
-            
-            SetValue(ShowAtBottomProperty, value );
-        }
+        get => GetValue(ShowAtBottomProperty);
+        set => SetValue(ShowAtBottomProperty, value );
     }
     
     public static readonly StyledProperty<bool> IsDialogOpenProperty = AvaloniaProperty.Register<InteractiveContainer, bool>(nameof(InteractiveContainer), defaultValue: false);
-
     public bool IsDialogOpen
     {
-        get { return GetValue(IsDialogOpenProperty); }
-        set
-        {
-            
-            SetValue(IsDialogOpenProperty, value );
-        }
+        get => GetValue(IsDialogOpenProperty);
+        set => SetValue(IsDialogOpenProperty, value );
     }
     
     public static readonly StyledProperty<bool> IsToastOpenProperty = AvaloniaProperty.Register<InteractiveContainer, bool>(nameof(InteractiveContainer), defaultValue: false);
-
     public bool IsToastOpen
     {
-        get { return GetValue(IsToastOpenProperty); }
-        set
-        {
-            
-            SetValue(IsToastOpenProperty, value );
-        }
+        get => GetValue(IsToastOpenProperty);
+        set => SetValue(IsToastOpenProperty, value );
     }
     
     public static readonly StyledProperty<Control> DialogContentProperty = AvaloniaProperty.Register<InteractiveContainer, Control>(nameof(InteractiveContainer), defaultValue: new Grid());
-
     public Control DialogContent
     {
-        get { return GetValue(DialogContentProperty); }
-        set
-        {
-            
-            SetValue(DialogContentProperty, value );
-        }
+        get => GetValue(DialogContentProperty);
+        set => SetValue(DialogContentProperty, value );
     }
     
     public static readonly StyledProperty<Control> ToastContentProperty = AvaloniaProperty.Register<InteractiveContainer, Control>(nameof(InteractiveContainer), defaultValue: new Grid());
-
     public Control ToastContent
     {
-        get { return GetValue(ToastContentProperty); }
-        set
-        {
-            
-            SetValue(ToastContentProperty, value );
-        }
+        get => GetValue(ToastContentProperty);
+        set => SetValue(ToastContentProperty, value );
+    }
+
+    public static readonly StyledProperty<bool> AllowBackgroundCloseProperty = AvaloniaProperty.Register<InteractiveContainer, bool>("AllowBackgroundClose");
+    public bool AllowBackgroundClose
+    {
+        get => GetValue(AllowBackgroundCloseProperty);
+        set => SetValue(AllowBackgroundCloseProperty, value);
     }
 
 
 
     private static InteractiveContainer GetInteractiveContainerInstance()
     {
-        InteractiveContainer container = null;
+        InteractiveContainer container;
         try
         {
             container = ((ISingleViewApplicationLifetime)Application.Current.ApplicationLifetime).MainView.GetVisualDescendants().OfType<InteractiveContainer>().First();
                 
         }
-        catch (Exception exc)
+        catch (Exception)
         {
             
             try
             {
                 container = ((IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime).MainWindow.GetVisualDescendants().OfType<InteractiveContainer>().First();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw new Exception(
                     "You are trying to use a InteractiveContainer functionality without declaring one !");
@@ -136,6 +118,13 @@ public partial class InteractiveContainer : UserControl
         GetInteractiveContainerInstance().IsDialogOpen = false;
     }
 
+    internal static void BackgroundRequestClose()
+    {
+        var inst = GetInteractiveContainerInstance();
+        if (!inst.AllowBackgroundClose) return;
+        inst.IsDialogOpen = false;
+    }
+
     public static void WaitUntilDialogIsClosed()
     {
         InteractiveContainer container = null;
@@ -166,28 +155,24 @@ public partial class InteractiveContainer : UserControl
     /// <param name="content">Content to display.</param>
     /// <param name="showAtBottom"></param>
     /// <param name="showCardBehind"></param>
-    public static void ShowDialog(object? content, bool showAtBottom = false, bool showCardBehind = true)
+    /// <param name="allowBackgroundClose">Allows the dialog to be closed by clicking outside of it.</param>
+    public static void ShowDialog(object? content, bool showAtBottom = false, bool showCardBehind = true, bool allowBackgroundClose = false)
     {
         var container = GetInteractiveContainerInstance();
 
         Control? control;
 
         if (content is Control c)
-        {
             control = c;
-        }
         else
-        {
-            control = Application.Current?.DataTemplates.FirstOrDefault()?.Build(content);
-            control ??= new TextBlock { Text = "No Suitable View Locator Available." };
-        }
+            control = Application.Current?.DataTemplates.FirstOrDefault()?.Build(content) 
+                      ?? new TextBlock { Text = "No Suitable View Locator Available." } ;
         
         container.IsDialogOpen = true;
         container.DialogContent = control;
         container.ShowAtBottom = showAtBottom;
+        container.AllowBackgroundClose = allowBackgroundClose;
 
         container.GetTemplateChildren().First(n => n.Name == "BorderDialog1").Opacity = showCardBehind ? 1 : 0;
-   
-          
     }
 }
