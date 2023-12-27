@@ -22,7 +22,7 @@ namespace SukiTest
 
   
     
-    public partial class MainWindow : Window
+    public partial class MainWindow : SukiWindow
     {
         public WindowNotificationManager notificationManager;
    

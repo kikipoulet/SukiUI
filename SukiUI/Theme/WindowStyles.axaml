@@ -1,5 +1,6 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:icons="clr-namespace:SukiUI.Content">
+        xmlns:icons="clr-namespace:SukiUI.Content"
+        xmlns:suki="clr-namespace:SukiUI.Controls">
     <Style Selector="Window.NakedWindow">
         <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
         <Setter Property="ExtendClientAreaChromeHints" Value="NoChrome" />
@@ -62,5 +63,34 @@
                 </Grid>
             </ControlTemplate>
         </Setter>
+    </Style>
+    
+    <Style Selector="PathIcon.WindowControlsIcon">
+        <Setter Property="Height" Value="10" />
+        <Setter Property="Width" Value="10" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+    </Style>
+
+    <Style Selector="Button.WindowControlsButton">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="CornerRadius" Value="20" />
+        <Setter Property="Height" Value="25" />
+        <Setter Property="Width" Value="25" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Padding" Value="0"></Setter>
+        <Style Selector="^:pointerover">
+            <Setter Property="Background" Value="{DynamicResource SukiBorderBrush}" />
+        </Style>
+        <Style Selector="^.Red:pointerover">
+            <Setter Property="Background" Value="#44ff0000" />
+        </Style>
+    </Style>
+
+    <Style Selector="suki|SukiWindow /template/ suki|WindowTitleBar#BottomBorder">
+        <Setter Property="BorderThickness" Value="0,0,0,1" />
+    </Style>
+    <Style Selector="suki|SukiWindow[ShowBottomBorder=False] /template/ suki|WindowTitleBar#BottomBorder">
+        <Setter Property="BorderThickness" Value="0,0,0,0" />
     </Style>
 </Styles>

@@ -110,6 +110,9 @@
         <DependentUpon>WaveProgress.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
+      <Compile Update="Controls\SukiWindow.axaml">
+        <DependentUpon>SukiWindow.axaml.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
