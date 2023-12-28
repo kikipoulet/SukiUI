@@ -7,16 +7,10 @@ using Avalonia.Interactivity;
 
 namespace SukiUI.Controls
 {
-
-
     public partial class SideMenu : UserControl
     {
         public delegate void MenuItemChangedEventHandler(object sender, string header);
         public event MenuItemChangedEventHandler MenuItemChanged;
-        
-           
-      
-
         
         public static readonly StyledProperty<bool> WinUIStyleProperty = AvaloniaProperty.Register<SideMenu, bool>(nameof(WinUIStyle), defaultValue: false);
 
