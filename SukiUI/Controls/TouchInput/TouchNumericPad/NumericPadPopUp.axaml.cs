@@ -51,6 +51,6 @@ public partial class NumericPadPopUp : UserControl
         {
         }
 
-        InteractiveContainer.CloseDialog();
+        SukiHost.CloseDialog();
     }
 }

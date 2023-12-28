@@ -18,11 +18,8 @@ using SukiUI.Theme;
 
 namespace SukiTest
 {
-
-
-  
     
-    public partial class MainWindow : Window
+    public partial class MainWindow : SukiWindow
     {
         public WindowNotificationManager notificationManager;
    
@@ -47,16 +44,14 @@ namespace SukiTest
                 notificationManager = new WindowNotificationManager(this);
         }
         
-        private int i = 0;
         private void ChangeTheme(object? sender, RoutedEventArgs e)
         {
-            if(i%2 == 0)
-                Application.Current.RequestedThemeVariant = ThemeVariant.Dark;
-            
-            else
-                Application.Current.RequestedThemeVariant = ThemeVariant.Light;
-            
-            i++;
+            if (Application.Current is null) return;
+            var current = Application.Current.RequestedThemeVariant;
+            Application.Current.RequestedThemeVariant = current == ThemeVariant.Dark 
+                ? ThemeVariant.Light 
+                : ThemeVariant.Dark;
+            SukiHost.ShowToast("Successfully Changed Theme", $"Changed Theme To {Application.Current.RequestedThemeVariant}");
         }
         
         

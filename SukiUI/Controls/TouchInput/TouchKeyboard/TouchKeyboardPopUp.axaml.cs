@@ -35,7 +35,7 @@ public partial class TouchKeyboardPopUp : UserControl
         if(rootControl != null)
             rootControl.Text = CurrentText;
 
-        InteractiveContainer.CloseDialog();
+        SukiHost.CloseDialog();
     }
     
     public string CurrentText = "";

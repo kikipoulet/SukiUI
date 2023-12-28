@@ -30,7 +30,7 @@ public partial class TouchNumericPad : UserControl
         dialog.Height = PopupHeight;
         dialog.Width = PopupWidth;
         
-       InteractiveContainer.ShowDialog(dialog,true);
+       SukiHost.ShowDialog(dialog,true);
     }
     
     private double _value;
