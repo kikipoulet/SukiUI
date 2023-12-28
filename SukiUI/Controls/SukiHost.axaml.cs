@@ -70,12 +70,13 @@ public class SukiHost : ContentControl
         set => SetValue(ToastsCollectionProperty, value);
     }
 
-    private static SukiHost? Instance { get; set; }
+    private static SukiHost? _instance;
+    private static SukiHost Instance => EnsureInstance();
 
     protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {
         base.OnAttachedToVisualTree(e);
-        Instance = this;
+        _instance = this;
     }
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
@@ -94,15 +95,10 @@ public class SukiHost : ContentControl
     /// Can display ViewModels if provided, if a suitable ViewLocator has been registered with Avalonia.
     /// </summary>
     /// <param name="content">Content to display.</param>
-    /// <param name="showAtBottom"></param>
-    /// <param name="showCardBehind"></param>
+    /// <param name="showCardBehind">Whether or not to show a card behind the content.</param>
     /// <param name="allowBackgroundClose">Allows the dialog to be closed by clicking outside of it.</param>
-    public static void ShowDialog(object? content, bool showAtBottom = false, bool showCardBehind = true,
-        bool allowBackgroundClose = false)
+    public static void ShowDialog(object? content, bool showCardBehind = true, bool allowBackgroundClose = false)
     {
-        if (Instance is null)
-            throw new InvalidOperationException("SukiHost must be active somewhere in the VisualTree");
-
         var control = content as Control ?? ViewLocator.TryBuild(content);
         Instance.IsDialogOpen = true;
         Instance.DialogContent = control;
@@ -111,52 +107,79 @@ public class SukiHost : ContentControl
         Instance.GetTemplateChildren().First(n => n.Name == "BorderDialog1").Opacity = showCardBehind ? 1 : 0;
     }
 
+    /// <summary>
+    /// Attempts to close a dialog if one is shown.
+    /// </summary>
     public static void CloseDialog()
     {
-        if (Instance is null)
-            throw new InvalidOperationException("SukiHost must be active somewhere in the VisualTree");
         Instance.IsDialogOpen = false;
     }
 
-    internal static void BackgroundRequestClose()
+    private static void BackgroundRequestClose()
     {
-        if (Instance is null)
-            throw new InvalidOperationException("SukiHost must be active somewhere in the VisualTree");
         if (!Instance.AllowBackgroundClose) return;
         Instance.IsDialogOpen = false;
     }
 
-    public static void ShowToast(string title, object content, TimeSpan? duration = null)
+    /// <summary>
+    /// Shows a toast in the SukiHost - The default location is in the bottom right.
+    /// This can be changed
+    /// </summary>
+    /// <param name="title">The title to display in the toast.</param>
+    /// <param name="content">The content of the toast, this can be any control or ViewModel.</param>
+    /// <param name="duration">Duration for this toast to be active. Default is 2 seconds.</param>
+    /// <param name="onClicked">A callback that will be fired if the Toast is cleared by clicking.</param>
+    public static void ShowToast(string title, object content, TimeSpan? duration = null, Action? onClicked = null) =>
+        ShowToast(new SukiToastModel(
+            title,
+            content as Control ?? ViewLocator.TryBuild(content),
+            duration ?? TimeSpan.FromSeconds(2),
+            onClicked));
+
+    /// <summary>
+    /// <inheritdoc cref="ShowToast(string,object,System.Nullable{System.TimeSpan},System.Action?)"/>
+    /// </summary>
+    /// <param name="model">A pre-constructed <see cref="SukiToastModel"/>.</param>
+    public static void ShowToast(SukiToastModel model)
     {
-        if (Instance is null)
-            throw new InvalidOperationException("SukiHost must be active somewhere in the VisualTree");
         var toast = SukiToastPool.Get();
-        toast.Initialize(new SukiToastModel(title, content, duration ?? TimeSpan.FromSeconds(4)));
+
+        toast.Initialize(model);
         Dispatcher.UIThread.Invoke(() =>
         {
             Instance.ToastsCollection.Add(toast);
             toast.Animate<Double>(OpacityProperty, 0,1,TimeSpan.FromMilliseconds(500));
             toast.Animate<Thickness>(MarginProperty, new Thickness(0,10,0,-10),new Thickness(),TimeSpan.FromMilliseconds(500));
         });
+
     }
 
-    public static void RequestHideToast(SukiToast toast)
+    /// <summary>
+    /// Clears a specific toast from display (if it is still currently being displayed).
+    /// </summary>
+    /// <param name="toast">The toast to clear.</param>
+    public static void ClearToast(SukiToast toast)
     {
-        if (Instance is null)
+
+        var wasRemoved = Dispatcher.UIThread.Invoke(() => Instance.ToastsCollection.Remove(toast));
+        if (!wasRemoved) return;
+        SukiToastPool.Return(toast);
+
+    }
+    
+    /// <summary>
+    /// Clears all active toasts immediately.
+    /// </summary>
+    public static void ClearAllToasts()
+    {
+        SukiToastPool.Return(Instance.ToastsCollection);
+        Dispatcher.UIThread.Invoke(() => Instance.ToastsCollection.Clear());
+    }
+
+    private static SukiHost EnsureInstance()
+    {
+        if (_instance is null)
             throw new InvalidOperationException("SukiHost must be active somewhere in the VisualTree");
-        Task.Run(() =>
-        {
-            Dispatcher.UIThread.Invoke(() =>
-            {
-                toast.Animate<Double>(OpacityProperty, 1, 0, TimeSpan.FromMilliseconds(500));
-                toast.Animate<Thickness>(MarginProperty, new Thickness(), new Thickness(0, 10, 0, -10),
-                    TimeSpan.FromMilliseconds(500));
-            });
-
-            Thread.Sleep(500);
-
-            Dispatcher.UIThread.Invoke(() => Instance.ToastsCollection.Remove(toast));
-            SukiToastPool.Return(toast);
-        });
+        return _instance;
     }
 }

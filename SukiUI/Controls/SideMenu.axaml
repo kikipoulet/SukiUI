@@ -5,12 +5,10 @@
     x:Class="SukiUI.Controls.SideMenu"
     xmlns="https://github.com/avaloniaui"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:glassMorphism="clr-namespace:SukiUI.Controls.GlassMorphism"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:content="clr-namespace:SukiUI.Content"
-    xmlns:suki="clr-namespace:SukiUI.Controls"
-    xmlns:global="clr-namespace:">
+    xmlns:suki="clr-namespace:SukiUI.Controls">
     <UserControl.Styles>
         <Style Selector="PathIcon">
             <Setter Property="Foreground" Value="#444444" />

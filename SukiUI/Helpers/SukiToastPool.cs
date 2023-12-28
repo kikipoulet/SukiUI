@@ -14,4 +14,10 @@ internal static class SukiToastPool
     }
 
     internal static void Return(SukiToast toast) => Pool.Push(toast);
+
+    internal static void Return(IEnumerable<SukiToast> toasts)
+    {
+        foreach(var toast in toasts)
+            Pool.Push(toast);
+    }
 }

@@ -12,6 +12,7 @@
         <RepositoryUrl>https://github.com/kikipoulet/SukiUI</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
         <IsPackable>true</IsPackable>
         <RootNamespace>SukiUI</RootNamespace>
         <Version>5.0.4</Version>

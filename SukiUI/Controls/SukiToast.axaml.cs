@@ -3,6 +3,7 @@ using System.Timers;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using Avalonia.Input;
 using SukiUI.Models;
 
 namespace SukiUI.Controls;
@@ -16,6 +17,8 @@ public class SukiToast : ContentControl
 
     private readonly Timer _timer = new();
 
+    private Action? _onClickedCallback;
+
     public SukiToast()
     {
         _timer.Elapsed += TimerOnElapsed;
@@ -24,7 +27,7 @@ public class SukiToast : ContentControl
     private void TimerOnElapsed(object sender, ElapsedEventArgs e)
     {
         _timer.Stop();
-        SukiHost.RequestHideToast(this);
+        SukiHost.ClearToast(this);
     }
 
     public string Title
@@ -36,13 +39,23 @@ public class SukiToast : ContentControl
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
-        e.NameScope.Get<Border>("PART_ToastCard").PointerPressed += (_,_) => SukiHost.RequestHideToast(this);
+
+        e.NameScope.Get<GlassCard>("PART_ToastCard").PointerPressed += ToastCardClickedHandler;
+
     }
-    
+
+    private void ToastCardClickedHandler(object o, PointerPressedEventArgs pointerPressedEventArgs)
+    {
+        _onClickedCallback?.Invoke();
+        _onClickedCallback = null;
+        SukiHost.ClearToast(this);
+    }
+
     public void Initialize(SukiToastModel model)
     {
         Title = model.Title;
         Content = model.Content;
+        _onClickedCallback = model.OnClicked;
         _timer.Interval = model.Lifetime.TotalMilliseconds;
         _timer.Start();
     }
