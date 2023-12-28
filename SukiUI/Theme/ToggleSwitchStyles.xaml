@@ -17,13 +17,8 @@
     </Design.PreviewWith>
 
     <Style Selector="ToggleSwitch">
-        <Setter Property="Foreground">
-            <Setter.Value>
-                <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
-                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.1" />
-                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.6" />
-                </LinearGradientBrush>
-            </Setter.Value>
+        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}">
+            
         </Setter>
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -106,14 +101,9 @@
                             Grid.Row="1"
                             Height="20"
                             Width="40"
-                            x:Name="PART_SwitchKnobBoundsn">
-                            <Border.Background>
-
-                                <LinearGradientBrush EndPoint="0%,100%" StartPoint="50%,0%">
-                                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.1" />
-                                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.9" />
-                                </LinearGradientBrush>
-                            </Border.Background>
+                            x:Name="PART_SwitchKnobBoundsn" Background="{DynamicResource SukiPrimaryColor}">
+                            
+                          
                             <Border.Transitions>
                                 <Transitions>
                                     <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
@@ -227,13 +217,8 @@
 
 
     <Style Selector="ToggleSwitch:pointerover /template/ Border#PART_SwitchKnobBounds">
-        <Setter Property="Background">
-            <Setter.Value>
-                <LinearGradientBrush EndPoint="0%,100%" StartPoint="50%,0%">
-                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.1" />
-                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.9" />
-                </LinearGradientBrush>
-            </Setter.Value>
+        <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}">
+           
         </Setter>
 
         <Setter Property="BorderBrush" Value="{DynamicResource ToggleSwitchStrokeOnPointerOver}" />

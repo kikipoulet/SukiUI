@@ -12,13 +12,8 @@
 
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
         <Setter Property="Background" Value="{DynamicResource SukiBorderBrush}" />
-        <Setter Property="Foreground">
-            <Setter.Value>
-                <LinearGradientBrush EndPoint="100%,50%" StartPoint="0%,50%">
-                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.5" />
-                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="1" />
-                </LinearGradientBrush>
-            </Setter.Value>
+        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}">
+            
         </Setter>
         <Setter Property="Template">
             <ControlTemplate>

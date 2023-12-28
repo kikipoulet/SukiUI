@@ -60,11 +60,7 @@
             <Setter Property="TextBlock.FontWeight" Value="DemiBold" />
 
             <Setter Property="BorderThickness" Value="0,0,0,0" />
-            <Setter Property="BorderBrush">
-                <RadialGradientBrush>
-                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.1" />
-                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.6" />
-                </RadialGradientBrush>
+            <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}">
             </Setter>
 
         </Style>
@@ -114,7 +110,7 @@
             <Setter Property="TextBlock.FontWeight" Value="DemiBold" />
             <Setter Property="TextBlock.Foreground" Value="{DynamicResource SukiPrimaryColor}" />
             <Setter Property="Background" Value="{DynamicResource SukiIntBorderBrush}" />
-            <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColorGradient}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
             <Setter Property="BorderThickness" Value="0,0,0,0" />
         </Style>
 

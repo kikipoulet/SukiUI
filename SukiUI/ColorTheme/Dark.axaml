@@ -37,6 +37,6 @@
 
     <Color x:Key="SukiText">#edffffff</Color>
     <Color x:Key="SukiLowText">#caffffff</Color>
-    <Color x:Key="SukiPrimaryColorGradient">#0A59F7</Color>
+    
     <Color x:Key="SukiPrimaryColor">#0A59F7</Color>
 </ResourceDictionary>

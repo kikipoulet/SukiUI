@@ -11,13 +11,8 @@
     </Design.PreviewWith>
 
     <Style Selector="ToggleButton.Switch">
-        <Setter Property="Foreground">
-            <Setter.Value>
-                <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
-                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.1" />
-                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.6" />
-                </LinearGradientBrush>
-            </Setter.Value>
+        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}">
+            
         </Setter>
         <Setter Property="RenderTransform">
             <ScaleTransform ScaleX="1.15" ScaleY="1.15" />
@@ -231,15 +226,7 @@
 
 
     <Style Selector="ToggleButton.Switch:checked /template/ Border#SwitchBackground">
-        <Setter Property="Background">
-
-            <Setter.Value>
-                <RadialGradientBrush Center="80%,-40%" GradientOrigin="80%,-40%" Radius="1">
-                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0" />
-                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.3" />
-                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="1" />
-                </RadialGradientBrush>
-            </Setter.Value>
+        <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}">
         </Setter>
     </Style>
 

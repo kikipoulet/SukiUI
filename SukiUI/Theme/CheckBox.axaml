@@ -75,13 +75,8 @@
     </Style>
 
     <Style Selector="CheckBox:checked /template/ Border#border">
-        <Setter Property="Background">
-            <Setter.Value>
-                <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
-                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.1" />
-                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.6" />
-                </LinearGradientBrush>
-            </Setter.Value>
+        <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}">
+            
         </Setter>
 
     </Style>

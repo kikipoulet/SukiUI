@@ -87,16 +87,8 @@
                                 Height="4"
                                 HorizontalAlignment="Stretch"
                                 Margin="8,0,-10,0"
-                                Name="PART_DecreaseButton">
-                                <RepeatButton.Background>
-
-
-                                    <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
-                                        <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.1" />
-                                        <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.6" />
-                                    </LinearGradientBrush>
-
-                                </RepeatButton.Background>
+                                Name="PART_DecreaseButton" Background="{DynamicResource SukiPrimaryColor}">
+                                
                             </RepeatButton>
                         </Track.DecreaseButton>
                         <Track.IncreaseButton>
