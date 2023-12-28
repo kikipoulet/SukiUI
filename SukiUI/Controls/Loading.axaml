@@ -46,22 +46,14 @@
 
                         <Arc
                             Height="52"
-                            StartAngle="270"
+                            StartAngle="270" Stroke="{DynamicResource SukiPrimaryColor}"
                             Stretch="None"
                             StrokeJoin="Round"
                             StrokeLineCap="Round"
                             StrokeThickness="4"
                             SweepAngle="30"
                             Width="52">
-                            <Arc.Stroke>
-
-
-                                <RadialGradientBrush>
-                                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.1" />
-                                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.6" />
-                                </RadialGradientBrush>
-
-                            </Arc.Stroke>
+                            
                             <Arc.Transitions>
                                 <Transitions>
                                     <DoubleTransition

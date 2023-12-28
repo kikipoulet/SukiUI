@@ -88,6 +88,7 @@ public partial class DashboardPage : UserControl
     
     private void ShowDialog(object sender, RoutedEventArgs e)
     {
+      
         SukiHost.ShowDialog(new DialogContent(), allowBackgroundClose: true);
         _test++;
     }

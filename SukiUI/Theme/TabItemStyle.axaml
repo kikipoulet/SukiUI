@@ -59,13 +59,8 @@
                             Height="3"
                             Margin="10,0"
                             Name="BarSelected"
-                            Opacity="0">
-                            <Border.Background>
-                                <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
-                                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.1" />
-                                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.6" />
-                                </LinearGradientBrush>
-                            </Border.Background>
+                            Opacity="0" Background="{DynamicResource SukiPrimaryColor}">
+                           
                             <Border.Transitions>
                                 <Transitions>
                                     <DoubleTransition Duration="0:0:0.3" Property="Opacity" />

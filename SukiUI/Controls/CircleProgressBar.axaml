@@ -29,16 +29,8 @@
                             StrokeLineCap="Round"
                             StrokeThickness="{TemplateBinding StrokeWidth}"
                             SweepAngle="{TemplateBinding Value}"
-                            Width="{TemplateBinding Width}">
-                            <Arc.Stroke>
-
-
-                                <RadialGradientBrush>
-                                    <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.1" />
-                                    <GradientStop Color="{DynamicResource SukiPrimaryColorGradient}" Offset="0.6" />
-                                </RadialGradientBrush>
-
-                            </Arc.Stroke>
+                            Width="{TemplateBinding Width}" Stroke="{DynamicResource SukiPrimaryColor}">
+                           
                             <Arc.Transitions>
                                 <Transitions>
                                     <DoubleTransition

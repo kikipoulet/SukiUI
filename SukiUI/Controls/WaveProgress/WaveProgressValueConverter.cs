@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
 using Avalonia.Styling;
@@ -63,6 +64,15 @@ public class WaveProgressGradientOffsetConverter : IValueConverter
     {
         if (value is not int)
             return Brushes.Blue;
+        
+        Color PrimaryColor = Colors.DodgerBlue; 
+        
+        try
+        {
+
+            PrimaryColor =(Color)Application.Current.FindResource("SukiPrimaryColor");
+               
+        }catch{}
 
         double v = System.Convert.ToDouble(value);
         v /= 100;
@@ -76,7 +86,7 @@ public class WaveProgressGradientOffsetConverter : IValueConverter
             StartPoint = new RelativePoint(0.5, 0, RelativeUnit.Relative),
             GradientStops = new GradientStops()
             {
-                new GradientStop() { Color = Colors.Blue, Offset = 0 },
+                new GradientStop() { Color = PrimaryColor, Offset = 0 },
                 new GradientStop() { Color = Colors.Transparent, Offset = v }
             }
 

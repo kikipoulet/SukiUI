@@ -2,8 +2,8 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:system="clr-namespace:System;assembly=netstandard"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Color x:Key="SukiPrimaryColor">#2f54eb</Color>
-    <Color x:Key="SukiPrimaryColorGradient">#597ef7</Color>
+    
+    <Color x:Key="SukiPrimaryColor">#0A59F7</Color>
 
 
 
