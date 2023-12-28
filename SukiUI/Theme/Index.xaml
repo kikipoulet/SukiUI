@@ -54,6 +54,7 @@
                 <ResourceInclude Source="avares://SukiUI/Theme/DatePicker.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiWindow.axaml"/>
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiHost.axaml"/>
+                <ResourceInclude Source="avares://sukiUI/Controls/SukiToast.axaml"/>
                 <ResourceInclude Source="../ColorTheme/Light.axaml"  />
             </ResourceDictionary.MergedDictionaries>
             

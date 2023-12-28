@@ -84,10 +84,12 @@ public partial class DashboardPage : UserControl
         AvaloniaXamlLoader.Load(this);
     }
 
-
+    private int _test = 1;
+    
     private void ShowDialog(object sender, RoutedEventArgs e)
     {
         SukiHost.ShowDialog(new DialogContent(), allowBackgroundClose: true);
+        _test++;
     }
 
     private void ShowNotification(object sender, RoutedEventArgs e)

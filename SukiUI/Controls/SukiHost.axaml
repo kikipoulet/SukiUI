@@ -10,7 +10,19 @@
                     <Grid Name="PART_ContentContainer">
                         <ContentControl Content="{TemplateBinding Content}" />
                     </Grid>
-
+                    
+                    <ItemsControl Name="PART_ToastPresenter"
+                                  VerticalAlignment="Bottom"
+                                  HorizontalAlignment="Stretch"
+                                  Margin="5,5"
+                                  ItemsSource="{TemplateBinding ToastsCollection}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel VerticalAlignment="Bottom" Spacing="5"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                    
                     <Border
                         Name="PART_DialogBackground"
                         IsHitTestVisible="False"
@@ -18,15 +30,14 @@
                         VerticalAlignment="Stretch"
                         Background="Transparent" />
 
-                    <Border
-                        Background="{DynamicResource SukiBackground}"
-                        Classes.opened="False"
-                        CornerRadius="15"
-                        HorizontalAlignment="Center"
-                        IsHitTestVisible="False"
-                        Name="borderDialog"
-                        Opacity="0"
-                        VerticalAlignment="Center">
+                    <Border Background="{DynamicResource SukiBackground}"
+                            Classes.opened="False"
+                            CornerRadius="15"
+                            HorizontalAlignment="Center"
+                            IsHitTestVisible="False"
+                            Name="borderDialog"
+                            Opacity="0"
+                            VerticalAlignment="Center">
                         <Border.Transitions>
                             <Transitions>
                                 <ThicknessTransition Duration="0:0:0.25" Property="Margin">
@@ -42,21 +53,21 @@
                                 </TransformOperationsTransition>
                             </Transitions>
                         </Border.Transitions>
-                        
+
                         <Grid>
                             <Border Name="BorderDialog1" Classes="Card"
                                     Background="{DynamicResource SukiCardBackground}" />
                             <ContentControl Content="{TemplateBinding DialogContent}" Margin="20" />
                         </Grid>
                     </Border>
-                    
+
                     <Grid.Styles>
                         <Style Selector="suki|SukiHost[IsDialogOpen=True]">
-                            
+
                             <Style Selector="^ Border#PART_DialogBackground">
-                                <Setter Property="IsHitTestVisible" Value="True"/>
+                                <Setter Property="IsHitTestVisible" Value="True" />
                             </Style>
-                            
+
                             <Style Selector="^ Grid#PART_ContentContainer">
                                 <Setter Property="IsHitTestVisible" Value="False" />
                                 <Style.Animations>
@@ -81,11 +92,11 @@
                         </Style>
 
                         <Style Selector="suki|SukiHost[IsDialogOpen=False]">
-                            
+
                             <Style Selector="^ Border#PART_DialogBackground">
-                                <Setter Property="IsHitTestVisible" Value="False"/>
+                                <Setter Property="IsHitTestVisible" Value="False" />
                             </Style>
-                            
+
                             <Style Selector="^ Grid#PART_ContentContainer">
                                 <Setter Property="IsHitTestVisible" Value="True" />
                                 <Style.Animations>
@@ -106,9 +117,9 @@
                                 <Setter Property="RenderTransform" Value="scale(0.7)" />
                                 <Setter Property="Margin" Value="0,125,0,0" />
                             </Style>
-
                         </Style>
                     </Grid.Styles>
+                    
                 </Grid>
             </ControlTemplate>
         </Setter>
