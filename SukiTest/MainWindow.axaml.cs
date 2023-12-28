@@ -51,6 +51,7 @@ namespace SukiTest
             Application.Current.RequestedThemeVariant = current == ThemeVariant.Dark 
                 ? ThemeVariant.Light 
                 : ThemeVariant.Dark;
+            
             SukiHost.ShowToast("Successfully Changed Theme", $"Changed Theme To {Application.Current.RequestedThemeVariant}", onClicked:
                 () =>
                 {

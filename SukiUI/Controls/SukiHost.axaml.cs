@@ -9,6 +9,8 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
 using Avalonia.Layout;
+using Avalonia.Rendering.Composition;
+using Avalonia.Rendering.Composition.Animations;
 using Avalonia.Threading;
 using SukiUI.Enums;
 using SukiUI.Helpers;
@@ -88,6 +90,25 @@ public class SukiHost : ContentControl
             toastLoc == ToastLocation.BottomLeft
                 ? HorizontalAlignment.Left
                 : HorizontalAlignment.Right;
+        
+        CompositionVisual compositionVisual = ElementComposition.GetElementVisual(e.NameScope.Get<ItemsControl>("PART_ToastPresenter"));
+        Compositor compositor = compositionVisual.Compositor;
+
+        var animationGroup = compositor.CreateAnimationGroup();
+        Vector3KeyFrameAnimation offsetAnimation = compositor.CreateVector3KeyFrameAnimation();
+        offsetAnimation.Target = "Offset";
+
+        offsetAnimation.InsertExpressionKeyFrame(1.0f, "this.FinalValue");
+        offsetAnimation.Duration = TimeSpan.FromMilliseconds(300);
+
+        ImplicitAnimationCollection implicitAnimationCollection = compositor.CreateImplicitAnimationCollection();
+        animationGroup.Add(offsetAnimation);
+        implicitAnimationCollection["Offset"] = animationGroup;
+        compositionVisual.ImplicitAnimations = implicitAnimationCollection;
+        
+        // Using implicit animation for the itemscontrol make the first appearance not visible - avalonia problem ?
+        // Showing a quick toast at startup to prevent problem even if it is dirty right now, hope it can be removed
+        ShowToast(new SukiToastModel("","", TimeSpan.FromMilliseconds(1), () => {} ));
     }
 
     /// <summary>
@@ -133,7 +154,7 @@ public class SukiHost : ContentControl
         ShowToast(new SukiToastModel(
             title,
             content as Control ?? ViewLocator.TryBuild(content),
-            duration ?? TimeSpan.FromSeconds(2),
+            duration ?? TimeSpan.FromSeconds(4),
             onClicked));
 
     /// <summary>
@@ -165,15 +186,15 @@ public class SukiHost : ContentControl
             {
                 Dispatcher.UIThread.Invoke(() =>
                 {
-                    toast.Animate<Double>(OpacityProperty, 1, 0, TimeSpan.FromMilliseconds(500));
-                    toast.Animate<Thickness>(MarginProperty, new Thickness(), new Thickness(0, 10, 0, -10),
-                        TimeSpan.FromMilliseconds(500));
+                    toast.Animate<Double>(OpacityProperty, 1, 0, TimeSpan.FromMilliseconds(300));
+                    toast.Animate<Thickness>(MarginProperty, new Thickness(), new Thickness(0, 50, 0, -50),
+                        TimeSpan.FromMilliseconds(300));
                     
                 });
                 
-                Thread.Sleep(500);
+                Thread.Sleep(300);
                 
-                return Instance.ToastsCollection.Remove(toast);
+                return Dispatcher.UIThread.Invoke(() => Instance.ToastsCollection.Remove(toast)) ;
             });
         
         if (!wasRemoved) return;
