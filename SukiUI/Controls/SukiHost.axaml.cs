@@ -158,13 +158,26 @@ public class SukiHost : ContentControl
     /// Clears a specific toast from display (if it is still currently being displayed).
     /// </summary>
     /// <param name="toast">The toast to clear.</param>
-    public static void ClearToast(SukiToast toast)
+    public static async Task ClearToast(SukiToast toast)
     {
 
-        var wasRemoved = Dispatcher.UIThread.Invoke(() => Instance.ToastsCollection.Remove(toast));
+        var wasRemoved = await Task.Run(() =>
+            {
+                Dispatcher.UIThread.Invoke(() =>
+                {
+                    toast.Animate<Double>(OpacityProperty, 1, 0, TimeSpan.FromMilliseconds(500));
+                    toast.Animate<Thickness>(MarginProperty, new Thickness(), new Thickness(0, 10, 0, -10),
+                        TimeSpan.FromMilliseconds(500));
+                    
+                });
+                
+                Thread.Sleep(500);
+                
+                return Instance.ToastsCollection.Remove(toast);
+            });
+        
         if (!wasRemoved) return;
-        SukiToastPool.Return(toast);
-
+            SukiToastPool.Return(toast);
     }
     
     /// <summary>

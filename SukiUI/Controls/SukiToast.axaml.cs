@@ -40,7 +40,7 @@ public class SukiToast : ContentControl
     {
         base.OnApplyTemplate(e);
 
-        e.NameScope.Get<GlassCard>("PART_ToastCard").PointerPressed += ToastCardClickedHandler;
+        e.NameScope.Get<Border>("PART_ToastCard").PointerPressed += ToastCardClickedHandler;
 
     }
 
