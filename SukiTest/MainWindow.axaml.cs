@@ -18,9 +18,6 @@ using SukiUI.Theme;
 
 namespace SukiTest
 {
-
-
-  
     
     public partial class MainWindow : SukiWindow
     {

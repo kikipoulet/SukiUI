@@ -20,7 +20,7 @@ namespace SukiTest
 
         private void CloseDialog(object sender, RoutedEventArgs e)
         {
-            InteractiveContainer.CloseDialog();
+            SukiHost.CloseDialog();
         }
     }
 }
