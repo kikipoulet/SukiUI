@@ -230,7 +230,7 @@
                                 </ScrollViewer>
                             </Panel>
                             <Border
-                                Background="{DynamicResource SukiLightColoredBackground}"
+                                Background="{DynamicResource SukiIntBorderBrush}"
                                 CornerRadius="8"
                                 Grid.Column="0"
                                 Grid.ColumnSpan="5"
