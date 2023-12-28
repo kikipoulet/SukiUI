@@ -90,8 +90,9 @@ public class SukiHost : ContentControl
             toastLoc == ToastLocation.BottomLeft
                 ? HorizontalAlignment.Left
                 : HorizontalAlignment.Right;
-        
-        CompositionVisual compositionVisual = ElementComposition.GetElementVisual(e.NameScope.Get<ItemsControl>("PART_ToastPresenter"));
+
+        CompositionVisual compositionVisual =
+            ElementComposition.GetElementVisual(e.NameScope.Get<ItemsControl>("PART_ToastPresenter"));
         Compositor compositor = compositionVisual.Compositor;
 
         var animationGroup = compositor.CreateAnimationGroup();
@@ -105,10 +106,10 @@ public class SukiHost : ContentControl
         animationGroup.Add(offsetAnimation);
         implicitAnimationCollection["Offset"] = animationGroup;
         compositionVisual.ImplicitAnimations = implicitAnimationCollection;
-        
+
         // Using implicit animation for the itemscontrol make the first appearance not visible - avalonia problem ?
         // Showing a quick toast at startup to prevent problem even if it is dirty right now, hope it can be removed
-        ShowToast(new SukiToastModel("","", TimeSpan.FromMilliseconds(1), () => {} ));
+        ShowInvisibleToast();
     }
 
     /// <summary>
@@ -131,11 +132,12 @@ public class SukiHost : ContentControl
     /// <summary>
     /// Attempts to close a dialog if one is shown.
     /// </summary>
-    public static void CloseDialog()
-    {
+    public static void CloseDialog() => 
         Instance.IsDialogOpen = false;
-    }
 
+    /// <summary>
+    /// Used to close the open dialog when the background is clicked, if this is allowed.
+    /// </summary>
     private static void BackgroundRequestClose()
     {
         if (!Instance.AllowBackgroundClose) return;
@@ -169,10 +171,10 @@ public class SukiHost : ContentControl
         Dispatcher.UIThread.Invoke(() =>
         {
             Instance.ToastsCollection.Add(toast);
-            toast.Animate<Double>(OpacityProperty, 0,1,TimeSpan.FromMilliseconds(500));
-            toast.Animate<Thickness>(MarginProperty, new Thickness(0,10,0,-10),new Thickness(),TimeSpan.FromMilliseconds(500));
+            toast.Animate(OpacityProperty, 0d, 1d, TimeSpan.FromMilliseconds(500));
+            toast.Animate(MarginProperty, new Thickness(0, 10, 0, -10), new Thickness(),
+                TimeSpan.FromMilliseconds(500));
         });
-
     }
 
     /// <summary>
@@ -181,26 +183,22 @@ public class SukiHost : ContentControl
     /// <param name="toast">The toast to clear.</param>
     public static async Task ClearToast(SukiToast toast)
     {
-
         var wasRemoved = await Task.Run(() =>
+        {
+            Dispatcher.UIThread.Invoke(() =>
             {
-                Dispatcher.UIThread.Invoke(() =>
-                {
-                    toast.Animate<Double>(OpacityProperty, 1, 0, TimeSpan.FromMilliseconds(300));
-                    toast.Animate<Thickness>(MarginProperty, new Thickness(), new Thickness(0, 50, 0, -50),
-                        TimeSpan.FromMilliseconds(300));
-                    
-                });
-                
-                Thread.Sleep(300);
-                
-                return Dispatcher.UIThread.Invoke(() => Instance.ToastsCollection.Remove(toast)) ;
+                toast.Animate(OpacityProperty, 1d, 0d, TimeSpan.FromMilliseconds(300));
+                toast.Animate(MarginProperty, new Thickness(), new Thickness(0, 50, 0, -50),
+                    TimeSpan.FromMilliseconds(300));
             });
-        
+            Thread.Sleep(300);
+            return Dispatcher.UIThread.Invoke(() => Instance.ToastsCollection.Remove(toast));
+        });
+
         if (!wasRemoved) return;
-            SukiToastPool.Return(toast);
+        SukiToastPool.Return(toast);
     }
-    
+
     /// <summary>
     /// Clears all active toasts immediately.
     /// </summary>
@@ -215,5 +213,33 @@ public class SukiHost : ContentControl
         if (_instance is null)
             throw new InvalidOperationException("SukiHost must be active somewhere in the VisualTree");
         return _instance;
+    }
+
+    // Horrible dirty workaround for annoying implicit animation issue
+    internal static void ShowInvisibleToast()
+    {
+        var toast = new SukiToast();
+        toast.InitializeInvisible();
+        Dispatcher.UIThread.Invoke(() =>
+        {
+            Instance.ToastsCollection.Add(toast);
+            toast.Animate(MarginProperty, new Thickness(0, 10, 0, -10), new Thickness(),
+                TimeSpan.FromMilliseconds(500));
+        });
+    }
+
+    // Clearing up the horrible dirty workaround for annoying implicit animation issue
+    internal static async Task ClearInvisibleToast(SukiToast toast)
+    {
+        await Task.Run(() =>
+        {
+            Dispatcher.UIThread.Invoke(() =>
+            {
+                toast.Animate(MarginProperty, new Thickness(), new Thickness(0, 50, 0, -50),
+                    TimeSpan.FromMilliseconds(300));
+            });
+            Thread.Sleep(300);
+            Dispatcher.UIThread.Invoke(() => Instance.ToastsCollection.Remove(toast));
+        });
     }
 }

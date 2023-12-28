@@ -59,4 +59,15 @@ public class SukiToast : ContentControl
         _timer.Interval = model.Lifetime.TotalMilliseconds;
         _timer.Start();
     }
+
+    internal void InitializeInvisible()
+    {
+        Title = "Invisible";
+        Content = "Invisible Content";
+        Opacity = 0;
+        _timer.Interval = 1;
+        _timer.Elapsed -= TimerOnElapsed;
+        _timer.Elapsed += (_, _) => SukiHost.ClearInvisibleToast(this);
+        _timer.Start();
+    }
 }
