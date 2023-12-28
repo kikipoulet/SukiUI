@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 using System.Reactive.Concurrency;
+using System.Threading;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Controls;
@@ -129,15 +131,32 @@ public class SukiHost : ContentControl
         if (Instance is null)
             throw new InvalidOperationException("SukiHost must be active somewhere in the VisualTree");
         var toast = SukiToastPool.Get();
-        toast.Initialize(new SukiToastModel(title, content, duration ?? TimeSpan.FromSeconds(2)));
-        Dispatcher.UIThread.Invoke(() => Instance.ToastsCollection.Add(toast));
+        toast.Initialize(new SukiToastModel(title, content, duration ?? TimeSpan.FromSeconds(4)));
+        Dispatcher.UIThread.Invoke(() =>
+        {
+            Instance.ToastsCollection.Add(toast);
+            toast.Animate<Double>(OpacityProperty, 0,1,TimeSpan.FromMilliseconds(500));
+            toast.Animate<Thickness>(MarginProperty, new Thickness(0,10,0,-10),new Thickness(),TimeSpan.FromMilliseconds(500));
+        });
     }
 
     public static void RequestHideToast(SukiToast toast)
     {
         if (Instance is null)
             throw new InvalidOperationException("SukiHost must be active somewhere in the VisualTree");
-        Dispatcher.UIThread.Invoke(() => Instance.ToastsCollection.Remove(toast));
-        SukiToastPool.Return(toast);
+        Task.Run(() =>
+        {
+            Dispatcher.UIThread.Invoke(() =>
+            {
+                toast.Animate<Double>(OpacityProperty, 1, 0, TimeSpan.FromMilliseconds(500));
+                toast.Animate<Thickness>(MarginProperty, new Thickness(), new Thickness(0, 10, 0, -10),
+                    TimeSpan.FromMilliseconds(500));
+            });
+
+            Thread.Sleep(500);
+
+            Dispatcher.UIThread.Invoke(() => Instance.ToastsCollection.Remove(toast));
+            SukiToastPool.Return(toast);
+        });
     }
 }

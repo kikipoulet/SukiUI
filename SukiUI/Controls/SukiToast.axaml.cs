@@ -36,7 +36,7 @@ public class SukiToast : ContentControl
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
-        e.NameScope.Get<GlassCard>("PART_ToastCard").PointerPressed += (_,_) => SukiHost.RequestHideToast(this);
+        e.NameScope.Get<Border>("PART_ToastCard").PointerPressed += (_,_) => SukiHost.RequestHideToast(this);
     }
     
     public void Initialize(SukiToastModel model)

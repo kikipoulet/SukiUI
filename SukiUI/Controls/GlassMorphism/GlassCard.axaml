@@ -16,7 +16,7 @@
             <Setter Property="Template">
                 <ControlTemplate>
 
-
+<Grid>
 
                     <Border
                         Background="Transparent"
@@ -44,8 +44,12 @@
                             <ContentControl Content="{TemplateBinding Content}" Margin="{TemplateBinding Padding}" />
                         </Grid>
                     </Border>
-
-
+                    <Border
+                        Background="Transparent" IsHitTestVisible="False"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}" />
+</Grid>
                 </ControlTemplate>
             </Setter>
         </Style>
