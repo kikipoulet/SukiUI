@@ -28,11 +28,11 @@
         </Setter>
     </Style>
     
-    <Style Selector="Window.NakedWindow[WindowState=Maximized] PathIcon#MaximizeIcon">
+    <Style Selector="suki|SukiWindow[WindowState=Maximized] PathIcon#MaximizeIcon">
         <Setter Property="Data" Value="{x:Static icons:Icons.WindowRestore}" />
     </Style>
     
-    <Style Selector="Window.NakedWindow[WindowState=Normal] PathIcon#MaximizeIcon">
+    <Style Selector="suki|SukiWindow[WindowState=Normal] PathIcon#MaximizeIcon">
         <Setter Property="Data" Value="{x:Static icons:Icons.WindowMaximize}" />
     </Style>
 
@@ -71,26 +71,5 @@
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
     </Style>
 
-    <Style Selector="Button.WindowControlsButton">
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="CornerRadius" Value="20" />
-        <Setter Property="Height" Value="25" />
-        <Setter Property="Width" Value="25" />
-        <Setter Property="Cursor" Value="Hand" />
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Padding" Value="0"></Setter>
-        <Style Selector="^:pointerover">
-            <Setter Property="Background" Value="{DynamicResource SukiBorderBrush}" />
-        </Style>
-        <Style Selector="^.Red:pointerover">
-            <Setter Property="Background" Value="#44ff0000" />
-        </Style>
-    </Style>
-
-    <Style Selector="suki|SukiWindow /template/ suki|WindowTitleBar#BottomBorder">
-        <Setter Property="BorderThickness" Value="0,0,0,1" />
-    </Style>
-    <Style Selector="suki|SukiWindow[ShowBottomBorder=False] /template/ suki|WindowTitleBar#BottomBorder">
-        <Setter Property="BorderThickness" Value="0,0,0,0" />
-    </Style>
+    
 </Styles>

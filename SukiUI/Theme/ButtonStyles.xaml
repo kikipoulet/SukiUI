@@ -263,7 +263,6 @@
         <Setter Property="Transitions">
             <Transitions>
                 <BrushTransition Duration="0:0:0.3" Property="Foreground" />
-
             </Transitions>
         </Setter>
     </Style>
@@ -278,14 +277,12 @@
         <Setter Property="Transitions">
             <Transitions>
                 <BrushTransition Duration="0:0:0.3" Property="Foreground" />
-
             </Transitions>
         </Setter>
     </Style>
 
     <Style Selector="Button.Outlined:pointerover /template/ ContentPresenter">
         <Setter Property="Foreground" Value="White" />
-
     </Style>
 
 
@@ -316,9 +313,7 @@
         </Setter>
     </Style>
 
-
     <!--    -->
-
 
     <Style Selector="Button.Success">
         <Setter Property="Background" Value="#cdf2ca" />
@@ -353,19 +348,14 @@
     </Style>
 
     <Style Selector="Button.Accent /template/ Border">
-
         <Setter Property="BoxShadow" Value="0 0 0 0 Transparent" />
-
     </Style>
 
     <Style Selector="Button.Void /template/ Border">
-
         <Setter Property="BoxShadow" Value="0 0 0 0 Transparent" />
-
     </Style>
 
     <Style Selector="Button.Primary /template/ Border">
-
         <Setter Property="BoxShadow" Value="{DynamicResource SukiLowShadow}" />
     </Style>
 
@@ -394,5 +384,21 @@
                     VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
             </ControlTemplate>
         </Setter>
+    </Style>
+    
+    <Style Selector="Button.WindowControlsButton">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="CornerRadius" Value="20" />
+        <Setter Property="Height" Value="25" />
+        <Setter Property="Width" Value="25" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Padding" Value="0"></Setter>
+        <Style Selector="^:pointerover">
+            <Setter Property="Background" Value="{DynamicResource SukiBorderBrush}" />
+        </Style>
+        <Style Selector="^.Red:pointerover">
+            <Setter Property="Background" Value="#44ff0000" />
+        </Style>
     </Style>
 </Styles>

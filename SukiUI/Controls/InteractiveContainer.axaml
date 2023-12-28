@@ -13,16 +13,6 @@
             <Setter Property="Template">
                 <ControlTemplate>
                     <Grid>
-                        <Grid IsHitTestVisible="False">
-                            <Image
-                                IsVisible="{DynamicResource IsDark}"
-                                Source="../Assets/gradient_dark_strong.png"
-                                Stretch="UniformToFill" />
-                            <Image
-                                IsVisible="{DynamicResource IsLight}"
-                                Source="../Assets/mesh-gradient (1).png"
-                                Stretch="UniformToFill" />
-                        </Grid>
                         <Grid Name="GridChildContent">
                             <ContentControl Content="{TemplateBinding Content}" />
                         </Grid>

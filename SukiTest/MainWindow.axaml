@@ -10,9 +10,7 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
                  xmlns:sukiTest="clr-namespace:SukiTest"
-                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                 ShowBottomBorder="True"
-                 LogoColor="#2f54eb">
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <suki:SukiWindow.LogoContent>
         <material:MaterialIcon
             Foreground="{DynamicResource SukiPrimaryColor}"
@@ -26,10 +24,11 @@
                 <suki:SideMenuModel HeaderContentOverlapsToggleSidebarButton="True">
                     <suki:SideMenuModel.HeaderContent>
                         <StackPanel Margin="0,4,0,0">
-                            <Button Classes="Accent"
-                                    Click="ChangeTheme"
-                                    HorizontalAlignment="Left"
-                                    Margin="0,0,0,0">
+                            <Button
+                                Classes="Accent"
+                                Click="ChangeTheme"
+                                HorizontalAlignment="Left"
+                                Margin="0,0,0,0">
                                 <material:MaterialIcon Kind="LightbulbOutline" />
                             </Button>
                             <DockPanel Margin="0,20,0,0">
@@ -52,8 +51,6 @@
                                         Text="jean@mail.com" />
 
                                 </StackPanel>
-
-
                             </DockPanel>
                             <Border
                                 Background="LightGray"

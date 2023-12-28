@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
+using Avalonia.Input;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Styling;
@@ -15,16 +15,6 @@ public class SukiWindow : Window
 {
     protected override Type StyleKeyOverride => typeof(SukiWindow);
     
-        public static readonly StyledProperty<HorizontalAlignment> TitleHorizontalAlignmentProperty =
-        AvaloniaProperty.Register<SukiWindow, HorizontalAlignment>(nameof(TitleHorizontalAlignment),
-            defaultValue: HorizontalAlignment.Left);
-
-    public HorizontalAlignment TitleHorizontalAlignment
-    {
-        get => GetValue(TitleHorizontalAlignmentProperty);
-        set => SetValue(TitleHorizontalAlignmentProperty, value);
-    }
-
     public static readonly StyledProperty<double> TitleFontSizeProperty =
         AvaloniaProperty.Register<SukiWindow, double>(nameof(TitleFontSize), defaultValue: 13);
 
@@ -34,28 +24,19 @@ public class SukiWindow : Window
         set => SetValue(TitleFontSizeProperty, value);
     }
 
-
     public static readonly StyledProperty<FontWeight> TitleFontWeightProperty =
         AvaloniaProperty.Register<SukiWindow, FontWeight>(nameof(TitleFontWeight),
-            defaultValue: FontWeight.DemiBold);
+            defaultValue: FontWeight.Bold);
 
     public FontWeight TitleFontWeight
     {
         get => GetValue(TitleFontWeightProperty);
         set => SetValue(TitleFontWeightProperty, value);
     }
-
-    public static readonly StyledProperty<IBrush> LogoColorProperty =
-        AvaloniaProperty.Register<SukiWindow, IBrush>(nameof(LogoColor), defaultValue: Brushes.DarkSlateBlue);
-
-    public IBrush LogoColor
-    {
-        get => GetValue(LogoColorProperty);
-        set => SetValue(LogoColorProperty, value);
-    }
-
+    
     public static readonly StyledProperty<Control> LogoContentProperty =
-        AvaloniaProperty.Register<SukiWindow, Control>(nameof(LogoContent), defaultValue: new Border());
+        AvaloniaProperty.Register<SukiWindow, Control>(nameof(LogoContent),
+            defaultValue: new Border());
 
     public Control LogoContent
     {
@@ -73,7 +54,8 @@ public class SukiWindow : Window
     }
 
     public static readonly StyledProperty<bool> IsMinimizeButtonEnabledProperty =
-        AvaloniaProperty.Register<SukiWindow, bool>(nameof(IsMinimizeButtonEnabled), defaultValue: true);
+        AvaloniaProperty.Register<SukiWindow, bool>(nameof(IsMinimizeButtonEnabled),
+            defaultValue: true);
 
     public bool IsMinimizeButtonEnabled
     {
@@ -82,14 +64,15 @@ public class SukiWindow : Window
     }
 
     public static readonly StyledProperty<bool> IsMaximizeButtonEnabledProperty =
-        AvaloniaProperty.Register<SukiWindow, bool>(nameof(IsMaximizeButtonEnabled), defaultValue: true);
+        AvaloniaProperty.Register<SukiWindow, bool>(nameof(IsMaximizeButtonEnabled),
+            defaultValue: true);
 
     public bool IsMaximizeButtonEnabled
     {
         get => GetValue(IsMaximizeButtonEnabledProperty);
         set => SetValue(IsMaximizeButtonEnabledProperty, value);
     }
-
+    
     public static readonly StyledProperty<bool> MenuVisibilityProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(MenuVisibility), defaultValue: false);
 
@@ -117,26 +100,41 @@ public class SukiWindow : Window
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
             var maxStyle = new Style(
-                x => x.OfType<Window>()
-                    .Class("NakedWindow")
+                x => x.OfType<SukiWindow>()
                     .PropertyEquals(WindowStateProperty, WindowState.Maximized)
                     .Template()
-                    .OfType<ContentPresenter>()
-                    .Name("PART_ContentPresenter"));
+                    .OfType<VisualLayerManager>());
             maxStyle.Setters.Add(new Setter(PaddingProperty, new Thickness(8)));
             Application.Current!.Styles.Add(maxStyle);
         }
         
+        // Create handlers for buttons
         if (e.NameScope.Find<Button>("PART_MaximizeButton") is { } maximize)
             maximize.Click += (_, _) =>
                 WindowState = WindowState == WindowState.Maximized
                     ? WindowState.Normal
                     : WindowState.Maximized;
-        ;
+        
         if (e.NameScope.Find<Button>("PART_MinimizeButton") is { } minimize)
             minimize.Click += (_, _) => WindowState = WindowState.Minimized;
         
         if (e.NameScope.Find<Button>("PART_CloseButton") is { } close)
             close.Click += (_, _) => Close();
+
+        if (e.NameScope.Find<GlassCard>("PART_TitleBarBackground") is { } titleBar)
+            titleBar.PointerPressed += OnTitleBarPointerPressed;
+    }
+    
+    private void OnTitleBarPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        base.OnPointerPressed(e);
+        if (e.ClickCount >= 2)
+        {
+            WindowState = WindowState == WindowState.Maximized
+                ? WindowState.Normal
+                : WindowState.Maximized;
+        }
+        else
+            BeginMoveDrag(e);
     }
 }

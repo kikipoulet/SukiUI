@@ -6,6 +6,7 @@
         <Setter Property="ExtendClientAreaChromeHints" Value="NoChrome" />
         <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="-1" />
         <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
+        <Setter Property="FontFamily" Value="{StaticResource QuicksandFont}" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Grid>
@@ -14,85 +15,103 @@
                             <Grid>
                                 <Border Background="{TemplateBinding Background}" IsHitTestVisible="False"
                                         x:Name="PART_Root" />
+                                <Grid IsHitTestVisible="False">
+                                    <Image
+                                        IsVisible="{DynamicResource IsDark}"
+                                        Source="../Assets/gradient_dark_strong.png"
+                                        Stretch="UniformToFill" />
+                                    <Image
+                                        IsVisible="{DynamicResource IsLight}"
+                                        Source="../Assets/mesh-gradient (1).png"
+                                        Stretch="UniformToFill" />
+                                </Grid>
                                 <DockPanel LastChildFill="True">
-                                    <suki:WindowTitleBar
-                                    BorderBrush="{DynamicResource SukiBorderBrush}"
-                                    DockPanel.Dock="Top"
-                                    Name="BottomBorder">
-                                    <Grid>
-                                        <StackPanel>
-                                            <Grid Background="Transparent"
-                                                  ColumnDefinitions="Auto,*"
-                                                  IsHitTestVisible="False"
-                                                  VerticalAlignment="Center">
-                                                <ContentControl
-                                                    Content="{TemplateBinding LogoContent}"
-                                                    Grid.Column="0"
-                                                    HorizontalAlignment="Left"
-                                                    IsHitTestVisible="False"
-                                                    Margin="10" />
-                                                <TextBlock
-                                                    FontSize="{TemplateBinding TitleFontSize}"
-                                                    FontWeight="{TemplateBinding TitleFontWeight}"
-                                                    Grid.Column="1"
-                                                    HorizontalAlignment="{TemplateBinding TitleHorizontalAlignment}"
-                                                    IsHitTestVisible="False"
-                                                    Text="{TemplateBinding Title}"
-                                                    VerticalAlignment="Center" />
-                                            </Grid>
-                                            <Menu IsHitTestVisible="True"
-                                                  IsVisible="{TemplateBinding MenuVisibility}"
-                                                  ItemsSource="{TemplateBinding MenuItems}"
-                                                  Margin="5,-5,0,0" />
-                                        </StackPanel>
-                                        <StackPanel Grid.Column="2"
-                                                    VerticalAlignment="Center"
-                                                    HorizontalAlignment="Right"
-                                                    Margin="0,0,5,0"
-                                                    Orientation="Horizontal"
-                                                    FlowDirection="RightToLeft">
+                                    <!-- Title Bar... -->
+                                    <Grid DockPanel.Dock="Top">
+                                        <Grid.Styles>
+                                            <Style
+                                                Selector="suki|SukiWindow[ShowBottomBorder=True] /template/ Border#PART_BottomBorder">
+                                                <Setter Property="BorderThickness" Value="0,0,0,1" />
+                                            </Style>
+                                            <Style
+                                                Selector="suki|SukiWindow[ShowBottomBorder=False] /template/ Border#PART_BottomBorder">
+                                                <Setter Property="BorderThickness" Value="0,0,0,0" />
+                                            </Style>
+                                        </Grid.Styles>
+                                        <suki:GlassCard
+                                            Name="PART_TitleBarBackground"
+                                            CornerRadius="0"
+                                            BorderThickness="0"/>
+                                        <Border
+                                            Name="PART_BottomBorder"
+                                            BorderBrush="{DynamicResource SukiBorderBrush}" />
+                                        <DockPanel LastChildFill="True" Margin="5,2">
+                                            <StackPanel
+                                                DockPanel.Dock="Right"
+                                                VerticalAlignment="Center"
+                                                Orientation="Horizontal"
+                                                FlowDirection="RightToLeft">
+                                                <!--  Close button  -->
+                                                <Button
+                                                    Classes="Accent Rounded WindowControlsButton Red"
+                                                    Name="PART_CloseButton">
+                                                    <PathIcon
+                                                        Classes="WindowControlsIcon"
+                                                        Data="{x:Static icons:Icons.WindowClose}" />
+                                                </Button>
 
-                                            <!--  Close button  -->
-                                            <Button BorderThickness="0"
-                                                    Classes="Accent Rounded HoverableWindowButtonRed WindowControlsButton"
-                                                    Name="PART_CloseButton"
-                                                    IsHitTestVisible="True">
-                                                <PathIcon Classes="WindowControlsIcon"
-                                                          Data="{x:Static icons:Icons.WindowClose}" />
-                                            </Button>
-
-                                            <!--  Maximize button  -->
-                                            <Button Classes="Accent Rounded HoverableWindowButton WindowControlsButton"
+                                                <!--  Maximize button  -->
+                                                <Button
+                                                    Classes="Accent Rounded WindowControlsButton"
                                                     Name="PART_MaximizeButton"
                                                     IsVisible="{TemplateBinding IsMaximizeButtonEnabled}">
-                                                <PathIcon x:Name="MaximizeIcon" Width="8" Height="8"
-                                                          Classes="WindowMaximize WindowControlsIcon"
-                                                          Data="{x:Static icons:Icons.WindowMaximize}" />
-                                            </Button>
+                                                    <PathIcon
+                                                        x:Name="MaximizeIcon"
+                                                        Classes="WindowControlsIcon"
+                                                        Data="{x:Static icons:Icons.WindowMaximize}" />
+                                                </Button>
 
-                                            <!--  Minimize button  -->
-                                            <Button Classes="Accent Rounded HoverableWindowButton WindowControlsButton"
+                                                <!--  Minimize button  -->
+                                                <Button
+                                                    Classes="Accent Rounded WindowControlsButton"
                                                     Name="PART_MinimizeButton"
                                                     VerticalContentAlignment="Bottom"
                                                     IsVisible="{TemplateBinding IsMinimizeButtonEnabled}">
-                                                <PathIcon Margin="0,0,0,4" Classes="WindowControlsIcon"
-                                                          VerticalAlignment="Bottom"
-                                                          Data="{x:Static icons:Icons.WindowMinimize}" />
-                                            </Button>
+                                                    <PathIcon
+                                                        Margin="0,0,0,4"
+                                                        Classes="WindowControlsIcon"
+                                                        VerticalAlignment="Bottom"
+                                                        Data="{x:Static icons:Icons.WindowMinimize}" />
+                                                </Button>
+                                            </StackPanel>
 
-                                        </StackPanel>
+                                            <StackPanel IsHitTestVisible="False"
+                                                        Spacing="10"
+                                                        VerticalAlignment="Center"
+                                                        Orientation="Horizontal">
+                                                <ContentControl
+                                                    Content="{TemplateBinding LogoContent}"
+                                                    HorizontalAlignment="Left"
+                                                    IsHitTestVisible="False" />
+                                                <TextBlock
+                                                    FontSize="{TemplateBinding TitleFontSize}"
+                                                    FontWeight="{TemplateBinding TitleFontWeight}"
+                                                    IsHitTestVisible="False"
+                                                    Text="{TemplateBinding Title}"
+                                                    VerticalAlignment="Center" />
+                                            </StackPanel>
+                                        </DockPanel>
                                     </Grid>
-                                </suki:WindowTitleBar>
-                                <ContentPresenter
-                                    Content="{TemplateBinding Content}"
-                                    ContentTemplate="{TemplateBinding ContentTemplate}"
-                                    CornerRadius="10"
-                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                    IsHitTestVisible="True"
-                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                    x:Name="PART_ContentPresenter" />
+                                    
+                                    <ContentPresenter
+                                        Content="{TemplateBinding Content}"
+                                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                                        CornerRadius="10"
+                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        IsHitTestVisible="True"
+                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        x:Name="PART_ContentPresenter" />
                                 </DockPanel>
-                                
                             </Grid>
                         </VisualLayerManager>
                     </Grid>

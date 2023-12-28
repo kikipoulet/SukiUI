@@ -17,19 +17,10 @@
 
     <Style Selector="TextBlock">
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
-        <Setter Property="FontFamily" Value="avares://SukiUI/CustomFont#Quicksand" />
         <Setter Property="FontSize" Value="14" />
     </Style>
 
-    <Style Selector="TextBlock[FontWeight=DemiBold]">
-
-        
-    </Style>
-
-
-
     <Style Selector="TextBox">
-       
         <Setter Property="FontSize" Value="15" />
     </Style>
     <Style Selector="TextBlock.h4">
