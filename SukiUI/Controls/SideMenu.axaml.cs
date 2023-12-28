@@ -2,7 +2,9 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using System;
+using System.Globalization;
 using System.Linq;
+using Avalonia.Data.Converters;
 using Avalonia.Interactivity;
 
 namespace SukiUI.Controls
@@ -64,3 +66,5 @@ namespace SukiUI.Controls
         }
     }
 }
+
+

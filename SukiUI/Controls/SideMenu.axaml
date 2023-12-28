@@ -9,10 +9,25 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:content="clr-namespace:SukiUI.Content"
-    xmlns:suki="clr-namespace:SukiUI.Controls">
+    xmlns:suki="clr-namespace:SukiUI.Controls"
+    xmlns:global="clr-namespace:">
     <UserControl.Styles>
         <Style Selector="PathIcon">
             <Setter Property="Foreground" Value="#444444" />
+        </Style>
+        <Style Selector="PathIcon.RollingIcon[IsVisible=True]">
+            <Style.Animations>
+                <Animation Duration="0:0:0.5"><Animation.Easing>
+                        <ExponentialEaseIn></ExponentialEaseIn>
+                    </Animation.Easing> 
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Opacity" Value="0.0"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Opacity" Value="1.0"/>
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
         </Style>
     </UserControl.Styles>
 
@@ -134,6 +149,7 @@
 
                                             <Grid Margin="-30,1,0,0">
                                                 <DockPanel Margin="0,5,5,5">
+                                                    
 
 
                                                     <Border Width="55" />
@@ -153,10 +169,12 @@
                                                         IsVisible="{Binding DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
                                                         Margin="15,8,8,8"
                                                         Text="{Binding Header}" />
-                                                    <PathIcon
+                                                    <PathIcon Classes="RollingIcon"
+                                                        Foreground="{DynamicResource SukiText}"
+                                                        Data="{x:Static content:Icons.CircleOutline}" 
                                                         IsVisible="{Binding !DataContext.MenuVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
-                                                        Data="{x:Static content:Icons.CircleOutline}"
-                                                        Margin="-65,0,0,0" />
+                                                        Margin="-65,0,0,0" >
+                                                    </PathIcon>
                                                 </DockPanel>
 
 
