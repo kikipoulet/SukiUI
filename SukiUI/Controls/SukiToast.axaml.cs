@@ -39,7 +39,9 @@ public class SukiToast : ContentControl
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
+
         e.NameScope.Get<GlassCard>("PART_ToastCard").PointerPressed += ToastCardClickedHandler;
+
     }
 
     private void ToastCardClickedHandler(object o, PointerPressedEventArgs pointerPressedEventArgs)

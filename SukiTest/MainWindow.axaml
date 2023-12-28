@@ -11,7 +11,7 @@
                  xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
                  xmlns:sukiTest="clr-namespace:SukiTest"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-                 suki:SukiHost.ToastLocation="BottomLeft">
+                 suki:SukiHost.ToastLocation="BottomRight">
     <suki:SukiWindow.LogoContent>
         <material:MaterialIcon
             Foreground="{DynamicResource SukiPrimaryColor}"

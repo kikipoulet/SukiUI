@@ -1,5 +1,8 @@
 using System;
 using System.Linq;
+using System.Reactive.Concurrency;
+using System.Threading;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Controls;
@@ -140,8 +143,15 @@ public class SukiHost : ContentControl
     public static void ShowToast(SukiToastModel model)
     {
         var toast = SukiToastPool.Get();
+
         toast.Initialize(model);
-        Dispatcher.UIThread.Invoke(() => Instance.ToastsCollection.Add(toast));
+        Dispatcher.UIThread.Invoke(() =>
+        {
+            Instance.ToastsCollection.Add(toast);
+            toast.Animate<Double>(OpacityProperty, 0,1,TimeSpan.FromMilliseconds(500));
+            toast.Animate<Thickness>(MarginProperty, new Thickness(0,10,0,-10),new Thickness(),TimeSpan.FromMilliseconds(500));
+        });
+
     }
 
     /// <summary>
@@ -150,9 +160,11 @@ public class SukiHost : ContentControl
     /// <param name="toast">The toast to clear.</param>
     public static void ClearToast(SukiToast toast)
     {
+
         var wasRemoved = Dispatcher.UIThread.Invoke(() => Instance.ToastsCollection.Remove(toast));
         if (!wasRemoved) return;
         SukiToastPool.Return(toast);
+
     }
     
     /// <summary>
