@@ -1,32 +1,6 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:icons="clr-namespace:SukiUI.Content"
         xmlns:suki="clr-namespace:SukiUI.Controls">
-    <Style Selector="Window.NakedWindow">
-        <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
-        <Setter Property="ExtendClientAreaChromeHints" Value="NoChrome" />
-        <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="-1" />
-        <Setter Property="Background" Value="{DynamicResource SukiLightBackground}"></Setter>
-        <Setter Property="CornerRadius" Value="15" />
-        <Setter Property="Template">
-            <ControlTemplate>
-                <Grid>
-                    <Border Background="{TemplateBinding Background}" IsHitTestVisible="False" x:Name="PART_Root" />
-                    <Grid IsHitTestVisible="True">
-                        <VisualLayerManager IsHitTestVisible="True">
-                            <ContentPresenter
-                                Content="{TemplateBinding Content}"
-                                ContentTemplate="{TemplateBinding ContentTemplate}"
-                                CornerRadius="10"
-                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                IsHitTestVisible="True"
-                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                x:Name="PART_ContentPresenter" />
-                        </VisualLayerManager>
-                    </Grid>
-                </Grid>
-            </ControlTemplate>
-        </Setter>
-    </Style>
     
     <Style Selector="suki|SukiWindow[WindowState=Maximized] PathIcon#MaximizeIcon">
         <Setter Property="Data" Value="{x:Static icons:Icons.WindowRestore}" />

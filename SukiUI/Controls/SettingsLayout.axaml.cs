@@ -14,7 +14,6 @@ using Avalonia.Data;
 using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
-using Avalonia.Threading;
 using DynamicData;
 
 namespace SukiUI.Controls;
