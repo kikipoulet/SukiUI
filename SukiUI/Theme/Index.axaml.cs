@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Data;
 using Avalonia.Media;
@@ -10,14 +11,19 @@ namespace SukiUI;
 public partial class SukiTheme : Styles
 {
     public static readonly StyledProperty<SukiColorTheme> ColorThemeProperty =
-        AvaloniaProperty.Register<SukiTheme, SukiColorTheme>(nameof(ColorTheme), defaultBindingMode: BindingMode.TwoWay, defaultValue: SukiColorTheme.Blue);
+        AvaloniaProperty.Register<SukiTheme, SukiColorTheme>(nameof(ColorTheme), defaultBindingMode: BindingMode.TwoWay,
+            defaultValue: SukiColorTheme.Blue);
 
     public SukiColorTheme ColorTheme
     {
         get => GetValue(ColorThemeProperty);
-        set { SetValue(ColorThemeProperty, value); SetColorThemeResources(); }
+        set
+        {
+            SetValue(ColorThemeProperty, value);
+            SetColorThemeResources();
+        }
     }
-    
+
     /// <summary>
     /// Called whenever the application's <see cref="SukiColorTheme"/> is changed.
     /// Useful where controls cannot use "DynamicResource"
@@ -30,28 +36,20 @@ public partial class SukiTheme : Styles
     {
         _instance ??= this;
         if (Application.Current is null) return;
-        switch (ColorTheme)
-        {
-            case SukiColorTheme.Orange:
-                Application.Current.Resources["SukiPrimaryColor"] = Color.Parse("#ED8E12");
-                Application.Current.Resources["SukiIntBorderBrush"] = Color.Parse("#151271ED");
-                break;
-            case SukiColorTheme.Red:
-                Application.Current.Resources["SukiPrimaryColor"] = Colors.IndianRed;
-                Application.Current.Resources["SukiIntBorderBrush"] = Color.Parse("#15cc8888");
-                break;
-            
-            case SukiColorTheme.Green:
-                Application.Current.Resources["SukiPrimaryColor"] = Colors.ForestGreen;
-                Application.Current.Resources["SukiIntBorderBrush"] = Color.Parse("#1588cc88");
-                break;
-            
-            default:
-                Application.Current.Resources["SukiPrimaryColor"] = Color.Parse("#0A59F7");
-                Application.Current.Resources["SukiIntBorderBrush"] = Color.Parse("#158888ff");
-                break;
-        }
+        if (!Swatches.TryGetValue(ColorTheme, out var swatch))
+            throw new Exception($"{ColorTheme} has no defined swatch.");
+        Application.Current.Resources["SukiPrimaryColor"] = swatch.Primary;
+        Application.Current.Resources["SukiIntBorderBrush"] = swatch.IntBorder;
     }
+
+    public static readonly IReadOnlyDictionary<SukiColorTheme, (Color Primary, Color IntBorder)> Swatches =
+        new Dictionary<SukiColorTheme, (Color Primary, Color IntBorder)>
+        {
+            { SukiColorTheme.Orange, (Color.Parse("#ED8E12"), Color.Parse("#151271ED")) },
+            { SukiColorTheme.Red, (Colors.IndianRed, Color.Parse("#15cc8888")) },
+            { SukiColorTheme.Green, (Colors.ForestGreen, Color.Parse("#1588cc88")) },
+            { SukiColorTheme.Blue, (Color.Parse("#0A59F7"), Color.Parse("#158888ff")) }
+        };
 
     /// <summary>
     /// Attempts to change the theme to the given value.
