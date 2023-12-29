@@ -33,6 +33,7 @@
                            
                             <Arc.Transitions>
                                 <Transitions>
+                                    <BrushTransition Property="Stroke" Duration="0:0:0.5"></BrushTransition>
                                     <DoubleTransition
                                         Duration="0:0:0.8"
                                         Easing="CircularEaseOut"

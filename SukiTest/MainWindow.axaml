@@ -12,7 +12,15 @@
                  xmlns:sukiTest="clr-namespace:SukiTest"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
                  suki:SukiHost.ToastLocation="BottomRight"
-                 suki:SukiHost.ToastLimit="2">
+                 suki:SukiHost.ToastLimit="2" MenuVisibility="False">
+    <suki:SukiWindow.MenuItems>
+        <MenuItem Header="File">
+            <MenuItem Header="Edit"></MenuItem>
+            <MenuItem Header="Save"></MenuItem>
+        </MenuItem>
+        <MenuItem Header="Edit"></MenuItem>
+        <MenuItem Header="Save"></MenuItem>
+    </suki:SukiWindow.MenuItems>
     <suki:SukiWindow.LogoContent>
         <material:MaterialIcon
             Foreground="{DynamicResource SukiPrimaryColor}"

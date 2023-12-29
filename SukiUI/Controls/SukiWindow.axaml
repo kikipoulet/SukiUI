@@ -19,7 +19,7 @@
                                             IsVisible="{DynamicResource IsDark}"
                                             Source="../Assets/gradient_dark_strong.png"
                                             Stretch="UniformToFill" />
-                                        <Image
+                                        <Image 
                                             IsVisible="{DynamicResource IsLight}"
                                             Source="../Assets/mesh-gradient (1).png"
                                             Stretch="UniformToFill" />
@@ -41,9 +41,9 @@
                                                 Name="PART_TitleBarBackground"
                                                 CornerRadius="0"
                                                 BorderThickness="0" />
-                                            <Border
-                                                Name="PART_BottomBorder"
-                                                BorderBrush="{DynamicResource SukiBorderBrush}" />
+                                            <StackPanel>
+                                                <Grid>
+                                          
                                             <DockPanel LastChildFill="True" Margin="5,2">
                                                 <StackPanel
                                                     DockPanel.Dock="Right"
@@ -100,6 +100,13 @@
                                                         VerticalAlignment="Center" />
                                                 </StackPanel>
                                             </DockPanel>
+                                            
+                                                </Grid>
+                                                <Menu IsVisible="{TemplateBinding MenuVisibility}" ItemsSource="{TemplateBinding MenuItems}"></Menu>
+                                                <Border
+                                                    Name="PART_BottomBorder"
+                                                    BorderBrush="{DynamicResource SukiBorderBrush}" />
+                                            </StackPanel>
                                         </Grid>
 
                                         <ContentPresenter

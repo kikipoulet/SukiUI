@@ -6,6 +6,8 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform;
 using Avalonia.Styling;
 
 namespace SukiUI.Controls;
@@ -122,7 +124,10 @@ public class SukiWindow : Window
 
         if (e.NameScope.Find<GlassCard>("PART_TitleBarBackground") is { } titleBar)
             titleBar.PointerPressed += OnTitleBarPointerPressed;
+     
     }
+    
+  
     
     private void OnTitleBarPointerPressed(object? sender, PointerPressedEventArgs e)
     {
