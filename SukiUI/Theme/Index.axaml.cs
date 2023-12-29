@@ -80,4 +80,11 @@ public partial class SukiTheme : Styles
         _instance.ThemeColor = sukiColor;
         OnColorThemeChanged?.Invoke(ActiveColorTheme);
     }
+
+    /// <summary>
+    /// <inheritdoc cref="TryChangeTheme(SukiUI.Enums.SukiColor)"/>
+    /// </summary>
+    /// <param name="sukiColorTheme"></param>
+    public static void TryChangeTheme(SukiColorTheme sukiColorTheme) => 
+        TryChangeTheme(sukiColorTheme.Theme);
 }
