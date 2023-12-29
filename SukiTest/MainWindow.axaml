@@ -11,7 +11,8 @@
                  xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
                  xmlns:sukiTest="clr-namespace:SukiTest"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-                 suki:SukiHost.ToastLocation="BottomRight">
+                 suki:SukiHost.ToastLocation="BottomRight"
+                 suki:SukiHost.ToastLimit="2">
     <suki:SukiWindow.LogoContent>
         <material:MaterialIcon
             Foreground="{DynamicResource SukiPrimaryColor}"
@@ -24,13 +25,18 @@
             <suki:SideMenuModel HeaderContentOverlapsToggleSidebarButton="True">
                 <suki:SideMenuModel.HeaderContent>
                     <StackPanel Margin="0,4,0,0">
-                        <Button
-                            Classes="Accent"
-                            Click="ChangeTheme"
-                            HorizontalAlignment="Left"
-                            Margin="0,0,0,0">
-                            <material:MaterialIcon Kind="LightbulbOutline" />
-                        </Button>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Button
+                                Classes="Accent"
+                                Click="ChangeTheme">
+                                <material:MaterialIcon Kind="LightbulbOutline" />
+                            </Button>
+                            <Button
+                                Classes="Accent"
+                                Click="ChangeColor">
+                                <material:MaterialIcon Kind="Palette"/>
+                            </Button>
+                        </StackPanel>
                         <DockPanel Margin="0,20,0,0">
                             <material:MaterialIcon
                                 DockPanel.Dock="Left"
@@ -49,7 +55,6 @@
                                     FontWeight="Thin"
                                     Margin="3,1,0,0"
                                     Text="jean@mail.com" />
-
                             </StackPanel>
                         </DockPanel>
                         <Border

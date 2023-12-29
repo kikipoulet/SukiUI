@@ -10,7 +10,12 @@ public partial class WaveProgress : UserControl
     public WaveProgress()
     {
         InitializeComponent();
-        Application.Current.ActualThemeVariantChanged += (sender, args) =>
+        Application.Current.ActualThemeVariantChanged += (_, _) =>
+        {
+            Value++;
+            Value--;
+        };
+        SukiTheme.OnColorThemeChanged += _ =>
         {
             Value++;
             Value--;
