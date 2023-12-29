@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Avalonia;
 using Avalonia.Data;
 using Avalonia.Media;
@@ -42,6 +43,9 @@ public partial class SukiTheme : Styles
         Application.Current.Resources["SukiIntBorderBrush"] = swatch.IntBorder;
     }
 
+    /// <summary>
+    /// All available Color Themes.
+    /// </summary>
     public static readonly IReadOnlyDictionary<SukiColorTheme, (Color Primary, Color IntBorder)> Swatches =
         new Dictionary<SukiColorTheme, (Color Primary, Color IntBorder)>
         {
@@ -50,6 +54,12 @@ public partial class SukiTheme : Styles
             { SukiColorTheme.Green, (Colors.ForestGreen, Color.Parse("#1588cc88")) },
             { SukiColorTheme.Blue, (Color.Parse("#0A59F7"), Color.Parse("#158888ff")) }
         };
+
+    /// <summary>
+    /// Provides Brushes for displaying all the available color themes.
+    /// </summary>
+    public static IReadOnlyDictionary<SukiColorTheme, IBrush> DisplaySwatches =>
+        Swatches.ToDictionary(x => x.Key, y => (IBrush)new SolidColorBrush(y.Value.Primary));
 
     /// <summary>
     /// Attempts to change the theme to the given value.
