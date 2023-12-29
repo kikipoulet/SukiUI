@@ -22,7 +22,7 @@ public partial class SukiTheme : Styles
     /// Called whenever the application's <see cref="SukiColorTheme"/> is changed.
     /// Useful where controls cannot use "DynamicResource"
     /// </summary>
-    public static Action<SukiColorTheme>? OnThemeChanged { get; set; }
+    public static Action<SukiColorTheme>? OnColorThemeChanged { get; set; }
 
     private static SukiTheme? _instance;
 
@@ -61,7 +61,7 @@ public partial class SukiTheme : Styles
     {
         if (_instance is null) return;
         _instance.ColorTheme = theme;
-        OnThemeChanged?.Invoke(theme);
+        OnColorThemeChanged?.Invoke(theme);
     }
 
     /// <summary>

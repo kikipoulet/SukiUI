@@ -15,7 +15,7 @@ public partial class WaveProgress : UserControl
             Value++;
             Value--;
         };
-        SukiTheme.OnThemeChanged += _ =>
+        SukiTheme.OnColorThemeChanged += _ =>
         {
             Value++;
             Value--;
