@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
@@ -50,47 +52,55 @@ public class SukiBackground : Image, IDisposable
         using var surface =  SKSurface.Create(info, framebuffer.Address, framebuffer.RowBytes);
         var canvas = surface.Canvas;
         
-        canvas.Clear(baseTheme == ThemeVariant.Light ? new SKColor(238,241,250) : new SKColor(16,25,47)); // Uses IntBorder as base color
+        int a = themeColor.R;
+        int b = themeColor.G;
+        int c = themeColor.B;
+        
+        int min_value = Math.Min(Math.Min(a, b), c);
+        int max_value = Math.Max(Math.Max(a, b), c);
+        
+        a = (a == min_value) ? 24 : ((a == max_value) ? 33 : 20);
+        b = (b == min_value) ? 24 : ((b == max_value) ? 33 : 20);
+        c = (c == min_value) ? 24 : ((c == max_value) ? 33 : 20);
+        
+        
+        canvas.Clear(baseTheme == ThemeVariant.Light ? new SKColor(241,241,241) : new SKColor((byte)a,(byte)b,(byte)c)); // Uses IntBorder as base color
 
              _paint.ImageFilter = _blurFilter;
         _paint.Style = SKPaintStyle.Fill;
 
       
-            _paint.Color = new SKColor(themeColor.R, themeColor.G, themeColor.B, 20);
+            _paint.Color = new SKColor(themeColor.R, themeColor.G, themeColor.B, 30);
             canvas.DrawPath(GenerateRandomEllipse(ImageWidth,ImageHeight,10,ImageHeight - 11), _paint);
-            _paint.Color = new SKColor(themeColor.R, themeColor.G, themeColor.B, 12);
+            _paint.Color = new SKColor(themeColor.R, themeColor.G, themeColor.B, 18);
             canvas.DrawPath(GenerateRandomEllipse(ImageWidth,ImageHeight,ImageWidth-20,12), _paint);
-            _paint.Color = new SKColor(themeColor.R, themeColor.G, themeColor.B, 5);
-            canvas.DrawPath(GenerateRandomEllipse(ImageWidth,ImageHeight), _paint);
+          
+            // Neutral top left color
+            _paint.Color = new SKColor(100, 100, 100, 16);
+            canvas.DrawPath(GenerateRandomEllipse(ImageWidth,ImageHeight, 20,20), _paint);
            
         
         // generates a "complementary" color by just spinning the H value by 180 deg.
      
-            _paint.Color = new SKColor(intBorder.R, intBorder.G, intBorder.B, 10);
+            _paint.Color = new SKColor(intBorder.R, intBorder.G, intBorder.B, 18);
             canvas.DrawPath(GenerateRandomEllipse(ImageWidth,ImageHeight, ImageWidth-20,ImageHeight - 10), _paint);
         
-        
-      
     }
 
     static SKPath GenerateRandomEllipse(int maxWidth, int maxHeight, float centerX = 0, float centerY = 0)
     {
-        // Création d'une instance de SKPath pour l'ellipse
         SKPath randomEllipse = new SKPath();
-
-        // Génération de valeurs aléatoires pour la position de l'ellipse
+        
         Random random = new Random();
         if (centerX == 0)
         {
             centerX = random.Next(0, maxWidth);
             centerY = random.Next(0, maxHeight);
         }
-
-        // Génération de valeurs aléatoires pour les dimensions de l'ellipse
-        float radiusX = random.Next(ImageWidth /6, ImageWidth/2);
-        float radiusY = random.Next(ImageWidth /6, ImageWidth/2);
-
-        // Création de l'ellipse avec les valeurs aléatoires
+        
+        float radiusX = random.Next(ImageWidth /5, ImageWidth/2);
+        float radiusY = random.Next(ImageWidth /5, ImageWidth/2);
+        
         randomEllipse.AddOval(new SKRect(centerX - radiusX, centerY - radiusY, centerX + radiusX, centerY + radiusY));
 
         return randomEllipse;

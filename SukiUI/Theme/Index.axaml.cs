@@ -54,7 +54,7 @@ public partial class SukiTheme : Styles
         {
             new SukiColorTheme(SukiColor.Orange, Color.Parse("#ED8E12"), Color.Parse("#15176CE8")),
             new SukiColorTheme(SukiColor.Red, Color.Parse("#D03A2F"), Color.Parse("#152FC5D0")),
-            new SukiColorTheme(SukiColor.Green, Color.Parse("#4DB24F"), Color.Parse("#15B24DB0")),
+            new SukiColorTheme(SukiColor.Green, Colors.ForestGreen, Color.Parse("#15B24DB0")),
             new SukiColorTheme(SukiColor.Blue, Color.Parse("#0A59F7"), Color.Parse("#15F7A80A"))
         };
         ColorThemeMap = ColorThemes.ToDictionary(x => x.Theme);
