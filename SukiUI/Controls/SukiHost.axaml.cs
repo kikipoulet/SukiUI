@@ -53,7 +53,7 @@ public class SukiHost : ContentControl
     }
 
     public static readonly AttachedProperty<ToastLocation> ToastLocationProperty =
-        AvaloniaProperty.RegisterAttached<SukiHost, SukiWindow, ToastLocation>("ToastLocation",
+        AvaloniaProperty.RegisterAttached<SukiHost, Window, ToastLocation>("ToastLocation",
             defaultValue: ToastLocation.BottomRight);
 
     public static void SetToastLocation(Control element, ToastLocation value) =>
@@ -61,6 +61,14 @@ public class SukiHost : ContentControl
 
     public static ToastLocation GetToastLocation(Control element) =>
         element.GetValue(ToastLocationProperty);
+
+    public static readonly AttachedProperty<int> ToastLimitProperty =
+        AvaloniaProperty.RegisterAttached<SukiHost, Window, int>("ToastLimit", defaultValue: 5);
+
+    public static int GetToastLimit(Control element) => element.GetValue(ToastLimitProperty);
+    
+    public static void SetToastLimit(Control element, int value) =>
+        element.SetValue(ToastLimitProperty, value);
 
     public static readonly StyledProperty<AvaloniaList<SukiToast>> ToastsCollectionProperty =
         AvaloniaProperty.Register<SukiHost, AvaloniaList<SukiToast>>(nameof(ToastsCollection),
@@ -71,9 +79,11 @@ public class SukiHost : ContentControl
         get => GetValue(ToastsCollectionProperty);
         set => SetValue(ToastsCollectionProperty, value);
     }
-
+    
     private static SukiHost? _instance;
     private static SukiHost Instance => EnsureInstance();
+
+    private int _maxToasts;
 
     protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {
@@ -84,7 +94,10 @@ public class SukiHost : ContentControl
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
-        var toastLoc = GetToastLocation((SukiWindow)VisualRoot);
+        if (VisualRoot is not Window window)
+            throw new InvalidOperationException("SukiHost must be hosted inside a Window or SukiWindow");
+        _maxToasts = GetToastLimit(window);
+        var toastLoc = GetToastLocation(window);
         e.NameScope.Get<Border>("PART_DialogBackground").PointerPressed += (_, _) => BackgroundRequestClose();
         e.NameScope.Get<ItemsControl>("PART_ToastPresenter").HorizontalAlignment =
             toastLoc == ToastLocation.BottomLeft
@@ -163,11 +176,13 @@ public class SukiHost : ContentControl
     /// <inheritdoc cref="ShowToast(string,object,System.Nullable{System.TimeSpan},System.Action?)"/>
     /// </summary>
     /// <param name="model">A pre-constructed <see cref="SukiToastModel"/>.</param>
-    public static void ShowToast(SukiToastModel model)
+    public static async void ShowToast(SukiToastModel model)
     {
         var toast = SukiToastPool.Get();
 
         toast.Initialize(model);
+        if (Instance.ToastsCollection.Count >= Instance._maxToasts)
+            await ClearToast(Instance.ToastsCollection.First());
         Dispatcher.UIThread.Invoke(() =>
         {
             Instance.ToastsCollection.Add(toast);
