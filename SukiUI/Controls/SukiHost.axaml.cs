@@ -66,7 +66,7 @@ public class SukiHost : ContentControl
         AvaloniaProperty.RegisterAttached<SukiHost, Window, int>("ToastLimit", defaultValue: 5);
 
     public static int GetToastLimit(Control element) => element.GetValue(ToastLimitProperty);
-    
+
     public static void SetToastLimit(Control element, int value) =>
         element.SetValue(ToastLimitProperty, value);
 
@@ -79,7 +79,7 @@ public class SukiHost : ContentControl
         get => GetValue(ToastsCollectionProperty);
         set => SetValue(ToastsCollectionProperty, value);
     }
-    
+
     private static SukiHost? _instance;
     private static SukiHost Instance => EnsureInstance();
 
@@ -145,7 +145,7 @@ public class SukiHost : ContentControl
     /// <summary>
     /// Attempts to close a dialog if one is shown.
     /// </summary>
-    public static void CloseDialog() => 
+    public static void CloseDialog() =>
         Instance.IsDialogOpen = false;
 
     /// <summary>
@@ -237,24 +237,24 @@ public class SukiHost : ContentControl
         toast.InitializeInvisible();
         Dispatcher.UIThread.Invoke(() =>
         {
+            toast.Animate(MarginProperty, new Thickness(), new Thickness(0, 50, 0, -50),
+                TimeSpan.FromMilliseconds(1));
             Instance.ToastsCollection.Add(toast);
-            toast.Animate(MarginProperty, new Thickness(0, 10, 0, -10), new Thickness(),
-                TimeSpan.FromMilliseconds(500));
         });
     }
 
     // Clearing up the horrible dirty workaround for annoying implicit animation issue
-    internal static async Task ClearInvisibleToast(SukiToast toast)
+    internal static void ClearInvisibleToast(SukiToast toast)
     {
-        await Task.Run(() =>
+        Task.Run(() =>
         {
             Dispatcher.UIThread.Invoke(() =>
             {
                 toast.Animate(MarginProperty, new Thickness(), new Thickness(0, 50, 0, -50),
-                    TimeSpan.FromMilliseconds(300));
+                    TimeSpan.FromMilliseconds(1));
             });
-            Thread.Sleep(300);
-            Dispatcher.UIThread.Invoke(() => Instance.ToastsCollection.Remove(toast));
+            Thread.Sleep(1);
+            return Dispatcher.UIThread.Invoke(() => Instance.ToastsCollection.Remove(toast));
         });
     }
 }
