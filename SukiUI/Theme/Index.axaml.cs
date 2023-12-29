@@ -6,78 +6,78 @@ using Avalonia.Data;
 using Avalonia.Media;
 using Avalonia.Styling;
 using SukiUI.Enums;
+using SukiUI.Models;
 
 namespace SukiUI;
 
 public partial class SukiTheme : Styles
 {
-    public static readonly StyledProperty<SukiColorTheme> ColorThemeProperty =
-        AvaloniaProperty.Register<SukiTheme, SukiColorTheme>(nameof(ColorTheme), defaultBindingMode: BindingMode.TwoWay,
-            defaultValue: SukiColorTheme.Blue);
+    public static readonly StyledProperty<SukiColor> ThemeColorProperty =
+        AvaloniaProperty.Register<SukiTheme, SukiColor>(nameof(Color), defaultBindingMode: BindingMode.TwoWay,
+            defaultValue: SukiColor.Blue);
 
-    public SukiColorTheme ColorTheme
+    public SukiColor ThemeColor
     {
-        get => GetValue(ColorThemeProperty);
+        get => GetValue(ThemeColorProperty);
         set
         {
-            SetValue(ColorThemeProperty, value);
+            SetValue(ThemeColorProperty, value);
             SetColorThemeResources();
         }
     }
-
+    
+    
     /// <summary>
-    /// Called whenever the application's <see cref="SukiColorTheme"/> is changed.
+    /// Called whenever the application's <see cref="SukiColor"/> is changed.
     /// Useful where controls cannot use "DynamicResource"
     /// </summary>
     public static Action<SukiColorTheme>? OnColorThemeChanged { get; set; }
 
+    /// <summary>
+    /// Currently active <see cref="SukiColorTheme"/>
+    /// </summary>
+    public static SukiColorTheme ActiveColorTheme { get; private set; }
+    
+    /// <summary>
+    /// All available Color Themes.
+    /// </summary>
+    public static readonly IReadOnlyList<SukiColorTheme> ColorThemes;
+    
+    internal static readonly IReadOnlyDictionary<SukiColor, SukiColorTheme> ColorThemeMap;
+    
     private static SukiTheme? _instance;
-
+    
+    static SukiTheme()
+    {
+        ColorThemes = new[]
+        {
+            new SukiColorTheme(SukiColor.Orange, Color.Parse("#ED8E12"), Color.Parse("#151271ED")),
+            new SukiColorTheme(SukiColor.Red, Colors.IndianRed, Color.Parse("#15cc8888")),
+            new SukiColorTheme(SukiColor.Green, Colors.ForestGreen, Color.Parse("#1588cc88")),
+            new SukiColorTheme(SukiColor.Blue, Color.Parse("#0A59F7"), Color.Parse("#158888ff"))
+        };
+        ColorThemeMap = ColorThemes.ToDictionary(x => x.Theme);
+    }
+    
     public void SetColorThemeResources()
     {
         _instance ??= this;
         if (Application.Current is null) return;
-        if (!Swatches.TryGetValue(ColorTheme, out var swatch))
-            throw new Exception($"{ColorTheme} has no defined swatch.");
-        Application.Current.Resources["SukiPrimaryColor"] = swatch.Primary;
-        Application.Current.Resources["SukiIntBorderBrush"] = swatch.IntBorder;
+        if (!ColorThemeMap.TryGetValue(ThemeColor, out var colorTheme))
+            throw new Exception($"{ThemeColor} has no defined color theme.");
+        Application.Current.Resources["SukiPrimaryColor"] = colorTheme.Primary;
+        Application.Current.Resources["SukiIntBorderBrush"] = colorTheme.IntBorder;
+        ActiveColorTheme = colorTheme;
     }
-
-    /// <summary>
-    /// All available Color Themes.
-    /// </summary>
-    public static readonly IReadOnlyDictionary<SukiColorTheme, (Color Primary, Color IntBorder)> Swatches =
-        new Dictionary<SukiColorTheme, (Color Primary, Color IntBorder)>
-        {
-            { SukiColorTheme.Orange, (Color.Parse("#ED8E12"), Color.Parse("#151271ED")) },
-            { SukiColorTheme.Red, (Colors.IndianRed, Color.Parse("#15cc8888")) },
-            { SukiColorTheme.Green, (Colors.ForestGreen, Color.Parse("#1588cc88")) },
-            { SukiColorTheme.Blue, (Color.Parse("#0A59F7"), Color.Parse("#158888ff")) }
-        };
-
-    /// <summary>
-    /// Provides Brushes for displaying all the available color themes.
-    /// </summary>
-    public static IReadOnlyDictionary<SukiColorTheme, IBrush> DisplaySwatches =>
-        Swatches.ToDictionary(x => x.Key, y => (IBrush)new SolidColorBrush(y.Value.Primary));
-
+    
     /// <summary>
     /// Attempts to change the theme to the given value.
     /// </summary>
-    /// <param name="theme">The <see cref="SukiColorTheme"/> to change to.</param>
-    public static void TryChangeTheme(SukiColorTheme theme)
+    /// <param name="sukiColor">The <see cref="SukiColor"/> to change to.</param>
+    public static void TryChangeTheme(SukiColor sukiColor)
     {
         if (_instance is null) return;
-        _instance.ColorTheme = theme;
-        OnColorThemeChanged?.Invoke(theme);
-    }
-
-    /// <summary>
-    /// Gets the current <see cref="SukiColorTheme"/>
-    /// </summary>
-    /// <returns>The current <see cref="SukiColorTheme"/> or null if the style hasn't been initialized.</returns>
-    public static SukiColorTheme? GetCurrentTheme()
-    {
-        return _instance?.ColorTheme;
+        _instance.ThemeColor = sukiColor;
+        OnColorThemeChanged?.Invoke(ActiveColorTheme);
     }
 }
