@@ -5,6 +5,8 @@ using Avalonia.Markup.Xaml;
 using SukiUI.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Styling;
+using SukiUI;
+using SukiUI.Enums;
 
 namespace SukiTest
 {
@@ -48,7 +50,16 @@ namespace SukiTest
                     SukiHost.ShowToast("Success!", "You Closed A Toast By Clicking On It!");
                 });
         }
-        
-        
+
+
+        private void ChangeColor(object? sender, RoutedEventArgs e)
+        {
+            var curr = SukiTheme.GetCurrentTheme();
+            if (curr is not { } currentTheme)
+                return;
+            var newColorTheme = (SukiColorTheme)(((int)currentTheme + 1) % 3);
+            SukiTheme.TryChangeTheme(newColorTheme);
+            SukiHost.ShowToast("Successfully Changed Color", $"Changed Color To {newColorTheme}.");
+        }
     }
 }

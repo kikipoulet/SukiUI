@@ -6,6 +6,7 @@ using Avalonia.Data;
 using Avalonia.Layout;
 using Avalonia.Media;
 using System.Collections.ObjectModel;
+using Avalonia.Markup.Xaml.MarkupExtensions;
 using SukiUI.Content;
 
 namespace SukiUI.Controls
@@ -86,22 +87,13 @@ namespace SukiUI.Controls
 
         private void AddStep(string step, int index,Grid grid)
         {
-            Brush PrimaryColor = new SolidColorBrush(Colors.DodgerBlue); 
             Brush DisabledColor = new SolidColorBrush(Color.FromArgb(100,150,150,150)); 
-
-            try
-            {
-
-                PrimaryColor = new SolidColorBrush((Color)Application.Current.FindResource("SukiPrimaryColor"));
-               
-            }catch{}
 
             var griditem = new Grid(){ ColumnDefinitions = new ColumnDefinitions(){new ColumnDefinition( GridLength.Auto), new ColumnDefinition(GridLength.Star), new ColumnDefinition(GridLength.Auto)}};
 
             var icon = new PathIcon() { Height = 10, Width = 10, Data = Icons.ChevronRight, Margin = new Thickness(0,0,20,0)};
             if (index == Steps.Count - 1)
                 icon.IsVisible = false;
-            
    
             Grid.SetColumn(icon,2);
             griditem.Children.Add(icon);
@@ -113,7 +105,7 @@ namespace SukiUI.Controls
 
             if (index <= Index)
             {
-                circle.Background = PrimaryColor;
+                circle[!BackgroundProperty] = new DynamicResourceExtension("SukiPrimaryColor");
                 
                 circle.BorderThickness = new Thickness(0);
                 circle.Child = new TextBlock() {VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center, Text = (index + 1).ToString(), FontSize = 13, Foreground = Brushes.White};

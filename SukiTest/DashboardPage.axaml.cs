@@ -12,6 +12,8 @@ using SukiUI.Controls;
 using System.Threading;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Threading;
+using SukiUI;
+using SukiUI.Enums;
 using SukiUI.Theme;
 
 
@@ -83,43 +85,10 @@ public partial class DashboardPage : UserControl
     {
         AvaloniaXamlLoader.Load(this);
     }
-
-    private int _test = 1;
     
     private void ShowDialog(object sender, RoutedEventArgs e)
     {
-      
         SukiHost.ShowDialog(new DialogContent(), allowBackgroundClose: true);
-        _test++;
-    }
-
-    private void ShowNotification(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            /*   var notif = new Avalonia.Controls.Notifications.Notification("Info", "message");
-               notificationManager.Position = NotificationPosition.BottomRight;
-               notificationManager.Show(notif);
-
-               notif = new Avalonia.Controls.Notifications.Notification("Error", "message", NotificationType.Error);
-               notificationManager.Position = NotificationPosition.BottomRight;
-               notificationManager.Show(notif);
-
-               notif = new Avalonia.Controls.Notifications.Notification("Warning", "message", NotificationType.Warning);
-               notificationManager.Position = NotificationPosition.BottomRight;
-               notificationManager.Show(notif); */
-
-            var notif = new Avalonia.Controls.Notifications.Notification("Success", "A new invoice has been created.",
-                NotificationType.Success);
-            MainWindow m = (MainWindow)((ClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime)
-                .MainWindow;
-            m.notificationManager.Position = NotificationPosition.BottomRight;
-            m.notificationManager.Show(notif);
-        }
-        catch (Exception exc)
-        {
-            Console.WriteLine(exc.Message);
-        }
     }
 
     private void CloseHandler(object sender, RoutedEventArgs e)
@@ -173,11 +142,6 @@ public partial class DashboardPage : UserControl
     }
 
     // Write a function that returns the sum of two numbers.
-
-    private void ShowToast(object? sender, RoutedEventArgs e)
-    {
-        //InteractiveContainer.ShowToast(new TextBlock() { Text = "Hello World !", Margin = new Thickness(15, 8) }, 5);
-    }
 
     private void SetBusy(object? sender, RoutedEventArgs e)
     {
