@@ -54,10 +54,10 @@ namespace SukiTest
 
         private void ChangeColor(object? sender, RoutedEventArgs e)
         {
-            var curr = SukiTheme.GetCurrentTheme();
+            var curr = SukiTheme.ActiveColorTheme;
             if (curr is not { } currentTheme)
                 return;
-            var newColorTheme = (SukiColorTheme)(((int)currentTheme + 1) % 3);
+            var newColorTheme = (SukiColor)(((int)currentTheme.Theme + 1) % 4);
             SukiTheme.TryChangeTheme(newColorTheme);
             SukiHost.ShowToast("Successfully Changed Color", $"Changed Color To {newColorTheme}.");
         }

@@ -1,6 +1,6 @@
 namespace SukiUI.Enums;
 
-public enum SukiColorTheme
+public enum SukiColor
 {
     Blue, Green, Red, Orange
 }
