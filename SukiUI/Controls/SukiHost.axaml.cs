@@ -122,7 +122,8 @@ public class SukiHost : ContentControl
 
         // Using implicit animation for the itemscontrol make the first appearance not visible - avalonia problem ?
         // Showing a quick toast at startup to prevent problem even if it is dirty right now, hope it can be removed
-        ShowInvisibleToast();
+       
+        // ShowInvisibleToast();
     }
 
     /// <summary>

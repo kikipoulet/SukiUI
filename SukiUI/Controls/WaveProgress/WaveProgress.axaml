@@ -77,8 +77,10 @@
                                         StrokeThickness="0">
                                         <Path.Transitions>
                                             <Transitions>
+                                               
                                                 <DoubleTransition Duration="0:0:2.5" Property="Canvas.Top">
                                                     <DoubleTransition.Easing>
+                                                        
                                                         <CircularEaseOut />
                                                     </DoubleTransition.Easing>
                                                 </DoubleTransition>

@@ -38,6 +38,7 @@
                                             Duration="0:0:0.8"
                                             Easing="CircularEaseOut"
                                             Property="Width" />
+                                        <BrushTransition Property="Background" Duration="0:0:0.5"></BrushTransition>
                                     </Transitions>
                                 </Border.Transitions>
                             </Border>
