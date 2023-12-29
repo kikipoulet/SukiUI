@@ -23,6 +23,7 @@
         <Description>https://github.com/kikipoulet/SukiUI</Description>
         <PackageVersion>5.1.2</PackageVersion>
         <Nullable>enable</Nullable>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 
     <ItemGroup>
