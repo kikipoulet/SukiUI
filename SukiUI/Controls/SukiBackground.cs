@@ -89,22 +89,18 @@ public class SukiBackground : Image, IDisposable
 
     static SKPath GenerateRandomEllipse(int maxWidth, int maxHeight, float centerX = 0, float centerY = 0)
     {
-        // Création d'une instance de SKPath pour l'ellipse
         SKPath randomEllipse = new SKPath();
-
-        // Génération de valeurs aléatoires pour la position de l'ellipse
+        
         Random random = new Random();
         if (centerX == 0)
         {
             centerX = random.Next(0, maxWidth);
             centerY = random.Next(0, maxHeight);
         }
-
-        // Génération de valeurs aléatoires pour les dimensions de l'ellipse
+        
         float radiusX = random.Next(ImageWidth /5, ImageWidth/2);
         float radiusY = random.Next(ImageWidth /5, ImageWidth/2);
-
-        // Création de l'ellipse avec les valeurs aléatoires
+        
         randomEllipse.AddOval(new SKRect(centerX - radiusX, centerY - radiusY, centerX + radiusX, centerY + radiusY));
 
         return randomEllipse;
