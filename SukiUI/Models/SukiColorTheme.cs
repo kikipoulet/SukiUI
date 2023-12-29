@@ -11,14 +11,14 @@ public record SukiColorTheme
 
     public IBrush PrimaryBrush => new SolidColorBrush(Primary);
     
-    public Color IntBorder { get; }
+    public Color Accent { get; }
 
-    public IBrush IntBorderBrush => new SolidColorBrush(IntBorder);
+    public IBrush AccentBrush => new SolidColorBrush(Accent);
     
-    public SukiColorTheme(SukiColor theme, Color primary, Color intBorder)
+    public SukiColorTheme(SukiColor theme, Color primary, Color accent)
     {
         Theme = theme;
         Primary = primary;
-        IntBorder = intBorder;
+        Accent = accent;
     }
 }

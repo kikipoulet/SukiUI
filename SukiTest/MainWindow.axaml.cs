@@ -39,12 +39,10 @@ namespace SukiTest
         private void ChangeTheme(object? sender, RoutedEventArgs e)
         {
             if (Application.Current is null) return;
-            var current = Application.Current.RequestedThemeVariant;
-            Application.Current.RequestedThemeVariant = current == ThemeVariant.Dark 
-                ? ThemeVariant.Light 
-                : ThemeVariant.Dark;
             
-            SukiHost.ShowToast("Successfully Changed Theme", $"Changed Theme To {Application.Current.RequestedThemeVariant}", onClicked:
+            SukiTheme.SwitchBaseTheme();
+            
+            SukiHost.ShowToast("Successfully Changed Theme", $"Changed Theme To {Application.Current.ActualThemeVariant}", onClicked:
                 () =>
                 {
                     SukiHost.ShowToast("Success!", "You Closed A Toast By Clicking On It!");
@@ -58,7 +56,7 @@ namespace SukiTest
             if (curr is not { } currentTheme)
                 return;
             var newColorTheme = (SukiColor)(((int)currentTheme.Theme + 1) % 4);
-            SukiTheme.TryChangeTheme(newColorTheme);
+            SukiTheme.TryChangeColorTheme(newColorTheme);
             SukiHost.ShowToast("Successfully Changed Color", $"Changed Color To {newColorTheme}.");
         }
     }

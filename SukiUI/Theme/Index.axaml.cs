@@ -26,12 +26,13 @@ public partial class SukiTheme : Styles
         }
     }
     
-    
     /// <summary>
     /// Called whenever the application's <see cref="SukiColor"/> is changed.
     /// Useful where controls cannot use "DynamicResource"
     /// </summary>
     public static Action<SukiColorTheme>? OnColorThemeChanged { get; set; }
+    
+    public static Action<ThemeVariant>? OnBaseThemeChanged { get; set; }
 
     /// <summary>
     /// Currently active <see cref="SukiColorTheme"/>
@@ -51,10 +52,10 @@ public partial class SukiTheme : Styles
     {
         ColorThemes = new[]
         {
-            new SukiColorTheme(SukiColor.Orange, Color.Parse("#ED8E12"), Color.Parse("#151271ED")),
-            new SukiColorTheme(SukiColor.Red, Colors.IndianRed, Color.Parse("#15cc8888")),
-            new SukiColorTheme(SukiColor.Green, Colors.ForestGreen, Color.Parse("#1588cc88")),
-            new SukiColorTheme(SukiColor.Blue, Color.Parse("#0A59F7"), Color.Parse("#158888ff"))
+            new SukiColorTheme(SukiColor.Orange, Color.Parse("#ED8E12"), Color.Parse("#15176CE8")),
+            new SukiColorTheme(SukiColor.Red, Color.Parse("#D03A2F"), Color.Parse("#152FC5D0")),
+            new SukiColorTheme(SukiColor.Green, Color.Parse("#4DB24F"), Color.Parse("#15B24DB0")),
+            new SukiColorTheme(SukiColor.Blue, Color.Parse("#0A59F7"), Color.Parse("#15F7A80A"))
         };
         ColorThemeMap = ColorThemes.ToDictionary(x => x.Theme);
     }
@@ -66,7 +67,7 @@ public partial class SukiTheme : Styles
         if (!ColorThemeMap.TryGetValue(ThemeColor, out var colorTheme))
             throw new Exception($"{ThemeColor} has no defined color theme.");
         Application.Current.Resources["SukiPrimaryColor"] = colorTheme.Primary;
-        Application.Current.Resources["SukiIntBorderBrush"] = colorTheme.IntBorder;
+        Application.Current.Resources["SukiAccentColor"] = colorTheme.Accent;
         ActiveColorTheme = colorTheme;
     }
     
@@ -74,7 +75,7 @@ public partial class SukiTheme : Styles
     /// Attempts to change the theme to the given value.
     /// </summary>
     /// <param name="sukiColor">The <see cref="SukiColor"/> to change to.</param>
-    public static void TryChangeTheme(SukiColor sukiColor)
+    public static void TryChangeColorTheme(SukiColor sukiColor)
     {
         if (_instance is null) return;
         _instance.ThemeColor = sukiColor;
@@ -82,9 +83,34 @@ public partial class SukiTheme : Styles
     }
 
     /// <summary>
-    /// <inheritdoc cref="TryChangeTheme(SukiUI.Enums.SukiColor)"/>
+    /// <inheritdoc cref="TryChangeColorTheme(SukiUI.Enums.SukiColor)"/>
     /// </summary>
     /// <param name="sukiColorTheme"></param>
-    public static void TryChangeTheme(SukiColorTheme sukiColorTheme) => 
-        TryChangeTheme(sukiColorTheme.Theme);
+    public static void TryChangeColorTheme(SukiColorTheme sukiColorTheme) => 
+        TryChangeColorTheme(sukiColorTheme.Theme);
+
+    /// <summary>
+    /// Tries to change the base theme to the one provided, if it is different.
+    /// </summary>
+    /// <param name="baseTheme"></param>
+    public static void TryChangeBaseTheme(ThemeVariant baseTheme)
+    {
+        if (Application.Current is null) return;
+        if (Application.Current.ActualThemeVariant == baseTheme) return;
+        Application.Current!.RequestedThemeVariant = baseTheme;
+        OnBaseThemeChanged?.Invoke(baseTheme);
+    }
+
+    /// <summary>
+    /// Simply switches from Light -> Dark and visa versa.
+    /// </summary>
+    public static void SwitchBaseTheme()
+    {
+        if (Application.Current is null) return;
+        var newBase = Application.Current.ActualThemeVariant == ThemeVariant.Dark 
+            ? ThemeVariant.Light 
+            : ThemeVariant.Dark;
+        Application.Current.RequestedThemeVariant = newBase;
+        OnBaseThemeChanged?.Invoke(newBase);
+    }
 }
