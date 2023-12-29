@@ -3,19 +3,15 @@
     xmlns:system="clr-namespace:System;assembly=netstandard"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     
-    <Color x:Key="SukiPrimaryColor">#0A59F7</Color>
-
-
-
-    <Color x:Key="SukiLightColoredBackground">#E7EFFF</Color>
+    
     <Color x:Key="SukiStrongBackground">#eaeaea</Color>
 
     <Color x:Key="SukiBorderBrush">#ebebeb</Color>
 
     <Color x:Key="SukiControlTouchBackground">#FFFFFF</Color>
     <Color x:Key="SukiMediumBorderBrush">#e2e2e2</Color>
-    <Color x:Key="SukiIntBorderBrush">#faeaeafa</Color>
-    <Color x:Key="SukiLightIntBorderBrush">#77eeeeff</Color>
+    
+  
 
     <Color x:Key="SukiDialogBackground">Gray</Color>
 

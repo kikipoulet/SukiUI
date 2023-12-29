@@ -34,7 +34,7 @@
                     Name="BorderBasicStyle"
                     Padding="8,4">
                     <DockPanel>
-                        <PathIcon DockPanel.Dock="Right"
+                        <PathIcon DockPanel.Dock="Right" Height="17" Width="17"
                                   Foreground="{DynamicResource SukiPrimaryColor}"
                                   Data="{x:Static content:Icons.CircleCheck}"
                                   Margin="0,0,0,0"
@@ -70,7 +70,7 @@
     </Style>
 
     <Style Selector="ListBoxItem:selected /template/ Border#BorderBasicStyle">
-        <Setter Property="Background" Value="{DynamicResource SukiLightColoredBackground}" />
+        <Setter Property="Background" Value="{DynamicResource SukiIntBorderBrush}" />
     </Style>
     <Style Selector="ListBoxItem:pointerover /template/ Border#BorderBasicStyle">
         <Setter Property="Background" Value="{DynamicResource SukiLightBackground}" />

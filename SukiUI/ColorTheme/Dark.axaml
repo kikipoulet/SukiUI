@@ -6,16 +6,15 @@
 
 
     <Color x:Key="SukiCardBackground">#353535</Color>
-
-    <Color x:Key="SukiLightColoredBackground">#303030</Color>
+    
     <Color x:Key="SukiStrongBackground">#353535</Color>
     <Color x:Key="SukiControlTouchBackground">#505050</Color>
 
     <Color x:Key="SukiBorderBrush">#353535</Color>
     <Color x:Key="SukiControlBorderBrush">#606060</Color>
     <Color x:Key="SukiMediumBorderBrush">#555555</Color>
-    <Color x:Key="SukiIntBorderBrush">#322F43</Color>
-    <Color x:Key="SukiLightIntBorderBrush">#323440</Color>
+    
+    
     <Color x:Key="SukiLightBorderBrush">#454545</Color>
     <Color x:Key="SukiDialogBackground">#000000</Color>
 
@@ -38,5 +37,5 @@
     <Color x:Key="SukiText">#edffffff</Color>
     <Color x:Key="SukiLowText">#caffffff</Color>
     
-    <Color x:Key="SukiPrimaryColor">#0A59F7</Color>
+    
 </ResourceDictionary>
