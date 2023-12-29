@@ -65,7 +65,7 @@ public class SukiToast : ContentControl
         Title = "Invisible";
         Content = "Invisible Content";
         Opacity = 0;
-        _timer.Interval = 1;
+        _timer.Interval = 5;
         _timer.Elapsed -= TimerOnElapsed;
         _timer.Elapsed += (_, _) => SukiHost.ClearInvisibleToast(this);
         _timer.Start();
