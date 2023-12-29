@@ -450,7 +450,7 @@
 
                                         <Grid ColumnDefinitions="Auto,*,Auto">
                                             <Grid>
-                                                <TextBlock FontSize="13" Margin="0,2,3,0" Foreground="{DynamicResource SukiLowText}" Text="{TemplateBinding theme:TextBoxExtensions.Prefix}"></TextBlock>
+                                                <TextBlock FontSize="13" Margin="0,1,3,0" Foreground="{DynamicResource SukiLowText}" Text="{TemplateBinding theme:TextBoxExtensions.Prefix}"></TextBlock>
                                             </Grid>
                                             <ScrollViewer
                                                 Grid.Column="1"

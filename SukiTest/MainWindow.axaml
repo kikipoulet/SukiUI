@@ -94,7 +94,7 @@
 
                     </suki:SideMenuItem>
                     <suki:SideMenuItem Header="Library"
-                                       ContentType="circleProgressBarsTestMvvm:CircleProgresstestView">
+                                       ContentType="circleProgressBarsTestMvvm:ControlsDemo">
                         <suki:SideMenuItem.Icon>
                             <material:MaterialIcon
                                 Foreground="{DynamicResource SukiText}"

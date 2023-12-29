@@ -286,7 +286,7 @@
                         Content="{TemplateBinding Content}"
                         ContentTemplate="{TemplateBinding ContentTemplate}"
                         Grid.Column="1"
-                        Margin="4,0,0,0"
+                        Margin="10,0,0,0"
                         Name="PART_ContentPresenter"
                         RecognizesAccessKey="True"
                         VerticalAlignment="Center" />

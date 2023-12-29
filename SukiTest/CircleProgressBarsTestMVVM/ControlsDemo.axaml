@@ -1,0 +1,189 @@
+﻿<UserControl
+    Background="{DynamicResource SukiBackground}"
+  
+    mc:Ignorable="d"
+    x:Class="SukiTest.CircleProgressBarsTestMVVM.ControlsDemo"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:circleProgressBarsTestMvvm="clr-namespace:SukiTest.CircleProgressBarsTestMVVM"
+    xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:theme="clr-namespace:SukiUI.Theme;assembly=SukiUI"
+    xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <ScrollViewer>
+    <WrapPanel Margin="20">
+        <controls:GlassCard Margin="20">
+            <TabControl>
+                <TabItem Header="Red Tab" >
+                    <Grid Margin="0,10,0,0" Height="50" Background="#44ff0000" />
+                </TabItem>
+                <TabItem Header="Green Tab" >
+                    <Grid Margin="0,10,0,0" Height="50"  Background="#4400ff00" />
+                </TabItem>
+                <TabItem Header="Blue Tab" >
+                    <Grid Margin="0,10,0,0" Height="50"  Background="#440000ff" />
+                </TabItem>
+            </TabControl>
+        </controls:GlassCard>
+        <controls:GlassCard Margin="20">
+            <ToggleButton Classes="Switch" Margin="40,10"></ToggleButton>
+        </controls:GlassCard>
+        
+        <controls:GlassCard Margin="20">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Spacing="15">
+                    <Button Classes="Primary" Content="Primary" />
+                    <Button Classes="Primary Rounded" Content="Rounded" />
+                 
+                </StackPanel>
+                <StackPanel Margin="15,0,0,0" Spacing="15">
+                    <Button Classes="Accent" Content="Accent" />
+                    <Button Content="Neutral" />
+                    <Button Classes="Outlined" Content="Outlined" />
+                </StackPanel>
+            </StackPanel>
+        </controls:GlassCard>
+        
+        <controls:GlassCard Margin="20">
+            <Slider Margin="20,10" Width="200" IsSnapToTickEnabled="True" Maximum="100" Minimum="0" TickFrequency="1" Value="50"></Slider>
+        </controls:GlassCard>
+        
+        <controls:GlassCard Width="250" Margin="20">
+            <StackPanel Spacing="15">
+                <TextBox Text="This is Text"></TextBox>
+                <TextBox Text="Delete Enabled" theme:TextBoxExtensions.AddDeleteButton="True"></TextBox>
+                <TextBox Watermark="Watermark"></TextBox>
+                <TextBox theme:TextBoxExtensions.Prefix="http" Watermark="avaloniaui.com"></TextBox>
+            </StackPanel>
+        </controls:GlassCard>
+        
+        <controls:GlassCard Margin="20" >
+           
+            <ComboBox Width="180" Height="45" Margin="10" PlaceholderText="Select an Color">
+                <ComboBoxItem>
+                    <TextBlock>Red</TextBlock>
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    <TextBlock>Green</TextBlock>
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    <TextBlock>Blue</TextBlock>
+                </ComboBoxItem>
+            </ComboBox>
+            
+        </controls:GlassCard>
+        
+        <controls:GlassCard Margin="20">
+            <NumericUpDown Height="42" Value="10"></NumericUpDown>
+        </controls:GlassCard>
+        
+        <controls:GlassCard Margin="20">
+            <StackPanel VerticalAlignment="Center" Orientation="Vertical">
+                <RadioButton Margin="5">
+                    <TextBlock Text="Item 1"></TextBlock>
+                </RadioButton>
+                <RadioButton Margin="5">
+                    <TextBlock Text="Item 2"></TextBlock>
+                </RadioButton>
+                <RadioButton Margin="5">
+                    <TextBlock Text="Item 3"></TextBlock>
+                </RadioButton>
+            </StackPanel>
+        </controls:GlassCard>
+        
+        <controls:GlassCard Margin="20">
+            <StackPanel Orientation="Vertical">
+                <RadioButton Classes="GigaChips" Width="100" Margin="5">
+                    <TextBlock Margin="14"  Text="Item 1"></TextBlock>
+                </RadioButton>
+                <RadioButton Classes="GigaChips" Width="100" Margin="5">
+                    <TextBlock Margin="14" Text="Item 2"></TextBlock>
+                </RadioButton>
+            </StackPanel>
+        </controls:GlassCard>
+        
+        <controls:GlassCard Margin="20">
+            <DatePicker />
+        </controls:GlassCard>
+        <controls:GlassCard Margin="20">
+            <controls:WaveProgress Value="40" IsTextVisible="True"></controls:WaveProgress>
+        </controls:GlassCard>
+        
+        <controls:GlassCard Width="500" Margin="20">
+            <controls:Stepper Index="1">
+                <controls:Stepper.Steps>
+                    <objectModel:ObservableCollection x:TypeArguments="system:String">
+                        <system:String>Step One</system:String>
+                        <system:String>Step Two</system:String>
+                        <system:String>Step Three</system:String>
+                    </objectModel:ObservableCollection>
+                </controls:Stepper.Steps>
+            </controls:Stepper>
+        </controls:GlassCard>
+        <controls:GlassCard Margin="20">
+            <controls:CircleProgressBar Height="130" StrokeWidth="11" Value="60" Width="130">
+                <TextBlock Margin="0,1,0,0" Classes="h3">60%</TextBlock>
+            </controls:CircleProgressBar>
+        </controls:GlassCard>
+        <controls:GlassCard Margin="20">
+            <controls:Loading></controls:Loading>
+        </controls:GlassCard>
+        
+        <controls:GlassCard Margin="20">
+            <ProgressBar  Value="60" />
+        </controls:GlassCard>
+        
+        <controls:GlassCard Margin="20">
+            <DataGrid Name="myDataGrid" AutoGenerateColumns="True" IsReadOnly="True" />
+        </controls:GlassCard>
+        
+        <controls:GlassCard Margin="20">
+            <ListBox Width="150">
+                <TextBlock>item 1</TextBlock>
+                <TextBlock>item 2</TextBlock>
+                <TextBlock>item 3</TextBlock>
+            </ListBox>
+        </controls:GlassCard>
+        <controls:GlassCard Margin="20">
+            <TreeView Width="150"> 
+                <TreeViewItem Header="Test 1">
+                    <TreeViewItem Header="Test 2" />
+                    <TreeViewItem Header="Test 3" />
+                </TreeViewItem>
+                <TreeViewItem Header="Test 4" />
+            </TreeView>
+        </controls:GlassCard>
+        
+        <controls:GlassCard Margin="20">
+            <controls:GroupBox >
+                <controls:GroupBox.Header>
+                    <TextBlock Text="Header"></TextBlock>
+                </controls:GroupBox.Header>
+                <Grid Height="100" Width="300">
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Test Content</TextBlock>
+                </Grid>
+            </controls:GroupBox>
+        </controls:GlassCard>
+        
+        <controls:GlassCard Margin="20">
+            <controls:BusyArea Name="BA" IsBusy="False">
+                <Button Margin="20,0" Classes="Primary" Content="Make Busy" Click="Button_OnClick"></Button>
+            </controls:BusyArea>
+        </controls:GlassCard>
+        
+        <controls:GlassCard Width="250" Margin="20">
+            <Expander Header="Click To Expand">
+                <TextBlock Margin="25" VerticalAlignment="Center" HorizontalAlignment="Center">Expanded</TextBlock>
+            </Expander>
+        </controls:GlassCard>
+        
+        <controls:GlassCard Width="250" Margin="20">
+           <CheckBox IsChecked="True">
+               <TextBlock Text="Check This"></TextBlock>
+           </CheckBox>
+        </controls:GlassCard>
+    </WrapPanel>
+    </ScrollViewer>
+</UserControl>

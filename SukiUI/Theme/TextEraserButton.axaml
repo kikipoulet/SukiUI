@@ -7,6 +7,6 @@
              x:Class="SukiUI.Theme.TextEraserButton">
     <Button Click="Button_OnClick"  Width="25" Height="25" Padding="0" Margin="5,0,0,0" BorderThickness="0" Classes="Void" HorizontalAlignment="Center" VerticalAlignment="Center" >
                                                 
-        <PathIcon Margin="0" Height="20" Width="20" Data="{x:Static content:Icons.CircleClose}" Foreground="{DynamicResource SukiControlBorderBrush}"/>
+        <PathIcon  Margin="0" Height="16" Width="16" Data="{x:Static content:Icons.CircleClose}" Foreground="{DynamicResource SukiControlBorderBrush}"/>
     </Button>
 </UserControl>

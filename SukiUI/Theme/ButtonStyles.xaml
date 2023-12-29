@@ -18,12 +18,12 @@
     </Design.PreviewWith>
 
     <Style Selector="Button">
-        <Setter Property="Height" Value="43" />
+     
         <Setter Property="BorderThickness" Value="1.2" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiMediumBorderBrush}" />
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
-        <Setter Property="Padding" Value="25,5"></Setter>
+        <Setter Property="Padding" Value="20,8"></Setter>
         <Setter Property="Template">
             <ControlTemplate>
                 <Border
@@ -47,7 +47,7 @@
                             <controls:Loading Classes="White" />
                         </Viewbox>
                         <ContentPresenter FontWeight="DemiBold" FontFamily="avares://SukiUI/CustomFont#Quicksand"
-                          FontSize="16"
+                          FontSize="15"
                                           Content="{TemplateBinding Content}"
                                           HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           RecognizesAccessKey="True"
@@ -67,7 +67,7 @@
     </Style>
 
     <Style Selector="Button &gt; TextBlock">
-        <Setter Property="FontSize" Value="16"></Setter>
+        <Setter Property="FontSize" Value="15"></Setter>
         <Setter Property="Transitions">
             <Transitions>
                 <BrushTransition Duration="0:0:0.3" Property="Foreground" />
@@ -85,7 +85,7 @@
     
     <Style Selector="Button /template/ ContentPresenter">
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
-        <Setter Property="FontSize" Value="16"></Setter>
+        <Setter Property="FontSize" Value="15"></Setter>
         <Setter Property="Transitions">
             <Transitions>
                 <BrushTransition Duration="0:0:0.3" Property="Foreground" />
@@ -205,8 +205,10 @@
 
     <!--    -->
 
+    
+    
     <Style Selector="Button.Primary">
-        <Setter Property="Padding" Value="25,6, 25, 4"></Setter>
+        <Setter Property="Padding" Value="20,9,20,7"></Setter>
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}">
           

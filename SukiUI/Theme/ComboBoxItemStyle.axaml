@@ -37,7 +37,7 @@
                     Name="BorderBasicStyle"
                     Padding="5,0">
                     <DockPanel>
-                        <PathIcon DockPanel.Dock="Right" 
+                        <PathIcon DockPanel.Dock="Right"  Height="12" Width="12" Margin="0,0,3,0"
                                   Foreground="{DynamicResource SukiPrimaryColor}"
                                   Data="{x:Static icons:Icons.Check}"
                                   Name="CheckSelected"/>
