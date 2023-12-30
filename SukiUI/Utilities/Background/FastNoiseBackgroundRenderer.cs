@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Avalonia;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Styling;
@@ -97,9 +98,9 @@ public sealed class FastNoiseBackgroundRenderer : ISukiBackgroundRenderer
         var minValue = Math.Min(Math.Min(r, g), b);
         var maxValue = Math.Max(Math.Max(r, g), b);
         
-        r = (r == minValue) ? 24 : ((r == maxValue) ? 33 : 20);
-        g = (g == minValue) ? 24 : ((g == maxValue) ? 33 : 20);
-        b = (b == minValue) ? 24 : ((b == maxValue) ? 33 : 20);
+        r = (r == minValue) ? 30 : ((r == maxValue) ? 30 : 22);
+        g = (g == minValue) ? 30 : ((g == maxValue) ? 30 : 22);
+        b = (b == minValue) ? 30 : ((b == maxValue) ? 30 : 22);
         return ARGB(255, (byte)r, (byte)g, (byte)b);
     }
 

@@ -23,7 +23,7 @@ public class SukiBackground : Image, IDisposable
     /// </summary>
     private readonly ISukiBackgroundRenderer _renderer = new FastNoiseBackgroundRenderer();
     
-    private static readonly Timer _animationTick = new(16.7) { AutoReset = true };
+    private static readonly Timer _animationTick = new(260.7) { AutoReset = true };
 
     private bool _animationEnabled = false;
 
@@ -46,6 +46,12 @@ public class SukiBackground : Image, IDisposable
         SukiTheme.OnBaseThemeChanged += baseTheme =>
         {
             _renderer.UpdateValues(SukiTheme.ActiveColorTheme, baseTheme);
+            if (!_animationEnabled) _renderer.Render(_bmp);
+        };
+
+        Application.Current.ActualThemeVariantChanged += (sender, args) =>
+        {
+            _renderer.UpdateValues(SukiTheme.ActiveColorTheme, Application.Current!.ActualThemeVariant);
             if (!_animationEnabled) _renderer.Render(_bmp);
         };
 

@@ -27,7 +27,7 @@
     <system:Boolean x:Key="IsLight">False</system:Boolean>
     <Color x:Key="GlassBorderBrush">#252729</Color>
 
-    <system:Double x:Key="GlassOpacityDark">0.55</system:Double>
+    <system:Double x:Key="GlassOpacityDark">0.45</system:Double>
     <system:Double x:Key="GlassOpacityLight">0.57</system:Double>
 
 

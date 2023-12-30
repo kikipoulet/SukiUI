@@ -4,14 +4,14 @@
         <Setter Property="Foreground" Value="{DynamicResource SukiTextBrush}" />
         <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
         <Setter Property="Margin" Value="0,8" />
-        <Setter Property="Padding" Value="8" />
+        <Setter Property="Padding" Value="16,8" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="Placement" Value="Pointer" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <Border Background="{TemplateBinding Background}" CornerRadius="4"
+                    <Border  Background="{TemplateBinding Background}" CornerRadius="8"
                             Margin="{TemplateBinding Margin}">
                         <ContentPresenter Name="ContentPresenter"
                                           Margin="{TemplateBinding Padding}"

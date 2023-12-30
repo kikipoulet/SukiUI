@@ -25,7 +25,7 @@
     <Color x:Key="GlassBorderBrush">#e3e3e7</Color>
 
     <system:Double x:Key="GlassOpacityDark">0.5</system:Double>
-    <system:Double x:Key="GlassOpacityLight">0.75</system:Double>
+    <system:Double x:Key="GlassOpacityLight">0.8</system:Double>
 
 
     <Color x:Key="SukiBackground">Transparent</Color>

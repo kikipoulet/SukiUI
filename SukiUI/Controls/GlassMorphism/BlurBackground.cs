@@ -125,7 +125,7 @@ public class BlurBackground : Control
             }
 
 
-            return;
+            //return;
 
             using var acrylliPaint = new SKPaint();
             acrylliPaint.IsAntialias = true;
