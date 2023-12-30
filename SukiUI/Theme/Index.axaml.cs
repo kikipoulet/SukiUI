@@ -67,15 +67,17 @@ public partial class SukiTheme : Styles
         if (Application.Current is null) return;
         if (!ColorThemeMap.TryGetValue(ThemeColor, out var colorTheme))
             throw new Exception($"{ThemeColor} has no defined color theme.");
-        SetResource("SukiPrimaryColor", colorTheme.Primary);
-        SetResource("SukiPrimaryColor50", colorTheme.Primary.WithAlpha(0.5));
-        SetResource("SukiPrimaryColor25", colorTheme.Primary.WithAlpha(0.25));
-        SetResource("SukiPrimaryColor10", colorTheme.Primary.WithAlpha(0.1));
-        SetResource("SukiAccentColor", colorTheme.Accent);
-        SetResource("SukiAccentColor50", colorTheme.Accent.WithAlpha(0.5));
-        SetResource("SukiAccentColor25", colorTheme.Accent.WithAlpha(0.25));
-        SetResource("SukiAccentColor10", colorTheme.Accent.WithAlpha(0.1));
+        SetColorWithOpacities("SukiPrimaryColor", colorTheme.Primary);
+        SetColorWithOpacities("SukiAccentColor", colorTheme.Accent);
         ActiveColorTheme = colorTheme;
+    }
+
+    private static void SetColorWithOpacities(string baseName, Color baseColor)
+    {
+        SetResource(baseName, baseColor);
+        SetResource($"{baseName}50", baseColor.WithAlpha(0.5));
+        SetResource($"{baseName}25", baseColor.WithAlpha(0.25));
+        SetResource($"{baseName}10", baseColor.WithAlpha(0.1));
     }
 
     private static void SetResource(string name, Color color) => 
