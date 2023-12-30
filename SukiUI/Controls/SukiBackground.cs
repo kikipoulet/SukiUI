@@ -12,8 +12,8 @@ namespace SukiUI.Controls;
 
 public class SukiBackground : Image, IDisposable
 {
-    private const int ImageWidth = 340;
-    private const int ImageHeight = 180;
+    private const int ImageWidth = 100;
+    private const int ImageHeight = 100;
 
     private readonly WriteableBitmap _bmp = new(new PixelSize(ImageWidth, ImageHeight), new Vector(96, 96),
         PixelFormats.Bgra8888);
@@ -30,7 +30,7 @@ public class SukiBackground : Image, IDisposable
     public SukiBackground()
     {
         Source = _bmp;
-        Stretch = Stretch.Fill;
+        Stretch = Stretch.UniformToFill;
         _animationTick.Elapsed += (_, _) => _renderer.Render(_bmp);
     }
 

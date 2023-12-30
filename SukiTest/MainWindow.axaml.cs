@@ -63,6 +63,11 @@ namespace SukiTest
         private void ChangeAnimationState(object? sender, RoutedEventArgs e)
         {
             BackgroundAnimationEnabled = !BackgroundAnimationEnabled;
+            var title = BackgroundAnimationEnabled ? "Animation Enabled" : "Animation Disabled";
+            var content = BackgroundAnimationEnabled
+                ? "Background animations are now enabled."
+                : "Background animations are now disabled.";
+            SukiHost.ShowToast(title, content);
         }
     }
 }

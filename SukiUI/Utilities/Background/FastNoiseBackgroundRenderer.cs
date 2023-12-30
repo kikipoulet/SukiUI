@@ -32,7 +32,7 @@ public sealed class FastNoiseBackgroundRenderer : ISukiBackgroundRenderer
     {
         var opt = options ?? new FastNoiseRendererOptions(FastNoiseLite.NoiseType.OpenSimplex2);
         NoiseGen.SetNoiseType(opt.Type);
-        _scale = opt.NoiseScale;
+        _scale = opt.NoiseScale * 100f;
         _xAnim = opt.XAnimSpeed;
         _yAnim = opt.YAnimSpeed;
         _primaryAlpha = opt.PrimaryAlpha;
@@ -63,6 +63,7 @@ public sealed class FastNoiseBackgroundRenderer : ISukiBackgroundRenderer
         
         using var frameBuffer = bitmap.Lock();
         var frameSize = frameBuffer.Size;
+        var frameScale = (1f / frameSize.Height) * _scale;
         
         var backBuffer = (uint*)frameBuffer.Address.ToPointer();
         var stride = frameBuffer.RowBytes / 4;
@@ -72,12 +73,12 @@ public sealed class FastNoiseBackgroundRenderer : ISukiBackgroundRenderer
             var dest = backBuffer + scanline * stride + 0;
             for (var x = 0; x < frameSize.Width; x++)
             {
-                var noise = NoiseGen.GetNoise((_pOffsetX + x) * _scale, (_pOffsetY + scanline) * _scale);
+                var noise = NoiseGen.GetNoise((_pOffsetX + x) * frameScale, (_pOffsetY + scanline) * frameScale);
                 noise = (noise + 1f) / 2f * _primaryAlpha; // noise returns -1 to +1 which isn't useful.
                 var alpha = (byte)(noise * 255);
                 var firstLayer = BlendPixelOverlay(WithAlpha(_themeColor, alpha), _baseColor);
                 
-                noise = NoiseGen.GetNoise((_aOffsetX + x) * _scale, (_aOffsetY + scanline) * _scale);
+                noise = NoiseGen.GetNoise((_aOffsetX + x) * frameScale, (_aOffsetY + scanline) * frameScale);
                 noise = (noise + 1f) / 2f * _accentAlpha;
                 alpha = (byte)(noise * 255);
 
