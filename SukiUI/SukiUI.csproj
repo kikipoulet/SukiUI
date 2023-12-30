@@ -44,12 +44,8 @@
         <None Remove="CustomFont\Quicksand-SemiBold.ttf" />
         <AvaloniaResource Include="CustomFont\Quicksand-SemiBold.ttf" />
         <None Remove="Assets\gradient_dark_strong.png" />
-        <AvaloniaResource Include="Assets\gradient_dark_strong.png" />
         <None Remove="Assets\mesh-gradient-light.png" />
-        <AvaloniaResource Include="Assets\mesh-gradient-light.png" />
-        <AvaloniaResource Include="Assets\mesh-gradient (1).png" />
         <None Remove="Assets\mesh-gradient (1).png" />
-        <AvaloniaResource Include="Assets\mesh-gradient (1).png" />
         <None Remove="Assets\20221019_182415.jpg" />
         <None Remove="Assets\isse.bmp" />
     </ItemGroup>
@@ -121,6 +117,10 @@
     <ItemGroup>
       <UpToDateCheckInput Remove="Controls\MobileNumberPicker\MobileNumberPicker.axaml" />
       <UpToDateCheckInput Remove="Controls\MobileNumberPicker\MobileNumberPickerPopup.axaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Assets\" />
     </ItemGroup>
     
 </Project>
