@@ -69,6 +69,10 @@ public partial class SukiTheme : Styles
             throw new Exception($"{ThemeColor} has no defined color theme.");
         SetColorWithOpacities("SukiPrimaryColor", colorTheme.Primary);
         SetColorWithOpacities("SukiAccentColor", colorTheme.Accent);
+        SetResource("SukiPrimaryColor7", colorTheme.Primary.WithAlpha(0.07));
+        SetResource("SukiPrimaryColor5", colorTheme.Primary.WithAlpha(0.05));
+        SetResource("SukiPrimaryColor2", colorTheme.Primary.WithAlpha(0.02));
+        SetResource("SukiAccentColor1", colorTheme.Accent.WithAlpha(0.01));
         ActiveColorTheme = colorTheme;
     }
 
