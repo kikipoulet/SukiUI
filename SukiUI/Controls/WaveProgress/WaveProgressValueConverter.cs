@@ -78,7 +78,7 @@ public class WaveProgressGradientOffsetConverter : IValueConverter
 
         double v = System.Convert.ToDouble(value);
         v /= 100;
-        v += 0.2;
+        v += Application.Current.RequestedThemeVariant == ThemeVariant.Light ? 0.2 : 0.4;
         if (v > 1)
             v = 1;
 
@@ -89,7 +89,7 @@ public class WaveProgressGradientOffsetConverter : IValueConverter
             GradientStops = new GradientStops()
             {
                 new GradientStop() { Color = PrimaryColor, Offset = 0 },
-                new GradientStop() { Color = AccentColor, Offset = v }
+                new GradientStop() { Color = Application.Current.RequestedThemeVariant == ThemeVariant.Light ? Colors.Transparent: AccentColor, Offset = v }
             }
 
         };

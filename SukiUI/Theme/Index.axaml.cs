@@ -71,10 +71,16 @@ public partial class SukiTheme : Styles
         SetResource("SukiPrimaryColor50", colorTheme.Primary.WithAlpha(0.5));
         SetResource("SukiPrimaryColor25", colorTheme.Primary.WithAlpha(0.25));
         SetResource("SukiPrimaryColor10", colorTheme.Primary.WithAlpha(0.1));
+        SetResource("SukiPrimaryColor7", colorTheme.Primary.WithAlpha(0.07));
+        SetResource("SukiPrimaryColor5", colorTheme.Primary.WithAlpha(0.05));
+        SetResource("SukiPrimaryColor2", colorTheme.Primary.WithAlpha(0.02));
         SetResource("SukiAccentColor", colorTheme.Accent);
         SetResource("SukiAccentColor50", colorTheme.Accent.WithAlpha(0.5));
         SetResource("SukiAccentColor25", colorTheme.Accent.WithAlpha(0.25));
         SetResource("SukiAccentColor10", colorTheme.Accent.WithAlpha(0.1));
+        SetResource("SukiAccentColor10", colorTheme.Accent.WithAlpha(0.1));
+        SetResource("SukiAccentColor1", colorTheme.Accent.WithAlpha(0.01));
+        
         ActiveColorTheme = colorTheme;
     }
 
