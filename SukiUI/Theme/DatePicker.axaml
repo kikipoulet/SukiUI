@@ -230,7 +230,7 @@
                                 </ScrollViewer>
                             </Panel>
                             <Border
-                                Background="{DynamicResource SukiAccentColor}"
+                                Background="{DynamicResource SukiAccentColor10}"
                                 CornerRadius="8"
                                 Grid.Column="0"
                                 Grid.ColumnSpan="5"
@@ -256,33 +256,16 @@
 
                         <StackPanel
                             Grid.Row="1"
-                            Height="40"
                             HorizontalAlignment="Right"
-                            Margin="0,0,0,-12"
+                            Margin="0,0,0,-20"
                             Name="AcceptDismissGrid"
                             Orientation="Horizontal"
                             VerticalAlignment="Bottom">
-                            <!--    <Button
-                                Classes="Accent"
-                                HorizontalAlignment="Left"
-                                Margin="0,80,0,0"
-                                Name="PART_DismissButton"
-                                VerticalAlignment="Bottom"
-                                VerticalContentAlignment="Center"
-                                Width="100">
-                                <TextBlock
-                                    Foreground="{DynamicResource SukiText}"
-                                    Margin="0,18,0,0"
-                                    Text="Cancel"
-                                    VerticalAlignment="Center" />
-                            </Button>-->
                             <Button
                                 Classes="Accent"
                                 HorizontalAlignment="Right"
-                                Margin="0,20,0,-20"
                                 Name="PART_AcceptButton"
                                 VerticalAlignment="Bottom">
-
                                 <StackPanel Orientation="Horizontal">
                                     <PathIcon Data="{x:Static icons:Icons.Check}"
                                               Foreground="{DynamicResource SukiPrimaryColor}"/>

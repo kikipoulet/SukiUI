@@ -6,6 +6,7 @@ using Avalonia.Data;
 using Avalonia.Media;
 using Avalonia.Styling;
 using SukiUI.Enums;
+using SukiUI.Extensions;
 using SukiUI.Models;
 
 namespace SukiUI;
@@ -52,10 +53,10 @@ public partial class SukiTheme : Styles
     {
         ColorThemes = new[]
         {
-            new SukiColorTheme(SukiColor.Orange, Color.Parse("#ED8E12"), Color.Parse("#15176CE8")),
-            new SukiColorTheme(SukiColor.Red, Color.Parse("#D03A2F"), Color.Parse("#152FC5D0")),
-            new SukiColorTheme(SukiColor.Green, Colors.ForestGreen, Color.Parse("#15B24DB0")),
-            new SukiColorTheme(SukiColor.Blue, Color.Parse("#0A59F7"), Color.Parse("#15F7A80A"))
+            new SukiColorTheme(SukiColor.Orange, Color.Parse("#ED8E12"), Color.Parse("#176CE8")),
+            new SukiColorTheme(SukiColor.Red, Color.Parse("#D03A2F"), Color.Parse("#2FC5D0")),
+            new SukiColorTheme(SukiColor.Green, Colors.ForestGreen, Color.Parse("#B24DB0")),
+            new SukiColorTheme(SukiColor.Blue, Color.Parse("#0A59F7"), Color.Parse("#F7A80A"))
         };
         ColorThemeMap = ColorThemes.ToDictionary(x => x.Theme);
     }
@@ -66,11 +67,20 @@ public partial class SukiTheme : Styles
         if (Application.Current is null) return;
         if (!ColorThemeMap.TryGetValue(ThemeColor, out var colorTheme))
             throw new Exception($"{ThemeColor} has no defined color theme.");
-        Application.Current.Resources["SukiPrimaryColor"] = colorTheme.Primary;
-        Application.Current.Resources["SukiAccentColor"] = colorTheme.Accent;
+        SetResource("SukiPrimaryColor", colorTheme.Primary);
+        SetResource("SukiPrimaryColor50", colorTheme.Primary.WithAlpha(0.5));
+        SetResource("SukiPrimaryColor25", colorTheme.Primary.WithAlpha(0.25));
+        SetResource("SukiPrimaryColor10", colorTheme.Primary.WithAlpha(0.1));
+        SetResource("SukiAccentColor", colorTheme.Accent);
+        SetResource("SukiAccentColor50", colorTheme.Accent.WithAlpha(0.5));
+        SetResource("SukiAccentColor25", colorTheme.Accent.WithAlpha(0.25));
+        SetResource("SukiAccentColor10", colorTheme.Accent.WithAlpha(0.1));
         ActiveColorTheme = colorTheme;
     }
-    
+
+    private static void SetResource(string name, Color color) => 
+        Application.Current!.Resources[name] = color;
+
     /// <summary>
     /// Attempts to change the theme to the given value.
     /// </summary>
