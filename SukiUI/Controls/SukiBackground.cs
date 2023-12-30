@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
@@ -8,6 +10,7 @@ using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.Skia;
 using Avalonia.Styling;
+using Avalonia.Threading;
 using SkiaSharp;
 using SukiUI.Models;
 
@@ -32,9 +35,12 @@ public class SukiBackground : Image, IDisposable
     {
         base.EndInit();
         // 60 FPS Ticks...
-        Draw(SukiTheme.ActiveColorTheme, Application.Current!.ActualThemeVariant);
+       
         SukiTheme.OnColorThemeChanged += Draw;
         SukiTheme.OnBaseThemeChanged += Draw;
+       
+        Draw(SukiTheme.ActiveColorTheme, Application.Current!.RequestedThemeVariant);
+            
     }
 
     private void Draw(SukiColorTheme theme) => Draw(theme, Application.Current!.ActualThemeVariant);
