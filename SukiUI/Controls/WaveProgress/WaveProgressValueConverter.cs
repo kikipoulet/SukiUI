@@ -65,13 +65,15 @@ public class WaveProgressGradientOffsetConverter : IValueConverter
         if (value is not int)
             return Brushes.Blue;
         
-        Color PrimaryColor = Colors.DodgerBlue; 
+        Color PrimaryColor = Colors.DodgerBlue;
+        Color AccentColor = Colors.Transparent;
         
         try
         {
 
             PrimaryColor =(Color)Application.Current.FindResource("SukiPrimaryColor");
-               
+            AccentColor = (Color)Application.Current.FindResource("SukiAccentColor");
+
         }catch{}
 
         double v = System.Convert.ToDouble(value);
@@ -87,7 +89,7 @@ public class WaveProgressGradientOffsetConverter : IValueConverter
             GradientStops = new GradientStops()
             {
                 new GradientStop() { Color = PrimaryColor, Offset = 0 },
-                new GradientStop() { Color = Colors.Transparent, Offset = v }
+                new GradientStop() { Color = AccentColor, Offset = v }
             }
 
         };

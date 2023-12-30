@@ -518,21 +518,6 @@
                         </WrapPanel>
                     </suki:GroupBox>
                 </suki:GlassCard>
-                <suki:GlassCard Margin="15">
-                    <DockPanel LastChildFill="True">
-                        <TextBlock Classes="h3" DockPanel.Dock="Top" Text="Available Colour Themes"/>
-                        <ItemsControl ItemsSource="{x:Static sukiUi:SukiTheme.ColorThemes}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal" Spacing="10">
-                                        <Rectangle Fill="{Binding PrimaryBrush}" Width="15" Height="15"/>
-                                        <TextBlock FontSize="16" Text="{Binding Theme}" Foreground="{Binding PrimaryBrush}"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </DockPanel>
-                </suki:GlassCard>
             </WrapPanel>
         </Grid>
     </ScrollViewer>
