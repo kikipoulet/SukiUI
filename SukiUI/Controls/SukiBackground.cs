@@ -6,7 +6,6 @@ using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.Threading;
-using SukiUI.Utilities;
 using SukiUI.Utilities.Background;
 
 namespace SukiUI.Controls;
@@ -22,7 +21,7 @@ public class SukiBackground : Image, IDisposable
     /// <summary>
     /// Quickly and easily assign a generator either for testing, or in future allow dev-defined generators...
     /// </summary>
-    private readonly ISukiBackgroundProvider _provider = new FastNoiseBackgroundGenerator();
+    private readonly ISukiBackgroundRenderer _renderer = new FastNoiseBackgroundRenderer();
     
     private static readonly Timer _animationTick = new(16.7) { AutoReset = true };
 
@@ -32,7 +31,7 @@ public class SukiBackground : Image, IDisposable
     {
         Source = _bmp;
         Stretch = Stretch.Fill;
-        _animationTick.Elapsed += (_, _) => _provider.Draw(_bmp);
+        _animationTick.Elapsed += (_, _) => _renderer.Render(_bmp);
     }
 
     public override void EndInit()
@@ -41,17 +40,17 @@ public class SukiBackground : Image, IDisposable
 
         SukiTheme.OnColorThemeChanged += theme =>
         {
-            _provider.UpdateValues(theme, Dispatcher.UIThread.Invoke(() => Application.Current!.ActualThemeVariant));
-            if (!_animationEnabled) _provider.Draw(_bmp);
+            _renderer.UpdateValues(theme, Dispatcher.UIThread.Invoke(() => Application.Current!.ActualThemeVariant));
+            if (!_animationEnabled) _renderer.Render(_bmp);
         };
         SukiTheme.OnBaseThemeChanged += baseTheme =>
         {
-            _provider.UpdateValues(SukiTheme.ActiveColorTheme, baseTheme);
-            if (!_animationEnabled) _provider.Draw(_bmp);
+            _renderer.UpdateValues(SukiTheme.ActiveColorTheme, baseTheme);
+            if (!_animationEnabled) _renderer.Render(_bmp);
         };
 
-        _provider.UpdateValues(SukiTheme.ActiveColorTheme, Application.Current!.RequestedThemeVariant!);
-        _provider.Draw(_bmp);
+        _renderer.UpdateValues(SukiTheme.ActiveColorTheme, Application.Current!.RequestedThemeVariant!);
+        _renderer.Render(_bmp);
         
         if(_animationEnabled) _animationTick.Start();
     }

@@ -1,6 +1,6 @@
 namespace SukiUI.Utilities.Background;
 
-public readonly struct FastNoiseGeneratorOptions
+public readonly struct FastNoiseRendererOptions
 {
     public FastNoiseLite.NoiseType Type { get; }
     public float NoiseScale { get; }
@@ -9,7 +9,7 @@ public readonly struct FastNoiseGeneratorOptions
     public float PrimaryAlpha { get; }
     public float AccentAlpha { get; }
     
-    public FastNoiseGeneratorOptions(
+    public FastNoiseRendererOptions(
         FastNoiseLite.NoiseType type, 
         float noiseScale = 0.5f, 
         float xAnimSpeed = 0.05f, 

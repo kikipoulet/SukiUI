@@ -7,7 +7,7 @@ using SukiUI.Models;
 
 namespace SukiUI.Utilities.Background;
 
-public sealed class FastNoiseBackgroundGenerator : ISukiBackgroundProvider
+public sealed class FastNoiseBackgroundRenderer : ISukiBackgroundRenderer
 {
     private static readonly Random Rand = new();
     private static readonly FastNoiseLite NoiseGen = new();
@@ -28,9 +28,9 @@ public sealed class FastNoiseBackgroundGenerator : ISukiBackgroundProvider
     private readonly float _primaryAlpha;
     private readonly float _accentAlpha;
     
-    public FastNoiseBackgroundGenerator(FastNoiseGeneratorOptions? options = null)
+    public FastNoiseBackgroundRenderer(FastNoiseRendererOptions? options = null)
     {
-        var opt = options ?? new FastNoiseGeneratorOptions(FastNoiseLite.NoiseType.OpenSimplex2);
+        var opt = options ?? new FastNoiseRendererOptions(FastNoiseLite.NoiseType.OpenSimplex2);
         NoiseGen.SetNoiseType(opt.Type);
         _scale = opt.NoiseScale;
         _xAnim = opt.XAnimSpeed;
@@ -54,7 +54,7 @@ public sealed class FastNoiseBackgroundGenerator : ISukiBackgroundProvider
         _aOffsetX = Rand.Next(1000);
     }
     
-    public unsafe Task Draw(WriteableBitmap bitmap)
+    public unsafe Task Render(WriteableBitmap bitmap)
     {
         _pOffsetX += _xAnim;
         _pOffsetY += _yAnim;
@@ -112,7 +112,7 @@ public sealed class FastNoiseBackgroundGenerator : ISukiBackgroundProvider
 
     private static uint WithAlpha(uint col, byte a) => (col & 0x00FFFFFF) | (uint)(a << 24);
 
-    public static uint BlendPixel(uint fore, uint back)
+    private static uint BlendPixel(uint fore, uint back)
     {
         var alphaF = A(fore) / 255.0f;
 
@@ -124,7 +124,7 @@ public sealed class FastNoiseBackgroundGenerator : ISukiBackgroundProvider
         return ARGB(resultA, resultR, resultG, resultB);
     }
 
-    public static uint BlendPixelOverlay(uint fore, uint back)
+    private static uint BlendPixelOverlay(uint fore, uint back)
     {
         var alphaF = A(fore) / 255.0f;
 
@@ -137,12 +137,9 @@ public sealed class FastNoiseBackgroundGenerator : ISukiBackgroundProvider
     
     private static byte OverlayComponentBlend(byte componentF, byte componentB, float alphaF)
     {
-        var result = 0f;
-
-        if (componentB <= 128)
-            result = 2 * componentF * componentB / 255.0f;
-        else
-            result = 255 - 2 * (255 - componentF) * (255 - componentB) / 255.0f;
+        var result = componentB <= 128
+            ? 2 * componentF * componentB / 255.0f
+            : 255 - 2 * (255 - componentF) * (255 - componentB) / 255.0f;
 
         return (byte)(result * alphaF + componentB * (1 - alphaF));
     }
