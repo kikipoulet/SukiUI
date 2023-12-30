@@ -12,7 +12,8 @@
                  xmlns:sukiTest="clr-namespace:SukiTest"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
                  suki:SukiHost.ToastLocation="BottomRight"
-                 suki:SukiHost.ToastLimit="2" MenuVisibility="False">
+                 suki:SukiHost.ToastLimit="2" 
+                 MenuVisibility="False">
     <suki:SukiWindow.MenuItems>
         <MenuItem Header="File">
             <MenuItem Header="Edit"></MenuItem>
@@ -36,13 +37,20 @@
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <Button
                                 Classes="Accent"
-                                Click="ChangeTheme">
+                                Click="ChangeTheme"
+                                ToolTip.Tip="Change Theme">
                                 <material:MaterialIcon Kind="LightbulbOutline" />
                             </Button>
                             <Button
                                 Classes="Accent"
-                                Click="ChangeColor">
+                                Click="ChangeColor"
+                                ToolTip.Tip="Change Color">
                                 <material:MaterialIcon Kind="Palette"/>
+                            </Button>
+                            <Button Classes="Accent"
+                                    Click="ChangeAnimationState"
+                                    ToolTip.Tip="Toggle Background Animation">
+                                <material:MaterialIcon Kind="Animation"/>
                             </Button>
                         </StackPanel>
                         <DockPanel Margin="0,20,0,0">
