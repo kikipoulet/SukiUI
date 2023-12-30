@@ -23,7 +23,7 @@ public class SukiBackground : Image, IDisposable
     /// </summary>
     private readonly ISukiBackgroundRenderer _renderer = new FastNoiseBackgroundRenderer();
     
-    private static readonly Timer _animationTick = new(260.7) { AutoReset = true };
+    private static readonly Timer _animationTick = new(1000) { AutoReset = true }; // 1 fps
 
     private bool _animationEnabled = false;
 
