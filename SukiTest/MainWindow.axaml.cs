@@ -59,5 +59,10 @@ namespace SukiTest
             SukiTheme.TryChangeColorTheme(newColorTheme);
             SukiHost.ShowToast("Successfully Changed Color", $"Changed Color To {newColorTheme}.");
         }
+
+        private void ChangeAnimationState(object? sender, RoutedEventArgs e)
+        {
+            BackgroundAnimationEnabled = !BackgroundAnimationEnabled;
+        }
     }
 }

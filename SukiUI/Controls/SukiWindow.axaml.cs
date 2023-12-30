@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.Reactive.Linq;
 using System.Runtime.InteropServices;
+using System.Threading;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Media;
-using Avalonia.Media.Imaging;
-using Avalonia.Platform;
 using Avalonia.Styling;
+using Avalonia.Threading;
 
 namespace SukiUI.Controls;
 
@@ -92,6 +93,15 @@ public class SukiWindow : Window
         get => GetValue(MenuItemsProperty);
         set => SetValue(MenuItemsProperty, value);
     }
+
+    public static readonly StyledProperty<bool> BackgroundAnimationEnabledProperty = 
+        AvaloniaProperty.Register<SukiWindow, bool>(nameof(BackgroundAnimationEnabled), defaultValue: false);
+
+    public bool BackgroundAnimationEnabled
+    {
+        get => GetValue(BackgroundAnimationEnabledProperty);
+        set => SetValue(BackgroundAnimationEnabledProperty, value);
+    }
     
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
@@ -124,10 +134,16 @@ public class SukiWindow : Window
 
         if (e.NameScope.Find<GlassCard>("PART_TitleBarBackground") is { } titleBar)
             titleBar.PointerPressed += OnTitleBarPointerPressed;
-     
+
+        if (e.NameScope.Find<SukiBackground>("PART_Background") is { } background)
+        {
+            background.SetAnimationEnabled(BackgroundAnimationEnabled);
+            this.GetObservable(BackgroundAnimationEnabledProperty)
+                .Do(enabled => background.SetAnimationEnabled(enabled))
+                .ObserveOn(new AvaloniaSynchronizationContext())
+                .Subscribe();
+        }
     }
-    
-  
     
     private void OnTitleBarPointerPressed(object? sender, PointerPressedEventArgs e)
     {
