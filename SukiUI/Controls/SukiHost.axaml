@@ -13,12 +13,12 @@
                     
                     <ItemsControl Name="PART_ToastPresenter"
                                   VerticalAlignment="Bottom"
-                                  HorizontalAlignment="Stretch"
-                                  Margin="5,5"
+                                  HorizontalAlignment="Stretch" 
+                                  Margin="5,5" 
                                   ItemsSource="{TemplateBinding ToastsCollection}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <StackPanel VerticalAlignment="Bottom" Spacing="5"/>
+                                <DockPanel LastChildFill="True"   VerticalAlignment="Bottom" />
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                     </ItemsControl>
