@@ -58,6 +58,7 @@ public class SukiToast : ContentControl
         _onClickedCallback = model.OnClicked;
         _timer.Interval = model.Lifetime.TotalMilliseconds;
         _timer.Start();
+        DockPanel.SetDock(this, Dock.Bottom);
     }
 
     internal void InitializeInvisible()

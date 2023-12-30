@@ -103,7 +103,7 @@ public class SukiHost : ContentControl
                 ? HorizontalAlignment.Left
                 : HorizontalAlignment.Right;
 
-        CompositionVisual compositionVisual =
+      /*  CompositionVisual compositionVisual =
             ElementComposition.GetElementVisual(e.NameScope.Get<ItemsControl>("PART_ToastPresenter"));
         Compositor compositor = compositionVisual.Compositor;
 
@@ -117,7 +117,7 @@ public class SukiHost : ContentControl
         ImplicitAnimationCollection implicitAnimationCollection = compositor.CreateImplicitAnimationCollection();
         animationGroup.Add(offsetAnimation);
         implicitAnimationCollection["Offset"] = animationGroup;
-        compositionVisual.ImplicitAnimations = implicitAnimationCollection;
+        compositionVisual.ImplicitAnimations = implicitAnimationCollection; */
 
         // Using implicit animation for the itemscontrol make the first appearance not visible - avalonia problem ?
         // Showing a quick toast at startup to prevent problem even if it is dirty right now, hope it can be removed
