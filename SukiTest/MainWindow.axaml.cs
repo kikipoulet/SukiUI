@@ -1,73 +1,60 @@
 using Avalonia;
-using Avalonia.Controls.Notifications;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
+using DynamicData;
 using SukiUI.Controls;
-using Avalonia.Controls.Primitives;
-using Avalonia.Styling;
 using SukiUI;
-using SukiUI.Enums;
+using SukiUI.Models;
 
-namespace SukiTest
+namespace SukiTest;
+
+public partial class MainWindow : SukiWindow
 {
-    
-    public partial class MainWindow : SukiWindow
+    private SukiTheme? _theme;
+
+    public MainWindow()
     {
-        public WindowNotificationManager notificationManager;
-   
-
-        public MainWindow()
-        {
-            InitializeComponent();
+        InitializeComponent();
 #if DEBUG
-            this.AttachDevTools();
+        this.AttachDevTools();
 #endif
-        }
+    }
 
-        private void InitializeComponent()
+    private void InitializeComponent()
+    {
+        AvaloniaXamlLoader.Load(this);
+        _theme = SukiTheme.GetInstance();
+        _theme.OnBaseThemeChanged += variant =>
         {
-            AvaloniaXamlLoader.Load(this);
-        }
-
-        protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+            SukiHost.ShowToast("Successfully Changed Theme", $"Changed Theme To {variant}",
+                onClicked: () => { SukiHost.ShowToast("Success!", "You Closed A Toast By Clicking On It!"); });
+        };
+        _theme.OnColorThemeChanged += theme =>
         {
-            base.OnApplyTemplate(e);
-            if(notificationManager == null)
-                notificationManager = new WindowNotificationManager(this);
-        }
+            SukiHost.ShowToast("Successfully Changed Color", $"Changed Color To {theme.DisplayName}.");
+        };
         
-        private void ChangeTheme(object? sender, RoutedEventArgs e)
-        {
-            if (Application.Current is null) return;
-            
-            SukiTheme.SwitchBaseTheme();
-            
-            SukiHost.ShowToast("Successfully Changed Theme", $"Changed Theme To {Application.Current.ActualThemeVariant}", onClicked:
-                () =>
-                {
-                    SukiHost.ShowToast("Success!", "You Closed A Toast By Clicking On It!");
-                });
-        }
+        _theme.AddColorTheme(new SukiColorTheme("Neon Pink", Colors.DeepPink, Colors.GreenYellow));
+    }
 
+    private void ChangeTheme(object? sender, RoutedEventArgs e)
+    {
+        _theme?.SwitchBaseTheme();
+    }
 
-        private void ChangeColor(object? sender, RoutedEventArgs e)
-        {
-            var curr = SukiTheme.ActiveColorTheme;
-            if (curr is not { } currentTheme)
-                return;
-            var newColorTheme = (SukiColor)(((int)currentTheme.Theme + 1) % 4);
-            SukiTheme.TryChangeColorTheme(newColorTheme);
-            SukiHost.ShowToast("Successfully Changed Color", $"Changed Color To {newColorTheme}.");
-        }
+    private void ChangeColor(object? sender, RoutedEventArgs e)
+    {
+        _theme?.SwitchColorTheme();
+    }
 
-        private void ChangeAnimationState(object? sender, RoutedEventArgs e)
-        {
-            BackgroundAnimationEnabled = !BackgroundAnimationEnabled;
-            var title = BackgroundAnimationEnabled ? "Animation Enabled" : "Animation Disabled";
-            var content = BackgroundAnimationEnabled
-                ? "Background animations are now enabled."
-                : "Background animations are now disabled.";
-            SukiHost.ShowToast(title, content);
-        }
+    private void ChangeAnimationState(object? sender, RoutedEventArgs e)
+    {
+        BackgroundAnimationEnabled = !BackgroundAnimationEnabled;
+        var title = BackgroundAnimationEnabled ? "Animation Enabled" : "Animation Disabled";
+        var content = BackgroundAnimationEnabled
+            ? "Background animations are now enabled."
+            : "Background animations are now disabled.";
+        SukiHost.ShowToast(title, content);
     }
 }

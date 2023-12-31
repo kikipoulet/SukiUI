@@ -1,10 +1,8 @@
 ﻿<UserControl
     Background="{DynamicResource SukiBackground}"
-
     mc:Ignorable="d"
     x:Class="SukiTest.CircleProgressBarsTestMVVM.ControlsDemo"
     xmlns="https://github.com/avaloniaui"
-    xmlns:circleProgressBarsTestMvvm="clr-namespace:SukiTest.CircleProgressBarsTestMVVM"
     xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -12,7 +10,7 @@
     xmlns:theme="clr-namespace:SukiUI.Theme;assembly=SukiUI"
     xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
     xmlns:system="clr-namespace:System;assembly=System.Runtime"
-    xmlns:sukiUi="clr-namespace:SukiUI;assembly=SukiUI">
+    xmlns:models="clr-namespace:SukiUI.Models;assembly=SukiUI">
     <ScrollViewer>
         <ScrollViewer.Styles>
             <Style Selector="controls|GlassCard">
@@ -196,12 +194,12 @@
             <controls:GlassCard>
                 <DockPanel LastChildFill="True">
                     <TextBlock Classes="h3" DockPanel.Dock="Top" Text="Available Colour Themes" />
-                    <ItemsControl ItemsSource="{x:Static sukiUi:SukiTheme.ColorThemes}">
+                    <ItemsControl x:Name="ThemeList">
                         <ItemsControl.ItemTemplate>
-                            <DataTemplate>
+                            <DataTemplate DataType="models:SukiColorTheme">
                                 <StackPanel Orientation="Horizontal" Spacing="10">
                                     <Rectangle Fill="{Binding PrimaryBrush}" Width="15" Height="15" />
-                                    <TextBlock FontSize="16" Text="{Binding Theme}" Foreground="{Binding PrimaryBrush}" />
+                                    <TextBlock FontSize="16" Text="{Binding DisplayName}" Foreground="{Binding PrimaryBrush}" />
                                 </StackPanel>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

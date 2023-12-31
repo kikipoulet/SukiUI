@@ -10,8 +10,14 @@ namespace SukiUI.Utilities.Background;
 
 public sealed class FastNoiseBackgroundRenderer : ISukiBackgroundRenderer
 {
+    public bool SupportsAnimation => true;
+    
     private static readonly Random Rand = new();
     private static readonly FastNoiseLite NoiseGen = new();
+
+    private readonly object _lockObj = new();
+
+    private bool _isRedrawing;
 
     private uint _themeColor;
     private uint _accentColor;
@@ -55,38 +61,46 @@ public sealed class FastNoiseBackgroundRenderer : ISukiBackgroundRenderer
         _aOffsetX = Rand.Next(1000);
     }
     
-    public unsafe Task Render(WriteableBitmap bitmap)
+    public async Task Render(WriteableBitmap bitmap)
     {
         _pOffsetX += _xAnim;
         _pOffsetY += _yAnim;
         _aOffsetX -= _xAnim;
         _aOffsetY -= _yAnim;
-        
-        using var frameBuffer = bitmap.Lock();
-        var frameSize = frameBuffer.Size;
-        var frameScale = (1f / frameSize.Height) * _scale;
-        
-        var backBuffer = (uint*)frameBuffer.Address.ToPointer();
-        var stride = frameBuffer.RowBytes / 4;
-        
-        Parallel.For((long)0, frameSize.Height, (scanline) =>
-        {
-            var dest = backBuffer + scanline * stride + 0;
-            for (var x = 0; x < frameSize.Width; x++)
-            {
-                var noise = NoiseGen.GetNoise((_pOffsetX + x) * frameScale, (_pOffsetY + scanline) * frameScale);
-                noise = (noise + 1f) / 2f * _primaryAlpha; // noise returns -1 to +1 which isn't useful.
-                var alpha = (byte)(noise * 255);
-                var firstLayer = BlendPixelOverlay(WithAlpha(_themeColor, alpha), _baseColor);
-                
-                noise = NoiseGen.GetNoise((_aOffsetX + x) * frameScale, (_aOffsetY + scanline) * frameScale);
-                noise = (noise + 1f) / 2f * _accentAlpha;
-                alpha = (byte)(noise * 255);
 
-                dest[x] = BlendPixel(WithAlpha(_accentColor, alpha), firstLayer);
+        if (_isRedrawing) return;
+        lock (_lockObj) { _isRedrawing = true; }
+        
+        await Task.Run(() =>
+        {
+            using var frameBuffer = bitmap.Lock();
+            var frameSize = frameBuffer.Size;
+            var frameScale = (1f / frameSize.Height) * _scale;
+            unsafe
+            {
+                var backBuffer = (uint*)frameBuffer.Address.ToPointer();
+                var stride = frameBuffer.RowBytes / 4;
+
+                Parallel.For((long)0, frameSize.Height, (scanline) =>
+                {
+                    var dest = backBuffer + scanline * stride + 0;
+                    for (var x = 0; x < frameSize.Width; x++)
+                    {
+                        var noise = NoiseGen.GetNoise((_pOffsetX + x) * frameScale, (_pOffsetY + scanline) * frameScale);
+                        noise = (noise + 1f) / 2f * _primaryAlpha; // noise returns -1 to +1 which isn't useful.
+                        var alpha = (byte)(noise * 255);
+                        var firstLayer = BlendPixelOverlay(WithAlpha(_themeColor, alpha), _baseColor);
+
+                        noise = NoiseGen.GetNoise((_aOffsetX + x) * frameScale, (_aOffsetY + scanline) * frameScale);
+                        noise = (noise + 1f) / 2f * _accentAlpha;
+                        alpha = (byte)(noise * 255);
+
+                        dest[x] = BlendPixel(WithAlpha(_accentColor, alpha), firstLayer);
+                    }
+                });
             }
         });
-        return Task.CompletedTask;
+        lock (_lockObj) { _isRedrawing = false; }
     }
 
     private static uint GetBackgroundColor(Color input)

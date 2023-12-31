@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
+using SukiUI;
 using SukiUI.Controls;
 
 namespace SukiTest.CircleProgressBarsTestMVVM;
@@ -22,7 +21,7 @@ public partial class ControlsDemo : UserControl
             new Invoice() { Id = 45689, BillingName = "Fantine", Amount = 82, Paid = false },
             new Invoice() { Id = 15364, BillingName = "Jean", Amount = 156, Paid = true },
         };
-
+        this.Get<ItemsControl>("ThemeList").ItemsSource = SukiTheme.GetInstance().ColorThemes;
     }
 
     private void InitializeComponent()
