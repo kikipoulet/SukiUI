@@ -1,0 +1,15 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:sukiUi="clr-namespace:SukiUI;assembly=SukiUI"
+             xmlns:common="clr-namespace:SukiUI.Demo.Common"
+             x:Class="SukiUI.Demo.App"
+             RequestedThemeVariant="Default">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+    <Application.DataTemplates>
+        <common:ViewLocator/>
+    </Application.DataTemplates>
+    <Application.Styles>
+        <sukiUi:SukiTheme ThemeColor="Red"/>
+        <StyleInclude Source="avares://SukiUI.Demo/Styles/ShowMeTheXamlStyles.axaml"/>
+    </Application.Styles>
+</Application>
