@@ -10,9 +10,9 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
                  xmlns:sukiTest="clr-namespace:SukiTest"
-                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  suki:SukiHost.ToastLocation="BottomRight" BackgroundAnimationEnabled="False"
-                 suki:SukiHost.ToastLimit="4" 
+                 suki:SukiHost.ToastLimit="4"
                  MenuVisibility="False">
     <suki:SukiWindow.MenuItems>
         <MenuItem Header="File">
@@ -29,117 +29,120 @@
             Kind="MicrosoftXaml"
             Width="25" />
     </suki:SukiWindow.LogoContent>
-    <suki:SideMenu>
-        <suki:SideMenu.DataContext>
-            <suki:SideMenuModel HeaderContentOverlapsToggleSidebarButton="True">
-                <suki:SideMenuModel.HeaderContent>
-                    <StackPanel Margin="0,4,0,0">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                            <Button
-                                Classes="Accent"
-                                Click="ChangeTheme"
-                                ToolTip.Tip="Change Theme">
-                                <material:MaterialIcon Kind="LightbulbOutline" />
-                            </Button>
-                            <Button
-                                Classes="Accent"
-                                Click="ChangeColor"
-                                ToolTip.Tip="Change Color">
-                                <material:MaterialIcon Kind="Palette"/>
-                            </Button>
-                            <Button Classes="Accent"
-                                    Click="ChangeAnimationState"
-                                    ToolTip.Tip="Toggle Background Animation">
-                                <material:MaterialIcon Kind="Animation"/>
-                            </Button>
-                        </StackPanel>
-                        <DockPanel Margin="0,20,0,0">
-                            <material:MaterialIcon
-                                DockPanel.Dock="Left"
-                                Foreground="{DynamicResource SukiText}"
-                                Height="60"
-                                Kind="UserCircleOutline"
-                                Margin="10,0"
-                                Width="60" />
-                            <StackPanel VerticalAlignment="Center">
-                                <TextBlock
-                                    FontSize="18"
-                                    FontWeight="DemiBold"
-                                    Text="Jean" />
-                                <TextBlock
-                                    FontSize="12"
-                                    FontWeight="Thin"
-                                    Margin="3,1,0,0"
-                                    Text="jean@mail.com" />
-                            </StackPanel>
-                        </DockPanel>
-                        <Border
-                            Background="LightGray"
-                            Height="0"
-                            Margin="35,10,35,20" />
+    <suki:SukiSideMenu HeaderContentOverlapsToggleButton="True"
+                       Name="SideMenu">
+        <suki:SukiSideMenu.HeaderContent>
+            <StackPanel Margin="0,4,0,0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Button
+                        Classes="Accent"
+                        Click="ChangeTheme"
+                        ToolTip.Tip="Change Theme">
+                        <material:MaterialIcon Kind="LightbulbOutline" />
+                    </Button>
+                    <Button
+                        Classes="Accent"
+                        Click="ChangeColor"
+                        ToolTip.Tip="Change Color">
+                        <material:MaterialIcon Kind="Palette" />
+                    </Button>
+                    <Button Classes="Accent"
+                            Click="ChangeAnimationState"
+                            ToolTip.Tip="Toggle Background Animation">
+                        <material:MaterialIcon Kind="Animation" />
+                    </Button>
+                </StackPanel>
+                <DockPanel Margin="0,20,0,0">
+                    <material:MaterialIcon
+                        DockPanel.Dock="Left"
+                        Foreground="{DynamicResource SukiText}"
+                        Height="60"
+                        Kind="UserCircleOutline"
+                        Margin="10,0"
+                        Width="60" />
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="18"
+                            FontWeight="DemiBold"
+                            Text="Jean" />
+                        <TextBlock
+                            FontSize="12"
+                            FontWeight="Thin"
+                            Margin="3,1,0,0"
+                            Text="jean@mail.com" />
                     </StackPanel>
-                </suki:SideMenuModel.HeaderContent>
+                </DockPanel>
+                <Border
+                    Background="LightGray"
+                    Height="0"
+                    Margin="35,10,35,20" />
+            </StackPanel>
+        </suki:SukiSideMenu.HeaderContent>
 
-                <suki:SideMenuModel.MenuItems>
-                    <suki:SideMenuItem ContentType="sukiTest:DashboardPage" Header="DashBoard">
-                        <suki:SideMenuItem.Icon>
-                            <material:MaterialIcon
-                                Foreground="{DynamicResource SukiText}"
-                                Height="24"
-                                Kind="CircleOutline"
-                                Width="24" />
-                        </suki:SideMenuItem.Icon>
-
-                    </suki:SideMenuItem>
-                    <suki:SideMenuItem ContentType="sukiTest:DialogContent" Header="Statistics">
-                        <suki:SideMenuItem.Icon>
-                            <material:MaterialIcon
-                                Foreground="{DynamicResource SukiText}"
-                                Height="24"
-                                Kind="ChartLine"
-                                Width="24" />
-                        </suki:SideMenuItem.Icon>
-
-                    </suki:SideMenuItem>
-                    <suki:SideMenuItem Header="Library"
-                                       ContentType="circleProgressBarsTestMvvm:ControlsDemo">
-                        <suki:SideMenuItem.Icon>
-                            <material:MaterialIcon
-                                Foreground="{DynamicResource SukiText}"
-                                Height="24"
-                                Kind="BookmarkMultipleOutline"
-                                Width="24" />
-                        </suki:SideMenuItem.Icon>
-
-
-                    </suki:SideMenuItem>
-                    <suki:SideMenuItem ContentType="sukiTest:StackExemplePage" Header="Users">
-                        <suki:SideMenuItem.Icon>
-                            <material:MaterialIcon
-                                Foreground="{DynamicResource SukiText}"
-                                Height="24"
-                                Kind="UserSettings"
-                                Width="24" />
-                        </suki:SideMenuItem.Icon>
-
-                    </suki:SideMenuItem>
-
-                </suki:SideMenuModel.MenuItems>
-                <suki:SideMenuModel.FooterMenuItems>
-                    <suki:SideMenuItem ContentType="sukiTest:StackTest" Header="Settings">
-                        <suki:SideMenuItem.Icon>
-                            <material:MaterialIcon
-                                Height="24"
-                                Kind="SettingsOutline"
-                                Width="24" />
-                        </suki:SideMenuItem.Icon>
-
-                    </suki:SideMenuItem>
-                </suki:SideMenuModel.FooterMenuItems>
-                <suki:SideMenuModel.CurrentPage>
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Welcome in SukiUI !</TextBlock>
-                </suki:SideMenuModel.CurrentPage>
-            </suki:SideMenuModel>
-        </suki:SideMenu.DataContext>
-    </suki:SideMenu>
+        <suki:SukiSideMenu.MenuItems>
+            <suki:SukiSideMenuItem Header="DashBoard">
+                <suki:SukiSideMenuItem.Icon>
+                    <material:MaterialIcon
+                        Foreground="{DynamicResource SukiText}"
+                        Height="24"
+                        Kind="CircleOutline"
+                        Width="24" />
+                </suki:SukiSideMenuItem.Icon>
+                <suki:SukiSideMenuItem.PageContent>
+                    <sukiTest:DashboardPage/>
+                </suki:SukiSideMenuItem.PageContent>
+            </suki:SukiSideMenuItem>
+            
+            <suki:SukiSideMenuItem Header="Statistics">
+                <suki:SukiSideMenuItem.Icon>
+                    <material:MaterialIcon
+                        Foreground="{DynamicResource SukiText}"
+                        Height="24"
+                        Kind="ChartLine"
+                        Width="24" />
+                </suki:SukiSideMenuItem.Icon>
+                <suki:SukiSideMenuItem.PageContent>
+                    <sukiTest:DialogContent/>
+                </suki:SukiSideMenuItem.PageContent>
+            </suki:SukiSideMenuItem>
+            
+            <suki:SukiSideMenuItem Header="Library">
+                <suki:SukiSideMenuItem.Icon>
+                    <material:MaterialIcon
+                        Foreground="{DynamicResource SukiText}"
+                        Height="24"
+                        Kind="BookmarkMultipleOutline"
+                        Width="24" />
+                </suki:SukiSideMenuItem.Icon>
+                <suki:SukiSideMenuItem.PageContent>
+                    <circleProgressBarsTestMvvm:ControlsDemo/>
+                </suki:SukiSideMenuItem.PageContent>
+            </suki:SukiSideMenuItem>
+            
+            <suki:SukiSideMenuItem Header="Users">
+                <suki:SukiSideMenuItem.Icon>
+                    <material:MaterialIcon
+                        Foreground="{DynamicResource SukiText}"
+                        Height="24"
+                        Kind="UserSettings"
+                        Width="24" />
+                </suki:SukiSideMenuItem.Icon>
+                <suki:SukiSideMenuItem.PageContent>
+                    <sukiTest:StackExemplePage/>
+                </suki:SukiSideMenuItem.PageContent>
+            </suki:SukiSideMenuItem>
+        </suki:SukiSideMenu.MenuItems>
+        <!-- <suki:SideMenuModel.FooterMenuItems> -->
+        <!--     <suki:SideMenuItem ContentType="sukiTest:StackTest" Header="Settings"> -->
+        <!--         <suki:SideMenuItem.Icon> -->
+        <!--             <material:MaterialIcon -->
+        <!--                 Height="24" -->
+        <!--                 Kind="SettingsOutline" -->
+        <!--                 Width="24" /> -->
+        <!--         </suki:SideMenuItem.Icon> -->
+        <!-- -->
+        <!--     </suki:SideMenuItem> -->
+        <!-- </suki:SideMenuModel.FooterMenuItems> -->
+        <ContentControl Content="{Binding ElementName=SideMenu, Path=SelectedPage.PageContent}" x:CompileBindings="False"/>
+    </suki:SukiSideMenu>
 </suki:SukiWindow>

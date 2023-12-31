@@ -1,0 +1,36 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:suki="clr-namespace:SukiUI.Controls"
+                    xmlns:content="clr-namespace:SukiUI.Content">
+    <ControlTheme x:Key="SukiSideMenuItemStyle" TargetType="suki:SukiSideMenuItem">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Margin="-30,1,0,0">
+                    <DockPanel Margin="0,5,5,5">
+                        <Border Width="55" />
+                        <Border
+                            IsVisible="{Binding !IsMenuExpanded, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type suki:SukiSideMenu}}}"
+                            Width="52" />
+                        <ContentControl
+                            Content="{TemplateBinding Icon}"
+                            Height="24"
+                            Margin="2,0,10,0"
+                            Width="24" />
+                        <TextBlock
+                            FontSize="14"
+                            IsVisible="{Binding IsMenuExpanded, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type suki:SukiSideMenu}}}"
+                            Margin="15,8,8,8"
+                            Text="{TemplateBinding Header}" />
+                        <PathIcon Classes="RollingIcon"
+                                  Foreground="{DynamicResource SukiText}"
+                                  Data="{x:Static content:Icons.CircleOutline}"
+                                  IsVisible="{Binding !IsMenuExpanded, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type suki:SukiSideMenu}}}"
+                                  Margin="-65,0,0,0">
+                        </PathIcon>
+                    </DockPanel>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+    <ControlTheme x:Key="{x:Type suki:SukiSideMenuItem}" TargetType="suki:SukiSideMenuItem" BasedOn="{StaticResource SukiSideMenuItemStyle}"/>
+</ResourceDictionary>

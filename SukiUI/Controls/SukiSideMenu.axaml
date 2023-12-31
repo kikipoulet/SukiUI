@@ -1,0 +1,97 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sukiUi="clr-namespace:SukiUI"
+                    xmlns:suki="clr-namespace:SukiUI.Controls"
+                    xmlns:content="clr-namespace:SukiUI.Content">
+    <ControlTheme x:Key="SukiSideMenuStyle" TargetType="suki:SukiSideMenu">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <SplitView DisplayMode="CompactInline"
+                           OpenPaneLength="220"
+                           IsPaneOpen="{TemplateBinding IsMenuExpanded}">
+                    <SplitView.Pane>
+                        <Border>
+                            <Grid Background="Transparent">
+                                <suki:GlassCard
+                                    BorderThickness="0"
+                                    CornerRadius="0"
+                                    Name="Glass" />
+                
+                                <!--  This sidebar toggle button is used when header content can overlap it  -->
+                                <Button Classes="Accent"
+                                        Name="PART_SidebarToggleButtonOverlay"
+                                        HorizontalAlignment="Right"
+                                        IsVisible="{TemplateBinding HeaderContentOverlapsToggleButton}"
+                                        VerticalAlignment="Top">
+                                    <Grid>
+                                        <PathIcon Foreground="{DynamicResource SukiText}" Height="12" Width="12"
+                                                  IsVisible="{TemplateBinding IsMenuExpanded}"
+                                                  Data="{x:Static content:Icons.ChevronLeft}" />
+                                        <PathIcon Foreground="{DynamicResource SukiText}"
+                                                  Height="12" Width="12"
+                                                  IsVisible="{Binding !IsMenuExpanded, RelativeSource={RelativeSource TemplatedParent}}"
+                                                  Data="{x:Static content:Icons.ChevronRight}" />
+                                    </Grid>
+                                </Button>
+                
+                                <DockPanel>
+                                    <!--  This sidebar toggle button can't be overlapped by header content  -->
+                                    <Button Classes="Accent"
+                                            DockPanel.Dock="Top"
+                                            HorizontalAlignment="Right"
+                                            Name="PART_SidebarToggleButton"
+                                            IsVisible="{Binding !HeaderContentOverlapsToggleButton, RelativeSource={RelativeSource TemplatedParent}}"
+                                            VerticalAlignment="Top">
+                                        <Grid>
+                                            <PathIcon Foreground="{DynamicResource SukiText}"
+                                                      IsVisible="{TemplateBinding IsMenuExpanded}"
+                                                      Data="{x:Static content:Icons.ChevronLeft}" />
+                                            <PathIcon Foreground="{DynamicResource SukiText}"
+                                                      IsVisible="{Binding !IsMenuExpanded, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      Data="{x:Static content:Icons.ChevronRight}" />
+                                        </Grid>
+                                    </Button>
+                
+                                    <Grid
+                                        DockPanel.Dock="Top"
+                                        IsVisible="{TemplateBinding IsMenuExpanded}"
+                                        MinHeight="{TemplateBinding HeaderMinHeight}">
+                                        <ContentControl Content="{TemplateBinding HeaderContent}" />
+                                    </Grid>
+                
+                                    <!--  Used to move menu icons down when sidebar is closed  -->
+                                    <Grid
+                                        DockPanel.Dock="Top"
+                                        Height="40"
+                                        Name="PART_Spacer" />
+                
+                                    <ContentControl
+                                        DockPanel.Dock="Bottom"
+                                        Content="{TemplateBinding FooterContent}"
+                                        Margin="0,0,0,12" />
+                
+                                    <ListBox ItemsSource="{TemplateBinding MenuItems}"
+                                             SelectedItem="{TemplateBinding SelectedPage, Mode=TwoWay}"
+                                             Margin="0,15,0,0"
+                                             SelectionMode="Single,AlwaysSelected"
+                                             Classes="SideMenuListBox" />
+                                </DockPanel>
+                            </Grid>
+                        </Border>
+                    </SplitView.Pane>
+                    <Border
+                        Background="{DynamicResource SukiBackground}"
+                        BorderBrush="{DynamicResource SukiBorderBrush}"
+                        BorderThickness="1,0,0,0"
+                        Margin="0,0,0,0"
+                        Name="ContentBorder">
+                        <ContentControl Content="{TemplateBinding Content}" />
+                    </Border>
+                </SplitView>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+    <ControlTheme x:Key="{x:Type suki:SukiSideMenu}"
+                  TargetType="suki:SukiSideMenu"
+                  BasedOn="{StaticResource SukiSideMenuStyle}" />
+</ResourceDictionary>

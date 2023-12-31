@@ -112,6 +112,9 @@
       <Compile Update="Controls\SukiWindow.axaml">
         <DependentUpon>SukiWindow.axaml.cs</DependentUpon>
       </Compile>
+      <Compile Update="Controls\SukiSideMenu.axaml.cs">
+        <DependentUpon>SukiSideMenu.axaml.axaml</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
