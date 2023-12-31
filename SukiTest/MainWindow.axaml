@@ -79,7 +79,7 @@
             </StackPanel>
         </suki:SukiSideMenu.HeaderContent>
 
-        <suki:SukiSideMenu.MenuItems>
+        <suki:SukiSideMenu.Items>
             <suki:SukiSideMenuItem Header="DashBoard">
                 <suki:SukiSideMenuItem.Icon>
                     <material:MaterialIcon
@@ -89,10 +89,10 @@
                         Width="24" />
                 </suki:SukiSideMenuItem.Icon>
                 <suki:SukiSideMenuItem.PageContent>
-                    <sukiTest:DashboardPage/>
+                    <sukiTest:DashboardPage />
                 </suki:SukiSideMenuItem.PageContent>
             </suki:SukiSideMenuItem>
-            
+
             <suki:SukiSideMenuItem Header="Statistics">
                 <suki:SukiSideMenuItem.Icon>
                     <material:MaterialIcon
@@ -102,10 +102,10 @@
                         Width="24" />
                 </suki:SukiSideMenuItem.Icon>
                 <suki:SukiSideMenuItem.PageContent>
-                    <sukiTest:DialogContent/>
+                    <sukiTest:DialogContent />
                 </suki:SukiSideMenuItem.PageContent>
             </suki:SukiSideMenuItem>
-            
+
             <suki:SukiSideMenuItem Header="Library">
                 <suki:SukiSideMenuItem.Icon>
                     <material:MaterialIcon
@@ -115,10 +115,10 @@
                         Width="24" />
                 </suki:SukiSideMenuItem.Icon>
                 <suki:SukiSideMenuItem.PageContent>
-                    <circleProgressBarsTestMvvm:ControlsDemo/>
+                    <circleProgressBarsTestMvvm:ControlsDemo />
                 </suki:SukiSideMenuItem.PageContent>
             </suki:SukiSideMenuItem>
-            
+
             <suki:SukiSideMenuItem Header="Users">
                 <suki:SukiSideMenuItem.Icon>
                     <material:MaterialIcon
@@ -128,10 +128,10 @@
                         Width="24" />
                 </suki:SukiSideMenuItem.Icon>
                 <suki:SukiSideMenuItem.PageContent>
-                    <sukiTest:StackExemplePage/>
+                    <sukiTest:StackExemplePage />
                 </suki:SukiSideMenuItem.PageContent>
             </suki:SukiSideMenuItem>
-        </suki:SukiSideMenu.MenuItems>
+        </suki:SukiSideMenu.Items>
         <!-- <suki:SideMenuModel.FooterMenuItems> -->
         <!--     <suki:SideMenuItem ContentType="sukiTest:StackTest" Header="Settings"> -->
         <!--         <suki:SideMenuItem.Icon> -->
@@ -143,6 +143,5 @@
         <!-- -->
         <!--     </suki:SideMenuItem> -->
         <!-- </suki:SideMenuModel.FooterMenuItems> -->
-        <ContentControl Content="{Binding ElementName=SideMenu, Path=SelectedPage.PageContent}" x:CompileBindings="False"/>
     </suki:SukiSideMenu>
 </suki:SukiWindow>

@@ -16,11 +16,17 @@ public class ViewLocator : IDataTemplate
         var type = Type.GetType(name);
         if (type is null) 
             return new TextBlock { Text = $"No View For {name}." };
-        
-        if (data is not IViewAware viewAware) 
-            return (Control)Activator.CreateInstance(type)!;
-        viewAware.View ??= (Control)Activator.CreateInstance(type)!;
-        return viewAware.View;
+
+        Control? res = null;
+
+        if (data is IViewAware viewAware)
+        {
+            viewAware.View ??= (Control)Activator.CreateInstance(type)!;
+            res = viewAware.View;
+        }
+        res ??= (Control)Activator.CreateInstance(type)!;
+        res.DataContext = data;
+        return res;
     }
 
     public bool Match(object? data) => data is INotifyPropertyChanged;

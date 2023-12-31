@@ -3,16 +3,17 @@ using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using Avalonia;
-using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using Avalonia.Input;
+using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
 
 namespace SukiUI.Controls;
 
-public class SukiSideMenu : ContentControl
+public class SukiSideMenu : SelectingItemsControl
 {
-    public static readonly StyledProperty<bool> IsMenuExpandedProperty = 
+    public static readonly StyledProperty<bool> IsMenuExpandedProperty =
         AvaloniaProperty.Register<SukiSideMenu, bool>(nameof(IsMenuExpanded), defaultValue: true);
 
     public bool IsMenuExpanded
@@ -21,7 +22,7 @@ public class SukiSideMenu : ContentControl
         set => SetValue(IsMenuExpandedProperty, value);
     }
 
-    public static readonly StyledProperty<bool> HeaderContentOverlapsToggleButtonProperty = 
+    public static readonly StyledProperty<bool> HeaderContentOverlapsToggleButtonProperty =
         AvaloniaProperty.Register<SukiSideMenu, bool>(nameof(HeaderContentOverlapsToggleButton), defaultValue: false);
 
     public bool HeaderContentOverlapsToggleButton
@@ -30,7 +31,7 @@ public class SukiSideMenu : ContentControl
         set => SetValue(HeaderContentOverlapsToggleButtonProperty, value);
     }
 
-    public static readonly StyledProperty<double> HeaderMinHeightProperty = 
+    public static readonly StyledProperty<double> HeaderMinHeightProperty =
         AvaloniaProperty.Register<SukiSideMenu, double>(nameof(HeaderMinHeight));
 
     public double HeaderMinHeight
@@ -39,7 +40,7 @@ public class SukiSideMenu : ContentControl
         set => SetValue(HeaderMinHeightProperty, value);
     }
 
-    public static readonly StyledProperty<object?> HeaderContentProperty = 
+    public static readonly StyledProperty<object?> HeaderContentProperty =
         AvaloniaProperty.Register<SukiSideMenu, object?>(nameof(HeaderContent));
 
     public object? HeaderContent
@@ -48,7 +49,8 @@ public class SukiSideMenu : ContentControl
         set => SetValue(HeaderContentProperty, value);
     }
 
-    public static readonly StyledProperty<object?> FooterContentProperty = AvaloniaProperty.Register<SukiSideMenu, object?>(nameof(FooterContent));
+    public static readonly StyledProperty<object?> FooterContentProperty =
+        AvaloniaProperty.Register<SukiSideMenu, object?>(nameof(FooterContent));
 
     public object? FooterContent
     {
@@ -56,37 +58,28 @@ public class SukiSideMenu : ContentControl
         set => SetValue(FooterContentProperty, value);
     }
 
-    public static readonly StyledProperty<AvaloniaList<object>> MenuItemsProperty = 
-        AvaloniaProperty.Register<SukiSideMenu, AvaloniaList<object>>(nameof(MenuItems), defaultValue: new AvaloniaList<object>());
+    private bool IsSpacerVisible => HeaderContentOverlapsToggleButton && !IsMenuExpanded;
 
-    public AvaloniaList<object> MenuItems
+    public SukiSideMenu()
     {
-        get => GetValue(MenuItemsProperty);
-        set => SetValue(MenuItemsProperty, value);
-    }
-
-    public static readonly StyledProperty<object> SelectedPageProperty = 
-        AvaloniaProperty.Register<SukiSideMenu, object>(nameof(SelectedPage));
-
-    public object SelectedPage
-    {
-        get => GetValue(SelectedPageProperty);
-        set => SetValue(SelectedPageProperty, value);
+        SelectionMode = SelectionMode.Single | SelectionMode.AlwaysSelected;
     }
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
-        
-        if (MenuItems.Any())
-            SelectedPage = MenuItems.First();
-        
-        e.NameScope.Get<Button>("PART_SidebarToggleButton").Click += (_, _) => 
+
+        if (Items.Any())
+        {
+            SelectedItem = Items.First();
+        }
+
+        e.NameScope.Get<Button>("PART_SidebarToggleButton").Click += (_, _) =>
             IsMenuExpanded = !IsMenuExpanded;
-        e.NameScope.Get<Button>("PART_SidebarToggleButtonOverlay").Click += (_, _) => 
+        e.NameScope.Get<Button>("PART_SidebarToggleButtonOverlay").Click += (_, _) =>
             IsMenuExpanded = !IsMenuExpanded;
-        
-        if (e.NameScope.Find<Grid>("PART_Spacer") is { } spacer)
+
+        if (e.NameScope.Get<Grid>("PART_Spacer") is { } spacer)
         {
             spacer.IsVisible = IsSpacerVisible;
             var menuObservable = this.GetObservable(IsMenuExpandedProperty)
@@ -98,7 +91,38 @@ public class SukiSideMenu : ContentControl
                 .ObserveOn(new AvaloniaSynchronizationContext())
                 .Subscribe(_ => spacer.IsVisible = IsSpacerVisible);
         }
+
+        if (e.NameScope.Get<ContentControl>("PART_TransitioningContentControl") is { } contentControl)
+        {
+            this.GetObservable(SelectedItemProperty)
+                .ObserveOn(new AvaloniaSynchronizationContext())
+                .Do(obj =>
+                {
+                    contentControl.Content = obj switch
+                    {
+                        SukiSideMenuItem { PageContent: Control sukiMenuPageContent } => sukiMenuPageContent,
+                        Control control => control,
+                        _ => obj
+                    };
+                })
+                .Subscribe();
+        }
     }
-    
-    private bool IsSpacerVisible => HeaderContentOverlapsToggleButton && !IsMenuExpanded;
+
+    public bool UpdateSelectionFromPointerEvent(Control source, PointerEventArgs e)
+    {
+        return UpdateSelectionFromEventSource(source);
+    }
+
+    protected override Control CreateContainerForItemOverride(object? item, int index, object? recycleKey)
+    {
+        if (ItemTemplate.Match(item) && ItemTemplate.Build(item) is SukiSideMenuItem sukiMenuItem)
+            return sukiMenuItem;
+        return new SukiSideMenuItem();
+    }
+
+    protected override bool NeedsContainerOverride(object? item, int index, out object? recycleKey)
+    {
+        return NeedsContainer<SukiSideMenuItem>(item, out recycleKey);
+    }
 }

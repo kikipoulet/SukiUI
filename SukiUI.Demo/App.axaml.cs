@@ -42,7 +42,7 @@ public partial class App : Application
         services.AddSingleton(Current.DataTemplates.First(x => x is ViewLocator));
         
         // Viewmodels
-        services.AddSingleton(new SukiUIDemoViewModel());
+        services.AddSingleton<SukiUIDemoViewModel>();
         var types = AppDomain.CurrentDomain.GetAssemblies()
             .SelectMany(s => s.GetTypes())
             .Where(p => !p.IsAbstract && typeof(FeatureBase).IsAssignableFrom(p));

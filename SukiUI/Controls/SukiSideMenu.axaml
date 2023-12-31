@@ -70,11 +70,19 @@
                                         Content="{TemplateBinding FooterContent}"
                                         Margin="0,0,0,12" />
                 
-                                    <ListBox ItemsSource="{TemplateBinding MenuItems}"
-                                             SelectedItem="{TemplateBinding SelectedPage, Mode=TwoWay}"
-                                             Margin="0,15,0,0"
-                                             SelectionMode="Single,AlwaysSelected"
-                                             Classes="SideMenuListBox" />
+                                    <ScrollViewer Name="PART_ScrollViewer"
+                                                  AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
+                                                  BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}"
+                                                  Background="{TemplateBinding Background}"
+                                                  HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                                                  IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
+                                                  VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
+                                                  VerticalSnapPointsType="{TemplateBinding (ScrollViewer.VerticalSnapPointsType)}"
+                                                  HorizontalSnapPointsType="{TemplateBinding (ScrollViewer.HorizontalSnapPointsType)}">
+                                        <ItemsPresenter Name="PART_ItemsPresenter"
+                                                        Margin="{TemplateBinding Padding}"
+                                                        ItemsPanel="{TemplateBinding ItemsPanel}"/>
+                                    </ScrollViewer>
                                 </DockPanel>
                             </Grid>
                         </Border>
@@ -85,7 +93,7 @@
                         BorderThickness="1,0,0,0"
                         Margin="0,0,0,0"
                         Name="ContentBorder">
-                        <ContentControl Content="{TemplateBinding Content}" />
+                        <TransitioningContentControl Name="PART_TransitioningContentControl"  />
                     </Border>
                 </SplitView>
             </ControlTemplate>

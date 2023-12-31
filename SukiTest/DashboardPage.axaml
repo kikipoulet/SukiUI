@@ -366,15 +366,15 @@
                                     <TextBlock FontSize="16" Text="Invoices" />
                                 </TabItem.Header>
                                 <Grid>
-
-
+                    
+                    
                                     <DataGrid
                                         AutoGenerateColumns="True"
                                         IsReadOnly="True"
                                         Margin="15,10,15,0"
                                         Name="myDG"
                                         VerticalAlignment="Top" />
-
+                    
                                 </Grid>
                             </TabItem>
                             <TabItem>
@@ -389,7 +389,7 @@
                                                 <TextBlock Text="Test Lock" />
                                             </StackPanel>
                                         </Expander.Header>
-
+                    
                                         <TextBlock
                                             FontSize="13"
                                             Margin="15,15"
@@ -397,19 +397,19 @@
                                             We understand that things change. You can cancel your plan at any time and we'll refund you.
                                         </TextBlock>
                                     </Expander>
-
+                    
                                     <Expander Header="Can I change my plan later ?">
                                         <TextBlock Margin="20,5">Answer</TextBlock>
                                     </Expander>
-
+                    
                                     <Expander
                                         Header="How do I change my account email ?">
                                         <TextBlock Margin="20,5">Answer</TextBlock>
                                     </Expander>
-
+                    
                                 </StackPanel>
                             </TabItem>
-
+                    
                         </TabControl>
                     </suki:GlassCard>
                     <suki:GlassCard

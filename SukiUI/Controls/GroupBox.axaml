@@ -23,13 +23,13 @@
                                 </Style>
                             </ContentControl.Styles>
                         </ContentControl>
-
+                    
                         <Border
                             Background="{DynamicResource SukiControlBorderBrush}"
                             BorderThickness="0"
                             Height="1"
                             Margin="0,10,0,10" />
-                        <TransitioningContentControl Content="{TemplateBinding Content}" />
+                        <ContentControl Content="{TemplateBinding Content}" />
                     </StackPanel>
                 </ControlTemplate>
             </Setter>
