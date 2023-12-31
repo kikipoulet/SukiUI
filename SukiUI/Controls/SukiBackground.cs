@@ -14,6 +14,7 @@ public class SukiBackground : Image, IDisposable
 {
     private const int ImageWidth = 100;
     private const int ImageHeight = 100;
+    private const float AnimFps = 5;
 
     private readonly WriteableBitmap _bmp = new(new PixelSize(ImageWidth, ImageHeight), new Vector(96, 96),
         PixelFormats.Bgra8888);
@@ -23,7 +24,7 @@ public class SukiBackground : Image, IDisposable
     /// </summary>
     private readonly ISukiBackgroundRenderer _renderer = new FastNoiseBackgroundRenderer();
     
-    private static readonly Timer _animationTick = new(1000) { AutoReset = true }; // 1 fps
+    private static readonly Timer _animationTick = new(1000 / AnimFps) { AutoReset = true }; // 1 fps
 
     private bool _animationEnabled = false;
 
@@ -41,18 +42,18 @@ public class SukiBackground : Image, IDisposable
         SukiTheme.OnColorThemeChanged += theme =>
         {
             _renderer.UpdateValues(theme, Dispatcher.UIThread.Invoke(() => Application.Current!.ActualThemeVariant));
-            if (!_animationEnabled) _renderer.Render(_bmp);
+            _renderer.Render(_bmp);
         };
         SukiTheme.OnBaseThemeChanged += baseTheme =>
         {
             _renderer.UpdateValues(SukiTheme.ActiveColorTheme, baseTheme);
-            if (!_animationEnabled) _renderer.Render(_bmp);
+            _renderer.Render(_bmp);
         };
 
         Application.Current.ActualThemeVariantChanged += (sender, args) =>
         {
             _renderer.UpdateValues(SukiTheme.ActiveColorTheme, Application.Current!.ActualThemeVariant);
-            if (!_animationEnabled) _renderer.Render(_bmp);
+            _renderer.Render(_bmp);
         };
 
         _renderer.UpdateValues(SukiTheme.ActiveColorTheme, Application.Current!.RequestedThemeVariant!);
