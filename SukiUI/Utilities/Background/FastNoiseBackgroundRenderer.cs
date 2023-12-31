@@ -10,6 +10,8 @@ namespace SukiUI.Utilities.Background;
 
 public sealed class FastNoiseBackgroundRenderer : ISukiBackgroundRenderer
 {
+    public bool SupportsAnimation => true;
+    
     private static readonly Random Rand = new();
     private static readonly FastNoiseLite NoiseGen = new();
 

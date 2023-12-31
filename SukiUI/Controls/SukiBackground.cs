@@ -63,6 +63,7 @@ public class SukiBackground : Image, IDisposable
     {
         if (_animationEnabled == value) return;
         _animationEnabled = value;
+        if (!_renderer.SupportsAnimation) return;
         if(_animationEnabled) _animationTick.Start();
         else _animationTick.Stop();
     }

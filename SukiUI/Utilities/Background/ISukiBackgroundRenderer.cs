@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Avalonia.Media.Imaging;
 using Avalonia.Styling;
+using SukiUI.Controls;
 using SukiUI.Models;
 
 namespace SukiUI.Utilities.Background;
@@ -10,6 +11,11 @@ namespace SukiUI.Utilities.Background;
 /// </summary>
 public interface ISukiBackgroundRenderer
 {
+    /// <summary>
+    /// Tells the <see cref="SukiBackground"/> control if this renderer should be animated.
+    /// </summary>
+    public bool SupportsAnimation { get; }
+    
     /// <summary>
     /// Updates the values from the main thread, allowing the generator to keep drawing in the background.
     /// </summary>
