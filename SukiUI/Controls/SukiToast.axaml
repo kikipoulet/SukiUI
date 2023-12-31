@@ -4,13 +4,13 @@
     <ControlTheme TargetType="suki:SukiToast" x:Key="SukiToastTheme">
         <Setter Property="Template">
             <ControlTemplate>
-                <Border  Padding="0" BoxShadow="{DynamicResource SukiPopupShadow}" CornerRadius="6" MinWidth="200" Margin="30,5,30,10" Classes="Card" Name="PART_ToastCard">
+                <Border  Padding="0" BoxShadow="{DynamicResource SukiPopupShadow}" CornerRadius="6" Width="250" Margin="30,5,30,10" Classes="Card" Name="PART_ToastCard">
                     <DockPanel Margin="0,-7" LastChildFill="True">
                         <TextBlock DockPanel.Dock="Top"
                                    Text="{TemplateBinding Title}"
                                    FontWeight="DemiBold"
                                    FontSize="15"/>
-                        <ContentControl Margin="0,10,0,0" Content="{TemplateBinding Content}"/>
+                        <ContentPresenter TextWrapping="Wrap" Margin="0,10,0,0" Content="{TemplateBinding Content}"/>
                     </DockPanel>
                 </Border>
             </ControlTemplate>
