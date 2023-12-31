@@ -28,35 +28,32 @@ public class SukiBackground : Image, IDisposable
 
     private bool _animationEnabled = false;
 
+    private readonly SukiTheme _theme;
+
     public SukiBackground()
     {
         Source = _bmp;
         Stretch = Stretch.UniformToFill;
         _animationTick.Elapsed += (_, _) => _renderer.Render(_bmp);
+        _theme = SukiTheme.GetInstance();
     }
 
     public override void EndInit()
     {
         base.EndInit();
 
-        SukiTheme.OnColorThemeChanged += theme =>
+        _theme.OnColorThemeChanged += theme =>
         {
-            _renderer.UpdateValues(theme, Dispatcher.UIThread.Invoke(() => Application.Current!.ActualThemeVariant));
+            _renderer.UpdateValues(theme, Dispatcher.UIThread.Invoke(() => _theme.ActiveBaseTheme));
             _renderer.Render(_bmp);
         };
-        SukiTheme.OnBaseThemeChanged += baseTheme =>
+        _theme.OnBaseThemeChanged += baseTheme =>
         {
-            _renderer.UpdateValues(SukiTheme.ActiveColorTheme, baseTheme);
-            _renderer.Render(_bmp);
-        };
-
-        Application.Current.ActualThemeVariantChanged += (sender, args) =>
-        {
-            _renderer.UpdateValues(SukiTheme.ActiveColorTheme, Application.Current!.ActualThemeVariant);
+            _renderer.UpdateValues(_theme.ActiveColorTheme, baseTheme);
             _renderer.Render(_bmp);
         };
 
-        _renderer.UpdateValues(SukiTheme.ActiveColorTheme, Application.Current!.RequestedThemeVariant!);
+        _renderer.UpdateValues(_theme.ActiveColorTheme, _theme.ActiveBaseTheme);
         _renderer.Render(_bmp);
         
         if(_animationEnabled) _animationTick.Start();
