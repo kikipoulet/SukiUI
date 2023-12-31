@@ -208,7 +208,7 @@
     
     
     <Style Selector="Button.Primary">
-        <Setter Property="Padding" Value="20,9,20,7"></Setter>
+        <Setter Property="Padding" Value="20,8,20,8"></Setter>
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}">
           
