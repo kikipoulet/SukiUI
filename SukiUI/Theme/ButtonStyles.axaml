@@ -112,16 +112,6 @@
         
         <!-- Classes -->
         <Style Selector="^.Accent">
-            <Style Selector="^ /template/ TextBlock">
-                <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
-            </Style>
-            <Style Selector="^ /template/ ContentPresenter">
-                <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
-            </Style>
-        
-            <Style Selector="^ /template/ Border">
-                <Setter Property="BorderBrush" Value="{DynamicResource SukiAccentColor}" />
-            </Style>
             <Style Selector="^:pointerover">
                 <Style Selector="^ /template/ TextBlock">
                     <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
