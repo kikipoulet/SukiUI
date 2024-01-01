@@ -1,6 +1,7 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:suki="clr-namespace:SukiUI.Controls">
+                    xmlns:suki="clr-namespace:SukiUI.Controls"
+                    xmlns:content="clr-namespace:SukiUI.Content">
     <ControlTheme x:Key="SukiSideMenuItemStyle" TargetType="suki:SukiSideMenuItem">
         <Setter Property="Template">
             <ControlTemplate>
@@ -39,6 +40,15 @@
                         <ContentPresenter Name="PART_AltDisplay" 
                                           Content="{TemplateBinding Content}"
                                           ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                       
+                        <PathIcon Margin="22,0,0,0" Name="Part_SelectedIcon" Data="{x:Static content:Icons.CircleOutline}" Opacity="0"  IsVisible="{Binding !IsMenuExpanded, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type suki:SukiSideMenu}}}" 
+                                     VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <PathIcon.Transitions>
+                                <Transitions>
+                                    <DoubleTransition Property="Opacity" Duration="0:0:0.35"></DoubleTransition>
+                                </Transitions>
+                            </PathIcon.Transitions>
+                        </PathIcon>
                     </Grid>
                 </Border>
             </ControlTemplate>
@@ -57,9 +67,12 @@
                 <Setter Property="FontWeight" Value="Bold" />
                 <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}"></Setter>
             </Style>
+            <Style Selector="^ /template/ PathIcon#Part_SelectedIcon">
+                <Setter Property="Opacity" Value="1"></Setter>
+            </Style>
             <Style Selector="^ /template/ ContentControl#PART_Icon">
                 <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
-                <Setter Property="Opacity" Value="0"></Setter>
+            <Setter Property="Opacity" Value="0"></Setter>
             </Style>
         </Style>
     </ControlTheme>
