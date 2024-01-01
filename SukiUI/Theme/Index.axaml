@@ -58,6 +58,8 @@
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiWindow.axaml"/>
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiHost.axaml"/>
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiToast.axaml"/>
+                <ResourceInclude Source="avares://sukiUI/Controls/SukiSideMenu.axaml"/>
+                <ResourceInclude Source="avares://sukiUI/Controls/SukiSideMenuItem.axaml"/>
                 <ResourceInclude Source="../ColorTheme/Light.axaml"  />
             </ResourceDictionary.MergedDictionaries>
             

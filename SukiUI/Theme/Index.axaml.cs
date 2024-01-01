@@ -145,7 +145,6 @@ public partial class SukiTheme : Styles
             ? ThemeVariant.Light 
             : ThemeVariant.Dark;
         Application.Current.RequestedThemeVariant = newBase;
-        OnBaseThemeChanged?.Invoke(newBase);
     }
     
     /// <summary>
