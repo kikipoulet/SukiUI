@@ -301,7 +301,7 @@
             TextWrapping="WrapWithOverflow"
             VerticalAlignment="Top" />
         <Button
-            Classes="Chromeless"
+            Classes="Basic"
             Click="Close"
             HorizontalAlignment="Right"
             VerticalAlignment="Top">

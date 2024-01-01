@@ -20,7 +20,7 @@
                     <DockPanel VerticalAlignment="Center">
                         <Button Background="Transparent"
                                 BorderThickness="0"
-                                Classes="Chromeless"
+                                Classes="Basic"
                                 Click="ButtonMinus"
                                 DockPanel.Dock="Left"
                                 HorizontalAlignment="Center"
@@ -30,7 +30,7 @@
                         </Button>
                         <Button Background="Transparent"
                                 BorderThickness="0"
-                                Classes="Chromeless"
+                                Classes="Basic"
                                 Click="ButtonPlus"
                                 DockPanel.Dock="Right"
                                 HorizontalAlignment="Center"

@@ -35,18 +35,18 @@
             <StackPanel Margin="0,4,0,0">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                     <Button
-                        Classes="Chromeless"
+                        Classes="Basic"
                         Click="ChangeTheme"
                         ToolTip.Tip="Change Theme">
                         <material:MaterialIcon Kind="LightbulbOutline" />
                     </Button>
                     <Button
-                        Classes="Chromeless"
+                        Classes="Basic"
                         Click="ChangeColor"
                         ToolTip.Tip="Change Color">
                         <material:MaterialIcon Kind="Palette" />
                     </Button>
-                    <Button Classes="Chromeless"
+                    <Button Classes="Basic"
                             Click="ChangeAnimationState"
                             ToolTip.Tip="Toggle Background Animation">
                         <material:MaterialIcon Kind="Animation" />

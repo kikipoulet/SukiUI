@@ -43,7 +43,7 @@
 
                     </StackPanel>
                     <StackPanel Margin="15,0,0,0" Spacing="15">
-                        <Button Classes="Chromeless" Content="Chromeless" />
+                        <Button Classes="Basic" Content="Basic" />
                         <Button Content="Neutral" />
                         <Button Classes="Outlined" Content="Outlined" />
                     </StackPanel>

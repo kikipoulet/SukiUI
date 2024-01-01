@@ -22,9 +22,9 @@
             </controls:GroupBox>
         </controls:GlassCard>
         <controls:GlassCard>
-            <controls:GroupBox Header="Chromeless Button">
+            <controls:GroupBox Header="Basic Button">
                 <showMeTheXaml:XamlDisplay UniqueId="Button2">
-                    <Button Classes="Chromeless"/>
+                    <Button Classes="Basic"/>
                 </showMeTheXaml:XamlDisplay>
             </controls:GroupBox>
         </controls:GlassCard>
