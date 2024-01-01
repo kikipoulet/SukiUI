@@ -17,7 +17,7 @@
                            Foreground="{DynamicResource SukiLowText}"
                            Text="Settings" />
                 <PathIcon Foreground="{DynamicResource SukiLowText}"
-                          HorizontalAlignment="Center"
+                          HorizontalAlignment="Center" Height="15" Width="15"
                           Data="{x:Static content:Icons.ChevronRight}"
                           Margin="15,-3,15,0"
                           VerticalAlignment="Center" />
@@ -25,7 +25,7 @@
                            Foreground="{DynamicResource SukiLowText}"
                            Text="Network" />
                 <PathIcon Foreground="{DynamicResource SukiLowText}"
-                          HorizontalAlignment="Center"
+                          HorizontalAlignment="Center" Height="15" Width="15"
                           Data="{x:Static content:Icons.ChevronRight}"
                           Margin="15,-3,15,0"
                           VerticalAlignment="Center" />
