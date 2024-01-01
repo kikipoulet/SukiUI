@@ -4,9 +4,15 @@
     <ControlTheme x:Key="SukiSideMenuItemStyle" TargetType="suki:SukiSideMenuItem">
         <Setter Property="Template">
             <ControlTemplate>
-                <Border Padding="15,10"
-                        Name="PART_Border"
+                <Border CornerRadius="{DynamicResource MediumCornerRadius}" Margin="15,2" Padding="30,15,15,15"
+                        Name="PART_Border" MinWidth="85"
                         Background="Transparent">
+                    <Border.Transitions>
+                        <Transitions>
+                            <BrushTransition Property="Background" Duration="0:0:0.35"></BrushTransition>
+                            <ThicknessTransition Property="Padding" Duration="0:0:0.35"></ThicknessTransition>
+                        </Transitions>
+                    </Border.Transitions>
                     <Grid>
                         <DockPanel Name="PART_NormalDisplay"
                                    LastChildFill="True">
@@ -15,7 +21,13 @@
                                 Name="PART_Icon"
                                 Content="{TemplateBinding Icon}"
                                 Height="24"
-                                Width="24" />
+                                Width="24" >
+                                <ContentControl.Transitions>
+                                    <Transitions>
+                                        <DoubleTransition Property="Opacity" Duration="0:0:0.3"></DoubleTransition>
+                                    </Transitions>
+                                </ContentControl.Transitions>
+                            </ContentControl>
                             <TextBlock
                                 Name="PART_Header"
                                 VerticalAlignment="Center"
@@ -33,18 +45,21 @@
         </Setter>
         <Style Selector="^:pointerover">
             <Style Selector="^ /template/ Border#PART_Border">
-                <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor10}" />
+                <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor2}" />
             </Style>
         </Style>
         <Style Selector="^[IsSelected=True]">
             <Style Selector="^ /template/ Border#PART_Border">
-                <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor25}" />
+                <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor5}" />
+                <Setter Property="Padding" Value="-10,15,15,15"></Setter>
             </Style>
             <Style Selector="^ /template/ TextBlock#PART_Header">
                 <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}"></Setter>
             </Style>
             <Style Selector="^ /template/ ContentControl#PART_Icon">
                 <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
+                <Setter Property="Opacity" Value="0"></Setter>
             </Style>
         </Style>
     </ControlTheme>
