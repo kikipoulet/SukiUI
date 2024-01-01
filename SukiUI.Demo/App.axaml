@@ -13,6 +13,7 @@
         <StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />
         <sukiUi:SukiTheme ThemeColor="Red"/>
         <StyleInclude Source="avares://SukiUI.Demo/Styles/ShowMeTheXamlStyles.axaml"/>
+        <StyleInclude Source="avares://SukiUI.Demo/Styles/WrapPanelStyles.axaml"/>
         <avalonia:MaterialIconStyles />
     </Application.Styles>
 </Application>

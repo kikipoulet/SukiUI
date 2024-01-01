@@ -18,7 +18,7 @@
                                     Name="Glass" />
                 
                                 <!--  This sidebar toggle button is used when header content can overlap it  -->
-                                <Button Classes="Accent"
+                                <Button Classes="Basic"
                                         Name="PART_SidebarToggleButtonOverlay"
                                         HorizontalAlignment="Right"
                                         IsVisible="{TemplateBinding HeaderContentOverlapsToggleButton}"
@@ -36,7 +36,7 @@
                 
                                 <DockPanel>
                                     <!--  This sidebar toggle button can't be overlapped by header content  -->
-                                    <Button Classes="Accent"
+                                    <Button Classes="Basic"
                                             DockPanel.Dock="Top"
                                             HorizontalAlignment="Right"
                                             Name="PART_SidebarToggleButton"

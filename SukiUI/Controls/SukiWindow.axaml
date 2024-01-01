@@ -45,7 +45,7 @@
                                                     FlowDirection="RightToLeft">
                                                     <!--  Close button  -->
                                                     <Button
-                                                        Classes="Accent Rounded WindowControlsButton Red"
+                                                        Classes="Basic Rounded WindowControlsButton Red"
                                                         Name="PART_CloseButton">
                                                         <PathIcon
                                                             Classes="WindowControlsIcon"
@@ -54,7 +54,7 @@
 
                                                     <!--  Maximize button  -->
                                                     <Button
-                                                        Classes="Accent Rounded WindowControlsButton"
+                                                        Classes="Basic Rounded WindowControlsButton"
                                                         Name="PART_MaximizeButton"
                                                         IsVisible="{TemplateBinding IsMaximizeButtonEnabled}">
                                                         <PathIcon
@@ -65,7 +65,7 @@
 
                                                     <!--  Minimize button  -->
                                                     <Button
-                                                        Classes="Accent Rounded WindowControlsButton"
+                                                        Classes="Basic Rounded WindowControlsButton"
                                                         Name="PART_MinimizeButton"
                                                         VerticalContentAlignment="Bottom"
                                                         IsVisible="{TemplateBinding IsMinimizeButtonEnabled}">

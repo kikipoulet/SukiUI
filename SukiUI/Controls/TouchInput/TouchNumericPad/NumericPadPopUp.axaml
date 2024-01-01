@@ -130,7 +130,7 @@
             TextWrapping="WrapWithOverflow"
             VerticalAlignment="Top" />
         <Button
-            Classes="Accent"
+            Classes="Basic"
             Click="Close"
             HorizontalAlignment="Right"
             VerticalAlignment="Top">

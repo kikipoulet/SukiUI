@@ -44,7 +44,7 @@
                     Margin="0,35,0,0"
                     Orientation="Horizontal">
             <Button Classes="Rounded" Click="CloseDialog" Content="Cancel" />
-            <Button Classes="Primary Rounded" Click="CloseDialog" Content="Generate" />
+            <Button Classes="Flat Rounded" Click="CloseDialog" Content="Generate" />
         </StackPanel>
 
     </StackPanel>
