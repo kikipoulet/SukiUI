@@ -57,7 +57,7 @@
                                         Background="Transparent"
                                         BorderBrush="{DynamicResource SukiBorderBrush}"
                                         BorderThickness="0"
-                                        Classes="Primary"
+                                        Classes="Flat"
                                         Height="30"
                                         HorizontalAlignment="Center"
                                         IsChecked="{TemplateBinding IsExpanded,

@@ -52,7 +52,7 @@
                         </StackPanel>
                     </Border>
                     <Button
-                        Classes="Rounded Primary"
+                        Classes="Rounded Flat"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Bottom"
                         Width="160">

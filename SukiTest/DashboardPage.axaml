@@ -52,7 +52,7 @@
                             </StackPanel>
                         </suki:BusyArea>
                     </suki:GlassCard>
-                    <Button Classes="Primary Rounded"
+                    <Button Classes="Flat Rounded"
                             Click="SetBusy"
                             HorizontalAlignment="Center"
                             Name="ButtonSignIn"
@@ -346,7 +346,7 @@
                             </StackPanel>
                         </StackPanel>
                         <Button
-                            Classes="Accent"
+                            Classes="Chromeless"
                             Click="ShowDialog"
                             HorizontalAlignment="Right"
                             Margin="0"

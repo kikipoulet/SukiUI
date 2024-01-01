@@ -22,23 +22,23 @@
             </controls:GroupBox>
         </controls:GlassCard>
         <controls:GlassCard>
-            <controls:GroupBox Header="Accent Button">
+            <controls:GroupBox Header="Chromeless Button">
                 <showMeTheXaml:XamlDisplay UniqueId="Button2">
-                    <Button Classes="Accent"/>
+                    <Button Classes="Chromeless"/>
                 </showMeTheXaml:XamlDisplay>
             </controls:GroupBox>
         </controls:GlassCard>
         <controls:GlassCard>
-            <controls:GroupBox Header="Primary Button">
+            <controls:GroupBox Header="Flat Button">
                 <showMeTheXaml:XamlDisplay UniqueId="Button3">
-                    <Button Classes="Primary"/>
+                    <Button Classes="Flat"/>
                 </showMeTheXaml:XamlDisplay>
             </controls:GroupBox>
         </controls:GlassCard>
         <controls:GlassCard>
-            <controls:GroupBox Header="Primary Rounded Button">
+            <controls:GroupBox Header="Flat Rounded Button">
                 <showMeTheXaml:XamlDisplay UniqueId="Button4">
-                    <Button Classes="Rounded Primary"/>
+                    <Button Classes="Rounded Flat"/>
                 </showMeTheXaml:XamlDisplay>
             </controls:GroupBox>
         </controls:GlassCard>

@@ -103,12 +103,11 @@
             <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
         </Style>
 
-        <Style Selector="^.Accent">
+        <Style Selector="^.Chromeless">
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="BorderBrush" Value="Transparent" />
             <Setter Property="Padding" Value="11,8" />
             <Setter Property="CornerRadius" Value="5" />
-            <Setter Property="Margin" Value="5 5" />
             <Setter Property="Background" Value="Transparent" />
         </Style>
 
@@ -121,11 +120,10 @@
             <Setter Property="Background" Value="Transparent" />
         </Style>
 
-        <Style Selector="^.Accent /template/ TextBlock">
+        <Style Selector="^.Chromeless /template/ TextBlock">
             <Setter Property="Foreground">
                 <Setter.Value>
                     <LinearGradientBrush EndPoint="50%,100%" StartPoint="48%,0%">
-
                         <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.8" />
                         <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="1" />
                     </LinearGradientBrush>
@@ -133,17 +131,17 @@
             </Setter>
         </Style>
 
-        <Style Selector="^.Accent /template/ ContentPresenter">
+        <Style Selector="^.Chromeless /template/ ContentPresenter">
             <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}">
             </Setter>
         </Style>
 
-        <Style Selector="^.Accent:pointerover">
+        <Style Selector="^.Chromeless:pointerover">
             <Setter Property="Background" Value="Transparent" />
 
         </Style>
 
-        <Style Selector="^.Accent:pointerover /template/ Border">
+        <Style Selector="^.Chromeless:pointerover /template/ Border">
 
             <Setter Property="RenderTransform">
                 <Setter.Value>
@@ -162,7 +160,7 @@
         </Style>
 
 
-        <Style Selector="^.Accent:pressed /template/ Border">
+        <Style Selector="^.Chromeless:pressed /template/ Border">
             <Setter Property="Background" Value="Transparent" />
         </Style>
 
@@ -181,7 +179,7 @@
             </Setter>
         </Style>
 
-        <Style Selector="^.Primary">
+        <Style Selector="^.Flat">
             <Setter Property="Padding" Value="20,8,20,8"></Setter>
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}">
@@ -196,21 +194,21 @@
             </Setter>
         </Style>
 
-        <Style Selector="^.Primary /template/ TextBlock">
+        <Style Selector="^.Flat /template/ TextBlock">
             <Setter Property="Foreground" Value="White" />
 
         </Style>
 
-        <Style Selector="^.Primary /template/ ContentPresenter">
+        <Style Selector="^.Flat /template/ ContentPresenter">
             <Setter Property="Foreground" Value="White" />
         </Style>
 
-        <Style Selector="^.Primary:pointerover">
+        <Style Selector="^.Flat:pointerover">
             <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
         </Style>
 
 
-        <Style Selector="^.Primary:pressed /template/ Border">
+        <Style Selector="^.Flat:pressed /template/ Border">
             <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
         </Style>
 
@@ -271,8 +269,6 @@
             </Setter>
         </Style>
 
-        <!--    -->
-
         <Style Selector="^.Success">
             <Setter Property="Background" Value="#cdf2ca" />
             <Setter Property="BorderBrush" Value="#b2e1ae" />
@@ -305,7 +301,7 @@
             <Setter Property="CornerRadius" Value="100" />
         </Style>
 
-        <Style Selector="^.Accent /template/ Border">
+        <Style Selector="^.Chromeless /template/ Border">
             <Setter Property="BoxShadow" Value="0 0 0 0 Transparent" />
         </Style>
 
@@ -313,7 +309,7 @@
             <Setter Property="BoxShadow" Value="0 0 0 0 Transparent" />
         </Style>
 
-        <Style Selector="^.Primary /template/ Border">
+        <Style Selector="^.Flat /template/ Border">
             <Setter Property="BoxShadow" Value="{DynamicResource SukiLowShadow}" />
         </Style>
 

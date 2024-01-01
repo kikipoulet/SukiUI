@@ -38,12 +38,12 @@
             <controls:GlassCard>
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Spacing="15">
-                        <Button Classes="Primary" Content="Primary" />
-                        <Button Classes="Primary Rounded" Content="Rounded" />
+                        <Button Classes="Flat" Content="Flat" />
+                        <Button Classes="Flat Rounded" Content="Rounded" />
 
                     </StackPanel>
                     <StackPanel Margin="15,0,0,0" Spacing="15">
-                        <Button Classes="Accent" Content="Accent" />
+                        <Button Classes="Chromeless" Content="Chromeless" />
                         <Button Content="Neutral" />
                         <Button Classes="Outlined" Content="Outlined" />
                     </StackPanel>
@@ -175,7 +175,7 @@
 
             <controls:GlassCard>
                 <controls:BusyArea Name="BA" IsBusy="False">
-                    <Button Margin="20,0" Classes="Primary" Content="Make Busy" Click="Button_OnClick"></Button>
+                    <Button Margin="20,0" Classes="Flat" Content="Make Busy" Click="Button_OnClick"></Button>
                 </controls:BusyArea>
             </controls:GlassCard>
 

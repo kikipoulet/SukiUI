@@ -9,7 +9,7 @@
                                         <controls:StackPage.Content>
                                             <WrapPanel>
                                                 <Border Height="150" Width="150">
-                                                    <Button Classes="Primary" Click="changepage" Content="test" />
+                                                    <Button Classes="Flat" Click="changepage" Content="test" />
                                                 </Border>
 
                                             </WrapPanel>

@@ -203,7 +203,7 @@
                         <PathIcon Data="{x:Static content:Icons.KeyboardCaps}"/>
                     </Button>
                     <Button Height="55" Padding="6,4,0,0" Margin="0"
-                            Classes="Primary"
+                            Classes="Flat"
                             Click="ButtonCapsOn_OnClick"
                             IsVisible="False"
                             Name="ButtonCapsOn">
@@ -301,7 +301,7 @@
             TextWrapping="WrapWithOverflow"
             VerticalAlignment="Top" />
         <Button
-            Classes="Accent"
+            Classes="Chromeless"
             Click="Close"
             HorizontalAlignment="Right"
             VerticalAlignment="Top">

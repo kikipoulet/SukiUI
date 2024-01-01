@@ -93,7 +93,7 @@
         </ScrollViewer>
 
         <Button
-            Classes="Accent"
+            Classes="Chromeless"
             Click="Close"
             DockPanel.Dock="Bottom"
             HorizontalAlignment="Right"
