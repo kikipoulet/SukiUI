@@ -3,8 +3,51 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
+             xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+             xmlns:showMeTheXaml="clr-namespace:ShowMeTheXaml;assembly=ShowMeTheXaml.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SukiUI.Demo.Features.ControlsLibrary.ButtonsLibraryView"
              x:DataType="controlsLibrary:ButtonsLibraryViewModel">
-    Buttons View!
+    <UserControl.Styles>
+        <Style Selector="Button">
+            <Setter Property="Content" Value="Button"/>
+        </Style>
+    </UserControl.Styles>
+    <WrapPanel Classes="PageContainer">
+        <controls:GlassCard>
+            <controls:GroupBox Header="Standard Button">
+                <showMeTheXaml:XamlDisplay UniqueId="Button1">
+                    <Button/>
+                </showMeTheXaml:XamlDisplay>
+            </controls:GroupBox>
+        </controls:GlassCard>
+        <controls:GlassCard>
+            <controls:GroupBox Header="Accent Button">
+                <showMeTheXaml:XamlDisplay UniqueId="Button2">
+                    <Button Classes="Accent"/>
+                </showMeTheXaml:XamlDisplay>
+            </controls:GroupBox>
+        </controls:GlassCard>
+        <controls:GlassCard>
+            <controls:GroupBox Header="Primary Button">
+                <showMeTheXaml:XamlDisplay UniqueId="Button3">
+                    <Button Classes="Primary"/>
+                </showMeTheXaml:XamlDisplay>
+            </controls:GroupBox>
+        </controls:GlassCard>
+        <controls:GlassCard>
+            <controls:GroupBox Header="Primary Rounded Button">
+                <showMeTheXaml:XamlDisplay UniqueId="Button4">
+                    <Button Classes="Rounded Primary"/>
+                </showMeTheXaml:XamlDisplay>
+            </controls:GroupBox>
+        </controls:GlassCard>
+        <controls:GlassCard>
+            <controls:GroupBox Header="Outlined Button">
+                <showMeTheXaml:XamlDisplay UniqueId="Button5">
+                    <Button Classes="Outlined"/>
+                </showMeTheXaml:XamlDisplay>
+            </controls:GroupBox>
+        </controls:GlassCard>
+    </WrapPanel>
 </UserControl>
