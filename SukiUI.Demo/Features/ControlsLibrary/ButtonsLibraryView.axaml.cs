@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace SukiUI.Demo.Features.ControlsLibrary;
 
-public partial class ControlsLibraryView : UserControl
+public partial class ButtonsLibraryView : UserControl
 {
-    public ControlsLibraryView()
+    public ButtonsLibraryView()
     {
         InitializeComponent();
     }

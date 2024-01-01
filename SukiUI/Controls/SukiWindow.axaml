@@ -95,7 +95,7 @@
                                             </DockPanel>
                                             
                                                 </Grid>
-                                                <Menu IsVisible="{TemplateBinding MenuVisibility}" ItemsSource="{TemplateBinding MenuItems}"></Menu>
+                                                <Menu IsVisible="{TemplateBinding IsMenuVisible}" ItemsSource="{TemplateBinding MenuItems}"></Menu>
                                                 <Border
                                                     Name="PART_BottomBorder"
                                                     BorderBrush="{DynamicResource SukiBorderBrush}" />

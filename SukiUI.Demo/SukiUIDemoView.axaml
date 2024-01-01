@@ -5,10 +5,36 @@
                  xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
                  xmlns:demo="clr-namespace:SukiUI.Demo"
                  xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+                 xmlns:models="clr-namespace:SukiUI.Models;assembly=SukiUI"
                  mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
                  x:Class="SukiUI.Demo.SukiUIDemoView"
                  x:DataType="demo:SukiUIDemoViewModel"
-                 Title="SukiUI - Demo Application">
+                 Title="SukiUI - Demo Application"
+                 IsMenuVisible="True"
+                 BackgroundAnimationEnabled="{Binding AnimationsEnabled}">
+    <suki:SukiWindow.MenuItems>
+        <MenuItem Header="Toggles">
+            <MenuItem Header="{Binding BaseTheme}" Command="{Binding ToggleBaseTheme}"/>
+            <MenuItem Header="Animations" Command="{Binding ToggleAnimations}"/>
+        </MenuItem>
+        <MenuItem ItemsSource="{Binding Themes}" Header="Themes" Click="MenuItem_OnClick">
+            <MenuItem.DataTemplates>
+                <DataTemplate DataType="{x:Type models:SukiColorTheme}">
+                    <TextBlock Text="{Binding DisplayName}" Foreground="{Binding PrimaryBrush}"/>
+                </DataTemplate>
+            </MenuItem.DataTemplates>
+        </MenuItem>
+        <MenuItem Header="Other">
+            <MenuItem Header="Create Custom Theme" Command="{Binding CreateCustomTheme}"/>
+        </MenuItem>
+    </suki:SukiWindow.MenuItems>
+    <suki:SukiWindow.LogoContent>
+        <avalonia:MaterialIcon
+            Foreground="{DynamicResource SukiAccentColor}"
+            Height="25"
+            Kind="MicrosoftXaml"
+            Width="25" />
+    </suki:SukiWindow.LogoContent>
     <suki:SukiSideMenu ItemsSource="{Binding Features}">
         <suki:SukiSideMenu.ItemTemplate>
             <DataTemplate>
@@ -19,5 +45,11 @@
                 </suki:SukiSideMenuItem>
             </DataTemplate>
         </suki:SukiSideMenu.ItemTemplate>
+        <suki:SukiSideMenu.HeaderContent>
+            <TextBlock Text="Hello, world header!"/>
+        </suki:SukiSideMenu.HeaderContent>
+        <suki:SukiSideMenu.FooterContent>
+            <TextBlock Text="Hello, world footer!"/>
+        </suki:SukiSideMenu.FooterContent>
     </suki:SukiSideMenu>
 </suki:SukiWindow>

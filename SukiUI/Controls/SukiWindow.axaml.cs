@@ -75,13 +75,13 @@ public class SukiWindow : Window
         set => SetValue(IsMaximizeButtonEnabledProperty, value);
     }
     
-    public static readonly StyledProperty<bool> MenuVisibilityProperty =
-        AvaloniaProperty.Register<SukiWindow, bool>(nameof(MenuVisibility), defaultValue: false);
+    public static readonly StyledProperty<bool> IsMenuVisibleProperty =
+        AvaloniaProperty.Register<SukiWindow, bool>(nameof(IsMenuVisible), defaultValue: false);
 
-    public bool MenuVisibility
+    public bool IsMenuVisible
     {
-        get => GetValue(MenuVisibilityProperty);
-        set => SetValue(MenuVisibilityProperty, value);
+        get => GetValue(IsMenuVisibleProperty);
+        set => SetValue(IsMenuVisibleProperty, value);
     }
 
     public static readonly StyledProperty<List<MenuItem>> MenuItemsProperty =

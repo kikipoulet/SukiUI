@@ -13,7 +13,7 @@
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  suki:SukiHost.ToastLocation="BottomRight" BackgroundAnimationEnabled="False"
                  suki:SukiHost.ToastLimit="4"
-                 MenuVisibility="False">
+                 IsMenuVisible="False">
     <suki:SukiWindow.MenuItems>
         <MenuItem Header="File">
             <MenuItem Header="Edit"></MenuItem>

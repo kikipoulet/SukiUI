@@ -5,11 +5,12 @@
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              x:Class="SukiUI.Demo.App"
              RequestedThemeVariant="Default">
-             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
     <Application.DataTemplates>
         <common:ViewLocator/>
     </Application.DataTemplates>
     <Application.Styles>
+        <FluentTheme/>
+        <StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />
         <sukiUi:SukiTheme ThemeColor="Red"/>
         <StyleInclude Source="avares://SukiUI.Demo/Styles/ShowMeTheXamlStyles.axaml"/>
         <avalonia:MaterialIconStyles />

@@ -45,9 +45,9 @@ public partial class App : Application
         services.AddSingleton<SukiUIDemoViewModel>();
         var types = AppDomain.CurrentDomain.GetAssemblies()
             .SelectMany(s => s.GetTypes())
-            .Where(p => !p.IsAbstract && typeof(FeatureBase).IsAssignableFrom(p));
+            .Where(p => !p.IsAbstract && typeof(DemoPageBase).IsAssignableFrom(p));
         foreach (var type in types)
-            services.AddSingleton(typeof(FeatureBase), type);
+            services.AddSingleton(typeof(DemoPageBase), type);
 
         return services.BuildServiceProvider();
     }

@@ -116,7 +116,7 @@ public class SukiSideMenu : SelectingItemsControl
 
     protected override Control CreateContainerForItemOverride(object? item, int index, object? recycleKey)
     {
-        if (ItemTemplate.Match(item) && ItemTemplate.Build(item) is SukiSideMenuItem sukiMenuItem)
+        if (ItemTemplate != null && ItemTemplate.Match(item) && ItemTemplate.Build(item) is SukiSideMenuItem sukiMenuItem)
             return sukiMenuItem;
         return new SukiSideMenuItem();
     }
