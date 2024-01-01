@@ -49,5 +49,40 @@
                 </showMeTheXaml:XamlDisplay>
             </controls:GroupBox>
         </controls:GlassCard>
+        <controls:GlassCard>
+            <controls:GroupBox Header="Standard Accent Button">
+                <showMeTheXaml:XamlDisplay UniqueId="Button6">
+                    <Button Classes="Accent"/>
+                </showMeTheXaml:XamlDisplay>
+            </controls:GroupBox>
+        </controls:GlassCard>
+        <controls:GlassCard>
+            <controls:GroupBox Header="Basic Accent Button">
+                <showMeTheXaml:XamlDisplay UniqueId="Button7">
+                    <Button Classes="Basic Accent"/>
+                </showMeTheXaml:XamlDisplay>
+            </controls:GroupBox>
+        </controls:GlassCard>
+        <controls:GlassCard>
+            <controls:GroupBox Header="Flat Accent Button">
+                <showMeTheXaml:XamlDisplay UniqueId="Button8">
+                    <Button Classes="Flat Accent"/>
+                </showMeTheXaml:XamlDisplay>
+            </controls:GroupBox>
+        </controls:GlassCard>
+        <controls:GlassCard>
+            <controls:GroupBox Header="Flat Rounded Accent Button">
+                <showMeTheXaml:XamlDisplay UniqueId="Button9">
+                    <Button Classes="Rounded Flat Accent"/>
+                </showMeTheXaml:XamlDisplay>
+            </controls:GroupBox>
+        </controls:GlassCard>
+        <controls:GlassCard>
+            <controls:GroupBox Header="Outlined Accent Button">
+                <showMeTheXaml:XamlDisplay UniqueId="Button10">
+                    <Button Classes="Outlined Accent"/>
+                </showMeTheXaml:XamlDisplay>
+            </controls:GroupBox>
+        </controls:GlassCard>
     </WrapPanel>
 </UserControl>

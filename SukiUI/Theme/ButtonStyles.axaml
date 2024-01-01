@@ -111,6 +111,48 @@
         
         
         <!-- Classes -->
+        <Style Selector="^.Accent">
+            <Style Selector="^ /template/ TextBlock">
+                <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
+            </Style>
+            <Style Selector="^ /template/ ContentPresenter">
+                <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
+            </Style>
+        
+            <Style Selector="^ /template/ Border">
+                <Setter Property="BorderBrush" Value="{DynamicResource SukiAccentColor}" />
+            </Style>
+            <Style Selector="^:pointerover">
+                <Style Selector="^ /template/ TextBlock">
+                    <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
+                </Style>
+                <Style Selector="^ /template/ ContentPresenter">
+                    <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
+                </Style>
+        
+                <Style Selector="^ /template/ Border">
+                    <Setter Property="BorderBrush" Value="{DynamicResource SukiAccentColor}" />
+                </Style>
+            </Style>
+            <Style Selector="^:pressed">
+                <Style Selector="^ /template/ TextBlock">
+                    <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
+                </Style>
+                <Style Selector="^ /template/ Border">
+                    <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
+                    <Setter Property="BorderBrush" Value="{DynamicResource SukiAccentColor}" />
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="0.97" ScaleY="0.97" />
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+                <Style Selector="^ /template/ ContentPresenter">
+                    <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
+                </Style>
+            </Style>
+        </Style>
+        
         <Style Selector="^.Basic">
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="BorderBrush" Value="Transparent" />
@@ -147,6 +189,22 @@
             </Style>
             <Style Selector="^:pressed /template/ Border">
                 <Setter Property="Background" Value="Transparent" />
+            </Style>
+            <!-- Color Variants -->
+            <Style Selector="^.Accent">
+                <Style Selector="^ /template/ TextBlock">
+                    <Setter Property="Foreground">
+                        <Setter.Value>
+                            <LinearGradientBrush EndPoint="50%,100%" StartPoint="48%,0%">
+                                <GradientStop Color="{DynamicResource SukiAccentColor}" Offset="0.8" />
+                                <GradientStop Color="{DynamicResource SukiAccentColor}" Offset="1" />
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+                <Style Selector="^ /template/ ContentPresenter">
+                    <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
+                </Style>
             </Style>
         </Style>
 
@@ -198,6 +256,16 @@
             <Style Selector="^:pressed /template/ Border">
                 <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
             </Style>
+            <!-- Color Variants -->
+            <Style Selector="^.Accent">
+                <Setter Property="Background" Value="{DynamicResource SukiAccentColor}"/>
+                <Style Selector="^:pointerover">
+                    <Setter Property="Background" Value="{DynamicResource SukiAccentColor}" />
+                </Style>
+                <Style Selector="^:pressed /template/ Border">
+                    <Setter Property="Background" Value="{DynamicResource SukiAccentColor}" />
+                </Style>
+            </Style>
         </Style>
 
         <Style Selector="^.Outlined">
@@ -241,6 +309,22 @@
             <Style Selector="^:pressed /template/ Border">
                 <Setter Property="BorderBrush" Value="Transparent" />
                 <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}"/>
+            </Style>
+            <!-- Color Variants -->
+            <Style Selector="^.Accent">
+                <Setter Property="BorderBrush" Value="{DynamicResource SukiAccentColor}"/>
+                <Style Selector="^ /template/ TextBlock">
+                    <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
+                </Style>
+                <Style Selector="^ /template/ ContentPresenter">
+                    <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
+                </Style>
+                <Style Selector="^:pointerover">
+                    <Setter Property="Background" Value="{DynamicResource SukiAccentColor}"/>
+                </Style>
+                <Style Selector="^:pressed /template/ Border">
+                    <Setter Property="Background" Value="{DynamicResource SukiAccentColor}"/>
+                </Style>
             </Style>
         </Style>
 
