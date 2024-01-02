@@ -115,10 +115,10 @@
         <Style Selector="^.Accent">
             <Style Selector="^:pointerover">
                 <Style Selector="^ /template/ TextBlock">
-                    <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
+                    <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor50}" />
                 </Style>
                 <Style Selector="^ /template/ ContentPresenter">
-                    <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
+                    <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor50}" />
                 </Style>
         
                 <Style Selector="^ /template/ Border">
