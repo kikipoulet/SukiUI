@@ -44,7 +44,7 @@
             </DataTemplate>
         </suki:SukiSideMenu.ItemTemplate>
         <suki:SukiSideMenu.HeaderContent>
-            <TextBlock Text="Hello, world header!"/>
+            <TextBlock Text=""/>
         </suki:SukiSideMenu.HeaderContent>
         <suki:SukiSideMenu.FooterContent>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

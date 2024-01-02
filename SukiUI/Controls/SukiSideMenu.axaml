@@ -24,7 +24,7 @@
                                         IsVisible="{TemplateBinding HeaderContentOverlapsToggleButton}"
                                         VerticalAlignment="Top">
                                     <Grid >
-                                        <PathIcon Foreground="{DynamicResource SukiText}" Height="12" Width="12"
+                                        <PathIcon Foreground="{DynamicResource SukiText}" Height="12" Width="12" 
                                                   IsVisible="{TemplateBinding IsMenuExpanded}"
                                                   Data="{x:Static content:Icons.ChevronLeft}" />
                                         <PathIcon Foreground="{DynamicResource SukiText}"
@@ -37,16 +37,16 @@
                                 <DockPanel>
                                     <!--  This sidebar toggle button can't be overlapped by header content  -->
                                     <Button Classes="Basic"
-                                            DockPanel.Dock="Top"
+                                            DockPanel.Dock="Top" Margin="7"
                                             HorizontalAlignment="Right"
                                             Name="PART_SidebarToggleButton"
                                             IsVisible="{Binding !HeaderContentOverlapsToggleButton, RelativeSource={RelativeSource TemplatedParent}}"
                                             VerticalAlignment="Top">
                                         <Grid>
-                                            <PathIcon Foreground="{DynamicResource SukiText}"
+                                            <PathIcon Foreground="{DynamicResource SukiText}"  Height="12" Width="12"
                                                       IsVisible="{TemplateBinding IsMenuExpanded}"
                                                       Data="{x:Static content:Icons.ChevronLeft}" />
-                                            <PathIcon Foreground="{DynamicResource SukiText}"
+                                            <PathIcon Foreground="{DynamicResource SukiText}"  Height="12" Width="12"
                                                       IsVisible="{Binding !IsMenuExpanded, RelativeSource={RelativeSource TemplatedParent}}"
                                                       Data="{x:Static content:Icons.ChevronRight}" />
                                         </Grid>

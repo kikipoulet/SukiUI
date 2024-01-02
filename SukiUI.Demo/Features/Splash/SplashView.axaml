@@ -8,7 +8,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="splash:SplashViewModel"
              x:Class="SukiUI.Demo.Features.Splash.SplashView">
-    <controls:GlassCard VerticalAlignment="Center" HorizontalAlignment="Center" Margin="15">
+    <controls:GlassCard VerticalAlignment="Center" HorizontalAlignment="Center" Margin="40">
         <controls:GroupBox Header="Welcome to the SukiUI Demo App.">
             <StackPanel Spacing="15">
                 <PathIcon Data="{x:Static content:Icons.SukiLogo}" HorizontalAlignment="Center" Height="75" Width="75" />

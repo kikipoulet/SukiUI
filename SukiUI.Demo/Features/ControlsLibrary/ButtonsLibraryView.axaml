@@ -17,7 +17,7 @@
         </Style>
     </UserControl.Styles>
     <Grid RowDefinitions="Auto,*">
-        <controls:GlassCard Margin="15">
+        <controls:GlassCard Margin="30">
             <controls:GroupBox Header="Buttons">
                 <TextBlock TextWrapping="Wrap">
                     SukiUI has a handful of button styles, available in both the standard primary color, but also in the theme's accent color.
@@ -27,7 +27,7 @@
             </controls:GroupBox>
         </controls:GlassCard>
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled">
-            <WrapPanel Classes="PageContainer">
+            <WrapPanel  Classes="PageContainer">
                 <controls:GlassCard>
                     <controls:GroupBox Header="Standard Button">
                         <showMeTheXaml:XamlDisplay UniqueId="Button1">
