@@ -398,7 +398,7 @@
                     <Border.Resources>
                         <theme:StringToDoubleConverter x:Key="StringToDoubleC"></theme:StringToDoubleConverter>
                     </Border.Resources>
-                    <Border
+                    <Border 
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
@@ -510,6 +510,7 @@
 
     <Style Selector="TextBox.FlatTextBox /template/ Border#border">
         <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="ClipToBounds" Value="True"></Setter>
         <Setter Property="BoxShadow" Value="0 0 0 0 White" />
     </Style>
 
