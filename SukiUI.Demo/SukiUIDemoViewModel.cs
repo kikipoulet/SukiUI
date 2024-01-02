@@ -10,6 +10,7 @@ using SukiUI.Controls;
 using SukiUI.Demo.Common;
 using SukiUI.Demo.Features;
 using SukiUI.Demo.Features.CustomTheme;
+using SukiUI.Demo.Services;
 using SukiUI.Models;
 
 namespace SukiUI.Demo;
@@ -22,13 +23,20 @@ public partial class SukiUIDemoViewModel : ViewAwareObservableObject
 
     [ObservableProperty] private ThemeVariant _baseTheme;
     [ObservableProperty] private bool _animationsEnabled;
+    [ObservableProperty] private DemoPageBase _activePage;
 
     private readonly SukiTheme _theme;
 
-    public SukiUIDemoViewModel(IEnumerable<DemoPageBase> demoPages)
+    public SukiUIDemoViewModel(IEnumerable<DemoPageBase> demoPages, PageNavigationService nav)
     {
         DemoPages = new AvaloniaList<DemoPageBase>(demoPages.OrderBy(x => x.Index).ThenBy(x => x.DisplayName));
         _theme = SukiTheme.GetInstance();
+        nav.NavigationRequested += t =>
+        {
+            var page = DemoPages.FirstOrDefault(x => x.GetType() == t);
+            if (page is null || ActivePage.GetType() == t) return;
+            ActivePage = page;
+        };
         Themes = _theme.ColorThemes;
         BaseTheme = _theme.ActiveBaseTheme;
         _theme.OnBaseThemeChanged += variant =>
@@ -36,10 +44,10 @@ public partial class SukiUIDemoViewModel : ViewAwareObservableObject
             BaseTheme = variant;
             SukiHost.ShowToast("Successfully Changed Theme", $"Changed Theme To {variant}");
         };
-        _theme.OnColorThemeChanged += theme =>
-        {
+        _theme.OnColorThemeChanged += theme => 
             SukiHost.ShowToast("Successfully Changed Color", $"Changed Color To {theme.DisplayName}.");
-        };
+        _theme.OnBackgroundAnimationChanged += 
+            value => AnimationsEnabled = value;
     }
 
     [RelayCommand]
