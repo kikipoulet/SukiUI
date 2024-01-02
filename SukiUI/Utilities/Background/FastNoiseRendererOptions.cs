@@ -12,8 +12,8 @@ public readonly struct FastNoiseRendererOptions
     public FastNoiseRendererOptions(
         FastNoiseLite.NoiseType type, 
         float noiseScale = 1.5f,
-        float xAnimSpeed = 0.8f, 
-        float yAnimSpeed = 0.5f, 
+        float xAnimSpeed = 2f, 
+        float yAnimSpeed = 1f, 
         float primaryAlpha = 0.7f, 
         float accentAlpha = 0.04f,
         float animSeedScale = 0.1f

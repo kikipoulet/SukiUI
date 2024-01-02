@@ -1,44 +1,38 @@
-﻿using Avalonia.Collections;
+using System;
+using System.Collections.ObjectModel;
+using Avalonia;
+using Avalonia.Collections;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Material.Icons;
+using SukiUI.Controls;
 using SukiUI.Models;
 
 namespace SukiUI.Demo.Features.Theming;
 
-public partial class ThemingViewModel : DemoPageBase
+public partial class ThemingViewModel() : DemoPageBase("Theming", MaterialIconKind.PaletteOutline, -200)
 {
-    public IAvaloniaReadOnlyList<SukiColorTheme> AvailableColors { get; }
-    
-    [ObservableProperty] private bool _isDark;
-    [ObservableProperty] private SukiColorTheme _activeTheme;
-    [ObservableProperty] private bool _animationsEnabled;
-    
-    private readonly SukiTheme _theme;
-    
-    public ThemingViewModel() : base("Theming", MaterialIconKind.PaletteOutline, -200)
+    public IAvaloniaReadOnlyList<SukiColorTheme> AvailablesColors { get; } = SukiTheme.GetInstance().ColorThemes;
+
+    public void SwitchToLightTheme() => SukiTheme.GetInstance().ChangeBaseTheme(ThemeVariant.Light);
+    public void SwitchToDarkTheme() => SukiTheme.GetInstance().ChangeBaseTheme(ThemeVariant.Dark);
+   
+    public bool IsLightTheme
     {
-        _theme = SukiTheme.GetInstance();
-        AvailableColors = _theme.ColorThemes;
-        IsDark = _theme.ActiveBaseTheme == ThemeVariant.Dark;
-        _activeTheme = _theme.ActiveColorTheme;
-        _theme.OnBaseThemeChanged += variant =>
-        { 
-            IsDark = variant == ThemeVariant.Dark;
-        };
-        _theme.OnColorThemeChanged += theme =>
-        {
-            _activeTheme = theme;
-        };
+        get { return SukiTheme.GetInstance().ActiveBaseTheme == ThemeVariant.Light; }
     }
 
-    partial void OnIsDarkChanged(bool value)
+
+    public void SwitchToColorTheme(SukiColorTheme colorTheme) => SukiTheme.GetInstance().ChangeColorTheme(colorTheme);
+    
+    [ObservableProperty] private bool _isBackgroundAnimated ;
+
+    public void ChangeAnimated()
     {
-        _theme.ChangeBaseTheme(value ? ThemeVariant.Dark : ThemeVariant.Light);
+        ((SukiWindow)((IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime).MainWindow)
+            .BackgroundAnimationEnabled = _isBackgroundAnimated;
     }
 
-    partial void OnActiveThemeChanged(SukiColorTheme value)
-    {
-        _theme.ChangeColorTheme(value);
-    }
+
 }

@@ -5,7 +5,7 @@
         <Setter Property="Margin" Value="15,15,0,0"/>
         <Setter Property="Orientation" Value="Horizontal"/>
         <Style Selector="^ > controls|GlassCard">
-            <Setter Property="Margin" Value="0,0,15,15"/>
+            <Setter Property="Margin" Value="15,15,15,15"/>
         </Style>
     </Style>
 </Styles>

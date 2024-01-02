@@ -1,4 +1,4 @@
-﻿<UserControl
+<UserControl
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d"
@@ -12,7 +12,7 @@
     xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
     xmlns:theming="clr-namespace:SukiUI.Demo.Features.Theming"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <controls:StackPage Header="Theming">
+    <controls:StackPage Margin="20" Header="Theming">
         <controls:StackPage.Content>
 
             <controls:SettingsLayout>
@@ -24,10 +24,7 @@
                                     HorizontalAlignment="Center"
                                     Orientation="Horizontal"
                                     Spacing="20">
-                                    <RadioButton
-                                        Classes="GigaChips"
-                                        GroupName="RadioBaseTheme"
-                                        IsChecked="{Binding !IsDark}">
+                                    <RadioButton IsChecked="{Binding IsLightTheme}" Command="{Binding SwitchToLightTheme}" Classes="GigaChips" GroupName="RadioBaseTheme">
                                         <Border
                                             Background="#fafafa"
                                             CornerRadius="{DynamicResource MediumCornerRadius}"
@@ -45,10 +42,7 @@
                                         </Border>
                                     </RadioButton>
 
-                                    <RadioButton
-                                        Classes="GigaChips"
-                                        GroupName="RadioBaseTheme"
-                                        IsChecked="{Binding IsDark}">
+                                    <RadioButton IsChecked="{Binding !IsLightTheme}" Command="{Binding SwitchToDarkTheme}" Classes="GigaChips" GroupName="RadioBaseTheme">
                                         <Border
                                             Background="#222222"
                                             CornerRadius="{DynamicResource MediumCornerRadius}"
@@ -82,7 +76,10 @@
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate x:DataType="models:SukiColorTheme">
-                                            <RadioButton
+
+                                            <RadioButton CommandParameter="{Binding }" 
+                                                         Command="{Binding ((theming:ThemingViewModel)DataContext).SwitchToColorTheme, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type theming:ThemingView}}}" 
+
                                                 Classes="GigaChips"
                                                 CornerRadius="50"
                                                 GroupName="RadioColorTheme">
@@ -102,7 +99,7 @@
                             <controls:SettingsLayoutItem.Content>
                                 <controls:GlassCard Margin="15">
                                     <DockPanel>
-                                        <ToggleButton
+                                        <ToggleButton Command="{Binding ChangeAnimated}" IsChecked="{Binding IsBackgroundAnimated}"
                                             Classes="Switch"
                                             DockPanel.Dock="Right"
                                             VerticalAlignment="Top" 
