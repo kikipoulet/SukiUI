@@ -8,6 +8,7 @@ using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.DependencyInjection;
 using SukiUI.Demo.Common;
 using SukiUI.Demo.Features;
+using SukiUI.Demo.Services;
 
 namespace SukiUI.Demo;
 
@@ -39,6 +40,7 @@ public partial class App : Application
         var services = new ServiceCollection();
 
         services.AddSingleton(Current.DataTemplates.First(x => x is ViewLocator));
+        services.AddSingleton<PageNavigationService>();
         
         // Viewmodels
         services.AddSingleton<SukiUIDemoViewModel>();

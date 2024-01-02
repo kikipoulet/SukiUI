@@ -54,8 +54,4 @@
     <Style Selector="TextBlock.Accent">
         <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
     </Style>
-
-    <Style Selector="PathIcon">
-        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
-    </Style>
 </Styles>

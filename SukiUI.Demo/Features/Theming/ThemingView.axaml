@@ -1,4 +1,4 @@
-﻿<UserControl
+<UserControl
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d"
@@ -24,7 +24,10 @@
                                     HorizontalAlignment="Center"
                                     Orientation="Horizontal"
                                     Spacing="20">
-                                    <RadioButton IsChecked="{Binding IsLightTheme}" Command="{Binding SwitchToLightTheme}" Classes="GigaChips" GroupName="RadioBaseTheme">
+                                    <RadioButton 
+                                        IsChecked="{Binding IsLightTheme}"
+                                        Classes="GigaChips"
+                                        GroupName="RadioBaseTheme">
                                         <Border
                                             Background="#fafafa"
                                             CornerRadius="{DynamicResource MediumCornerRadius}"
@@ -42,7 +45,10 @@
                                         </Border>
                                     </RadioButton>
 
-                                    <RadioButton IsChecked="{Binding !IsLightTheme}" Command="{Binding SwitchToDarkTheme}" Classes="GigaChips" GroupName="RadioBaseTheme">
+                                    <RadioButton
+                                        IsChecked="{Binding !IsLightTheme}"
+                                        Classes="GigaChips"
+                                        GroupName="RadioBaseTheme">
                                         <Border
                                             Background="#222222"
                                             CornerRadius="{DynamicResource MediumCornerRadius}"
@@ -65,7 +71,7 @@
 
                         <controls:SettingsLayoutItem Header="Color Theme">
                             <controls:SettingsLayoutItem.Content>
-                                <ItemsControl HorizontalAlignment="Center" ItemsSource="{Binding AvailablesColors}">
+                                <ItemsControl HorizontalAlignment="Center" ItemsSource="{Binding AvailableColors}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <StackPanel
@@ -77,12 +83,11 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate x:DataType="models:SukiColorTheme">
 
-                                            <RadioButton CommandParameter="{Binding }" 
-                                                         Command="{Binding ((theming:ThemingViewModel)DataContext).SwitchToColorTheme, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type theming:ThemingView}}}" 
-
-                                                Classes="GigaChips"
-                                                CornerRadius="50"
-                                                GroupName="RadioColorTheme">
+                                            <RadioButton CommandParameter="{Binding }"
+                                                         Command="{Binding ((theming:ThemingViewModel)DataContext).SwitchToColorTheme, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type theming:ThemingView}}}"
+                                                         Classes="GigaChips"
+                                                         CornerRadius="50"
+                                                         GroupName="RadioColorTheme">
                                                 <Border
                                                     Background="{Binding PrimaryBrush}"
                                                     CornerRadius="50"
@@ -99,10 +104,10 @@
                             <controls:SettingsLayoutItem.Content>
                                 <controls:GlassCard Margin="15">
                                     <DockPanel>
-                                        <ToggleButton Command="{Binding ChangeAnimated}" IsChecked="{Binding IsBackgroundAnimated}"
-                                            Classes="Switch"
-                                            DockPanel.Dock="Right"
-                                            VerticalAlignment="Top" />
+                                        <ToggleButton IsChecked="{Binding IsBackgroundAnimated}"
+                                                      Classes="Switch"
+                                                      DockPanel.Dock="Right"
+                                                      VerticalAlignment="Top" />
                                         <StackPanel HorizontalAlignment="Left">
                                             <TextBlock
                                                 FontSize="16"
