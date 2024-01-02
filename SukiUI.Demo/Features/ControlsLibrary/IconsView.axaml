@@ -1,0 +1,52 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
+             xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+             xmlns:showMeTheXaml="clr-namespace:ShowMeTheXaml;assembly=ShowMeTheXaml.Avalonia"
+             xmlns:content="clr-namespace:SukiUI.Content;assembly=SukiUI"
+             xmlns:generic="clr-namespace:System.Collections.Generic;assembly=System.Runtime"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="controlsLibrary:IconsViewModel"
+             x:Class="SukiUI.Demo.Features.ControlsLibrary.IconsView">
+    <Grid RowDefinitions="Auto, *">
+        <controls:GlassCard Margin="15">
+            <controls:GroupBox Header="Icons">
+                <StackPanel Spacing="10">
+                    <TextBlock TextWrapping="Wrap">
+                        SukiUI contains definitions for some basic icons that are used for a variety of controls. You may wish to use these icons in your app and controls to maintain consistency with SukiUI.
+                        <LineBreak/>
+                        The icons can be used in the following way:
+                    </TextBlock>
+                    <showMeTheXaml:XamlDisplay UniqueId="Icon" HorizontalAlignment="Left">
+                        <PathIcon Data="{x:Static content:Icons.Plus}"/>
+                    </showMeTheXaml:XamlDisplay>
+                    <TextBlock>
+                        Here is the full list of available icons:
+                    </TextBlock>
+                </StackPanel>
+            </controls:GroupBox>
+        </controls:GlassCard>
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled">
+            <ItemsControl
+                ItemsSource="{Binding AllIcons}" x:CompileBindings="False">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <controls:GlassCard Margin="0,0,15,15">
+                            <controls:GroupBox Header="{Binding Key}">
+                                <PathIcon Data="{Binding Value}" Width="25" Height="25" />
+                            </controls:GroupBox>
+                        </controls:GlassCard>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Classes="PageContainer" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
+        
+    </Grid>
+</UserControl>

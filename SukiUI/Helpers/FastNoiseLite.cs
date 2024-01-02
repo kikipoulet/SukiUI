@@ -47,6 +47,8 @@
 // VERSION: 1.1.0
 // https://github.com/Auburn/FastNoiseLite
 
+#pragma warning disable CS1591
+
 using System;
 using System.Runtime.CompilerServices;
 
@@ -2504,3 +2506,5 @@ public class FastNoiseLite
         zr += vz * warpAmp;
     }
 }
+
+#pragma warning restore CS1591

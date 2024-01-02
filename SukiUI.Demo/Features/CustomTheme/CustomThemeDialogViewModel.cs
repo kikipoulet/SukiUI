@@ -1,5 +1,6 @@
 using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
+using SukiUI.Controls;
 using SukiUI.Models;
 
 namespace SukiUI.Demo.Features.CustomTheme;
@@ -26,5 +27,6 @@ public partial class CustomThemeDialogViewModel : ObservableObject
         var theme = new SukiColorTheme(DisplayName, PrimaryColor, AccentColor);
         _theme.AddColorTheme(theme);
         _theme.ChangeColorTheme(theme);
+        SukiHost.CloseDialog();
     }
 }

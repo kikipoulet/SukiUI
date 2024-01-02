@@ -1,14 +1,12 @@
-<UserControl
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    mc:Ignorable="d"
-    x:Class="SukiUI.Controls.Stepper"
-    xmlns="https://github.com/avaloniaui"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:suki="clr-namespace:SukiUI.Controls"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-
-    <Grid Name="gridStepper" Margin="0,0,-45,0" />
-
-</UserControl>
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:SukiUI.Controls">
+    <ControlTheme x:Key="SukiStepperStyle" TargetType="controls:Stepper">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid Name="PART_GridStepper"/>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+    <ControlTheme x:Key="{x:Type controls:Stepper}" TargetType="controls:Stepper" BasedOn="{StaticResource SukiStepperStyle}"/>
+</ResourceDictionary>

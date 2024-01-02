@@ -11,8 +11,6 @@
     <ScrollViewer VerticalScrollBarVisibility="Hidden">
         <Grid Margin="15">
             <WrapPanel Orientation="Horizontal">
-
-
                 <Grid Margin="15">
                     <suki:GlassCard Margin="0,0,0,25" Width="300">
                         <suki:BusyArea Name="BusySignIn"

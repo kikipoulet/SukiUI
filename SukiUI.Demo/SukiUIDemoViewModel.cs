@@ -13,7 +13,7 @@ namespace SukiUI.Demo;
 
 public partial class SukiUIDemoViewModel : ViewAwareObservableObject
 {
-    public AvaloniaList<DemoPageBase> Features { get; } = [];
+    public AvaloniaList<DemoPageBase> DemoPages { get; } = [];
     
     public IAvaloniaReadOnlyList<SukiColorTheme> Themes { get; }
 
@@ -22,9 +22,9 @@ public partial class SukiUIDemoViewModel : ViewAwareObservableObject
 
     private readonly SukiTheme _theme;
     
-    public SukiUIDemoViewModel(IEnumerable<DemoPageBase> features)
+    public SukiUIDemoViewModel(IEnumerable<DemoPageBase> demoPages)
     {
-        Features.AddRange(features.OrderBy(x => x.Index));
+        DemoPages.AddRange(demoPages.OrderBy(x => x.Index).ThenBy(x => x.DisplayName));
         _theme = SukiTheme.GetInstance();
         Themes = _theme.ColorThemes;
         BaseTheme = _theme.ActiveBaseTheme;

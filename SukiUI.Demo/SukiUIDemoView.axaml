@@ -35,7 +35,7 @@
             Kind="MicrosoftXaml"
             Width="25" />
     </suki:SukiWindow.LogoContent>
-    <suki:SukiSideMenu ItemsSource="{Binding Features}">
+    <suki:SukiSideMenu ItemsSource="{Binding DemoPages}">
         <suki:SukiSideMenu.ItemTemplate>
             <DataTemplate>
                 <suki:SukiSideMenuItem Header="{Binding DisplayName}">
