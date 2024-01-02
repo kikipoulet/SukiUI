@@ -1,5 +1,3 @@
-using System;
-using System.Collections.ObjectModel;
 using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -11,28 +9,43 @@ using SukiUI.Models;
 
 namespace SukiUI.Demo.Features.Theming;
 
-public partial class ThemingViewModel() : DemoPageBase("Theming", MaterialIconKind.PaletteOutline, -200)
+public partial class ThemingViewModel : DemoPageBase
 {
-    public IAvaloniaReadOnlyList<SukiColorTheme> AvailablesColors { get; } = SukiTheme.GetInstance().ColorThemes;
+    public IAvaloniaReadOnlyList<SukiColorTheme> AvailableColors { get; }
 
-    public void SwitchToLightTheme() => SukiTheme.GetInstance().ChangeBaseTheme(ThemeVariant.Light);
-    public void SwitchToDarkTheme() => SukiTheme.GetInstance().ChangeBaseTheme(ThemeVariant.Dark);
-   
-    public bool IsLightTheme
-    {
-        get { return SukiTheme.GetInstance().ActiveBaseTheme == ThemeVariant.Light; }
-    }
-
-
-    public void SwitchToColorTheme(SukiColorTheme colorTheme) => SukiTheme.GetInstance().ChangeColorTheme(colorTheme);
+    private readonly SukiTheme _theme = SukiTheme.GetInstance();
     
-    [ObservableProperty] private bool _isBackgroundAnimated ;
+    [ObservableProperty] private bool _isBackgroundAnimated;
+    [ObservableProperty] private bool _isLightTheme;
 
-    public void ChangeAnimated()
+    // TODO: This is very bad.
+    private SukiWindow Window =>
+        ((SukiWindow)((IClassicDesktopStyleApplicationLifetime)Application.Current!.ApplicationLifetime!).MainWindow!);
+    
+    public ThemingViewModel() : base("Theming", MaterialIconKind.PaletteOutline, -200)
     {
-        ((SukiWindow)((IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime).MainWindow)
-            .BackgroundAnimationEnabled = _isBackgroundAnimated;
+        AvailableColors = _theme.ColorThemes;
+        IsLightTheme = _theme.ActiveBaseTheme == ThemeVariant.Light;
+        _theme.OnBaseThemeChanged += variant =>
+        {
+            IsLightTheme = variant == ThemeVariant.Light;
+        };
+        _theme.OnColorThemeChanged += theme =>
+        {
+            // TODO: Implement a way to make the correct, might need to wrap the thing in a VM, this isn't ideal.
+        };
     }
 
+    partial void OnIsLightThemeChanged(bool value)
+    {
+        _theme.ChangeBaseTheme(value ? ThemeVariant.Light : ThemeVariant.Dark);
+    }
 
+    partial void OnIsBackgroundAnimatedChanged(bool value)
+    {
+        Window.BackgroundAnimationEnabled = value;
+    }
+
+    public void SwitchToColorTheme(SukiColorTheme colorTheme) => 
+        _theme.ChangeColorTheme(colorTheme);
 }
