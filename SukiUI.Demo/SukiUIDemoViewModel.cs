@@ -43,10 +43,10 @@ public partial class SukiUIDemoViewModel : ViewAwareObservableObject
             BaseTheme = variant;
             SukiHost.ShowToast("Successfully Changed Theme", $"Changed Theme To {variant}");
         };
-        _theme.OnColorThemeChanged += theme =>
-        {
+        _theme.OnColorThemeChanged += theme => 
             SukiHost.ShowToast("Successfully Changed Color", $"Changed Color To {theme.DisplayName}.");
-        };
+        _theme.OnBackgroundAnimationChanged += 
+            value => AnimationsEnabled = value;
     }
 
     public void ToggleAnimations()
