@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Avalonia.Collections;
 using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -14,14 +16,14 @@ namespace SukiUI.Demo;
 public partial class SukiUIDemoViewModel : ViewAwareObservableObject
 {
     public AvaloniaList<DemoPageBase> DemoPages { get; } = [];
-    
+
     public IAvaloniaReadOnlyList<SukiColorTheme> Themes { get; }
 
     [ObservableProperty] private ThemeVariant _baseTheme;
     [ObservableProperty] private bool _animationsEnabled;
 
     private readonly SukiTheme _theme;
-    
+
     public SukiUIDemoViewModel(IEnumerable<DemoPageBase> demoPages)
     {
         DemoPages.AddRange(demoPages.OrderBy(x => x.Index).ThenBy(x => x.DisplayName));
@@ -49,7 +51,7 @@ public partial class SukiUIDemoViewModel : ViewAwareObservableObject
         SukiHost.ShowToast(title, content);
     }
 
-    public void ToggleBaseTheme() => 
+    public void ToggleBaseTheme() =>
         _theme.SwitchBaseTheme();
 
     public void ChangeTheme(SukiColorTheme theme) =>
@@ -58,5 +60,15 @@ public partial class SukiUIDemoViewModel : ViewAwareObservableObject
     public void CreateCustomTheme()
     {
         SukiHost.ShowDialog(new CustomThemeDialogViewModel(_theme), allowBackgroundClose: true);
+    }
+
+    public void OpenURL(string url)
+    {
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            Process.Start(new ProcessStartInfo(url.Replace("&", "^&")) { UseShellExecute = true });
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            Process.Start("xdg-open", url);
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            Process.Start("open", url);
     }
 }

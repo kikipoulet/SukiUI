@@ -8,6 +8,9 @@ namespace SukiUI.Content;
 /// </summary>
 public static class Icons
 {
+    // Logo Design By Doombox
+    public static readonly StreamGeometry SukiLogo = Parse("M662.24 239.63 896.37 473.2a54.94 54.94 0 0 1 0 77.74l-34 34a124.15 124.15 0 0 0-36.59-85.82l-150-150a124.12 124.12 0 0 0-86.53-36.59l72.91-72.91M162.6 440.47a124.14 124.14 0 0 0 36.58 85.44l150 150a124.12 124.12 0 0 0 86.53 36.59L362.3 785.83 128.6 552.31a55 55 0 0 1-.09-77.62l34.09-34.22m349.51-403a129.52 129.52 0 0 0-92.06 38.24l-344.67 346a129.92 129.92 0 0 0 .21 183.6L420 949.48a129.92 129.92 0 0 0 183.67 0L949.41 604a129.93 129.93 0 0 0-.07-183.89L603.87 75.45A129.53 129.53 0 0 0 512.11 37.5Zm-74.59 600a49.81 49.81 0 0 1-35.35-14.65l-150-150a50 50 0 0 1 0-70.71L539.69 114.69 610.4 185.4 358.28 437.52l79.24 79.25 114.6-114.6a50 50 0 0 1 70.71 0l150 150a50 50 0 0 1 0 70.71L485.31 910.31 414.6 839.6 666.72 587.48l-79.24-79.25-114.6 114.6a49.86 49.86 0 0 1-35.36 14.65Z");
+    
     // Material Icons
     public static readonly StreamGeometry WindowMinimize = Parse("M20,14H4V10H20");
 
@@ -79,9 +82,6 @@ public static class Icons
     
     // Material Icons
     public static readonly StreamGeometry CircleOutlineCheck = Parse("M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M12 20C7.59 20 4 16.41 4 12S7.59 4 12 4 20 7.59 20 12 16.41 20 12 20M16.59 7.58L10 14.17L7.41 11.59L6 13L10 17L18 9L16.59 7.58Z");
-    
-    // Material Icons
-    public static readonly StreamGeometry CheckboxMarkedCircle = Parse("M10,17L5,12L6.41,10.58L10,14.17L17.59,6.58L19,8M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z");
     
     // Material Icons
     public static readonly StreamGeometry KeyboardCaps = Parse("M6,18H18V16H6M12,8.41L16.59,13L18,11.58L12,5.58L6,11.58L7.41,13L12,8.41Z");

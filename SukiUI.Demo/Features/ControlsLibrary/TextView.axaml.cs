@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace SukiUI.Demo.Features.ControlsLibrary;
 
-public partial class ButtonsLibraryView : UserControl
+public partial class TextView : UserControl
 {
-    public ButtonsLibraryView()
+    public TextView()
     {
         InitializeComponent();
     }

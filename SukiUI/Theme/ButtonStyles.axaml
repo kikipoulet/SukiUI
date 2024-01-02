@@ -393,6 +393,29 @@
                 <Setter Property="Background" Value="#44ff0000" />
             </Style>
         </Style>
+        
+        
+        <Style Selector="^.Hyperlink">
+            <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <ContentPresenter Content="{TemplateBinding Content}">
+                        <ContentPresenter.Styles>
+                            <Style Selector="TextBlock">
+                                <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+                                <Setter Property="FontSize" Value="{TemplateBinding FontSize}"/>
+                                <Setter Property="TextDecorations" Value="Underline"/>
+                            </Style>
+                        </ContentPresenter.Styles>
+                    </ContentPresenter>
+                </ControlTemplate>
+            </Setter>
+        </Style>
     </ControlTheme>
     <ControlTheme x:Key="{x:Type Button}" TargetType="Button" BasedOn="{StaticResource SukiButtonStyle}" />
 </ResourceDictionary>

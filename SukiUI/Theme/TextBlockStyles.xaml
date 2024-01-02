@@ -10,6 +10,7 @@
                 <TextBlock Classes="h3">h3</TextBlock>
                 <TextBlock Classes="h4">h4</TextBlock>
                 <TextBlock>Normal</TextBlock>
+                <TextBlock Classes="Primary">Accent</TextBlock>
                 <TextBlock Classes="Accent">Accent</TextBlock>
             </StackPanel>
         </Border>
@@ -47,8 +48,11 @@
     <Style Selector="TextBlock.Caption">
         <Setter Property="Foreground" Value="{DynamicResource ThemeControlHighBrush}" />
     </Style>
-    <Style Selector="TextBlock.Accent">
+    <Style Selector="TextBlock.Primary">
         <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+    </Style>
+    <Style Selector="TextBlock.Accent">
+        <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
     </Style>
 
     <Style Selector="PathIcon">

@@ -43,7 +43,7 @@ namespace SukiUI.MessageBox
         {
             var mbox = new MessageBox(Title, Message);
             if (mbox.FindControl<PathIcon>("InfoIcon") is not { } icon) return;
-            icon.Data = Icons.CheckboxMarkedCircle;
+            icon.Data = Icons.CircleCheck;
             icon.Foreground = Brushes.DarkGreen;
             mbox.WindowStartupLocation = startupLocation;
             mbox.ShowDialog(owner);
