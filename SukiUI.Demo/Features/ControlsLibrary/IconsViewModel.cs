@@ -16,6 +16,7 @@ public class IconsViewModel : DemoPageBase
         AllIcons = typeof(Icons)
             .GetFields(BindingFlags.Public | BindingFlags.Static)
             .Where(x => x.FieldType == typeof(StreamGeometry))
+            .OrderBy(x => x.Name)
             .ToDictionary(x => x.Name, y => (StreamGeometry)y.GetValue(null));
     }
 }

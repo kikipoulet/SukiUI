@@ -18,10 +18,13 @@ public static class Icons
     public static readonly StreamGeometry WindowMaximize = Parse("M4,4H20V20H4V4M6,8V18H18V8H6Z");
 
     // Material Icons
-    public static readonly StreamGeometry WindowClose = Parse("M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z");
+    public static readonly StreamGeometry WindowClose = Parse("M13.46,12L19,17.54V19H17.54L12,13.46L6.46,19H5V17.54L10.54,12L5,6.46V5H6.46L12,10.54L17.54,5H19V6.46L13.46,12Z");
     
     // Material Icons
     public static readonly StreamGeometry Check = Parse("M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z");
+    
+    // Material Icons
+    public static readonly StreamGeometry Cross = Parse("M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z");
 
     // Material Icons
     public static readonly StreamGeometry Calendar = Parse("M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1M17,12H12V17H17V12Z");
@@ -81,9 +84,6 @@ public static class Icons
     public static readonly StreamGeometry CheckboxMarkedCircle = Parse("M10,17L5,12L6.41,10.58L10,14.17L17.59,6.58L19,8M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z");
     
     // Material Icons
-    public static readonly StreamGeometry CloseCircle = Parse("M12,2C17.53,2 22,6.47 22,12C22,17.53 17.53,22 12,22C6.47,22 2,17.53 2,12C2,6.47 6.47,2 12,2M15.59,7L12,10.59L8.41,7L7,8.41L10.59,12L7,15.59L8.41,17L12,13.41L15.59,17L17,15.59L13.41,12L17,8.41L15.59,7Z");
-    
-    // Material Icons
     public static readonly StreamGeometry KeyboardCaps = Parse("M6,18H18V16H6M12,8.41L16.59,13L18,11.58L12,5.58L6,11.58L7.41,13L12,8.41Z");
     
     // Material Icons
@@ -91,6 +91,9 @@ public static class Icons
     
     // Material Icons
     public static readonly StreamGeometry ArrowLeft = Parse("M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z");
+    
+    // Material Icons
+    public static readonly StreamGeometry ArrowRight = Parse("M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z");
     
     // Material Icons
     public static readonly StreamGeometry Menu = Parse("M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z");
