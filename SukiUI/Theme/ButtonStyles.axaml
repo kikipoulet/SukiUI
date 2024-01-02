@@ -248,7 +248,7 @@
             </Style>
             <!-- Color Variants -->
             <Style Selector="^.Accent">
-                <Setter Property="Background" Value="{DynamicResource SukiAccentColor}"/>
+                <Setter Property="Background" Value="{DynamicResource SukiAccentColor50}"/>
                 <Style Selector="^:pointerover">
                     <Setter Property="Background" Value="{DynamicResource SukiAccentColor}" />
                 </Style>
