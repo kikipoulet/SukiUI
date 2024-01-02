@@ -1,6 +1,7 @@
-<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:content="clr-namespace:SukiUI.Content">
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:content="clr-namespace:SukiUI.Content"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <Border Background="White" Padding="20">
             <StackPanel Orientation="Horizontal">
@@ -85,6 +86,7 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
+                        ClipToBounds="True"
                         CornerRadius="{TemplateBinding CornerRadius}"
                         Margin="4"
                         Name="BigBorder"
@@ -107,13 +109,14 @@
 
 
                     </Border>
-                    <PathIcon Foreground="{DynamicResource SukiPrimaryColor}"
-                              Height="20"
-                              HorizontalAlignment="Right"
-                              Data="{x:Static content:Icons.CircleCheck}"
-                              Margin="10"
-                              VerticalAlignment="Top"
-                              Width="20">
+                    <PathIcon
+                        Data="{x:Static content:Icons.CircleCheck}"
+                        Foreground="{DynamicResource SukiPrimaryColor}"
+                        Height="20"
+                        HorizontalAlignment="Right"
+                        Margin="10"
+                        VerticalAlignment="Top"
+                        Width="20">
                         <PathIcon.Transitions>
                             <Transitions>
                                 <DoubleTransition Duration="00:00:0.2" Property="Opacity" />
@@ -129,7 +132,7 @@
         <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
         <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor2}" />
         <Setter Property="BorderThickness" Value="2" />
-        <Setter Property="Margin" Value="0" />
+
     </Style>
 
     <Style Selector="RadioButton.GigaChips PathIcon">
@@ -183,7 +186,7 @@
         <Setter Property="Foreground" Value="White" />
         <Setter Property="FontWeight" Value="DemiBold" />
     </Style>
-    
+
     <Style Selector="PathIcon">
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
     </Style>
@@ -191,7 +194,7 @@
     <Style Selector="RadioButton.MenuItemMobile:checked PathIcon">
         <Setter Property="Foreground" Value="White" />
     </Style>
-    
+
     <Style Selector="RadioButton.MenuItem">
         <Setter Property="Height" Value="50" />
         <Setter Property="Margin" Value="-30,0,5,0" />
@@ -299,9 +302,7 @@
     <Style Selector="RadioButton.MenuItem:checked">
         <Setter Property="TextBlock.FontWeight" Value="DemiBold" />
         <Setter Property="BorderThickness" Value="0,0,0,0" />
-        <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}">
-          
-        </Setter>
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
         <Setter Property="Margin" Value="-30,5,5,5" />
     </Style>
 
