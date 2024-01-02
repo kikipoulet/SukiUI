@@ -1,11 +1,10 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Avalonia.Threading;
+using Avalonia.Collections;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
 using SukiUI.Controls;
 using SukiUI.Demo.Models.Dashboard;
+using System.Threading.Tasks;
 
 namespace SukiUI.Demo.Features.Dashboard;
 
@@ -14,17 +13,17 @@ public partial class DashboardViewModel : DemoPageBase
     [ObservableProperty] private bool _isLoggingIn;
     [ObservableProperty] private int _stepperIndex;
 
-    public IReadOnlyList<Invoice> Invoices { get; } = new[]
+    public IAvaloniaReadOnlyList<InvoiceViewModel> Invoices { get; } = new AvaloniaList<InvoiceViewModel>()
     {
-        new Invoice(15364, "Jean", 156, true),
-        new Invoice(45689, "Fantine", 82, false),
-        new Invoice(15364, "Jean", 156, true),
-        new Invoice(45689, "Fantine", 82, false),
-        new Invoice(15364, "Jean", 156, true),
-        new Invoice(45689, "Fantine", 82, false),
+        new InvoiceViewModel(15364, "Jean", 156, true),
+        new InvoiceViewModel(45689, "Fantine", 82, false),
+        new InvoiceViewModel(15364, "Jean", 156, true),
+        new InvoiceViewModel(45689, "Fantine", 82, false),
+        new InvoiceViewModel(15364, "Jean", 156, true),
+        new InvoiceViewModel(45689, "Fantine", 82, false),
     };
 
-    public IReadOnlyList<string> Steps { get; } = new[]
+    public IAvaloniaReadOnlyList<string> Steps { get; } = new AvaloniaList<string>()
     {
         "Dispatched", "En-Route", "Delivered"
     };
@@ -34,24 +33,28 @@ public partial class DashboardViewModel : DemoPageBase
         StepperIndex = 1;
     }
 
-    public void Login()
+    [RelayCommand]
+    public Task Login()
     {
         IsLoggingIn = true;
-        Task.Run(() =>
+        return Task.Run(async () =>
         {
-            Thread.Sleep(3000);
-            Dispatcher.UIThread.Invoke(() => { IsLoggingIn = false; });
+            await Task.Delay(3000);
+            IsLoggingIn = false;
         });
     }
 
+    [RelayCommand]
     public void ShowDialog()
     {
         SukiHost.ShowDialog(new DialogViewModel(), allowBackgroundClose: true);
     }
 
-    public void IncrementIndex() => 
+    [RelayCommand]
+    public void IncrementIndex() =>
         StepperIndex += StepperIndex >= Steps.Count - 1 ? 0 : 1;
 
-    public void DecrementIndex() => 
+    [RelayCommand]
+    public void DecrementIndex() =>
         StepperIndex -= StepperIndex <= 0 ? 0 : 1;
 }

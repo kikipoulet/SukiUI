@@ -32,7 +32,7 @@
                             <TextBlock>
                                 Text With A
                                 <InlineUIContainer>
-                                    <Button FontSize="32" Classes="Hyperlink" Content="Hyperlink" Command="{Binding HyperlinkClicked}"/>
+                                    <Button FontSize="32" Classes="Hyperlink" Content="Hyperlink" Command="{Binding HyperlinkClickedCommand}" />
                                 </InlineUIContainer>
                                 Inside.
                             </TextBlock>

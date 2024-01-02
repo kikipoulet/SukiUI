@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using Avalonia.Collections;
 using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using SukiUI.Controls;
 using SukiUI.Demo.Common;
 using SukiUI.Demo.Features;
@@ -16,7 +17,7 @@ namespace SukiUI.Demo;
 
 public partial class SukiUIDemoViewModel : ViewAwareObservableObject
 {
-    public AvaloniaList<DemoPageBase> DemoPages { get; } = [];
+    public IAvaloniaReadOnlyList<DemoPageBase> DemoPages { get; }
 
     public IAvaloniaReadOnlyList<SukiColorTheme> Themes { get; }
 
@@ -28,7 +29,7 @@ public partial class SukiUIDemoViewModel : ViewAwareObservableObject
 
     public SukiUIDemoViewModel(IEnumerable<DemoPageBase> demoPages, PageNavigationService nav)
     {
-        DemoPages.AddRange(demoPages.OrderBy(x => x.Index).ThenBy(x => x.DisplayName));
+        DemoPages = new AvaloniaList<DemoPageBase>(demoPages.OrderBy(x => x.Index).ThenBy(x => x.DisplayName));
         _theme = SukiTheme.GetInstance();
         nav.NavigationRequested += t =>
         {
@@ -49,6 +50,7 @@ public partial class SukiUIDemoViewModel : ViewAwareObservableObject
             value => AnimationsEnabled = value;
     }
 
+    [RelayCommand]
     public void ToggleAnimations()
     {
         AnimationsEnabled = !AnimationsEnabled;
@@ -59,17 +61,20 @@ public partial class SukiUIDemoViewModel : ViewAwareObservableObject
         SukiHost.ShowToast(title, content);
     }
 
+    [RelayCommand]
     public void ToggleBaseTheme() =>
         _theme.SwitchBaseTheme();
 
     public void ChangeTheme(SukiColorTheme theme) =>
         _theme.ChangeColorTheme(theme);
 
+    [RelayCommand]
     public void CreateCustomTheme()
     {
         SukiHost.ShowDialog(new CustomThemeDialogViewModel(_theme), allowBackgroundClose: true);
     }
 
+    [RelayCommand]
     public void OpenURL(string url)
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))

@@ -13,7 +13,7 @@
         <Style Selector="Button">
             <Setter Property="Content" Value="Button" />
             <Setter Property="theme:ButtonExtensions.ShowProgress" Value="{Binding IsBusy}" />
-            <Setter Property="Command" Value="{Binding ButtonClicked}" />
+            <Setter Property="Command" Value="{Binding ButtonClickedCommand}" />
         </Style>
     </UserControl.Styles>
     <Grid RowDefinitions="Auto,*">

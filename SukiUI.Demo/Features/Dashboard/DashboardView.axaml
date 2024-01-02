@@ -50,7 +50,7 @@
                         </suki:BusyArea>
                     </suki:GlassCard>
                     <Button Classes="Flat Rounded"
-                            Command="{Binding Login}"
+                            Command="{Binding LoginCommand}"
                             theme:ButtonExtensions.ShowProgress="{Binding IsLoggingIn}"
                             HorizontalAlignment="Center"
                             Name="ButtonSignIn"
@@ -338,7 +338,7 @@
                         </StackPanel>
                         <Button
                             Classes="Basic"
-                            Command="{Binding ShowDialog}"
+                            Command="{Binding ShowDialogCommand}"
                             HorizontalAlignment="Right"
                             Margin="0"
                             VerticalAlignment="Top"
@@ -407,11 +407,11 @@
                                 <Button DockPanel.Dock="Left"
                                         Classes="Accent Basic"
                                         Content="-"
-                                        Command="{Binding DecrementIndex}"/>
+                                        Command="{Binding DecrementIndexCommand}"/>
                                 <Button DockPanel.Dock="Right"
                                         Classes="Accent Basic"
                                         Content="+"
-                                        Command="{Binding IncrementIndex}"/>
+                                        Command="{Binding IncrementIndexCommand}"/>
                                 <Grid/>
                             </DockPanel>
                         </StackPanel>

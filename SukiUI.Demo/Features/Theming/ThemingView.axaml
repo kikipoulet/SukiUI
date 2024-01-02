@@ -84,7 +84,7 @@
                                         <DataTemplate x:DataType="models:SukiColorTheme">
 
                                             <RadioButton CommandParameter="{Binding }"
-                                                         Command="{Binding ((theming:ThemingViewModel)DataContext).SwitchToColorTheme, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type theming:ThemingView}}}"
+                                                         Command="{Binding ((theming:ThemingViewModel)DataContext).SwitchToColorThemeCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type theming:ThemingView}}}"
                                                          Classes="GigaChips"
                                                          CornerRadius="50"
                                                          GroupName="RadioColorTheme">
