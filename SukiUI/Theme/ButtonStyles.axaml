@@ -7,6 +7,7 @@
         <Setter Property="BorderBrush" Value="{DynamicResource SukiMediumBorderBrush}" />
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
         <Setter Property="Padding" Value="20,8"></Setter>
         <Setter Property="Template">
             <ControlTemplate>
@@ -248,7 +249,7 @@
             </Style>
             <!-- Color Variants -->
             <Style Selector="^.Accent">
-                <Setter Property="Background" Value="{DynamicResource SukiAccentColor}"/>
+                <Setter Property="Background" Value="{DynamicResource SukiAccentColor50}"/>
                 <Style Selector="^:pointerover">
                     <Setter Property="Background" Value="{DynamicResource SukiAccentColor}" />
                 </Style>

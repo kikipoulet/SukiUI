@@ -17,16 +17,14 @@
                                     <Grid IsHitTestVisible="False">
                                         <suki:SukiBackground Name="PART_Background"/>
                                     </Grid>
-                                    <DockPanel LastChildFill="True">
+                                    <DockPanel  LastChildFill="True">
                                         <!-- Title Bar... -->
                                         <Grid DockPanel.Dock="Top">
                                             <Grid.Styles>
-                                                <Style
-                                                    Selector="suki|SukiWindow[ShowBottomBorder=True] /template/ Border#PART_BottomBorder">
+                                                <Style Selector="suki|SukiWindow[ShowBottomBorder=True] /template/ Border#PART_BottomBorder">
                                                     <Setter Property="BorderThickness" Value="0,0,0,1" />
                                                 </Style>
-                                                <Style
-                                                    Selector="suki|SukiWindow[ShowBottomBorder=False] /template/ Border#PART_BottomBorder">
+                                                <Style Selector="suki|SukiWindow[ShowBottomBorder=False] /template/ Border#PART_BottomBorder">
                                                     <Setter Property="BorderThickness" Value="0,0,0,0" />
                                                 </Style>
                                             </Grid.Styles>
@@ -37,10 +35,10 @@
                                             <StackPanel>
                                                 <Grid>
                                           
-                                            <DockPanel LastChildFill="True" Margin="5,2">
+                                            <DockPanel LastChildFill="True" Margin="12,9">
                                                 <StackPanel
                                                     DockPanel.Dock="Right"
-                                                    VerticalAlignment="Center"
+                                                    VerticalAlignment="Center" Spacing="7"
                                                     Orientation="Horizontal"
                                                     FlowDirection="RightToLeft">
                                                     <!--  Close button  -->
