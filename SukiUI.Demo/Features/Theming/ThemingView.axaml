@@ -24,7 +24,10 @@
                                     HorizontalAlignment="Center"
                                     Orientation="Horizontal"
                                     Spacing="20">
-                                    <RadioButton Classes="GigaChips" GroupName="RadioBaseTheme">
+                                    <RadioButton
+                                        Classes="GigaChips"
+                                        GroupName="RadioBaseTheme"
+                                        IsChecked="{Binding !IsDark}">
                                         <Border
                                             Background="#fafafa"
                                             CornerRadius="{DynamicResource MediumCornerRadius}"
@@ -42,7 +45,10 @@
                                         </Border>
                                     </RadioButton>
 
-                                    <RadioButton Classes="GigaChips" GroupName="RadioBaseTheme">
+                                    <RadioButton
+                                        Classes="GigaChips"
+                                        GroupName="RadioBaseTheme"
+                                        IsChecked="{Binding IsDark}">
                                         <Border
                                             Background="#222222"
                                             CornerRadius="{DynamicResource MediumCornerRadius}"
@@ -65,7 +71,7 @@
 
                         <controls:SettingsLayoutItem Header="Color Theme">
                             <controls:SettingsLayoutItem.Content>
-                                <ItemsControl HorizontalAlignment="Center" ItemsSource="{Binding AvailablesColors}">
+                                <ItemsControl HorizontalAlignment="Center" ItemsSource="{Binding AvailableColors}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <StackPanel
@@ -76,7 +82,6 @@
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate x:DataType="models:SukiColorTheme">
-
                                             <RadioButton
                                                 Classes="GigaChips"
                                                 CornerRadius="50"
@@ -100,7 +105,8 @@
                                         <ToggleButton
                                             Classes="Switch"
                                             DockPanel.Dock="Right"
-                                            VerticalAlignment="Top" />
+                                            VerticalAlignment="Top" 
+                                            IsChecked="{Binding AnimationsEnabled}"/>
                                         <StackPanel HorizontalAlignment="Left">
                                             <TextBlock
                                                 FontSize="16"

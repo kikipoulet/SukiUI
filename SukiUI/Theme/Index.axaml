@@ -54,6 +54,7 @@
                 <ResourceInclude Source="avares://SukiUI/Theme/DatePicker.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/ToolTipStyle.axaml"/>
                 <ResourceInclude Source="avares://sukiUI/Theme/ButtonStyles.axaml"/>
+                <ResourceInclude Source="avares://sukiUI/Theme/PathIconStyles.axaml"/>
                 
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiWindow.axaml"/>
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiHost.axaml"/>

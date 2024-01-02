@@ -19,9 +19,17 @@
                         <LineBreak/>
                         The icons can be used in the following way:
                     </TextBlock>
-                    <showMeTheXaml:XamlDisplay UniqueId="Icon" HorizontalAlignment="Left">
-                        <PathIcon Data="{x:Static content:Icons.Plus}"/>
-                    </showMeTheXaml:XamlDisplay>
+                    <StackPanel Orientation="Horizontal" Spacing="15">
+                        <showMeTheXaml:XamlDisplay UniqueId="Icon1">
+                            <PathIcon Data="{x:Static content:Icons.Plus}"/>
+                        </showMeTheXaml:XamlDisplay>
+                        <showMeTheXaml:XamlDisplay UniqueId="Icon2">
+                            <PathIcon Data="{x:Static content:Icons.Plus}" Classes="Primary"/>
+                        </showMeTheXaml:XamlDisplay>
+                        <showMeTheXaml:XamlDisplay UniqueId="Icon3">
+                            <PathIcon Data="{x:Static content:Icons.Plus}" Classes="Accent"/>
+                        </showMeTheXaml:XamlDisplay>
+                    </StackPanel>
                     <TextBlock>
                         Here is the full list of available icons:
                     </TextBlock>
