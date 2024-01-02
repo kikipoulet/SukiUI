@@ -60,8 +60,7 @@
             <Setter Property="TextBlock.FontWeight" Value="DemiBold" />
 
             <Setter Property="BorderThickness" Value="0,0,0,0" />
-            <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}">
-            </Setter>
+            <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
 
         </Style>
 
@@ -109,7 +108,7 @@
 
             <Setter Property="TextBlock.FontWeight" Value="DemiBold" />
             <Setter Property="TextBlock.Foreground" Value="{DynamicResource SukiPrimaryColor}" />
-            <Setter Property="Background" Value="{DynamicResource SukiAccentColor10}" />
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor10}" />
             <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
             <Setter Property="BorderThickness" Value="0,0,0,0" />
         </Style>
