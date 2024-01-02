@@ -399,10 +399,22 @@
                         </TabControl>
                     </suki:GlassCard>
                     <suki:GlassCard
-                        Height="85"
                         Margin="15"
                         Width="430">
-                        <suki:Stepper Margin="0,5,-4,0" Steps="{Binding Steps}" Index="{Binding StepperIndex}" />
+                        <StackPanel>
+                            <suki:Stepper Steps="{Binding Steps}" Index="{Binding StepperIndex}" />
+                            <DockPanel LastChildFill="True">
+                                <Button DockPanel.Dock="Left"
+                                        Classes="Accent Basic"
+                                        Content="-"
+                                        Command="{Binding DecrementIndex}"/>
+                                <Button DockPanel.Dock="Right"
+                                        Classes="Accent Basic"
+                                        Content="+"
+                                        Command="{Binding IncrementIndex}"/>
+                                <Grid/>
+                            </DockPanel>
+                        </StackPanel>
                     </suki:GlassCard>
                 </StackPanel>
                 <suki:GlassCard

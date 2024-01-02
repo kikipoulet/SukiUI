@@ -48,4 +48,10 @@ public partial class DashboardViewModel : DemoPageBase
     {
         SukiHost.ShowDialog(new DialogViewModel(), allowBackgroundClose: true);
     }
+
+    public void IncrementIndex() => 
+        StepperIndex += StepperIndex >= Steps.Count - 1 ? 0 : 1;
+
+    public void DecrementIndex() => 
+        StepperIndex -= StepperIndex <= 0 ? 0 : 1;
 }

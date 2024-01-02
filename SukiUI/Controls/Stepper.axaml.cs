@@ -44,6 +44,9 @@ namespace SukiUI.Controls
             base.OnApplyTemplate(e);
             if (e.NameScope.Get<Grid>("PART_GridStepper") is not { } grid) return;
             _grid = grid;
+            this.GetObservable(IndexProperty)
+                .ObserveOn(new AvaloniaSynchronizationContext())
+                .Subscribe(_ => StepsChangedHandler(Steps));
             this.GetObservable(StepsProperty)
                 .ObserveOn(new AvaloniaSynchronizationContext())
                 .Subscribe(StepsChangedHandler);
