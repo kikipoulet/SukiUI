@@ -33,7 +33,7 @@
             <MenuItem Header="Create Custom Theme" Command="{Binding CreateCustomTheme}"/>
         </MenuItem>
     </suki:SukiWindow.MenuItems>
-    <suki:SukiSideMenu ItemsSource="{Binding DemoPages}">
+    <suki:SukiSideMenu ItemsSource="{Binding DemoPages}" SelectedItem="{Binding ActivePage}">
         <suki:SukiSideMenu.ItemTemplate>
             <DataTemplate>
                 <suki:SukiSideMenuItem Header="{Binding DisplayName}">
