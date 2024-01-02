@@ -18,12 +18,12 @@
                                     Name="Glass" />
                 
                                 <!--  This sidebar toggle button is used when header content can overlap it  -->
-                                <Button Classes="Basic"
+                                <Button Classes="Basic" Margin="7"
                                         Name="PART_SidebarToggleButtonOverlay"
                                         HorizontalAlignment="Right"
                                         IsVisible="{TemplateBinding HeaderContentOverlapsToggleButton}"
                                         VerticalAlignment="Top">
-                                    <Grid>
+                                    <Grid >
                                         <PathIcon Foreground="{DynamicResource SukiText}" Height="12" Width="12"
                                                   IsVisible="{TemplateBinding IsMenuExpanded}"
                                                   Data="{x:Static content:Icons.ChevronLeft}" />
