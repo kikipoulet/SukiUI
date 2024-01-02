@@ -81,9 +81,6 @@ public static class Icons
     public static readonly StreamGeometry CircleOutlineCheck = Parse("M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M12 20C7.59 20 4 16.41 4 12S7.59 4 12 4 20 7.59 20 12 16.41 20 12 20M16.59 7.58L10 14.17L7.41 11.59L6 13L10 17L18 9L16.59 7.58Z");
     
     // Material Icons
-    public static readonly StreamGeometry CheckboxMarkedCircle = Parse("M10,17L5,12L6.41,10.58L10,14.17L17.59,6.58L19,8M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z");
-    
-    // Material Icons
     public static readonly StreamGeometry KeyboardCaps = Parse("M6,18H18V16H6M12,8.41L16.59,13L18,11.58L12,5.58L6,11.58L7.41,13L12,8.41Z");
     
     // Material Icons
