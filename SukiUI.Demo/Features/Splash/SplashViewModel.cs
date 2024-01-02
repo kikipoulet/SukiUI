@@ -4,5 +4,8 @@ namespace SukiUI.Demo.Features.Splash;
 
 public class SplashViewModel() : DemoPageBase("Welcome", MaterialIconKind.Hand, int.MinValue)
 {
-    
+    public void OpenDashboard()
+    {
+        
+    }
 }

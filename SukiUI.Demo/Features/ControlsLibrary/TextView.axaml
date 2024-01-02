@@ -28,6 +28,15 @@
                             <LineBreak/>
                             The h and color styles can be combined.
                         </TextBlock>
+                        <showMeTheXaml:XamlDisplay UniqueId="TextHyperlink" >
+                            <TextBlock>
+                                Text With A
+                                <InlineUIContainer>
+                                    <Button FontSize="32" Classes="Hyperlink" Content="Hyperlink" Command="{Binding HyperlinkClicked}"/>
+                                </InlineUIContainer>
+                                Inside.
+                            </TextBlock>
+                        </showMeTheXaml:XamlDisplay>
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock1">
                             <TextBlock Classes="h1"/>
                         </showMeTheXaml:XamlDisplay>
