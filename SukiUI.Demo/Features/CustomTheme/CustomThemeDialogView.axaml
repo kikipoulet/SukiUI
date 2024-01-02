@@ -3,13 +3,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:customTheme="clr-namespace:SukiUI.Demo.Features.CustomTheme"
+             xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="customTheme:CustomThemeDialogViewModel"
              x:Class="SukiUI.Demo.Features.CustomTheme.CustomThemeDialogView">
-    <StackPanel Spacing="20">
-        <TextBox Text="{Binding DisplayName}"/>
-        <ColorPicker Color="{Binding PrimaryColor}"/>
-        <ColorPicker Color="{Binding AccentColor}"/>
-        <Button Content="Create" Command="{Binding TryCreateTheme}"/>
-    </StackPanel>
+    <controls:GroupBox Header="Create Custom Theme">
+        <StackPanel Spacing="20">
+            <TextBox Text="{Binding DisplayName}"/>
+            <ColorPicker Color="{Binding PrimaryColor}"/>
+            <ColorPicker Color="{Binding AccentColor}"/>
+            <Button Content="Create" Command="{Binding TryCreateTheme}"/>
+        </StackPanel>
+    </controls:GroupBox>
 </UserControl>

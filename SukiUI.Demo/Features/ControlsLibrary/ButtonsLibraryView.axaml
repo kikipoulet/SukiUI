@@ -10,79 +10,82 @@
              x:DataType="controlsLibrary:ButtonsLibraryViewModel">
     <UserControl.Styles>
         <Style Selector="Button">
-            <Setter Property="Content" Value="Button"/>
+            <Setter Property="Content" Value="Button" />
         </Style>
     </UserControl.Styles>
-    <WrapPanel Classes="PageContainer">
-        <controls:GlassCard>
-            <controls:GroupBox Header="Standard Button">
-                <showMeTheXaml:XamlDisplay UniqueId="Button1">
-                    <Button/>
-                </showMeTheXaml:XamlDisplay>
-            </controls:GroupBox>
-        </controls:GlassCard>
-        <controls:GlassCard>
-            <controls:GroupBox Header="Basic Button">
-                <showMeTheXaml:XamlDisplay UniqueId="Button2">
-                    <Button Classes="Basic"/>
-                </showMeTheXaml:XamlDisplay>
-            </controls:GroupBox>
-        </controls:GlassCard>
-        <controls:GlassCard>
-            <controls:GroupBox Header="Flat Button">
-                <showMeTheXaml:XamlDisplay UniqueId="Button3">
-                    <Button Classes="Flat"/>
-                </showMeTheXaml:XamlDisplay>
-            </controls:GroupBox>
-        </controls:GlassCard>
-        <controls:GlassCard>
-            <controls:GroupBox Header="Flat Rounded Button">
-                <showMeTheXaml:XamlDisplay UniqueId="Button4">
-                    <Button Classes="Rounded Flat"/>
-                </showMeTheXaml:XamlDisplay>
-            </controls:GroupBox>
-        </controls:GlassCard>
-        <controls:GlassCard>
-            <controls:GroupBox Header="Outlined Button">
-                <showMeTheXaml:XamlDisplay UniqueId="Button5">
-                    <Button Classes="Outlined"/>
-                </showMeTheXaml:XamlDisplay>
-            </controls:GroupBox>
-        </controls:GlassCard>
-        <controls:GlassCard>
-            <controls:GroupBox Header="Standard Accent Button">
-                <showMeTheXaml:XamlDisplay UniqueId="Button6">
-                    <Button Classes="Accent"/>
-                </showMeTheXaml:XamlDisplay>
-            </controls:GroupBox>
-        </controls:GlassCard>
-        <controls:GlassCard>
-            <controls:GroupBox Header="Basic Accent Button">
-                <showMeTheXaml:XamlDisplay UniqueId="Button7">
-                    <Button Classes="Basic Accent"/>
-                </showMeTheXaml:XamlDisplay>
-            </controls:GroupBox>
-        </controls:GlassCard>
-        <controls:GlassCard>
-            <controls:GroupBox Header="Flat Accent Button">
-                <showMeTheXaml:XamlDisplay UniqueId="Button8">
-                    <Button Classes="Flat Accent"/>
-                </showMeTheXaml:XamlDisplay>
-            </controls:GroupBox>
-        </controls:GlassCard>
-        <controls:GlassCard>
-            <controls:GroupBox Header="Flat Rounded Accent Button">
-                <showMeTheXaml:XamlDisplay UniqueId="Button9">
-                    <Button Classes="Rounded Flat Accent"/>
-                </showMeTheXaml:XamlDisplay>
-            </controls:GroupBox>
-        </controls:GlassCard>
-        <controls:GlassCard>
-            <controls:GroupBox Header="Outlined Accent Button">
-                <showMeTheXaml:XamlDisplay UniqueId="Button10">
-                    <Button Classes="Outlined Accent"/>
-                </showMeTheXaml:XamlDisplay>
-            </controls:GroupBox>
-        </controls:GlassCard>
-    </WrapPanel>
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+        <WrapPanel Classes="PageContainer">
+            <controls:GlassCard>
+                <controls:GroupBox Header="Standard Button">
+                    <showMeTheXaml:XamlDisplay UniqueId="Button1">
+                        <Button />
+                    </showMeTheXaml:XamlDisplay>
+                </controls:GroupBox>
+            </controls:GlassCard>
+            <controls:GlassCard>
+                <controls:GroupBox Header="Basic Button">
+                    <showMeTheXaml:XamlDisplay UniqueId="Button2">
+                        <Button Classes="Basic" />
+                    </showMeTheXaml:XamlDisplay>
+                </controls:GroupBox>
+            </controls:GlassCard>
+            <controls:GlassCard>
+                <controls:GroupBox Header="Flat Button">
+                    <showMeTheXaml:XamlDisplay UniqueId="Button3">
+                        <Button Classes="Flat" />
+                    </showMeTheXaml:XamlDisplay>
+                </controls:GroupBox>
+            </controls:GlassCard>
+            <controls:GlassCard>
+                <controls:GroupBox Header="Flat Rounded Button">
+                    <showMeTheXaml:XamlDisplay UniqueId="Button4">
+                        <Button Classes="Rounded Flat" />
+                    </showMeTheXaml:XamlDisplay>
+                </controls:GroupBox>
+            </controls:GlassCard>
+            <controls:GlassCard>
+                <controls:GroupBox Header="Outlined Button">
+                    <showMeTheXaml:XamlDisplay UniqueId="Button5">
+                        <Button Classes="Outlined" />
+                    </showMeTheXaml:XamlDisplay>
+                </controls:GroupBox>
+            </controls:GlassCard>
+            <controls:GlassCard>
+                <controls:GroupBox Header="Standard Accent Button">
+                    <showMeTheXaml:XamlDisplay UniqueId="Button6">
+                        <Button Classes="Accent" />
+                    </showMeTheXaml:XamlDisplay>
+                </controls:GroupBox>
+            </controls:GlassCard>
+            <controls:GlassCard>
+                <controls:GroupBox Header="Basic Accent Button">
+                    <showMeTheXaml:XamlDisplay UniqueId="Button7">
+                        <Button Classes="Basic Accent" />
+                    </showMeTheXaml:XamlDisplay>
+                </controls:GroupBox>
+            </controls:GlassCard>
+            <controls:GlassCard>
+                <controls:GroupBox Header="Flat Accent Button">
+                    <showMeTheXaml:XamlDisplay UniqueId="Button8">
+                        <Button Classes="Flat Accent" />
+                    </showMeTheXaml:XamlDisplay>
+                </controls:GroupBox>
+            </controls:GlassCard>
+            <controls:GlassCard>
+                <controls:GroupBox Header="Flat Rounded Accent Button">
+                    <showMeTheXaml:XamlDisplay UniqueId="Button9">
+                        <Button Classes="Rounded Flat Accent" />
+                    </showMeTheXaml:XamlDisplay>
+                </controls:GroupBox>
+            </controls:GlassCard>
+            <controls:GlassCard>
+                <controls:GroupBox Header="Outlined Accent Button">
+                    <showMeTheXaml:XamlDisplay UniqueId="Button10">
+                        <Button Classes="Outlined Accent" />
+                    </showMeTheXaml:XamlDisplay>
+                </controls:GroupBox>
+            </controls:GlassCard>
+        </WrapPanel>
+    </ScrollViewer>
+
 </UserControl>
