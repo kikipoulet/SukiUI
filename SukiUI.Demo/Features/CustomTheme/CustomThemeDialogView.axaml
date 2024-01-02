@@ -12,7 +12,7 @@
             <TextBox Text="{Binding DisplayName}"/>
             <ColorPicker Color="{Binding PrimaryColor}"/>
             <ColorPicker Color="{Binding AccentColor}"/>
-            <Button Content="Create" Command="{Binding TryCreateTheme}"/>
+            <Button Content="Create" Command="{Binding TryCreateThemeCommand}"/>
         </StackPanel>
     </controls:GroupBox>
 </UserControl>

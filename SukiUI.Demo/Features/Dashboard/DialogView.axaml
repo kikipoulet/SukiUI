@@ -44,8 +44,8 @@
                     HorizontalAlignment="Right"
                     Margin="0,35,0,0"
                     Orientation="Horizontal">
-            <Button Classes="Rounded" Command="{Binding CloseDialog}" Content="Cancel" />
-            <Button Classes="Flat Rounded" Command="{Binding CloseDialog}" Content="Generate" />
+            <Button Classes="Rounded" Command="{Binding CloseDialogCommand}" Content="Cancel" />
+            <Button Classes="Flat Rounded" Command="{Binding CloseDialogCommand}" Content="Generate" />
         </StackPanel>
 
     </StackPanel>

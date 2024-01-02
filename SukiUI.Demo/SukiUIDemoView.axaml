@@ -19,8 +19,8 @@
     </suki:SukiWindow.LogoContent>
     <suki:SukiWindow.MenuItems>
         <MenuItem Header="Toggles">
-            <MenuItem Header="{Binding BaseTheme}" Command="{Binding ToggleBaseTheme}"/>
-            <MenuItem Header="Animations" Command="{Binding ToggleAnimations}"/>
+            <MenuItem Header="{Binding BaseTheme}" Command="{Binding ToggleBaseThemeCommand}"/>
+            <MenuItem Header="Animations" Command="{Binding ToggleAnimationsCommand}"/>
         </MenuItem>
         <MenuItem ItemsSource="{Binding Themes}" Header="Themes" Click="MenuItem_OnClick">
             <MenuItem.DataTemplates>
@@ -30,7 +30,7 @@
             </MenuItem.DataTemplates>
         </MenuItem>
         <MenuItem Header="Other">
-            <MenuItem Header="Create Custom Theme" Command="{Binding CreateCustomTheme}"/>
+            <MenuItem Header="Create Custom Theme" Command="{Binding CreateCustomThemeCommand}"/>
         </MenuItem>
     </suki:SukiWindow.MenuItems>
     <suki:SukiSideMenu ItemsSource="{Binding DemoPages}">
@@ -50,7 +50,7 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <StackPanel.Styles>
                     <Style Selector="Button">
-                        <Setter Property="Command" Value="{Binding OpenURL}"/>
+                        <Setter Property="Command" Value="{Binding OpenURLCommand}"/>
                     </Style>
                     <Style Selector="avalonia|MaterialIcon">
                         <Setter Property="Width" Value="25"/>
