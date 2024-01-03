@@ -1,39 +1,42 @@
-﻿<UserControl
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    mc:Ignorable="d"
-    x:Class="SukiUI.Controls.StackPage"
-    xmlns="https://github.com/avaloniaui"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:content="clr-namespace:SukiUI.Content">
+﻿<UserControl x:Class="SukiUI.Controls.StackPage"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:content="clr-namespace:SukiUI.Content"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
     <DockPanel Margin="40,20">
         <StackPanel DockPanel.Dock="Top">
-            <StackPanel HorizontalAlignment="Left"
-                        Name="StackHeader"
+            <StackPanel Name="StackHeader"
+                        HorizontalAlignment="Left"
                         Orientation="Horizontal">
                 <TextBlock Classes="h2"
                            Foreground="{DynamicResource SukiLowText}"
                            Text="Settings" />
-                <PathIcon Foreground="{DynamicResource SukiLowText}"
-                          HorizontalAlignment="Center" Height="15" Width="15"
-                          Data="{x:Static content:Icons.ChevronRight}"
+                <PathIcon Width="15"
+                          Height="15"
                           Margin="15,-3,15,0"
-                          VerticalAlignment="Center" />
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          Data="{x:Static content:Icons.ChevronRight}"
+                          Foreground="{DynamicResource SukiLowText}" />
                 <TextBlock Classes="h2"
                            Foreground="{DynamicResource SukiLowText}"
                            Text="Network" />
-                <PathIcon Foreground="{DynamicResource SukiLowText}"
-                          HorizontalAlignment="Center" Height="15" Width="15"
-                          Data="{x:Static content:Icons.ChevronRight}"
+                <PathIcon Width="15"
+                          Height="15"
                           Margin="15,-3,15,0"
-                          VerticalAlignment="Center" />
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          Data="{x:Static content:Icons.ChevronRight}"
+                          Foreground="{DynamicResource SukiLowText}" />
                 <TextBlock Classes="h2" Text="Wifi" />
             </StackPanel>
-            <Border Background="{DynamicResource SukiControlBorderBrush}"
-                    Height="1"
-                    Margin="0,-20,0,0" />
+            <Border Height="1"
+                    Margin="0,-20,0,0"
+                    Background="{DynamicResource SukiControlBorderBrush}" />
         </StackPanel>
         <ContentControl Name="CurrentPage" />
     </DockPanel>

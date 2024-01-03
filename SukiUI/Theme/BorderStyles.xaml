@@ -1,19 +1,17 @@
-<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Design.PreviewWith>
-        <WrapPanel
-            Background="{DynamicResource SukiBackground}"
-            HorizontalAlignment="Center"
-            Orientation="Horizontal">
-            <Border
-                Classes="Card"
-                Height="100"
-                Width="100" />
+        <WrapPanel HorizontalAlignment="Center"
+                   Background="{DynamicResource SukiBackground}"
+                   Orientation="Horizontal">
+            <Border Width="100"
+                    Height="100"
+                    Classes="Card" />
         </WrapPanel>
     </Design.PreviewWith>
 
     <Style Selector="Border.Card">
-        <Setter Property="Padding" Value="20"/>
+        <Setter Property="Padding" Value="20" />
         <Setter Property="CornerRadius" Value="{DynamicResource MediumCornerRadius}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiBorderBrush}" />
@@ -27,8 +25,8 @@
         <Setter Property="BorderBrush" Value="{DynamicResource SukiBorderBrush}" />
         <Setter Property="Background">
             <RadialGradientBrush Center="120%,-220%" GradientOrigin="120%,-220%" Radius="3">
-                <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0.4" />
-                <GradientStop Color="Transparent" Offset="1" />
+                <GradientStop Offset="0.4" Color="{DynamicResource SukiPrimaryColor}" />
+                <GradientStop Offset="1" Color="Transparent" />
             </RadialGradientBrush>
         </Setter>
         <Setter Property="Margin" Value="7" />
@@ -44,11 +42,7 @@
         <Setter Property="BoxShadow" Value="{DynamicResource SukiPopupShadow}" />
     </Style>
 
-
-
     <Style Selector="Border.Hoverable:pointerover">
         <Setter Property="BoxShadow" Value="0 0 7 0 LightGray" />
-
-
     </Style>
 </Styles>

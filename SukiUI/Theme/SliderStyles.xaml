@@ -1,54 +1,49 @@
-<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
-        <Border Background="White" Padding="20">
-            <Slider Value="50" Width="100" />
+        <Border Padding="20" Background="White">
+            <Slider Width="100" Value="50" />
         </Border>
     </Design.PreviewWith>
 
     <Style Selector="RepeatButton.Decrease">
-
-
         <Setter Property="IsTabStop" Value="false" />
         <Setter Property="Focusable" Value="false" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
-                    <Border
-                        Background="Red"
-                        CornerRadius="{DynamicResource SmallCornerRadius}"
-                        Height="12"
-                        Margin="0,0,-12,0" />
+                    <Border Height="12"
+                            Margin="0,0,-12,0"
+                            Background="Red"
+                            CornerRadius="{DynamicResource SmallCornerRadius}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
-
-
     <Style Selector="Border.ThumbB">
         <Setter Property="BoxShadow" Value="0 0 4 0 #999999" />
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}"/>
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
         <Setter Property="Transitions">
             <Transitions>
-                <BoxShadowsTransition Duration="0:0:0.3" Property="BoxShadow" />
-              
+                <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.3" />
+
             </Transitions>
         </Setter>
 
     </Style>
-    
+
     <Style Selector="Border.ThumbBorder">
         <Setter Property="Transitions">
             <Transitions>
-                <ThicknessTransition Duration="0:0:0.1" Property="BorderThickness" />
+                <ThicknessTransition Property="BorderThickness" Duration="0:0:0.1" />
             </Transitions>
         </Setter>
     </Style>
 
     <Style Selector="Border.ThumbBorder:pointerover">
         <Setter Property="BoxShadow" Value="0 0 7 0 #999999" />
-        <Setter Property="BorderThickness" Value="1.5"/>
+        <Setter Property="BorderThickness" Value="1.5" />
 
     </Style>
 
@@ -65,56 +60,49 @@
                         <RowDefinition Height="Auto" MinHeight="20" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <Border
-                        Background="{DynamicResource SukiLightBorderBrush}"
-                        BorderThickness="0"
-                        CornerRadius="{DynamicResource SmallCornerRadius}"
-                        Grid.Row="1"
-                        Height="4"
-                        Margin="8,0"
-                        Name="TrackBackground"
-                        VerticalAlignment="Center" />
+                    <Border Name="TrackBackground"
+                            Grid.Row="1"
+                            Height="4"
+                            Margin="8,0"
+                            VerticalAlignment="Center"
+                            Background="{DynamicResource SukiLightBorderBrush}"
+                            BorderThickness="0"
+                            CornerRadius="{DynamicResource SmallCornerRadius}" />
 
-                    <Track
-                        Grid.Row="1"
-                        IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
-                        Name="PART_Track"
-                        Orientation="Horizontal">
+                    <Track Name="PART_Track"
+                           Grid.Row="1"
+                           IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                           Orientation="Horizontal">
                         <Track.DecreaseButton>
-                            <RepeatButton
-                                BorderThickness="0"
-                                CornerRadius="10"
-                                Height="4"
-                                HorizontalAlignment="Stretch"
-                                Margin="8,0,-10,0"
-                                Name="PART_DecreaseButton" Background="{DynamicResource SukiPrimaryColor}">
-                                
-                            </RepeatButton>
+                            <RepeatButton Name="PART_DecreaseButton"
+                                          Height="4"
+                                          Margin="8,0,-10,0"
+                                          HorizontalAlignment="Stretch"
+                                          Background="{DynamicResource SukiPrimaryColor}"
+                                          BorderThickness="0"
+                                          CornerRadius="10" />
                         </Track.DecreaseButton>
                         <Track.IncreaseButton>
-                            <RepeatButton Classes="repeattrack" Name="PART_IncreaseButton" />
+                            <RepeatButton Name="PART_IncreaseButton" Classes="repeattrack" />
                         </Track.IncreaseButton>
-                        <Thumb Name="thumb" >
+                        <Thumb Name="thumb">
                             <Thumb.Template>
                                 <ControlTemplate>
-                                    <Grid Height="32" Width="32">
-                                        <Border
-                                            Background="White" 
-                                            BorderThickness="0"
-                                            Classes="ThumbBorder ThumbB"
-                                            CornerRadius="{DynamicResource MediumCornerRadius}"
-                                            Height="20"
-                                            Margin="0,-1,0,0"
-                                            Width="20" >
-                                          
-                                        </Border>
+                                    <Grid Width="32" Height="32">
+                                        <Border Width="20"
+                                                Height="20"
+                                                Margin="0,-1,0,0"
+                                                Background="White"
+                                                BorderThickness="0"
+                                                Classes="ThumbBorder ThumbB"
+                                                CornerRadius="{DynamicResource MediumCornerRadius}" />
                                     </Grid>
                                 </ControlTemplate>
                             </Thumb.Template>
                         </Thumb>
                     </Track>
 
-                    
+
                 </Grid>
             </ControlTemplate>
         </Setter>
@@ -127,37 +115,33 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition MinWidth="26" Width="Auto" />
+                        <ColumnDefinition Width="Auto" MinWidth="26" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <Border
-                        Grid.Column="1"
-                        HorizontalAlignment="Center"
-                        Margin="0,6"
-                        Name="TrackBackground"
-                        Width="4" />
-                    <Track
-                        Grid.Column="1"
-                        IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
-                        Name="PART_Track"
-                        Orientation="Vertical">
+                    <Border Name="TrackBackground"
+                            Grid.Column="1"
+                            Width="4"
+                            Margin="0,6"
+                            HorizontalAlignment="Center" />
+                    <Track Name="PART_Track"
+                           Grid.Column="1"
+                           IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                           Orientation="Vertical">
                         <Track.DecreaseButton>
-                            <RepeatButton Classes="Decrease" Name="PART_DecreaseButton" />
+                            <RepeatButton Name="PART_DecreaseButton" Classes="Decrease" />
                         </Track.DecreaseButton>
                         <Track.IncreaseButton>
-                            <RepeatButton Classes="repeattrack" Name="PART_IncreaseButton" />
+                            <RepeatButton Name="PART_IncreaseButton" Classes="repeattrack" />
                         </Track.IncreaseButton>
-                        <Thumb
-                            MinHeight="20"
-                            MinWidth="20"
-                            Name="thumb">
+                        <Thumb Name="thumb"
+                               MinWidth="20"
+                               MinHeight="20">
                             <Thumb.Template>
                                 <ControlTemplate>
                                     <Grid>
-                                        <Ellipse
-                                            Fill="{DynamicResource ThemeAccentBrush}"
-                                            Height="12"
-                                            Width="12" />
+                                        <Ellipse Width="12"
+                                                 Height="12"
+                                                 Fill="{DynamicResource ThemeAccentBrush}" />
                                     </Grid>
                                 </ControlTemplate>
                             </Thumb.Template>

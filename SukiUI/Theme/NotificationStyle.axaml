@@ -13,27 +13,23 @@
                 <ReversibleStackPanel Name="PART_Items">
                     <ReversibleStackPanel.DataTemplates>
                         <DataTemplate DataType="INotification">
-                            <StackPanel
-                                Background="{DynamicResource SukiBackground}"
-                                Margin="12"
-                                Spacing="8"
-                                TextBlock.Foreground="{DynamicResource SukiText}">
-                                <TextBlock
-                                    FontSize="18"
-                                    FontWeight="DemiBold"
-                                    Text="{Binding Title}" />
-                                <TextBlock
-                                    Margin="0,0,12,0"
-                                    MaxHeight="80"
-                                    Text="{Binding Message}"
-                                    TextWrapping="Wrap" />
+                            <StackPanel Margin="12"
+                                        Background="{DynamicResource SukiBackground}"
+                                        Spacing="8"
+                                        TextBlock.Foreground="{DynamicResource SukiText}">
+                                <TextBlock FontSize="18"
+                                           FontWeight="DemiBold"
+                                           Text="{Binding Title}" />
+                                <TextBlock MaxHeight="80"
+                                           Margin="0,0,12,0"
+                                           Text="{Binding Message}"
+                                           TextWrapping="Wrap" />
                             </StackPanel>
                         </DataTemplate>
                         <DataTemplate DataType="x:String">
-                            <TextBlock
-                                Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
-                                Margin="12"
-                                Text="{Binding}" />
+                            <TextBlock Margin="12"
+                                       Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
+                                       Text="{Binding}" />
                         </DataTemplate>
                     </ReversibleStackPanel.DataTemplates>
                 </ReversibleStackPanel>
@@ -62,5 +58,5 @@
         <Setter Property="VerticalAlignment" Value="Bottom" />
         <Setter Property="HorizontalAlignment" Value="Right" />
     </Style>
-    
+
 </Styles>

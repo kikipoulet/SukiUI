@@ -13,23 +13,20 @@
 
         <Setter Property="Template">
             <ControlTemplate>
-                <Border
-                    Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}"
-                    BoxShadow="{DynamicResource SukiSwitchShadow}"
-                    CornerRadius="{TemplateBinding CornerRadius}"
-                    Margin="10"
-                    Padding="{TemplateBinding Padding}">
+                <Border Margin="10"
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        BoxShadow="{DynamicResource SukiSwitchShadow}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
                     <ScrollViewer Theme="{StaticResource SimpleMenuScrollViewer}">
-                        <ItemsPresenter
-                            
-                            HorizontalAlignment="Left"
-                            ItemsPanel="{TemplateBinding ItemsPanel}"
-                            KeyboardNavigation.TabNavigation="Continue"
-                            Margin="-20,0,0,0"
-                            Name="PART_ItemsPresenter"
-                            VerticalAlignment="Center" />
+                        <ItemsPresenter Name="PART_ItemsPresenter"
+                                        Margin="-20,0,0,0"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        ItemsPanel="{TemplateBinding ItemsPanel}"
+                                        KeyboardNavigation.TabNavigation="Continue" />
                     </ScrollViewer>
                 </Border>
             </ControlTemplate>

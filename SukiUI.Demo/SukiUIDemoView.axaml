@@ -1,62 +1,65 @@
-<suki:SukiWindow xmlns="https://github.com/avaloniaui"
+<suki:SukiWindow x:Class="SukiUI.Demo.SukiUIDemoView"
+                 xmlns="https://github.com/avaloniaui"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                 xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
-                 xmlns:demo="clr-namespace:SukiUI.Demo"
                  xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-                 xmlns:models="clr-namespace:SukiUI.Models;assembly=SukiUI"
                  xmlns:content="clr-namespace:SukiUI.Content;assembly=SukiUI"
-                 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-                 x:Class="SukiUI.Demo.SukiUIDemoView"
-                 x:DataType="demo:SukiUIDemoViewModel"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:demo="clr-namespace:SukiUI.Demo"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:models="clr-namespace:SukiUI.Models;assembly=SukiUI"
+                 xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
                  Title="SukiUI - Demo Application"
+                 d:DesignHeight="450"
+                 d:DesignWidth="800"
+                 x:DataType="demo:SukiUIDemoViewModel"
+                 BackgroundAnimationEnabled="{Binding AnimationsEnabled}"
                  IsMenuVisible="True"
-                 BackgroundAnimationEnabled="{Binding AnimationsEnabled}">
+                 mc:Ignorable="d">
     <suki:SukiWindow.LogoContent>
-        <PathIcon Data="{x:Static content:Icons.SukiLogo}"
-                  Foreground="{DynamicResource SukiAccentColor}" />
+        <PathIcon Data="{x:Static content:Icons.SukiLogo}" Foreground="{DynamicResource SukiAccentColor}" />
     </suki:SukiWindow.LogoContent>
     <suki:SukiWindow.MenuItems>
         <MenuItem Header="Toggles">
-            <MenuItem Header="{Binding BaseTheme}" Command="{Binding ToggleBaseThemeCommand}"/>
-            <MenuItem Header="Animations" Command="{Binding ToggleAnimationsCommand}"/>
+            <MenuItem Command="{Binding ToggleBaseThemeCommand}" Header="{Binding BaseTheme}" />
+            <MenuItem Command="{Binding ToggleAnimationsCommand}" Header="Animations" />
         </MenuItem>
-        <MenuItem ItemsSource="{Binding Themes}" Header="Themes" Click="MenuItem_OnClick">
+        <MenuItem Click="MenuItem_OnClick"
+                  Header="Themes"
+                  ItemsSource="{Binding Themes}">
             <MenuItem.DataTemplates>
                 <DataTemplate DataType="{x:Type models:SukiColorTheme}">
-                    <TextBlock Text="{Binding DisplayName}" Foreground="{Binding PrimaryBrush}" />
+                    <TextBlock Foreground="{Binding PrimaryBrush}" Text="{Binding DisplayName}" />
                 </DataTemplate>
             </MenuItem.DataTemplates>
         </MenuItem>
         <MenuItem Header="Other">
-            <MenuItem Header="Create Custom Theme" Command="{Binding CreateCustomThemeCommand}"/>
+            <MenuItem Command="{Binding CreateCustomThemeCommand}" Header="Create Custom Theme" />
         </MenuItem>
     </suki:SukiWindow.MenuItems>
-    <suki:SukiSideMenu ItemsSource="{Binding DemoPages}" SelectedItem="{Binding ActivePage}"
-                       HeaderContentOverlapsToggleButton="True">
+    <suki:SukiSideMenu HeaderContentOverlapsToggleButton="True"
+                       ItemsSource="{Binding DemoPages}"
+                       SelectedItem="{Binding ActivePage}">
         <suki:SukiSideMenu.ItemTemplate>
             <DataTemplate>
                 <suki:SukiSideMenuItem Header="{Binding DisplayName}">
                     <suki:SukiSideMenuItem.Icon>
-                        <avalonia:MaterialIcon Kind="{Binding Icon}" Foreground="{DynamicResource SukiText}" />
+                        <avalonia:MaterialIcon Foreground="{DynamicResource SukiText}" Kind="{Binding Icon}" />
                     </suki:SukiSideMenuItem.Icon>
                 </suki:SukiSideMenuItem>
             </DataTemplate>
         </suki:SukiSideMenu.ItemTemplate>
         <suki:SukiSideMenu.HeaderContent>
-            <PathIcon
-                Data="{x:Static content:Icons.SukiLogo}" 
-                Foreground="{DynamicResource SukiPrimaryColor25}" 
-                Width="30"
-                Height="30" 
-                Margin="25" />
+            <PathIcon Width="30"
+                      Height="30"
+                      Margin="25"
+                      Data="{x:Static content:Icons.SukiLogo}"
+                      Foreground="{DynamicResource SukiPrimaryColor25}" />
         </suki:SukiSideMenu.HeaderContent>
         <suki:SukiSideMenu.FooterContent>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                 <StackPanel.Styles>
                     <Style Selector="Button">
-                        <Setter Property="Command" Value="{Binding OpenURLCommand}"/>
+                        <Setter Property="Command" Value="{Binding OpenURLCommand}" />
                     </Style>
                     <Style Selector="avalonia|MaterialIcon">
                         <Setter Property="Width" Value="25" />

@@ -2,7 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:content="clr-namespace:SukiUI.Content">
     <Design.PreviewWith>
-        <Border Background="{DynamicResource SukiBackground}" Padding="0">
+        <Border Padding="0" Background="{DynamicResource SukiBackground}">
             <NotificationCard Content="Testing" />
         </Border>
     </Design.PreviewWith>
@@ -19,41 +19,35 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <LayoutTransformControl Name="PART_LayoutTransformControl" UseRenderTransform="True">
-                    <Border
-                        Background="{DynamicResource SukiCardBackground}"
-                        BorderBrush="{DynamicResource SukiControlBorderBrush}"
-                        BorderThickness="1"
-                        BoxShadow="{DynamicResource SukiPopupShadow}"
-                        CornerRadius="10"
-                        Margin="15,15,15,15">
-                        <Border
+                    <Border Margin="15,15,15,15"
                             Background="{DynamicResource SukiCardBackground}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            ClipToBounds="True"
+                            BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                            BorderThickness="1"
+                            BoxShadow="{DynamicResource SukiPopupShadow}"
                             CornerRadius="10">
+                        <Border Background="{DynamicResource SukiCardBackground}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                ClipToBounds="True"
+                                CornerRadius="10">
                             <DockPanel>
-                                <PathIcon
-                                    DockPanel.Dock="Left"
-                                    Foreground="{DynamicResource SukiPrimaryColor}"
-                                    Data="{x:Static content:Icons.CircleInformation}"
-                                    Margin="11,11,5,5"
-                                    VerticalAlignment="Top" />
-                                <Panel
-                                    Classes="TextBold"
-                                    DockPanel.Dock="Top"
-                                    Height="4"
-                                    Margin="0,-3,0,0"
-                                    x:Name="PART_HeaderBar" />
-                                <ContentControl Content="{TemplateBinding Content}" Name="PART_Content" />
+                                <PathIcon Margin="11,11,5,5"
+                                          VerticalAlignment="Top"
+                                          Data="{x:Static content:Icons.CircleInformation}"
+                                          DockPanel.Dock="Left"
+                                          Foreground="{DynamicResource SukiPrimaryColor}" />
+                                <Panel x:Name="PART_HeaderBar"
+                                       Height="4"
+                                       Margin="0,-3,0,0"
+                                       Classes="TextBold"
+                                       DockPanel.Dock="Top" />
+                                <ContentControl Name="PART_Content" Content="{TemplateBinding Content}" />
                             </DockPanel>
                         </Border>
                     </Border>
                 </LayoutTransformControl>
             </ControlTemplate>
         </Setter>
-
-
     </Style>
 
     <Style Selector="Panel.TextBold /template/ TextBlock">
@@ -67,10 +61,9 @@
     <Style Selector="NotificationCard[IsClosing=true] /template/ LayoutTransformControl#PART_LayoutTransformControl">
         <Setter Property="RenderTransformOrigin" Value="50%,0%" />
         <Style.Animations>
-            <Animation
-                Duration="0:0:0.75"
-                Easing="QuadraticEaseOut"
-                FillMode="Forward">
+            <Animation Easing="QuadraticEaseOut"
+                       FillMode="Forward"
+                       Duration="0:0:0.75">
                 <KeyFrame Cue="0%">
                     <Setter Property="TranslateTransform.X" Value="0" />
                     <Setter Property="ScaleTransform.ScaleY" Value="1" />
@@ -89,10 +82,9 @@
 
     <Style Selector="NotificationCard[IsClosing=true]">
         <Style.Animations>
-            <Animation
-                Duration="0:0:1.25"
-                Easing="QuadraticEaseOut"
-                FillMode="Forward">
+            <Animation Easing="QuadraticEaseOut"
+                       FillMode="Forward"
+                       Duration="0:0:1.25">
                 <KeyFrame Cue="100%">
                     <Setter Property="IsClosed" Value="True" />
                 </KeyFrame>
@@ -111,32 +103,29 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <LayoutTransformControl Name="PART_LayoutTransformControl" UseRenderTransform="True">
-                    <Border
-                        Background="{DynamicResource SukiCardBackground}"
-                        BorderBrush="{DynamicResource SukiControlBorderBrush}"
-                        BorderThickness="1"
-                        BoxShadow="{DynamicResource SukiPopupShadow}"
-                        CornerRadius="10"
-                        Margin="15,15,15,15">
-                        <Border
+                    <Border Margin="15,15,15,15"
                             Background="{DynamicResource SukiCardBackground}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            ClipToBounds="True"
+                            BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                            BorderThickness="1"
+                            BoxShadow="{DynamicResource SukiPopupShadow}"
                             CornerRadius="10">
+                        <Border Background="{DynamicResource SukiCardBackground}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                ClipToBounds="True"
+                                CornerRadius="10">
                             <DockPanel>
-                                <PathIcon DockPanel.Dock="Left"
-                                          Foreground="ForestGreen"
+                                <PathIcon Margin="11,11,5,5"
+                                          VerticalAlignment="Top"
                                           Data="{x:Static content:Icons.CircleCheck}"
-                                          Margin="11,11,5,5"
-                                          VerticalAlignment="Top"/>
-                                <Panel
-                                    Classes="TextBold"
-                                    DockPanel.Dock="Top"
-                                    Height="4"
-                                    Margin="0,-3,0,0"
-                                    x:Name="PART_HeaderBar" />
-                                <ContentControl Content="{TemplateBinding Content}" Name="PART_Content" />
+                                          DockPanel.Dock="Left"
+                                          Foreground="ForestGreen" />
+                                <Panel x:Name="PART_HeaderBar"
+                                       Height="4"
+                                       Margin="0,-3,0,0"
+                                       Classes="TextBold"
+                                       DockPanel.Dock="Top" />
+                                <ContentControl Name="PART_Content" Content="{TemplateBinding Content}" />
                             </DockPanel>
                         </Border>
                     </Border>
@@ -148,32 +137,29 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <LayoutTransformControl Name="PART_LayoutTransformControl" UseRenderTransform="True">
-                    <Border
-                        Background="{DynamicResource SukiCardBackground}"
-                        BorderBrush="{DynamicResource SukiControlBorderBrush}"
-                        BorderThickness="1"
-                        BoxShadow="{DynamicResource SukiPopupShadow}"
-                        CornerRadius="10"
-                        Margin="15,15,15,15">
-                        <Border
+                    <Border Margin="15,15,15,15"
                             Background="{DynamicResource SukiCardBackground}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            ClipToBounds="True"
+                            BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                            BorderThickness="1"
+                            BoxShadow="{DynamicResource SukiPopupShadow}"
                             CornerRadius="10">
+                        <Border Background="{DynamicResource SukiCardBackground}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                ClipToBounds="True"
+                                CornerRadius="10">
                             <DockPanel>
-                                <PathIcon DockPanel.Dock="Left"
-                                    Foreground="DarkOrange"
-                                    Data="{x:Static content:Icons.CircleWarning}"
-                                    Margin="11,11,5,5"
-                                    VerticalAlignment="Top"/>
-                                <Panel
-                                    Classes="TextBold"
-                                    DockPanel.Dock="Top"
-                                    Height="4"
-                                    Margin="0,-3,0,0"
-                                    x:Name="PART_HeaderBar" />
-                                <ContentControl Content="{TemplateBinding Content}" Name="PART_Content" />
+                                <PathIcon Margin="11,11,5,5"
+                                          VerticalAlignment="Top"
+                                          Data="{x:Static content:Icons.CircleWarning}"
+                                          DockPanel.Dock="Left"
+                                          Foreground="DarkOrange" />
+                                <Panel x:Name="PART_HeaderBar"
+                                       Height="4"
+                                       Margin="0,-3,0,0"
+                                       Classes="TextBold"
+                                       DockPanel.Dock="Top" />
+                                <ContentControl Name="PART_Content" Content="{TemplateBinding Content}" />
                             </DockPanel>
                         </Border>
                     </Border>
@@ -185,34 +171,31 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <LayoutTransformControl Name="PART_LayoutTransformControl" UseRenderTransform="True">
-                    <Border
-                        Background="{DynamicResource SukiCardBackground}"
-                        BorderBrush="{DynamicResource SukiControlBorderBrush}"
-                        BorderThickness="1"
-                        BoxShadow="{DynamicResource SukiPopupShadow}"
-                        CornerRadius="10"
-                        Margin="15,15,15,15">
-                        <Border
+                    <Border Margin="15,15,15,15"
                             Background="{DynamicResource SukiCardBackground}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            ClipToBounds="True"
+                            BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                            BorderThickness="1"
+                            BoxShadow="{DynamicResource SukiPopupShadow}"
                             CornerRadius="10">
+                        <Border Background="{DynamicResource SukiCardBackground}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                ClipToBounds="True"
+                                CornerRadius="10">
                             <DockPanel>
-                                <PathIcon DockPanel.Dock="Left"
-                                    Foreground="DarkRed"
-                                    Height="26"
-                                    Data="{x:Static content:Icons.Error}"
-                                    Margin="11,11,5,5"
-                                    VerticalAlignment="Top"
-                                    Width="26" />
-                                <Panel
-                                    Classes="TextBold"
-                                    DockPanel.Dock="Top"
-                                    Height="4"
-                                    Margin="0,-3,0,0"
-                                    x:Name="PART_HeaderBar" />
-                                <ContentControl Content="{TemplateBinding Content}" Name="PART_Content" />
+                                <PathIcon Width="26"
+                                          Height="26"
+                                          Margin="11,11,5,5"
+                                          VerticalAlignment="Top"
+                                          Data="{x:Static content:Icons.Error}"
+                                          DockPanel.Dock="Left"
+                                          Foreground="DarkRed" />
+                                <Panel x:Name="PART_HeaderBar"
+                                       Height="4"
+                                       Margin="0,-3,0,0"
+                                       Classes="TextBold"
+                                       DockPanel.Dock="Top" />
+                                <ContentControl Name="PART_Content" Content="{TemplateBinding Content}" />
                             </DockPanel>
                         </Border>
                     </Border>

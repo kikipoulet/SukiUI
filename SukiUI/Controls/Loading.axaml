@@ -1,31 +1,28 @@
-<UserControl
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    mc:Ignorable="d"
-    x:Class="SukiUI.Controls.Loading"
-    xmlns="https://github.com/avaloniaui"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:suki="clr-namespace:SukiUI.Controls"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<UserControl x:Class="SukiUI.Controls.Loading"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:suki="clr-namespace:SukiUI.Controls"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
     <UserControl.Styles>
-         <Style Selector="suki|Loading">
+        <Style Selector="suki|Loading">
             <Style.Setters>
                 <Setter Property="Transitions">
                     <Transitions>
-                        <DoubleTransition Duration="0:0:0.35" Property="Opacity" />
+                        <DoubleTransition Property="Opacity" Duration="0:0:0.35" />
                     </Transitions>
                 </Setter>
             </Style.Setters>
             <Style.Animations>
-                <Animation
-                    Duration="0:0:1.5"
-                    
-                    FillMode="None"
-                    IterationCount="INFINITE"
-                    PlaybackDirection="Normal">
+                <Animation FillMode="None"
+                           IterationCount="INFINITE"
+                           PlaybackDirection="Normal"
+                           Duration="0:0:1.5">
                     <Animation.Easing>
-                        <QuadraticEaseInOut></QuadraticEaseInOut>
+                        <QuadraticEaseInOut />
                     </Animation.Easing>
                     <KeyFrame Cue="0%">
                         <Setter Property="RotateTransform.Angle" Value="0" />
@@ -38,49 +35,47 @@
                         <Setter Property="RotateTransform.Angle" Value="360" />
                     </KeyFrame>
                 </Animation>
-             
+
             </Style.Animations>
             <Setter Property="Template">
                 <ControlTemplate>
-                  
 
-                        <Arc
-                            Height="52"
-                            StartAngle="270" Stroke="{DynamicResource SukiPrimaryColor}"
-                            Stretch="None"
-                            StrokeJoin="Round"
-                            StrokeLineCap="Round"
-                            StrokeThickness="4"
-                            SweepAngle="30"
-                            Width="52">
-                            
-                            <Arc.Transitions>
-                                <Transitions>
-                                    <DoubleTransition
-                                        Duration="0:0:0.8"
-                                        Easing="CircularEaseOut"
-                                        Property="SweepAngle" />
-                                </Transitions>
-                            </Arc.Transitions>
-                        </Arc>
+
+                    <Arc Width="52"
+                         Height="52"
+                         StartAngle="270"
+                         Stretch="None"
+                         Stroke="{DynamicResource SukiPrimaryColor}"
+                         StrokeJoin="Round"
+                         StrokeLineCap="Round"
+                         StrokeThickness="4"
+                         SweepAngle="30">
+
+                        <Arc.Transitions>
+                            <Transitions>
+                                <DoubleTransition Easing="CircularEaseOut"
+                                                  Property="SweepAngle"
+                                                  Duration="0:0:0.8" />
+                            </Transitions>
+                        </Arc.Transitions>
+                    </Arc>
 
                 </ControlTemplate>
             </Setter>
         </Style>
-        
+
         <Style Selector="suki|Loading.White /template/ Arc">
-            <Setter Property="Stroke" Value="#fafafa"></Setter>
+            <Setter Property="Stroke" Value="#fafafa" />
         </Style>
-        
+
         <Style Selector="suki|Loading /template/ Arc">
-          
+
             <Style.Animations>
-                <Animation
-                    Duration="0:0:1.5"
-                    Easing="QuadraticEaseInOut"
-                    FillMode="None"
-                    IterationCount="INFINITE"
-                    PlaybackDirection="Normal">
+                <Animation Easing="QuadraticEaseInOut"
+                           FillMode="None"
+                           IterationCount="INFINITE"
+                           PlaybackDirection="Normal"
+                           Duration="0:0:1.5">
                     <KeyFrame Cue="0%">
                         <Setter Property="SweepAngle" Value="60" />
                     </KeyFrame>
@@ -88,29 +83,28 @@
                     <KeyFrame Cue="50%">
                         <Setter Property="SweepAngle" Value="250" />
                     </KeyFrame>
-                    
+
                     <KeyFrame Cue="100%">
                         <Setter Property="SweepAngle" Value="60" />
                     </KeyFrame>
                 </Animation>
             </Style.Animations>
-            </Style>
-        
+        </Style>
+
         <Style Selector="suki|Loading.Variant">
             <Style.Setters>
                 <Setter Property="Transitions">
                     <Transitions>
-                        <DoubleTransition Duration="0:0:0.35" Property="Opacity" />
+                        <DoubleTransition Property="Opacity" Duration="0:0:0.35" />
                     </Transitions>
                 </Setter>
             </Style.Setters>
             <Style.Animations>
-                <Animation
-                    Duration="0:0:3"
-                    Easing="ExponentialEaseInOut"
-                    FillMode="None"
-                    IterationCount="INFINITE"
-                    PlaybackDirection="Normal">
+                <Animation Easing="ExponentialEaseInOut"
+                           FillMode="None"
+                           IterationCount="INFINITE"
+                           PlaybackDirection="Normal"
+                           Duration="0:0:3">
                     <KeyFrame Cue="0%">
                         <Setter Property="RotateTransform.Angle" Value="0" />
                     </KeyFrame>
@@ -122,40 +116,35 @@
             </Style.Animations>
             <Setter Property="Template">
                 <ControlTemplate>
-                    <Grid
-                        Height="52"
-                        Name="transformGrid"
-                        Width="52">
+                    <Grid Name="transformGrid"
+                          Width="52"
+                          Height="52">
 
 
                         <Canvas>
-                            <Border
-                                Background="{DynamicResource SukiPrimaryColor}"
-                                CornerRadius="{DynamicResource MediumCornerRadius}"
-                                Height="12"
-                                Margin="20,0"
-                                Width="12" />
-                            <Border
-                                Background="{DynamicResource SukiPrimaryColor}"
-                                CornerRadius="{DynamicResource MediumCornerRadius}"
-                                Height="12"
-                                Margin="0,20"
-                                Opacity="0.96"
-                                Width="12" />
-                            <Border
-                                Background="{DynamicResource SukiPrimaryColor}"
-                                CornerRadius="{DynamicResource MediumCornerRadius}"
-                                Height="12"
-                                Margin="40,20,0,0"
-                                Opacity="0.92"
-                                Width="12" />
-                            <Border
-                                Background="{DynamicResource SukiPrimaryColor}"
-                                CornerRadius="{DynamicResource MediumCornerRadius}"
-                                Height="12"
-                                Margin="20,40,0,0"
-                                Opacity="0.88"
-                                Width="12" />
+                            <Border Width="12"
+                                    Height="12"
+                                    Margin="20,0"
+                                    Background="{DynamicResource SukiPrimaryColor}"
+                                    CornerRadius="{DynamicResource MediumCornerRadius}" />
+                            <Border Width="12"
+                                    Height="12"
+                                    Margin="0,20"
+                                    Background="{DynamicResource SukiPrimaryColor}"
+                                    CornerRadius="{DynamicResource MediumCornerRadius}"
+                                    Opacity="0.96" />
+                            <Border Width="12"
+                                    Height="12"
+                                    Margin="40,20,0,0"
+                                    Background="{DynamicResource SukiPrimaryColor}"
+                                    CornerRadius="{DynamicResource MediumCornerRadius}"
+                                    Opacity="0.92" />
+                            <Border Width="12"
+                                    Height="12"
+                                    Margin="20,40,0,0"
+                                    Background="{DynamicResource SukiPrimaryColor}"
+                                    CornerRadius="{DynamicResource MediumCornerRadius}"
+                                    Opacity="0.88" />
 
                         </Canvas>
 

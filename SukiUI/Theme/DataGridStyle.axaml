@@ -26,29 +26,25 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Grid Background="{TemplateBinding Background}" ColumnDefinitions="*,Auto">
-                    <ContentPresenter
-                        Content="{TemplateBinding Content}"
-                        ContentTemplate="{TemplateBinding ContentTemplate}"
-                        HorizontalAlignment="Center"
-                        HorizontalContentAlignment="Center"
-                        Margin="{TemplateBinding Padding}"
-                        TextBlock.Foreground="{TemplateBinding Foreground}"
-                        VerticalAlignment="Center"
-                        VerticalContentAlignment="Center" />
+                    <ContentPresenter Margin="{TemplateBinding Padding}"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      HorizontalContentAlignment="Center"
+                                      VerticalContentAlignment="Center"
+                                      Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      TextBlock.Foreground="{TemplateBinding Foreground}" />
 
-                    <Rectangle
-                        Grid.Column="1"
-                        HorizontalAlignment="Stretch"
-                        Name="PART_RightGridLine"
-                        Stroke="WhiteSmoke"
-                        StrokeThickness="1"
-                        VerticalAlignment="Stretch" />
+                    <Rectangle Name="PART_RightGridLine"
+                               Grid.Column="1"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Stretch"
+                               Stroke="WhiteSmoke"
+                               StrokeThickness="1" />
                 </Grid>
             </ControlTemplate>
         </Setter>
     </Style>
-
-
 
     <Style Selector="DataGridColumnHeader">
         <Setter Property="Foreground" Value="{DynamicResource ThemeForegroundBrush}" />
@@ -63,35 +59,31 @@
 
         <Setter Property="Template">
             <ControlTemplate>
-                <Border
-                    Background="Transparent"
-                    BorderBrush="{DynamicResource SukiControlBorderBrush}"
-                    BorderThickness="0,0,0,1.5"
-                    CornerRadius="0">
+                <Border Background="Transparent"
+                        BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                        BorderThickness="0,0,0,1.5"
+                        CornerRadius="0">
                     <Grid ColumnDefinitions="*,Auto">
 
-                        <Grid
-                            ColumnDefinitions="*,Auto"
-                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            Margin="{TemplateBinding Padding}"
-                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-                            <ContentPresenter
-                                Background="Transparent"
-                                Content="{TemplateBinding Content}"
-                                ContentTemplate="{TemplateBinding ContentTemplate}" />
+                        <Grid Margin="{TemplateBinding Padding}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              ColumnDefinitions="*,Auto">
+                            <ContentPresenter Background="Transparent"
+                                              Content="{TemplateBinding Content}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}" />
 
-                            <Path
-                                Data="F1 M -5.215,6.099L 5.215,6.099L 0,0L -5.215,6.099 Z "
-                                Fill="{DynamicResource SukiText}"
-                                Grid.Column="1"
-                                IsVisible="True"
-                                Opacity="0"
-                                HorizontalAlignment="Left"
-                                Margin="4,0,0,0"
-                                Name="SortIcon"
-                                Stretch="Uniform"
-                                VerticalAlignment="Center"
-                                Width="8" />
+                            <Path Name="SortIcon"
+                                  Grid.Column="1"
+                                  Width="8"
+                                  Margin="4,0,0,0"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Center"
+                                  Data="F1 M -5.215,6.099L 5.215,6.099L 0,0L -5.215,6.099 Z "
+                                  Fill="{DynamicResource SukiText}"
+                                  IsVisible="True"
+                                  Opacity="0"
+                                  Stretch="Uniform" />
                         </Grid>
                     </Grid>
                 </Border>
@@ -104,7 +96,7 @@
     </Style>
 
     <Style Selector="DataGridColumnHeader /template/ Path#SortIcon">
-        <Setter Property="Opacity" Value="0"/>
+        <Setter Property="Opacity" Value="0" />
         <Setter Property="RenderTransform">
             <Setter.Value>
                 <ScaleTransform ScaleX="0.9" ScaleY="0.9" />
@@ -113,11 +105,11 @@
     </Style>
 
     <Style Selector="DataGridColumnHeader:sortascending /template/ Path#SortIcon">
-        <Setter Property="Opacity" Value="1"/>
+        <Setter Property="Opacity" Value="1" />
     </Style>
 
     <Style Selector="DataGridColumnHeader:sortdescending /template/ Path#SortIcon">
-        <Setter Property="Opacity" Value="1"/>
+        <Setter Property="Opacity" Value="1" />
         <Setter Property="RenderTransform">
             <Setter.Value>
                 <ScaleTransform ScaleX="0.9" ScaleY="-0.9" />
@@ -130,39 +122,33 @@
         <Setter Property="Padding" Value="30" />
         <Setter Property="Template">
             <ControlTemplate>
-                <DataGridFrozenGrid
-                    ColumnDefinitions="Auto,*"
-                    Name="PART_Root"
-                    RowDefinitions="*,Auto,Auto">
+                <DataGridFrozenGrid Name="PART_Root"
+                                    ColumnDefinitions="Auto,*"
+                                    RowDefinitions="*,Auto,Auto">
 
-                    <Border
-                        BorderBrush="{DynamicResource SukiBorderBrush}"
-                        BorderThickness="0,0,0,1"
-                        CornerRadius="0"
-                        Grid.ColumnSpan="2"
-                        Grid.RowSpan="2"
-                        Name="BackgroundRectangle"
-                        Padding="18" />
+                    <Border Name="BackgroundRectangle"
+                            Grid.RowSpan="2"
+                            Grid.ColumnSpan="2"
+                            Padding="18"
+                            BorderBrush="{DynamicResource SukiBorderBrush}"
+                            BorderThickness="0,0,0,1"
+                            CornerRadius="0" />
 
-                    <DataGridRowHeader
-                        DataGridFrozenGrid.IsFrozen="True"
-                        Grid.RowSpan="3"
-                        Name="PART_RowHeader" />
-                    <DataGridCellsPresenter
-                        DataGridFrozenGrid.IsFrozen="True"
-                        Grid.Column="1"
-                        Margin="6"
-                        Name="PART_CellsPresenter" />
-                    <DataGridDetailsPresenter
-                        Grid.Column="1"
-                        Grid.Row="1"
-                        Name="PART_DetailsPresenter" />
-                    <Rectangle
-                        Grid.Column="1"
-                        Grid.Row="2"
-                        Height="1"
-                        HorizontalAlignment="Stretch"
-                        Name="PART_BottomGridLine" />
+                    <DataGridRowHeader Name="PART_RowHeader"
+                                       Grid.RowSpan="3"
+                                       DataGridFrozenGrid.IsFrozen="True" />
+                    <DataGridCellsPresenter Name="PART_CellsPresenter"
+                                            Grid.Column="1"
+                                            Margin="6"
+                                            DataGridFrozenGrid.IsFrozen="True" />
+                    <DataGridDetailsPresenter Name="PART_DetailsPresenter"
+                                              Grid.Row="1"
+                                              Grid.Column="1" />
+                    <Rectangle Name="PART_BottomGridLine"
+                               Grid.Row="2"
+                               Grid.Column="1"
+                               Height="1"
+                               HorizontalAlignment="Stretch" />
 
                 </DataGridFrozenGrid>
             </ControlTemplate>
@@ -198,36 +184,32 @@
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Grid
-                    ColumnDefinitions="Auto,*"
-                    RowDefinitions="*,*,Auto"
-                    x:Name="PART_Root">
-                    <Border
-                        BorderBrush="{TemplateBinding SeparatorBrush}"
-                        BorderThickness="0,0,1,0"
-                        Grid.ColumnSpan="2"
-                        Grid.RowSpan="3">
+                <Grid x:Name="PART_Root"
+                      ColumnDefinitions="Auto,*"
+                      RowDefinitions="*,*,Auto">
+                    <Border Grid.RowSpan="3"
+                            Grid.ColumnSpan="2"
+                            BorderBrush="{TemplateBinding SeparatorBrush}"
+                            BorderThickness="0,0,1,0">
                         <Grid Background="{TemplateBinding Background}">
-                            <Rectangle Stretch="Fill" x:Name="RowInvalidVisualElement" />
-                            <Rectangle Stretch="Fill" x:Name="BackgroundRectangle" />
+                            <Rectangle x:Name="RowInvalidVisualElement" Stretch="Fill" />
+                            <Rectangle x:Name="BackgroundRectangle" Stretch="Fill" />
                         </Grid>
                     </Border>
-                    <Rectangle
-                        Fill="Transparent"
-                        Grid.ColumnSpan="2"
-                        Grid.Row="2"
-                        Height="1"
-                        HorizontalAlignment="Stretch"
-                        IsVisible="{TemplateBinding AreSeparatorsVisible}"
-                        Margin="1,0,1,0"
-                        x:Name="HorizontalSeparator" />
+                    <Rectangle x:Name="HorizontalSeparator"
+                               Grid.Row="2"
+                               Grid.ColumnSpan="2"
+                               Height="1"
+                               Margin="1,0,1,0"
+                               HorizontalAlignment="Stretch"
+                               Fill="Transparent"
+                               IsVisible="{TemplateBinding AreSeparatorsVisible}" />
 
-                    <ContentPresenter
-                        Content="{TemplateBinding Content}"
-                        Grid.Column="1"
-                        Grid.RowSpan="2"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center" />
+                    <ContentPresenter Grid.RowSpan="2"
+                                      Grid.Column="1"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Content="{TemplateBinding Content}" />
                 </Grid>
             </ControlTemplate>
         </Setter>
@@ -238,43 +220,36 @@
         <Setter Property="Height" Value="20" />
         <Setter Property="Template">
             <ControlTemplate>
-                <DataGridFrozenGrid
-                    Background="{TemplateBinding Background}"
-                    ColumnDefinitions="Auto,Auto,Auto,Auto"
-                    Name="Root"
-                    RowDefinitions="Auto,*,Auto">
+                <DataGridFrozenGrid Name="Root"
+                                    Background="{TemplateBinding Background}"
+                                    ColumnDefinitions="Auto,Auto,Auto,Auto"
+                                    RowDefinitions="Auto,*,Auto">
 
-                    <Rectangle
-                        Grid.Column="1"
-                        Grid.Row="1"
-                        Name="IndentSpacer" />
-                    <ToggleButton
-                        Grid.Column="2"
-                        Grid.Row="1"
-                        Margin="2,0,0,0"
-                        Name="ExpanderButton" />
+                    <Rectangle Name="IndentSpacer"
+                               Grid.Row="1"
+                               Grid.Column="1" />
+                    <ToggleButton Name="ExpanderButton"
+                                  Grid.Row="1"
+                                  Grid.Column="2"
+                                  Margin="2,0,0,0" />
 
-                    <StackPanel
-                        Grid.Column="3"
-                        Grid.Row="1"
-                        Margin="0,1,0,1"
-                        Orientation="Horizontal"
-                        VerticalAlignment="Center">
-                        <TextBlock
-                            IsVisible="{TemplateBinding IsPropertyNameVisible}"
-                            Margin="4,0,0,0"
-                            Name="PropertyNameElement" />
+                    <StackPanel Grid.Row="1"
+                                Grid.Column="3"
+                                Margin="0,1,0,1"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                        <TextBlock Name="PropertyNameElement"
+                                   Margin="4,0,0,0"
+                                   IsVisible="{TemplateBinding IsPropertyNameVisible}" />
                         <TextBlock Margin="4,0,0,0" Text="{Binding Key}" />
-                        <TextBlock
-                            IsVisible="{TemplateBinding IsItemCountVisible}"
-                            Margin="4,0,0,0"
-                            Name="ItemCountElement" />
+                        <TextBlock Name="ItemCountElement"
+                                   Margin="4,0,0,0"
+                                   IsVisible="{TemplateBinding IsItemCountVisible}" />
                     </StackPanel>
 
-                    <DataGridRowHeader
-                        DataGridFrozenGrid.IsFrozen="True"
-                        Grid.RowSpan="3"
-                        Name="RowHeader" />
+                    <DataGridRowHeader Name="RowHeader"
+                                       Grid.RowSpan="3"
+                                       DataGridFrozenGrid.IsFrozen="True" />
 
                 </DataGridFrozenGrid>
             </ControlTemplate>
@@ -284,18 +259,16 @@
     <Style Selector="DataGridRowGroupHeader /template/ ToggleButton#ExpanderButton">
         <Setter Property="Template">
             <ControlTemplate>
-                <Border
-                    Background="Transparent"
-                    Grid.Column="0"
-                    Height="20"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Width="20">
-                    <Path
-                        Data="M 0 2 L 4 6 L 0 10 Z"
-                        Fill="Transparent"
+                <Border Grid.Column="0"
+                        Width="20"
+                        Height="20"
                         HorizontalAlignment="Center"
-                        VerticalAlignment="Center" />
+                        VerticalAlignment="Center"
+                        Background="Transparent">
+                    <Path HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          Data="M 0 2 L 4 6 L 0 10 Z"
+                          Fill="Transparent" />
                 </Border>
             </ControlTemplate>
         </Setter>
@@ -322,7 +295,7 @@
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="DropLocationIndicatorTemplate">
             <Template>
-                <Rectangle Fill="Transparent" Width="2" />
+                <Rectangle Width="2" Fill="Transparent" />
             </Template>
         </Setter>
         <Setter Property="Template">
@@ -331,42 +304,37 @@
                     <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,*,Auto,Auto">
 
                         <DataGridColumnHeader Name="PART_TopLeftCornerHeader" Width="22" />
-                        <DataGridColumnHeadersPresenter Grid.Column="1" Name="PART_ColumnHeadersPresenter" />
-                        <DataGridColumnHeader Grid.Column="2" Name="PART_TopRightCornerHeader" />
-                        <Rectangle
-                            Fill="Transparent"
-                            Grid.ColumnSpan="3"
-                            Height="1"
-                            Name="PART_ColumnHeadersAndRowsSeparator"
-                            StrokeThickness="1"
-                            VerticalAlignment="Bottom" />
+                        <DataGridColumnHeadersPresenter Name="PART_ColumnHeadersPresenter" Grid.Column="1" />
+                        <DataGridColumnHeader Name="PART_TopRightCornerHeader" Grid.Column="2" />
+                        <Rectangle Name="PART_ColumnHeadersAndRowsSeparator"
+                                   Grid.ColumnSpan="3"
+                                   Height="1"
+                                   VerticalAlignment="Bottom"
+                                   Fill="Transparent"
+                                   StrokeThickness="1" />
 
-                        <DataGridRowsPresenter
-                            Grid.ColumnSpan="3"
-                            Grid.Row="1"
-                            Name="PART_RowsPresenter">
+                        <DataGridRowsPresenter Name="PART_RowsPresenter"
+                                               Grid.Row="1"
+                                               Grid.ColumnSpan="3">
                             <DataGridRowsPresenter.GestureRecognizers>
                                 <ScrollGestureRecognizer CanHorizontallyScroll="True" CanVerticallyScroll="True" />
                             </DataGridRowsPresenter.GestureRecognizers>
                         </DataGridRowsPresenter>
 
-                        <ScrollBar
-                            Grid.Column="2"
-                            Grid.Row="1"
-                            Name="PART_VerticalScrollbar"
-                            Orientation="Vertical"
-                            Width="{DynamicResource ScrollBarThickness}" />
+                        <ScrollBar Name="PART_VerticalScrollbar"
+                                   Grid.Row="1"
+                                   Grid.Column="2"
+                                   Width="{DynamicResource ScrollBarThickness}"
+                                   Orientation="Vertical" />
 
-                        <Grid
-                            ColumnDefinitions="Auto,*"
-                            Grid.Column="1"
-                            Grid.Row="2">
+                        <Grid Grid.Row="2"
+                              Grid.Column="1"
+                              ColumnDefinitions="Auto,*">
 
-                            <ScrollBar
-                                Grid.Column="1"
-                                Height="{DynamicResource ScrollBarThickness}"
-                                Name="PART_HorizontalScrollbar"
-                                Orientation="Horizontal" />
+                            <ScrollBar Name="PART_HorizontalScrollbar"
+                                       Grid.Column="1"
+                                       Height="{DynamicResource ScrollBarThickness}"
+                                       Orientation="Horizontal" />
                         </Grid>
                     </Grid>
                 </Border>

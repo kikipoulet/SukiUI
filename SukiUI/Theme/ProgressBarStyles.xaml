@@ -1,60 +1,52 @@
-<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Design.PreviewWith>
         <Grid>
-            <ProgressBar
-                Height="6"
-                Value="50"
-                Width="100" />
+            <ProgressBar Width="100"
+                         Height="6"
+                         Value="50" />
         </Grid>
     </Design.PreviewWith>
     <Style Selector="ProgressBar">
 
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
         <Setter Property="Background" Value="{DynamicResource SukiBorderBrush}" />
-        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}">
-            
-        </Setter>
+        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Grid>
-                    <Border
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="{TemplateBinding CornerRadius}"
-                        Height="8">
+                    <Border Height="8"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}">
                         <Panel>
-                            <Border
-                                Background="{TemplateBinding Foreground}"
-                                CornerRadius="{TemplateBinding CornerRadius}"
-                                Height="8"
-                                IsVisible="{Binding !IsIndeterminate, RelativeSource={RelativeSource TemplatedParent}}"
-                                Name="PART_Indicator">
+                            <Border Name="PART_Indicator"
+                                    Height="8"
+                                    Background="{TemplateBinding Foreground}"
+                                    CornerRadius="{TemplateBinding CornerRadius}"
+                                    IsVisible="{Binding !IsIndeterminate, RelativeSource={RelativeSource TemplatedParent}}">
 
                                 <Border.Transitions>
                                     <Transitions>
-                                        <DoubleTransition
-                                            Duration="0:0:0.8"
-                                            Easing="CircularEaseOut"
-                                            Property="Width" />
-                                        <BrushTransition Property="Background" Duration="0:0:0.5"></BrushTransition>
+                                        <DoubleTransition Easing="CircularEaseOut"
+                                                          Property="Width"
+                                                          Duration="0:0:0.8" />
+                                        <BrushTransition Property="Background" Duration="0:0:0.5" />
                                     </Transitions>
                                 </Border.Transitions>
                             </Border>
-                            <Border
-                                Background="{TemplateBinding Foreground}"
-                                CornerRadius="{TemplateBinding CornerRadius}"
-                                Height="8"
-                                IsVisible="{Binding IsIndeterminate, RelativeSource={RelativeSource TemplatedParent}}"
-                                Name="PART_IndeterminateIndicator" />
+                            <Border Name="PART_IndeterminateIndicator"
+                                    Height="8"
+                                    Background="{TemplateBinding Foreground}"
+                                    CornerRadius="{TemplateBinding CornerRadius}"
+                                    IsVisible="{Binding IsIndeterminate, RelativeSource={RelativeSource TemplatedParent}}" />
                         </Panel>
                     </Border>
-                    <LayoutTransformControl
-                        HorizontalAlignment="Center"
-                        IsVisible="{Binding ShowProgressText, RelativeSource={RelativeSource TemplatedParent}}"
-                        Name="PART_LayoutTransformControl"
-                        VerticalAlignment="Center">
+                    <LayoutTransformControl Name="PART_LayoutTransformControl"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            IsVisible="{Binding ShowProgressText, RelativeSource={RelativeSource TemplatedParent}}">
                         <TextBlock Foreground="{DynamicResource ThemeForegroundBrush}" Text="{Binding Value, RelativeSource={RelativeSource TemplatedParent}, StringFormat={}{0:0}%}" />
                     </LayoutTransformControl>
                 </Grid>
@@ -87,10 +79,9 @@
 
     <Style Selector="ProgressBar:horizontal:indeterminate /template/ Border#PART_IndeterminateIndicator">
         <Style.Animations>
-            <Animation
-                Duration="0:0:3"
-                Easing="LinearEasing"
-                IterationCount="Infinite">
+            <Animation Easing="LinearEasing"
+                       IterationCount="Infinite"
+                       Duration="0:0:3">
                 <KeyFrame Cue="0%">
                     <Setter Property="TranslateTransform.X" Value="{Binding IndeterminateStartingOffset, RelativeSource={RelativeSource TemplatedParent}}" />
                 </KeyFrame>
@@ -103,10 +94,9 @@
     </Style>
     <Style Selector="ProgressBar:vertical:indeterminate /template/ Border#PART_IndeterminateIndicator">
         <Style.Animations>
-            <Animation
-                Duration="0:0:3"
-                Easing="LinearEasing"
-                IterationCount="Infinite">
+            <Animation Easing="LinearEasing"
+                       IterationCount="Infinite"
+                       Duration="0:0:3">
                 <KeyFrame Cue="0%">
                     <Setter Property="TranslateTransform.Y" Value="{Binding IndeterminateStartingOffset, RelativeSource={RelativeSource TemplatedParent}}" />
                 </KeyFrame>

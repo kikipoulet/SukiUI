@@ -1,33 +1,33 @@
-<UserControl xmlns="https://github.com/avaloniaui"
+<UserControl x:Class="SukiUI.Demo.Features.ControlsLibrary.IconsView"
+             xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
-             xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
-             xmlns:showMeTheXaml="clr-namespace:ShowMeTheXaml;assembly=ShowMeTheXaml.Avalonia"
              xmlns:content="clr-namespace:SukiUI.Content;assembly=SukiUI"
+             xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+             xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:generic="clr-namespace:System.Collections.Generic;assembly=System.Runtime"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:showMeTheXaml="clr-namespace:ShowMeTheXaml;assembly=ShowMeTheXaml.Avalonia"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
              x:DataType="controlsLibrary:IconsViewModel"
-             x:Class="SukiUI.Demo.Features.ControlsLibrary.IconsView">
+             mc:Ignorable="d">
     <Grid RowDefinitions="Auto, *">
         <controls:GlassCard Margin="30">
             <controls:GroupBox Header="Icons">
                 <StackPanel Spacing="10">
                     <TextBlock TextWrapping="Wrap">
-                        SukiUI contains definitions for some basic icons that are used for a variety of controls. You may wish to use these icons in your app and controls to maintain consistency with SukiUI.
-                        <LineBreak/>
-                        The icons can be used in the following way:
-                    </TextBlock>
+                        SukiUI contains definitions for some basic icons that are used for a variety of controls. You may wish to use these icons in your app and controls to maintain consistency with SukiUI.<LineBreak />
+                        The icons can be used in the following way:</TextBlock>
                     <StackPanel Orientation="Horizontal" Spacing="15">
                         <showMeTheXaml:XamlDisplay UniqueId="Icon1">
-                            <PathIcon Data="{x:Static content:Icons.Plus}"/>
+                            <PathIcon Data="{x:Static content:Icons.Plus}" />
                         </showMeTheXaml:XamlDisplay>
                         <showMeTheXaml:XamlDisplay UniqueId="Icon2">
-                            <PathIcon Data="{x:Static content:Icons.Plus}" Classes="Primary"/>
+                            <PathIcon Classes="Primary" Data="{x:Static content:Icons.Plus}" />
                         </showMeTheXaml:XamlDisplay>
                         <showMeTheXaml:XamlDisplay UniqueId="Icon3">
-                            <PathIcon Data="{x:Static content:Icons.Plus}" Classes="Accent"/>
+                            <PathIcon Classes="Accent" Data="{x:Static content:Icons.Plus}" />
                         </showMeTheXaml:XamlDisplay>
                     </StackPanel>
                     <TextBlock>
@@ -37,13 +37,14 @@
             </controls:GroupBox>
         </controls:GlassCard>
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled">
-            <ItemsControl 
-                ItemsSource="{Binding AllIcons}" x:CompileBindings="False">
+            <ItemsControl x:CompileBindings="False" ItemsSource="{Binding AllIcons}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <controls:GlassCard Margin="15,15,15,15">
                             <controls:GroupBox Header="{Binding Key}">
-                                <PathIcon Data="{Binding Value}" Width="25" Height="25" />
+                                <PathIcon Width="25"
+                                          Height="25"
+                                          Data="{Binding Value}" />
                             </controls:GroupBox>
                         </controls:GlassCard>
                     </DataTemplate>
@@ -55,6 +56,6 @@
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
         </ScrollViewer>
-        
+
     </Grid>
 </UserControl>
