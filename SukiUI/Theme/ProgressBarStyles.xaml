@@ -12,12 +12,18 @@
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
         <Setter Property="Background" Value="{DynamicResource SukiBorderBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+        
         <Setter Property="Template">
             <ControlTemplate>
-                <Grid>
-                    <Border Height="8"
+                <DockPanel>
+                 
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   IsVisible="{Binding ShowProgressText, RelativeSource={RelativeSource TemplatedParent}}" Margin="10,0,0,0" DockPanel.Dock="Right" FontWeight="DemiBold" Foreground="{DynamicResource SukiText}" Text="{Binding Value, RelativeSource={RelativeSource TemplatedParent}, StringFormat={}{0:0}%}" />
+                 
+                    <Border Name="PART_RootBorder"
                             MinWidth="{TemplateBinding MinWidth}"
-                            MinHeight="{TemplateBinding MinHeight}"
+                      
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
@@ -45,13 +51,9 @@
                                     IsVisible="{Binding IsIndeterminate, RelativeSource={RelativeSource TemplatedParent}}" />
                         </Panel>
                     </Border>
-                    <LayoutTransformControl Name="PART_LayoutTransformControl"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            IsVisible="{Binding ShowProgressText, RelativeSource={RelativeSource TemplatedParent}}">
-                        <TextBlock Foreground="{DynamicResource SukiText}" Text="{Binding Value, RelativeSource={RelativeSource TemplatedParent}, StringFormat={}{0:0}%}" />
-                    </LayoutTransformControl>
-                </Grid>
+                    
+                
+                </DockPanel>
             </ControlTemplate>
         </Setter>
     </Style>
@@ -65,12 +67,25 @@
     </Style>
     <Style Selector="ProgressBar:horizontal">
         <Setter Property="MinWidth" Value="200" />
-        <Setter Property="MinHeight" Value="20" />
+     
     </Style>
     <Style Selector="ProgressBar:vertical">
-        <Setter Property="MinWidth" Value="20" />
+        
         <Setter Property="MinHeight" Value="200" />
     </Style>
+    
+    <Style Selector="ProgressBar:horizontal /template/ Border#PART_RootBorder">
+        <Setter Property="MinHeight" Value="8"></Setter>
+        <Setter Property="Height" Value="8"></Setter>
+        <Setter Property="MaxHeight" Value="8"></Setter>
+    </Style>
+    
+    <Style Selector="ProgressBar:vertical /template/ Border#PART_RootBorder">
+        <Setter Property="MinWidth" Value="8"></Setter>
+        <Setter Property="Width" Value="8"></Setter>
+        <Setter Property="MaxWidth" Value="8"></Setter>
+    </Style>
+    
     <Style Selector="ProgressBar:vertical /template/ LayoutTransformControl#PART_LayoutTransformControl">
         <Setter Property="LayoutTransform">
             <Setter.Value>
