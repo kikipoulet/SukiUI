@@ -1,13 +1,11 @@
-<Style
-    xmlns="https://github.com/avaloniaui"
-    xmlns:sys="clr-namespace:System;assembly=netstandard"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<Style xmlns="https://github.com/avaloniaui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+       xmlns:sys="clr-namespace:System;assembly=netstandard">
     <Style.Resources>
 
         <Color x:Key="MediumGray">#F4F4F4</Color>
         <Color x:Key="BackgroundGray">#fafafa</Color>
         <Color x:Key="BorderGray">#ebebeb</Color>
-
 
         <Color x:Key="ThemeAccentColor">#0063bb</Color>
         <Color x:Key="ThemeAccentColor2">#0063bb</Color>
@@ -40,65 +38,58 @@
         <Color x:Key="ErrorColor">#FFFF0000</Color>
         <Color x:Key="ErrorLowColor">#AAFF0000</Color>
 
-        <SolidColorBrush Color="{DynamicResource ThemeCardColor}" x:Key="ThemeCardBrush" />
-        <SolidColorBrush Color="{DynamicResource ThemeBackgroundColor}" x:Key="ThemeBackgroundBrush" />
-        <SolidColorBrush Color="{DynamicResource ThemeBorderLowColor}" x:Key="ThemeBorderLowBrush" />
-        <SolidColorBrush Color="{DynamicResource ThemeBorderMidColor}" x:Key="ThemeBorderMidBrush" />
-        <SolidColorBrush Color="#dedede" x:Key="ThemeBorderHighBrush" />
-        <SolidColorBrush Color="{DynamicResource ThemeControlLowColor}" x:Key="ThemeControlLowBrush" />
-        <SolidColorBrush Color="{DynamicResource ThemeControlMidColor}" x:Key="ThemeControlMidBrush" />
-        <SolidColorBrush Color="{DynamicResource ThemeControlMidHighColor}" x:Key="ThemeControlMidHighBrush" />
-        <SolidColorBrush Color="{DynamicResource ThemeControlHighColor}" x:Key="ThemeControlHighBrush" />
-        <SolidColorBrush Color="{DynamicResource ThemeControlVeryHighColor}" x:Key="ThemeControlVeryHighBrush" />
-        <SolidColorBrush Color="{DynamicResource ThemeControlHighlightLowColor}" x:Key="ThemeControlHighlightLowBrush" />
-        <SolidColorBrush Color="{DynamicResource ThemeControlHighlightMidColor}" x:Key="ThemeControlHighlightMidBrush" />
-        <SolidColorBrush Color="{DynamicResource ThemeControlHighlightHighColor}" x:Key="ThemeControlHighlightHighBrush" />
-        <SolidColorBrush Color="{DynamicResource ThemeForegroundColor}" x:Key="ThemeForegroundBrush" />
-        <SolidColorBrush Color="{DynamicResource ThemeForegroundLowColor}" x:Key="ThemeForegroundLowBrush" />
+        <SolidColorBrush x:Key="ThemeCardBrush" Color="{DynamicResource ThemeCardColor}" />
+        <SolidColorBrush x:Key="ThemeBackgroundBrush" Color="{DynamicResource ThemeBackgroundColor}" />
+        <SolidColorBrush x:Key="ThemeBorderLowBrush" Color="{DynamicResource ThemeBorderLowColor}" />
+        <SolidColorBrush x:Key="ThemeBorderMidBrush" Color="{DynamicResource ThemeBorderMidColor}" />
+        <SolidColorBrush x:Key="ThemeBorderHighBrush" Color="#dedede" />
+        <SolidColorBrush x:Key="ThemeControlLowBrush" Color="{DynamicResource ThemeControlLowColor}" />
+        <SolidColorBrush x:Key="ThemeControlMidBrush" Color="{DynamicResource ThemeControlMidColor}" />
+        <SolidColorBrush x:Key="ThemeControlMidHighBrush" Color="{DynamicResource ThemeControlMidHighColor}" />
+        <SolidColorBrush x:Key="ThemeControlHighBrush" Color="{DynamicResource ThemeControlHighColor}" />
+        <SolidColorBrush x:Key="ThemeControlVeryHighBrush" Color="{DynamicResource ThemeControlVeryHighColor}" />
+        <SolidColorBrush x:Key="ThemeControlHighlightLowBrush" Color="{DynamicResource ThemeControlHighlightLowColor}" />
+        <SolidColorBrush x:Key="ThemeControlHighlightMidBrush" Color="{DynamicResource ThemeControlHighlightMidColor}" />
+        <SolidColorBrush x:Key="ThemeControlHighlightHighBrush" Color="{DynamicResource ThemeControlHighlightHighColor}" />
+        <SolidColorBrush x:Key="ThemeForegroundBrush" Color="{DynamicResource ThemeForegroundColor}" />
+        <SolidColorBrush x:Key="ThemeForegroundLowBrush" Color="{DynamicResource ThemeForegroundLowColor}" />
 
-        <SolidColorBrush Color="{DynamicResource HighlightColor}" x:Key="HighlightBrush" />
-        <SolidColorBrush Color="{DynamicResource HighlightBadgeColor}" x:Key="HighlightBadgeBrush" />
-        <SolidColorBrush Color="{DynamicResource HighlightHoverColor}" x:Key="HighlightHoverBrush" />
-        <SolidColorBrush Color="{DynamicResource HighlightForegroundColor}" x:Key="HighlightForegroundBrush" />
-        <SolidColorBrush Color="{DynamicResource SukiPrimaryColor}" x:Key="ThemeAccentBrush" />
-        <SolidColorBrush Color="{DynamicResource ThemeAccentColor2}" x:Key="ThemeAccentBrush2" />
-        <SolidColorBrush Color="{DynamicResource ThemeAccentColor3}" x:Key="ThemeAccentBrush3" />
-        <SolidColorBrush Color="{DynamicResource ThemeAccentColor4}" x:Key="ThemeAccentBrush4" />
-        <SolidColorBrush Color="{DynamicResource ThemeAccentBadgeColor}" x:Key="ThemeAccentBadgeBrush" />
-        <SolidColorBrush Color="{DynamicResource ErrorColor}" x:Key="ErrorBrush" />
-        <SolidColorBrush Color="{DynamicResource ErrorLowColor}" x:Key="ErrorLowBrush" />
+        <SolidColorBrush x:Key="HighlightBrush" Color="{DynamicResource HighlightColor}" />
+        <SolidColorBrush x:Key="HighlightBadgeBrush" Color="{DynamicResource HighlightBadgeColor}" />
+        <SolidColorBrush x:Key="HighlightHoverBrush" Color="{DynamicResource HighlightHoverColor}" />
+        <SolidColorBrush x:Key="HighlightForegroundBrush" Color="{DynamicResource HighlightForegroundColor}" />
+        <SolidColorBrush x:Key="ThemeAccentBrush" Color="{DynamicResource SukiPrimaryColor}" />
+        <SolidColorBrush x:Key="ThemeAccentBrush2" Color="{DynamicResource ThemeAccentColor2}" />
+        <SolidColorBrush x:Key="ThemeAccentBrush3" Color="{DynamicResource ThemeAccentColor3}" />
+        <SolidColorBrush x:Key="ThemeAccentBrush4" Color="{DynamicResource ThemeAccentColor4}" />
+        <SolidColorBrush x:Key="ThemeAccentBadgeBrush" Color="{DynamicResource ThemeAccentBadgeColor}" />
+        <SolidColorBrush x:Key="ErrorBrush" Color="{DynamicResource ErrorColor}" />
+        <SolidColorBrush x:Key="ErrorLowBrush" Color="{DynamicResource ErrorLowColor}" />
 
-        <SolidColorBrush
-            Color="#444444"
-            Opacity="0.75"
-            x:Key="NotificationCardBackgroundBrush" />
-        <SolidColorBrush
-            Color="#007ACC"
-            Opacity="0.75"
-            x:Key="NotificationCardInformationBackgroundBrush" />
-        <SolidColorBrush
-            Color="#1F9E45"
-            Opacity="0.75"
-            x:Key="NotificationCardSuccessBackgroundBrush" />
-        <SolidColorBrush
-            Color="#FDB328"
-            Opacity="0.75"
-            x:Key="NotificationCardWarningBackgroundBrush" />
-        <SolidColorBrush
-            Color="#BD202C"
-            Opacity="0.75"
-            x:Key="NotificationCardErrorBackgroundBrush" />
+        <SolidColorBrush x:Key="NotificationCardBackgroundBrush"
+                         Opacity="0.75"
+                         Color="#444444" />
+        <SolidColorBrush x:Key="NotificationCardInformationBackgroundBrush"
+                         Opacity="0.75"
+                         Color="#007ACC" />
+        <SolidColorBrush x:Key="NotificationCardSuccessBackgroundBrush"
+                         Opacity="0.75"
+                         Color="#1F9E45" />
+        <SolidColorBrush x:Key="NotificationCardWarningBackgroundBrush"
+                         Opacity="0.75"
+                         Color="#FDB328" />
+        <SolidColorBrush x:Key="NotificationCardErrorBackgroundBrush"
+                         Opacity="0.75"
+                         Color="#BD202C" />
 
-        <SolidColorBrush
-            Color="{DynamicResource ThemeAccentColor}"
-            Opacity="0.4"
-            x:Key="DatePickerFlyoutPresenterHighlightFill" />
-        <SolidColorBrush
-            Color="{DynamicResource ThemeAccentColor}"
-            Opacity="0.4"
-            x:Key="TimePickerFlyoutPresenterHighlightFill" />
+        <SolidColorBrush x:Key="DatePickerFlyoutPresenterHighlightFill"
+                         Opacity="0.4"
+                         Color="{DynamicResource ThemeAccentColor}" />
+        <SolidColorBrush x:Key="TimePickerFlyoutPresenterHighlightFill"
+                         Opacity="0.4"
+                         Color="{DynamicResource ThemeAccentColor}" />
 
-        <SolidColorBrush Color="Transparent" x:Key="ThemeControlTransparentBrush" />
+        <SolidColorBrush x:Key="ThemeControlTransparentBrush" Color="Transparent" />
 
         <Thickness x:Key="ThemeBorderThickness">1,1,1,1</Thickness>
         <sys:Double x:Key="ThemeDisabledOpacity">0.5</sys:Double>

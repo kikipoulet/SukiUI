@@ -1,5 +1,4 @@
-﻿using System;
-using Avalonia;
+﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform;
@@ -7,6 +6,7 @@ using Avalonia.Rendering.SceneGraph;
 using Avalonia.Skia;
 using Avalonia.Styling;
 using SkiaSharp;
+using System;
 
 namespace SukiUI.Controls.GlassMorphism;
 
@@ -22,7 +22,7 @@ public class BlurBackground : Control
         set => SetValue(MaterialProperty, value);
     }
 
-    static ImmutableExperimentalAcrylicMaterial DefaultAcrylicMaterialDark =
+    private static ImmutableExperimentalAcrylicMaterial DefaultAcrylicMaterialDark =
         (ImmutableExperimentalAcrylicMaterial)new ExperimentalAcrylicMaterial()
         {
             MaterialOpacity = 0.25,
@@ -31,7 +31,7 @@ public class BlurBackground : Control
             PlatformTransparencyCompensationLevel = 0
         }.ToImmutable();
 
-    static ImmutableExperimentalAcrylicMaterial DefaultAcrylicMaterialLight =
+    private static ImmutableExperimentalAcrylicMaterial DefaultAcrylicMaterialLight =
         (ImmutableExperimentalAcrylicMaterial)new ExperimentalAcrylicMaterial()
         {
             MaterialOpacity = 0.0,
@@ -49,7 +49,7 @@ public class BlurBackground : Control
 
     private static SKShader s_acrylicNoiseShader;
 
-    class BlurBehindRenderOperation : ICustomDrawOperation
+    private class BlurBehindRenderOperation : ICustomDrawOperation
     {
         private readonly ImmutableExperimentalAcrylicMaterial _material;
         private readonly Rect _bounds;
@@ -66,7 +66,6 @@ public class BlurBackground : Control
 
         public bool HitTest(Point p) => _bounds.Contains(p);
 
-
         static SKColorFilter CreateAlphaColorFilter(double opacity)
         {
             if (opacity > 1)
@@ -82,17 +81,14 @@ public class BlurBackground : Control
             return SKColorFilter.CreateTable(a, c, c, c);
         }
 
-
         public void Render(ImmediateDrawingContext context)
         {
             var leaseFeature = context.TryGetFeature<ISkiaSharpApiLeaseFeature>();
             using var lease = leaseFeature.Lease();
             var canvas = lease.SkCanvas;
 
-
             if (!canvas.TotalMatrix.TryInvert(out var currentInvertedTransform))
                 return;
-
 
             using var backgroundSnapshot = lease.SkSurface.Snapshot();
 
@@ -104,26 +100,23 @@ public class BlurBackground : Control
                 (int)Math.Ceiling(_bounds.Height), SKImageInfo.PlatformColorType, SKAlphaType.Premul));
             using (var filter = SKImageFilter.CreateBlur(3, 3))
             using (var blurPaint = new SKPaint
-                   {
-                       Shader = backdropShader,
-                       ImageFilter = filter
-                   })
+            {
+                Shader = backdropShader,
+                ImageFilter = filter
+            })
                 blurred.Canvas.DrawRect(0, 0, (float)_bounds.Width, (float)_bounds.Height, blurPaint);
-
 
             using (var blurSnap = blurred.Snapshot())
             using (var blurSnapShader = SKShader.CreateImage(blurSnap))
             {
                 using (var blurSnapPaint = new SKPaint
-                       {
-                           Shader = blurSnapShader,
-                           IsAntialias = false,
-                       })
-
+                {
+                    Shader = blurSnapShader,
+                    IsAntialias = false,
+                })
 
                     canvas.DrawRect(0, 0, (float)_bounds.Width, (float)_bounds.Height, blurSnapPaint);
             }
-
 
             //return;
 
@@ -169,7 +162,6 @@ public class BlurBackground : Control
             return other is BlurBehindRenderOperation op && op._bounds == _bounds && op._material.Equals(_material);
         }
     }
-
 
     public override void Render(DrawingContext context)
     {

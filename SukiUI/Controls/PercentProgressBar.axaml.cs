@@ -21,14 +21,15 @@ public partial class PercentProgressBar : UserControl
     {
         AvaloniaXamlLoader.Load(this);
     }
-    
+
     // Declare private fields for controls
     private ProgressBar _progressBar;
+
     private TextBlock _textBlock;
     private PathIcon _icon;
-    
+
     private int _value;
-    
+
     /// <summary>
     /// Gets the current value.
     /// </summary>
@@ -61,7 +62,7 @@ public partial class PercentProgressBar : UserControl
             }
         }
     }
-    
+
     /// <summary>
     /// Defines the <see cref="Value"/> property.
     /// </summary>

@@ -1,20 +1,16 @@
-<Styles
-    xmlns="https://github.com/avaloniaui"
-    xmlns:content="clr-namespace:SukiUI.Content"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:content="clr-namespace:SukiUI.Content">
     <Design.PreviewWith>
-        <Border Background="White" Padding="20">
+        <Border Padding="20" Background="White">
             <StackPanel Orientation="Horizontal">
                 <RadioButton Margin="5">
-
                     <TextBlock>test 2</TextBlock>
-
-
                 </RadioButton>
                 <RadioButton Margin="5">
                     <TextBlock>test 2</TextBlock>
                 </RadioButton>
-                <RadioButton Classes="Chips" Margin="5">
+                <RadioButton Margin="5" Classes="Chips">
                     <TextBlock>test 3</TextBlock>
                 </RadioButton>
 
@@ -31,27 +27,24 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Grid>
-                    <Border
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="{TemplateBinding CornerRadius}"
-                        Margin="0,0,0,0"
-                        Padding="10">
-                        <StackPanel
-                            HorizontalAlignment="Center"
-                            Orientation="Horizontal"
-                            VerticalAlignment="Center">
+                    <Border Margin="0,0,0,0"
+                            Padding="10"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}">
+                        <StackPanel HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Orientation="Horizontal">
 
-                            <ContentPresenter
-                                Content="{TemplateBinding Content}"
-                                ContentTemplate="{TemplateBinding ContentTemplate}"
-                                HorizontalAlignment="Center"
-                                HorizontalContentAlignment="Center"
-                                Margin="15,0,15,0"
-                                Name="PART_ContentPresenter"
-                                RecognizesAccessKey="True"
-                                VerticalAlignment="Center" />
+                            <ContentPresenter Name="PART_ContentPresenter"
+                                              Margin="15,0,15,0"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              HorizontalContentAlignment="Center"
+                                              Content="{TemplateBinding Content}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              RecognizesAccessKey="True" />
                         </StackPanel>
                     </Border>
                 </Grid>
@@ -82,44 +75,41 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Grid>
-                    <Border
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        ClipToBounds="True"
-                        CornerRadius="{TemplateBinding CornerRadius}"
-                        Margin="4"
-                        Name="BigBorder"
-                        Padding="0">
+                    <Border Name="BigBorder"
+                            Margin="4"
+                            Padding="0"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            ClipToBounds="True"
+                            CornerRadius="{TemplateBinding CornerRadius}">
                         <Border.Transitions>
                             <Transitions>
-                                <ThicknessTransition Duration="00:00:0.2" Property="BorderThickness" />
+                                <ThicknessTransition Property="BorderThickness" Duration="00:00:0.2" />
 
-                                <BrushTransition Duration="00:00:0.2" Property="BorderBrush" />
-                                <ThicknessTransition Duration="0:0:0.1" Property="Margin" />
+                                <BrushTransition Property="BorderBrush" Duration="00:00:0.2" />
+                                <ThicknessTransition Property="Margin" Duration="0:0:0.1" />
                             </Transitions>
                         </Border.Transitions>
 
 
-                        <ContentPresenter
-                            Content="{TemplateBinding Content}"
-                            ContentTemplate="{TemplateBinding ContentTemplate}"
-                            Name="PART_ContentPresenter"
-                            RecognizesAccessKey="True" />
+                        <ContentPresenter Name="PART_ContentPresenter"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          RecognizesAccessKey="True" />
 
 
                     </Border>
-                    <PathIcon
-                        Data="{x:Static content:Icons.CircleCheck}"
-                        Foreground="{DynamicResource SukiPrimaryColor}"
-                        Height="20"
-                        HorizontalAlignment="Right"
-                        Margin="10"
-                        VerticalAlignment="Top"
-                        Width="20">
+                    <PathIcon Width="20"
+                              Height="20"
+                              Margin="10"
+                              HorizontalAlignment="Right"
+                              VerticalAlignment="Top"
+                              Data="{x:Static content:Icons.CircleCheck}"
+                              Foreground="{DynamicResource SukiPrimaryColor}">
                         <PathIcon.Transitions>
                             <Transitions>
-                                <DoubleTransition Duration="00:00:0.2" Property="Opacity" />
+                                <DoubleTransition Property="Opacity" Duration="00:00:0.2" />
                             </Transitions>
                         </PathIcon.Transitions>
                     </PathIcon>
@@ -148,9 +138,9 @@
 
         <Setter Property="Background">
             <Setter.Value>
-                <LinearGradientBrush EndPoint="0%,100%" StartPoint="80%,-50%">
-                    <GradientStop Color="#637ff0" Offset="0.1" />
-                    <GradientStop Color="#4969ed" Offset="0.6" />
+                <LinearGradientBrush StartPoint="80%,-50%" EndPoint="0%,100%">
+                    <GradientStop Offset="0.1" Color="#637ff0" />
+                    <GradientStop Offset="0.6" Color="#4969ed" />
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
@@ -164,17 +154,15 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Grid>
-                    <Border
-                        Background="{TemplateBinding Background}"
-                        Margin="0,0,40,0"
-                        Width="296">
-                        <ContentPresenter
-                            Content="{TemplateBinding Content}"
-                            ContentTemplate="{TemplateBinding ContentTemplate}"
-                            Margin="20,0,0,0"
-                            Name="PART_ContentPresenter"
-                            RecognizesAccessKey="True"
-                            VerticalAlignment="Center" />
+                    <Border Width="296"
+                            Margin="0,0,40,0"
+                            Background="{TemplateBinding Background}">
+                        <ContentPresenter Name="PART_ContentPresenter"
+                                          Margin="20,0,0,0"
+                                          VerticalAlignment="Center"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          RecognizesAccessKey="True" />
                     </Border>
 
 
@@ -203,26 +191,24 @@
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Transitions">
             <Transitions>
-                <ThicknessTransition Duration="0:0:0.4" Property="Margin" />
+                <ThicknessTransition Property="Margin" Duration="0:0:0.4" />
             </Transitions>
         </Setter>
         <Setter Property="Template">
             <ControlTemplate>
                 <Grid>
-                    <Border
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="{DynamicResource MediumCornerRadius}"
-                        Margin="0,0,0,0">
-                        <ContentPresenter
-                            Content="{TemplateBinding Content}"
-                            ContentTemplate="{TemplateBinding ContentTemplate}"
-                            Grid.Column="1"
-                            Margin="0,2,-40,0"
-                            Name="PART_ContentPresenter"
-                            RecognizesAccessKey="True"
-                            VerticalAlignment="Center" />
+                    <Border Margin="0,0,0,0"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{DynamicResource MediumCornerRadius}">
+                        <ContentPresenter Name="PART_ContentPresenter"
+                                          Grid.Column="1"
+                                          Margin="0,2,-40,0"
+                                          VerticalAlignment="Center"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          RecognizesAccessKey="True" />
                     </Border>
                 </Grid>
             </ControlTemplate>
@@ -236,63 +222,59 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Grid Background="{TemplateBinding Background}" ColumnDefinitions="Auto,*">
-                    <Ellipse
-                        Height="18"
-                        Name="border"
-                        Stroke="{TemplateBinding BorderBrush}"
-                        StrokeThickness="1.5"
-                        VerticalAlignment="Center"
-                        Width="18">
+                    <Ellipse Name="border"
+                             Width="18"
+                             Height="18"
+                             VerticalAlignment="Center"
+                             Stroke="{TemplateBinding BorderBrush}"
+                             StrokeThickness="1.5">
                         <Ellipse.Transitions>
                             <Transitions>
-                                <BrushTransition Duration="0:0:0.4" Property="Fill" />
-                                <DoubleTransition Duration="0:0:0.4" Property="Width" />
-                                <DoubleTransition Duration="0:0:0.4" Property="Height" />
+                                <BrushTransition Property="Fill" Duration="0:0:0.4" />
+                                <DoubleTransition Property="Width" Duration="0:0:0.4" />
+                                <DoubleTransition Property="Height" Duration="0:0:0.4" />
                             </Transitions>
                         </Ellipse.Transitions>
                     </Ellipse>
-                    <Ellipse
-                        Height="16"
-                        HorizontalAlignment="Center"
-                        Margin="0,0,0,0"
-                        Name="checkMark"
-                        Stretch="Uniform"
-                        UseLayoutRounding="False"
-                        VerticalAlignment="Center"
-                        Width="16">
+                    <Ellipse Name="checkMark"
+                             Width="16"
+                             Height="16"
+                             Margin="0,0,0,0"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Stretch="Uniform"
+                             UseLayoutRounding="False">
                         <Ellipse.Transitions>
                             <Transitions>
-                                <BrushTransition Duration="0:0:0.4" Property="Fill" />
-                                <DoubleTransition Duration="0:0:0.3" Property="Width" />
-                                <DoubleTransition Duration="0:0:0.3" Property="Height" />
+                                <BrushTransition Property="Fill" Duration="0:0:0.4" />
+                                <DoubleTransition Property="Width" Duration="0:0:0.3" />
+                                <DoubleTransition Property="Height" Duration="0:0:0.3" />
                             </Transitions>
                         </Ellipse.Transitions>
                     </Ellipse>
-                    <Ellipse
-                        Fill="{DynamicResource ThemeAccentBrush}"
-                        Height="9"
-                        HorizontalAlignment="Center"
-                        Name="indeterminateMark"
-                        Stretch="Uniform"
-                        UseLayoutRounding="False"
-                        VerticalAlignment="Center"
-                        Width="9">
+                    <Ellipse Name="indeterminateMark"
+                             Width="9"
+                             Height="9"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Fill="{DynamicResource ThemeAccentBrush}"
+                             Stretch="Uniform"
+                             UseLayoutRounding="False">
                         <Ellipse.Transitions>
                             <Transitions>
-                                <BrushTransition Duration="0:0:0.4" Property="Fill" />
-                                <DoubleTransition Duration="0:0:0.4" Property="Width" />
-                                <DoubleTransition Duration="0:0:0.4" Property="Height" />
+                                <BrushTransition Property="Fill" Duration="0:0:0.4" />
+                                <DoubleTransition Property="Width" Duration="0:0:0.4" />
+                                <DoubleTransition Property="Height" Duration="0:0:0.4" />
                             </Transitions>
                         </Ellipse.Transitions>
                     </Ellipse>
-                    <ContentPresenter
-                        Content="{TemplateBinding Content}"
-                        ContentTemplate="{TemplateBinding ContentTemplate}"
-                        Grid.Column="1"
-                        Margin="10,0,0,0"
-                        Name="PART_ContentPresenter"
-                        RecognizesAccessKey="True"
-                        VerticalAlignment="Center" />
+                    <ContentPresenter Name="PART_ContentPresenter"
+                                      Grid.Column="1"
+                                      Margin="10,0,0,0"
+                                      VerticalAlignment="Center"
+                                      Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      RecognizesAccessKey="True" />
                 </Grid>
             </ControlTemplate>
         </Setter>
@@ -321,7 +303,7 @@
         <Setter Property="Transitions">
 
             <Transitions>
-                <BrushTransition Duration="0:0:0.15" Property="Background" />
+                <BrushTransition Property="Background" Duration="0:0:0.15" />
             </Transitions>
 
         </Setter>
@@ -337,7 +319,7 @@
         <Setter Property="Transitions">
 
             <Transitions>
-                <ThicknessTransition Duration="0:0:0.25" Property="Margin" />
+                <ThicknessTransition Property="Margin" Duration="0:0:0.25" />
             </Transitions>
 
         </Setter>
@@ -347,7 +329,7 @@
         <Setter Property="Transitions">
 
             <Transitions>
-                <ThicknessTransition Duration="0:0:0.25" Property="Margin" />
+                <ThicknessTransition Property="Margin" Duration="0:0:0.25" />
             </Transitions>
 
         </Setter>
@@ -364,7 +346,7 @@
         <Setter Property="Transitions">
 
             <Transitions>
-                <DoubleTransition Duration="0:0:0.2" Property="Opacity" />
+                <DoubleTransition Property="Opacity" Duration="0:0:0.2" />
             </Transitions>
 
         </Setter>
@@ -375,8 +357,8 @@
         <Setter Property="Transitions">
 
             <Transitions>
-                <DoubleTransition Duration="0:0:0.2" Property="Opacity" />
-                <ThicknessTransition Duration="0:0:0.2" Property="Margin" />
+                <DoubleTransition Property="Opacity" Duration="0:0:0.2" />
+                <ThicknessTransition Property="Margin" Duration="0:0:0.2" />
             </Transitions>
 
         </Setter>

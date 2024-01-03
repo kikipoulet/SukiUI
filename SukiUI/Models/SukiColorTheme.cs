@@ -6,15 +6,15 @@ namespace SukiUI.Models;
 public record SukiColorTheme
 {
     public string DisplayName { get; }
-    
+
     public Color Primary { get; }
 
     public IBrush PrimaryBrush => new SolidColorBrush(Primary);
-    
+
     public Color Accent { get; }
 
     public IBrush AccentBrush => new SolidColorBrush(Accent);
-    
+
     public SukiColorTheme(string displayName, Color primary, Color accent)
     {
         DisplayName = displayName;
@@ -43,8 +43,8 @@ public record SukiColorTheme
 internal record DefaultSukiColorTheme : SukiColorTheme
 {
     internal SukiColor ThemeColor { get; }
-    
-    internal DefaultSukiColorTheme(SukiColor themeColor, Color primary, Color accent) 
+
+    internal DefaultSukiColorTheme(SukiColor themeColor, Color primary, Color accent)
         : base(themeColor.ToString(), primary, accent)
     {
         ThemeColor = themeColor;

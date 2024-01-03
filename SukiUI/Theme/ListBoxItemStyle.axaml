@@ -28,28 +28,28 @@
         <Setter Property="Padding" Value="4,2" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Border
-                    CornerRadius="10"
-                    Margin="0,0,10,0"
-                    Name="BorderBasicStyle"
-                    Padding="8,4">
+                <Border Name="BorderBasicStyle"
+                        Margin="0,0,10,0"
+                        Padding="8,4"
+                        CornerRadius="10">
                     <DockPanel>
-                        <PathIcon DockPanel.Dock="Right" Height="17" Width="17"
-                                  Foreground="{DynamicResource SukiPrimaryColor}"
-                                  Data="{x:Static content:Icons.CircleCheck}"
+                        <PathIcon Name="CheckSelected"
+                                  Width="17"
+                                  Height="17"
                                   Margin="0,0,0,0"
-                                  Name="CheckSelected"/>
-                        <ContentPresenter
-                            Background="Transparent"
-                            BorderBrush="Transparent"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            Content="{TemplateBinding Content}"
-                            ContentTemplate="{TemplateBinding ContentTemplate}"
-                            CornerRadius="{TemplateBinding CornerRadius}"
-                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            Margin="0,0,0,0"
-                            Name="PART_ContentPresentern"
-                            Padding="{TemplateBinding Padding}" />
+                                  Data="{x:Static content:Icons.CircleCheck}"
+                                  DockPanel.Dock="Right"
+                                  Foreground="{DynamicResource SukiPrimaryColor}" />
+                        <ContentPresenter Name="PART_ContentPresentern"
+                                          Margin="0,0,0,0"
+                                          Padding="{TemplateBinding Padding}"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          Background="Transparent"
+                                          BorderBrush="Transparent"
+                                          BorderThickness="{TemplateBinding BorderThickness}"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          CornerRadius="{TemplateBinding CornerRadius}" />
                     </DockPanel>
                 </Border>
             </ControlTemplate>
@@ -82,28 +82,25 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox IsEnabled="False" Margin="2">
+                    <CheckBox Margin="2" IsEnabled="False">
                         <CheckBox.RenderTransform>
                             <ScaleTransform ScaleX="1.2" ScaleY="1.2" />
                         </CheckBox.RenderTransform>
                     </CheckBox>
-                    <ContentPresenter
-                        Background="Transparent"
-                        BorderBrush="Transparent"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        Content="{TemplateBinding Content}"
-                        ContentTemplate="{TemplateBinding ContentTemplate}"
-                        CornerRadius="{TemplateBinding CornerRadius}"
-                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                        Margin="-8,0,0,0"
-                        Name="PART_ContentPresentern"
-                        Padding="{TemplateBinding Padding}"
-                        VerticalAlignment="Center"
-                        VerticalContentAlignment="Center" />
+                    <ContentPresenter Name="PART_ContentPresentern"
+                                      Margin="-8,0,0,0"
+                                      Padding="{TemplateBinding Padding}"
+                                      VerticalAlignment="Center"
+                                      HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalContentAlignment="Center"
+                                      Background="Transparent"
+                                      BorderBrush="Transparent"
+                                      BorderThickness="{TemplateBinding BorderThickness}"
+                                      Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      CornerRadius="{TemplateBinding CornerRadius}" />
                 </StackPanel>
             </ControlTemplate>
-
-
         </Setter>
     </Style>
 
@@ -134,7 +131,6 @@
     </Style>
 
     <Style Selector="ListBoxItem.WithCheck /template/ CheckBox">
-
         <Setter Property="IsChecked" Value="False" />
     </Style>
 

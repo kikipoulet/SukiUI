@@ -1,9 +1,8 @@
-<Application
-    x:Class="SukiTest.App"
-    xmlns="https://github.com/avaloniaui"
-    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:sukiUi="clr-namespace:SukiUI;assembly=SukiUI">
+<Application x:Class="SukiTest.App"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:sukiUi="clr-namespace:SukiUI;assembly=SukiUI">
     <Application.Styles>
         <sukiUi:SukiTheme ThemeColor="Red" />
         <avalonia:MaterialIconStyles />

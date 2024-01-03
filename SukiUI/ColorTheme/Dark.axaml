@@ -1,20 +1,17 @@
-﻿<ResourceDictionary
-    xmlns="https://github.com/avaloniaui"
-    xmlns:system="clr-namespace:System;assembly=netstandard"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-
-
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=netstandard">
 
     <Color x:Key="SukiCardBackground">#353535</Color>
-    
+
     <Color x:Key="SukiStrongBackground">#353535</Color>
     <Color x:Key="SukiControlTouchBackground">#505050</Color>
 
     <Color x:Key="SukiBorderBrush">#353535</Color>
     <Color x:Key="SukiControlBorderBrush">#606060</Color>
     <Color x:Key="SukiMediumBorderBrush">#555555</Color>
-    
-    
+
+
     <Color x:Key="SukiLightBorderBrush">#454545</Color>
     <Color x:Key="SukiDialogBackground">#000000</Color>
 
@@ -36,6 +33,4 @@
 
     <Color x:Key="SukiText">#edffffff</Color>
     <Color x:Key="SukiLowText">#caffffff</Color>
-    
-    
 </ResourceDictionary>

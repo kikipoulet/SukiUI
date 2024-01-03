@@ -1,167 +1,148 @@
-<UserControl xmlns="https://github.com/avaloniaui"
+<UserControl x:Class="SukiTest.DashboardPage"
+             xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:material="using:Material.Icons.Avalonia"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
-             xmlns:theme="clr-namespace:SukiUI.Theme;assembly=SukiUI"
-             xmlns:material="using:Material.Icons.Avalonia"
              xmlns:sukiUi="clr-namespace:SukiUI;assembly=SukiUI"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="SukiTest.DashboardPage">
+             xmlns:theme="clr-namespace:SukiUI.Theme;assembly=SukiUI"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
     <ScrollViewer VerticalScrollBarVisibility="Hidden">
         <Grid Margin="15">
             <WrapPanel Orientation="Horizontal">
                 <Grid Margin="15">
-                    <suki:GlassCard Margin="0,0,0,25" Width="300">
-                        <suki:BusyArea Name="BusySignIn"
-                                       BusyText="Signing In...">
+                    <suki:GlassCard Width="300" Margin="0,0,0,25">
+                        <suki:BusyArea Name="BusySignIn" BusyText="Signing In...">
                             <StackPanel>
-                                <material:MaterialIcon
-                                    Foreground="{DynamicResource SukiPrimaryColor}"
-                                    Height="30"
-                                    HorizontalAlignment="Center"
-                                    Kind="MicrosoftEdge"
-                                    Margin="10"
-                                    Width="30" />
+                                <material:MaterialIcon Width="30"
+                                                       Height="30"
+                                                       Margin="10"
+                                                       HorizontalAlignment="Center"
+                                                       Foreground="{DynamicResource SukiPrimaryColor}"
+                                                       Kind="MicrosoftEdge" />
 
-                                <TextBlock
-                                    FontSize="18"
-                                    FontWeight="DemiBold"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,5,0,27"
-                                    Text="Sign-in to your account" />
+                                <TextBlock Margin="0,5,0,27"
+                                           HorizontalAlignment="Center"
+                                           FontSize="18"
+                                           FontWeight="DemiBold"
+                                           Text="Sign-in to your account" />
 
-                                <TextBlock
-                                    FontWeight="DemiBold"
-                                    Margin="6,0,0,3"
-                                    Text="Username" />
-                                <TextBox Watermark="Username"
-                                         theme:TextBoxExtensions.Prefix="" />
+                                <TextBlock Margin="6,0,0,3"
+                                           FontWeight="DemiBold"
+                                           Text="Username" />
+                                <TextBox theme:TextBoxExtensions.Prefix="" Watermark="Username" />
 
-                                <TextBlock
-                                    FontWeight="DemiBold"
-                                    Margin="6,18,0,3"
-                                    Text="Password" />
-                                <TextBox
-                                    Margin="0,0,0,25"
-                                    Name="PasswordTextBox"
-                                    PasswordChar="*"
-                                    theme:TextBoxExtensions.AddDeleteButton="False" />
+                                <TextBlock Margin="6,18,0,3"
+                                           FontWeight="DemiBold"
+                                           Text="Password" />
+                                <TextBox Name="PasswordTextBox"
+                                         Margin="0,0,0,25"
+                                         theme:TextBoxExtensions.AddDeleteButton="False"
+                                         PasswordChar="*" />
                             </StackPanel>
                         </suki:BusyArea>
                     </suki:GlassCard>
-                    <Button Classes="Flat Rounded"
-                            Click="SetBusy"
+                    <Button Name="ButtonSignIn"
+                            Width="160"
+                            Height="40"
+                            Margin="0,0,0,7"
                             HorizontalAlignment="Center"
-                            Name="ButtonSignIn"
-                            VerticalAlignment="Bottom" Margin="0,0,0,7"
-                            Width="160" Height="40"
-
+                            VerticalAlignment="Bottom"
+                            Classes="Flat Rounded"
+                            Click="SetBusy"
                             FontWeight="DemiBold">
                         Sign In
                     </Button>
                 </Grid>
 
                 <StackPanel>
-                    <suki:GlassCard
-                        Height="80"
-                        Margin="15"
-                        Width="300">
+                    <suki:GlassCard Width="300"
+                                    Height="80"
+                                    Margin="15">
                         <Grid>
-                            <StackPanel HorizontalAlignment="Left"
-                                        VerticalAlignment="Top">
+                            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
                                 <TextBlock FontSize="16"
                                            FontWeight="DemiBold"
                                            Text="Uploading File .." />
-                                <TextBlock FontSize="12"
+                                <TextBlock Margin="2,4,0,0"
+                                           FontSize="12"
                                            Foreground="{DynamicResource SukiLowText}"
-                                           Margin="2,4,0,0"
                                            Text="Presentation.pdf" />
                             </StackPanel>
-                            <suki:CircleProgressBar Height="37"
-                                                    HorizontalAlignment="Right"
+                            <suki:CircleProgressBar Width="37"
+                                                    Height="37"
                                                     Margin="-55,-65,-10,-65"
-                                                    StrokeWidth="4"
-                                                    Value="67"
+                                                    HorizontalAlignment="Right"
                                                     VerticalAlignment="Center"
-                                                    Width="37">
-                                <TextBlock FontSize="13"
-                                           FontWeight="DemiBold"
+                                                    StrokeWidth="4"
+                                                    Value="67">
+                                <TextBlock Margin="1,1,0,0"
                                            HorizontalAlignment="Center"
-                                           Margin="1,1,0,0"
-                                           Text="67"
-                                           VerticalAlignment="Center" />
+                                           VerticalAlignment="Center"
+                                           FontSize="13"
+                                           FontWeight="DemiBold"
+                                           Text="67" />
                             </suki:CircleProgressBar>
                         </Grid>
                     </suki:GlassCard>
 
-                    <suki:GlassCard Classes="Card"
+                    <suki:GlassCard Width="300"
                                     Margin="15"
-                                    Width="300">
+                                    Classes="Card">
                         <StackPanel>
-                            <TextBlock
-                                FontSize="16"
-                                FontWeight="DemiBold"
-                                HorizontalAlignment="Left"
-                                Text="Daily Progress" />
+                            <TextBlock HorizontalAlignment="Left"
+                                       FontSize="16"
+                                       FontWeight="DemiBold"
+                                       Text="Daily Progress" />
                             <Grid Margin="0,18,0,0">
-                                <TextBlock
-                                    FontSize="12"
-                                    FontWeight="DemiBold"
-                                    Foreground="{DynamicResource SukiLowText}"
-                                    HorizontalAlignment="Left"
-                                    Text="Project Workforce" />
-                                <StackPanel HorizontalAlignment="Right"
-                                            Orientation="Horizontal">
-                                    <TextBlock
-                                        FontSize="13"
-                                        Foreground="Green"
-                                        Text="32.21%" />
-                                    <material:MaterialIcon
-                                        Foreground="Green"
-                                        Kind="ArrowUp"
-                                        Margin="5,0,0,0" />
+                                <TextBlock HorizontalAlignment="Left"
+                                           FontSize="12"
+                                           FontWeight="DemiBold"
+                                           Foreground="{DynamicResource SukiLowText}"
+                                           Text="Project Workforce" />
+                                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                    <TextBlock FontSize="13"
+                                               Foreground="Green"
+                                               Text="32.21%" />
+                                    <material:MaterialIcon Margin="5,0,0,0"
+                                                           Foreground="Green"
+                                                           Kind="ArrowUp" />
                                 </StackPanel>
                             </Grid>
                             <ProgressBar Margin="0,1,0,0" Value="16" />
                             <Grid Margin="0,13,0,0">
-                                <TextBlock
-                                    FontSize="12"
-                                    FontWeight="DemiBold"
-                                    Foreground="{DynamicResource SukiLowText}"
-                                    HorizontalAlignment="Left"
-                                    Text="Project Velocity" />
-                                <StackPanel HorizontalAlignment="Right"
-                                            Orientation="Horizontal">
-                                    <TextBlock
-                                        FontSize="13"
-                                        Foreground="Red"
-                                        Text="7.18%" />
-                                    <material:MaterialIcon
-                                        Foreground="Red"
-                                        Kind="ArrowDown"
-                                        Margin="5,0,0,0" />
+                                <TextBlock HorizontalAlignment="Left"
+                                           FontSize="12"
+                                           FontWeight="DemiBold"
+                                           Foreground="{DynamicResource SukiLowText}"
+                                           Text="Project Velocity" />
+                                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                    <TextBlock FontSize="13"
+                                               Foreground="Red"
+                                               Text="7.18%" />
+                                    <material:MaterialIcon Margin="5,0,0,0"
+                                                           Foreground="Red"
+                                                           Kind="ArrowDown" />
                                 </StackPanel>
                             </Grid>
                             <ProgressBar Margin="0,1,0,0" Value="62" />
 
                             <Grid Margin="0,13,0,0">
-                                <TextBlock
-                                    FontSize="12"
-                                    FontWeight="DemiBold"
-                                    Foreground="{DynamicResource SukiLowText}"
-                                    HorizontalAlignment="Left"
-                                    Text="Critical Hours" />
-                                <StackPanel HorizontalAlignment="Right"
-                                            Orientation="Horizontal">
-                                    <TextBlock
-                                        FontSize="13"
-                                        Foreground="Green"
-                                        Text="16.89%" />
-                                    <material:MaterialIcon
-                                        Foreground="Green"
-                                        Kind="ArrowUp"
-                                        Margin="5,0,0,0" />
+                                <TextBlock HorizontalAlignment="Left"
+                                           FontSize="12"
+                                           FontWeight="DemiBold"
+                                           Foreground="{DynamicResource SukiLowText}"
+                                           Text="Critical Hours" />
+                                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                    <TextBlock FontSize="13"
+                                               Foreground="Green"
+                                               Text="16.89%" />
+                                    <material:MaterialIcon Margin="5,0,0,0"
+                                                           Foreground="Green"
+                                                           Kind="ArrowUp" />
                                 </StackPanel>
                             </Grid>
                             <ProgressBar Margin="0,1,0,0" Value="34" />
@@ -172,207 +153,179 @@
                 </StackPanel>
 
 
-                <suki:GlassCard
-                    Height="320"
-                    Margin="15"
-                    VerticalAlignment="Top"
-                    Width="300">
+                <suki:GlassCard Width="300"
+                                Height="320"
+                                Margin="15"
+                                VerticalAlignment="Top">
                     <Grid>
 
-                        <TextBlock
-                            FontSize="16"
-                            FontWeight="DemiBold"
-                            Text="Humidity" />
-                        <Viewbox
-                            Height="175"
-                            HorizontalAlignment="Center"
-                            Margin="0,0,0,5"
-                            VerticalAlignment="Center"
-                            Width="175">
-                            <suki:WaveProgress
-                                Value="{Binding Value, ElementName=SliderT}" />
+                        <TextBlock FontSize="16"
+                                   FontWeight="DemiBold"
+                                   Text="Humidity" />
+                        <Viewbox Width="175"
+                                 Height="175"
+                                 Margin="0,0,0,5"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center">
+                            <suki:WaveProgress Value="{Binding Value, ElementName=SliderT}" />
                         </Viewbox>
 
                         <DockPanel VerticalAlignment="Bottom">
-                            <material:MaterialIcon
-                                DockPanel.Dock="Left"
-                                Foreground="#666666"
-                                Height="20"
-                                Kind="TemperatureLow"
-                                Width="20" />
-                            <material:MaterialIcon
-                                DockPanel.Dock="Right"
-                                Foreground="#666666"
-                                Height="20"
-                                Kind="TemperatureHigh"
-                                Width="20" />
-                            <Slider
-                                Margin="8,0"
-                                Maximum="100"
-                                Minimum="0"
-                                Name="SliderT"
-                                Value="23" />
+                            <material:MaterialIcon Width="20"
+                                                   Height="20"
+                                                   DockPanel.Dock="Left"
+                                                   Foreground="#666666"
+                                                   Kind="TemperatureLow" />
+                            <material:MaterialIcon Width="20"
+                                                   Height="20"
+                                                   DockPanel.Dock="Right"
+                                                   Foreground="#666666"
+                                                   Kind="TemperatureHigh" />
+                            <Slider Name="SliderT"
+                                    Margin="8,0"
+                                    Maximum="100"
+                                    Minimum="0"
+                                    Value="23" />
                         </DockPanel>
 
                     </Grid>
                 </suki:GlassCard>
 
-                <suki:GlassCard
-                    Margin="15"
-                    VerticalAlignment="Top"
-                    Width="500">
+                <suki:GlassCard Width="500"
+                                Margin="15"
+                                VerticalAlignment="Top">
                     <Grid>
                         <StackPanel>
 
                             <StackPanel>
-                                <TextBlock
-                                    FontWeight="DemiBold"
-                                    HorizontalAlignment="Left"
-                                    Text="Notify me when .."
-                                    VerticalAlignment="Top" />
+                                <TextBlock HorizontalAlignment="Left"
+                                           VerticalAlignment="Top"
+                                           FontWeight="DemiBold"
+                                           Text="Notify me when .." />
                                 <StackPanel Margin="0,8,0,0">
-                                    <StackPanel Margin="0,5,0,0"
-                                                Orientation="Horizontal">
+                                    <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
                                         <CheckBox IsChecked="True" />
-                                        <TextBlock
-                                            FontSize="13"
-                                            Foreground="{DynamicResource SukiLowText}"
-                                            Margin="8,0,0,0"
-                                            Text="Daily updates"
-                                            VerticalAlignment="Center" />
+                                        <TextBlock Margin="8,0,0,0"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="13"
+                                                   Foreground="{DynamicResource SukiLowText}"
+                                                   Text="Daily updates" />
                                     </StackPanel>
-                                    <StackPanel Margin="0,5,0,0"
-                                                Orientation="Horizontal">
+                                    <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
                                         <CheckBox IsChecked="True" />
-                                        <TextBlock
-                                            FontSize="13"
-                                            Foreground="{DynamicResource SukiLowText}"
-                                            Margin="8,0,0,0"
-                                            Text="New event"
-                                            VerticalAlignment="Center" />
+                                        <TextBlock Margin="8,0,0,0"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="13"
+                                                   Foreground="{DynamicResource SukiLowText}"
+                                                   Text="New event" />
                                     </StackPanel>
-                                    <StackPanel Margin="0,5,0,0"
-                                                Orientation="Horizontal">
+                                    <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
                                         <CheckBox IsChecked="False" />
-                                        <TextBlock
-                                            FontSize="13"
-                                            Foreground="{DynamicResource SukiLowText}"
-                                            Margin="8,0,0,0"
-                                            Text="When added on new team"
-                                            VerticalAlignment="Center" />
+                                        <TextBlock Margin="8,0,0,0"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="13"
+                                                   Foreground="{DynamicResource SukiLowText}"
+                                                   Text="When added on new team" />
                                     </StackPanel>
                                 </StackPanel>
                             </StackPanel>
                             <Grid Margin="0,30,0,0">
-                                <ToggleButton
-                                    Classes="Switch"
-                                    HorizontalAlignment="Right"
-                                    IsChecked="True"
-                                    VerticalAlignment="Center" />
-                                <TextBlock
-                                    FontWeight="DemiBold"
-                                    HorizontalAlignment="Left"
-                                    Text="Mobile Notifications"
-                                    VerticalAlignment="Top" />
+                                <ToggleButton HorizontalAlignment="Right"
+                                              VerticalAlignment="Center"
+                                              Classes="Switch"
+                                              IsChecked="True" />
+                                <TextBlock HorizontalAlignment="Left"
+                                           VerticalAlignment="Top"
+                                           FontWeight="DemiBold"
+                                           Text="Mobile Notifications" />
 
-                                <TextBlock
-                                    FontSize="13"
-                                    Foreground="{DynamicResource SukiLowText}"
-                                    HorizontalAlignment="Left"
-                                    Margin="0,22,0,0"
-                                    Text="Receive push notifications on your mobile phone."
-                                    TextWrapping="Wrap"
-                                    VerticalAlignment="Bottom"
-                                    Width="300" />
+                                <TextBlock Width="300"
+                                           Margin="0,22,0,0"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Bottom"
+                                           FontSize="13"
+                                           Foreground="{DynamicResource SukiLowText}"
+                                           Text="Receive push notifications on your mobile phone."
+                                           TextWrapping="Wrap" />
                             </Grid>
                             <Grid Margin="0,30,0,0">
-                                <ToggleButton
-                                    Classes="Switch"
-                                    HorizontalAlignment="Right"
-                                    IsChecked="False"
-                                    VerticalAlignment="Center" />
-                                <TextBlock
-                                    FontWeight="DemiBold"
-                                    HorizontalAlignment="Left"
-                                    Text="Desktop Notifications"
-                                    VerticalAlignment="Top" />
+                                <ToggleButton HorizontalAlignment="Right"
+                                              VerticalAlignment="Center"
+                                              Classes="Switch"
+                                              IsChecked="False" />
+                                <TextBlock HorizontalAlignment="Left"
+                                           VerticalAlignment="Top"
+                                           FontWeight="DemiBold"
+                                           Text="Desktop Notifications" />
 
-                                <TextBlock
-                                    FontSize="13"
-                                    Foreground="{DynamicResource SukiLowText}"
-                                    HorizontalAlignment="Left"
-                                    Margin="0,22,0,0"
-                                    Text="Receive push notifications on your computer."
-                                    TextWrapping="Wrap"
-                                    VerticalAlignment="Bottom"
-                                    Width="300" />
+                                <TextBlock Width="300"
+                                           Margin="0,22,0,0"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Bottom"
+                                           FontSize="13"
+                                           Foreground="{DynamicResource SukiLowText}"
+                                           Text="Receive push notifications on your computer."
+                                           TextWrapping="Wrap" />
                             </Grid>
                             <StackPanel Margin="0,30,0,0">
 
-                                <TextBlock
-                                    FontWeight="DemiBold"
-                                    HorizontalAlignment="Left"
-                                    Text="Language"
-                                    VerticalAlignment="Top" />
+                                <TextBlock HorizontalAlignment="Left"
+                                           VerticalAlignment="Top"
+                                           FontWeight="DemiBold"
+                                           Text="Language" />
 
                                 <RadioButton Margin="0,13,0,0">
-                                    <TextBlock
-                                        FontSize="13"
-                                        Foreground="{DynamicResource SukiLowText}"
-                                        Margin="8,0,0,0"
-                                        Text="English"
-                                        VerticalAlignment="Center" />
+                                    <TextBlock Margin="8,0,0,0"
+                                               VerticalAlignment="Center"
+                                               FontSize="13"
+                                               Foreground="{DynamicResource SukiLowText}"
+                                               Text="English" />
                                 </RadioButton>
-                                <RadioButton IsChecked="True" Margin="0,5,0,0">
-                                    <TextBlock
-                                        FontSize="13"
-                                        Foreground="{DynamicResource SukiLowText}"
-                                        Margin="8,0,0,0"
-                                        Text="Chinese"
-                                        VerticalAlignment="Center" />
+                                <RadioButton Margin="0,5,0,0" IsChecked="True">
+                                    <TextBlock Margin="8,0,0,0"
+                                               VerticalAlignment="Center"
+                                               FontSize="13"
+                                               Foreground="{DynamicResource SukiLowText}"
+                                               Text="Chinese" />
                                 </RadioButton>
                                 <RadioButton Margin="0,5,0,0">
-                                    <TextBlock
-                                        FontSize="13"
-                                        Foreground="{DynamicResource SukiLowText}"
-                                        Margin="8,0,0,0"
-                                        Text="Japanese"
-                                        VerticalAlignment="Center" />
+                                    <TextBlock Margin="8,0,0,0"
+                                               VerticalAlignment="Center"
+                                               FontSize="13"
+                                               Foreground="{DynamicResource SukiLowText}"
+                                               Text="Japanese" />
                                 </RadioButton>
 
 
                             </StackPanel>
                         </StackPanel>
-                        <Button
-                            Classes="Basic"
-                            Click="ShowDialog"
-                            HorizontalAlignment="Right"
-                            Margin="0"
-                            VerticalAlignment="Top"
-                            Content="Create Link" />
+                        <Button Margin="0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Classes="Basic"
+                                Click="ShowDialog"
+                                Content="Create Link" />
                     </Grid>
                 </suki:GlassCard>
 
                 <StackPanel>
-                    <suki:GlassCard
-                        Height="281"
-                        Margin="15"
-                        Width="430">
+                    <suki:GlassCard Width="430"
+                                    Height="281"
+                                    Margin="15">
                         <TabControl>
                             <TabItem>
                                 <TabItem.Header>
                                     <TextBlock FontSize="16" Text="Invoices" />
                                 </TabItem.Header>
                                 <Grid>
-                    
-                    
-                                    <DataGrid
-                                        AutoGenerateColumns="True"
-                                        IsReadOnly="True"
-                                        Margin="15,10,15,0"
-                                        Name="myDG"
-                                        VerticalAlignment="Top" />
-                    
+
+
+                                    <DataGrid Name="myDG"
+                                              Margin="15,10,15,0"
+                                              VerticalAlignment="Top"
+                                              AutoGenerateColumns="True"
+                                              IsReadOnly="True" />
+
                                 </Grid>
                             </TabItem>
                             <TabItem>
@@ -387,130 +340,111 @@
                                                 <TextBlock Text="Test Lock" />
                                             </StackPanel>
                                         </Expander.Header>
-                    
-                                        <TextBlock
-                                            FontSize="13"
-                                            Margin="15,15"
-                                            TextWrapping="Wrap">
+
+                                        <TextBlock Margin="15,15"
+                                                   FontSize="13"
+                                                   TextWrapping="Wrap">
                                             We understand that things change. You can cancel your plan at any time and we'll refund you.
                                         </TextBlock>
                                     </Expander>
-                    
+
                                     <Expander Header="Can I change my plan later ?">
                                         <TextBlock Margin="20,5">Answer</TextBlock>
                                     </Expander>
-                    
-                                    <Expander
-                                        Header="How do I change my account email ?">
+
+                                    <Expander Header="How do I change my account email ?">
                                         <TextBlock Margin="20,5">Answer</TextBlock>
                                     </Expander>
-                    
+
                                 </StackPanel>
                             </TabItem>
-                    
+
                         </TabControl>
                     </suki:GlassCard>
-                    <suki:GlassCard
-                        Height="85"
-                        Margin="15"
-                        Width="430">
+                    <suki:GlassCard Width="430"
+                                    Height="85"
+                                    Margin="15">
 
-                        <suki:Stepper Margin="0,5,-4,0" Name="stepS" />
+                        <suki:Stepper Name="stepS" Margin="0,5,-4,0" />
                     </suki:GlassCard>
 
 
                 </StackPanel>
-                <suki:GlassCard
-                    Height="270"
-                    Margin="15"
-                    Width="961">
+                <suki:GlassCard Width="961"
+                                Height="270"
+                                Margin="15">
                     <suki:GroupBox>
                         <suki:GroupBox.Header>
                             <StackPanel Orientation="Horizontal">
-                                <material:MaterialIcon
-                                    Foreground="{DynamicResource SukiLowText}"
-                                    Kind="Dollar" />
+                                <material:MaterialIcon Foreground="{DynamicResource SukiLowText}" Kind="Dollar" />
                                 <TextBlock Margin="5,0,0,0" Text="Change Plan" />
                             </StackPanel>
                         </suki:GroupBox.Header>
-                        <WrapPanel
-                            HorizontalAlignment="Center"
-                            Margin="0,25,0,0"
-                            VerticalAlignment="Center">
-                            <RadioButton
-                                Classes="GigaChips"
-                                Height="138"
-                                IsChecked="True"
-                                Margin="8"
-                                Width="210">
-                                <StackPanel HorizontalAlignment="Left" Margin="7">
-                                    <TextBlock
-                                        FontSize="12"
-                                        FontWeight="DemiBold"
-                                        Foreground="{DynamicResource SukiLowText}"
-                                        Margin="5,8,5,4"
-                                        Text="HOBBY" />
-                                    <TextBlock
-                                        FontSize="23"
-                                        FontWeight="DemiBold"
-                                        Margin="5,8"
-                                        Text="1 Gb" />
-                                    <TextBlock
-                                        FontSize="15"
-                                        Foreground="{DynamicResource SukiLowText}"
-                                        Margin="5,3"
-                                        Text="Plan for a moderate use as hobby."
-                                        TextWrapping="Wrap" />
+                        <WrapPanel Margin="0,25,0,0"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center">
+                            <RadioButton Width="210"
+                                         Height="138"
+                                         Margin="8"
+                                         Classes="GigaChips"
+                                         IsChecked="True">
+                                <StackPanel Margin="7" HorizontalAlignment="Left">
+                                    <TextBlock Margin="5,8,5,4"
+                                               FontSize="12"
+                                               FontWeight="DemiBold"
+                                               Foreground="{DynamicResource SukiLowText}"
+                                               Text="HOBBY" />
+                                    <TextBlock Margin="5,8"
+                                               FontSize="23"
+                                               FontWeight="DemiBold"
+                                               Text="1 Gb" />
+                                    <TextBlock Margin="5,3"
+                                               FontSize="15"
+                                               Foreground="{DynamicResource SukiLowText}"
+                                               Text="Plan for a moderate use as hobby."
+                                               TextWrapping="Wrap" />
                                 </StackPanel>
                             </RadioButton>
-                            <RadioButton
-                                Classes="GigaChips"
-                                Height="138"
-                                Margin="8"
-                                Width="210">
-                                <StackPanel HorizontalAlignment="Left" Margin="7">
-                                    <TextBlock
-                                        FontSize="12"
-                                        FontWeight="DemiBold"
-                                        Foreground="{DynamicResource SukiLowText}"
-                                        Margin="5,8,5,4"
-                                        Text="PROFESSIONAL" />
-                                    <TextBlock
-                                        FontSize="23"
-                                        FontWeight="DemiBold"
-                                        Margin="5,8"
-                                        Text="5 Gb" />
-                                    <TextBlock
-                                        FontSize="15"
-                                        Foreground="{DynamicResource SukiLowText}"
-                                        Margin="5,3"
-                                        Text="Plan for a professional use in an application."
-                                        TextWrapping="Wrap" />
+                            <RadioButton Width="210"
+                                         Height="138"
+                                         Margin="8"
+                                         Classes="GigaChips">
+                                <StackPanel Margin="7" HorizontalAlignment="Left">
+                                    <TextBlock Margin="5,8,5,4"
+                                               FontSize="12"
+                                               FontWeight="DemiBold"
+                                               Foreground="{DynamicResource SukiLowText}"
+                                               Text="PROFESSIONAL" />
+                                    <TextBlock Margin="5,8"
+                                               FontSize="23"
+                                               FontWeight="DemiBold"
+                                               Text="5 Gb" />
+                                    <TextBlock Margin="5,3"
+                                               FontSize="15"
+                                               Foreground="{DynamicResource SukiLowText}"
+                                               Text="Plan for a professional use in an application."
+                                               TextWrapping="Wrap" />
                                 </StackPanel>
                             </RadioButton>
-                            <RadioButton
-                                Classes="GigaChips"
-                                Height="138"
-                                Margin="8"
-                                Width="210">
-                                <StackPanel HorizontalAlignment="Left" Margin="7">
-                                    <TextBlock
-                                        FontSize="12"
-                                        FontWeight="DemiBold"
-                                        Foreground="{DynamicResource SukiLowText}"
-                                        Margin="5,8,5,4"
-                                        Text="COMPANY" />
-                                    <TextBlock
-                                        FontSize="23"
-                                        FontWeight="DemiBold"
-                                        Margin="5,8"
-                                        Text="50 Gb" />
-                                    <TextBlock
-                                        FontSize="15"
-                                        Foreground="{DynamicResource SukiLowText}"
-                                        Margin="5,3"
-                                        Text="Plan for a industrial use in a company."
-                                        TextWrapping="Wrap" />
+                            <RadioButton Width="210"
+                                         Height="138"
+                                         Margin="8"
+                                         Classes="GigaChips">
+                                <StackPanel Margin="7" HorizontalAlignment="Left">
+                                    <TextBlock Margin="5,8,5,4"
+                                               FontSize="12"
+                                               FontWeight="DemiBold"
+                                               Foreground="{DynamicResource SukiLowText}"
+                                               Text="COMPANY" />
+                                    <TextBlock Margin="5,8"
+                                               FontSize="23"
+                                               FontWeight="DemiBold"
+                                               Text="50 Gb" />
+                                    <TextBlock Margin="5,3"
+                                               FontSize="15"
+                                               Foreground="{DynamicResource SukiLowText}"
+                                               Text="Plan for a industrial use in a company."
+                                               TextWrapping="Wrap" />
                                 </StackPanel>
                             </RadioButton>
                         </WrapPanel>

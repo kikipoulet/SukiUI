@@ -16,8 +16,9 @@ namespace SukiUI.Controls
         {
             AvaloniaXamlLoader.Load(this);
         }
-        
+
         private int _value = 50;
+
         public int Value
         {
             get => _value;
@@ -37,8 +38,6 @@ namespace SukiUI.Controls
                 (o, v) => o.Value = v,
                 defaultBindingMode: BindingMode.OneWay,
                 enableDataValidation: true);
-
- 
 
         public static readonly StyledProperty<int> HeightProperty =
         AvaloniaProperty.Register<CircleProgressBar, int>(nameof(Height), defaultValue: 150);
@@ -66,8 +65,5 @@ namespace SukiUI.Controls
             get { return GetValue(StrokeWidthProperty); }
             set { SetValue(StrokeWidthProperty, value); }
         }
-
-        
-        
     }
 }

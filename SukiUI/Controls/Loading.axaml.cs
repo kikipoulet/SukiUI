@@ -8,7 +8,6 @@ namespace SukiUI.Controls
         public Loading()
         {
             InitializeComponent();
-           
         }
 
         private void InitializeComponent()

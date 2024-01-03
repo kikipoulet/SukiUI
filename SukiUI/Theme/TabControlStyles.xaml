@@ -1,38 +1,35 @@
-<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
-        <Border Height="400" Width="400">
+        <Border Width="400" Height="400">
             <Grid>
                 <TabControl Margin="0,0,0,200">
                     <TabItem Header="Arch">
-                        <Border Background="AntiqueWhite" Height="100">
-                            <TextBlock
-                                FontSize="20"
-                                Foreground="Black"
-                                Text="Content" />
+                        <Border Height="100" Background="AntiqueWhite">
+                            <TextBlock FontSize="20"
+                                       Foreground="Black"
+                                       Text="Content" />
                         </Border>
                     </TabItem>
                     <TabItem Header="Leaf">
-                        <Border Background="Green" Height="100" />
+                        <Border Height="100" Background="Green" />
                     </TabItem>
                     <TabItem Header="Disabled" IsEnabled="False" />
                 </TabControl>
 
-                <TabControl Classes="FlatTabControl" Margin="0,250,0,0">
+                <TabControl Margin="0,250,0,0" Classes="FlatTabControl">
                     <TabItem Classes="FlatTabItem" Header="Arch">
-                        <Border Background="AntiqueWhite" Height="100">
-                            <TextBlock
-                                FontSize="20"
-                                Foreground="Black"
-                                Text="Content" />
+                        <Border Height="100" Background="AntiqueWhite">
+                            <TextBlock FontSize="20"
+                                       Foreground="Black"
+                                       Text="Content" />
                         </Border>
                     </TabItem>
                     <TabItem Classes="FlatTabItem" Header="Leaf">
-                        <Border Background="Green" Height="100" />
+                        <Border Height="100" Background="Green" />
                     </TabItem>
-                    <TabItem
-                        Classes="FlatTabItem"
-                        Header="Disabled"
-                        IsEnabled="False" />
+                    <TabItem Classes="FlatTabItem"
+                             Header="Disabled"
+                             IsEnabled="False" />
                 </TabControl>
             </Grid>
         </Border>
@@ -48,26 +45,23 @@
         <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Border
-                    Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}"
-                    CornerRadius="{TemplateBinding CornerRadius}"
-                    HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                    VerticalAlignment="{TemplateBinding VerticalAlignment}">
+                <Border HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
                     <DockPanel>
-                        <ItemsPresenter
-                            DockPanel.Dock="{TemplateBinding TabStripPlacement}"
-                            ItemsPanel="{TemplateBinding ItemsPanel}"
-                            Margin="0,0,0,-2"
-                            Name="PART_ItemsPresenter" />
-                        <ContentPresenter
-                            Content="{TemplateBinding SelectedContent}"
-                            ContentTemplate="{TemplateBinding SelectedContentTemplate}"
-                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            Margin="{TemplateBinding Padding}"
-                            Name="PART_SelectedContentHost"
-                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        <ItemsPresenter Name="PART_ItemsPresenter"
+                                        Margin="0,0,0,-2"
+                                        DockPanel.Dock="{TemplateBinding TabStripPlacement}"
+                                        ItemsPanel="{TemplateBinding ItemsPanel}" />
+                        <ContentPresenter Name="PART_SelectedContentHost"
+                                          Margin="{TemplateBinding Padding}"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Content="{TemplateBinding SelectedContent}"
+                                          ContentTemplate="{TemplateBinding SelectedContentTemplate}" />
                     </DockPanel>
                 </Border>
             </ControlTemplate>
@@ -83,25 +77,22 @@
         <Setter Property="Background" Value="{DynamicResource TabControlBackground}" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Border
-                    Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}"
-                    CornerRadius="{TemplateBinding CornerRadius}"
-                    HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                    VerticalAlignment="{TemplateBinding VerticalAlignment}">
+                <Border HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
                     <DockPanel>
-                        <ItemsPresenter
-                            DockPanel.Dock="{TemplateBinding TabStripPlacement}"
-                            ItemsPanel="{TemplateBinding ItemsPanel}"
-                            Name="PART_ItemsPresenter" />
-                        <ContentPresenter
-                            Content="{TemplateBinding SelectedContent}"
-                            ContentTemplate="{TemplateBinding SelectedContentTemplate}"
-                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            Margin="{TemplateBinding Padding}"
-                            Name="PART_SelectedContentHost"
-                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        <ItemsPresenter Name="PART_ItemsPresenter"
+                                        DockPanel.Dock="{TemplateBinding TabStripPlacement}"
+                                        ItemsPanel="{TemplateBinding ItemsPanel}" />
+                        <ContentPresenter Name="PART_SelectedContentHost"
+                                          Margin="{TemplateBinding Padding}"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Content="{TemplateBinding SelectedContent}"
+                                          ContentTemplate="{TemplateBinding SelectedContentTemplate}" />
                     </DockPanel>
                 </Border>
             </ControlTemplate>
@@ -125,28 +116,26 @@
         <Setter Property="TabStripPlacement" Value="Bottom" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Border
-                    Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}"
-                    CornerRadius="{TemplateBinding CornerRadius}"
-                    HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                    VerticalAlignment="{TemplateBinding VerticalAlignment}">
+                <Border HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
                     <DockPanel>
-                        <ItemsPresenter DockPanel.Dock="{TemplateBinding TabStripPlacement}" Name="PART_ItemsPresenter">
+                        <ItemsPresenter Name="PART_ItemsPresenter" DockPanel.Dock="{TemplateBinding TabStripPlacement}">
                             <ItemsPresenter.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <UniformGrid Columns="{Binding Items}" Rows="1" />
                                 </ItemsPanelTemplate>
                             </ItemsPresenter.ItemsPanel>
                         </ItemsPresenter>
-                        <ContentPresenter
-                            Content="{TemplateBinding SelectedContent}"
-                            ContentTemplate="{TemplateBinding SelectedContentTemplate}"
-                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            Margin="{TemplateBinding Padding}"
-                            Name="PART_SelectedContentHost"
-                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        <ContentPresenter Name="PART_SelectedContentHost"
+                                          Margin="{TemplateBinding Padding}"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Content="{TemplateBinding SelectedContent}"
+                                          ContentTemplate="{TemplateBinding SelectedContentTemplate}" />
                     </DockPanel>
                 </Border>
             </ControlTemplate>

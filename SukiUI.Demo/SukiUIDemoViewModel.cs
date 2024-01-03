@@ -1,7 +1,3 @@
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.InteropServices;
 using Avalonia.Collections;
 using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -12,6 +8,10 @@ using SukiUI.Demo.Features;
 using SukiUI.Demo.Features.CustomTheme;
 using SukiUI.Demo.Services;
 using SukiUI.Models;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace SukiUI.Demo;
 
@@ -44,9 +44,9 @@ public partial class SukiUIDemoViewModel : ViewAwareObservableObject
             BaseTheme = variant;
             SukiHost.ShowToast("Successfully Changed Theme", $"Changed Theme To {variant}");
         };
-        _theme.OnColorThemeChanged += theme => 
+        _theme.OnColorThemeChanged += theme =>
             SukiHost.ShowToast("Successfully Changed Color", $"Changed Color To {theme.DisplayName}.");
-        _theme.OnBackgroundAnimationChanged += 
+        _theme.OnBackgroundAnimationChanged +=
             value => AnimationsEnabled = value;
     }
 

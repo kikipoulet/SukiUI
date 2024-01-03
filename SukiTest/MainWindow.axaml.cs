@@ -2,9 +2,8 @@ using Avalonia;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
-using DynamicData;
-using SukiUI.Controls;
 using SukiUI;
+using SukiUI.Controls;
 using SukiUI.Models;
 
 namespace SukiTest;
@@ -34,7 +33,7 @@ public partial class MainWindow : SukiWindow
         {
             SukiHost.ShowToast("Successfully Changed Color", $"Changed Color To {theme.DisplayName}.");
         };
-        
+
         _theme.AddColorTheme(new SukiColorTheme("Neon Pink", Colors.DeepPink, Colors.GreenYellow));
     }
 

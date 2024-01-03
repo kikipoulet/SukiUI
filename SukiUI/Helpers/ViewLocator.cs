@@ -1,7 +1,7 @@
-using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
+using System.Linq;
 
 namespace SukiUI.Helpers;
 
@@ -18,6 +18,6 @@ internal static class ViewLocator
     {
         if (data is string s) return new TextBlock() { Text = s };
         _locator ??= Application.Current?.DataTemplates.FirstOrDefault();
-        return _locator?.Build(data) ?? new TextBlock() { Text= $"Unable to find suitable view for {data?.GetType().Name}"};
+        return _locator?.Build(data) ?? new TextBlock() { Text = $"Unable to find suitable view for {data?.GetType().Name}" };
     }
 }

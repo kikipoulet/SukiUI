@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Reactive.Linq;
-using System.Runtime.InteropServices;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
@@ -9,13 +5,17 @@ using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Styling;
 using Avalonia.Threading;
+using System;
+using System.Collections.Generic;
+using System.Reactive.Linq;
+using System.Runtime.InteropServices;
 
 namespace SukiUI.Controls;
 
 public class SukiWindow : Window
 {
     protected override Type StyleKeyOverride => typeof(SukiWindow);
-    
+
     public static readonly StyledProperty<double> TitleFontSizeProperty =
         AvaloniaProperty.Register<SukiWindow, double>(nameof(TitleFontSize), defaultValue: 13);
 
@@ -34,7 +34,7 @@ public class SukiWindow : Window
         get => GetValue(TitleFontWeightProperty);
         set => SetValue(TitleFontWeightProperty, value);
     }
-    
+
     public static readonly StyledProperty<Control> LogoContentProperty =
         AvaloniaProperty.Register<SukiWindow, Control>(nameof(LogoContent),
             defaultValue: new Border());
@@ -73,7 +73,7 @@ public class SukiWindow : Window
         get => GetValue(IsMaximizeButtonEnabledProperty);
         set => SetValue(IsMaximizeButtonEnabledProperty, value);
     }
-    
+
     public static readonly StyledProperty<bool> IsMenuVisibleProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(IsMenuVisible), defaultValue: false);
 
@@ -93,7 +93,7 @@ public class SukiWindow : Window
         set => SetValue(MenuItemsProperty, value);
     }
 
-    public static readonly StyledProperty<bool> BackgroundAnimationEnabledProperty = 
+    public static readonly StyledProperty<bool> BackgroundAnimationEnabledProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(BackgroundAnimationEnabled), defaultValue: false);
 
     public bool BackgroundAnimationEnabled
@@ -101,11 +101,11 @@ public class SukiWindow : Window
         get => GetValue(BackgroundAnimationEnabledProperty);
         set => SetValue(BackgroundAnimationEnabledProperty, value);
     }
-    
+
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
-        
+
         // Apply a style only on windows to offset oversizing.
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
@@ -117,17 +117,17 @@ public class SukiWindow : Window
             maxStyle.Setters.Add(new Setter(PaddingProperty, new Thickness(8)));
             Application.Current!.Styles.Add(maxStyle);
         }
-        
+
         // Create handlers for buttons
         if (e.NameScope.Find<Button>("PART_MaximizeButton") is { } maximize)
             maximize.Click += (_, _) =>
                 WindowState = WindowState == WindowState.Maximized
                     ? WindowState.Normal
                     : WindowState.Maximized;
-        
+
         if (e.NameScope.Find<Button>("PART_MinimizeButton") is { } minimize)
             minimize.Click += (_, _) => WindowState = WindowState.Minimized;
-        
+
         if (e.NameScope.Find<Button>("PART_CloseButton") is { } close)
             close.Click += (_, _) => Close();
 
@@ -143,7 +143,7 @@ public class SukiWindow : Window
                 .Subscribe();
         }
     }
-    
+
     private void OnTitleBarPointerPressed(object? sender, PointerPressedEventArgs e)
     {
         base.OnPointerPressed(e);
