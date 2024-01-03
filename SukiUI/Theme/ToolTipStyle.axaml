@@ -1,5 +1,4 @@
-<ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ControlTheme x:Key="SukiToolTipTheme" TargetType="ToolTip">
         <Setter Property="Foreground" Value="{DynamicResource SukiTextBrush}" />
         <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
@@ -11,8 +10,9 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <Border  Background="{TemplateBinding Background}" CornerRadius="8"
-                            Margin="{TemplateBinding Margin}">
+                    <Border Margin="{TemplateBinding Margin}"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="8">
                         <ContentPresenter Name="ContentPresenter"
                                           Margin="{TemplateBinding Padding}"
                                           Content="{TemplateBinding ContentControl.Content}"
@@ -22,7 +22,7 @@
             </Setter.Value>
         </Setter>
     </ControlTheme>
-    <ControlTheme x:Key="{x:Type ToolTip}" 
-                  TargetType="ToolTip" 
-                  BasedOn="{StaticResource SukiToolTipTheme}"/>
+    <ControlTheme x:Key="{x:Type ToolTip}"
+                  BasedOn="{StaticResource SukiToolTipTheme}"
+                  TargetType="ToolTip" />
 </ResourceDictionary>

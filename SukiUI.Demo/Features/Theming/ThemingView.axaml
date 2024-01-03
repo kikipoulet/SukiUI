@@ -1,17 +1,16 @@
-﻿<UserControl
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    mc:Ignorable="d"
-    x:Class="SukiUI.Demo.Features.Theming.ThemingView"
-    x:DataType="theming:ThemingViewModel"
-    xmlns="https://github.com/avaloniaui"
-    xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:models="clr-namespace:SukiUI.Models;assembly=SukiUI"
-    xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
-    xmlns:theming="clr-namespace:SukiUI.Demo.Features.Theming"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<UserControl x:Class="SukiUI.Demo.Features.Theming.ThemingView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:SukiUI.Models;assembly=SukiUI"
+             xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
+             xmlns:theming="clr-namespace:SukiUI.Demo.Features.Theming"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             x:DataType="theming:ThemingViewModel"
+             mc:Ignorable="d">
     <controls:StackPage Margin="20" Header="Theming">
         <controls:StackPage.Content>
 
@@ -20,42 +19,41 @@
                     <objectModel:ObservableCollection x:TypeArguments="controls:SettingsLayoutItem">
                         <controls:SettingsLayoutItem Header="Base Theme">
                             <controls:SettingsLayoutItem.Content>
-                                <StackPanel
-                                    HorizontalAlignment="Center"
-                                    Orientation="Horizontal"
-                                    Spacing="20">
-                                    <RadioButton IsChecked="{Binding IsLightTheme}" Command="{Binding SwitchToLightTheme}" Classes="GigaChips" GroupName="RadioBaseTheme">
-                                        <Border
-                                            Background="#fafafa"
-                                            CornerRadius="{DynamicResource MediumCornerRadius}"
-                                            Height="160"
-                                            Width="180">
+                                <StackPanel HorizontalAlignment="Center"
+                                            Orientation="Horizontal"
+                                            Spacing="20">
+                                    <RadioButton Classes="GigaChips"
+                                                 GroupName="RadioBaseTheme"
+                                                 IsChecked="{Binding IsLightTheme}">
+                                        <Border Width="180"
+                                                Height="160"
+                                                Background="#fafafa"
+                                                CornerRadius="{DynamicResource MediumCornerRadius}">
                                             <Grid>
-                                                <TextBlock
-                                                    FontWeight="DemiBold"
-                                                    Foreground="#555555"
-                                                    HorizontalAlignment="Center"
-                                                    Margin="8"
-                                                    Text="Light Mode"
-                                                    VerticalAlignment="Bottom" />
+                                                <TextBlock Margin="8"
+                                                           HorizontalAlignment="Center"
+                                                           VerticalAlignment="Bottom"
+                                                           FontWeight="DemiBold"
+                                                           Foreground="#555555"
+                                                           Text="Light Mode" />
                                             </Grid>
                                         </Border>
                                     </RadioButton>
 
-                                    <RadioButton IsChecked="{Binding !IsLightTheme}" Command="{Binding SwitchToDarkTheme}" Classes="GigaChips" GroupName="RadioBaseTheme">
-                                        <Border
-                                            Background="#222222"
-                                            CornerRadius="{DynamicResource MediumCornerRadius}"
-                                            Height="160"
-                                            Width="180">
+                                    <RadioButton Classes="GigaChips"
+                                                 GroupName="RadioBaseTheme"
+                                                 IsChecked="{Binding !IsLightTheme}">
+                                        <Border Width="180"
+                                                Height="160"
+                                                Background="#222222"
+                                                CornerRadius="{DynamicResource MediumCornerRadius}">
                                             <Grid>
-                                                <TextBlock
-                                                    FontWeight="DemiBold"
-                                                    Foreground="#fafafa"
-                                                    HorizontalAlignment="Center"
-                                                    Margin="8"
-                                                    Text="Dark Mode"
-                                                    VerticalAlignment="Bottom" />
+                                                <TextBlock Margin="8"
+                                                           HorizontalAlignment="Center"
+                                                           VerticalAlignment="Bottom"
+                                                           FontWeight="DemiBold"
+                                                           Foreground="#fafafa"
+                                                           Text="Dark Mode" />
                                             </Grid>
                                         </Border>
                                     </RadioButton>
@@ -65,29 +63,26 @@
 
                         <controls:SettingsLayoutItem Header="Color Theme">
                             <controls:SettingsLayoutItem.Content>
-                                <ItemsControl HorizontalAlignment="Center" ItemsSource="{Binding AvailablesColors}">
+                                <ItemsControl HorizontalAlignment="Center" ItemsSource="{Binding AvailableColors}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
-                                            <StackPanel
-                                                HorizontalAlignment="Center"
-                                                Orientation="Horizontal"
-                                                Spacing="10" />
+                                            <StackPanel HorizontalAlignment="Center"
+                                                        Orientation="Horizontal"
+                                                        Spacing="10" />
                                         </ItemsPanelTemplate>
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate x:DataType="models:SukiColorTheme">
 
-                                            <RadioButton CommandParameter="{Binding }" 
-                                                         Command="{Binding ((theming:ThemingViewModel)DataContext).SwitchToColorTheme, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type theming:ThemingView}}}" 
-
-                                                Classes="GigaChips"
-                                                CornerRadius="50"
-                                                GroupName="RadioColorTheme">
-                                                <Border
-                                                    Background="{Binding PrimaryBrush}"
-                                                    CornerRadius="50"
-                                                    Height="50"
-                                                    Width="50" />
+                                            <RadioButton Classes="GigaChips"
+                                                         Command="{Binding ((theming:ThemingViewModel)DataContext).SwitchToColorThemeCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type theming:ThemingView}}}"
+                                                         CommandParameter="{Binding}"
+                                                         CornerRadius="50"
+                                                         GroupName="RadioColorTheme">
+                                                <Border Width="50"
+                                                        Height="50"
+                                                        Background="{Binding PrimaryBrush}"
+                                                        CornerRadius="50" />
                                             </RadioButton>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
@@ -99,20 +94,18 @@
                             <controls:SettingsLayoutItem.Content>
                                 <controls:GlassCard Margin="15">
                                     <DockPanel>
-                                        <ToggleButton Command="{Binding ChangeAnimated}" IsChecked="{Binding IsBackgroundAnimated}"
-                                            Classes="Switch"
-                                            DockPanel.Dock="Right"
-                                            VerticalAlignment="Top" />
+                                        <ToggleButton VerticalAlignment="Top"
+                                                      Classes="Switch"
+                                                      DockPanel.Dock="Right"
+                                                      IsChecked="{Binding IsBackgroundAnimated}" />
                                         <StackPanel HorizontalAlignment="Left">
-                                            <TextBlock
-                                                FontSize="16"
-                                                FontWeight="DemiBold"
-                                                Text="Animated Background" />
-                                            <TextBlock
-                                                Foreground="{DynamicResource SukiLowText}"
-                                                Margin="0,12,70,0"
-                                                Text="Enable a 'cloud' effect in the background. The background will be dynamic and the colors spaces will change over time."
-                                                TextWrapping="Wrap" />
+                                            <TextBlock FontSize="16"
+                                                       FontWeight="DemiBold"
+                                                       Text="Animated Background" />
+                                            <TextBlock Margin="0,12,70,0"
+                                                       Foreground="{DynamicResource SukiLowText}"
+                                                       Text="Enable a 'cloud' effect in the background. The background will be dynamic and the colors spaces will change over time."
+                                                       TextWrapping="Wrap" />
                                         </StackPanel>
                                     </DockPanel>
 

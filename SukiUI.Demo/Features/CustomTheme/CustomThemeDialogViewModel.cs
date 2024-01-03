@@ -1,5 +1,6 @@
 using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using SukiUI.Controls;
 using SukiUI.Models;
 
@@ -12,7 +13,7 @@ public partial class CustomThemeDialogViewModel : ObservableObject
     [ObservableProperty] private Color _accentColor;
 
     private readonly SukiTheme _theme;
-    
+
     public CustomThemeDialogViewModel(SukiTheme theme)
     {
         _theme = theme;
@@ -21,6 +22,7 @@ public partial class CustomThemeDialogViewModel : ObservableObject
         _accentColor = Colors.Pink;
     }
 
+    [RelayCommand]
     public void TryCreateTheme()
     {
         if (string.IsNullOrEmpty(DisplayName)) return;

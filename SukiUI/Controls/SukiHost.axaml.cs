@@ -1,19 +1,17 @@
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
 using Avalonia.Layout;
-using Avalonia.Rendering.Composition;
-using Avalonia.Rendering.Composition.Animations;
 using Avalonia.Threading;
 using SukiUI.Enums;
 using SukiUI.Helpers;
 using SukiUI.Models;
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SukiUI.Controls;
 
@@ -105,25 +103,25 @@ public class SukiHost : ContentControl
                 ? HorizontalAlignment.Left
                 : HorizontalAlignment.Right;
 
-      /*  CompositionVisual compositionVisual =
-            ElementComposition.GetElementVisual(e.NameScope.Get<ItemsControl>("PART_ToastPresenter"));
-        Compositor compositor = compositionVisual.Compositor;
+        /*  CompositionVisual compositionVisual =
+              ElementComposition.GetElementVisual(e.NameScope.Get<ItemsControl>("PART_ToastPresenter"));
+          Compositor compositor = compositionVisual.Compositor;
 
-        var animationGroup = compositor.CreateAnimationGroup();
-        Vector3KeyFrameAnimation offsetAnimation = compositor.CreateVector3KeyFrameAnimation();
-        offsetAnimation.Target = "Offset";
+          var animationGroup = compositor.CreateAnimationGroup();
+          Vector3KeyFrameAnimation offsetAnimation = compositor.CreateVector3KeyFrameAnimation();
+          offsetAnimation.Target = "Offset";
 
-        offsetAnimation.InsertExpressionKeyFrame(1.0f, "this.FinalValue");
-        offsetAnimation.Duration = TimeSpan.FromMilliseconds(300);
+          offsetAnimation.InsertExpressionKeyFrame(1.0f, "this.FinalValue");
+          offsetAnimation.Duration = TimeSpan.FromMilliseconds(300);
 
-        ImplicitAnimationCollection implicitAnimationCollection = compositor.CreateImplicitAnimationCollection();
-        animationGroup.Add(offsetAnimation);
-        implicitAnimationCollection["Offset"] = animationGroup;
-        compositionVisual.ImplicitAnimations = implicitAnimationCollection; */
+          ImplicitAnimationCollection implicitAnimationCollection = compositor.CreateImplicitAnimationCollection();
+          animationGroup.Add(offsetAnimation);
+          implicitAnimationCollection["Offset"] = animationGroup;
+          compositionVisual.ImplicitAnimations = implicitAnimationCollection; */
 
         // Using implicit animation for the itemscontrol make the first appearance not visible - avalonia problem ?
         // Showing a quick toast at startup to prevent problem even if it is dirty right now, hope it can be removed
-       
+
         // ShowInvisibleToast();
     }
 

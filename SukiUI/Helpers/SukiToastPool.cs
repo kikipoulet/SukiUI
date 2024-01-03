@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using SukiUI.Controls;
+using System.Collections.Generic;
 
 namespace SukiUI.Helpers;
 
 internal static class SukiToastPool
 {
-    private static readonly Stack<SukiToast> Pool = new ();
+    private static readonly Stack<SukiToast> Pool = new();
 
     internal static SukiToast Get()
     {
@@ -17,7 +16,7 @@ internal static class SukiToastPool
 
     internal static void Return(IEnumerable<SukiToast> toasts)
     {
-        foreach(var toast in toasts)
+        foreach (var toast in toasts)
             Pool.Push(toast);
     }
 }

@@ -1,4 +1,3 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
@@ -17,16 +16,15 @@ public partial class StackExemplePage : UserControl
     {
         AvaloniaXamlLoader.Load(this);
     }
-    
+
     private void changepage(object? sender, RoutedEventArgs e)
     {
-        var b = new Button(){Content = "go to"};
+        var b = new Button() { Content = "go to" };
         b.Click += (o, args) =>
         {
-               
-            this.FindControl<StackPage>("StackSettings").Push("Wifi", new Grid() );
+            this.FindControl<StackPage>("StackSettings").Push("Wifi", new Grid());
         };
-            
-        this.FindControl<StackPage>("StackSettings").Push("Network",b );
+
+        this.FindControl<StackPage>("StackSettings").Push("Network", b);
     }
 }

@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Data;
@@ -8,9 +5,13 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Styling;
 using DynamicData;
+using SukiUI.Controls;
 using SukiUI.Enums;
 using SukiUI.Extensions;
 using SukiUI.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SukiUI;
 
@@ -19,7 +20,7 @@ public partial class SukiTheme : Styles
     public static readonly StyledProperty<SukiColor> ThemeColorProperty =
         AvaloniaProperty.Register<SukiTheme, SukiColor>(nameof(Color), defaultBindingMode: BindingMode.OneTime,
             defaultValue: SukiColor.Blue);
-    
+
     /// <summary>
     /// Used to assign the ColorTheme at launch,
     /// </summary>
@@ -38,12 +39,18 @@ public partial class SukiTheme : Styles
     /// Useful where controls cannot use "DynamicResource"
     /// </summary>
     public Action<SukiColorTheme>? OnColorThemeChanged { get; set; }
-    
+
     /// <summary>
     /// Called whenever the application's <see cref="ThemeVariant"/> is changed.
     /// Useful where controls need to change based on light/dark.
     /// </summary>
     public Action<ThemeVariant>? OnBaseThemeChanged { get; set; }
+
+    /// <summary>
+    /// Called whenever the application's Background animation state changes.
+    /// Useful where controls need to adapt to the change in background state.
+    /// </summary>
+    public Action<bool> OnBackgroundAnimationChanged { get; set; }
 
     /// <summary>
     /// Currently active <see cref="SukiColorTheme"/>
@@ -61,19 +68,25 @@ public partial class SukiTheme : Styles
     /// If you want to change this please use <see cref="ChangeBaseTheme"/> or <see cref="SwitchBaseTheme"/>
     /// </summary>
     public ThemeVariant ActiveBaseTheme => _app.ActualThemeVariant;
-    
+
+    /// <summary>
+    /// Tells you if the background is currently animated, if one has been registered.
+    /// </summary>
+    public bool IsBackgroundAnimated => _background != null && _background.AnimationEnabled;
+
     private readonly Application _app;
-    
+
     private readonly HashSet<SukiColorTheme> _colorThemeHashset = new();
     private readonly AvaloniaList<SukiColorTheme> _allThemes = new();
-    
-    
+
+    private SukiBackground? _background;
+
     public SukiTheme()
     {
         AvaloniaXamlLoader.Load(this);
         _app = Application.Current!;
         _app.ActualThemeVariantChanged += (_, e) => OnBaseThemeChanged?.Invoke(_app.ActualThemeVariant);
-        foreach(var theme in DefaultColorThemes)
+        foreach (var theme in DefaultColorThemes)
             AddColorTheme(theme.Value);
     }
 
@@ -81,14 +94,14 @@ public partial class SukiTheme : Styles
     /// Change the theme to one of the default themes.
     /// </summary>
     /// <param name="sukiColor">The <see cref="SukiColor"/> to change to.</param>
-    public void ChangeColorTheme(SukiColor sukiColor) => 
+    public void ChangeColorTheme(SukiColor sukiColor) =>
         ThemeColor = sukiColor;
 
     /// <summary>
     /// Tries to change the theme to a specific theme, this can be either a default or a custom defined one.
     /// </summary>
     /// <param name="sukiColorTheme"></param>
-    public void ChangeColorTheme(SukiColorTheme sukiColorTheme) => 
+    public void ChangeColorTheme(SukiColorTheme sukiColorTheme) =>
         SetColorTheme(sukiColorTheme);
 
     /// <summary>
@@ -121,7 +134,7 @@ public partial class SukiTheme : Styles
     /// <param name="sukiColorThemes">A collection of new <see cref="SukiColorTheme"/> to add.</param>
     public void AddColorThemes(IEnumerable<SukiColorTheme> sukiColorThemes)
     {
-        foreach(var colorTheme in sukiColorThemes) 
+        foreach (var colorTheme in sukiColorThemes)
             AddColorTheme(colorTheme);
     }
 
@@ -141,15 +154,34 @@ public partial class SukiTheme : Styles
     public void SwitchBaseTheme()
     {
         if (Application.Current is null) return;
-        var newBase = Application.Current.ActualThemeVariant == ThemeVariant.Dark 
-            ? ThemeVariant.Light 
+        var newBase = Application.Current.ActualThemeVariant == ThemeVariant.Dark
+            ? ThemeVariant.Light
             : ThemeVariant.Dark;
         Application.Current.RequestedThemeVariant = newBase;
     }
-    
+
+    /// <summary>
+    /// Attempts to switch the currently active background animation state to a specific value.
+    /// </summary>
+    /// <param name="value"></param>
+    public void SetBackgroundAnimationsEnabled(bool value) =>
+        _background?.SetAnimationEnabled(value);
+
+    /// <summary>
+    /// Attempts to switch the currently active background animation state from whatever it is, to the opposite.
+    /// </summary>
+    public void SwitchBackgroundAnimationsEnabled() =>
+        _background?.SetAnimationEnabled(_background.AnimationEnabled);
+
+    /// <summary>
+    /// Registers a background with the instance, if one hasn't already been registered.
+    /// </summary>
+    internal void RegisterBackground(SukiBackground background) =>
+        _background ??= background;
+
     /// <summary>
     /// Initializes the color theme resources whenever the property is changed.
-    /// In an ideal world people wouldn't use the property 
+    /// In an ideal world people wouldn't use the property
     /// </summary>
     private void SetColorThemeResourcesOnColorThemeChanged()
     {
@@ -162,12 +194,12 @@ public partial class SukiTheme : Styles
     {
         SetColorWithOpacities("SukiPrimaryColor", colorTheme.Primary);
         SetColorWithOpacities("SukiAccentColor", colorTheme.Accent);
-        
+
         SetResource("SukiPrimaryColor7", colorTheme.Primary.WithAlpha(0.07));
         SetResource("SukiPrimaryColor5", colorTheme.Primary.WithAlpha(0.05));
         SetResource("SukiPrimaryColor2", colorTheme.Primary.WithAlpha(0.02));
         SetResource("SukiAccentColor1", colorTheme.Accent.WithAlpha(0.01));
-        
+
         ActiveColorTheme = colorTheme;
         OnColorThemeChanged?.Invoke(ActiveColorTheme);
         
@@ -182,16 +214,16 @@ public partial class SukiTheme : Styles
         SetResource($"{baseName}10", baseColor.WithAlpha(0.1));
     }
 
-    private void SetResource(string name, Color color) => 
+    private void SetResource(string name, Color color) =>
         _app.Resources[name] = color;
-    
+
     // Static Members...
-    
+
     /// <summary>
     /// The default Color Themes included with SukiUI.
     /// </summary>
     public static readonly IReadOnlyDictionary<SukiColor, SukiColorTheme> DefaultColorThemes;
-    
+
     static SukiTheme()
     {
         var defaultThemes = new[]
@@ -203,13 +235,13 @@ public partial class SukiTheme : Styles
         };
         DefaultColorThemes = defaultThemes.ToDictionary(x => x.ThemeColor, y => (SukiColorTheme)y);
     }
-    
+
     /// <summary>
     /// Retrieves an instance tied to a specific instance of an application.
     /// </summary>
     /// <returns>A <see cref="SukiTheme"/> instance that can be used to change themes.</returns>
     /// <exception cref="InvalidOperationException">Thrown if no SukiTheme has been defined in App.axaml.</exception>
-    public static SukiTheme GetInstance(Application app) 
+    public static SukiTheme GetInstance(Application app)
     {
         var theme = app.Styles.FirstOrDefault(style => style is SukiTheme);
         if (theme is not SukiTheme sukiTheme)
@@ -217,7 +249,7 @@ public partial class SukiTheme : Styles
                 "No SukiTheme instance available. Ensure SukiTheme has been set in Application.Styles in App.axaml.");
         return sukiTheme;
     }
-    
+
     /// <summary>
     /// Retrieves an instance tied to the currently active application.
     /// </summary>

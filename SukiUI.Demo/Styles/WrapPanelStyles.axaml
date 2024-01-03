@@ -2,10 +2,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI">
     <Style Selector="WrapPanel.PageContainer">
-        <Setter Property="Margin" Value="15,15,0,0"/>
-        <Setter Property="Orientation" Value="Horizontal"/>
+        <Setter Property="Margin" Value="15,15,0,0" />
+        <Setter Property="Orientation" Value="Horizontal" />
         <Style Selector="^ > controls|GlassCard">
-            <Setter Property="Margin" Value="15,15,15,15"/>
+            <Setter Property="Margin" Value="15,15,15,15" />
         </Style>
     </Style>
 </Styles>

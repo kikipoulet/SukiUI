@@ -1,10 +1,10 @@
-using System;
-using System.Timers;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using SukiUI.Models;
+using System;
+using System.Timers;
 
 namespace SukiUI.Controls;
 
@@ -35,13 +35,12 @@ public class SukiToast : ContentControl
         get => GetValue(TitleProperty);
         set => SetValue(TitleProperty, value);
     }
-    
+
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
 
         e.NameScope.Get<Border>("PART_ToastCard").PointerPressed += ToastCardClickedHandler;
-
     }
 
     private void ToastCardClickedHandler(object o, PointerPressedEventArgs pointerPressedEventArgs)

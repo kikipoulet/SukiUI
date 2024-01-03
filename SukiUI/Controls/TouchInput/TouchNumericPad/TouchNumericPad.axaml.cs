@@ -29,12 +29,12 @@ public partial class TouchNumericPad : UserControl
         dialog.RenderTransform = PopupScale;
         dialog.Height = PopupHeight;
         dialog.Width = PopupWidth;
-        
-       SukiHost.ShowDialog(dialog,true);
+
+        SukiHost.ShowDialog(dialog, true);
     }
-    
+
     private double _value;
-    
+
     public static readonly DirectProperty<TouchNumericPad, double> ValueProperty =
         AvaloniaProperty.RegisterDirect<TouchNumericPad, double>(nameof(Value), numpicker => numpicker.Value,
             (numpicker, v) => numpicker.Value = v, defaultBindingMode: BindingMode.TwoWay, enableDataValidation: true);
@@ -48,9 +48,7 @@ public partial class TouchNumericPad : UserControl
             this.FindControl<TextBlock>("textValue").Text = Value.ToString();
         }
     }
-    
-    
-        
+
     public static readonly StyledProperty<ScaleTransform> PopupScaleProperty = AvaloniaProperty.Register<TouchNumericPad, ScaleTransform>(nameof(TouchNumericPad), defaultValue: new ScaleTransform());
 
     public ScaleTransform PopupScale
@@ -58,11 +56,10 @@ public partial class TouchNumericPad : UserControl
         get { return GetValue(PopupScaleProperty); }
         set
         {
-            
-            SetValue(PopupScaleProperty, value );
+            SetValue(PopupScaleProperty, value);
         }
     }
-    
+
     public static readonly StyledProperty<int> PopupHeightProperty = AvaloniaProperty.Register<TouchNumericPad, int>(nameof(TouchNumericPad), defaultValue: 405);
 
     public int PopupHeight
@@ -70,11 +67,10 @@ public partial class TouchNumericPad : UserControl
         get { return GetValue(PopupHeightProperty); }
         set
         {
-            
-            SetValue(PopupHeightProperty, value );
+            SetValue(PopupHeightProperty, value);
         }
     }
-    
+
     public static readonly StyledProperty<int> PopupWidthProperty = AvaloniaProperty.Register<TouchNumericPad, int>(nameof(TouchNumericPad), defaultValue: 300);
 
     public int PopupWidth
@@ -82,9 +78,7 @@ public partial class TouchNumericPad : UserControl
         get { return GetValue(PopupWidthProperty); }
         set
         {
-            
-            SetValue(PopupWidthProperty, value );
+            SetValue(PopupWidthProperty, value);
         }
     }
-    
 }

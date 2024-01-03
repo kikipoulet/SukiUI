@@ -1,21 +1,23 @@
-<UserControl xmlns="https://github.com/avaloniaui"
+<UserControl x:Class="SukiUI.Demo.Features.ControlsLibrary.TextView"
+             xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+             xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
-             xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
              xmlns:showMeTheXaml="clr-namespace:ShowMeTheXaml;assembly=ShowMeTheXaml.Avalonia"
              xmlns:theme="clr-namespace:SukiUI.Theme;assembly=SukiUI"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
              x:DataType="controlsLibrary:TextViewModel"
-             x:Class="SukiUI.Demo.Features.ControlsLibrary.TextView">
+             mc:Ignorable="d">
     <UserControl.Styles>
         <Style Selector="showMeTheXaml|XamlDisplay > TextBox">
-            <Setter Property="Text" Value="{Binding TextBoxValue}"/>
+            <Setter Property="Text" Value="{Binding TextBoxValue}" />
         </Style>
         <Style Selector="TextBlock">
-            <Setter Property="Text" Value="{Binding TextBlockValue}"/>
-            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Text" Value="{Binding TextBlockValue}" />
+            <Setter Property="TextWrapping" Value="Wrap" />
         </Style>
     </UserControl.Styles>
     <ScrollViewer HorizontalScrollBarVisibility="Disabled">
@@ -24,44 +26,43 @@
                 <controls:GroupBox Header="Text Styles">
                     <StackPanel Spacing="15">
                         <TextBlock>
-                            SukiUI defines some basic text classes that you can use in your application.
-                            <LineBreak/>
-                            The h and color styles can be combined.
-                        </TextBlock>
-                        <showMeTheXaml:XamlDisplay UniqueId="TextHyperlink" >
+                            SukiUI defines some basic text classes that you can use in your application.<LineBreak />
+                            The h and color styles can be combined.</TextBlock>
+                        <showMeTheXaml:XamlDisplay UniqueId="TextHyperlink">
                             <TextBlock>
-                                Text With A
-                                <InlineUIContainer>
-                                    <Button FontSize="32" Classes="Hyperlink" Content="Hyperlink" Command="{Binding HyperlinkClicked}"/>
+                                Text With A<InlineUIContainer>
+                                    <Button Classes="Hyperlink"
+                                            Command="{Binding HyperlinkClickedCommand}"
+                                            Content="Hyperlink"
+                                            FontSize="32" />
                                 </InlineUIContainer>
-                                Inside.
-                            </TextBlock>
+                                Inside.</TextBlock>
                         </showMeTheXaml:XamlDisplay>
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock1">
-                            <TextBlock Classes="h1"/>
+                            <TextBlock Classes="h1" />
                         </showMeTheXaml:XamlDisplay>
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock2">
-                            <TextBlock Classes="h2"/>
+                            <TextBlock Classes="h2" />
                         </showMeTheXaml:XamlDisplay>
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock3">
-                            <TextBlock Classes="h3"/>
+                            <TextBlock Classes="h3" />
                         </showMeTheXaml:XamlDisplay>
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock4">
-                            <TextBlock Classes="h4"/>
+                            <TextBlock Classes="h4" />
                         </showMeTheXaml:XamlDisplay>
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock5">
-                            <TextBlock Classes="Caption"/>
+                            <TextBlock Classes="Caption" />
                         </showMeTheXaml:XamlDisplay>
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock6">
-                            <TextBlock Classes="Primary"/>
+                            <TextBlock Classes="Primary" />
                         </showMeTheXaml:XamlDisplay>
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock7">
-                            <TextBlock Classes="Accent"/>
+                            <TextBlock Classes="Accent" />
                         </showMeTheXaml:XamlDisplay>
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock8">
-                            <TextBlock/>
+                            <TextBlock />
                         </showMeTheXaml:XamlDisplay>
-                        <TextBox Text="{Binding TextBlockValue}"/>
+                        <TextBox Text="{Binding TextBlockValue}" />
                     </StackPanel>
                 </controls:GroupBox>
             </controls:GlassCard>
@@ -72,19 +73,19 @@
                             There are a few helpers available to make textboxes simpler and more powerful to use.
                         </TextBlock>
                         <showMeTheXaml:XamlDisplay UniqueId="TextBox1">
-                            <TextBox/>
+                            <TextBox />
                         </showMeTheXaml:XamlDisplay>
                         <showMeTheXaml:XamlDisplay UniqueId="TextBox2">
-                            <TextBox Watermark="Watermark" Text=""/>
+                            <TextBox Text="" Watermark="Watermark" />
                         </showMeTheXaml:XamlDisplay>
                         <showMeTheXaml:XamlDisplay UniqueId="TextBox3">
-                            <TextBox theme:TextBoxExtensions.Prefix="https://"/>
+                            <TextBox theme:TextBoxExtensions.Prefix="https://" />
                         </showMeTheXaml:XamlDisplay>
                         <showMeTheXaml:XamlDisplay UniqueId="TextBox4">
-                            <TextBox PasswordChar="*"/>
+                            <TextBox PasswordChar="*" />
                         </showMeTheXaml:XamlDisplay>
                         <showMeTheXaml:XamlDisplay UniqueId="TextBox5">
-                            <TextBox theme:TextBoxExtensions.AddDeleteButton="True"/>
+                            <TextBox theme:TextBoxExtensions.AddDeleteButton="True" />
                         </showMeTheXaml:XamlDisplay>
                     </StackPanel>
                 </controls:GroupBox>

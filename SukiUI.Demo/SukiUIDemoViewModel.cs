@@ -1,33 +1,42 @@
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.InteropServices;
 using Avalonia.Collections;
 using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using SukiUI.Controls;
 using SukiUI.Demo.Common;
 using SukiUI.Demo.Features;
 using SukiUI.Demo.Features.CustomTheme;
+using SukiUI.Demo.Services;
 using SukiUI.Models;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace SukiUI.Demo;
 
 public partial class SukiUIDemoViewModel : ViewAwareObservableObject
 {
-    public AvaloniaList<DemoPageBase> DemoPages { get; } = [];
+    public IAvaloniaReadOnlyList<DemoPageBase> DemoPages { get; }
 
     public IAvaloniaReadOnlyList<SukiColorTheme> Themes { get; }
 
     [ObservableProperty] private ThemeVariant _baseTheme;
     [ObservableProperty] private bool _animationsEnabled;
+    [ObservableProperty] private DemoPageBase _activePage;
 
     private readonly SukiTheme _theme;
 
-    public SukiUIDemoViewModel(IEnumerable<DemoPageBase> demoPages)
+    public SukiUIDemoViewModel(IEnumerable<DemoPageBase> demoPages, PageNavigationService nav)
     {
-        DemoPages.AddRange(demoPages.OrderBy(x => x.Index).ThenBy(x => x.DisplayName));
+        DemoPages = new AvaloniaList<DemoPageBase>(demoPages.OrderBy(x => x.Index).ThenBy(x => x.DisplayName));
         _theme = SukiTheme.GetInstance();
+        nav.NavigationRequested += t =>
+        {
+            var page = DemoPages.FirstOrDefault(x => x.GetType() == t);
+            if (page is null || ActivePage.GetType() == t) return;
+            ActivePage = page;
+        };
         Themes = _theme.ColorThemes;
         BaseTheme = _theme.ActiveBaseTheme;
         _theme.OnBaseThemeChanged += variant =>
@@ -36,11 +45,12 @@ public partial class SukiUIDemoViewModel : ViewAwareObservableObject
             SukiHost.ShowToast("Successfully Changed Theme", $"Changed Theme To {variant}");
         };
         _theme.OnColorThemeChanged += theme =>
-        {
             SukiHost.ShowToast("Successfully Changed Color", $"Changed Color To {theme.DisplayName}.");
-        };
+        _theme.OnBackgroundAnimationChanged +=
+            value => AnimationsEnabled = value;
     }
 
+    [RelayCommand]
     public void ToggleAnimations()
     {
         AnimationsEnabled = !AnimationsEnabled;
@@ -51,17 +61,20 @@ public partial class SukiUIDemoViewModel : ViewAwareObservableObject
         SukiHost.ShowToast(title, content);
     }
 
+    [RelayCommand]
     public void ToggleBaseTheme() =>
         _theme.SwitchBaseTheme();
 
     public void ChangeTheme(SukiColorTheme theme) =>
         _theme.ChangeColorTheme(theme);
 
+    [RelayCommand]
     public void CreateCustomTheme()
     {
         SukiHost.ShowDialog(new CustomThemeDialogViewModel(_theme), allowBackgroundClose: true);
     }
 
+    [RelayCommand]
     public void OpenURL(string url)
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))

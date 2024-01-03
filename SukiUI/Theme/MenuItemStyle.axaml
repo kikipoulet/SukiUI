@@ -1,18 +1,19 @@
-﻿<Styles
-    xmlns="https://github.com/avaloniaui"
-    xmlns:conv="clr-namespace:Avalonia.Controls.Converters;assembly=Avalonia.Controls"
-    xmlns:sys="clr-namespace:System;assembly=netstandard"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:conv="clr-namespace:Avalonia.Controls.Converters;assembly=Avalonia.Controls"
+        xmlns:sys="clr-namespace:System;assembly=netstandard">
     <Design.PreviewWith>
-        <Border Width="400" Height="400" Padding="20">
+        <Border Width="400"
+                Height="400"
+                Padding="20">
             <Menu>
                 <MenuItem Header="file">
                     <MenuItem Header="More">
-                        <MenuItem Header="Add"></MenuItem>
-                        <MenuItem Header="Delete"></MenuItem>
+                        <MenuItem Header="Add" />
+                        <MenuItem Header="Delete" />
                     </MenuItem>
-                    <MenuItem Header="And"></MenuItem>
-                    <MenuItem Header="More"></MenuItem>
+                    <MenuItem Header="And" />
+                    <MenuItem Header="More" />
 
                 </MenuItem>
             </Menu>
@@ -24,102 +25,89 @@
         <Setter Property="BorderThickness" Value="1.5" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="Margin" Value="5,0" />
-        <Setter Property="Foreground" Value="{DynamicResource SukiText}"></Setter>
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
 
         <Setter Property="Template">
             <ControlTemplate>
-                <Border
-                    Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}"
-                    CornerRadius="{TemplateBinding CornerRadius}"
-                    Name="root">
+                <Border Name="root"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
                     <Grid>
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel.Styles>
-                            <Style Selector="Popup#PART_Popup[IsOpen=true]">
-                                <Style.Animations>
-                                    <Animation
-                                        Duration="0:0:0.4"
-                                        Easing="CircularEaseOut"
-                                        FillMode="Forward">
-                                        <KeyFrame Cue="0%">
-                                            <Setter Property="Width" Value="0" />
-                                        </KeyFrame>
-                                        <KeyFrame Cue="100%">
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel.Styles>
+                                <Style Selector="Popup#PART_Popup[IsOpen=true]">
+                                    <Style.Animations>
+                                        <Animation Easing="CircularEaseOut"
+                                                   FillMode="Forward"
+                                                   Duration="0:0:0.4">
+                                            <KeyFrame Cue="0%">
+                                                <Setter Property="Width" Value="0" />
+                                            </KeyFrame>
+                                            <KeyFrame Cue="100%">
 
-                                            <Setter Property="Width" Value="150" />
-                                        </KeyFrame>
-                                    </Animation>
-                                </Style.Animations>
-                            </Style>
-                        </StackPanel.Styles>
+                                                <Setter Property="Width" Value="150" />
+                                            </KeyFrame>
+                                        </Animation>
+                                    </Style.Animations>
+                                </Style>
+                            </StackPanel.Styles>
 
-                       
-                        <ContentPresenter
-                            Content="{TemplateBinding Icon}"
-                        
-                            HorizontalAlignment="Center"
-                        
-                            Name="icon"
-                            VerticalAlignment="Center"
-                      />
-                        <Path
-                            Data="F1M10,1.2L4.7,9.1 4.5,9.1 0,5.2 1.3,3.5 4.3,6.1 8.3,0 10,1.2z"
-                            Fill="{DynamicResource SukiText}"
-                            IsVisible="False"
-                            Margin="3"
-                            Name="check"
-                            VerticalAlignment="Center" />
-                        <ContentPresenter
-                            Content="{TemplateBinding Header}"
-                          Margin="4,7,0,7"
-                            HorizontalAlignment="Left"
-                            Name="PART_HeaderPresenter"
-                            VerticalAlignment="Center">
-                            <ContentPresenter.DataTemplates>
-                                <DataTemplate DataType="sys:String">
-                                    <TextBlock FontWeight="DemiBold" Text="{Binding}" />
-                                </DataTemplate>
-                            </ContentPresenter.DataTemplates>
-                        </ContentPresenter>
-                        <TextBlock
-                            Grid.Column="3"
-                            Text="{TemplateBinding InputGesture,
-                                                   Converter={StaticResource KeyGestureConverter}}"
-                            VerticalAlignment="Center"
-                            x:Name="PART_InputGestureText" />
-                       
-                        <Popup
-                            IsLightDismissEnabled="False"
-                            IsOpen="{TemplateBinding IsSubMenuOpen,
-                                                     Mode=TwoWay}"
-                            MinWidth="0" Margin="10,0,0,0"
-                            Name="PART_Popup" 
-                            Placement="Right">
-                            <Border
-                                Background="{DynamicResource SukiCardBackground}"
-                                BorderBrush="{DynamicResource SukiBorderBrush}"
-                                BorderThickness="1"
-                                BoxShadow="{DynamicResource SukiSwitchShadow}"
-                                CornerRadius="{DynamicResource SmallCornerRadius}"
-                                Margin="15,10,10,10">
-                                <ScrollViewer Classes="menuscroller">
-                                    <ItemsPresenter
-                                        Grid.IsSharedSizeScope="True"
-                                        ItemsPanel="{TemplateBinding ItemsPanel}"
-                                        Name="PART_ItemsPresenter" />
-                                </ScrollViewer>
-                            </Border>
-                        </Popup>
-                    </StackPanel>
-                        <Path
-                            Data="M0,0L4,3.5 0,7z"
-                            Fill="{DynamicResource SukiText}"
-                            
-                            Margin="8"
-                            Name="rightArrow"
-                            VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                            <ContentPresenter Name="icon"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Content="{TemplateBinding Icon}" />
+                            <Path Name="check"
+                                  Margin="3"
+                                  VerticalAlignment="Center"
+                                  Data="F1M10,1.2L4.7,9.1 4.5,9.1 0,5.2 1.3,3.5 4.3,6.1 8.3,0 10,1.2z"
+                                  Fill="{DynamicResource SukiText}"
+                                  IsVisible="False" />
+                            <ContentPresenter Name="PART_HeaderPresenter"
+                                              Margin="4,7,0,7"
+                                              HorizontalAlignment="Left"
+                                              VerticalAlignment="Center"
+                                              Content="{TemplateBinding Header}">
+                                <ContentPresenter.DataTemplates>
+                                    <DataTemplate DataType="sys:String">
+                                        <TextBlock FontWeight="DemiBold" Text="{Binding}" />
+                                    </DataTemplate>
+                                </ContentPresenter.DataTemplates>
+                            </ContentPresenter>
+                            <TextBlock x:Name="PART_InputGestureText"
+                                       Grid.Column="3"
+                                       VerticalAlignment="Center"
+                                       Text="{TemplateBinding InputGesture,
+                                                              Converter={StaticResource KeyGestureConverter}}" />
+
+                            <Popup Name="PART_Popup"
+                                   MinWidth="0"
+                                   Margin="10,0,0,0"
+                                   IsLightDismissEnabled="False"
+                                   IsOpen="{TemplateBinding IsSubMenuOpen,
+                                                            Mode=TwoWay}"
+                                   Placement="Right">
+                                <Border Margin="15,10,10,10"
+                                        Background="{DynamicResource SukiCardBackground}"
+                                        BorderBrush="{DynamicResource SukiBorderBrush}"
+                                        BorderThickness="1"
+                                        BoxShadow="{DynamicResource SukiSwitchShadow}"
+                                        CornerRadius="{DynamicResource SmallCornerRadius}">
+                                    <ScrollViewer Classes="menuscroller">
+                                        <ItemsPresenter Name="PART_ItemsPresenter"
+                                                        Grid.IsSharedSizeScope="True"
+                                                        ItemsPanel="{TemplateBinding ItemsPanel}" />
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </StackPanel>
+                        <Path Name="rightArrow"
+                              Margin="8"
+                              HorizontalAlignment="Right"
+                              VerticalAlignment="Center"
+                              Data="M0,0L4,3.5 0,7z"
+                              Fill="{DynamicResource SukiText}" />
                     </Grid>
                 </Border>
             </ControlTemplate>
@@ -133,10 +121,9 @@
     <Style Selector="MenuItem:separator">
         <Setter Property="Template">
             <ControlTemplate>
-                <Separator
-                    Background="{DynamicResource ThemeControlMidBrush}"
-                    Height="1"
-                    Margin="20,1,0,1" />
+                <Separator Height="1"
+                           Margin="20,1,0,1"
+                           Background="{DynamicResource ThemeControlMidBrush}" />
             </ControlTemplate>
         </Setter>
     </Style>
@@ -145,21 +132,20 @@
         <Setter Property="Padding" Value="10 0" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Border Margin="0,6"
-                    Background="{TemplateBinding Background}"
-                    BorderBrush="{DynamicResource SukiLightBorderBrush}"
-                    BorderThickness="0,0,0,0"
-                    CornerRadius="{TemplateBinding CornerRadius}"
-                    Name="root">
+                <Border Name="root"
+                        Margin="0,6"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{DynamicResource SukiLightBorderBrush}"
+                        BorderThickness="0,0,0,0"
+                        CornerRadius="{TemplateBinding CornerRadius}">
 
                     <Panel>
                         <Panel.Styles>
                             <Style Selector="Popup#PART_Popup[IsOpen=true]">
                                 <Style.Animations>
-                                    <Animation
-                                        Duration="0:0:0.3"
-                                        Easing="CircularEaseOut"
-                                        FillMode="Forward">
+                                    <Animation Easing="CircularEaseOut"
+                                               FillMode="Forward"
+                                               Duration="0:0:0.3">
                                         <KeyFrame Cue="0%">
                                             <Setter Property="Width" Value="0" />
                                         </KeyFrame>
@@ -171,37 +157,33 @@
                                 </Style.Animations>
                             </Style>
                         </Panel.Styles>
-                        <ContentPresenter
-                            Content="{TemplateBinding Header}"
-                            HorizontalContentAlignment="Left"
-                            Margin="{TemplateBinding Padding}"
-                            Name="PART_HeaderPresenter"
-                            VerticalContentAlignment="Center">
+                        <ContentPresenter Name="PART_HeaderPresenter"
+                                          Margin="{TemplateBinding Padding}"
+                                          HorizontalContentAlignment="Left"
+                                          VerticalContentAlignment="Center"
+                                          Content="{TemplateBinding Header}">
                             <ContentPresenter.DataTemplates>
                                 <DataTemplate DataType="sys:String">
                                     <TextBlock FontWeight="DemiBold" Text="{Binding}" />
                                 </DataTemplate>
                             </ContentPresenter.DataTemplates>
                         </ContentPresenter>
-                        <Popup
-                            IsLightDismissEnabled="True"
-                            IsOpen="{TemplateBinding IsSubMenuOpen,
-                                                     Mode=TwoWay}"
-                            Name="PART_Popup"
-                            OverlayInputPassThroughElement="{Binding $parent[Menu]}"
-                            Placement="BottomEdgeAlignedLeft">
-                            <Border
-                                Background="{DynamicResource SukiCardBackground}"
-                                BorderBrush="{DynamicResource SukiBorderBrush}"
-                                BorderThickness="1"
-                                BoxShadow="{DynamicResource SukiSwitchShadow}"
-                                CornerRadius="{DynamicResource SmallCornerRadius}"
-                                Margin="10">
+                        <Popup Name="PART_Popup"
+                               IsLightDismissEnabled="True"
+                               IsOpen="{TemplateBinding IsSubMenuOpen,
+                                                        Mode=TwoWay}"
+                               OverlayInputPassThroughElement="{Binding $parent[Menu]}"
+                               Placement="BottomEdgeAlignedLeft">
+                            <Border Margin="10"
+                                    Background="{DynamicResource SukiCardBackground}"
+                                    BorderBrush="{DynamicResource SukiBorderBrush}"
+                                    BorderThickness="1"
+                                    BoxShadow="{DynamicResource SukiSwitchShadow}"
+                                    CornerRadius="{DynamicResource SmallCornerRadius}">
                                 <ScrollViewer Classes="menuscroller">
-                                    <ItemsPresenter
-                                        Grid.IsSharedSizeScope="True"
-                                        ItemsPanel="{TemplateBinding ItemsPanel}"
-                                        Name="PART_ItemsPresenter" />
+                                    <ItemsPresenter Name="PART_ItemsPresenter"
+                                                    Grid.IsSharedSizeScope="True"
+                                                    ItemsPanel="{TemplateBinding ItemsPanel}" />
                                 </ScrollViewer>
                             </Border>
                         </Popup>
@@ -224,8 +206,6 @@
         <Setter Property="CornerRadius" Value="6" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiLightBorderBrush}" />
     </Style>
-    
-    
 
     <Style Selector="MenuItem:empty /template/ Path#rightArrow">
         <Setter Property="IsVisible" Value="False" />
@@ -236,9 +216,8 @@
     <Style Selector="MenuItem:disabled">
         <Setter Property="Opacity" Value="{DynamicResource ThemeDisabledOpacity}" />
     </Style>
-    
-    <Style Selector="FlyoutPresenter"
-           >
+
+    <Style Selector="FlyoutPresenter">
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
         <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}" />
@@ -256,11 +235,10 @@
                         CornerRadius="{TemplateBinding CornerRadius}">
                     <Border.Transitions>
                         <Transitions>
-                            <DoubleTransition Property="Opacity" Duration="0:0:0.3"></DoubleTransition>
+                            <DoubleTransition Property="Opacity" Duration="0:0:0.3" />
                         </Transitions>
                     </Border.Transitions>
-                    <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
-                                  VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                    <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
                         <ContentPresenter Margin="{TemplateBinding Padding}"
                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -273,6 +251,6 @@
             </ControlTemplate>
         </Setter>
     </Style>
-    
-   
+
+
 </Styles>

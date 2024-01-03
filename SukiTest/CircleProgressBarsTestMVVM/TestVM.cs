@@ -1,11 +1,11 @@
-﻿using System;
-using ReactiveUI;
+﻿using ReactiveUI;
 
 namespace SukiTest.CircleProgressBarsTestMVVM;
 
 public class TestVM : ReactiveObject
 {
     private int progress = 0;
+
     public int Progress
     {
         get => progress;
@@ -14,6 +14,6 @@ public class TestVM : ReactiveObject
 
     public void Increase10()
     {
-        Progress +=10;
+        Progress += 10;
     }
 }

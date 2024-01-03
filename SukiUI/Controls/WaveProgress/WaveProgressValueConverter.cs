@@ -1,10 +1,10 @@
-﻿using System;
-using System.Globalization;
-using Avalonia;
+﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
 using Avalonia.Styling;
+using System;
+using System.Globalization;
 
 namespace SukiUI.Controls;
 
@@ -64,17 +64,16 @@ public class WaveProgressGradientOffsetConverter : IValueConverter
     {
         if (value is not int)
             return Brushes.Blue;
-        
+
         Color PrimaryColor = Colors.DodgerBlue;
         Color AccentColor = Colors.Transparent;
-        
+
         try
         {
-
-            PrimaryColor =(Color)Application.Current.FindResource("SukiPrimaryColor");
+            PrimaryColor = (Color)Application.Current.FindResource("SukiPrimaryColor");
             AccentColor = (Color)Application.Current.FindResource("SukiAccentColor");
-
-        }catch{}
+        }
+        catch { }
 
         double v = System.Convert.ToDouble(value);
         v /= 100;
@@ -91,9 +90,7 @@ public class WaveProgressGradientOffsetConverter : IValueConverter
                 new GradientStop() { Color = PrimaryColor, Offset = 0 },
                 new GradientStop() { Color = Application.Current.RequestedThemeVariant == ThemeVariant.Light ? Colors.Transparent: AccentColor, Offset = v }
             }
-
         };
-
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

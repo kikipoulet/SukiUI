@@ -1,17 +1,17 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
+using Avalonia.Layout;
+using Avalonia.Markup.Xaml.MarkupExtensions;
+using Avalonia.Media;
+using Avalonia.Threading;
+using SukiUI.Content;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using Avalonia.Layout;
-using Avalonia.Media;
 using System.Reactive.Linq;
-using Avalonia.Controls.Primitives;
-using Avalonia.Markup.Xaml.MarkupExtensions;
-using Avalonia.Threading;
-using SukiUI.Content;
 
 namespace SukiUI.Controls
 {
@@ -90,7 +90,7 @@ namespace SukiUI.Controls
             };
 
             var icon = new PathIcon()
-                { Height = 10, Width = 10, Data = Icons.ChevronRight, Margin = new Thickness(0, 0, 20, 0) };
+            { Height = 10, Width = 10, Data = Icons.ChevronRight, Margin = new Thickness(0, 0, 20, 0) };
             if (index == stepCount - 1)
                 icon.IsVisible = false;
 
@@ -99,8 +99,12 @@ namespace SukiUI.Controls
 
             var circle = new Border()
             {
-                Margin = new Thickness(0, 0, 0, 2), Height = 24, Width = 24, CornerRadius = new CornerRadius(25),
-                HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center
+                Margin = new Thickness(0, 0, 0, 2),
+                Height = 24,
+                Width = 24,
+                CornerRadius = new CornerRadius(25),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center
             };
 
             if (index <= Index)
@@ -110,8 +114,11 @@ namespace SukiUI.Controls
                 circle.BorderThickness = new Thickness(0);
                 circle.Child = new TextBlock()
                 {
-                    VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center,
-                    Text = (index + 1).ToString(), FontSize = 13, Foreground = Brushes.White
+                    VerticalAlignment = VerticalAlignment.Center,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    Text = (index + 1).ToString(),
+                    FontSize = 13,
+                    Foreground = Brushes.White
                 };
             }
             else
@@ -121,8 +128,11 @@ namespace SukiUI.Controls
                 circle.BorderThickness = new Thickness(0);
                 circle.Child = new TextBlock()
                 {
-                    VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center,
-                    Text = (index + 1).ToString(), FontSize = 13, Foreground = Brushes.White
+                    VerticalAlignment = VerticalAlignment.Center,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    Text = (index + 1).ToString(),
+                    FontSize = 13,
+                    Foreground = Brushes.White
                 };
             }
 
@@ -134,7 +144,8 @@ namespace SukiUI.Controls
                 {
                     FontWeight = index <= Index ? FontWeight.DemiBold : FontWeight.Normal,
                     Margin = new Thickness(10, 0, 0, 0),
-                    Text = s, VerticalAlignment = VerticalAlignment.Center,
+                    Text = s,
+                    VerticalAlignment = VerticalAlignment.Center,
                     HorizontalAlignment = HorizontalAlignment.Left,
                 },
                 _ => new ContentControl() { Content = step }

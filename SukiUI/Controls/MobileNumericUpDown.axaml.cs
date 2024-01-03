@@ -1,11 +1,11 @@
-﻿using System;
-using System.Globalization;
-using Avalonia;
+﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Data.Converters;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using System;
+using System.Globalization;
 
 namespace SukiUI.Controls;
 
@@ -40,7 +40,7 @@ public partial class MobileNumericUpDown : UserControl
     {
         Value = Value + 1;
     }
-    
+
     private void ButtonMinus(object sender, RoutedEventArgs e)
     {
         Value = Value - 1;
@@ -51,12 +51,12 @@ public class IntToStringConverter : IValueConverter
 {
     public static readonly IntToStringConverter Instance = new();
 
-    public object? Convert( object? value, Type targetType, object? parameter, CultureInfo culture )
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         return value.ToString();
     }
 
-    public object ConvertBack( object? value, Type targetType, object? parameter, CultureInfo culture )
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotSupportedException();
     }

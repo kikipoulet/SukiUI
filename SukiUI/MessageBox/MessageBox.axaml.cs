@@ -1,5 +1,4 @@
 using Avalonia.Controls;
-using Avalonia.Controls.Shapes;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
@@ -10,7 +9,7 @@ namespace SukiUI.MessageBox
     public partial class MessageBox : Window
     {
         private static readonly SolidColorBrush InfoBrush = new(Color.FromRgb(47, 84, 235));
-        
+
         public MessageBox()
         {
             InitializeComponent();

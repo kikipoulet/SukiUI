@@ -1,6 +1,7 @@
-using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
+using System.Threading.Tasks;
 
 namespace SukiUI.Demo.Features.ControlsLibrary;
 
@@ -8,10 +9,13 @@ public partial class ButtonsLibraryViewModel() : DemoPageBase("Buttons", Materia
 {
     [ObservableProperty] private bool _isBusy;
 
-    public void ButtonClicked()
+    [RelayCommand]
+    public Task ButtonClicked()
     {
-        if (IsBusy) return;
-        Task.Run(async () =>
+        if (IsBusy)
+            return Task.CompletedTask;
+
+        return Task.Run(async () =>
         {
             IsBusy = true;
             await Task.Delay(3000);

@@ -1,20 +1,20 @@
-<Window Background="{DynamicResource SukiBackground}"
-        Classes="NakedWindow"
-        ExtendClientAreaToDecorationsHint="True"
-        Height="150"
-        MaxHeight="150"
-        MaxWidth="500"
-        Width="500"
-        d:DesignHeight="200"
-        d:DesignWidth="500"
-        mc:Ignorable="d"
-        x:Class="SukiUI.MessageBox.MessageBox"
+<Window x:Class="SukiUI.MessageBox.MessageBox"
         xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:content="clr-namespace:SukiUI.Content"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:content="clr-namespace:SukiUI.Content">
+        Width="500"
+        Height="150"
+        MaxWidth="500"
+        MaxHeight="150"
+        d:DesignHeight="200"
+        d:DesignWidth="500"
+        Background="{DynamicResource SukiBackground}"
+        Classes="NakedWindow"
+        ExtendClientAreaToDecorationsHint="True"
+        mc:Ignorable="d">
     <Grid>
         <Grid.Styles>
             <Style Selector="Grid.AnimatedGrid">
@@ -49,57 +49,51 @@
             </Style>
         </Grid.Styles>
         <Grid Background="{DynamicResource SukiBackground}" IsHitTestVisible="False" />
-        <Button
-            Background="Transparent"
-            BorderThickness="0"
-            Classes="ZoomOnHover"
-            Click="Close"
-            Height="23"
-            HorizontalAlignment="Right"
-            Margin="12"
-            Padding="0"
-            VerticalAlignment="Top"
-            Width="23">
-            <PathIcon Foreground="DarkRed"
-                      Data="{x:Static content:Icons.CircleOutlineClose}" />
+        <Button Width="23"
+                Height="23"
+                Margin="12"
+                Padding="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="Transparent"
+                BorderThickness="0"
+                Classes="ZoomOnHover"
+                Click="Close">
+            <PathIcon Data="{x:Static content:Icons.CircleOutlineClose}" Foreground="DarkRed" />
         </Button>
 
         <Grid Classes="AnimatedGrid">
-            <PathIcon DockPanel.Dock="Left"
-                      Data="{x:Static content:Icons.CircleInformation}"
-                      Foreground="{DynamicResource SukiPrimaryColor}"
-                      HorizontalAlignment="Left"
-                      VerticalAlignment="Top"
-                      Margin="25,35,0,0"
+            <PathIcon Name="InfoIcon"
                       Width="50"
                       Height="50"
-                      Name="InfoIcon" />
+                      Margin="25,35,0,0"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Top"
+                      Data="{x:Static content:Icons.CircleInformation}"
+                      DockPanel.Dock="Left"
+                      Foreground="{DynamicResource SukiPrimaryColor}" />
         </Grid>
 
-        <TextBlock
-            Classes="h3"
-            DockPanel.Dock="Top"
-            HorizontalAlignment="Left"
-            Margin="100,45,0,-45"
-            Name="Title" />
-        <ScrollViewer
-            HorizontalAlignment="Left"
-            Margin="102,45,14,10"
-            VerticalAlignment="Center">
-            <TextBlock
-                FontWeight="Light"
-                Name="Message"
-                TextWrapping="Wrap" />
+        <TextBlock Name="Title"
+                   Margin="100,45,0,-45"
+                   HorizontalAlignment="Left"
+                   Classes="h3"
+                   DockPanel.Dock="Top" />
+        <ScrollViewer Margin="102,45,14,10"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Center">
+            <TextBlock Name="Message"
+                       FontWeight="Light"
+                       TextWrapping="Wrap" />
         </ScrollViewer>
 
-        <Button
-            Classes="Basic"
-            Click="Close"
-            DockPanel.Dock="Bottom"
-            HorizontalAlignment="Right"
-            Margin="0,0,0,7"
-            VerticalAlignment="Bottom"
-            Width="80">
+        <Button Width="80"
+                Margin="0,0,0,7"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Classes="Basic"
+                Click="Close"
+                DockPanel.Dock="Bottom">
             <TextBlock />
         </Button>
     </Grid>
