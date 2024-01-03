@@ -13,7 +13,7 @@ Suki is the name of my dog :-)
 
 <br/>
 
-⚠️ Mobile Controls will be removed in a future version and moved to a new mobile library named [Cheryl UI](https://github.com/kikipoulet/CherylUI)
+- Mobile Controls have been moved to a new mobile library named [Cheryl UI](https://github.com/kikipoulet/CherylUI)
 <br/>
 <br/>
 
