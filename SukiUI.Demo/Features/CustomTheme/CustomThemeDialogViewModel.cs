@@ -6,21 +6,13 @@ using SukiUI.Models;
 
 namespace SukiUI.Demo.Features.CustomTheme;
 
-public partial class CustomThemeDialogViewModel : ObservableObject
+public partial class CustomThemeDialogViewModel(SukiTheme theme) : ObservableObject
 {
-    [ObservableProperty] private string _displayName;
-    [ObservableProperty] private Color _primaryColor;
-    [ObservableProperty] private Color _accentColor;
+    [ObservableProperty] private string _displayName = "Pink";
+    [ObservableProperty] private Color _primaryColor = Colors.DeepPink;
+    [ObservableProperty] private Color _accentColor = Colors.Pink;
 
-    private readonly SukiTheme _theme;
-
-    public CustomThemeDialogViewModel(SukiTheme theme)
-    {
-        _theme = theme;
-        _displayName = "Pink";
-        _primaryColor = Colors.DeepPink;
-        _accentColor = Colors.Pink;
-    }
+    private readonly SukiTheme _theme = theme;
 
     [RelayCommand]
     public void TryCreateTheme()

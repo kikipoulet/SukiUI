@@ -6,6 +6,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Styling;
 using SukiUI.Content;
+using SukiUI.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,8 +66,8 @@ public partial class StackPage : UserControl
 
     private void UpdateHeaders()
     {
-        var stackHeaders = this.FindControl<StackPanel>("StackHeader");
-        var currentControl = this.FindControl<ContentControl>("CurrentPage");
+        var stackHeaders = this.FindRequiredControl<StackPanel>("StackHeader");
+        var currentControl = this.FindRequiredControl<ContentControl>("CurrentPage");
 
         stackHeaders.Children.Clear();
 
@@ -94,9 +95,9 @@ public partial class StackPage : UserControl
 
     private void AddChevron()
     {
-        var stackHeaders = this.FindControl<StackPanel>("StackHeader");
-        var c = Application.Current.FindResource("SukiLowText");
-        SolidColorBrush lowcolor = new SolidColorBrush(Colors.Black, 0.65);
+        var stackHeaders = this.FindRequiredControl<StackPanel>("StackHeader");
+        var c = Application.Current.FindRequiredResource("SukiLowText");
+        var lowcolor = new SolidColorBrush(Colors.Black, 0.65);
         if (Application.Current.ActualThemeVariant == ThemeVariant.Dark)
             lowcolor = new SolidColorBrush(Colors.White, 0.65);
 
@@ -122,9 +123,9 @@ public partial class StackPage : UserControl
 
     private void AddLowHeader(string s, int n = 0)
     {
-        var stackHeaders = this.FindControl<StackPanel>("StackHeader");
-        var c = Application.Current.FindResource("SukiLowText");
-        SolidColorBrush lowcolor = new SolidColorBrush(Colors.Black, 0.65);
+        var stackHeaders = this.FindRequiredControl<StackPanel>("StackHeader");
+        var c = Application.Current.FindRequiredResource("SukiLowText");
+        var lowcolor = new SolidColorBrush(Colors.Black, 0.65);
 
         if (Application.Current.ActualThemeVariant == ThemeVariant.Dark)
             lowcolor = new SolidColorBrush(Colors.White, 0.65);
@@ -165,7 +166,7 @@ public partial class StackPage : UserControl
 
     private void AddStrongHeader(string s)
     {
-        var stackHeaders = this.FindControl<StackPanel>("StackHeader");
+        var stackHeaders = this.FindRequiredControl<StackPanel>("StackHeader");
         stackHeaders.Children.Add(new TextBlock()
         {
             Classes = { "h2" },

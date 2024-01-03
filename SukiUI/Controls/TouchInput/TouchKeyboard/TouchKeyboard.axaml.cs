@@ -4,6 +4,7 @@ using Avalonia.Data;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
+using SukiUI.Extensions;
 
 namespace SukiUI.Controls.TouchInput.TouchKeyboard;
 
@@ -23,11 +24,10 @@ public partial class TouchKeyboard : UserControl
     {
         var dialog = new TouchKeyboardPopUp(this, Text)
         {
+            RenderTransform = PopupScale,
+            Height = PopupHeight,
+            Width = PopupWidth
         };
-
-        dialog.RenderTransform = PopupScale;
-        dialog.Height = PopupHeight;
-        dialog.Width = PopupWidth;
 
         SukiHost.ShowDialog(dialog, true);
     }
@@ -77,7 +77,7 @@ public partial class TouchKeyboard : UserControl
         set
         {
             SetAndRaise(TextProperty, ref _text, value);
-            this.FindControl<TextBlock>("textValue").Text = Text.ToString();
+            this.FindRequiredControl<TextBlock>("textValue").Text = Text.ToString();
         }
     }
 }

@@ -22,7 +22,7 @@ public class BlurBackground : Control
         set => SetValue(MaterialProperty, value);
     }
 
-    private static ImmutableExperimentalAcrylicMaterial DefaultAcrylicMaterialDark =
+    private static readonly ImmutableExperimentalAcrylicMaterial DefaultAcrylicMaterialDark =
         (ImmutableExperimentalAcrylicMaterial)new ExperimentalAcrylicMaterial()
         {
             MaterialOpacity = 0.25,
@@ -31,7 +31,7 @@ public class BlurBackground : Control
             PlatformTransparencyCompensationLevel = 0
         }.ToImmutable();
 
-    private static ImmutableExperimentalAcrylicMaterial DefaultAcrylicMaterialLight =
+    private static readonly ImmutableExperimentalAcrylicMaterial DefaultAcrylicMaterialLight =
         (ImmutableExperimentalAcrylicMaterial)new ExperimentalAcrylicMaterial()
         {
             MaterialOpacity = 0.0,
@@ -109,21 +109,19 @@ public class BlurBackground : Control
             using (var blurSnap = blurred.Snapshot())
             using (var blurSnapShader = SKShader.CreateImage(blurSnap))
             {
-                using (var blurSnapPaint = new SKPaint
+                using var blurSnapPaint = new SKPaint
                 {
                     Shader = blurSnapShader,
                     IsAntialias = false,
-                })
+                };
 
-                    canvas.DrawRect(0, 0, (float)_bounds.Width, (float)_bounds.Height, blurSnapPaint);
+                canvas.DrawRect(0, 0, (float)_bounds.Width, (float)_bounds.Height, blurSnapPaint);
             }
 
             //return;
 
             using var acrylliPaint = new SKPaint();
             acrylliPaint.IsAntialias = true;
-
-            double opacity = 1;
 
             const double noiseOpacity = 0.01;
 
@@ -132,27 +130,23 @@ public class BlurBackground : Control
 
             if (s_acrylicNoiseShader == null)
             {
-                using (var stream =
+                using var stream =
                        typeof(SkiaPlatform).Assembly.GetManifestResourceStream(
-                           "Avalonia.Skia.Assets.NoiseAsset_256X256_PNG.png"))
-                using (var bitmap = SKBitmap.Decode(stream))
-                {
-                    s_acrylicNoiseShader = SKShader.CreateBitmap(bitmap, SKShaderTileMode.Clamp, SKShaderTileMode.Clamp)
-                        .WithColorFilter(CreateAlphaColorFilter(noiseOpacity));
-                }
+                           "Avalonia.Skia.Assets.NoiseAsset_256X256_PNG.png");
+                using var bitmap = SKBitmap.Decode(stream);
+                s_acrylicNoiseShader = SKShader.CreateBitmap(bitmap, SKShaderTileMode.Clamp, SKShaderTileMode.Clamp)
+                    .WithColorFilter(CreateAlphaColorFilter(noiseOpacity));
             }
 
-            using (var backdrop = SKShader.CreateColor(new SKColor(_material.MaterialColor.R, _material.MaterialColor.G,
-                       _material.MaterialColor.B, _material.MaterialColor.A)))
-            using (var tintShader = SKShader.CreateColor(tint))
-            using (var effectiveTint = SKShader.CreateCompose(backdrop, tintShader))
-            using (var compose = SKShader.CreateCompose(effectiveTint, s_acrylicNoiseShader))
-            {
-                acrylliPaint.Shader = compose;
-                acrylliPaint.IsAntialias = true;
+            using var backdrop = SKShader.CreateColor(new SKColor(_material.MaterialColor.R, _material.MaterialColor.G,
+                       _material.MaterialColor.B, _material.MaterialColor.A));
+            using var tintShader = SKShader.CreateColor(tint);
+            using var effectiveTint = SKShader.CreateCompose(backdrop, tintShader);
+            using var compose = SKShader.CreateCompose(effectiveTint, s_acrylicNoiseShader);
+            acrylliPaint.Shader = compose;
+            acrylliPaint.IsAntialias = true;
 
-                canvas.DrawRect(0, 0, (float)_bounds.Width, (float)_bounds.Height, acrylliPaint);
-            }
+            canvas.DrawRect(0, 0, (float)_bounds.Width, (float)_bounds.Height, acrylliPaint);
         }
 
         public Rect Bounds => _bounds.Inflate(4);

@@ -121,9 +121,7 @@
         <Style Selector="controls|SettingsLayout">
             <Setter Property="Template">
                 <ControlTemplate>
-                    <DockPanel MaxWidth="1400" SizeChanged="SizeChanged">
-
-
+                    <DockPanel MaxWidth="1400" SizeChanged="DockPanel_SizeChanged">
                         <StackPanel Name="StackSummary"
                                     Width="400"
                                     Margin="0,25,0,0"

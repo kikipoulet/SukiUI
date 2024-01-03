@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using SukiUI.Controls;
+using SukiUI.Extensions;
 
 namespace SukiTest;
 
@@ -17,14 +18,14 @@ public partial class StackExemplePage : UserControl
         AvaloniaXamlLoader.Load(this);
     }
 
-    private void changepage(object? sender, RoutedEventArgs e)
+    private void Changepage(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         var b = new Button() { Content = "go to" };
         b.Click += (o, args) =>
         {
-            this.FindControl<StackPage>("StackSettings").Push("Wifi", new Grid());
+            this.FindRequiredControl<StackPage>("StackSettings").Push("Wifi", new Grid());
         };
 
-        this.FindControl<StackPage>("StackSettings").Push("Network", b);
+        this.FindRequiredControl<StackPage>("StackSettings").Push("Network", b);
     }
 }

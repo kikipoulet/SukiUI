@@ -7,8 +7,8 @@
                          Value="50" />
         </Grid>
     </Design.PreviewWith>
-    <Style Selector="ProgressBar">
 
+    <Style Selector="ProgressBar">
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
         <Setter Property="Background" Value="{DynamicResource SukiBorderBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
@@ -53,22 +53,27 @@
             </ControlTemplate>
         </Setter>
     </Style>
+
     <Style Selector="ProgressBar:horizontal /template/ Border#PART_Indicator">
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Stretch" />
     </Style>
+
     <Style Selector="ProgressBar:vertical /template/ Border#PART_Indicator">
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="VerticalAlignment" Value="Bottom" />
     </Style>
+
     <Style Selector="ProgressBar:horizontal">
         <Setter Property="MinWidth" Value="200" />
         <Setter Property="MinHeight" Value="16" />
     </Style>
+
     <Style Selector="ProgressBar:vertical">
         <Setter Property="MinWidth" Value="16" />
         <Setter Property="MinHeight" Value="200" />
     </Style>
+
     <Style Selector="ProgressBar:vertical /template/ LayoutTransformControl#PART_LayoutTransformControl">
         <Setter Property="LayoutTransform">
             <Setter.Value>
@@ -92,6 +97,7 @@
         </Style.Animations>
         <Setter Property="Width" Value="{Binding TemplateProperties.ContainerWidth, RelativeSource={RelativeSource TemplatedParent}}" />
     </Style>
+
     <Style Selector="ProgressBar:vertical:indeterminate /template/ Border#PART_IndeterminateIndicator">
         <Style.Animations>
             <Animation Easing="LinearEasing"

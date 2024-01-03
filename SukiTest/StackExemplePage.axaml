@@ -12,7 +12,7 @@
             <WrapPanel>
                 <Border Width="150" Height="150">
                     <Button Classes="Flat"
-                            Click="changepage"
+                            Click="Changepage"
                             Content="test" />
                 </Border>
 

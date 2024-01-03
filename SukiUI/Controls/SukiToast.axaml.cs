@@ -24,10 +24,10 @@ public class SukiToast : ContentControl
         _timer.Elapsed += TimerOnElapsed;
     }
 
-    private void TimerOnElapsed(object sender, ElapsedEventArgs e)
+    private async void TimerOnElapsed(object sender, ElapsedEventArgs e)
     {
         _timer.Stop();
-        SukiHost.ClearToast(this);
+        await SukiHost.ClearToast(this);
     }
 
     public string Title
@@ -43,11 +43,11 @@ public class SukiToast : ContentControl
         e.NameScope.Get<Border>("PART_ToastCard").PointerPressed += ToastCardClickedHandler;
     }
 
-    private void ToastCardClickedHandler(object o, PointerPressedEventArgs pointerPressedEventArgs)
+    private async void ToastCardClickedHandler(object o, PointerPressedEventArgs pointerPressedEventArgs)
     {
         _onClickedCallback?.Invoke();
         _onClickedCallback = null;
-        SukiHost.ClearToast(this);
+        await SukiHost.ClearToast(this);
     }
 
     public void Initialize(SukiToastModel model)
@@ -67,7 +67,7 @@ public class SukiToast : ContentControl
         Opacity = 0;
         _timer.Interval = 5;
         _timer.Elapsed -= TimerOnElapsed;
-        _timer.Elapsed += (_, _) => SukiHost.ClearInvisibleToast(this);
+        _timer.Elapsed += async (_, _) => await SukiHost.ClearInvisibleToast(this);
         _timer.Start();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using SukiUI.Extensions;
 using System;
 using System.Globalization;
 
@@ -11,17 +12,17 @@ public partial class NumericPadPopUp : UserControl
     public NumericPadPopUp()
     {
         InitializeComponent();
-        _textBlock = this.FindControl<TextBlock>("TextNombre");
+        _textBlock = this.FindRequiredControl<TextBlock>("TextNombre");
     }
 
-    public TouchNumericPad rootControl = null;
+    public TouchNumericPad? rootControl = null;
 
     private void InitializeComponent()
     {
         AvaloniaXamlLoader.Load(this);
     }
 
-    private TextBlock _textBlock;
+    private readonly TextBlock _textBlock;
 
     public string CurrentText = "";
 
@@ -38,7 +39,7 @@ public partial class NumericPadPopUp : UserControl
             CurrentText = CurrentText.Remove(CurrentText.Length - 1);
             _textBlock.Text = CurrentText;
         }
-        catch (Exception exc) { }
+        catch (Exception) { }
     }
 
     private void Close(object sender, RoutedEventArgs e)

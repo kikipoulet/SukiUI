@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace SukiUI.Demo;
 
@@ -23,7 +24,7 @@ public partial class SukiUIDemoViewModel : ViewAwareObservableObject
 
     [ObservableProperty] private ThemeVariant _baseTheme;
     [ObservableProperty] private bool _animationsEnabled;
-    [ObservableProperty] private DemoPageBase _activePage;
+    [ObservableProperty] private DemoPageBase? _activePage;
 
     private readonly SukiTheme _theme;
 
@@ -34,31 +35,31 @@ public partial class SukiUIDemoViewModel : ViewAwareObservableObject
         nav.NavigationRequested += t =>
         {
             var page = DemoPages.FirstOrDefault(x => x.GetType() == t);
-            if (page is null || ActivePage.GetType() == t) return;
+            if (page is null || ActivePage?.GetType() == t) return;
             ActivePage = page;
         };
         Themes = _theme.ColorThemes;
         BaseTheme = _theme.ActiveBaseTheme;
-        _theme.OnBaseThemeChanged += variant =>
+        _theme.OnBaseThemeChanged += async variant =>
         {
             BaseTheme = variant;
-            SukiHost.ShowToast("Successfully Changed Theme", $"Changed Theme To {variant}");
+            await SukiHost.ShowToast("Successfully Changed Theme", $"Changed Theme To {variant}");
         };
-        _theme.OnColorThemeChanged += theme =>
-            SukiHost.ShowToast("Successfully Changed Color", $"Changed Color To {theme.DisplayName}.");
+        _theme.OnColorThemeChanged += async theme =>
+            await SukiHost.ShowToast("Successfully Changed Color", $"Changed Color To {theme.DisplayName}.");
         _theme.OnBackgroundAnimationChanged +=
             value => AnimationsEnabled = value;
     }
 
     [RelayCommand]
-    public void ToggleAnimations()
+    public Task ToggleAnimations()
     {
         AnimationsEnabled = !AnimationsEnabled;
         var title = AnimationsEnabled ? "Animation Enabled" : "Animation Disabled";
         var content = AnimationsEnabled
             ? "Background animations are now enabled."
             : "Background animations are now disabled.";
-        SukiHost.ShowToast(title, content);
+        return SukiHost.ShowToast(title, content);
     }
 
     [RelayCommand]

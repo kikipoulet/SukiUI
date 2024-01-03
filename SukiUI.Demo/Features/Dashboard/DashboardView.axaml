@@ -11,9 +11,12 @@
              d:DesignWidth="800"
              x:DataType="dashboard:DashboardViewModel"
              mc:Ignorable="d">
+
     <ScrollViewer VerticalScrollBarVisibility="Hidden">
         <Grid Margin="15">
             <WrapPanel Orientation="Horizontal">
+
+                <!--  Login  -->
                 <Grid Margin="15">
                     <suki:GlassCard Width="300" Margin="0,0,0,25">
                         <suki:BusyArea Name="BusySignIn"
@@ -58,98 +61,101 @@
                         Sign In
                     </Button>
                 </Grid>
-                <StackPanel>
-                    <suki:GlassCard Width="300"
-                                    Height="80"
-                                    Margin="15">
-                        <Grid>
-                            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
-                                <TextBlock FontSize="16"
-                                           FontWeight="DemiBold"
-                                           Text="Uploading File .." />
-                                <TextBlock Margin="2,4,0,0"
-                                           FontSize="12"
-                                           Foreground="{DynamicResource SukiLowText}"
-                                           Text="Presentation.pdf" />
-                            </StackPanel>
-                            <suki:CircleProgressBar Width="37"
-                                                    Height="37"
-                                                    Margin="-55,-65,-10,-65"
-                                                    HorizontalAlignment="Right"
-                                                    VerticalAlignment="Center"
-                                                    StrokeWidth="4"
-                                                    Value="67">
-                                <TextBlock Margin="1,1,0,0"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           FontSize="13"
-                                           FontWeight="DemiBold"
-                                           Text="67" />
-                            </suki:CircleProgressBar>
-                        </Grid>
-                    </suki:GlassCard>
-                    <suki:GlassCard Width="300"
-                                    Margin="15"
-                                    Classes="Card">
-                        <StackPanel>
-                            <TextBlock HorizontalAlignment="Left"
-                                       FontSize="16"
+
+                <!--  Upload progress  -->
+                <suki:GlassCard Width="300"
+                                Height="80"
+                                Margin="15">
+                    <Grid>
+                        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <TextBlock FontSize="16"
                                        FontWeight="DemiBold"
-                                       Text="Daily Progress" />
-                            <Grid Margin="0,18,0,0">
-                                <TextBlock HorizontalAlignment="Left"
-                                           FontSize="12"
-                                           FontWeight="DemiBold"
-                                           Foreground="{DynamicResource SukiLowText}"
-                                           Text="Project Workforce" />
-                                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                                    <TextBlock FontSize="13"
-                                               Foreground="Green"
-                                               Text="32.21%" />
-                                    <avalonia:MaterialIcon Margin="5,0,0,0"
-                                                           Foreground="Green"
-                                                           Kind="ArrowUp" />
-                                </StackPanel>
-                            </Grid>
-                            <ProgressBar Margin="0,1,0,0" Value="16" />
-                            <Grid Margin="0,13,0,0">
-                                <TextBlock HorizontalAlignment="Left"
-                                           FontSize="12"
-                                           FontWeight="DemiBold"
-                                           Foreground="{DynamicResource SukiLowText}"
-                                           Text="Project Velocity" />
-                                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                                    <TextBlock FontSize="13"
-                                               Foreground="Red"
-                                               Text="7.18%" />
-                                    <avalonia:MaterialIcon Margin="5,0,0,0"
-                                                           Foreground="Red"
-                                                           Kind="ArrowDown" />
-                                </StackPanel>
-                            </Grid>
-                            <ProgressBar Margin="0,1,0,0" Value="62" />
-
-                            <Grid Margin="0,13,0,0">
-                                <TextBlock HorizontalAlignment="Left"
-                                           FontSize="12"
-                                           FontWeight="DemiBold"
-                                           Foreground="{DynamicResource SukiLowText}"
-                                           Text="Critical Hours" />
-                                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                                    <TextBlock FontSize="13"
-                                               Foreground="Green"
-                                               Text="16.89%" />
-                                    <avalonia:MaterialIcon Margin="5,0,0,0"
-                                                           Foreground="Green"
-                                                           Kind="ArrowUp" />
-                                </StackPanel>
-                            </Grid>
-                            <ProgressBar Margin="0,1,0,0" Value="34" />
-
+                                       Text="Uploading File .." />
+                            <TextBlock Margin="2,4,0,0"
+                                       FontSize="12"
+                                       Foreground="{DynamicResource SukiLowText}"
+                                       Text="Presentation.pdf" />
                         </StackPanel>
-                    </suki:GlassCard>
-                </StackPanel>
+                        <suki:CircleProgressBar Width="37"
+                                                Height="37"
+                                                Margin="-55,-65,-10,-65"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Center"
+                                                StrokeWidth="4"
+                                                Value="67">
+                            <TextBlock Margin="1,1,0,0"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontSize="13"
+                                       FontWeight="DemiBold"
+                                       Text="67" />
+                        </suki:CircleProgressBar>
+                    </Grid>
+                </suki:GlassCard>
 
+                <!--  work progress  -->
+                <suki:GlassCard Width="300"
+                                Margin="15"
+                                Classes="Card">
+                    <StackPanel>
+                        <TextBlock HorizontalAlignment="Left"
+                                   FontSize="16"
+                                   FontWeight="DemiBold"
+                                   Text="Daily Progress" />
+                        <Grid Margin="0,18,0,0">
+                            <TextBlock HorizontalAlignment="Left"
+                                       FontSize="12"
+                                       FontWeight="DemiBold"
+                                       Foreground="{DynamicResource SukiLowText}"
+                                       Text="Project Workforce" />
+                            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                <TextBlock FontSize="13"
+                                           Foreground="Green"
+                                           Text="32.21%" />
+                                <avalonia:MaterialIcon Margin="5,0,0,0"
+                                                       Foreground="Green"
+                                                       Kind="ArrowUp" />
+                            </StackPanel>
+                        </Grid>
+                        <ProgressBar Margin="0,1,0,0" Value="16" />
+                        <Grid Margin="0,13,0,0">
+                            <TextBlock HorizontalAlignment="Left"
+                                       FontSize="12"
+                                       FontWeight="DemiBold"
+                                       Foreground="{DynamicResource SukiLowText}"
+                                       Text="Project Velocity" />
+                            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                <TextBlock FontSize="13"
+                                           Foreground="Red"
+                                           Text="7.18%" />
+                                <avalonia:MaterialIcon Margin="5,0,0,0"
+                                                       Foreground="Red"
+                                                       Kind="ArrowDown" />
+                            </StackPanel>
+                        </Grid>
+                        <ProgressBar Margin="0,1,0,0" Value="62" />
+
+                        <Grid Margin="0,13,0,0">
+                            <TextBlock HorizontalAlignment="Left"
+                                       FontSize="12"
+                                       FontWeight="DemiBold"
+                                       Foreground="{DynamicResource SukiLowText}"
+                                       Text="Critical Hours" />
+                            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                <TextBlock FontSize="13"
+                                           Foreground="Green"
+                                           Text="16.89%" />
+                                <avalonia:MaterialIcon Margin="5,0,0,0"
+                                                       Foreground="Green"
+                                                       Kind="ArrowUp" />
+                            </StackPanel>
+                        </Grid>
+                        <ProgressBar Margin="0,1,0,0" Value="34" />
+
+                    </StackPanel>
+                </suki:GlassCard>
+
+                <!--  humidity  -->
                 <suki:GlassCard Width="300"
                                 Height="320"
                                 Margin="15"
@@ -185,6 +191,7 @@
                     </Grid>
                 </suki:GlassCard>
 
+                <!--  notifications  -->
                 <suki:GlassCard Width="500"
                                 Margin="15"
                                 VerticalAlignment="Top">
@@ -296,6 +303,8 @@
                                 Content="Create Link" />
                     </Grid>
                 </suki:GlassCard>
+
+                <!--  Invoices  -->
                 <StackPanel>
                     <suki:GlassCard Width="430"
                                     Height="281"
@@ -362,6 +371,8 @@
                         </StackPanel>
                     </suki:GlassCard>
                 </StackPanel>
+
+                <!--  Payment plans  -->
                 <suki:GlassCard Width="961"
                                 Height="270"
                                 Margin="15">

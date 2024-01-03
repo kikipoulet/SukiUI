@@ -13,7 +13,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace SukiUI.Controls;
@@ -63,41 +62,43 @@ public partial class SettingsLayout : UserControl
     public ObservableCollection<SettingsLayoutItem> Items
     {
         get { return _items; }
-        set
-        {
-            SetAndRaise(StepsProperty, ref _items, value);
-            //   UpdateItems();
-        }
+        set { SetAndRaise(StepsProperty, ref _items, value); }
     }
 
     private void UpdateItems()
     {
+        if (Items is null)
+        {
+            return;
+        }
+
         var stackSummary = (StackPanel)this.GetTemplateChildren().First(n => n.Name == "StackSummary");
         var myScroll = (ScrollViewer)this.GetTemplateChildren().First(n => n.Name == "MyScroll");
-        var stackItems = (StackPanel)myScroll.Content;
 
-        if (stackItems == null)
+        if (myScroll.Content is not StackPanel stackItems)
             return;
 
         stackItems.Children.Clear();
         stackSummary.Children.Clear();
 
-        List<RadioButton> radios = new List<RadioButton>();
-        List<Border> borders = new List<Border>();
+        var radios = new List<RadioButton>();
+        var borders = new List<Border>();
 
         stackItems.Children.Add(new Border() { Height = 8 });
 
         foreach (var settingsLayoutItem in Items)
         {
-            Border border = new Border();
-            border.Child = new GroupBox()
+            var border = new Border
             {
-                Margin = new Thickness(10, 20),
-                Header = new TextBlock() { Text = settingsLayoutItem.Header },
-                Content = new Border()
+                Child = new GroupBox()
                 {
-                    Margin = new Thickness(35, 12),
-                    Child = settingsLayoutItem.Content
+                    Margin = new Thickness(10, 20),
+                    Header = new TextBlock() { Text = settingsLayoutItem.Header },
+                    Content = new Border()
+                    {
+                        Margin = new Thickness(35, 12),
+                        Child = settingsLayoutItem.Content
+                    }
                 }
             };
 
@@ -109,14 +110,14 @@ public partial class SettingsLayout : UserControl
                 Content = new TextBlock() { Text = settingsLayoutItem.Header, FontSize = 17 },
                 Classes = { new string[] { "MenuChip" } }
             };
-            summaryButton.Click += (sender, args) =>
+            summaryButton.Click += async (sender, args) =>
             {
                 if (isAnimatingScroll)
                     return;
                 var x = border.TranslatePoint(new Point(), stackItems);
 
                 if (x.HasValue)
-                    AnimateScroll(x.Value.Y);  // myScroll.Offset = new Vector(0, x.Value.Y);
+                    await AnimateScroll(x.Value.Y);  // myScroll.Offset = new Vector(0, x.Value.Y);
             };
             radios.Add(summaryButton);
             stackSummary.Children.Add(summaryButton);
@@ -136,7 +137,7 @@ public partial class SettingsLayout : UserControl
         };
     }
 
-    private void SizeChanged(object sender, SizeChangedEventArgs e)
+    private async void DockPanel_SizeChanged(object sender, SizeChangedEventArgs e)
     {
         if (isAnimatingWidth)
             return;
@@ -146,34 +147,35 @@ public partial class SettingsLayout : UserControl
 
         if (desiredSize != currentwidth)
             if ((currentwidth == 0 || currentwidth == 400))
-                AnimateSummaryWidth(this.GetTemplateChildren().First(n => n.Name == "StackSummary").Width, desiredSize);
+                await AnimateSummaryWidth(this.GetTemplateChildren().First(n => n.Name == "StackSummary").Width, desiredSize);
 
         if (e.NewSize.Width <= 1000 && e.NewSize.Width > 850)
-            AnimateItemsMargin(new Thickness(100, 0));
+            await AnimateItemsMargin(new Thickness(100, 0));
         else if (e.NewSize.Width <= 850 && e.NewSize.Width > 700)
-            AnimateItemsMargin(new Thickness(50, 0));
+            await AnimateItemsMargin(new Thickness(50, 0));
         else
-            AnimateItemsMargin(new Thickness(-10, 0));
+            await AnimateItemsMargin(new Thickness(-10, 0));
     }
 
     private bool isAnimatingWidth = false;
     private bool isAnimatingMargin = false;
     private bool isAnimatingScroll = false;
 
-    private void AnimateItemsMargin(Thickness desiredSize)
+    private async Task AnimateItemsMargin(Thickness desiredSize)
     {
         if (isAnimatingMargin)
             return;
 
         var myScroll = (ScrollViewer)this.GetTemplateChildren().First(n => n.Name == "MyScroll");
-        var stackItems = (StackPanel)myScroll.Content;
+        if (myScroll.Content is not StackPanel stackItems)
+            return;
 
         if (stackItems.Margin.Left == desiredSize.Left)
             return;
 
         isAnimatingMargin = true;
 
-        new Avalonia.Animation.Animation
+        var animationTask = new Animation
         {
             Duration = TimeSpan.FromMilliseconds(800),
             FillMode = FillMode.Forward,
@@ -195,18 +197,20 @@ public partial class SettingsLayout : UserControl
             }
         }.RunAsync(stackItems);
 
-        Task.Run(() =>
+        var abortTask = Task.Run(async () =>
         {
-            Thread.Sleep(1000);
+            await Task.Delay(1000);
             isAnimatingMargin = false;
         });
+
+        await Task.WhenAll(animationTask, abortTask);
     }
 
-    private void AnimateSummaryWidth(double current, double desiredSize)
+    private async Task AnimateSummaryWidth(double current, double desiredSize)
     {
         isAnimatingWidth = true;
 
-        new Animation
+        var animationTask = new Animation
         {
             Duration = TimeSpan.FromMilliseconds(800),
             FillMode = FillMode.Forward,
@@ -228,19 +232,21 @@ public partial class SettingsLayout : UserControl
             }
         }.RunAsync(this.GetTemplateChildren().First(n => n.Name == "StackSummary"));
 
-        Task.Run(() =>
+        var abortTask = Task.Run(async () =>
         {
-            Thread.Sleep(1000);
+            await Task.Delay(1000);
             isAnimatingWidth = false;
         });
+
+        await Task.WhenAll(animationTask, abortTask);
     }
 
-    private void AnimateScroll(double desiredScroll)
+    private async Task AnimateScroll(double desiredScroll)
     {
         isAnimatingScroll = true;
         var myscroll = (ScrollViewer)this.GetTemplateChildren().First(n => n.Name == "MyScroll");
 
-        new Animation
+        var animationTask = new Animation
         {
             Duration = TimeSpan.FromMilliseconds(800),
             FillMode = FillMode.Forward,
@@ -262,10 +268,12 @@ public partial class SettingsLayout : UserControl
             }
         }.RunAsync(myscroll);
 
-        Task.Run(() =>
+        var abortTask = Task.Run(async () =>
         {
-            Thread.Sleep(1000);
+            await Task.Delay(1000);
             isAnimatingScroll = false;
         });
+
+        await Task.WhenAll(animationTask, abortTask);
     }
 }

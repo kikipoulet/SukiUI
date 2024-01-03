@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using SukiUI.Extensions;
 
 namespace SukiUI.Controls;
 
@@ -43,7 +44,7 @@ public partial class Rating : UserControl
 
     private void InitializeStars()
     {
-        var starPanel = this.FindControl<StackPanel>("StarPanel");
+        var starPanel = this.FindRequiredControl<StackPanel>("StarPanel");
         starPanel.Children.Clear();
 
         for (int i = 1; i <= MaxStars; i++)
@@ -57,7 +58,7 @@ public partial class Rating : UserControl
 
     private void OnStarClick(object sender, RoutedEventArgs e)
     {
-        if (sender is ToggleButton button && int.TryParse(button.Content.ToString(), out int star))
+        if (sender is ToggleButton button && int.TryParse(button.Content?.ToString() ?? string.Empty, out int star))
         {
             SelectedStars = star;
             UpdateStarSelection();
@@ -66,7 +67,7 @@ public partial class Rating : UserControl
 
     private void UpdateStarSelection()
     {
-        var starPanel = this.FindControl<StackPanel>("StarPanel");
+        var starPanel = this.FindRequiredControl<StackPanel>("StarPanel");
 
         for (int i = 1; i <= MaxStars; i++)
         {

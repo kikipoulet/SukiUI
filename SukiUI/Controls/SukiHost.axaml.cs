@@ -163,7 +163,7 @@ public class SukiHost : ContentControl
     /// <param name="content">The content of the toast, this can be any control or ViewModel.</param>
     /// <param name="duration">Duration for this toast to be active. Default is 2 seconds.</param>
     /// <param name="onClicked">A callback that will be fired if the Toast is cleared by clicking.</param>
-    public static void ShowToast(string title, object content, TimeSpan? duration = null, Action? onClicked = null) =>
+    public static Task ShowToast(string title, object content, TimeSpan? duration = null, Action? onClicked = null) =>
         ShowToast(new SukiToastModel(
             title,
             content as Control ?? ViewLocator.TryBuild(content),
@@ -174,7 +174,7 @@ public class SukiHost : ContentControl
     /// <inheritdoc cref="ShowToast(string,object,System.Nullable{System.TimeSpan},System.Action?)"/>
     /// </summary>
     /// <param name="model">A pre-constructed <see cref="SukiToastModel"/>.</param>
-    public static async void ShowToast(SukiToastModel model)
+    public static async Task ShowToast(SukiToastModel model)
     {
         var toast = SukiToastPool.Get();
 
@@ -196,7 +196,7 @@ public class SukiHost : ContentControl
     /// <param name="toast">The toast to clear.</param>
     public static async Task ClearToast(SukiToast toast)
     {
-        var wasRemoved = await Task.Run(() =>
+        var wasRemoved = await Task.Run(async () =>
         {
             Dispatcher.UIThread.Invoke(() =>
             {
@@ -204,7 +204,7 @@ public class SukiHost : ContentControl
                 toast.Animate(MarginProperty, new Thickness(), new Thickness(0, 50, 0, -50),
                     TimeSpan.FromMilliseconds(300));
             });
-            Thread.Sleep(300);
+            await Task.Delay(300);
             return Dispatcher.UIThread.Invoke(() => Instance.ToastsCollection.Remove(toast));
         });
 
@@ -242,17 +242,16 @@ public class SukiHost : ContentControl
     }
 
     // Clearing up the horrible dirty workaround for annoying implicit animation issue
-    internal static void ClearInvisibleToast(SukiToast toast)
+    internal static async Task ClearInvisibleToast(SukiToast toast)
     {
-        Task.Run(() =>
+        Dispatcher.UIThread.Invoke(() =>
         {
-            Dispatcher.UIThread.Invoke(() =>
-            {
-                toast.Animate(MarginProperty, new Thickness(), new Thickness(0, 50, 0, -50),
-                    TimeSpan.FromMilliseconds(1));
-            });
-            Thread.Sleep(1);
-            return Dispatcher.UIThread.Invoke(() => Instance.ToastsCollection.Remove(toast));
+            toast.Animate(MarginProperty, new Thickness(), new Thickness(0, 50, 0, -50),
+                TimeSpan.FromMilliseconds(1));
         });
+
+        await Task.Delay(1);
+
+        Dispatcher.UIThread.Invoke(() => Instance.ToastsCollection.Remove(toast));
     }
 }

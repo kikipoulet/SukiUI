@@ -76,8 +76,11 @@ namespace SukiUI.Controls
         private void SetColumnDefinitions(Grid grid, object[] steps)
         {
             var columns = new ColumnDefinitions();
-            foreach (var s in steps)
+            for (int i = 0; i < steps.Length; i++)
+            {
                 columns.Add(new ColumnDefinition());
+            }
+
             grid.ColumnDefinitions = columns;
         }
 

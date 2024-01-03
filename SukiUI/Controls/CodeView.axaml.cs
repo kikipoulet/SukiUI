@@ -7,6 +7,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Threading;
 using SukiUI.Content;
+using SukiUI.Extensions;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ public partial class CodeView : UserControl
     }
 
     private string _text = "";
-    private TextBlock _textBlock;
+    private readonly TextBlock _textBlock;
 
     public CodeView()
     {
@@ -56,7 +57,7 @@ public partial class CodeView : UserControl
                 Data = Icons.ChevronRight,
                 Foreground =
                     new Avalonia.Media.SolidColorBrush(
-                        (Avalonia.Media.Color)Application.Current.FindResource("SukiText")),
+                        (Avalonia.Media.Color)Application.Current.FindRequiredResource("SukiText")),
                 Height = 15,
                 Width = 15,
             });
@@ -71,22 +72,22 @@ public partial class CodeView : UserControl
             VerticalAlignment = VerticalAlignment.Top,
         };
 
-        button.Click += (sender, args) =>
+        button.Click += async (sender, args) =>
         {
-            TopLevel.GetTopLevel(((ClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime)
+            await TopLevel.GetTopLevel(((ClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime)
                 .MainWindow).Clipboard.SetTextAsync(Text);
 
-            gridcontent.Children[0].IsVisible = false;
-            gridcontent.Children[1].IsVisible = true;
-
-            Task.Run(() =>
+            Dispatcher.UIThread.Invoke(() =>
             {
-                Thread.Sleep(3000);
-                Dispatcher.UIThread.Invoke(() =>
-                {
-                    gridcontent.Children[0].IsVisible = true;
-                    gridcontent.Children[1].IsVisible = false;
-                });
+                gridcontent.Children[0].IsVisible = false;
+                gridcontent.Children[1].IsVisible = true;
+            });
+
+            await Task.Delay(3000);
+            Dispatcher.UIThread.Invoke(() =>
+            {
+                gridcontent.Children[0].IsVisible = true;
+                gridcontent.Children[1].IsVisible = false;
             });
         };
 
@@ -147,6 +148,6 @@ public partial class CodeView : UserControl
             _textBlock.SetValue(Grid.RowSpanProperty, lines.Length);
             _textBlock.Text = _text.TrimEnd();
         }
-        catch (Exception exc) { }
+        catch (Exception) { }
     }
 }

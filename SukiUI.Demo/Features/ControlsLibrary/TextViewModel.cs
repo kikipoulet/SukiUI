@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
 using SukiUI.Controls;
+using System.Threading.Tasks;
 
 namespace SukiUI.Demo.Features.ControlsLibrary;
 
@@ -13,8 +14,8 @@ public partial class TextViewModel() : DemoPageBase("Text", MaterialIconKind.Tex
     [ObservableProperty] private string _textBlockValue = DefaultText;
 
     [RelayCommand]
-    public void HyperlinkClicked()
+    public Task HyperlinkClicked()
     {
-        SukiHost.ShowToast("Clicked a hyperlink", "You clicked the hyperlink on the Text page.");
+        return SukiHost.ShowToast("Clicked a hyperlink", "You clicked the hyperlink on the Text page.");
     }
 }

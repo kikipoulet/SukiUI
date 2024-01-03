@@ -63,7 +63,7 @@ public class SukiSideMenuItem : ListBoxItem
                 if (p.Pointer.Type == PointerType.Mouse)
                 {
                     // If the pressed point comes from a mouse, perform the selection immediately.
-                    e.Handled = owner.UpdateSelectionFromPointerEvent(this, e);
+                    e.Handled = owner.UpdateSelectionFromPointerEvent(this);
                 }
             }
         }

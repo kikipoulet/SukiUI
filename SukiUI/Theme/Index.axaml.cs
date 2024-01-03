@@ -50,13 +50,13 @@ public partial class SukiTheme : Styles
     /// Called whenever the application's Background animation state changes.
     /// Useful where controls need to adapt to the change in background state.
     /// </summary>
-    public Action<bool> OnBackgroundAnimationChanged { get; set; }
+    public Action<bool>? OnBackgroundAnimationChanged { get; set; }
 
     /// <summary>
     /// Currently active <see cref="SukiColorTheme"/>
     /// If you want to change this please use <see cref="ChangeColorTheme(SukiUI.Models.SukiColorTheme)"/>
     /// </summary>
-    public SukiColorTheme ActiveColorTheme { get; private set; }
+    public SukiColorTheme? ActiveColorTheme { get; private set; }
 
     /// <summary>
     /// All available Color Themes.

@@ -77,11 +77,6 @@ namespace SukiUI.Controls
 
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            double offset = ((Vector)value).Y * 0.7;
-
-            if (offset > 70)
-                offset = 70;
-
             return new Thickness(0, 170, 0, 0);
         }
 

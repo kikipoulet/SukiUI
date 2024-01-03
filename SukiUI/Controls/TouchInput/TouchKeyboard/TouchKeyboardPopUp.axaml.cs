@@ -2,6 +2,7 @@
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.VisualTree;
+using SukiUI.Extensions;
 using System;
 using System.Linq;
 
@@ -9,14 +10,14 @@ namespace SukiUI.Controls.TouchInput.TouchKeyboard;
 
 public partial class TouchKeyboardPopUp : UserControl
 {
-    private TouchKeyboard rootControl;
+    private readonly TouchKeyboard? rootControl;
 
     public TouchKeyboardPopUp(TouchKeyboard root, string text = "")
     {
         rootControl = root;
         CurrentText = text;
         InitializeComponent();
-        _textBlock.Text = CurrentText;
+        _textBlock!.Text = CurrentText;
     }
 
     public TouchKeyboardPopUp()
@@ -27,7 +28,7 @@ public partial class TouchKeyboardPopUp : UserControl
     private void InitializeComponent()
     {
         AvaloniaXamlLoader.Load(this);
-        _textBlock = this.FindControl<TextBlock>("TextKeyboard");
+        _textBlock = this.FindRequiredControl<TextBlock>("TextKeyboard");
     }
 
     private void Close(object sender, RoutedEventArgs e)
@@ -39,7 +40,7 @@ public partial class TouchKeyboardPopUp : UserControl
     }
 
     public string CurrentText = "";
-    private TextBlock _textBlock;
+    private TextBlock? _textBlock;
 
     private void AddChar(object sender, RoutedEventArgs e)
     {
@@ -49,8 +50,8 @@ public partial class TouchKeyboardPopUp : UserControl
 
     private void ButtonCapsOff_OnClick(object sender, RoutedEventArgs e)
     {
-        this.FindControl<Button>("ButtonCapsOff").IsVisible = false;
-        this.FindControl<Button>("ButtonCapsOn").IsVisible = true;
+        this.FindRequiredControl<Button>("ButtonCapsOff").IsVisible = false;
+        this.FindRequiredControl<Button>("ButtonCapsOn").IsVisible = true;
 
         foreach (var button in this.GetVisualDescendants().OfType<Button>())
         {
@@ -58,16 +59,16 @@ public partial class TouchKeyboardPopUp : UserControl
             {
                 TextBlock t = (TextBlock)button.Content;
                 if ("azertyuiopqsdfghjklmwxcvbn".Contains(t.Text))
-                    t.Text = t.Text.ToUpper();
+                    t.Text = t.Text?.ToUpper();
             }
-            catch (Exception exc) { }
+            catch (Exception) { }
         }
     }
 
     private void ButtonCapsOn_OnClick(object sender, RoutedEventArgs e)
     {
-        this.FindControl<Button>("ButtonCapsOff").IsVisible = true;
-        this.FindControl<Button>("ButtonCapsOn").IsVisible = false;
+        this.FindRequiredControl<Button>("ButtonCapsOff").IsVisible = true;
+        this.FindRequiredControl<Button>("ButtonCapsOn").IsVisible = false;
 
         foreach (var button in this.GetVisualDescendants().OfType<Button>())
         {
@@ -75,9 +76,9 @@ public partial class TouchKeyboardPopUp : UserControl
             {
                 TextBlock t = (TextBlock)button.Content;
                 if ("azertyuiopqsdfghjklmwxcvbn".ToUpper().Contains(t.Text))
-                    t.Text = t.Text.ToLower();
+                    t.Text = t.Text?.ToLower();
             }
-            catch (Exception exc) { }
+            catch (Exception) { }
         }
     }
 
@@ -88,6 +89,6 @@ public partial class TouchKeyboardPopUp : UserControl
             CurrentText = CurrentText.Remove(CurrentText.Length - 1);
             _textBlock.Text = CurrentText;
         }
-        catch (Exception exc) { }
+        catch (Exception) { }
     }
 }

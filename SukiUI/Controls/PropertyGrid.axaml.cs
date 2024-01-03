@@ -4,6 +4,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
+using SukiUI.Extensions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -44,7 +45,7 @@ namespace SukiUI.Controls
 
         public void SetItem(object item)
         {
-            var stackProperties = this.FindControl<StackPanel>("StackProperties");
+            var stackProperties = this.FindRequiredControl<StackPanel>("StackProperties");
             stackProperties.Children.Clear();
 
             List<PropertyInfo> properties = item.GetType().GetProperties().ToList();
@@ -200,7 +201,7 @@ namespace SukiUI.Controls
                 {
                     var content = new Border()
                     {
-                        Background = new SolidColorBrush((Color)Application.Current.FindResource("SukiBackground")),
+                        Background = new SolidColorBrush((Color)Application.Current.FindRequiredResource("SukiBackground")),
                         Width = 300,
                         Padding = new Thickness(5),
                         Child = new PropertyGrid() { Item = property.GetValue(Item), Width = 280, HorizontalAlignment = HorizontalAlignment.Center }

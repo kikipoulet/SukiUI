@@ -38,12 +38,12 @@ public partial class MobileNumericUpDown : UserControl
 
     private void ButtonPlus(object sender, RoutedEventArgs e)
     {
-        Value = Value + 1;
+        Value++;
     }
 
     private void ButtonMinus(object sender, RoutedEventArgs e)
     {
-        Value = Value - 1;
+        Value--;
     }
 }
 
@@ -53,7 +53,7 @@ public class IntToStringConverter : IValueConverter
 
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        return value.ToString();
+        return value?.ToString();
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

@@ -4,6 +4,7 @@ using Avalonia.Data;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
+using SukiUI.Extensions;
 
 namespace SukiUI.Controls.TouchInput.TouchNumericPad;
 
@@ -21,14 +22,13 @@ public partial class TouchNumericPad : UserControl
 
     private void OpenPopup(object sender, RoutedEventArgs e)
     {
-        var dialog = new NumericPadPopUp()
+        var dialog = new NumericPadPopUp
         {
-            rootControl = this
+            rootControl = this,
+            RenderTransform = PopupScale,
+            Height = PopupHeight,
+            Width = PopupWidth
         };
-
-        dialog.RenderTransform = PopupScale;
-        dialog.Height = PopupHeight;
-        dialog.Width = PopupWidth;
 
         SukiHost.ShowDialog(dialog, true);
     }
@@ -45,7 +45,7 @@ public partial class TouchNumericPad : UserControl
         set
         {
             SetAndRaise(ValueProperty, ref _value, value);
-            this.FindControl<TextBlock>("textValue").Text = Value.ToString();
+            this.FindRequiredControl<TextBlock>("textValue").Text = Value.ToString();
         }
     }
 
