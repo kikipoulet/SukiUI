@@ -1,26 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <OutputType>WinExe</OutputType>
-        <TargetFramework>net7.0</TargetFramework>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
-    <ItemGroup>
-        <None Remove=".gitignore" />
-    </ItemGroup>
-    <ItemGroup>
-        <PackageReference Include="Avalonia" Version="11.0.5" />
-        <PackageReference Include="Avalonia.Controls.PanAndZoom" Version="11.0.0" />
-        <PackageReference Include="Avalonia.Desktop" Version="11.0.5" />
-        <PackageReference Include="Avalonia.Diagnostics" Version="11.0.5" />
-        <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.5" />
-        <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.5" />
-        <PackageReference Include="Material.Icons.Avalonia" Version="2.1.0" />
-   
-    </ItemGroup>
-    <ItemGroup>
-      <ProjectReference Include="..\SukiUI\SukiUI.csproj" />
-    </ItemGroup>
-    <ItemGroup>
-      <UpToDateCheckInput Remove="DialogContent.axaml" />
-    </ItemGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Avalonia" Version="11.0.5" />
+		<PackageReference Include="Avalonia.Controls.PanAndZoom" Version="11.0.0" />
+		<PackageReference Include="Avalonia.Desktop" Version="11.0.5" />
+		<PackageReference Include="Avalonia.Diagnostics" Version="11.0.5" />
+		<PackageReference Include="Avalonia.ReactiveUI" Version="11.0.5" />
+		<PackageReference Include="Avalonia.Themes.Simple" Version="11.0.5" />
+		<PackageReference Include="Material.Icons.Avalonia" Version="2.1.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\SukiUI\SukiUI.csproj" />
+	</ItemGroup>
 </Project>
