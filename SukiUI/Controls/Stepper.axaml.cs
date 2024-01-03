@@ -121,7 +121,7 @@ namespace SukiUI.Controls
                     HorizontalAlignment = HorizontalAlignment.Center,
                     Text = (index + 1).ToString(),
                     FontSize = 13,
-                    Foreground = Brushes.White
+                    Foreground = Brushes.White, TextWrapping = TextWrapping.Wrap
                 };
             }
             else
@@ -135,7 +135,7 @@ namespace SukiUI.Controls
                     HorizontalAlignment = HorizontalAlignment.Center,
                     Text = (index + 1).ToString(),
                     FontSize = 13,
-                    Foreground = Brushes.White
+                    Foreground = Brushes.White, TextWrapping = TextWrapping.Wrap
                 };
             }
 
@@ -149,7 +149,7 @@ namespace SukiUI.Controls
                     Margin = new Thickness(10, 0, 0, 0),
                     Text = s,
                     VerticalAlignment = VerticalAlignment.Center,
-                    HorizontalAlignment = HorizontalAlignment.Left,
+                    HorizontalAlignment = HorizontalAlignment.Left, TextWrapping = TextWrapping.Wrap
                 },
                 _ => new ContentControl() { Content = step }
             };

@@ -19,7 +19,8 @@
                              Stroke="{DynamicResource SukiLightBorderBrush}"
                              StrokeThickness="{TemplateBinding StrokeWidth}"
                              SweepAngle="360" />
-                        <Arc Width="{TemplateBinding Width}"
+                        <Arc Name="PART_ArcFill"
+                             Width="{TemplateBinding Width}"
                              Height="{TemplateBinding Height}"
                              StartAngle="270"
                              Stretch="None"
@@ -45,6 +46,9 @@
                     </Grid>
                 </ControlTemplate>
             </Setter>
+            <Style Selector="^.Accent /template/ Arc#PART_ArcFill">
+                <Setter Property="Stroke" Value="{DynamicResource SukiAccentColor}" />
+            </Style>
         </Style>
     </UserControl.Styles>
 

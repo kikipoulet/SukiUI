@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace SukiUI.Demo;
 
-public partial class SukiUIDemoViewModel : ViewAwareObservableObject
+public partial class SukiUIDemoViewModel : ObservableObject
 {
     public IAvaloniaReadOnlyList<DemoPageBase> DemoPages { get; }
 

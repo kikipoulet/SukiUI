@@ -37,9 +37,9 @@
             </controls:GroupBox>
         </controls:GlassCard>
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled">
-            <ItemsControl x:CompileBindings="False" ItemsSource="{Binding AllIcons}">
+            <ItemsControl ItemsSource="{Binding AllIcons}">
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:CompileBindings="False">
                         <controls:GlassCard Margin="15,15,15,15">
                             <controls:GroupBox Header="{Binding Key}">
                                 <PathIcon Width="25"

@@ -95,7 +95,9 @@ public class SukiHost : ContentControl
             throw new InvalidOperationException("SukiHost must be hosted inside a Window or SukiWindow");
         _maxToasts = GetToastLimit(window);
         var toastLoc = GetToastLocation(window);
+        
         e.NameScope.Get<Border>("PART_DialogBackground").PointerPressed += (_, _) => BackgroundRequestClose();
+       
         e.NameScope.Get<ItemsControl>("PART_ToastPresenter").HorizontalAlignment =
             toastLoc == ToastLocation.BottomLeft
                 ? HorizontalAlignment.Left
