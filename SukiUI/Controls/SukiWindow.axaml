@@ -15,9 +15,10 @@
                         <VisualLayerManager IsHitTestVisible="True">
                             <suki:SukiHost>
                                 <Grid x:Name="PART_Root">
-                                    <Grid IsHitTestVisible="False">
-                                        <suki:SukiBackground Name="PART_Background" />
-                                    </Grid>
+                                    
+                                        <suki:SukiBackground Name="PART_Background" IsHitTestVisible="False" />
+                                   
+                                    
                                     <DockPanel LastChildFill="True">
                                         <!--  Title Bar...  -->
                                         <Grid DockPanel.Dock="Top">

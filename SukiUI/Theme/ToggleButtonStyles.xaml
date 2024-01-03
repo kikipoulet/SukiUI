@@ -129,7 +129,7 @@
 
     <Style Selector="ToggleButton.Switch:unchecked /template/ Border#SwitchKnob">
         <Style.Animations>
-            <Animation Duration="0:0:0.22" FillMode="Both">
+            <Animation Duration="0:0:0.3" FillMode="Both">
 
 
 
@@ -160,7 +160,7 @@
 
         <Setter Property="BoxShadow" Value="0 0 0 0 White" />
         <Style.Animations>
-            <Animation Duration="0:0:0.22" FillMode="Both">
+            <Animation Duration="0:0:0.3" FillMode="Both">
                 <Animation.Easing>
                     <SineEaseIn />
                 </Animation.Easing>

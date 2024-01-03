@@ -131,6 +131,7 @@
     <Style Selector="RadioButton.GigaChips:checked  Border#BigBorder">
         <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
         <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor2}" />
+        <Setter Property="Margin" Value="0" />
         <Setter Property="BorderThickness" Value="2" />
 
     </Style>

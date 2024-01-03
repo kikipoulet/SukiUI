@@ -61,14 +61,5 @@ public class SukiToast : ContentControl
         DockPanel.SetDock(this, Dock.Bottom);
     }
 
-    internal void InitializeInvisible()
-    {
-        Title = "Invisible";
-        Content = "Invisible Content";
-        Opacity = 0;
-        _timer.Interval = 5;
-        _timer.Elapsed -= TimerOnElapsed;
-        _timer.Elapsed += (_, _) => SukiHost.ClearInvisibleToast(this);
-        _timer.Start();
-    }
+  
 }

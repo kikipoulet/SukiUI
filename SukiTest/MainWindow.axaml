@@ -46,7 +46,7 @@
                         ToolTip.Tip="Change Color">
                         <material:MaterialIcon Kind="Palette" />
                     </Button>
-                    <Button Classes="Basic"
+                    <Button Classes="Basic" IsVisible="False"
                             Click="ChangeAnimationState"
                             ToolTip.Tip="Toggle Background Animation">
                         <material:MaterialIcon Kind="Animation" />

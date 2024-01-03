@@ -97,7 +97,9 @@ public class SukiHost : ContentControl
             throw new InvalidOperationException("SukiHost must be hosted inside a Window or SukiWindow");
         _maxToasts = GetToastLimit(window);
         var toastLoc = GetToastLocation(window);
+        
         e.NameScope.Get<Border>("PART_DialogBackground").PointerPressed += (_, _) => BackgroundRequestClose();
+       
         e.NameScope.Get<ItemsControl>("PART_ToastPresenter").HorizontalAlignment =
             toastLoc == ToastLocation.BottomLeft
                 ? HorizontalAlignment.Left
@@ -230,31 +232,6 @@ public class SukiHost : ContentControl
         return _instance;
     }
 
-    // Horrible dirty workaround for annoying implicit animation issue
-    internal static void ShowInvisibleToast()
-    {
-        var toast = new SukiToast();
-        toast.InitializeInvisible();
-        Dispatcher.UIThread.Invoke(() =>
-        {
-            toast.Animate(MarginProperty, new Thickness(), new Thickness(0, 50, 0, -50),
-                TimeSpan.FromMilliseconds(1));
-            Instance.ToastsCollection.Add(toast);
-        });
-    }
-
-    // Clearing up the horrible dirty workaround for annoying implicit animation issue
-    internal static void ClearInvisibleToast(SukiToast toast)
-    {
-        Task.Run(() =>
-        {
-            Dispatcher.UIThread.Invoke(() =>
-            {
-                toast.Animate(MarginProperty, new Thickness(), new Thickness(0, 50, 0, -50),
-                    TimeSpan.FromMilliseconds(1));
-            });
-            Thread.Sleep(1);
-            return Dispatcher.UIThread.Invoke(() => Instance.ToastsCollection.Remove(toast));
-        });
-    }
+  
+   
 }

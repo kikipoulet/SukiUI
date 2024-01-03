@@ -170,6 +170,8 @@ public partial class SukiTheme : Styles
         
         ActiveColorTheme = colorTheme;
         OnColorThemeChanged?.Invoke(ActiveColorTheme);
+        
+        
     }
 
     private void SetColorWithOpacities(string baseName, Color baseColor)
