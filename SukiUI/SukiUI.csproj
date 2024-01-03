@@ -1,129 +1,54 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <IsPackable>true</IsPackable>
-        <Authors></Authors>
-        <Copyright></Copyright>
-        <PackageProjectUrl>https://github.com/kikipoulet/SukiUI</PackageProjectUrl>
-        <PackageDescription></PackageDescription>
-        <Owners></Owners>
-        <PackageTags>avalonia;avaloniaui;ui;theme</PackageTags>
-        <RepositoryUrl>https://github.com/kikipoulet/SukiUI</RepositoryUrl>
-        <RepositoryType>git</RepositoryType>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <GenerateDocumentationFile>True</GenerateDocumentationFile>
-        <IsPackable>true</IsPackable>
-        <RootNamespace>SukiUI</RootNamespace>
-        <Version>5.0.4</Version>
-        <FileVersion>2.0.0</FileVersion>
-        <AssemblyVersion>2.0.0</AssemblyVersion>
-        <LangVersion>10</LangVersion>
-        <UserSecretsId>712f85e4-12d3-41b0-a417-5714a113666f</UserSecretsId>
-        <Description>https://github.com/kikipoulet/SukiUI</Description>
-        <PackageVersion>5.1.2</PackageVersion>
-        <Nullable>enable</Nullable>
-        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<IsPackable>true</IsPackable>
+		<Authors></Authors>
+		<Copyright></Copyright>
+		<PackageProjectUrl>https://github.com/kikipoulet/SukiUI</PackageProjectUrl>
+		<PackageDescription></PackageDescription>
+		<Owners></Owners>
+		<PackageTags>avalonia;avaloniaui;ui;theme</PackageTags>
+		<RepositoryUrl>https://github.com/kikipoulet/SukiUI</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<IsPackable>true</IsPackable>
+		<RootNamespace>SukiUI</RootNamespace>
+		<Version>5.0.4</Version>
+		<FileVersion>2.0.0</FileVersion>
+		<AssemblyVersion>2.0.0</AssemblyVersion>
+		<LangVersion>10</LangVersion>
+		<UserSecretsId>712f85e4-12d3-41b0-a417-5714a113666f</UserSecretsId>
+		<Description>https://github.com/kikipoulet/SukiUI</Description>
+		<PackageVersion>5.1.2</PackageVersion>
+		<Nullable>enable</Nullable>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
 
-    <ItemGroup>
-        <AvaloniaResource Include="**\*.xaml" />
-        <None Remove="Roboto-Medium.ttf" />
-        <AvaloniaResource Include="Roboto-Medium.ttf" />
-        <AvaloniaXaml Remove="ColorTheme\Dark.axaml" />
-        <AvaloniaResource Include="ColorTheme\Dark.axaml" />
-        <AvaloniaXaml Remove="ColorTheme\Light.axaml" />
-        <None Remove="CustomFont\Quicksand-Bold.ttf" />
-        <AvaloniaResource Include="CustomFont\Quicksand-Bold.ttf" />
-        <None Remove="CustomFont\Quicksand-Light.ttf" />
-        <AvaloniaResource Include="CustomFont\Quicksand-Light.ttf" />
-        <None Remove="CustomFont\Quicksand-Medium.ttf" />
-        <AvaloniaResource Include="CustomFont\Quicksand-Medium.ttf" />
-        <None Remove="CustomFont\Quicksand-Regular.ttf" />
-        <AvaloniaResource Include="CustomFont\Quicksand-Regular.ttf" />
-        <None Remove="CustomFont\Quicksand-SemiBold.ttf" />
-        <AvaloniaResource Include="CustomFont\Quicksand-SemiBold.ttf" />
-        <None Remove="Assets\gradient_dark_strong.png" />
-        <None Remove="Assets\mesh-gradient-light.png" />
-        <None Remove="Assets\mesh-gradient (1).png" />
-        <None Remove="Assets\20221019_182415.jpg" />
-        <None Remove="Assets\isse.bmp" />
-    </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Avalonia" Version="11.0.5" />
+		<PackageReference Include="Avalonia.Skia" Version="11.0.5" />
+		<PackageReference Include="SkiaSharp" Version="2.88.6" />
+		<PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.5" />
+		<PackageReference Include="Avalonia.Themes.Simple" Version="11.0.5" />
+		<PackageReference Include="ReactiveUI" Version="19.2.1" />
+	</ItemGroup>
 
-    <ItemGroup>
-      <AvaloniaXaml Remove="Theme\CheckBox.axaml" />
-      <AvaloniaXaml Remove="Theme\DialogHostStyle.axaml" />
-      <AvaloniaXaml Remove="Theme\RichTextBoxStyles.axaml" />
-      <AvaloniaXaml Remove="Theme\WindowStyles.axaml" />
-    </ItemGroup>
+	<ItemGroup>
+		<AvaloniaResource Include="**\*.xaml" />
+	</ItemGroup>
 
-    <ItemGroup>
-      <None Remove="LICENSE" />
-      <None Remove="Roboto-Regular.ttf" />
-    </ItemGroup>
+	<ItemGroup>
+		<AvaloniaResource Include="LICENSE" />
+		<AvaloniaResource Include="Roboto-Regular.ttf" />
+		<AvaloniaResource Include="Roboto-Medium.ttf" />
+		<AvaloniaResource Include="CustomFont\Quicksand-Bold.ttf" />
+		<AvaloniaResource Include="CustomFont\Quicksand-Light.ttf" />
+		<AvaloniaResource Include="CustomFont\Quicksand-Medium.ttf" />
+		<AvaloniaResource Include="CustomFont\Quicksand-Regular.ttf" />
+		<AvaloniaResource Include="CustomFont\Quicksand-SemiBold.ttf" />
+		<Content Include="suki_photo.ico" />
+	</ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Avalonia" Version="11.0.5" />
-        <PackageReference Include="Avalonia.Skia" Version="11.0.5" />
-        <PackageReference Include="SkiaSharp" Version="2.88.6" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.5" />
-        <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.5" />
-        <PackageReference Include="ReactiveUI" Version="19.2.1" />
-    </ItemGroup>
-
- 
-
-    <ItemGroup>
-      <AvaloniaResource Include="LICENSE" />
-      <AvaloniaResource Include="Roboto-Regular.ttf" />
-      <AvaloniaResource Include="Theme\CheckBox.axaml" />
-      <AvaloniaResource Include="Theme\RichTextBoxStyles.axaml" />
-      <AvaloniaResource Include="Theme\WindowStyles.axaml" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <AvaloniaResource Include="ColorTheme\Light.axaml" />
-      <AvaloniaResource Include="CustomFont\Quicksand-Bold.ttf" />
-      <AvaloniaResource Include="CustomFont\Quicksand-Light.ttf" />
-      <AvaloniaResource Include="CustomFont\Quicksand-Medium.ttf" />
-      <AvaloniaResource Include="CustomFont\Quicksand-Regular.ttf" />
-      <AvaloniaResource Include="CustomFont\Quicksand-SemiBold.ttf" />
-      <Content Include="suki_photo.ico" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Include="..\.editorconfig" Link=".editorconfig" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <AvaloniaXaml Update="Theme\ListBoxItemStyle.axaml">
-        <Generator>MSBuild:Compile</Generator>
-      </AvaloniaXaml>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Update="Controls\WaveProgress\WaveProgress.axaml.cs">
-        <DependentUpon>WaveProgress.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
-      <Compile Update="Controls\SukiWindow.axaml">
-        <DependentUpon>SukiWindow.axaml.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Controls\SukiSideMenu.axaml.cs">
-        <DependentUpon>SukiSideMenu.axaml.axaml</DependentUpon>
-      </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
-      <UpToDateCheckInput Remove="Controls\MobileNumberPicker\MobileNumberPicker.axaml" />
-      <UpToDateCheckInput Remove="Controls\MobileNumberPicker\MobileNumberPickerPopup.axaml" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Assets\" />
-    </ItemGroup>
-    
 </Project>
