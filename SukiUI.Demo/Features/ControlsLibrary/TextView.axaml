@@ -12,7 +12,7 @@
              x:DataType="controlsLibrary:TextViewModel"
              mc:Ignorable="d">
     <UserControl.Styles>
-        <Style Selector="showMeTheXaml|XamlDisplay > TextBox">
+        <Style Selector="showMeTheXaml|XamlDisplay &gt; TextBox">
             <Setter Property="Text" Value="{Binding TextBoxValue}" />
         </Style>
         <Style Selector="TextBlock">
@@ -25,9 +25,14 @@
             <controls:GlassCard>
                 <controls:GroupBox Header="Text Styles">
                     <StackPanel Spacing="15">
-                        <TextBlock>
-                            SukiUI defines some basic text classes that you can use in your application.<LineBreak />
-                            The h and color styles can be combined.</TextBlock>
+                        <StackPanel Classes="HeaderContent">
+                            <TextBlock>
+                                SukiUI defines some basic text classes that you can use in your application.
+                            </TextBlock>
+                            <TextBlock>
+                                The h and color styles can be combined.
+                            </TextBlock>
+                        </StackPanel>
                         <showMeTheXaml:XamlDisplay UniqueId="TextHyperlink">
                             <TextBlock>
                                 Text With A<InlineUIContainer>
@@ -68,7 +73,7 @@
             </controls:GlassCard>
             <controls:GlassCard>
                 <controls:GroupBox Header="Text Input">
-                    <StackPanel Spacing="15">
+                    <StackPanel Classes="HeaderContent">
                         <TextBlock>
                             There are a few helpers available to make textboxes simpler and more powerful to use.
                         </TextBlock>

@@ -13,11 +13,14 @@
     <Grid RowDefinitions="Auto,*">
         <controls:GlassCard Margin="30">
             <controls:GroupBox Header="Progress Indicators">
-                <StackPanel Spacing="15">
-                    <TextBlock TextWrapping="Wrap">
-                        Here is a demo of all the available progress indicators in SukiUI, including the stepper.<LineBreak />
-                        The progress bars can be controlled with the controls below except the stepper which has it's own logic.</TextBlock>
-                    <DockPanel>
+                <StackPanel Classes="HeaderContent">
+                    <TextBlock>
+                        Here is a demo of all the available progress indicators in SukiUI, including the stepper.
+                    </TextBlock>
+                    <TextBlock>
+                        The progress bars can be controlled with the controls below except the stepper which has it's own logic.
+                    </TextBlock>
+                    <DockPanel Margin="0,10,0,0">
                         <CheckBox DockPanel.Dock="Left" IsChecked="{Binding IsTextVisible}" />
                         <TextBlock Text="Text Enabled?" />
                     </DockPanel>

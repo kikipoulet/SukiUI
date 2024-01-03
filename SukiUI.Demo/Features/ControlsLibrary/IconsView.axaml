@@ -15,10 +15,13 @@
     <Grid RowDefinitions="Auto, *">
         <controls:GlassCard Margin="30">
             <controls:GroupBox Header="Icons">
-                <StackPanel Spacing="10">
+                <StackPanel Classes="HeaderContent">
                     <TextBlock TextWrapping="Wrap">
-                        SukiUI contains definitions for some basic icons that are used for a variety of controls. You may wish to use these icons in your app and controls to maintain consistency with SukiUI.<LineBreak />
-                        The icons can be used in the following way:</TextBlock>
+                        SukiUI contains definitions for some basic icons that are used for a variety of controls. You may wish to use these icons in your app and controls to maintain consistency with SukiUI.
+                    </TextBlock>
+                    <TextBlock>
+                        The icons can be used in the following way:
+                    </TextBlock>
                     <StackPanel Orientation="Horizontal" Spacing="15">
                         <showMeTheXaml:XamlDisplay UniqueId="Icon1">
                             <PathIcon Data="{x:Static content:Icons.Plus}" />
