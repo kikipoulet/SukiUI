@@ -12,18 +12,23 @@
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
         <Setter Property="Background" Value="{DynamicResource SukiBorderBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
-        
+
         <Setter Property="Template">
             <ControlTemplate>
                 <DockPanel>
-                 
-                        <TextBlock HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   IsVisible="{Binding ShowProgressText, RelativeSource={RelativeSource TemplatedParent}}" Margin="10,0,0,0" DockPanel.Dock="Right" FontWeight="DemiBold" Foreground="{DynamicResource SukiText}" Text="{Binding Value, RelativeSource={RelativeSource TemplatedParent}, StringFormat={}{0:0}%}" />
-                 
+
+                    <TextBlock Width="35"
+                               Margin="10,0,0,0"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               DockPanel.Dock="Right"
+                               FontWeight="DemiBold"
+                               Foreground="{DynamicResource SukiText}"
+                               IsVisible="{Binding ShowProgressText, RelativeSource={RelativeSource TemplatedParent}}"
+                               Text="{Binding Value, RelativeSource={RelativeSource TemplatedParent}, StringFormat={}{0:0}%}" />
+
                     <Border Name="PART_RootBorder"
                             MinWidth="{TemplateBinding MinWidth}"
-                      
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
@@ -51,8 +56,8 @@
                                     IsVisible="{Binding IsIndeterminate, RelativeSource={RelativeSource TemplatedParent}}" />
                         </Panel>
                     </Border>
-                    
-                
+
+
                 </DockPanel>
             </ControlTemplate>
         </Setter>
@@ -67,25 +72,25 @@
     </Style>
     <Style Selector="ProgressBar:horizontal">
         <Setter Property="MinWidth" Value="200" />
-     
+
     </Style>
     <Style Selector="ProgressBar:vertical">
-        
+
         <Setter Property="MinHeight" Value="200" />
     </Style>
-    
+
     <Style Selector="ProgressBar:horizontal /template/ Border#PART_RootBorder">
-        <Setter Property="MinHeight" Value="8"></Setter>
-        <Setter Property="Height" Value="8"></Setter>
-        <Setter Property="MaxHeight" Value="8"></Setter>
+        <Setter Property="MinHeight" Value="8" />
+        <Setter Property="Height" Value="8" />
+        <Setter Property="MaxHeight" Value="8" />
     </Style>
-    
+
     <Style Selector="ProgressBar:vertical /template/ Border#PART_RootBorder">
-        <Setter Property="MinWidth" Value="8"></Setter>
-        <Setter Property="Width" Value="8"></Setter>
-        <Setter Property="MaxWidth" Value="8"></Setter>
+        <Setter Property="MinWidth" Value="8" />
+        <Setter Property="Width" Value="8" />
+        <Setter Property="MaxWidth" Value="8" />
     </Style>
-    
+
     <Style Selector="ProgressBar:vertical /template/ LayoutTransformControl#PART_LayoutTransformControl">
         <Setter Property="LayoutTransform">
             <Setter.Value>
