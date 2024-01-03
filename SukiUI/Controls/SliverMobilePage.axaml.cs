@@ -1,9 +1,9 @@
-﻿using System;
-using System.Globalization;
-using Avalonia;
+﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data.Converters;
 using Avalonia.Markup.Xaml;
+using System;
+using System.Globalization;
 
 namespace SukiUI.Controls
 {
@@ -18,60 +18,54 @@ namespace SukiUI.Controls
         {
             AvaloniaXamlLoader.Load(this);
         }
-        
+
         public static readonly StyledProperty<string> HeaderProperty =
             AvaloniaProperty.Register<CircleProgressBar, string>(nameof(Header), defaultValue: "Header");
 
         public string Header
         {
             get { return GetValue(HeaderProperty); }
-            set { SetValue(HeaderProperty, value ); }
+            set { SetValue(HeaderProperty, value); }
         }
     }
-    
+
     public class OffsetToHeightConverter : IValueConverter
     {
         public static readonly OffsetToHeightConverter Instance = new OffsetToHeightConverter();
 
-        public object? Convert( object? value, Type targetType, object? parameter, CultureInfo culture )
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
+            double Offset = ((Vector)value).Y * 0.7;
 
-            double Offset =  ((Vector)value).Y * 0.7;
-
-      
             double Height = 170 - (Offset);
 
             if (Height < 100)
                 return 100;
             else
                 return Height;
-
         }
 
-        public object ConvertBack( object? value, Type targetType, object? parameter, CultureInfo culture )
+        public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             throw new NotSupportedException();
         }
     }
-    
+
     public class OffsetToMarginConverter : IValueConverter
     {
         public static readonly OffsetToMarginConverter Instance = new OffsetToMarginConverter();
 
-        public object? Convert( object? value, Type targetType, object? parameter, CultureInfo culture )
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             double offset = ((Vector)value).Y * 0.7;
-
-           
 
             if (offset > 70)
                 offset = 70;
 
-            return new Thickness(25 + (offset * 1.35), 70 - offset, 0 , -10 + (offset / 7));
-
+            return new Thickness(25 + (offset * 1.35), 70 - offset, 0, -10 + (offset / 7));
         }
 
-        public object ConvertBack( object? value, Type targetType, object? parameter, CultureInfo culture )
+        public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             throw new NotSupportedException();
         }
@@ -89,7 +83,6 @@ namespace SukiUI.Controls
                 offset = 70;
 
             return new Thickness(0, 170, 0, 0);
-
         }
 
         public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
@@ -102,11 +95,9 @@ namespace SukiUI.Controls
     {
         public static readonly OffsetToFontSizeConverter Instance = new OffsetToFontSizeConverter();
 
-        public object? Convert( object? value, Type targetType, object? parameter, CultureInfo culture )
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            double Offset =  ((Vector)value).Y * 0.7;
-
-         
+            double Offset = ((Vector)value).Y * 0.7;
 
             double fontsize = 45 - (Offset / 4.5);
 
@@ -116,7 +107,7 @@ namespace SukiUI.Controls
             return fontsize;
         }
 
-        public object ConvertBack( object? value, Type targetType, object? parameter, CultureInfo culture )
+        public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             throw new NotSupportedException();
         }

@@ -1,13 +1,12 @@
-using System;
-using System.Linq;
-using System.Reactive;
-using System.Reactive.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
-using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
+using System;
+using System.Linq;
+using System.Reactive;
+using System.Reactive.Linq;
 
 namespace SukiUI.Controls;
 

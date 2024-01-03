@@ -1,7 +1,7 @@
-using System.IO;
 using Avalonia;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
+using System.IO;
 
 namespace SukiUI.Demo.Utilities;
 

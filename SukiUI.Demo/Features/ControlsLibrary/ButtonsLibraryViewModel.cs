@@ -1,7 +1,7 @@
-using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
+using System.Threading.Tasks;
 
 namespace SukiUI.Demo.Features.ControlsLibrary;
 

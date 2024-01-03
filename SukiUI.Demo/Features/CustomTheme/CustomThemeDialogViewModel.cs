@@ -13,7 +13,7 @@ public partial class CustomThemeDialogViewModel : ObservableObject
     [ObservableProperty] private Color _accentColor;
 
     private readonly SukiTheme _theme;
-    
+
     public CustomThemeDialogViewModel(SukiTheme theme)
     {
         _theme = theme;

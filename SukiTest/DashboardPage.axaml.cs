@@ -1,21 +1,15 @@
-using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Threading;
+using SukiUI.Controls;
+using SukiUI.Theme;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Threading.Tasks;
-using Avalonia.Controls.Notifications;
-using Avalonia.Interactivity;
-using SukiUI.Controls;
 using System.Threading;
-using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Threading;
-using SukiUI;
-using SukiUI.Enums;
-using SukiUI.Theme;
-
+using System.Threading.Tasks;
 
 namespace SukiTest;
 
@@ -85,7 +79,7 @@ public partial class DashboardPage : UserControl
     {
         AvaloniaXamlLoader.Load(this);
     }
-    
+
     private void ShowDialog(object sender, RoutedEventArgs e)
     {
         SukiHost.ShowDialog(new DialogContent(), allowBackgroundClose: true);
@@ -124,7 +118,6 @@ public partial class DashboardPage : UserControl
         var loading = this.FindControl<Loading>("MyLoading");
         loading.Opacity = Math.Abs(loading.Opacity - 1);
     }
-
 
     private void BusyMe(object? sender, RoutedEventArgs e)
     {

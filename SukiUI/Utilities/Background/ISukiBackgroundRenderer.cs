@@ -1,8 +1,8 @@
-using System.Threading.Tasks;
 using Avalonia.Media.Imaging;
 using Avalonia.Styling;
 using SukiUI.Controls;
 using SukiUI.Models;
+using System.Threading.Tasks;
 
 namespace SukiUI.Utilities.Background;
 
@@ -15,14 +15,14 @@ public interface ISukiBackgroundRenderer
     /// Tells the <see cref="SukiBackground"/> control if this renderer should be animated.
     /// </summary>
     public bool SupportsAnimation { get; }
-    
+
     /// <summary>
     /// Updates the values from the main thread, allowing the generator to keep drawing in the background.
     /// </summary>
     /// <param name="colorTheme"></param>
     /// <param name="baseTheme"></param>
     public void UpdateValues(SukiColorTheme colorTheme, ThemeVariant baseTheme);
-    
+
     /// <summary>
     /// Called every time the Background control attempts to render the background.
     /// This is called once at startup and...

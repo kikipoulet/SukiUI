@@ -23,17 +23,15 @@ public partial class TouchKeyboard : UserControl
     {
         var dialog = new TouchKeyboardPopUp(this, Text)
         {
-            
         };
 
         dialog.RenderTransform = PopupScale;
         dialog.Height = PopupHeight;
         dialog.Width = PopupWidth;
-        
-        SukiHost.ShowDialog(dialog,true);
+
+        SukiHost.ShowDialog(dialog, true);
     }
-    
-    
+
     public static readonly StyledProperty<ScaleTransform> PopupScaleProperty = AvaloniaProperty.Register<TouchKeyboard, ScaleTransform>(nameof(TouchKeyboard), defaultValue: new ScaleTransform());
 
     public ScaleTransform PopupScale
@@ -41,11 +39,10 @@ public partial class TouchKeyboard : UserControl
         get { return GetValue(PopupScaleProperty); }
         set
         {
-            
-            SetValue(PopupScaleProperty, value );
+            SetValue(PopupScaleProperty, value);
         }
     }
-    
+
     public static readonly StyledProperty<int> PopupHeightProperty = AvaloniaProperty.Register<TouchKeyboard, int>(nameof(TouchKeyboard), defaultValue: 300);
 
     public int PopupHeight
@@ -53,11 +50,10 @@ public partial class TouchKeyboard : UserControl
         get { return GetValue(PopupHeightProperty); }
         set
         {
-            
-            SetValue(PopupHeightProperty, value );
+            SetValue(PopupHeightProperty, value);
         }
     }
-    
+
     public static readonly StyledProperty<int> PopupWidthProperty = AvaloniaProperty.Register<TouchKeyboard, int>(nameof(TouchKeyboard), defaultValue: 900);
 
     public int PopupWidth
@@ -65,8 +61,7 @@ public partial class TouchKeyboard : UserControl
         get { return GetValue(PopupWidthProperty); }
         set
         {
-            
-            SetValue(PopupWidthProperty, value );
+            SetValue(PopupWidthProperty, value);
         }
     }
 
@@ -85,6 +80,4 @@ public partial class TouchKeyboard : UserControl
             this.FindControl<TextBlock>("textValue").Text = Text.ToString();
         }
     }
-
-   
 }

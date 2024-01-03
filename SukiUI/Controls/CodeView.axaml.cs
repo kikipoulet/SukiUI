@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Avalonia;
+﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data;
@@ -10,17 +7,19 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Threading;
 using SukiUI.Content;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SukiUI.Controls;
 
 public partial class CodeView : UserControl
 {
-    
     private void InitializeComponent()
     {
         AvaloniaXamlLoader.Load(this);
     }
-    
+
     private string _text = "";
     private TextBlock _textBlock;
 
@@ -34,7 +33,7 @@ public partial class CodeView : UserControl
         var lineNumberTextBlock = new TextBlock()
         {
             VerticalAlignment = Avalonia.Layout.VerticalAlignment.Top,
-            Margin = new Thickness(10,5,5,0),
+            Margin = new Thickness(10, 5, 5, 0),
             Foreground = Brushes.Gray
         };
         Grid.SetColumn(lineNumberTextBlock, 0);
@@ -42,7 +41,7 @@ public partial class CodeView : UserControl
         _textBlock = new TextBlock()
         {
             VerticalAlignment = Avalonia.Layout.VerticalAlignment.Top,
-            Margin = new Thickness(10,5,5,0),
+            Margin = new Thickness(10, 5, 5, 0),
             FontFamily = new FontFamily("Consolas")
         };
         Grid.SetColumn(_textBlock, 1);
@@ -58,11 +57,12 @@ public partial class CodeView : UserControl
                 Foreground =
                     new Avalonia.Media.SolidColorBrush(
                         (Avalonia.Media.Color)Application.Current.FindResource("SukiText")),
-                Height = 15, Width = 15,
+                Height = 15,
+                Width = 15,
             });
-            
-        gridcontent.Children.Add(new TextBlock(){IsVisible = false, HorizontalAlignment = HorizontalAlignment.Right, VerticalAlignment = VerticalAlignment.Center, FontSize = 12, Text = "Copied !"});
-        
+
+        gridcontent.Children.Add(new TextBlock() { IsVisible = false, HorizontalAlignment = HorizontalAlignment.Right, VerticalAlignment = VerticalAlignment.Center, FontSize = 12, Text = "Copied !" });
+
         var button = new Button()
         {
             Classes = { "Accent" },
@@ -89,8 +89,8 @@ public partial class CodeView : UserControl
                 });
             });
         };
-        
-        Grid.SetColumn(button,1);
+
+        Grid.SetColumn(button, 1);
         grid.Children.Add(button);
 
         Content = grid;
@@ -110,7 +110,7 @@ public partial class CodeView : UserControl
             }
         }
     }
-    
+
     public static readonly DirectProperty<CodeView, string> TextProperty =
         AvaloniaProperty.RegisterDirect<CodeView, string>(
             nameof(Text),
@@ -136,7 +136,6 @@ public partial class CodeView : UserControl
                 (_textBlock.Parent as Grid).RowDefinitions.Add(new RowDefinition());
             }
 
-
             (_textBlock.Parent as Grid).ColumnDefinitions[0].Width = new GridLength(0, GridUnitType.Auto);
             (_textBlock.Parent as Grid).ColumnDefinitions[1].Width = new GridLength(1, GridUnitType.Star);
 
@@ -147,6 +146,7 @@ public partial class CodeView : UserControl
             _textBlock.SetValue(Grid.RowProperty, 0);
             _textBlock.SetValue(Grid.RowSpanProperty, lines.Length);
             _textBlock.Text = _text.TrimEnd();
-        }catch(Exception exc){}
+        }
+        catch (Exception exc) { }
     }
 }

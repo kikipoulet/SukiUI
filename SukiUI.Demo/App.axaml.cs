@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -9,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using SukiUI.Demo.Common;
 using SukiUI.Demo.Features;
 using SukiUI.Demo.Services;
+using System;
+using System.Linq;
 
 namespace SukiUI.Demo;
 
@@ -41,7 +41,7 @@ public partial class App : Application
 
         services.AddSingleton(Current.DataTemplates.First(x => x is ViewLocator));
         services.AddSingleton<PageNavigationService>();
-        
+
         // Viewmodels
         services.AddSingleton<SukiUIDemoViewModel>();
         var types = AppDomain.CurrentDomain.GetAssemblies()

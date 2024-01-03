@@ -19,7 +19,6 @@ public partial class BusyArea : UserControl
     public static readonly StyledProperty<bool> IsBusyProperty =
         AvaloniaProperty.Register<BusyArea, bool>(nameof(IsBusy), defaultValue: false);
 
-
     public bool IsBusy
     {
         get { return GetValue(IsBusyProperty); }

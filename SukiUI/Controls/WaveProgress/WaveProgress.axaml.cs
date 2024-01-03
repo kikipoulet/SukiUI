@@ -27,8 +27,9 @@ public partial class WaveProgress : UserControl
     {
         AvaloniaXamlLoader.Load(this);
     }
-    
+
     private int _value = 50;
+
     public int Value
     {
         get => _value;
@@ -48,7 +49,7 @@ public partial class WaveProgress : UserControl
             (o, v) => o.Value = v,
             defaultBindingMode: BindingMode.TwoWay,
             enableDataValidation: true);
-    
+
     public static readonly StyledProperty<bool> IsTextVisibleProperty = AvaloniaProperty.Register<WaveProgress, bool>(nameof(IsTextVisible), defaultValue: true);
 
     public bool IsTextVisible
@@ -56,8 +57,7 @@ public partial class WaveProgress : UserControl
         get { return GetValue(IsTextVisibleProperty); }
         set
         {
-            
-            SetValue(IsTextVisibleProperty, value );
+            SetValue(IsTextVisibleProperty, value);
         }
     }
 }

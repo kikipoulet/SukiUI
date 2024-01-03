@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using Avalonia.Media;
 using Material.Icons;
 using SukiUI.Content;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace SukiUI.Demo.Features.ControlsLibrary;
 
