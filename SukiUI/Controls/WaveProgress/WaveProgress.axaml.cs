@@ -28,9 +28,9 @@ public partial class WaveProgress : UserControl
         AvaloniaXamlLoader.Load(this);
     }
 
-    private int _value = 50;
+    private double _value = 50;
 
-    public int Value
+    public double Value
     {
         get => _value;
         set
@@ -42,8 +42,8 @@ public partial class WaveProgress : UserControl
         }
     }
 
-    public static readonly DirectProperty<WaveProgress, int> ValueProperty =
-        AvaloniaProperty.RegisterDirect<WaveProgress, int>(
+    public static readonly DirectProperty<WaveProgress, double> ValueProperty =
+        AvaloniaProperty.RegisterDirect<WaveProgress, double>(
             nameof(Value),
             o => o.Value,
             (o, v) => o.Value = v,

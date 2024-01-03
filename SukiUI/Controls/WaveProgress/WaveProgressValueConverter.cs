@@ -14,7 +14,7 @@ public class WaveProgressValueConverter : IValueConverter
 
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (value is not int i) return 0;
+        if (value is not double i) return 0;
         return 155 - i * 2.1;
     }
 
@@ -30,8 +30,8 @@ public class WaveProgressValueColorConverter : IValueConverter
 
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (value is not int i) return Brushes.Black;
-        if (i > 50) return Brushes.GhostWhite;
+        if (value is not double d) return Brushes.Black;
+        if (d > 50) return Brushes.GhostWhite;
         return Application.Current?.ActualThemeVariant == ThemeVariant.Dark ? Brushes.GhostWhite : Brushes.Black;
     }
 
@@ -47,7 +47,7 @@ public class WaveProgressValueTextConverter : IValueConverter
 
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        return value is not int i ? "0%" : $"{i}%";
+        return value is not double d ? "0%" : $"{d:#0}%";
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
@@ -62,7 +62,7 @@ public class WaveProgressGradientOffsetConverter : IValueConverter
 
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (value is not int)
+        if (value is not double v)
             return Brushes.Blue;
 
         Color PrimaryColor = Colors.DodgerBlue;
@@ -75,7 +75,6 @@ public class WaveProgressGradientOffsetConverter : IValueConverter
         }
         catch { }
 
-        double v = System.Convert.ToDouble(value);
         v /= 100;
         v += Application.Current.RequestedThemeVariant == ThemeVariant.Light ? 0.2 : 0.4;
         if (v > 1)

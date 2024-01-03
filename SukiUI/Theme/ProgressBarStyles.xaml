@@ -16,6 +16,8 @@
             <ControlTemplate>
                 <Grid>
                     <Border Height="8"
+                            MinWidth="{TemplateBinding MinWidth}"
+                            MinHeight="{TemplateBinding MinHeight}"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
@@ -47,7 +49,7 @@
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             IsVisible="{Binding ShowProgressText, RelativeSource={RelativeSource TemplatedParent}}">
-                        <TextBlock Foreground="{DynamicResource ThemeForegroundBrush}" Text="{Binding Value, RelativeSource={RelativeSource TemplatedParent}, StringFormat={}{0:0}%}" />
+                        <TextBlock Foreground="{DynamicResource SukiText}" Text="{Binding Value, RelativeSource={RelativeSource TemplatedParent}, StringFormat={}{0:0}%}" />
                     </LayoutTransformControl>
                 </Grid>
             </ControlTemplate>
@@ -63,10 +65,10 @@
     </Style>
     <Style Selector="ProgressBar:horizontal">
         <Setter Property="MinWidth" Value="200" />
-        <Setter Property="MinHeight" Value="16" />
+        <Setter Property="MinHeight" Value="20" />
     </Style>
     <Style Selector="ProgressBar:vertical">
-        <Setter Property="MinWidth" Value="16" />
+        <Setter Property="MinWidth" Value="20" />
         <Setter Property="MinHeight" Value="200" />
     </Style>
     <Style Selector="ProgressBar:vertical /template/ LayoutTransformControl#PART_LayoutTransformControl">
@@ -106,5 +108,9 @@
             </Animation>
         </Style.Animations>
         <Setter Property="Height" Value="{Binding TemplateProperties.ContainerWidth, RelativeSource={RelativeSource TemplatedParent}}" />
+    </Style>
+
+    <Style Selector="ProgressBar.Accent">
+        <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
     </Style>
 </Styles>
