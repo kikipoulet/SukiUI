@@ -40,7 +40,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<AvaloniaResource Include="LICENSE" />
 		<AvaloniaResource Include="Roboto-Regular.ttf" />
 		<AvaloniaResource Include="Roboto-Medium.ttf" />
 		<AvaloniaResource Include="CustomFont\Quicksand-Bold.ttf" />
@@ -49,6 +48,10 @@
 		<AvaloniaResource Include="CustomFont\Quicksand-Regular.ttf" />
 		<AvaloniaResource Include="CustomFont\Quicksand-SemiBold.ttf" />
 		<Content Include="suki_photo.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="..\LICENSE" Link="LICENSE" />
 	</ItemGroup>
 
 </Project>
