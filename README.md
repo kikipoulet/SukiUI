@@ -63,6 +63,6 @@ Suki is the name of my dog :-)
 
 </br>
 
-[Controls Documentation](https://github.com/kikipoulet/SukiUI/wiki/2.-Controls) 
+[Controls Documentation](https://github.com/kikipoulet/SukiUI/wiki/3.-Controls) 
 
 
