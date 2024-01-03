@@ -11,8 +11,7 @@ public partial class SplashView : UserControl
         {
             Dispatcher.UIThread.Post(() =>
             {
-                TextBlockWithInline.IsVisible = false;
-                TextBlockWithInline.IsVisible = true;
+                TextBlockWithInline.InvalidateVisual();
             });
         };
         InitializeComponent();
