@@ -1,17 +1,15 @@
 <div id="header" align="center">
- <kbd>
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/suki_photo.jpg" width="200" height="200"></img> 
-  </kbd>
-<br/>
-Suki is the name of my dog :-)
-</div>
-<br/>
+ 
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/OIG.N5o-removebg-preview.png" ></img> 
+ </div>
 
+ <br/>
+ 
 # ✨ SukiUI
 
-#### SukiUI is a UI Library for Avalonia ! <img width="20" height="20" src="https://www.avaloniaui.net/img/logo/avalonia-white-purple.svg"></img>
+### Desktop UI Library for Avalonia ! <img width="22" height="22" src="https://www.avaloniaui.net/img/logo/avalonia-white-purple.svg"></img>
 
-
+<br/>
 
 #### Upcoming 6.0.0 Release :
 
@@ -19,7 +17,7 @@ Suki is the name of my dog :-)
 - Definitive Design with new support for Color Themes
 - Some breaking changes. If you update from a previous version, please read the [Documentaion](https://github.com/kikipoulet/SukiUI/wiki/1.-Installation) first
 - Special thanks to [@sirdoombox](https://www.github.com/sirdoombox) for his valuable contributions
-<br/>
+
 
 #### ⚠️ Readme and Documentation are changing for the upcoming 6.0 Release
 
