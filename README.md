@@ -17,7 +17,7 @@ Suki is the name of my dog :-)
 <br/>
 <br/>
 
-
+⚠️ Readme and Documentation are changing for the upcoming 6.0 Release
 
 ## 📱 UI Theme 
 
