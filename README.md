@@ -15,9 +15,12 @@ Suki is the name of my dog :-)
 
 - Mobile Controls have been moved to a new mobile library named [Cheryl UI](https://github.com/kikipoulet/CherylUI)
 <br/>
+
+
+#### ⚠️ Readme and Documentation are changing for the upcoming 6.0 Release
+
 <br/>
 
-⚠️ Readme and Documentation are changing for the upcoming 6.0 Release
 
 ## 📱 UI Theme 
 
