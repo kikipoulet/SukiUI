@@ -17,9 +17,9 @@ namespace SukiUI.Controls
             AvaloniaXamlLoader.Load(this);
         }
 
-        private int _value = 50;
+        private double _value = 50;
 
-        public int Value
+        public double Value
         {
             get => _value;
             set
@@ -31,8 +31,8 @@ namespace SukiUI.Controls
         /// <summary>
         /// Defines the <see cref="Value"/> property.
         /// </summary>
-        public static readonly DirectProperty<CircleProgressBar, int> ValueProperty =
-            AvaloniaProperty.RegisterDirect<CircleProgressBar, int>(
+        public static readonly DirectProperty<CircleProgressBar, double> ValueProperty =
+            AvaloniaProperty.RegisterDirect<CircleProgressBar, double>(
                 nameof(Value),
                 o => o.Value,
                 (o, v) => o.Value = v,

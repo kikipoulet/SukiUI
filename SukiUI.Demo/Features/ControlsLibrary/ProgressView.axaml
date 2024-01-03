@@ -1,0 +1,134 @@
+<UserControl x:Class="SukiUI.Demo.Features.ControlsLibrary.ProgressView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+             xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:showMeTheXaml="clr-namespace:ShowMeTheXaml;assembly=ShowMeTheXaml.Avalonia"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             x:DataType="controlsLibrary:ProgressViewModel"
+             mc:Ignorable="d">
+    <Grid RowDefinitions="Auto,*">
+        <controls:GlassCard Margin="30">
+            <controls:GroupBox Header="Progress Indicators">
+                <StackPanel Spacing="15">
+                    <TextBlock TextWrapping="Wrap">
+                        Here is a demo of all the available progress indicators in SukiUI, including the stepper.<LineBreak />
+                        The progress bars can be controlled with the controls below except the stepper which has it's own logic.</TextBlock>
+                    <DockPanel>
+                        <CheckBox DockPanel.Dock="Left" IsChecked="{Binding IsTextVisible}" />
+                        <TextBlock Text="Text Enabled?" />
+                    </DockPanel>
+                    <Slider MinWidth="200"
+                            MaxWidth="400"
+                            HorizontalAlignment="Left"
+                            Maximum="100"
+                            Minimum="0"
+                            Value="{Binding ProgressValue}" />
+                </StackPanel>
+            </controls:GroupBox>
+        </controls:GlassCard>
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled">
+            <WrapPanel Classes="PageContainer">
+                <controls:GlassCard Margin="20">
+                    <controls:GroupBox Header="Wave Progress">
+                        <StackPanel>
+                            <showMeTheXaml:XamlDisplay UniqueId="WaveProgress">
+                                <controls:WaveProgress IsTextVisible="{Binding IsTextVisible}" Value="{Binding ProgressValue}" />
+                            </showMeTheXaml:XamlDisplay>
+                        </StackPanel>
+                    </controls:GroupBox>
+                </controls:GlassCard>
+
+                <controls:GlassCard>
+                    <controls:GroupBox Header="Circle Progress">
+                        <StackPanel Spacing="15">
+                            <showMeTheXaml:XamlDisplay UniqueId="CircleProgress1">
+                                <controls:CircleProgressBar Width="130"
+                                                            Height="130"
+                                                            StrokeWidth="11"
+                                                            Value="{Binding ProgressValue}">
+                                    <TextBlock Classes="h3"
+                                               IsVisible="{Binding IsTextVisible}"
+                                               Text="{Binding ProgressValue, StringFormat={}{0:#0}%}" />
+                                </controls:CircleProgressBar>
+                            </showMeTheXaml:XamlDisplay>
+                            <showMeTheXaml:XamlDisplay UniqueId="CircleProgress2">
+                                <controls:CircleProgressBar Width="130"
+                                                            Height="130"
+                                                            Classes="Accent"
+                                                            StrokeWidth="11"
+                                                            Value="{Binding ProgressValue}">
+                                    <TextBlock Classes="h3"
+                                               IsVisible="{Binding IsTextVisible}"
+                                               Text="{Binding ProgressValue, StringFormat={}{0:#0}%}" />
+                                </controls:CircleProgressBar>
+                            </showMeTheXaml:XamlDisplay>
+                        </StackPanel>
+                    </controls:GroupBox>
+                </controls:GlassCard>
+
+                <controls:GlassCard>
+                    <controls:GroupBox Header="Standard Progress Bar">
+                        <controls:GroupBox.Styles>
+                            <Style Selector="ProgressBar">
+                                <Setter Property="Value" Value="{Binding ProgressValue}" />
+                                <Setter Property="ShowProgressText" Value="{Binding IsTextVisible}" />
+                            </Style>
+                        </controls:GroupBox.Styles>
+                        <StackPanel Spacing="15">
+                            <showMeTheXaml:XamlDisplay UniqueId="Progress1">
+                                <ProgressBar />
+                            </showMeTheXaml:XamlDisplay>
+                            <showMeTheXaml:XamlDisplay UniqueId="Progress2">
+                                <ProgressBar Classes="Accent" />
+                            </showMeTheXaml:XamlDisplay>
+                            <StackPanel VerticalAlignment="Stretch"
+                                        Orientation="Horizontal"
+                                        Spacing="15">
+                                <showMeTheXaml:XamlDisplay UniqueId="Progress3">
+                                    <ProgressBar Orientation="Vertical" />
+                                </showMeTheXaml:XamlDisplay>
+                                <showMeTheXaml:XamlDisplay UniqueId="Progress4">
+                                    <ProgressBar Classes="Accent" Orientation="Vertical" />
+                                </showMeTheXaml:XamlDisplay>
+                            </StackPanel>
+
+                        </StackPanel>
+                    </controls:GroupBox>
+                </controls:GlassCard>
+
+                <controls:GlassCard>
+                    <controls:GroupBox Header="Loading Indicator">
+                        <showMeTheXaml:XamlDisplay UniqueId="Loading">
+                            <controls:Loading />
+                        </showMeTheXaml:XamlDisplay>
+                    </controls:GroupBox>
+                </controls:GlassCard>
+
+                <controls:GlassCard Width="500">
+                    <controls:GroupBox Header="Stepper">
+                        <StackPanel Spacing="15">
+                            <showMeTheXaml:XamlDisplay UniqueId="Stepper">
+                                <controls:Stepper Index="{Binding StepIndex}" Steps="{Binding Steps}" />
+                            </showMeTheXaml:XamlDisplay>
+                            <!--  Ignore your IDE, x:True and x:False are absolutely valid intrinsics in Avalonia.  -->
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                <Button Grid.Column="0"
+                                        Command="{Binding ChangeStepCommand}"
+                                        CommandParameter="{x:False}"
+                                        Content="Decrement" />
+                                <Button Grid.Column="2"
+                                        Command="{Binding ChangeStepCommand}"
+                                        CommandParameter="{x:True}"
+                                        Content="Increment" />
+                            </Grid>
+                        </StackPanel>
+                    </controls:GroupBox>
+                </controls:GlassCard>
+            </WrapPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
