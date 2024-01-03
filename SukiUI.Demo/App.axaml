@@ -14,6 +14,7 @@
         <sukiUi:SukiTheme ThemeColor="Red" />
         <StyleInclude Source="avares://SukiUI.Demo/Styles/ShowMeTheXamlStyles.axaml" />
         <StyleInclude Source="avares://SukiUI.Demo/Styles/WrapPanelStyles.axaml" />
+        <StyleInclude Source="avares://SukiUI.Demo/Styles/TextStyles.axaml" />
         <avalonia:MaterialIconStyles />
     </Application.Styles>
 </Application>
