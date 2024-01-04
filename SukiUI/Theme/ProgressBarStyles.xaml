@@ -20,14 +20,14 @@
                     <TextBlock Width="35"
                                Margin="10,0,0,0"
                                HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
+                               VerticalAlignment="Center" Name="PART_Text"
                                DockPanel.Dock="Right"
                                FontWeight="DemiBold"
                                Foreground="{DynamicResource SukiText}"
                                IsVisible="{Binding ShowProgressText, RelativeSource={RelativeSource TemplatedParent}}"
                                Text="{Binding Value, RelativeSource={RelativeSource TemplatedParent}, StringFormat={}{0:0}%}" />
 
-                    <Border Name="PART_RootBorder"
+                    <Border Name="PART_RootBorder" ClipToBounds="True"
                             MinWidth="{TemplateBinding MinWidth}"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
@@ -35,7 +35,7 @@
                             CornerRadius="{TemplateBinding CornerRadius}">
                         <Panel>
                             <Border Name="PART_Indicator"
-                                    Height="8"
+                                    Height="8" Width="8"
                                     Background="{TemplateBinding Foreground}"
                                     CornerRadius="{TemplateBinding CornerRadius}"
                                     IsVisible="{Binding !IsIndeterminate, RelativeSource={RelativeSource TemplatedParent}}">
@@ -44,7 +44,10 @@
                                     <Transitions>
                                         <DoubleTransition Easing="CircularEaseOut"
                                                           Property="Width"
-                                                          Duration="0:0:0.8" />
+                                                          Duration="0:0:0.6" />
+                                        <DoubleTransition Easing="CircularEaseOut"
+                                                          Property="Height"
+                                                          Duration="0:0:0.6" />
                                         <BrushTransition Property="Background" Duration="0:0:0.5" />
                                     </Transitions>
                                 </Border.Transitions>
@@ -79,6 +82,16 @@
         <Setter Property="MinHeight" Value="200" />
     </Style>
 
+    <Style Selector="ProgressBar:horizontal /template/ TextBlock#PART_Text">
+        <Setter Property="DockPanel.Dock" Value="Right" />
+    </Style>
+    
+    <Style Selector="ProgressBar:vertical /template/ TextBlock#PART_Text">
+        <Setter Property="DockPanel.Dock" Value="Bottom" />
+        <Setter Property="Margin" Value="10,10,0,0"></Setter>
+    </Style>
+
+    
     <Style Selector="ProgressBar:horizontal /template/ Border#PART_RootBorder">
         <Setter Property="MinHeight" Value="8" />
         <Setter Property="Height" Value="8" />
@@ -103,7 +116,7 @@
         <Style.Animations>
             <Animation Easing="LinearEasing"
                        IterationCount="Infinite"
-                       Duration="0:0:3">
+                       Duration="0:0:2">
                 <KeyFrame Cue="0%">
                     <Setter Property="TranslateTransform.X" Value="{Binding IndeterminateStartingOffset, RelativeSource={RelativeSource TemplatedParent}}" />
                 </KeyFrame>
@@ -118,7 +131,7 @@
         <Style.Animations>
             <Animation Easing="LinearEasing"
                        IterationCount="Infinite"
-                       Duration="0:0:3">
+                       Duration="0:0:2">
                 <KeyFrame Cue="0%">
                     <Setter Property="TranslateTransform.Y" Value="{Binding IndeterminateStartingOffset, RelativeSource={RelativeSource TemplatedParent}}" />
                 </KeyFrame>
