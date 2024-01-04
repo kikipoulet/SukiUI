@@ -41,7 +41,7 @@
                 <ControlTemplate>
 
 
-                    <Arc Width="52"
+                    <Arc Width="52" Name="PART_Arc"
                          Height="52"
                          StartAngle="270"
                          Stretch="None"
@@ -64,6 +64,10 @@
             </Setter>
         </Style>
 
+        <Style Selector="suki|Loading.Accent /template/ Arc#PART_Arc">
+            <Setter Property="Stroke" Value="{DynamicResource SukiAccentColor}"></Setter>
+        </Style>
+        
         <Style Selector="suki|Loading.White /template/ Arc">
             <Setter Property="Stroke" Value="#fafafa" />
         </Style>
@@ -91,67 +95,7 @@
             </Style.Animations>
         </Style>
 
-        <Style Selector="suki|Loading.Variant">
-            <Style.Setters>
-                <Setter Property="Transitions">
-                    <Transitions>
-                        <DoubleTransition Property="Opacity" Duration="0:0:0.35" />
-                    </Transitions>
-                </Setter>
-            </Style.Setters>
-            <Style.Animations>
-                <Animation Easing="ExponentialEaseInOut"
-                           FillMode="None"
-                           IterationCount="INFINITE"
-                           PlaybackDirection="Normal"
-                           Duration="0:0:3">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="RotateTransform.Angle" Value="0" />
-                    </KeyFrame>
-
-                    <KeyFrame Cue="100%">
-                        <Setter Property="RotateTransform.Angle" Value="360" />
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-            <Setter Property="Template">
-                <ControlTemplate>
-                    <Grid Name="transformGrid"
-                          Width="52"
-                          Height="52">
-
-
-                        <Canvas>
-                            <Border Width="12"
-                                    Height="12"
-                                    Margin="20,0"
-                                    Background="{DynamicResource SukiPrimaryColor}"
-                                    CornerRadius="{DynamicResource MediumCornerRadius}" />
-                            <Border Width="12"
-                                    Height="12"
-                                    Margin="0,20"
-                                    Background="{DynamicResource SukiPrimaryColor}"
-                                    CornerRadius="{DynamicResource MediumCornerRadius}"
-                                    Opacity="0.96" />
-                            <Border Width="12"
-                                    Height="12"
-                                    Margin="40,20,0,0"
-                                    Background="{DynamicResource SukiPrimaryColor}"
-                                    CornerRadius="{DynamicResource MediumCornerRadius}"
-                                    Opacity="0.92" />
-                            <Border Width="12"
-                                    Height="12"
-                                    Margin="20,40,0,0"
-                                    Background="{DynamicResource SukiPrimaryColor}"
-                                    CornerRadius="{DynamicResource MediumCornerRadius}"
-                                    Opacity="0.88" />
-
-                        </Canvas>
-
-                    </Grid>
-                </ControlTemplate>
-            </Setter>
-        </Style>
+       
     </UserControl.Styles>
 
 </UserControl>
