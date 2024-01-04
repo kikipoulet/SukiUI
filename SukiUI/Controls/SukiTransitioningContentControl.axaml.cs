@@ -1,5 +1,7 @@
 using System;
 using System.Reactive.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Animation;
 using Avalonia.Controls;
@@ -36,13 +38,16 @@ namespace SukiUI.Controls
 
         private bool _isFirstBufferActive;
 
-        private Visual _firstBuffer = null!;
-        private Visual _secondBuffer = null!;
+        private ContentControl _firstBuffer = null!;
+        private ContentControl _secondBuffer = null!;
 
         private IDisposable? _disposable;
 
         private static readonly Animation FadeIn;
         private static readonly Animation FadeOut;
+        
+        private ContentControl To => _isFirstBufferActive ? _secondBuffer : _firstBuffer;
+        private ContentControl From => _isFirstBufferActive ? _firstBuffer : _secondBuffer;
 
         static SukiTransitioningContentControl()
         {
@@ -111,6 +116,10 @@ namespace SukiUI.Controls
             FadeIn.Duration = FadeOut.Duration = TimeSpan.FromMilliseconds(250);
         }
 
+        private readonly Task[] _animTasks = new Task[2];
+
+        private CancellationTokenSource _animCancellationToken = new();
+
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
@@ -123,19 +132,29 @@ namespace SukiUI.Controls
                 .ObserveOn(new AvaloniaSynchronizationContext())
                 .Subscribe(onNext: OnContentChanged);
         }
-        
+
         public void OnContentChanged(object? content)
         {
             if (content is null) return;
-            // Setting to higher priorities seems to help overall.
+            
+            _animCancellationToken.Cancel();
+            _animCancellationToken.Dispose();
+            _animCancellationToken = new CancellationTokenSource();
+            
             if (_isFirstBufferActive) SecondBuffer = content;
             else FirstBuffer = content;
-            var from = _isFirstBufferActive ? _firstBuffer : _secondBuffer;
-            var to = _isFirstBufferActive ? _secondBuffer : _firstBuffer;
-            FadeOut.RunAsync(from);
-            FadeIn.RunAsync(to);
-            ((InputElement)to).IsHitTestVisible = true;
-            ((InputElement)from).IsHitTestVisible = false;
+            try
+            {
+                _animTasks[0] = FadeOut.RunAsync(From, _animCancellationToken.Token);
+                _animTasks[1] = FadeIn.RunAsync(To, _animCancellationToken.Token);
+            }
+            catch
+            {
+                // ignored
+            }
+
+            To.IsHitTestVisible = true;
+            From.IsHitTestVisible = false;
             _isFirstBufferActive = !_isFirstBufferActive;
         }
 
@@ -143,6 +162,7 @@ namespace SukiUI.Controls
         {
             base.OnUnloaded(e);
             _disposable?.Dispose();
+            _animCancellationToken.Dispose();
         }
     }
 }
