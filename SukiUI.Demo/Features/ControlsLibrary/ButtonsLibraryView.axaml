@@ -19,7 +19,7 @@
         </Style>
     </UserControl.Styles>
     <Grid RowDefinitions="Auto,*">
-        <controls:GlassCard Margin="30">
+        <controls:GlassCard Classes="HeaderCard">
             <controls:GroupBox Header="Buttons">
                 <StackPanel Classes="HeaderContent">
                     <TextBlock>
@@ -31,7 +31,7 @@
                 </StackPanel>
             </controls:GroupBox>
         </controls:GlassCard>
-        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled">
+        <ScrollViewer Grid.Row="1">
             <WrapPanel Classes="PageContainer">
                 <controls:GlassCard>
                     <controls:GroupBox Header="Standard Button">
@@ -110,7 +110,7 @@
                         </showMeTheXaml:XamlDisplay>
                     </controls:GroupBox>
                 </controls:GlassCard>
-                
+
                 <controls:GlassCard>
                     <controls:GroupBox Header="Large Button">
                         <showMeTheXaml:XamlDisplay UniqueId="Button12">

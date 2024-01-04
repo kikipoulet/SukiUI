@@ -13,7 +13,7 @@
              x:DataType="controlsLibrary:IconsViewModel"
              mc:Ignorable="d">
     <Grid RowDefinitions="Auto, *">
-        <controls:GlassCard Margin="30">
+        <controls:GlassCard Classes="HeaderCard">
             <controls:GroupBox Header="Icons">
                 <StackPanel Classes="HeaderContent">
                     <TextBlock TextWrapping="Wrap">

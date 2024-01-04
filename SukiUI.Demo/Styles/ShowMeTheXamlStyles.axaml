@@ -59,9 +59,11 @@
                             <ScrollViewer MaxHeight="600"
                                           HorizontalScrollBarVisibility="Disabled"
                                           VerticalScrollBarVisibility="Hidden">
-                                <TextBox Name="MarkupTextBox" VerticalContentAlignment="Top"
-                                         MinWidth="400" MinHeight="70"
+                                <TextBox Name="MarkupTextBox"
+                                         MinWidth="400"
+                                         MinHeight="70"
                                          MaxWidth="600"
+                                         VerticalContentAlignment="Top"
                                          AcceptsReturn="True"
                                          BorderThickness="0"
                                          Classes="FlatTextBox"
@@ -69,7 +71,7 @@
                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                          ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                          Text="{Binding $parent[showMeTheXaml:XamlDisplay].XamlText, Mode=OneWay}"
-                                         TextWrapping="Wrap"  />
+                                         TextWrapping="Wrap" />
                             </ScrollViewer>
                         </Border>
                         <Rectangle Name="MaxSizer"

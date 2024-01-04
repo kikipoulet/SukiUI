@@ -15,6 +15,7 @@
         <StyleInclude Source="avares://SukiUI.Demo/Styles/ShowMeTheXamlStyles.axaml" />
         <StyleInclude Source="avares://SukiUI.Demo/Styles/WrapPanelStyles.axaml" />
         <StyleInclude Source="avares://SukiUI.Demo/Styles/TextStyles.axaml" />
+        <StyleInclude Source="avares://SukiUI.Demo/Styles/GlassCardStyles.axaml" />
         <avalonia:MaterialIconStyles />
     </Application.Styles>
 </Application>
