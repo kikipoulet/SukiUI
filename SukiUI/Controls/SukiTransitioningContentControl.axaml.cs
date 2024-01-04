@@ -1,6 +1,5 @@
 using System;
 using System.Reactive.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Animation;
@@ -12,6 +11,9 @@ using Avalonia.Threading;
 
 namespace SukiUI.Controls
 {
+    // TODO: This needs fairly significant work to make a bit more bomb proof
+    // There are probably some more gains that can be made in terms of performance.
+    // Unfortunately we're still bound by the arrange of controls having to happen on the main thread.
     public class SukiTransitioningContentControl : ContentControl
     {
         internal static readonly StyledProperty<object?> FirstBufferProperty =
@@ -134,13 +136,11 @@ namespace SukiUI.Controls
                 _tasks[0] = FadeOut.RunAsync(from);
                 _tasks[1] = FadeIn.RunAsync(to);
                 await Task.WhenAll(_tasks);
-                //to.Opacity = 1;
                 ((InputElement)to).IsHitTestVisible = true;
                 ((InputElement)from).IsHitTestVisible = false;
-                //from.Opacity = 0;
                 _isFirstBufferActive = !_isFirstBufferActive;
-            }, DispatcherPriority.Background);
-            //Task.Run(Swap);
+            }, DispatcherPriority.MaxValue);
+            // Setting to higher priorities seems to help overall.
         }
     }
 }
