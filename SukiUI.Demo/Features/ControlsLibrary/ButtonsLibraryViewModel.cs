@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SukiUI.Demo.Features.ControlsLibrary;
 
-public partial class ButtonsLibraryViewModel() : DemoPageBase("Buttons", MaterialIconKind.Button)
+public partial class ButtonsLibraryViewModel() : DemoPageBase("Buttons", MaterialIconKind.CursorDefaultClick)
 {
     [ObservableProperty] private bool _isBusy;
 

@@ -11,7 +11,7 @@ public class IconsViewModel : DemoPageBase
 {
     public Dictionary<string, StreamGeometry> AllIcons { get; }
 
-    public IconsViewModel() : base("Icons", MaterialIconKind.SimpleIcons, int.MaxValue)
+    public IconsViewModel() : base("Icons", MaterialIconKind.AlphaICircleOutline, int.MaxValue)
     {
         AllIcons = typeof(Icons)
             .GetFields(BindingFlags.Public | BindingFlags.Static)

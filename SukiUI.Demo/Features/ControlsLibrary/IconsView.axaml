@@ -1,19 +1,20 @@
-<UserControl x:Class="SukiUI.Demo.Features.ControlsLibrary.IconsView"
-             xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:content="clr-namespace:SukiUI.Content;assembly=SukiUI"
-             xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
-             xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:generic="clr-namespace:System.Collections.Generic;assembly=System.Runtime"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:showMeTheXaml="clr-namespace:ShowMeTheXaml;assembly=ShowMeTheXaml.Avalonia"
-             d:DesignHeight="450"
-             d:DesignWidth="800"
-             x:DataType="controlsLibrary:IconsViewModel"
-             mc:Ignorable="d">
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="SukiUI.Demo.Features.ControlsLibrary.IconsView"
+    x:DataType="controlsLibrary:IconsViewModel"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:content="clr-namespace:SukiUI.Content;assembly=SukiUI"
+    xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+    xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:generic="clr-namespace:System.Collections.Generic;assembly=System.Runtime"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:showMeTheXaml="clr-namespace:ShowMeTheXaml;assembly=ShowMeTheXaml.Avalonia"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid RowDefinitions="Auto, *">
-        <controls:GlassCard Margin="30">
+        <controls:GlassCard Classes="HeaderCard">
             <controls:GroupBox Header="Icons">
                 <StackPanel Classes="HeaderContent">
                     <TextBlock TextWrapping="Wrap">
@@ -45,9 +46,10 @@
                     <DataTemplate x:CompileBindings="False">
                         <controls:GlassCard Margin="15,15,15,15">
                             <controls:GroupBox Header="{Binding Key}">
-                                <PathIcon Width="25"
-                                          Height="25"
-                                          Data="{Binding Value}" />
+                                <PathIcon
+                                    Data="{Binding Value}"
+                                    Height="25"
+                                    Width="25" />
                             </controls:GroupBox>
                         </controls:GlassCard>
                     </DataTemplate>

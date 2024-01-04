@@ -125,8 +125,13 @@ public class SukiHost : ContentControl
         // ShowInvisibleToast();
     }
 
+    // TODO: Dialog API desperately needs to support a result or on-close callback.
+    // TODO: Toasts and dialogs should be dragged out into their own discrete service and provided by a higher level service locator.
+    // Giving devs direct access to this object like this is messy and there really needs to be a standard abstraction above all these features.
+    // This goes for other APIs like the background and theming.
+
     /// <summary>
-    /// Shows a dialog in the <see cref="InteractiveContainer"/>
+    /// Shows a dialog in the <see cref="SukiHost"/>
     /// Can display ViewModels if provided, if a suitable ViewLocator has been registered with Avalonia.
     /// </summary>
     /// <param name="content">Content to display.</param>
@@ -156,7 +161,7 @@ public class SukiHost : ContentControl
         if (!Instance.AllowBackgroundClose) return;
         Instance.IsDialogOpen = false;
     }
-
+    
     /// <summary>
     /// Shows a toast in the SukiHost - The default location is in the bottom right.
     /// This can be changed
