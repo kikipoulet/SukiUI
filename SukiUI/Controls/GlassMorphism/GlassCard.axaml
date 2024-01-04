@@ -22,15 +22,18 @@
 
 
                             <Grid>
-                                <Border Background="#aaffffff"
+                                <Border Name="PART_BorderLight" Background="#aaffffff"
                                         CornerRadius="{TemplateBinding CornerRadius}"
                                         IsVisible="{DynamicResource IsLight}"
                                         Opacity="{DynamicResource GlassOpacityLight}" />
 
-                                <Border Background="#3b3b3b"
+                                <Border Background="#3b3b3b" Name="PART_BorderDark" 
                                         CornerRadius="{TemplateBinding CornerRadius}"
                                         IsVisible="{DynamicResource IsDark}"
                                         Opacity="{DynamicResource GlassOpacityDark}" />
+                                
+                              
+
 
                                 <!--   <glassMorphism:BlurBackground /> -->
 
@@ -45,6 +48,15 @@
                     </Grid>
                 </ControlTemplate>
             </Setter>
+        </Style>
+        
+        <Style Selector="suki|GlassCard[IsOpaque=True] /template/ Border#PART_BorderDark">
+            <Setter Property="Opacity" Value="1"></Setter>
+            <Setter Property="Background" Value="#222222"></Setter>
+        </Style>
+        
+        <Style Selector="suki|GlassCard[IsOpaque=True] /template/ Border#PART_BorderLight">
+            <Setter Property="Opacity" Value="1"></Setter>
         </Style>
     </UserControl.Styles>
 </UserControl>

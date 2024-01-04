@@ -14,7 +14,7 @@
         <Grid Margin="15">
             <WrapPanel Orientation="Horizontal">
                 <Grid Margin="15">
-                    <suki:GlassCard Width="300" Margin="0,0,0,25">
+                    <suki:GlassCard  Width="300" Margin="0,0,0,25">
                         <suki:BusyArea Name="BusySignIn" BusyText="Signing In...">
                             <StackPanel>
                                 <material:MaterialIcon Width="30"

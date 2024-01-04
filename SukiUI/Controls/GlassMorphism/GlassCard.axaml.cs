@@ -33,4 +33,14 @@ public partial class GlassCard : UserControl
         get => GetValue(BorderThicknessProperty);
         set => SetValue(BorderThicknessProperty, value);
     }
+    
+    
+    public static readonly StyledProperty<bool> IsOpaqueProperty =
+        AvaloniaProperty.Register<GlassCard, bool>(nameof(IsOpaque), false);
+
+    public bool IsOpaque
+    {
+        get => GetValue(IsOpaqueProperty);
+        set => SetValue(IsOpaqueProperty, value);
+    }
 }
