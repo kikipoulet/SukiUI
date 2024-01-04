@@ -34,25 +34,15 @@
 
 #### SukiUI places special emphasis on creating rich and intuitive animations for the themed controls.
 
-<kbd>
-<img src="https://github.com/kikipoulet/SukiUI/assets/19242427/cbd547a2-47e1-4c18-a008-09fc450e7462" ></img> 
+ <kbd>
+<img src="https://github.com/kikipoulet/SukiUI/assets/19242427/40c93232-c45a-4dd7-b559-e8e22cff9748" ></img> 
   </kbd>
-
+  
 <kbd>
 <img src="https://github.com/kikipoulet/SukiUI/assets/19242427/36b1a516-2f16-4d0d-82b2-df59003e2ec6" ></img> 
   </kbd>
 
-  <kbd>
-<img src="https://github.com/kikipoulet/SukiUI/assets/19242427/29804e6c-2eea-4ed6-a12e-c20d5ffa2d76" ></img> 
-  </kbd>
-
-  <kbd>
-<img src="https://github.com/kikipoulet/SukiUI/assets/19242427/94a75fee-f698-4aea-9859-38467cde61ae" ></img> 
-  </kbd>
-
-   <kbd>
-<img src="https://github.com/kikipoulet/SukiUI/assets/19242427/4e1ceb20-b3b5-4a40-b64a-244f424fa72b" ></img> 
-  </kbd>
+ 
 
 ## 🔨 Additional Controls
 
