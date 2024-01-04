@@ -116,8 +116,6 @@ namespace SukiUI.Controls
             FadeIn.Duration = FadeOut.Duration = TimeSpan.FromMilliseconds(250);
         }
 
-        private readonly Task[] _animTasks = new Task[2];
-
         private CancellationTokenSource _animCancellationToken = new();
 
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
@@ -145,8 +143,8 @@ namespace SukiUI.Controls
             else FirstBuffer = content;
             try
             {
-                _animTasks[0] = FadeOut.RunAsync(From, _animCancellationToken.Token);
-                _animTasks[1] = FadeIn.RunAsync(To, _animCancellationToken.Token);
+                FadeOut.RunAsync(From, _animCancellationToken.Token);
+                FadeIn.RunAsync(To, _animCancellationToken.Token);
             }
             catch
             {
