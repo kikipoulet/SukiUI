@@ -73,6 +73,17 @@
                                                Text="{Binding ProgressValue, StringFormat={}{0:#0}%}" />
                                 </controls:CircleProgressBar>
                             </showMeTheXaml:XamlDisplay>
+                            
+                            <showMeTheXaml:XamlDisplay UniqueId="CircleProgress3">
+                                <controls:CircleProgressBar Width="130"
+                                                            Height="130"
+                                                            StrokeWidth="11"  Value="{Binding ProgressValue}"
+                                                            IsIndeterminate="{Binding !IsTextVisible}">
+                                    <TextBlock Classes="h3" Margin="0,2,0,0"
+                                               IsVisible="{Binding IsTextVisible}"
+                                               Text="{Binding ProgressValue, StringFormat={}{0:#0}%}" />
+                                </controls:CircleProgressBar>
+                            </showMeTheXaml:XamlDisplay>
                         </StackPanel>
                     </controls:GroupBox>
                 </controls:GlassCard>
