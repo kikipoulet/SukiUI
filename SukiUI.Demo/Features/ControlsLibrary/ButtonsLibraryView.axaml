@@ -1,17 +1,16 @@
-<UserControl
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    mc:Ignorable="d"
-    x:Class="SukiUI.Demo.Features.ControlsLibrary.ButtonsLibraryView"
-    x:DataType="controlsLibrary:ButtonsLibraryViewModel"
-    xmlns="https://github.com/avaloniaui"
-    xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
-    xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:showMeTheXaml="clr-namespace:ShowMeTheXaml;assembly=ShowMeTheXaml.Avalonia"
-    xmlns:theme="clr-namespace:SukiUI.Theme;assembly=SukiUI"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<UserControl x:Class="SukiUI.Demo.Features.ControlsLibrary.ButtonsLibraryView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+             xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:showMeTheXaml="clr-namespace:ShowMeTheXaml;assembly=ShowMeTheXaml.Avalonia"
+             xmlns:theme="clr-namespace:SukiUI.Theme;assembly=SukiUI"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             x:DataType="controlsLibrary:ButtonsLibraryViewModel"
+             mc:Ignorable="d">
     <UserControl.Styles>
         <Style Selector="Button">
             <Setter Property="Content" Value="Button" />
@@ -32,7 +31,7 @@
                 </StackPanel>
             </controls:GroupBox>
         </controls:GlassCard>
-        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled">
+        <ScrollViewer Grid.Row="1">
             <WrapPanel Classes="PageContainer">
                 <controls:GlassCard>
                     <controls:GroupBox Header="Standard Button">

@@ -127,6 +127,7 @@ public class SukiHost : ContentControl
 
     // TODO: Dialog API desperately needs to support a result or on-close callback.
     // TODO: Toasts and dialogs should be dragged out into their own discrete service and provided by a higher level service locator.
+    // TODO: Currently not possible to switch the toast side at runtime, in reality there should be multiple anchors and toasts can be displayed on them arbitrarily.
     // Giving devs direct access to this object like this is messy and there really needs to be a standard abstraction above all these features.
     // This goes for other APIs like the background and theming.
 
