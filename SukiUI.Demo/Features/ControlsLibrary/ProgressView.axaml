@@ -20,16 +20,20 @@
                     <TextBlock>
                         The progress bars can be controlled with the controls below except the stepper which has it's own logic.
                     </TextBlock>
-                    <DockPanel Margin="0,10,0,0">
-                        <CheckBox DockPanel.Dock="Left" IsChecked="{Binding IsTextVisible}" />
-                        <TextBlock Text="Text Enabled?" />
-                    </DockPanel>
-                    <Slider MinWidth="200"
-                            MaxWidth="400"
+                    <StackPanel Orientation="Horizontal" Margin="0,25,0,0">
+                        <TextBlock VerticalAlignment="Center" FontWeight="DemiBold" Margin="0,0,0,0" Text="Show Progress Value : " />
+                        <ToggleButton Classes="Switch" Margin="15,0,0,0" IsChecked="{Binding IsTextVisible}" />
+                        
+                    </StackPanel>
+                    <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <Slider MinWidth="250"
+                            MaxWidth="400" IsSnapToTickEnabled="True"  TickFrequency="1"
                             HorizontalAlignment="Left"
                             Maximum="100"
                             Minimum="0"
                             Value="{Binding ProgressValue}" />
+                    <TextBlock FontWeight="DemiBold" VerticalAlignment="Center" Margin="12,0,0,0" Text="{Binding ProgressValue}" />
+                    </StackPanel>
                 </StackPanel>
             </controls:GroupBox>
         </controls:GlassCard>
@@ -37,11 +41,11 @@
             <WrapPanel Classes="PageContainer">
                 <controls:GlassCard Margin="20">
                     <controls:GroupBox Header="Wave Progress">
-                        <StackPanel>
-                            <showMeTheXaml:XamlDisplay UniqueId="WaveProgress">
+                        <Grid>
+                            <showMeTheXaml:XamlDisplay VerticalAlignment="Center" UniqueId="WaveProgress">
                                 <controls:WaveProgress IsTextVisible="{Binding IsTextVisible}" Value="{Binding ProgressValue}" />
                             </showMeTheXaml:XamlDisplay>
-                        </StackPanel>
+                        </Grid>
                     </controls:GroupBox>
                 </controls:GlassCard>
 
@@ -53,7 +57,7 @@
                                                             Height="130"
                                                             StrokeWidth="11"
                                                             Value="{Binding ProgressValue}">
-                                    <TextBlock Classes="h3"
+                                    <TextBlock Classes="h3" Margin="0,2,0,0"
                                                IsVisible="{Binding IsTextVisible}"
                                                Text="{Binding ProgressValue, StringFormat={}{0:#0}%}" />
                                 </controls:CircleProgressBar>
@@ -64,7 +68,7 @@
                                                             Classes="Accent"
                                                             StrokeWidth="11"
                                                             Value="{Binding ProgressValue}">
-                                    <TextBlock Classes="h3"
+                                    <TextBlock Classes="h3" Margin="0,2,0,0"
                                                IsVisible="{Binding IsTextVisible}"
                                                Text="{Binding ProgressValue, StringFormat={}{0:#0}%}" />
                                 </controls:CircleProgressBar>
@@ -73,7 +77,7 @@
                     </controls:GroupBox>
                 </controls:GlassCard>
 
-                <controls:GlassCard>
+                <controls:GlassCard Width="400">
                     <controls:GroupBox Header="Standard Progress Bar">
                         <controls:GroupBox.Styles>
                             <Style Selector="ProgressBar">
@@ -82,8 +86,11 @@
                             </Style>
                         </controls:GroupBox.Styles>
                         <StackPanel Spacing="15">
+                            <showMeTheXaml:XamlDisplay UniqueId="Progress0">
+                                <ProgressBar IsIndeterminate="True"/>
+                            </showMeTheXaml:XamlDisplay>
                             <showMeTheXaml:XamlDisplay UniqueId="Progress1">
-                                <ProgressBar />
+                                <ProgressBar/>
                             </showMeTheXaml:XamlDisplay>
                             <showMeTheXaml:XamlDisplay UniqueId="Progress2">
                                 <ProgressBar Classes="Accent" />
@@ -91,6 +98,9 @@
                             <StackPanel VerticalAlignment="Stretch"
                                         Orientation="Horizontal"
                                         Spacing="15">
+                                <showMeTheXaml:XamlDisplay UniqueId="Progress5">
+                                    <ProgressBar IsIndeterminate="True" Orientation="Vertical" />
+                                </showMeTheXaml:XamlDisplay>
                                 <showMeTheXaml:XamlDisplay UniqueId="Progress3">
                                     <ProgressBar Orientation="Vertical" />
                                 </showMeTheXaml:XamlDisplay>

@@ -110,6 +110,14 @@
                         </showMeTheXaml:XamlDisplay>
                     </controls:GroupBox>
                 </controls:GlassCard>
+                
+                <controls:GlassCard>
+                    <controls:GroupBox Header="Large Button">
+                        <showMeTheXaml:XamlDisplay UniqueId="Button12">
+                            <Button Classes="Flat Large" />
+                        </showMeTheXaml:XamlDisplay>
+                    </controls:GroupBox>
+                </controls:GlassCard>
             </WrapPanel>
         </ScrollViewer>
     </Grid>

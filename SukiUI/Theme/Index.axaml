@@ -6,7 +6,7 @@
 
     <StyleInclude Source="avares://SukiUI/Theme/ComboBoxStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/Colors.xaml" />
-    <StyleInclude Source="avares://SukiUI/Theme/TextBlockStyles.xaml" />
+  
     <StyleInclude Source="avares://SukiUI/Theme/TextBoxStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/RichTextBoxStyles.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/BorderStyles.xaml" />
@@ -48,6 +48,7 @@
             <FontFamily x:Key="QuicksandFont">avares://SukiUI/CustomFont#Quicksand</FontFamily>
 
             <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://sukiUI/Theme/TextBlockStyles.xaml" />
                 <ResourceInclude Source="avares://SukiUI/Theme/SplitView.axaml" />
                 <ResourceInclude Source="avares://SukiUI/Theme/DatePicker.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/ToolTipStyle.axaml" />

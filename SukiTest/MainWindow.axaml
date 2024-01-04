@@ -1,4 +1,5 @@
-<suki:SukiWindow x:Class="SukiTest.MainWindow"
+<suki:SukiWindow Title="Suki UI Testing - New Project"
+                 x:Class="SukiTest.MainWindow"
                  xmlns="https://github.com/avaloniaui"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:circleProgressBarsTestMvvm="clr-namespace:SukiTest.CircleProgressBarsTestMVVM"
@@ -7,7 +8,7 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
                  xmlns:sukiTest="clr-namespace:SukiTest"
-                 Title="Suki UI Testing - New Project"
+                 
                  d:DesignHeight="1050"
                  d:DesignWidth="1050"
                  suki:SukiHost.ToastLimit="4"
@@ -15,21 +16,13 @@
                  BackgroundAnimationEnabled="False"
                  IsMenuVisible="False"
                  mc:Ignorable="d">
-    <suki:SukiWindow.MenuItems>
-        <MenuItem Header="File">
-            <MenuItem Header="Edit" />
-            <MenuItem Header="Save" />
-        </MenuItem>
-        <MenuItem Header="Edit" />
-        <MenuItem Header="Save" />
-    </suki:SukiWindow.MenuItems>
     <suki:SukiWindow.LogoContent>
         <material:MaterialIcon Width="25"
                                Height="25"
                                Foreground="{DynamicResource SukiPrimaryColor}"
                                Kind="MicrosoftXaml" />
     </suki:SukiWindow.LogoContent>
-    <suki:SukiSideMenu Name="SideMenu" HeaderContentOverlapsToggleButton="True">
+   <suki:SukiSideMenu Name="SideMenu" HeaderContentOverlapsToggleButton="True">
         <suki:SukiSideMenu.HeaderContent>
             <StackPanel Margin="0,4,0,0">
                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
@@ -121,16 +114,6 @@
                 </suki:SukiSideMenuItem.PageContent>
             </suki:SukiSideMenuItem>
         </suki:SukiSideMenu.Items>
-        <!-- <suki:SideMenuModel.FooterMenuItems> -->
-        <!--     <suki:SideMenuItem ContentType="sukiTest:StackTest" Header="Settings"> -->
-        <!--         <suki:SideMenuItem.Icon> -->
-        <!--  <material:MaterialIcon  -->
-        <!--  Height="24"  -->
-        <!--  Kind="SettingsOutline"  -->
-        <!--  Width="24" />  -->
-        <!--         </suki:SideMenuItem.Icon> -->
-        <!--    -->
-        <!--     </suki:SideMenuItem> -->
-        <!-- </suki:SideMenuModel.FooterMenuItems> -->
+       
     </suki:SukiSideMenu>
 </suki:SukiWindow>

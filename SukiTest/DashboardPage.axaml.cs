@@ -83,6 +83,7 @@ public partial class DashboardPage : UserControl
     private void ShowDialog(object sender, RoutedEventArgs e)
     {
         SukiHost.ShowDialog(new DialogContent(), allowBackgroundClose: true);
+        
     }
 
     private void CloseHandler(object sender, RoutedEventArgs e)
@@ -138,6 +139,12 @@ public partial class DashboardPage : UserControl
 
     private void SetBusy(object? sender, RoutedEventArgs e)
     {
+        this.Get<ProgressBar>("P1").Value = 80;
+        this.Get<ProgressBar>("P2").Value = 80;
+        this.Get<ProgressBar>("P3").Value = 80;
+        this.Get<CircleProgressBar>("CP").Value = 80;
+        this.Get<TextBlock>("TP").Text = "80";
+        
         this.Get<Button>("ButtonSignIn").ShowProgress();
         this.Get<BusyArea>("BusySignIn").IsBusy = true;
 
