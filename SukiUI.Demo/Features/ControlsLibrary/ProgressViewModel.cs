@@ -17,6 +17,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary
         [ObservableProperty] private int _stepIndex = 1;
         [ObservableProperty] [Range(0d, 100d)] private double _progressValue = 50;
         [ObservableProperty] private bool _isTextVisible = true;
+        [ObservableProperty] private bool _isIndeterminate = false;
 
         [RelayCommand]
         public void ChangeStep(bool isIncrement)
@@ -30,6 +31,18 @@ namespace SukiUI.Demo.Features.ControlsLibrary
                     StepIndex += isIncrement ? 1 : -1;
                     break;
             }
+        }
+
+        partial void OnIsIndeterminateChanged(bool value)
+        {
+            if (value && IsTextVisible)
+                IsTextVisible = false;
+        }
+
+        partial void OnIsTextVisibleChanged(bool value)
+        {
+            if (value && IsIndeterminate)
+                IsIndeterminate = false;
         }
     }
 }
