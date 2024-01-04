@@ -91,7 +91,7 @@ public class SukiSideMenu : SelectingItemsControl
                 .Subscribe(_ => spacer.IsVisible = IsSpacerVisible);
         }
 
-        if (e.NameScope.Get<ContentControl>("PART_TransitioningContentControl") is { } contentControl)
+        if (e.NameScope.Get<SukiTransitioningContentControl>("PART_TransitioningContentControl") is { } contentControl)
         {
             this.GetObservable(SelectedItemProperty)
                 .ObserveOn(new AvaloniaSynchronizationContext())

@@ -6,7 +6,7 @@
 
     <StyleInclude Source="avares://SukiUI/Theme/ComboBoxStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/Colors.xaml" />
-  
+
     <StyleInclude Source="avares://SukiUI/Theme/TextBoxStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/RichTextBoxStyles.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/BorderStyles.xaml" />
@@ -60,6 +60,7 @@
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiToast.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiSideMenu.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiSideMenuItem.axaml" />
+                <ResourceInclude Source="avares://sukiUI/Controls/SukiTransitioningContentControl.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/Stepper.axaml" />
                 <ResourceInclude Source="../ColorTheme/Light.axaml" />
             </ResourceDictionary.MergedDictionaries>

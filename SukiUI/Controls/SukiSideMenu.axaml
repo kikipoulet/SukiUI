@@ -98,7 +98,7 @@
                             Background="{DynamicResource SukiBackground}"
                             BorderBrush="{DynamicResource SukiBorderBrush}"
                             BorderThickness="1,0,0,0">
-                        <TransitioningContentControl Name="PART_TransitioningContentControl" />
+                        <suki:SukiTransitioningContentControl Name="PART_TransitioningContentControl" />
                     </Border>
                 </SplitView>
             </ControlTemplate>
