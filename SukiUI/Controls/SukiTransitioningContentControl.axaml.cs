@@ -1,11 +1,11 @@
 using System;
 using System.Reactive.Linq;
-using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Animation;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.Styling;
 using Avalonia.Threading;
 
@@ -38,6 +38,8 @@ namespace SukiUI.Controls
 
         private Visual _firstBuffer = null!;
         private Visual _secondBuffer = null!;
+
+        private IDisposable? _disposable;
 
         private static readonly Animation FadeIn;
         private static readonly Animation FadeOut;
@@ -117,30 +119,30 @@ namespace SukiUI.Controls
             if (e.NameScope.Get<ContentControl>("PART_SecondBufferControl") is { } sBuff)
                 _secondBuffer = sBuff;
 
-            this.GetObservable(ContentProperty)
+            _disposable = this.GetObservable(ContentProperty)
                 .ObserveOn(new AvaloniaSynchronizationContext())
                 .Subscribe(onNext: OnContentChanged);
         }
-
-        private readonly Task[] _tasks = new Task[2];
         
         public void OnContentChanged(object? content)
         {
             if (content is null) return;
-            Dispatcher.UIThread.InvokeAsync(async () =>
-            {
-                if (_isFirstBufferActive) SecondBuffer = content;
-                else FirstBuffer = content;
-                var from = _isFirstBufferActive ? _firstBuffer : _secondBuffer;
-                var to = _isFirstBufferActive ? _secondBuffer : _firstBuffer;
-                _tasks[0] = FadeOut.RunAsync(from);
-                _tasks[1] = FadeIn.RunAsync(to);
-                await Task.WhenAll(_tasks);
-                ((InputElement)to).IsHitTestVisible = true;
-                ((InputElement)from).IsHitTestVisible = false;
-                _isFirstBufferActive = !_isFirstBufferActive;
-            }, DispatcherPriority.MaxValue);
             // Setting to higher priorities seems to help overall.
+            if (_isFirstBufferActive) SecondBuffer = content;
+            else FirstBuffer = content;
+            var from = _isFirstBufferActive ? _firstBuffer : _secondBuffer;
+            var to = _isFirstBufferActive ? _secondBuffer : _firstBuffer;
+            FadeOut.RunAsync(from);
+            FadeIn.RunAsync(to);
+            ((InputElement)to).IsHitTestVisible = true;
+            ((InputElement)from).IsHitTestVisible = false;
+            _isFirstBufferActive = !_isFirstBufferActive;
+        }
+
+        protected override void OnUnloaded(RoutedEventArgs e)
+        {
+            base.OnUnloaded(e);
+            _disposable?.Dispose();
         }
     }
 }

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using Avalonia.Interactivity;
 
 namespace SukiUI.Controls
 {
@@ -41,6 +42,8 @@ namespace SukiUI.Controls
 
             return "Informations";
         }
+
+        private readonly List<IDisposable> _diposables = new();
 
         public void SetItem(object item)
         {
@@ -133,39 +136,39 @@ namespace SukiUI.Controls
         {
             if (property.GetValue(Item) == null)
                 return;
-
+            IDisposable? disposable = null;
             if (property.GetValue(Item).GetType() == typeof(string))
             {
                 var prop = new TextBox() { Height = 36, Width = Width / 2.5, Text = property.GetValue(Item).ToString(), Padding = new Thickness(6), HorizontalAlignment = HorizontalAlignment.Right, HorizontalContentAlignment = HorizontalAlignment.Right, Margin = new Thickness(0, 2, 10, 2) };
-                prop.GetObservable(TextBox.TextProperty).Subscribe(value => property.SetValue(Item, value));
+                disposable = prop.GetObservable(TextBox.TextProperty).Subscribe(value => property.SetValue(Item, value));
                 gridItem.Children.Add(prop);
                 Grid.SetColumn(prop, 1);
             }
             else if (property.GetValue(Item).GetType() == typeof(DateTime))
             {
                 var prop = new DatePicker() { Height = 38, SelectedDate = (DateTime)property.GetValue(Item), Padding = new Thickness(6, 6, 0, 6), HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(0, 2, 10, 2) };
-                prop.GetObservable(DatePicker.SelectedDateProperty).Subscribe(value => property.SetValue(Item, ((DateTimeOffset)value).Date));
+                disposable = prop.GetObservable(DatePicker.SelectedDateProperty).Subscribe(value => property.SetValue(Item, ((DateTimeOffset)value).Date));
                 gridItem.Children.Add(prop);
                 Grid.SetColumn(prop, 1);
             }
             else if (property.GetValue(Item).GetType() == typeof(int))
             {
                 var prop = new NumericUpDown() { Width = Width / 2.5, Height = 36, Value = Decimal.Parse(property.GetValue(Item).ToString()), Increment = 1, Padding = new Thickness(0, 0, 5, 0), HorizontalAlignment = HorizontalAlignment.Right, HorizontalContentAlignment = HorizontalAlignment.Right, Margin = new Thickness(0, 2, 10, 2) };
-                prop.GetObservable(NumericUpDown.ValueProperty).Subscribe(value => property.SetValue(Item, Int32.Parse(value.ToString())));
+                disposable = prop.GetObservable(NumericUpDown.ValueProperty).Subscribe(value => property.SetValue(Item, Int32.Parse(value.ToString())));
                 gridItem.Children.Add(prop);
                 Grid.SetColumn(prop, 1);
             }
             else if (property.GetValue(Item).GetType() == typeof(double))
             {
                 var prop = new NumericUpDown() { Width = Width / 2.5, Height = 36, Value = (decimal?)(double)property.GetValue(Item), Increment = 0.001M, Padding = new Thickness(0, 0, 5, 0), HorizontalAlignment = HorizontalAlignment.Right, HorizontalContentAlignment = HorizontalAlignment.Right, Margin = new Thickness(0, 2, 10, 2) };
-                prop.GetObservable(NumericUpDown.ValueProperty).Subscribe(value => property.SetValue(Item, Double.Parse(value.ToString())));
+                disposable = prop.GetObservable(NumericUpDown.ValueProperty).Subscribe(value => property.SetValue(Item, Double.Parse(value.ToString())));
                 gridItem.Children.Add(prop);
                 Grid.SetColumn(prop, 1);
             }
             else if (property.GetValue(Item).GetType() == typeof(bool))
             {
                 var prop = new ToggleButton() { Classes = { "Switch" }, Height = 36, Margin = new Thickness(0, 0, 5, 0), HorizontalContentAlignment = HorizontalAlignment.Right, HorizontalAlignment = HorizontalAlignment.Right, IsChecked = (bool)property.GetValue(Item) };
-                prop.GetObservable(ToggleButton.IsCheckedProperty).Subscribe(value => property.SetValue(Item, (bool)value));
+                disposable = prop.GetObservable(ToggleButton.IsCheckedProperty).Subscribe(value => property.SetValue(Item, (bool)value));
                 gridItem.Children.Add(prop);
                 Grid.SetColumn(prop, 1);
             }
@@ -174,7 +177,7 @@ namespace SukiUI.Controls
                 var type = property.GetValue(Item).GetType();
                 var names = Enum.GetNames(type);
                 var prop = new ComboBox() { Width = Width / 2.5, ItemsSource = Enum.GetValues(type), SelectedItem = property.GetValue(Item), Height = 36, HorizontalContentAlignment = HorizontalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(0, 2, 0, 2) };
-                prop.GetObservable(ComboBox.SelectedItemProperty).Subscribe(value => property.SetValue(Item, value));
+                disposable = prop.GetObservable(ComboBox.SelectedItemProperty).Subscribe(value => property.SetValue(Item, value));
                 gridItem.Children.Add(prop);
                 Grid.SetColumn(prop, 1);
             }
@@ -218,6 +221,16 @@ namespace SukiUI.Controls
                 gridItem.Children.Add(prop);
                 Grid.SetColumn(prop, 1);
             }
+
+            if (disposable != null) 
+                _diposables.Add(disposable);
+        }
+
+        protected override void OnUnloaded(RoutedEventArgs e)
+        {
+            base.OnUnloaded(e);
+            foreach(var disposable in _diposables)
+                disposable.Dispose();
         }
     }
 }

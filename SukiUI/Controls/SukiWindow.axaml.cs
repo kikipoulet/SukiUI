@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Reactive.Linq;
 using System.Runtime.InteropServices;
+using Avalonia.Interactivity;
 
 namespace SukiUI.Controls;
 
@@ -102,6 +103,8 @@ public class SukiWindow : Window
         set => SetValue(BackgroundAnimationEnabledProperty, value);
     }
 
+    private IDisposable? _subscribtionDisposables;
+
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
@@ -137,7 +140,7 @@ public class SukiWindow : Window
         if (e.NameScope.Find<SukiBackground>("PART_Background") is { } background)
         {
             background.SetAnimationEnabled(BackgroundAnimationEnabled);
-            this.GetObservable(BackgroundAnimationEnabledProperty)
+            _subscribtionDisposables = this.GetObservable(BackgroundAnimationEnabledProperty)
                 .Do(enabled => background.SetAnimationEnabled(enabled))
                 .ObserveOn(new AvaloniaSynchronizationContext())
                 .Subscribe();
@@ -155,5 +158,11 @@ public class SukiWindow : Window
         }
         else
             BeginMoveDrag(e);
+    }
+
+    protected override void OnUnloaded(RoutedEventArgs e)
+    {
+        base.OnUnloaded(e);
+        _subscribtionDisposables?.Dispose();
     }
 }
