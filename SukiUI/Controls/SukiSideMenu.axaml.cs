@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
+using Avalonia.Interactivity;
 
 namespace SukiUI.Controls;
 
@@ -59,6 +60,9 @@ public class SukiSideMenu : SelectingItemsControl
 
     private bool IsSpacerVisible => HeaderContentOverlapsToggleButton && !IsMenuExpanded;
 
+    private IDisposable? _subscriptionDisposable;
+    private IDisposable? _contentDisposable;
+    
     public SukiSideMenu()
     {
         SelectionMode = SelectionMode.Single | SelectionMode.AlwaysSelected;
@@ -85,7 +89,7 @@ public class SukiSideMenu : SelectingItemsControl
                 .Select(_ => Unit.Default);
             var headerContentObservable = this.GetObservable(HeaderContentOverlapsToggleButtonProperty)
                 .Select(_ => Unit.Default);
-            menuObservable
+            _subscriptionDisposable = menuObservable
                 .Merge(headerContentObservable)
                 .ObserveOn(new AvaloniaSynchronizationContext())
                 .Subscribe(_ => spacer.IsVisible = IsSpacerVisible);
@@ -93,7 +97,7 @@ public class SukiSideMenu : SelectingItemsControl
 
         if (e.NameScope.Get<SukiTransitioningContentControl>("PART_TransitioningContentControl") is { } contentControl)
         {
-            this.GetObservable(SelectedItemProperty)
+            _contentDisposable = this.GetObservable(SelectedItemProperty)
                 .ObserveOn(new AvaloniaSynchronizationContext())
                 .Do(obj =>
                 {
@@ -123,5 +127,12 @@ public class SukiSideMenu : SelectingItemsControl
     protected override bool NeedsContainerOverride(object? item, int index, out object? recycleKey)
     {
         return NeedsContainer<SukiSideMenuItem>(item, out recycleKey);
+    }
+
+    protected override void OnUnloaded(RoutedEventArgs e)
+    {
+        base.OnUnloaded(e);
+        _contentDisposable?.Dispose();
+        _subscriptionDisposable?.Dispose();
     }
 }

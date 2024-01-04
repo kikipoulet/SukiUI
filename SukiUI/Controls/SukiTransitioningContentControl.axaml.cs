@@ -1,11 +1,13 @@
 using System;
 using System.Reactive.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Animation;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.Styling;
 using Avalonia.Threading;
 
@@ -36,11 +38,16 @@ namespace SukiUI.Controls
 
         private bool _isFirstBufferActive;
 
-        private Visual _firstBuffer = null!;
-        private Visual _secondBuffer = null!;
+        private ContentControl _firstBuffer = null!;
+        private ContentControl _secondBuffer = null!;
+
+        private IDisposable? _disposable;
 
         private static readonly Animation FadeIn;
         private static readonly Animation FadeOut;
+        
+        private ContentControl To => _isFirstBufferActive ? _secondBuffer : _firstBuffer;
+        private ContentControl From => _isFirstBufferActive ? _firstBuffer : _secondBuffer;
 
         static SukiTransitioningContentControl()
         {
@@ -109,6 +116,8 @@ namespace SukiUI.Controls
             FadeIn.Duration = FadeOut.Duration = TimeSpan.FromMilliseconds(250);
         }
 
+        private CancellationTokenSource _animCancellationToken = new();
+
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
@@ -117,30 +126,41 @@ namespace SukiUI.Controls
             if (e.NameScope.Get<ContentControl>("PART_SecondBufferControl") is { } sBuff)
                 _secondBuffer = sBuff;
 
-            this.GetObservable(ContentProperty)
+            _disposable = this.GetObservable(ContentProperty)
                 .ObserveOn(new AvaloniaSynchronizationContext())
                 .Subscribe(onNext: OnContentChanged);
         }
 
-        private readonly Task[] _tasks = new Task[2];
-        
         public void OnContentChanged(object? content)
         {
             if (content is null) return;
-            Dispatcher.UIThread.InvokeAsync(async () =>
+            
+            _animCancellationToken.Cancel();
+            _animCancellationToken.Dispose();
+            _animCancellationToken = new CancellationTokenSource();
+            
+            if (_isFirstBufferActive) SecondBuffer = content;
+            else FirstBuffer = content;
+            try
             {
-                if (_isFirstBufferActive) SecondBuffer = content;
-                else FirstBuffer = content;
-                var from = _isFirstBufferActive ? _firstBuffer : _secondBuffer;
-                var to = _isFirstBufferActive ? _secondBuffer : _firstBuffer;
-                _tasks[0] = FadeOut.RunAsync(from);
-                _tasks[1] = FadeIn.RunAsync(to);
-                await Task.WhenAll(_tasks);
-                ((InputElement)to).IsHitTestVisible = true;
-                ((InputElement)from).IsHitTestVisible = false;
-                _isFirstBufferActive = !_isFirstBufferActive;
-            }, DispatcherPriority.MaxValue);
-            // Setting to higher priorities seems to help overall.
+                FadeOut.RunAsync(From, _animCancellationToken.Token);
+                FadeIn.RunAsync(To, _animCancellationToken.Token);
+            }
+            catch
+            {
+                // ignored
+            }
+
+            To.IsHitTestVisible = true;
+            From.IsHitTestVisible = false;
+            _isFirstBufferActive = !_isFirstBufferActive;
+        }
+
+        protected override void OnUnloaded(RoutedEventArgs e)
+        {
+            base.OnUnloaded(e);
+            _disposable?.Dispose();
+            _animCancellationToken.Dispose();
         }
     }
 }
