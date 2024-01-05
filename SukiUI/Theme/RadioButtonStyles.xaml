@@ -102,7 +102,7 @@
                     </Border>
                     <PathIcon Width="20"
                               Height="20"
-                              Margin="10"
+                              Margin="12"
                               HorizontalAlignment="Right"
                               VerticalAlignment="Top"
                               Data="{x:Static content:Icons.CircleCheck}"
