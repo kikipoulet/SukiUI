@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Animation;
 using Avalonia.Controls;
+using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -38,16 +39,16 @@ namespace SukiUI.Controls
 
         private bool _isFirstBufferActive;
 
-        private ContentControl _firstBuffer = null!;
-        private ContentControl _secondBuffer = null!;
+        private ContentPresenter _firstBuffer = null!;
+        private ContentPresenter _secondBuffer = null!;
 
         private IDisposable? _disposable;
 
         private static readonly Animation FadeIn;
         private static readonly Animation FadeOut;
         
-        private ContentControl To => _isFirstBufferActive ? _secondBuffer : _firstBuffer;
-        private ContentControl From => _isFirstBufferActive ? _firstBuffer : _secondBuffer;
+        private ContentPresenter To => _isFirstBufferActive ? _secondBuffer : _firstBuffer;
+        private ContentPresenter From => _isFirstBufferActive ? _firstBuffer : _secondBuffer;
 
         static SukiTransitioningContentControl()
         {
@@ -121,9 +122,9 @@ namespace SukiUI.Controls
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
-            if (e.NameScope.Get<ContentControl>("PART_FirstBufferControl") is { } fBuff)
+            if (e.NameScope.Get<ContentPresenter>("PART_FirstBufferControl") is { } fBuff)
                 _firstBuffer = fBuff;
-            if (e.NameScope.Get<ContentControl>("PART_SecondBufferControl") is { } sBuff)
+            if (e.NameScope.Get<ContentPresenter>("PART_SecondBufferControl") is { } sBuff)
                 _secondBuffer = sBuff;
 
             _disposable = this.GetObservable(ContentProperty)

@@ -103,7 +103,7 @@ public class SukiSideMenu : SelectingItemsControl
                 {
                     contentControl.Content = obj switch
                     {
-                        SukiSideMenuItem { PageContent: Control sukiMenuPageContent } =>  Activator.CreateInstance(sukiMenuPageContent.GetType()),
+                        SukiSideMenuItem { PageContent: { } sukiMenuPageContent } => sukiMenuPageContent,
                         _ => obj
                     };
                 })
