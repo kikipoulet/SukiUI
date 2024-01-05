@@ -28,6 +28,7 @@ public class ViewLocator : IDataTemplate
         if (!_controlCache.TryGetValue(data!, out var res))
         {
             res ??= (Control)Activator.CreateInstance(type)!;
+            _controlCache[data!] = res;
         }
 
         res.DataContext = data;
