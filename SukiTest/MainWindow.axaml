@@ -1,5 +1,4 @@
-<suki:SukiWindow Title="Suki UI Testing - New Project"
-                 x:Class="SukiTest.MainWindow"
+<suki:SukiWindow x:Class="SukiTest.MainWindow"
                  xmlns="https://github.com/avaloniaui"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:circleProgressBarsTestMvvm="clr-namespace:SukiTest.CircleProgressBarsTestMVVM"
@@ -8,7 +7,7 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
                  xmlns:sukiTest="clr-namespace:SukiTest"
-                 
+                 Title="Suki UI Testing - New Project"
                  d:DesignHeight="1050"
                  d:DesignWidth="1050"
                  suki:SukiHost.ToastLimit="4"
@@ -22,7 +21,7 @@
                                Foreground="{DynamicResource SukiPrimaryColor}"
                                Kind="MicrosoftXaml" />
     </suki:SukiWindow.LogoContent>
-   <suki:SukiSideMenu Name="SideMenu" HeaderContentOverlapsToggleButton="True">
+    <suki:SukiSideMenu Name="SideMenu" HeaderContentOverlapsToggleButton="True">
         <suki:SukiSideMenu.HeaderContent>
             <StackPanel Margin="0,4,0,0">
                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
@@ -36,8 +35,9 @@
                             ToolTip.Tip="Change Color">
                         <material:MaterialIcon Kind="Palette" />
                     </Button>
-                    <Button Classes="Basic" IsVisible="False"
+                    <Button Classes="Basic"
                             Click="ChangeAnimationState"
+                            IsVisible="False"
                             ToolTip.Tip="Toggle Background Animation">
                         <material:MaterialIcon Kind="Animation" />
                     </Button>
@@ -113,7 +113,18 @@
                     <sukiTest:StackExemplePage />
                 </suki:SukiSideMenuItem.PageContent>
             </suki:SukiSideMenuItem>
+            <suki:SukiSideMenuItem Header="Testing">
+                <suki:SukiSideMenuItem.Icon>
+                    <material:MaterialIcon Width="24"
+                                           Height="24"
+                                           Foreground="{DynamicResource SukiText}"
+                                           Kind="TestTube" />
+                </suki:SukiSideMenuItem.Icon>
+                <suki:SukiSideMenuItem.PageContent>
+                    <TextBlock Text="A completely pointless testing page to make sure the tests are exhaustive." />
+                </suki:SukiSideMenuItem.PageContent>
+            </suki:SukiSideMenuItem>
         </suki:SukiSideMenu.Items>
-       
+
     </suki:SukiSideMenu>
 </suki:SukiWindow>
