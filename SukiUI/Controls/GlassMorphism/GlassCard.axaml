@@ -57,6 +57,7 @@
         
         <Style Selector="suki|GlassCard[IsOpaque=True] /template/ Border#PART_BorderLight">
             <Setter Property="Opacity" Value="1"></Setter>
+            <Setter Property="Background" Value="#fcfcfc"></Setter>
         </Style>
     </UserControl.Styles>
 </UserControl>

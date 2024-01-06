@@ -54,6 +54,7 @@ namespace SukiUI.Controls
         {
             FadeIn = new Animation
             {
+                Duration = TimeSpan.FromMilliseconds(400),
                 Children =
                 {
                     new KeyFrame()
@@ -85,6 +86,7 @@ namespace SukiUI.Controls
             };
             FadeOut = new Animation
             {
+                Duration = TimeSpan.FromMilliseconds(400),
                 Children =
                 {
                     new KeyFrame()
@@ -126,13 +128,9 @@ namespace SukiUI.Controls
                 _firstBuffer = fBuff;
             if (e.NameScope.Get<ContentPresenter>("PART_SecondBufferControl") is { } sBuff)
                 _secondBuffer = sBuff;
-
-            _disposable = this.GetObservable(ContentProperty)
-                .ObserveOn(new AvaloniaSynchronizationContext())
-                .Subscribe(onNext: OnContentChanged);
         }
 
-        public void OnContentChanged(object? content)
+        public void PushContent(object? content)
         {
             if (content is null) return;
             
