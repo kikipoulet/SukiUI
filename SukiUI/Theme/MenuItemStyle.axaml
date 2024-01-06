@@ -130,6 +130,7 @@
 
     <Style Selector="Menu &gt; MenuItem">
         <Setter Property="Padding" Value="10 0" />
+        <Setter Property="FontWeight" Value="DemiBold" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Border Name="root"
@@ -141,17 +142,36 @@
 
                     <Panel>
                         <Panel.Styles>
+                           
                             <Style Selector="Popup#PART_Popup[IsOpen=true]">
+                               
                                 <Style.Animations>
                                     <Animation Easing="CircularEaseOut"
                                                FillMode="Forward"
                                                Duration="0:0:0.3">
                                         <KeyFrame Cue="0%">
-                                            <Setter Property="Width" Value="0" />
+                                            <Setter Property="HorizontalOffset" Value="-20" />
                                         </KeyFrame>
                                         <KeyFrame Cue="100%">
-
-                                            <Setter Property="Width" Value="150" />
+                                           
+                                            <Setter Property="HorizontalOffset" Value="0" />
+                                        </KeyFrame>
+                                    </Animation>
+                                </Style.Animations>
+                            </Style>
+                            
+                            <Style Selector="Popup#PART_Popup[IsOpen=true] Border">
+                               
+                                <Style.Animations>
+                                    <Animation 
+                                               FillMode="Forward"
+                                               Duration="0:0:0.45">
+                                        <KeyFrame Cue="0%">
+                                            <Setter Property="Opacity" Value="0" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="100%">
+                                            
+                                            <Setter Property="Opacity" Value="1" />
                                         </KeyFrame>
                                     </Animation>
                                 </Style.Animations>
@@ -168,13 +188,16 @@
                                 </DataTemplate>
                             </ContentPresenter.DataTemplates>
                         </ContentPresenter>
-                        <Popup Name="PART_Popup"
+                        <Popup Name="PART_Popup" Opacity="0"
                                IsLightDismissEnabled="True"
                                IsOpen="{TemplateBinding IsSubMenuOpen,
                                                         Mode=TwoWay}"
                                OverlayInputPassThroughElement="{Binding $parent[Menu]}"
                                Placement="BottomEdgeAlignedLeft">
-                            <Border Margin="10"
+                            <Popup.Transitions>
+                               
+                            </Popup.Transitions>
+                            <Border Margin="10" Name="PART_Border"
                                     Background="{DynamicResource SukiCardBackground}"
                                     BorderBrush="{DynamicResource SukiBorderBrush}"
                                     BorderThickness="1"

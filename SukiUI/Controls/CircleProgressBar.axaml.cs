@@ -65,5 +65,14 @@ namespace SukiUI.Controls
             get { return GetValue(StrokeWidthProperty); }
             set { SetValue(StrokeWidthProperty, value); }
         }
+        
+        public static readonly StyledProperty<bool> IsIndeterminateProperty =
+            AvaloniaProperty.Register<CircleProgressBar, bool>(nameof(IsIndeterminate), false);
+
+        public bool IsIndeterminate
+        {
+            get => GetValue(IsIndeterminateProperty);
+            set => SetValue(IsIndeterminateProperty, value);
+        }
     }
 }

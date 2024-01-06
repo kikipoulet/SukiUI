@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
+using SukiUI.Demo.Utilities;
 using System.Threading.Tasks;
 
 namespace SukiUI.Demo;
@@ -76,13 +77,5 @@ public partial class SukiUIDemoViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public void OpenURL(string url)
-    {
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            Process.Start(new ProcessStartInfo(url.Replace("&", "^&")) { UseShellExecute = true });
-        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            Process.Start("xdg-open", url);
-        else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            Process.Start("open", url);
-    }
+    public void OpenURL(string url) => UrlUtilities.OpenURL(url);
 }

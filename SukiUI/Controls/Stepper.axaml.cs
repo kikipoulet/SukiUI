@@ -11,7 +11,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
+using Avalonia.Interactivity;
 
 namespace SukiUI.Controls
 {
@@ -36,6 +38,7 @@ namespace SukiUI.Controls
         }
 
         private Grid? _grid;
+        private IDisposable? _subscriptionDisposables;
 
         private static readonly IBrush DisabledColor = new SolidColorBrush(Color.FromArgb(100, 150, 150, 150));
 
@@ -44,12 +47,13 @@ namespace SukiUI.Controls
             base.OnApplyTemplate(e);
             if (e.NameScope.Get<Grid>("PART_GridStepper") is not { } grid) return;
             _grid = grid;
-            this.GetObservable(IndexProperty)
+            var indexObs = this.GetObservable(IndexProperty)
+                .Select(_ => Unit.Default);
+            _subscriptionDisposables = this.GetObservable(StepsProperty)
+                .Select(_ => Unit.Default)
+                .Merge(indexObs)
                 .ObserveOn(new AvaloniaSynchronizationContext())
                 .Subscribe(_ => StepsChangedHandler(Steps));
-            this.GetObservable(StepsProperty)
-                .ObserveOn(new AvaloniaSynchronizationContext())
-                .Subscribe(StepsChangedHandler);
         }
 
         private void StepsChangedHandler(IEnumerable? newSteps)
@@ -93,7 +97,7 @@ namespace SukiUI.Controls
             };
 
             var icon = new PathIcon()
-            { Height = 10, Width = 10, Data = Icons.ChevronRight, Margin = new Thickness(0, 0, 20, 0) };
+                { Height = 10, Width = 10, Data = Icons.ChevronRight, Margin = new Thickness(0, 0, 20, 0) };
             if (index == stepCount - 1)
                 icon.IsVisible = false;
 
@@ -160,6 +164,12 @@ namespace SukiUI.Controls
             Grid.SetColumn(griditem, index);
 
             grid.Children.Add(griditem);
+        }
+
+        protected override void OnUnloaded(RoutedEventArgs e)
+        {
+            base.OnUnloaded(e);
+            _subscriptionDisposables?.Dispose();
         }
     }
 }

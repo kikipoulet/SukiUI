@@ -19,14 +19,19 @@
         </Style>
     </UserControl.Styles>
     <Grid RowDefinitions="Auto,*">
-        <controls:GlassCard Margin="30">
+        <controls:GlassCard Classes="HeaderCard">
             <controls:GroupBox Header="Buttons">
-                <TextBlock TextWrapping="Wrap">
-                    SukiUI has a handful of button styles, available in both the standard primary color, but also in the theme's accent color.<LineBreak />
-                    Clicking on any one of the buttons will make them all "Busy" for 3 seconds, and how this is achieved can be seen in the XAML for the Busy Button.</TextBlock>
+                <StackPanel Classes="HeaderContent">
+                    <TextBlock>
+                        SukiUI has a handful of button styles, available in both the standard primary color, but also in the theme's accent color.
+                    </TextBlock>
+                    <TextBlock>
+                        Clicking on any one of the buttons will make them all "Busy" for 3 seconds, and how this is achieved can be seen in the XAML for the Busy Button.
+                    </TextBlock>
+                </StackPanel>
             </controls:GroupBox>
         </controls:GlassCard>
-        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled">
+        <ScrollViewer Grid.Row="1">
             <WrapPanel Classes="PageContainer">
                 <controls:GlassCard>
                     <controls:GroupBox Header="Standard Button">
@@ -102,6 +107,14 @@
                     <controls:GroupBox Header="Busy Button">
                         <showMeTheXaml:XamlDisplay UniqueId="Button11">
                             <Button theme:ButtonExtensions.ShowProgress="True" />
+                        </showMeTheXaml:XamlDisplay>
+                    </controls:GroupBox>
+                </controls:GlassCard>
+
+                <controls:GlassCard>
+                    <controls:GroupBox Header="Large Button">
+                        <showMeTheXaml:XamlDisplay UniqueId="Button12">
+                            <Button Classes="Flat Large" />
                         </showMeTheXaml:XamlDisplay>
                     </controls:GroupBox>
                 </controls:GlassCard>

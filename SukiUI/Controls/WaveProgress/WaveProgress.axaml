@@ -86,18 +86,32 @@
                                 <TextBlock Margin="100,200,0,0"
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Center"
-                                           Classes="h2"
+                                           Classes="h2" Name="PART_Text"
                                            Foreground="{TemplateBinding Value,
                                                                         Converter={StaticResource WValueColorConvert}}"
-                                           IsVisible="{TemplateBinding IsTextVisible}"
                                            Text="{TemplateBinding Value,
-                                                                  Converter={StaticResource WValueTextConvert}}" />
+                                                                  Converter={StaticResource WValueTextConvert}}" >
+                                    <TextBlock.Transitions>
+                                        <Transitions>
+                                            <DoubleTransition Property="Opacity" Duration="0:0:0.3"></DoubleTransition>
+                                        </Transitions>
+                                    </TextBlock.Transitions>
+                                </TextBlock>
                             </Grid>
                         </Border>
                     </Border>
                 </ControlTemplate>
             </Setter>
         </Style>
+        
+        <Style Selector="suki|WaveProgress[IsTextVisible=True] /template/ TextBlock#PART_Text">
+            <Setter Property="Opacity" Value="1"></Setter>
+        </Style>
+        
+        <Style Selector="suki|WaveProgress[IsTextVisible=False] /template/ TextBlock#PART_Text">
+            <Setter Property="Opacity" Value="0"></Setter>
+        </Style>
+        
         <Style Selector="Path.WaveAnimated">
             <Style.Animations>
                 <Animation IterationCount="INFINITE" Duration="0:0:6">

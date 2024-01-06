@@ -8,6 +8,7 @@
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="15"></Setter>
         <Setter Property="Padding" Value="20,8" />
         <Setter Property="Template">
             <ControlTemplate>
@@ -34,7 +35,7 @@
                                           VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                           Content="{TemplateBinding Content}"
                                           FontFamily="avares://SukiUI/CustomFont#Quicksand"
-                                          FontSize="15"
+                                          FontSize="{TemplateBinding FontSize}"
                                           FontWeight="DemiBold"
                                           RecognizesAccessKey="True" />
                     </StackPanel>
@@ -408,6 +409,11 @@
                     </ContentPresenter>
                 </ControlTemplate>
             </Setter>
+        </Style>
+        
+        <Style Selector="^.Large">
+            <Setter Property="FontSize" Value="18"></Setter>
+            <Setter Property="Padding" Value="30,12"></Setter>
         </Style>
     </ControlTheme>
     <ControlTheme x:Key="{x:Type Button}"

@@ -1,3 +1,4 @@
+using System;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
@@ -17,5 +18,6 @@ public partial class TextViewModel() : DemoPageBase("Text", MaterialIconKind.Tex
     public Task HyperlinkClicked()
     {
         return SukiHost.ShowToast("Clicked a hyperlink", "You clicked the hyperlink on the Text page.");
+        
     }
 }

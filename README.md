@@ -1,26 +1,27 @@
 <div id="header" align="center">
- <kbd>
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/suki_photo.jpg" width="200" height="200"></img> 
-  </kbd>
-<br/>
-Suki is the name of my dog :-)
-</div>
-<br/>
+ 
+<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/OIG.N5o-removebg-preview.png" ></img> 
+ </div>
 
+ <br/>
+ 
 # ✨ SukiUI
 
-### Desktop UI Library for AvaloniaUI ! <img src="https://www.avaloniaui.net/img/logo/avalonia-white-purple.svg"></img>
+### Desktop UI Library for Avalonia ! <img width="22" height="22" src="https://www.avaloniaui.net/img/logo/avalonia-white-purple.svg"></img>
 
 <br/>
+
+#### Upcoming 6.0.0 Release :
 
 - Mobile Controls have been moved to a new mobile library named [Cheryl UI](https://github.com/kikipoulet/CherylUI)
-<br/>
+- Definitive Design with new support for Color Themes
+- Some breaking changes. If you update from a previous version, please read the [Documentaion](https://github.com/kikipoulet/SukiUI/wiki/1.-Installation) first
+- Special thanks to [@sirdoombox](https://www.github.com/sirdoombox) for his valuable contributions
 
 
 #### ⚠️ Readme and Documentation are changing for the upcoming 6.0 Release
 
 <br/>
-
 
 ## 📱 UI Theme 
 
@@ -33,25 +34,15 @@ Suki is the name of my dog :-)
 
 #### SukiUI places special emphasis on creating rich and intuitive animations for the themed controls.
 
-<kbd>
-<img src="https://github.com/kikipoulet/SukiUI/assets/19242427/cbd547a2-47e1-4c18-a008-09fc450e7462" ></img> 
+ <kbd>
+<img src="https://github.com/kikipoulet/SukiUI/assets/19242427/40c93232-c45a-4dd7-b559-e8e22cff9748" ></img> 
   </kbd>
-
+  
 <kbd>
 <img src="https://github.com/kikipoulet/SukiUI/assets/19242427/36b1a516-2f16-4d0d-82b2-df59003e2ec6" ></img> 
   </kbd>
 
-  <kbd>
-<img src="https://github.com/kikipoulet/SukiUI/assets/19242427/29804e6c-2eea-4ed6-a12e-c20d5ffa2d76" ></img> 
-  </kbd>
-
-  <kbd>
-<img src="https://github.com/kikipoulet/SukiUI/assets/19242427/94a75fee-f698-4aea-9859-38467cde61ae" ></img> 
-  </kbd>
-
-   <kbd>
-<img src="https://github.com/kikipoulet/SukiUI/assets/19242427/4e1ceb20-b3b5-4a40-b64a-244f424fa72b" ></img> 
-  </kbd>
+ 
 
 ## 🔨 Additional Controls
 

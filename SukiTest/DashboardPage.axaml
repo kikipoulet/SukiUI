@@ -14,7 +14,7 @@
         <Grid Margin="15">
             <WrapPanel Orientation="Horizontal">
                 <Grid Margin="15">
-                    <suki:GlassCard Width="300" Margin="0,0,0,25">
+                    <suki:GlassCard  Width="300" Margin="0,0,0,25">
                         <suki:BusyArea Name="BusySignIn" BusyText="Signing In...">
                             <StackPanel>
                                 <material:MaterialIcon Width="30"
@@ -72,7 +72,7 @@
                                            Foreground="{DynamicResource SukiLowText}"
                                            Text="Presentation.pdf" />
                             </StackPanel>
-                            <suki:CircleProgressBar Width="37"
+                            <suki:CircleProgressBar Width="37" Name="CP"
                                                     Height="37"
                                                     Margin="-55,-65,-10,-65"
                                                     HorizontalAlignment="Right"
@@ -82,7 +82,7 @@
                                 <TextBlock Margin="1,1,0,0"
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Center"
-                                           FontSize="13"
+                                           FontSize="13" Name="TP"
                                            FontWeight="DemiBold"
                                            Text="67" />
                             </suki:CircleProgressBar>
@@ -112,7 +112,7 @@
                                                            Kind="ArrowUp" />
                                 </StackPanel>
                             </Grid>
-                            <ProgressBar Margin="0,1,0,0" Value="16" />
+                            <ProgressBar Name="P1" Margin="0,1,0,0" Value="16" />
                             <Grid Margin="0,13,0,0">
                                 <TextBlock HorizontalAlignment="Left"
                                            FontSize="12"
@@ -128,7 +128,7 @@
                                                            Kind="ArrowDown" />
                                 </StackPanel>
                             </Grid>
-                            <ProgressBar Margin="0,1,0,0" Value="62" />
+                            <ProgressBar Name="P2" Margin="0,1,0,0" Value="62" />
 
                             <Grid Margin="0,13,0,0">
                                 <TextBlock HorizontalAlignment="Left"
@@ -145,7 +145,7 @@
                                                            Kind="ArrowUp" />
                                 </StackPanel>
                             </Grid>
-                            <ProgressBar Margin="0,1,0,0" Value="34" />
+                            <ProgressBar Name="P3" Margin="0,1,0,0" Value="34" />
 
                         </StackPanel>
                     </suki:GlassCard>

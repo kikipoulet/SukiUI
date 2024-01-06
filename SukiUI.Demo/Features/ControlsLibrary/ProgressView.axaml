@@ -11,22 +11,49 @@
              x:DataType="controlsLibrary:ProgressViewModel"
              mc:Ignorable="d">
     <Grid RowDefinitions="Auto,*">
-        <controls:GlassCard Margin="30">
+        <controls:GlassCard Classes="HeaderCard">
             <controls:GroupBox Header="Progress Indicators">
-                <StackPanel Spacing="15">
-                    <TextBlock TextWrapping="Wrap">
-                        Here is a demo of all the available progress indicators in SukiUI, including the stepper.<LineBreak />
-                        The progress bars can be controlled with the controls below except the stepper which has it's own logic.</TextBlock>
-                    <DockPanel>
-                        <CheckBox DockPanel.Dock="Left" IsChecked="{Binding IsTextVisible}" />
-                        <TextBlock Text="Text Enabled?" />
-                    </DockPanel>
-                    <Slider MinWidth="200"
-                            MaxWidth="400"
-                            HorizontalAlignment="Left"
-                            Maximum="100"
-                            Minimum="0"
-                            Value="{Binding ProgressValue}" />
+                <StackPanel Classes="HeaderContent">
+                    <TextBlock>
+                        Here is a demo of all the available progress indicators in SukiUI, including the stepper.
+                    </TextBlock>
+                    <TextBlock>
+                        The progress bars can be controlled with the controls below except the stepper which has it's own logic.
+                    </TextBlock>
+                    <StackPanel Margin="0,25,0,0" Orientation="Horizontal">
+                        <TextBlock Margin="0,0,0,0"
+                                   VerticalAlignment="Center"
+                                   FontWeight="DemiBold"
+                                   Text="Show Progress Value : " />
+                        <ToggleButton Margin="15,0,0,0"
+                                      Classes="Switch"
+                                      IsChecked="{Binding IsTextVisible}" />
+
+                    </StackPanel>
+                    <StackPanel Margin="0,25,0,0" Orientation="Horizontal">
+                        <TextBlock Margin="0,0,0,0"
+                                   VerticalAlignment="Center"
+                                   FontWeight="DemiBold"
+                                   Text="Indeterminate : " />
+                        <ToggleButton Margin="15,0,0,0"
+                                      Classes="Switch"
+                                      IsChecked="{Binding IsIndeterminate}" />
+
+                    </StackPanel>
+                    <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                        <Slider MinWidth="250"
+                                MaxWidth="400"
+                                HorizontalAlignment="Left"
+                                IsSnapToTickEnabled="True"
+                                Maximum="100"
+                                Minimum="0"
+                                TickFrequency="1"
+                                Value="{Binding ProgressValue}" />
+                        <TextBlock Margin="12,0,0,0"
+                                   VerticalAlignment="Center"
+                                   FontWeight="DemiBold"
+                                   Text="{Binding ProgressValue}" />
+                    </StackPanel>
                 </StackPanel>
             </controls:GroupBox>
         </controls:GlassCard>
@@ -34,11 +61,11 @@
             <WrapPanel Classes="PageContainer">
                 <controls:GlassCard Margin="20">
                     <controls:GroupBox Header="Wave Progress">
-                        <StackPanel>
-                            <showMeTheXaml:XamlDisplay UniqueId="WaveProgress">
+                        <Grid>
+                            <showMeTheXaml:XamlDisplay VerticalAlignment="Center" UniqueId="WaveProgress">
                                 <controls:WaveProgress IsTextVisible="{Binding IsTextVisible}" Value="{Binding ProgressValue}" />
                             </showMeTheXaml:XamlDisplay>
-                        </StackPanel>
+                        </Grid>
                     </controls:GroupBox>
                 </controls:GlassCard>
 
@@ -48,9 +75,11 @@
                             <showMeTheXaml:XamlDisplay UniqueId="CircleProgress1">
                                 <controls:CircleProgressBar Width="130"
                                                             Height="130"
+                                                            IsIndeterminate="{Binding IsIndeterminate}"
                                                             StrokeWidth="11"
                                                             Value="{Binding ProgressValue}">
-                                    <TextBlock Classes="h3"
+                                    <TextBlock Margin="0,2,0,0"
+                                               Classes="h3"
                                                IsVisible="{Binding IsTextVisible}"
                                                Text="{Binding ProgressValue, StringFormat={}{0:#0}%}" />
                                 </controls:CircleProgressBar>
@@ -59,9 +88,11 @@
                                 <controls:CircleProgressBar Width="130"
                                                             Height="130"
                                                             Classes="Accent"
+                                                            IsIndeterminate="{Binding IsIndeterminate}"
                                                             StrokeWidth="11"
                                                             Value="{Binding ProgressValue}">
-                                    <TextBlock Classes="h3"
+                                    <TextBlock Margin="0,2,0,0"
+                                               Classes="h3"
                                                IsVisible="{Binding IsTextVisible}"
                                                Text="{Binding ProgressValue, StringFormat={}{0:#0}%}" />
                                 </controls:CircleProgressBar>
@@ -70,7 +101,7 @@
                     </controls:GroupBox>
                 </controls:GlassCard>
 
-                <controls:GlassCard>
+                <controls:GlassCard Width="400">
                     <controls:GroupBox Header="Standard Progress Bar">
                         <controls:GroupBox.Styles>
                             <Style Selector="ProgressBar">
@@ -80,31 +111,37 @@
                         </controls:GroupBox.Styles>
                         <StackPanel Spacing="15">
                             <showMeTheXaml:XamlDisplay UniqueId="Progress1">
-                                <ProgressBar />
+                                <ProgressBar IsIndeterminate="{Binding IsIndeterminate}" />
                             </showMeTheXaml:XamlDisplay>
                             <showMeTheXaml:XamlDisplay UniqueId="Progress2">
-                                <ProgressBar Classes="Accent" />
+                                <ProgressBar Classes="Accent" IsIndeterminate="{Binding IsIndeterminate}" />
                             </showMeTheXaml:XamlDisplay>
                             <StackPanel VerticalAlignment="Stretch"
                                         Orientation="Horizontal"
                                         Spacing="15">
                                 <showMeTheXaml:XamlDisplay UniqueId="Progress3">
-                                    <ProgressBar Orientation="Vertical" />
+                                    <ProgressBar IsIndeterminate="{Binding IsIndeterminate}" Orientation="Vertical" />
                                 </showMeTheXaml:XamlDisplay>
                                 <showMeTheXaml:XamlDisplay UniqueId="Progress4">
-                                    <ProgressBar Classes="Accent" Orientation="Vertical" />
+                                    <ProgressBar Classes="Accent"
+                                                 IsIndeterminate="{Binding IsIndeterminate}"
+                                                 Orientation="Vertical" />
                                 </showMeTheXaml:XamlDisplay>
                             </StackPanel>
-
                         </StackPanel>
                     </controls:GroupBox>
                 </controls:GlassCard>
 
                 <controls:GlassCard>
                     <controls:GroupBox Header="Loading Indicator">
-                        <showMeTheXaml:XamlDisplay UniqueId="Loading">
-                            <controls:Loading />
-                        </showMeTheXaml:XamlDisplay>
+                        <StackPanel Spacing="15">
+                            <showMeTheXaml:XamlDisplay UniqueId="Loading1">
+                                <controls:Loading />
+                            </showMeTheXaml:XamlDisplay>
+                            <showMeTheXaml:XamlDisplay UniqueId="Loading2">
+                                <controls:Loading Classes="Accent" />
+                            </showMeTheXaml:XamlDisplay>
+                        </StackPanel>
                     </controls:GroupBox>
                 </controls:GlassCard>
 

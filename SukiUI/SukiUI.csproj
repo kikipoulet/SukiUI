@@ -24,6 +24,7 @@
 		<PackageVersion>5.1.2</PackageVersion>
 		<Nullable>enable</Nullable>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<PackageIcon>OIG.N5o-removebg-preview.png</PackageIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -52,6 +53,13 @@
 
 	<ItemGroup>
 	  <Content Include="..\LICENSE" Link="LICENSE" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="OIG.N5o-removebg-preview.png">
+	    <Pack>True</Pack>
+	    <PackagePath></PackagePath>
+	  </None>
 	</ItemGroup>
 
 </Project>
