@@ -3,10 +3,10 @@
                     xmlns:controls="clr-namespace:SukiUI.Controls"
                     xmlns:theme="clr-namespace:SukiUI.Theme">
     <ControlTheme x:Key="SukiTextBlockStyle" TargetType="TextBlock">
-       
+
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
         <Setter Property="FontSize" Value="14" />
-        
+
 
         <Style Selector="^.h4">
             <Setter Property="Margin" Value="0 7 0 10" />
@@ -42,4 +42,11 @@
     <ControlTheme x:Key="{x:Type TextBlock}"
                   BasedOn="{StaticResource SukiTextBlockStyle}"
                   TargetType="TextBlock" />
+
+    <ControlTheme x:Key="SukiAccessTextStyle" TargetType="AccessText">
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+    </ControlTheme>
+    <ControlTheme x:Key="{x:Type AccessText}"
+                  BasedOn="{StaticResource SukiAccessTextStyle}"
+                  TargetType="AccessText" />
 </ResourceDictionary>
