@@ -76,13 +76,38 @@
                 </controls:GroupBox>
             </controls:GlassCard>
             <controls:GlassCard>
-                <controls:GroupBox Header="Simple Toggle Switch">
+                <controls:GroupBox Header="Toggle Switches">
                     <StackPanel>
                         <showMeTheXaml:XamlDisplay UniqueId="ToggleSwitch">
                             <ToggleSwitch />
                         </showMeTheXaml:XamlDisplay>
                         <showMeTheXaml:XamlDisplay UniqueId="CustomContentToggleSwitch">
                             <ToggleSwitch OffContent="Switch Off." OnContent="Switch On." />
+                        </showMeTheXaml:XamlDisplay>
+                    </StackPanel>
+                </controls:GroupBox>
+            </controls:GlassCard>
+            <controls:GlassCard>
+                <controls:GroupBox Header="Toggle Buttons">
+                    <StackPanel>
+                        <showMeTheXaml:XamlDisplay UniqueId="ToggleButton">
+                            <ToggleButton Content="Toggle Me" />
+                        </showMeTheXaml:XamlDisplay>
+                        <showMeTheXaml:XamlDisplay UniqueId="ToggleButtonSwitch">
+                            <ToggleButton Classes="Switch" Content="Toggle Me" />
+                        </showMeTheXaml:XamlDisplay>
+                    </StackPanel>
+                </controls:GroupBox>
+            </controls:GlassCard>
+            <controls:GlassCard>
+                <controls:GroupBox Header="CheckBoxes">
+                    <StackPanel>
+                        <showMeTheXaml:XamlDisplay UniqueId="CheckBox">
+                            <StackPanel Spacing="5">
+                                <CheckBox Content="Option One" />
+                                <CheckBox Content="Option Two" />
+                                <CheckBox Content="Option Three" />
+                            </StackPanel>
                         </showMeTheXaml:XamlDisplay>
                     </StackPanel>
                 </controls:GroupBox>
