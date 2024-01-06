@@ -14,9 +14,10 @@
         <Grid Margin="15">
             <WrapPanel Orientation="Horizontal">
                 <Grid Margin="15">
-                    <suki:GlassCard  Width="300" Margin="0,0,0,25">
+                    <suki:GlassCard Width="300" Margin="0,0,0,25">
                         <suki:BusyArea Name="BusySignIn" BusyText="Signing In...">
                             <StackPanel>
+                               
                                 <material:MaterialIcon Width="30"
                                                        Height="30"
                                                        Margin="10"
@@ -72,17 +73,19 @@
                                            Foreground="{DynamicResource SukiLowText}"
                                            Text="Presentation.pdf" />
                             </StackPanel>
-                            <suki:CircleProgressBar Width="37" Name="CP"
+                            <suki:CircleProgressBar Name="CP"
+                                                    Width="37"
                                                     Height="37"
                                                     Margin="-55,-65,-10,-65"
                                                     HorizontalAlignment="Right"
                                                     VerticalAlignment="Center"
                                                     StrokeWidth="4"
                                                     Value="67">
-                                <TextBlock Margin="1,1,0,0"
+                                <TextBlock Name="TP"
+                                           Margin="1,1,0,0"
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Center"
-                                           FontSize="13" Name="TP"
+                                           FontSize="13"
                                            FontWeight="DemiBold"
                                            Text="67" />
                             </suki:CircleProgressBar>
@@ -112,7 +115,9 @@
                                                            Kind="ArrowUp" />
                                 </StackPanel>
                             </Grid>
-                            <ProgressBar Name="P1" Margin="0,1,0,0" Value="16" />
+                            <ProgressBar Name="P1"
+                                         Margin="0,1,0,0"
+                                         Value="16" />
                             <Grid Margin="0,13,0,0">
                                 <TextBlock HorizontalAlignment="Left"
                                            FontSize="12"
@@ -128,7 +133,9 @@
                                                            Kind="ArrowDown" />
                                 </StackPanel>
                             </Grid>
-                            <ProgressBar Name="P2" Margin="0,1,0,0" Value="62" />
+                            <ProgressBar Name="P2"
+                                         Margin="0,1,0,0"
+                                         Value="62" />
 
                             <Grid Margin="0,13,0,0">
                                 <TextBlock HorizontalAlignment="Left"
@@ -145,7 +152,9 @@
                                                            Kind="ArrowUp" />
                                 </StackPanel>
                             </Grid>
-                            <ProgressBar Name="P3" Margin="0,1,0,0" Value="34" />
+                            <ProgressBar Name="P3"
+                                         Margin="0,1,0,0"
+                                         Value="34" />
 
                         </StackPanel>
                     </suki:GlassCard>
@@ -381,67 +390,55 @@
                             </StackPanel>
                         </suki:GroupBox.Header>
                         <WrapPanel Margin="0,25,0,0"
-                                   HorizontalAlignment="Center"
+                                   HorizontalAlignment="Center" 
                                    VerticalAlignment="Center">
-                            <RadioButton Width="210"
+                            <RadioButton Width="210" Margin="7"
                                          Height="138"
-                                         Margin="8"
                                          Classes="GigaChips"
                                          IsChecked="True">
-                                <StackPanel Margin="7" HorizontalAlignment="Left">
-                                    <TextBlock Margin="5,8,5,4"
-                                               FontSize="12"
+                                <StackPanel Spacing="0,8" HorizontalAlignment="Left">
+                                    <TextBlock FontSize="12"
                                                FontWeight="DemiBold"
                                                Foreground="{DynamicResource SukiLowText}"
                                                Text="HOBBY" />
-                                    <TextBlock Margin="5,8"
-                                               FontSize="23"
+                                    <TextBlock FontSize="23"
                                                FontWeight="DemiBold"
                                                Text="1 Gb" />
-                                    <TextBlock Margin="5,3"
-                                               FontSize="15"
+                                    <TextBlock FontSize="15"
                                                Foreground="{DynamicResource SukiLowText}"
                                                Text="Plan for a moderate use as hobby."
                                                TextWrapping="Wrap" />
                                 </StackPanel>
                             </RadioButton>
-                            <RadioButton Width="210"
-                                         Height="138"
-                                         Margin="8"
+                            <RadioButton Margin="7" Width="210"
+                                         Height="138" 
                                          Classes="GigaChips">
-                                <StackPanel Margin="7" HorizontalAlignment="Left">
-                                    <TextBlock Margin="5,8,5,4"
-                                               FontSize="12"
+                                <StackPanel Spacing="0,8" HorizontalAlignment="Left">
+                                    <TextBlock FontSize="12"
                                                FontWeight="DemiBold"
                                                Foreground="{DynamicResource SukiLowText}"
                                                Text="PROFESSIONAL" />
-                                    <TextBlock Margin="5,8"
-                                               FontSize="23"
+                                    <TextBlock FontSize="23"
                                                FontWeight="DemiBold"
                                                Text="5 Gb" />
-                                    <TextBlock Margin="5,3"
-                                               FontSize="15"
+                                    <TextBlock FontSize="15"
                                                Foreground="{DynamicResource SukiLowText}"
-                                               Text="Plan for a professional use in an application."
+                                               Text="Professional use in an application."
                                                TextWrapping="Wrap" />
                                 </StackPanel>
                             </RadioButton>
-                            <RadioButton Width="210"
+                            <RadioButton Width="210" Margin="7"
                                          Height="138"
-                                         Margin="8"
                                          Classes="GigaChips">
-                                <StackPanel Margin="7" HorizontalAlignment="Left">
-                                    <TextBlock Margin="5,8,5,4"
-                                               FontSize="12"
+                                <StackPanel Spacing="0,8" HorizontalAlignment="Left">
+                                    <TextBlock FontSize="12"
                                                FontWeight="DemiBold"
                                                Foreground="{DynamicResource SukiLowText}"
                                                Text="COMPANY" />
-                                    <TextBlock Margin="5,8"
-                                               FontSize="23"
+                                    <TextBlock FontSize="23"
                                                FontWeight="DemiBold"
                                                Text="50 Gb" />
-                                    <TextBlock Margin="5,3"
-                                               FontSize="15"
+                                    <TextBlock FontSize="15"
                                                Foreground="{DynamicResource SukiLowText}"
                                                Text="Plan for a industrial use in a company."
                                                TextWrapping="Wrap" />

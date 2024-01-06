@@ -5,12 +5,12 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Grid>
-                    <ContentControl Name="PART_FirstBufferControl"
-                                    Content="{TemplateBinding FirstBuffer}"
-                                    IsHitTestVisible="False" />
-                    <ContentControl Name="PART_SecondBufferControl"
-                                    Content="{TemplateBinding SecondBuffer}"
-                                    IsHitTestVisible="False" />
+                    <ContentPresenter Name="PART_FirstBufferControl"
+                                      Content="{TemplateBinding FirstBuffer}"
+                                      IsHitTestVisible="False" />
+                    <ContentPresenter Name="PART_SecondBufferControl"
+                                      Content="{TemplateBinding SecondBuffer}"
+                                      IsHitTestVisible="False" />
                 </Grid>
             </ControlTemplate>
         </Setter>

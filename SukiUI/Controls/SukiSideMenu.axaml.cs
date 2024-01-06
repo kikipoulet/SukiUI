@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using Avalonia.Interactivity;
+using Avalonia.VisualTree;
 
 namespace SukiUI.Controls;
 
@@ -101,11 +102,11 @@ public class SukiSideMenu : SelectingItemsControl
                 .ObserveOn(new AvaloniaSynchronizationContext())
                 .Do(obj =>
                 {
-                    contentControl.Content = obj switch
+                    contentControl.PushContent(obj switch
                     {
-                        SukiSideMenuItem { PageContent: Control sukiMenuPageContent } =>  Activator.CreateInstance(sukiMenuPageContent.GetType()),
+                        SukiSideMenuItem { PageContent: { } sukiMenuPageContent } => sukiMenuPageContent,
                         _ => obj
-                    };
+                    });
                 })
                 .Subscribe();
         }

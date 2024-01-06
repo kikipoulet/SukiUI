@@ -388,21 +388,17 @@
                                    VerticalAlignment="Center">
                             <RadioButton Width="210"
                                          Height="138"
-                                         Margin="8"
                                          Classes="GigaChips"
                                          IsChecked="True">
-                                <StackPanel Margin="7" HorizontalAlignment="Left">
-                                    <TextBlock Margin="5,8,5,4"
-                                               FontSize="12"
+                                <StackPanel HorizontalAlignment="Left">
+                                    <TextBlock FontSize="12"
                                                FontWeight="DemiBold"
                                                Foreground="{DynamicResource SukiLowText}"
                                                Text="HOBBY" />
-                                    <TextBlock Margin="5,8"
-                                               FontSize="23"
+                                    <TextBlock FontSize="23"
                                                FontWeight="DemiBold"
                                                Text="1 Gb" />
-                                    <TextBlock Margin="5,3"
-                                               FontSize="15"
+                                    <TextBlock FontSize="15"
                                                Foreground="{DynamicResource SukiLowText}"
                                                Text="Plan for a moderate use as hobby."
                                                TextWrapping="Wrap" />
@@ -410,20 +406,16 @@
                             </RadioButton>
                             <RadioButton Width="210"
                                          Height="138"
-                                         Margin="8"
                                          Classes="GigaChips">
-                                <StackPanel Margin="7" HorizontalAlignment="Left">
-                                    <TextBlock Margin="5,8,5,4"
-                                               FontSize="12"
+                                <StackPanel HorizontalAlignment="Left">
+                                    <TextBlock FontSize="12"
                                                FontWeight="DemiBold"
                                                Foreground="{DynamicResource SukiLowText}"
                                                Text="PROFESSIONAL" />
-                                    <TextBlock Margin="5,8"
-                                               FontSize="23"
+                                    <TextBlock FontSize="23"
                                                FontWeight="DemiBold"
                                                Text="5 Gb" />
-                                    <TextBlock Margin="5,3"
-                                               FontSize="15"
+                                    <TextBlock FontSize="15"
                                                Foreground="{DynamicResource SukiLowText}"
                                                Text="Plan for a professional use in an application."
                                                TextWrapping="Wrap" />
@@ -431,20 +423,16 @@
                             </RadioButton>
                             <RadioButton Width="210"
                                          Height="138"
-                                         Margin="8"
                                          Classes="GigaChips">
-                                <StackPanel Margin="7" HorizontalAlignment="Left">
-                                    <TextBlock Margin="5,8,5,4"
-                                               FontSize="12"
+                                <StackPanel HorizontalAlignment="Left">
+                                    <TextBlock FontSize="12"
                                                FontWeight="DemiBold"
                                                Foreground="{DynamicResource SukiLowText}"
                                                Text="COMPANY" />
-                                    <TextBlock Margin="5,8"
-                                               FontSize="23"
+                                    <TextBlock FontSize="23"
                                                FontWeight="DemiBold"
                                                Text="50 Gb" />
-                                    <TextBlock Margin="5,3"
-                                               FontSize="15"
+                                    <TextBlock FontSize="15"
                                                Foreground="{DynamicResource SukiLowText}"
                                                Text="Plan for a industrial use in a company."
                                                TextWrapping="Wrap" />

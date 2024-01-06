@@ -8,7 +8,7 @@
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="FontSize" Value="15"></Setter>
+        <Setter Property="FontSize" Value="15" />
         <Setter Property="Padding" Value="20,8" />
         <Setter Property="Template">
             <ControlTemplate>
@@ -111,10 +111,10 @@
         <Style Selector="^.Accent">
             <Style Selector="^:pointerover">
                 <Style Selector="^ /template/ TextBlock">
-                    <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor50}" />
+                    <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor75}" />
                 </Style>
                 <Style Selector="^ /template/ ContentPresenter">
-                    <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor50}" />
+                    <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor75}" />
                 </Style>
 
                 <Style Selector="^ /template/ Border">
@@ -245,7 +245,7 @@
             </Style>
             <!--  Color Variants  -->
             <Style Selector="^.Accent">
-                <Setter Property="Background" Value="{DynamicResource SukiAccentColor50}" />
+                <Setter Property="Background" Value="{DynamicResource SukiAccentColor75}" />
                 <Style Selector="^:pointerover">
                     <Setter Property="Background" Value="{DynamicResource SukiAccentColor}" />
                 </Style>
@@ -410,10 +410,10 @@
                 </ControlTemplate>
             </Setter>
         </Style>
-        
+
         <Style Selector="^.Large">
-            <Setter Property="FontSize" Value="18"></Setter>
-            <Setter Property="Padding" Value="30,12"></Setter>
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="Padding" Value="30,12" />
         </Style>
     </ControlTheme>
     <ControlTheme x:Key="{x:Type Button}"
