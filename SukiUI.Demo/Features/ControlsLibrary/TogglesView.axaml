@@ -93,6 +93,9 @@
                         <showMeTheXaml:XamlDisplay UniqueId="ToggleButton">
                             <ToggleButton Content="Toggle Me" />
                         </showMeTheXaml:XamlDisplay>
+                        <showMeTheXaml:XamlDisplay UniqueId="AccentToggleButton">
+                            <ToggleButton Classes="Accent" Content="Toggle Me" />
+                        </showMeTheXaml:XamlDisplay>
                         <showMeTheXaml:XamlDisplay UniqueId="ToggleButtonSwitch">
                             <ToggleButton Classes="Switch" Content="Toggle Me" />
                         </showMeTheXaml:XamlDisplay>

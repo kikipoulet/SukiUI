@@ -47,13 +47,19 @@ namespace SukiUI.Controls
             base.OnApplyTemplate(e);
             if (e.NameScope.Get<Grid>("PART_GridStepper") is not { } grid) return;
             _grid = grid;
+        }
+
+        protected override void OnLoaded(RoutedEventArgs e)
+        {
             var indexObs = this.GetObservable(IndexProperty)
+                .Do(_ => StepsChangedHandler(Steps))
                 .Select(_ => Unit.Default);
             _subscriptionDisposables = this.GetObservable(StepsProperty)
+                .Do(_ => StepsChangedHandler(Steps))
                 .Select(_ => Unit.Default)
                 .Merge(indexObs)
                 .ObserveOn(new AvaloniaSynchronizationContext())
-                .Subscribe(_ => StepsChangedHandler(Steps));
+                .Subscribe();
         }
 
         private void StepsChangedHandler(IEnumerable? newSteps)

@@ -210,6 +210,7 @@ public partial class SukiTheme : Styles
     private void SetColorWithOpacities(string baseName, Color baseColor)
     {
         SetResource(baseName, baseColor);
+        SetResource($"{baseName}75", baseColor.WithAlpha(0.75));
         SetResource($"{baseName}50", baseColor.WithAlpha(0.5));
         SetResource($"{baseName}25", baseColor.WithAlpha(0.25));
         SetResource($"{baseName}10", baseColor.WithAlpha(0.1));
