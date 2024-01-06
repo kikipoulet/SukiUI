@@ -3,16 +3,13 @@ using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SukiUI.Controls;
-using SukiUI.Demo.Common;
 using SukiUI.Demo.Features;
 using SukiUI.Demo.Features.CustomTheme;
 using SukiUI.Demo.Services;
+using SukiUI.Demo.Utilities;
 using SukiUI.Models;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices;
-using SukiUI.Demo.Utilities;
 using System.Threading.Tasks;
 
 namespace SukiUI.Demo;

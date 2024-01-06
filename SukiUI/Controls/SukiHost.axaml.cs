@@ -10,7 +10,6 @@ using SukiUI.Helpers;
 using SukiUI.Models;
 using System;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace SukiUI.Controls;
@@ -95,9 +94,9 @@ public class SukiHost : ContentControl
             throw new InvalidOperationException("SukiHost must be hosted inside a Window or SukiWindow");
         _maxToasts = GetToastLimit(window);
         var toastLoc = GetToastLocation(window);
-        
+
         e.NameScope.Get<Border>("PART_DialogBackground").PointerPressed += (_, _) => BackgroundRequestClose();
-       
+
         e.NameScope.Get<ItemsControl>("PART_ToastPresenter").HorizontalAlignment =
             toastLoc == ToastLocation.BottomLeft
                 ? HorizontalAlignment.Left
@@ -162,7 +161,7 @@ public class SukiHost : ContentControl
         if (!Instance.AllowBackgroundClose) return;
         Instance.IsDialogOpen = false;
     }
-    
+
     /// <summary>
     /// Shows a toast in the SukiHost - The default location is in the bottom right.
     /// This can be changed

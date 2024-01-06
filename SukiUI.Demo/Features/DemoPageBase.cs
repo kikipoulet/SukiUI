@@ -1,6 +1,5 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using Material.Icons;
-using SukiUI.Demo.Common;
 
 namespace SukiUI.Demo.Features;
 
