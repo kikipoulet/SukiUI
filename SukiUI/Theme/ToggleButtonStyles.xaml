@@ -45,6 +45,10 @@
         <Setter Property="Foreground" Value="White" />
     </Style>
 
+    <Style Selector="ToggleButton AccessText">
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+    </Style>
+
     <Style Selector="ToggleButton:pointerover">
         <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor75}" />
         <Setter Property="Foreground" Value="White" />

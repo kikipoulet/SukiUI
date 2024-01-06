@@ -18,6 +18,9 @@
         </Border>
     </Design.PreviewWith>
 
+    <Style Selector="RadioButton AccessText">
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+    </Style>
 
     <Style Selector="RadioButton.Chips">
         <Setter Property="Background" Value="Transparent" />

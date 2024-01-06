@@ -39,11 +39,4 @@
     <ControlTheme x:Key="{x:Type TextBlock}"
                   BasedOn="{StaticResource SukiTextBlockStyle}"
                   TargetType="TextBlock" />
-
-    <ControlTheme x:Key="SukiAccessTextStyle" TargetType="AccessText">
-        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
-    </ControlTheme>
-    <ControlTheme x:Key="{x:Type AccessText}"
-                  BasedOn="{StaticResource SukiAccessTextStyle}"
-                  TargetType="AccessText" />
 </ResourceDictionary>
