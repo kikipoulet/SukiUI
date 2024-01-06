@@ -22,7 +22,7 @@ namespace SukiUI.Controls
             }
         }
 
-        object IPropertyViewModel.Value
+        object? IPropertyViewModel.Value
         {
             get => Value;
             set => Value = (T?)value;
