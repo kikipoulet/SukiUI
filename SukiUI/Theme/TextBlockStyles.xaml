@@ -1,7 +1,4 @@
-﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="clr-namespace:SukiUI.Controls"
-                    xmlns:theme="clr-namespace:SukiUI.Theme">
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ControlTheme x:Key="SukiTextBlockStyle" TargetType="TextBlock">
 
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
