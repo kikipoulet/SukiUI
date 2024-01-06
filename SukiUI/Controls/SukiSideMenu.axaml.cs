@@ -104,7 +104,7 @@ public class SukiSideMenu : SelectingItemsControl
                 {
                     contentControl.PushContent(obj switch
                     {
-                        SukiSideMenuItem { PageContent: Control sukiMenuPageContent } =>  sukiMenuPageContent,
+                        SukiSideMenuItem { PageContent: { } sukiMenuPageContent } => sukiMenuPageContent,
                         _ => obj
                     });
                 })
