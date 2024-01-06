@@ -76,7 +76,7 @@
             <ControlTemplate>
                 <Grid>
                     <Border Name="BigBorder"
-                            Margin="5"
+                            Margin="3"
                             Padding="0"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
@@ -89,6 +89,7 @@
                                 <TransformOperationsTransition Property="RenderTransform" Duration="00:00:0.1"></TransformOperationsTransition>
                                 <BrushTransition Property="BorderBrush" Duration="00:00:0.2" />
                                 <ThicknessTransition Property="Margin" Duration="0:0:0.1" />
+                                <ThicknessTransition Property="Padding" Duration="0:0:0.1" />
                             </Transitions>
                         </Border.Transitions>
 
@@ -121,7 +122,8 @@
     <Style Selector="RadioButton.GigaChips:checked  Border#BigBorder">
         <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
         <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor2}" />
-        <Setter Property="RenderTransform" Value="scale(1.03)" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="3" />
         <Setter Property="BorderThickness" Value="2" />
 
     </Style>

@@ -6,9 +6,63 @@
             Spacing="24"
             Width="250">
             <ToggleButton Classes="Switch" IsChecked="False" />
-
+<ToggleButton >test</ToggleButton>
         </StackPanel>
     </Design.PreviewWith>
+    
+    
+    <Style Selector="ToggleButton">
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Padding" Value="18,10,18,8" />
+        <Setter Property="FontWeight" Value="DemiBold"></Setter>
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}"></Setter>
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Duration="0:0:0.3" Property="Background" />
+                <BrushTransition Duration="0:0:0.3" Property="BorderBrush" />
+            </Transitions>
+        </Setter>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ContentPresenter 
+                                  Padding="{TemplateBinding Padding}"
+                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  Background="{TemplateBinding Background}"
+                                  BorderBrush="{TemplateBinding BorderBrush}"
+                                  BorderThickness="{TemplateBinding BorderThickness}"
+                                  Content="{TemplateBinding Content}"
+                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                  CornerRadius="{TemplateBinding CornerRadius}"
+                                  RecognizesAccessKey="True"
+                                  TextElement.Foreground="{TemplateBinding Foreground}" />
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+
+
+    <Style Selector="ToggleButton:pointerover &gt; TextBlock">
+        <Setter Property="Foreground" Value="White" />
+
+    </Style>
+    <Style Selector="ToggleButton:pointerover">
+        <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
+
+    </Style>
+    
+    <Style Selector="ToggleButton:checked">
+        <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
+    </Style>
+
+
 
     <Style Selector="ToggleButton.Switch">
         <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}">
@@ -231,36 +285,4 @@
     </Style>
 
 
-    <Style Selector="ToggleButton /template/ ContentPresenter">
-        <Setter Property="CornerRadius" Value="5" />
-    </Style>
-    <Style Selector="ToggleButton:pointerover">
-        <Setter Property="Background" Value="{DynamicResource SukiLightBackground}" />
-        <Setter Property="BorderThickness" Value="0" />
-    </Style>
-    <Style Selector="ToggleButton:pressed /template/ ContentPresenter">
-        <Setter Property="Background" Value="Transparent" />
-    </Style>
-    <Style Selector="ToggleButton:checked /template/ ContentPresenter">
-        <Setter Property="Background" Value="Transparent" />
-    </Style>
-
-    <Style Selector="ToggleButton.Primary">
-        <Setter Property="Background" Value="{DynamicResource ThemeBorderHighBrush}" />
-    </Style>
-    <Style Selector="ToggleButton.Primary &gt; TextBlock">
-        <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrush}" />
-    </Style>
-    <Style Selector="ToggleButton.Primary /template/ ContentPresenter">
-        <Setter Property="CornerRadius" Value="5" />
-    </Style>
-    <Style Selector="ToggleButton.Primary:pointerover">
-        <Setter Property="Background" Value="{DynamicResource ThemeBorderHighBrush}" />
-    </Style>
-    <Style Selector="ToggleButton.Primary:pressed /template/ ContentPresenter">
-        <Setter Property="Background" Value="{DynamicResource ThemeAccentBrush}" />
-    </Style>
-    <Style Selector="ToggleButton.Primary:checked /template/ ContentPresenter">
-        <Setter Property="Background" Value="{DynamicResource ThemeAccentBrush}" />
-    </Style>
 </Styles>
