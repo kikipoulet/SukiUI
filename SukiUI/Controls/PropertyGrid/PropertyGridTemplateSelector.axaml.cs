@@ -1,5 +1,7 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Controls.Templates;
+using Avalonia.Interactivity;
+using Avalonia.VisualTree;
 
 namespace SukiUI.Controls;
 
@@ -47,5 +49,26 @@ public partial class PropertyGridTemplateSelector : ResourceDictionary, IDataTem
         }
 
         return true;
+    }
+
+    private static async void OnMoreInfoClick(object sender, RoutedEventArgs e)
+    {
+        if (sender is not Control control)
+        {
+            return;
+        }
+
+        var root = control.GetVisualRoot();
+        if (root is not Window parentWindow || control.DataContext is not ComplexTypeViewModel childViewModel || childViewModel.Value is null)
+        {
+            return;
+        }
+
+        var window = new PropertyGridWindow()
+        {
+            DataContext = new InstanceViewModel(childViewModel.Value)
+        };
+
+        await window.ShowDialog(parentWindow);
     }
 }

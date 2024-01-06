@@ -20,6 +20,10 @@
         <ScrollViewer>
             <controls:PropertyGrid Item="{Binding Form}">
                 <controls:PropertyGrid.DataTemplates>
+                    <!--
+                        replace the PropertyGridTemplateSelector with your own type or subclass it,
+                        if you want to customize the datatemplates being used
+                    -->
                     <controls:PropertyGridTemplateSelector />
                 </controls:PropertyGrid.DataTemplates>
             </controls:PropertyGrid>

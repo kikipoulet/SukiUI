@@ -66,9 +66,25 @@ namespace SukiUI.Controls
                     {
                         propertyViewModel = new BoolViewModel(viewModel, displayname, Property);
                     }
+                    else if (Property.PropertyType.IsEnum)
+                    {
+                        propertyViewModel = new EnumViewModel(viewModel, displayname, Property);
+                    }
                     else if (Property.PropertyType == typeof(DateTime) || Property.PropertyType == typeof(DateTime?))
                     {
                         propertyViewModel = new DateTimeViewModel(viewModel, displayname, Property);
+                    }
+                    else if (Property.PropertyType == typeof(DateTimeOffset) || Property.PropertyType == typeof(DateTimeOffset?))
+                    {
+                        propertyViewModel = new DateTimeOffsetViewModel(viewModel, displayname, Property);
+                    }
+                    else
+                    {
+                        var propertyValue = Property.GetValue(viewModel) as INotifyPropertyChanged;
+                        if (propertyValue is INotifyPropertyChanged childViewModel)
+                        {
+                            propertyViewModel = new ComplexTypeViewModel(viewModel, displayname, Property);
+                        }
                     }
 
                     if (propertyViewModel is not null)

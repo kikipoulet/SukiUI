@@ -29,7 +29,7 @@ namespace SukiUI.Controls
         }
 
         public string DisplayName { get; }
-        public bool IsReadOnly { get; }
+        public bool IsReadOnly { get; init; }
         protected PropertyInfo PropertyInfo { get; }
         protected INotifyPropertyChanged Viewmodel { get; }
 
@@ -38,9 +38,10 @@ namespace SukiUI.Controls
             Viewmodel = viewmodel;
             DisplayName = displayName;
             PropertyInfo = propertyInfo;
-            _propertyName = propertyInfo.Name;
-            Viewmodel.PropertyChanged += OnPropertyChanged;
             IsReadOnly = !propertyInfo.CanWrite;
+            _propertyName = propertyInfo.Name;
+            _value = ViewModelGetter();
+            Viewmodel.PropertyChanged += OnPropertyChanged;
         }
 
         private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)

@@ -9,6 +9,8 @@
              d:DesignWidth="800"
              mc:Ignorable="d">
 
+    <!--  TODO inject these styles, so that one can customize them  -->
+	
     <UserControl.Styles>
         <Style Selector="TextBlock.Label">
             <Setter Property="HorizontalAlignment" Value="Left" />
@@ -16,7 +18,6 @@
             <Setter Property="FontSize" Value="14" />
             <Setter Property="Text" Value="{Binding DisplayName}" />
             <Setter Property="Grid.Column" Value="0" />
-            <Setter Property="Height" Value="38" />
             <Setter Property="TextAlignment" Value="Center" />
         </Style>
 
@@ -28,12 +29,12 @@
             <Setter Property="Text" Value="{Binding Value}" />
             <Setter Property="Grid.Column" Value="2" />
             <Setter Property="IsReadOnly" Value="{Binding IsReadOnly}" />
-            <Setter Property="Height" Value="38" />
+            <Setter Property="Height" Value="40" />
         </Style>
 
         <Style Selector="Grid.Row">
-            <Setter Property="Height" Value="38" />
-            <Setter Property="Margin" Value="4,4,4,0" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Margin" Value="12,4,4,0" />
         </Style>
     </UserControl.Styles>
 

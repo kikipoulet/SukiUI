@@ -12,7 +12,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="StringViewModel" DataType="controls:StringViewModel">
-		<Grid Classes="Row">
+        <Grid Classes="Row">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" SharedSizeGroup="PropertyGridDisplyColumn" />
                 <ColumnDefinition Width="4" />
@@ -29,8 +29,8 @@
         </Grid>
     </DataTemplate>
 
-    <DataTemplate x:Key="DateTimeViewModel" DataType="controls:DateTimeViewModel">
-		<Grid Classes="Row">
+    <DataTemplate x:Key="DateTimeOffsetViewModel" DataType="controls:DateTimeOffsetViewModel">
+        <Grid Classes="Row">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" SharedSizeGroup="PropertyGridDisplyColumn" />
                 <ColumnDefinition Width="4" />
@@ -39,9 +39,28 @@
 
             <TextBlock Classes="Label" />
             <DatePicker Grid.Column="2"
-                        Height="36"
+                        Margin="4,0"
                         HorizontalAlignment="Stretch"
-                        IsEnabled="{Binding IsReadOnly}"
+                        VerticalAlignment="Stretch"
+                        IsEnabled="{Binding !IsReadOnly}"
+                        SelectedDate="{Binding Value}" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="DateTimeViewModel" DataType="controls:DateTimeViewModel">
+        <Grid Classes="Row">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="PropertyGridDisplyColumn" />
+                <ColumnDefinition Width="4" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Classes="Label" />
+            <DatePicker Grid.Column="2"
+                        Margin="4,0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        IsEnabled="{Binding !IsReadOnly}"
                         SelectedDate="{Binding Value}" />
         </Grid>
     </DataTemplate>
@@ -60,20 +79,20 @@
     </DataTemplate>
 
     <DataTemplate x:Key="DoubleViewModel" DataType="controls:DoubleViewModel">
-		<Grid Classes="Row">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="Auto" SharedSizeGroup="PropertyGridDisplyColumn" />
-				<ColumnDefinition Width="4" />
-				<ColumnDefinition Width="*" />
-			</Grid.ColumnDefinitions>
+        <Grid Classes="Row">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="PropertyGridDisplyColumn" />
+                <ColumnDefinition Width="4" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-			<TextBlock Classes="Label" />
-			<NumericUpDown Classes="NumberSelector" Increment="0.001" />
-		</Grid>
-	</DataTemplate>
+            <TextBlock Classes="Label" />
+            <NumericUpDown Classes="NumberSelector" Increment="0.001" />
+        </Grid>
+    </DataTemplate>
 
-	<DataTemplate x:Key="BoolViewModel" DataType="controls:BoolViewModel">
-		<Grid Classes="Row">
+    <DataTemplate x:Key="BoolViewModel" DataType="controls:BoolViewModel">
+        <Grid Classes="Row">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" SharedSizeGroup="PropertyGridDisplyColumn" />
                 <ColumnDefinition Width="4" />
@@ -82,14 +101,16 @@
 
             <TextBlock Classes="Label" />
             <ToggleButton Grid.Column="2"
+                          Margin="4,0"
+                          VerticalAlignment="Stretch"
                           HorizontalContentAlignment="Right"
                           IsChecked="{Binding Value}"
-                          IsEnabled="{Binding IsReadOnly}" />
+                          IsEnabled="{Binding !IsReadOnly}" />
         </Grid>
     </DataTemplate>
 
     <DataTemplate x:Key="DecimalViewModel" DataType="controls:DecimalViewModel">
-		<Grid Classes="Row">
+        <Grid Classes="Row">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" SharedSizeGroup="PropertyGridDisplyColumn" />
                 <ColumnDefinition Width="4" />
@@ -102,7 +123,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="FloatViewModel" DataType="controls:FloatViewModel">
-		<Grid Classes="Row">
+        <Grid Classes="Row">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" SharedSizeGroup="PropertyGridDisplyColumn" />
                 <ColumnDefinition Width="4" />
@@ -115,7 +136,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="LongViewModel" DataType="controls:LongViewModel">
-		<Grid Classes="Row">
+        <Grid Classes="Row">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" SharedSizeGroup="PropertyGridDisplyColumn" />
                 <ColumnDefinition Width="4" />
@@ -124,6 +145,43 @@
 
             <TextBlock Classes="Label" />
             <NumericUpDown Classes="NumberSelector" Increment="1" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ComplexTypeViewModel" DataType="controls:ComplexTypeViewModel">
+        <Grid Classes="Row">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="PropertyGridDisplyColumn" />
+                <ColumnDefinition Width="4" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Classes="Label" />
+            <Button Grid.Column="2"
+                    HorizontalAlignment="Right"
+                    Classes="Accent"
+                    Click="OnMoreInfoClick">
+                <TextBlock Text="More Info" />
+            </Button>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="EnumViewModel" DataType="controls:EnumViewModel">
+        <Grid Classes="Row">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="PropertyGridDisplyColumn" />
+                <ColumnDefinition Width="4" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Classes="Label" />
+            <ComboBox Grid.Column="2"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch"
+                      HorizontalContentAlignment="Center"
+                      IsEnabled="{Binding !IsReadOnly}"
+                      ItemsSource="{Binding Values}"
+                      SelectedItem="{Binding Value}" />
         </Grid>
     </DataTemplate>
 </ResourceDictionary>
