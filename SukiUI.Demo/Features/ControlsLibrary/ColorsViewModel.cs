@@ -18,8 +18,8 @@ namespace SukiUI.Demo.Features.ControlsLibrary
         private readonly string[] _keys =
         [
             "SukiText", "SukiLowText", "SukiCardBackground", "SukiLightBorderBrush", "SukiControlBorderBrush",
-            "GlassBorderBrush", "SukiDialogBackground", "SukiMediumBorderBrush", "SukiMediumBorderBrush",
-            "SukiControlTouchBackground", "SukiBorderBrush", "SukiBorderBrush", "SukiStrongBackground"
+            "GlassBorderBrush", "SukiDialogBackground", "SukiMediumBorderBrush", "SukiControlTouchBackground",
+            "SukiBorderBrush", "SukiStrongBackground"
         ];
 
         public AvaloniaList<ColorViewModel> Colors { get; } = new();
@@ -75,7 +75,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary
             foreach (var key in _keys)
             {
                 if (Application.Current.TryGetResource(key, variant, out var obj) && obj is Color col)
-                    newRes.TryAdd(key, new SolidColorBrush(col));
+                    newRes.Add(key, new SolidColorBrush(col));
             }
 
             _baseThemeCache[variant] = newRes;

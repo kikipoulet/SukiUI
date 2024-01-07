@@ -99,7 +99,7 @@
                                       Content="{TemplateBinding Header}"
                                       IsChecked="{TemplateBinding IsExpanded,
                                                                   Mode=TwoWay}" />
-                        <ContentPresenter Name="PART_ContentPresentern"
+                        <ContentPresenter Name="PART_ContentPresenter"
                                           Grid.Row="0"
                                           Padding="{TemplateBinding Padding}"
                                           HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
