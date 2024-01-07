@@ -158,7 +158,7 @@
                                                     Padding="8,4"
                                                     CornerRadius="6">
 
-                                                <ContentPresenter Name="PART_ContentPresentern"
+                                                <ContentPresenter Name="PART_ContentPresenter"
                                                                   Margin="0,0,0,0"
                                                                   Padding="{TemplateBinding Padding}"
                                                                   VerticalAlignment="Center"

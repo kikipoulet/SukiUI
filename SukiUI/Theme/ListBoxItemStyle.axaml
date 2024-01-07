@@ -13,7 +13,7 @@
         </Border>
     </Design.PreviewWith>
 
-    <Style Selector="ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresentern">
+    <Style Selector="ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="TextBlock.Foreground" Value="{DynamicResource SukiPrimaryColor}" />
     </Style>
@@ -40,7 +40,7 @@
                                   Data="{x:Static content:Icons.CircleCheck}"
                                   DockPanel.Dock="Right"
                                   Foreground="{DynamicResource SukiPrimaryColor}" />
-                        <ContentPresenter Name="PART_ContentPresentern"
+                        <ContentPresenter Name="PART_ContentPresenter"
                                           Margin="0,0,0,0"
                                           Padding="{TemplateBinding Padding}"
                                           HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -56,7 +56,6 @@
         </Setter>
     </Style>
 
-
     <Style Selector="ListBoxItem:selected /template/ PathIcon#CheckSelected">
         <Setter Property="IsVisible" Value="True" />
     </Style>
@@ -65,15 +64,15 @@
         <Setter Property="IsVisible" Value="False" />
     </Style>
 
-    <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresentern">
+    <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
         <Setter Property="Background" Value="Transparent" />
     </Style>
 
     <Style Selector="ListBoxItem:selected /template/ Border#BorderBasicStyle">
-        <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor5}" />
+        <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor10}" />
     </Style>
     <Style Selector="ListBoxItem:pointerover /template/ Border#BorderBasicStyle">
-        <Setter Property="Background" Value="{DynamicResource SukiLightBackground}" />
+        <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor5}" />
     </Style>
 
     <Style Selector="ListBoxItem.WithCheck">
@@ -87,7 +86,7 @@
                             <ScaleTransform ScaleX="1.2" ScaleY="1.2" />
                         </CheckBox.RenderTransform>
                     </CheckBox>
-                    <ContentPresenter Name="PART_ContentPresentern"
+                    <ContentPresenter Name="PART_ContentPresenter"
                                       Margin="-8,0,0,0"
                                       Padding="{TemplateBinding Padding}"
                                       VerticalAlignment="Center"
@@ -104,16 +103,16 @@
         </Setter>
     </Style>
 
-    <Style Selector="ListBoxItem.WithCheck:selected /template/ ContentPresenter#PART_ContentPresentern">
+    <Style Selector="ListBoxItem.WithCheck:selected /template/ ContentPresenter#PART_ContentPresenter">
         <Setter Property="Background" Value="Transparent" />
     </Style>
 
-    <Style Selector="ListBoxItem.WithCheck:pointerover /template/ ContentPresenter#PART_ContentPresentern">
+    <Style Selector="ListBoxItem.WithCheck:pointerover /template/ ContentPresenter#PART_ContentPresenter">
         <Setter Property="Background" Value="Transparent" />
     </Style>
 
 
-    <Style Selector="ListBoxItem.WithCheck:selected /template/ ContentPresenter#PART_ContentPresentern">
+    <Style Selector="ListBoxItem.WithCheck:selected /template/ ContentPresenter#PART_ContentPresenter">
         <Setter Property="Background" Value="Transparent" />
     </Style>
 

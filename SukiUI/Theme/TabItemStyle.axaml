@@ -38,7 +38,7 @@
                         CornerRadius="{TemplateBinding CornerRadius}">
                     <StackPanel>
 
-                        <ContentPresenter Name="PART_ContentPresentern"
+                        <ContentPresenter Name="PART_ContentPresenter"
                                           Padding="7,5"
                                           HorizontalAlignment="Center"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -226,7 +226,7 @@
                                     <BrushTransition Property="Background" Duration="00:00:00.2" />
                                 </Transitions>
                             </Border.Transitions>
-                            <ContentPresenter Name="PART_ContentPresentern"
+                            <ContentPresenter Name="PART_ContentPresenter"
                                               Padding="10,12"
                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                               HorizontalContentAlignment="Center"
