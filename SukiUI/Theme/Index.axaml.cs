@@ -192,18 +192,10 @@ public partial class SukiTheme : Styles
 
     private void SetColorTheme(SukiColorTheme colorTheme)
     {
-        
         SetColorWithOpacities("SukiPrimaryColor", colorTheme.Primary);
         SetColorWithOpacities("SukiAccentColor", colorTheme.Accent);
-
-        SetResource("SukiPrimaryColor7", colorTheme.Primary.WithAlpha(0.07));
-        SetResource("SukiPrimaryColor2", colorTheme.Primary.WithAlpha(0.02));
-        SetResource("SukiAccentColor1", colorTheme.Accent.WithAlpha(0.01));
-
         ActiveColorTheme = colorTheme;
         OnColorThemeChanged?.Invoke(ActiveColorTheme);
-        
-        
     }
 
     private void SetColorWithOpacities(string baseName, Color baseColor)
@@ -213,7 +205,10 @@ public partial class SukiTheme : Styles
         SetResource($"{baseName}50", baseColor.WithAlpha(0.5));
         SetResource($"{baseName}25", baseColor.WithAlpha(0.25));
         SetResource($"{baseName}10", baseColor.WithAlpha(0.1));
+        SetResource($"{baseName}7", baseColor.WithAlpha(0.07));
         SetResource($"{baseName}5", baseColor.WithAlpha(0.05));
+        SetResource($"{baseName}2", baseColor.WithAlpha(0.02));
+        SetResource($"{baseName}1", baseColor.WithAlpha(0.01));
     }
 
     private void SetResource(string name, Color color) =>
