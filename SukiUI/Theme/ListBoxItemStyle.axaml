@@ -29,7 +29,7 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Border Name="BorderBasicStyle"
-                        Margin="0,0,10,0"
+                        Margin="0,0,0,0"
                         Padding="8,4"
                         CornerRadius="10">
                     <DockPanel>
