@@ -31,7 +31,7 @@
     <StyleInclude Source="avares://SukiUI/Theme/NotificationCardStyle.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ContextMenuStyle.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/WindowStyles.axaml" />
-    <StyleInclude Source="avares://SukiUI/Theme/CheckBox.axaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/CheckBoxStyles.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ScrollBarStyle.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ExpanderStyles.xaml" />
 
