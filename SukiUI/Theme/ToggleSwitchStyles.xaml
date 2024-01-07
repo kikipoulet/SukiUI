@@ -17,6 +17,11 @@
 
     <Style Selector="ToggleSwitch">
         <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+        <Setter Property="RenderTransform">
+            <ScaleTransform ScaleX="1.15" ScaleY="1.15" />
+        </Setter>
+        <Setter Property="OnContent" Value=""></Setter>
+        <Setter Property="OffContent" Value=""></Setter>
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
@@ -24,7 +29,22 @@
         <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Grid Background="{TemplateBinding Background}" RowDefinitions="Auto,*">
+                <DockPanel>
+                    <ContentPresenter x:Name="PART_OffContentPresenter"
+                                      DockPanel.Dock="Left"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      Content="{TemplateBinding OffContent}"
+                                      ContentTemplate="{TemplateBinding OffContentTemplate}" />
+
+                    <ContentPresenter x:Name="PART_OnContentPresenter"
+                                      DockPanel.Dock="Right"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      Content="{TemplateBinding OnContent}"
+                                      ContentTemplate="{TemplateBinding OnContentTemplate}" />
+                
+                <Grid Background="Transparent" RowDefinitions="Auto,*">
 
                     <ContentPresenter x:Name="PART_ContentPresenter"
                                       Grid.Row="0"
@@ -56,49 +76,33 @@
                               Margin="0,5"
                               TemplatedControl.IsTemplateFocusTarget="True" />
 
-                        <ContentPresenter x:Name="PART_OffContentPresenter"
-                                          Grid.RowSpan="3"
-                                          Grid.Column="2"
-                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          Content="{TemplateBinding OffContent}"
-                                          ContentTemplate="{TemplateBinding OffContentTemplate}" />
 
-                        <ContentPresenter x:Name="PART_OnContentPresenter"
-                                          Grid.RowSpan="3"
-                                          Grid.Column="2"
-                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          Content="{TemplateBinding OnContent}"
-                                          ContentTemplate="{TemplateBinding OnContentTemplate}" />
-
-                        <Border x:Name="OuterBorder"
+                        <Border 
                                 Grid.Row="1"
                                 Width="40"
                                 Height="20"
-                                Background="#dedede"
+                                Background="{DynamicResource SukiControlBorderBrush}"
                                 BorderThickness="0"
-                                CornerRadius="10">
+                                CornerRadius="{DynamicResource MediumCornerRadius}">
                             <Border.Transitions>
                                 <Transitions>
-                                    <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                                    <DoubleTransition Property="Opacity" Duration="0:0:0.15" />
                                 </Transitions>
                             </Border.Transitions>
                         </Border>
 
-                        <Border x:Name="PART_SwitchKnobBoundsn"
+                        <Border x:Name="SwitchBackground"
                                 Grid.Row="1"
                                 Width="40"
                                 Height="20"
-                                Background="{DynamicResource SukiPrimaryColor}"
+                                Background="{DynamicResource SukiControlBorderBrush}"
                                 BorderThickness="0"
-                                CornerRadius="10">
-
+                                CornerRadius="{DynamicResource MediumCornerRadius}">
 
                             <Border.Transitions>
                                 <Transitions>
-                                    <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
-                                    <BrushTransition Property="Background" Duration="0:0:0.20" />
+                                    <DoubleTransition Property="Opacity" Duration="0:0:0.15" />
+                                    <BrushTransition Property="Background" Duration="0:0:0.15" />
                                 </Transitions>
                             </Border.Transitions>
                         </Border>
@@ -110,216 +114,135 @@
                                 HorizontalAlignment="Left">
 
 
-                            <Grid x:Name="PART_MovingKnobs"
-                                  Width="20"
-                                  Height="20">
 
-                                <Ellipse x:Name="PART_SwitchKnobOn"
-                                         Width="16"
-                                         Height="16"
-                                         Margin="-1,00,0,0"
-                                         Fill="{DynamicResource SukiControlTouchBackground}" />
 
-                                <Border x:Name="PART_SwitchKnobOff"
-                                        Width="16"
-                                        Height="16"
-                                        Margin="0,1,0,0"
-                                        Background="{DynamicResource SukiControlTouchBackground}"
-                                        BoxShadow="0 0 0 0 LightGray"
-                                        CornerRadius="10" />
 
-                            </Grid>
+                            <Border x:Name="SwitchKnob"
+                                    Canvas.Left="2"
+                                    Canvas.Top="2"
+                                    Width="16"
+                                    Height="16"
+                                    Margin="0,0,0,0"
+                                    Background="#fcfcfc"
+                                    BoxShadow="{DynamicResource SukiSwitchShadow}"
+                                    CornerRadius="{DynamicResource MediumCornerRadius}">
+                                <Border />
+                                <Border.Transitions>
+                                    <Transitions />
+                                </Border.Transitions>
+                            </Border>
+
+                            <Grid x:Name="PART_MovingKnobs"></Grid> <!-- dont remove this -->
                         </Canvas>
                     </Grid>
                 </Grid>
+                </DockPanel>
             </ControlTemplate>
         </Setter>
     </Style>
 
-    <Style Selector="ToggleSwitch /template/ ContentPresenter#PART_ContentPresenter">
-        <Setter Property="Margin" Value="{DynamicResource ToggleSwitchTopHeaderMargin}" />
-    </Style>
-    <Style Selector="ToggleSwitch /template/ ContentPresenter#PART_ContentPresenter:empty">
-        <Setter Property="Margin" Value="0" />
-    </Style>
+    <Style Selector="ToggleSwitch:unchecked /template/ Border#SwitchKnob">
+        <Style.Animations>
+            <Animation FillMode="Both" Duration="0:0:0.25">
+                <Animation.Easing>
+                    <SineEaseOut />
+                </Animation.Easing>
 
-    <!--  NormalState  -->
-    <Style Selector="ToggleSwitch /template/ Grid#SwitchAreaGrid">
-        <Setter Property="Background" Value="Transparent" />
-    </Style>
+                <KeyFrame Cue="30%">
+                    <Setter Property="Width" Value="25" />
+                    <Setter Property="Canvas.Left" Value="11" />
 
-    <Style Selector="ToggleSwitch /template/ Border#OuterBorder">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="Transparent" />
-    </Style>
+                </KeyFrame>
+                <KeyFrame Cue="70%">
+                    <Setter Property="Width" Value="25" />
+                    <Setter Property="Canvas.Left" Value="2" />
 
-    <Style Selector="ToggleSwitch /template/ Border#PART_SwitchKnobBounds">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="Transparent" />
-    </Style>
+                </KeyFrame>
 
-    <Style Selector="ToggleSwitch /template/ Ellipse#PART_SwitchKnobOn">
-        <Setter Property="Fill" Value="Transparent" />
-    </Style>
 
-    <Style Selector="ToggleSwitch /template/ Ellipse#PART_SwitchKnobOff">
-        <Setter Property="Fill" Value="Transparent" />
-    </Style>
+                <KeyFrame Cue="100%">
+                    <Setter Property="Width" Value="16" />
+                    <Setter Property="Canvas.Left" Value="2" />
 
-    <Style Selector="ToggleSwitch:not(:dragging) /template/ Grid#PART_MovingKnobs">
-        <Setter Property="Transitions">
-            <Transitions>
-                <DoubleTransition Easing="CircularEaseOut"
-                                  Property="Canvas.Left"
-                                  Duration="0:0:0.20" />
-            </Transitions>
-        </Setter>
-    </Style>
+                </KeyFrame>
 
-    <Style Selector="ToggleSwitch:not(:dragging) /template/ Grid#MovingKnobs">
-        <Setter Property="Transitions">
-            <Transitions>
-                <DoubleTransition Easing="CircularEaseOut"
-                                  Property="Canvas.Left"
-                                  Duration="0:0:0.20" />
-            </Transitions>
-        </Setter>
-    </Style>
-
-    <!--  PointerOverState  -->
-    <Style Selector="ToggleSwitch:pointerover /template/ Border#OuterBorder">
-
-        <Setter Property="Background" Value="#dedede" />
-
-        <Setter Property="Transitions">
-            <Transitions>
-                <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.15" />
-            </Transitions>
-        </Setter>
+            </Animation>
+        </Style.Animations>
 
     </Style>
 
+    <Style Selector="ToggleSwitch:checked /template/ Border#SwitchKnob">
+
+        <Setter Property="BoxShadow" Value="0 0 0 0 White" />
+        <Style.Animations>
+            <Animation FillMode="Both" Duration="0:0:0.25">
+                <Animation.Easing>
+                    <SineEaseOut />
+                </Animation.Easing>
 
 
-    <Style Selector="ToggleSwitch:pointerover /template/ Border#PART_SwitchKnobBounds">
+                <KeyFrame Cue="30%">
+                    <Setter Property="Width" Value="25" />
+                    <Setter Property="Canvas.Left" Value="2" />
+                </KeyFrame>
+
+                <KeyFrame Cue="70%">
+                    <Setter Property="Width" Value="25" />
+                    <Setter Property="Canvas.Left" Value="11" />
+
+                </KeyFrame>
+
+                <KeyFrame Cue="100%">
+                    <Setter Property="Width" Value="16" />
+                    <Setter Property="Canvas.Left" Value="22" />
+
+                </KeyFrame>
+
+            </Animation>
+        </Style.Animations>
+
+    </Style>
+
+
+    <Style Selector="ToggleSwitch:pressed[IsChecked=False] /template/ Border#SwitchKnob">
+        <Style.Animations>
+            <Animation FillMode="Forward" Duration="0:0:0.15">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Width" Value="16" />
+                </KeyFrame>
+
+                <KeyFrame Cue="100%">
+                    <Setter Property="Width" Value="20" />
+                </KeyFrame>
+
+            </Animation>
+        </Style.Animations>
+
+    </Style>
+
+    <Style Selector="ToggleSwitch:pressed[IsChecked=True] /template/ Border#SwitchKnob">
+        <Style.Animations>
+            <Animation FillMode="Forward" Duration="0:0:0.1">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Width" Value="16" />
+                    <Setter Property="Canvas.Left" Value="22" />
+                </KeyFrame>
+
+                <KeyFrame Cue="100%">
+                    <Setter Property="Width" Value="20" />
+                    <Setter Property="Canvas.Left" Value="18" />
+                </KeyFrame>
+
+            </Animation>
+        </Style.Animations>
+        <Setter Property="Width" Value="20" />
+    </Style>
+
+
+    <Style Selector="ToggleSwitch:checked /template/ Border#SwitchBackground">
         <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
-
-        <Setter Property="BorderBrush" Value="{DynamicResource ToggleSwitchStrokeOnPointerOver}" />
-        <Setter Property="BoxShadow" Value="0 0 1 0 #2f54eb" />
-        <Setter Property="Transitions">
-            <Transitions>
-                <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.15" />
-            </Transitions>
-        </Setter>
-
     </Style>
 
-    <Style Selector="ToggleSwitch:pointerover /template/ Grid#SwitchAreaGrid">
-        <Setter Property="Background" Value="{DynamicResource ToggleSwitchContainerBackgroundPointerOver}" />
-    </Style>
 
-    <!--  PressedState  -->
-    <Style Selector="ToggleSwitch:pressed /template/ Border#OuterBorder">
-        <Setter Property="BorderBrush" Value="{DynamicResource ToggleSwitchStrokeOffPressed}" />
-        <Setter Property="Background" Value="{DynamicResource ToggleSwitchFillOffPressed}" />
-    </Style>
-
-    <Style Selector="ToggleSwitch:pressed /template/ Border#PART_SwitchKnobBounds">
-
-        <Setter Property="Background">
-            <Setter.Value>
-                <LinearGradientBrush StartPoint="50%,0%" EndPoint="0%,100%">
-                    <GradientStop Offset="0.1" Color="#597ef7" />
-                    <GradientStop Offset="0.9" Color="#2f54eb" />
-                </LinearGradientBrush>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="BorderBrush" Value="{DynamicResource ToggleSwitchStrokeOnPressed}" />
-    </Style>
-
-    <Style Selector="ToggleSwitch:pressed /template/ Ellipse#PART_SwitchKnobOff">
-        <Setter Property="Fill" Value="{DynamicResource TogglePART_SwitchKnobFillOffPressed}" />
-    </Style>
-
-    <Style Selector="ToggleSwitch:pressed /template/ Ellipse#PART_SwitchKnobOn">
-        <Setter Property="Fill" Value="{DynamicResource TogglePART_SwitchKnobFillOnPressed}" />
-    </Style>
-
-    <Style Selector="ToggleSwitch:pressed /template/ Grid#SwitchAreaGrid">
-        <Setter Property="Background" Value="{DynamicResource ToggleSwitchContainerBackgroundPressed}" />
-    </Style>
-
-    <!--  DisabledState  -->
-    <Style Selector="ToggleSwitch:disabled">
-        <Setter Property="Foreground" Value="{DynamicResource ToggleSwitchHeaderForegroundDisabled}" />
-    </Style>
-
-    <Style Selector="ToggleSwitch:disabled /template/ Border#OuterBorder">
-        <Setter Property="BorderBrush" Value="{DynamicResource ToggleSwitchStrokeOffDisabled}" />
-        <Setter Property="Background" Value="{DynamicResource ToggleSwitchFillOffPressed}" />
-    </Style>
-
-    <Style Selector="ToggleSwitch:disabled /template/ Ellipse#PART_SwitchKnobOff">
-        <Setter Property="Fill" Value="{DynamicResource TogglePART_SwitchKnobFillOffDisabled}" />
-    </Style>
-
-    <Style Selector="ToggleSwitch:disabled /template/ Ellipse#PART_SwitchKnobOn">
-        <Setter Property="Fill" Value="{DynamicResource TogglePART_SwitchKnobFillOnDisabled}" />
-    </Style>
-
-    <Style Selector="ToggleSwitch:disabled /template/ Border#PART_SwitchKnobBounds">
-        <Setter Property="Background" Value="{DynamicResource ToggleSwitchFillOnDisabled}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource ToggleSwitchStrokeOnDisabled}" />
-    </Style>
-
-    <!--  CheckedState  -->
-    <Style Selector="ToggleSwitch:checked /template/ Border#OuterBorder">
-        <Setter Property="Opacity" Value="0" />
-    </Style>
-
-    <Style Selector="ToggleSwitch:checked  /template/ Ellipse#PART_SwitchKnobOff">
-        <Setter Property="Opacity" Value="0" />
-    </Style>
-
-    <Style Selector="ToggleSwitch:checked  /template/ Border#PART_SwitchKnobBoundsn">
-        <Setter Property="Opacity" Value="1" />
-    </Style>
-
-    <Style Selector="ToggleSwitch:checked /template/ Ellipse#PART_SwitchKnobOn">
-        <Setter Property="Opacity" Value="1" />
-    </Style>
-
-    <Style Selector="ToggleSwitch:checked /template/ ContentPresenter#PART_OffContentPresenter">
-        <Setter Property="Opacity" Value="0" />
-    </Style>
-
-    <Style Selector="ToggleSwitch:checked /template/ ContentPresenter#PART_OnContentPresenter">
-        <Setter Property="Opacity" Value="1" />
-    </Style>
-
-    <!--  UncheckedState  -->
-    <Style Selector="ToggleSwitch:unchecked /template/ Border#OuterBorder">
-        <Setter Property="Opacity" Value="1" />
-    </Style>
-
-    <Style Selector="ToggleSwitch:unchecked /template/ Ellipse#PART_SwitchKnobOff">
-        <Setter Property="Opacity" Value="1" />
-    </Style>
-
-    <Style Selector="ToggleSwitch:unchecked /template/ Ellipse#PART_SwitchKnobOn">
-        <Setter Property="Opacity" Value="0" />
-    </Style>
-
-    <Style Selector="ToggleSwitch:unchecked  /template/ Border#PART_SwitchKnobBoundsn">
-        <Setter Property="Opacity" Value="1" />
-        <Setter Property="Background" Value="#dedede" />
-    </Style>
-
-    <Style Selector="ToggleSwitch:unchecked /template/ ContentPresenter#PART_OffContentPresenter">
-        <Setter Property="Opacity" Value="1" />
-    </Style>
-
-    <Style Selector="ToggleSwitch:unchecked /template/ ContentPresenter#PART_OnContentPresenter">
-        <Setter Property="Opacity" Value="0" />
-    </Style>
+    
 </Styles>
