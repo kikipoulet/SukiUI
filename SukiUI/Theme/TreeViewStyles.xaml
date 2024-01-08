@@ -13,6 +13,62 @@
             </TreeView>
         </Border>
     </Design.PreviewWith>
+    
+    <Style Selector="TreeViewItem">
+    <Setter Property="Template">
+        <ControlTemplate>
+            <StackPanel>
+                <Border Name="SelectionBorder"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        Focusable="True"
+                        TemplatedControl.IsTemplateFocusTarget="True">
+                    <Grid Name="PART_Header"
+                          Margin="{TemplateBinding Level,
+                                           Mode=OneWay,
+                                           Converter={StaticResource LeftMarginConverter}}"
+                          ColumnDefinitions="16, *">
+                        <Grid.Styles>
+                            <Style Selector="ToggleButton:checked">
+                                <Setter Property="Background" Value="Transparent"></Setter>
+                            </Style>
+                        </Grid.Styles>
+                        <ToggleButton Name="PART_ExpandCollapseChevron"
+                                      Focusable="False" Padding="0"
+                                      Background="Transparent"
+                                      IsChecked="{TemplateBinding IsExpanded,
+                                                        Mode=TwoWay}"
+                                      BorderThickness="0">
+                            <ToggleButton.Transitions>
+                                <Transitions>
+                                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.25"></TransformOperationsTransition>
+                                </Transitions>
+                            </ToggleButton.Transitions>
+                            <Path HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Data="M 0 2 L 4 6 L 0 10 Z"
+                                  Fill="{DynamicResource SukiText}" />
+                        </ToggleButton>
+                        <ContentPresenter Name="PART_HeaderPresenter"
+                                          Grid.Column="1"
+                                          Background="Transparent"
+                                          Padding="{TemplateBinding Padding}"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalAlignment}"
+                                          Content="{TemplateBinding Header}"
+                                          ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                          Focusable="False" />
+                    </Grid>
+                </Border>
+                <ItemsPresenter Name="PART_ItemsPresenter"
+                                IsVisible="{TemplateBinding IsExpanded}"
+                                ItemsPanel="{TemplateBinding ItemsPanel}" />
+            </StackPanel>
+        </ControlTemplate>
+    </Setter>
+    </Style>
+    
     <Style Selector="TreeViewItem">
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
         <Setter Property="Margin" Value="1" />
@@ -49,10 +105,13 @@
         <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrush}" />
     </Style>
     <Style Selector="TreeViewItem /template/ ToggleButton#expander">
+        <Setter Property="Background" Value="Transparent"></Setter>
+        <Setter Property="Padding" Value="0"></Setter>
+        <Setter Property="BorderThickness" Value="0"></Setter>
         <Setter Property="Template">
             <ControlTemplate>
                 <Border Width="16"
-                        Height="12"
+                        Height="12" BorderThickness="0"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Background="Transparent">
@@ -64,20 +123,8 @@
             </ControlTemplate>
         </Setter>
     </Style>
-    <Style Selector="TreeViewItem:selected /template/ ToggleButton#expander">
-        <Setter Property="Template">
-            <ControlTemplate>
-                <Border Width="16"
-                        Height="12"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Background="Transparent">
-                    <Path HorizontalAlignment="Center"
-                          VerticalAlignment="Center"
-                          Data="M 0 2 L 4 6 L 0 10 Z"
-                          Fill="#ffffff" />
-                </Border>
-            </ControlTemplate>
-        </Setter>
+    
+    <Style Selector="TreeViewItem:selected /template/ ToggleButton#PART_ExpandCollapseChevron">
+        <Setter Property="RenderTransform" Value="rotate(90deg)" />
     </Style>
 </Styles>
