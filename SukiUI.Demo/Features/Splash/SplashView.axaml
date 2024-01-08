@@ -15,10 +15,7 @@
                         VerticalAlignment="Center">
         <controls:GroupBox Header="Welcome to the SukiUI Demo App.">
             <StackPanel Classes="HeaderContent">
-                <PathIcon Width="75"
-                          Height="75"
-                          HorizontalAlignment="Center"
-                          Data="{x:Static content:Icons.SukiLogo}" />
+                <Image Width="135" Height="135" HorizontalAlignment="Center" Margin="30" Source="../../Assets/OIG.N5o-removebg-preview.png" />
                 <TextBlock Name="TextBlockWithInline">
                     In this app you'll find a sample page
                     (<InlineUIContainer>
