@@ -32,17 +32,17 @@
             <WrapPanel Classes="PageContainer">
                 <controls:GlassCard>
                     <controls:GroupBox Header="Standard Dialog">
-                        <Button Command="{Binding OpenStandardDialogCommand}" Content="Open" />
+                        <Button Margin="15,10,15,0" Command="{Binding OpenStandardDialogCommand}" Content="Open" />
                     </controls:GroupBox>
                 </controls:GlassCard>
                 <controls:GlassCard>
                     <controls:GroupBox Header="Background Closable Dialog">
-                        <Button Command="{Binding OpenBackgroundCloseDialogCommand}" Content="Open" />
+                        <Button Margin="15,10,15,0" Command="{Binding OpenBackgroundCloseDialogCommand}" Content="Open" />
                     </controls:GroupBox>
                 </controls:GlassCard>
                 <controls:GlassCard>
                     <controls:GroupBox Header="ViewModel Dialog">
-                        <Button Command="{Binding OpenViewModelDialogCommand}" Content="Open" />
+                        <Button Margin="15,10,15,0" Command="{Binding OpenViewModelDialogCommand}" Content="Open" />
                     </controls:GroupBox>
                 </controls:GlassCard>
             </WrapPanel>

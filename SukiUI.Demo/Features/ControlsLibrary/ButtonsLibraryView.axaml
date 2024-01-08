@@ -32,7 +32,9 @@
             </controls:GroupBox>
         </controls:GlassCard>
         <ScrollViewer Grid.Row="1">
-            <WrapPanel Classes="PageContainer">
+            <WrapPanel Classes="PageContainer" Name="WrapButtons">
+                
+                
                 <controls:GlassCard>
                     <controls:GroupBox Header="Standard Button">
                         <showMeTheXaml:XamlDisplay UniqueId="Button1">
@@ -118,6 +120,7 @@
                         </showMeTheXaml:XamlDisplay>
                     </controls:GroupBox>
                 </controls:GlassCard>
+       
             </WrapPanel>
         </ScrollViewer>
     </Grid>

@@ -375,11 +375,11 @@
                         <WrapPanel Margin="0,25,0,0"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center">
-                            <RadioButton Width="210"
+                            <RadioButton Width="210" Margin="7"
                                          Height="138"
                                          Classes="GigaChips"
                                          IsChecked="True">
-                                <StackPanel HorizontalAlignment="Left">
+                                <StackPanel Spacing="0,8" HorizontalAlignment="Left">
                                     <TextBlock FontSize="12"
                                                FontWeight="DemiBold"
                                                Foreground="{DynamicResource SukiLowText}"
@@ -393,10 +393,10 @@
                                                TextWrapping="Wrap" />
                                 </StackPanel>
                             </RadioButton>
-                            <RadioButton Width="210"
-                                         Height="138"
+                            <RadioButton Margin="7" Width="210"
+                                         Height="138" 
                                          Classes="GigaChips">
-                                <StackPanel HorizontalAlignment="Left">
+                                <StackPanel Spacing="0,8" HorizontalAlignment="Left">
                                     <TextBlock FontSize="12"
                                                FontWeight="DemiBold"
                                                Foreground="{DynamicResource SukiLowText}"
@@ -406,14 +406,14 @@
                                                Text="5 Gb" />
                                     <TextBlock FontSize="15"
                                                Foreground="{DynamicResource SukiLowText}"
-                                               Text="Plan for a professional use in an application."
+                                               Text="Professional use in an application."
                                                TextWrapping="Wrap" />
                                 </StackPanel>
                             </RadioButton>
-                            <RadioButton Width="210"
+                            <RadioButton Width="210" Margin="7"
                                          Height="138"
                                          Classes="GigaChips">
-                                <StackPanel HorizontalAlignment="Left">
+                                <StackPanel Spacing="0,8" HorizontalAlignment="Left">
                                     <TextBlock FontSize="12"
                                                FontWeight="DemiBold"
                                                Foreground="{DynamicResource SukiLowText}"

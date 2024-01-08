@@ -26,8 +26,8 @@
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Center"
                                            Fill="{Binding Brush}"
-                                           RadiusX="5"
-                                           RadiusY="5"
+                                           RadiusX="8"
+                                           RadiusY="8" Margin="0,7,0,0"
                                            Stroke="{DynamicResource SukiBorderBrush}"
                                            StrokeThickness="2">
                                     <Rectangle.Transitions>

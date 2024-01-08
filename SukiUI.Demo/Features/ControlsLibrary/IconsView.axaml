@@ -45,7 +45,7 @@
                     <DataTemplate x:CompileBindings="False">
                         <controls:GlassCard Margin="15,15,15,15">
                             <controls:GroupBox Header="{Binding Key}">
-                                <PathIcon Width="25"
+                                <PathIcon Width="25" Margin="0,8,0,0"
                                           Height="25"
                                           Data="{Binding Value}" />
                             </controls:GroupBox>
