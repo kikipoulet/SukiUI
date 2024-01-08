@@ -17,6 +17,7 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Padding" Value="18,10,18,8" />
         <Setter Property="FontWeight" Value="DemiBold" />
+        <Setter Property="FontSize" Value="14" />
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
         <Setter Property="Transitions">
             <Transitions>
@@ -26,7 +27,7 @@
         </Setter>
         <Setter Property="Template">
             <ControlTemplate>
-                <ContentPresenter Padding="{TemplateBinding Padding}"
+                <ContentPresenter Padding="{TemplateBinding Padding}" FontSize="{TemplateBinding FontSize}"
                                   HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                   VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                   Background="{TemplateBinding Background}"
