@@ -31,7 +31,7 @@
             <ControlTemplate>
                 <DockPanel>
                     <ContentPresenter x:Name="PART_OffContentPresenter"
-                                      DockPanel.Dock="Left"
+                                      DockPanel.Dock="Left" Margin="0,0,7,0"
                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                       Content="{TemplateBinding OffContent}"

@@ -46,29 +46,26 @@
                         <StackPanel Orientation="Horizontal">
                             <RadioButton Classes="GigaChips" GroupName="R3">
                                 <StackPanel>
-                                    <TextBlock Classes="h4"
-                                               FontWeight="Bold"
-                                               Foreground="{DynamicResource SukiAccentColor}"
+                                    <TextBlock FontSize="18"
+                                               FontWeight="DemiBold"
                                                Text="One Header" />
-                                    <TextBlock Text="Some content." />
+                                    <TextBlock Margin="0,8,0,0" Foreground="{DynamicResource SukiLowText}" Text="Some content." />
                                 </StackPanel>
                             </RadioButton>
                             <RadioButton Classes="GigaChips" GroupName="R3">
                                 <StackPanel>
-                                    <TextBlock Classes="h4"
-                                               FontWeight="Bold"
-                                               Foreground="{DynamicResource SukiAccentColor}"
+                                    <TextBlock FontSize="18"
+                                               FontWeight="DemiBold"
                                                Text="Another Header" />
-                                    <TextBlock Text="Some other content." />
+                                    <TextBlock Margin="0,8,0,0" Foreground="{DynamicResource SukiLowText}" Text="Some content." />
                                 </StackPanel>
                             </RadioButton>
                             <RadioButton Classes="GigaChips" GroupName="R3">
                                 <StackPanel>
-                                    <TextBlock Classes="h4"
-                                               FontWeight="Bold"
-                                               Foreground="{DynamicResource SukiAccentColor}"
+                                    <TextBlock FontSize="18"
+                                               FontWeight="DemiBold"
                                                Text="Final Header" />
-                                    <TextBlock Text="Some final content." />
+                                    <TextBlock Margin="0,8,0,0" Foreground="{DynamicResource SukiLowText}" Text="Some content." />
                                 </StackPanel>
                             </RadioButton>
                         </StackPanel>
@@ -82,7 +79,7 @@
                             <ToggleSwitch />
                         </showMeTheXaml:XamlDisplay>
                         <showMeTheXaml:XamlDisplay UniqueId="CustomContentToggleSwitch">
-                            <ToggleSwitch OffContent="Switch Off." OnContent="Switch On." />
+                            <ToggleSwitch OffContent="Switch Off."  OnContent="Switch On." />
                         </showMeTheXaml:XamlDisplay>
                     </StackPanel>
                 </controls:GroupBox>
