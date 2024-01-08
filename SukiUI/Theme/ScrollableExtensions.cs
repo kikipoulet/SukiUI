@@ -30,10 +30,51 @@ namespace SukiUI.Theme
             compositionVisual.ImplicitAnimations = implicitAnimationCollection;
         }
     }
+    public static class StackPanelExtensions
+    {
+        public static readonly AttachedProperty<bool> AnimatedScrollProperty =
+            AvaloniaProperty.RegisterAttached<StackPanel, bool>("AnimatedScroll", typeof(StackPanel), defaultValue: false);
+
+        static StackPanelExtensions()
+        {
+            AnimatedScrollProperty.Changed.AddClassHandler<StackPanel>(HandleAnimatedScrollChanged);
+        }
+        
+        private static void HandleAnimatedScrollChanged(StackPanel interactElem, AvaloniaPropertyChangedEventArgs args)
+        {
+            if(GetAnimatedScroll(interactElem))
+                interactElem.AttachedToVisualTree += (sender, args) => Scrollable.MakeScrollable(ElementComposition.GetElementVisual(interactElem));
+        }
+
+        public static bool GetAnimatedScroll(StackPanel wrap)
+        {
+            return wrap.GetValue(AnimatedScrollProperty);
+        }
+
+        public static void SetAnimatedScroll(StackPanel wrap, bool value)
+        {
+
+
+            wrap.SetValue(AnimatedScrollProperty, value);
+        }
+
+    }
+    
     public static class WrapPanelExtensions
     {
         public static readonly AttachedProperty<bool> AnimatedScrollProperty =
             AvaloniaProperty.RegisterAttached<WrapPanel, bool>("AnimatedScroll", typeof(WrapPanel), defaultValue: false);
+
+        static WrapPanelExtensions()
+        {
+            AnimatedScrollProperty.Changed.AddClassHandler<WrapPanel>(HandleAnimatedScrollChanged);
+        }
+        
+        private static void HandleAnimatedScrollChanged(WrapPanel interactElem, AvaloniaPropertyChangedEventArgs args)
+        {
+            if(GetAnimatedScroll(interactElem))
+                interactElem.AttachedToVisualTree += (sender, args) => Scrollable.MakeScrollable(ElementComposition.GetElementVisual(interactElem));
+        }
 
         public static bool GetAnimatedScroll(WrapPanel wrap)
         {
@@ -42,31 +83,41 @@ namespace SukiUI.Theme
 
         public static void SetAnimatedScroll(WrapPanel wrap, bool value)
         {
-            if(value)
-                wrap.AttachedToVisualTree += (sender, args) => Scrollable.MakeScrollable(ElementComposition.GetElementVisual(wrap));
+
 
             wrap.SetValue(AnimatedScrollProperty, value);
         }
 
     }
     
-    public static class StackPanelExtensions
+    public static class ItemsPresenterExtensions
     {
         public static readonly AttachedProperty<bool> AnimatedScrollProperty =
-            AvaloniaProperty.RegisterAttached<StackPanel, bool>("AnimatedScroll", typeof(StackPanel), defaultValue: false);
+            AvaloniaProperty.RegisterAttached<ItemsPresenter, bool>("AnimatedScroll", typeof(ItemsPresenter), defaultValue: false);
 
-        public static bool GetAnimatedScroll(StackPanel Stack)
+        static ItemsPresenterExtensions()
         {
-            return Stack.GetValue(AnimatedScrollProperty);
+            AnimatedScrollProperty.Changed.AddClassHandler<ItemsPresenter>(HandleAnimatedScrollChanged);
+        }
+        
+        private static void HandleAnimatedScrollChanged(ItemsPresenter interactElem, AvaloniaPropertyChangedEventArgs args)
+        {
+            if(GetAnimatedScroll(interactElem))
+                interactElem.AttachedToVisualTree += (sender, args) => Scrollable.MakeScrollable(ElementComposition.GetElementVisual(interactElem));
         }
 
-        public static void SetAnimatedScroll(StackPanel Stack, bool value)
+        public static bool GetAnimatedScroll(ItemsPresenter wrap)
         {
-            if(value)
-                Stack.AttachedToVisualTree += (sender, args) => Scrollable.MakeScrollable(ElementComposition.GetElementVisual(Stack));
-
-            Stack.SetValue(AnimatedScrollProperty, value);
+            return wrap.GetValue(AnimatedScrollProperty);
         }
+
+        public static void SetAnimatedScroll(ItemsPresenter wrap, bool value)
+        {
+
+
+            wrap.SetValue(AnimatedScrollProperty, value);
+        }
+
     }
     
     public static class ItemsControlExtensions
@@ -74,18 +125,29 @@ namespace SukiUI.Theme
         public static readonly AttachedProperty<bool> AnimatedScrollProperty =
             AvaloniaProperty.RegisterAttached<ItemsControl, bool>("AnimatedScroll", typeof(ItemsControl), defaultValue: false);
 
-        public static bool GetAnimatedScroll(ItemsControl Stack)
+        static ItemsControlExtensions()
         {
-            return Stack.GetValue(AnimatedScrollProperty);
+            AnimatedScrollProperty.Changed.AddClassHandler<ItemsControl>(HandleAnimatedScrollChanged);
+        }
+        
+        private static void HandleAnimatedScrollChanged(ItemsControl interactElem, AvaloniaPropertyChangedEventArgs args)
+        {
+            if(GetAnimatedScroll(interactElem))
+                interactElem.AttachedToVisualTree += (sender, args) => Scrollable.MakeScrollable(ElementComposition.GetElementVisual(interactElem));
         }
 
-        public static void SetAnimatedScroll(ItemsControl Stack, bool value)
+        public static bool GetAnimatedScroll(ItemsControl wrap)
         {
-            if(value)
-                Stack.AttachedToVisualTree += (sender, args) => Scrollable.MakeScrollable(ElementComposition.GetElementVisual(Stack));
-
-            Stack.SetValue(AnimatedScrollProperty, value);
+            return wrap.GetValue(AnimatedScrollProperty);
         }
+
+        public static void SetAnimatedScroll(ItemsControl wrap, bool value)
+        {
+
+
+            wrap.SetValue(AnimatedScrollProperty, value);
+        }
+
     }
   
   
