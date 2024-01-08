@@ -22,15 +22,15 @@
                                 <StackPanel HorizontalAlignment="Center"
                                             Orientation="Horizontal"
                                             Spacing="20">
-                                    <RadioButton Classes="GigaChips"
-                                                 GroupName="RadioBaseTheme"
+                                    <RadioButton Classes="GigaChips" Width="180"
+                                                 Height="160"
+                                                 GroupName="RadioBaseTheme" Padding="0"
                                                  IsChecked="{Binding IsLightTheme}">
-                                        <Border Width="180"
-                                                Height="160"
+                                        <Border Margin="-50"
                                                 Background="#fafafa"
                                                 CornerRadius="{DynamicResource MediumCornerRadius}">
                                             <Grid>
-                                                <TextBlock Margin="8"
+                                                <TextBlock Margin="42"
                                                            HorizontalAlignment="Center"
                                                            VerticalAlignment="Bottom"
                                                            FontWeight="DemiBold"
@@ -41,14 +41,14 @@
                                     </RadioButton>
 
                                     <RadioButton Classes="GigaChips"
-                                                 GroupName="RadioBaseTheme"
+                                                 GroupName="RadioBaseTheme"  Width="180"
+                                                 Height="160"
                                                  IsChecked="{Binding !IsLightTheme}">
-                                        <Border Width="180"
-                                                Height="160"
+                                        <Border Margin="-50"
                                                 Background="#222222"
                                                 CornerRadius="{DynamicResource MediumCornerRadius}">
                                             <Grid>
-                                                <TextBlock Margin="8"
+                                                <TextBlock Margin="42"
                                                            HorizontalAlignment="Center"
                                                            VerticalAlignment="Bottom"
                                                            FontWeight="DemiBold"
@@ -77,10 +77,10 @@
                                             <RadioButton Classes="GigaChips"
                                                          Command="{Binding ((theming:ThemingViewModel)DataContext).SwitchToColorThemeCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type theming:ThemingView}}}"
                                                          CommandParameter="{Binding}"
-                                                         CornerRadius="50"
+                                                         CornerRadius="50" Width="50"
+                                                         Height="50"
                                                          GroupName="RadioColorTheme">
-                                                <Border Width="50"
-                                                        Height="50"
+                                                <Border  Margin="-30"
                                                         Background="{Binding PrimaryBrush}"
                                                         CornerRadius="50" />
                                             </RadioButton>
