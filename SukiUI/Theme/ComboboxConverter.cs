@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Globalization;
+using Avalonia.Controls;
 using Avalonia.Data.Converters;
 
 namespace SukiUI.Theme
@@ -25,4 +27,29 @@ namespace SukiUI.Theme
             }
         }
 
+        public class BiggestItemConverter : IValueConverter
+        {
+            public static readonly BiggestItemConverter Instance = new();
+
+            public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+            {
+                IEnumerable? x = (IEnumerable?)value;
+                if (x is null)
+                    return "";
+
+                var s = "";
+                foreach (var o in x)
+                {
+                    if (o.ToString().Length > s.ToString().Length)
+                        s = o.ToString();
+                }
+                
+                return s;
+            }
+
+            public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+            {
+                throw new NotSupportedException();
+            }
+        }
 }

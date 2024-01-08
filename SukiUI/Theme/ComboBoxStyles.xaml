@@ -88,7 +88,20 @@
                                         </Animation>
                                     </Style.Animations>
                                 </Style>
+                                
+                                <Style Selector="ContentControl.ghost TextBlock">
+                                    <Setter Property="Foreground" Value="Transparent"></Setter>
+                                </Style>
+                                <Style Selector="ToggleButton:pointerover">
+                                    <Setter Property="Background" Value="Transparent"></Setter>
+                                </Style>
+                                <Style Selector="ToggleButton:checked">
+                                    <Setter Property="Background" Value="Transparent"></Setter>
+                                </Style>
                             </Grid.Styles>
+                            <Grid.Resources>
+                                <theme:BiggestItemConverter x:Key="BigItem"></theme:BiggestItemConverter>
+                            </Grid.Resources>
                             <TextBlock Name="PlaceholderTextBlock"
                                        Grid.Column="0"
                                        Margin="7,1,0,0"
@@ -99,11 +112,16 @@
                                                                    Converter={x:Static ObjectConverters.IsNull}}"
                                        Text="{TemplateBinding PlaceholderText}" />
                             <ContentControl Margin="7,1,0,0"
+                                            HorizontalContentAlignment="Left" Foreground="Transparent"  Classes="ghost"
+                                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            Content="{TemplateBinding  ItemsSource, Converter={StaticResource BigItem}}"
+                                            ContentTemplate="{TemplateBinding ItemTemplate}" />
+                            <ContentControl Margin="7,1,0,0"
                                             HorizontalContentAlignment="Left"
                                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                             Content="{TemplateBinding SelectionBoxItem}"
                                             ContentTemplate="{TemplateBinding ItemTemplate}" />
-                            <ToggleButton Name="toggle"
+                            <ToggleButton Margin="10,0,0,0" Name="toggle"
                                           Grid.Column="1"
                                           Background="Transparent"
                                           BorderThickness="0"
