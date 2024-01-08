@@ -17,6 +17,7 @@
         <Setter Property="BorderThickness" Value="{DynamicResource ListBoxBorderThemeThickness}" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        
 
         <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
         <Setter Property="Template">
@@ -34,12 +35,16 @@
                     </Border.Resources>
                     <Grid>
                    <ListBoxItem Opacity="0" Margin="0,0,32,0" Content="{TemplateBinding ItemsSource, Converter={StaticResource  BiggestListitem} }"></ListBoxItem>
-                    <ScrollViewer  Name="PART_ScrollViewer"
+                    <ScrollViewer   Name="PART_ScrollViewer"
                                   HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
                                   VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
+                   
                         <ItemsPresenter Name="PART_ItemsPresenter"
-                                        Margin="{TemplateBinding Padding}"
-                                        ItemsPanel="{TemplateBinding ItemsPanel}" />
+                                        Margin="{TemplateBinding Padding}" 
+                                        ItemsPanel="{TemplateBinding ItemsPanel}" >
+                            
+                        </ItemsPresenter>
+                       
                     </ScrollViewer>
                  </Grid>  
                 </Border>

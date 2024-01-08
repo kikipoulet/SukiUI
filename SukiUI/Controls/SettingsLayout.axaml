@@ -4,6 +4,7 @@
              xmlns:controls="clr-namespace:SukiUI.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:theme="clr-namespace:SukiUI.Theme"
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
@@ -130,7 +131,7 @@
                                     HorizontalAlignment="Left"
                                     DockPanel.Dock="Left" />
                         <ScrollViewer Name="MyScroll">
-                            <StackPanel Name="StackItems" Margin="-10,0" />
+                            <StackPanel theme:StackPanelExtensions.AnimatedScroll="True" Name="StackItems" Margin="-10,0" />
                         </ScrollViewer>
                     </DockPanel>
                 </ControlTemplate>

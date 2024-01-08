@@ -32,7 +32,7 @@
             </controls:GroupBox>
         </controls:GlassCard>
         <ScrollViewer Grid.Row="1">
-            <WrapPanel Classes="PageContainer" Name="WrapButtons">
+            <WrapPanel Classes="PageContainer" theme:WrapPanelExtensions.AnimatedScroll="True">
                 
                 
                 <controls:GlassCard>

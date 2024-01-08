@@ -13,28 +13,7 @@ public partial class ButtonsLibraryView : UserControl
     {
         InitializeComponent();
 
-        var w = this.Get<WrapPanel>("WrapButtons");
-            
-        w.AttachedToVisualTree += (sender, args) =>
-        {
-            CompositionVisual compositionVisual = ElementComposition.GetElementVisual(w);
-            if (compositionVisual == null)
-                return;
-        
-            Compositor compositor = compositionVisual.Compositor;
-
-            var animationGroup = compositor.CreateAnimationGroup();
-            Vector3KeyFrameAnimation offsetAnimation = compositor.CreateVector3KeyFrameAnimation();
-            offsetAnimation.Target = "Offset";
-
-            offsetAnimation.InsertExpressionKeyFrame(1.0f, "this.FinalValue");
-            offsetAnimation.Duration = TimeSpan.FromMilliseconds(300);
-
-            ImplicitAnimationCollection implicitAnimationCollection = compositor.CreateImplicitAnimationCollection();
-            animationGroup.Add(offsetAnimation);
-            implicitAnimationCollection["Offset"] = animationGroup;
-            compositionVisual.ImplicitAnimations = implicitAnimationCollection;
-        };
+     
     }
 
    
