@@ -18,11 +18,7 @@
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         
-<Setter Property="ItemsPanel">
-    <ItemsPanelTemplate>
-        <StackPanel theme:StackPanelExtensions.AnimatedScroll="True" ></StackPanel>
-    </ItemsPanelTemplate>
-</Setter>
+
         
         <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
         <Setter Property="Template">
