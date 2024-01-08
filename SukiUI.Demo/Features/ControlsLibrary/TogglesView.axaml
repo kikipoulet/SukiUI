@@ -16,7 +16,7 @@
                 <controls:GroupBox Header="Radio Buttons">
                     <showMeTheXaml:XamlDisplay UniqueId="RadioButtons">
                         <StackPanel VerticalAlignment="Center" Spacing="10">
-                            <RadioButton Content="Option One" GroupName="R1" />
+                            <RadioButton IsChecked="True" Content="Option One" GroupName="R1" />
                             <RadioButton Content="Option Two" GroupName="R1" />
                             <RadioButton Content="Option Three" GroupName="R1" />
                         </StackPanel>
@@ -27,7 +27,7 @@
                 <controls:GroupBox Header="Simple GigaChips">
                     <showMeTheXaml:XamlDisplay UniqueId="SimpleGigaChips">
                         <StackPanel>
-                            <RadioButton Classes="GigaChips"
+                            <RadioButton Classes="GigaChips" IsChecked="True"
                                          Content="Option One"
                                          GroupName="R2" />
                             <RadioButton Classes="GigaChips"
@@ -44,7 +44,7 @@
                 <controls:GroupBox Header="Complex GigaChips">
                     <showMeTheXaml:XamlDisplay UniqueId="ComplexGigaChips">
                         <StackPanel Orientation="Horizontal">
-                            <RadioButton Classes="GigaChips" GroupName="R3">
+                            <RadioButton IsChecked="True" Classes="GigaChips" GroupName="R3">
                                 <StackPanel>
                                     <TextBlock FontSize="18"
                                                FontWeight="DemiBold"
@@ -76,7 +76,7 @@
                 <controls:GroupBox Header="Toggle Switches">
                     <StackPanel>
                         <showMeTheXaml:XamlDisplay UniqueId="ToggleSwitch">
-                            <ToggleSwitch />
+                            <ToggleSwitch IsChecked="True" />
                         </showMeTheXaml:XamlDisplay>
                         <showMeTheXaml:XamlDisplay UniqueId="CustomContentToggleSwitch">
                             <ToggleSwitch OffContent="Switch Off."  OnContent="Switch On." />
@@ -104,7 +104,7 @@
                     <StackPanel>
                         <showMeTheXaml:XamlDisplay UniqueId="CheckBox">
                             <StackPanel Spacing="5">
-                                <CheckBox Content="Option One" />
+                                <CheckBox IsChecked="True" Content="Option One" />
                                 <CheckBox Content="Option Two" />
                                 <CheckBox Content="Option Three" />
                             </StackPanel>
