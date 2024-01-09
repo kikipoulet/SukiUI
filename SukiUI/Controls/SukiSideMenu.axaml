@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:content="clr-namespace:SukiUI.Content"
                     xmlns:suki="clr-namespace:SukiUI.Controls"
-                    xmlns:sukiUi="clr-namespace:SukiUI">
+                    xmlns:sukiUi="clr-namespace:SukiUI"
+                    xmlns:theme="clr-namespace:SukiUI.Theme">
     <ControlTheme x:Key="SukiSideMenuStyle" TargetType="suki:SukiSideMenu">
         <Setter Property="Template">
             <ControlTemplate>
@@ -85,7 +86,7 @@
                                                   IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
                                                   VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
                                                   VerticalSnapPointsType="{TemplateBinding (ScrollViewer.VerticalSnapPointsType)}">
-                                        <ItemsPresenter Name="PART_ItemsPresenter"
+                                        <ItemsPresenter theme:ItemsPresenterExtensions.AnimatedScroll="True" Name="PART_ItemsPresenter"
                                                         Margin="{TemplateBinding Padding}"
                                                         ItemsPanel="{TemplateBinding ItemsPanel}" />
                                     </ScrollViewer>

@@ -5,7 +5,7 @@
                     Background="{DynamicResource SukiBackground}"
                     Spacing="24">
             <ToggleButton Classes="Switch" IsChecked="False" />
-            <ToggleButton>test</ToggleButton>
+            <ToggleButton Content="Test"></ToggleButton>
         </StackPanel>
     </Design.PreviewWith>
 
@@ -35,9 +35,11 @@
                                   BorderThickness="{TemplateBinding BorderThickness}"
                                   Content="{TemplateBinding Content}"
                                   ContentTemplate="{TemplateBinding ContentTemplate}"
-                                  CornerRadius="{TemplateBinding CornerRadius}"
-                                  RecognizesAccessKey="True"
-                                  TextElement.Foreground="{TemplateBinding Foreground}" />
+                                  CornerRadius="{TemplateBinding CornerRadius}" 
+                                  RecognizesAccessKey="True" Foreground="{TemplateBinding Foreground}"
+                                  TextElement.Foreground="{TemplateBinding Foreground}" >
+                   
+                </ContentPresenter>
             </ControlTemplate>
         </Setter>
     </Style>
@@ -48,25 +50,42 @@
 
     <Style Selector="ToggleButton AccessText">
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Duration="0:0:0.3" Property="Foreground"></BrushTransition>
+            </Transitions>
+        </Setter>
+       
     </Style>
 
+    <Style Selector="ToggleButton:checked AccessText">
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+    
+    <Style Selector="ToggleButton:pointerover AccessText">
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+    
     <Style Selector="ToggleButton:pointerover">
         <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor75}" />
-        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Foreground" Value="White"></Setter>
+        
         <Style Selector="^.Accent">
             <Setter Property="Background" Value="{DynamicResource SukiAccentColor75}" />
         </Style>
     </Style>
 
     <Style Selector="ToggleButton:checked">
+        <Setter Property="Foreground" Value="White"></Setter>
         <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
-        <Setter Property="Foreground" Value="White" />
+      
         <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
         <Style Selector="^.Accent">
             <Setter Property="Background" Value="{DynamicResource SukiAccentColor}" />
             <Setter Property="BorderBrush" Value="{DynamicResource SukiAccentColor}" />
         </Style>
     </Style>
+  
 
     <Style Selector="ToggleButton:pointerover[IsChecked=True]">
         <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor75}" />

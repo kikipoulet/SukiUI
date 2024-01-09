@@ -156,7 +156,7 @@
                                                 BoxShadow="{DynamicResource SukiPopupShadow}"
                                                 CornerRadius="{DynamicResource SmallCornerRadius}">
                                             <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
-                                                <ItemsPresenter theme:ItemsPresenterExtensions.AnimatedScroll="True" Name="PART_ItemsPresenter"
+                                                <ItemsPresenter  Name="PART_ItemsPresenter"
                                                                 Margin="0,3,0,0"
                                                                 ItemsPanel="{TemplateBinding ItemsPanel}" />
                                             </ScrollViewer>
