@@ -15,7 +15,7 @@
             <Setter Property="Template">
                 <ControlTemplate>
                     <Grid>
-                        <Border Background="Transparent"
+                        <Border Background="Transparent" ClipToBounds="{TemplateBinding ClipToBounds}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="{TemplateBinding CornerRadius}">
