@@ -30,7 +30,7 @@
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Padding" Value="4" />
         <Setter Property="MinHeight" Value="45" />
-        <Setter Property="PlaceholderForeground" Value="{DynamicResource SukiText}" />
+        <Setter Property="PlaceholderForeground" Value="{DynamicResource SukiLowText}" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="Template">
             <ControlTemplate>
@@ -107,7 +107,7 @@
                                        Margin="7,1,0,0"
                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                        VerticalAlignment="Center"
-                                       Foreground="Gray"
+                                       Foreground="{TemplateBinding PlaceholderText}"
                                        IsVisible="{TemplateBinding SelectionBoxItem,
                                                                    Converter={x:Static ObjectConverters.IsNull}}"
                                        Text="{TemplateBinding PlaceholderText}" />
