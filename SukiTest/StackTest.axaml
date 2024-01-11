@@ -8,15 +8,14 @@
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
-    <controls:StackPage Header="Settings">
-        <controls:StackPage.Content>
-            <controls:SettingsLayout>
+    <controls:SukiStackPage>
+        <controls:SukiStackPage.Content>
+            <controls:SettingsLayout Name="Settings">
                 <controls:SettingsLayout.Items>
                     <objectModel:ObservableCollection x:TypeArguments="controls:SettingsLayoutItem">
                         <controls:SettingsLayoutItem Header="Profile Informations">
                             <controls:SettingsLayoutItem.Content>
                                 <StackPanel>
-
                                     <DockPanel Margin="0,15">
                                         <TextBox Width="150"
                                                  DockPanel.Dock="Right"
@@ -183,6 +182,6 @@
                     </objectModel:ObservableCollection>
                 </controls:SettingsLayout.Items>
             </controls:SettingsLayout>
-        </controls:StackPage.Content>
-    </controls:StackPage>
+        </controls:SukiStackPage.Content>
+    </controls:SukiStackPage>
 </UserControl>
