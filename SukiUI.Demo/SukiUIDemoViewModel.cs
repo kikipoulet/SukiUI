@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
+using Avalonia;
 using SukiUI.Demo.Utilities;
 
 namespace SukiUI.Demo;

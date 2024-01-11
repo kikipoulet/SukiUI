@@ -1,6 +1,11 @@
+using System;
+using System.Reflection;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform;
 using SukiUI.Content;
 using SukiUI.Controls;
 using SukiUI.Demo.Utilities;
@@ -13,8 +18,7 @@ public partial class SukiUIDemoView : SukiWindow
     public SukiUIDemoView()
     {
         InitializeComponent();
-        var bitmap = BitmapUtilities.CreateBitmap(Icons.SukiLogo, Brushes.White);
-        if (bitmap is null) return;
+        var bitmap = new Bitmap(AssetLoader.Open(new Uri("avares://SukiUI.Demo/Assets/OIG.N5o-removebg-preview.png")));
         Icon = new WindowIcon(bitmap);
     }
 

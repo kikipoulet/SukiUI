@@ -44,10 +44,11 @@
             <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding AllIcons}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:CompileBindings="False">
-                        <controls:GlassCard Margin="15,15,15,15">
+                        <controls:GlassCard Margin="15,15,15,15" IsInteractive="True">
                             <controls:GroupBox Header="{Binding Key}">
-                                <PathIcon Width="25" Margin="0,8,0,0"
+                                <PathIcon Width="25"
                                           Height="25"
+                                          Margin="0,8,0,0"
                                           Data="{Binding Value}" />
                             </controls:GroupBox>
                         </controls:GlassCard>

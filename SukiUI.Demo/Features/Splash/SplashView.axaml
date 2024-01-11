@@ -1,7 +1,6 @@
 <UserControl x:Class="SukiUI.Demo.Features.Splash.SplashView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:content="clr-namespace:SukiUI.Content;assembly=SukiUI"
              xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -15,7 +14,11 @@
                         VerticalAlignment="Center">
         <controls:GroupBox Header="Welcome to the SukiUI Demo App.">
             <StackPanel Classes="HeaderContent">
-                <Image Width="135" Height="135" HorizontalAlignment="Center" Margin="30" Source="../../Assets/OIG.N5o-removebg-preview.png" />
+                <Image Width="135"
+                       Height="135"
+                       Margin="30"
+                       HorizontalAlignment="Center"
+                       Source="../../Assets/OIG.N5o-removebg-preview.png" />
                 <TextBlock Name="TextBlockWithInline">
                     In this app you'll find a sample page
                     (<InlineUIContainer>
