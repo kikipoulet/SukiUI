@@ -1,63 +1,29 @@
-﻿<UserControl x:Class="SukiUI.Controls.GlassCard"
-             xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:suki="clr-namespace:SukiUI.Controls"
-             d:DesignHeight="450"
-             d:DesignWidth="800"
-             mc:Ignorable="d">
-    <UserControl.Styles>
-        <Style Selector="suki|GlassCard">
-            <Setter Property="BorderBrush" Value="{DynamicResource GlassBorderBrush}" />
-            <Setter Property="Padding" Value="20" />
-
-            <Setter Property="Template">
-                <ControlTemplate>
-                    <Grid>
-                        <Border Background="Transparent" ClipToBounds="{TemplateBinding ClipToBounds}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="{TemplateBinding CornerRadius}">
-
-
-                            <Grid>
-                                <Border Name="PART_BorderLight" Background="#aaffffff"
-                                        CornerRadius="{TemplateBinding CornerRadius}"
-                                        IsVisible="{DynamicResource IsLight}"
-                                        Opacity="{DynamicResource GlassOpacityLight}" />
-
-                                <Border Background="#3b3b3b" Name="PART_BorderDark" 
-                                        CornerRadius="{TemplateBinding CornerRadius}"
-                                        IsVisible="{DynamicResource IsDark}"
-                                        Opacity="{DynamicResource GlassOpacityDark}" />
-                                
-                              
-
-
-                                <!--   <glassMorphism:BlurBackground /> -->
-
-                                <ContentControl Margin="{TemplateBinding Padding}" Content="{TemplateBinding Content}" />
-                            </Grid>
-                        </Border>
-                        <Border Background="Transparent"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="{TemplateBinding CornerRadius}"
-                                IsHitTestVisible="False" />
-                    </Grid>
-                </ControlTemplate>
-            </Setter>
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:suki="clr-namespace:SukiUI.Controls">
+    <ControlTheme x:Key="SukiGlassCardStyle" TargetType="suki:GlassCard">
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassBorderBrush}" />
+        <Setter Property="Padding" Value="20" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid>
+                    <Border Name="PART_BorderCard"
+                            Background="{DynamicResource SukiGlassCardBackground}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            ClipToBounds="{TemplateBinding ClipToBounds}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Opacity="{DynamicResource GlassOpacity}" />
+                    <ContentPresenter Margin="{TemplateBinding Padding}" Content="{TemplateBinding Content}" />
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+        <Style Selector="^[IsOpaque=True] /template/ Border#PART_BorderCard">
+            <Setter Property="Opacity" Value="1" />
+            <Setter Property="Background" Value="{DynamicResource SukiGlassCardOpaqueBackground}" />
         </Style>
-        
-        <Style Selector="suki|GlassCard[IsOpaque=True] /template/ Border#PART_BorderDark">
-            <Setter Property="Opacity" Value="1"></Setter>
-            <Setter Property="Background" Value="#222222"></Setter>
-        </Style>
-        
-        <Style Selector="suki|GlassCard[IsOpaque=True] /template/ Border#PART_BorderLight">
-            <Setter Property="Opacity" Value="1"></Setter>
-            <Setter Property="Background" Value="#fcfcfc"></Setter>
-        </Style>
-    </UserControl.Styles>
-</UserControl>
+    </ControlTheme>
+    <ControlTheme x:Key="{x:Type suki:GlassCard}"
+                  BasedOn="{StaticResource SukiGlassCardStyle}"
+                  TargetType="suki:GlassCard" />
+</ResourceDictionary>
