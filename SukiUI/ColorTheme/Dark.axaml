@@ -23,6 +23,7 @@
     <BoxShadows x:Key="SukiSwitchShadow">0 1 5 0 #555555</BoxShadows>
     <BoxShadows x:Key="SukiPopupShadow">1 1 5 0 #404040</BoxShadows>
     <BoxShadows x:Key="SukiBigPopupShadow">1 1 15 0 #606060</BoxShadows>
+    <BoxShadows x:Key="SukiGlassCardHighlightedShadow">inset 0 0 5 5 #606060</BoxShadows>
 
     <system:Boolean x:Key="IsDark">True</system:Boolean>
     <system:Boolean x:Key="IsLight">False</system:Boolean>
@@ -30,4 +31,5 @@
     <system:Double x:Key="GlassOpacity">0.45</system:Double>
     <system:Double x:Key="GlassOpacityDark">0.45</system:Double>
     <system:Double x:Key="GlassOpacityLight">0.57</system:Double>
+
 </ResourceDictionary>

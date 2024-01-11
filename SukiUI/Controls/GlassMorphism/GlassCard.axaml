@@ -11,9 +11,16 @@
                             Background="{DynamicResource SukiGlassCardBackground}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
+                            BoxShadow="inset 0 0 0 0 transparent"
                             ClipToBounds="{TemplateBinding ClipToBounds}"
                             CornerRadius="{TemplateBinding CornerRadius}"
-                            Opacity="{DynamicResource GlassOpacity}" />
+                            Opacity="{DynamicResource GlassOpacity}">
+                        <Border.Transitions>
+                            <Transitions>
+                                <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.15" />
+                            </Transitions>
+                        </Border.Transitions>
+                    </Border>
                     <ContentPresenter Margin="{TemplateBinding Padding}" Content="{TemplateBinding Content}" />
                 </Grid>
             </ControlTemplate>
@@ -21,6 +28,9 @@
         <Style Selector="^[IsOpaque=True] /template/ Border#PART_BorderCard">
             <Setter Property="Opacity" Value="1" />
             <Setter Property="Background" Value="{DynamicResource SukiGlassCardOpaqueBackground}" />
+        </Style>
+        <Style Selector="^[IsInteractive=True]:pointerover /template/ Border#PART_BorderCard">
+            <Setter Property="BoxShadow" Value="{DynamicResource SukiGlassCardHighlightedShadow}" />
         </Style>
     </ControlTheme>
     <ControlTheme x:Key="{x:Type suki:GlassCard}"

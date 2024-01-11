@@ -1,7 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
-using Avalonia.Markup.Xaml;
+using Avalonia.Markup.Xaml.MarkupExtensions;
 
 namespace SukiUI.Controls;
 
@@ -32,5 +32,13 @@ public class GlassCard : ContentControl
     {
         get => GetValue(IsOpaqueProperty);
         set => SetValue(IsOpaqueProperty, value);
+    }
+
+    public static readonly StyledProperty<bool> IsInteractiveProperty = AvaloniaProperty.Register<GlassCard, bool>(nameof(IsInteractive));
+
+    public bool IsInteractive
+    {
+        get => GetValue(IsInteractiveProperty);
+        set => SetValue(IsInteractiveProperty, value);
     }
 }

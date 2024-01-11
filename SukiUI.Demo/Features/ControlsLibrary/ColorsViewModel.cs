@@ -1,14 +1,11 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Avalonia;
 using Avalonia.Collections;
-using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Material.Icons;
-using SukiUI.Enums;
 using SukiUI.Models;
 
 namespace SukiUI.Demo.Features.ControlsLibrary
@@ -19,7 +16,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary
         [
             "SukiText", "SukiLowText", "SukiCardBackground", "SukiLightBorderBrush", "SukiControlBorderBrush",
             "GlassBorderBrush", "SukiDialogBackground", "SukiMediumBorderBrush", "SukiControlTouchBackground",
-            "SukiBorderBrush", "SukiStrongBackground"
+            "SukiBorderBrush", "SukiStrongBackground", "SukiGlassCardBackground", "SukiGlassCardOpaqueBackground"
         ];
 
         public AvaloniaList<ColorViewModel> Colors { get; } = new();
