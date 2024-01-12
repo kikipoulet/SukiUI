@@ -21,7 +21,17 @@
                             </Transitions>
                         </Border.Transitions>
                     </Border>
-                    <ContentPresenter Margin="{TemplateBinding Padding}" Content="{TemplateBinding Content}" />
+                   
+                    <Border 
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                           
+                            ClipToBounds="{TemplateBinding ClipToBounds}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            >
+                        <ContentPresenter Margin="{TemplateBinding Padding}" Content="{TemplateBinding Content}" />
+                        </Border>
                 </Grid>
             </ControlTemplate>
         </Setter>
