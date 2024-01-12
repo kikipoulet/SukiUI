@@ -23,10 +23,6 @@
                     </Border>
                     
                    
-                        <suki:SukiBackground IsVisible="{TemplateBinding IsOpaque}"></suki:SukiBackground>          
-                  
-                    
-                    <suki:GlassCard IsVisible="{TemplateBinding IsOpaque}"></suki:GlassCard>
                     
                    
                     <Border 
@@ -38,9 +34,14 @@
                             CornerRadius="{TemplateBinding CornerRadius}"
                             >
                         
-                           
-                            <ContentPresenter  Margin="{TemplateBinding Padding}" Content="{TemplateBinding Content}" />
-                        
+                           <Grid>
+                               
+                               <suki:SukiBackground IsVisible="{TemplateBinding IsOpaque}"></suki:SukiBackground>          
+                  
+                    
+                               <suki:GlassCard IsVisible="{TemplateBinding IsOpaque}"></suki:GlassCard>
+                               <ContentPresenter  Margin="{TemplateBinding Padding}" Content="{TemplateBinding Content}" />
+                        </Grid>
                         </Border>
                 </Grid>
             </ControlTemplate>
