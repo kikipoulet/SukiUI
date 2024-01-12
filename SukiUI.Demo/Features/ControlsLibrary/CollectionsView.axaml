@@ -22,7 +22,7 @@
             </controls:GroupBox>
         </controls:GlassCard>
         <ScrollViewer Grid.Row="1">
-            <WrapPanel theme:WrapPanelExtensions.AnimatedScroll="True" Classes="PageContainer">
+            <WrapPanel Classes="PageContainer">
                 <controls:GlassCard>
                     <controls:GroupBox Header="ListBox">
                         <showMeTheXaml:XamlDisplay UniqueId="ListBox">
