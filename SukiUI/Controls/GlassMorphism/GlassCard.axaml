@@ -21,6 +21,13 @@
                             </Transitions>
                         </Border.Transitions>
                     </Border>
+                    
+                   
+                        <suki:SukiBackground IsVisible="{TemplateBinding IsOpaque}"></suki:SukiBackground>          
+                  
+                    
+                    <suki:GlassCard IsVisible="{TemplateBinding IsOpaque}"></suki:GlassCard>
+                    
                    
                     <Border 
                             Background="Transparent"
@@ -30,7 +37,10 @@
                             ClipToBounds="{TemplateBinding ClipToBounds}"
                             CornerRadius="{TemplateBinding CornerRadius}"
                             >
-                        <ContentPresenter Margin="{TemplateBinding Padding}" Content="{TemplateBinding Content}" />
+                        
+                           
+                            <ContentPresenter  Margin="{TemplateBinding Padding}" Content="{TemplateBinding Content}" />
+                        
                         </Border>
                 </Grid>
             </ControlTemplate>
