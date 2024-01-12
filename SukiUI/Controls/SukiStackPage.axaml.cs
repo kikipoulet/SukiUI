@@ -103,11 +103,23 @@ namespace SukiUI.Controls
                 return;
             }
 
+           
+            
             StackPageModel model;
             if (newVal is ISukiStackPageTitleProvider stackPageVm)
+            {
                 model = new StackPageModel(stackPageVm.Title, stackPageVm);
-            else if (newVal is Control { Name: not null } c)
-                model = new StackPageModel(c.Name, newVal);
+            }
+            else if (newVal is Control c)
+            {
+                if(c.Name is not null)
+                    model = new StackPageModel(c.Name, newVal);
+                else
+                {
+                    model = new StackPageModel(c.Name, newVal);
+                    c.AttachedToVisualTree += (sender, args) => model.Title = c.Name;
+                }
+            }
             else
                 model = new StackPageModel(newVal.GetType().Name, newVal);
             if (_index >= _stackPages.Length - 1)
@@ -192,7 +204,7 @@ namespace SukiUI.Controls
 
     internal record StackPageModel(string Title, object Content)
     {
-        public string Title { get; } = Title;
+        public string Title { get; set; } = Title;
         public object Content { get; } = Content;
     }
 
