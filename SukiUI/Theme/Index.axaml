@@ -59,6 +59,7 @@
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiHost.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiToast.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiSideMenu.axaml" />
+                <ResourceInclude Source="avares://sukiUI/Controls/SukiStackPage.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiSideMenuItem.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiTransitioningContentControl.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/Stepper.axaml" />

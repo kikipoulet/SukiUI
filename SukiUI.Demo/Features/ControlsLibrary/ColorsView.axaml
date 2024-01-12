@@ -20,15 +20,16 @@
             <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding Colors}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <controls:GlassCard Margin="15">
+                        <controls:GlassCard Margin="15" IsInteractive="True">
                             <controls:GroupBox Header="{Binding Name}">
                                 <Rectangle Width="50"
                                            Height="50"
+                                           Margin="0,7,0,0"
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Center"
                                            Fill="{Binding Brush}"
                                            RadiusX="8"
-                                           RadiusY="8" Margin="0,7,0,0"
+                                           RadiusY="8"
                                            Stroke="{DynamicResource SukiBorderBrush}"
                                            StrokeThickness="2">
                                     <Rectangle.Transitions>
