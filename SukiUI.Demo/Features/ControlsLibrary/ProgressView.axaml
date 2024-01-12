@@ -59,7 +59,7 @@
             </controls:GroupBox>
         </controls:GlassCard>
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled">
-            <WrapPanel theme:WrapPanelExtensions.AnimatedScroll="True" Classes="PageContainer">
+            <WrapPanel Classes="PageContainer">
                 <controls:GlassCard Margin="20">
                     <controls:GroupBox Header="Wave Progress">
                         <Grid>

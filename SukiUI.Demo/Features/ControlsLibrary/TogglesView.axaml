@@ -12,12 +12,14 @@
              x:DataType="controlsLibrary:TogglesViewModel"
              mc:Ignorable="d">
     <ScrollViewer>
-        <WrapPanel theme:WrapPanelExtensions.AnimatedScroll="True" Classes="PageContainer">
+        <WrapPanel Classes="PageContainer">
             <controls:GlassCard>
                 <controls:GroupBox Header="Radio Buttons">
                     <showMeTheXaml:XamlDisplay UniqueId="RadioButtons">
                         <StackPanel VerticalAlignment="Center" Spacing="10">
-                            <RadioButton IsChecked="True" Content="Option One" GroupName="R1" />
+                            <RadioButton Content="Option One"
+                                         GroupName="R1"
+                                         IsChecked="True" />
                             <RadioButton Content="Option Two" GroupName="R1" />
                             <RadioButton Content="Option Three" GroupName="R1" />
                         </StackPanel>
@@ -28,9 +30,10 @@
                 <controls:GroupBox Header="Simple GigaChips">
                     <showMeTheXaml:XamlDisplay UniqueId="SimpleGigaChips">
                         <StackPanel>
-                            <RadioButton Classes="GigaChips" IsChecked="True"
+                            <RadioButton Classes="GigaChips"
                                          Content="Option One"
-                                         GroupName="R2" />
+                                         GroupName="R2"
+                                         IsChecked="True" />
                             <RadioButton Classes="GigaChips"
                                          Content="Option Two"
                                          GroupName="R2" />
@@ -45,12 +48,16 @@
                 <controls:GroupBox Header="Complex GigaChips">
                     <showMeTheXaml:XamlDisplay UniqueId="ComplexGigaChips">
                         <StackPanel Orientation="Horizontal">
-                            <RadioButton IsChecked="True" Classes="GigaChips" GroupName="R3">
+                            <RadioButton Classes="GigaChips"
+                                         GroupName="R3"
+                                         IsChecked="True">
                                 <StackPanel>
                                     <TextBlock FontSize="18"
                                                FontWeight="DemiBold"
                                                Text="One Header" />
-                                    <TextBlock Margin="0,8,0,0" Foreground="{DynamicResource SukiLowText}" Text="Some content." />
+                                    <TextBlock Margin="0,8,0,0"
+                                               Foreground="{DynamicResource SukiLowText}"
+                                               Text="Some content." />
                                 </StackPanel>
                             </RadioButton>
                             <RadioButton Classes="GigaChips" GroupName="R3">
@@ -58,7 +65,9 @@
                                     <TextBlock FontSize="18"
                                                FontWeight="DemiBold"
                                                Text="Another Header" />
-                                    <TextBlock Margin="0,8,0,0" Foreground="{DynamicResource SukiLowText}" Text="Some content." />
+                                    <TextBlock Margin="0,8,0,0"
+                                               Foreground="{DynamicResource SukiLowText}"
+                                               Text="Some content." />
                                 </StackPanel>
                             </RadioButton>
                             <RadioButton Classes="GigaChips" GroupName="R3">
@@ -66,7 +75,9 @@
                                     <TextBlock FontSize="18"
                                                FontWeight="DemiBold"
                                                Text="Final Header" />
-                                    <TextBlock Margin="0,8,0,0" Foreground="{DynamicResource SukiLowText}" Text="Some content." />
+                                    <TextBlock Margin="0,8,0,0"
+                                               Foreground="{DynamicResource SukiLowText}"
+                                               Text="Some content." />
                                 </StackPanel>
                             </RadioButton>
                         </StackPanel>
@@ -80,7 +91,7 @@
                             <ToggleSwitch IsChecked="True" />
                         </showMeTheXaml:XamlDisplay>
                         <showMeTheXaml:XamlDisplay UniqueId="CustomContentToggleSwitch">
-                            <ToggleSwitch OffContent="Switch Off."  OnContent="Switch On." />
+                            <ToggleSwitch OffContent="Switch Off." OnContent="Switch On." />
                         </showMeTheXaml:XamlDisplay>
                     </StackPanel>
                 </controls:GroupBox>
@@ -105,7 +116,7 @@
                     <StackPanel>
                         <showMeTheXaml:XamlDisplay UniqueId="CheckBox">
                             <StackPanel Spacing="5">
-                                <CheckBox IsChecked="True" Content="Option One" />
+                                <CheckBox Content="Option One" IsChecked="True" />
                                 <CheckBox Content="Option Two" />
                                 <CheckBox Content="Option Three" />
                             </StackPanel>

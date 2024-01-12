@@ -30,20 +30,26 @@
             </controls:GroupBox>
         </controls:GlassCard>
         <ScrollViewer Grid.Row="1">
-            <WrapPanel theme:WrapPanelExtensions.AnimatedScroll="True" Classes="PageContainer">
+            <WrapPanel Classes="PageContainer">
                 <controls:GlassCard>
                     <controls:GroupBox Header="Standard Dialog">
-                        <Button Margin="15,10,15,0" Command="{Binding OpenStandardDialogCommand}" Content="Open" />
+                        <Button Margin="15,10,15,0"
+                                Command="{Binding OpenStandardDialogCommand}"
+                                Content="Open" />
                     </controls:GroupBox>
                 </controls:GlassCard>
                 <controls:GlassCard>
                     <controls:GroupBox Header="Background Closable Dialog">
-                        <Button Margin="15,10,15,0" Command="{Binding OpenBackgroundCloseDialogCommand}" Content="Open" />
+                        <Button Margin="15,10,15,0"
+                                Command="{Binding OpenBackgroundCloseDialogCommand}"
+                                Content="Open" />
                     </controls:GroupBox>
                 </controls:GlassCard>
                 <controls:GlassCard>
                     <controls:GroupBox Header="ViewModel Dialog">
-                        <Button Margin="15,10,15,0" Command="{Binding OpenViewModelDialogCommand}" Content="Open" />
+                        <Button Margin="15,10,15,0"
+                                Command="{Binding OpenViewModelDialogCommand}"
+                                Content="Open" />
                     </controls:GroupBox>
                 </controls:GlassCard>
             </WrapPanel>
