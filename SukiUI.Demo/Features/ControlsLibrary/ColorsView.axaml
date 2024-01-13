@@ -13,7 +13,7 @@
     <Grid RowDefinitions="Auto,*">
         <controls:GlassCard Classes="HeaderCard">
             <controls:GroupBox Header="Colors">
-                <StackPanel>
+                <StackPanel Classes="HeaderContent">
                     <TextBlock>Below is a full list of all defined colors that are available either via XAML (DynamicResource) or via Application.Resources.</TextBlock>
                     <TextBlock>Click on any of the colors to copy it's name to your clipboard.</TextBlock>
                 </StackPanel>

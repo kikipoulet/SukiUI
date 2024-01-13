@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 
 namespace SukiUI.Controls;
 
@@ -38,5 +39,17 @@ public class GlassCard : ContentControl
     {
         get => GetValue(IsInteractiveProperty);
         set => SetValue(IsInteractiveProperty, value);
+    }
+    
+    protected override void OnPointerPressed(PointerPressedEventArgs e)
+    {
+        base.OnPointerPressed(e);
+        PseudoClasses.Set(":pointerdown", true);
+    }
+
+    protected override void OnPointerReleased(PointerReleasedEventArgs e)
+    {
+        base.OnPointerReleased(e);
+        PseudoClasses.Set(":pointerdown", false);
     }
 }
