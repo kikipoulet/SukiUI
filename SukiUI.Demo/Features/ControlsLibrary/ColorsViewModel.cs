@@ -2,9 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Avalonia;
 using Avalonia.Collections;
+using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
 using SukiUI.Models;
 
@@ -29,7 +31,6 @@ namespace SukiUI.Demo.Features.ControlsLibrary
         public ColorsViewModel() : base("Colors", MaterialIconKind.Paintbrush)
         {
             _theme = SukiTheme.GetInstance();
-
 
             Colors.AddRange(BuildOrGetColorTheme(_theme.ActiveColorTheme)
                 .Select(x => new ColorViewModel(x.Key, x.Value)));
