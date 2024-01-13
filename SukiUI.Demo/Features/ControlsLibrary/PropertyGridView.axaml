@@ -12,175 +12,47 @@
              x:DataType="controlsLibrary:PropertyGridViewModel"
              mc:Ignorable="d">
 
-    <Design.DataContext>
-        <controlsLibrary:PropertyGridViewModel />
-    </Design.DataContext>
-
     <Grid ColumnDefinitions="* *">
-        <ScrollViewer>
-            <controls:PropertyGrid Item="{Binding Form}">
-                <controls:PropertyGrid.DataTemplates>
-                    <!--
-                        replace the PropertyGridTemplateSelector with your own type or subclass it,
-                        if you want to customize the datatemplates being used
-                    -->
-                    <controls:PropertyGridTemplateSelector UseSukiHost="false" />
-                </controls:PropertyGrid.DataTemplates>
-            </controls:PropertyGrid>
-        </ScrollViewer>
+        <controls:GlassCard Margin="15">
+            <ScrollViewer>
+                <controls:PropertyGrid Item="{Binding Form}">
+                    <controls:PropertyGrid.DataTemplates>
+                        <!--
+                            replace the PropertyGridTemplateSelector with your own type or subclass it,
+                            if you want to customize the datatemplates being used
+                        -->
+                        <controls:PropertyGridTemplateSelector UseSukiHost="false" />
+                    </controls:PropertyGrid.DataTemplates>
+                </controls:PropertyGrid>
+            </ScrollViewer>
+        </controls:GlassCard>
 
-        <ScrollViewer Grid.Column="1">
-            <StackPanel DataContext="{Binding Form}" Orientation="Vertical">
-                <Border Margin="4"
-                        Padding="4"
-                        BorderBrush="Gray"
-                        BorderThickness="1">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="NullableName:" />
-                        <TextBlock Text="{Binding NullableName}" />
+        <controls:GlassCard Grid.Column="1" Margin="0,15,15,15">
+            <controls:GroupBox Header="Form Output">
+                <ScrollViewer>
+                    <ScrollViewer.Styles>
+                        <Style Selector="TextBox">
+                            <Setter Property="IsEnabled" Value="False" />
+                        </Style>
+                    </ScrollViewer.Styles>
+                    <StackPanel DataContext="{Binding Form}" Orientation="Vertical">
+                        <TextBox theme:TextBoxExtensions.Prefix="NullableName:  " Text="{Binding NullableName}" />
+                        <TextBox theme:TextBoxExtensions.Prefix="NullableDescription:  " Text="{Binding NullableDescription}" />
+                        <TextBox theme:TextBoxExtensions.Prefix="NullableBoolean:  " Text="{Binding NullableBoolean}" />
+                        <TextBox theme:TextBoxExtensions.Prefix="NullableDateTime:  " Text="{Binding NullableDateTime}" />
+                        <TextBox theme:TextBoxExtensions.Prefix="NullableInteger:  " Text="{Binding NullableInteger}" />
+                        <TextBox theme:TextBoxExtensions.Prefix="NullableLong:  " Text="{Binding NullableLong}" />
+                        <TextBox theme:TextBoxExtensions.Prefix="NullableDecimal:  " Text="{Binding NullableDecimal}" />
+                        <TextBox theme:TextBoxExtensions.Prefix="NullableFloat:  " Text="{Binding NullableFloat}" />
+                        <TextBox theme:TextBoxExtensions.Prefix="NullableDouble:  " Text="{Binding NullableDouble}" />
+                        <TextBox theme:TextBoxExtensions.Prefix="Name:  " Text="{Binding Name}" />
+                        <TextBox theme:TextBoxExtensions.Prefix="Integer:  " Text="{Binding Integer}" />
+                        <TextBox theme:TextBoxExtensions.Prefix="Decimal:  " Text="{Binding Decimal}" />
+                        <TextBox theme:TextBoxExtensions.Prefix="Boolean:  " Text="{Binding Boolean}" />
+                        <TextBox theme:TextBoxExtensions.Prefix="DateTime:  " Text="{Binding DateTime}" />
                     </StackPanel>
-                </Border>
-
-                <Border Margin="4"
-                        Padding="4"
-                        BorderBrush="Gray"
-                        BorderThickness="1">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="NullableDescription:" />
-                        <TextBlock Text="{Binding NullableDescription}" />
-                    </StackPanel>
-                </Border>
-
-                <Border Margin="4"
-                        Padding="4"
-                        BorderBrush="Gray"
-                        BorderThickness="1">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="NullableBoolean:" />
-                        <TextBlock Text="{Binding NullableBoolean}" />
-                    </StackPanel>
-                </Border>
-
-                <Border Margin="4"
-                        Padding="4"
-                        BorderBrush="Gray"
-                        BorderThickness="1">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="NullableDateTime:" />
-                        <TextBlock Text="{Binding NullableDateTime}" />
-                    </StackPanel>
-                </Border>
-
-                <Border Margin="4"
-                        Padding="4"
-                        BorderBrush="Gray"
-                        BorderThickness="1">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="NullableInteger:" />
-                        <TextBlock Text="{Binding NullableInteger}" />
-                    </StackPanel>
-                </Border>
-
-                <Border Margin="4"
-                        Padding="4"
-                        BorderBrush="Gray"
-                        BorderThickness="1">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="NullableLong:" />
-                        <TextBlock Text="{Binding NullableLong}" />
-                    </StackPanel>
-                </Border>
-
-                <Border Margin="4"
-                        Padding="4"
-                        BorderBrush="Gray"
-                        BorderThickness="1">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="NullablePrice:" />
-                        <TextBlock Text="{Binding NullableDecimal}" />
-                    </StackPanel>
-                </Border>
-
-                <Border Margin="4"
-                        Padding="4"
-                        BorderBrush="Gray"
-                        BorderThickness="1">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="NullableFloat:" />
-                        <TextBlock Text="{Binding NullableFloat}" />
-                    </StackPanel>
-                </Border>
-
-                <Border Margin="4"
-                        Padding="4"
-                        BorderBrush="Gray"
-                        BorderThickness="1">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="NullableDouble:" />
-                        <TextBlock Text="{Binding NullableDouble}" />
-                    </StackPanel>
-                </Border>
-
-                <Border Margin="4"
-                        Padding="4"
-                        BorderBrush="Gray"
-                        BorderThickness="1">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Name:" />
-                        <TextBlock Text="{Binding Name}" />
-                    </StackPanel>
-                </Border>
-
-                <Border Margin="4"
-                        Padding="4"
-                        BorderBrush="Gray"
-                        BorderThickness="1">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Description:" />
-                        <TextBlock Text="{Binding Description}" />
-                    </StackPanel>
-                </Border>
-
-                <Border Margin="4"
-                        Padding="4"
-                        BorderBrush="Gray"
-                        BorderThickness="1">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Integer:" />
-                        <TextBlock Text="{Binding Integer}" />
-                    </StackPanel>
-                </Border>
-
-                <Border Margin="4"
-                        Padding="4"
-                        BorderBrush="Gray"
-                        BorderThickness="1">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Decimal:" />
-                        <TextBlock Text="{Binding Decimal}" />
-                    </StackPanel>
-                </Border>
-
-                <Border Margin="4"
-                        Padding="4"
-                        BorderBrush="Gray"
-                        BorderThickness="1">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Boolean:" />
-                        <TextBlock Text="{Binding Boolean}" />
-                    </StackPanel>
-                </Border>
-
-                <Border Margin="4"
-                        Padding="4"
-                        BorderBrush="Gray"
-                        BorderThickness="1">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="DateTime:" />
-                        <TextBlock Text="{Binding DateTime}" />
-                    </StackPanel>
-                </Border>
-            </StackPanel>
-        </ScrollViewer>
+                </ScrollViewer>
+            </controls:GroupBox>
+        </controls:GlassCard>
     </Grid>
 </UserControl>
