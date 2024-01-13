@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Avalonia;
 using Avalonia.Collections;
+using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -12,13 +13,6 @@ namespace SukiUI.Demo.Features.ControlsLibrary
 {
     public partial class ColorsViewModel : DemoPageBase
     {
-        private readonly string[] _keys =
-        [
-            "SukiText", "SukiLowText", "SukiCardBackground", "SukiLightBorderBrush", "SukiControlBorderBrush",
-            "GlassBorderBrush", "SukiDialogBackground", "SukiMediumBorderBrush", "SukiControlTouchBackground",
-            "SukiBorderBrush", "SukiStrongBackground", "SukiGlassCardBackground", "SukiGlassCardOpaqueBackground"
-        ];
-
         public AvaloniaList<ColorViewModel> Colors { get; } = new();
 
         private readonly Dictionary<ThemeVariant, Dictionary<string, IBrush>> _baseThemeCache = new();
@@ -29,7 +23,6 @@ namespace SukiUI.Demo.Features.ControlsLibrary
         public ColorsViewModel() : base("Colors", MaterialIconKind.Paintbrush)
         {
             _theme = SukiTheme.GetInstance();
-
 
             Colors.AddRange(BuildOrGetColorTheme(_theme.ActiveColorTheme)
                 .Select(x => new ColorViewModel(x.Key, x.Value)));
@@ -59,6 +52,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary
             if (_colorThemeCache.TryGetValue(theme, out var res))
                 return res;
             var colors = Application.Current.Resources
+                .Where(x => x.Value is Color)
                 .ToDictionary(x => (string)x.Key, y => (IBrush)new SolidColorBrush((Color)y.Value));
             _colorThemeCache[theme] = colors;
             return _colorThemeCache[theme];
@@ -68,14 +62,12 @@ namespace SukiUI.Demo.Features.ControlsLibrary
         {
             if (_baseThemeCache.TryGetValue(variant, out var res))
                 return res;
-            var newRes = new Dictionary<string, IBrush>();
-            foreach (var key in _keys)
-            {
-                if (Application.Current.TryGetResource(key, variant, out var obj) && obj is Color col)
-                    newRes.Add(key, new SolidColorBrush(col));
-            }
+            var themeVariantResources = (ResourceDictionary)SukiTheme.GetInstance().Resources.ThemeDictionaries[variant];
+            var brushes = themeVariantResources
+                .Where(x => x.Value is Color)
+                .ToDictionary(x => (string)x.Key, y => (IBrush)new SolidColorBrush((Color)y.Value!));
 
-            _baseThemeCache[variant] = newRes;
+            _baseThemeCache[variant] = brushes;
             return _baseThemeCache[variant];
         }
     }

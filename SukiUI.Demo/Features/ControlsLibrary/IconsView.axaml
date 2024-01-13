@@ -35,7 +35,7 @@
                         </showMeTheXaml:XamlDisplay>
                     </StackPanel>
                     <TextBlock>
-                        Here is the full list of available icons:
+                        Here is the full list of available icons, click on any of them to copy the XAML to use it to the clipboard:
                     </TextBlock>
                 </StackPanel>
             </controls:GroupBox>
@@ -44,7 +44,9 @@
             <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding AllIcons}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:CompileBindings="False">
-                        <controls:GlassCard Margin="15,15,15,15" IsInteractive="True">
+                        <controls:GlassCard Margin="15,15,15,15"
+                                            IsInteractive="True"
+                                            PointerPressed="InputElement_OnPointerPressed">
                             <controls:GroupBox Header="{Binding Key}">
                                 <PathIcon Width="25"
                                           Height="25"

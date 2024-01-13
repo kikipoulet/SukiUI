@@ -1,5 +1,8 @@
-﻿using Avalonia;
+﻿using System.Windows.Input;
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.LogicalTree;
 
 namespace SukiUI.Controls;
 
@@ -38,5 +41,35 @@ public class GlassCard : ContentControl
     {
         get => GetValue(IsInteractiveProperty);
         set => SetValue(IsInteractiveProperty, value);
+    }
+
+    public static readonly StyledProperty<ICommand?> CommandProperty = AvaloniaProperty.Register<GlassCard, ICommand?>(nameof(Command));
+
+    public ICommand? Command
+    {
+        get => GetValue(CommandProperty);
+        set => SetValue(CommandProperty, value);
+    }
+
+    public static readonly StyledProperty<object?> CommandParameterProperty = AvaloniaProperty.Register<GlassCard, object?>(nameof(CommandParameter));
+
+    public object? CommandParameter
+    {
+        get => GetValue(CommandParameterProperty);
+        set => SetValue(CommandParameterProperty, value);
+    }
+
+    protected override void OnPointerPressed(PointerPressedEventArgs e)
+    {
+        base.OnPointerPressed(e);
+        PseudoClasses.Set(":pointerdown", true);
+        if(IsInteractive && Command is not null && Command.CanExecute(CommandParameter))
+            Command.Execute(CommandParameter);
+    }
+
+    protected override void OnPointerReleased(PointerReleasedEventArgs e)
+    {
+        base.OnPointerReleased(e);
+        PseudoClasses.Set(":pointerdown", false);
     }
 }

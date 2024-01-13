@@ -9,7 +9,7 @@
                         MinWidth="85"
                         Margin="15,2"
                         Padding="30,15,15,15"
-                        Background="Transparent"
+                        Background="{DynamicResource SukiPrimaryColor0}"
                         CornerRadius="{DynamicResource MediumCornerRadius}">
                     <Border.Transitions>
                         <Transitions>
@@ -60,12 +60,12 @@
         </Setter>
         <Style Selector="^:pointerover">
             <Style Selector="^ /template/ Border#PART_Border">
-                <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor2}" />
+                <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor10}" />
             </Style>
         </Style>
         <Style Selector="^[IsSelected=True]">
             <Style Selector="^ /template/ Border#PART_Border">
-                <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor5}" />
+                <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor25}" />
                 <Setter Property="Padding" Value="-10,15,15,15" />
             </Style>
             <Style Selector="^ /template/ TextBlock#PART_Header">
