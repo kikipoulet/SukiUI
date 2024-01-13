@@ -97,9 +97,10 @@
                         </Border.Transitions>
 
 
-                        <ContentPresenter Name="PART_ContentPresenter" FontSize="{TemplateBinding FontSize}"
+                        <ContentPresenter Name="PART_ContentPresenter"
                                           Content="{TemplateBinding Content}"
                                           ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          FontSize="{TemplateBinding FontSize}"
                                           RecognizesAccessKey="True" />
 
 
@@ -117,10 +118,15 @@
                             </Transitions>
                         </PathIcon.Transitions>
                     </PathIcon>
-                    <Border Opacity="0" CornerRadius="{TemplateBinding CornerRadius}" Name="SelectedBorder" Margin="4" BorderBrush="{DynamicResource SukiPrimaryColor}" BorderThickness="2">
+                    <Border Name="SelectedBorder"
+                            Margin="4"
+                            BorderBrush="{DynamicResource SukiPrimaryColor}"
+                            BorderThickness="2"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Opacity="0">
                         <Border.Transitions>
                             <Transitions>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.2"></DoubleTransition>
+                                <DoubleTransition Property="Opacity" Duration="0:0:0.2" />
                             </Transitions>
                         </Border.Transitions>
                     </Border>
@@ -131,7 +137,7 @@
     </Style>
 
     <Style Selector="RadioButton.GigaChips:checked  Border#BigBorder">
-        <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor2}" />
+        <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor5}" />
     </Style>
     <Style Selector="RadioButton.GigaChips:checked  Border#SelectedBorder">
         <Setter Property="Opacity" Value="1" />
@@ -156,43 +162,6 @@
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
-    </Style>
-
-
-    <Style Selector="RadioButton.MenuItemMobile">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderMidBrush}" />
-        <Setter Property="BorderThickness" Value="1.5" />
-        <Setter Property="Template">
-            <ControlTemplate>
-                <Grid>
-                    <Border Width="296"
-                            Margin="0,0,40,0"
-                            Background="{TemplateBinding Background}">
-                        <ContentPresenter Name="PART_ContentPresenter"
-                                          Margin="20,0,0,0"
-                                          VerticalAlignment="Center"
-                                          Content="{TemplateBinding Content}"
-                                          ContentTemplate="{TemplateBinding ContentTemplate}"
-                                          RecognizesAccessKey="True" />
-                    </Border>
-
-
-                </Grid>
-            </ControlTemplate>
-        </Setter>
-    </Style>
-    <Style Selector="RadioButton.MenuItemMobile:checked  TextBlock">
-        <Setter Property="Foreground" Value="White" />
-        <Setter Property="FontWeight" Value="DemiBold" />
-    </Style>
-
-    <Style Selector="PathIcon">
-        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
-    </Style>
-
-    <Style Selector="RadioButton.MenuItemMobile:checked PathIcon">
-        <Setter Property="Foreground" Value="White" />
     </Style>
 
     <Style Selector="RadioButton.MenuItem">
@@ -283,10 +252,11 @@
                     </Ellipse>
                     <ContentPresenter Name="PART_ContentPresenter"
                                       Grid.Column="1"
-                                      Margin="10,0,0,0" FontSize="{TemplateBinding FontSize}"
+                                      Margin="10,0,0,0"
                                       VerticalAlignment="Center"
                                       Content="{TemplateBinding Content}"
                                       ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      FontSize="{TemplateBinding FontSize}"
                                       RecognizesAccessKey="True" />
                 </Grid>
             </ControlTemplate>
@@ -323,7 +293,7 @@
 
         <Setter Property="TextBlock.FontWeight" Value="DemiBold" />
         <Setter Property="TextBlock.Foreground" Value="{DynamicResource SukiPrimaryColor}" />
-        <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor7}" />
+        <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor10}" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
         <Setter Property="BorderThickness" Value="0,0,0,0" />
     </Style>

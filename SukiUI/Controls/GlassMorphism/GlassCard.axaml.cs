@@ -18,7 +18,7 @@ public class GlassCard : ContentControl
     }
 
     public new static readonly StyledProperty<Thickness> BorderThicknessProperty =
-        AvaloniaProperty.Register<GlassCard, Thickness>(nameof(BorderThickness), new Thickness(1));
+        AvaloniaProperty.Register<GlassCard, Thickness>(nameof(BorderThickness), new Thickness(2));
 
     public new Thickness BorderThickness
     {

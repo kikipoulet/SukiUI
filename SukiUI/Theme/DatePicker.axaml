@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:icons="clr-namespace:SukiUI.Content"
                     xmlns:sys="using:System">
@@ -136,14 +136,15 @@
         <Setter Property="FontWeight" Value="Normal" />
         <Setter Property="FontSize" Value="{DynamicResource FontSizeNormal}" />
         <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderMidBrush}" />
-        <Setter Property="BorderThickness" Value="{DynamicResource DateTimeFlyoutBorderThickness}" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Border Name="Background"
                         MaxWidth="350"
-                        MaxHeight="283"
+                        MaxHeight="260"
+                        Margin="0,10"
                         Padding="{DynamicResource DateTimeFlyoutBorderPadding}"
+                        BorderBrush="{DynamicResource SukiBorderBrush}"
+                        BorderThickness="2"
                         BoxShadow="{DynamicResource SukiPopupShadow}"
                         Classes="Card">
                     <Grid Name="ContentRoot" RowDefinitions="*,Auto">
@@ -232,14 +233,14 @@
 
                         <StackPanel Name="AcceptDismissGrid"
                                     Grid.Row="1"
-                                    Margin="0,0,0,0"
+                                    Margin="0,0,-10,-10"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Bottom"
                                     Orientation="Horizontal">
                             <Button Name="PART_AcceptButton"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Bottom"
-                                    Classes="Flat">
+                                    Classes="Basic">
                                 <StackPanel Orientation="Horizontal">
                                     <PathIcon Height="13" Width="13" Data="{x:Static icons:Icons.Check}" Foreground="White" />
                                     <TextBlock Margin="8,0,0,0"
