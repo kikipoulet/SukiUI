@@ -414,6 +414,7 @@
         <Style Selector="^.Large">
             <Setter Property="FontSize" Value="18" />
             <Setter Property="Padding" Value="30,12" />
+            <Setter Property="CornerRadius" Value="9"></Setter>
         </Style>
     </ControlTheme>
     <ControlTheme x:Key="{x:Type Button}"
