@@ -43,9 +43,9 @@ public class GlassCard : ContentControl
         set => SetValue(IsInteractiveProperty, value);
     }
 
-    public static readonly StyledProperty<ICommand> CommandProperty = AvaloniaProperty.Register<GlassCard, ICommand>(nameof(Command));
+    public static readonly StyledProperty<ICommand?> CommandProperty = AvaloniaProperty.Register<GlassCard, ICommand?>(nameof(Command));
 
-    public ICommand Command
+    public ICommand? Command
     {
         get => GetValue(CommandProperty);
         set => SetValue(CommandProperty, value);
@@ -63,7 +63,7 @@ public class GlassCard : ContentControl
     {
         base.OnPointerPressed(e);
         PseudoClasses.Set(":pointerdown", true);
-        if(IsInteractive && Command.CanExecute(CommandParameter))
+        if(IsInteractive && Command is not null && Command.CanExecute(CommandParameter))
             Command.Execute(CommandParameter);
     }
 
