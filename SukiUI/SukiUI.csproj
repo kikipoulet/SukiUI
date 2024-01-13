@@ -62,4 +62,11 @@
 	  </None>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="Controls\TouchInput\TouchKeyboard\TouchKeyboard.axaml" />
+	  <UpToDateCheckInput Remove="Controls\TouchInput\TouchKeyboard\TouchKeyboardPopUp.axaml" />
+	  <UpToDateCheckInput Remove="Controls\TouchInput\TouchNumericPad\NumericPadPopUp.axaml" />
+	  <UpToDateCheckInput Remove="Controls\TouchInput\TouchNumericPad\TouchNumericPad.axaml" />
+	</ItemGroup>
+
 </Project>
