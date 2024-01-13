@@ -30,12 +30,14 @@
                                     </Transitions>
                                 </ContentControl.Transitions>
                             </ContentControl>
+                            <Viewbox HorizontalAlignment="Left" StretchDirection="DownOnly">
                             <TextBlock Name="PART_Header"
                                        Margin="15,0"
                                        VerticalAlignment="Center"
                                        FontSize="14"
                                        IsVisible="{Binding IsMenuExpanded, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type suki:SukiSideMenu}}}"
                                        Text="{TemplateBinding Header}" />
+                            </Viewbox>
                         </DockPanel>
                         <ContentPresenter Name="PART_AltDisplay"
                                           Content="{TemplateBinding Content}"
@@ -60,12 +62,12 @@
         </Setter>
         <Style Selector="^:pointerover">
             <Style Selector="^ /template/ Border#PART_Border">
-                <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor10}" />
+                <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor7}" />
             </Style>
         </Style>
         <Style Selector="^[IsSelected=True]">
             <Style Selector="^ /template/ Border#PART_Border">
-                <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor25}" />
+                <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor10}" />
                 <Setter Property="Padding" Value="-10,15,15,15" />
             </Style>
             <Style Selector="^ /template/ TextBlock#PART_Header">

@@ -22,14 +22,15 @@
         </Style>
 
         <Style Selector="NumericUpDown.NumberSelector">
-            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalAlignment" Value="Right" /> 
+            <Setter Property="MinWidth" Value="120"></Setter>
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="HorizontalContentAlignment" Value="Right" />
             <Setter Property="FontSize" Value="14" />
             <Setter Property="Text" Value="{Binding Value}" />
             <Setter Property="Grid.Column" Value="2" />
             <Setter Property="IsReadOnly" Value="{Binding IsReadOnly}" />
-            <Setter Property="Height" Value="40" />
+            <Setter Property="Height" Value="36" />
         </Style>
 
         <Style Selector="Grid.Row">
