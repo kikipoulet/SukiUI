@@ -40,7 +40,7 @@
         <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource ThemeControlHighlightMidBrush}" />
         <Setter Property="BorderThickness" Value="1" />
-
+<Setter Property="Height" Value="40"></Setter>
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Template">
@@ -49,7 +49,7 @@
                     <Grid Name="LayoutRoot" Margin="0,0,0,0">
 
                         <Button Name="PART_FlyoutButton"
-                                Height="40"
+                                Height="{TemplateBinding Height}"
                                 Background="Transparent"
                                 BorderThickness="1"
                                 IsEnabled="{TemplateBinding IsEnabled}"
@@ -87,12 +87,12 @@
                                                Text="year" />
                                     <Rectangle x:Name="PART_FirstSpacer"
                                                Grid.Column="1"
-                                               Width="1"
+                                               Width="0"
                                                HorizontalAlignment="Center"
                                                Fill="{DynamicResource DatePickerSpacerFill}" />
                                     <Rectangle x:Name="PART_SecondSpacer"
                                                Grid.Column="3"
-                                               Width="1"
+                                               Width="0"
                                                HorizontalAlignment="Center"
                                                Fill="{DynamicResource DatePickerSpacerFill}" />
                                 </Grid>
@@ -142,12 +142,12 @@
             <ControlTemplate>
                 <Border Name="Background"
                         MaxWidth="350"
-                        MaxHeight="260"
+                        MaxHeight="283"
                         Padding="{DynamicResource DateTimeFlyoutBorderPadding}"
                         BoxShadow="{DynamicResource SukiPopupShadow}"
                         Classes="Card">
                     <Grid Name="ContentRoot" RowDefinitions="*,Auto">
-                        <Grid Name="PART_PickerContainer">
+                        <Grid Margin="0,-15,0,15" Name="PART_PickerContainer">
                             <Grid.Styles>
                                 <Style Selector="DateTimePickerPanel &gt; ListBoxItem">
                                     <Setter Property="Background" Value="Transparent" />
@@ -212,7 +212,7 @@
                                     Grid.ColumnSpan="5"
                                     Height="{DynamicResource DatePickerFlyoutPresenterHighlightHeight}"
                                     VerticalAlignment="Center"
-                                    Background="{DynamicResource SukiAccentColor10}"
+                                    Background="{DynamicResource SukiPrimaryColor10}"
                                     CornerRadius="8"
                                     IsHitTestVisible="False"
                                     ZIndex="-1" />
@@ -232,19 +232,19 @@
 
                         <StackPanel Name="AcceptDismissGrid"
                                     Grid.Row="1"
-                                    Margin="0,0,0,-20"
+                                    Margin="0,0,0,0"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Bottom"
                                     Orientation="Horizontal">
                             <Button Name="PART_AcceptButton"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Bottom"
-                                    Classes="Accent">
+                                    Classes="Flat">
                                 <StackPanel Orientation="Horizontal">
-                                    <PathIcon Data="{x:Static icons:Icons.Check}" Foreground="{DynamicResource SukiPrimaryColor}" />
+                                    <PathIcon Height="13" Width="13" Data="{x:Static icons:Icons.Check}" Foreground="White" />
                                     <TextBlock Margin="8,0,0,0"
                                                FontWeight="DemiBold"
-                                               Foreground="{DynamicResource SukiPrimaryColor}"
+                                               Foreground="White"
                                                Text="Apply" />
                                 </StackPanel>
                             </Button>
