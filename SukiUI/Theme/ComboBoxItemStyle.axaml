@@ -89,7 +89,7 @@
     </Style>
 
     <Style Selector="ComboBoxItem:pointerover /template/ Border#BorderBasicStyle">
-        <Setter Property="Background" Value="{DynamicResource SukiLightBackground}" />
+        <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
     </Style>
 
     <Style Selector="ComboBoxItem:selected /template/ Border#BorderBasicStyle">

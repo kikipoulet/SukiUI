@@ -7,16 +7,15 @@
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
-    <controls:StackPage Name="StackSettings" Header="Settings">
-        <controls:StackPage.Content>
-            <WrapPanel>
+    <controls:SukiStackPage Name="StackSettings">
+        <controls:SukiStackPage.Content>
+            <WrapPanel Name="Settings">
                 <Border Width="150" Height="150">
                     <Button Classes="Flat"
                             Click="Changepage"
                             Content="test" />
                 </Border>
-
             </WrapPanel>
-        </controls:StackPage.Content>
-    </controls:StackPage>
+        </controls:SukiStackPage.Content>
+    </controls:SukiStackPage>
 </UserControl>

@@ -75,6 +75,7 @@
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="CornerRadius" Value="{DynamicResource MediumCornerRadius}" />
         <Setter Property="Margin" Value="0" />
+        <Setter Property="FontSize" Value="14" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Grid>
@@ -96,7 +97,7 @@
                         </Border.Transitions>
 
 
-                        <ContentPresenter Name="PART_ContentPresenter"
+                        <ContentPresenter Name="PART_ContentPresenter" FontSize="{TemplateBinding FontSize}"
                                           Content="{TemplateBinding Content}"
                                           ContentTemplate="{TemplateBinding ContentTemplate}"
                                           RecognizesAccessKey="True" />
@@ -230,6 +231,7 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
         <Setter Property="BorderThickness" Value="1.2" />
+        <Setter Property="FontSize" Value="14" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Grid Background="{TemplateBinding Background}" ColumnDefinitions="Auto,*">
@@ -281,7 +283,7 @@
                     </Ellipse>
                     <ContentPresenter Name="PART_ContentPresenter"
                                       Grid.Column="1"
-                                      Margin="10,0,0,0"
+                                      Margin="10,0,0,0" FontSize="{TemplateBinding FontSize}"
                                       VerticalAlignment="Center"
                                       Content="{TemplateBinding Content}"
                                       ContentTemplate="{TemplateBinding ContentTemplate}"

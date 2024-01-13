@@ -20,12 +20,12 @@ public partial class StackExemplePage : UserControl
 
     private void Changepage(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var b = new Button() { Content = "go to" };
+        var b = new Button() { Name = "Network", Content = "go to" };
         b.Click += (o, args) =>
         {
-            this.FindRequiredControl<StackPage>("StackSettings").Push("Wifi", new Grid());
+            this.FindRequiredControl<SukiStackPage>("StackSettings").Content = new Grid() { Name = "Wifi" };
         };
 
-        this.FindRequiredControl<StackPage>("StackSettings").Push("Network", b);
+        this.FindRequiredControl<SukiStackPage>("StackSettings").Content = b;
     }
 }

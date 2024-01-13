@@ -19,6 +19,7 @@
         <Setter Property="BorderThickness" Value="0.5" />
         <Setter Property="Padding" Value="10,1,0,0" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="14" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="Template">
             <ControlTemplate>
@@ -51,7 +52,7 @@
                         </Panel>
                     </Border>
                     <ContentPresenter Name="PART_ContentPresenter"
-                                      Grid.Column="1"
+                                      Grid.Column="1" FontSize="{TemplateBinding FontSize}"
                                       Margin="{TemplateBinding Padding}"
                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}"

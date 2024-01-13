@@ -11,10 +11,9 @@
              d:DesignWidth="800"
              x:DataType="theming:ThemingViewModel"
              mc:Ignorable="d">
-    <controls:StackPage Margin="20" Header="Theming">
-        <controls:StackPage.Content>
-
-            <controls:SettingsLayout>
+    <controls:SukiStackPage Margin="20">
+        <controls:SukiStackPage.Content>
+            <controls:SettingsLayout Name="Theming">
                 <controls:SettingsLayout.Items>
                     <objectModel:ObservableCollection x:TypeArguments="controls:SettingsLayoutItem">
                         <controls:SettingsLayoutItem Header="Base Theme">
@@ -22,15 +21,17 @@
                                 <StackPanel HorizontalAlignment="Center"
                                             Orientation="Horizontal"
                                             Spacing="20">
-                                    <RadioButton Classes="GigaChips"
+                                    <RadioButton Width="180"
+                                                 Height="160"
+                                                 Padding="0"
+                                                 Classes="GigaChips"
                                                  GroupName="RadioBaseTheme"
                                                  IsChecked="{Binding IsLightTheme}">
-                                        <Border Width="180"
-                                                Height="160"
+                                        <Border Margin="-50"
                                                 Background="#fafafa"
                                                 CornerRadius="{DynamicResource MediumCornerRadius}">
                                             <Grid>
-                                                <TextBlock Margin="8"
+                                                <TextBlock Margin="42"
                                                            HorizontalAlignment="Center"
                                                            VerticalAlignment="Bottom"
                                                            FontWeight="DemiBold"
@@ -40,15 +41,16 @@
                                         </Border>
                                     </RadioButton>
 
-                                    <RadioButton Classes="GigaChips"
+                                    <RadioButton Width="180"
+                                                 Height="160"
+                                                 Classes="GigaChips"
                                                  GroupName="RadioBaseTheme"
                                                  IsChecked="{Binding !IsLightTheme}">
-                                        <Border Width="180"
-                                                Height="160"
+                                        <Border Margin="-50"
                                                 Background="#222222"
                                                 CornerRadius="{DynamicResource MediumCornerRadius}">
                                             <Grid>
-                                                <TextBlock Margin="8"
+                                                <TextBlock Margin="42"
                                                            HorizontalAlignment="Center"
                                                            VerticalAlignment="Bottom"
                                                            FontWeight="DemiBold"
@@ -74,13 +76,14 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate x:DataType="models:SukiColorTheme">
 
-                                            <RadioButton Classes="GigaChips"
+                                            <RadioButton Width="50"
+                                                         Height="50"
+                                                         Classes="GigaChips"
                                                          Command="{Binding ((theming:ThemingViewModel)DataContext).SwitchToColorThemeCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type theming:ThemingView}}}"
                                                          CommandParameter="{Binding}"
                                                          CornerRadius="50"
                                                          GroupName="RadioColorTheme">
-                                                <Border Width="50"
-                                                        Height="50"
+                                                <Border Margin="-30"
                                                         Background="{Binding PrimaryBrush}"
                                                         CornerRadius="50" />
                                             </RadioButton>
@@ -108,14 +111,12 @@
                                                        TextWrapping="Wrap" />
                                         </StackPanel>
                                     </DockPanel>
-
                                 </controls:GlassCard>
                             </controls:SettingsLayoutItem.Content>
                         </controls:SettingsLayoutItem>
-
                     </objectModel:ObservableCollection>
                 </controls:SettingsLayout.Items>
             </controls:SettingsLayout>
-        </controls:StackPage.Content>
-    </controls:StackPage>
+        </controls:SukiStackPage.Content>
+    </controls:SukiStackPage>
 </UserControl>

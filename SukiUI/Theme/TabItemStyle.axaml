@@ -29,8 +29,8 @@
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Border Name="PART_LayoutRootn"
-                        Margin="7,0"
+                <Border Name="PART_LayoutRoot"
+                        Margin="8,0"
                         Padding="{TemplateBinding Padding}"
                         Background="Transparent"
                         BorderBrush="{TemplateBinding BorderBrush}"
@@ -38,8 +38,8 @@
                         CornerRadius="{TemplateBinding CornerRadius}">
                     <StackPanel>
 
-                        <ContentPresenter Name="PART_ContentPresenter"
-                                          Padding="7,5"
+                        <ContentPresenter 
+                                          Padding="0,5"
                                           HorizontalAlignment="Center"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                           HorizontalContentAlignment="Center"
@@ -86,7 +86,7 @@
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Border Name="PART_LayoutRootn"
+                <Border Name="PART_LayoutRoot"
                         Margin="0,0,0,0"
                         Padding="{TemplateBinding Padding}"
                         Background="{TemplateBinding Background}"
@@ -146,17 +146,8 @@
         <Setter Property="IsVisible" Value="True" />
     </Style>
 
-    <!--  Pressed state  -->
-    <Style Selector="TabItem:pressed /template/ Border#PART_LayoutRoot">
-        <Setter Property="Background" Value="{DynamicResource TabItemHeaderBackgroundUnselectedPressed}" />
-        <Setter Property="TextBlock.Foreground" Value="Red" />
-    </Style>
 
-    <!--  Selected Pressed state  -->
-    <Style Selector="TabItem:selected:pressed /template/ Border#PART_LayoutRoot">
-        <Setter Property="Background" Value="{DynamicResource TabItemHeaderBackgroundSelectedPressed}" />
-        <Setter Property="TextBlock.Foreground" Value="Red" />
-    </Style>
+
 
     <!--  Disabled state  -->
     <Style Selector="TabItem:disabled /template/ Border#PART_LayoutRoot">

@@ -1,6 +1,7 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:glassMorphism="clr-namespace:SukiUI.Controls.GlassMorphism">
+        xmlns:glassMorphism="clr-namespace:SukiUI.Controls.GlassMorphism"
+        xmlns:theme="clr-namespace:SukiUI.Theme">
 
     <Design.PreviewWith>
         <Border Padding="20">
@@ -29,11 +30,11 @@
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Padding" Value="4" />
         <Setter Property="MinHeight" Value="45" />
-        <Setter Property="PlaceholderForeground" Value="{DynamicResource SukiText}" />
+        <Setter Property="PlaceholderForeground" Value="{DynamicResource SukiLowText}" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Border Margin="0,0,9,0" Padding="5">
+                <Border Margin="0,0,0,0" Padding="5">
                     <Border Name="border"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
@@ -48,7 +49,9 @@
                         <Grid ColumnDefinitions="*,Auto">
                             <Grid.Styles>
                                 <Style Selector="Popup#PART_Popup[IsOpen=true]">
-
+                                    <Style.Resources>
+                                        <theme:PlusNineConverter x:Key="NineConverter" />
+                                    </Style.Resources>
                                     <Style.Animations>
                                         <Animation Easing="CircularEaseOut"
                                                    FillMode="Forward"
@@ -58,7 +61,7 @@
 
                                             </KeyFrame>
                                             <KeyFrame Cue="100%">
-                                                <Setter Property="Width" Value="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}" />
+                                                <Setter Property="Width" Value="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NineConverter}}" />
 
                                             </KeyFrame>
                                         </Animation>
@@ -66,13 +69,16 @@
                                 </Style>
 
                                 <Style Selector="Popup#PART_Popup[IsOpen=false]">
-
+                                    <Style.Resources>
+                                        <theme:PlusNineConverter x:Key="NineConverter" />
+                                    </Style.Resources>
                                     <Style.Animations>
+                                        
                                         <Animation Easing="CircularEaseOut"
                                                    FillMode="Forward"
                                                    Duration="0:0:0.3">
                                             <KeyFrame Cue="0%">
-                                                <Setter Property="Width" Value="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}" />
+                                                <Setter Property="Width" Value="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NineConverter}}" />
 
                                             </KeyFrame>
                                             <KeyFrame Cue="100%">
@@ -82,22 +88,40 @@
                                         </Animation>
                                     </Style.Animations>
                                 </Style>
+                                
+                                <Style Selector="ContentControl.ghost TextBlock">
+                                    <Setter Property="Foreground" Value="Transparent"></Setter>
+                                </Style>
+                                <Style Selector="ToggleButton:pointerover">
+                                    <Setter Property="Background" Value="Transparent"></Setter>
+                                </Style>
+                                <Style Selector="ToggleButton:checked">
+                                    <Setter Property="Background" Value="Transparent"></Setter>
+                                </Style>
                             </Grid.Styles>
+                            <Grid.Resources>
+                                <theme:BiggestItemConverter x:Key="BigItem"></theme:BiggestItemConverter>
+                            </Grid.Resources>
                             <TextBlock Name="PlaceholderTextBlock"
                                        Grid.Column="0"
                                        Margin="7,1,0,0"
                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                        VerticalAlignment="Center"
-                                       Foreground="Gray"
+                                       Foreground="{TemplateBinding PlaceholderForeground}"
                                        IsVisible="{TemplateBinding SelectionBoxItem,
                                                                    Converter={x:Static ObjectConverters.IsNull}}"
                                        Text="{TemplateBinding PlaceholderText}" />
+                            <ContentControl Margin="7,1,0,0"
+                                            HorizontalContentAlignment="Left" Foreground="Transparent"  Classes="ghost"
+                                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            Content="{TemplateBinding  ItemsSource, Converter={StaticResource BigItem}}"
+                                            ContentTemplate="{TemplateBinding ItemTemplate}" />
                             <ContentControl Margin="7,1,0,0"
                                             HorizontalContentAlignment="Left"
                                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                             Content="{TemplateBinding SelectionBoxItem}"
                                             ContentTemplate="{TemplateBinding ItemTemplate}" />
-                            <ToggleButton Name="toggle"
+                            <ToggleButton Margin="10,0,0,0" Name="toggle"
                                           Grid.Column="1"
                                           Background="Transparent"
                                           BorderThickness="0"
@@ -116,8 +140,8 @@
                             </ToggleButton>
                             <Popup Name="PART_Popup"
                                    MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                                   HorizontalOffset="-10"
-                                   IsLightDismissEnabled="True"
+                                   HorizontalOffset="-5"
+                                   IsLightDismissEnabled="True" 
                                    IsOpen="{TemplateBinding IsDropDownOpen,
                                                             Mode=TwoWay}"
                                    PlacementTarget="{TemplateBinding}">
@@ -132,7 +156,7 @@
                                                 BoxShadow="{DynamicResource SukiPopupShadow}"
                                                 CornerRadius="{DynamicResource SmallCornerRadius}">
                                             <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
-                                                <ItemsPresenter Name="PART_ItemsPresenter"
+                                                <ItemsPresenter  Name="PART_ItemsPresenter"
                                                                 Margin="0,3,0,0"
                                                                 ItemsPanel="{TemplateBinding ItemsPanel}" />
                                             </ScrollViewer>

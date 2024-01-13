@@ -118,6 +118,7 @@
                         </showMeTheXaml:XamlDisplay>
                     </controls:GroupBox>
                 </controls:GlassCard>
+
             </WrapPanel>
         </ScrollViewer>
     </Grid>

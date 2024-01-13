@@ -16,7 +16,11 @@
                  IsMenuVisible="True"
                  mc:Ignorable="d">
     <suki:SukiWindow.LogoContent>
-        <PathIcon Data="{x:Static content:Icons.SukiLogo}" Foreground="{DynamicResource SukiAccentColor}" />
+        <avalonia:MaterialIcon Width="20"
+                               Height="20"
+                               VerticalAlignment="Center"
+                               Foreground="{DynamicResource SukiPrimaryColor}"
+                               Kind="Dog" />
     </suki:SukiWindow.LogoContent>
     <suki:SukiWindow.MenuItems>
         <MenuItem Header="Toggles">
@@ -49,11 +53,10 @@
             </DataTemplate>
         </suki:SukiSideMenu.ItemTemplate>
         <suki:SukiSideMenu.HeaderContent>
-            <PathIcon Width="30"
-                      Height="30"
-                      Margin="25"
-                      Data="{x:Static content:Icons.SukiLogo}"
-                      Foreground="{DynamicResource SukiPrimaryColor25}" />
+            <Image Width="80"
+                   Height="80"
+                   Margin="30"
+                   Source="Assets/OIG.N5o-removebg-preview.png" />
         </suki:SukiSideMenu.HeaderContent>
         <suki:SukiSideMenu.FooterContent>
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
