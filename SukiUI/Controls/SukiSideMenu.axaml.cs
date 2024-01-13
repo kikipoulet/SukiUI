@@ -112,7 +112,7 @@ public class SukiSideMenu : SelectingItemsControl
         }
     }
 
-    public bool UpdateSelectionFromPointerEvent(Control source, PointerEventArgs e)
+    public bool UpdateSelectionFromPointerEvent(Control source)
     {
         return UpdateSelectionFromEventSource(source);
     }

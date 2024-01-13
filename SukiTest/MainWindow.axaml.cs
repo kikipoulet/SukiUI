@@ -24,14 +24,14 @@ public partial class MainWindow : SukiWindow
     {
         AvaloniaXamlLoader.Load(this);
         _theme = SukiTheme.GetInstance();
-        _theme.OnBaseThemeChanged += variant =>
+        _theme.OnBaseThemeChanged += async variant =>
         {
-            SukiHost.ShowToast("Successfully Changed Theme", $"Changed Theme To {variant}",
+            await SukiHost.ShowToast("Successfully Changed Theme", $"Changed Theme To {variant}",
                 onClicked: () => { SukiHost.ShowToast("Success!", "You Closed A Toast By Clicking On It!"); });
         };
-        _theme.OnColorThemeChanged += theme =>
+        _theme.OnColorThemeChanged += async theme =>
         {
-            SukiHost.ShowToast("Successfully Changed Color", $"Changed Color To {theme.DisplayName}.");
+            await SukiHost.ShowToast("Successfully Changed Color", $"Changed Color To {theme.DisplayName}.");
         };
 
         _theme.AddColorTheme(new SukiColorTheme("Neon Pink", Colors.DeepPink, Colors.GreenYellow));

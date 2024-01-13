@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
+using SukiUI.Extensions;
 
 namespace SukiUI.Controls;
 
@@ -12,9 +13,9 @@ public partial class PercentProgressBar : UserControl
     {
         InitializeComponent();
         // Initialize controls in the constructor
-        _progressBar = this.FindControl<ProgressBar>("barPercent");
-        _textBlock = this.FindControl<TextBlock>("textPercent");
-        _icon = this.FindControl<PathIcon>("iconPercent");
+        _progressBar = this.FindRequiredControl<ProgressBar>("barPercent");
+        _textBlock = this.FindRequiredControl<TextBlock>("textPercent");
+        _icon = this.FindRequiredControl<PathIcon>("iconPercent");
     }
 
     private void InitializeComponent()
@@ -23,10 +24,10 @@ public partial class PercentProgressBar : UserControl
     }
 
     // Declare private fields for controls
-    private ProgressBar _progressBar;
+    private readonly ProgressBar _progressBar;
 
-    private TextBlock _textBlock;
-    private PathIcon _icon;
+    private readonly TextBlock _textBlock;
+    private readonly PathIcon _icon;
 
     private int _value;
 

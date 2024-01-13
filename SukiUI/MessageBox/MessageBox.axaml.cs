@@ -3,6 +3,7 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using SukiUI.Content;
+using SukiUI.Extensions;
 
 namespace SukiUI.MessageBox
 {
@@ -18,8 +19,8 @@ namespace SukiUI.MessageBox
         public MessageBox(string Title, string Message)
         {
             InitializeComponent();
-            this.FindControl<TextBlock>("Title").Text = Title;
-            this.FindControl<TextBlock>("Message").Text = Message;
+            this.FindRequiredControl<TextBlock>("Title").Text = Title;
+            this.FindRequiredControl<TextBlock>("Message").Text = Message;
         }
 
         private void InitializeComponent()

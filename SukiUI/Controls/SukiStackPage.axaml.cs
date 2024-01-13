@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
@@ -7,6 +5,8 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
 using SukiUI.Content;
+using System;
+using System.Collections.Generic;
 
 namespace SukiUI.Controls
 {
@@ -43,7 +43,7 @@ namespace SukiUI.Controls
         {
             _stackPages = new StackPageModel?[Limit];
         }
-        
+
         protected override void OnLoaded(RoutedEventArgs e)
         {
             base.OnLoaded(e);
@@ -103,8 +103,6 @@ namespace SukiUI.Controls
                 return;
             }
 
-           
-            
             StackPageModel model;
             if (newVal is ISukiStackPageTitleProvider stackPageVm)
             {
@@ -112,7 +110,7 @@ namespace SukiUI.Controls
             }
             else if (newVal is Control c)
             {
-                if(c.Name is not null)
+                if (c.Name is not null)
                     model = new StackPageModel(c.Name, newVal);
                 else
                 {

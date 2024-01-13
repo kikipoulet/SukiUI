@@ -1,11 +1,9 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using Avalonia.Threading;
 using SukiUI;
 using SukiUI.Controls;
 using System.Collections.ObjectModel;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace SukiTest.CircleProgressBarsTestMVVM;
@@ -29,18 +27,12 @@ public partial class ControlsDemo : UserControl
         AvaloniaXamlLoader.Load(this);
     }
 
-    private void Button_OnClick(object? sender, RoutedEventArgs e)
+    private async void Button_OnClick(object? sender, RoutedEventArgs e)
     {
         this.Get<BusyArea>("BA").IsBusy = true;
 
-        Task.Run(() =>
-        {
-            Thread.Sleep(3500);
+        await Task.Delay(3500);
 
-            Dispatcher.UIThread.Invoke(() =>
-            {
-                this.Get<BusyArea>("BA").IsBusy = false;
-            });
-        });
+        this.Get<BusyArea>("BA").IsBusy = false;
     }
 }

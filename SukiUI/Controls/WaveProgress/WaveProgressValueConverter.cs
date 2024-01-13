@@ -1,8 +1,8 @@
 ﻿using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
 using Avalonia.Styling;
+using SukiUI.Extensions;
 using System;
 using System.Globalization;
 
@@ -70,8 +70,8 @@ public class WaveProgressGradientOffsetConverter : IValueConverter
 
         try
         {
-            PrimaryColor = (Color)Application.Current.FindResource("SukiPrimaryColor");
-            AccentColor = (Color)Application.Current.FindResource("SukiAccentColor");
+            PrimaryColor = (Color)Application.Current.FindRequiredResource("SukiPrimaryColor");
+            AccentColor = (Color)Application.Current.FindRequiredResource("SukiAccentColor");
         }
         catch { }
 

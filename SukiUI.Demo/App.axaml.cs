@@ -14,7 +14,7 @@ namespace SukiUI.Demo;
 
 public partial class App : Application
 {
-    private IServiceProvider _provider;
+    private IServiceProvider? _provider;
 
     public override void Initialize()
     {
@@ -26,20 +26,22 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            var viewLocator = _provider.GetService<IDataTemplate>();
-            var mainVm = _provider.GetService<SukiUIDemoViewModel>();
+            var viewLocator = _provider?.GetRequiredService<IDataTemplate>();
+            var mainVm = _provider?.GetRequiredService<SukiUIDemoViewModel>();
 
-            desktop.MainWindow = (Window)viewLocator.Build(mainVm);
+            desktop.MainWindow = viewLocator?.Build(mainVm) as Window;
         }
 
         base.OnFrameworkInitializationCompleted();
     }
 
-    private static IServiceProvider ConfigureServices()
+    private static ServiceProvider ConfigureServices()
     {
+        var viewlocator = Current?.DataTemplates.First(x => x is ViewLocator);
         var services = new ServiceCollection();
 
-        services.AddSingleton(Current.DataTemplates.First(x => x is ViewLocator));
+        if (viewlocator is not null)
+            services.AddSingleton(viewlocator);
         services.AddSingleton<PageNavigationService>();
 
         // Viewmodels

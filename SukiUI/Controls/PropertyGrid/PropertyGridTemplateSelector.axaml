@@ -1,0 +1,189 @@
+<ResourceDictionary x:Class="SukiUI.Controls.PropertyGridTemplateSelector"
+                    xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI">
+
+	<controls:DateTimePickerSelectedDateConverter x:Key="DateTimePickerSelectedDateConverter" />
+
+	<DataTemplate x:Key="CategoryViewModel" DataType="controls:CategoryViewModel">
+        <Expander Grid.IsSharedSizeScope="True"
+                  Header="{Binding DisplayName}"
+                  IsExpanded="True">
+            <ItemsControl ItemsSource="{Binding Properties}" />
+        </Expander>
+    </DataTemplate>
+
+    <DataTemplate x:Key="StringViewModel" DataType="controls:StringViewModel">
+        <Grid Classes="Row">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="PropertyGridDisplyColumn" />
+                <ColumnDefinition Width="4" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Classes="Label" />
+            <TextBox Grid.Column="2"
+                     HorizontalAlignment="Stretch"
+                     VerticalAlignment="Center"
+                     HorizontalContentAlignment="Right"
+                     IsReadOnly="{Binding IsReadOnly}"
+                     Text="{Binding Value}" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="DateTimeOffsetViewModel" DataType="controls:DateTimeOffsetViewModel">
+        <Grid Classes="Row">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="PropertyGridDisplyColumn" />
+                <ColumnDefinition Width="4" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Classes="Label" />
+            <DatePicker Grid.Column="2"
+                        Margin="4,0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        IsEnabled="{Binding !IsReadOnly}"
+                        SelectedDate="{Binding Value, Converter={StaticResource DateTimePickerSelectedDateConverter}}" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="DateTimeViewModel" DataType="controls:DateTimeViewModel">
+        <Grid Classes="Row">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="PropertyGridDisplyColumn" />
+                <ColumnDefinition Width="4" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Classes="Label" />
+            <DatePicker Grid.Column="2"
+                        Margin="4,0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        IsEnabled="{Binding !IsReadOnly}"
+                        SelectedDate="{Binding Value, Converter={StaticResource DateTimePickerSelectedDateConverter}}" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="IntegerViewModel" DataType="controls:IntegerViewModel">
+        <Grid Classes="Row">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="PropertyGridDisplyColumn" />
+                <ColumnDefinition Width="4" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Classes="Label" />
+            <NumericUpDown Classes="NumberSelector" Increment="1" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="DoubleViewModel" DataType="controls:DoubleViewModel">
+        <Grid Classes="Row">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="PropertyGridDisplyColumn" />
+                <ColumnDefinition Width="4" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Classes="Label" />
+            <NumericUpDown Classes="NumberSelector" Increment="0.001" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="BoolViewModel" DataType="controls:BoolViewModel">
+        <Grid Classes="Row">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="PropertyGridDisplyColumn" />
+                <ColumnDefinition Width="4" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Classes="Label" />
+            <ToggleButton Grid.Column="2"
+                          Margin="4,0"
+                          VerticalAlignment="Stretch"
+                          HorizontalContentAlignment="Right"
+                          IsChecked="{Binding Value}"
+                          IsEnabled="{Binding !IsReadOnly}" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="DecimalViewModel" DataType="controls:DecimalViewModel">
+        <Grid Classes="Row">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="PropertyGridDisplyColumn" />
+                <ColumnDefinition Width="4" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Classes="Label" />
+            <NumericUpDown Classes="NumberSelector" Increment="0.001" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="FloatViewModel" DataType="controls:FloatViewModel">
+        <Grid Classes="Row">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="PropertyGridDisplyColumn" />
+                <ColumnDefinition Width="4" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Classes="Label" />
+            <NumericUpDown Classes="NumberSelector" Increment="0.001" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="LongViewModel" DataType="controls:LongViewModel">
+        <Grid Classes="Row">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="PropertyGridDisplyColumn" />
+                <ColumnDefinition Width="4" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Classes="Label" />
+            <NumericUpDown Classes="NumberSelector" Increment="1" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ComplexTypeViewModel" DataType="controls:ComplexTypeViewModel">
+        <Grid Classes="Row">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="PropertyGridDisplyColumn" />
+                <ColumnDefinition Width="4" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Classes="Label" />
+            <Button Grid.Column="2"
+                    HorizontalAlignment="Right"
+                    Classes="Accent"
+                    Click="OnMoreInfoClick">
+                <TextBlock Text="More Info" />
+            </Button>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="EnumViewModel" DataType="controls:EnumViewModel">
+        <Grid Classes="Row">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="PropertyGridDisplyColumn" />
+                <ColumnDefinition Width="4" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Classes="Label" />
+            <ComboBox Grid.Column="2"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch"
+                      HorizontalContentAlignment="Center"
+                      IsEnabled="{Binding !IsReadOnly}"
+                      ItemsSource="{Binding Values}"
+                      SelectedItem="{Binding Value}" />
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>
