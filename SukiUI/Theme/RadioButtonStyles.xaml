@@ -164,43 +164,6 @@
         </Setter>
     </Style>
 
-
-    <Style Selector="RadioButton.MenuItemMobile">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderMidBrush}" />
-        <Setter Property="BorderThickness" Value="1.5" />
-        <Setter Property="Template">
-            <ControlTemplate>
-                <Grid>
-                    <Border Width="296"
-                            Margin="0,0,40,0"
-                            Background="{TemplateBinding Background}">
-                        <ContentPresenter Name="PART_ContentPresenter"
-                                          Margin="20,0,0,0"
-                                          VerticalAlignment="Center"
-                                          Content="{TemplateBinding Content}"
-                                          ContentTemplate="{TemplateBinding ContentTemplate}"
-                                          RecognizesAccessKey="True" />
-                    </Border>
-
-
-                </Grid>
-            </ControlTemplate>
-        </Setter>
-    </Style>
-    <Style Selector="RadioButton.MenuItemMobile:checked  TextBlock">
-        <Setter Property="Foreground" Value="White" />
-        <Setter Property="FontWeight" Value="DemiBold" />
-    </Style>
-
-    <Style Selector="PathIcon">
-        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
-    </Style>
-
-    <Style Selector="RadioButton.MenuItemMobile:checked PathIcon">
-        <Setter Property="Foreground" Value="White" />
-    </Style>
-
     <Style Selector="RadioButton.MenuItem">
         <Setter Property="Height" Value="50" />
         <Setter Property="Margin" Value="-30,0,5,0" />

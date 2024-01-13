@@ -2,6 +2,7 @@ using System;
 using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
@@ -28,5 +29,10 @@ public partial class SukiUIDemoView : SukiWindow
         if (e.Source is not MenuItem mItem) return;
         if (mItem.DataContext is not SukiColorTheme cTheme) return;
         vm.ChangeTheme(cTheme);
+    }
+
+    private void InputElement_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        IsMenuVisible = !IsMenuVisible;
     }
 }

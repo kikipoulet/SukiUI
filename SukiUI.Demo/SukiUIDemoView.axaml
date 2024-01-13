@@ -56,7 +56,9 @@
             <Image Width="80"
                    Height="80"
                    Margin="30"
-                   Source="Assets/OIG.N5o-removebg-preview.png" />
+                   PointerPressed="InputElement_OnPointerPressed"
+                   Source="Assets/OIG.N5o-removebg-preview.png"
+                   ToolTip.Tip="Click To Toggle Top Menu." />
         </suki:SukiSideMenu.HeaderContent>
         <suki:SukiSideMenu.FooterContent>
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
