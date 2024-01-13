@@ -13,9 +13,9 @@ public partial class PercentProgressBar : UserControl
     {
         InitializeComponent();
         // Initialize controls in the constructor
-        _progressBar = this.FindRequiredControl<ProgressBar>("barPercent") ?? throw new System.Exception();
-        _textBlock = this.FindRequiredControl<TextBlock>("textPercent") ?? throw new System.Exception();
-        _icon = this.FindRequiredControl<PathIcon>("iconPercent") ?? throw new System.Exception();
+        _progressBar = this.FindRequiredControl<ProgressBar>("barPercent");
+        _textBlock = this.FindRequiredControl<TextBlock>("textPercent");
+        _icon = this.FindRequiredControl<PathIcon>("iconPercent");
     }
 
     private void InitializeComponent()
