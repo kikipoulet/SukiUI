@@ -314,6 +314,15 @@
         <Style Selector="^:checked">
             <Setter Property="Background" Value="Transparent" />
         </Style>
+        <Style Selector="^:pointerover PathIcon">
+            <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+            <Setter Property="Transitions">
+                <Setter.Value>
+                    <Transitions>
+                        <BrushTransition Property="Foreground" Duration="0.15" />
+                    </Transitions>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Style>
-
 </Styles>
