@@ -2,11 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Avalonia;
 using Avalonia.Collections;
-using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
 using SukiUI.Models;
 
