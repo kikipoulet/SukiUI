@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Material.Icons;
-using System.ComponentModel;
 
 namespace SukiUI.Demo.Features.ControlsLibrary
 {

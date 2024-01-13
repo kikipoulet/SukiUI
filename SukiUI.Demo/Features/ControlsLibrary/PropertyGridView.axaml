@@ -24,7 +24,7 @@
                         replace the PropertyGridTemplateSelector with your own type or subclass it,
                         if you want to customize the datatemplates being used
                     -->
-                    <controls:PropertyGridTemplateSelector />
+                    <controls:PropertyGridTemplateSelector UseSukiHost="false" />
                 </controls:PropertyGrid.DataTemplates>
             </controls:PropertyGrid>
         </ScrollViewer>

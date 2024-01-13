@@ -1,12 +1,25 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using Avalonia.Interactivity;
+using Avalonia.Markup.Xaml;
 using Avalonia.VisualTree;
 
 namespace SukiUI.Controls;
 
 public partial class PropertyGridTemplateSelector : ResourceDictionary, IDataTemplate
 {
+    public bool UseSukiHost { get; set; } = true;
+
+    public PropertyGridTemplateSelector()
+    {
+        InitializeComponent();
+    }
+
+    private void InitializeComponent()
+    {
+        AvaloniaXamlLoader.Load(this);
+    }
+
     public Control? Build(object? param)
     {
         if (param is null)
@@ -51,24 +64,39 @@ public partial class PropertyGridTemplateSelector : ResourceDictionary, IDataTem
         return true;
     }
 
-    private static async void OnMoreInfoClick(object sender, RoutedEventArgs e)
+    private async void OnMoreInfoClick(object sender, RoutedEventArgs e)
     {
         if (sender is not Control control)
         {
             return;
         }
 
-        var root = control.GetVisualRoot();
-        if (root is not Window parentWindow || control.DataContext is not ComplexTypeViewModel childViewModel || childViewModel.Value is null)
+        if (UseSukiHost)
         {
-            return;
+            if (control.DataContext is not ComplexTypeViewModel childViewModel || childViewModel.Value is null)
+            {
+                return;
+            }
+
+            SukiHost.ShowDialog(new PropertyGridDialog()
+            {
+                DataContext = childViewModel.Value
+            });
         }
-
-        var window = new PropertyGridWindow()
+        else
         {
-            DataContext = new InstanceViewModel(childViewModel.Value)
-        };
+            var root = control.GetVisualRoot();
+            if (root is not Window parentWindow || control.DataContext is not ComplexTypeViewModel childViewModel || childViewModel.Value is null)
+            {
+                return;
+            }
 
-        await window.ShowDialog(parentWindow);
+            var window = new PropertyGridWindow()
+            {
+                DataContext = childViewModel.Value
+            };
+
+            await window.ShowDialog(parentWindow);
+        }
     }
 }
