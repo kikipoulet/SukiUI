@@ -148,9 +148,30 @@
 
                 <controls:GlassCard Width="500">
                     <controls:GroupBox Header="Stepper">
-                        <StackPanel Spacing="15">
-                            <showMeTheXaml:XamlDisplay UniqueId="Stepper">
+                        <StackPanel  Spacing="15">
+                            <showMeTheXaml:XamlDisplay Margin="0,20,0,0" UniqueId="Stepper">
                                 <controls:Stepper Index="{Binding StepIndex}" Steps="{Binding Steps}" />
+                            </showMeTheXaml:XamlDisplay>
+                            <!--  Ignore your IDE, x:True and x:False are absolutely valid intrinsics in Avalonia.  -->
+                            <Grid Margin="0,18,0,0" ColumnDefinitions="Auto,*,Auto">
+                                <Button Grid.Column="0"
+                                        Command="{Binding ChangeStepCommand}"
+                                        CommandParameter="{x:False}"
+                                        Content="Decrement" />
+                                <Button Grid.Column="2"
+                                        Command="{Binding ChangeStepCommand}"
+                                        CommandParameter="{x:True}"
+                                        Content="Increment" />
+                            </Grid>
+                        </StackPanel>
+                    </controls:GroupBox>
+                </controls:GlassCard>
+                
+                <controls:GlassCard Width="500">
+                    <controls:GroupBox Header="Alternative Stepper">
+                        <StackPanel Spacing="15">
+                            <showMeTheXaml:XamlDisplay UniqueId="AltStepper">
+                                <controls:Stepper AlternativeStyle="True" Index="{Binding StepIndex}" Steps="{Binding Steps}" />
                             </showMeTheXaml:XamlDisplay>
                             <!--  Ignore your IDE, x:True and x:False are absolutely valid intrinsics in Avalonia.  -->
                             <Grid ColumnDefinitions="Auto,*,Auto">
