@@ -15,9 +15,6 @@
 - Some breaking changes. If you update from a previous version, please read the [Documentaion](https://github.com/kikipoulet/SukiUI/wiki/1.-Installation) first
 - Special thanks to [@sirdoombox](https://www.github.com/sirdoombox) for his valuable contributions
 
-
-#### ⚠️ Readme and Documentation are changing for the upcoming 6.0 Release
-
 <br/>
 
 ## 📱 UI Theme 
