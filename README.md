@@ -11,10 +11,7 @@
 
 <br/>
 
-#### Upcoming 6.0.0 Release :
-
-- Mobile Controls have been moved to a new mobile library named [Cheryl UI](https://github.com/kikipoulet/CherylUI)
-- Definitive Design with new support for Color Themes
+#### New 6.0.0-beta Release:
 - Some breaking changes. If you update from a previous version, please read the [Documentaion](https://github.com/kikipoulet/SukiUI/wiki/1.-Installation) first
 - Special thanks to [@sirdoombox](https://www.github.com/sirdoombox) for his valuable contributions
 
