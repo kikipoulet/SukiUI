@@ -343,7 +343,7 @@
         <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
-      
+
 
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
         <Setter Property="SelectionBrush" Value="{DynamicResource SukiBorderBrush}" />
@@ -442,6 +442,7 @@
                                         </ScrollViewer>
                                         <theme:TextEraserButton Grid.Column="2"
                                                                 Margin="5,0,0,0"
+                                                                Cursor="Hand"
                                                                 IsVisible="{TemplateBinding theme:TextBoxExtensions.AddDeleteButton}"
                                                                 Opacity="{TemplateBinding Text,
                                                                                           Converter={StaticResource StringToDoubleC}}"
