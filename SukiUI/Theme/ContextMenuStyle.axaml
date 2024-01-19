@@ -6,11 +6,10 @@
     </Design.PreviewWith>
 
     <Style Selector="ContextMenu">
-        <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
+        <Setter Property="Background" Value="{DynamicResource SukiStrongBackground}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
-
         <Setter Property="Template">
             <ControlTemplate>
                 <Border Margin="10"
@@ -20,14 +19,11 @@
                         BorderThickness="{TemplateBinding BorderThickness}"
                         BoxShadow="{DynamicResource SukiSwitchShadow}"
                         CornerRadius="{TemplateBinding CornerRadius}">
-                    <ScrollViewer Theme="{StaticResource SimpleMenuScrollViewer}">
-                        <ItemsPresenter Name="PART_ItemsPresenter"
-                                        Margin="-20,0,0,0"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        ItemsPanel="{TemplateBinding ItemsPanel}"
-                                        KeyboardNavigation.TabNavigation="Continue" />
-                    </ScrollViewer>
+                    <ItemsPresenter Name="PART_ItemsPresenter"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    ItemsPanel="{TemplateBinding ItemsPanel}"
+                                    KeyboardNavigation.TabNavigation="Continue" />
                 </Border>
             </ControlTemplate>
         </Setter>
