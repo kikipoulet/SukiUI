@@ -30,7 +30,7 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Border Name="root"
-                        Padding="5,5,5,10"
+                        Padding="5,5,20,5"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         ClipToBounds="True">
@@ -216,12 +216,10 @@
     </Style>
 
     <Style Selector="MenuItem /template/ ItemsPresenter#PART_ItemsPresenter">
-        <!-- <Setter Property="Margin" Value="2" /> -->
     </Style>
 
     <Style Selector="MenuItem:selected /template/ Border#root">
         <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
-        <!-- <Setter Property="CornerRadius" Value="6" /> -->
         <Setter Property="BorderBrush" Value="{DynamicResource SukiLightBorderBrush}" />
     </Style>
 
