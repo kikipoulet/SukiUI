@@ -47,9 +47,18 @@
                         <StackPanel>
                             <showMeTheXaml:XamlDisplay UniqueId="DataGrid">
                                 <DataGrid MaxHeight="200"
-                                          AutoGenerateColumns="True"
                                           CanUserResizeColumns="{Binding IsDataGridColumnsResizable}"
-                                          ItemsSource="{Binding DataGridContent}" />
+                                          ItemsSource="{Binding DataGridContent}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Binding="{Binding StringColumn}" Header="String" />
+                                        <DataGridTextColumn Binding="{Binding IntColumn}"
+                                                            CellStyleClasses="RightAlign"
+                                                            Header="Int" />
+                                        <DataGridCheckBoxColumn Binding="{Binding BoolColumn}"
+                                                                CellStyleClasses="CenterAlign"
+                                                                Header="Bool" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
                             </showMeTheXaml:XamlDisplay>
                             <DockPanel>
                                 <ToggleSwitch DockPanel.Dock="Left" IsChecked="{Binding IsDataGridColumnsResizable}" />
