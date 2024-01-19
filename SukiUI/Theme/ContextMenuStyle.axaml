@@ -12,12 +12,11 @@
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Border Margin="10"
-                        Padding="{TemplateBinding Padding}"
-                        Background="{TemplateBinding Background}"
+                <Border Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         BoxShadow="{DynamicResource SukiSwitchShadow}"
+                        ClipToBounds="True"
                         CornerRadius="{TemplateBinding CornerRadius}">
                     <ItemsPresenter Name="PART_ItemsPresenter"
                                     HorizontalAlignment="Left"
