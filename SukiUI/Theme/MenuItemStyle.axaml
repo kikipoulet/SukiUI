@@ -197,7 +197,7 @@
                                     BorderThickness="1"
                                     BoxShadow="{DynamicResource SukiSwitchShadow}"
                                     ClipToBounds="True"
-                                    CornerRadius="{DynamicResource SmallCornerRadius}">
+                                    CornerRadius="0 0 10 10">
                                 <ScrollViewer Classes="menuscroller">
                                     <ItemsPresenter Name="PART_ItemsPresenter"
                                                     Grid.IsSharedSizeScope="True"
@@ -215,8 +215,7 @@
         <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
     </Style>
 
-    <Style Selector="MenuItem /template/ ItemsPresenter#PART_ItemsPresenter">
-    </Style>
+    <Style Selector="MenuItem /template/ ItemsPresenter#PART_ItemsPresenter" />
 
     <Style Selector="MenuItem:selected /template/ Border#root">
         <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
