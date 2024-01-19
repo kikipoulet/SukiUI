@@ -19,6 +19,16 @@ namespace SukiUI.Controls
 {
     public class Stepper : TemplatedControl
     {
+        public static readonly StyledProperty<bool> AlternativeStyleProperty =
+            AvaloniaProperty.Register<Stepper, bool>(nameof(AlternativeStyle), defaultValue: false);
+
+        public bool AlternativeStyle
+        {
+            get { return GetValue(AlternativeStyleProperty); }
+            set { SetValue(AlternativeStyleProperty, value); }
+        }
+
+        
         public static readonly StyledProperty<int> IndexProperty =
             AvaloniaProperty.Register<Stepper, int>(nameof(Index));
 
@@ -67,11 +77,17 @@ namespace SukiUI.Controls
             if (newSteps is null) return;
             if (newSteps is not IEnumerable<object> stepsEnumerable) return;
             var steps = stepsEnumerable.ToArray();
-            Update(steps);
+            
+            if(AlternativeStyle)
+                UpdateAlternate(steps);    
+            else 
+                Update(steps);
+            
             if (newSteps is INotifyCollectionChanged notify)
                 notify.CollectionChanged += (_, _) => Update(steps);
         }
 
+        #region  StepperBaseStyle
         private void Update(object[] steps)
         {
             if (_grid is null) return;
@@ -177,5 +193,113 @@ namespace SukiUI.Controls
             base.OnUnloaded(e);
             _subscriptionDisposables?.Dispose();
         }
+        
+        #endregion
+
+        #region  StepperAlternateStyle
+
+        
+        public void UpdateAlternate(object[] steps)
+        {
+            try
+            {
+                if (_grid is null) return;
+                _grid.Children.Clear();
+
+                SetColumnDefinitionsAlternate(_grid);
+
+                for (var i = 0; i < steps.Length; i++)
+                {
+                    AddStepAlternate(steps[i], i, _grid, steps);
+                }
+            }catch(Exception exc) { }
+        }
+
+        private void SetColumnDefinitionsAlternate(Grid grid)
+        {
+            var columns = new ColumnDefinitions();
+            foreach(var s in Steps)
+                columns.Add(new ColumnDefinition());
+            grid.ColumnDefinitions = columns;
+        }
+
+        private void AddStepAlternate(object step, int index,Grid grid,object[] steps)
+        {
+
+         
+            Brush PrimaryColor = new SolidColorBrush( (Color)Application.Current.FindResource("SukiPrimaryColor"));
+            Brush DisabledColor =  new SolidColorBrush( (Color)Application.Current.FindResource("SukiControlBorderBrush"));
+            
+            var griditem = new Grid(){ ColumnDefinitions = new ColumnDefinitions(){new ColumnDefinition(), new ColumnDefinition()}};
+
+            var line = new Border() { CornerRadius = new CornerRadius(3),  Margin = new Thickness(-5,0,23,0), Background = DisabledColor, Height = 2, HorizontalAlignment = HorizontalAlignment.Stretch, VerticalAlignment = VerticalAlignment.Center };
+            var line1 = new Border() { CornerRadius = new CornerRadius(3),  Margin = new Thickness(23,0,-5,0), Background = DisabledColor, Height = 2, HorizontalAlignment = HorizontalAlignment.Stretch, VerticalAlignment = VerticalAlignment.Center };
+
+            if (index == 0)
+                line.IsVisible = false;
+            if (index == steps.Length -1)
+                line1.IsVisible = false;
+
+            if (index == Index)
+                line.Background = PrimaryColor;
+
+            if (index < Index)
+            {
+                line1.Background = PrimaryColor;
+                line.Background = PrimaryColor;
+            }
+            
+            Grid.SetColumn(line,0);
+            Grid.SetColumn(line1,1);
+            
+            griditem.Children.Add(line);
+            griditem.Children.Add(line1);
+
+            var gridBorder = new Grid();
+            
+            var circle = new Border()
+                { Margin = new Thickness(0,0,0,2), Height = 30, Width = 30, CornerRadius = new CornerRadius(25), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center };
+
+            if (index == Index)
+            {
+                circle.Background = PrimaryColor;
+                
+                circle.BorderThickness = new Thickness(0);
+                circle.Child = new TextBlock() {VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center, Text = (index + 1).ToString(), Foreground = Brushes.White};
+            }
+            else if (index < Index)
+            {
+                circle.Background = Brushes.Transparent;
+                circle.BorderThickness = new Thickness(1.5);
+                circle.BorderBrush = PrimaryColor;
+                circle.Child = new TextBlock() {VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center, Text = (index + 1).ToString(), Foreground = PrimaryColor};
+            }
+            else
+            {
+                circle.Background = Brushes.Transparent;
+                circle.BorderThickness = new Thickness(1.5);
+                circle.BorderBrush = DisabledColor;
+                circle.Child = new TextBlock() { VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center, Text = (index + 1).ToString(), Foreground = DisabledColor};
+            }
+            
+
+            
+            
+            gridBorder.Children.Add(circle);
+            
+            gridBorder.Children.Add(new TextBlock()
+            {
+                FontWeight = index == Index ? FontWeight.Medium: FontWeight.Normal,
+                Text = step.ToString(), VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center, Margin = new Thickness(0,55,0,0)
+            });
+            
+            Grid.SetColumn(griditem,index);
+            Grid.SetColumn(gridBorder,index);
+            grid.Children.Add(griditem);
+            grid.Children.Add(gridBorder);
+        }
+
+        #endregion
+
     }
 }

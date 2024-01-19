@@ -52,8 +52,8 @@
                                         <ThicknessTransition Property="Margin" Duration="0.25" />
                                     </Transitions>
                                 </ToggleButton.Transitions>
-                                <PathIcon Width="10"
-                                          Height="10"
+                                <PathIcon Width="7"
+                                          Height="7"
                                           Data="{x:Static content:Icons.ChevronRight}" />
                             </ToggleButton>
                             <ContentPresenter Name="PART_HeaderPresenter"
