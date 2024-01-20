@@ -2,14 +2,12 @@
 	<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/OIG.N5o-removebg-preview.png" ></img> 
 	<h3>Suki UI</h3>
 	<h4><i>A Desktop UI Library for <a href="https://avaloniaui.net/">Avalonia</a></i></h4>
-	<div id="badges" >  
+	<div id="badges" >
+		<a href="https://github.com/kikipoulet/SukiUI/wiki/1.-Installation"><img src="https://img.shields.io/badge/GET%20STARTED-purple?style=for-the-badge" alt="Get Started"/></a>
 		<a href="https://www.nuget.org/packages/SukiUI"><img src="https://img.shields.io/nuget/v/SukiUI?style=for-the-badge" alt="Nuget"/></a>  
 		<a href="https://www.nuget.org/packages/SukiUI"><img src="https://img.shields.io/nuget/vpre/SukiUI?style=for-the-badge" alt="Nuget Pre"/></a> 
 		<a href="https://github.com/kikipoulet/SukiUI/blob/main/LICENSE"><img src="https://img.shields.io/github/license/kikipoulet/SukiUI?style=for-the-badge" alt="License"/></a>  
 	</div>
-	<h3>
-		<a href="https://github.com/kikipoulet/SukiUI/wiki/1.-Installation">GET STARTED</a>
-	</h3>
 </div>
 <br/>
 
