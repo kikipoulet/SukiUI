@@ -1,28 +1,23 @@
 <div id="header" align="center">
 	<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/OIG.N5o-removebg-preview.png" ></img> 
-	<h1>Suki UI</h1>
+	<h3>Suki UI</h3>
 	<h4><i>A Desktop UI Library for <a href="https://avaloniaui.net/">Avalonia</a></i></h4>
 	<div id="badges" >  
-		<a href="https://www.nuget.org/packages/SukiUI">  
-		    <img src="https://img.shields.io/nuget/v/SukiUI?style=for-the-badge" alt="Nuget"/>  
-		</a>  
-		<a href="https://www.nuget.org/packages/SukiUI">  
-			<img src="https://img.shields.io/nuget/vpre/SukiUI?style=for-the-badge" alt="Nuget Pre"/>  
-		</a>  
-		<a href="https://github.com/kikipoulet/SukiUI/blob/main/LICENSE">  
-			<img src="https://img.shields.io/github/license/kikipoulet/SukiUI?style=for-the-badge" alt="License"/>  
-		</a>  
+		<a href="https://www.nuget.org/packages/SukiUI"><img src="https://img.shields.io/nuget/v/SukiUI?style=for-the-badge" alt="Nuget"/></a>  
+		<a href="https://www.nuget.org/packages/SukiUI"><img src="https://img.shields.io/nuget/vpre/SukiUI?style=for-the-badge" alt="Nuget Pre"/></a> 
+		<a href="https://github.com/kikipoulet/SukiUI/blob/main/LICENSE"><img src="https://img.shields.io/github/license/kikipoulet/SukiUI?style=for-the-badge" alt="License"/></a>  
 	</div>
-	<a href="https://github.com/kikipoulet/SukiUI/wiki/1.-Installation">
-		<h1>GET STARTED</h1>
-	</a>
+	<h3>
+		<a href="https://github.com/kikipoulet/SukiUI/wiki/1.-Installation">GET STARTED</a>
+	</h3>
 </div>
-
+<br/>
 
 #### New 6.0.0-beta Release:
 - Some breaking changes. If you update from a previous version, please read the [Documentation](https://github.com/kikipoulet/SukiUI/wiki/1.-Installation) first
 - Special thanks to [@sirdoombox](https://www.github.com/sirdoombox) for his valuable contributions
 <br/>
+
 ## 📱 UI Theme 
 
 ##### SukiUI contains a theme for AvaloniaUI's base controls with support for Light/Dark themes.
