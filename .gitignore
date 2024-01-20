@@ -399,3 +399,6 @@ FodyWeavers.xsd
 *.sln.iml
 .idea/
 *.dotsettings
+
+# Obsidian Markdown Editor
+.obsidian/
