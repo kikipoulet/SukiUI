@@ -1,17 +1,23 @@
 <div id="header" align="center">
- 
-<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/OIG.N5o-removebg-preview.png" ></img> 
- </div>
+	<img src="https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/OIG.N5o-removebg-preview.png" ></img> 
+	<h1>Suki UI</h1>
+	<h4><i>A Desktop UI Library for <a href="https://avaloniaui.net/">Avalonia</a></i></h4>
+	<div id="badges" >  
+		<a href="https://www.nuget.org/packages/SukiUI">  
+		    <img src="https://img.shields.io/nuget/v/SukiUI?style=for-the-badge" alt="Nuget"/>  
+		</a>  
+		<a href="https://www.nuget.org/packages/SukiUI">  
+			<img src="https://img.shields.io/nuget/vpre/SukiUI?style=for-the-badge" alt="Nuget Pre"/>  
+		</a>  
+		<a href="https://github.com/kikipoulet/SukiUI/blob/main/LICENSE">  
+			<img src="https://img.shields.io/github/license/kikipoulet/SukiUI?style=for-the-badge" alt="License"/>  
+		</a>  
+	</div>
+	<a href="https://github.com/kikipoulet/SukiUI/wiki/1.-Installation">
+		<h1>GET STARTED</h1>
+	</a>
+</div>
 
- <br/>
-
-# ✨ SukiUI
-### Desktop UI Library for Avalonia ! <img width="22" height="22" src="https://www.avaloniaui.net/img/logo/avalonia-white-purple.svg"></img>
- ![NuGet Version](https://img.shields.io/nuget/v/SukiUI) ![NuGet Version](https://img.shields.io/nuget/vpre/SukiUI) ![GitHub License](https://img.shields.io/github/license/kikipoulet/SukiUI) ![GitHub Repo stars](https://img.shields.io/github/stars/Kikipoulet/SukiUI?style=flat)
-<br/>
-
-# [GET STARTED](https://github.com/kikipoulet/SukiUI/wiki/1.-Installation)
-<br/>
 
 #### New 6.0.0-beta Release:
 - Some breaking changes. If you update from a previous version, please read the [Documentation](https://github.com/kikipoulet/SukiUI/wiki/1.-Installation) first
