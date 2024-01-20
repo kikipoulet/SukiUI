@@ -13,6 +13,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary
         public AvaloniaList<DataGridContentViewModel> DataGridContent { get; } = new();
         public AvaloniaList<Node> TreeViewContent { get; } = new();
         [ObservableProperty] private string _selectedSimpleContent;
+        [ObservableProperty] private bool _isDataGridColumnsResizable = true;
 
         public CollectionsViewModel() : base("Collections", MaterialIconKind.ListBox)
         {

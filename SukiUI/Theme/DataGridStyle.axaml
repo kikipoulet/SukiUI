@@ -20,7 +20,8 @@
     </Design.PreviewWith>
     <Style Selector="DataGridCell">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
         <Setter Property="FontSize" Value="25" />
         <Setter Property="Template">
@@ -44,6 +45,19 @@
                 </Grid>
             </ControlTemplate>
         </Setter>
+        <Style Selector="^ TextBlock">
+            <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+            <Setter Property="Margin" Value="5 0 0 0" />
+        </Style>
+        <Style Selector="^.CenterAlign">
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+        <Style Selector="^.RightAlign">
+            <Setter Property="HorizontalContentAlignment" Value="Right" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Margin" Value="0 0 15 0" />
+        </Style>
     </Style>
 
     <Style Selector="DataGridColumnHeader">
@@ -59,12 +73,12 @@
 
         <Setter Property="Template">
             <ControlTemplate>
-                <Border Background="Transparent"
+                <Border Name="PART_Border"
+                        Background="Transparent"
                         BorderBrush="{DynamicResource SukiControlBorderBrush}"
                         BorderThickness="0,0,0,1.5"
                         CornerRadius="0">
                     <Grid ColumnDefinitions="*,Auto">
-
                         <Grid Margin="{TemplateBinding Padding}"
                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -72,7 +86,6 @@
                             <ContentPresenter Background="Transparent"
                                               Content="{TemplateBinding Content}"
                                               ContentTemplate="{TemplateBinding ContentTemplate}" />
-
                             <Path Name="SortIcon"
                                   Grid.Column="1"
                                   Width="8"
@@ -89,6 +102,13 @@
                 </Border>
             </ControlTemplate>
         </Setter>
+        <Style Selector="^ TextBlock">
+            <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        </Style>
+    </Style>
+
+    <Style Selector="DataGrid[CanUserResizeColumns=True] DataGridColumnHeader:not(#PART_TopRightCornerHeader) /template/ Border#PART_Border">
+        <Setter Property="BorderThickness" Value="0,0,1.5,1.5" />
     </Style>
 
     <Style Selector="DataGridColumnHeader:dragIndicator">

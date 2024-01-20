@@ -40,7 +40,7 @@
                 </StackPanel>
             </controls:GroupBox>
         </controls:GlassCard>
-        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled">
+        <ScrollViewer Grid.Row="1">
             <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding AllIcons}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:CompileBindings="False">
@@ -63,6 +63,5 @@
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
         </ScrollViewer>
-
     </Grid>
 </UserControl>

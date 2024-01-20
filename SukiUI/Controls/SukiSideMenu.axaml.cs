@@ -102,11 +102,11 @@ public class SukiSideMenu : SelectingItemsControl
                 .ObserveOn(new AvaloniaSynchronizationContext())
                 .Do(obj =>
                 {
-                    contentControl.PushContent(obj switch
+                    contentControl.Content = obj switch
                     {
                         SukiSideMenuItem { PageContent: { } sukiMenuPageContent } => sukiMenuPageContent,
                         _ => obj
-                    });
+                    };
                 })
                 .Subscribe();
         }

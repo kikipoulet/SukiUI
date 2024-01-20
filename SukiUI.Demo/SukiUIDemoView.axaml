@@ -24,7 +24,11 @@
     </suki:SukiWindow.LogoContent>
     <suki:SukiWindow.MenuItems>
         <MenuItem Header="Toggles">
-            <MenuItem Command="{Binding ToggleBaseThemeCommand}" Header="{Binding BaseTheme}" />
+            <MenuItem Command="{Binding ToggleBaseThemeCommand}" Header="{Binding BaseTheme}">
+                <MenuItem.Icon>
+                    <avalonia:MaterialIcon Kind="Lightbulb" />
+                </MenuItem.Icon>
+            </MenuItem>
             <MenuItem Command="{Binding ToggleAnimationsCommand}" Header="Animations" />
         </MenuItem>
         <MenuItem Click="MenuItem_OnClick"

@@ -100,7 +100,6 @@ public partial class DashboardPage : UserControl
     private void Button_OnClickProgressBar(object? sender, RoutedEventArgs e)
     {
         this.FindRequiredControl<ProgressBar>("myProgressBarLine").Value = 60;
-        this.FindRequiredControl<PercentProgressBar>("myPercentProgress").Value = 100;
     }
 
     private void Button_OnClick(object? sender, RoutedEventArgs e)
@@ -122,11 +121,6 @@ public partial class DashboardPage : UserControl
     private void BusyMe(object? sender, RoutedEventArgs e)
     {
         this.FindRequiredControl<BusyArea>("myBusyArea").IsBusy = true;
-    }
-
-    private void GoTo50(object? sender, RoutedEventArgs e)
-    {
-        this.FindRequiredControl<PercentProgressBar>("myPercentProgress").Value = 50;
     }
 
     // Write a function that returns the sum of two numbers.
