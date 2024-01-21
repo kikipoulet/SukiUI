@@ -60,11 +60,11 @@
                                               HorizontalAlignment="Center"
                                               VerticalAlignment="Center"
                                               Content="{TemplateBinding Icon}" />
-                            <Rectangle Width="2"
-                                       Margin="5,-1"
+                            <Rectangle Width="1"
+                                       Margin="5,4"
                                        Fill="{DynamicResource SukiLightBorderBrush}" />
                             <ContentPresenter Name="PART_HeaderPresenter"
-                                              Margin="4,7,0,7"
+                                              Margin="8,7,0,7"
                                               HorizontalAlignment="Left"
                                               VerticalAlignment="Center"
                                               Content="{TemplateBinding Header}">
@@ -191,13 +191,13 @@
                                OverlayInputPassThroughElement="{Binding $parent[Menu]}"
                                Placement="BottomEdgeAlignedLeft">
                             <Popup.Transitions />
-                            <Border Name="PART_Border"
+                            <Border Name="PART_Border" 
                                     Background="{DynamicResource SukiCardBackground}"
                                     BorderBrush="{DynamicResource SukiBorderBrush}"
                                     BorderThickness="1"
                                     BoxShadow="{DynamicResource SukiSwitchShadow}"
                                     ClipToBounds="True"
-                                    CornerRadius="0 0 10 10">
+                                    CornerRadius="10 10 10 10">
                                 <ScrollViewer Classes="menuscroller">
                                     <ItemsPresenter Name="PART_ItemsPresenter"
                                                     Grid.IsSharedSizeScope="True"

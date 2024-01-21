@@ -24,7 +24,7 @@
                           CommandParameter="{x:True}"
                           Header="Option With Icon">
                     <MenuItem.Icon>
-                        <PathIcon Data="{x:Static content:Icons.Star}" />
+                        <PathIcon Width="18" Height="18" Data="{x:Static content:Icons.Star}" />
                     </MenuItem.Icon>
                 </MenuItem>
             </ContextMenu>
