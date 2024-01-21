@@ -108,7 +108,7 @@
     </Style>
 
     <Style Selector="DataGrid[CanUserResizeColumns=True] DataGridColumnHeader:not(#PART_TopRightCornerHeader) /template/ Border#PART_Border">
-        <Setter Property="BorderThickness" Value="0,0,1.5,1.5" />
+        <Setter Property="BorderThickness" Value="0,0,1,1.5" />
     </Style>
 
     <Style Selector="DataGridColumnHeader:dragIndicator">
