@@ -65,6 +65,7 @@
             </Grid>
 
             <!--  Upload progress  -->
+            <StackPanel>
             <suki:GlassCard Width="300"
                             Height="80"
                             Margin="15">
@@ -156,6 +157,7 @@
 
                 </StackPanel>
             </suki:GlassCard>
+            </StackPanel>
 
             <!--  humidity  -->
             <suki:GlassCard Width="300"
@@ -309,7 +311,7 @@
             <!--  Invoices  -->
             <StackPanel>
                 <suki:GlassCard Width="430"
-                                Height="281"
+                                Height="308"
                                 Margin="15">
                     <TabControl>
                         <TabItem>
@@ -317,7 +319,7 @@
                                 <TextBlock FontSize="16" Text="Invoices" />
                             </TabItem.Header>
                             <Grid>
-                                <DataGrid Margin="15,10,15,0"
+                                <DataGrid Margin="15,0,15,10"
                                           VerticalAlignment="Top"
                                           AutoGenerateColumns="True"
                                           IsReadOnly="True"
