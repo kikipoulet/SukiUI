@@ -2,20 +2,7 @@
     <Design.PreviewWith>
         <Border Width="500"
                 Padding="20"
-                Background="White">
-            <TabControl Margin="5" Classes="MobileTabView">
-                <TabItem Classes="MobileTabItem">
-                    <TabItem.Header>
-                        <TextBlock>Item 1</TextBlock>
-                    </TabItem.Header>
-                </TabItem>
-                <TabItem IsSelected="True">
-                    <TabItem.Header>
-                        <TextBlock>Item 2</TextBlock>
-                    </TabItem.Header>
-                </TabItem>
-            </TabControl>
-        </Border>
+                Background="White" />
     </Design.PreviewWith>
 
     <Style Selector="TabItem">
@@ -36,26 +23,24 @@
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding CornerRadius}">
-                    <StackPanel>
-
-                        <ContentPresenter Padding="0,5"
+                    <DockPanel>
+                        <ContentPresenter Name="PART_HeaderPresenter"
+                                          Padding="0,5"
                                           HorizontalAlignment="Center"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                           HorizontalContentAlignment="Center"
                                           Content="{TemplateBinding Header}"
                                           ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                          DockPanel.Dock="Top"
                                           TextBlock.FontFamily="{TemplateBinding FontFamily}"
                                           TextBlock.FontSize="{TemplateBinding FontSize}"
                                           TextBlock.FontWeight="{TemplateBinding FontWeight}" />
-
-
-                        <Border Name="BarSelected"
+                        <Border Name="PART_Underline"
                                 Height="3"
-                                Margin="10,0"
+                                Margin="10,-15,10,0"
                                 Background="{DynamicResource SukiPrimaryColor}"
                                 CornerRadius="55"
                                 Opacity="0">
-
                             <Border.Transitions>
                                 <Transitions>
                                     <DoubleTransition Property="Opacity" Duration="0:0:0.3" />
@@ -63,23 +48,19 @@
                             </Border.Transitions>
                         </Border>
 
-                    </StackPanel>
+                    </DockPanel>
                 </Border>
             </ControlTemplate>
         </Setter>
     </Style>
 
-    <Style Selector="TabItem:selected /template/ Border#BarSelected">
+    <Style Selector="TabItem:selected /template/ Border#PART_Underline">
         <Setter Property="Opacity" Value="1" />
     </Style>
 
     <!--  Nornal state  -->
     <Style Selector="TabItem /template/ Border#PART_LayoutRoot">
         <Setter Property="Background" Value="{Binding $parent[TabItem].Background}" />
-    </Style>
-    <Style Selector="TabItem /template/ Border#PART_SelectedPipe">
-        <Setter Property="Opacity" Value="0" />
-        <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
     </Style>
 
 
@@ -111,37 +92,14 @@
     <Style Selector="TabItem[IsEnabled=False] TextBlock">
         <Setter Property="Foreground" Value="{DynamicResource SukiDisabledText}" />
     </Style>
-
-    <!--  TabStripPlacement States Group  -->
-    <Style Selector="TabItem[TabStripPlacement=Left] /template/ Border#PART_SelectedPipe">
-        <Setter Property="Width" Value="{DynamicResource TabItemPipeThickness}" />
-        <Setter Property="Height" Value="{DynamicResource TabItemVerticalPipeHeight}" />
-        <Setter Property="Margin" Value="0,0,2,0" />
-        <Setter Property="HorizontalAlignment" Value="Left" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-    </Style>
-    <Style Selector="TabItem[TabStripPlacement=Left] /template/ ContentPresenter#PART_ContentPresenter">
-        <Setter Property="Margin" Value="8,0,0,0" />
-    </Style>
-
-    <Style Selector="TabItem[TabStripPlacement=Top] /template/ Border#PART_SelectedPipe, TabItem[TabStripPlacement=Bottom] /template/ Border#PART_SelectedPipe">
-        <Setter Property="Height" Value="{DynamicResource TabItemPipeThickness}" />
-        <Setter Property="Margin" Value="0,0,0,2" />
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="VerticalAlignment" Value="Bottom" />
-    </Style>
-
-    <Style Selector="TabItem[TabStripPlacement=Right] /template/ Border#PART_SelectedPipe">
-        <Setter Property="Width" Value="{DynamicResource TabItemPipeThickness}" />
-        <Setter Property="Height" Value="{DynamicResource TabItemVerticalPipeHeight}" />
-        <Setter Property="Margin" Value="2,0,0,0" />
-        <Setter Property="HorizontalAlignment" Value="Right" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-    </Style>
-    <Style Selector="TabItem[TabStripPlacement=Right] /template/ ContentPresenter#PART_ContentPresenter">
-        <Setter Property="Margin" Value="0,0,8,0" />
-    </Style>
-    <Style Selector="TabItem[TabStripPlacement=Right]">
-        <Setter Property="HorizontalContentAlignment" Value="Right" />
+    
+    <Style Selector="TabItem[TabStripPlacement=Bottom]">
+        <Style Selector="^ /template/ ContentPresenter#PART_HeaderPresenter">
+            <Setter Property="DockPanel.Dock" Value="Bottom" />
+            <Setter Property="Margin" Value="0,-15,0,0" />
+        </Style>
+        <Style Selector="^ Border#PART_Underline">
+            <Setter Property="Margin" Value="10,0,10,0" />
+        </Style>
     </Style>
 </Styles>

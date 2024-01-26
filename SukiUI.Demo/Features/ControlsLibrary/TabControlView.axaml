@@ -21,7 +21,10 @@
             </Setter>
             <Setter Property="ContentTemplate">
                 <DataTemplate x:DataType="controlsLibrary:TabViewModel">
-                    <TextBlock Text="{Binding Content}" />
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Classes="h3s"
+                               Text="{Binding Content}" />
                 </DataTemplate>
             </Setter>
             <Style x:DataType="controlsLibrary:TabViewModel" Selector="^ TabItem">
