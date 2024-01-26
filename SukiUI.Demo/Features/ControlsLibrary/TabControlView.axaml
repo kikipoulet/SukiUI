@@ -1,11 +1,9 @@
 <UserControl x:Class="SukiUI.Demo.Features.ControlsLibrary.TabControlView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:content="clr-namespace:SukiUI.Content;assembly=SukiUI"
              xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
              xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:features="clr-namespace:SukiUI.Demo.Features"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="450"
              d:DesignWidth="800"
@@ -23,7 +21,7 @@
                 <DataTemplate x:DataType="controlsLibrary:TabViewModel">
                     <TextBlock HorizontalAlignment="Center"
                                VerticalAlignment="Center"
-                               Classes="h3s"
+                               Classes="h3"
                                Text="{Binding Content}" />
                 </DataTemplate>
             </Setter>
@@ -37,7 +35,10 @@
             <controls:GroupBox Header="Buttons">
                 <StackPanel Classes="HeaderContent">
                     <TextBlock>
-                        Styles are available for all orientations.
+                        Styles are available for all TabStripPlacements.
+                    </TextBlock>
+                    <TextBlock>
+                        Tab 6 is disabled for demonstration purposes.
                     </TextBlock>
                 </StackPanel>
             </controls:GroupBox>
