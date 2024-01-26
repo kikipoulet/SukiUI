@@ -55,6 +55,7 @@
                 <ResourceInclude Source="avares://sukiUI/Theme/Expander.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/TabControl.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/TabItem.axaml" />
+                <ResourceInclude Source="avares://sukiUI/Theme/DropDownButton.axaml" />
 
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiWindow.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiHost.axaml" />

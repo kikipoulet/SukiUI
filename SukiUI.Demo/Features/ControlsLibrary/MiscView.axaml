@@ -48,6 +48,21 @@
                         <NumericUpDown />
                     </controls:GroupBox>
                 </controls:GlassCard>
+                <controls:GlassCard>
+                    <controls:GroupBox Header="DropDownButton">
+                        <DropDownButton Content="Click To Open">
+                            <DropDownButton.Flyout>
+                                <Flyout>
+                                    <Border Classes="Card">
+                                        <TextBlock Foreground="{DynamicResource SukiText}">
+                                            Dropdown button content.
+                                        </TextBlock>
+                                    </Border>
+                                </Flyout>
+                            </DropDownButton.Flyout>
+                        </DropDownButton>
+                    </controls:GroupBox>
+                </controls:GlassCard>
             </WrapPanel>
         </ScrollViewer>
     </Grid>
