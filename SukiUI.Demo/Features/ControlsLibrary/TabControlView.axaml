@@ -32,7 +32,7 @@
     </UserControl.Styles>
     <Grid RowDefinitions="Auto,*">
         <controls:GlassCard Classes="HeaderCard">
-            <controls:GroupBox Header="Buttons">
+            <controls:GroupBox Header="Tab Controls">
                 <StackPanel Classes="HeaderContent">
                     <TextBlock>
                         Styles are available for all TabStripPlacements.
