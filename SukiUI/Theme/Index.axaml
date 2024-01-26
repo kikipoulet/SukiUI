@@ -28,7 +28,6 @@
     <StyleInclude Source="avares://SukiUI/Theme/NotificationStyle.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/NotificationCardStyle.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ContextMenuStyle.axaml" />
-    <StyleInclude Source="avares://SukiUI/Theme/WindowStyles.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/CheckBoxStyles.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ScrollBarStyle.axaml" />
 
@@ -66,7 +65,6 @@
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiTransitioningContentControl.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/Stepper.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/GlassMorphism/GlassCard.axaml" />
-                <!-- <ResourceInclude Source="../ColorTheme/Light.axaml" /> -->
             </ResourceDictionary.MergedDictionaries>
 
         </ResourceDictionary>
