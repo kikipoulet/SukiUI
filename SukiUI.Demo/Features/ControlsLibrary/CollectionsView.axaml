@@ -31,17 +31,7 @@
                         <showMeTheXaml:XamlDisplay UniqueId="ListBox">
                             <ListBox MaxHeight="200"
                                      ItemsSource="{Binding SimpleContent}"
-                                     SelectedItem="{Binding SelectedSimpleContent}">
-                                <ListBox.Styles>
-                                    <Style Selector="ListBoxItem">
-                                        <Setter Property="ContextMenu">
-                                            <ContextMenu>
-                                                <MenuItem Header="Test Item" />
-                                            </ContextMenu>
-                                        </Setter>
-                                    </Style>
-                                </ListBox.Styles>
-                            </ListBox>
+                                     SelectedItem="{Binding SelectedSimpleContent}" />
                         </showMeTheXaml:XamlDisplay>
                     </controls:GroupBox>
                 </controls:GlassCard>
