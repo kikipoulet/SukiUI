@@ -27,7 +27,7 @@
             <Style.Animations>
                 <Animation Easing="CircularEaseOut"
                            FillMode="Forward"
-                           Duration="0.1">
+                           Duration="{StaticResource ShortAnimationDuration}">
                     <KeyFrame Cue="0%">
                         <Setter Property="ScaleTransform.ScaleY" Value="0" />
                         <Setter Property="TranslateTransform.Y" Value="-100" />
