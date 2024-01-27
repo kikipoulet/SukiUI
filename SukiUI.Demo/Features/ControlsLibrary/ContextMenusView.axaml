@@ -16,16 +16,23 @@
         <controls:GlassCard.ContextMenu>
             <ContextMenu>
                 <!--  Ignore your IDE, x:False is a valid intrinsic  -->
-                <MenuItem Command="{Binding TestClickedCommand}"
+                <MenuItem Command="{Binding OptionClickedCommand}"
                           CommandParameter="{x:False}"
                           Header="Option" />
                 <!--  Ignore your IDE, x:True is a valid intrinsic  -->
-                <MenuItem Command="{Binding TestClickedCommand}"
+                <MenuItem Command="{Binding OptionClickedCommand}"
                           CommandParameter="{x:True}"
                           Header="Option With Icon">
                     <MenuItem.Icon>
-                        <PathIcon Width="18" Height="18" Data="{x:Static content:Icons.Star}" />
+                        <PathIcon Width="18"
+                                  Height="18"
+                                  Data="{x:Static content:Icons.Star}" />
                     </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Nesting Example">
+                    <MenuItem Header="Deeper Nesting">
+                        <MenuItem Command="{Binding NestedOptionClickedCommand}" Header="Deepest Nesting" />
+                    </MenuItem>
                 </MenuItem>
             </ContextMenu>
         </controls:GlassCard.ContextMenu>

@@ -2,7 +2,6 @@
                  xmlns="https://github.com/avaloniaui"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-                 xmlns:content="clr-namespace:SukiUI.Content;assembly=SukiUI"
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:demo="clr-namespace:SukiUI.Demo"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -42,6 +41,11 @@
         </MenuItem>
         <MenuItem Header="Other">
             <MenuItem Command="{Binding CreateCustomThemeCommand}" Header="Create Custom Theme" />
+            <MenuItem Header="Nesting Example">
+                <MenuItem Header="Deeper Nesting">
+                    <MenuItem Header="Deepest Nesting" />
+                </MenuItem>
+            </MenuItem>
         </MenuItem>
     </suki:SukiWindow.MenuItems>
     <suki:SukiSideMenu HeaderContentOverlapsToggleButton="True"
