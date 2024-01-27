@@ -33,19 +33,22 @@
                                OverlayInputPassThroughElement="{Binding $parent[Menu]}"
                                Placement="BottomEdgeAlignedLeft">
                             <LayoutTransformControl Name="PART_LayoutTransform">
-                                <Border Name="PART_Border"
-                                        Background="{DynamicResource SukiCardBackground}"
-                                        BorderBrush="{DynamicResource SukiLightBorderBrush}"
-                                        BorderThickness="1"
-                                        BoxShadow="{DynamicResource SukiSwitchShadow}"
-                                        ClipToBounds="True"
-                                        CornerRadius="0 0 5 5">
+                                <Grid Margin="-12,0,0,0">
+                                    <Border BoxShadow="{DynamicResource SukiPopupShadow}" Margin="16,8,8,8"  CornerRadius="6" ></Border>
+                                    <Border Name="PART_Border" BoxShadow="{DynamicResource SukiPopupShadow}" Margin="16,8,8,8"
+                                            Background="{DynamicResource SukiCardBackground}"
+                                            BorderBrush="{DynamicResource SukiLightBorderBrush}"
+                                            BorderThickness="1"
+                                            
+                                            ClipToBounds="True"
+                                            CornerRadius="6">
                                     <ScrollViewer>
                                         <ItemsPresenter Name="PART_ItemsPresenter"
                                                         Grid.IsSharedSizeScope="True"
                                                         ItemsPanel="{TemplateBinding ItemsPanel}" />
                                     </ScrollViewer>
                                 </Border>
+                                </Grid>
                             </LayoutTransformControl>
                         </Popup>
                     </Panel>

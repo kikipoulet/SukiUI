@@ -25,15 +25,15 @@
                           CommandParameter="{x:True}"
                           Header="Option With Icon">
                     <MenuItem.Icon>
-                        <PathIcon Width="18"
-                                  Height="18"
+                        <PathIcon Width="15"
+                                  Height="15"
                                   Data="{x:Static content:Icons.Star}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Header="Disabled With Icon" IsEnabled="False">
                     <MenuItem.Icon>
-                        <PathIcon Width="18"
-                                  Height="18"
+                        <PathIcon Width="13"
+                                  Height="13"
                                   Data="{x:Static content:Icons.Cross}" />
                     </MenuItem.Icon>
                 </MenuItem>

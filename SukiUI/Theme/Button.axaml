@@ -382,12 +382,12 @@
             <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor0}" />
             <Setter Property="Padding" Value="0" />
             <Style Selector="^:pointerover">
-                <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor75}" />
+                <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor25}" />
             </Style>
             <Style Selector="^.Close">
                 <Setter Property="Background" Value="{DynamicResource SukiAccentColor0}" />
                 <Style Selector="^:pointerover">
-                    <Setter Property="Background" Value="{DynamicResource SukiAccentColor75}" />
+                    <Setter Property="Background" Value="{DynamicResource SukiAccentColor25}" />
                 </Style>
             </Style>
         </Style>

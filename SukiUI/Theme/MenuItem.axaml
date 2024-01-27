@@ -21,19 +21,19 @@
                     <Grid>
                         <DockPanel Margin="5,10">
                             <ContentPresenter Name="PART_Icon"
-                                              Width="25"
-                                              Height="25"
+                                              Width="15" Margin="5,0"
+                                              Height="15"
                                               HorizontalAlignment="Center"
                                               VerticalAlignment="Center"
                                               Content="{TemplateBinding Icon}"
                                               DockPanel.Dock="Left" />
                             <Rectangle Width="1"
-                                       Margin="5,-20"
+                                       Margin="5,-2"
                                        DockPanel.Dock="Left"
                                        Fill="{DynamicResource SukiLightBorderBrush}" />
                             <PathIcon Name="PART_RightArrow"
-                                      Width="15"
-                                      Height="15"
+                                      Width="12"
+                                      Height="12"
                                       Margin="5,0,10,0"
                                       HorizontalAlignment="Right"
                                       VerticalAlignment="Center"
@@ -68,7 +68,10 @@
                                Placement="RightEdgeAlignedTop"
                                VerticalOffset="-1">
                             <LayoutTransformControl Name="PART_LayoutTransform">
-                                <Border Name="PART_Border"
+                                <Grid Margin="-4,-8,0,0">
+                                    <Border BoxShadow="{DynamicResource SukiPopupShadow}" Margin="16,8,8,8"  CornerRadius="6" ></Border>
+
+                                <Border Name="PART_Border" Margin="16,8,8,8"
                                         Background="{DynamicResource SukiCardBackground}"
                                         BorderBrush="{DynamicResource SukiLightBorderBrush}"
                                         BorderThickness="1"
@@ -79,6 +82,7 @@
                                         <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
                                     </ScrollViewer>
                                 </Border>
+                                    </Grid>
                             </LayoutTransformControl>
                         </Popup>
                     </Grid>
@@ -143,9 +147,9 @@
             <Setter Property="Height" Value="NaN" />
             <Setter Property="Template">
                 <ControlTemplate>
-                    <Separator Height="1.5"
-                               Margin="-100,0"
-                               Background="{DynamicResource GlassBorderBrush}" />
+                    <Separator Height="1"
+                               Margin="0,0"
+                               Background="{DynamicResource SukiLightBorderBrush}" />
                 </ControlTemplate>
             </Setter>
         </Style>
