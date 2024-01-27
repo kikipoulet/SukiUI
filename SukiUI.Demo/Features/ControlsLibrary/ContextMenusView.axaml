@@ -19,6 +19,7 @@
                 <MenuItem Command="{Binding OptionClickedCommand}"
                           CommandParameter="{x:False}"
                           Header="Option" />
+                <MenuItem Header="Disabled Option" IsEnabled="False" />
                 <!--  Ignore your IDE, x:True is a valid intrinsic  -->
                 <MenuItem Command="{Binding OptionClickedCommand}"
                           CommandParameter="{x:True}"
@@ -29,9 +30,19 @@
                                   Data="{x:Static content:Icons.Star}" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Nesting Example">
-                    <MenuItem Header="Deeper Nesting">
-                        <MenuItem Command="{Binding NestedOptionClickedCommand}" Header="Deepest Nesting" />
+                <MenuItem Header="Disabled With Icon" IsEnabled="False">
+                    <MenuItem.Icon>
+                        <PathIcon Width="18"
+                                  Height="18"
+                                  Data="{x:Static content:Icons.Cross}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Separator Next" />
+                <MenuItem Header="-" />
+                <MenuItem Header="Submenu">
+                    <MenuItem Header="Sub-Submenu">
+                        <MenuItem Command="{Binding NestedOptionClickedCommand}" Header="Nested Option" />
+                        <MenuItem Header="Disabled Nested Option" IsEnabled="False" />
                     </MenuItem>
                 </MenuItem>
             </ContextMenu>

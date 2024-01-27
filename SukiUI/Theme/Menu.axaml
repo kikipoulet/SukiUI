@@ -35,10 +35,11 @@
                             <LayoutTransformControl Name="PART_LayoutTransform">
                                 <Border Name="PART_Border"
                                         Background="{DynamicResource SukiCardBackground}"
-                                        BorderBrush="{DynamicResource SukiBorderBrush}"
+                                        BorderBrush="{DynamicResource SukiLightBorderBrush}"
                                         BorderThickness="1"
                                         BoxShadow="{DynamicResource SukiSwitchShadow}"
-                                        ClipToBounds="True">
+                                        ClipToBounds="True"
+                                        CornerRadius="0 0 5 5">
                                     <ScrollViewer>
                                         <ItemsPresenter Name="PART_ItemsPresenter"
                                                         Grid.IsSharedSizeScope="True"

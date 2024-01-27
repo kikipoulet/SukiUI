@@ -15,12 +15,11 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Border Name="root"
-                        Padding="0,10"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         ClipToBounds="True">
                     <Grid>
-                        <DockPanel Margin="5,0">
+                        <DockPanel Margin="5,10">
                             <ContentPresenter Name="PART_Icon"
                                               Width="25"
                                               Height="25"
@@ -60,19 +59,22 @@
                                                           Converter={StaticResource KeyGestureConverter}}" />
                         <Popup Name="PART_Popup"
                                ClipToBounds="True"
+                               HorizontalOffset="-5"
                                IsLightDismissEnabled="False"
                                IsOpen="{TemplateBinding IsSubMenuOpen,
                                                         Mode=TwoWay}"
                                Opacity="0"
                                OverlayInputPassThroughElement="{Binding $parent[Menu]}"
-                               Placement="Right">
+                               Placement="RightEdgeAlignedTop"
+                               VerticalOffset="-1">
                             <LayoutTransformControl Name="PART_LayoutTransform">
                                 <Border Name="PART_Border"
                                         Background="{DynamicResource SukiCardBackground}"
-                                        BorderBrush="{DynamicResource SukiBorderBrush}"
+                                        BorderBrush="{DynamicResource SukiLightBorderBrush}"
                                         BorderThickness="1"
-                                        BoxShadow="{DynamicResource SukiSwitchShadow}"
-                                        ClipToBounds="True">
+                                        BoxShadow="{DynamicResource SukiPopupShadow}"
+                                        ClipToBounds="True"
+                                        CornerRadius="5">
                                     <ScrollViewer>
                                         <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
                                     </ScrollViewer>
@@ -141,9 +143,9 @@
             <Setter Property="Height" Value="NaN" />
             <Setter Property="Template">
                 <ControlTemplate>
-                    <Separator Height="1"
-                               Margin="0,8"
-                               Foreground="{DynamicResource MaterialDividerBrush}" />
+                    <Separator Height="1.5"
+                               Margin="-100,0"
+                               Background="{DynamicResource GlassBorderBrush}" />
                 </ControlTemplate>
             </Setter>
         </Style>

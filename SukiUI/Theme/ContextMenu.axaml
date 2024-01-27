@@ -1,6 +1,9 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ControlTheme x:Key="SukiContextMenuStyle" TargetType="ContextMenu">
         <Setter Property="Background" Value="{DynamicResource SukiStrongBackground}" />
+        <Setter Property="CornerRadius" Value="0 5 5 5" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiLightBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Template">
             <ControlTemplate>
                 <!--  Tiny margin helps prevent mouse-over immediately  -->
