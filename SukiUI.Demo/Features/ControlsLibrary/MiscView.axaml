@@ -53,7 +53,7 @@
                         <DropDownButton Content="Click To Open">
                             <DropDownButton.Flyout>
                                 <Flyout>
-                                    <Border Classes="Card">
+                                    <Border Padding="10" CornerRadius="8" Classes="Card">
                                         <TextBlock Foreground="{DynamicResource SukiText}">
                                             Dropdown button content.
                                         </TextBlock>
