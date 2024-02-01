@@ -83,7 +83,7 @@ public class SukiHost : ContentControl
     protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {
         base.OnAttachedToVisualTree(e);
-        _instance = this;
+        _instance ??= this;
     }
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
