@@ -5,8 +5,12 @@ using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Threading;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Reactive;
 using System.Reactive.Linq;
+using Avalonia.Collections;
+using Avalonia.Data;
 using Avalonia.Interactivity;
 
 namespace SukiUI.Controls;
@@ -35,8 +39,7 @@ public class SukiWindow : Window
     }
 
     public static readonly StyledProperty<Control> LogoContentProperty =
-        AvaloniaProperty.Register<SukiWindow, Control>(nameof(LogoContent),
-            defaultValue: new Border());
+        AvaloniaProperty.Register<SukiWindow, Control>(nameof(LogoContent));
 
     public Control LogoContent
     {
@@ -62,16 +65,15 @@ public class SukiWindow : Window
         set => SetValue(IsMenuVisibleProperty, value);
     }
 
-    public static readonly StyledProperty<List<MenuItem>> MenuItemsProperty =
-        AvaloniaProperty.Register<SukiWindow, List<MenuItem>>(nameof(MenuItems),
-            defaultValue: new List<MenuItem>());
+    public static readonly StyledProperty<AvaloniaList<MenuItem>?> MenuItemsProperty =
+        AvaloniaProperty.Register<SukiWindow, AvaloniaList<MenuItem>?>(nameof(MenuItems));
 
-    public List<MenuItem> MenuItems
+    public AvaloniaList<MenuItem>? MenuItems
     {
         get => GetValue(MenuItemsProperty);
         set => SetValue(MenuItemsProperty, value);
     }
-
+    
     public static readonly StyledProperty<bool> BackgroundAnimationEnabledProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(BackgroundAnimationEnabled), defaultValue: false);
 
@@ -99,6 +101,11 @@ public class SukiWindow : Window
         set => SetValue(CanMoveProperty, value);
     }
 
+    public SukiWindow()
+    {
+        MenuItems = new();
+    }
+    
     private IDisposable? _subscriptionDisposables;
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
@@ -129,10 +136,12 @@ public class SukiWindow : Window
         if (e.NameScope.Find<SukiBackground>("PART_Background") is { } background)
         {
             background.SetAnimationEnabled(BackgroundAnimationEnabled);
-            _subscriptionDisposables = this.GetObservable(BackgroundAnimationEnabledProperty)
+            var bgObs = this.GetObservable(BackgroundAnimationEnabledProperty)
                 .Do(enabled => background.SetAnimationEnabled(enabled))
-                .ObserveOn(new AvaloniaSynchronizationContext())
-                .Subscribe();
+                .Select(_ => Unit.Default)
+                .ObserveOn(new AvaloniaSynchronizationContext());
+
+            _subscriptionDisposables = bgObs.Subscribe();
         }
     }
 

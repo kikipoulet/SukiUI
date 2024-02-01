@@ -25,6 +25,7 @@
                                Foreground="{DynamicResource SukiPrimaryColor}"
                                Kind="Dog" />
     </suki:SukiWindow.LogoContent>
+
     <suki:SukiWindow.MenuItems>
         <MenuItem Header="Toggles">
             <MenuItem Command="{Binding ToggleBaseThemeCommand}" Header="{Binding BaseTheme}">

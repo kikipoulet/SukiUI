@@ -66,11 +66,10 @@ public class SukiHost : ContentControl
     public static void SetToastLimit(Control element, int value) =>
         element.SetValue(ToastLimitProperty, value);
 
-    public static readonly StyledProperty<AvaloniaList<SukiToast>> ToastsCollectionProperty =
-        AvaloniaProperty.Register<SukiHost, AvaloniaList<SukiToast>>(nameof(ToastsCollection),
-            defaultValue: new AvaloniaList<SukiToast>());
+    public static readonly StyledProperty<AvaloniaList<SukiToast>?> ToastsCollectionProperty =
+        AvaloniaProperty.Register<SukiHost, AvaloniaList<SukiToast>?>(nameof(ToastsCollection));
 
-    public AvaloniaList<SukiToast> ToastsCollection
+    public AvaloniaList<SukiToast>? ToastsCollection
     {
         get => GetValue(ToastsCollectionProperty);
         set => SetValue(ToastsCollectionProperty, value);
@@ -92,6 +91,7 @@ public class SukiHost : ContentControl
         base.OnApplyTemplate(e);
         if (VisualRoot is not Window window)
             throw new InvalidOperationException("SukiHost must be hosted inside a Window or SukiWindow");
+        ToastsCollection ??= new AvaloniaList<SukiToast>();
         _maxToasts = GetToastLimit(window);
         var toastLoc = GetToastLocation(window);
 

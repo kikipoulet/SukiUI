@@ -34,6 +34,7 @@ public partial class SukiUIDemoView : SukiWindow
     private void InputElement_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
         IsMenuVisible = !IsMenuVisible;
-        new SukiWindow().Show();
+        var win = new SukiWindow();
+        win.Show();
     }
 }
