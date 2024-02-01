@@ -3,14 +3,10 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Media;
-using Avalonia.Styling;
 using Avalonia.Threading;
 using System;
 using System.Collections.Generic;
 using System.Reactive.Linq;
-using System.Runtime.InteropServices;
-using Avalonia.Data;
-using Avalonia.Data.Converters;
 using Avalonia.Interactivity;
 
 namespace SukiUI.Controls;
@@ -109,18 +105,6 @@ public class SukiWindow : Window
     {
         base.OnApplyTemplate(e);
 
-        // Apply a style only on windows to offset oversizing.
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-        {
-            var maxStyle = new Style(
-                x => x.OfType<SukiWindow>()
-                    .PropertyEquals(WindowStateProperty, WindowState.Maximized)
-                    .Template()
-                    .OfType<VisualLayerManager>());
-            maxStyle.Setters.Add(new Setter(PaddingProperty, new Thickness(8)));
-            Application.Current!.Styles.Add(maxStyle);
-        }
-
         // Create handlers for buttons
         if (e.NameScope.Find<Button>("PART_MaximizeButton") is { } maximize)
         {
@@ -132,8 +116,7 @@ public class SukiWindow : Window
                     : WindowState.Maximized;
             };
         }
-
-
+        
         if (e.NameScope.Find<Button>("PART_MinimizeButton") is { } minimize)
             minimize.Click += (_, _) => WindowState = WindowState.Minimized;
 
