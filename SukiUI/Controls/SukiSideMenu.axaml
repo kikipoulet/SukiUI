@@ -64,7 +64,7 @@
                                     <Grid MinHeight="{TemplateBinding HeaderMinHeight}"
                                           DockPanel.Dock="Top"
                                           IsVisible="{TemplateBinding IsMenuExpanded}">
-                                        <ContentControl Content="{TemplateBinding HeaderContent}" />
+                                        <ContentPresenter Content="{TemplateBinding HeaderContent}" />
                                     </Grid>
 
                                     <!--  Used to move menu icons down when sidebar is closed  -->
@@ -86,8 +86,9 @@
                                                   IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
                                                   VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
                                                   VerticalSnapPointsType="{TemplateBinding (ScrollViewer.VerticalSnapPointsType)}">
-                                        <ItemsPresenter theme:ItemsPresenterExtensions.AnimatedScroll="True" Name="PART_ItemsPresenter"
+                                        <ItemsPresenter Name="PART_ItemsPresenter"
                                                         Margin="{TemplateBinding Padding}"
+                                                        theme:ItemsPresenterExtensions.AnimatedScroll="True"
                                                         ItemsPanel="{TemplateBinding ItemsPanel}" />
                                     </ScrollViewer>
                                 </DockPanel>
