@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Reactive.Linq;
 using System.Runtime.InteropServices;
+using Avalonia.Data;
+using Avalonia.Data.Converters;
 using Avalonia.Interactivity;
 
 namespace SukiUI.Controls;
@@ -55,26 +57,6 @@ public class SukiWindow : Window
         set => SetValue(ShowBottomBorderProperty, value);
     }
 
-    public static readonly StyledProperty<bool> IsMinimizeButtonEnabledProperty =
-        AvaloniaProperty.Register<SukiWindow, bool>(nameof(IsMinimizeButtonEnabled),
-            defaultValue: true);
-
-    public bool IsMinimizeButtonEnabled
-    {
-        get => GetValue(IsMinimizeButtonEnabledProperty);
-        set => SetValue(IsMinimizeButtonEnabledProperty, value);
-    }
-
-    public static readonly StyledProperty<bool> IsMaximizeButtonEnabledProperty =
-        AvaloniaProperty.Register<SukiWindow, bool>(nameof(IsMaximizeButtonEnabled),
-            defaultValue: true);
-
-    public bool IsMaximizeButtonEnabled
-    {
-        get => GetValue(IsMaximizeButtonEnabledProperty);
-        set => SetValue(IsMaximizeButtonEnabledProperty, value);
-    }
-
     public static readonly StyledProperty<bool> IsMenuVisibleProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(IsMenuVisible), defaultValue: false);
 
@@ -103,7 +85,25 @@ public class SukiWindow : Window
         set => SetValue(BackgroundAnimationEnabledProperty, value);
     }
 
-    private IDisposable? _subscribtionDisposables;
+    public static readonly StyledProperty<bool> CanMinimizeProperty = 
+        AvaloniaProperty.Register<SukiWindow, bool>(nameof(CanMinimize), defaultValue: true);
+
+    public bool CanMinimize
+    {
+        get => GetValue(CanMinimizeProperty);
+        set => SetValue(CanMinimizeProperty, value);
+    }
+
+    public static readonly StyledProperty<bool> CanMoveProperty = 
+        AvaloniaProperty.Register<SukiWindow, bool>(nameof(CanMove), defaultValue: true);
+
+    public bool CanMove
+    {
+        get => GetValue(CanMoveProperty);
+        set => SetValue(CanMoveProperty, value);
+    }
+
+    private IDisposable? _subscriptionDisposables;
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
@@ -123,10 +123,16 @@ public class SukiWindow : Window
 
         // Create handlers for buttons
         if (e.NameScope.Find<Button>("PART_MaximizeButton") is { } maximize)
+        {
             maximize.Click += (_, _) =>
+            {
+                if (!CanResize) return;
                 WindowState = WindowState == WindowState.Maximized
                     ? WindowState.Normal
                     : WindowState.Maximized;
+            };
+        }
+
 
         if (e.NameScope.Find<Button>("PART_MinimizeButton") is { } minimize)
             minimize.Click += (_, _) => WindowState = WindowState.Minimized;
@@ -140,7 +146,7 @@ public class SukiWindow : Window
         if (e.NameScope.Find<SukiBackground>("PART_Background") is { } background)
         {
             background.SetAnimationEnabled(BackgroundAnimationEnabled);
-            _subscribtionDisposables = this.GetObservable(BackgroundAnimationEnabledProperty)
+            _subscriptionDisposables = this.GetObservable(BackgroundAnimationEnabledProperty)
                 .Do(enabled => background.SetAnimationEnabled(enabled))
                 .ObserveOn(new AvaloniaSynchronizationContext())
                 .Subscribe();
@@ -150,19 +156,19 @@ public class SukiWindow : Window
     private void OnTitleBarPointerPressed(object? sender, PointerPressedEventArgs e)
     {
         base.OnPointerPressed(e);
-        if (e.ClickCount >= 2)
+        if (e.ClickCount >= 2 && CanResize)
         {
             WindowState = WindowState == WindowState.Maximized
                 ? WindowState.Normal
                 : WindowState.Maximized;
         }
-        else
+        else if (CanMove)
             BeginMoveDrag(e);
     }
 
     protected override void OnUnloaded(RoutedEventArgs e)
     {
         base.OnUnloaded(e);
-        _subscribtionDisposables?.Dispose();
+        _subscriptionDisposables?.Dispose();
     }
 }

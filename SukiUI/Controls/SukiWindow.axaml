@@ -52,13 +52,13 @@
                                                             </Button>
                                                             <Button Name="PART_MaximizeButton"
                                                                     Classes="Basic Rounded WindowControlsButton"
-                                                                    IsVisible="{TemplateBinding IsMaximizeButtonEnabled}">
+                                                                    IsVisible="{TemplateBinding CanResize}">
                                                                 <PathIcon x:Name="MaximizeIcon" Data="{x:Static icons:Icons.WindowMaximize}" />
                                                             </Button>
                                                             <Button Name="PART_MinimizeButton"
                                                                     VerticalContentAlignment="Bottom"
                                                                     Classes="Basic Rounded WindowControlsButton"
-                                                                    IsVisible="{TemplateBinding IsMinimizeButtonEnabled}">
+                                                                    IsVisible="{TemplateBinding CanMinimize}">
                                                                 <PathIcon Margin="0,0,0,4"
                                                                           VerticalAlignment="Bottom"
                                                                           Data="{x:Static icons:Icons.WindowMinimize}" />
