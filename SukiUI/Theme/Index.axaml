@@ -62,6 +62,7 @@
                 <ResourceInclude Source="avares://sukiUI/Theme/ContextMenu.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/MenuItem.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/FlyoutPresenter.axaml" />
+                <ResourceInclude Source="avares://sukiUI/Theme/AutoCompleteBoxStyles.axaml" />
 
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiWindow.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiHost.axaml" />
