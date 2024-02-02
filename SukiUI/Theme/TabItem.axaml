@@ -17,7 +17,7 @@
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding CornerRadius}">
                     <DockPanel>
-                        <ContentPresenter Name="PART_HeaderPresenter"
+                        <ContentPresenter Name="PART_HeaderPresenter" MinHeight="25"
                                           Padding="0,5"
                                           HorizontalAlignment="Center"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
