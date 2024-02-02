@@ -5,7 +5,7 @@
                     xmlns:sukiUi="clr-namespace:SukiUI"
                     xmlns:theme="clr-namespace:SukiUI.Theme">
     <ControlTheme x:Key="SukiSideMenuStyle" TargetType="suki:SukiSideMenu">
-        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"></Setter>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"></Setter>
         <Setter Property="Template">
             <ControlTemplate>
                 <SplitView DisplayMode="CompactInline"
@@ -62,7 +62,7 @@
                                           DockPanel.Dock="Top" />
                                   
 
-                                    <ScrollViewer Name="PART_ScrollViewer"
+                                    <ScrollViewer Name="PART_ScrollViewer" Classes="Stack"
                                                   AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
                                                   Background="{TemplateBinding Background}"
                                                   BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}"
@@ -71,10 +71,13 @@
                                                   IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
                                                   VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
                                                   VerticalSnapPointsType="{TemplateBinding (ScrollViewer.VerticalSnapPointsType)}">
+                                        <StackPanel theme:StackPanelExtensions.AnimatedScroll="True">
                                         <ItemsPresenter Name="PART_ItemsPresenter"
                                                         Margin="{TemplateBinding Padding}"
                                                         theme:ItemsPresenterExtensions.AnimatedScroll="True"
                                                         ItemsPanel="{TemplateBinding ItemsPanel}" />
+                                        <Border Height="70"></Border>
+                                        </StackPanel>
                                     </ScrollViewer>
                                 </DockPanel>
                             </Grid>

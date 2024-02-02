@@ -1,8 +1,10 @@
-﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:content="clr-namespace:SukiUI.Content">
     <Design.PreviewWith>
         <StackPanel Width="200">
             <Border Padding="20">
-                <ListBox Width="50" Height="100">
+                <ScrollViewer Classes="Stack" Width="200" Height="100">
+                    <StackPanel>
                     <ListBoxItem>isse</ListBoxItem>
                     <ListBoxItem>isse</ListBoxItem>
                     <ListBoxItem>isse</ListBoxItem>
@@ -10,7 +12,31 @@
                     <ListBoxItem>isse</ListBoxItem>
                     <ListBoxItem>isse</ListBoxItem>
                     <ListBoxItem>isse</ListBoxItem>
-                </ListBox>
+                    <ListBoxItem>isse</ListBoxItem>
+                    <ListBoxItem>isse</ListBoxItem>
+                    <ListBoxItem>isse</ListBoxItem>
+                    <ListBoxItem>isse</ListBoxItem>
+                    <ListBoxItem>isse</ListBoxItem>
+                    <ListBoxItem>isse</ListBoxItem>
+                    <ListBoxItem>isse</ListBoxItem>
+                    <ListBoxItem>isse</ListBoxItem>
+                    <ListBoxItem>isse</ListBoxItem>
+                    <ListBoxItem>isse</ListBoxItem>
+                    <ListBoxItem>isse</ListBoxItem>
+                    <ListBoxItem>isse</ListBoxItem>
+                    <ListBoxItem>isse</ListBoxItem>
+                    <ListBoxItem>isse</ListBoxItem>
+                    <ListBoxItem>isse</ListBoxItem>
+                    <ListBoxItem>isse</ListBoxItem>
+                    <ListBoxItem>isse</ListBoxItem>
+                    <ListBoxItem>isse</ListBoxItem>
+                    <ListBoxItem>isse</ListBoxItem>
+                    <ListBoxItem>isse</ListBoxItem>
+                    <ListBoxItem>isse</ListBoxItem>
+                    <ListBoxItem>isse</ListBoxItem>
+                    <ListBoxItem>isse</ListBoxItem>
+                    </StackPanel>
+                </ScrollViewer>
             </Border>
 
             <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Auto">
@@ -86,6 +112,31 @@
             </ControlTemplate>
         </Setter>
     </Style>
+    
+     <Style Selector="ScrollBar.Stack:vertical">
+
+        <Setter Property="Template">
+            <ControlTemplate>
+                
+                                <RepeatButton BorderThickness="0" Width="60" Height="60" HorizontalAlignment="Stretch"  Name="PART_PageDownButton"
+                                              Background="Transparent"
+                                           
+                                              Focusable="False" >
+                                   
+                                    <PathIcon Width="10"   Height="25" Foreground="{DynamicResource SukiText}"
+                                              Data="{x:Static content:Icons.ChevronDown}" >
+                                        <PathIcon.RenderTransform>
+                                            <ScaleTransform ScaleX="1"></ScaleTransform>
+                                        </PathIcon.RenderTransform>
+                                    </PathIcon>
+                                    
+                                </RepeatButton>
+                          
+            </ControlTemplate>
+        </Setter>
+    </Style>
+    
+    
 
     <Style Selector="ScrollBar:horizontal">
         <Setter Property="Template">
