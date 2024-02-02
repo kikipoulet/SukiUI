@@ -5,7 +5,7 @@
                     xmlns:sukiUi="clr-namespace:SukiUI"
                     xmlns:theme="clr-namespace:SukiUI.Theme">
     <ControlTheme x:Key="SukiSideMenuStyle" TargetType="suki:SukiSideMenu">
-        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"></Setter>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="Template">
             <ControlTemplate>
                 <SplitView DisplayMode="CompactInline"
@@ -17,66 +17,55 @@
                                 <suki:GlassCard Name="Glass"
                                                 BorderThickness="0"
                                                 CornerRadius="0" />
-
-                             
-
                                 <DockPanel>
-                                    <!--  This sidebar toggle button can't be overlapped by header content  -->
                                     <Button Name="PART_SidebarToggleButton"
                                             Margin="7"
                                             HorizontalAlignment="Right"
                                             VerticalAlignment="Top"
                                             Classes="Basic"
-                                            DockPanel.Dock="Top"
-                                         >
+                                            DockPanel.Dock="Top">
                                         <Grid>
-                                            <PathIcon Width="12"
+                                            <PathIcon Name="PART_ExpandIcon"
+                                                      Width="12"
                                                       Height="12"
                                                       Data="{x:Static content:Icons.ChevronLeft}"
-                                                      Foreground="{DynamicResource SukiText}"
-                                                      IsVisible="{TemplateBinding IsMenuExpanded}" />
-                                            <PathIcon Width="12"
-                                                      Height="12"
-                                                      Data="{x:Static content:Icons.ChevronRight}"
-                                                      Foreground="{DynamicResource SukiText}"
-                                                      IsVisible="{Binding !IsMenuExpanded, RelativeSource={RelativeSource TemplatedParent}}" />
+                                                      Foreground="{DynamicResource SukiText}">
+                                                <PathIcon.Transitions>
+                                                    <Transitions>
+                                                        <TransformOperationsTransition Property="RenderTransform" Duration="{StaticResource MediumAnimationDuration}" />
+                                                    </Transitions>
+                                                </PathIcon.Transitions>
+                                            </PathIcon>
                                         </Grid>
                                     </Button>
-
                                     <Grid MinHeight="{TemplateBinding HeaderMinHeight}"
                                           DockPanel.Dock="Top"
                                           IsVisible="{TemplateBinding IsMenuExpanded}">
                                         <ContentPresenter Content="{TemplateBinding HeaderContent}" />
                                     </Grid>
-
-                                    <!--  Used to move menu icons down when sidebar is closed  -->
-                                
-
                                     <ContentControl Margin="0,0,0,12"
                                                     Content="{TemplateBinding FooterContent}"
                                                     DockPanel.Dock="Bottom"
                                                     IsVisible="{TemplateBinding IsMenuExpanded}" />
-                                    
-                                    <Grid Name="PART_Spacer" 
+                                    <Grid Name="PART_Spacer"
                                           Height="15"
                                           DockPanel.Dock="Top" />
-                                  
-
-                                    <ScrollViewer Name="PART_ScrollViewer" Classes="Stack"
+                                    <ScrollViewer Name="PART_ScrollViewer"
                                                   AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
                                                   Background="{TemplateBinding Background}"
                                                   BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}"
+                                                  Classes="Stack"
                                                   HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
                                                   HorizontalSnapPointsType="{TemplateBinding (ScrollViewer.HorizontalSnapPointsType)}"
                                                   IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
                                                   VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
                                                   VerticalSnapPointsType="{TemplateBinding (ScrollViewer.VerticalSnapPointsType)}">
                                         <StackPanel theme:StackPanelExtensions.AnimatedScroll="True">
-                                        <ItemsPresenter Name="PART_ItemsPresenter"
-                                                        Margin="{TemplateBinding Padding}"
-                                                        theme:ItemsPresenterExtensions.AnimatedScroll="True"
-                                                        ItemsPanel="{TemplateBinding ItemsPanel}" />
-                                        <Border Height="70"></Border>
+                                            <ItemsPresenter Name="PART_ItemsPresenter"
+                                                            Margin="{TemplateBinding Padding}"
+                                                            theme:ItemsPresenterExtensions.AnimatedScroll="True"
+                                                            ItemsPanel="{TemplateBinding ItemsPanel}" />
+                                            <Border Height="70" />
                                         </StackPanel>
                                     </ScrollViewer>
                                 </DockPanel>
@@ -93,6 +82,9 @@
                 </SplitView>
             </ControlTemplate>
         </Setter>
+        <Style Selector="^[IsMenuExpanded=True] /template/ PathIcon#PART_ExpandIcon">
+            <Setter Property="RenderTransform" Value="rotate(180deg)" />
+        </Style>
     </ControlTheme>
     <ControlTheme x:Key="{x:Type suki:SukiSideMenu}"
                   BasedOn="{StaticResource SukiSideMenuStyle}"
