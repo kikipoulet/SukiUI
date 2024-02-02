@@ -65,7 +65,6 @@
                                                             Margin="{TemplateBinding Padding}"
                                                             theme:ItemsPresenterExtensions.AnimatedScroll="True"
                                                             ItemsPanel="{TemplateBinding ItemsPanel}" />
-                                            <!-- <Border Height="70" /> -->
                                         </StackPanel>
                                     </ScrollViewer>
                                 </DockPanel>

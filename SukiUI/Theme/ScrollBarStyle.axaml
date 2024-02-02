@@ -118,11 +118,12 @@
     </Style>
 
     <Style Selector="ScrollBar.Stack:vertical">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="Width" Value="NaN" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Grid RowDefinitions="Auto,*,Auto">
+                <Grid HorizontalAlignment="Stretch" RowDefinitions="Auto,*,Auto">
                     <RepeatButton Name="PART_PageUpButton"
-                                  Width="60"
                                   Height="60"
                                   HorizontalAlignment="Stretch"
                                   Background="Transparent"
@@ -145,7 +146,6 @@
                     </RepeatButton>
                     <RepeatButton Name="PART_PageDownButton"
                                   Grid.Row="2"
-                                  Width="60"
                                   Height="60"
                                   HorizontalAlignment="Stretch"
                                   Background="Transparent"
