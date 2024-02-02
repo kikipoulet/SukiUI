@@ -5,6 +5,7 @@
                     xmlns:sukiUi="clr-namespace:SukiUI"
                     xmlns:theme="clr-namespace:SukiUI.Theme">
     <ControlTheme x:Key="SukiSideMenuStyle" TargetType="suki:SukiSideMenu">
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"></Setter>
         <Setter Property="Template">
             <ControlTemplate>
                 <SplitView DisplayMode="CompactInline"
@@ -17,26 +18,7 @@
                                                 BorderThickness="0"
                                                 CornerRadius="0" />
 
-                                <!--  This sidebar toggle button is used when header content can overlap it  -->
-                                <Button Name="PART_SidebarToggleButtonOverlay"
-                                        Margin="7"
-                                        HorizontalAlignment="Right"
-                                        VerticalAlignment="Top"
-                                        Classes="Basic"
-                                        IsVisible="{TemplateBinding HeaderContentOverlapsToggleButton}">
-                                    <Grid>
-                                        <PathIcon Width="12"
-                                                  Height="12"
-                                                  Data="{x:Static content:Icons.ChevronLeft}"
-                                                  Foreground="{DynamicResource SukiText}"
-                                                  IsVisible="{TemplateBinding IsMenuExpanded}" />
-                                        <PathIcon Width="12"
-                                                  Height="12"
-                                                  Data="{x:Static content:Icons.ChevronRight}"
-                                                  Foreground="{DynamicResource SukiText}"
-                                                  IsVisible="{Binding !IsMenuExpanded, RelativeSource={RelativeSource TemplatedParent}}" />
-                                    </Grid>
-                                </Button>
+                             
 
                                 <DockPanel>
                                     <!--  This sidebar toggle button can't be overlapped by header content  -->
@@ -46,7 +28,7 @@
                                             VerticalAlignment="Top"
                                             Classes="Basic"
                                             DockPanel.Dock="Top"
-                                            IsVisible="{Binding !HeaderContentOverlapsToggleButton, RelativeSource={RelativeSource TemplatedParent}}">
+                                         >
                                         <Grid>
                                             <PathIcon Width="12"
                                                       Height="12"
@@ -68,14 +50,17 @@
                                     </Grid>
 
                                     <!--  Used to move menu icons down when sidebar is closed  -->
-                                    <Grid Name="PART_Spacer"
-                                          Height="40"
-                                          DockPanel.Dock="Top" />
+                                
 
                                     <ContentControl Margin="0,0,0,12"
                                                     Content="{TemplateBinding FooterContent}"
                                                     DockPanel.Dock="Bottom"
                                                     IsVisible="{TemplateBinding IsMenuExpanded}" />
+                                    
+                                    <Grid Name="PART_Spacer" 
+                                          Height="15"
+                                          DockPanel.Dock="Top" />
+                                  
 
                                     <ScrollViewer Name="PART_ScrollViewer"
                                                   AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"

@@ -49,7 +49,7 @@
             <MenuItem Command="{Binding CreateCustomThemeCommand}" Header="Create Custom" />
         </MenuItem>
     </suki:SukiWindow.MenuItems>
-    <suki:SukiSideMenu HeaderContentOverlapsToggleButton="True"
+    <suki:SukiSideMenu 
                        ItemsSource="{Binding DemoPages}"
                        SelectedItem="{Binding ActivePage}">
         <suki:SukiSideMenu.ItemTemplate>
@@ -64,7 +64,7 @@
         <suki:SukiSideMenu.HeaderContent>
             <Image Width="80"
                    Height="80"
-                   Margin="30"
+                   Margin="30,10,30,30"
                    PointerPressed="InputElement_OnPointerPressed"
                    Source="Assets/OIG.N5o-removebg-preview.png"
                    ToolTip.Tip="Click To Toggle Top Menu." />
