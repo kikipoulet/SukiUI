@@ -67,8 +67,14 @@ public class SukiSideMenu : SelectingItemsControl
     private void MenuExpandedClicked()
     {
         IsMenuExpanded = !IsMenuExpanded;
-        foreach (SukiSideMenuItem item in _SideMenuItems)
-            item.IsTopMenuExpanded = IsMenuExpanded;
+        
+        if(_SideMenuItems.Any())
+            foreach (SukiSideMenuItem item in _SideMenuItems)
+                item.IsTopMenuExpanded = IsMenuExpanded;
+        
+        else if(Items.First() is SukiSideMenuItem)
+            foreach (SukiSideMenuItem item in Items)
+                item.IsTopMenuExpanded = IsMenuExpanded;
     }
     
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
