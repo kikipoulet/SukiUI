@@ -1,8 +1,9 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converters="clr-namespace:SukiUI.Converters">
     <Design.PreviewWith>
         <Border Padding="20">
-            <!-- Add Controls for Previewer Here -->
+            <!--  Add Controls for Previewer Here  -->
         </Border>
     </Design.PreviewWith>
 
@@ -10,41 +11,53 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Grid >
-                    <ScrollContentPresenter Name="PART_ContentPresenter"
-                                            Padding="{TemplateBinding Padding}"
-                                            HorizontalSnapPointsType="{TemplateBinding HorizontalSnapPointsType}"
-                                            VerticalSnapPointsType="{TemplateBinding VerticalSnapPointsType}"
-                                            HorizontalSnapPointsAlignment="{TemplateBinding HorizontalSnapPointsAlignment}"
-                                            VerticalSnapPointsAlignment="{TemplateBinding VerticalSnapPointsAlignment}"
-                                            Background="{TemplateBinding Background}"
-                                            ScrollViewer.IsScrollInertiaEnabled="{TemplateBinding IsScrollInertiaEnabled}">
-                        <ScrollContentPresenter.OpacityMask>
-                            <LinearGradientBrush  StartPoint="50%,0%" EndPoint="50%,95%" >
-
-                             
-
-                                <GradientStop  Color="Black" Offset="0.9"/>
-
-                                <GradientStop Color="Transparent" Offset="1"/>
-
-                            </LinearGradientBrush>
-                            
-                        </ScrollContentPresenter.OpacityMask>
-                        <ScrollContentPresenter.GestureRecognizers>
-                            <ScrollGestureRecognizer CanHorizontallyScroll="{Binding CanHorizontallyScroll, ElementName=PART_ContentPresenter}"
-                                                     CanVerticallyScroll="{Binding CanVerticallyScroll, ElementName=PART_ContentPresenter}"
-                                                     IsScrollInertiaEnabled="{Binding (ScrollViewer.IsScrollInertiaEnabled), ElementName=PART_ContentPresenter}"/>
-                        </ScrollContentPresenter.GestureRecognizers>
-                    </ScrollContentPresenter>
-                  
-                           
-                    <ScrollBar Classes="Stack" Name="PART_VerticalScrollBar"
-                               VerticalAlignment="Bottom" HorizontalAlignment="Stretch"
-                               Orientation="Vertical"/>
-                 
+                <Grid>
+                    <Panel>
+                        <Panel.OpacityMask>
+                            <MultiBinding Converter="{x:Static converters:ScrollerToOpacityMask.Top}">
+                                <Binding ElementName="PART_VerticalScrollBar" Path="Value" />
+                                <Binding ElementName="PART_VerticalScrollBar" Path="Minimum" />
+                            </MultiBinding>
+                        </Panel.OpacityMask>
+                        <Panel.Transitions>
+                            <Transitions>
+                                <BrushTransition Property="OpacityMask" Duration="{StaticResource ShortAnimationDuration}" />
+                            </Transitions>
+                        </Panel.Transitions>
+                        <ScrollContentPresenter Name="PART_ContentPresenter"
+                                                Padding="{TemplateBinding Padding}"
+                                                Background="{TemplateBinding Background}"
+                                                HorizontalSnapPointsAlignment="{TemplateBinding HorizontalSnapPointsAlignment}"
+                                                HorizontalSnapPointsType="{TemplateBinding HorizontalSnapPointsType}"
+                                                ScrollViewer.IsScrollInertiaEnabled="{TemplateBinding IsScrollInertiaEnabled}"
+                                                VerticalSnapPointsAlignment="{TemplateBinding VerticalSnapPointsAlignment}"
+                                                VerticalSnapPointsType="{TemplateBinding VerticalSnapPointsType}">
+                            <ScrollContentPresenter.OpacityMask>
+                                <MultiBinding Converter="{x:Static converters:ScrollerToOpacityMask.Bottom}">
+                                    <Binding ElementName="PART_VerticalScrollBar" Path="Value" />
+                                    <Binding ElementName="PART_VerticalScrollBar" Path="Maximum" />
+                                </MultiBinding>
+                            </ScrollContentPresenter.OpacityMask>
+                            <ScrollContentPresenter.Transitions>
+                                <Transitions>
+                                    <BrushTransition Property="OpacityMask" Duration="{StaticResource ShortAnimationDuration}" />
+                                </Transitions>
+                            </ScrollContentPresenter.Transitions>
+                            <ScrollContentPresenter.GestureRecognizers>
+                                <ScrollGestureRecognizer CanHorizontallyScroll="{Binding CanHorizontallyScroll, ElementName=PART_ContentPresenter}"
+                                                         CanVerticallyScroll="{Binding CanVerticallyScroll, ElementName=PART_ContentPresenter}"
+                                                         IsScrollInertiaEnabled="{Binding (ScrollViewer.IsScrollInertiaEnabled), ElementName=PART_ContentPresenter}" />
+                            </ScrollContentPresenter.GestureRecognizers>
+                        </ScrollContentPresenter>
+                    </Panel>
+                    <ScrollBar Name="PART_VerticalScrollBar"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Stretch"
+                               Classes="Stack"
+                               Orientation="Vertical" />
                 </Grid>
             </ControlTemplate>
         </Setter>
+        <Style Selector="^ /template/ ScrollContentPresenter" />
     </Style>
 </Styles>
