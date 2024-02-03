@@ -81,8 +81,8 @@
                 </SplitView>
             </ControlTemplate>
         </Setter>
-        <Style Selector="^[IsMenuExpanded=True] /template/ PathIcon#PART_ExpandIcon">
-            <Setter Property="RenderTransform" Value="rotate(180deg)" />
+        <Style Selector="^[IsMenuExpanded=False] /template/ PathIcon#PART_ExpandIcon">
+            <Setter Property="RenderTransform" Value="rotate(-180deg)" />
         </Style>
     </ControlTheme>
     <ControlTheme x:Key="{x:Type suki:SukiSideMenu}"

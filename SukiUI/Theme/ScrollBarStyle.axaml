@@ -130,7 +130,7 @@
                                   BorderThickness="0"
                                   Focusable="False">
                         <RepeatButton.IsVisible>
-                            <MultiBinding Converter="{x:Static converters:ScrollerToBool.Up}">
+                            <MultiBinding Converter="{x:Static converters:SideMenuScrollerToVisibilityBool.Up}">
                                 <Binding Path="Value" RelativeSource="{RelativeSource TemplatedParent}" />
                                 <Binding Path="Minimum" RelativeSource="{RelativeSource TemplatedParent}" />
                             </MultiBinding>
@@ -152,7 +152,7 @@
                                   BorderThickness="0"
                                   Focusable="False">
                         <RepeatButton.IsVisible>
-                            <MultiBinding Converter="{x:Static converters:ScrollerToBool.Down}">
+                            <MultiBinding Converter="{x:Static converters:SideMenuScrollerToVisibilityBool.Down}">
                                 <Binding Path="Value" RelativeSource="{RelativeSource TemplatedParent}" />
                                 <Binding Path="Maximum" RelativeSource="{RelativeSource TemplatedParent}" />
                             </MultiBinding>
@@ -170,8 +170,6 @@
             </ControlTemplate>
         </Setter>
     </Style>
-
-
 
     <Style Selector="ScrollBar:horizontal">
         <Setter Property="Template">

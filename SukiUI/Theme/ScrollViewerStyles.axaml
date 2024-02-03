@@ -1,12 +1,6 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:converters="clr-namespace:SukiUI.Converters">
-    <Design.PreviewWith>
-        <Border Padding="20">
-            <!--  Add Controls for Previewer Here  -->
-        </Border>
-    </Design.PreviewWith>
-
     <Style Selector="ScrollViewer.Stack">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Template">
@@ -14,7 +8,7 @@
                 <Grid>
                     <Panel>
                         <Panel.OpacityMask>
-                            <MultiBinding Converter="{x:Static converters:ScrollerToOpacityMask.Top}">
+                            <MultiBinding Converter="{x:Static converters:SideMenuScrollerToOpacityMask.Top}">
                                 <Binding ElementName="PART_VerticalScrollBar" Path="Value" />
                                 <Binding ElementName="PART_VerticalScrollBar" Path="Minimum" />
                             </MultiBinding>
@@ -33,7 +27,7 @@
                                                 VerticalSnapPointsAlignment="{TemplateBinding VerticalSnapPointsAlignment}"
                                                 VerticalSnapPointsType="{TemplateBinding VerticalSnapPointsType}">
                             <ScrollContentPresenter.OpacityMask>
-                                <MultiBinding Converter="{x:Static converters:ScrollerToOpacityMask.Bottom}">
+                                <MultiBinding Converter="{x:Static converters:SideMenuScrollerToOpacityMask.Bottom}">
                                     <Binding ElementName="PART_VerticalScrollBar" Path="Value" />
                                     <Binding ElementName="PART_VerticalScrollBar" Path="Maximum" />
                                 </MultiBinding>
