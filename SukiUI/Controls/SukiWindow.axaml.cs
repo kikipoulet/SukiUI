@@ -5,12 +5,10 @@ using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Threading;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Reactive;
 using System.Reactive.Linq;
 using Avalonia.Collections;
-using Avalonia.Data;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
 
 namespace SukiUI.Controls;
@@ -38,10 +36,10 @@ public class SukiWindow : Window
         set => SetValue(TitleFontWeightProperty, value);
     }
 
-    public static readonly StyledProperty<Control> LogoContentProperty =
-        AvaloniaProperty.Register<SukiWindow, Control>(nameof(LogoContent));
+    public static readonly StyledProperty<Control?> LogoContentProperty =
+        AvaloniaProperty.Register<SukiWindow, Control?>(nameof(LogoContent));
 
-    public Control LogoContent
+    public Control? LogoContent
     {
         get => GetValue(LogoContentProperty);
         set => SetValue(LogoContentProperty, value);
@@ -107,6 +105,19 @@ public class SukiWindow : Window
     }
     
     private IDisposable? _subscriptionDisposables;
+
+    protected override void OnLoaded(RoutedEventArgs e)
+    {
+        base.OnLoaded(e);
+        if (Application.Current?.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop) 
+            return;
+        if (desktop.MainWindow is SukiWindow s && s != this)
+        {
+            if (Icon == null) Icon = s.Icon;
+            // This would be nice to do, but obviously LogoContent is a control and you can't attach it twice.
+            // if (LogoContent is null) LogoContent = s.LogoContent;
+        }
+    }
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
