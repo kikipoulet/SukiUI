@@ -6,6 +6,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Styling;
@@ -102,7 +103,7 @@ namespace SukiUI.Demo.Features.Playground
 
         private void Editor_OnTextChanged(object? sender, EventArgs e)
         {
-            string PreviewCode = "<Grid xmlns:icons=\"clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia\" xmlns:suki=\"clr-namespace:SukiUI.Controls;assembly=SukiUI\" xmlns='https://github.com/avaloniaui' xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'>" +
+            string PreviewCode = "<Grid HorizontalAlignment=\"Center\" VerticalAlignment=\"Center\" xmlns:system=\"clr-namespace:System;assembly=netstandard\" xmlns:objectModel=\"clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel\"  xmlns:icons=\"clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia\" xmlns:suki=\"clr-namespace:SukiUI.Controls;assembly=SukiUI\" xmlns='https://github.com/avaloniaui' xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'>" +
                                  _textEditor.Text + "</Grid>";
 
             try
@@ -131,6 +132,35 @@ namespace SukiUI.Demo.Features.Playground
             "     </Grid>\n" +
             "</suki:GlassCard>";
 
+
+        private void OpenPane(object? sender, RoutedEventArgs e)
+        {
+            this.Get<SplitView>("Playground").IsPaneOpen = true;
+            
+            ((Button)sender).IsHitTestVisible = false;
+            ((Button)sender).Animate<double>(OpacityProperty,1,0);
+            
+            this.Get<DockPanel>("TabControls").Animate<double>(OpacityProperty,0,1);
+            this.Get<DockPanel>("TabControls").IsHitTestVisible = true;
+        }
+
+        private void ClosePane(object? sender, RoutedEventArgs e)
+        {
+            this.Get<SplitView>("Playground").IsPaneOpen = false;
+            
+            this.Get<Button>("OpenPaneButton").IsHitTestVisible = true;
+            this.Get<Button>("OpenPaneButton").Animate<double>(OpacityProperty,0,1);
+            
+            this.Get<DockPanel>("TabControls").Animate<double>(OpacityProperty,1,0);
+            this.Get<DockPanel>("TabControls").IsHitTestVisible = false;
+        }
+
+        private void AddNewControls(object? sender, PointerPressedEventArgs e)
+        {
+          
+            _textEditor.Text = _textEditor.Text.Insert(_textEditor.CaretOffset, ((GlassCard)sender).Tag.ToString());
+            
+        }
     }
     
   

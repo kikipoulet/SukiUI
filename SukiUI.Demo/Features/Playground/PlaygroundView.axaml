@@ -2,13 +2,117 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:avaloniaEdit="https://github.com/avaloniaui/avaloniaedit"
+             xmlns:avaloniaEdit="https://github.com/avaloniaui/avaloniaedit" x:DataType="playground:PlaygroundViewModel"
              xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:playground="clr-namespace:SukiUI.Demo.Features.Playground"
+             xmlns:theme="clr-namespace:SukiUI.Theme;assembly=SukiUI"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SukiUI.Demo.Features.Playground.PlaygroundView">
     <controls:SukiStackPage>
         <controls:SukiStackPage.Content>
-        <Grid Name="Playground" ColumnDefinitions="*, 4, *">
+            
+            <SplitView IsPaneOpen="False" Name="Playground" DisplayMode="CompactInline" OpenPaneLength="250" CompactPaneLength="50">
+                <SplitView.Pane>
+                    <Grid>
+                        
+                        <DockPanel IsHitTestVisible="False" Opacity="0"  Name="TabControls" >
+                            <Button DockPanel.Dock="Top" Click="ClosePane" Margin="0,25" IsHitTestVisible="True" Opacity="1" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Top" Classes="Basic">
+                                <StackPanel>
+                                    <TextBlock  HorizontalAlignment="Center"  Foreground="{DynamicResource SukiLowText}" FontSize="12" Text="Close"></TextBlock>
+                                    <avalonia:MaterialIcon Kind="ChevronLeft" Foreground="{DynamicResource SukiLowText}"></avalonia:MaterialIcon>
+                                </StackPanel>
+                            </Button>
+                            <TabControl Margin="0,20,0,0" TabStripPlacement="Left" >
+                           
+                                <TabItem Header="Buttons">
+                                <ScrollViewer>
+                                <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding ButtonsElements }">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <controls:GlassCard Tag="{Binding}" PointerPressed="AddNewControls" CornerRadius="10" IsInteractive="True" Margin="0,8" MinHeight="100">
+                                                <Viewbox StretchDirection="DownOnly">
+                                                    <ContentControl IsHitTestVisible="False" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding, Converter={x:Static playground:StringToControlConverter.Instance}}"></ContentControl>
+                                                </Viewbox>
+                                            </controls:GlassCard>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                                </ScrollViewer>
+                            </TabItem>
+                                <TabItem Header="Layout">
+                                    <ScrollViewer>
+                                        <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding LayoutElements }">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <controls:GlassCard Tag="{Binding}" PointerPressed="AddNewControls" CornerRadius="10" IsInteractive="True" Margin="0,8" MinHeight="100">
+                                                        <Viewbox StretchDirection="DownOnly">
+                                                            <ContentControl IsHitTestVisible="False" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding, Converter={x:Static playground:StringToControlConverter.Instance}}"></ContentControl>
+                                                        </Viewbox>
+                                                    </controls:GlassCard>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </ScrollViewer>
+                                </TabItem>
+                                <TabItem Header="Input">
+                                    <ScrollViewer>
+                                        <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding InputsElements }">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <controls:GlassCard Tag="{Binding}" PointerPressed="AddNewControls" IsInteractive="True" Margin="0,8" CornerRadius="10" MinHeight="100">
+                                                    <Viewbox StretchDirection="DownOnly">
+                                                        <ContentControl IsHitTestVisible="False" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding, Converter={x:Static playground:StringToControlConverter.Instance}}"></ContentControl>
+                                                    </Viewbox>
+                                                </controls:GlassCard>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                        </ScrollViewer>
+                                </TabItem>
+                                <TabItem Header="Progress">
+                                    <ScrollViewer>
+                                        <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding ProgressElements }">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <controls:GlassCard Tag="{Binding}" PointerPressed="AddNewControls" IsInteractive="True" Margin="0,8" CornerRadius="10" MinHeight="100">
+                                                        <Viewbox StretchDirection="DownOnly">
+                                                            <ContentControl IsHitTestVisible="False" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding, Converter={x:Static playground:StringToControlConverter.Instance}}"></ContentControl>
+                                                        </Viewbox>
+                                                    </controls:GlassCard>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </ScrollViewer>
+                                </TabItem>
+                                <TabItem Header="Lists">
+                                    <ScrollViewer>
+                                        <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding ListsElements }">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <controls:GlassCard Tag="{Binding}" PointerPressed="AddNewControls" IsInteractive="True" Margin="0,8" CornerRadius="10" MinHeight="100">
+                                                        <Viewbox StretchDirection="DownOnly">
+                                                            <ContentControl IsHitTestVisible="False" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding, Converter={x:Static playground:StringToControlConverter.Instance}}"></ContentControl>
+                                                        </Viewbox>
+                                                    </controls:GlassCard>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </ScrollViewer>
+                                </TabItem>
+                        </TabControl>
+                        </DockPanel>
+                        
+                        <Button Click="OpenPane" Name="OpenPaneButton" Margin="0,25" IsHitTestVisible="True" Opacity="1" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Top" Classes="Basic">
+                            <StackPanel>
+                                <TextBlock HorizontalAlignment="Center" Foreground="{DynamicResource SukiLowText}" FontSize="12" Text="Add"></TextBlock>
+                                <TextBlock  HorizontalAlignment="Center"  Foreground="{DynamicResource SukiLowText}" FontSize="12" Text="Controls"></TextBlock>
+                                <avalonia:MaterialIcon Kind="ChevronRight" Foreground="{DynamicResource SukiLowText}"></avalonia:MaterialIcon>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </SplitView.Pane>
+                <Grid  ColumnDefinitions="*, 4, *" RowDefinitions="*, Auto">
         <controls:GlassCard Margin="20">
         <avaloniaEdit:TextEditor TextChanged="Editor_OnTextChanged"  Text="" Name="Editor"
                                  ShowLineNumbers="True"
@@ -17,7 +121,11 @@
         <GridSplitter Grid.Column="1" Background="Transparent" ResizeDirection="Columns"/>
         <controls:GlassCard Name="GlassExample" Grid.Column="2" Margin="20">
         </controls:GlassCard>
+        
+            
+        
     </Grid>
+            </SplitView>
         </controls:SukiStackPage.Content>
     </controls:SukiStackPage>
 </UserControl>
