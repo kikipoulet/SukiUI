@@ -1,0 +1,23 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:avaloniaEdit="https://github.com/avaloniaui/avaloniaedit"
+             xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="SukiUI.Demo.Features.Playground.PlaygroundView">
+    <controls:SukiStackPage>
+        <controls:SukiStackPage.Content>
+        <Grid Name="Playground" ColumnDefinitions="*, 4, *">
+        <controls:GlassCard Margin="20">
+        <avaloniaEdit:TextEditor TextChanged="Editor_OnTextChanged"  Text="" Name="Editor"
+                                 ShowLineNumbers="True"
+        />
+        </controls:GlassCard>
+        <GridSplitter Grid.Column="1" Background="Transparent" ResizeDirection="Columns"/>
+        <controls:GlassCard Name="GlassExample" Grid.Column="2" Margin="20">
+        </controls:GlassCard>
+    </Grid>
+        </controls:SukiStackPage.Content>
+    </controls:SukiStackPage>
+</UserControl>
