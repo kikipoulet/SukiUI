@@ -30,6 +30,7 @@
                             <Border.Transitions>
                                 <Transitions>
                                     <BrushTransition Property="Background" Duration="{DynamicResource ShortAnimationDuration}" />
+                                    <BrushTransition Property="BorderBrush" Duration="{DynamicResource ShortAnimationDuration}" />
                                 </Transitions>
                             </Border.Transitions>
                         </Border>

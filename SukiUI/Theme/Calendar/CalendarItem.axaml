@@ -34,13 +34,13 @@
                             <Button Name="PART_PreviousButton"
                                     Grid.Column="2"
                                     Classes="NavButton Basic">
-                                <PathIcon Data="{x:Static content:Icons.ChevronLeft}" />
+                                <PathIcon Classes="Primary" Data="{x:Static content:Icons.ChevronLeft}" />
                             </Button>
 
                             <Button Name="PART_NextButton"
                                     Grid.Column="3"
                                     Classes="NavButton Basic">
-                                <PathIcon Data="{x:Static content:Icons.ChevronRight}" />
+                                <PathIcon Classes="Primary" Data="{x:Static content:Icons.ChevronRight}" />
                             </Button>
                         </Grid>
 
@@ -66,7 +66,6 @@
             <Style Selector="^ &gt; PathIcon">
                 <Setter Property="Width" Value="15" />
                 <Setter Property="Height" Value="15" />
-                <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
             </Style>
         </Style>
 
