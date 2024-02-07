@@ -37,17 +37,17 @@
                 </controls:GlassCard>
                 <controls:GlassCard>
                     <controls:GroupBox Header="Date Picker">
-                        <DatePicker />
+                        <DatePicker SelectedDate="{Binding SelectedDateTimeOffset}" />
+                    </controls:GroupBox>
+                </controls:GlassCard>
+                <controls:GlassCard>
+                    <controls:GroupBox Header="Calendar">
+                        <Calendar SelectedDate="{Binding SelectedDateTime}" />
                     </controls:GroupBox>
                 </controls:GlassCard>
                 <controls:GlassCard>
                     <controls:GroupBox Header="Time Picker">
                         <TimePicker />
-                    </controls:GroupBox>
-                </controls:GlassCard>
-                <controls:GlassCard>
-                    <controls:GroupBox Header="Calendar">
-                        <Calendar />
                     </controls:GroupBox>
                 </controls:GlassCard>
                 <controls:GlassCard>
