@@ -34,20 +34,23 @@
                                Placement="BottomEdgeAlignedLeft">
                             <LayoutTransformControl Name="PART_LayoutTransform">
                                 <Grid Margin="-12,0,0,0">
-                                    <Border BoxShadow="{DynamicResource SukiPopupShadow}" Margin="16,8,8,8"  CornerRadius="6" ></Border>
-                                    <Border Name="PART_Border" BoxShadow="{DynamicResource SukiPopupShadow}" Margin="16,8,8,8"
+                                    <Border Margin="16,8,8,8"
+                                            BoxShadow="{DynamicResource SukiPopupShadow}"
+                                            CornerRadius="6" />
+                                    <Border Name="PART_Border"
+                                            Margin="16,8,8,8"
                                             Background="{DynamicResource SukiCardBackground}"
                                             BorderBrush="{DynamicResource SukiLightBorderBrush}"
                                             BorderThickness="1"
-                                            
+                                            BoxShadow="{DynamicResource SukiPopupShadow}"
                                             ClipToBounds="True"
                                             CornerRadius="6">
-                                    <ScrollViewer>
-                                        <ItemsPresenter Name="PART_ItemsPresenter"
-                                                        Grid.IsSharedSizeScope="True"
-                                                        ItemsPanel="{TemplateBinding ItemsPanel}" />
-                                    </ScrollViewer>
-                                </Border>
+                                        <ScrollViewer>
+                                            <ItemsPresenter Name="PART_ItemsPresenter"
+                                                            Grid.IsSharedSizeScope="True"
+                                                            ItemsPanel="{TemplateBinding ItemsPanel}" />
+                                        </ScrollViewer>
+                                    </Border>
                                 </Grid>
                             </LayoutTransformControl>
                         </Popup>

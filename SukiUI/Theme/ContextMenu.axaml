@@ -8,27 +8,29 @@
             <ControlTemplate>
                 <!--  Tiny margin helps prevent mouse-over immediately  -->
                 <LayoutTransformControl Name="PART_LayoutTransform" Margin="1,0,0,0">
-               <Grid >
-                   <Border   CornerRadius="{TemplateBinding CornerRadius}"  BoxShadow="{DynamicResource SukiPopupShadow}" Margin="16" />
-                   <Border Margin="15" Background="{TemplateBinding Background}"
-                           BorderBrush="{TemplateBinding BorderBrush}"
-                           BorderThickness="{TemplateBinding BorderThickness}"
-                        
-                           ClipToBounds="True"
-                           CornerRadius="{TemplateBinding CornerRadius}">
-                       <ItemsPresenter Name="PART_ItemsPresenter"
-                                       HorizontalAlignment="Left"
-                                       VerticalAlignment="Center"
-                                       ItemsPanel="{TemplateBinding ItemsPanel}"
-                                       KeyboardNavigation.TabNavigation="Continue" />
-                   </Border>
-               </Grid>
-                    </LayoutTransformControl>
+                    <Grid>
+                        <Border Margin="16"
+                                BoxShadow="{DynamicResource SukiPopupShadow}"
+                                CornerRadius="{TemplateBinding CornerRadius}" />
+                        <Border Margin="15"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                ClipToBounds="True"
+                                CornerRadius="{TemplateBinding CornerRadius}">
+                            <ItemsPresenter Name="PART_ItemsPresenter"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            ItemsPanel="{TemplateBinding ItemsPanel}"
+                                            KeyboardNavigation.TabNavigation="Continue" />
+                        </Border>
+                    </Grid>
+                </LayoutTransformControl>
             </ControlTemplate>
         </Setter>
         <Style Selector="^[IsOpen=True] /template/ LayoutTransformControl#PART_LayoutTransform">
             <Style.Animations>
-                <Animation Easing="CircularEaseOut" 
+                <Animation Easing="CircularEaseOut"
                            FillMode="Forward"
                            Duration="{StaticResource ShortAnimationDuration}">
                     <KeyFrame Cue="0%">
