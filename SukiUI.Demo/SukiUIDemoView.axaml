@@ -16,6 +16,7 @@
                  CanMinimize="{Binding !WindowLocked}"
                  CanMove="{Binding !WindowLocked}"
                  CanResize="{Binding !WindowLocked}"
+                 Icon="/Assets/OIG.N5o-removebg-preview.png"
                  IsMenuVisible="True"
                  mc:Ignorable="d">
     <suki:SukiWindow.LogoContent>
@@ -60,9 +61,7 @@
             <MenuItem Command="{Binding CreateCustomThemeCommand}" Header="Create Custom" />
         </MenuItem>
     </suki:SukiWindow.MenuItems>
-    <suki:SukiSideMenu 
-                       ItemsSource="{Binding DemoPages}"
-                       SelectedItem="{Binding ActivePage}">
+    <suki:SukiSideMenu ItemsSource="{Binding DemoPages}" SelectedItem="{Binding ActivePage}">
         <suki:SukiSideMenu.ItemTemplate>
             <DataTemplate>
                 <suki:SukiSideMenuItem Header="{Binding DisplayName}">
