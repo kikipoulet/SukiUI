@@ -4,16 +4,19 @@
 	<h4><i>A Desktop UI Library for <a href="https://avaloniaui.net/">Avalonia</a></i></h4>
 	<div id="badges" >
 		<a href="https://github.com/kikipoulet/SukiUI/wiki/1.-Installation"><img src="https://img.shields.io/badge/GET%20STARTED-purple?style=for-the-badge" alt="Get Started"/></a>
-		<a href="https://www.nuget.org/packages/SukiUI"><img src="https://img.shields.io/nuget/v/SukiUI?style=for-the-badge" alt="Nuget"/></a>  
 		<a href="https://www.nuget.org/packages/SukiUI"><img src="https://img.shields.io/nuget/vpre/SukiUI?style=for-the-badge" alt="Nuget Pre"/></a> 
 		<a href="https://github.com/kikipoulet/SukiUI/blob/main/LICENSE"><img src="https://img.shields.io/github/license/kikipoulet/SukiUI?style=for-the-badge" alt="License"/></a>  
 	</div>
 </div>
 <br/>
 
-#### New 6.0.0-beta Release:
-- Some breaking changes. If you update from a previous version, please read the [Documentation](https://github.com/kikipoulet/SukiUI/wiki/1.-Installation) first
-- Special thanks to [@sirdoombox](https://www.github.com/sirdoombox) for his valuable contributions
+#### Try our new Controls Gallery App on Microsoft Store ! 
+<span>
+<a href="https://apps.microsoft.com/detail/9NM01BJ6JTTF?hl=en-us&gl=US">
+   <img src="https://get.microsoft.com/images/en-us%20light.svg" alt="Download SukiUI Controls Gallery" />
+</a>
+</span>
+<br/>
 <br/>
 
 ## 📱 UI Theme 
