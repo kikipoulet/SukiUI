@@ -28,11 +28,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Avalonia" Version="11.0.8" />
-		<PackageReference Include="Avalonia.Skia" Version="11.0.8" />
+		<PackageReference Include="Avalonia" Version="11.0.9" />
+		<PackageReference Include="Avalonia.Skia" Version="11.0.9" />
 		<PackageReference Include="SkiaSharp" Version="2.88.7" />
-		<PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.8" />
-		<PackageReference Include="Avalonia.Themes.Simple" Version="11.0.8" />
+		<PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.9" />
+		<PackageReference Include="Avalonia.Themes.Simple" Version="11.0.9" />
 		<PackageReference Include="ReactiveUI" Version="19.2.1" />
 	</ItemGroup>
 

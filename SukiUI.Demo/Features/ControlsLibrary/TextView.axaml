@@ -36,7 +36,7 @@
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlockWithHyperlink">
                             <TextBlock>
                                 Text With A
-                                <!--  BUG: This now causes a `Control already has visual parent` bug.  -->
+                                <!--  BUG: This now causes a `Control already has visual parent` exception. Any control you put in here causes it - Regression from 11.0.7+  -->
                                 <!--  <Button Classes="Hyperlink"  -->
                                 <!--  Command="{Binding HyperlinkClickedCommand}"  -->
                                 <!--  Content="Hyperlink" />  -->
