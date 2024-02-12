@@ -17,6 +17,7 @@
                  CanMove="{Binding !WindowLocked}"
                  CanResize="{Binding !WindowLocked}"
                  IsMenuVisible="True"
+                 IsTitleBarVisible="True"
                  mc:Ignorable="d">
     <suki:SukiWindow.LogoContent>
         <avalonia:MaterialIcon Width="20"
