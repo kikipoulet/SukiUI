@@ -65,7 +65,7 @@
 
         <Style Selector="^:open /template/ LayoutTransformControl#PART_LayoutTransform">
             <Style.Animations>
-                <Animation Easing="{StaticResource MenuItemEasing}"
+                <Animation Easing="{StaticResource MenuEasing}"
                            FillMode="Forward"
                            Duration="{StaticResource ShortAnimationDuration}">
                     <KeyFrame Cue="0%">
@@ -99,7 +99,7 @@
         </Setter>
         <Style Selector="^[IsEnabled=True] /template/ LayoutTransformControl#PART_LayoutTransform">
             <Style.Animations>
-                <Animation Easing="{StaticResource MenuItemEasing}"
+                <Animation Easing="{StaticResource MenuEasing}"
                            FillMode="Forward"
                            Duration="{StaticResource MediumAnimationDuration}">
                     <KeyFrame Cue="0%">
@@ -113,7 +113,7 @@
         </Style>
         <Style Selector="^[IsEnabled=False] /template/ LayoutTransformControl#PART_LayoutTransform">
             <Style.Animations>
-                <Animation Easing="{StaticResource MenuItemEasing}"
+                <Animation Easing="{StaticResource MenuEasing}"
                            FillMode="Forward"
                            Duration="{StaticResource MediumAnimationDuration}">
                     <KeyFrame Cue="0%">
