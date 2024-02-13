@@ -68,7 +68,7 @@
                                OverlayInputPassThroughElement="{Binding $parent[Menu]}"
                                Placement="RightEdgeAlignedTop"
                                VerticalOffset="-1">
-                            <LayoutTransformControl Name="PART_LayoutTransform">
+                            <LayoutTransformControl Name="PART_LayoutTransform" RenderTransformOrigin="0%, 0%">
                                 <Grid Margin="0,-8,0,0">
                                     <Border Margin="16,8,8,8"
                                             BoxShadow="{DynamicResource SukiPopupShadow}"
@@ -115,11 +115,9 @@
                            Duration="{StaticResource ShortAnimationDuration}">
                     <KeyFrame Cue="0%">
                         <Setter Property="ScaleTransform.ScaleX" Value="0" />
-                        <Setter Property="TranslateTransform.X" Value="-100" />
                     </KeyFrame>
                     <KeyFrame Cue="100%">
                         <Setter Property="ScaleTransform.ScaleX" Value="1" />
-                        <Setter Property="TranslateTransform.X" Value="0" />
                     </KeyFrame>
                 </Animation>
             </Style.Animations>

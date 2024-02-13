@@ -33,7 +33,7 @@
                                Opacity="0"
                                OverlayInputPassThroughElement="{Binding $parent[Menu]}"
                                Placement="BottomEdgeAlignedLeft">
-                            <LayoutTransformControl Name="PART_LayoutTransform">
+                            <LayoutTransformControl Name="PART_LayoutTransform" RenderTransformOrigin="50%, 0%">
                                 <Grid Margin="-12,0,0,0">
                                     <Border Margin="16,8,8,8"
                                             BoxShadow="{DynamicResource SukiPopupShadow}"
@@ -70,11 +70,9 @@
                            Duration="{StaticResource ShortAnimationDuration}">
                     <KeyFrame Cue="0%">
                         <Setter Property="ScaleTransform.ScaleY" Value="0" />
-                        <Setter Property="TranslateTransform.Y" Value="-100" />
                     </KeyFrame>
                     <KeyFrame Cue="100%">
                         <Setter Property="ScaleTransform.ScaleY" Value="1" />
-                        <Setter Property="TranslateTransform.Y" Value="0" />
                     </KeyFrame>
                 </Animation>
             </Style.Animations>
@@ -86,7 +84,7 @@
         <Setter Property="ItemContainerTheme" Value="{StaticResource SukiTopLevelMenuItem}" />
         <Setter Property="Template">
             <ControlTemplate>
-                <LayoutTransformControl Name="PART_LayoutTransform" RenderTransformOrigin="{x:Static RelativePoint.TopLeft}">
+                <LayoutTransformControl Name="PART_LayoutTransform" RenderTransformOrigin="50%, 0%">
                     <controls:GlassCard Height="45"
                                         Padding="{TemplateBinding Padding}"
                                         BorderBrush="{DynamicResource SukiBorderBrush}"

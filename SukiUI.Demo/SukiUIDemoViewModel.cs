@@ -87,8 +87,8 @@ public partial class SukiUIDemoViewModel : ObservableObject
     {
         TitleBarVisible = !TitleBarVisible;
         SukiHost.ShowToast(
-            $"Title Bar {(TitleBarVisible ? "Shown" : "Hidden")}", 
-            $"Window title bar been {(TitleBarVisible ? "shown" : "hidden")}.");
+            $"Title Bar {(TitleBarVisible ? "Visible" : "Hidden")}", 
+            $"Window title bar has been {(TitleBarVisible ? "shown" : "hidden")}.");
     }
     
     [RelayCommand]
