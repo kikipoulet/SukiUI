@@ -1,5 +1,6 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:SukiUI.Controls"
                     xmlns:system="clr-namespace:System;assembly=netstandard">
     <ControlTheme x:Key="SukiTopLevelMenuItem" TargetType="MenuItem">
         <Setter Property="FontWeight" Value="DemiBold" />
@@ -85,17 +86,16 @@
         <Setter Property="ItemContainerTheme" Value="{StaticResource SukiTopLevelMenuItem}" />
         <Setter Property="Template">
             <ControlTemplate>
-                <LayoutTransformControl Name="PART_LayoutTransform">
-                    <Border Height="45"
-                            Padding="{TemplateBinding Padding}"
-                            Background="{DynamicResource SukiBackground}"
-                            BorderBrush="{DynamicResource SukiBorderBrush}"
-                            BorderThickness="0,0,0,0"
-                            CornerRadius="{TemplateBinding CornerRadius}">
+                <LayoutTransformControl Name="PART_LayoutTransform" RenderTransformOrigin="{x:Static RelativePoint.TopLeft}">
+                    <controls:GlassCard Height="45"
+                                        Padding="{TemplateBinding Padding}"
+                                        BorderBrush="{DynamicResource SukiBorderBrush}"
+                                        BorderThickness="0"
+                                        CornerRadius="{TemplateBinding CornerRadius}">
                         <ItemsPresenter Name="PART_ItemsPresenter"
                                         ItemsPanel="{TemplateBinding ItemsPanel}"
                                         KeyboardNavigation.TabNavigation="Continue" />
-                    </Border>
+                    </controls:GlassCard>
                 </LayoutTransformControl>
             </ControlTemplate>
         </Setter>
@@ -106,11 +106,9 @@
                            Duration="{StaticResource MediumAnimationDuration}">
                     <KeyFrame Cue="0%">
                         <Setter Property="ScaleTransform.ScaleY" Value="0" />
-                        <Setter Property="TranslateTransform.Y" Value="-100" />
                     </KeyFrame>
                     <KeyFrame Cue="100%">
                         <Setter Property="ScaleTransform.ScaleY" Value="1" />
-                        <Setter Property="TranslateTransform.Y" Value="0" />
                     </KeyFrame>
                 </Animation>
             </Style.Animations>
@@ -122,11 +120,9 @@
                            Duration="{StaticResource MediumAnimationDuration}">
                     <KeyFrame Cue="0%">
                         <Setter Property="ScaleTransform.ScaleY" Value="1" />
-                        <Setter Property="TranslateTransform.Y" Value="0" />
                     </KeyFrame>
                     <KeyFrame Cue="100%">
                         <Setter Property="ScaleTransform.ScaleY" Value="0" />
-                        <Setter Property="TranslateTransform.Y" Value="-100" />
                     </KeyFrame>
                 </Animation>
             </Style.Animations>
