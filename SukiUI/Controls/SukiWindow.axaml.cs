@@ -53,6 +53,15 @@ public class SukiWindow : Window
         get => GetValue(ShowBottomBorderProperty);
         set => SetValue(ShowBottomBorderProperty, value);
     }
+    
+    public static readonly StyledProperty<bool> IsTitleBarVisibleProperty =
+        AvaloniaProperty.Register<SukiWindow, bool>(nameof(IsTitleBarVisible), defaultValue: true);
+
+    public bool IsTitleBarVisible
+    {
+        get => GetValue(IsTitleBarVisibleProperty);
+        set => SetValue(IsTitleBarVisibleProperty, value);
+    }
 
     public static readonly StyledProperty<bool> IsMenuVisibleProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(IsMenuVisible), defaultValue: false);
