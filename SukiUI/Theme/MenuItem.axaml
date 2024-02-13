@@ -110,7 +110,7 @@
 
         <Style Selector="^:open /template/ LayoutTransformControl#PART_LayoutTransform">
             <Style.Animations>
-                <Animation Easing="CircularEaseOut"
+                <Animation Easing="{StaticResource MenuItemEasing}"
                            FillMode="Forward"
                            Duration="{StaticResource ShortAnimationDuration}">
                     <KeyFrame Cue="0%">

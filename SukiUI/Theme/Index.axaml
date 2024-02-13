@@ -44,6 +44,7 @@
             <system:TimeSpan x:Key="LongAnimationDuration">0.5</system:TimeSpan>
             <system:TimeSpan x:Key="MediumAnimationDuration">0.35</system:TimeSpan>
             <system:TimeSpan x:Key="ShortAnimationDuration">0.2</system:TimeSpan>
+            <Easing x:Key="MenuItemEasing">CircularEaseOut</Easing>
 
             <FontFamily x:Key="QuicksandFont">avares://SukiUI/CustomFont#Quicksand</FontFamily>
 
