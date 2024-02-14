@@ -25,7 +25,13 @@
                                Height="20"
                                VerticalAlignment="Center"
                                Foreground="{DynamicResource SukiPrimaryColor}"
-                               Kind="Dog" />
+                               Kind="Dog">
+            <avalonia:MaterialIcon.Transitions>
+                <Transitions>
+                    <BrushTransition Property="Foreground" Duration="{DynamicResource ShortAnimationDuration}" />
+                </Transitions>
+            </avalonia:MaterialIcon.Transitions>
+        </avalonia:MaterialIcon>
     </suki:SukiWindow.LogoContent>
 
     <suki:SukiWindow.MenuItems>
