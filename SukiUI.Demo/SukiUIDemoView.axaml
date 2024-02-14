@@ -18,14 +18,20 @@
                  CanResize="{Binding !WindowLocked}"
                  Icon="Assets/OIG.N5o-removebg-preview.png"
                  IsMenuVisible="True"
-                 IsTitleBarVisible="{Binding TitleBarVisible}"
+                 IsTitleBarVisible="{Binding TitleBarVisible, Mode=TwoWay}"
                  mc:Ignorable="d">
     <suki:SukiWindow.LogoContent>
         <avalonia:MaterialIcon Width="20"
                                Height="20"
                                VerticalAlignment="Center"
                                Foreground="{DynamicResource SukiPrimaryColor}"
-                               Kind="Dog" />
+                               Kind="Dog">
+            <avalonia:MaterialIcon.Transitions>
+                <Transitions>
+                    <BrushTransition Property="Foreground" Duration="{DynamicResource ShortAnimationDuration}" />
+                </Transitions>
+            </avalonia:MaterialIcon.Transitions>
+        </avalonia:MaterialIcon>
     </suki:SukiWindow.LogoContent>
 
     <suki:SukiWindow.MenuItems>
@@ -54,6 +60,9 @@
                     <avalonia:MaterialIcon Kind="{Binding TitleBarVisible, Converter={x:Static converters:BoolToIconConverters.Visibility}}" />
                 </MenuItem.Icon>
             </MenuItem>
+            <MenuItem Header="Fullscreen"
+                      PointerPressed="MakeFullScreenPressed"
+                      ToolTip.Tip="Makes the app fullscreen." />
         </MenuItem>
         <MenuItem Header="Theme">
             <MenuItem Click="MenuItem_OnClick"

@@ -1,15 +1,7 @@
-using System;
-using System.Reflection;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using Avalonia.Media;
-using Avalonia.Media.Imaging;
-using Avalonia.Platform;
-using SukiUI.Content;
 using SukiUI.Controls;
-using SukiUI.Demo.Utilities;
 using SukiUI.Models;
 
 namespace SukiUI.Demo;
@@ -32,5 +24,11 @@ public partial class SukiUIDemoView : SukiWindow
     private void InputElement_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
         IsMenuVisible = !IsMenuVisible;
+    }
+
+    private void MakeFullScreenPressed(object? sender, PointerPressedEventArgs e)
+    {
+        WindowState = WindowState == WindowState.FullScreen ? WindowState.Normal : WindowState.FullScreen;
+        IsTitleBarVisible = WindowState != WindowState.FullScreen;
     }
 }
