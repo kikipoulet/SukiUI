@@ -24,6 +24,7 @@ public partial class SukiUIDemoViewModel : ObservableObject
     [ObservableProperty] private bool _animationsEnabled;
     [ObservableProperty] private DemoPageBase? _activePage;
     [ObservableProperty] private bool _windowLocked = false;
+    [ObservableProperty] private bool _titleBarVisible = true;
 
     private readonly SukiTheme _theme;
 
@@ -79,6 +80,15 @@ public partial class SukiUIDemoViewModel : ObservableObject
         SukiHost.ShowToast(
             $"Window {(WindowLocked ? "Locked" : "Unlocked")}", 
             $"Window has been {(WindowLocked ? "locked" : "unlocked")}.");
+    }
+
+    [RelayCommand]
+    private void ToggleTitleBar()
+    {
+        TitleBarVisible = !TitleBarVisible;
+        SukiHost.ShowToast(
+            $"Title Bar {(TitleBarVisible ? "Visible" : "Hidden")}", 
+            $"Window title bar has been {(TitleBarVisible ? "shown" : "hidden")}.");
     }
     
     [RelayCommand]

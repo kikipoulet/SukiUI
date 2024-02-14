@@ -19,8 +19,6 @@ public partial class SukiUIDemoView : SukiWindow
     public SukiUIDemoView()
     {
         InitializeComponent();
-        var bitmap = new Bitmap(AssetLoader.Open(new Uri("avares://SukiUI.Demo/Assets/OIG.N5o-removebg-preview.png")));
-        Icon = new WindowIcon(bitmap);
     }
 
     private void MenuItem_OnClick(object? sender, RoutedEventArgs e)

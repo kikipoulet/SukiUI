@@ -16,8 +16,9 @@
                  CanMinimize="{Binding !WindowLocked}"
                  CanMove="{Binding !WindowLocked}"
                  CanResize="{Binding !WindowLocked}"
+                 Icon="Assets/OIG.N5o-removebg-preview.png"
                  IsMenuVisible="True"
-                 IsTitleBarVisible="True"
+                 IsTitleBarVisible="{Binding TitleBarVisible}"
                  mc:Ignorable="d">
     <suki:SukiWindow.LogoContent>
         <avalonia:MaterialIcon Width="20"
@@ -46,6 +47,13 @@
                     <avalonia:MaterialIcon Kind="{Binding WindowLocked, Converter={x:Static converters:BoolToIconConverters.WindowLock}}" />
                 </MenuItem.Icon>
             </MenuItem>
+            <MenuItem Command="{Binding ToggleTitleBarCommand}"
+                      Header="Title Bar"
+                      ToolTip.Tip="Toggles the title bar.">
+                <MenuItem.Icon>
+                    <avalonia:MaterialIcon Kind="{Binding TitleBarVisible, Converter={x:Static converters:BoolToIconConverters.Visibility}}" />
+                </MenuItem.Icon>
+            </MenuItem>
         </MenuItem>
         <MenuItem Header="Theme">
             <MenuItem Click="MenuItem_OnClick"
@@ -61,9 +69,7 @@
             <MenuItem Command="{Binding CreateCustomThemeCommand}" Header="Create Custom" />
         </MenuItem>
     </suki:SukiWindow.MenuItems>
-    <suki:SukiSideMenu 
-                       ItemsSource="{Binding DemoPages}"
-                       SelectedItem="{Binding ActivePage}">
+    <suki:SukiSideMenu ItemsSource="{Binding DemoPages}" SelectedItem="{Binding ActivePage}">
         <suki:SukiSideMenu.ItemTemplate>
             <DataTemplate>
                 <suki:SukiSideMenuItem Header="{Binding DisplayName}">
