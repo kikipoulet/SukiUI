@@ -10,7 +10,7 @@
                 <LayoutTransformControl Name="PART_LayoutTransform"
                                         Margin="1,0,0,0"
                                         RenderTransformOrigin="0%, 0%">
-                    <Grid>
+                    <Panel>
                         <Border Margin="16"
                                 BoxShadow="{DynamicResource SukiPopupShadow}"
                                 CornerRadius="{TemplateBinding CornerRadius}" />
@@ -26,7 +26,7 @@
                                             ItemsPanel="{TemplateBinding ItemsPanel}"
                                             KeyboardNavigation.TabNavigation="Continue" />
                         </Border>
-                    </Grid>
+                    </Panel>
                 </LayoutTransformControl>
             </ControlTemplate>
         </Setter>
