@@ -3,12 +3,14 @@
                     xmlns:icons="clr-namespace:SukiUI.Content"
                     xmlns:suki="clr-namespace:SukiUI.Controls">
     <ControlTheme x:Key="SukiWindowTheme" TargetType="suki:SukiWindow">
+        <Setter Property="SystemDecorations" Value="{OnPlatform 'Full', Linux='BorderOnly', x:TypeArguments=SystemDecorations}"></Setter>
         <Setter Property="ExtendClientAreaChromeHints" Value="NoChrome" />
         <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="-1" />
         <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
         <Setter Property="TextElement.Foreground" Value="{DynamicResource SukiText}" />
         <Setter Property="Template">
             <ControlTemplate>
+                <Border ClipToBounds="True" CornerRadius="{OnPlatform '0', Linux='10', x:TypeArguments=CornerRadius}" >
                 <Panel IsHitTestVisible="True">
                     <VisualLayerManager Name="PART_VisualLayerManager" IsHitTestVisible="True">
                         <suki:SukiHost>
@@ -91,6 +93,7 @@
                         </suki:SukiHost>
                     </VisualLayerManager>
                 </Panel>
+                </Border>
             </ControlTemplate>
         </Setter>
         <Style Selector="^[WindowState=Maximized] /template/ PathIcon#MaximizeIcon">
