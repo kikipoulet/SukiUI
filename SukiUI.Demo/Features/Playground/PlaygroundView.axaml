@@ -1,53 +1,89 @@
-﻿<UserControl xmlns="https://github.com/avaloniaui"
+﻿<UserControl x:Class="SukiUI.Demo.Features.Playground.PlaygroundView"
+             xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:avaloniaEdit="https://github.com/avaloniaui/avaloniaedit"
+             xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:avaloniaEdit="https://github.com/avaloniaui/avaloniaedit" x:DataType="playground:PlaygroundViewModel"
-             xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
-             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:playground="clr-namespace:SukiUI.Demo.Features.Playground"
              xmlns:theme="clr-namespace:SukiUI.Theme;assembly=SukiUI"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="SukiUI.Demo.Features.Playground.PlaygroundView">
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             x:DataType="playground:PlaygroundViewModel"
+             mc:Ignorable="d">
     <controls:SukiStackPage>
         <controls:SukiStackPage.Content>
-            
-            <SplitView IsPaneOpen="False" Name="Playground" DisplayMode="CompactInline" OpenPaneLength="250" CompactPaneLength="50">
+
+            <SplitView Name="Playground"
+                       CompactPaneLength="50"
+                       DisplayMode="CompactInline"
+                       IsPaneOpen="False"
+                       OpenPaneLength="250">
                 <SplitView.Pane>
                     <Grid>
-                        
-                        <DockPanel IsHitTestVisible="False" Opacity="0"  Name="TabControls" >
-                            <Button DockPanel.Dock="Top" Click="ClosePane" Margin="0,25" IsHitTestVisible="True" Opacity="1" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Top" Classes="Basic">
+
+                        <DockPanel Name="TabControls"
+                                   IsHitTestVisible="False"
+                                   Opacity="0">
+                            <Button Margin="0,25"
+                                    Padding="0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Top"
+                                    Classes="Basic"
+                                    Click="ClosePane"
+                                    DockPanel.Dock="Top"
+                                    IsHitTestVisible="True"
+                                    Opacity="1">
                                 <StackPanel>
-                                    <TextBlock  HorizontalAlignment="Center"  Foreground="{DynamicResource SukiLowText}" FontSize="12" Text="Close"></TextBlock>
-                                    <avalonia:MaterialIcon Kind="ChevronLeft" Foreground="{DynamicResource SukiLowText}"></avalonia:MaterialIcon>
+                                    <TextBlock HorizontalAlignment="Center"
+                                               FontSize="12"
+                                               Foreground="{DynamicResource SukiLowText}"
+                                               Text="Close" />
+                                    <avalonia:MaterialIcon Foreground="{DynamicResource SukiLowText}" Kind="ChevronLeft" />
                                 </StackPanel>
                             </Button>
-                            <TabControl Margin="0,20,0,0" TabStripPlacement="Left" >
-                           
+                            <TabControl Margin="0,20,0,0" TabStripPlacement="Left">
+
                                 <TabItem Header="Buttons">
-                                <ScrollViewer>
-                                <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding ButtonsElements }">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <controls:GlassCard Tag="{Binding}" PointerPressed="AddNewControls" CornerRadius="10" IsInteractive="True" Margin="0,8" MinHeight="100">
-                                                <Viewbox StretchDirection="DownOnly">
-                                                    <ContentControl IsHitTestVisible="False" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding, Converter={x:Static playground:StringToControlConverter.Instance}}"></ContentControl>
-                                                </Viewbox>
-                                            </controls:GlassCard>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                                </ScrollViewer>
-                            </TabItem>
-                                <TabItem Header="Layout">
                                     <ScrollViewer>
-                                        <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding LayoutElements }">
+                                        <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding ButtonsElements}">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
-                                                    <controls:GlassCard Tag="{Binding}" PointerPressed="AddNewControls" CornerRadius="10" IsInteractive="True" Margin="0,8" MinHeight="100">
+                                                    <controls:GlassCard MinHeight="100"
+                                                                        Margin="0,8"
+                                                                        CornerRadius="10"
+                                                                        IsInteractive="True"
+                                                                        PointerPressed="AddNewControls"
+                                                                        Tag="{Binding}">
                                                         <Viewbox StretchDirection="DownOnly">
-                                                            <ContentControl IsHitTestVisible="False" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding, Converter={x:Static playground:StringToControlConverter.Instance}}"></ContentControl>
+                                                            <ContentControl HorizontalAlignment="Center"
+                                                                            VerticalAlignment="Center"
+                                                                            Content="{Binding, Converter={x:Static playground:StringToControlConverter.Instance}}"
+                                                                            IsHitTestVisible="False" />
+                                                        </Viewbox>
+                                                    </controls:GlassCard>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </ScrollViewer>
+                                </TabItem>
+                                <TabItem Header="Layout">
+                                    <ScrollViewer>
+                                        <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding LayoutElements}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <controls:GlassCard MinHeight="100"
+                                                                        Margin="0,8"
+                                                                        CornerRadius="10"
+                                                                        IsInteractive="True"
+                                                                        PointerPressed="AddNewControls"
+                                                                        Tag="{Binding}">
+                                                        <Viewbox StretchDirection="DownOnly">
+                                                            <ContentControl HorizontalAlignment="Center"
+                                                                            VerticalAlignment="Center"
+                                                                            Content="{Binding, Converter={x:Static playground:StringToControlConverter.Instance}}"
+                                                                            IsHitTestVisible="False" />
                                                         </Viewbox>
                                                     </controls:GlassCard>
                                                 </DataTemplate>
@@ -57,27 +93,43 @@
                                 </TabItem>
                                 <TabItem Header="Input">
                                     <ScrollViewer>
-                                        <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding InputsElements }">
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <controls:GlassCard Tag="{Binding}" PointerPressed="AddNewControls" IsInteractive="True" Margin="0,8" CornerRadius="10" MinHeight="100">
-                                                    <Viewbox StretchDirection="DownOnly">
-                                                        <ContentControl IsHitTestVisible="False" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding, Converter={x:Static playground:StringToControlConverter.Instance}}"></ContentControl>
-                                                    </Viewbox>
-                                                </controls:GlassCard>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                        </ScrollViewer>
+                                        <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding InputsElements}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <controls:GlassCard MinHeight="100"
+                                                                        Margin="0,8"
+                                                                        CornerRadius="10"
+                                                                        IsInteractive="True"
+                                                                        PointerPressed="AddNewControls"
+                                                                        Tag="{Binding}">
+                                                        <Viewbox StretchDirection="DownOnly">
+                                                            <ContentControl HorizontalAlignment="Center"
+                                                                            VerticalAlignment="Center"
+                                                                            Content="{Binding, Converter={x:Static playground:StringToControlConverter.Instance}}"
+                                                                            IsHitTestVisible="False" />
+                                                        </Viewbox>
+                                                    </controls:GlassCard>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </ScrollViewer>
                                 </TabItem>
                                 <TabItem Header="Progress">
                                     <ScrollViewer>
-                                        <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding ProgressElements }">
+                                        <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding ProgressElements}">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
-                                                    <controls:GlassCard Tag="{Binding}" PointerPressed="AddNewControls" IsInteractive="True" Margin="0,8" CornerRadius="10" MinHeight="100">
+                                                    <controls:GlassCard MinHeight="100"
+                                                                        Margin="0,8"
+                                                                        CornerRadius="10"
+                                                                        IsInteractive="True"
+                                                                        PointerPressed="AddNewControls"
+                                                                        Tag="{Binding}">
                                                         <Viewbox StretchDirection="DownOnly">
-                                                            <ContentControl IsHitTestVisible="False" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding, Converter={x:Static playground:StringToControlConverter.Instance}}"></ContentControl>
+                                                            <ContentControl HorizontalAlignment="Center"
+                                                                            VerticalAlignment="Center"
+                                                                            Content="{Binding, Converter={x:Static playground:StringToControlConverter.Instance}}"
+                                                                            IsHitTestVisible="False" />
                                                         </Viewbox>
                                                     </controls:GlassCard>
                                                 </DataTemplate>
@@ -87,12 +139,20 @@
                                 </TabItem>
                                 <TabItem Header="Lists">
                                     <ScrollViewer>
-                                        <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding ListsElements }">
+                                        <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding ListsElements}">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
-                                                    <controls:GlassCard Tag="{Binding}" PointerPressed="AddNewControls" IsInteractive="True" Margin="0,8" CornerRadius="10" MinHeight="100">
+                                                    <controls:GlassCard MinHeight="100"
+                                                                        Margin="0,8"
+                                                                        CornerRadius="10"
+                                                                        IsInteractive="True"
+                                                                        PointerPressed="AddNewControls"
+                                                                        Tag="{Binding}">
                                                         <Viewbox StretchDirection="DownOnly">
-                                                            <ContentControl IsHitTestVisible="False" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding, Converter={x:Static playground:StringToControlConverter.Instance}}"></ContentControl>
+                                                            <ContentControl HorizontalAlignment="Center"
+                                                                            VerticalAlignment="Center"
+                                                                            Content="{Binding, Converter={x:Static playground:StringToControlConverter.Instance}}"
+                                                                            IsHitTestVisible="False" />
                                                         </Viewbox>
                                                     </controls:GlassCard>
                                                 </DataTemplate>
@@ -100,31 +160,48 @@
                                         </ItemsControl>
                                     </ScrollViewer>
                                 </TabItem>
-                        </TabControl>
+                            </TabControl>
                         </DockPanel>
-                        
-                        <Button Click="OpenPane" Name="OpenPaneButton" Margin="0,25" IsHitTestVisible="True" Opacity="1" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Top" Classes="Basic">
+
+                        <Button Name="OpenPaneButton"
+                                Margin="0,25"
+                                Padding="0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                Classes="Basic"
+                                Click="OpenPane"
+                                IsHitTestVisible="True"
+                                Opacity="1">
                             <StackPanel>
-                                <TextBlock HorizontalAlignment="Center" Foreground="{DynamicResource SukiLowText}" FontSize="12" Text="Add"></TextBlock>
-                                <TextBlock  HorizontalAlignment="Center"  Foreground="{DynamicResource SukiLowText}" FontSize="12" Text="Controls"></TextBlock>
-                                <avalonia:MaterialIcon Kind="ChevronRight" Foreground="{DynamicResource SukiLowText}"></avalonia:MaterialIcon>
+                                <TextBlock HorizontalAlignment="Center"
+                                           FontSize="12"
+                                           Foreground="{DynamicResource SukiLowText}"
+                                           Text="Add" />
+                                <TextBlock HorizontalAlignment="Center"
+                                           FontSize="12"
+                                           Foreground="{DynamicResource SukiLowText}"
+                                           Text="Controls" />
+                                <avalonia:MaterialIcon Foreground="{DynamicResource SukiLowText}" Kind="ChevronRight" />
                             </StackPanel>
                         </Button>
                     </Grid>
                 </SplitView.Pane>
-                <Grid  ColumnDefinitions="*, 4, *" RowDefinitions="*, Auto">
-        <controls:GlassCard Margin="20">
-        <avaloniaEdit:TextEditor TextChanged="Editor_OnTextChanged"  Text="" Name="Editor"
-                                 ShowLineNumbers="True"
-        />
-        </controls:GlassCard>
-        <GridSplitter Grid.Column="1" Background="Transparent" ResizeDirection="Columns"/>
-        <controls:GlassCard Name="GlassExample" Grid.Column="2" Margin="20">
-        </controls:GlassCard>
-        
-            
-        
-    </Grid>
+                <Grid ColumnDefinitions="*, 4, *" RowDefinitions="*, Auto">
+                    <controls:GlassCard Margin="20">
+                        <avaloniaEdit:TextEditor Name="Editor"
+                                                 ShowLineNumbers="True"
+                                                 Text=""
+                                                 TextChanged="Editor_OnTextChanged" />
+                    </controls:GlassCard>
+                    <GridSplitter Grid.Column="1"
+                                  Background="Transparent"
+                                  ResizeDirection="Columns" />
+                    <controls:GlassCard Name="GlassExample"
+                                        Grid.Column="2"
+                                        Margin="20" />
+
+
+                </Grid>
             </SplitView>
         </controls:SukiStackPage.Content>
     </controls:SukiStackPage>

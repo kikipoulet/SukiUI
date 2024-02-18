@@ -2,11 +2,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:cc="clr-namespace:AvaloniaEdit.CodeCompletion;assembly=AvaloniaEdit"
                     xmlns:theme="clr-namespace:SukiUI.Theme;assembly=SukiUI">
-    <ControlTheme x:Key="{x:Type cc:CompletionListBox}" TargetType="cc:CompletionListBox"
-                  BasedOn="{StaticResource {x:Type ListBox}}">
+    <ControlTheme x:Key="{x:Type cc:CompletionListBox}"
+                  BasedOn="{StaticResource {x:Type ListBox}}"
+                  TargetType="cc:CompletionListBox">
         <Setter Property="Padding" Value="0" />
         <Setter Property="ItemContainerTheme">
-            <ControlTheme TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+            <ControlTheme BasedOn="{StaticResource {x:Type ListBoxItem}}" TargetType="ListBoxItem">
                 <Setter Property="TextBlock.Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
                 <Setter Property="Background" Value="Red" />
                 <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
@@ -14,8 +15,8 @@
                 <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
                 <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
                 <Setter Property="Padding" Value="4,1" />
-                <Setter Property="FontSize" Value="12"></Setter>
-                <Setter Property="FontWeight" Value="DemiBold"></Setter>
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="FontWeight" Value="DemiBold" />
             </ControlTheme>
         </Setter>
         <Setter Property="Template">
@@ -51,20 +52,23 @@
     <ControlTheme x:Key="{x:Type cc:CompletionList}" TargetType="cc:CompletionList">
         <Setter Property="Template">
             <ControlTemplate>
-                <Border Margin="10" BoxShadow="{DynamicResource SukiPopupShadow}" ClipToBounds="True" CornerRadius="8" >
-                <cc:CompletionListBox Name="PART_ListBox">
-                    <cc:CompletionListBox.ItemTemplate>
-                        <DataTemplate x:DataType="cc:ICompletionData">
-                            <StackPanel Orientation="Horizontal" Margin="0">
-                                <Image Source="{Binding Image}"
-                                       Width="16"
-                                       Height="16"
-                                       Margin="0,0,2,0" />
-                                <ContentPresenter Content="{Binding Content}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </cc:CompletionListBox.ItemTemplate>
-                </cc:CompletionListBox>
+                <Border Margin="10"
+                        BoxShadow="{DynamicResource SukiPopupShadow}"
+                        ClipToBounds="True"
+                        CornerRadius="8">
+                    <cc:CompletionListBox Name="PART_ListBox">
+                        <cc:CompletionListBox.ItemTemplate>
+                            <DataTemplate x:DataType="cc:ICompletionData">
+                                <StackPanel Margin="0" Orientation="Horizontal">
+                                    <Image Width="16"
+                                           Height="16"
+                                           Margin="0,0,2,0"
+                                           Source="{Binding Image}" />
+                                    <ContentPresenter Content="{Binding Content}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </cc:CompletionListBox.ItemTemplate>
+                    </cc:CompletionListBox>
                 </Border>
             </ControlTemplate>
         </Setter>

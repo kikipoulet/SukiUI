@@ -32,4 +32,11 @@
 	  <None Remove="Assets\OIG.N5o-removebg-preview.png" />
 	  <AvaloniaResource Include="Assets\OIG.N5o-removebg-preview.png" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Features\ControlsLibrary\Toasts\ToastsView.axaml.cs">
+	    <DependentUpon>ToastsView.axaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	</ItemGroup>
 </Project>

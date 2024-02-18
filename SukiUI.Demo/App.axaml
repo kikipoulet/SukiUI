@@ -11,12 +11,12 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceInclude Source="Styles/CompletionWindowStyles.axaml"></ResourceInclude>
+                <ResourceInclude Source="Styles/CompletionWindowStyles.axaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
     <Application.Styles>
-     <FluentTheme></FluentTheme>
+        <FluentTheme />
         <StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />
         <StyleInclude Source="avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml" />
         <sukiUi:SukiTheme ThemeColor="Red" />
@@ -26,5 +26,5 @@
         <StyleInclude Source="avares://SukiUI.Demo/Styles/GlassCardStyles.axaml" />
         <avalonia:MaterialIconStyles />
     </Application.Styles>
-    
+
 </Application>

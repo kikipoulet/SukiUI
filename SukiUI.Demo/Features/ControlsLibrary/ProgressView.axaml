@@ -6,7 +6,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:showMeTheXaml="clr-namespace:ShowMeTheXaml;assembly=ShowMeTheXaml.Avalonia"
-             xmlns:theme="clr-namespace:SukiUI.Theme;assembly=SukiUI"
              d:DesignHeight="450"
              d:DesignWidth="800"
              x:DataType="controlsLibrary:ProgressViewModel"
@@ -148,7 +147,7 @@
 
                 <controls:GlassCard Width="500">
                     <controls:GroupBox Header="Stepper">
-                        <StackPanel  Spacing="15">
+                        <StackPanel Spacing="15">
                             <showMeTheXaml:XamlDisplay Margin="0,20,0,0" UniqueId="Stepper">
                                 <controls:Stepper Index="{Binding StepIndex}" Steps="{Binding Steps}" />
                             </showMeTheXaml:XamlDisplay>
@@ -166,12 +165,14 @@
                         </StackPanel>
                     </controls:GroupBox>
                 </controls:GlassCard>
-                
+
                 <controls:GlassCard Width="500">
                     <controls:GroupBox Header="Alternative Stepper">
                         <StackPanel Spacing="15">
                             <showMeTheXaml:XamlDisplay UniqueId="AltStepper">
-                                <controls:Stepper AlternativeStyle="True" Index="{Binding StepIndex}" Steps="{Binding Steps}" />
+                                <controls:Stepper AlternativeStyle="True"
+                                                  Index="{Binding StepIndex}"
+                                                  Steps="{Binding Steps}" />
                             </showMeTheXaml:XamlDisplay>
                             <!--  Ignore your IDE, x:True and x:False are absolutely valid intrinsics in Avalonia.  -->
                             <Grid ColumnDefinitions="Auto,*,Auto">

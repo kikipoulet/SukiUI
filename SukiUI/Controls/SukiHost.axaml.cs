@@ -9,8 +9,12 @@ using SukiUI.Enums;
 using SukiUI.Helpers;
 using SukiUI.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Avalonia.Interactivity;
+using Avalonia.LogicalTree;
+using Avalonia.VisualTree;
 
 namespace SukiUI.Controls;
 
@@ -75,15 +79,17 @@ public class SukiHost : ContentControl
         set => SetValue(ToastsCollectionProperty, value);
     }
 
-    private static SukiHost? _instance;
-    private static SukiHost Instance => EnsureInstance();
+    private static Window? _mainWindow;
+    private static readonly Dictionary<Window, SukiHost> Instances = new();
 
     private int _maxToasts;
 
     protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {
         base.OnAttachedToVisualTree(e);
-        _instance ??= this;
+        if (VisualRoot is not Window w) return;
+        Instances.Add(w, this);
+        _mainWindow ??= w;
     }
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
@@ -110,40 +116,100 @@ public class SukiHost : ContentControl
     // This goes for other APIs like the background and theming.
 
     /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="window"></param>
+    /// <param name="content"></param>
+    /// <param name="showCardBehind"></param>
+    /// <param name="allowBackgroundClose"></param>
+    /// <exception cref="InvalidOperationException"></exception>
+    public static void ShowDialog(Window window, object? content, bool showCardBehind = true,
+        bool allowBackgroundClose = false)
+    {
+        if (!Instances.TryGetValue(window, out var host))
+            throw new InvalidOperationException("No SukiHost present in this window");
+        var control = content as Control ?? ViewLocator.TryBuild(content);
+        host.IsDialogOpen = true;
+        host.DialogContent = control;
+        host.AllowBackgroundClose = allowBackgroundClose;
+        host.GetTemplateChildren().First(n => n.Name == "BorderDialog1").Opacity = showCardBehind ? 1 : 0;
+    }
+    
+    /// <summary>
     /// Shows a dialog in the <see cref="SukiHost"/>
     /// Can display ViewModels if provided, if a suitable ViewLocator has been registered with Avalonia.
     /// </summary>
     /// <param name="content">Content to display.</param>
     /// <param name="showCardBehind">Whether or not to show a card behind the content.</param>
     /// <param name="allowBackgroundClose">Allows the dialog to be closed by clicking outside of it.</param>
-    public static void ShowDialog(object? content, bool showCardBehind = true, bool allowBackgroundClose = false)
+    public static void ShowDialog(object? content, bool showCardBehind = true, bool allowBackgroundClose = false) =>
+        ShowDialog(_mainWindow, content, showCardBehind, allowBackgroundClose);
+    
+    /// <summary>
+    /// Attempts to close a dialog if one is shown in a specific window.
+    /// </summary>
+    public static void CloseDialog(Window window)
     {
-        var control = content as Control ?? ViewLocator.TryBuild(content);
-        Instance.IsDialogOpen = true;
-        Instance.DialogContent = control;
-        Instance.AllowBackgroundClose = allowBackgroundClose;
-
-        Instance.GetTemplateChildren().First(n => n.Name == "BorderDialog1").Opacity = showCardBehind ? 1 : 0;
+        if (!Instances.TryGetValue(window, out var host))
+            throw new InvalidOperationException("No SukiHost present in this window");
+        host.IsDialogOpen = false;
     }
 
     /// <summary>
-    /// Attempts to close a dialog if one is shown.
+    /// Attempts to close a dialog if one is shown in the earliest of any opened windows.
     /// </summary>
-    public static void CloseDialog() =>
-        Instance.IsDialogOpen = false;
+    public static void CloseDialog() => CloseDialog(_mainWindow);
+    
+    /// <summary>
+    /// Used to close the open dialog when the background is clicked, if this is allowed.
+    /// </summary>
+    private static void BackgroundRequestClose(Window window)
+    {
+        if (!Instances.TryGetValue(window, out var host))
+            throw new InvalidOperationException("No SukiHost present in this window");
+        if (!host.AllowBackgroundClose) return;
+        host.IsDialogOpen = false;
+    }
 
     /// <summary>
     /// Used to close the open dialog when the background is clicked, if this is allowed.
     /// </summary>
-    private static void BackgroundRequestClose()
+    private static void BackgroundRequestClose() => BackgroundRequestClose(_mainWindow);
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="window"></param>
+    /// <param name="model"></param>
+    /// <exception cref="InvalidOperationException"></exception>
+    public static async Task ShowToast(Window window, SukiToastModel model)
     {
-        if (!Instance.AllowBackgroundClose) return;
-        Instance.IsDialogOpen = false;
+        if (!Instances.TryGetValue(window, out var host))
+            throw new InvalidOperationException("No SukiHost present in this window");
+        
+        var toast = SukiToastPool.Get();
+        toast.Initialize(model, host);
+        if (host.ToastsCollection.Count >= host._maxToasts)
+            await ClearToast(host.ToastsCollection.First());
+        Dispatcher.UIThread.Invoke(() =>
+        {
+            host.ToastsCollection.Add(toast);
+            toast.Animate(OpacityProperty, 0d, 1d, TimeSpan.FromMilliseconds(500));
+            toast.Animate(MarginProperty, new Thickness(0, 10, 0, -10), new Thickness(),
+                TimeSpan.FromMilliseconds(500));
+        });
     }
-
+    
+    /// <summary>
+    /// <inheritdoc cref="ShowToast(string,object,System.Nullable{System.TimeSpan},System.Action?)"/>
+    /// </summary>
+    /// <param name="model">A pre-constructed <see cref="SukiToastModel"/>.</param>
+    public static Task ShowToast(SukiToastModel model) => 
+        ShowToast(_mainWindow, model);
+    
     /// <summary>
     /// Shows a toast in the SukiHost - The default location is in the bottom right.
-    /// This can be changed
+    /// This can be changed with an attached property in SukiWindow.
     /// </summary>
     /// <param name="title">The title to display in the toast.</param>
     /// <param name="content">The content of the toast, this can be any control or ViewModel.</param>
@@ -157,24 +223,21 @@ public class SukiHost : ContentControl
             onClicked));
 
     /// <summary>
-    /// <inheritdoc cref="ShowToast(string,object,System.Nullable{System.TimeSpan},System.Action?)"/>
+    /// 
     /// </summary>
-    /// <param name="model">A pre-constructed <see cref="SukiToastModel"/>.</param>
-    public static async Task ShowToast(SukiToastModel model)
-    {
-        var toast = SukiToastPool.Get();
-
-        toast.Initialize(model);
-        if (Instance.ToastsCollection.Count >= Instance._maxToasts)
-            await ClearToast(Instance.ToastsCollection.First());
-        Dispatcher.UIThread.Invoke(() =>
-        {
-            Instance.ToastsCollection.Add(toast);
-            toast.Animate(OpacityProperty, 0d, 1d, TimeSpan.FromMilliseconds(500));
-            toast.Animate(MarginProperty, new Thickness(0, 10, 0, -10), new Thickness(),
-                TimeSpan.FromMilliseconds(500));
-        });
-    }
+    /// <param name="window"></param>
+    /// <param name="title"></param>
+    /// <param name="content"></param>
+    /// <param name="duration"></param>
+    /// <param name="onClicked"></param>
+    /// <returns></returns>
+    public static Task ShowToast(Window window, string title, object content, TimeSpan? duration = null,
+        Action? onClicked = null) =>
+        ShowToast(window, new SukiToastModel(
+            title,
+            content as Control ?? ViewLocator.TryBuild(content),
+            duration ?? TimeSpan.FromSeconds(4),
+            onClicked));
 
     /// <summary>
     /// Clears a specific toast from display (if it is still currently being displayed).
@@ -191,7 +254,7 @@ public class SukiHost : ContentControl
                     TimeSpan.FromMilliseconds(300));
             });
             await Task.Delay(300);
-            return Dispatcher.UIThread.Invoke(() => Instance.ToastsCollection.Remove(toast));
+            return Dispatcher.UIThread.Invoke(() => toast.Host.ToastsCollection.Remove(toast));
         });
 
         if (!wasRemoved) return;
@@ -199,18 +262,26 @@ public class SukiHost : ContentControl
     }
 
     /// <summary>
-    /// Clears all active toasts immediately.
+    /// Clears all active toasts in a specific window immediately.
     /// </summary>
-    public static void ClearAllToasts()
+    public static void ClearAllToasts(Window window)
     {
-        SukiToastPool.Return(Instance.ToastsCollection);
-        Dispatcher.UIThread.Invoke(() => Instance.ToastsCollection.Clear());
+        if (!Instances.TryGetValue(window, out var host))
+            throw new InvalidOperationException("No SukiHost present in this window");
+        SukiToastPool.Return(host.ToastsCollection);
+        Dispatcher.UIThread.Invoke(() => host.ToastsCollection.Clear());
     }
 
-    private static SukiHost EnsureInstance()
+    /// <summary>
+    /// Clears all active toasts in the earliest open window immediately.
+    /// </summary>
+    public static void ClearAllToasts() => ClearAllToasts(_mainWindow);
+
+    protected override void OnDetachedFromLogicalTree(LogicalTreeAttachmentEventArgs e)
     {
-        if (_instance is null)
-            throw new InvalidOperationException("SukiHost must be active somewhere in the VisualTree");
-        return _instance;
+        base.OnDetachedFromLogicalTree(e);
+        if (VisualRoot is not Window w) return;
+        Instances.Remove(w);
+        _mainWindow = Instances.FirstOrDefault().Key;
     }
 }
