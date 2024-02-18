@@ -1,8 +1,6 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 
-namespace SukiUI.Demo.Features.ControlsLibrary
+namespace SukiUI.Demo.Features.ControlsLibrary.Toasts
 {
     public partial class ToastsView : UserControl
     {

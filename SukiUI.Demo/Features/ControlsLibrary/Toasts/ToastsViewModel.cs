@@ -1,12 +1,12 @@
+using System;
+using System.Threading.Tasks;
 using Avalonia.Controls;
 using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
 using SukiUI.Controls;
 using SukiUI.Demo.Utilities;
-using System;
-using System.Threading.Tasks;
 
-namespace SukiUI.Demo.Features.ControlsLibrary
+namespace SukiUI.Demo.Features.ControlsLibrary.Toasts
 {
     public partial class ToastsViewModel() : DemoPageBase("Toasts", MaterialIconKind.BellRing)
     {
@@ -34,5 +34,8 @@ namespace SukiUI.Demo.Features.ControlsLibrary
                     new TextBlock { Text = "You clicked the toast! - Click anywhere outside of this dialog to close." },
                     allowBackgroundClose: true));
         }
+
+        [RelayCommand]
+        public void ShowToastWindow() => new ToastWindowDemo().Show();
     }
 }

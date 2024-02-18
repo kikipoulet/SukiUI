@@ -1,0 +1,42 @@
+<controls:SukiWindow x:Class="SukiUI.Demo.Features.ControlsLibrary.Dialogs.DialogWindowDemo"
+                     xmlns="https://github.com/avaloniaui"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     Title="Dialog Window Demo"
+                     Width="550"
+                     Height="400"
+                     d:DesignHeight="450"
+                     d:DesignWidth="800"
+                     mc:Ignorable="d">
+    <Grid RowDefinitions="Auto,*">
+        <controls:GlassCard Classes="HeaderCard">
+            <controls:GroupBox Header="Toasts">
+                <StackPanel Classes="HeaderContent">
+                    <TextBlock>
+                        Demos the ability for individual windows (or the main window) to be addressed by the dialog system.
+                    </TextBlock>
+                </StackPanel>
+            </controls:GroupBox>
+        </controls:GlassCard>
+        <ScrollViewer Grid.Row="1">
+            <WrapPanel Classes="PageContainer">
+                <controls:GlassCard>
+                    <controls:GroupBox Header="Show In This Window">
+                        <Button Margin="15,10,15,0"
+                                Click="ShowDialogInThisWindowClicked"
+                                Content="Show Dialog" />
+                    </controls:GroupBox>
+                </controls:GlassCard>
+                <controls:GlassCard>
+                    <controls:GroupBox Header="Show In MainWindow">
+                        <Button Margin="15,10,15,0"
+                                Click="ShowDialogInMainWindowClicked"
+                                Content="Show Dialog" />
+                    </controls:GroupBox>
+                </controls:GlassCard>
+            </WrapPanel>
+        </ScrollViewer>
+    </Grid>
+</controls:SukiWindow>
