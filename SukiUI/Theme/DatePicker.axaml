@@ -157,6 +157,9 @@
                                 </LinearGradientBrush>
                             </Grid.OpacityMask>
                             <Grid.Styles>
+                                <Style Selector="ListBoxItem:selected TextBlock">
+                                    <Setter Property="FontWeight" Value="Bold"></Setter>
+                                </Style>
                                 <Style Selector="DateTimePickerPanel &gt; ListBoxItem">
                                     <Setter Property="Background" Value="Transparent" />
                                     <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
