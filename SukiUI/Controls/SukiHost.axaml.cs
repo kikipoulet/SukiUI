@@ -116,13 +116,14 @@ public class SukiHost : ContentControl
     // This goes for other APIs like the background and theming.
 
     /// <summary>
-    /// 
+    /// Shows a dialog in the <see cref="SukiHost"/>
+    /// Can display ViewModels if provided, if a suitable ViewLocator has been registered with Avalonia.
     /// </summary>
-    /// <param name="window"></param>
-    /// <param name="content"></param>
-    /// <param name="showCardBehind"></param>
-    /// <param name="allowBackgroundClose"></param>
-    /// <exception cref="InvalidOperationException"></exception>
+    /// <param name="window">The window who's SukiHost should be used to display the toast.</param>
+    /// <param name="content">Content to display.</param>
+    /// <param name="showCardBehind">Whether or not to show a card behind the content.</param>
+    /// <param name="allowBackgroundClose">Allows the dialog to be closed by clicking outside of it.</param>
+    /// <exception cref="InvalidOperationException">Thrown if there is no SukiHost associated with the specified window.</exception>
     public static void ShowDialog(Window window, object? content, bool showCardBehind = true,
         bool allowBackgroundClose = false)
     {
@@ -136,8 +137,7 @@ public class SukiHost : ContentControl
     }
     
     /// <summary>
-    /// Shows a dialog in the <see cref="SukiHost"/>
-    /// Can display ViewModels if provided, if a suitable ViewLocator has been registered with Avalonia.
+    /// <inheritdoc cref="ShowDialog(Avalonia.Controls.Window,object?,bool,bool)"/>
     /// </summary>
     /// <param name="content">Content to display.</param>
     /// <param name="showCardBehind">Whether or not to show a card behind the content.</param>
@@ -170,11 +170,12 @@ public class SukiHost : ContentControl
     }
     
     /// <summary>
-    /// 
+    /// Shows a toast in the SukiHost - The default location is in the bottom right.
+    /// This can be changed with an attached property in SukiWindow.
     /// </summary>
-    /// <param name="window"></param>
-    /// <param name="model"></param>
-    /// <exception cref="InvalidOperationException"></exception>
+    /// <param name="window">The window who's SukiHost should be used to display the toast.</param>
+    /// <param name="model">A pre-constructed <see cref="SukiToastModel"/>.</param>
+    /// <exception cref="InvalidOperationException">Thrown if there is no SukiHost associated with the specified window.</exception>
     public static async Task ShowToast(Window window, SukiToastModel model)
     {
         if (!Instances.TryGetValue(window, out var host))
@@ -194,15 +195,16 @@ public class SukiHost : ContentControl
     }
     
     /// <summary>
-    /// <inheritdoc cref="ShowToast(string,object,System.Nullable{System.TimeSpan},System.Action?)"/>
+    /// <inheritdoc cref="ShowToast(Window, SukiToastModel)"/>
+    /// This method will show the toast in the earliest opened window.
     /// </summary>
     /// <param name="model">A pre-constructed <see cref="SukiToastModel"/>.</param>
     public static Task ShowToast(SukiToastModel model) => 
         ShowToast(_mainWindow, model);
     
     /// <summary>
-    /// Shows a toast in the SukiHost - The default location is in the bottom right.
-    /// This can be changed with an attached property in SukiWindow.
+    /// <inheritdoc cref="ShowToast(Window, SukiToastModel)"/>
+    /// This method will show the toast in the earliest opened window.
     /// </summary>
     /// <param name="title">The title to display in the toast.</param>
     /// <param name="content">The content of the toast, this can be any control or ViewModel.</param>
@@ -216,14 +218,14 @@ public class SukiHost : ContentControl
             onClicked));
 
     /// <summary>
-    /// 
+    /// <inheritdoc cref="ShowToast(Window, SukiToastModel)"/>
+    /// This method will show the toast in a specific window.
     /// </summary>
-    /// <param name="window"></param>
-    /// <param name="title"></param>
-    /// <param name="content"></param>
-    /// <param name="duration"></param>
-    /// <param name="onClicked"></param>
-    /// <returns></returns>
+    /// <param name="window">The window who's SukiHost should be used to display the toast.</param>
+    /// <param name="title">The title to display in the toast.</param>
+    /// <param name="content">The content of the toast, this can be any control or ViewModel.</param>
+    /// <param name="duration">Duration for this toast to be active. Default is 2 seconds.</param>
+    /// <param name="onClicked">A callback that will be fired if the Toast is cleared by clicking.</param>
     public static Task ShowToast(Window window, string title, object content, TimeSpan? duration = null,
         Action? onClicked = null) =>
         ShowToast(window, new SukiToastModel(
