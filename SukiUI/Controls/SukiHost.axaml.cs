@@ -101,7 +101,7 @@ public class SukiHost : ContentControl
         _maxToasts = GetToastLimit(window);
         var toastLoc = GetToastLocation(window);
 
-        e.NameScope.Get<Border>("PART_DialogBackground").PointerPressed += (_, _) => BackgroundRequestClose();
+        e.NameScope.Get<Border>("PART_DialogBackground").PointerPressed += (_, _) => BackgroundRequestClose(this);
 
         e.NameScope.Get<ItemsControl>("PART_ToastPresenter").HorizontalAlignment =
             toastLoc == ToastLocation.BottomLeft
@@ -163,18 +163,11 @@ public class SukiHost : ContentControl
     /// <summary>
     /// Used to close the open dialog when the background is clicked, if this is allowed.
     /// </summary>
-    private static void BackgroundRequestClose(Window window)
+    private static void BackgroundRequestClose(SukiHost host)
     {
-        if (!Instances.TryGetValue(window, out var host))
-            throw new InvalidOperationException("No SukiHost present in this window");
         if (!host.AllowBackgroundClose) return;
         host.IsDialogOpen = false;
     }
-
-    /// <summary>
-    /// Used to close the open dialog when the background is clicked, if this is allowed.
-    /// </summary>
-    private static void BackgroundRequestClose() => BackgroundRequestClose(_mainWindow);
     
     /// <summary>
     /// 

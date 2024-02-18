@@ -1,13 +1,13 @@
-<UserControl x:Class="SukiUI.Demo.Features.ControlsLibrary.DialogsView"
+<UserControl x:Class="SukiUI.Demo.Features.ControlsLibrary.Dialogs.DialogsView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
-             xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dialogs="clr-namespace:SukiUI.Demo.Features.ControlsLibrary.Dialogs"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="450"
              d:DesignWidth="800"
-             x:DataType="controlsLibrary:DialogsViewModel"
+             x:DataType="dialogs:DialogsViewModel"
              mc:Ignorable="d">
     <Grid RowDefinitions="Auto,*">
         <controls:GlassCard Classes="HeaderCard">
@@ -34,20 +34,27 @@
                     <controls:GroupBox Header="Standard Dialog">
                         <Button Margin="15,10,15,0"
                                 Command="{Binding OpenStandardDialogCommand}"
-                                Content="Open" />
+                                Content="Show Dialog" />
                     </controls:GroupBox>
                 </controls:GlassCard>
                 <controls:GlassCard>
                     <controls:GroupBox Header="Background Closable Dialog">
                         <Button Margin="15,10,15,0"
                                 Command="{Binding OpenBackgroundCloseDialogCommand}"
-                                Content="Open" />
+                                Content="Show Dialog" />
                     </controls:GroupBox>
                 </controls:GlassCard>
                 <controls:GlassCard>
                     <controls:GroupBox Header="ViewModel Dialog">
                         <Button Margin="15,10,15,0"
                                 Command="{Binding OpenViewModelDialogCommand}"
+                                Content="Show Dialog" />
+                    </controls:GroupBox>
+                </controls:GlassCard>
+                <controls:GlassCard>
+                    <controls:GroupBox Header="Window Dialog Demo">
+                        <Button Margin="15,10,15,0"
+                                Command="{Binding OpenDialogWindowDemoCommand}"
                                 Content="Open" />
                     </controls:GroupBox>
                 </controls:GlassCard>

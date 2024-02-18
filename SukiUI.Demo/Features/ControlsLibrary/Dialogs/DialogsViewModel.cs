@@ -1,28 +1,31 @@
 using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
 using SukiUI.Controls;
-using SukiUI.Demo.Features.ControlsLibrary.Dialogs;
 using SukiUI.Demo.Utilities;
 
-namespace SukiUI.Demo.Features.ControlsLibrary
+namespace SukiUI.Demo.Features.ControlsLibrary.Dialogs
 {
     public partial class DialogsViewModel() : DemoPageBase("Dialogs", MaterialIconKind.Forum)
     {
         [RelayCommand]
-        public void OpenStandardDialog() =>
+        private void OpenStandardDialog() =>
             SukiHost.ShowDialog(new StandardDialog());
 
         [RelayCommand]
-        public void OpenBackgroundCloseDialog() =>
+        private void OpenBackgroundCloseDialog() =>
             SukiHost.ShowDialog(new BackgroundCloseDialog(), allowBackgroundClose: true);
         
         [RelayCommand]
-        public void OpenViewModelDialog() =>
+        private void OpenViewModelDialog() =>
             SukiHost.ShowDialog(new VmDialogViewModel(), allowBackgroundClose: true);
 
         [RelayCommand]
-        public void OpenSourceURL() =>
+        private void OpenDialogWindowDemo() => new DialogWindowDemo().Show();
+
+        [RelayCommand]
+        private void OpenSourceURL() =>
             UrlUtilities.OpenURL(
                 $"https://github.com/kikipoulet/SukiUI/blob/main/SukiUI.Demo/Features/ControlsLibrary/{nameof(DialogsViewModel)}.cs");
+        
     }
 }

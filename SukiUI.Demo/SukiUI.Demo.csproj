@@ -38,5 +38,9 @@
 	    <DependentUpon>ToastsView.axaml</DependentUpon>
 	    <SubType>Code</SubType>
 	  </Compile>
+	  <Compile Update="Features\ControlsLibrary\Dialogs\DialogsView.axaml.cs">
+	    <DependentUpon>DialogsView.axaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
 	</ItemGroup>
 </Project>

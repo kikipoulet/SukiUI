@@ -61,7 +61,7 @@
                     <controls:GroupBox Header="Separate Toast Window">
                         <Button Margin="15,10,15,0"
                                 Command="{Binding ShowToastWindowCommand}"
-                                Content="Show Window" />
+                                Content="Open" />
                     </controls:GroupBox>
                 </controls:GlassCard>
             </WrapPanel>
