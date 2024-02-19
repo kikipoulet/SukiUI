@@ -4,6 +4,7 @@
 
     <!--  Had to include this style because the default style is utterly busted, which is a worry.  -->
     <!--  Custom controls should have slightly better theming out of the box, or maybe it's just ShowMeTheXaml.  -->
+    <!--  So many weird bugs with ShowMeTheXaml  -->
 
     <Style Selector="showMeTheXaml|XamlDisplay">
         <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -68,6 +69,7 @@
                                          BorderThickness="0"
                                          Classes="FlatTextBox"
                                          CornerRadius="9"
+                                         IsReadOnly="True"
                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                          ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                          Text="{Binding $parent[showMeTheXaml:XamlDisplay].XamlText, Mode=OneWay}"
@@ -79,39 +81,7 @@
                                    Grid.Column="0"
                                    HorizontalAlignment="Stretch"
                                    VerticalAlignment="Top" />
-                        <TextBox Name="MarkupErrorsTextBox"
-                                 Grid.Row="2"
-                                 Grid.Column="0"
-                                 MaxWidth="{Binding #MaxSizer.Bounds.Width}"
-                                 Background="Transparent"
-                                 BorderThickness="0"
-                                 Classes="FlatTextBox"
-                                 IsReadOnly="True"
-                                 IsVisible="False"
-                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                 TextWrapping="Wrap" />
-                        <Button Name="ResetButton"
-                                Grid.Row="2"
-                                Grid.Column="2"
-                                VerticalAlignment="Bottom">
-                            Reset
-                        </Button>
-                        <Button Name="ApplyButton"
-                                Grid.Row="2"
-                                Grid.Column="4"
-                                Margin="0,0,6,0"
-                                VerticalAlignment="Bottom"
-                                Classes="Flat">
-                            Apply
-                        </Button>
                     </Grid>
-                    <Interaction.Behaviors>
-                        <showMeTheXaml:XamlDisplayPopupBehavior ApplyButton="{Binding ElementName=ApplyButton}"
-                                                                MarkupErrorsTextBox="{Binding ElementName=MarkupErrorsTextBox}"
-                                                                MarkupTextBox="{Binding ElementName=MarkupTextBox}"
-                                                                ResetButton="{Binding ElementName=ResetButton}" />
-                    </Interaction.Behaviors>
                 </Border>
             </Template>
         </Setter>
