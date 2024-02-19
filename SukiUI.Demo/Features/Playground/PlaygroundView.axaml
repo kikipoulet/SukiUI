@@ -59,7 +59,7 @@
                                                         <Viewbox StretchDirection="DownOnly">
                                                             <ContentControl HorizontalAlignment="Center"
                                                                             VerticalAlignment="Center"
-                                                                            Content="{Binding, Converter={x:Static playground:StringToControlConverter.Instance}}"
+                                                                            Content="{Binding ., Converter={x:Static playground:StringToControlConverter.Instance}}"
                                                                             IsHitTestVisible="False" />
                                                         </Viewbox>
                                                     </controls:GlassCard>
@@ -82,7 +82,7 @@
                                                         <Viewbox StretchDirection="DownOnly">
                                                             <ContentControl HorizontalAlignment="Center"
                                                                             VerticalAlignment="Center"
-                                                                            Content="{Binding, Converter={x:Static playground:StringToControlConverter.Instance}}"
+                                                                            Content="{Binding ., Converter={x:Static playground:StringToControlConverter.Instance}}"
                                                                             IsHitTestVisible="False" />
                                                         </Viewbox>
                                                     </controls:GlassCard>
@@ -105,7 +105,7 @@
                                                         <Viewbox StretchDirection="DownOnly">
                                                             <ContentControl HorizontalAlignment="Center"
                                                                             VerticalAlignment="Center"
-                                                                            Content="{Binding, Converter={x:Static playground:StringToControlConverter.Instance}}"
+                                                                            Content="{Binding ., Converter={x:Static playground:StringToControlConverter.Instance}}"
                                                                             IsHitTestVisible="False" />
                                                         </Viewbox>
                                                     </controls:GlassCard>
@@ -128,7 +128,7 @@
                                                         <Viewbox StretchDirection="DownOnly">
                                                             <ContentControl HorizontalAlignment="Center"
                                                                             VerticalAlignment="Center"
-                                                                            Content="{Binding, Converter={x:Static playground:StringToControlConverter.Instance}}"
+                                                                            Content="{Binding ., Converter={x:Static playground:StringToControlConverter.Instance}}"
                                                                             IsHitTestVisible="False" />
                                                         </Viewbox>
                                                     </controls:GlassCard>
@@ -151,7 +151,7 @@
                                                         <Viewbox StretchDirection="DownOnly">
                                                             <ContentControl HorizontalAlignment="Center"
                                                                             VerticalAlignment="Center"
-                                                                            Content="{Binding, Converter={x:Static playground:StringToControlConverter.Instance}}"
+                                                                            Content="{Binding ., Converter={x:Static playground:StringToControlConverter.Instance}}"
                                                                             IsHitTestVisible="False" />
                                                         </Viewbox>
                                                     </controls:GlassCard>
