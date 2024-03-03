@@ -15,6 +15,7 @@ using AvaloniaEdit.Editing;
 using AvaloniaEdit.Indentation.CSharp;
 using SukiUI.Controls;
 using TextMateSharp.Grammars;
+using SukiUI.Demo.Utilities;
 
 namespace SukiUI.Demo.Features.Playground
 {
@@ -44,7 +45,7 @@ namespace SukiUI.Demo.Features.Playground
             _glassPlayground = this.FindControl<GlassCard>("GlassExample");
             _textEditor.TextArea.TextEntered += TextEditor_TextArea_TextEntered;
             _textEditor.TextArea.TextEntering += TextEditor_TextArea_TextEntering;
-            _textEditor.Text = StartingString;
+            _textEditor.Text = XamlData.PlaygroundStartingCode;
             _textEditor.TextArea.IndentationStrategy = new CSharpIndentationStrategy(_textEditor.Options);
             _textEditor.TextArea.RightClickMovesCaret = true;
 
@@ -100,19 +101,7 @@ namespace SukiUI.Demo.Features.Playground
 
         private void Editor_OnTextChanged(object? sender, EventArgs e)
         {
-            const string HeaderCode =
-                """
-                <Grid HorizontalAlignment="Center" VerticalAlignment="Center"
-                    	xmlns:system="clr-namespace:System;assembly=netstandard"
-                    	xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
-                    	xmlns:icons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-                    	xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
-                    	xmlns='https://github.com/avaloniaui'
-                    	xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'>
-                
-                """;
-
-            string previewCode = HeaderCode + _textEditor.Text + "</Grid>";
+            string previewCode = XamlData.InsertIntoGridControl(_textEditor.Text);
 
             try
             {
@@ -124,23 +113,6 @@ namespace SukiUI.Demo.Features.Playground
                 // here were are ignoring XmlException, InvalidCastException, XamlLoadException
             }
         }
-
-        private const string StartingString =
-            """
-              <suki:GlassCard Width="300" Height="320" Margin="15" VerticalAlignment="Top">
-                  <Grid>
-                      <TextBlock FontSize="16" FontWeight="DemiBold" Text="Humidity" />
-                      <Viewbox Width="175" Height="175" Margin="0,0,0,5" HorizontalAlignment="Center" VerticalAlignment="Center">
-                          <suki:WaveProgress Value="{Binding Value, ElementName=SliderT}" />
-                      </Viewbox>
-                      <DockPanel VerticalAlignment="Bottom">
-                          <icons:MaterialIcon Width="20" Height="20" DockPanel.Dock="Left" Foreground="#666666" Kind="TemperatureLow" />
-                          <icons:MaterialIcon Width="20" Height="20" DockPanel.Dock="Right" Foreground="#666666" Kind="TemperatureHigh" />
-                          <Slider Name="SliderT" Margin="8,0" Maximum="100" Minimum="0" Value="23" />
-                      </DockPanel>
-                  </Grid>
-              </suki:GlassCard>
-            """;
 
         private void OpenPane(object? sender, RoutedEventArgs e)
         {
