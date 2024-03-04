@@ -78,17 +78,17 @@ namespace SukiUI.Demo.Features.Playground
                 Control demoContent = AvaloniaRuntimeXamlLoader.Parse<Grid>(previewCode);
                 _glassPlayground.Content = demoContent;
             }
-            catch (XmlException)
+            catch (XmlException ex)
             {
-                SukiHost.ShowToast("Error", "Exception occurred during parsing xml!");
+                SukiHost.ShowToast("Error", $"Exception occurred during parsing xml: \n {ex.Message}");
             }
-            catch (InvalidCastException)
+            catch (InvalidCastException ex)
             {
-                SukiHost.ShowToast("Error", "Exception occurred during conversion from xaml string to control!");
+                SukiHost.ShowToast("Error", $"Exception occurred during conversion from xaml string to control: \n {ex.Message}");
             }
-            catch (XamlLoadException)
+            catch (XamlLoadException ex)
             {
-                SukiHost.ShowToast("Error", "Exception occurred during loading xaml code for control!");
+                SukiHost.ShowToast("Error", $"Exception occurred during loading xaml code for control: \n {ex.Message}");
             }
         }
 
