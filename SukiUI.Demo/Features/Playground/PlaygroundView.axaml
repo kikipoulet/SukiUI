@@ -188,19 +188,44 @@
                 </SplitView.Pane>
                 <Grid ColumnDefinitions="*, 4, *" RowDefinitions="*, Auto">
                     <controls:GlassCard Margin="20">
-                        <avaloniaEdit:TextEditor Name="Editor"
-                                                 ShowLineNumbers="True"
-                                                 Text=""
-                                                 TextChanged="Editor_OnTextChanged" />
+                        <Grid RowDefinitions="*, Auto">
+                            <avaloniaEdit:TextEditor Name="Editor"
+                                                     ShowLineNumbers="True"
+                                                     Text="" />
+                            <DockPanel Grid.Row="1">
+                                <Grid ColumnDefinitions="*, 10, *" RowDefinitions="Auto">
+                                    <Button Name="RenderButton"
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Classes="Flat Round"
+                                            Click="OnRenderClicked">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock>Render</TextBlock>
+                                            <avalonia:MaterialIcon Kind="Brush" />
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Name="ClearButton"
+                                            Grid.Row="0"
+                                            Grid.Column="2"
+                                            Classes="Flat Round"
+                                            Click="OnClearClicked">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock>Clear</TextBlock>
+                                            <avalonia:MaterialIcon Kind="Trash" />
+                                        </StackPanel>
+                                    </Button>
+                                </Grid>
+                            </DockPanel>
+                        </Grid>
                     </controls:GlassCard>
-                    <GridSplitter Grid.Column="1"
+                    <GridSplitter Grid.Row="0"
+                                  Grid.Column="2"
                                   Background="Transparent"
                                   ResizeDirection="Columns" />
                     <controls:GlassCard Name="GlassExample"
+                                        Grid.Row="0"
                                         Grid.Column="2"
                                         Margin="20" />
-
-
                 </Grid>
             </SplitView>
         </controls:SukiStackPage.Content>

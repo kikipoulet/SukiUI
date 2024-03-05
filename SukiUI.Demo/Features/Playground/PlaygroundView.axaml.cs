@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
@@ -27,6 +28,10 @@ namespace SukiUI.Demo.Features.Playground
 
         private GlassCard _glassPlayground;
 
+        private Button _renderButton;
+
+        private Button _clearButton;
+
         public PlaygroundView()
         {
             InitializeComponent();
@@ -49,8 +54,42 @@ namespace SukiUI.Demo.Features.Playground
             _textEditor.TextArea.IndentationStrategy = new CSharpIndentationStrategy(_textEditor.Options);
             _textEditor.TextArea.RightClickMovesCaret = true;
 
+            _renderButton = this.FindControl<Button>("RenderButton");
+            _renderButton.Click += OnRenderClicked;
+            _clearButton = this.FindControl<Button>("ClearButton");
+            _clearButton.Click += OnClearClicked;
+
             OnBaseThemeChanged(Application.Current.ActualThemeVariant);
             SukiTheme.GetInstance().OnBaseThemeChanged += OnBaseThemeChanged;
+        }
+
+        private void OnClearClicked(object? sender, RoutedEventArgs e)
+        {
+            _textEditor.Text = string.Empty;
+            _glassPlayground.Content = null;
+        }
+
+        private void OnRenderClicked(object? sender, RoutedEventArgs e)
+        {
+            string previewCode = XamlData.InsertIntoGridControl(_textEditor.Text);
+
+            try
+            {
+                Control demoContent = AvaloniaRuntimeXamlLoader.Parse<Grid>(previewCode);
+                _glassPlayground.Content = demoContent;
+            }
+            catch (XmlException ex)
+            {
+                SukiHost.ShowToast("Error", $"Exception occurred during parsing xml: \n {ex.Message}");
+            }
+            catch (InvalidCastException ex)
+            {
+                SukiHost.ShowToast("Error", $"Exception occurred during conversion from xaml string to control: \n {ex.Message}");
+            }
+            catch (XamlLoadException ex)
+            {
+                SukiHost.ShowToast("Error", $"Exception occurred during loading xaml code for control: \n {ex.Message}");
+            }
         }
 
         private void OnBaseThemeChanged(ThemeVariant currentTheme)
@@ -99,20 +138,6 @@ namespace SukiUI.Demo.Features.Playground
             _completionWindow.Show();
         }
 
-        private void Editor_OnTextChanged(object? sender, EventArgs e)
-        {
-            string previewCode = XamlData.InsertIntoGridControl(_textEditor.Text);
-
-            try
-            {
-                Control demoContent = AvaloniaRuntimeXamlLoader.Parse<Grid>(previewCode);
-                _glassPlayground.Content = demoContent;
-            }
-            catch
-            {
-                // here were are ignoring XmlException, InvalidCastException, XamlLoadException
-            }
-        }
 
         private void OpenPane(object? sender, RoutedEventArgs e)
         {
