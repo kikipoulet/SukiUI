@@ -17,7 +17,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary
         [ObservableProperty] private int _stepIndex = 1;
         [ObservableProperty] [Range(0d, 100d)] private double _progressValue = 50;
         [ObservableProperty] private bool _isTextVisible = true;
-        [ObservableProperty] private bool _isIndeterminate = false;
+        [ObservableProperty] private bool _isIndeterminate;
 
         [RelayCommand]
         public void ChangeStep(bool isIncrement)
@@ -35,8 +35,12 @@ namespace SukiUI.Demo.Features.ControlsLibrary
 
         partial void OnIsIndeterminateChanged(bool value)
         {
-            if (value && IsTextVisible)
-                IsTextVisible = false;
+            IsTextVisible = value switch
+            {
+                true when IsTextVisible => false,
+                false when IsTextVisible == false => true,
+                _ => IsTextVisible
+            };
         }
 
         partial void OnIsTextVisibleChanged(bool value)
