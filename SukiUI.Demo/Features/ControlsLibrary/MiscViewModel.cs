@@ -1,5 +1,9 @@
 using System;
 using System.Threading.Tasks;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Platform.Storage;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
@@ -19,6 +23,21 @@ namespace SukiUI.Demo.Features.ControlsLibrary
             await Task.Delay(3000);
             IsBusy = false;
         }
+        
+      
+        public void OpenFile()
+        {
+            // Get top level from the current control. Alternatively, you can use Window reference instead.
+            var topLevel = TopLevel.GetTopLevel(((IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime).MainWindow);
+
+            // Start async operation to open the dialog.
+            var files =topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+            {
+                Title = "Open File",
+                AllowMultiple = false
+            });
+        }
+
 
         partial void OnSelectedDateTimeChanged(DateTime value) => 
             SelectedDateTimeOffset = value;

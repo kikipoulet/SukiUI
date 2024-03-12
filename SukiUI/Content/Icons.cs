@@ -9,7 +9,10 @@ namespace SukiUI.Content;
 public static class Icons
 {
     // Material Icons
-    public static readonly StreamGeometry WindowMinimize = Parse("M20,14H4V10H20");
+    public static readonly StreamGeometry WindowMinimize = Parse("M20,14H4V10H20"); 
+    
+    // Material Icons
+    public static readonly StreamGeometry FileOpen = Parse("M14,17.74V13.5h4.24V15h-1.68l2.21,2.21l-1.06,1.06l-2.21-2.21v1.68H14z M12,2H5.5C4.67,2,4,2.67,4,3.5v13 C4,17.33,4.67,18,5.5,18h7v-6H16V6L12,2z M11,7V3l4,4H11z");
 
     // Material Icons
     public static readonly StreamGeometry WindowRestore = Parse("M4,8H8V4H20V16H16V20H4V8M16,8V14H18V6H10V8H16M6,12V18H14V12H6Z");

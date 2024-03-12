@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using ShowMeTheXaml;
 using System;
+using Avalonia.Dialogs;
 
 namespace SukiUI.Demo;
 
@@ -17,6 +18,7 @@ internal class Program
     public static AppBuilder BuildAvaloniaApp() =>
         AppBuilder.Configure<App>()
             .UsePlatformDetect()
+            .UseManagedSystemDialogs()
             .WithInterFont()
             .LogToTrace()
             .UseXamlDisplay();

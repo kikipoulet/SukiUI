@@ -65,6 +65,7 @@
                 <ResourceInclude Source="avares://sukiUI/Theme/FlyoutPresenter.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/MenuFlyoutPresenter.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/AutoCompleteBoxStyles.axaml" />
+                <ResourceInclude Source="avares://sukiUI/Theme/ManagedFileChooser.axaml" />
 
                 <ResourceInclude Source="avares://sukiUI/Theme/TimePickerStyle.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/Calendar/Calendar.axaml" />

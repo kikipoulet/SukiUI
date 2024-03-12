@@ -85,6 +85,12 @@
                         </DropDownButton>
                     </controls:GroupBox>
                 </controls:GlassCard>
+                
+                <controls:GlassCard>
+                    <controls:GroupBox Header="File Picker">
+                        <Button Classes="Primary" Content="Open File" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="25" Command="{Binding OpenFile}"></Button>
+                    </controls:GroupBox>
+                </controls:GlassCard>
             </WrapPanel>
         </ScrollViewer>
     </Grid>
