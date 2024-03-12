@@ -139,7 +139,7 @@
                                       Stretch="Uniform" />
                             </ToggleButton>
                             <Popup Name="PART_Popup"
-                                   MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                   MaxHeight="{TemplateBinding MaxDropDownHeight}"  MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}"
                                    HorizontalOffset="-5"
                                    IsLightDismissEnabled="True"
                                    IsOpen="{TemplateBinding IsDropDownOpen,
@@ -155,7 +155,7 @@
                                                 BorderThickness="1,1,1,1"
                                                 BoxShadow="{DynamicResource SukiPopupShadow}"
                                                 CornerRadius="{DynamicResource SmallCornerRadius}">
-                                            <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                                            <ScrollViewer  HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
                                                 <ItemsPresenter Name="PART_ItemsPresenter"
                                                                 Margin="0,3,0,0"
                                                                 ItemsPanel="{TemplateBinding ItemsPanel}" />
