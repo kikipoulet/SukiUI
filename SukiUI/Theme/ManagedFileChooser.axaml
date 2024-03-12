@@ -70,12 +70,15 @@
             </Grid.Resources>
             <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource WindowManaged}}" />
             <controls:SukiBackground />
-            <StackPanel Margin="15" Orientation="Horizontal">
+            <Button   Command="{Binding Cancel}" Margin="10,6" VerticalAlignment="Top" HorizontalAlignment="Right" Name="PART_CloseButton" Classes="Basic Rounded WindowControlsButton Close">
+              <PathIcon  Height="12" Width="12" Data="{x:Static content:Icons.WindowClose}" />
+            </Button>
+            <StackPanel Margin="15,12,0,0" Orientation="Horizontal">
               <PathIcon VerticalAlignment="Top" Margin="2" Height="22" Width="22" Data="{x:Static content:Icons.FileOpen}" Foreground="Goldenrod"/>
               <TextBlock Margin="7,0,0,0" FontWeight="DemiBold" FontSize="22" Foreground="{DynamicResource SukiText}" Text="Open"></TextBlock>
               <TextBlock Margin="5,0,0,0" FontWeight="DemiBold" FontSize="22" Foreground="{DynamicResource SukiLowText}" Text="File"></TextBlock>
             </StackPanel>
-            <DockPanel Margin="12,50,12,12">
+            <DockPanel Margin="12,40,12,12">
           
             <DockPanel Margin="0,15,0,0"
                        DockPanel.Dock="Bottom">
@@ -88,7 +91,7 @@
                   </Style>
                 </StackPanel.Styles>
                 
-                <Button  Command="{Binding Cancel}" MinWidth="120" Content="Cancel" />
+                <Button Classes="Outlined"  Command="{Binding Cancel}" MinWidth="120" Content="Cancel" />
                 <Button Classes="Flat" Command="{Binding Ok}" MinWidth="120" Content="Choose" />
               </StackPanel>
               
@@ -133,15 +136,19 @@
                 </DataTemplate>
               </ListBox.ItemTemplate>
             </ListBox>
-            <controls:GlassCard>
-            <DockPanel Grid.IsSharedSizeScope="True">
+            <controls:GlassCard Margin="0,0,-50,0">
+              
+              <DockPanel Margin="0,0,50,0" Grid.IsSharedSizeScope="True">
               <DockPanel.Resources>
                 <theme:TextToPathConverter x:Key="TextToPathConverter" />
               </DockPanel.Resources>
-              <ContentControl DockPanel.Dock="Top" 
-                          Content="{Binding Location, Converter={StaticResource TextToPathConverter}}">
-              </ContentControl>
-              <Grid Margin="15,0,0,0"
+                <Border Padding="8,3" DockPanel.Dock="Top"  CornerRadius="8" BorderBrush="{DynamicResource SukiControlBorderBrush}" BorderThickness="1">
+                  <ContentControl 
+                                  Content="{Binding Location, Converter={StaticResource TextToPathConverter}}">
+                  </ContentControl>
+                </Border>
+              
+              <Grid Margin="15,15,0,0"
                     HorizontalAlignment="Stretch"
                     DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
@@ -156,7 +163,7 @@
                   <ColumnDefinition Width="16" SharedSizeGroup="Splitter" />
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="1" Foreground="{DynamicResource SukiLowText}"
-                           Text="" />
+                           Text="Name" />
                 <GridSplitter Grid.Column="2"
                               ResizeDirection="Columns"
                               Background="Transparent" />
