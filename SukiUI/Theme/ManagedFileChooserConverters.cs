@@ -20,7 +20,7 @@ namespace SukiUI.Theme
             var pathes = (value as string).Split('\\');
             if (pathes.Length > 3)
             {
-               pathes =  pathes.Skip(pathes.Length - 3).Take(3).ToArray();
+               pathes =  pathes.Skip(1).ToArray();
             }
 
             var stackPanel = new StackPanel() { VerticalAlignment = VerticalAlignment.Center, Orientation = Orientation.Horizontal, Margin = new Thickness(5)};
@@ -29,7 +29,7 @@ namespace SukiUI.Theme
             {
                 var t = new TextBlock()
                 {
-                    Text = pathes[i], FontWeight = FontWeight.DemiBold, FontSize = 16, VerticalAlignment = VerticalAlignment.Center
+                    Text = pathes[i], FontWeight = FontWeight.DemiBold, FontSize = 14, VerticalAlignment = VerticalAlignment.Center
                     
                 };
                 
@@ -39,7 +39,7 @@ namespace SukiUI.Theme
 
                 var p = new PathIcon()
                 {
-                    Height = 6, Margin = new Thickness(12,4,12,1),Width = 5, Data = Icons.ChevronRight, IsVisible = i != pathes.Length - 1, VerticalAlignment = VerticalAlignment.Center
+                    Height = 6, Margin = new Thickness(12,4,12,2),Width = 5, Data = Icons.ChevronRight, IsVisible = i != pathes.Length - 1, VerticalAlignment = VerticalAlignment.Center
                 };
                 
                 p[!PathIcon.ForegroundProperty] = new DynamicResourceExtension("SukiLowText");

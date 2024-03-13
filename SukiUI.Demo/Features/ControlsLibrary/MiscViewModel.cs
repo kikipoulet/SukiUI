@@ -34,7 +34,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary
             var files =topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
             {
                 Title = "Open File",
-                AllowMultiple = false
+                AllowMultiple = true
             });
         }
 

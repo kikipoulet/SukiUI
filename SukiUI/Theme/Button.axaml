@@ -8,6 +8,8 @@
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        
         <Setter Property="FontSize" Value="15" />
         <Setter Property="Padding" Value="20,8" />
         <Setter Property="Template">
@@ -22,7 +24,7 @@
                     <Border.Resources>
                         <theme:BoolToWidthProgressConverter x:Key="WidthConverter" />
                     </Border.Resources>
-                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <StackPanel HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Orientation="Horizontal">
                         <Viewbox Width="{TemplateBinding theme:ButtonExtensions.ShowProgress, Converter={StaticResource WidthConverter}}" Height="18">
                             <Viewbox.Transitions>
                                 <Transitions>
@@ -106,6 +108,26 @@
                 <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
             </Style>
         </Style>
+        
+        <Style Selector="^.NoPressedAnimation">
+        <Style Selector="^:pressed">
+            <Style Selector="^ /template/ TextBlock">
+                <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+            </Style>
+            <Style Selector="^ /template/ Border">
+                <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
+                <Setter Property="RenderTransform">
+                    <Setter.Value>
+                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style Selector="^ /template/ ContentPresenter">
+                <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+            </Style>
+        </Style>
+            </Style>
 
         <!--  Classes  -->
         <Style Selector="^.Accent">

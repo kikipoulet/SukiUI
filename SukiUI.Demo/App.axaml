@@ -19,7 +19,7 @@
         <FluentTheme />
         <StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />
         <StyleInclude Source="avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml" />
-        <sukiUi:SukiTheme ThemeColor="Red" />
+        <sukiUi:SukiTheme ThemeColor="Blue"/>
         <StyleInclude Source="avares://SukiUI.Demo/Styles/ShowMeTheXamlStyles.axaml" />
         <StyleInclude Source="avares://SukiUI.Demo/Styles/WrapPanelStyles.axaml" />
         <StyleInclude Source="avares://SukiUI.Demo/Styles/TextStyles.axaml" />

@@ -91,7 +91,7 @@
                   </Style>
                 </StackPanel.Styles>
                 
-                <Button Classes="Outlined"  Command="{Binding Cancel}" MinWidth="120" Content="Cancel" />
+                <Button  Command="{Binding Cancel}" MinWidth="120" Content="Cancel" />
                 <Button Classes="Flat" Command="{Binding Ok}" MinWidth="120" Content="Choose" />
               </StackPanel>
               
@@ -116,7 +116,7 @@
 
             <ListBox x:Name="PART_QuickLinks"
                      MaxWidth="200" Classes="Void"
-                     Margin="0,18,5,5"
+                     Margin="0,20,5,5"
                      BorderBrush="Transparent"
                      DockPanel.Dock="Left"
                      Focusable="False"
@@ -126,12 +126,12 @@
                 <DataTemplate>
                   <StackPanel Margin="2" Background="Transparent"
                               Orientation="Horizontal"
-                              Spacing="4">
+                              Spacing="6">
                     <Image Width="18"
                            Height="18">
                       <DrawingImage Drawing="{Binding IconKey, Converter={StaticResource Icons}}" />
                     </Image>
-                    <TextBlock  FontSize="16" Margin="7,0,0,0" FontWeight="DemiBold" Text="{Binding DisplayName}" />
+                    <TextBlock  FontSize="17" Margin="7,0,0,0" FontWeight="DemiBold" Text="{Binding DisplayName}" />
                   </StackPanel>
                 </DataTemplate>
               </ListBox.ItemTemplate>
@@ -142,11 +142,11 @@
               <DockPanel.Resources>
                 <theme:TextToPathConverter x:Key="TextToPathConverter" />
               </DockPanel.Resources>
-                <Border Padding="8,3" DockPanel.Dock="Top"  CornerRadius="8" BorderBrush="{DynamicResource SukiControlBorderBrush}" BorderThickness="1">
+                <Button Classes="NoPressedAnimation" HorizontalContentAlignment="Left" Padding="8,1" Margin="0,2"  Command="{Binding GoUp}" DockPanel.Dock="Top"  >
                   <ContentControl 
                                   Content="{Binding Location, Converter={StaticResource TextToPathConverter}}">
                   </ContentControl>
-                </Border>
+                </Button>
               
               <Grid Margin="15,15,0,0"
                     HorizontalAlignment="Stretch"
@@ -207,7 +207,7 @@
                 
                
                 
-              <ListBox x:Name="PART_Files" 
+              <ListBox x:Name="PART_Files" Classes="Stack" 
                        Margin="0,5"
                        ItemsSource="{Binding Items}"
                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
