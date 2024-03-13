@@ -43,10 +43,10 @@
                                     <avalonia:MaterialIcon Foreground="{DynamicResource SukiLowText}" Kind="ChevronLeft" />
                                 </StackPanel>
                             </Button>
-                            <TabControl Margin="0,20,0,0" TabStripPlacement="Left">
+                            <TabControl Margin="0,20,0,12" TabStripPlacement="Left">
 
                                 <TabItem Header="Buttons">
-                                    <ScrollViewer>
+                                    <ScrollViewer Classes="Stack">
                                         <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding ButtonsElements}">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
@@ -69,7 +69,7 @@
                                     </ScrollViewer>
                                 </TabItem>
                                 <TabItem Header="Layout">
-                                    <ScrollViewer>
+                                    <ScrollViewer Classes="Stack">
                                         <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding LayoutElements}">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
@@ -92,7 +92,7 @@
                                     </ScrollViewer>
                                 </TabItem>
                                 <TabItem Header="Input">
-                                    <ScrollViewer>
+                                    <ScrollViewer Classes="Stack">
                                         <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding InputsElements}">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
@@ -115,7 +115,7 @@
                                     </ScrollViewer>
                                 </TabItem>
                                 <TabItem Header="Progress">
-                                    <ScrollViewer>
+                                    <ScrollViewer Classes="Stack">
                                         <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding ProgressElements}">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
@@ -138,7 +138,7 @@
                                     </ScrollViewer>
                                 </TabItem>
                                 <TabItem Header="Lists">
-                                    <ScrollViewer>
+                                    <ScrollViewer Classes="Stack">
                                         <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding ListsElements}">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
