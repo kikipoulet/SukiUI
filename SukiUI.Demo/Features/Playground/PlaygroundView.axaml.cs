@@ -57,7 +57,7 @@ namespace SukiUI.Demo.Features.Playground
             _renderButton = this.FindControl<Button>("RenderButton");
             _renderButton.Click += OnRenderClicked;
             _clearButton = this.FindControl<Button>("ClearButton");
-            _clearButton.Click += OnClearClicked;
+          //  _clearButton.Click += OnClearClicked;
 
             OnBaseThemeChanged(Application.Current.ActualThemeVariant);
             SukiTheme.GetInstance().OnBaseThemeChanged += OnBaseThemeChanged;
