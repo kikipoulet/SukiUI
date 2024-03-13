@@ -117,7 +117,7 @@
                             <StackPanel Spacing="5">
                                 <CheckBox Content="Option One" IsChecked="True" />
                                 <CheckBox Content="Option Two" />
-                                <CheckBox Content="Option Three" />
+                                <CheckBox IsThreeState="True" Content="Option Three" />
                             </StackPanel>
                         </showMeTheXaml:XamlDisplay>
                     </StackPanel>
