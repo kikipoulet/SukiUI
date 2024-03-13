@@ -33,9 +33,26 @@ namespace SukiUI.Demo.Features.ControlsLibrary
             // Start async operation to open the dialog.
             var files =topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
             {
-                Title = "Open File",
-                AllowMultiple = true
+                
             });
+        }
+        
+        public void OpenFolder()
+        {
+            // Get top level from the current control. Alternatively, you can use Window reference instead.
+            var topLevel = TopLevel.GetTopLevel(((IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime).MainWindow);
+
+            // Start async operation to open the dialog.
+            var files = topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions());
+        }
+        
+        public void SaveFile()
+        {
+            // Get top level from the current control. Alternatively, you can use Window reference instead.
+            var topLevel = TopLevel.GetTopLevel(((IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime).MainWindow);
+
+            // Start async operation to open the dialog.
+            var files = topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions());
         }
 
 

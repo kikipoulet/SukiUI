@@ -59,7 +59,7 @@
     <Setter Property="Template">
       <ControlTemplate x:DataType="internal:ManagedFileChooserViewModel">
         <VisualLayerManager Name="PART_VisualLayerManager" IsHitTestVisible="True">
-        <Border  Background="{TemplateBinding Background}" 
+        <Border  Background="{TemplateBinding Background}" x:DataType="internal:ManagedFileChooserViewModel"
                  BorderBrush="{TemplateBinding BorderBrush}"
                  BorderThickness="{TemplateBinding BorderThickness}"
                  CornerRadius="{TemplateBinding CornerRadius}"
@@ -70,13 +70,20 @@
             </Grid.Resources>
             <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource WindowManaged}}" />
             <controls:SukiBackground />
-            <Button   Command="{Binding Cancel}" Margin="10,6" VerticalAlignment="Top" HorizontalAlignment="Right" Name="PART_CloseButton" Classes="Basic Rounded WindowControlsButton Close">
-              <PathIcon  Height="12" Width="12" Data="{x:Static content:Icons.WindowClose}" />
+            <Button   Command="{Binding Cancel}" Margin="13,10" VerticalAlignment="Top" HorizontalAlignment="Right" Name="PART_CloseButton" Classes="Basic Rounded WindowControlsButton Close">
+              <PathIcon  Height="13" Width="13" Data="{x:Static content:Icons.WindowClose}" />
             </Button>
             <StackPanel Margin="15,12,0,0" Orientation="Horizontal">
-              <PathIcon VerticalAlignment="Top" Margin="2" Height="22" Width="22" Data="{x:Static content:Icons.FileOpen}" Foreground="Goldenrod"/>
-              <TextBlock Margin="7,0,0,0" FontWeight="DemiBold" FontSize="22" Foreground="{DynamicResource SukiText}" Text="Open"></TextBlock>
-              <TextBlock Margin="5,0,0,0" FontWeight="DemiBold" FontSize="22" Foreground="{DynamicResource SukiLowText}" Text="File"></TextBlock>
+              <Image VerticalAlignment="Top" Margin="2" Height="24" Width="24" Source="/Content/Images/icons8-file-explorer-new-48.png"/>
+              <TextBlock Margin="12,0,0,0" FontWeight="DemiBold" FontSize="25" Text="{Binding  Title}">
+                <TextBlock.Foreground>
+                  <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                    <GradientStop Offset="0" Color="{DynamicResource SukiText}" />
+                    <GradientStop Offset="1" Color="{DynamicResource SukiLowText}" />
+                  </LinearGradientBrush>
+                </TextBlock.Foreground>
+              </TextBlock>
+              
             </StackPanel>
             <DockPanel Margin="12,40,12,12">
           
@@ -94,29 +101,30 @@
                 <Button  Command="{Binding Cancel}" MinWidth="120" Content="Cancel" />
                 <Button Classes="Flat" Command="{Binding Ok}" MinWidth="120" Content="Choose" />
               </StackPanel>
+              <ComboBox  Margin="0,0,0,0" DockPanel.Dock="Left"
+                        MaxWidth="200"
+                        IsVisible="{Binding ShowFilters}"
+                        ItemsSource="{Binding Filters}"
+                        SelectedItem="{Binding SelectedFilter}" />
+
               
               
               <!-- <CheckBox IsChecked="{Binding ShowHiddenFiles}">
                   <TextBlock Text="{DynamicResource StringManagedFileChooserShowHiddenFilesText}" />
                 </CheckBox> -->
-              <TextBox IsHitTestVisible="False"
+              <TextBox
                 IsVisible="{Binding !SelectingFolder}"
                 Text="{Binding FileName}"
                 Watermark="{DynamicResource StringManagedFileChooserFileNameWatermark}" />
 
             </DockPanel>
 
-            <ComboBox Margin="0,5,0,0"
-                      DockPanel.Dock="Bottom"
-                      IsVisible="{Binding ShowFilters}"
-                      ItemsSource="{Binding Filters}"
-                      SelectedItem="{Binding SelectedFilter}" />
-
+            
            
 
             <ListBox x:Name="PART_QuickLinks"
                      MaxWidth="200" Classes="Void"
-                     Margin="0,20,5,5"
+                     Margin="0,30,5,5"
                      BorderBrush="Transparent"
                      DockPanel.Dock="Left"
                      Focusable="False"
@@ -136,7 +144,7 @@
                 </DataTemplate>
               </ListBox.ItemTemplate>
             </ListBox>
-            <controls:GlassCard Margin="0,0,-50,0">
+            <controls:GlassCard Margin="0,10,-50,0">
               
               <DockPanel Margin="0,0,50,0" Grid.IsSharedSizeScope="True">
               <DockPanel.Resources>

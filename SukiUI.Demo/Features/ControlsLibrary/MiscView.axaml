@@ -88,7 +88,11 @@
                 
                 <controls:GlassCard>
                     <controls:GroupBox Header="File Picker">
-                        <Button Classes="Primary" Content="Open File" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="25" Command="{Binding OpenFile}"></Button>
+                        <StackPanel Spacing="8">
+                            <Button Classes="Primary" Content="Open File" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" Command="{Binding OpenFile}"></Button>
+                            <Button Classes="Primary" Content="Save File" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" Command="{Binding SaveFile}"></Button>
+                            <Button Classes="Primary" Content="Open Folder" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" Command="{Binding OpenFolder}"></Button>
+                        </StackPanel>
                     </controls:GroupBox>
                 </controls:GlassCard>
             </WrapPanel>
