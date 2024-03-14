@@ -37,7 +37,7 @@
                                          Content="Option Two"
                                          GroupName="R2" />
                             <RadioButton Classes="GigaChips"
-                                         Content="Option Three"
+                                         Content="Three State"
                                          GroupName="R2" />
                         </StackPanel>
                     </showMeTheXaml:XamlDisplay>

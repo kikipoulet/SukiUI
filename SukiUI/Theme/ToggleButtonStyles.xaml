@@ -310,6 +310,11 @@
         <Setter Property="Background" Value="Transparent" />
         <Style Selector="^:checked">
             <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{DynamicResource SukiText}"></Setter>
+        </Style>
+        <Style Selector="^:pointerover">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{DynamicResource SukiText}"></Setter>
         </Style>
         <Style Selector="^:checked">
             <Setter Property="Background" Value="Transparent" />

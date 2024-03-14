@@ -21,7 +21,7 @@
                  IsTitleBarVisible="{Binding TitleBarVisible, Mode=TwoWay}"
                  mc:Ignorable="d">
     <suki:SukiWindow.LogoContent>
-        <avalonia:MaterialIcon Width="20"
+        <avalonia:MaterialIcon Width="20" 
                                Height="20"
                                VerticalAlignment="Center"
                                Foreground="{DynamicResource SukiPrimaryColor}"
@@ -89,7 +89,7 @@
             </DataTemplate>
         </suki:SukiSideMenu.ItemTemplate>
         <suki:SukiSideMenu.HeaderContent>
-            <Image Width="80"
+            <Image Width="80" IsVisible="{Binding $parent[suki:SukiWindow].((demo:SukiUIDemoViewModel)DataContext).TitleBarVisible}"
                    Height="80"
                    Margin="30,10,30,30"
                    PointerPressed="InputElement_OnPointerPressed"

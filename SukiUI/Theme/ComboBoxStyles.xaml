@@ -113,7 +113,7 @@
                                    IsOpen="{TemplateBinding IsDropDownOpen,
                                                             Mode=TwoWay}"
                                    PlacementTarget="{TemplateBinding}">
-                                <LayoutTransformControl Name="PART_LayoutTransform" RenderTransformOrigin="0%, 0%">
+                                <LayoutTransformControl Name="PART_LayoutTransform" RenderTransformOrigin="50%, 0%">
 
                                 <Border Name="B1" Padding="5,10,5,5">
                                     <Panel>
@@ -145,12 +145,12 @@
             <theme:PlusNineConverter x:Key="NineConverter" />
         </Style.Resources>
         <Style.Animations>
-            <Animation Easing="CircularEaseOut"
+            <Animation Easing="SineEaseOut"
                        FillMode="Forward"
                        Duration="0:0:0.3">
                 <KeyFrame Cue="0%">
                     <Setter Property="ScaleTransform.ScaleY" Value="0.92" />
-                    <Setter Property="ScaleTransform.ScaleX" Value="0.92" />
+                    <Setter Property="ScaleTransform.ScaleX" Value="0.95" />
                     <Setter Property="Opacity" Value="0" />
                 </KeyFrame>
                 <KeyFrame Cue="100%">
