@@ -39,11 +39,11 @@
                             <TextBlock Margin="6,0,0,3"
                                        FontWeight="DemiBold"
                                        Text="Username" />
-                            <TextBox theme:TextBoxExtensions.Prefix="" Watermark="Username" />
+                            <TextBox theme:TextBoxExtensions.Prefix="" Watermark="John" />
                             <TextBlock Margin="6,18,0,3"
                                        FontWeight="DemiBold"
                                        Text="Password" />
-                            <TextBox Name="PasswordTextBox"
+                            <TextBox Name="PasswordTextBox" Watermark="*******"
                                      Margin="0,0,0,25"
                                      theme:TextBoxExtensions.AddDeleteButton="False"
                                      PasswordChar="*" />
