@@ -189,11 +189,7 @@
                                 <Border />
                                 <Border.Transitions>
                                     <Transitions >
-                                        <DoubleTransition Property="Canvas.Left" Duration="0:0:0.25">
-                                            <DoubleTransition.Easing>
-                                                <SineEaseOut />
-                                            </DoubleTransition.Easing>
-                                        </DoubleTransition>
+                                     
                                     </Transitions>
                                 </Border.Transitions>
                             </Border>
@@ -206,16 +202,10 @@
         </Setter>
     </Style>
     
-    <Style Selector="ToggleButton.Switch:checked /template/ Border#SwitchKnob">
-        <Setter Property="Canvas.Left" Value="22"></Setter>
-        </Style>
-    
-    <Style Selector="ToggleButton.Switch:unchecked /template/ Border#SwitchKnob">
-        <Setter Property="Canvas.Left" Value="2"></Setter>
-    </Style>
+   
 
 
-  <!--  <Style Selector="ToggleButton.Switch:unchecked /template/ Border#SwitchKnob">
+   <Style Selector="ToggleButton.Switch:unchecked /template/ Border#SwitchKnob">
         <Style.Animations>
             <Animation FillMode="Both" Duration="0:0:0.3">
                 <Animation.Easing>
@@ -223,12 +213,12 @@
                 </Animation.Easing>
 
                 <KeyFrame Cue="30%">
-                    <Setter Property="Width" Value="20" />
+                    <Setter Property="Width" Value="22" />
                     <Setter Property="Canvas.Left" Value="11" />
 
                 </KeyFrame>
                 <KeyFrame Cue="70%">
-                    <Setter Property="Width" Value="20" />
+                    <Setter Property="Width" Value="22" />
                     <Setter Property="Canvas.Left" Value="2" />
 
                 </KeyFrame>
@@ -256,12 +246,12 @@
 
 
                 <KeyFrame Cue="30%">
-                    <Setter Property="Width" Value="20" />
+                    <Setter Property="Width" Value="22" />
                     <Setter Property="Canvas.Left" Value="2" />
                 </KeyFrame>
 
                 <KeyFrame Cue="70%">
-                    <Setter Property="Width" Value="20" />
+                    <Setter Property="Width" Value="22" />
                     <Setter Property="Canvas.Left" Value="11" />
 
                 </KeyFrame>
@@ -275,7 +265,7 @@
             </Animation>
         </Style.Animations>
 
-    </Style> -->
+    </Style>
 
 
   <!--  <Style Selector="ToggleButton.Switch:pressed[IsChecked=False] /template/ Border#SwitchKnob">
