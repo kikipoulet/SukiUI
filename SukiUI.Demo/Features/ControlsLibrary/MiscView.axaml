@@ -37,7 +37,11 @@
                 </controls:GlassCard>
                 <controls:GlassCard>
                     <controls:GroupBox Header="Date Picker">
-                        <DatePicker SelectedDate="{Binding SelectedDateTimeOffset}" />
+                        <StackPanel Spacing="15">
+                            <DatePicker SelectedDate="{Binding SelectedDateTimeOffset}" />
+                            <CalendarDatePicker SelectedDate="{Binding SelectedDateTimeOffset}" ></CalendarDatePicker>
+                        </StackPanel>
+                       
                     </controls:GroupBox>
                 </controls:GlassCard>
                 <controls:GlassCard>
