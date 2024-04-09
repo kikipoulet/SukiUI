@@ -12,7 +12,7 @@
                 <ControlTemplate>
                     <Border BoxShadow="{DynamicResource SukiPopupShadow}" Margin="{TemplateBinding Margin}"
                             Background="{TemplateBinding Background}"
-                            CornerRadius="8">
+                            CornerRadius="12">
                         <ContentPresenter Name="ContentPresenter"
                                           Margin="{TemplateBinding Padding}"
                                           Content="{TemplateBinding ContentControl.Content}"
