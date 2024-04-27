@@ -73,6 +73,7 @@
         <Style Selector="^:pointerover">
             <Style Selector="^ /template/ Border#PART_Border">
                 <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor5}" />
+			    <Setter Property="Cursor"  Value="Hand" />
             </Style>
         </Style>
         <Style Selector="^[IsSelected=True]">
