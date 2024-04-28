@@ -42,6 +42,17 @@ namespace SukiUI.Controls
             return null;
         }
 
+        private static int GetPropertyIndex(PropertyInfo property)
+        {
+            var attributes = property.GetCustomAttributes<PropertyIndexAttribute>(false);
+            if (attributes.Any())
+            {
+                return attributes.First().Index;
+            }
+
+            return int.MaxValue;
+        }
+
         /// <summary>
         /// Factory creating all the categories for a given instance of a ViewModel implementing <see cref="INotifyPropertyChanged"/>.
         /// </summary>
@@ -56,16 +67,17 @@ namespace SukiUI.Controls
                 .ToList();
 
             var categories = properties
-                .Select(prop => (Property: prop, Category: GetCategory(prop), DisplayName: GetDisplayName(prop)))
+                .Select(prop => (Property: prop, Category: GetCategory(prop), DisplayName: GetDisplayName(prop), Index: GetPropertyIndex(prop)))
                 .Where(p => p.Category is not null)
                 .Distinct()
+                .OrderBy(p => p.Index)
                 .GroupBy(p => p.Category);
 
             var categoryViewModels = new AvaloniaList<CategoryViewModel>();
             foreach (var grouping in categories)
             {
                 var propertyViewModels = new AvaloniaList<IPropertyViewModel>();
-                foreach (var (Property, Category, DisplayName) in grouping)
+                foreach (var (Property, Category, DisplayName, _) in grouping)
                 {
                     var propertyViewModel = default(IPropertyViewModel?);
                     var displayname = DisplayName ?? Property.Name;
