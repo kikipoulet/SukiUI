@@ -3,7 +3,7 @@
                     xmlns:icons="clr-namespace:SukiUI.Content"
                     xmlns:suki="clr-namespace:SukiUI.Controls">
     <ControlTheme x:Key="SukiWindowTheme" TargetType="suki:SukiWindow">
-        <Setter Property="SystemDecorations" Value="{OnPlatform 'Full', Linux='BorderOnly', x:TypeArguments=SystemDecorations}"></Setter>
+        <Setter Property="SystemDecorations" Value="BorderOnly"></Setter>
         <Setter Property="ExtendClientAreaChromeHints" Value="NoChrome" />
         <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="-1" />
         <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
