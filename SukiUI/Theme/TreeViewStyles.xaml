@@ -44,12 +44,12 @@
                                           BorderThickness="0"
                                           Classes="Basic"
                                           Focusable="False"
+                                          RenderTransformOrigin="65% 50%" 
                                           IsChecked="{TemplateBinding IsExpanded,
                                                                       Mode=TwoWay}">
                                 <ToggleButton.Transitions>
                                     <Transitions>
                                         <TransformOperationsTransition Property="RenderTransform" Duration="0.25" />
-                                        <ThicknessTransition Property="Margin" Duration="0.25" />
                                     </Transitions>
                                 </ToggleButton.Transitions>
                                 <PathIcon Width="7"
@@ -133,6 +133,5 @@
 
     <Style Selector="TreeViewItem[IsExpanded=True] /template/ ToggleButton#PART_ExpandCollapseChevron">
         <Setter Property="RenderTransform" Value="rotate(90deg)" />
-        <Setter Property="Margin" Value="0,-5,0,0" />
     </Style>
 </Styles>
