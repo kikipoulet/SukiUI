@@ -10,13 +10,17 @@
 </div>
 <br/>
 
-#### Try our new Controls Gallery App on Microsoft Store ! 
+#### Try our Controls Gallery App on Microsoft Store ! 
 <span>
 <a href="https://apps.microsoft.com/detail/9NM01BJ6JTTF?hl=en-us&gl=US">
    <img src="https://get.microsoft.com/images/en-us%20light.svg" alt="Download SukiUI Controls Gallery" />
 </a>
 </span>
 <br/>
+
+
+#### Small side-project using SukiUI : [LlamaChat](https://github.com/kikipoulet/LlamaChat)
+
 <br/>
 
 ## 📱 UI Theme 
