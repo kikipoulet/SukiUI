@@ -5,7 +5,7 @@
     <Design.PreviewWith>
         <Border Width="200"
                 Padding="20"
-                Background="{DynamicResource SukiBackground}">
+                Background="Red">
             <TreeView>
                 <TreeViewItem Header="blub">
                     <TreeViewItem Header="blub" />
@@ -90,22 +90,35 @@
         <Setter Property="Padding" Value="5" />
     </Style>
 
-    <Style Selector="TreeViewItem:pointerover /template/ Border#SelectionBorder">
-        <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <Style Selector="TreeViewItem:pointerover /template/ Border#SelectionBorder:pointerover">
+        <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
     </Style>
+    
 
-    <Style Selector="TreeViewItem:selected /template/ Border#SelectionBorder">
-        <Setter Property="Background" Value="{DynamicResource ThemeAccentBrush}" />
-    </Style>
     <Style Selector="TreeViewItem:selected /template/ Border#SelectionBorder:focus">
-        <Setter Property="Background" Value="{DynamicResource ThemeAccentBrush}" />
+        <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
     </Style>
-    <Style Selector="TreeViewItem:selected /template/ Border#SelectionBorder:pointerover">
-        <Setter Property="Background" Value="{DynamicResource ThemeAccentBrush}" />
-    </Style>
+   
     <Style Selector="TreeViewItem:selected /template/ Border#SelectionBorder:pointerover:focus">
-        <Setter Property="Background" Value="{DynamicResource ThemeAccentBrush}" />
+        <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
     </Style>
+    
+
 
     <Style Selector="TreeViewItem:selected &gt; TextBlock">
         <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrush}" />
