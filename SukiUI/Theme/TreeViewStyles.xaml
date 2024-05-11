@@ -5,7 +5,7 @@
     <Design.PreviewWith>
         <Border Width="200"
                 Padding="20"
-                Background="Red">
+                Background="{DynamicResource SukiBackground}">
             <TreeView>
                 <TreeViewItem Header="blub">
                     <TreeViewItem Header="blub" />
