@@ -34,7 +34,9 @@
                     <Border.Transitions>
                         <Transitions>
                             <BrushTransition Property="Background" Duration="0:0:0.35" />
-                            <ThicknessTransition Property="Padding" Duration="0:0:0.35" />
+                            <ThicknessTransition Property="Padding" Duration="0:0:0.35">
+                                <ThicknessTransition.Easing>CubicEaseInOut</ThicknessTransition.Easing>
+                            </ThicknessTransition>
                         </Transitions>
                     </Border.Transitions>
                     <Panel>
