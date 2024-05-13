@@ -38,7 +38,6 @@
 
 	<ItemGroup>
 		<AvaloniaResource Include="**\*.xaml" />
-		<None Remove="Content\Images\icons8-file-explorer-new-48.png" />
 		<AvaloniaResource Include="Content\Images\icons8-file-explorer-new-48.png" />
 	</ItemGroup>
 
@@ -50,17 +49,12 @@
 		<AvaloniaResource Include="CustomFont\Quicksand-Medium.ttf" />
 		<AvaloniaResource Include="CustomFont\Quicksand-Regular.ttf" />
 		<AvaloniaResource Include="CustomFont\Quicksand-SemiBold.ttf" />
-		<Content Include="suki_photo.ico" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Content Include="..\LICENSE" Link="LICENSE" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <None Update="OIG.N5o-removebg-preview.png">
 	    <Pack>True</Pack>
-	    <PackagePath></PackagePath>
+	    <PackagePath />
 	  </None>
 	</ItemGroup>
 
