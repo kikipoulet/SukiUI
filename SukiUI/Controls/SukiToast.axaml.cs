@@ -66,7 +66,7 @@ public class SukiToast : ContentControl
     
     // Icon Foreground Brushes
     // Note: it would be better to place them into a resource dictionary, but findResource performs slightly slower
-    private readonly SolidColorBrush _infoIconForeground = new(Color.FromRgb(20,140,232));
+    private readonly SolidColorBrush _infoIconForeground = new(Color.FromRgb(47,84,235));
     private readonly SolidColorBrush _successIconForeground = new(Color.FromRgb(35,143,35));
     private readonly SolidColorBrush _warningIconForeground = new(Color.FromRgb(177,113,20));
     private readonly SolidColorBrush _errorIconForeground = new(Color.FromRgb(216,63,48));
