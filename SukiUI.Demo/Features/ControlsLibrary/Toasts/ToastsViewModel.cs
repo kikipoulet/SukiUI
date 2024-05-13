@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
 using SukiUI.Controls;
 using SukiUI.Demo.Utilities;
+using SukiUI.Enums;
 
 namespace SukiUI.Demo.Features.ControlsLibrary.Toasts
 {
@@ -18,9 +19,25 @@ namespace SukiUI.Demo.Features.ControlsLibrary.Toasts
         [RelayCommand]
         public Task ShowSingleStandardToast() =>
             SukiHost.ShowToast("A Simple Toast", "This is the content of a toast.");
+        
+        [RelayCommand]
+        public Task ShowInfoToast() =>
+            SukiHost.ShowToast("A Simple Toast", "This is the content of an info toast.", SukiToastType.Info);
+        
+        [RelayCommand]
+        public Task ShowSuccessToast() =>
+            SukiHost.ShowToast("A Simple Toast", "This is the content of a success toast.", SukiToastType.Success);
+        
+        [RelayCommand]
+        public Task ShowWarningToast() =>
+            SukiHost.ShowToast("A Simple Toast", "This is the content of a warning toast.", SukiToastType.Warning);
+        
+        [RelayCommand]
+        public Task ShowErrorToast() =>
+            SukiHost.ShowToast("A Simple Toast", "This is the content of an error toast.", SukiToastType.Error);
 
         [RelayCommand]
-        public async Task ShowThreeStandardToasts()
+        public async Task ShowThreeInfoToasts()
         {
             for (var i = 1; i <= 3; i++)
                 await SukiHost.ShowToast("A Simple Toast", $"This is toast number {i} of 3.");
@@ -29,7 +46,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary.Toasts
         [RelayCommand]
         public Task ShowToastWithCallback()
         {
-            return SukiHost.ShowToast("Click This Toast", "Click this toast to open a dialog.", TimeSpan.FromSeconds(15),
+            return SukiHost.ShowToast("Click This Toast", "Click this toast to open a dialog.", SukiToastType.Info, TimeSpan.FromSeconds(15),
                 () => SukiHost.ShowDialog(
                     new TextBlock { Text = "You clicked the toast! - Click anywhere outside of this dialog to close." },
                     allowBackgroundClose: true));
