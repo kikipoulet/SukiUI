@@ -169,7 +169,7 @@ public class SukiWindow : Window
             _subscriptionDisposables = bgObs.Subscribe();
         }
     }
-
+    
     private void OnWindowStateChanged(WindowState state)
     {
         if (state == WindowState.FullScreen)
@@ -188,7 +188,22 @@ public class SukiWindow : Window
                 : WindowState.Maximized;
         }
         else if (CanMove)
+        { 
+            // It may be necessary to adjust the pointer position to account for scaling
+            // If you try to tug the window further to the right of the title bar, the behavior looks strange
+            var pointerPosition = e.GetCurrentPoint(this).Position;
+            var pointerPositionRelativeToWindow = e.GetPosition(this);
+            var scaling = VisualRoot?.RenderScaling ?? 1.0;
+            pointerPosition = new Point(pointerPosition.X * scaling, pointerPosition.Y * scaling);
+            if (WindowState == WindowState.Maximized)
+            {
+                var newX = pointerPosition.X - pointerPositionRelativeToWindow.X;
+                var newY = pointerPosition.Y - pointerPositionRelativeToWindow.Y;
+                WindowState = WindowState.Normal;
+                Position = new PixelPoint((int)newX, (int)newY);
+            }
             BeginMoveDrag(e);
+        }
     }
 
     protected override void OnUnloaded(RoutedEventArgs e)
