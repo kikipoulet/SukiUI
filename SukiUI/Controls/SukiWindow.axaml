@@ -3,6 +3,7 @@
                     xmlns:icons="clr-namespace:SukiUI.Content"
                     xmlns:suki="clr-namespace:SukiUI.Controls">
     <ControlTheme x:Key="SukiWindowTheme" TargetType="suki:SukiWindow">
+        <Setter Property="Margin" Value="0"></Setter>
         <Setter Property="SystemDecorations" Value="BorderOnly" />
         <Setter Property="ExtendClientAreaChromeHints" Value="NoChrome" />
         <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="-1" />
@@ -10,7 +11,7 @@
         <Setter Property="TextElement.Foreground" Value="{DynamicResource SukiText}" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Border ClipToBounds="True" CornerRadius="{OnPlatform '0', Linux='10', x:TypeArguments=CornerRadius}">
+                <Border Margin="{TemplateBinding Margin}" ClipToBounds="True" CornerRadius="{OnPlatform '0', Linux='10', x:TypeArguments=CornerRadius}">
                     <Panel IsHitTestVisible="True">
                         <VisualLayerManager Name="PART_VisualLayerManager" IsHitTestVisible="True">
                             <suki:SukiHost>
@@ -96,6 +97,9 @@
                 </Border>
             </ControlTemplate>
         </Setter>
+        <Style Selector="^[WindowState=Maximized]">
+            <Setter Property="SystemDecorations" Value="None" />
+        </Style>
         <Style Selector="^[WindowState=Maximized] /template/ PathIcon#MaximizeIcon">
             <Setter Property="Data" Value="{x:Static icons:Icons.WindowRestore}" />
         </Style>

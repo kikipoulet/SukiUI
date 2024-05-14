@@ -180,30 +180,9 @@ public class SukiWindow : Window
 
     private void OnTitleBarPointerPressed(object? sender, PointerPressedEventArgs e)
     {
-        base.OnPointerPressed(e);
-        if (e.ClickCount >= 2 && CanResize)
-        {
-            WindowState = WindowState == WindowState.Maximized
-                ? WindowState.Normal
-                : WindowState.Maximized;
-        }
-        else if (CanMove)
-        { 
-            // It may be necessary to adjust the pointer position to account for scaling
-            // If you try to tug the window further to the right of the title bar, the behavior looks strange
-            var pointerPosition = e.GetCurrentPoint(this).Position;
-            var pointerPositionRelativeToWindow = e.GetPosition(this);
-            var scaling = VisualRoot?.RenderScaling ?? 1.0;
-            pointerPosition = new Point(pointerPosition.X * scaling, pointerPosition.Y * scaling);
-            if (WindowState == WindowState.Maximized)
-            {
-                var newX = pointerPosition.X - pointerPositionRelativeToWindow.X;
-                var newY = pointerPosition.Y - pointerPositionRelativeToWindow.Y;
-                WindowState = WindowState.Normal;
-                Position = new PixelPoint((int)newX, (int)newY);
-            }
-            BeginMoveDrag(e);
-        }
+      base.OnPointerPressed(e);
+      BeginMoveDrag(e);
+        
     }
 
     protected override void OnUnloaded(RoutedEventArgs e)
