@@ -15,11 +15,16 @@ internal class Program
         .StartWithClassicDesktopLifetime(args);
 
     // Avalonia configuration, don't remove; also used by visual designer.
-    public static AppBuilder BuildAvaloniaApp() =>
-        AppBuilder.Configure<App>()
+    public static AppBuilder BuildAvaloniaApp()
+    {
+        var app = AppBuilder.Configure<App>()
             .UsePlatformDetect()
-            .UseManagedSystemDialogs()
             .WithInterFont()
             .LogToTrace()
             .UseXamlDisplay();
+
+        if (OperatingSystem.IsWindows() || OperatingSystem.IsMacOS() || OperatingSystem.IsLinux())
+            app.UseManagedSystemDialogs();
+        return app;
+    }
 }
