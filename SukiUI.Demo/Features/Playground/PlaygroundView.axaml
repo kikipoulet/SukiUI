@@ -4,6 +4,7 @@
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:avaloniaEdit="https://github.com/avaloniaui/avaloniaedit"
              xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+             xmlns:converters="clr-namespace:SukiUI.Demo.Converters"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:playground="clr-namespace:SukiUI.Demo.Features.Playground"
@@ -59,7 +60,7 @@
                                                         <Viewbox StretchDirection="DownOnly">
                                                             <ContentControl HorizontalAlignment="Center"
                                                                             VerticalAlignment="Center"
-                                                                            Content="{Binding ., Converter={x:Static playground:StringToControlConverter.Instance}}"
+                                                                            Content="{Binding ., Converter={x:Static converters:StringToControlConverter.Instance}}"
                                                                             IsHitTestVisible="False" />
                                                         </Viewbox>
                                                     </controls:GlassCard>
@@ -82,7 +83,7 @@
                                                         <Viewbox StretchDirection="DownOnly">
                                                             <ContentControl HorizontalAlignment="Center"
                                                                             VerticalAlignment="Center"
-                                                                            Content="{Binding ., Converter={x:Static playground:StringToControlConverter.Instance}}"
+                                                                            Content="{Binding ., Converter={x:Static converters:StringToControlConverter.Instance}}"
                                                                             IsHitTestVisible="False" />
                                                         </Viewbox>
                                                     </controls:GlassCard>
@@ -105,7 +106,7 @@
                                                         <Viewbox StretchDirection="DownOnly">
                                                             <ContentControl HorizontalAlignment="Center"
                                                                             VerticalAlignment="Center"
-                                                                            Content="{Binding ., Converter={x:Static playground:StringToControlConverter.Instance}}"
+                                                                            Content="{Binding ., Converter={x:Static converters:StringToControlConverter.Instance}}"
                                                                             IsHitTestVisible="False" />
                                                         </Viewbox>
                                                     </controls:GlassCard>
@@ -128,7 +129,7 @@
                                                         <Viewbox StretchDirection="DownOnly">
                                                             <ContentControl HorizontalAlignment="Center"
                                                                             VerticalAlignment="Center"
-                                                                            Content="{Binding ., Converter={x:Static playground:StringToControlConverter.Instance}}"
+                                                                            Content="{Binding ., Converter={x:Static converters:StringToControlConverter.Instance}}"
                                                                             IsHitTestVisible="False" />
                                                         </Viewbox>
                                                     </controls:GlassCard>
@@ -151,7 +152,7 @@
                                                         <Viewbox StretchDirection="DownOnly">
                                                             <ContentControl HorizontalAlignment="Center"
                                                                             VerticalAlignment="Center"
-                                                                            Content="{Binding ., Converter={x:Static playground:StringToControlConverter.Instance}}"
+                                                                            Content="{Binding ., Converter={x:Static converters:StringToControlConverter.Instance}}"
                                                                             IsHitTestVisible="False" />
                                                         </Viewbox>
                                                     </controls:GlassCard>
@@ -186,24 +187,33 @@
                         </Button>
                     </Grid>
                 </SplitView.Pane>
-                <Grid ColumnDefinitions="*, 4, *" >
+                <Grid ColumnDefinitions="*, 4, *">
                     <controls:GlassCard Margin="20">
                         <Grid RowDefinitions="*, Auto">
                             <avaloniaEdit:TextEditor Name="Editor"
                                                      ShowLineNumbers="True"
                                                      Text="" />
-                           
-                                    <Button Margin="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Name="RenderButton"
-                                            Width="120" Height="40" CornerRadius="9"
-                                            Classes="Flat Round"
-                                            Click="OnRenderClicked">
-                                        <StackPanel Orientation="Horizontal">
-                                            <avalonia:MaterialIcon Height="14" Width="14" Kind="Brush" Margin="0,0,10,0" />
-                                            <TextBlock FontSize="16">Render</TextBlock>
-                                            
-                                        </StackPanel>
-                                    </Button>
-                                  <!--  <Button Name="ClearButton"
+
+                            <Button Name="RenderButton"
+                                    Grid.Row="0"
+                                    Width="120"
+                                    Height="40"
+                                    Margin="30"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Bottom"
+                                    Classes="Flat Round"
+                                    Click="OnRenderClicked"
+                                    CornerRadius="9">
+                                <StackPanel Orientation="Horizontal">
+                                    <avalonia:MaterialIcon Width="14"
+                                                           Height="14"
+                                                           Margin="0,0,10,0"
+                                                           Kind="Brush" />
+                                    <TextBlock FontSize="16">Render</TextBlock>
+
+                                </StackPanel>
+                            </Button>
+                            <!--  <Button Name="ClearButton"
                                             Grid.Row="0"
                                             Grid.Column="2"
                                             Classes="Flat Round"
@@ -212,8 +222,7 @@
                                             <TextBlock>Clear</TextBlock>
                                             <avalonia:MaterialIcon Kind="Trash" />
                                         </StackPanel>
-                                    </Button> -->
-                               
+                                    </Button>-->
                         </Grid>
                     </controls:GlassCard>
                     <GridSplitter Grid.Row="0"
