@@ -14,7 +14,7 @@ public partial class ToastsViewModel() : DemoPageBase("Toasts", MaterialIconKind
     [RelayCommand]
     private static void OpenSourceUrl() =>
         UrlUtilities.OpenUrl(
-            $"https://github.com/kikipoulet/SukiUI/blob/main/SukiUI.Demo/Features/ControlsLibrary/{nameof(ToastsViewModel)}.cs");
+            $"https://github.com/kikipoulet/SukiUI/blob/main/SukiUI.Demo/Features/ControlsLibrary/Toasts/{nameof(ToastsViewModel)}.cs");
 
     [RelayCommand]
     private static Task ShowSingleStandardToast() =>
