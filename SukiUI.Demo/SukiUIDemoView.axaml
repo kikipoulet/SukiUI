@@ -21,7 +21,7 @@
                  IsTitleBarVisible="{Binding TitleBarVisible, Mode=TwoWay}"
                  mc:Ignorable="d">
     <suki:SukiWindow.LogoContent>
-        <avalonia:MaterialIcon Width="20" 
+        <avalonia:MaterialIcon Width="20"
                                Height="20"
                                VerticalAlignment="Center"
                                Foreground="{DynamicResource SukiPrimaryColor}"
@@ -89,9 +89,10 @@
             </DataTemplate>
         </suki:SukiSideMenu.ItemTemplate>
         <suki:SukiSideMenu.HeaderContent>
-            <Image Width="80" IsVisible="{Binding $parent[suki:SukiWindow].((demo:SukiUIDemoViewModel)DataContext).TitleBarVisible}"
+            <Image Width="80"
                    Height="80"
                    Margin="30,10,30,30"
+                   IsVisible="{Binding $parent[suki:SukiWindow].((demo:SukiUIDemoViewModel)DataContext).TitleBarVisible}"
                    PointerPressed="InputElement_OnPointerPressed"
                    Source="Assets/OIG.N5o-removebg-preview.png"
                    ToolTip.Tip="Click To Toggle Top Menu." />
@@ -100,7 +101,7 @@
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                 <StackPanel.Styles>
                     <Style Selector="Button">
-                        <Setter Property="Command" Value="{Binding OpenURLCommand}" />
+                        <Setter Property="Command" Value="{Binding OpenUrlCommand}" />
                     </Style>
                     <Style Selector="avalonia|MaterialIcon">
                         <Setter Property="Width" Value="25" />

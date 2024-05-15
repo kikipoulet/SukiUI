@@ -9,7 +9,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary.Dialogs
     {
         [RelayCommand]
         public void OpenViewLocatorSource() =>
-            UrlUtilities.OpenURL("https://github.com/kikipoulet/SukiUI/blob/main/SukiUI.Demo/Common/ViewLocator.cs");
+            UrlUtilities.OpenUrl("https://github.com/kikipoulet/SukiUI/blob/main/SukiUI.Demo/Common/ViewLocator.cs");
 
         [RelayCommand]
         public void CloseDialog() => SukiHost.CloseDialog();

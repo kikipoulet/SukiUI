@@ -13,7 +13,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary.Toasts
     {
         [RelayCommand]
         public void OpenSourceURL() =>
-            UrlUtilities.OpenURL(
+            UrlUtilities.OpenUrl(
                 $"https://github.com/kikipoulet/SukiUI/blob/main/SukiUI.Demo/Features/ControlsLibrary/{nameof(ToastsViewModel)}.cs");
 
         [RelayCommand]

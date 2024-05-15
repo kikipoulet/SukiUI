@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace SukiUI.Demo;
 
-public partial class App : Application
+public class App : Application
 {
     private IServiceProvider? _provider;
 
@@ -27,9 +27,9 @@ public partial class App : Application
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             var viewLocator = _provider?.GetRequiredService<IDataTemplate>();
-            var mainVm = _provider?.GetRequiredService<SukiUIDemoViewModel>();
+            var mainViewModel = _provider?.GetRequiredService<SukiUIDemoViewModel>();
 
-            desktop.MainWindow = viewLocator?.Build(mainVm) as Window;
+            desktop.MainWindow = viewLocator?.Build(mainViewModel) as Window;
         }
 
         base.OnFrameworkInitializationCompleted();
@@ -37,14 +37,15 @@ public partial class App : Application
 
     private static ServiceProvider ConfigureServices()
     {
-        var viewlocator = Current?.DataTemplates.First(x => x is ViewLocator);
+        var viewLocator = Current?.DataTemplates.First(x => x is ViewLocator);
         var services = new ServiceCollection();
 
-        if (viewlocator is not null)
-            services.AddSingleton(viewlocator);
+        // Services
+        if (viewLocator is not null)
+            services.AddSingleton(viewLocator);
         services.AddSingleton<PageNavigationService>();
 
-        // Viewmodels
+        // ViewModels
         services.AddSingleton<SukiUIDemoViewModel>();
         var types = AppDomain.CurrentDomain.GetAssemblies()
             .SelectMany(s => s.GetTypes())
