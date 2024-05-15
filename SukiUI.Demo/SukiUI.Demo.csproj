@@ -46,5 +46,9 @@
 	    <DependentUpon>ColorsView.axaml</DependentUpon>
 	    <SubType>Code</SubType>
 	  </Compile>
+	  <Compile Update="Features\ControlsLibrary\TabControl\TabControlView.axaml.cs">
+	    <DependentUpon>TabControlView.axaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
 	</ItemGroup>
 </Project>

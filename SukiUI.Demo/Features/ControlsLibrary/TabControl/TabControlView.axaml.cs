@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace SukiUI.Demo.Features.ControlsLibrary;
+namespace SukiUI.Demo.Features.ControlsLibrary.TabControl;
 
 public partial class TabControlView : UserControl
 {
