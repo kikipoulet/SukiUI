@@ -1,8 +1,7 @@
 using Material.Icons;
 
-namespace SukiUI.Demo.Features.ControlsLibrary
+namespace SukiUI.Demo.Features.ControlsLibrary;
+
+public partial class TogglesViewModel() : DemoPageBase("Toggles", MaterialIconKind.ToggleSwitch)
 {
-    public partial class TogglesViewModel() : DemoPageBase("Toggles", MaterialIconKind.ToggleSwitch)
-    {
-    }
 }

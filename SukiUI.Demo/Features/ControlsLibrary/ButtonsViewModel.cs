@@ -10,7 +10,7 @@ public partial class ButtonsViewModel() : DemoPageBase("Buttons", MaterialIconKi
     [ObservableProperty] private bool _isBusy;
 
     [RelayCommand]
-    public Task ButtonClicked()
+    private Task ButtonClicked()
     {
         if (IsBusy)
             return Task.CompletedTask;

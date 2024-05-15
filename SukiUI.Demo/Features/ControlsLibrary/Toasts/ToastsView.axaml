@@ -29,7 +29,7 @@
                         As the API for this resides entirely in C#, the source for the examples can be viewed on GitHub at the URL below.
                     </TextBlock>
                     <Button Classes="Hyperlink"
-                            Command="{Binding OpenSourceURLCommand}"
+                            Command="{Binding OpenSourceUrlCommand}"
                             Content="Source Here." />
                 </StackPanel>
             </controls:GroupBox>

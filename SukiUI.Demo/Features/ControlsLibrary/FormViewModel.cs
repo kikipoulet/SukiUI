@@ -13,34 +13,34 @@ namespace SukiUI.Demo.Features.ControlsLibrary
     public partial class FormViewModel : ObservableObject
     {
         [ObservableProperty] [property: Category("Category 1"), DisplayName("Nullable name")]
-        private string? _nullableName = null;
+        private string? _nullableName;
 
         [ObservableProperty] [property: Category("Category 1"), DisplayName("Nullable description")]
-        private string? _nullableDescription = null;
+        private string? _nullableDescription;
 
         [ObservableProperty] [property: Category("Category 1"), DisplayName("Nullable boolean")]
-        private bool? _nullableBoolean = null;
+        private bool? _nullableBoolean;
 
         [ObservableProperty] [property: Category("Category 1"), DisplayName("Nullable dateTime")]
-        private DateTime? _nullableDateTime = null;
+        private DateTime? _nullableDateTime;
 
         [ObservableProperty] [property: Category("Category 1"), DisplayName("Nullable dateTimeOffset")]
-        private DateTimeOffset? _nullableDateTimeOffset = null;
+        private DateTimeOffset? _nullableDateTimeOffset;
 
         [ObservableProperty] [property: Category("Nullable numbers"), DisplayName("Nullable integer")]
-        private int? _nullableInteger = null;
+        private int? _nullableInteger;
 
         [ObservableProperty] [property: Category("Nullable numbers"), DisplayName("Nullable long")]
-        private long? _nullableLong = null;
+        private long? _nullableLong;
 
         [ObservableProperty] [property: Category("Nullable numbers"), DisplayName("Nullable decimal")]
-        private decimal? _nullableDecimal = null;
+        private decimal? _nullableDecimal;
 
         [ObservableProperty] [property: Category("Nullable numbers"), DisplayName("Nullable float")]
-        private float? _nullableFloat = null;
+        private float? _nullableFloat;
 
         [ObservableProperty] [property: Category("Nullable numbers"), DisplayName("Nullable double")]
-        private double? _nullableDouble = null;
+        private double? _nullableDouble;
 
         [ObservableProperty] [property: Category("Category 2"), DisplayName("Name")]
         private string _name = string.Empty;

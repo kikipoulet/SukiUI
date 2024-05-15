@@ -1,12 +1,11 @@
 using Avalonia.Controls;
 
-namespace SukiUI.Demo.Features.ControlsLibrary.Dialogs
+namespace SukiUI.Demo.Features.ControlsLibrary.Dialogs;
+
+public partial class DialogsView : UserControl
 {
-    public partial class DialogsView : UserControl
+    public DialogsView()
     {
-        public DialogsView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }
