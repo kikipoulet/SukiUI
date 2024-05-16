@@ -1,31 +1,31 @@
-<UserControl x:Class="SukiUI.Demo.Features.ControlsLibrary.TabControlView"
+<UserControl x:Class="SukiUI.Demo.Features.ControlsLibrary.TabControl.TabControlView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
-             xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:tabControl="clr-namespace:SukiUI.Demo.Features.ControlsLibrary.TabControl"
              d:DesignHeight="450"
              d:DesignWidth="800"
-             x:DataType="controlsLibrary:TabControlViewModel"
+             x:DataType="tabControl:TabControlViewModel"
              mc:Ignorable="d">
     <UserControl.Styles>
         <Style Selector="TabControl">
             <Setter Property="ItemsSource" Value="{Binding Tabs}" />
             <Setter Property="ItemTemplate">
-                <DataTemplate x:DataType="controlsLibrary:TabViewModel">
+                <DataTemplate x:DataType="tabControl:TabViewModel">
                     <TextBlock Text="{Binding Header}" />
                 </DataTemplate>
             </Setter>
             <Setter Property="ContentTemplate">
-                <DataTemplate x:DataType="controlsLibrary:TabViewModel">
+                <DataTemplate x:DataType="tabControl:TabViewModel">
                     <TextBlock HorizontalAlignment="Center"
                                VerticalAlignment="Center"
                                Classes="h3"
                                Text="{Binding Content}" />
                 </DataTemplate>
             </Setter>
-            <Style x:DataType="controlsLibrary:TabViewModel" Selector="^ TabItem">
+            <Style x:DataType="tabControl:TabViewModel" Selector="^ TabItem">
                 <Setter Property="IsEnabled" Value="{Binding IsEnabled}" />
             </Style>
         </Style>

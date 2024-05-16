@@ -1,12 +1,11 @@
 using Avalonia.Controls;
 
-namespace SukiUI.Demo.Features.ControlsLibrary
+namespace SukiUI.Demo.Features.ControlsLibrary;
+
+public partial class PropertyGridView : UserControl
 {
-    public partial class PropertyGridView : UserControl
+    public PropertyGridView()
     {
-        public PropertyGridView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

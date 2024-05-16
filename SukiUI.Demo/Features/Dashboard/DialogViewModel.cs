@@ -7,7 +7,7 @@ namespace SukiUI.Demo.Features.Dashboard;
 public partial class DialogViewModel : ObservableObject
 {
     [RelayCommand]
-    public void CloseDialog()
+    private static void CloseDialog()
     {
         SukiHost.CloseDialog();
     }

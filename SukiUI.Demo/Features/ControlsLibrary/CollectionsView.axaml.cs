@@ -1,14 +1,11 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 
-namespace SukiUI.Demo.Features.ControlsLibrary
+namespace SukiUI.Demo.Features.ControlsLibrary;
+
+public partial class CollectionsView : UserControl
 {
-    public partial class CollectionsView : UserControl
+    public CollectionsView()
     {
-        public CollectionsView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

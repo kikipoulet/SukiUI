@@ -33,7 +33,6 @@
         </controls:GlassCard>
         <ScrollViewer Grid.Row="1">
             <WrapPanel Classes="PageContainer">
-               
                 <controls:GlassCard>
                     <controls:GroupBox Header="Standard Button">
                         <showMeTheXaml:XamlDisplay UniqueId="Button1">

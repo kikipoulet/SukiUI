@@ -23,30 +23,39 @@ public partial class SukiUIDemoViewModel : ObservableObject
     [ObservableProperty] private ThemeVariant _baseTheme;
     [ObservableProperty] private bool _animationsEnabled;
     [ObservableProperty] private DemoPageBase? _activePage;
-    [ObservableProperty] private bool _windowLocked = false;
+    [ObservableProperty] private bool _windowLocked;
     [ObservableProperty] private bool _titleBarVisible = true;
 
     private readonly SukiTheme _theme;
 
-    public SukiUIDemoViewModel(IEnumerable<DemoPageBase> demoPages, PageNavigationService nav)
+    public SukiUIDemoViewModel(IEnumerable<DemoPageBase> demoPages, PageNavigationService pageNavigationService)
     {
         DemoPages = new AvaloniaList<DemoPageBase>(demoPages.OrderBy(x => x.Index).ThenBy(x => x.DisplayName));
         _theme = SukiTheme.GetInstance();
-        nav.NavigationRequested += t =>
+        
+        // Subscribe to the navigation service (when a page navigation is requested)
+        pageNavigationService.NavigationRequested += pageType =>
         {
-            var page = DemoPages.FirstOrDefault(x => x.GetType() == t);
-            if (page is null || ActivePage?.GetType() == t) return;
+            var page = DemoPages.FirstOrDefault(x => x.GetType() == pageType);
+            if (page is null || ActivePage?.GetType() == pageType) return;
             ActivePage = page;
         };
+        
         Themes = _theme.ColorThemes;
         BaseTheme = _theme.ActiveBaseTheme;
-        _theme.OnBaseThemeChanged += async variant =>
+        
+        // Subscribe to the base theme changed events
+        _theme.OnBaseThemeChanged += variant =>
         {
             BaseTheme = variant;
-            await SukiHost.ShowToast("Successfully Changed Theme", $"Changed Theme To {variant}");
+            SukiHost.ShowToast("Successfully Changed Theme", $"Changed Theme To {variant}");
         };
-        _theme.OnColorThemeChanged += async theme =>
-            await SukiHost.ShowToast("Successfully Changed Color", $"Changed Color To {theme.DisplayName}.");
+        
+        // Subscribe to the color theme changed events
+        _theme.OnColorThemeChanged += theme =>
+            SukiHost.ShowToast("Successfully Changed Color", $"Changed Color To {theme.DisplayName}.");
+        
+        // Subscribe to the background animation changed events
         _theme.OnBackgroundAnimationChanged +=
             value => AnimationsEnabled = value;
     }
@@ -92,5 +101,5 @@ public partial class SukiUIDemoViewModel : ObservableObject
     }
     
     [RelayCommand]
-    private void OpenURL(string url) => UrlUtilities.OpenURL(url);
+    private static void OpenUrl(string url) => UrlUtilities.OpenUrl(url);
 }

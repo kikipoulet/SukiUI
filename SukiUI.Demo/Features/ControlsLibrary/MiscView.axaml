@@ -39,9 +39,9 @@
                     <controls:GroupBox Header="Date Picker">
                         <StackPanel Spacing="15">
                             <DatePicker SelectedDate="{Binding SelectedDateTimeOffset}" />
-                            <CalendarDatePicker SelectedDate="{Binding SelectedDateTimeOffset}" ></CalendarDatePicker>
+                            <CalendarDatePicker SelectedDate="{Binding SelectedDateTimeOffset}" />
                         </StackPanel>
-                       
+
                     </controls:GroupBox>
                 </controls:GlassCard>
                 <controls:GlassCard>
@@ -89,13 +89,28 @@
                         </DropDownButton>
                     </controls:GroupBox>
                 </controls:GlassCard>
-                
+
                 <controls:GlassCard>
                     <controls:GroupBox Header="File Picker">
                         <StackPanel Spacing="8">
-                            <Button Classes="Primary" Content="Open File" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" Command="{Binding OpenFile}"></Button>
-                            <Button Classes="Primary" Content="Save File" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" Command="{Binding SaveFile}"></Button>
-                            <Button Classes="Primary" Content="Open Folder" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" Command="{Binding OpenFolder}"></Button>
+                            <Button Margin="5"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Classes="Primary"
+                                    Command="{Binding OpenFileCommand}"
+                                    Content="Open File" />
+                            <Button Margin="5"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Classes="Primary"
+                                    Command="{Binding SaveFileCommand}"
+                                    Content="Save File" />
+                            <Button Margin="5"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Classes="Primary"
+                                    Command="{Binding OpenFolderCommand}"
+                                    Content="Open Folder" />
                         </StackPanel>
                     </controls:GroupBox>
                 </controls:GlassCard>

@@ -1,9 +1,8 @@
 using Material.Icons;
 
-namespace SukiUI.Demo.Features.ControlsLibrary
+namespace SukiUI.Demo.Features.ControlsLibrary;
+
+public class ExpanderViewModel() : DemoPageBase("Expander", MaterialIconKind.SwapVertical)
 {
-    public partial class ExpanderViewModel() : DemoPageBase("Expander", MaterialIconKind.SwapVertical)
-    {
         
-    }
 }
