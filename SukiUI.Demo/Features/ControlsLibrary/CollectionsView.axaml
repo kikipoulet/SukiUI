@@ -68,7 +68,8 @@
                     <controls:GroupBox Header="DataGrid">
                         <StackPanel>
                             <showMeTheXaml:XamlDisplay UniqueId="DataGrid">
-                                <DataGrid MaxHeight="200" MinWidth="350"
+                                <DataGrid MinWidth="350"
+                                          MaxHeight="200"
                                           CanUserResizeColumns="{Binding IsDataGridColumnsResizable}"
                                           ItemsSource="{Binding DataGridContent}">
                                     <DataGrid.Columns>
