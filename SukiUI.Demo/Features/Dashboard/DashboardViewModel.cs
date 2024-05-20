@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
 using SukiUI.Controls;
-using SukiUI.Demo.Models.Dashboard;
 using System.Threading.Tasks;
 
 namespace SukiUI.Demo.Features.Dashboard;
@@ -15,12 +14,12 @@ public partial class DashboardViewModel : DemoPageBase
 
     public IAvaloniaReadOnlyList<InvoiceViewModel> Invoices { get; } = new AvaloniaList<InvoiceViewModel>()
     {
-        new InvoiceViewModel(15364, "Jean", 156, true),
-        new InvoiceViewModel(45689, "Fantine", 82, false),
-        new InvoiceViewModel(15364, "Jean", 156, true),
-        new InvoiceViewModel(45689, "Fantine", 82, false),
-        new InvoiceViewModel(15364, "Jean", 156, true),
-        new InvoiceViewModel(45689, "Fantine", 82, false),
+        new(15364, "Jean", 156, true),
+        new(45689, "Fantine", 82, false),
+        new(15364, "Jean", 156, true),
+        new(45689, "Fantine", 82, false),
+        new(15364, "Jean", 156, true),
+        new(45689, "Fantine", 82, false),
     };
 
     public IAvaloniaReadOnlyList<string> Steps { get; } = new AvaloniaList<string>()
@@ -34,7 +33,7 @@ public partial class DashboardViewModel : DemoPageBase
     }
 
     [RelayCommand]
-    public Task Login()
+    private Task Login()
     {
         IsLoggingIn = true;
         return Task.Run(async () =>
@@ -45,16 +44,16 @@ public partial class DashboardViewModel : DemoPageBase
     }
 
     [RelayCommand]
-    public void ShowDialog()
+    private void ShowDialog()
     {
         SukiHost.ShowDialog(new DialogViewModel(), allowBackgroundClose: true);
     }
 
     [RelayCommand]
-    public void IncrementIndex() =>
+    private void IncrementIndex() =>
         StepperIndex += StepperIndex >= Steps.Count - 1 ? 0 : 1;
 
     [RelayCommand]
-    public void DecrementIndex() =>
+    private void DecrementIndex() =>
         StepperIndex -= StepperIndex <= 0 ? 0 : 1;
 }

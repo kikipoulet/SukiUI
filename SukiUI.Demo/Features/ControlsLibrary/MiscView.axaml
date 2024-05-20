@@ -37,7 +37,11 @@
                 </controls:GlassCard>
                 <controls:GlassCard>
                     <controls:GroupBox Header="Date Picker">
-                        <DatePicker SelectedDate="{Binding SelectedDateTimeOffset}" />
+                        <StackPanel Spacing="15">
+                            <DatePicker SelectedDate="{Binding SelectedDateTimeOffset}" />
+                            <CalendarDatePicker SelectedDate="{Binding SelectedDateTimeOffset}" />
+                        </StackPanel>
+
                     </controls:GroupBox>
                 </controls:GlassCard>
                 <controls:GlassCard>
@@ -83,6 +87,31 @@
                                 </Flyout>
                             </DropDownButton.Flyout>
                         </DropDownButton>
+                    </controls:GroupBox>
+                </controls:GlassCard>
+
+                <controls:GlassCard>
+                    <controls:GroupBox Header="File Picker">
+                        <StackPanel Spacing="8">
+                            <Button Margin="5"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Classes="Primary"
+                                    Command="{Binding OpenFileCommand}"
+                                    Content="Open File" />
+                            <Button Margin="5"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Classes="Primary"
+                                    Command="{Binding SaveFileCommand}"
+                                    Content="Save File" />
+                            <Button Margin="5"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Classes="Primary"
+                                    Command="{Binding OpenFolderCommand}"
+                                    Content="Open Folder" />
+                        </StackPanel>
                     </controls:GroupBox>
                 </controls:GlassCard>
             </WrapPanel>

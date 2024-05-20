@@ -12,15 +12,13 @@ public partial class CustomThemeDialogViewModel(SukiTheme theme) : ObservableObj
     [ObservableProperty] private Color _primaryColor = Colors.DeepPink;
     [ObservableProperty] private Color _accentColor = Colors.Pink;
 
-    private readonly SukiTheme _theme = theme;
-
     [RelayCommand]
-    public void TryCreateTheme()
+    private void TryCreateTheme()
     {
         if (string.IsNullOrEmpty(DisplayName)) return;
-        var theme = new SukiColorTheme(DisplayName, PrimaryColor, AccentColor);
-        _theme.AddColorTheme(theme);
-        _theme.ChangeColorTheme(theme);
+        var theme1 = new SukiColorTheme(DisplayName, PrimaryColor, AccentColor);
+        theme.AddColorTheme(theme1);
+        theme.ChangeColorTheme(theme1);
         SukiHost.CloseDialog();
     }
 }

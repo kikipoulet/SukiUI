@@ -24,7 +24,14 @@ public class SukiSideMenu : SelectingItemsControl
         set => SetValue(IsMenuExpandedProperty, value);
     }
 
- 
+    public static readonly StyledProperty<bool> IsSelectedItemContentMovableProperty =
+        AvaloniaProperty.Register<SukiSideMenu, bool>(nameof(IsSelectedItemContentMovable), defaultValue: true);
+
+    public bool IsSelectedItemContentMovable
+    {
+        get => GetValue(IsSelectedItemContentMovableProperty);
+        set => SetValue(IsSelectedItemContentMovableProperty, value);
+    }
 
     public static readonly StyledProperty<double> HeaderMinHeightProperty =
         AvaloniaProperty.Register<SukiSideMenu, double>(nameof(HeaderMinHeight));
@@ -72,7 +79,7 @@ public class SukiSideMenu : SelectingItemsControl
             foreach (SukiSideMenuItem item in _SideMenuItems)
                 item.IsTopMenuExpanded = IsMenuExpanded;
         
-        else if(Items.First() is SukiSideMenuItem)
+        else if(Items.FirstOrDefault() is SukiSideMenuItem)
             foreach (SukiSideMenuItem item in Items)
                 item.IsTopMenuExpanded = IsMenuExpanded;
     }
@@ -131,7 +138,7 @@ public class SukiSideMenu : SelectingItemsControl
              ItemTemplate.Build(item) is SukiSideMenuItem sukiMenuItem)
                 ? sukiMenuItem
                 : new SukiSideMenuItem();
-        
+        menuItem.IsContentMovable = IsSelectedItemContentMovable;
         _SideMenuItems.Add(menuItem);
         return menuItem;
     }

@@ -1,6 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace SukiUI.Demo.Models.Dashboard;
+namespace SukiUI.Demo.Features.Dashboard;
 
 public partial class InvoiceViewModel : ObservableObject
 {

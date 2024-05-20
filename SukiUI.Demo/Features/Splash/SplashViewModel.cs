@@ -8,7 +8,7 @@ namespace SukiUI.Demo.Features.Splash;
 public partial class SplashViewModel(PageNavigationService nav) : DemoPageBase("Welcome", MaterialIconKind.Hand, int.MinValue)
 {
     [RelayCommand]
-    public void OpenDashboard()
+    private void OpenDashboard()
     {
         nav.RequestNavigation<DashboardViewModel>();
     }

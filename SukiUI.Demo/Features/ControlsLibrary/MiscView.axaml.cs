@@ -1,14 +1,11 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 
-namespace SukiUI.Demo.Features.ControlsLibrary
+namespace SukiUI.Demo.Features.ControlsLibrary;
+
+public partial class MiscView : UserControl
 {
-    public partial class MiscView : UserControl
+    public MiscView()
     {
-        public MiscView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

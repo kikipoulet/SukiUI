@@ -37,7 +37,7 @@
                                          Content="Option Two"
                                          GroupName="R2" />
                             <RadioButton Classes="GigaChips"
-                                         Content="Option Three"
+                                         Content="Three State"
                                          GroupName="R2" />
                         </StackPanel>
                     </showMeTheXaml:XamlDisplay>
@@ -117,7 +117,7 @@
                             <StackPanel Spacing="5">
                                 <CheckBox Content="Option One" IsChecked="True" />
                                 <CheckBox Content="Option Two" />
-                                <CheckBox Content="Option Three" />
+                                <CheckBox IsThreeState="True" Content="Option Three" />
                             </StackPanel>
                         </showMeTheXaml:XamlDisplay>
                     </StackPanel>

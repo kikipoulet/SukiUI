@@ -68,7 +68,8 @@
                     <controls:GroupBox Header="DataGrid">
                         <StackPanel>
                             <showMeTheXaml:XamlDisplay UniqueId="DataGrid">
-                                <DataGrid MaxHeight="200"
+                                <DataGrid MinWidth="350"
+                                          MaxHeight="200"
                                           CanUserResizeColumns="{Binding IsDataGridColumnsResizable}"
                                           ItemsSource="{Binding DataGridContent}">
                                     <DataGrid.Columns>
@@ -82,7 +83,7 @@
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </showMeTheXaml:XamlDisplay>
-                            <DockPanel>
+                            <DockPanel Margin="20,20,0,0">
                                 <ToggleSwitch DockPanel.Dock="Left" IsChecked="{Binding IsDataGridColumnsResizable}" />
                                 <TextBlock Margin="5,0"
                                            VerticalAlignment="Center"

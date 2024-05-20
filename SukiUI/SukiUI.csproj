@@ -28,16 +28,17 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Avalonia" Version="11.0.5" />
-		<PackageReference Include="Avalonia.Skia" Version="11.0.5" />
-		<PackageReference Include="SkiaSharp" Version="2.88.6" />
-		<PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.5" />
-		<PackageReference Include="Avalonia.Themes.Simple" Version="11.0.5" />
-		<PackageReference Include="ReactiveUI" Version="19.2.1" />
+		<PackageReference Include="Avalonia" Version="11.1.0-beta2" />
+		<PackageReference Include="Avalonia.Skia" Version="11.1.0-beta2" />
+		<PackageReference Include="SkiaSharp" Version="2.88.8" />
+		<PackageReference Include="Avalonia.Controls.DataGrid" Version="11.1.0-beta2" />
+		<PackageReference Include="Avalonia.Themes.Simple" Version="11.1.0-beta2" />
+		<PackageReference Include="ReactiveUI" Version="19.6.12" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<AvaloniaResource Include="**\*.xaml" />
+		<AvaloniaResource Include="Content\Images\icons8-file-explorer-new-48.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -48,17 +49,12 @@
 		<AvaloniaResource Include="CustomFont\Quicksand-Medium.ttf" />
 		<AvaloniaResource Include="CustomFont\Quicksand-Regular.ttf" />
 		<AvaloniaResource Include="CustomFont\Quicksand-SemiBold.ttf" />
-		<Content Include="suki_photo.ico" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Content Include="..\LICENSE" Link="LICENSE" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <None Update="OIG.N5o-removebg-preview.png">
 	    <Pack>True</Pack>
-	    <PackagePath></PackagePath>
+	    <PackagePath />
 	  </None>
 	</ItemGroup>
 

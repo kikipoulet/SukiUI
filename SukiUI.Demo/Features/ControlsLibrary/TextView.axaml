@@ -69,11 +69,12 @@
             <controls:GlassCard>
                 <controls:GroupBox Header="Text Input">
                     <StackPanel Classes="HeaderContent">
+                       
                         <TextBlock>
                             There are a few helpers available to make textboxes simpler and more powerful to use.
                         </TextBlock>
                         <showMeTheXaml:XamlDisplay UniqueId="TextBox1">
-                            <TextBox />
+                            <TextBox  />
                         </showMeTheXaml:XamlDisplay>
                         <showMeTheXaml:XamlDisplay UniqueId="TextBox2">
                             <TextBox Text="" Watermark="Watermark" />

@@ -1,12 +1,11 @@
 using Avalonia.Controls;
 
-namespace SukiUI.Demo.Features.ControlsLibrary.Toasts
+namespace SukiUI.Demo.Features.ControlsLibrary.Toasts;
+
+public partial class ToastsView : UserControl
 {
-    public partial class ToastsView : UserControl
+    public ToastsView()
     {
-        public ToastsView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

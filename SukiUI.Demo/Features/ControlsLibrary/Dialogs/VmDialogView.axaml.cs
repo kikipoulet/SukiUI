@@ -1,12 +1,11 @@
 using Avalonia.Controls;
 
-namespace SukiUI.Demo.Features.ControlsLibrary.Dialogs
+namespace SukiUI.Demo.Features.ControlsLibrary.Dialogs;
+
+public partial class VmDialogView : UserControl
 {
-    public partial class VmDialogView : UserControl
+    public VmDialogView()
     {
-        public VmDialogView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

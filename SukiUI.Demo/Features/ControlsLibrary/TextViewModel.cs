@@ -14,7 +14,7 @@ public partial class TextViewModel() : DemoPageBase("Text", MaterialIconKind.Tex
     [ObservableProperty] private string _textBlockValue = DefaultText;
 
     [RelayCommand]
-    public Task HyperlinkClicked()
+    private static Task HyperlinkClicked()
     {
         return SukiHost.ShowToast("Clicked a hyperlink", "You clicked the hyperlink on the Text page.");
     }

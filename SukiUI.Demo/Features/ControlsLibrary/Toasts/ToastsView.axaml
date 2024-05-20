@@ -29,7 +29,7 @@
                         As the API for this resides entirely in C#, the source for the examples can be viewed on GitHub at the URL below.
                     </TextBlock>
                     <Button Classes="Hyperlink"
-                            Command="{Binding OpenSourceURLCommand}"
+                            Command="{Binding OpenSourceUrlCommand}"
                             Content="Source Here." />
                 </StackPanel>
             </controls:GroupBox>
@@ -37,16 +37,37 @@
         <ScrollViewer Grid.Row="1">
             <WrapPanel Classes="PageContainer">
                 <controls:GlassCard>
-                    <controls:GroupBox Header="Single Standard Toast">
+                    <controls:GroupBox Header="Info Toast">
                         <Button Margin="15,10,15,0"
-                                Command="{Binding ShowSingleStandardToastCommand}"
+                                Command="{Binding ShowInfoToastCommand}"
                                 Content="Show Toast" />
                     </controls:GroupBox>
                 </controls:GlassCard>
                 <controls:GlassCard>
-                    <controls:GroupBox Header="3 Standard Toasts">
+                    <controls:GroupBox Header="Success Toast">
                         <Button Margin="15,10,15,0"
-                                Command="{Binding ShowThreeStandardToastsCommand}"
+                                Command="{Binding ShowSuccessToastCommand}"
+                                Content="Show Toast" />
+                    </controls:GroupBox>
+                </controls:GlassCard>
+                <controls:GlassCard>
+                    <controls:GroupBox Header="Warning Toast">
+                        <Button Margin="15,10,15,0"
+                                Command="{Binding ShowWarningToastCommand}"
+                                Content="Show Toast" />
+                    </controls:GroupBox>
+                </controls:GlassCard>
+                <controls:GlassCard>
+                    <controls:GroupBox Header="Error Toast">
+                        <Button Margin="15,10,15,0"
+                                Command="{Binding ShowErrorToastCommand}"
+                                Content="Show Toast" />
+                    </controls:GroupBox>
+                </controls:GlassCard>
+                <controls:GlassCard>
+                    <controls:GroupBox Header="3 Info Toasts">
+                        <Button Margin="15,10,15,0"
+                                Command="{Binding ShowThreeInfoToastsCommand}"
                                 Content="Show Toasts" />
                     </controls:GroupBox>
                 </controls:GlassCard>

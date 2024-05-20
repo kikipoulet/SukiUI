@@ -169,7 +169,7 @@ public class SukiWindow : Window
             _subscriptionDisposables = bgObs.Subscribe();
         }
     }
-
+    
     private void OnWindowStateChanged(WindowState state)
     {
         if (state == WindowState.FullScreen)
@@ -180,15 +180,9 @@ public class SukiWindow : Window
 
     private void OnTitleBarPointerPressed(object? sender, PointerPressedEventArgs e)
     {
-        base.OnPointerPressed(e);
-        if (e.ClickCount >= 2 && CanResize)
-        {
-            WindowState = WindowState == WindowState.Maximized
-                ? WindowState.Normal
-                : WindowState.Maximized;
-        }
-        else if (CanMove)
-            BeginMoveDrag(e);
+      base.OnPointerPressed(e);
+      BeginMoveDrag(e);
+        
     }
 
     protected override void OnUnloaded(RoutedEventArgs e)

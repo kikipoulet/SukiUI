@@ -1,12 +1,11 @@
 using Avalonia.Controls;
 
-namespace SukiUI.Demo.Features.ControlsLibrary.StackPage
+namespace SukiUI.Demo.Features.ControlsLibrary.StackPage;
+
+public partial class StackPageView : UserControl
 {
-    public partial class StackPageView : UserControl
+    public StackPageView()
     {
-        public StackPageView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

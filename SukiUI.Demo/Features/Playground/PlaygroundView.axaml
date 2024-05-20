@@ -4,6 +4,7 @@
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:avaloniaEdit="https://github.com/avaloniaui/avaloniaedit"
              xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+             xmlns:converters="clr-namespace:SukiUI.Demo.Converters"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:playground="clr-namespace:SukiUI.Demo.Features.Playground"
@@ -43,10 +44,10 @@
                                     <avalonia:MaterialIcon Foreground="{DynamicResource SukiLowText}" Kind="ChevronLeft" />
                                 </StackPanel>
                             </Button>
-                            <TabControl Margin="0,20,0,0" TabStripPlacement="Left">
+                            <TabControl Margin="0,20,0,12" TabStripPlacement="Left">
 
                                 <TabItem Header="Buttons">
-                                    <ScrollViewer>
+                                    <ScrollViewer Classes="Stack">
                                         <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding ButtonsElements}">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
@@ -59,7 +60,7 @@
                                                         <Viewbox StretchDirection="DownOnly">
                                                             <ContentControl HorizontalAlignment="Center"
                                                                             VerticalAlignment="Center"
-                                                                            Content="{Binding ., Converter={x:Static playground:StringToControlConverter.Instance}}"
+                                                                            Content="{Binding ., Converter={x:Static converters:StringToControlConverter.Instance}}"
                                                                             IsHitTestVisible="False" />
                                                         </Viewbox>
                                                     </controls:GlassCard>
@@ -69,7 +70,7 @@
                                     </ScrollViewer>
                                 </TabItem>
                                 <TabItem Header="Layout">
-                                    <ScrollViewer>
+                                    <ScrollViewer Classes="Stack">
                                         <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding LayoutElements}">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
@@ -82,7 +83,7 @@
                                                         <Viewbox StretchDirection="DownOnly">
                                                             <ContentControl HorizontalAlignment="Center"
                                                                             VerticalAlignment="Center"
-                                                                            Content="{Binding ., Converter={x:Static playground:StringToControlConverter.Instance}}"
+                                                                            Content="{Binding ., Converter={x:Static converters:StringToControlConverter.Instance}}"
                                                                             IsHitTestVisible="False" />
                                                         </Viewbox>
                                                     </controls:GlassCard>
@@ -92,7 +93,7 @@
                                     </ScrollViewer>
                                 </TabItem>
                                 <TabItem Header="Input">
-                                    <ScrollViewer>
+                                    <ScrollViewer Classes="Stack">
                                         <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding InputsElements}">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
@@ -105,7 +106,7 @@
                                                         <Viewbox StretchDirection="DownOnly">
                                                             <ContentControl HorizontalAlignment="Center"
                                                                             VerticalAlignment="Center"
-                                                                            Content="{Binding ., Converter={x:Static playground:StringToControlConverter.Instance}}"
+                                                                            Content="{Binding ., Converter={x:Static converters:StringToControlConverter.Instance}}"
                                                                             IsHitTestVisible="False" />
                                                         </Viewbox>
                                                     </controls:GlassCard>
@@ -115,7 +116,7 @@
                                     </ScrollViewer>
                                 </TabItem>
                                 <TabItem Header="Progress">
-                                    <ScrollViewer>
+                                    <ScrollViewer Classes="Stack">
                                         <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding ProgressElements}">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
@@ -128,7 +129,7 @@
                                                         <Viewbox StretchDirection="DownOnly">
                                                             <ContentControl HorizontalAlignment="Center"
                                                                             VerticalAlignment="Center"
-                                                                            Content="{Binding ., Converter={x:Static playground:StringToControlConverter.Instance}}"
+                                                                            Content="{Binding ., Converter={x:Static converters:StringToControlConverter.Instance}}"
                                                                             IsHitTestVisible="False" />
                                                         </Viewbox>
                                                     </controls:GlassCard>
@@ -138,7 +139,7 @@
                                     </ScrollViewer>
                                 </TabItem>
                                 <TabItem Header="Lists">
-                                    <ScrollViewer>
+                                    <ScrollViewer Classes="Stack">
                                         <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding ListsElements}">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
@@ -151,7 +152,7 @@
                                                         <Viewbox StretchDirection="DownOnly">
                                                             <ContentControl HorizontalAlignment="Center"
                                                                             VerticalAlignment="Center"
-                                                                            Content="{Binding ., Converter={x:Static playground:StringToControlConverter.Instance}}"
+                                                                            Content="{Binding ., Converter={x:Static converters:StringToControlConverter.Instance}}"
                                                                             IsHitTestVisible="False" />
                                                         </Viewbox>
                                                     </controls:GlassCard>
@@ -186,21 +187,52 @@
                         </Button>
                     </Grid>
                 </SplitView.Pane>
-                <Grid ColumnDefinitions="*, 4, *" RowDefinitions="*, Auto">
+                <Grid ColumnDefinitions="*, 4, *">
                     <controls:GlassCard Margin="20">
-                        <avaloniaEdit:TextEditor Name="Editor"
-                                                 ShowLineNumbers="True"
-                                                 Text=""
-                                                 TextChanged="Editor_OnTextChanged" />
+                        <Grid RowDefinitions="*, Auto">
+                            <avaloniaEdit:TextEditor Name="Editor"
+                                                     ShowLineNumbers="True"
+                                                     Text="" />
+
+                            <Button Name="RenderButton"
+                                    Grid.Row="0"
+                                    Width="120"
+                                    Height="40"
+                                    Margin="30"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Bottom"
+                                    Classes="Flat Round"
+                                    Click="OnRenderClicked"
+                                    CornerRadius="9">
+                                <StackPanel Orientation="Horizontal">
+                                    <avalonia:MaterialIcon Width="14"
+                                                           Height="14"
+                                                           Margin="0,0,10,0"
+                                                           Kind="Brush" />
+                                    <TextBlock FontSize="16">Render</TextBlock>
+
+                                </StackPanel>
+                            </Button>
+                            <!--  <Button Name="ClearButton"
+                                            Grid.Row="0"
+                                            Grid.Column="2"
+                                            Classes="Flat Round"
+                                            Click="OnClearClicked">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock>Clear</TextBlock>
+                                            <avalonia:MaterialIcon Kind="Trash" />
+                                        </StackPanel>
+                                    </Button>-->
+                        </Grid>
                     </controls:GlassCard>
-                    <GridSplitter Grid.Column="1"
+                    <GridSplitter Grid.Row="0"
+                                  Grid.Column="2"
                                   Background="Transparent"
                                   ResizeDirection="Columns" />
                     <controls:GlassCard Name="GlassExample"
+                                        Grid.Row="0"
                                         Grid.Column="2"
                                         Margin="20" />
-
-
                 </Grid>
             </SplitView>
         </controls:SukiStackPage.Content>

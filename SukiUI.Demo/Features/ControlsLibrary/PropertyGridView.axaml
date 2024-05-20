@@ -18,7 +18,7 @@
                     <controls:PropertyGrid.DataTemplates>
                         <!--
                             replace the PropertyGridTemplateSelector with your own type or subclass it,
-                            if you want to customize the datatemplates being used
+                            if you want to customize the dataTemplates being used
                         -->
                         <controls:PropertyGridTemplateSelector UseSukiHost="False" />
                     </controls:PropertyGrid.DataTemplates>
