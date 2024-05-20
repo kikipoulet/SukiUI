@@ -47,7 +47,7 @@
             <Easing x:Key="MenuEasing">CircularEaseOut</Easing>
 
             <FontFamily x:Key="QuicksandFont">avares://SukiUI/CustomFont#Quicksand</FontFamily>
-
+            
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="avares://sukiUI/Theme/TextBlock.xaml" />
                 <ResourceInclude Source="avares://SukiUI/Theme/SplitView.axaml" />

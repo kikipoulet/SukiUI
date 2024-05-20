@@ -25,6 +25,10 @@
         <StyleInclude Source="avares://SukiUI.Demo/Styles/TextStyles.axaml" />
         <StyleInclude Source="avares://SukiUI.Demo/Styles/GlassCardStyles.axaml" />
         <avalonia:MaterialIconStyles />
+        
+        <!--
+        <StyleInclude Source="avares://SukiUI/CustomFont/MiSans/ChineseSupport.axaml"></StyleInclude>
+        -->
     </Application.Styles>
 
 </Application>

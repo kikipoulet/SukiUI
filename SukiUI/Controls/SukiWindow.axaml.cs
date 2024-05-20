@@ -135,7 +135,7 @@ public class SukiWindow : Window
         var stateObs = this.GetObservable(WindowStateProperty)
             .Do(OnWindowStateChanged)
             .Select(_ => Unit.Default);
-
+try{
         // Create handlers for buttons
         if (e.NameScope.Get<Button>("PART_MaximizeButton") is { } maximize)
         {
@@ -156,18 +156,20 @@ public class SukiWindow : Window
 
         if (e.NameScope.Get<GlassCard>("PART_TitleBarBackground") is { } titleBar)
             titleBar.PointerPressed += OnTitleBarPointerPressed;
+        
+    
+            if (e.NameScope.Get<SukiBackground>("PART_Background") is { } background)
+            {
+                background.SetAnimationEnabled(BackgroundAnimationEnabled);
+                var bgObs = this.GetObservable(BackgroundAnimationEnabledProperty)
+                    .Do(enabled => background.SetAnimationEnabled(enabled))
+                    .Select(_ => Unit.Default)
+                    .Merge(stateObs)
+                    .ObserveOn(new AvaloniaSynchronizationContext());
 
-        if (e.NameScope.Get<SukiBackground>("PART_Background") is { } background)
-        {
-            background.SetAnimationEnabled(BackgroundAnimationEnabled);
-            var bgObs = this.GetObservable(BackgroundAnimationEnabledProperty)
-                .Do(enabled => background.SetAnimationEnabled(enabled))
-                .Select(_ => Unit.Default)
-                .Merge(stateObs) 
-                .ObserveOn(new AvaloniaSynchronizationContext());
-
-            _subscriptionDisposables = bgObs.Subscribe();
-        }
+                _subscriptionDisposables = bgObs.Subscribe();
+            }
+        }catch{}
     }
     
     private void OnWindowStateChanged(WindowState state)

@@ -178,20 +178,23 @@ public class SukiHost : ContentControl
     /// <exception cref="InvalidOperationException">Thrown if there is no SukiHost associated with the specified window.</exception>
     public static async Task ShowToast(Window window, SukiToastModel model)
     {
-        if (!Instances.TryGetValue(window, out var host))
-            throw new InvalidOperationException("No SukiHost present in this window");
-        
-        var toast = SukiToastPool.Get();
-        toast.Initialize(model, host);
-        if (host.ToastsCollection.Count >= host._maxToasts)
-            await ClearToast(host.ToastsCollection.First());
-        Dispatcher.UIThread.Invoke(() =>
+        try
         {
-            host.ToastsCollection.Add(toast);
-            toast.Animate(OpacityProperty, 0d, 1d, TimeSpan.FromMilliseconds(500));
-            toast.Animate(MarginProperty, new Thickness(0, 10, 0, -10), new Thickness(),
-                TimeSpan.FromMilliseconds(500));
-        });
+            if (!Instances.TryGetValue(window, out var host))
+                throw new InvalidOperationException("No SukiHost present in this window");
+
+            var toast = SukiToastPool.Get();
+            toast.Initialize(model, host);
+            if (host.ToastsCollection.Count >= host._maxToasts)
+                await ClearToast(host.ToastsCollection.First());
+            Dispatcher.UIThread.Invoke(() =>
+            {
+                host.ToastsCollection.Add(toast);
+                toast.Animate(OpacityProperty, 0d, 1d, TimeSpan.FromMilliseconds(500));
+                toast.Animate(MarginProperty, new Thickness(0, 10, 0, -10), new Thickness(),
+                    TimeSpan.FromMilliseconds(500));
+            });
+        }catch{}
     }
     
     /// <summary>

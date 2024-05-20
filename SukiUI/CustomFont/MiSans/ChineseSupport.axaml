@@ -1,0 +1,14 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+
+   <Styles.Resources>
+       <ResourceDictionary>
+       <FontFamily x:Key="QuicksandFont">avares://SukiUI/CustomFont/MiSans#MiSans</FontFamily>
+           </ResourceDictionary>
+   </Styles.Resources>
+</Styles>

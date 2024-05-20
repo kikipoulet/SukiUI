@@ -39,6 +39,27 @@
 	<ItemGroup>
 		<AvaloniaResource Include="**\*.xaml" />
 		<AvaloniaResource Include="Content\Images\icons8-file-explorer-new-48.png" />
+		<None Remove="CustomFont\MiSans\MiSansLatin-Bold.ttf" />
+		<AvaloniaResource Include="CustomFont\MiSans\MiSansLatin-Bold.ttf" />
+	
+		<None Remove="CustomFont\MiSans\MiSansLatin-Demibold.ttf" />
+		<AvaloniaResource Include="CustomFont\MiSans\MiSansLatin-Demibold.ttf" />
+		<None Remove="CustomFont\MiSans\MiSansLatin-ExtraLight.ttf" />
+		<AvaloniaResource Include="CustomFont\MiSans\MiSansLatin-ExtraLight.ttf" />
+		<None Remove="CustomFont\MiSans\MiSansLatin-Heavy.ttf" />
+		<AvaloniaResource Include="CustomFont\MiSans\MiSansLatin-Heavy.ttf" />
+		<None Remove="CustomFont\MiSans\MiSansLatin-Light.ttf" />
+		<AvaloniaResource Include="CustomFont\MiSans\MiSansLatin-Light.ttf" />
+		<None Remove="CustomFont\MiSans\MiSansLatin-Medium.ttf" />
+		<AvaloniaResource Include="CustomFont\MiSans\MiSansLatin-Medium.ttf" />
+		<None Remove="CustomFont\MiSans\MiSansLatin-Normal.ttf" />
+		<AvaloniaResource Include="CustomFont\MiSans\MiSansLatin-Normal.ttf" />
+		<None Remove="CustomFont\MiSans\MiSansLatin-Regular.ttf" />
+		<AvaloniaResource Include="CustomFont\MiSans\MiSansLatin-Regular.ttf" />
+		<None Remove="CustomFont\MiSans\MiSansLatin-Semibold.ttf" />
+		<AvaloniaResource Include="CustomFont\MiSans\MiSansLatin-Semibold.ttf" />
+		<None Remove="CustomFont\MiSans\MiSansLatin-Thin.ttf" />
+		<AvaloniaResource Include="CustomFont\MiSans\MiSansLatin-Thin.ttf" />
 	</ItemGroup>
 
 	<ItemGroup>
