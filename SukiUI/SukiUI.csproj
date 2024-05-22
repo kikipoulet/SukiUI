@@ -86,4 +86,11 @@
 	  <UpToDateCheckInput Remove="Controls\TouchInput\TouchNumericPad\TouchNumericPad.axaml" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Update="Controls\WaveProgress.axaml.cs">
+	    <DependentUpon>WaveProgress.axaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	</ItemGroup>
+
 </Project>
