@@ -1,0 +1,38 @@
+name: "SukiUI Continuous Integration"
+
+on:
+  push:
+     branches:
+        - main
+    
+jobs:
+  build:
+     runs-on: ubuntu-latest
+     env:
+        Project_Path: SukiUI/SukiUI.csproj
+        Dll_Path: publish/SukiUI.dll
+     steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
+     
+        - name: Install .Net 8
+          uses: actions/setup-dotnet@v4
+          with: 
+            dotnet-version: 8.0.x
+
+        - name: Restore
+          run: dotnet restore ${{ env.Project_Path }}
+  
+        - name: Build
+          run: dotnet build ${{ env.Project_Path }} -c Release --no-restore
+  
+        - name: Publish
+          run: dotnet publish ${{ env.Project_Path }} -c Release -o "publish/" -p:AssemblyVersion=1.0.0.0
+  
+        - name: Upload Artifact
+          uses: actions/upload-artifact@v4
+          with:
+            name: SukiUI-dev
+            path: ${{ env.Dll_Path }}

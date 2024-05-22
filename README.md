@@ -23,6 +23,18 @@
 
 <br/>
 
+## 🚀 Getting Started
+
+### Install via Nuget (Recommended)
+
+Visit [SukiUI on Nuget.org](https://www.nuget.org/packages/SukiUI)
+
+### Add `.dll` reference via Github Action
+
+[![SukiUI Continuous Integration](https://github.com/kikipoulet/SukiUI/actions/workflows/build.yml/badge.svg)](https://github.com/kikipoulet/SukiUI/actions/workflows/build.yml)
+
+Download `SukiUI-dev` in artifacts
+
 ## 📱 UI Theme 
 
 ##### SukiUI contains a theme for AvaloniaUI's base controls with support for Light/Dark themes.
