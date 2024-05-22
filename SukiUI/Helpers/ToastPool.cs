@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SukiUI.Helpers;
 
-internal static class SukiToastPool
+internal static class ToastPool
 {
     private static readonly Stack<SukiToast> Pool = new();
 

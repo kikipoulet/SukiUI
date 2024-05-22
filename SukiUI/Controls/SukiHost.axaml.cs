@@ -176,14 +176,14 @@ public class SukiHost : ContentControl
     /// <param name="window">The window who's SukiHost should be used to display the toast.</param>
     /// <param name="model">A pre-constructed <see cref="SukiToastModel"/>.</param>
     /// <exception cref="InvalidOperationException">Thrown if there is no SukiHost associated with the specified window.</exception>
-    public static async Task ShowToast(Window window, SukiToastModel model)
+    public static async Task ShowToast(Window window, ToastModel model)
     {
         try
         {
             if (!Instances.TryGetValue(window, out var host))
                 throw new InvalidOperationException("No SukiHost present in this window");
 
-            var toast = SukiToastPool.Get();
+            var toast = ToastPool.Get();
             toast.Initialize(model, host);
             if (host.ToastsCollection.Count >= host._maxToasts)
                 await ClearToast(host.ToastsCollection.First());
@@ -202,7 +202,7 @@ public class SukiHost : ContentControl
     /// This method will show the toast in the earliest opened window.
     /// </summary>
     /// <param name="model">A pre-constructed <see cref="SukiToastModel"/>.</param>
-    public static Task ShowToast(SukiToastModel model) => 
+    public static Task ShowToast(ToastModel model) => 
         ShowToast(_mainWindow, model);
 
     /// <summary>
@@ -215,7 +215,7 @@ public class SukiHost : ContentControl
     /// <param name="duration">Duration for this toast to be active. Default is 2 seconds.</param>
     /// <param name="onClicked">A callback that will be fired if the Toast is cleared by clicking.</param>
     public static Task ShowToast(string title, object content, ToastType? type = ToastType.Info, TimeSpan? duration = null, Action? onClicked = null) =>
-        ShowToast(new SukiToastModel(
+        ShowToast(new ToastModel(
             title,
             content as Control ?? ViewLocator.TryBuild(content),
             type ?? ToastType.Info,
@@ -234,7 +234,7 @@ public class SukiHost : ContentControl
     /// <param name="onClicked">A callback that will be fired if the Toast is cleared by clicking.</param>
     public static Task ShowToast(Window window, string title, object content, ToastType? type = ToastType.Info, TimeSpan? duration = null,
         Action? onClicked = null) =>
-        ShowToast(window, new SukiToastModel(
+        ShowToast(window, new ToastModel(
             title,
             content as Control ?? ViewLocator.TryBuild(content),
             type ?? ToastType.Info,
@@ -260,7 +260,7 @@ public class SukiHost : ContentControl
         });
 
         if (!wasRemoved) return;
-        SukiToastPool.Return(toast);
+        ToastPool.Return(toast);
     }
 
     /// <summary>
@@ -270,7 +270,7 @@ public class SukiHost : ContentControl
     {
         if (!Instances.TryGetValue(window, out var host))
             throw new InvalidOperationException("No SukiHost present in this window");
-        SukiToastPool.Return(host.ToastsCollection);
+        ToastPool.Return(host.ToastsCollection);
         Dispatcher.UIThread.Invoke(() => host.ToastsCollection.Clear());
     }
 

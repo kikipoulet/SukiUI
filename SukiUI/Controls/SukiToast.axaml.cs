@@ -71,7 +71,7 @@ public class SukiToast : ContentControl
     private readonly SolidColorBrush _warningIconForeground = new(Color.FromRgb(177,113,20));
     private readonly SolidColorBrush _errorIconForeground = new(Color.FromRgb(216,63,48));
 
-    public void Initialize(SukiToastModel model, SukiHost host)
+    public void Initialize(ToastModel model, SukiHost host)
     {
         Host = host;
         Title = model.Title;
