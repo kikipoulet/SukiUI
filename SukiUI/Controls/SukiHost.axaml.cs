@@ -214,11 +214,11 @@ public class SukiHost : ContentControl
     /// <param name="type">The type of the toast, including Info, Success, Warning and Error</param>
     /// <param name="duration">Duration for this toast to be active. Default is 2 seconds.</param>
     /// <param name="onClicked">A callback that will be fired if the Toast is cleared by clicking.</param>
-    public static Task ShowToast(string title, object content, SukiToastType? type = SukiToastType.Info, TimeSpan? duration = null, Action? onClicked = null) =>
+    public static Task ShowToast(string title, object content, ToastType? type = ToastType.Info, TimeSpan? duration = null, Action? onClicked = null) =>
         ShowToast(new SukiToastModel(
             title,
             content as Control ?? ViewLocator.TryBuild(content),
-            type ?? SukiToastType.Info,
+            type ?? ToastType.Info,
             duration ?? TimeSpan.FromSeconds(4),
             onClicked));
 
@@ -232,12 +232,12 @@ public class SukiHost : ContentControl
     /// <param name="type">The type of the toast, including Info, Success, Warning and Error</param>
     /// <param name="duration">Duration for this toast to be active. Default is 2 seconds.</param>
     /// <param name="onClicked">A callback that will be fired if the Toast is cleared by clicking.</param>
-    public static Task ShowToast(Window window, string title, object content, SukiToastType? type = SukiToastType.Info, TimeSpan? duration = null,
+    public static Task ShowToast(Window window, string title, object content, ToastType? type = ToastType.Info, TimeSpan? duration = null,
         Action? onClicked = null) =>
         ShowToast(window, new SukiToastModel(
             title,
             content as Control ?? ViewLocator.TryBuild(content),
-            type ?? SukiToastType.Info,
+            type ?? ToastType.Info,
             duration ?? TimeSpan.FromSeconds(4),
             onClicked));
 

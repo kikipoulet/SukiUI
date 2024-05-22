@@ -78,18 +78,18 @@ public class SukiToast : ContentControl
         Content = model.Content;
         Icon = model.Type switch
         {
-            SukiToastType.Info => Icons.InformationOutline,
-            SukiToastType.Success => Icons.CircleOutlineCheck,
-            SukiToastType.Warning => Icons.AlertOutline,
-            SukiToastType.Error => Icons.CircleOutlineMinus,
+            ToastType.Info => Icons.InformationOutline,
+            ToastType.Success => Icons.CircleOutlineCheck,
+            ToastType.Warning => Icons.AlertOutline,
+            ToastType.Error => Icons.CircleOutlineMinus,
             _ => Icons.InformationOutline
         };
         Foreground = model.Type switch
         {
-            SukiToastType.Info => _infoIconForeground,
-            SukiToastType.Success => _successIconForeground,
-            SukiToastType.Warning => _warningIconForeground,
-            SukiToastType.Error => _errorIconForeground,
+            ToastType.Info => _infoIconForeground,
+            ToastType.Success => _successIconForeground,
+            ToastType.Warning => _warningIconForeground,
+            ToastType.Error => _errorIconForeground,
             _ => _infoIconForeground
         };
         _onClickedCallback = model.OnClicked;
