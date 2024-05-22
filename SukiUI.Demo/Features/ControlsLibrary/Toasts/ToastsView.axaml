@@ -14,7 +14,7 @@
             <controls:GroupBox Header="Toasts">
                 <StackPanel Classes="HeaderContent">
                     <TextBlock>
-                        SukiUI contains an API for creating and dismissing toasts, with the ability to set limits on the number of toasts.
+                        SukiUI contains an API for creating and dismissing 4 kinds of toasts, with the ability to set limits on the number of toasts.
                     </TextBlock>
                     <TextBlock>
                         It is also possible to set the toasts to appear in the bottom right (default) or in the bottom left.

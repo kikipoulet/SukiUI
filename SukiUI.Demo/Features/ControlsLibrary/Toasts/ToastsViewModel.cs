@@ -22,19 +22,19 @@ public partial class ToastsViewModel() : DemoPageBase("Toasts", MaterialIconKind
         
     [RelayCommand]
     private static Task ShowInfoToast() =>
-        SukiHost.ShowToast("A Simple Toast", "This is the content of an info toast.", SukiToastType.Info);
+        SukiHost.ShowToast("A Simple Toast", "This is the content of an info toast.", ToastType.Info);
         
     [RelayCommand]
     private static Task ShowSuccessToast() =>
-        SukiHost.ShowToast("A Simple Toast", "This is the content of a success toast.", SukiToastType.Success);
+        SukiHost.ShowToast("A Simple Toast", "This is the content of a success toast.", ToastType.Success);
         
     [RelayCommand]
     private static Task ShowWarningToast() =>
-        SukiHost.ShowToast("A Simple Toast", "This is the content of a warning toast.", SukiToastType.Warning);
+        SukiHost.ShowToast("A Simple Toast", "This is the content of a warning toast.", ToastType.Warning);
         
     [RelayCommand]
     private static Task ShowErrorToast() =>
-        SukiHost.ShowToast("A Simple Toast", "This is the content of an error toast.", SukiToastType.Error);
+        SukiHost.ShowToast("A Simple Toast", "This is the content of an error toast.", ToastType.Error);
 
     [RelayCommand]
     private static async Task ShowThreeInfoToasts()
@@ -46,7 +46,7 @@ public partial class ToastsViewModel() : DemoPageBase("Toasts", MaterialIconKind
     [RelayCommand]
     private static Task ShowToastWithCallback()
     {
-        return SukiHost.ShowToast("Click This Toast", "Click this toast to open a dialog.", SukiToastType.Info, TimeSpan.FromSeconds(15),
+        return SukiHost.ShowToast("Click This Toast", "Click this toast to open a dialog.", ToastType.Info, TimeSpan.FromSeconds(15),
             () => SukiHost.ShowDialog(
                 new TextBlock { Text = "You clicked the toast! - Click anywhere outside of this dialog to close." },
                 allowBackgroundClose: true));
