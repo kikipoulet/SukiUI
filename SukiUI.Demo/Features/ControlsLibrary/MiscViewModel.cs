@@ -7,6 +7,7 @@ using Avalonia.Platform.Storage;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
+using SukiUI.Controls;
 
 namespace SukiUI.Demo.Features.ControlsLibrary;
 
@@ -22,6 +23,12 @@ public partial class MiscViewModel() : DemoPageBase("Miscellaneous", MaterialIco
         IsBusy = true;
         await Task.Delay(3000);
         IsBusy = false;
+    }
+    
+    [RelayCommand]
+    private void OpenBox()
+    {
+        SukiHost.ShowDialog(new MessageBox(), false, true);
     }
         
     [RelayCommand]

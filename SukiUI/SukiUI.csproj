@@ -91,10 +91,6 @@
 	    <DependentUpon>WaveProgress.axaml</DependentUpon>
 	    <SubType>Code</SubType>
 	  </Compile>
-	  <Compile Update="Controls\MessageBox.axaml.cs">
-	    <DependentUpon>MessageBox.axaml</DependentUpon>
-	    <SubType>Code</SubType>
-	  </Compile>
 	</ItemGroup>
 
 </Project>
