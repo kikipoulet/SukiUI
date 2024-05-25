@@ -10,8 +10,6 @@ body:
       options:
         - label: I have looked up relevant Issue
           required: false
-        - label: I've read [How To Ask Questions](https://github.com/betaseeker/How-To-Ask-Questions)
-          required: false
   - type: textarea
     id: description
     attributes:
