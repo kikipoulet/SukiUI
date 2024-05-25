@@ -35,6 +35,12 @@ Visit [SukiUI on Nuget.org](https://www.nuget.org/packages/SukiUI)
 
 Download `SukiUI-dev` in artifacts
 
+## 📄 Documentation
+
+[SukiUI Documentation](https://kikipoulet.github.io/SukiUI/) *WIP*
+
+[Wiki](https://github.com/kikipoulet/SukiUI/wiki)
+
 ## 📱 UI Theme 
 
 ##### SukiUI contains a theme for AvaloniaUI's base controls with support for Light/Dark themes.

@@ -1,5 +1,4 @@
 ---
-# https://vitepress.dev/reference/default-theme-home-page
 layout: home
 
 hero:
@@ -8,28 +7,28 @@ hero:
   tagline: Modern, Simple, Animated
   actions:
     - theme: brand
-      text: Get Started
-      link: /markdown-examples
+      text: 🚀 Get Started
+      link: /documentation/getting-started/introduction
     - theme: alt
-      text: Documentation
-      link: /api-examples
+      text: 📄 Documentation
+      link: /documentation
   image:
-    src: https://raw.githubusercontent.com/kikipoulet/SukiUI/main/Images/OIG.N5o-removebg-preview.png
+    src: ./suki.webp
     alt: SukiUILogo
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: 🔧 Flexible Theme Customization
+    details: Support seamless switching themes and colors to align with your app's identity.
+  - title: 🎞️ Rich Animation
+    details: Captivate users with dynamic, fluid animations that make interactions delightful.
+  - title: 🖥️ Desktop Cross-platform
+    details: Based on AvaloniaUI, achieve broad compatibility with consistent performance on Windows, macOS, and Linux.
 ---
 
 <style>
 :root {
   --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #ede0b3 30%, #8f4136);
+  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #ede0b3 50%, #8f4136);
 }
 
 @media (min-width: 640px) {
