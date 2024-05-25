@@ -14,7 +14,7 @@ export const zh = defineConfig({
         items: [
           { text: '介绍', link: '/zh/documentation/getting-started/introduction' },
           { text: '安装', link: '/zh/documentation/getting-started/installation' },
-          { text: '启动', link: '/zh/documentation/getting-started/launch' },
+          { text: '启动应用', link: '/zh/documentation/getting-started/launch' },
         ]
       },
       {
