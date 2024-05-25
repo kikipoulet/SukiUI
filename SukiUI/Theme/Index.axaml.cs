@@ -206,6 +206,7 @@ public partial class SukiTheme : Styles
         SetResource($"{baseName}25", baseColor.WithAlpha(0.25));
         SetResource($"{baseName}15", baseColor.WithAlpha(0.15));
         SetResource($"{baseName}10", baseColor.WithAlpha(0.10));
+        SetResource($"{baseName}7", baseColor.WithAlpha(0.07));
         SetResource($"{baseName}5", baseColor.WithAlpha(0.05));
         SetResource($"{baseName}0", baseColor.WithAlpha(0.00));
     }
