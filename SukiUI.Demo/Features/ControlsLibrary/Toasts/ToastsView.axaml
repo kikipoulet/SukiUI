@@ -79,6 +79,13 @@
                     </controls:GroupBox>
                 </controls:GlassCard>
                 <controls:GlassCard>
+                    <controls:GroupBox Header="Action Toast">
+                        <Button Margin="15,10,15,0"
+                                Command="{Binding ShowActionToastCommand}"
+                                Content="Show Toast" />
+                    </controls:GroupBox>
+                </controls:GlassCard>
+                <controls:GlassCard>
                     <controls:GroupBox Header="Separate Toast Window">
                         <Button Margin="15,10,15,0"
                                 Command="{Binding ShowToastWindowCommand}"

@@ -6,6 +6,7 @@ using Material.Icons;
 using SukiUI.Controls;
 using SukiUI.Demo.Utilities;
 using SukiUI.Enums;
+using SukiUI.Models;
 
 namespace SukiUI.Demo.Features.ControlsLibrary.Toasts;
 
@@ -23,6 +24,11 @@ public partial class ToastsViewModel() : DemoPageBase("Toasts", MaterialIconKind
     [RelayCommand]
     private static Task ShowInfoToast() =>
         SukiHost.ShowToast("A Simple Toast", "This is the content of an info toast.", ToastType.Info);
+    
+    [RelayCommand]
+    private static Task ShowActionToast() =>
+        SukiHost.ShowToast(new ToastModel("Update Available", "A new version is available for you.", ToastType.Info, TimeSpan.FromSeconds(5), null, "Update Now",
+            () => { SukiHost.ShowToast("Update", "Update done !");}));
         
     [RelayCommand]
     private static Task ShowSuccessToast() =>
