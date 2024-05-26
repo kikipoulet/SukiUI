@@ -1,0 +1,20 @@
+name: Documentation
+description: Submit documentation suggestions to help improve
+title: "[Doc] "
+labels:
+  - Documentation
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Suggestion
+      description: Please describe in detail.
+    validations:
+      required: true
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Information
+      description: Add any other context about the problem here
+    validations:
+      required: false

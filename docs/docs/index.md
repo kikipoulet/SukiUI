@@ -4,7 +4,7 @@ layout: home
 hero:
   name: "SukiUI"
   text: "A Desktop UI Library for Avalonia"
-  tagline: Modern, Simple, Animated
+  tagline: Flat, Simple, Animated
   actions:
     - theme: brand
       text: 🚀 Get Started
