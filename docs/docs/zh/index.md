@@ -4,7 +4,7 @@ layout: home
 hero:
   name: "SukiUI"
   text: "一个 Avalonia 控件库"
-  tagline: 现代，简单，灵动
+  tagline: 扁平，简单，灵动
   actions:
     - theme: brand
       text: 🚀 开始
