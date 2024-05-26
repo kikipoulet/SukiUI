@@ -49,11 +49,11 @@
                         
                         <DockPanel Margin="0,-7" LastChildFill="True">
                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                               <TextBlock Margin="12,0,0,0"
+                               <ContentPresenter Margin="12,0,0,0"
                                        FontSize="15"
                                        FontWeight="DemiBold"
                                        Foreground="{DynamicResource SukiText}"
-                                       Text="{TemplateBinding Title}" />
+                                       Content="{TemplateBinding Title}" />
                         </StackPanel>
                             <Button Name="ButtonAction" FontSize="14" Padding="14,6" DockPanel.Dock="Bottom" IsVisible="{TemplateBinding ShowActionButton}" HorizontalAlignment="Right" Margin="0,14,0,0" Content="{TemplateBinding ActionButtonContent}">
                             </Button>
@@ -68,13 +68,12 @@
                     </Border>
                 </Border>
                     <Border  BoxShadow="{DynamicResource SukiSmallPopupShadow}"
-                             Margin="20,0,0,0" Background="{DynamicResource SukiCardBackground}" Width="40" Height="40" CornerRadius="40" VerticalAlignment="Center" HorizontalAlignment="Left">
-                        <Border CornerRadius="40" ClipToBounds="True">
+                             Margin="22,0,0,0" Background="{DynamicResource SukiCardBackground}" Width="35" Height="35" CornerRadius="35" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <Border CornerRadius="35" ClipToBounds="True">
                         <Panel>
-                            <Panel IsVisible="{DynamicResource IsDark}" Opacity="1" Background="{TemplateBinding Foreground}"></Panel>
-                            <Panel IsVisible="{DynamicResource IsLight}" Opacity="1" Background="{TemplateBinding Foreground}"></Panel>
-                            <PathIcon Width="16" Margin="0,0,0,0"
-                                      Height="16" HorizontalAlignment="Center" VerticalAlignment="Center"
+                            <Panel  Opacity="1" Background="{TemplateBinding Foreground}"></Panel>
+                           <PathIcon Width="15" Margin="0,0,0,0"
+                                      Height="15" HorizontalAlignment="Center" VerticalAlignment="Center"
                                       Data="{TemplateBinding Icon}"
                                       Foreground="White" />
 

@@ -14,7 +14,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Interactivity;
 using Avalonia.LogicalTree;
+using Avalonia.Media;
 using Avalonia.VisualTree;
+using SukiUI.Content;
 
 namespace SukiUI.Controls;
 
@@ -144,6 +146,47 @@ public class SukiHost : ContentControl
     /// <param name="allowBackgroundClose">Allows the dialog to be closed by clicking outside of it.</param>
     public static void ShowDialog(object? content, bool showCardBehind = true, bool allowBackgroundClose = false) =>
         ShowDialog(_mainWindow, content, showCardBehind, allowBackgroundClose);
+
+    public static void ShowMessageBox(MessageBoxModel model, bool allowbackgroundclose = true)
+    {
+        
+        
+        SukiHost.ShowDialog(new MessageBox(){
+            _onActionCallback = model.ActionButton,
+            Title = model.Title, Content = model.Content, ShowActionButton = model.ActionButtonContent != null, 
+            ActionButtonContent = model.ActionButtonContent, 
+            Icon = model.Type switch
+            {
+                ToastType.Info => Icons.InformationOutline,
+                ToastType.Success => Icons.Check,
+                ToastType.Warning => Icons.AlertOutline,
+                ToastType.Error => Icons.AlertOutline,
+                _ => Icons.InformationOutline
+            }
+            , Foreground = model.Type switch
+            {
+                ToastType.Info => SukiHost.GetGradient(Color.FromRgb(47,84,235)),
+                ToastType.Success => SukiHost.GetGradient(Color.FromRgb(82,196,26)),
+                ToastType.Warning => SukiHost.GetGradient(Color.FromRgb(240,140,22)),
+                ToastType.Error => SukiHost.GetGradient(Color.FromRgb(245,34,45)),
+                _ => SukiHost.GetGradient(Color.FromRgb(89,126,255))
+            }}, false, allowbackgroundclose);
+
+    }
+
+    private static LinearGradientBrush GetGradient(Color c1)
+    {
+        return new LinearGradientBrush()
+        {
+            StartPoint = new RelativePoint(0, 0, RelativeUnit.Relative),
+            EndPoint = new RelativePoint(1, 1, RelativeUnit.Relative),
+            GradientStops =
+            {
+                new GradientStop(){Color = c1, Offset = 0},
+                new GradientStop(){Color = Color.FromArgb(140, c1.R,c1.G,c1.B), Offset = 1}
+            }
+        };
+    }
     
     /// <summary>
     /// Attempts to close a dialog if one is shown in a specific window.

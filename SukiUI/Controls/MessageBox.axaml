@@ -6,6 +6,10 @@
              xmlns:content="clr-namespace:SukiUI.Content"
              mc:Ignorable="d" d:DesignWidth="480"  Width="480" 
              x:Class="SukiUI.Controls.MessageBox">
+    <UserControl.Styles>
+        <Style Selector="controls|MessageBox">
+            <Setter Property="Template">
+                <ControlTemplate>
     <Panel>
         <Border Background="{DynamicResource SukiCardBackground}" BorderBrush="{DynamicResource SukiBorderBrush}" BorderThickness="1" CornerRadius="25" Margin="0,90,0,0">
             <Border CornerRadius="25" ClipToBounds="True">
@@ -32,39 +36,37 @@
                         </Panel.Background>
                 </Panel>
                 <StackPanel>
-                    <TextBlock Margin="0,60,0,0" Text="New Update Available !" FontWeight="DemiBold" FontSize="26" HorizontalAlignment="Center" Foreground="{DynamicResource SukiText}"></TextBlock>
-                    <TextBlock Margin="30,20,30,30" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." FontWeight="DemiBold" TextWrapping="Wrap" Foreground="{DynamicResource SukiLowText}"></TextBlock>
-                    <StackPanel Orientation="Horizontal" Spacing="15" Margin="0,0,30,30" HorizontalAlignment="Right">
+                    <TextBlock Margin="0,60,0,0" Text="{TemplateBinding Title}" FontWeight="DemiBold" FontSize="26" HorizontalAlignment="Center" Foreground="{DynamicResource SukiText}"></TextBlock>
+                    <ContentPresenter Margin="30,20,30,30" Content="{TemplateBinding Content}" FontWeight="DemiBold" TextWrapping="Wrap" Foreground="{DynamicResource SukiLowText}"></ContentPresenter>
+                    <StackPanel IsVisible="{TemplateBinding ShowActionButton}" Orientation="Horizontal" Spacing="15" Margin="0,0,30,30" HorizontalAlignment="Right">
                       
-                        <Button Classes="Flat" Content="Update Now"></Button>
+                        <Button Name="ButtonAction" Classes="Flat" Content="{TemplateBinding ActionButtonContent}"></Button>
                     </StackPanel>
                 </StackPanel>
             </Panel>
             </Border>
         </Border>
         
-        <Border CornerRadius="50" Margin="0,50,0,0" Height="60" Width="70" HorizontalAlignment="Center" VerticalAlignment="Top" BoxShadow="0 0 40 0 blue"></Border>
+        <Border CornerRadius="50" Margin="0,50,0,0" Height="60" Width="70" HorizontalAlignment="Center" VerticalAlignment="Top" BoxShadow="{DynamicResource SukiBigPopupShadow}"></Border>
         <Border  
                  Margin="0,20,0,0" Background="#fafafa" Width="100" Height="100" CornerRadius="50" VerticalAlignment="Top" HorizontalAlignment="Center">
             <Border CornerRadius="50" ClipToBounds="True">
                 <Panel>
-                    <Panel Opacity="1" >
-                        <Panel.Background>
-                        <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
-                            <GradientStop Color="{DynamicResource SukiPrimaryColor}" Offset="0"></GradientStop>
-                            <GradientStop Color="{DynamicResource SukiPrimaryColor50}" Offset="1"></GradientStop>
-
-                        </LinearGradientBrush>
-                        </Panel.Background>
+                    <Panel Opacity="1"  Background="{TemplateBinding Foreground}">
+                        
                     </Panel>
                     
                     <PathIcon Width="28" Margin="0,0,0,0"
                               Height="28" HorizontalAlignment="Center" VerticalAlignment="Center"
-                              Data="{x:Static content:Icons.InformationOutline}"
+                              Data="{TemplateBinding Icon}"
                               Foreground="White" />
 
                 </Panel>
             </Border>
         </Border>
     </Panel>
+                </ControlTemplate>
+            </Setter>
+            </Style>
+        </UserControl.Styles>
 </UserControl>

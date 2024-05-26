@@ -3,11 +3,15 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
+using SukiUI.Content;
 using SukiUI.Controls;
+using SukiUI.Enums;
+using SukiUI.Models;
 
 namespace SukiUI.Demo.Features.ControlsLibrary;
 
@@ -28,7 +32,13 @@ public partial class MiscViewModel() : DemoPageBase("Miscellaneous", MaterialIco
     [RelayCommand]
     private void OpenBox()
     {
-        SukiHost.ShowDialog(new MessageBox(), false, true);
+        SukiHost.ShowMessageBox(new MessageBoxModel("Update Available", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", ToastType.Info, "Update Now", () =>{SukiHost.CloseDialog();} ));
+    }
+    
+    [RelayCommand]
+    private void OpenBoxError()
+    {
+        SukiHost.ShowMessageBox(new MessageBoxModel("Error", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ", ToastType.Error));
     }
         
     [RelayCommand]

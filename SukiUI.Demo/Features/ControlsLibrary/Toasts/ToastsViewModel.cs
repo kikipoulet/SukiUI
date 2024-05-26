@@ -28,7 +28,7 @@ public partial class ToastsViewModel() : DemoPageBase("Toasts", MaterialIconKind
     [RelayCommand]
     private static Task ShowActionToast() =>
         SukiHost.ShowToast(new ToastModel("Update Available", "A new version is available for you.", ToastType.Info, TimeSpan.FromSeconds(5), null, "Update Now",
-            () => { SukiHost.ShowToast("Update", "Update done !");}));
+            () => { SukiHost.ShowToast("Update", new ProgressBar(){Value = 43, ShowProgressText = true});}));
         
     [RelayCommand]
     private static Task ShowSuccessToast() =>
