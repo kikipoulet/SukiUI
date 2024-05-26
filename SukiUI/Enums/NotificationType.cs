@@ -1,6 +1,6 @@
 ﻿namespace SukiUI.Enums;
 
-public enum ToastType
+public enum NotificationType
 {
     Info,
     Success,
