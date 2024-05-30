@@ -1,0 +1,181 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Panel Height="300" Width="300">
+            <DockTarget>
+                <DockTarget.Styles>
+                    <Style Selector="^/template/ Panel#PART_TopIndicator">
+                        <Setter Property="Opacity" Value="0.0" />
+                    </Style>
+                    <Style Selector="^/template/ Panel#PART_BottomIndicator">
+                        <Setter Property="Opacity" Value="0.0" />
+                    </Style>
+                    <Style Selector="^/template/ Panel#PART_LeftIndicator">
+                        <Setter Property="Opacity" Value="0.0" />
+                    </Style>
+                    <Style Selector="^/template/ Panel#PART_RightIndicator">
+                        <Setter Property="Opacity" Value="0.0" />
+                    </Style>
+                    <Style Selector="^/template/ Panel#PART_CenterIndicator">
+                        <Setter Property="Opacity" Value="0.0" />
+                    </Style>
+                </DockTarget.Styles>
+            </DockTarget>
+        </Panel>
+    </Design.PreviewWith>
+
+    <ControlTheme TargetType="DockTarget" x:Key="{x:Type DockTarget}">
+
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid
+                    ColumnDefinitions="*,*"
+                    RowDefinitions="*,*"
+                    x:CompileBindings="True"
+                    x:Name="PART_IndicatorGrid">
+                    <Border
+                        ClipToBounds="True"
+                        CornerRadius="16"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="0">
+                        <Panel x:Name="PART_TopIndicator" />
+                    </Border>
+                    <Border
+                        ClipToBounds="True"
+                        CornerRadius="16"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="1">
+                        <Panel x:Name="PART_BottomIndicator" />
+                    </Border>
+                    <Border
+                        ClipToBounds="True"
+                        CornerRadius="16"
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Grid.RowSpan="2">
+                        <Panel
+                            Grid.Column="0"
+                            Grid.Row="0"
+                            Grid.RowSpan="2"
+                            x:Name="PART_LeftIndicator" />
+                    </Border>
+                    <Border
+                        ClipToBounds="True"
+                        CornerRadius="16"
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        Grid.RowSpan="2">
+                        <Panel x:Name="PART_RightIndicator" />
+                    </Border>
+                    <Border
+                        ClipToBounds="True"
+                        CornerRadius="16"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="0"
+                        Grid.RowSpan="2">
+                        <Panel x:Name="PART_CenterIndicator" />
+                    </Border>
+                    <Border
+                        ClipToBounds="True"
+                        CornerRadius="16"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="0"
+                        Grid.RowSpan="2">
+                        <Panel x:Name="PART_SelectorPanel">
+                            <Grid
+                                ColumnDefinitions="*,*,*"
+                                RowDefinitions="*,*,*"
+                                x:Name="PART_SelectorGrid">
+                                <Image
+                                    Grid.Column="1"
+                                    Grid.Row="0"
+                                    x:Name="PART_TopSelector" />
+                                <Image
+                                    Grid.Column="1"
+                                    Grid.Row="2"
+                                    x:Name="PART_BottomSelector" />
+                                <Image
+                                    Grid.Column="0"
+                                    Grid.Row="1"
+                                    x:Name="PART_LeftSelector" />
+                                <Image
+                                    Grid.Column="2"
+                                    Grid.Row="1"
+                                    x:Name="PART_RightSelector" />
+                                <Image
+                                    Grid.Column="1"
+                                    Grid.Row="1"
+                                    x:Name="PART_CenterSelector" />
+                            </Grid>
+                        </Panel>
+                    </Border>
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^/template/ Grid#PART_SelectorGrid">
+            <Setter Property="MaxWidth" Value="125" />
+            <Setter Property="MaxHeight" Value="125" />
+        </Style>
+
+        <Style Selector="^/template/ Panel#PART_TopIndicator">
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor25}" />
+            <Setter Property="Opacity" Value="0" />
+        </Style>
+
+        <Style Selector="^/template/ Panel#PART_BottomIndicator">
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor25}" />
+            <Setter Property="Opacity" Value="0" />
+        </Style>
+
+        <Style Selector="^/template/ Panel#PART_LeftIndicator">
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor25}" />
+            <Setter Property="Opacity" Value="0" />
+        </Style>
+
+        <Style Selector="^/template/ Panel#PART_RightIndicator">
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor25}" />
+            <Setter Property="Opacity" Value="0" />
+        </Style>
+
+        <Style Selector="^/template/ Panel#PART_CenterIndicator">
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor25}" />
+            <Setter Property="Opacity" Value="0" />
+        </Style>
+
+        <Style Selector="^/template/ Image#PART_TopSelector">
+            <Setter Property="Source" Value="avares://Dock.Avalonia/Assets/DockAnchorableTop.png" />
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="40" />
+        </Style>
+
+        <Style Selector="^/template/ Image#PART_BottomSelector">
+            <Setter Property="Source" Value="avares://Dock.Avalonia/Assets/DockAnchorableBottom.png" />
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="40" />
+        </Style>
+
+        <Style Selector="^/template/ Image#PART_LeftSelector">
+            <Setter Property="Source" Value="avares://Dock.Avalonia/Assets/DockAnchorableLeft.png" />
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="40" />
+        </Style>
+
+        <Style Selector="^/template/ Image#PART_RightSelector">
+            <Setter Property="Source" Value="avares://Dock.Avalonia/Assets/DockAnchorableRight.png" />
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="40" />
+        </Style>
+
+        <Style Selector="^/template/ Image#PART_CenterSelector">
+            <Setter Property="Source" Value="avares://Dock.Avalonia/Assets/DockDocumentInside.png" />
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="40" />
+        </Style>
+
+    </ControlTheme>
+
+</ResourceDictionary>

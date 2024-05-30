@@ -1,0 +1,57 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:core="using:Dock.Model.Core"
+                    xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+                    xmlns:converters="clr-namespace:Dock.Avalonia.Converters">
+  <Design.PreviewWith>
+    <ToolDockControl Width="300" Height="300" />
+  </Design.PreviewWith>
+
+  <ControlTheme x:Key="{x:Type ToolDockControl}" TargetType="ToolDockControl">
+
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border IsVisible="{TemplateBinding Background, Converter={x:Static converters:TransparentToTrueConverter.Instance}}" Margin="8" CornerRadius="20" BoxShadow="{DynamicResource SukiPopupShadow}"></Border>
+          <controls:GlassCard  Margin="8" Padding="0">
+        <Panel>
+          
+          <Panel IsVisible="{TemplateBinding Background, Converter={x:Static converters:TransparentToTrueConverter.Instance}}">
+            <Panel Background="{DynamicResource SukiCardBackground}"></Panel>
+            <Panel Margin="0">
+              <Panel.Background>
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                  <GradientStop Color="{DynamicResource SukiAccentColor5}" Offset="0"></GradientStop>
+                  <GradientStop Color="{DynamicResource SukiPrimaryColor10}" Offset="1"></GradientStop>
+                </LinearGradientBrush>
+              </Panel.Background>
+            </Panel>
+          </Panel>
+          
+          <DockableControl Margin="12,15" Name="PART_DockableControl"
+                           TrackingMode="Visible"
+                           Background="Transparent"
+                           x:DataType="core:IDock">
+          <ToolChromeControl IsActive="{Binding IsActive}"
+                             IsVisible="{Binding !!VisibleDockables.Count}"
+                             x:DataType="core:IDock">
+            <ToolControl />
+          </ToolChromeControl>
+        </DockableControl>
+        </Panel>
+        </controls:GlassCard>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <!--
+    <Style Selector="^[(ProportionalStackPanelSplitter.IsEmpty)=False] /template/ DockableControl#PART_DockableControl">
+      <Setter Property="Background" Value="Blue" />
+    </Style>
+
+    <Style Selector="^[(ProportionalStackPanelSplitter.IsEmpty)=True] /template/ DockableControl#PART_DockableControl">
+      <Setter Property="Background" Value="Red" />
+    </Style>
+    -->
+  </ControlTheme>
+
+</ResourceDictionary>

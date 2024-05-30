@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Settings.XamlStyler = Settings.XamlStyler
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SukiUI.Dock", "SukiUI.Dock\SukiUI.Dock.csproj", "{B82306B8-613C-4360-882B-F19FE0F3265B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{1AF8DFD4-73DA-47FD-A034-635342AD9B9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AF8DFD4-73DA-47FD-A034-635342AD9B9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AF8DFD4-73DA-47FD-A034-635342AD9B9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B82306B8-613C-4360-882B-F19FE0F3265B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B82306B8-613C-4360-882B-F19FE0F3265B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B82306B8-613C-4360-882B-F19FE0F3265B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B82306B8-613C-4360-882B-F19FE0F3265B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

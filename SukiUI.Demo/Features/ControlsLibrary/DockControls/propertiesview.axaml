@@ -1,0 +1,47 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:theme="clr-namespace:SukiUI.Theme;assembly=SukiUI"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="SukiUI.Demo.Features.ControlsLibrary.DockControls.propertiesview">
+     <StackPanel Margin="15,25,15,0" >
+   <Expander Header="Window Informations" IsExpanded="True">
+     <StackPanel Margin="25,0" Spacing="10">
+       <Panel  >
+       <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Text="Window Title" FontWeight="DemiBold" Foreground="{DynamicResource SukiLowText}"></TextBlock>
+       <TextBox Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Text="Dock Demo"></TextBox>
+       </Panel>
+       <Panel>
+         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Text="Height" FontWeight="DemiBold" Foreground="{DynamicResource SukiLowText}"></TextBlock>
+         <NumericUpDown VerticalAlignment="Center" HorizontalAlignment="Right" Value="800" theme:NumericUpDownExtensions.Unit="px" ShowButtonSpinner="False"></NumericUpDown>
+       </Panel>
+       <Panel>
+         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Text="Width" FontWeight="DemiBold" Foreground="{DynamicResource SukiLowText}"></TextBlock>
+         <NumericUpDown VerticalAlignment="Center" HorizontalAlignment="Right" Value="1200" theme:NumericUpDownExtensions.Unit="px" ShowButtonSpinner="False"></NumericUpDown>
+       </Panel>
+       <Panel>
+         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Text="Maximized" FontWeight="DemiBold" Foreground="{DynamicResource SukiLowText}"></TextBlock>
+         <ToggleSwitch VerticalAlignment="Center" HorizontalAlignment="Right" IsChecked="True"></ToggleSwitch>
+       </Panel>
+     </StackPanel>
+   </Expander>
+    
+    <Expander Margin="0,35,0,0" Header="Running State" IsExpanded="True">
+      <StackPanel Margin="25,0" Spacing="10">
+       
+        <Panel>
+          <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Text="Read Only" FontWeight="DemiBold" Foreground="{DynamicResource SukiLowText}"></TextBlock>
+          <ToggleSwitch VerticalAlignment="Center" HorizontalAlignment="Right" IsChecked="False"></ToggleSwitch>
+        </Panel>
+        
+        
+        <Panel>
+          <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Text="Running" FontWeight="DemiBold" Foreground="{DynamicResource SukiLowText}"></TextBlock>
+          <ToggleSwitch VerticalAlignment="Center" HorizontalAlignment="Right" IsChecked="True"></ToggleSwitch>
+        </Panel>
+      </StackPanel>
+    </Expander>
+   
+  </StackPanel>
+</UserControl>

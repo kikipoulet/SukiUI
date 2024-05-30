@@ -1,0 +1,23 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:dockControls="clr-namespace:SukiUI.Demo.Features.ControlsLibrary.DockControls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="SukiUI.Demo.Features.ControlsLibrary.DockControls.SolutionExplore">
+    <TreeView x:Name="TV">
+        <TreeView.ItemTemplate>
+            <DataTemplate>
+                <TreeViewItem Margin="0,-1" HorizontalAlignment="Left"  x:DataType="dockControls:FolderItem" ItemsSource="{Binding Children}">
+                    <TreeViewItem.Header>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <avalonia:MaterialIcon Foreground="Gold" IsVisible="{Binding IsDirectory}" Margin="5,0" Kind="Folder" Height="15" Width="15" VerticalAlignment="Center" />
+                            <TextBlock VerticalAlignment="Center" Text="{Binding Name}" FontWeight="DemiBold" FontSize="13" Foreground="{DynamicResource SukiLowText}"></TextBlock>
+                        </StackPanel>
+                    </TreeViewItem.Header>
+                </TreeViewItem>
+            </DataTemplate>
+        </TreeView.ItemTemplate>
+    </TreeView>
+</UserControl>

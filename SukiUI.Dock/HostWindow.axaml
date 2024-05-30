@@ -1,0 +1,82 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:core="using:Dock.Model.Core"
+                    xmlns:controls="clr-namespace:Dock.Model.Controls;assembly=Dock.Model">
+  <Design.PreviewWith>
+    <HostWindow IsToolWindow="False" Width="300" Height="400" />
+  </Design.PreviewWith>
+
+
+
+  <ControlTheme x:Key="{x:Type HostWindow}" TargetType="HostWindow">
+
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="(TextElement.FontSize)" Value="{DynamicResource DockFontSizeNormal}" />
+    <Setter Property="FontFamily" Value="{TemplateBinding FontFamily}" />
+    <Setter Property="TextBlock.Foreground" Value="{DynamicResource DockThemeForegroundBrush}" />
+    <Setter Property="WindowState" Value="Normal" />
+    <Setter Property="UseLayoutRounding" Value="True" />
+    <Setter Property="Title" Value="{Binding ActiveDockable.Title}" />
+    <Setter Property="Topmost" Value="{Binding Window.Topmost}" x:DataType="controls:IRootDock" />
+    <Setter Property="SystemDecorations" Value="None" />
+   <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
+    <Setter Property="ExtendClientAreaChromeHints" Value="NoChrome"/>
+<Setter Property="ExtendClientAreaTitleBarHeightHint" Value="-1"></Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Border Name="SelectedBorder" 
+                  Margin="10,10"
+                  Padding="0"
+                  BoxShadow="{DynamicResource SukiPopupShadow}"
+                  Background="{DynamicResource SukiCardBackground}"
+                  CornerRadius="20">
+            <Border CornerRadius="20" ClipToBounds="True">
+              <Panel>
+                <Panel Margin="0">
+                  <Panel.Background>
+                    <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                      <GradientStop Color="{DynamicResource SukiAccentColor5}" Offset="0"></GradientStop>
+                      <GradientStop Color="{DynamicResource SukiPrimaryColor5}" Offset="1"></GradientStop>
+                    </LinearGradientBrush>
+                  </Panel.Background>
+                </Panel>
+              </Panel>
+            </Border>
+          </Border>
+          <Border Name="PART_TransparencyFallback" IsHitTestVisible="False" />
+          <Border Background="{TemplateBinding Background}" IsHitTestVisible="False" />
+          <Panel Background="Transparent" Margin="{TemplateBinding WindowDecorationMargin}" />
+          <VisualLayerManager>
+            <VisualLayerManager.ChromeOverlayLayer>
+              <HostWindowTitleBar Name="PART_TitleBar" />
+            </VisualLayerManager.ChromeOverlayLayer>
+            <ContentPresenter Name="PART_ContentPresenter"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Content="{TemplateBinding Content}"
+                              Margin="{TemplateBinding Padding}"
+                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+          </VisualLayerManager>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+
+    <Setter Property="Content">
+      <Template>
+        <Panel Margin="{Binding $parent[HostWindow].OffScreenMargin}">
+          <Panel Margin="{Binding $parent[HostWindow].WindowDecorationMargin}">
+            <DockControl Layout="{Binding}"
+                         x:DataType="core:IHostWindow"
+                         x:CompileBindings="True" />
+          </Panel>
+        </Panel>
+      </Template>
+    </Setter>
+
+ 
+   
+
+  </ControlTheme>
+
+</ResourceDictionary>

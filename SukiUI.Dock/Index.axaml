@@ -1,0 +1,31 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+
+    <StyleInclude Source="avares://Dock.Avalonia/Themes/DockFluentTheme.axaml" />
+    <Styles.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                    <ResourceInclude Source="DockTarget.axaml"></ResourceInclude>
+                    <ResourceInclude Source="DocumentControl.axaml"></ResourceInclude>
+                    <ResourceInclude Source="DocumentTabStrip.axaml"></ResourceInclude>
+                    <ResourceInclude Source="DocumentTabStripItem.axaml"></ResourceInclude>
+                    <ResourceInclude Source="HostWindow.axaml"></ResourceInclude>
+                    <ResourceInclude Source="ToolChromeControl.axaml"></ResourceInclude>
+                    <ResourceInclude Source="ToolContentControl.axaml"></ResourceInclude>
+                    <ResourceInclude Source="ToolControl.axaml"></ResourceInclude>
+                    <ResourceInclude Source="ToolDockControl.axaml"></ResourceInclude>
+                    <ResourceInclude Source="ToolPinItemControl.axaml"></ResourceInclude>
+                    <ResourceInclude Source="ToolPinnedControl.axaml"></ResourceInclude>
+                    <ResourceInclude Source="ToolTabStrip.axaml"></ResourceInclude>
+                    <ResourceInclude Source="ToolTabStripItem.axaml"></ResourceInclude>
+                    <ResourceInclude Source="PinnedDockControl.axaml"></ResourceInclude>
+                    
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+    </Styles.Resources>
+</Styles>
