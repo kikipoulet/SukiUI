@@ -47,7 +47,7 @@
             <Easing x:Key="MenuEasing">CircularEaseOut</Easing>
 
             <FontFamily x:Key="QuicksandFont">avares://SukiUI/CustomFont#Quicksand</FontFamily>
-            
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="avares://sukiUI/Theme/TextBlock.xaml" />
                 <ResourceInclude Source="avares://SukiUI/Theme/SplitView.axaml" />
@@ -82,6 +82,7 @@
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiSideMenuItem.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiTransitioningContentControl.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/Stepper.axaml" />
+                <ResourceInclude Source="avares://sukiUI/Controls/InfoBar.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/GlassMorphism/GlassCard.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/ContentExpandControl.axaml" />
             </ResourceDictionary.MergedDictionaries>
