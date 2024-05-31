@@ -5,9 +5,9 @@
     <Design.PreviewWith>
         <StackPanel Width="400" Spacing="3">
             <suki:InfoBar Title="Title"
-                          Message="Long Text Test Long Text Test Long Text Test Long Text Test"  />
-            <suki:InfoBar Title="Title"
-                          Message="Default" />
+                          IsClosable="True"
+                          Message="Long Text Test Long Text Test Long Text Test Long Text Test" />
+            <suki:InfoBar Title="Title" Message="Default" />
         </StackPanel>
     </Design.PreviewWith>
     <ControlTheme x:Key="SukiInfoBarStyle" TargetType="suki:InfoBar">
@@ -19,7 +19,7 @@
                         BorderThickness="2"
                         CornerRadius="5"
                         IsVisible="{TemplateBinding IsOpen}">
-                    <Grid Margin="0,0,0,15" ColumnDefinitions="50, *, 45">
+                    <Grid Margin="0,0,0,15" ColumnDefinitions="50,*,40">
                         <StackPanel Grid.Column="0"
                                     HorizontalAlignment="Left"
                                     Orientation="Horizontal">
@@ -45,7 +45,9 @@
                             </Border>
                         </StackPanel>
 
-                        <WrapPanel Grid.Column="1" Margin="0,11,0,0">
+                        <WrapPanel Name="PART_TextPanel"
+                                   Grid.Column="1"
+                                   Margin="0,11,0,0">
                             <TextBlock Margin="0,5,10,0"
                                        FontWeight="Bold"
                                        Text="{TemplateBinding Title}" />
@@ -63,7 +65,8 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Top"
                                 BorderThickness="0"
-                                Classes="Basic Rounded WindowControlsButton Close">
+                                Classes="Basic Rounded WindowControlsButton Close"
+                                IsVisible="{TemplateBinding IsClosable}">
                             <PathIcon Width="10"
                                       Height="10"
                                       Data="{x:Static icons:Icons.WindowClose}"
@@ -73,6 +76,9 @@
                 </Border>
             </ControlTemplate>
         </Setter>
+        <Style Selector="^[IsClosable=False] /template/ WrapPanel#PART_TextPanel">
+            <Setter Property="Margin" Value="0, 11, -40, 0" />
+        </Style>
     </ControlTheme>
     <ControlTheme x:Key="{x:Type suki:InfoBar}"
                   BasedOn="{StaticResource SukiInfoBarStyle}"
