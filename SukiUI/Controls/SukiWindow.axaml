@@ -30,7 +30,7 @@
                                             <StackPanel>
                                                 <LayoutTransformControl Name="PART_LayoutTransform" RenderTransformOrigin="0%,0%">
                                                     <Panel>
-                                                        <suki:GlassCard Name="PART_TitleBarBackground"
+                                                        <suki:GlassCard Name="PART_TitleBarBackground" IsAnimated="False"
                                                                         BorderThickness="0"
                                                                         CornerRadius="0" />
                                                         <DockPanel Margin="12,9" LastChildFill="True">

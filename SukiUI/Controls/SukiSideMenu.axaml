@@ -13,7 +13,7 @@
                     <SplitView.Pane>
                         <Border>
                             <Grid Background="Transparent">
-                                <suki:GlassCard Name="Glass"
+                                <suki:GlassCard Name="Glass" IsAnimated="False"
                                                 BorderThickness="0"
                                                 CornerRadius="0" />
                                 <DockPanel>
