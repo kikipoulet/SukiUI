@@ -46,7 +46,7 @@
                                 <BrushTransition Property="BorderBrush" Duration="0:0:0.15" />
                             </Transitions>
                         </Border.Transitions>
-                        <ContentPresenter Margin="{TemplateBinding Padding}" Content="{TemplateBinding Content}" />
+                        <ContentPresenter Name="PART_CP" Margin="{TemplateBinding Padding}" Content="{TemplateBinding Content}" />
                     </Border>
                 </Panel>
             </ControlTemplate>

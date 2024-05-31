@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Windows.Input;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -88,6 +89,13 @@ public class GlassCard : ContentControl
            var v = ElementComposition.GetElementVisual(b2);
            MakeSizeAnimated(v);
        };
+       
+       var b3 =  e.NameScope.Get<Border>("PART_ClipBorder");
+       b3.Loaded += (sender, args) =>
+       {
+           var v = ElementComposition.GetElementVisual(b3);
+           MakeSizeAnimated(v);
+       };
 
 
 
@@ -150,6 +158,8 @@ public class GlassCard : ContentControl
         offsetAnimation.Target = "Offset";
         offsetAnimation.InsertExpressionKeyFrame(1.0f, "this.FinalValue");
         offsetAnimation.Duration = TimeSpan.FromMilliseconds(450);
+        
+        
         
         animationGroup.Add(sizeAnimation);
 
