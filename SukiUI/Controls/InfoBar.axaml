@@ -14,12 +14,13 @@
         <Setter Property="MinWidth" Value="200" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Border Background="{DynamicResource SukiCardBackground}"
+                <Border Padding="0,0,0,15"
+                        Background="{DynamicResource SukiCardBackground}"
                         BorderBrush="{DynamicResource SukiBorderBrush}"
                         BorderThickness="2"
                         CornerRadius="5"
                         IsVisible="{TemplateBinding IsOpen}">
-                    <Grid Margin="0,0,0,15" ColumnDefinitions="50,*,40">
+                    <Grid ColumnDefinitions="50,*,40">
                         <StackPanel Grid.Column="0"
                                     HorizontalAlignment="Left"
                                     Orientation="Horizontal">
@@ -76,9 +77,6 @@
                 </Border>
             </ControlTemplate>
         </Setter>
-        <Style Selector="^[IsClosable=False] /template/ WrapPanel#PART_TextPanel">
-            <Setter Property="Margin" Value="0, 11, -40, 0" />
-        </Style>
     </ControlTheme>
     <ControlTheme x:Key="{x:Type suki:InfoBar}"
                   BasedOn="{StaticResource SukiInfoBarStyle}"
