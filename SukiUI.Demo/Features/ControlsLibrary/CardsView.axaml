@@ -5,6 +5,8 @@
              xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             xmlns:helpers="clr-namespace:SukiUI.Helpers;assembly=SukiUI"
              d:DesignHeight="450"
              d:DesignWidth="800"
              x:DataType="controlsLibrary:CardsViewModel"
@@ -43,6 +45,7 @@
             </controls:GroupBox>
         </controls:GlassCard>
         <ScrollViewer Grid.Row="1">
+            <StackPanel>
             <WrapPanel Classes="PageContainer">
                 <controls:GlassCard>
                     <controls:GroupBox Header="Standard">
@@ -60,19 +63,67 @@
                     </controls:GroupBox>
                 </controls:GlassCard>
                 <controls:GlassCard>
+                    <controls:GlassCard.Resources>
+                        <system:Double x:Key="GlassOpacity">0.2</system:Double>
+                    </controls:GlassCard.Resources>
                     <controls:GroupBox Header="Overriden Opacity">
-                        <TextBlock Classes="h3">This card's resources sets the double resource of "GlassOpacity" to 0.2</TextBlock>
+                        <TextBlock Classes="h4">This card's resources sets the double resource of "GlassOpacity" to 0.2</TextBlock>
                     </controls:GroupBox>
                 </controls:GlassCard>
-                <controls:GlassCard>
-                    <controls:GroupBox Header="Overriden Color">
-                        <StackPanel>
-                            <TextBlock Classes="h3">This card's resources sets the color resource of</TextBlock>
-                            <TextBlock Classes="h3">"SukiGlassCardBackground" and "SukiGlassCardOpaqueBackground to Red.</TextBlock>
-                        </StackPanel>
-                    </controls:GroupBox>
-                </controls:GlassCard>
+               
             </WrapPanel>
+                
+                <Border Background="{DynamicResource SukiControlBorderBrush}" Height="1" Margin="30,30"></Border>
+                <TextBlock TextWrapping="Wrap" HorizontalAlignment="Left" Margin="30,0,30,30" FontWeight="DemiBold" Text="GlassCard are animated with CompositionAnimations by the property IsAnimated set to 'True' by default. Opacity changes and Size changes of the GlassCard are automatically animated. See below the differences by adding an item."></TextBlock>
+                
+                <StackPanel Spacing="12" Margin="30,10" Orientation="Horizontal">
+                    <Button Classes="Flat" Content="Add Item" Command="{Binding AddItemCommand}"></Button>
+                    <Button  Content="Remove Item" Command="{Binding RemoveItemCommand}"></Button>
+                </StackPanel>
+                
+                <Grid ColumnDefinitions="*,*" Margin="15">
+                    <controls:GlassCard HorizontalAlignment="Left" IsAnimated="False" Margin="15">
+                        <StackPanel Spacing="35">
+                            <TextBlock FontWeight="DemiBold" FontSize="17" Text="Not Animated"></TextBlock>
+                            <ItemsControl  ItemsSource="{Binding Items}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <controls:GlassCard helpers:AnimationExtensions.FadeIn="500" Width="150" Height="60" Margin="5" IsInteractive="True">
+                                           <TextBlock Text="Item" Foreground="{DynamicResource SukiLowText}"></TextBlock>
+                                        </controls:GlassCard>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </StackPanel>
+                    </controls:GlassCard>
+                    
+                    <controls:GlassCard Grid.Column="1" HorizontalAlignment="Left"  Margin="15">
+                        <StackPanel Spacing="35">
+                            <TextBlock FontWeight="DemiBold" FontSize="17" Text="Animated"></TextBlock>
+                            <ItemsControl  ItemsSource="{Binding Items}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <controls:GlassCard helpers:AnimationExtensions.FadeIn="500" Width="150" Height="60" Margin="5" IsInteractive="True">
+                                            <TextBlock Text="Item" Foreground="{DynamicResource SukiLowText}"></TextBlock>
+                                        </controls:GlassCard>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </StackPanel>
+                    </controls:GlassCard>
+                </Grid>
+                <Border Height="100"></Border>
+            </StackPanel>
         </ScrollViewer>
     </Grid>
 </UserControl>
