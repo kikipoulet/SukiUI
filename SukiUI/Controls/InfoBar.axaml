@@ -3,9 +3,12 @@
                     xmlns:icons="clr-namespace:SukiUI.Content"
                     xmlns:suki="clr-namespace:SukiUI.Controls">
     <Design.PreviewWith>
-        <suki:InfoBar Title="Title"
-                      Margin="10"
-                      Message="Message" />
+        <StackPanel Width="400" Spacing="3">
+            <suki:InfoBar Title="Title"
+                          Message="Long Text Test Long Text Test Long Text Test Long Text Test"  />
+            <suki:InfoBar Title="Title"
+                          Message="Default" />
+        </StackPanel>
     </Design.PreviewWith>
     <ControlTheme x:Key="SukiInfoBarStyle" TargetType="suki:InfoBar">
         <Setter Property="MinWidth" Value="200" />
@@ -16,11 +19,13 @@
                         BorderThickness="2"
                         CornerRadius="5"
                         IsVisible="{TemplateBinding IsOpen}">
-                    <Panel>
-                        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                    <Grid Margin="0,0,0,15" ColumnDefinitions="50, *, 45">
+                        <StackPanel Grid.Column="0"
+                                    HorizontalAlignment="Left"
+                                    Orientation="Horizontal">
                             <Border Width="20"
                                     Height="20"
-                                    Margin="15"
+                                    Margin="15,15,0,0"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Top"
                                     Background="{DynamicResource SukiCardBackground}"
@@ -38,12 +43,19 @@
                                     </Panel>
                                 </Border>
                             </Border>
-                            <WrapPanel Margin="0,16,0,0">
-                                <TextBlock FontWeight="Bold" Text="{TemplateBinding Title}" />
-                                <TextBlock Margin="10,0,0,0" Text="{TemplateBinding Message}" />
-                            </WrapPanel>
                         </StackPanel>
+
+                        <WrapPanel Grid.Column="1" Margin="0,11,0,0">
+                            <TextBlock Margin="0,5,10,0"
+                                       FontWeight="Bold"
+                                       Text="{TemplateBinding Title}" />
+                            <TextBlock Margin="0,5,0,0"
+                                       Text="{TemplateBinding Message}"
+                                       TextWrapping="Wrap" />
+                        </WrapPanel>
+
                         <Button Name="PART_CloseButton"
+                                Grid.Column="2"
                                 Width="27"
                                 Height="27"
                                 Margin="0,12,12,0"
@@ -57,7 +69,7 @@
                                       Data="{x:Static icons:Icons.WindowClose}"
                                       Opacity="0.7" />
                         </Button>
-                    </Panel>
+                    </Grid>
                 </Border>
             </ControlTemplate>
         </Setter>
