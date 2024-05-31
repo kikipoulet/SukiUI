@@ -7,6 +7,7 @@ using System;
 using System.Timers;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using SukiUI.ColorTheme;
 using SukiUI.Content;
 using SukiUI.Enums;
 
@@ -92,10 +93,7 @@ public class SukiToast : ContentControl
     
     // Icon Foreground Brushes
     // Note: it would be better to place them into a resource dictionary, but findResource performs slightly slower
-    private readonly SolidColorBrush _infoIconForeground = new(Color.FromRgb(89,126,255));
-    private readonly SolidColorBrush _successIconForeground = new(Color.FromRgb(35,143,35));
-    private readonly SolidColorBrush _warningIconForeground = new(Color.FromRgb(177,113,20));
-    private readonly SolidColorBrush _errorIconForeground = new(Color.FromRgb(216,63,48));
+    
 
     public void Initialize(ToastModel model, SukiHost host)
     {
@@ -124,11 +122,11 @@ public class SukiToast : ContentControl
         };
         Foreground = model.Type switch
         {
-            NotificationType.Info => _infoIconForeground,
-            NotificationType.Success => _successIconForeground,
-            NotificationType.Warning => _warningIconForeground,
-            NotificationType.Error => _errorIconForeground,
-            _ => _infoIconForeground
+            NotificationType.Info => NotificationColor.InfoIconForeground,
+            NotificationType.Success => NotificationColor.SuccessIconForeground,
+            NotificationType.Warning => NotificationColor.WarningIconForeground,
+            NotificationType.Error => NotificationColor.ErrorIconForeground,
+            _ => NotificationColor.InfoIconForeground
         };
         _onClickedCallback = model.OnClicked;
        

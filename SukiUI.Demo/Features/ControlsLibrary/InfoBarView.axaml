@@ -1,0 +1,80 @@
+﻿<UserControl x:Class="SukiUI.Demo.Features.ControlsLibrary.InfoBarView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+             xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             x:DataType="controlsLibrary:InfoBarViewModel"
+             mc:Ignorable="d">
+    <Grid RowDefinitions="Auto, *">
+        <controls:GlassCard Classes="HeaderCard">
+            <controls:GroupBox Header="InfoBar">
+                <StackPanel Classes="HeaderContent" Spacing="15">
+                    <TextBlock>
+                        InfoBar is a control that displays a message to the user. It can be used to show specific severity message to the user.
+                    </TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="0,0,0,0"
+                                   VerticalAlignment="Center"
+                                   FontWeight="DemiBold"
+                                   Text="Long Message:" />
+                        <TextBox Name="MessageTextBox"
+                                 Width="500"
+                                 Margin="15,0,0,0"
+                                 Text="Example Message" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="0,0,0,0"
+                                   VerticalAlignment="Center"
+                                   FontWeight="DemiBold"
+                                   Text="IsOpen Status" />
+                        <Button Margin="15,0,0,0"
+                                Command="{Binding RefreshIsOpenStatusCommand}"
+                                Content="Refresh" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="0,0,0,0"
+                                   VerticalAlignment="Center"
+                                   FontWeight="DemiBold"
+                                   Text="IsClosable" />
+                        <ToggleSwitch Margin="15,0,0,0" IsChecked="{Binding IsClosable}" />
+                    </StackPanel>
+                </StackPanel>
+            </controls:GroupBox>
+        </controls:GlassCard>
+        <ScrollViewer Grid.Row="1">
+            <WrapPanel Classes="PageContainer">
+                <controls:GlassCard>
+                    <UniformGrid>
+                        <controls:InfoBar Title="Title"
+                                          Margin="10"
+                                          IsClosable="{Binding IsClosable}"
+                                          IsOpen="{Binding IsOpen, Mode=TwoWay}"
+                                          Message="{Binding #MessageTextBox.Text}" />
+                        <controls:InfoBar Title="Title"
+                                          Margin="10"
+                                          IsClosable="{Binding IsClosable}"
+                                          IsOpen="{Binding IsOpen, Mode=TwoWay}"
+                                          Message="{Binding #MessageTextBox.Text}"
+                                          Severity="Warning" />
+                        <controls:InfoBar Title="Title"
+                                          Margin="10"
+                                          IsClosable="{Binding IsClosable}"
+                                          IsOpen="{Binding IsOpen, Mode=TwoWay}"
+                                          Message="{Binding #MessageTextBox.Text}"
+                                          Severity="Error" />
+                        <controls:InfoBar Title="Title"
+                                          Margin="10"
+                                          IsClosable="{Binding IsClosable}"
+                                          IsOpen="{Binding IsOpen, Mode=TwoWay}"
+                                          Message="{Binding #MessageTextBox.Text}"
+                                          Severity="Success" />
+                    </UniformGrid>
+                </controls:GlassCard>
+            </WrapPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
