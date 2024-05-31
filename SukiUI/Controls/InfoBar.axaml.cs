@@ -78,6 +78,16 @@ public class InfoBar : ContentControl
         set => SetValue(IsClosableProperty, value);
     }
     
+       
+    public static readonly StyledProperty<bool> IsOpaqueProperty =
+        AvaloniaProperty.Register<InfoBar, bool>(nameof(IsOpaque), false);
+
+    public bool IsOpaque
+    {
+        get => GetValue(IsOpaqueProperty);
+        set => SetValue(IsOpaqueProperty, value);
+    }
+    
     public static readonly StyledProperty<string> TitleProperty =
         AvaloniaProperty.Register<InfoBar, string>(nameof(Title), string.Empty);
 

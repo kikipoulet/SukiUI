@@ -14,11 +14,8 @@
         <Setter Property="MinWidth" Value="200" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Border Padding="0,0,0,15"
-                        Background="{DynamicResource SukiCardBackground}"
-                        BorderBrush="{DynamicResource SukiBorderBrush}"
-                        BorderThickness="2"
-                        CornerRadius="5"
+                <suki:GlassCard MinWidth="300" IsOpaque="{TemplateBinding IsOpaque}" Padding="0,0,0,15"
+                        CornerRadius="10"
                         IsVisible="{TemplateBinding IsOpen}">
                     <Grid ColumnDefinitions="50,*,40">
                         <StackPanel Grid.Column="0"
@@ -48,10 +45,11 @@
 
                         <WrapPanel Name="PART_TextPanel"
                                    Grid.Column="1"
-                                   Margin="0,11,0,0">
+                                   Margin="0,12,0,0">
                             <TextBlock Margin="0,5,10,0"
                                        FontWeight="Bold"
                                        Text="{TemplateBinding Title}" />
+                            <Border Width="7"></Border>
                             <TextBlock Margin="0,5,0,0"
                                        Text="{TemplateBinding Message}"
                                        TextWrapping="Wrap" />
@@ -74,7 +72,7 @@
                                       Opacity="0.7" />
                         </Button>
                     </Grid>
-                </Border>
+                </suki:GlassCard>
             </ControlTemplate>
         </Setter>
     </ControlTheme>

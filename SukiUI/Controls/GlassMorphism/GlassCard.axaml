@@ -6,7 +6,7 @@
         <Setter Property="Padding" Value="20" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Panel>
+                <Panel Name="RootPanel" Opacity="0">
                     <Border Name="PART_BorderCard"
                             Background="{DynamicResource SukiGlassCardBackground}"
                             BorderBrush="{TemplateBinding BorderBrush}"
@@ -62,6 +62,19 @@
         </Style>
         <Style Selector="^.Primary /template/ Border#PART_BorderCard">
             <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
+        </Style>
+        
+        <Style Selector="^[IsVisible=True] /template/ Panel#RootPanel">
+            <Style.Animations>
+                <Animation  FillMode="Forward" Duration="0:0:0.3"> 
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Opacity" Value="0.0"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Opacity" Value="1.0"/>
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
         </Style>
     </ControlTheme>
     <ControlTheme x:Key="{x:Type suki:GlassCard}"

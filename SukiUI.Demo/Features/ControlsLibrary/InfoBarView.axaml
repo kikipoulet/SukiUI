@@ -24,7 +24,7 @@
                         <TextBox Name="MessageTextBox"
                                  Width="500"
                                  Margin="15,0,0,0"
-                                 Text="Example Message" />
+                                 Text="Hello world !" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="0,0,0,0"
@@ -42,37 +42,45 @@
                                    Text="IsClosable" />
                         <ToggleSwitch Margin="15,0,0,0" IsChecked="{Binding IsClosable}" />
                     </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="0,0,0,0"
+                                   VerticalAlignment="Center"
+                                   FontWeight="DemiBold"
+                                   Text="IsOpaque" />
+                        <ToggleSwitch Margin="15,0,0,0" IsChecked="{Binding IsOpaque}" />
+                    </StackPanel>
                 </StackPanel>
             </controls:GroupBox>
         </controls:GlassCard>
         <ScrollViewer Grid.Row="1">
             <WrapPanel Classes="PageContainer">
                 <controls:GlassCard>
-                    <UniformGrid>
-                        <controls:InfoBar Title="Title"
+                    <StackPanel Spacing="7">
+                        <controls:InfoBar Title="Info" IsOpaque="{Binding IsOpaque}"
                                           Margin="10"
                                           IsClosable="{Binding IsClosable}"
                                           IsOpen="{Binding IsOpen, Mode=TwoWay}"
                                           Message="{Binding #MessageTextBox.Text}" />
-                        <controls:InfoBar Title="Title"
+                        <controls:InfoBar Title="Warning"  IsOpaque="{Binding IsOpaque}"
                                           Margin="10"
                                           IsClosable="{Binding IsClosable}"
                                           IsOpen="{Binding IsOpen, Mode=TwoWay}"
                                           Message="{Binding #MessageTextBox.Text}"
                                           Severity="Warning" />
-                        <controls:InfoBar Title="Title"
+                        <controls:InfoBar Title="Error"  IsOpaque="{Binding IsOpaque}"
                                           Margin="10"
                                           IsClosable="{Binding IsClosable}"
                                           IsOpen="{Binding IsOpen, Mode=TwoWay}"
                                           Message="{Binding #MessageTextBox.Text}"
                                           Severity="Error" />
-                        <controls:InfoBar Title="Title"
-                                          Margin="10"
+                        <controls:InfoBar Title="Success"
+                                          Margin="10"  IsOpaque="{Binding IsOpaque}"
                                           IsClosable="{Binding IsClosable}"
                                           IsOpen="{Binding IsOpen, Mode=TwoWay}"
                                           Message="{Binding #MessageTextBox.Text}"
                                           Severity="Success" />
-                    </UniformGrid>
+                    </StackPanel>
                 </controls:GlassCard>
             </WrapPanel>
         </ScrollViewer>
