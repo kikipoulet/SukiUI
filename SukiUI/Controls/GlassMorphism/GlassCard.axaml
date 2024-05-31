@@ -6,14 +6,27 @@
         <Setter Property="Padding" Value="20" />
         <Setter Property="Template">
             <ControlTemplate>
+            
                 <Panel Name="RootPanel" Opacity="0">
-                    <Border Name="PART_BorderCard"
+                    <Border Name="PART_BorderCard" RenderTransformOrigin="50%,50%"
                             Background="{DynamicResource SukiGlassCardBackground}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             ClipToBounds="{TemplateBinding ClipToBounds}"
                             CornerRadius="{TemplateBinding CornerRadius}"
                             Opacity="{DynamicResource GlassOpacity}">
+                        
+                        <Border.Transitions>
+                            <Transitions>
+                                <DoubleTransition Property="Width"
+                                                             Duration="0:0:0.5"
+                                                             Easing="QuadraticEaseOut"/>
+                                <DoubleTransition Property="Height"
+                                                             Duration="0:0:0.5"
+                                                             Easing="QuadraticEaseOut"/>
+                            </Transitions>
+                        </Border.Transitions>
+                        
                         <Border.Transitions>
                             <Transitions>
                                 <BrushTransition Property="Background" Duration="0:0:0.15" />
@@ -65,16 +78,10 @@
         </Style>
         
         <Style Selector="^[IsVisible=True] /template/ Panel#RootPanel">
-            <Style.Animations>
-                <Animation  FillMode="Forward" Duration="0:0:0.3"> 
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Opacity" Value="0.0"/>
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Opacity" Value="1.0"/>
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        <Style Selector="^[IsVisible=False] /template/ Panel#RootPanel">
+            <Setter Property="Opacity" Value="0" />
         </Style>
     </ControlTheme>
     <ControlTheme x:Key="{x:Type suki:GlassCard}"
