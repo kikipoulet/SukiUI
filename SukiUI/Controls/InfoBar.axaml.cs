@@ -1,8 +1,6 @@
-﻿using System.Windows.Input;
-using Avalonia;
+﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
-using Avalonia.Interactivity;
 using Avalonia.Media;
 using SukiUI.ColorTheme;
 using SukiUI.Content;

@@ -1,0 +1,54 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:suki="clr-namespace:SukiUI.Controls">
+    <Design.PreviewWith>
+        <StackPanel Width="200" Spacing="3">
+            <suki:Badge Appearance="Info" Header="Info Badge" />
+            <suki:Badge Appearance="Warning" Header="Warning Badge" />
+            <suki:Badge Appearance="Error" Header="Error Badge" />
+            <suki:Badge Appearance="Success" Header="Success Badge" />
+            <suki:Badge Appearance="Info"
+                        Header="Info Badge"
+                        IsOpaque="True" />
+            <suki:Badge Appearance="Warning"
+                        Header="Warning Badge"
+                        IsOpaque="True" />
+            <suki:Badge Appearance="Error"
+                        Header="Error Badge"
+                        IsOpaque="True" />
+            <suki:Badge Appearance="Success"
+                        Header="Success Badge"
+                        IsOpaque="True" />
+        </StackPanel>
+    </Design.PreviewWith>
+    <ControlTheme x:Key="SukiBadgeStyle" TargetType="suki:Badge">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel HorizontalAlignment="Left">
+                    <Border Name="PART_BorderCard"
+                            Margin="3"
+                            Background="{TemplateBinding BadgeBackground}"
+                            CornerRadius="3"
+                            Opacity="{DynamicResource GlassOpacity}">
+                        <Border.Transitions>
+                            <Transitions>
+                                <BrushTransition Property="Background" Duration="0:0:0.15" />
+                                <DoubleTransition Property="Opacity" Duration="0:0:0.15" />
+                            </Transitions>
+                        </Border.Transitions>
+                    </Border>
+                    <TextBlock Margin="10,7,10,7"
+                               VerticalAlignment="Center"
+                               Foreground="{DynamicResource SukiText}"
+                               Text="{TemplateBinding Header}" />
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+        <Style Selector="^[IsOpaque=True] /template/ Border#PART_BorderCard">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+    </ControlTheme>
+    <ControlTheme x:Key="{x:Type suki:Badge}"
+                  BasedOn="{StaticResource SukiBadgeStyle}"
+                  TargetType="suki:Badge" />
+</ResourceDictionary>
