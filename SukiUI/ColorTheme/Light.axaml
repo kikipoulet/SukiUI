@@ -28,7 +28,7 @@
     
     <LinearGradientBrush x:Key="PopupGradientBrush" StartPoint="0%,0%" EndPoint="100%,100%">
         <GradientStop Color="{DynamicResource SukiAccentColor3}" Offset="0"></GradientStop>
-        <GradientStop Color="{DynamicResource SukiPrimaryColor5}" Offset="1"></GradientStop>
+        <GradientStop Color="{DynamicResource SukiPrimaryColor3}" Offset="1"></GradientStop>
 
     </LinearGradientBrush>
 
