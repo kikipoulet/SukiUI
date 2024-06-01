@@ -24,7 +24,7 @@
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiBorderBrush}" />
         <Setter Property="Background">
-            <RadialGradientBrush Center="120%,-220%" GradientOrigin="120%,-220%" Radius="3">
+            <RadialGradientBrush Center="120%,-220%" GradientOrigin="120%,-220%" RadiusX="300" RadiusY="300">
                 <GradientStop Offset="0.4" Color="{DynamicResource SukiPrimaryColor}" />
                 <GradientStop Offset="1" Color="Transparent" />
             </RadialGradientBrush>

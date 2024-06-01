@@ -169,7 +169,11 @@ try{
 
                 _subscriptionDisposables = bgObs.Subscribe();
             }
-        }catch{}
+        }
+        catch
+        {
+            // ignored
+        }
     }
     
     private void OnWindowStateChanged(WindowState state)

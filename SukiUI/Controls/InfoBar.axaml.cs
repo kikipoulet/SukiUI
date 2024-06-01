@@ -110,10 +110,4 @@ public class InfoBar : ContentControl
 
         e.NameScope.Get<Button>("PART_CloseButton").Click += (_, _) => { IsOpen = false;};
     }
-
-    protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
-    {
-        base.OnAttachedToVisualTree(e);
-        if (ContextMenu is null) return;
-    }
 }

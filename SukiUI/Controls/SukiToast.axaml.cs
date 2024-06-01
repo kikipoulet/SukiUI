@@ -6,7 +6,6 @@ using SukiUI.Models;
 using System;
 using System.Timers;
 using Avalonia.Interactivity;
-using Avalonia.Media;
 using SukiUI.ColorTheme;
 using SukiUI.Content;
 using SukiUI.Enums;
@@ -17,7 +16,7 @@ public class SukiToast : ContentControl
 {
     protected override Type StyleKeyOverride => typeof(SukiToast);
     
-    internal SukiHost Host { get; private set; }
+    internal SukiHost? Host { get; private set; }
 
     private readonly Timer _timer = new();
 
@@ -91,10 +90,6 @@ public class SukiToast : ContentControl
         await SukiHost.ClearToast(this);
     }
     
-    // Icon Foreground Brushes
-    // Note: it would be better to place them into a resource dictionary, but findResource performs slightly slower
-    
-
     public void Initialize(ToastModel model, SukiHost host)
     {
         Host = host;
@@ -103,7 +98,7 @@ public class SukiToast : ContentControl
         if (model.ActionButtonContent != null || model.ActionButton != null)
         {
             ShowActionButton = true;
-            ActionButtonContent = model.ActionButtonContent;
+            ActionButtonContent = model.ActionButtonContent ?? "";
             _onActionCallback = model.OnActionButtonClicked;
         }
         else
