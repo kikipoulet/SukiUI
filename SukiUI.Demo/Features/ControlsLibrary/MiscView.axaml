@@ -89,7 +89,31 @@
                         </DropDownButton>
                     </controls:GroupBox>
                 </controls:GlassCard>
-
+                <controls:GlassCard>
+                    <controls:GroupBox Header="Badge">
+                        <StackPanel Spacing="5">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="0,0,0,0"
+                                           VerticalAlignment="Center"
+                                           FontWeight="DemiBold"
+                                           Text="IsOpaque" />
+                                <ToggleSwitch Margin="15,0,0,0" IsChecked="{Binding IsBadgeOpaque}" />
+                            </StackPanel>
+                            <controls:Badge Appearance="Info"
+                                            Header="Info Badge"
+                                            IsOpaque="{Binding IsBadgeOpaque}" />
+                            <controls:Badge Appearance="Warning"
+                                            Header="Warning Badge"
+                                            IsOpaque="{Binding IsBadgeOpaque}" />
+                            <controls:Badge Appearance="Error"
+                                            Header="Error Badge"
+                                            IsOpaque="{Binding IsBadgeOpaque}" />
+                            <controls:Badge Appearance="Success"
+                                            Header="Success Badge"
+                                            IsOpaque="{Binding IsBadgeOpaque}" />
+                        </StackPanel>
+                    </controls:GroupBox>
+                </controls:GlassCard>
                 <controls:GlassCard>
                     <controls:GroupBox Header="File Picker">
                         <StackPanel Spacing="8">
@@ -114,7 +138,7 @@
                         </StackPanel>
                     </controls:GroupBox>
                 </controls:GlassCard>
-                
+
                 <controls:GlassCard>
                     <controls:GroupBox Header="Message Box">
                         <StackPanel Spacing="8">
@@ -124,14 +148,14 @@
                                     Classes="Primary"
                                     Command="{Binding OpenBoxCommand}"
                                     Content="Open MessageBox" />
-                            
+
                             <Button Margin="5"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Classes="Primary"
                                     Command="{Binding OpenBoxErrorCommand}"
                                     Content="Open Error MessageBox" />
-                            
+
                         </StackPanel>
                     </controls:GroupBox>
                 </controls:GlassCard>

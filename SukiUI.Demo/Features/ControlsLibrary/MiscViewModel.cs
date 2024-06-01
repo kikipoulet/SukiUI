@@ -20,6 +20,7 @@ public partial class MiscViewModel() : DemoPageBase("Miscellaneous", MaterialIco
     [ObservableProperty] private bool _isBusy;
     [ObservableProperty] private DateTime _selectedDateTime = DateTime.Today;
     [ObservableProperty] private DateTimeOffset _selectedDateTimeOffset = DateTimeOffset.Now;
+    [ObservableProperty] private bool _isBadgeOpaque;
 
     [RelayCommand]
     private async Task ToggleBusy()
