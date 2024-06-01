@@ -18,11 +18,11 @@ public class Badge : ContentControl
         {
             BadgeBackground = value switch
             {
-                NotificationType.Info => NotificationColor.InfoIconForeground,
-                NotificationType.Success => NotificationColor.SuccessIconForeground,
-                NotificationType.Warning => NotificationColor.WarningIconForeground,
-                NotificationType.Error => NotificationColor.ErrorIconForeground,
-                _ => NotificationColor.InfoIconForeground
+                NotificationType.Info => NotificationColor.Info,
+                NotificationType.Success => NotificationColor.Success,
+                NotificationType.Warning => NotificationColor.Warning,
+                NotificationType.Error => NotificationColor.Error,
+                _ => NotificationColor.Info
             };
             
             SetValue(AppearanceProperty, value);
@@ -30,7 +30,7 @@ public class Badge : ContentControl
     }
     
     public static readonly StyledProperty<IBrush?> BadgeBackgroundProperty =
-        AvaloniaProperty.Register<Badge, IBrush?>(nameof(BadgeBackground), NotificationColor.InfoIconForeground);
+        AvaloniaProperty.Register<Badge, IBrush?>(nameof(BadgeBackground), NotificationColor.Info);
 
     public IBrush? BadgeBackground
     {

@@ -29,11 +29,11 @@ public class InfoBar : ContentControl
             
             IconForeground = value switch
             {
-                NotificationType.Info => NotificationColor.InfoIconForeground,
-                NotificationType.Success => NotificationColor.SuccessIconForeground,
-                NotificationType.Warning => NotificationColor.WarningIconForeground,
-                NotificationType.Error => NotificationColor.ErrorIconForeground,
-                _ => NotificationColor.InfoIconForeground
+                NotificationType.Info => NotificationColor.Info,
+                NotificationType.Success => NotificationColor.Success,
+                NotificationType.Warning => NotificationColor.Warning,
+                NotificationType.Error => NotificationColor.Error,
+                _ => NotificationColor.Info
             };
             
             SetValue(SeverityProperty, value);
@@ -50,7 +50,7 @@ public class InfoBar : ContentControl
     }
     
     public static readonly StyledProperty<IBrush?> IconForegroundProperty =
-        AvaloniaProperty.Register<InfoBar, IBrush?>(nameof(IconForeground), NotificationColor.InfoIconForeground);
+        AvaloniaProperty.Register<InfoBar, IBrush?>(nameof(IconForeground), NotificationColor.Info);
     
     public IBrush? IconForeground
     {

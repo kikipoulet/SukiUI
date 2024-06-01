@@ -122,11 +122,11 @@ public class SukiToast : ContentControl
         };
         Foreground = model.Type switch
         {
-            NotificationType.Info => NotificationColor.InfoIconForeground,
-            NotificationType.Success => NotificationColor.SuccessIconForeground,
-            NotificationType.Warning => NotificationColor.WarningIconForeground,
-            NotificationType.Error => NotificationColor.ErrorIconForeground,
-            _ => NotificationColor.InfoIconForeground
+            NotificationType.Info => NotificationColor.Info,
+            NotificationType.Success => NotificationColor.Success,
+            NotificationType.Warning => NotificationColor.Warning,
+            NotificationType.Error => NotificationColor.Error,
+            _ => NotificationColor.Info
         };
         _onClickedCallback = model.OnClicked;
        
