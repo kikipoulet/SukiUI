@@ -112,22 +112,24 @@
                            Grid.Column="0"
                            IsLightDismissEnabled="False"
                            PlacementTarget="{TemplateBinding}">
-                        <Panel>
+                        
                             <Border Margin="15"
-                                    Padding="15,8,8,12"
+                                   
                                     Background="{DynamicResource SukiStrongBackground}"
                                     BoxShadow="{DynamicResource SukiPopupShadow}"
                                     CornerRadius="14">
-                                <Calendar Name="PART_Calendar"
-                                          DisplayDate="{TemplateBinding DisplayDate}"
-                                          DisplayDateEnd="{TemplateBinding DisplayDateEnd}"
-                                          DisplayDateStart="{TemplateBinding DisplayDateStart}"
-                                          FirstDayOfWeek="{TemplateBinding FirstDayOfWeek}"
-                                          Foreground="{DynamicResource SukiText}"
-                                          IsTodayHighlighted="{TemplateBinding IsTodayHighlighted}"
-                                          SelectedDate="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SelectedDate, Mode=TwoWay}" />
+                              <Panel  Background="{DynamicResource PopupGradientBrush}">
+                                <Calendar  Margin="15,8,8,12" Name="PART_Calendar"
+                                           DisplayDate="{TemplateBinding DisplayDate}"
+                                           DisplayDateEnd="{TemplateBinding DisplayDateEnd}"
+                                           DisplayDateStart="{TemplateBinding DisplayDateStart}"
+                                           FirstDayOfWeek="{TemplateBinding FirstDayOfWeek}"
+                                           Foreground="{DynamicResource SukiText}"
+                                           IsTodayHighlighted="{TemplateBinding IsTodayHighlighted}"
+                                           SelectedDate="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SelectedDate, Mode=TwoWay}" />
+                                </Panel>
                             </Border>
-                        </Panel>
+                        
                     </Popup>
                 </Grid>
             </ControlTemplate>
