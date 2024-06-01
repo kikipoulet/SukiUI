@@ -27,11 +27,7 @@
                             Background="{DynamicResource SukiDialogBackground}"
                             IsHitTestVisible="False"
                             Opacity="0">
-                        <Border.Transitions>
-                            <Transitions>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.4" />
-                            </Transitions>
-                        </Border.Transitions>
+                        
                     </Border>
 
                     <Border Name="borderDialog"
@@ -49,6 +45,7 @@
                                         <CircularEaseOut />
                                     </ThicknessTransition.Easing>
                                 </ThicknessTransition>
+                                
                                 <DoubleTransition Property="Opacity" Duration="0:0:0.15" />
                                 <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.25">
                                     <TransformOperationsTransition.Easing>
@@ -56,7 +53,7 @@
                                     </TransformOperationsTransition.Easing>
                                 </TransformOperationsTransition>
                             </Transitions>
-                        </Border.Transitions>
+                        </Border.Transitions> 
 
                         <Panel>
                             <Border Name="BorderDialog1"
