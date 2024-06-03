@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Version>6.0.0</Version>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\SukiUI\SukiUI.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Dock.Avalonia" Version="11.0.0.7" />
+      <PackageReference Include="Dock.Model.Avalonia" Version="11.0.0.7" />
+    </ItemGroup>
+
+</Project>
