@@ -15,6 +15,8 @@ using System.Threading.Tasks;
 using Avalonia.Interactivity;
 using Avalonia.LogicalTree;
 using Avalonia.Media;
+using Avalonia.Rendering.Composition;
+using Avalonia.Rendering.Composition.Animations;
 using Avalonia.VisualTree;
 using SukiUI.Content;
 
@@ -25,6 +27,9 @@ namespace SukiUI.Controls;
 /// </summary>
 public class SukiHost : ContentControl
 {
+    
+  
+
     protected override Type StyleKeyOverride => typeof(SukiHost);
 
     public static readonly StyledProperty<bool> IsDialogOpenProperty =
@@ -109,7 +114,17 @@ public class SukiHost : ContentControl
             toastLoc == ToastLocation.BottomLeft
                 ? HorizontalAlignment.Left
                 : HorizontalAlignment.Right;
+        
+        var b = e.NameScope.Get<Border>("PART_DialogBackground");
+        b.Loaded += (sender, args) =>
+        {
+            var v = ElementComposition.GetElementVisual(b);
+            CompositionAnimationHelper.MakeOpacityAnimated(v, 400);
+        }; 
+        
+     
     }
+    
 
     // TODO: Dialog API desperately needs to support a result or on-close callback.
     // TODO: Toasts and dialogs should be dragged out into their own discrete service and provided by a higher level service locator.
@@ -196,6 +211,7 @@ public class SukiHost : ContentControl
         if (!Instances.TryGetValue(window, out var host))
             throw new InvalidOperationException("No SukiHost present in this window");
         host.IsDialogOpen = false;
+       
     }
 
     /// <summary>

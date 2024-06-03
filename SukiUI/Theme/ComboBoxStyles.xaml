@@ -121,13 +121,17 @@
                                                 Background="{DynamicResource SukiCardBackground}"
                                                 BorderBrush="{DynamicResource SukiControlBorderBrush}"
                                                 BorderThickness="1,1,1,1"
-                                                BoxShadow="{DynamicResource SukiPopupShadow}"
+                                                BoxShadow="{DynamicResource SukiSmallPopupShadow}"
                                                 CornerRadius="{DynamicResource SmallCornerRadius}">
+                                            <Panel Background="{DynamicResource PopupGradientBrush}">
+                                            
                                             <ScrollViewer  HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                                               
                                                 <ItemsPresenter Name="PART_ItemsPresenter"
                                                                 Margin="0,3,0,0"
                                                                 ItemsPanel="{TemplateBinding ItemsPanel}" />
                                             </ScrollViewer>
+                                            </Panel>
                                         </Border>
                                     </Panel>
                                 </Border>

@@ -42,7 +42,7 @@
                                         BorderThickness="1,1,1,1"
                                         BoxShadow="{DynamicResource SukiPopupShadow}"
                                         CornerRadius="{DynamicResource SmallCornerRadius}">
-
+                                    <Panel Background="{DynamicResource PopupGradientBrush}">
                                     <ListBox Name="PART_SelectingItemsControl"
                                              Background="{TemplateBinding Background}"
                                              BorderThickness="0"
@@ -50,6 +50,7 @@
                                              ItemTemplate="{TemplateBinding ItemTemplate}"
                                              ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                              ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                                    </Panel>
                                 </Border>
                             </Panel>
                         </Border>
