@@ -13,9 +13,10 @@
                     <SplitView.Pane>
                         <Border>
                             <Grid Background="Transparent">
-                                <suki:GlassCard Name="Glass" IsAnimated="False"
+                                <suki:GlassCard Name="Glass"
                                                 BorderThickness="0"
-                                                CornerRadius="0" />
+                                                CornerRadius="0"
+                                                IsAnimated="False" />
                                 <DockPanel>
                                     <Button Name="PART_SidebarToggleButton"
                                             Margin="7"
@@ -80,6 +81,10 @@
                 </SplitView>
             </ControlTemplate>
         </Setter>
+        <Style Selector="^[IsToggleButtonVisible=False] /template/ Button#PART_SidebarToggleButton">
+            <Setter Property="Opacity" Value="0" />
+            <Setter Property="IsHitTestVisible" Value="False" />
+        </Style>
         <Style Selector="^[IsMenuExpanded=False] /template/ PathIcon#PART_ExpandIcon">
             <Setter Property="RenderTransform" Value="rotate(-180deg)" />
         </Style>
