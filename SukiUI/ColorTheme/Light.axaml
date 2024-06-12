@@ -36,6 +36,6 @@
     <system:Boolean x:Key="IsLight">True</system:Boolean>
 
     <system:Double x:Key="GlassOpacity">0.45</system:Double>
-    <system:Double x:Key="GlassOpacityDark">0.5</system:Double>
-    <system:Double x:Key="GlassOpacityLight">0.8</system:Double>
+    <system:Double x:Key="GlassOpacityDark">0.45</system:Double>
+    <system:Double x:Key="GlassOpacityLight">0.45</system:Double>
 </ResourceDictionary>
