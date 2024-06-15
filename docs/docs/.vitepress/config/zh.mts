@@ -42,6 +42,7 @@ export const zh = defineConfig({
               { text: 'StackPage', link: '/zh/documentation/controls/layout/stackpage' },
               { text: 'SettingsLayout', link: '/zh/documentation/controls/layout/settingslayout' },
               { text: 'SukiWindow', link: '/zh/documentation/controls/layout/sukiwindow' },
+              { text: 'Dock', link: '/zh/documentation/controls/layout/dock' },
             ]
           },
           {
@@ -109,6 +110,8 @@ export const zh = defineConfig({
           { text: 'Dialog', link: '/zh/documentation/notification/dialog' },
           { text: 'Toast', link: '/zh/documentation/notification/toast' },
           { text: 'MessageBox', link: '/zh/documentation/notification/messagebox' },
+          { text: 'InfoBar', link: '/zh/documentation/notification/infobar' },
+          { text: 'InfoBadge', link: '/zh/documentation/notification/infobadge' },
         ]
       },
       {

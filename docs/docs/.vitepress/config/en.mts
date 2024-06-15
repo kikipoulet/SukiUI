@@ -42,6 +42,7 @@ export const en = defineConfig({
               { text: 'StackPage', link: '/documentation/controls/layout/stackpage' },
               { text: 'SettingsLayout', link: '/documentation/controls/layout/settingslayout' },
               { text: 'SukiWindow', link: '/documentation/controls/layout/sukiwindow' },
+              { text: 'Dock', link: '/zh/documentation/controls/layout/dock' },
             ]
           },
           {
@@ -109,6 +110,8 @@ export const en = defineConfig({
           { text: 'Dialog', link: '/documentation/notification/dialog' },
           { text: 'Toast', link: '/documentation/notification/toast' },
           { text: 'MessageBox', link: '/documentation/notification/messagebox' },
+          { text: 'InfoBar', link: '/zh/documentation/notification/infobar' },
+          { text: 'InfoBadge', link: '/zh/documentation/notification/infobadge' },
         ]
       },
       {
