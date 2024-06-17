@@ -13,8 +13,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Dock.Avalonia" Version="11.0.0.7" />
-      <PackageReference Include="Dock.Model.Avalonia" Version="11.0.0.7" />
+      <PackageReference Include="Dock.Avalonia" Version="11.1.0-rc1" />
+      <PackageReference Include="Dock.Model.Avalonia" Version="11.1.0-rc1" />
     </ItemGroup>
 
 </Project>
