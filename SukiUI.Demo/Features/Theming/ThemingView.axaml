@@ -95,6 +95,7 @@
 
                         <controls:SettingsLayoutItem Header="Background">
                             <controls:SettingsLayoutItem.Content>
+                                <controls:GlassCard Margin="0,25,0,0">
                                 <StackPanel Spacing="25">
                                     <DockPanel>
                                         <ToggleButton VerticalAlignment="Top"
@@ -126,6 +127,7 @@
                                         </StackPanel>
                                     </DockPanel>
                                 </StackPanel>
+                                </controls:GlassCard>
                             </controls:SettingsLayoutItem.Content>
                         </controls:SettingsLayoutItem>
                     </objectModel:ObservableCollection>

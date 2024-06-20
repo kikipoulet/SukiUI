@@ -20,7 +20,7 @@ public partial class ThemingViewModel : DemoPageBase
     private readonly SukiTheme _theme = SukiTheme.GetInstance();
 
     [ObservableProperty] private bool _isLightTheme;
-    [ObservableProperty] private SukiBackgroundStyle _backgroundStyle;
+    [ObservableProperty] private SukiBackgroundStyle _backgroundStyle ;
     [ObservableProperty] private bool _backgroundAnimations;
 
     public ThemingViewModel() : base("Theming", MaterialIconKind.PaletteOutline, -200)

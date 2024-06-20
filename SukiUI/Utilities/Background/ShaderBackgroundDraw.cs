@@ -42,8 +42,23 @@ namespace SukiUI.Utilities.Background
         private ThemeVariant _activeVariant = ThemeVariant.Dark;
 
         // TODO: Look more in depth at these
-        private static readonly float[] Black = { 0.1f, 0.1f, 0.1f };
-        private static readonly float[] White = { 0.9f, 0.9f, 0.9f };
+       
+      
+        
+        private static Color GetBackgroundColor(Color input)
+        {
+            int r = input.R;
+            int g = input.G;
+            int b = input.B;
+
+            var minValue = Math.Min(Math.Min(r, g), b);
+            var maxValue = Math.Max(Math.Max(r, g), b);
+
+            r = (r == minValue) ? 37 : ((r == maxValue) ? 37 : 26);
+            g = (g == minValue) ? 37 : ((g == maxValue) ? 37 : 26);
+            b = (b == minValue) ? 37 : ((b == maxValue) ? 37 : 26);
+            return new Color(255,(byte)r, (byte)g, (byte)b);
+        }
         
         public ShaderBackgroundDraw(Rect bounds)
         {
@@ -61,6 +76,8 @@ namespace SukiUI.Utilities.Background
         }
 
         public bool HitTest(Point p) => false;
+        
+        private static readonly float[] White = { 0.95f, 0.95f, 0.95f };
 
         public void Render(ImmediateDrawingContext context)
         {
@@ -77,13 +94,15 @@ namespace SukiUI.Utilities.Background
                 var suki = SukiTheme.GetInstance();
                 var acc = ToFloat(suki.ActiveColorTheme!.Accent);
                 var prim = ToFloat(suki.ActiveColorTheme.Primary);
+                var darkbackground = ToFloat(GetBackgroundColor(suki.ActiveColorTheme.Primary));
                 var inputs = new SKRuntimeEffectUniforms(_effect.Effect)
                 {
                     { "iResolution", new[] { (float)Bounds.Width, (float)Bounds.Height, 0f } },
                     { "iTime", (float)Sw.Elapsed.TotalSeconds * 0.1f },
-                    { "iBase", _activeVariant == ThemeVariant.Dark ? Black : White },
-                    { "iAccent", new[] { acc.r, acc.g, acc.b } },
-                    { "iPrimary", new[] { prim.r, prim.g, prim.b } }
+                    { "iBase", _activeVariant == ThemeVariant.Dark ? new[] {  darkbackground.r, darkbackground.g, darkbackground.b }: White },
+                    { "iAccent", new[] {  acc.r/1.3f, acc.g/1.3f, acc.b/1.3f } },
+                    { "iPrimary", new[] { prim.r/1.3f, prim.g/1.3f, prim.b/1.3f } },
+                    { "iDark", (float)(_activeVariant == ThemeVariant.Dark ? 1f : 0f)}
                 };
                 using var shader = _effect.Effect.ToShader(false, inputs);
                 paint.Shader = shader;

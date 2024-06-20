@@ -14,6 +14,7 @@ namespace SukiUI.Utilities.Background
     public class SukiBackgroundEffect : IDisposable
     {
         private const string Uniforms = "uniform float iTime;        // Scaled shader playback time (s)\n" +
+                                        "uniform float iDark      ;   // DarkTheme\n" +
                                         "uniform vec3 iResolution;   // Viewport resolution (pixels)\n" +
                                         "uniform vec3 iPrimary;      // Currently active primary color\n" +
                                         "uniform vec3 iAccent;       // Currently active accent color\n" +

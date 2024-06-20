@@ -114,7 +114,7 @@ public class SukiWindow : Window
 
     public static readonly StyledProperty<SukiBackgroundStyle> BackgroundStyleProperty =
         AvaloniaProperty.Register<SukiWindow, SukiBackgroundStyle>(nameof(BackgroundStyle),
-            defaultValue: SukiBackgroundStyle.Waves);
+            defaultValue: SukiBackgroundStyle.Gradient);
 
     /// <summary>
     /// Which of the default background styles to use.
