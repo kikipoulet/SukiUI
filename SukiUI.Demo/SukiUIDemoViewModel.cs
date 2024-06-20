@@ -1,3 +1,4 @@
+using System;
 using Avalonia.Collections;
 using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -11,6 +12,8 @@ using SukiUI.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SukiUI.Demo.Features.Theming;
+using SukiUI.Enums;
 
 namespace SukiUI.Demo;
 
@@ -19,18 +22,27 @@ public partial class SukiUIDemoViewModel : ObservableObject
     public IAvaloniaReadOnlyList<DemoPageBase> DemoPages { get; }
 
     public IAvaloniaReadOnlyList<SukiColorTheme> Themes { get; }
+    
+    public IAvaloniaReadOnlyList<SukiBackgroundStyle> BackgroundStyles { get; }
 
     [ObservableProperty] private ThemeVariant _baseTheme;
-    [ObservableProperty] private bool _animationsEnabled;
     [ObservableProperty] private DemoPageBase? _activePage;
     [ObservableProperty] private bool _windowLocked;
     [ObservableProperty] private bool _titleBarVisible = true;
+    [ObservableProperty] private SukiBackgroundStyle _backgroundStyle;
+    [ObservableProperty] private bool _animationsEnabled;
 
     private readonly SukiTheme _theme;
+    private readonly ThemingViewModel _theming;
 
     public SukiUIDemoViewModel(IEnumerable<DemoPageBase> demoPages, PageNavigationService pageNavigationService)
     {
         DemoPages = new AvaloniaList<DemoPageBase>(demoPages.OrderBy(x => x.Index).ThenBy(x => x.DisplayName));
+        _theming = (ThemingViewModel)DemoPages.First(x => x is ThemingViewModel);
+        _theming.BackgroundStyleChanged += style => BackgroundStyle = style;
+        _theming.BackgroundAnimationsChanged += enabled => AnimationsEnabled = enabled;
+        
+        BackgroundStyles = new AvaloniaList<SukiBackgroundStyle>(Enum.GetValues<SukiBackgroundStyle>());
         _theme = SukiTheme.GetInstance();
         
         // Subscribe to the navigation service (when a page navigation is requested)
@@ -54,10 +66,6 @@ public partial class SukiUIDemoViewModel : ObservableObject
         // Subscribe to the color theme changed events
         _theme.OnColorThemeChanged += theme =>
             SukiHost.ShowToast("Successfully Changed Color", $"Changed Color To {theme.DisplayName}.");
-        
-        // Subscribe to the background animation changed events
-        _theme.OnBackgroundAnimationChanged +=
-            value => AnimationsEnabled = value;
     }
 
     [RelayCommand]
@@ -102,4 +110,10 @@ public partial class SukiUIDemoViewModel : ObservableObject
     
     [RelayCommand]
     private static void OpenUrl(string url) => UrlUtilities.OpenUrl(url);
+
+    partial void OnBackgroundStyleChanged(SukiBackgroundStyle value) => 
+        _theming.BackgroundStyle = value;
+
+    partial void OnAnimationsEnabledChanged(bool value) => 
+        _theming.BackgroundAnimations = value;
 }

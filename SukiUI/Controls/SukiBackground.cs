@@ -1,77 +1,30 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
-using Avalonia.Media.Imaging;
-using Avalonia.Platform;
 using Avalonia.Threading;
 using SukiUI.Utilities.Background;
-using System;
-using System.Timers;
 
-namespace SukiUI.Controls;
-
-public class SukiBackground : Image, IDisposable
+namespace SukiUI.Controls
 {
-    private const int ImageWidth = 100;
-    private const int ImageHeight = 100;
-    private const float AnimFps = 5;
-
-    private readonly WriteableBitmap _bmp = new(new PixelSize(ImageWidth, ImageHeight), new Vector(96, 96),
-        PixelFormats.Bgra8888);
-
-    /// <summary>
-    /// Quickly and easily assign a generator either for testing, or in future allow dev-defined generators...
-    /// </summary>
-    private readonly ISukiBackgroundRenderer _renderer = new FastNoiseBackgroundRenderer();
-
-    private static readonly Timer _animationTick = new(1000 / AnimFps) { AutoReset = true }; // 1 fps
-
-    public bool AnimationEnabled { get; private set; } = false;
-
-    private readonly SukiTheme _theme;
-
-    public SukiBackground()
+    public class SukiBackground : Control
     {
-        Source = _bmp;
-        Stretch = Stretch.UniformToFill;
-        _animationTick.Elapsed += (_, _) => _renderer.Render(_bmp,Dispatcher.UIThread.Invoke(() => _theme.ActiveBaseTheme));
-        _theme = SukiTheme.GetInstance();
-        _theme.RegisterBackground(this);
-    }
+        private readonly ShaderBackgroundDraw _draw;
 
-    public override void EndInit()
-    {
-        base.EndInit();
-
-        _theme.OnColorThemeChanged += theme =>
+        internal SukiBackgroundEffect BackgroundEffect { get; set; }
+        internal bool AnimationEnabled { get; set; }
+        
+        public SukiBackground()
         {
-            _renderer.UpdateValues(theme, Dispatcher.UIThread.Invoke(() => _theme.ActiveBaseTheme));
-            _renderer.Render(_bmp, Dispatcher.UIThread.Invoke(() => _theme.ActiveBaseTheme));
-        };
-        _theme.OnBaseThemeChanged += baseTheme =>
+            _draw = new ShaderBackgroundDraw(new Rect(0, 0, Bounds.Width, Bounds.Height));
+        }
+        
+        public override void Render(DrawingContext context)
         {
-            _renderer.UpdateValues(_theme.ActiveColorTheme, baseTheme);
-            _renderer.Render(_bmp, Dispatcher.UIThread.Invoke(() => _theme.ActiveBaseTheme));
-        };
-
-        _renderer.UpdateValues(_theme.ActiveColorTheme, _theme.ActiveBaseTheme);
-        _renderer.Render(_bmp,_theme.ActiveBaseTheme);
-
-        if (AnimationEnabled) _animationTick.Start();
-    }
-
-    public void SetAnimationEnabled(bool value)
-    {
-        if (AnimationEnabled == value) return;
-        AnimationEnabled = value;
-        if (!_renderer.SupportsAnimation) return;
-        _theme.OnBackgroundAnimationChanged?.Invoke(AnimationEnabled);
-        if (AnimationEnabled) _animationTick.Start();
-        else _animationTick.Stop();
-    }
-
-    public void Dispose()
-    {
-        _bmp.Dispose();
+            _draw.Bounds = Bounds;
+            _draw.Effect = BackgroundEffect;
+            _draw.AnimEnabled = AnimationEnabled;
+            context.Custom(_draw);
+            Dispatcher.UIThread.InvokeAsync(InvalidateVisual, DispatcherPriority.Background);
+        }
     }
 }
