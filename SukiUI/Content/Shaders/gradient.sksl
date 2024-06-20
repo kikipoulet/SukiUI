@@ -48,14 +48,14 @@ vec4 main(vec2 fragCoord) {
     tuv *= Rot(radians((degree - .5) * 720. + 180.));
     tuv.y *= ratio;
 
-    float frequency = 2.;
-    float amplitude = 10.;
+    float frequency = 10.;
+    float amplitude = 15.;
     float speed = iTime * 0.1;
     tuv.x += sin(tuv.y * frequency + speed) / amplitude;
     tuv.y += sin(tuv.x * frequency * 1.5 + speed) / (amplitude * .5);
 
-    vec3 layer1 = mix(iAccent, iPrimary * 0.45, smoothstep(-.3, .2, (tuv * Rot(radians(-5.))).x));
-    vec3 layer2 = mix(iPrimary, iPrimary * 0.25, smoothstep(-.3, .2, (tuv * Rot(radians(-5.))).x));
+    vec3 layer1 = mix(iAccent, iPrimary * 0.85, smoothstep(-.3, .2, (tuv * Rot(radians(-5.))).x));
+    vec3 layer2 = mix(iPrimary, iAccent * 0.65, smoothstep(-.3, .2, (tuv * Rot(radians(-5.))).x));
     vec3 finalComp = mix(layer1, layer2, smoothstep(.5, -.3, tuv.y));
     vec3 col = blendOverlay(iBase, finalComp);
 

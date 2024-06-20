@@ -48,7 +48,9 @@ namespace SukiUI.Utilities.Background
         public ShaderBackgroundDraw(Rect bounds)
         {
             Bounds = bounds;
-            SukiTheme.GetInstance().OnBaseThemeChanged += v => _activeVariant = v;
+            var sTheme = SukiTheme.GetInstance();
+            sTheme.OnBaseThemeChanged += v => _activeVariant = v;
+            _activeVariant = SukiTheme.GetInstance().ActiveBaseTheme;
         }
         
         public bool Equals(ICustomDrawOperation other) => false;
