@@ -10,6 +10,8 @@ using System.Reactive.Linq;
 using Avalonia.Collections;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
+using SukiUI.Enums;
+using SukiUI.Utilities.Background;
 
 namespace SukiUI.Controls;
 
@@ -81,14 +83,6 @@ public class SukiWindow : Window
         set => SetValue(MenuItemsProperty, value);
     }
 
-    public static readonly StyledProperty<bool> BackgroundAnimationEnabledProperty =
-        AvaloniaProperty.Register<SukiWindow, bool>(nameof(BackgroundAnimationEnabled), defaultValue: false);
-
-    public bool BackgroundAnimationEnabled
-    {
-        get => GetValue(BackgroundAnimationEnabledProperty);
-        set => SetValue(BackgroundAnimationEnabledProperty, value);
-    }
 
     public static readonly StyledProperty<bool> CanMinimizeProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(CanMinimize), defaultValue: true);
@@ -108,12 +102,62 @@ public class SukiWindow : Window
         set => SetValue(CanMoveProperty, value);
     }
 
+    // BACKGROUND PROPERTIES
+    public static readonly StyledProperty<bool> BackgroundAnimationEnabledProperty =
+        AvaloniaProperty.Register<SukiWindow, bool>(nameof(BackgroundAnimationEnabled), defaultValue: false);
+
+    public bool BackgroundAnimationEnabled
+    {
+        get => GetValue(BackgroundAnimationEnabledProperty);
+        set => SetValue(BackgroundAnimationEnabledProperty, value);
+    }
+
+    public static readonly StyledProperty<SukiBackgroundStyle> BackgroundStyleProperty =
+        AvaloniaProperty.Register<SukiWindow, SukiBackgroundStyle>(nameof(BackgroundStyle),
+            defaultValue: SukiBackgroundStyle.Waves);
+
+    /// <summary>
+    /// Which of the default background styles to use.
+    /// </summary>
+    public SukiBackgroundStyle BackgroundStyle
+    {
+        get => GetValue(BackgroundStyleProperty);
+        set => SetValue(BackgroundStyleProperty, value);
+    }
+
+    public static readonly StyledProperty<string?> BackgroundShaderFileProperty =
+        AvaloniaProperty.Register<SukiWindow, string?>(nameof(BackgroundShaderFile));
+
+    /// <summary>
+    /// Specify a filename of an EMBEDDED RESOURCE file of type `.SkSL` with or without extension and it will be loaded and displayed.
+    /// This takes priority over the <see cref="BackgroundShaderCode"/> property, which in turns takes priority over <see cref="BackgroundStyle"/>.
+    /// </summary>
+    public string? BackgroundShaderFile
+    {
+        get => GetValue(BackgroundShaderFileProperty);
+        set => SetValue(BackgroundShaderFileProperty, value);
+    }
+
+    public static readonly StyledProperty<string?> BackgroundShaderCodeProperty =
+        AvaloniaProperty.Register<SukiWindow, string?>(nameof(BackgroundShaderCode));
+
+    /// <summary>
+    /// Specify the shader code to use directly, simpler if you don't want to create an .SkSL file or want to generate the shader effect at runtime in some way.
+    /// This takes priority over the <see cref="BackgroundStyle"/> property, but is second in priority to <see cref="BackgroundShaderFile"/> if it is set.
+    /// </summary>
+    public string? BackgroundShaderCode
+    {
+        get => GetValue(BackgroundShaderCodeProperty);
+        set => SetValue(BackgroundShaderCodeProperty, value);
+    }
+
     public SukiWindow()
     {
         MenuItems = new AvaloniaList<MenuItem>();
     }
 
     private IDisposable? _subscriptionDisposables;
+    private SukiBackground _background;
 
     protected override void OnLoaded(RoutedEventArgs e)
     {
@@ -132,46 +176,37 @@ public class SukiWindow : Window
     {
         base.OnApplyTemplate(e);
 
-        var stateObs = this.GetObservable(WindowStateProperty)
+        _subscriptionDisposables = this.GetObservable(WindowStateProperty)
             .Do(OnWindowStateChanged)
-            .Select(_ => Unit.Default);
-try{
-        // Create handlers for buttons
-        if (e.NameScope.Get<Button>("PART_MaximizeButton") is { } maximize)
+            .Select(_ => Unit.Default).
+            ObserveOn(new AvaloniaSynchronizationContext()).Subscribe();
+        try
         {
-            maximize.Click += (_, _) =>
+            // Create handlers for buttons
+            if (e.NameScope.Get<Button>("PART_MaximizeButton") is { } maximize)
             {
-                if (!CanResize) return;
-                WindowState = WindowState == WindowState.Maximized
-                    ? WindowState.Normal
-                    : WindowState.Maximized;
-            };
-        }
-
-        if (e.NameScope.Get<Button>("PART_MinimizeButton") is { } minimize)
-            minimize.Click += (_, _) => WindowState = WindowState.Minimized;
-
-        if (e.NameScope.Get<Button>("PART_CloseButton") is { } close)
-            close.Click += (_, _) => Close();
-
-        if (e.NameScope.Get<GlassCard>("PART_TitleBarBackground") is { } titleBar)
-            titleBar.PointerPressed += OnTitleBarPointerPressed;
-        
-    
-            if (e.NameScope.Get<SukiBackground>("PART_Background") is { } background)
-            {
-                background.SetAnimationEnabled(BackgroundAnimationEnabled);
-                var bgObs = this.GetObservable(BackgroundAnimationEnabledProperty)
-                    .Do(enabled => background.SetAnimationEnabled(enabled))
-                    .Select(_ => Unit.Default)
-                    .Merge(stateObs)
-                    .ObserveOn(new AvaloniaSynchronizationContext());
-
-                _subscriptionDisposables = bgObs.Subscribe();
+                maximize.Click += (_, _) =>
+                {
+                    if (!CanResize) return;
+                    WindowState = WindowState == WindowState.Maximized
+                        ? WindowState.Normal
+                        : WindowState.Maximized;
+                };
             }
-        }catch{}
+            if (e.NameScope.Get<Button>("PART_MinimizeButton") is { } minimize)
+                minimize.Click += (_, _) => WindowState = WindowState.Minimized;
+
+            if (e.NameScope.Get<Button>("PART_CloseButton") is { } close)
+                close.Click += (_, _) => Close();
+
+            if (e.NameScope.Get<GlassCard>("PART_TitleBarBackground") is { } titleBar)
+                titleBar.PointerPressed += OnTitleBarPointerPressed;
+        }
+        catch
+        {
+        }
     }
-    
+
     private void OnWindowStateChanged(WindowState state)
     {
         if (state == WindowState.FullScreen)
@@ -182,9 +217,8 @@ try{
 
     private void OnTitleBarPointerPressed(object? sender, PointerPressedEventArgs e)
     {
-      base.OnPointerPressed(e);
-      BeginMoveDrag(e);
-        
+        base.OnPointerPressed(e);
+        BeginMoveDrag(e);
     }
 
     protected override void OnUnloaded(RoutedEventArgs e)

@@ -93,25 +93,39 @@
                             </controls:SettingsLayoutItem.Content>
                         </controls:SettingsLayoutItem>
 
-                        <controls:SettingsLayoutItem Header="Other">
+                        <controls:SettingsLayoutItem Header="Background">
                             <controls:SettingsLayoutItem.Content>
-                                <controls:GlassCard Margin="15">
+                                <StackPanel Spacing="25">
                                     <DockPanel>
                                         <ToggleButton VerticalAlignment="Top"
                                                       Classes="Switch"
                                                       DockPanel.Dock="Right"
-                                                      IsChecked="{Binding IsBackgroundAnimated}" />
+                                                      IsChecked="{Binding BackgroundAnimations}" />
                                         <StackPanel HorizontalAlignment="Left">
                                             <TextBlock FontSize="16"
                                                        FontWeight="DemiBold"
                                                        Text="Animated Background" />
                                             <TextBlock Margin="0,12,70,0"
                                                        Foreground="{DynamicResource SukiLowText}"
-                                                       Text="Enable a 'cloud' effect in the background. The background will be dynamic and the colors spaces will change over time."
+                                                       Text="Enable/disable the animations for the background, which are driven by the currently active effect."
                                                        TextWrapping="Wrap" />
                                         </StackPanel>
                                     </DockPanel>
-                                </controls:GlassCard>
+                                    <DockPanel>
+                                        <ComboBox DockPanel.Dock="Right"
+                                                  ItemsSource="{Binding AvailableBackgroundStyles}"
+                                                  SelectedItem="{Binding BackgroundStyle}" />
+                                        <StackPanel HorizontalAlignment="Left">
+                                            <TextBlock FontSize="16"
+                                                       FontWeight="DemiBold"
+                                                       Text="Background Style" />
+                                            <TextBlock Margin="0,12,70,0"
+                                                       Foreground="{DynamicResource SukiLowText}"
+                                                       Text="Select from the included background styles."
+                                                       TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </DockPanel>
+                                </StackPanel>
                             </controls:SettingsLayoutItem.Content>
                         </controls:SettingsLayoutItem>
                     </objectModel:ObservableCollection>

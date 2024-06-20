@@ -13,6 +13,7 @@
                  d:DesignWidth="800"
                  x:DataType="demo:SukiUIDemoViewModel"
                  BackgroundAnimationEnabled="{Binding AnimationsEnabled}"
+                 BackgroundStyle="{Binding BackgroundStyle}"
                  CanMinimize="{Binding !WindowLocked}"
                  CanMove="{Binding !WindowLocked}"
                  CanResize="{Binding !WindowLocked}"
@@ -41,11 +42,6 @@
                     <avalonia:MaterialIcon Kind="Lightbulb" />
                 </MenuItem.Icon>
             </MenuItem>
-            <MenuItem Command="{Binding ToggleAnimationsCommand}" Header="Animations">
-                <MenuItem.Icon>
-                    <avalonia:MaterialIcon Kind="{Binding AnimationsEnabled, Converter={x:Static converters:BoolToIconConverters.Animation}}" />
-                </MenuItem.Icon>
-            </MenuItem>
             <MenuItem Command="{Binding ToggleWindowLockCommand}"
                       Header="Window Lock"
                       ToolTip.Tip="Toggles minimizing and resizing.">
@@ -65,7 +61,7 @@
                       ToolTip.Tip="Makes the app fullscreen." />
         </MenuItem>
         <MenuItem Header="Theme">
-            <MenuItem Click="MenuItem_OnClick"
+            <MenuItem Click="ThemeMenuItem_OnClick"
                       Header="Switch To..."
                       ItemsSource="{Binding Themes}">
                 <MenuItem.DataTemplates>
@@ -76,6 +72,17 @@
             </MenuItem>
             <MenuItem Header="-" />
             <MenuItem Command="{Binding CreateCustomThemeCommand}" Header="Create Custom" />
+        </MenuItem>
+        <MenuItem Header="Background">
+            <MenuItem Click="BackgroundMenuItem_OnClick"
+                      Header="Switch To..."
+                      ItemsSource="{Binding BackgroundStyles}" />
+            <MenuItem Header="-" />
+            <MenuItem Command="{Binding ToggleAnimationsCommand}" Header="Animations">
+                <MenuItem.Icon>
+                    <avalonia:MaterialIcon Kind="{Binding AnimationsEnabled, Converter={x:Static converters:BoolToIconConverters.Animation}}" />
+                </MenuItem.Icon>
+            </MenuItem>
         </MenuItem>
     </suki:SukiWindow.MenuItems>
     <suki:SukiSideMenu ItemsSource="{Binding DemoPages}" SelectedItem="{Binding ActivePage}">

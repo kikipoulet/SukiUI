@@ -3,7 +3,7 @@
                     xmlns:icons="clr-namespace:SukiUI.Content"
                     xmlns:suki="clr-namespace:SukiUI.Controls">
     <ControlTheme x:Key="SukiWindowTheme" TargetType="suki:SukiWindow">
-        <Setter Property="Margin" Value="0"></Setter>
+        <Setter Property="Margin" Value="0" />
         <Setter Property="SystemDecorations" Value="BorderOnly" />
         <Setter Property="ExtendClientAreaChromeHints" Value="NoChrome" />
         <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="-1" />
@@ -11,12 +11,20 @@
         <Setter Property="TextElement.Foreground" Value="{DynamicResource SukiText}" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Border Margin="{TemplateBinding Margin}" ClipToBounds="True" CornerRadius="{OnPlatform '0', Linux='10', x:TypeArguments=CornerRadius}">
+                <Border Margin="{TemplateBinding Margin}"
+                        ClipToBounds="True"
+                        CornerRadius="{OnPlatform '0',
+                                                  Linux='10',
+                                                  x:TypeArguments=CornerRadius}">
                     <Panel IsHitTestVisible="True">
                         <VisualLayerManager Name="PART_VisualLayerManager" IsHitTestVisible="True">
                             <suki:SukiHost>
                                 <Panel x:Name="PART_Root">
-                                    <suki:SukiBackground Name="PART_Background" IsHitTestVisible="False" />
+                                    <suki:SukiBackground Name="PART_Background"
+                                                         AnimationEnabled="{TemplateBinding BackgroundAnimationEnabled}"
+                                                         ShaderCode="{TemplateBinding BackgroundShaderCode}"
+                                                         ShaderFile="{TemplateBinding BackgroundShaderFile}"
+                                                         Style="{TemplateBinding BackgroundStyle}" />
                                     <DockPanel LastChildFill="True">
                                         <Panel DockPanel.Dock="Top">
                                             <Panel.Styles>
@@ -30,9 +38,10 @@
                                             <StackPanel>
                                                 <LayoutTransformControl Name="PART_LayoutTransform" RenderTransformOrigin="0%,0%">
                                                     <Panel>
-                                                        <suki:GlassCard Name="PART_TitleBarBackground" IsAnimated="False"
+                                                        <suki:GlassCard Name="PART_TitleBarBackground"
                                                                         BorderThickness="0"
-                                                                        CornerRadius="0" />
+                                                                        CornerRadius="0"
+                                                                        IsAnimated="False" />
                                                         <DockPanel Margin="12,9" LastChildFill="True">
                                                             <StackPanel VerticalAlignment="Center"
                                                                         DockPanel.Dock="Right"
