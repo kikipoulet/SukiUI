@@ -176,9 +176,10 @@ public class SukiWindow : Window
     {
         base.OnApplyTemplate(e);
 
-        var stateObs = this.GetObservable(WindowStateProperty)
+        _subscriptionDisposables = this.GetObservable(WindowStateProperty)
             .Do(OnWindowStateChanged)
-            .Select(_ => Unit.Default);
+            .Select(_ => Unit.Default).
+            ObserveOn(new AvaloniaSynchronizationContext()).Subscribe();
         try
         {
             // Create handlers for buttons
@@ -192,7 +193,6 @@ public class SukiWindow : Window
                         : WindowState.Maximized;
                 };
             }
-
             if (e.NameScope.Get<Button>("PART_MinimizeButton") is { } minimize)
                 minimize.Click += (_, _) => WindowState = WindowState.Minimized;
 
@@ -201,51 +201,10 @@ public class SukiWindow : Window
 
             if (e.NameScope.Get<GlassCard>("PART_TitleBarBackground") is { } titleBar)
                 titleBar.PointerPressed += OnTitleBarPointerPressed;
-
-            if (e.NameScope.Get<SukiBackground>("PART_Background") is { } background)
-            {
-                _background = background;
-                background.AnimationEnabled = BackgroundAnimationEnabled;
-                HandleBackgroundStyleChanges();
-                var bgAnimObs = this.GetObservable(BackgroundAnimationEnabledProperty)
-                    .Do(enabled => background.AnimationEnabled = enabled)
-                    .Select(_ => Unit.Default)
-                    .Merge(stateObs);
-                var bgStyleObs = this.GetObservable(BackgroundStyleProperty)
-                    .Do(_ => HandleBackgroundStyleChanges())
-                    .Select(_ => Unit.Default)
-                    .Merge(bgAnimObs);
-                var bgShaderFileObs = this.GetObservable(BackgroundShaderFileProperty)
-                    .Do(_ => HandleBackgroundStyleChanges())
-                    .Select(_ => Unit.Default)
-                    .Merge(bgStyleObs);
-                var bgShaderCodeObs = this.GetObservable(BackgroundShaderCodeProperty)
-                    .Do(_ => HandleBackgroundStyleChanges())
-                    .Select(_ => Unit.Default)
-                    .Merge(bgShaderFileObs)
-                    .ObserveOn(new AvaloniaSynchronizationContext());
-
-                _subscriptionDisposables = bgShaderCodeObs.Subscribe();
-            }
-            else
-            {
-                // ensure the state observable is enabled even if the background isn't present.
-                stateObs.ObserveOn(new AvaloniaSynchronizationContext()).Subscribe();
-            }
         }
         catch
         {
         }
-    }
-
-    private void HandleBackgroundStyleChanges()
-    {
-        if (BackgroundShaderFile is not null)
-            _background.BackgroundEffect = SukiBackgroundEffect.FromEmbeddedResource(BackgroundShaderFile);
-        else if (BackgroundShaderCode is not null) 
-            _background.BackgroundEffect = SukiBackgroundEffect.FromString(BackgroundShaderCode);
-        else
-            _background.BackgroundEffect = SukiBackgroundEffect.FromEmbeddedResource(BackgroundStyle.ToString());
     }
 
     private void OnWindowStateChanged(WindowState state)
