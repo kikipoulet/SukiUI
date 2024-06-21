@@ -55,4 +55,10 @@
 	    <SubType>Code</SubType>
 	  </Compile>
 	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Assets\space.sksl" />
+	  <EmbeddedResource Include="Assets\clouds.sksl" />
+	  <EmbeddedResource Include="Assets\weird.sksl" />
+	</ItemGroup>
 </Project>
