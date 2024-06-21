@@ -31,6 +31,7 @@ public partial class SukiUIDemoViewModel : ObservableObject
     [ObservableProperty] private bool _titleBarVisible = true;
     [ObservableProperty] private SukiBackgroundStyle _backgroundStyle = SukiBackgroundStyle.Gradient;
     [ObservableProperty] private bool _animationsEnabled;
+    [ObservableProperty] private string? _customShaderFile;
 
     private readonly SukiTheme _theme;
     private readonly ThemingViewModel _theming;
@@ -41,6 +42,7 @@ public partial class SukiUIDemoViewModel : ObservableObject
         _theming = (ThemingViewModel)DemoPages.First(x => x is ThemingViewModel);
         _theming.BackgroundStyleChanged += style => BackgroundStyle = style;
         _theming.BackgroundAnimationsChanged += enabled => AnimationsEnabled = enabled;
+        _theming.CustomBackgroundStyleChanged += shader => CustomShaderFile = shader;
         
         BackgroundStyles = new AvaloniaList<SukiBackgroundStyle>(Enum.GetValues<SukiBackgroundStyle>());
         _theme = SukiTheme.GetInstance();

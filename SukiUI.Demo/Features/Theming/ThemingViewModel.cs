@@ -13,9 +13,11 @@ public partial class ThemingViewModel : DemoPageBase
 {
     public Action<SukiBackgroundStyle> BackgroundStyleChanged { get; set; }
     public Action<bool> BackgroundAnimationsChanged { get; set; }
+    public Action<string?> CustomBackgroundStyleChanged { get; set; }
     
     public IAvaloniaReadOnlyList<SukiColorTheme> AvailableColors { get; }
     public IAvaloniaReadOnlyList<SukiBackgroundStyle> AvailableBackgroundStyles { get; }
+    public IAvaloniaReadOnlyList<string> CustomShaders { get; } = new AvaloniaList<string> { "Space", "Weird", "Clouds" };
 
     private readonly SukiTheme _theme = SukiTheme.GetInstance();
 
@@ -23,6 +25,8 @@ public partial class ThemingViewModel : DemoPageBase
     [ObservableProperty] private SukiBackgroundStyle _backgroundStyle ;
     [ObservableProperty] private bool _backgroundAnimations;
 
+    private string? _customShader = null;
+    
     public ThemingViewModel() : base("Theming", MaterialIconKind.PaletteOutline, -200)
     {
         AvailableBackgroundStyles = new AvaloniaList<SukiBackgroundStyle>(Enum.GetValues<SukiBackgroundStyle>());
@@ -38,10 +42,9 @@ public partial class ThemingViewModel : DemoPageBase
 
     partial void OnIsLightThemeChanged(bool value) =>
         _theme.ChangeBaseTheme(value ? ThemeVariant.Light : ThemeVariant.Dark);
-
-
+    
     [RelayCommand]
-    public void SwitchToColorTheme(SukiColorTheme colorTheme) =>
+    private void SwitchToColorTheme(SukiColorTheme colorTheme) =>
         _theme.ChangeColorTheme(colorTheme);
 
     partial void OnBackgroundStyleChanged(SukiBackgroundStyle value) => 
@@ -49,4 +52,11 @@ public partial class ThemingViewModel : DemoPageBase
 
     partial void OnBackgroundAnimationsChanged(bool value) => 
         BackgroundAnimationsChanged?.Invoke(value);
+    
+    [RelayCommand]
+    private void TryCustomShader(string shaderType)
+    {
+        _customShader = _customShader == shaderType ? null : shaderType;
+        CustomBackgroundStyleChanged?.Invoke(_customShader);
+    }
 }

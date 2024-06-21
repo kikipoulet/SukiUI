@@ -9,13 +9,13 @@ vec3 blendOverlay(vec3 base, vec3 blend) {
         base.g < 0.5 ? (2.0 * base.g * blend.g) : (1.0 - 2.0 * (1.0 - base.g) * (1.0 - blend.g)),
         base.b < 0.5 ? (2.0 * base.b * blend.b) : (1.0 - 2.0 * (1.0 - base.b) * (1.0 - blend.b))
     );
-} 
+}
 
 vec3 blendOverlayDark(vec3 base, vec3 blend) {
     vec3 result;
     result.r = (base.r < 0.5) ? (4 * base.r * blend.r) : (3.5 - 2.0 * (3 - base.r) * (3.5 - blend.r));
     result.g = (base.g < 0.5) ? (4 * base.g * blend.g) : (3.5 - 2.0 * (3 - base.g) * (3.5 - blend.g));
-    result.b = (base.b < 0.5) ? (4 * base.b * blend.b) : (3.5- 2.0 * (3 - base.b) * (3.5 - blend.b));
+    result.b = (base.b < 0.5) ? (4 * base.b * blend.b) : (3.5 - 2.0 * (3 - base.b) * (3.5 - blend.b));
     return mix(base, clamp(result, 0.0, 1.0), 0.5); // Mélange avec la couleur de base pour réduire l'assombrissement
 }
 
@@ -60,37 +60,29 @@ vec4 main(vec2 fragCoord) {
     tuv *= Rot(radians((degree - .5) * 720. + 180.));
     tuv.y *= ratio;
 
-   float frequency = 1.;
-       float amplitude = 155.;
+    float frequency = 1.;
+    float amplitude = 155.;
     float speed = iTime * 0.1;
     tuv.x += sin(tuv.y * frequency + speed) / amplitude;
     tuv.y += sin(tuv.x * frequency * 1.5 + speed) / (amplitude * .5);
-
-     
-     
-     
-   
-    float opacityLayer1 = 0.95;
-        float opacityLayer2 = 0.85 - (iDark/2); 
-   
-   vec3 layer1Color = mix(vec3(0.0), iPrimary, opacityLayer1);
-     vec3 layer1 = mix(layer1Color, iAccent * 0.85, smoothstep(-.3, .4, (tuv * Rot(radians(-5.))).x));
-     
-     
-     vec3 layer2Color = mix(vec3(0.0), iAccent, opacityLayer2);
-     vec3 layer2 = mix(layer2Color, iPrimary * 0.65, smoothstep(-.2, .3, (tuv * Rot(radians(-5.))).x)); 
-     
-     
     
-     vec3 finalComp = mix(layer1, layer2, smoothstep(.8, -.5, tuv.y));
-     
-     
-     vec3 col;
-     if(iDark == 0){
-      col = blendOverlay(iBase, finalComp); 
-      }else{
-      col =  blendOverlayDark(iBase, finalComp); 
-      }
+    float opacityLayer1 = 0.95;
+    float opacityLayer2 = 0.85 - (iDark / 2);
+
+    vec3 layer1Color = mix(vec3(0.0), iPrimary, opacityLayer1);
+    vec3 layer1 = mix(layer1Color, iAccent * 0.85, smoothstep(-.3, .4, (tuv * Rot(radians(-5.))).x));
+    
+    vec3 layer2Color = mix(vec3(0.0), iAccent, opacityLayer2);
+    vec3 layer2 = mix(layer2Color, iPrimary * 0.65, smoothstep(-.2, .3, (tuv * Rot(radians(-5.))).x));
+    
+    vec3 finalComp = mix(layer1, layer2, smoothstep(.8, -.5, tuv.y));
+    
+    vec3 col;
+    if (iDark == 0) {
+        col = blendOverlay(iBase, finalComp);
+    } else {
+        col = blendOverlayDark(iBase, finalComp);
+    }
 
     return vec4(col, 1.0);
 }
