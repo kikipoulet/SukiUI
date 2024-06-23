@@ -40,5 +40,5 @@ vec4 main(vec2 fragCoord)
 
     vec3 col = mix(iPrimary, iAccent, clamp(vorv.x * 2.2 + vorv.y, -1., 1.) * 0.5 + 0.5);
     vec3 comp = blendOverlay(iBase, col);
-    return vec4(comp, 1.);
+    return vec4(comp, iAlpha);
 }

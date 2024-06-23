@@ -75,7 +75,6 @@
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate x:DataType="models:SukiColorTheme">
-
                                             <RadioButton Width="50"
                                                          Height="50"
                                                          Classes="GigaChips"
@@ -109,6 +108,21 @@
                                                 <TextBlock Margin="0,12,70,0"
                                                            Foreground="{DynamicResource SukiLowText}"
                                                            Text="Enable/disable the animations for the background, which are driven by the currently active effect."
+                                                           TextWrapping="Wrap" />
+                                            </StackPanel>
+                                        </DockPanel>
+                                        <DockPanel>
+                                            <ToggleButton VerticalAlignment="Top"
+                                                          Classes="Switch"
+                                                          DockPanel.Dock="Right"
+                                                          IsChecked="{Binding BackgroundTransitions}" />
+                                            <StackPanel HorizontalAlignment="Left">
+                                                <TextBlock FontSize="16"
+                                                           FontWeight="DemiBold"
+                                                           Text="Background Transitions" />
+                                                <TextBlock Margin="0,12,70,0"
+                                                           Foreground="{DynamicResource SukiLowText}"
+                                                           Text="Enable/disable the transitions for the background, these will fade between the active effects when changed."
                                                            TextWrapping="Wrap" />
                                             </StackPanel>
                                         </DockPanel>

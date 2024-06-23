@@ -24,7 +24,9 @@
                                                          AnimationEnabled="{TemplateBinding BackgroundAnimationEnabled}"
                                                          ShaderCode="{TemplateBinding BackgroundShaderCode}"
                                                          ShaderFile="{TemplateBinding BackgroundShaderFile}"
-                                                         Style="{TemplateBinding BackgroundStyle}" />
+                                                         Style="{TemplateBinding BackgroundStyle}"
+                                                         TransitionTime="{TemplateBinding BackgroundTransitionTime}"
+                                                         TransitionsEnabled="{TemplateBinding BackgroundTransitionsEnabled}" />
                                     <DockPanel LastChildFill="True">
                                         <Panel DockPanel.Dock="Top">
                                             <Panel.Styles>

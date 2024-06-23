@@ -39,5 +39,5 @@ half4 main(float2 FC) {
         g += e = max(p.x,p.z) / 1e3 - .01;
         o.rgb += .1/exp(cos(v*g*.1+n)+3.+1e4*e);
     }
-    return o.xyz1;
+    return half4(o.xyz, iAlpha);
 }

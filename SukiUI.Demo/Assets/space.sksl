@@ -63,5 +63,5 @@ half4 main( vec2 fragCoord )
     s+=stepsize;
     }
     v=mix(vec3(length(v)),v,saturation); //color adjust
-    return vec4(v*.01,1.);
+    return vec4(v*.01,iAlpha);
 }

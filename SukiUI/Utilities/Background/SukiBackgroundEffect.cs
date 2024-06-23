@@ -14,7 +14,8 @@ namespace SukiUI.Utilities.Background
     public class SukiBackgroundEffect : IDisposable
     {
         private const string Uniforms = "uniform float iTime;        // Scaled shader playback time (s)\n" +
-                                        "uniform float iDark      ;   // DarkTheme\n" +
+                                        "uniform float iDark;        // DarkTheme\n" +
+                                        "uniform float iAlpha;       // Current alpha for this effect - used for blending\n" +
                                         "uniform vec3 iResolution;   // Viewport resolution (pixels)\n" +
                                         "uniform vec3 iPrimary;      // Currently active primary color\n" +
                                         "uniform vec3 iAccent;       // Currently active accent color\n" +
@@ -49,14 +50,15 @@ namespace SukiUI.Utilities.Background
                 resName = assembly.GetManifestResourceNames()
                     .FirstOrDefault(x => x.ToLowerInvariant().Contains(shaderName));
             }
+
             if (resName is null)
                 throw new FileNotFoundException(
                     $"Unable to find a file with the name \"{shaderName}\" anywhere in the assembly.");
             using var tr = new StreamReader(assembly.GetManifestResourceStream(resName)!);
             return FromString(tr.ReadToEnd());
         }
-        
-        
+
+
         public static SukiBackgroundEffect FromString(string shaderString)
         {
             var withUniforms = Uniforms + shaderString;
@@ -68,6 +70,12 @@ namespace SukiUI.Utilities.Background
         public void Dispose()
         {
             Effect.Dispose();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is not SukiBackgroundEffect effect) return false;
+            return effect._effectString == _effectString;
         }
 
         public class SKShaderCompileException : Exception

@@ -32,6 +32,8 @@ public partial class SukiUIDemoViewModel : ObservableObject
     [ObservableProperty] private SukiBackgroundStyle _backgroundStyle = SukiBackgroundStyle.Gradient;
     [ObservableProperty] private bool _animationsEnabled;
     [ObservableProperty] private string? _customShaderFile;
+    [ObservableProperty] private bool _transitionsEnabled;
+    [ObservableProperty] private double _transitionTime;
 
     private readonly SukiTheme _theme;
     private readonly ThemingViewModel _theming;
@@ -43,6 +45,7 @@ public partial class SukiUIDemoViewModel : ObservableObject
         _theming.BackgroundStyleChanged += style => BackgroundStyle = style;
         _theming.BackgroundAnimationsChanged += enabled => AnimationsEnabled = enabled;
         _theming.CustomBackgroundStyleChanged += shader => CustomShaderFile = shader;
+        _theming.BackgroundTransitionsChanged += enabled => TransitionsEnabled = enabled;
         
         BackgroundStyles = new AvaloniaList<SukiBackgroundStyle>(Enum.GetValues<SukiBackgroundStyle>());
         _theme = SukiTheme.GetInstance();
@@ -78,6 +81,17 @@ public partial class SukiUIDemoViewModel : ObservableObject
         var content = AnimationsEnabled
             ? "Background animations are now enabled."
             : "Background animations are now disabled.";
+        return SukiHost.ShowToast(title, content);
+    }
+
+    [RelayCommand]
+    private Task ToggleTransitions()
+    {
+        TransitionsEnabled = !TransitionsEnabled;
+        var title = TransitionsEnabled ? "Transitions Enabled" : "Transitions Disabled";
+        var content = TransitionsEnabled
+            ? "Background transitions are now enabled."
+            : "Background transitions are now disabled.";
         return SukiHost.ShowToast(title, content);
     }
 
@@ -118,4 +132,7 @@ public partial class SukiUIDemoViewModel : ObservableObject
 
     partial void OnAnimationsEnabledChanged(bool value) => 
         _theming.BackgroundAnimations = value;
+
+    partial void OnTransitionsEnabledChanged(bool value) =>
+        _theming.BackgroundTransitions = value;
 }
