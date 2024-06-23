@@ -56,6 +56,7 @@ namespace SukiUI.Utilities.Background
         {
             if (!TransitionsEnabled) return;
             if (oldValue is null || Equals(oldValue, newValue)) return;
+            _oldEffect?.Dispose();
             _oldEffect = oldValue;
             _transitionStartTime = TransitionTick.Elapsed.TotalSeconds;
             _transitionEndTime = _transitionStartTime + Math.Max(0, TransitionTime);
@@ -114,7 +115,7 @@ namespace SukiUI.Utilities.Background
                 canvas.DrawRect(rect, mainShaderPaint);
             }
 
-            if (TransitionsEnabled && _oldEffect is not null)
+            if (_oldEffect is not null)
             {
                 using var oldShaderPaint = new SKPaint();
                 // Blend modes effect the transition quite heavily, only these 3 seem to work in any reasonable way.
