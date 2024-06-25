@@ -84,5 +84,5 @@ vec4 main(vec2 fragCoord) {
         col = blendOverlayDark(iBase, finalComp);
     }
 
-    return vec4(col, 1.0);
+    return vec4(col, iAlpha);
 }

@@ -11,9 +11,10 @@ namespace SukiUI.Demo.Features.Theming;
 
 public partial class ThemingViewModel : DemoPageBase
 {
-    public Action<SukiBackgroundStyle> BackgroundStyleChanged { get; set; }
-    public Action<bool> BackgroundAnimationsChanged { get; set; }
-    public Action<string?> CustomBackgroundStyleChanged { get; set; }
+    public Action<SukiBackgroundStyle>? BackgroundStyleChanged { get; set; }
+    public Action<bool>? BackgroundAnimationsChanged { get; set; }
+    public Action<bool>? BackgroundTransitionsChanged { get; set; }
+    public Action<string?>? CustomBackgroundStyleChanged { get; set; }
     
     public IAvaloniaReadOnlyList<SukiColorTheme> AvailableColors { get; }
     public IAvaloniaReadOnlyList<SukiBackgroundStyle> AvailableBackgroundStyles { get; }
@@ -24,6 +25,7 @@ public partial class ThemingViewModel : DemoPageBase
     [ObservableProperty] private bool _isLightTheme;
     [ObservableProperty] private SukiBackgroundStyle _backgroundStyle ;
     [ObservableProperty] private bool _backgroundAnimations;
+    [ObservableProperty] private bool _backgroundTransitions;
 
     private string? _customShader = null;
     
@@ -36,7 +38,7 @@ public partial class ThemingViewModel : DemoPageBase
             IsLightTheme = variant == ThemeVariant.Light;
         _theme.OnColorThemeChanged += theme =>
         {
-            // TODO: Implement a way to make the correct, might need to wrap the thing in a VM, this isn't ideal.
+            // TODO: Implement a way to make this correct, might need to wrap the thing in a VM, this isn't ideal.
         };
     }
 
@@ -52,7 +54,10 @@ public partial class ThemingViewModel : DemoPageBase
 
     partial void OnBackgroundAnimationsChanged(bool value) => 
         BackgroundAnimationsChanged?.Invoke(value);
-    
+
+    partial void OnBackgroundTransitionsChanged(bool value) =>
+        BackgroundTransitionsChanged?.Invoke(value);
+
     [RelayCommand]
     private void TryCustomShader(string shaderType)
     {

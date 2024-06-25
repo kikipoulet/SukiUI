@@ -116,9 +116,8 @@ public class SukiWindow : Window
         AvaloniaProperty.Register<SukiWindow, SukiBackgroundStyle>(nameof(BackgroundStyle),
             defaultValue: SukiBackgroundStyle.Gradient);
 
-    /// <summary>
-    /// Which of the default background styles to use.
-    /// </summary>
+    
+    /// <inheritdoc cref="SukiBackground.Style"/>
     public SukiBackgroundStyle BackgroundStyle
     {
         get => GetValue(BackgroundStyleProperty);
@@ -128,10 +127,7 @@ public class SukiWindow : Window
     public static readonly StyledProperty<string?> BackgroundShaderFileProperty =
         AvaloniaProperty.Register<SukiWindow, string?>(nameof(BackgroundShaderFile));
 
-    /// <summary>
-    /// Specify a filename of an EMBEDDED RESOURCE file of type `.SkSL` with or without extension and it will be loaded and displayed.
-    /// This takes priority over the <see cref="BackgroundShaderCode"/> property, which in turns takes priority over <see cref="BackgroundStyle"/>.
-    /// </summary>
+    /// <inheritdoc cref="SukiBackground.ShaderFile"/>
     public string? BackgroundShaderFile
     {
         get => GetValue(BackgroundShaderFileProperty);
@@ -141,14 +137,32 @@ public class SukiWindow : Window
     public static readonly StyledProperty<string?> BackgroundShaderCodeProperty =
         AvaloniaProperty.Register<SukiWindow, string?>(nameof(BackgroundShaderCode));
 
-    /// <summary>
-    /// Specify the shader code to use directly, simpler if you don't want to create an .SkSL file or want to generate the shader effect at runtime in some way.
-    /// This takes priority over the <see cref="BackgroundStyle"/> property, but is second in priority to <see cref="BackgroundShaderFile"/> if it is set.
-    /// </summary>
+    
+    /// <inheritdoc cref="SukiBackground.ShaderCode"/>
     public string? BackgroundShaderCode
     {
         get => GetValue(BackgroundShaderCodeProperty);
         set => SetValue(BackgroundShaderCodeProperty, value);
+    }
+    
+    public static readonly StyledProperty<bool> BackgroundTransitionsEnabledProperty =
+        AvaloniaProperty.Register<SukiBackground, bool>(nameof(BackgroundTransitionsEnabled), defaultValue: false);
+    
+    /// <inheritdoc cref="SukiBackground.TransitionsEnabled"/>
+    public bool BackgroundTransitionsEnabled
+    {
+        get => GetValue(BackgroundTransitionsEnabledProperty);
+        set => SetValue(BackgroundTransitionsEnabledProperty, value);
+    }
+
+    public static readonly StyledProperty<double> BackgroundTransitionTimeProperty =
+        AvaloniaProperty.Register<SukiBackground, double>(nameof(BackgroundTransitionTime), defaultValue: 1.0);
+    
+    /// <inheritdoc cref="SukiBackground.TransitionTime"/>
+    public double BackgroundTransitionTime
+    {
+        get => GetValue(BackgroundTransitionTimeProperty);
+        set => SetValue(BackgroundTransitionTimeProperty, value);
     }
 
     public SukiWindow()
@@ -157,7 +171,6 @@ public class SukiWindow : Window
     }
 
     private IDisposable? _subscriptionDisposables;
-    private SukiBackground _background;
 
     protected override void OnLoaded(RoutedEventArgs e)
     {

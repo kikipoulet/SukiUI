@@ -13,13 +13,12 @@ namespace SukiUI.Controls
 {
     public class SukiBackground : Control
     {
-
         public static readonly StyledProperty<SukiBackgroundStyle> StyleProperty =
             AvaloniaProperty.Register<SukiWindow, SukiBackgroundStyle>(nameof(Style),
                 defaultValue: SukiBackgroundStyle.Gradient);
-        
+
         /// <summary>
-        /// Which of the default background styles to use.
+        /// Which of the default background styles to use - DEFAULT: Gradient
         /// </summary>
         public SukiBackgroundStyle Style
         {
@@ -52,26 +51,64 @@ namespace SukiUI.Controls
             get => GetValue(ShaderCodeProperty);
             set => SetValue(ShaderCodeProperty, value);
         }
-        
+
         public static readonly StyledProperty<bool> AnimationEnabledProperty =
             AvaloniaProperty.Register<SukiWindow, bool>(nameof(AnimationEnabled), defaultValue: false);
-
+        
+        /// <summary>
+        /// Enables/disables animations - DEFAULT: False
+        /// </summary>
         public bool AnimationEnabled
         {
             get => GetValue(AnimationEnabledProperty);
             set => SetValue(AnimationEnabledProperty, value);
         }
+
+        public static readonly StyledProperty<bool> TransitionsEnabledProperty =
+            AvaloniaProperty.Register<SukiBackground, bool>(nameof(TransitionsEnabled), defaultValue: false);
+        
+        /// <summary>
+        /// Enables/disables transition animations when switching backgrounds - DEFAULT: False
+        /// </summary>
+        public bool TransitionsEnabled
+        {
+            get => GetValue(TransitionsEnabledProperty);
+            set => SetValue(TransitionsEnabledProperty, value);
+        }
+
+        public static readonly StyledProperty<double> TransitionTimeProperty =
+            AvaloniaProperty.Register<SukiBackground, double>(nameof(TransitionTime), defaultValue: 1.0);
+        
+        /// <summary>
+        /// The amount of time in seconds the background transition will take - DEFAULT: 1.0
+        /// </summary>
+        public double TransitionTime
+        {
+            get => GetValue(TransitionTimeProperty);
+            set => SetValue(TransitionTimeProperty, value);
+        }
         
         private readonly ShaderBackgroundDraw _draw;
-        private SukiBackgroundEffect _effect;
         private readonly IDisposable _observables;
-        
+
         public SukiBackground()
         {
             IsHitTestVisible = false;
             _draw = new ShaderBackgroundDraw(new Rect(0, 0, Bounds.Width, Bounds.Height));
-            var bgStyleObs = this.GetObservable(StyleProperty)
+            var transEnabledObs = this.GetObservable(TransitionsEnabledProperty)
+                .Do(enabled => _draw.TransitionsEnabled = enabled)
                 .Select(_ => Unit.Default);
+            var transTime = this.GetObservable(TransitionTimeProperty)
+                .Do(time => _draw.TransitionTime = time)
+                .Select(_ => Unit.Default)
+                .Merge(transEnabledObs);
+            var animObs = this.GetObservable(AnimationEnabledProperty)
+                .Do(enabled => _draw.AnimEnabled = enabled)
+                .Select(_ => Unit.Default)
+                .Merge(transTime);
+            var bgStyleObs = this.GetObservable(StyleProperty)
+                .Select(_ => Unit.Default)
+                .Merge(animObs);
             var bgShaderFileObs = this.GetObservable(ShaderFileProperty)
                 .Select(_ => Unit.Default)
                 .Merge(bgStyleObs);
@@ -82,24 +119,22 @@ namespace SukiUI.Controls
                 .ObserveOn(new AvaloniaSynchronizationContext());
             _observables = bgShaderCodeObs.Subscribe();
         }
-        
+
         public override void Render(DrawingContext context)
         {
             _draw.Bounds = Bounds;
-            _draw.Effect = _effect;
-            _draw.AnimEnabled = AnimationEnabled;
             context.Custom(_draw);
             Dispatcher.UIThread.InvokeAsync(InvalidateVisual, DispatcherPriority.Background);
         }
-        
+
         private void HandleBackgroundStyleChanges()
         {
             if (ShaderFile is not null)
-                _effect = SukiBackgroundEffect.FromEmbeddedResource(ShaderFile);
-            else if (ShaderCode is not null) 
-                _effect = SukiBackgroundEffect.FromString(ShaderCode);
+                _draw.Effect = SukiBackgroundEffect.FromEmbeddedResource(ShaderFile);
+            else if (ShaderCode is not null)
+                _draw.Effect = SukiBackgroundEffect.FromString(ShaderCode);
             else
-                _effect = SukiBackgroundEffect.FromEmbeddedResource(Style.ToString());
+                _draw.Effect = SukiBackgroundEffect.FromEmbeddedResource(Style.ToString());
         }
 
         protected override void OnUnloaded(RoutedEventArgs e)
