@@ -8,7 +8,7 @@ using Avalonia.Media;
 using Avalonia.Threading;
 using SukiUI.Enums;
 using SukiUI.Utilities;
-using SukiUI.Utilities.Background;
+using SukiUI.Utilities.Effects;
 
 namespace SukiUI.Controls
 {
@@ -89,13 +89,13 @@ namespace SukiUI.Controls
             set => SetValue(TransitionTimeProperty, value);
         }
         
-        private readonly ShaderBackgroundDraw _draw;
+        private readonly EffectBackgroundDraw _draw;
         private readonly IDisposable _observables;
 
         public SukiBackground()
         {
             IsHitTestVisible = false;
-            _draw = new ShaderBackgroundDraw(new Rect(0, 0, Bounds.Width, Bounds.Height));
+            _draw = new EffectBackgroundDraw(new Rect(0, 0, Bounds.Width, Bounds.Height));
             var transEnabledObs = this.GetObservable(TransitionsEnabledProperty)
                 .Do(enabled => _draw.TransitionsEnabled = enabled)
                 .Select(_ => Unit.Default);
@@ -104,7 +104,7 @@ namespace SukiUI.Controls
                 .Select(_ => Unit.Default)
                 .Merge(transEnabledObs);
             var animObs = this.GetObservable(AnimationEnabledProperty)
-                .Do(enabled => _draw.AnimEnabled = enabled)
+                .Do(enabled => _draw.AnimationEnabled = enabled)
                 .Select(_ => Unit.Default)
                 .Merge(transTime);
             var bgStyleObs = this.GetObservable(StyleProperty)
@@ -125,7 +125,6 @@ namespace SukiUI.Controls
         {
             _draw.Bounds = Bounds;
             context.Custom(_draw);
-            Dispatcher.UIThread.InvokeAsync(InvalidateVisual, DispatcherPriority.Background);
         }
 
         private void HandleBackgroundStyleChanges()

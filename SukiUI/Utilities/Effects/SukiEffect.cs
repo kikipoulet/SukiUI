@@ -10,7 +10,7 @@ using Avalonia.Media;
 using Avalonia.Styling;
 using SkiaSharp;
 
-namespace SukiUI.Utilities
+namespace SukiUI.Utilities.Effects
 {
     /// <summary>
     /// Represents an SKSL shader that SukiUI can handle and pass relevant uniforms into.
@@ -122,11 +122,8 @@ namespace SukiUI.Utilities
         
         private static readonly float[] White = { 0.95f, 0.95f, 0.95f };
         
-        internal SKShader ToShaderWithUniforms(float timeSeconds, ThemeVariant activeVariant, Rect bounds, float alpha)
+        internal SKShader ToShaderWithUniforms(float timeSeconds, ThemeVariant activeVariant, Rect bounds, float animationScale, float alpha = 1f)
         {
-            (float r, float g, float b) ToFloat(Color col) =>
-                (col.R / 255f, col.G / 255f, col.B / 255f);
-            
             var suki = SukiTheme.GetInstance();
             var acc = ToFloat(suki.ActiveColorTheme!.Accent);
             var prim = ToFloat(suki.ActiveColorTheme.Primary);
@@ -134,7 +131,7 @@ namespace SukiUI.Utilities
             var inputs = new SKRuntimeEffectUniforms(Effect)
             {
                 { "iResolution", new[] { (float)bounds.Width, (float)bounds.Height, 0f } },
-                { "iTime", timeSeconds * 0.1f },
+                { "iTime", timeSeconds * animationScale },
                 {
                     "iBase",
                     activeVariant == ThemeVariant.Dark
@@ -147,6 +144,9 @@ namespace SukiUI.Utilities
                 { "iAlpha", alpha }
             };
             return Effect.ToShader(false, inputs);
+
+            (float r, float g, float b) ToFloat(Color col) =>
+                (col.R / 255f, col.G / 255f, col.B / 255f);
         }
 
         private class ShaderCompilationException : Exception

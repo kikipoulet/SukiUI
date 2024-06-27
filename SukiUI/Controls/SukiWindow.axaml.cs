@@ -12,7 +12,6 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
 using SukiUI.Enums;
 using SukiUI.Utilities;
-using SukiUI.Utilities.Background;
 
 namespace SukiUI.Controls;
 
