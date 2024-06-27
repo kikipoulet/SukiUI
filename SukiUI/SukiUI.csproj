@@ -88,10 +88,6 @@
 	  <EmbeddedResource Include="Content\Shaders\Background\flat.sksl" />
 	  <EmbeddedResource Include="Content\Shaders\Background\gradient.sksl" />
 	  <EmbeddedResource Include="Content\Shaders\Background\waves.sksl" />
-	  <None Remove="Content\Shaders\Loading\loading.sksl" />
-	  <EmbeddedResource Include="Content\Shaders\Loading\glow.sksl" />
-	  <None Remove="Content\Shaders\Loading\pellets.sksl" />
-	  <EmbeddedResource Include="Content\Shaders\Loading\pellets.sksl" />
 	</ItemGroup>
 
 </Project>

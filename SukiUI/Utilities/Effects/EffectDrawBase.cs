@@ -12,11 +12,11 @@ namespace SukiUI.Utilities.Effects
 {
     public abstract class EffectDrawBase : ICustomDrawOperation
     {
-        public Rect Bounds { get; internal set; }
+        public Rect Bounds { get; set; }
 
         private SukiEffect? _effect;
 
-        internal SukiEffect? Effect
+        public SukiEffect? Effect
         {
             get => _effect;
             set
@@ -29,7 +29,7 @@ namespace SukiUI.Utilities.Effects
         }
 
         private bool _animationEnabled = true;
-        internal bool AnimationEnabled
+        public bool AnimationEnabled
         {
             get => _animationEnabled;
             set
@@ -40,7 +40,7 @@ namespace SukiUI.Utilities.Effects
             }
         }
 
-        internal float AnimationSpeedScale { get; set; } = 0.1f;
+        protected float AnimationSpeedScale { get; set; } = 0.1f;
         
         protected ThemeVariant ActiveVariant { get; private set; }
         

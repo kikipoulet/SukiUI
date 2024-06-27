@@ -2,9 +2,10 @@ using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
+using SkiaSharp;
 using SukiUI.Utilities.Effects;
 
-namespace SukiUI.Controls
+namespace SukiUI.Demo.Controls
 {
     public class LoadingTest : Control
     {
@@ -24,13 +25,13 @@ namespace SukiUI.Controls
                 { LoadingStyle.Pellets, SukiEffect.FromEmbeddedResource("pellets") }
             };
 
-        private readonly GenericEffectDraw _draw;
+        private readonly LoadingEffectDraw _draw;
 
         public LoadingTest()
         {
             Width = 50;
             Height = 50;
-            _draw = new GenericEffectDraw(Bounds);
+            _draw = new LoadingEffectDraw(Bounds);
         }
         
         public override void Render(DrawingContext context)
@@ -38,6 +39,30 @@ namespace SukiUI.Controls
             _draw.Bounds = Bounds;
             _draw.Effect = Effects[LoadingStyle];
             context.Custom(_draw);
+        }
+        
+        public class LoadingEffectDraw : EffectDrawBase
+        {
+            public LoadingEffectDraw(Rect bounds) : base(bounds)
+            {
+                AnimationEnabled = true;
+                AnimationSpeedScale = 2f;
+            }
+
+            protected override void Render(SKCanvas canvas, SKRect rect)
+            {
+                canvas.Scale(1,-1);
+                canvas.Translate(0, (float)-Bounds.Height);
+                using var mainShaderPaint = new SKPaint();
+            
+                if (Effect is not null)
+                {
+                    using var shader = EffectWithUniforms();
+                    mainShaderPaint.Shader = shader;
+                    canvas.DrawRect(rect, mainShaderPaint);
+                }
+                canvas.Restore();
+            }
         }
     }
 
