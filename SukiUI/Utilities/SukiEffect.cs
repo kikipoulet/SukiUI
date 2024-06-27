@@ -6,6 +6,8 @@ using System.Reflection;
 using System.Text;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Media;
+using Avalonia.Styling;
 using SkiaSharp;
 
 namespace SukiUI.Utilities
@@ -116,6 +118,35 @@ namespace SukiUI.Utilities
         {
             if (obj is not SukiEffect effect) return false;
             return effect._shaderString == _shaderString;
+        }
+        
+        private static readonly float[] White = { 0.95f, 0.95f, 0.95f };
+        
+        internal SKShader ToShaderWithUniforms(float timeSeconds, ThemeVariant activeVariant, Rect bounds, float alpha)
+        {
+            (float r, float g, float b) ToFloat(Color col) =>
+                (col.R / 255f, col.G / 255f, col.B / 255f);
+            
+            var suki = SukiTheme.GetInstance();
+            var acc = ToFloat(suki.ActiveColorTheme!.Accent);
+            var prim = ToFloat(suki.ActiveColorTheme.Primary);
+            var darkBackground = ToFloat(suki.ActiveColorTheme.Background);
+            var inputs = new SKRuntimeEffectUniforms(Effect)
+            {
+                { "iResolution", new[] { (float)bounds.Width, (float)bounds.Height, 0f } },
+                { "iTime", timeSeconds * 0.1f },
+                {
+                    "iBase",
+                    activeVariant == ThemeVariant.Dark
+                        ? new[] { darkBackground.r, darkBackground.g, darkBackground.b }
+                        : White
+                },
+                { "iAccent", new[] { acc.r / 1.3f, acc.g / 1.3f, acc.b / 1.3f } },
+                { "iPrimary", new[] { prim.r / 1.3f, prim.g / 1.3f, prim.b / 1.3f } },
+                { "iDark", activeVariant == ThemeVariant.Dark ? 1f : 0f },
+                { "iAlpha", alpha }
+            };
+            return Effect.ToShader(false, inputs);
         }
 
         private class ShaderCompilationException : Exception
