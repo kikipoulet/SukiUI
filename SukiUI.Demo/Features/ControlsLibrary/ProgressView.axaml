@@ -2,6 +2,7 @@
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+             xmlns:controls1="clr-namespace:SukiUI.Demo.Controls"
              xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -140,6 +141,20 @@
                             </showMeTheXaml:XamlDisplay>
                             <showMeTheXaml:XamlDisplay UniqueId="Loading2">
                                 <controls:Loading Classes="Accent" />
+                            </showMeTheXaml:XamlDisplay>
+                        </StackPanel>
+                    </controls:GroupBox>
+                </controls:GlassCard>
+
+
+                <controls:GlassCard>
+                    <controls:GroupBox Header="Custom Loading Indicators">
+                        <StackPanel Spacing="15">
+                            <showMeTheXaml:XamlDisplay UniqueId="Loading3">
+                                <controls1:LoadingTest />
+                            </showMeTheXaml:XamlDisplay>
+                            <showMeTheXaml:XamlDisplay UniqueId="Loading4">
+                                <controls1:LoadingTest LoadingStyle="Pellets" />
                             </showMeTheXaml:XamlDisplay>
                         </StackPanel>
                     </controls:GroupBox>

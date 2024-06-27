@@ -84,10 +84,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="Content\Shaders\flat.sksl" />
-	  <EmbeddedResource Include="Content\Shaders\waves.sksl" />
-	  <EmbeddedResource Include="Content\Shaders\gradient.sksl" />
-	  <EmbeddedResource Include="Content\Shaders\cells.sksl" />
+	  <EmbeddedResource Include="Content\Shaders\Background\cells.sksl" />
+	  <EmbeddedResource Include="Content\Shaders\Background\flat.sksl" />
+	  <EmbeddedResource Include="Content\Shaders\Background\gradient.sksl" />
+	  <EmbeddedResource Include="Content\Shaders\Background\waves.sksl" />
 	</ItemGroup>
 
 </Project>

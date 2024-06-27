@@ -7,7 +7,8 @@ using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Threading;
 using SukiUI.Enums;
-using SukiUI.Utilities.Background;
+using SukiUI.Utilities;
+using SukiUI.Utilities.Effects;
 
 namespace SukiUI.Controls
 {
@@ -88,13 +89,13 @@ namespace SukiUI.Controls
             set => SetValue(TransitionTimeProperty, value);
         }
         
-        private readonly ShaderBackgroundDraw _draw;
+        private readonly EffectBackgroundDraw _draw;
         private readonly IDisposable _observables;
 
         public SukiBackground()
         {
             IsHitTestVisible = false;
-            _draw = new ShaderBackgroundDraw(new Rect(0, 0, Bounds.Width, Bounds.Height));
+            _draw = new EffectBackgroundDraw(new Rect(0, 0, Bounds.Width, Bounds.Height));
             var transEnabledObs = this.GetObservable(TransitionsEnabledProperty)
                 .Do(enabled => _draw.TransitionsEnabled = enabled)
                 .Select(_ => Unit.Default);
@@ -103,7 +104,7 @@ namespace SukiUI.Controls
                 .Select(_ => Unit.Default)
                 .Merge(transEnabledObs);
             var animObs = this.GetObservable(AnimationEnabledProperty)
-                .Do(enabled => _draw.AnimEnabled = enabled)
+                .Do(enabled => _draw.AnimationEnabled = enabled)
                 .Select(_ => Unit.Default)
                 .Merge(transTime);
             var bgStyleObs = this.GetObservable(StyleProperty)
@@ -124,17 +125,16 @@ namespace SukiUI.Controls
         {
             _draw.Bounds = Bounds;
             context.Custom(_draw);
-            Dispatcher.UIThread.InvokeAsync(InvalidateVisual, DispatcherPriority.Background);
         }
 
         private void HandleBackgroundStyleChanges()
         {
             if (ShaderFile is not null)
-                _draw.Effect = SukiBackgroundEffect.FromEmbeddedResource(ShaderFile);
+                _draw.Effect = SukiEffect.FromEmbeddedResource(ShaderFile);
             else if (ShaderCode is not null)
-                _draw.Effect = SukiBackgroundEffect.FromString(ShaderCode);
+                _draw.Effect = SukiEffect.FromString(ShaderCode);
             else
-                _draw.Effect = SukiBackgroundEffect.FromEmbeddedResource(Style.ToString());
+                _draw.Effect = SukiEffect.FromEmbeddedResource(Style.ToString());
         }
 
         protected override void OnUnloaded(RoutedEventArgs e)
