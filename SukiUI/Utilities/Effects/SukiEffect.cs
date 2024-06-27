@@ -22,7 +22,7 @@ namespace SukiUI.Utilities.Effects
         private static readonly string[] Uniforms =
         {
             "uniform float iTime;",
-            "uniform float iDark;" ,
+            "uniform float iDark;",
             "uniform float iAlpha;",
             "uniform vec3 iResolution;",
             "uniform vec3 iPrimary;",
@@ -31,9 +31,9 @@ namespace SukiUI.Utilities.Effects
         };
 
         private static readonly List<SukiEffect> LoadedEffects = new();
-        
+
         private readonly string _shaderString;
-        
+
         /// <summary>
         /// The compiled <see cref="SKRuntimeEffect"/> that will actually be used in draw calls. 
         /// </summary>
@@ -48,10 +48,10 @@ namespace SukiUI.Utilities.Effects
 
         static SukiEffect()
         {
-            if (Application.Current.ApplicationLifetime is IControlledApplicationLifetime controlled) 
-                controlled.Exit += (_,_) => EnsureDisposed();
+            if (Application.Current.ApplicationLifetime is IControlledApplicationLifetime controlled)
+                controlled.Exit += (_, _) => EnsureDisposed();
         }
-        
+
         /// <summary>
         /// Attempts to load and compile a ".sksl" shader file from the assembly.
         /// You don't need to provide the extension.
@@ -101,32 +101,35 @@ namespace SukiUI.Utilities.Effects
 
 
         private static bool _disposed;
+
         /// <summary>
         /// Necessary to make sure all the unmanaged effects are disposed.
         /// </summary>
         internal static void EnsureDisposed()
         {
             if (_disposed)
-                throw new InvalidOperationException("SukiEffects should only be disposed once at the app lifecycle end.");
+                throw new InvalidOperationException(
+                    "SukiEffects should only be disposed once at the app lifecycle end.");
             _disposed = true;
             foreach (var loaded in LoadedEffects)
                 loaded.Effect.Dispose();
             LoadedEffects.Clear();
         }
-        
+
         public override bool Equals(object obj)
         {
             if (obj is not SukiEffect effect) return false;
             return effect._shaderString == _shaderString;
         }
-        
+
         private static readonly float[] White = { 0.95f, 0.95f, 0.95f };
-        
-        internal SKShader ToShaderWithUniforms(float timeSeconds, ThemeVariant activeVariant, Rect bounds, float animationScale, float alpha = 1f)
+
+        internal SKShader ToShaderWithUniforms(float timeSeconds, ThemeVariant activeVariant, Rect bounds,
+            float animationScale, float alpha = 1f)
         {
             var suki = SukiTheme.GetInstance();
-            var acc = ToFloat(suki.ActiveColorTheme!.Accent);
-            var prim = ToFloat(suki.ActiveColorTheme.Primary);
+            var acc = ToFloat(suki.ActiveColorTheme!.BackgroundAccent);
+            var prim = ToFloat(suki.ActiveColorTheme.BackgroundPrimary);
             var darkBackground = ToFloat(suki.ActiveColorTheme.Background);
             var inputs = new SKRuntimeEffectUniforms(Effect)
             {
@@ -138,8 +141,8 @@ namespace SukiUI.Utilities.Effects
                         ? new[] { darkBackground.r, darkBackground.g, darkBackground.b }
                         : White
                 },
-                { "iAccent", new[] { acc.r / 1.3f, acc.g / 1.3f, acc.b / 1.3f } },
-                { "iPrimary", new[] { prim.r / 1.3f, prim.g / 1.3f, prim.b / 1.3f } },
+                { "iAccent", new[] { acc.r, acc.g, acc.b } },
+                { "iPrimary", new[] { prim.r, prim.g, prim.b } },
                 { "iDark", activeVariant == ThemeVariant.Dark ? 1f : 0f },
                 { "iAlpha", alpha }
             };
@@ -155,6 +158,5 @@ namespace SukiUI.Utilities.Effects
             {
             }
         }
-
     }
 }
