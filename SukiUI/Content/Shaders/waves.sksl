@@ -51,5 +51,5 @@ vec4 main(vec2 fragCoord )
     vec3 col = mix(iPrimary, iAccent, uv.x);
     voronoi(uv * 4.0 - 1.0, col);
     vec3 finalCol = blendOverlay(iBase, col);
-    return vec4(finalCol,iAlpha);
+    return vec4(finalCol, iAlpha);
 }

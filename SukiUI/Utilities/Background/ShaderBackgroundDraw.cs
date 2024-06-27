@@ -14,9 +14,9 @@ namespace SukiUI.Utilities.Background
     {
         public Rect Bounds { get; internal set; }
 
-        private SukiBackgroundEffect? _effect;
+        private SukiEffect? _effect;
 
-        internal SukiBackgroundEffect? Effect
+        internal SukiEffect? Effect
         {
             get => _effect;
             set
@@ -39,7 +39,7 @@ namespace SukiUI.Utilities.Background
                 _animEnabled = value;
             }
         }
-        
+
         internal bool TransitionsEnabled { get; set; }
         internal double TransitionTime { get; set; }
 
@@ -48,15 +48,14 @@ namespace SukiUI.Utilities.Background
 
         private ThemeVariant _activeVariant;
 
-        private SukiBackgroundEffect? _oldEffect;
+        private SukiEffect? _oldEffect;
         private double _transitionStartTime;
         private double _transitionEndTime;
 
-        private void TryBeginTransition(SukiBackgroundEffect? oldValue, SukiBackgroundEffect? newValue)
+        private void TryBeginTransition(SukiEffect? oldValue, SukiEffect? newValue)
         {
             if (!TransitionsEnabled) return;
             if (oldValue is null || Equals(oldValue, newValue)) return;
-            _oldEffect?.Dispose();
             _oldEffect = oldValue;
             _transitionStartTime = TransitionTick.Elapsed.TotalSeconds;
             _transitionEndTime = _transitionStartTime + Math.Max(0, TransitionTime);
@@ -89,8 +88,8 @@ namespace SukiUI.Utilities.Background
 
         public void Dispose()
         {
-            Effect?.Dispose();
-            _oldEffect?.Dispose();
+            //_oldEffect?.Dispose();
+            //Effect?.Dispose();
         }
 
         public bool HitTest(Point p) => false;
@@ -123,19 +122,18 @@ namespace SukiUI.Utilities.Background
                 // oldShaderPaint.BlendMode = SKBlendMode.Overlay; // - Not Great
                 oldShaderPaint.BlendMode = SKBlendMode.Darken; // - Best
                 var lerped = InverseLerp(_transitionStartTime, _transitionEndTime, TransitionTick.Elapsed.TotalSeconds);
-                using var shader = CreateShader(_oldEffect, (float)SineIn(1 - lerped));
+                using var shader = CreateShader(_oldEffect, (float)(1 - lerped)); //(float)SineIn(1 - lerped));
                 oldShaderPaint.Shader = shader;
                 if (lerped <= 1)
                     canvas.DrawRect(rect, oldShaderPaint);
                 else
-                {
-                    _oldEffect.Dispose();
                     _oldEffect = null;
-                }
             }
         }
 
-        private SKShader CreateShader(SukiBackgroundEffect effect, float alpha)
+        private readonly object _obj = new();
+
+        private SKShader CreateShader(SukiEffect effect, float alpha)
         {
             var suki = SukiTheme.GetInstance();
             var acc = ToFloat(suki.ActiveColorTheme!.Accent);

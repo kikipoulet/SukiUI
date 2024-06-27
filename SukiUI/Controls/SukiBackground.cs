@@ -7,6 +7,7 @@ using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Threading;
 using SukiUI.Enums;
+using SukiUI.Utilities;
 using SukiUI.Utilities.Background;
 
 namespace SukiUI.Controls
@@ -130,11 +131,11 @@ namespace SukiUI.Controls
         private void HandleBackgroundStyleChanges()
         {
             if (ShaderFile is not null)
-                _draw.Effect = SukiBackgroundEffect.FromEmbeddedResource(ShaderFile);
+                _draw.Effect = SukiEffect.FromEmbeddedResource(ShaderFile);
             else if (ShaderCode is not null)
-                _draw.Effect = SukiBackgroundEffect.FromString(ShaderCode);
+                _draw.Effect = SukiEffect.FromString(ShaderCode);
             else
-                _draw.Effect = SukiBackgroundEffect.FromEmbeddedResource(Style.ToString());
+                _draw.Effect = SukiEffect.FromEmbeddedResource(Style.ToString());
         }
 
         protected override void OnUnloaded(RoutedEventArgs e)
