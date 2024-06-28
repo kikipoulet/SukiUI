@@ -16,6 +16,7 @@
             <Setter Property="Content" Value="Button" />
             <Setter Property="theme:ButtonExtensions.ShowProgress" Value="{Binding IsBusy}" />
             <Setter Property="Command" Value="{Binding ButtonClickedCommand}" />
+            <Setter Property="IsEnabled" Value="{Binding IsEnabled}" />
         </Style>
     </UserControl.Styles>
     <Grid RowDefinitions="Auto,*">
@@ -28,6 +29,16 @@
                     <TextBlock>
                         Clicking on any one of the buttons will make them all "Busy" for 3 seconds, and how this is achieved can be seen in the XAML for the Busy Button.
                     </TextBlock>
+                    <StackPanel Margin="0,25,0,0" Orientation="Horizontal">
+                        <TextBlock Margin="0,0,0,0"
+                                   VerticalAlignment="Center"
+                                   FontWeight="DemiBold"
+                                   Text="Buttons Enabled: " />
+                        <ToggleButton Margin="15,0,0,0"
+                                      Classes="Switch"
+                                      IsChecked="{Binding IsEnabled}" />
+
+                    </StackPanel>
                 </StackPanel>
             </controls:GroupBox>
         </controls:GlassCard>

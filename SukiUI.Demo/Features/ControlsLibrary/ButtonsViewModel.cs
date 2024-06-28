@@ -8,6 +8,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary;
 public partial class ButtonsViewModel() : DemoPageBase("Buttons", MaterialIconKind.CursorDefaultClick)
 {
     [ObservableProperty] private bool _isBusy;
+    [ObservableProperty] private bool _isEnabled = true;
 
     [RelayCommand]
     private Task ButtonClicked()
