@@ -7,6 +7,7 @@ using Avalonia.Threading;
 using System;
 using System.Reactive;
 using System.Reactive.Linq;
+using System.Reflection;
 using Avalonia.Collections;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
@@ -171,6 +172,7 @@ public class SukiWindow : Window
     }
 
     private IDisposable? _subscriptionDisposables;
+    private SukiBackground? _background;
 
     protected override void OnLoaded(RoutedEventArgs e)
     {
@@ -185,14 +187,15 @@ public class SukiWindow : Window
         }
     }
 
+
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
 
         _subscriptionDisposables = this.GetObservable(WindowStateProperty)
             .Do(OnWindowStateChanged)
-            .Select(_ => Unit.Default).
-            ObserveOn(new AvaloniaSynchronizationContext()).Subscribe();
+            .Select(_ => Unit.Default).ObserveOn(new AvaloniaSynchronizationContext())
+            .Subscribe();
         try
         {
             // Create handlers for buttons
@@ -205,7 +208,53 @@ public class SukiWindow : Window
                         ? WindowState.Normal
                         : WindowState.Maximized;
                 };
+                bool pointerOnMaxButton = false;
+                var  setter             = typeof(Button).GetProperty("IsPointerOver");
+
+                var proc = (IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam, ref bool handled) =>
+                {
+                    switch (msg)
+                    {
+                        case 533:
+                            if (!pointerOnMaxButton) break;
+                            if (!CanResize) break;
+                            WindowState = WindowState == WindowState.Maximized
+                                ? WindowState.Normal
+                                : WindowState.Maximized;
+                            break;
+                        case 0x0084:
+                            var point = new PixelPoint(
+                                (short)(ToInt32(lParam) & 0xffff),
+                                (short)(ToInt32(lParam) >> 16));
+                            var buttonLeftTop = maximize.PointToScreen(new(0, 0));
+                            var x             = (buttonLeftTop.X - point.X)         / RenderScaling;
+                            var y             = (point.Y         - buttonLeftTop.Y) / RenderScaling;
+                            if (new Rect(0, 0,
+                                    maximize.DesiredSize.Width,
+                                    maximize.DesiredSize.Height)
+                                .Contains(new Point(x, y)))
+                            {
+                                setter?.SetValue(maximize, true);
+                                pointerOnMaxButton     = true;
+                                handled                = true;
+                                return (IntPtr)9;
+                            }
+
+                            pointerOnMaxButton = false;
+                            setter?.SetValue(maximize, false);
+                            break;
+                    }
+
+                    return IntPtr.Zero;
+                    
+                    static int ToInt32(IntPtr ptr) => IntPtr.Size == 4 ? ptr.ToInt32() : (int)(ptr.ToInt64() & 0xffffffff);
+                };
+
+                
+
+                Win32Properties.AddWndProcHookCallback(this, new Win32Properties.CustomWndProcHookCallback(proc));
             }
+
             if (e.NameScope.Get<Button>("PART_MinimizeButton") is { } minimize)
                 minimize.Click += (_, _) => WindowState = WindowState.Minimized;
 
@@ -219,6 +268,7 @@ public class SukiWindow : Window
         {
         }
     }
+
 
     private void OnWindowStateChanged(WindowState state)
     {
@@ -239,4 +289,5 @@ public class SukiWindow : Window
         base.OnUnloaded(e);
         _subscriptionDisposables?.Dispose();
     }
+
 }
