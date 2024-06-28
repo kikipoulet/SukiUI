@@ -125,6 +125,7 @@ namespace SukiUI.Controls
         {
             _draw.Bounds = Bounds;
             context.Custom(_draw);
+            Dispatcher.UIThread.InvokeAsync(InvalidateVisual, DispatcherPriority.Background);
         }
 
         private void HandleBackgroundStyleChanges()
