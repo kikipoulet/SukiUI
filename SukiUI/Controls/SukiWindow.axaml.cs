@@ -7,6 +7,7 @@ using Avalonia.Threading;
 using System;
 using System.Reactive;
 using System.Reactive.Linq;
+using System.Reflection;
 using Avalonia.Collections;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
@@ -208,6 +209,7 @@ public class SukiWindow : Window
                         : WindowState.Maximized;
                 };
                 bool pointerOnMaxButton = false;
+                var  setter             = typeof(Button).GetProperty("IsPointerOver");
 
                 var proc = (IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam, ref bool handled) =>
                 {
@@ -232,13 +234,14 @@ public class SukiWindow : Window
                                     maximize.DesiredSize.Height)
                                 .Contains(new Point(x, y)))
                             {
-                                Console.WriteLine(DateTime.Now);
-                                pointerOnMaxButton = true;
-                                handled  = true;
+                                setter?.SetValue(maximize, true);
+                                pointerOnMaxButton     = true;
+                                handled                = true;
                                 return (IntPtr)9;
                             }
 
                             pointerOnMaxButton = false;
+                            setter?.SetValue(maximize, false);
                             break;
                     }
 
