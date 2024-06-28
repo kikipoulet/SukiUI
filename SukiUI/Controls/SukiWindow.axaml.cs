@@ -232,7 +232,6 @@ public class SukiWindow : Window
                                     maximize.DesiredSize.Height)
                                 .Contains(new Point(x, y)))
                             {
-                                Console.WriteLine(DateTime.Now);
                                 pointerOnMaxButton = true;
                                 handled  = true;
                                 return (IntPtr)9;
