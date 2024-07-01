@@ -63,4 +63,12 @@
 	  <EmbeddedResource Include="Assets\clouds.sksl" />
 	  <EmbeddedResource Include="Assets\weird.sksl" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="Features\ControlsLibrary\Effects\EffectsView.axaml" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Features\Effects\shaderart.sksl" />
+	</ItemGroup>
 </Project>
