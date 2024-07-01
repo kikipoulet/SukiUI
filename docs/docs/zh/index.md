@@ -13,7 +13,7 @@ hero:
       text: 📄 文档
       link: /zh/documentation
   image:
-    src: ./suki.webp
+    src: ../suki.webp
     alt: SukiUILogo
 
 features:
