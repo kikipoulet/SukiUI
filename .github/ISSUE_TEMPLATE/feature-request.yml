@@ -2,14 +2,14 @@ name: Feature Request
 description: Submit a new feature request
 title: "[Feat] "
 labels:
-  - Enhancement
+  - enhancement
 body:
   - type: checkboxes
     attributes:
-      label: Check the following items
+      label: Use the search function to see if this feature has already been suggested.
       options:
-        - label: I have looked up relevant Issue
-          required: false
+        - label: I have searched for duplicate issues.
+          required: true
   - type: textarea
     id: description
     attributes:
@@ -25,10 +25,3 @@ body:
       placeholder: E.g. 6.0.0-beta6
     validations:
       required: true
-  - type: textarea
-    id: additional
-    attributes:
-      label: Additional Information
-      description: Add any other context about the problem here
-    validations:
-      required: false
