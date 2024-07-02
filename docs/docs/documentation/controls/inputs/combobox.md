@@ -1,6 +1,6 @@
 # Combobox
 
-A component for selecting from a dataset
+A control for selecting from a dataset.
 
 ## Show
 
@@ -10,8 +10,7 @@ A component for selecting from a dataset
 
 ```xml
 <ComboBox ItemsSource="{Binding}" 
-          SelectedItem="{Binding}" 
-          />
+          SelectedItem="{Binding}" />
 ```
 
 ## See Also

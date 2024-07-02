@@ -1,6 +1,6 @@
 # ContextMenu
 
-Add a right-click triggered context menu for the control
+Add a right-click triggered context menu for a control.
 
 ## Show
 

@@ -1,6 +1,6 @@
 # TextBox
 
-A component used for collecting user provided information
+A control used for collecting user provided information.
 
 ## Show
 

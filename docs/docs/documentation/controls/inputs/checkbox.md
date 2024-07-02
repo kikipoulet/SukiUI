@@ -1,6 +1,6 @@
 # CheckBox
 
-A component used for collecting user's choices
+A control used for collecting user's choices.
 
 ## Show
 

@@ -32,14 +32,14 @@ export const en = defineConfig({
             text: 'Navigation',
             items: [
               { text: 'SideMenu', link: '/documentation/controls/navigation/sidemenu' },
+              { text: 'StackPage', link: '/documentation/controls/navigation/stackpage' },
+              { text: 'TabControl', link: '/documentation/controls/navigation/tabcontrol' },
             ]
           },
           {
             text: 'Layout',
             items: [
               { text: 'GlassCard', link: '/documentation/controls/layout/glasscard' },
-              { text: 'TabControl', link: '/documentation/controls/layout/tabcontrol' },
-              { text: 'StackPage', link: '/documentation/controls/layout/stackpage' },
               { text: 'SettingsLayout', link: '/documentation/controls/layout/settingslayout' },
               { text: 'SukiWindow', link: '/documentation/controls/layout/sukiwindow' },
               { text: 'Dock', link: '/documentation/controls/layout/dock' },
@@ -59,13 +59,7 @@ export const en = defineConfig({
               { text: 'CheckBox', link: '/documentation/controls/inputs/checkbox' },
               { text: 'RadioButton', link: '/documentation/controls/inputs/radiobutton' },
               { text: 'ContextMenu', link: '/documentation/controls/inputs/contextmenu' },
-            ]
-          },
-          {
-            text: 'Text',
-            items: [
-              { text: 'AutoCompleteBox', link: '/documentation/controls/text/autocompletebox' },
-              { text: 'TextBox', link: '/documentation/controls/text/textbox' },
+              { text: 'AutoCompleteBox', link: '/documentation/controls/inputs/autocompletebox' },
             ]
           },
           {

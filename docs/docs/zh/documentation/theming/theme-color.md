@@ -2,7 +2,7 @@
 
 `SukiTheme` 也可以十分简单地切换应用的主题色
 
-<img src="https://i.ibb.co/ykzPqVY/theming-color.gif" alt="theming-color">
+<img src="/theming/theming-color.gif" alt="theming-color">
 
 ## 在可用的主题色间切换
 

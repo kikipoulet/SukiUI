@@ -4,7 +4,7 @@ SukiUI has a handful of button styles, available in both the standard primary co
 
 ## Show
 
-<img src="/controls/inputs/button.webp" height="300px" width="300px"/>
+<img src="/controls/inputs/button.webp" />
 
 - Busy
 

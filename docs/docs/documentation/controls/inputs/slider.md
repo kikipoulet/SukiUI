@@ -1,6 +1,6 @@
 # Slider
 
-A component for displaying current value and intervals in range.
+A control for displaying current value and intervals in range.
 
 ## Show
 

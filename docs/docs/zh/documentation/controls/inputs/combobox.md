@@ -10,8 +10,7 @@
 
 ```xml
 <ComboBox ItemsSource="{Binding}" 
-          SelectedItem="{Binding}" 
-          />
+          SelectedItem="{Binding}" />
 ```
 
 ## 参阅

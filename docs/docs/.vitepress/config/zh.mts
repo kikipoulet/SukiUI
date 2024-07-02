@@ -29,24 +29,24 @@ export const zh = defineConfig({
         text: '控件',
         items: [
           {
-            text: 'Navigation',
+            text: '导航',
             items: [
               { text: 'SideMenu', link: '/zh/documentation/controls/navigation/sidemenu' },
+              { text: 'StackPage', link: '/zh/documentation/controls/navigation/stackpage' },
+              { text: 'TabControl', link: '/zh/documentation/controls/navigation/tabcontrol' },
             ]
           },
           {
-            text: 'Layout',
+            text: '布局',
             items: [
               { text: 'GlassCard', link: '/zh/documentation/controls/layout/glasscard' },
-              { text: 'TabControl', link: '/zh/documentation/controls/layout/tabcontrol' },
-              { text: 'StackPage', link: '/zh/documentation/controls/layout/stackpage' },
               { text: 'SettingsLayout', link: '/zh/documentation/controls/layout/settingslayout' },
               { text: 'SukiWindow', link: '/zh/documentation/controls/layout/sukiwindow' },
               { text: 'Dock', link: '/zh/documentation/controls/layout/dock' },
             ]
           },
           {
-            text: 'Inputs',
+            text: '输入',
             items: [
               { text: 'Button', link: '/zh/documentation/controls/inputs/button' },
               { text: 'DropDownButton', link: '/zh/documentation/controls/inputs/dropdownbutton' },
@@ -59,24 +59,18 @@ export const zh = defineConfig({
               { text: 'CheckBox', link: '/zh/documentation/controls/inputs/checkbox' },
               { text: 'RadioButton', link: '/zh/documentation/controls/inputs/radiobutton' },
               { text: 'ContextMenu', link: '/zh/documentation/controls/inputs/contextmenu' },
+              { text: 'AutoCompleteBox', link: '/zh/documentation/controls/inputs/autocompletebox' },
             ]
           },
           {
-            text: 'Text',
-            items: [
-              { text: 'AutoCompleteBox', link: '/zh/documentation/controls/text/autocompletebox' },
-              { text: 'TextBox', link: '/zh/documentation/controls/text/textbox' },
-            ]
-          },
-          {
-            text: 'Date & Time',
+            text: '日期与时间',
             items: [
               { text: 'Calendar', link: '/zh/documentation/controls/datetime/calendar' },
               { text: 'DatePicker', link: '/zh/documentation/controls/datetime/datepicker' },
             ]
           },
           {
-            text: 'Progress',
+            text: '进度',
             items: [
               { text: 'WaveProgress', link: '/zh/documentation/controls/progress/waveprogress' },
               { text: 'Stepper', link: '/zh/documentation/controls/progress/stepper' },
@@ -86,7 +80,7 @@ export const zh = defineConfig({
             ]
           },
           {
-            text: 'Data Presentation',
+            text: '数据展现',
             items: [
               { text: 'DataGrid', link: '/zh/documentation/controls/data/datagrid' },
               { text: 'ListBox', link: '/zh/documentation/controls/data/listbox' },

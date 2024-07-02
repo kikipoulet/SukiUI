@@ -1,6 +1,6 @@
 # RadioButton
 
-A component used for collecting the user's choice
+A control used for collecting the user's choice.
 
 ## Show
 
