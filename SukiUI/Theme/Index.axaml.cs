@@ -162,7 +162,9 @@ public partial class SukiTheme : Styles
     private void SetColorTheme(SukiColorTheme colorTheme)
     {
         SetColorWithOpacities("SukiPrimaryColor", colorTheme.Primary);
+        SetResource("SukiPrimaryDarkColor", colorTheme.PrimaryDark);
         SetColorWithOpacities("SukiAccentColor", colorTheme.Accent);
+        SetResource("SukiAccentDarkColor", colorTheme.AccentDark);
         ActiveColorTheme = colorTheme;
         OnColorThemeChanged?.Invoke(ActiveColorTheme);
     }
