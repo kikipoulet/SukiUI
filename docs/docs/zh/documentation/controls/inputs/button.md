@@ -4,7 +4,7 @@ SukiUI 提供了多种样式的按钮，并支持添加主题色
 
 ## 展示
 
-<img src="/controls/inputs/button.webp" height="300px" width="300px"/>
+<img src="/controls/inputs/button.webp" />
 
 - Busy
 

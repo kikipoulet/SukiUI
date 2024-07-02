@@ -1,5 +1,7 @@
 # ToggleSwitch
 
+在两种状态间切换
+
 ## 展示
 
 <img src="/controls/inputs/toggleswitch.gif" height="300px" width="300px"/>

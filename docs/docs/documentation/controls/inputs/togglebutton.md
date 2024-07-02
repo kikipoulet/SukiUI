@@ -1,5 +1,7 @@
 # ToggleButton
 
+Switching between two states.
+
 ## Show
 
 <img src="/controls/inputs/togglebutton.gif" height="300px" width="300px"/>

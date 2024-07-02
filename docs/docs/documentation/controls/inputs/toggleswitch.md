@@ -1,5 +1,7 @@
 # ToggleSwitch
 
+Switching between two states.
+
 ## Show
 
 <img src="/controls/inputs/toggleswitch.gif" height="300px" width="300px"/>

@@ -1,6 +1,6 @@
 # NumericUpDown
 
-A component for numeric input
+A control for numeric input.
 
 ## Show
 

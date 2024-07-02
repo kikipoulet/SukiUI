@@ -2,7 +2,7 @@
 
 `SukiTheme` allows app to switch color themes easily
 
-<img src="https://i.ibb.co/ykzPqVY/theming-color.gif" alt="theming-color">
+<img src="/theming/theming-color.gif" alt="theming-color">
 
 ## Switch between available Color Theme
 
