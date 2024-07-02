@@ -93,6 +93,18 @@
         </MenuItem>
     </suki:SukiWindow.MenuItems>
     <suki:SukiSideMenu ItemsSource="{Binding DemoPages}" SelectedItem="{Binding ActivePage}">
+        <suki:SukiSideMenu.Styles>
+            <Style Selector="Image.AppIcon">
+                <Setter Property="Transitions">
+                    <Transitions>
+                        <DoubleTransition Property="Opacity" Duration="0.1" />
+                    </Transitions>
+                </Setter>
+                <Style Selector="^:pointerover">
+                    <Setter Property="Opacity" Value="0.5" />
+                </Style>
+            </Style>
+        </suki:SukiSideMenu.Styles>
         <suki:SukiSideMenu.ItemTemplate>
             <DataTemplate>
                 <suki:SukiSideMenuItem Header="{Binding DisplayName}">
@@ -106,9 +118,11 @@
             <Image Width="80"
                    Height="80"
                    Margin="30,10,30,30"
+                   Classes="AppIcon"
                    IsVisible="{Binding $parent[suki:SukiWindow].((demo:SukiUIDemoViewModel)DataContext).TitleBarVisible}"
                    PointerPressed="InputElement_OnPointerPressed"
                    Source="Assets/OIG.N5o-removebg-preview.png"
+                   ToolTip.ShowDelay="0"
                    ToolTip.Tip="Click To Toggle Top Menu." />
         </suki:SukiSideMenu.HeaderContent>
         <suki:SukiSideMenu.FooterContent>

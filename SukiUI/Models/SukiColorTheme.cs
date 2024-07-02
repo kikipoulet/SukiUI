@@ -11,21 +11,34 @@ public record SukiColorTheme
     public Color Primary { get; }
 
     public IBrush PrimaryBrush => new SolidColorBrush(Primary);
+    
+    public Color PrimaryDark { get; }
+
+    public IBrush PrimaryDarkBrush => new SolidColorBrush(PrimaryDark);
 
     public Color Accent { get; }
 
     public IBrush AccentBrush => new SolidColorBrush(Accent);
+    
+    public Color AccentDark { get; }
+
+    public IBrush AccentDarkBrush => new SolidColorBrush(AccentDark);
 
     // Used in shaders to save calculating them per-frame.
     internal Color BackgroundPrimary { get; }
     internal Color BackgroundAccent { get; }
     internal Color Background { get; }
 
+    // dark scale...
+    private const double dS = 0.5;
+
     public SukiColorTheme(string displayName, Color primary, Color accent)
     {
         DisplayName = displayName;
         Primary = primary;
         Accent = accent;
+        PrimaryDark = new Color(primary.A, (byte)(primary.R * dS), (byte)(primary.G * dS), (byte)(primary.B * dS));
+        AccentDark = new Color(accent.A, (byte)(accent.R * dS), (byte)(accent.G * dS), (byte)(accent.B * dS));
         Background = GetBackgroundColor(Primary);
         BackgroundPrimary = new Color(primary.A, (byte)(primary.R / 1.3), (byte)(primary.G / 1.3), (byte)(primary.B / 1.3));
         BackgroundAccent = new Color(accent.A, (byte)(accent.R / 1.3), (byte)(accent.G / 1.3), (byte)(accent.B / 1.3));
