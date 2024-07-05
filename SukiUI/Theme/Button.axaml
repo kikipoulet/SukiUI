@@ -9,7 +9,7 @@
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
-
+        <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}" />
         <Setter Property="FontSize" Value="15" />
         <Setter Property="Padding" Value="20,8" />
         <Setter Property="Template">
@@ -36,7 +36,7 @@
                         <ContentPresenter HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                           Content="{TemplateBinding Content}"
-                                          FontFamily="avares://SukiUI/CustomFont#Quicksand"
+                                          FontFamily="{TemplateBinding FontFamily}"
                                           FontSize="{TemplateBinding FontSize}"
                                           FontWeight="DemiBold"
                                           RecognizesAccessKey="True" />
