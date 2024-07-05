@@ -9,7 +9,7 @@
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="FontSize" Value="15" />
         <Setter Property="Padding" Value="20,8" />
-        <Setter Property="FontFamily" Value="{DynamicResource QuicksandFont}" />
+        <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}" />
         <Setter Property="FontWeight" Value="DemiBold" />
         <Setter Property="Template">
             <Setter.Value>
