@@ -250,7 +250,10 @@ public class SukiWindow : Window
             }
 
             if (e.NameScope.Get<Button>("PART_MinimizeButton") is { } minimize)
-                minimize.Click += (_, _) => WindowState = WindowState.Minimized;
+                minimize.Click += (_, _) =>
+                {
+                    WindowState = WindowState.Minimized;
+                };
 
             if (e.NameScope.Get<Button>("PART_CloseButton") is { } close)
                 close.Click += (_, _) => Close();
