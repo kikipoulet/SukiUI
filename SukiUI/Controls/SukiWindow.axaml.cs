@@ -201,13 +201,7 @@ public class SukiWindow : Window
             // Create handlers for buttons
             if (e.NameScope.Get<Button>("PART_MaximizeButton") is { } maximize)
             {
-                maximize.Click += (_, _) =>
-                {
-                    if (!CanResize) return;
-                    WindowState = WindowState == WindowState.Maximized
-                        ? WindowState.Normal
-                        : WindowState.Maximized;
-                };
+                maximize.Click += OnMaximizeButtonClicked;
                 bool pointerOnMaxButton = false;
                 var  setter             = typeof(Button).GetProperty("IsPointerOver");
 
@@ -262,13 +256,23 @@ public class SukiWindow : Window
                 close.Click += (_, _) => Close();
 
             if (e.NameScope.Get<GlassCard>("PART_TitleBarBackground") is { } titleBar)
+            {
                 titleBar.PointerPressed += OnTitleBarPointerPressed;
+                titleBar.DoubleTapped += OnMaximizeButtonClicked;
+            }
         }
         catch
         {
         }
     }
 
+    private void OnMaximizeButtonClicked(object? sender, RoutedEventArgs args)
+    {
+        if (!CanResize) return;
+        WindowState = WindowState == WindowState.Maximized
+            ? WindowState.Normal
+            : WindowState.Maximized;
+    }
 
     private void OnWindowStateChanged(WindowState state)
     {
