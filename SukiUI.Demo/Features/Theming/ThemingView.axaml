@@ -94,10 +94,11 @@
 
                         <controls:SettingsLayoutItem Header="Background">
                             <controls:SettingsLayoutItem.Content>
-                                <controls:GlassCard Margin="0,25,0,0">
-                                    <StackPanel Spacing="25">
+                                <StackPanel>
+                                <controls:GlassCard Padding="25" Margin="0,25,0,0">
+                                    <StackPanel Spacing="40">
                                         <DockPanel>
-                                            <ToggleButton VerticalAlignment="Top"
+                                            <ToggleSwitch VerticalAlignment="Top"
                                                           Classes="Switch"
                                                           DockPanel.Dock="Right"
                                                           IsChecked="{Binding BackgroundAnimations}" />
@@ -112,8 +113,8 @@
                                             </StackPanel>
                                         </DockPanel>
                                         <DockPanel>
-                                            <ToggleButton VerticalAlignment="Top"
-                                                          Classes="Switch"
+                                            <ToggleSwitch VerticalAlignment="Top"
+                                                          
                                                           DockPanel.Dock="Right"
                                                           IsChecked="{Binding BackgroundTransitions}" />
                                             <StackPanel HorizontalAlignment="Left">
@@ -126,6 +127,11 @@
                                                            TextWrapping="Wrap" />
                                             </StackPanel>
                                         </DockPanel>
+                                        
+                                    </StackPanel>
+                                </controls:GlassCard>
+                                <controls:GlassCard Padding="25"  Margin="0,45,0,0">
+                                    <StackPanel Spacing="40">
                                         <DockPanel>
                                             <ComboBox DockPanel.Dock="Right"
                                                       ItemsSource="{Binding AvailableBackgroundStyles}"
@@ -150,7 +156,7 @@
                                                            Text="Click any of the buttons below to enable a background shader. Click it again to disable it. These are likely to put quite a load on your GPU and are purely to demonstrate and test the capabilities of the background renderer."
                                                            TextWrapping="Wrap" />
                                             </StackPanel>
-                                            <ItemsControl ItemsSource="{Binding CustomShaders}">
+                                            <ItemsControl Margin="0,15,0,0" ItemsSource="{Binding CustomShaders}">
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate>
                                                         <Button Margin="10"
@@ -169,6 +175,7 @@
                                         </DockPanel>
                                     </StackPanel>
                                 </controls:GlassCard>
+                                </StackPanel>
                             </controls:SettingsLayoutItem.Content>
                         </controls:SettingsLayoutItem>
                     </objectModel:ObservableCollection>

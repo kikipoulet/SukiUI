@@ -6,6 +6,7 @@ using Avalonia.Interactivity;
 using Avalonia.Styling;
 using AvaloniaEdit;
 using AvaloniaEdit.TextMate;
+using SukiUI.Controls;
 using SukiUI.Utilities.Effects;
 using TextMateSharp.Grammars;
 
@@ -15,7 +16,7 @@ namespace SukiUI.Demo.Features.Effects
     {
         private TextEditor _textEditor;
         private ShaderToyRenderer _toyRenderer;
-        private TextBox _errorText;
+        private InfoBar _errorText;
 
         public EffectsView()
         {
@@ -30,7 +31,7 @@ namespace SukiUI.Demo.Features.Effects
             
             _toyRenderer = this.FindControl<ShaderToyRenderer>("ShaderToyRenderer")!;
             
-            _errorText = this.FindControl<TextBox>("ErrorText")!;
+            _errorText = this.FindControl<InfoBar>("ErrorText")!;
             
             var effect = SukiEffect.FromEmbeddedResource("shaderart");
             _textEditor.Text = effect.ToString();
@@ -54,13 +55,15 @@ namespace SukiUI.Demo.Features.Effects
         {
             try
             {
-                _errorText.Text = string.Empty;
+                _errorText.Message= string.Empty;
                 var effect = SukiEffect.FromString(_textEditor.Text);
                 _toyRenderer.SetEffect(effect);
+                _errorText.IsVisible = false;
             }
             catch(Exception ex)
             {
-                _errorText.Text = ex.Message;
+                _errorText.Message = ex.Message;
+                _errorText.IsVisible = true;
             }
         }
     }

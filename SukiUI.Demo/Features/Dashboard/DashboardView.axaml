@@ -234,8 +234,8 @@
                             </StackPanel>
                         </StackPanel>
                         <Grid Margin="0,30,0,0">
-                            <ToggleButton HorizontalAlignment="Right"
-                                          VerticalAlignment="Center"
+                            <ToggleSwitch HorizontalAlignment="Right"
+                                          VerticalAlignment="Top"
                                           Classes="Switch"
                                           IsChecked="True" />
                             <TextBlock HorizontalAlignment="Left"
@@ -253,8 +253,8 @@
                                        TextWrapping="Wrap" />
                         </Grid>
                         <Grid Margin="0,30,0,0">
-                            <ToggleButton HorizontalAlignment="Right"
-                                          VerticalAlignment="Center"
+                            <ToggleSwitch HorizontalAlignment="Right"
+                                          VerticalAlignment="Top"
                                           Classes="Switch"
                                           IsChecked="False" />
                             <TextBlock HorizontalAlignment="Left"
