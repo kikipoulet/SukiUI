@@ -34,7 +34,7 @@
                                    VerticalAlignment="Center"
                                    FontWeight="DemiBold"
                                    Text="Buttons Enabled: " />
-                        <ToggleButton Margin="15,0,0,0"
+                        <ToggleSwitch Margin="15,0,0,0"
                                       Classes="Switch"
                                       IsChecked="{Binding IsEnabled}" />
 

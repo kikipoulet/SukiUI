@@ -26,7 +26,7 @@
                                    VerticalAlignment="Center"
                                    FontWeight="DemiBold"
                                    Text="Show Progress Value : " />
-                        <ToggleButton Margin="15,0,0,0"
+                        <ToggleSwitch Margin="15,0,0,0"
                                       Classes="Switch"
                                       IsChecked="{Binding IsTextVisible}" />
 
@@ -36,7 +36,7 @@
                                    VerticalAlignment="Center"
                                    FontWeight="DemiBold"
                                    Text="Indeterminate : " />
-                        <ToggleButton Margin="15,0,0,0"
+                        <ToggleSwitch Margin="15,0,0,0"
                                       Classes="Switch"
                                       IsChecked="{Binding IsIndeterminate}" />
 

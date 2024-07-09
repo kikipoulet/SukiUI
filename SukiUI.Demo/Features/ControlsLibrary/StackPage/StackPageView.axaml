@@ -29,8 +29,8 @@
                         The control will also unwind the stack automatically if you set the Content to an object that is already in it's stack.
                     </TextBlock>
                     <TextBlock>You can adjust the page limit dynamically, you can test that with the slider below.</TextBlock>
-                    <DockPanel>
-                        <Slider MinWidth="200"
+                    <DockPanel Margin="0,15,0,0">
+                        <Slider MinWidth="200" 
                                 HorizontalAlignment="Left"
                                 DockPanel.Dock="Left"
                                 IsSnapToTickEnabled="True"
@@ -38,7 +38,7 @@
                                 Minimum="2"
                                 TickFrequency="1"
                                 Value="{Binding Limit}" />
-                        <TextBlock VerticalAlignment="Center" Text="{Binding Limit}" />
+                        <TextBlock VerticalAlignment="Center" FontWeight="DemiBold" Text="{Binding Limit}" />
                     </DockPanel>
                 </StackPanel>
             </controls:GroupBox>

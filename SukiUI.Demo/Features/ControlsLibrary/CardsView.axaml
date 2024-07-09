@@ -33,13 +33,15 @@
                     <TextBlock>
                         If you'd like to override these values app-wide then simply override the keys in App.axaml
                     </TextBlock>
-                    <DockPanel>
-                        <ToggleSwitch DockPanel.Dock="Left" IsChecked="{Binding IsOpaque}" />
-                        <TextBlock VerticalAlignment="Center" Text="Is Opaque" />
+                    <DockPanel Margin="0,12,0,0">
+                        <TextBlock DockPanel.Dock="Left" FontWeight="DemiBold" VerticalAlignment="Center" Text="Is Opaque :" />
+                        <ToggleSwitch Margin="8,0,0,0"  IsChecked="{Binding IsOpaque}" />
+                       
                     </DockPanel>
                     <DockPanel>
-                        <ToggleSwitch DockPanel.Dock="Left" IsChecked="{Binding IsInteractive}" />
-                        <TextBlock VerticalAlignment="Center" Text="Is Interactive" />
+                        <TextBlock DockPanel.Dock="Left" FontWeight="DemiBold" VerticalAlignment="Center" Text="Is Interactive :" />
+                        <ToggleSwitch Margin="8,0,0,0" IsChecked="{Binding IsInteractive}" />
+                     
                     </DockPanel>
                 </StackPanel>
             </controls:GroupBox>
