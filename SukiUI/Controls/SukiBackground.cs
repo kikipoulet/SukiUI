@@ -16,7 +16,7 @@ namespace SukiUI.Controls
     {
         public static readonly StyledProperty<SukiBackgroundStyle> StyleProperty =
             AvaloniaProperty.Register<SukiWindow, SukiBackgroundStyle>(nameof(Style),
-                defaultValue: SukiBackgroundStyle.Gradient);
+                defaultValue: SukiBackgroundStyle.BubbleStrong);
 
         /// <summary>
         /// Which of the default background styles to use - DEFAULT: Gradient
