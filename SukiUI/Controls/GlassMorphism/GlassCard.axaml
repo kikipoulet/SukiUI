@@ -35,12 +35,7 @@
                             </Transitions>
                         </Border.Transitions>
                     </Border>
-                 
-                    <Border 
-                            Background="{DynamicResource SukiPrimaryColor1}"
-                           IsVisible="{DynamicResource IsDark}"
-                            ClipToBounds="{TemplateBinding ClipToBounds}"
-                            CornerRadius="{TemplateBinding CornerRadius}" />
+               
          
                     <Border Name="PART_ClipBorder"
                             Background="{DynamicResource SukiPrimaryColor0}"

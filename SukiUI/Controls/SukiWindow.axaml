@@ -29,7 +29,7 @@
                                                  TransitionTime="{TemplateBinding BackgroundTransitionTime}"
                                                  TransitionsEnabled="{TemplateBinding BackgroundTransitionsEnabled}" />
                             <Panel Background="White" Opacity="0.1" IsVisible="{DynamicResource IsLight}" />
-                            <Panel Background="White" Opacity="0.03" IsVisible="{DynamicResource IsDark}" />
+                           
                             <DockPanel LastChildFill="True">
                                 <Panel DockPanel.Dock="Top">
                                     <Panel.Styles>

@@ -5,7 +5,7 @@
     <Color x:Key="SukiStrongBackground">#fafafa</Color>
     <Color x:Key="SukiLightBackground">Transparent</Color>
     <Color x:Key="SukiCardBackground">#fafafa</Color>
-    <Color x:Key="SukiGlassCardBackground">White</Color>
+    <Color x:Key="SukiGlassCardBackground">#fdfefefe</Color>
     <Color x:Key="SukiGlassCardOpaqueBackground">#fcfcfc</Color>
     <Color x:Key="SukiControlTouchBackground">#FFFFFF</Color>
     <Color x:Key="SukiDialogBackground">Gray</Color>
