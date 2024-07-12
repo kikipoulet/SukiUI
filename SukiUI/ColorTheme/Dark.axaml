@@ -6,7 +6,7 @@
     <Color x:Key="SukiLightBackground">Transparent</Color>
     <Color x:Key="SukiCardBackground">#353535</Color>
     <Color x:Key="SukiGlassCardBackground">#49aaaaaa</Color>
-    <Color x:Key="SukiGlassCardOpaqueBackground">#222222</Color>
+    <Color x:Key="SukiGlassCardOpaqueBackground">#333333</Color>
     <Color x:Key="SukiControlTouchBackground">#505050</Color>
     <Color x:Key="SukiDialogBackground">#000000</Color>
 
