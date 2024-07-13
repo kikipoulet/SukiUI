@@ -1,79 +1,77 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:dmc="using:Dock.Model.Controls"
+                    xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
                     xmlns:core="using:Dock.Model.Core"
-                    xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI">
-  <Design.PreviewWith>
-    <DocumentControl Width="300" Height="400" />
-  </Design.PreviewWith>
+                    xmlns:dmc="using:Dock.Model.Controls">
+    <Design.PreviewWith>
+        <DocumentControl Width="300" Height="400" />
+    </Design.PreviewWith>
 
-  <ControlTheme x:Key="{x:Type DocumentControl}" TargetType="DocumentControl">
+    <ControlTheme x:Key="{x:Type DocumentControl}" TargetType="DocumentControl">
 
-    <Setter Property="HeaderTemplate">
-      <DataTemplate DataType="core:IDockable">
-        <TextBlock Text="{Binding Title}" Padding="2" />
-      </DataTemplate>
-    </Setter>
+        <Setter Property="HeaderTemplate">
+            <DataTemplate DataType="core:IDockable">
+                <TextBlock Padding="2" Text="{Binding Title}" />
+            </DataTemplate>
+        </Setter>
 
-    <Setter Property="Template">
-      <ControlTemplate>
-        
-        <controls:GlassCard Margin="8" Padding="12,15">
-        <DockPanel x:Name="PART_DockPanel"
-                   DockProperties.IsDropArea="True"
-                   DockProperties.IsDockTarget="True"
-                   Background="Transparent"
-                   ZIndex="1"
-                   x:DataType="dmc:IDocumentDock"
-                   x:CompileBindings="True">
-          <DocumentTabStrip x:Name="PART_TabStrip"
-                            ItemsSource="{Binding VisibleDockables}"
-                            SelectedItem="{Binding ActiveDockable, Mode=TwoWay}"
-                            CanCreateItem="{Binding CanCreateDocument}"
-                            IsActive="{TemplateBinding IsActive}"
-                            DockPanel.Dock="Top"
-                            DockProperties.IsDropArea="True">
-            <DocumentTabStrip.Styles>
-              <Style Selector="DocumentTabStripItem">
-                <Setter Property="IsActive" Value="{Binding $parent[DocumentTabStrip].IsActive}" />
-              </Style>
-            </DocumentTabStrip.Styles>
-          </DocumentTabStrip>
-          <Grid x:Name="PART_Grid"
-                IsVisible="{Binding #PART_TabStrip.IsVisible}" />
-          <Border x:Name="PART_Border">
-            <DockableControl DataContext="{Binding ActiveDockable}"
-                             TrackingMode="Visible">
-              <ContentControl x:Name="PART_ContentPresenter"
-                              Content="{Binding}"
-                              HorizontalAlignment="Stretch"
-                              VerticalAlignment="Stretch">
-                <ContentControl.ContentTemplate>
-                  <ControlRecyclingDataTemplate Parent="{Binding #PART_ContentPresenter}" />
-                </ContentControl.ContentTemplate>
-              </ContentControl>
-            </DockableControl>
-          </Border>
-        </DockPanel>
-          </controls:GlassCard>
-      </ControlTemplate>
-    </Setter>
+        <Setter Property="Template">
+            <ControlTemplate>
 
-    <Style Selector="^/template/ Grid#PART_Grid">
-      <Setter Property="Background" Value="{DynamicResource DockThemeBorderLowBrush}" />
-      <Setter Property="Height" Value="0" />
-      <Setter Property="DockPanel.Dock" Value="Top" />
-    </Style>
+                <controls:GlassCard Margin="5" Padding="12,15">
+                    <DockPanel x:Name="PART_DockPanel"
+                               x:CompileBindings="True"
+                               x:DataType="dmc:IDocumentDock"
+                               Background="Transparent"
+                               DockProperties.IsDockTarget="True"
+                               DockProperties.IsDropArea="True"
+                               ZIndex="1">
+                        <DocumentTabStrip x:Name="PART_TabStrip"
+                                          CanCreateItem="{Binding CanCreateDocument}"
+                                          DockPanel.Dock="Top"
+                                          DockProperties.IsDropArea="True"
+                                          IsActive="{TemplateBinding IsActive}"
+                                          ItemsSource="{Binding VisibleDockables}"
+                                          SelectedItem="{Binding ActiveDockable, Mode=TwoWay}">
+                            <DocumentTabStrip.Styles>
+                                <Style Selector="DocumentTabStripItem">
+                                    <Setter Property="IsActive" Value="{Binding $parent[DocumentTabStrip].IsActive}" />
+                                </Style>
+                            </DocumentTabStrip.Styles>
+                        </DocumentTabStrip>
+                        <Grid x:Name="PART_Grid" IsVisible="{Binding #PART_TabStrip.IsVisible}" />
+                        <Border x:Name="PART_Border">
+                            <DockableControl DataContext="{Binding ActiveDockable}" TrackingMode="Visible">
+                                <ContentControl x:Name="PART_ContentPresenter"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Stretch"
+                                                Content="{Binding}">
+                                    <ContentControl.ContentTemplate>
+                                        <ControlRecyclingDataTemplate Parent="{Binding #PART_ContentPresenter}" />
+                                    </ContentControl.ContentTemplate>
+                                </ContentControl>
+                            </DockableControl>
+                        </Border>
+                    </DockPanel>
+                </controls:GlassCard>
+            </ControlTemplate>
+        </Setter>
 
-    <Style Selector="^:active /template/ Grid#PART_Grid">
-      <Setter Property="Background" Value="{DynamicResource DockApplicationAccentBrushLow}" />
-    </Style>
+        <Style Selector="^/template/ Grid#PART_Grid">
+            <Setter Property="Background" Value="{DynamicResource DockThemeBorderLowBrush}" />
+            <Setter Property="Height" Value="0" />
+            <Setter Property="DockPanel.Dock" Value="Top" />
+        </Style>
 
-    <Style Selector="^/template/ Border#PART_Border">
-      <Setter Property="BorderBrush" Value="{DynamicResource DockThemeBorderLowBrush}" />
-      <Setter Property="BorderThickness" Value="0" />
-    </Style>
+        <Style Selector="^:active /template/ Grid#PART_Grid">
+            <Setter Property="Background" Value="{DynamicResource DockApplicationAccentBrushLow}" />
+        </Style>
 
-  </ControlTheme>
+        <Style Selector="^/template/ Border#PART_Border">
+            <Setter Property="BorderBrush" Value="{DynamicResource DockThemeBorderLowBrush}" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+
+    </ControlTheme>
 
 </ResourceDictionary>
