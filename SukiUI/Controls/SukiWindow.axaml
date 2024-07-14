@@ -75,6 +75,13 @@
                                                                       VerticalAlignment="Bottom"
                                                                       Data="{x:Static icons:Icons.WindowMinimize}" />
                                                         </Button>
+                                                        <ItemsControl ItemsSource="{TemplateBinding RightWindowTitleBarControls}">
+                                                            <ItemsControl.ItemsPanel>
+                                                                <ItemsPanelTemplate>
+                                                                    <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft"/>
+                                                                </ItemsPanelTemplate>
+                                                            </ItemsControl.ItemsPanel>
+                                                        </ItemsControl>
                                                     </StackPanel>
                                                     <StackPanel VerticalAlignment="Center"
                                                                 IsHitTestVisible="False"

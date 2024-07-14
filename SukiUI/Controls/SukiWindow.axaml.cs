@@ -166,6 +166,17 @@ public class SukiWindow : Window
         set => SetValue(BackgroundTransitionTimeProperty, value);
     }
 
+    public static readonly StyledProperty<Avalonia.Controls.Controls> RightWindowTitleBarControlsProperty = AvaloniaProperty.Register<SukiWindow, Avalonia.Controls.Controls>(nameof(RightWindowTitleBarControls), defaultValue: new Avalonia.Controls.Controls());
+
+    /// <summary>
+    /// Controls that are displayed on the right side of the title bar, to the left of the normal window control buttons. (Displays provided controls right-to-left)
+    /// </summary>
+    public Avalonia.Controls.Controls RightWindowTitleBarControls
+    {
+        get => GetValue(RightWindowTitleBarControlsProperty);
+        set => SetValue(RightWindowTitleBarControlsProperty, value);
+    }
+
     public SukiWindow()
     {
         MenuItems = new AvaloniaList<MenuItem>();

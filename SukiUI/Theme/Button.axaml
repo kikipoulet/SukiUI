@@ -460,6 +460,11 @@
             <Setter Property="Cursor" Value="Hand" />
             <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor0}" />
             <Setter Property="Padding" Value="0" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0.01"/>
+                </Transitions>
+            </Setter>
             <Style Selector="^:pointerover">
                 <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor25}" />
             </Style>

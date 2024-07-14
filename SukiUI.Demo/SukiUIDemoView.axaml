@@ -36,6 +36,41 @@
             </avalonia:MaterialIcon.Transitions>
         </avalonia:MaterialIcon>
     </suki:SukiWindow.LogoContent>
+    <suki:SukiWindow.RightWindowTitleBarControls>
+        <Button Classes="Basic Rounded WindowControlsButton">
+            <avalonia:MaterialIcon Kind="Cog" Foreground="{DynamicResource SukiText}"/>
+            <Button.Flyout>
+                <Flyout>
+                    <Border CornerRadius="15" 
+                            ClipToBounds="True" 
+                            Background="{DynamicResource SukiCardBackground}"
+                            BorderBrush="{DynamicResource SukiLightBorderBrush}"
+                            BorderThickness="1"
+                            FlowDirection="LeftToRight">
+                        <Border Background="{DynamicResource PopupGradientBrush}" 
+                                Padding="15">
+                            <suki:GroupBox Header="Settings Demo">
+                                <StackPanel Spacing="5">
+                                    <DockPanel>
+                                        <TextBlock Text="Volume:" 
+                                                   DockPanel.Dock="Left"
+                                                   VerticalAlignment="Center"/>
+                                        <Slider Value="50" MinWidth="100"/>
+                                    </DockPanel>
+                                    <DockPanel>
+                                        <TextBlock Text="Mute:" 
+                                                   DockPanel.Dock="Left"
+                                                   VerticalAlignment="Center"/>
+                                        <ToggleSwitch/>
+                                    </DockPanel>
+                                </StackPanel>
+                            </suki:GroupBox>
+                        </Border>
+                    </Border>
+                </Flyout>
+            </Button.Flyout>
+        </Button>
+    </suki:SukiWindow.RightWindowTitleBarControls>
 
     <suki:SukiWindow.MenuItems>
         <MenuItem Header="Toggles">
@@ -48,14 +83,16 @@
                       Header="Window Lock"
                       ToolTip.Tip="Toggles minimizing and resizing.">
                 <MenuItem.Icon>
-                    <avalonia:MaterialIcon Kind="{Binding WindowLocked, Converter={x:Static converters:BoolToIconConverters.WindowLock}}" />
+                    <avalonia:MaterialIcon
+                        Kind="{Binding WindowLocked, Converter={x:Static converters:BoolToIconConverters.WindowLock}}" />
                 </MenuItem.Icon>
             </MenuItem>
             <MenuItem Command="{Binding ToggleTitleBarCommand}"
                       Header="Title Bar"
                       ToolTip.Tip="Toggles the title bar.">
                 <MenuItem.Icon>
-                    <avalonia:MaterialIcon Kind="{Binding TitleBarVisible, Converter={x:Static converters:BoolToIconConverters.Visibility}}" />
+                    <avalonia:MaterialIcon
+                        Kind="{Binding TitleBarVisible, Converter={x:Static converters:BoolToIconConverters.Visibility}}" />
                 </MenuItem.Icon>
             </MenuItem>
             <MenuItem Header="Fullscreen"
@@ -82,12 +119,14 @@
             <MenuItem Header="-" />
             <MenuItem Command="{Binding ToggleAnimationsCommand}" Header="Animations">
                 <MenuItem.Icon>
-                    <avalonia:MaterialIcon Kind="{Binding AnimationsEnabled, Converter={x:Static converters:BoolToIconConverters.Animation}}" />
+                    <avalonia:MaterialIcon
+                        Kind="{Binding AnimationsEnabled, Converter={x:Static converters:BoolToIconConverters.Animation}}" />
                 </MenuItem.Icon>
             </MenuItem>
             <MenuItem Command="{Binding ToggleTransitionsCommand}" Header="Transitions">
                 <MenuItem.Icon>
-                    <avalonia:MaterialIcon Kind="{Binding TransitionsEnabled, Converter={x:Static converters:BoolToIconConverters.Animation}}" />
+                    <avalonia:MaterialIcon
+                        Kind="{Binding TransitionsEnabled, Converter={x:Static converters:BoolToIconConverters.Animation}}" />
                 </MenuItem.Icon>
             </MenuItem>
         </MenuItem>
