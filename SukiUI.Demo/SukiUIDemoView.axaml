@@ -69,12 +69,6 @@
                 </Flyout>
             </Button.Flyout>
         </Button>
-        <Button Classes="Basic Rounded WindowControlsButton">
-            <avalonia:MaterialIcon Kind="Cog" Foreground="{DynamicResource SukiText}" />
-        </Button>
-        <Button Classes="Basic Rounded WindowControlsButton">
-            <avalonia:MaterialIcon Kind="Cog" Foreground="{DynamicResource SukiText}" />
-        </Button>
     </suki:SukiWindow.RightWindowTitleBarControls>
 
     <suki:SukiWindow.MenuItems>
