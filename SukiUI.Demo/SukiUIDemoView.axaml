@@ -38,30 +38,29 @@
     </suki:SukiWindow.LogoContent>
     <suki:SukiWindow.RightWindowTitleBarControls>
         <Button Classes="Basic Rounded WindowControlsButton">
-            <avalonia:MaterialIcon Kind="Cog" Foreground="{DynamicResource SukiText}"/>
+            <avalonia:MaterialIcon Kind="Cog" Foreground="{DynamicResource SukiText}" />
             <Button.Flyout>
                 <Flyout>
-                    <Border CornerRadius="15" 
-                            ClipToBounds="True" 
+                    <Border CornerRadius="15"
+                            ClipToBounds="True"
                             Background="{DynamicResource SukiCardBackground}"
                             BorderBrush="{DynamicResource SukiLightBorderBrush}"
-                            BorderThickness="1"
-                            FlowDirection="LeftToRight">
-                        <Border Background="{DynamicResource PopupGradientBrush}" 
+                            BorderThickness="1">
+                        <Border Background="{DynamicResource PopupGradientBrush}"
                                 Padding="15">
                             <suki:GroupBox Header="Settings Demo">
                                 <StackPanel Spacing="5">
                                     <DockPanel>
-                                        <TextBlock Text="Volume:" 
+                                        <TextBlock Text="Volume:"
                                                    DockPanel.Dock="Left"
-                                                   VerticalAlignment="Center"/>
-                                        <Slider Value="50" MinWidth="100"/>
+                                                   VerticalAlignment="Center" />
+                                        <Slider Value="50" MinWidth="100" />
                                     </DockPanel>
                                     <DockPanel>
-                                        <TextBlock Text="Mute:" 
+                                        <TextBlock Text="Mute:"
                                                    DockPanel.Dock="Left"
-                                                   VerticalAlignment="Center"/>
-                                        <ToggleSwitch/>
+                                                   VerticalAlignment="Center" />
+                                        <ToggleSwitch />
                                     </DockPanel>
                                 </StackPanel>
                             </suki:GroupBox>
@@ -69,6 +68,12 @@
                     </Border>
                 </Flyout>
             </Button.Flyout>
+        </Button>
+        <Button Classes="Basic Rounded WindowControlsButton">
+            <avalonia:MaterialIcon Kind="Cog" Foreground="{DynamicResource SukiText}" />
+        </Button>
+        <Button Classes="Basic Rounded WindowControlsButton">
+            <avalonia:MaterialIcon Kind="Cog" Foreground="{DynamicResource SukiText}" />
         </Button>
     </suki:SukiWindow.RightWindowTitleBarControls>
 
