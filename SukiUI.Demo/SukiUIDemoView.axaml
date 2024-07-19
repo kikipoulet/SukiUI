@@ -41,31 +41,72 @@
             <avalonia:MaterialIcon Kind="Cog" Foreground="{DynamicResource SukiText}" />
             <Button.Flyout>
                 <Flyout>
-                    <Border CornerRadius="15"
-                            ClipToBounds="True"
-                            Background="{DynamicResource SukiCardBackground}"
-                            BorderBrush="{DynamicResource SukiLightBorderBrush}"
-                            BorderThickness="1">
+                    <Panel>
+                        
+                        <Border CornerRadius="20" Margin="20" BoxShadow="{DynamicResource SukiPopupShadow}"></Border>
+                        
+                        <Border Margin="20" CornerRadius="15" 
+                                ClipToBounds="True" MinWidth="350"
+                                Background="{DynamicResource SukiCardBackground}"
+                                BorderBrush="{DynamicResource SukiLightBorderBrush}"
+                                BorderThickness="1">
                         <Border Background="{DynamicResource PopupGradientBrush}"
                                 Padding="15">
-                            <suki:GroupBox Header="Settings Demo">
-                                <StackPanel Spacing="5">
+                            
+                                <StackPanel Margin="0,0,0,0" Spacing="20">
+                                    
+                                    <Grid ColumnDefinitions="*,20,*">
+                                        
+                                        <suki:GlassCard  CornerRadius="15" Padding="15">
+                                            <DockPanel>
+                                                <Border Background="{DynamicResource SukiPrimaryColor}" Height="35" Padding="0" CornerRadius="100" Width="35">
+                                                    <avalonia:MaterialIcon Height="20" Width="20" Kind="Wifi" HorizontalAlignment="Center" VerticalAlignment="Center"   Foreground="White"></avalonia:MaterialIcon>
+                                                </Border>
+                                                
+                                                <TextBlock Text="Wifi" FontWeight="DemiBold" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                            </DockPanel>
+                                        </suki:GlassCard>
+                                        <suki:GlassCard Grid.Column="2"  CornerRadius="15" Padding="15">
+                                            <DockPanel>
+                                                <suki:GlassCard  Height="35" Padding="0" CornerRadius="100" Width="35">
+                                                    <avalonia:MaterialIcon Height="20" Width="20"  HorizontalAlignment="Center" VerticalAlignment="Center"  Kind="Bluetooth"   Foreground="{DynamicResource SukiText}"></avalonia:MaterialIcon>
+                                                </suki:GlassCard>
+                                                
+                                                <TextBlock Text="Bluetooth" FontWeight="DemiBold" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                            </DockPanel>
+                                        </suki:GlassCard>
+                                        </Grid>
+                                    
+                                    <suki:GlassCard CornerRadius="15" Padding="15">
+                                        
                                     <DockPanel>
-                                        <TextBlock Text="Volume:"
-                                                   DockPanel.Dock="Left"
+                                        <TextBlock Text="Volume" Margin="0,0,0,10" FontSize="15"
+                                                   DockPanel.Dock="Top" FontWeight="DemiBold" 
                                                    VerticalAlignment="Center" />
+                                        <avalonia:MaterialIcon DockPanel.Dock="Left" Foreground="{DynamicResource SukiLowText}" Kind="VolumeLow"> </avalonia:MaterialIcon>
+                                        <avalonia:MaterialIcon DockPanel.Dock="Right" Foreground="{DynamicResource SukiLowText}" Kind="VolumeHigh"> </avalonia:MaterialIcon>
                                         <Slider Value="50" MinWidth="100" />
                                     </DockPanel>
+                                        
+                                    </suki:GlassCard>
+                                    
+                                    <suki:GlassCard CornerRadius="15" Padding="15">
                                     <DockPanel>
-                                        <TextBlock Text="Mute:"
-                                                   DockPanel.Dock="Left"
+                                        <ToggleSwitch VerticalAlignment="Center" DockPanel.Dock="Right" />
+                                        <TextBlock DockPanel.Dock="Bottom" Text="Disable notifications." Margin="0,8,0,0"
+                                                   Foreground="{DynamicResource SukiLowText}"
                                                    VerticalAlignment="Center" />
-                                        <ToggleSwitch />
+                                        <TextBlock Text="Mute" FontSize="15"
+                                                   FontWeight="DemiBold"
+                                                   VerticalAlignment="Center" />
+                                        
                                     </DockPanel>
+                                        </suki:GlassCard>
                                 </StackPanel>
-                            </suki:GroupBox>
+                          
                         </Border>
                     </Border>
+                        </Panel>
                 </Flyout>
             </Button.Flyout>
         </Button>

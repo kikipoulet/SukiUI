@@ -258,12 +258,14 @@ public class SukiWindow : Window
                 
 
                 Win32Properties.AddWndProcHookCallback(this, new Win32Properties.CustomWndProcHookCallback(proc));
-            }
+            } 
 
             if (e.NameScope.Get<Button>("PART_MinimizeButton") is { } minimize)
                 minimize.Click += (_, _) =>
                 {
+           
                     WindowState = WindowState.Minimized;
+                   
                 };
 
             if (e.NameScope.Get<Button>("PART_CloseButton") is { } close)
@@ -290,6 +292,8 @@ public class SukiWindow : Window
 
     private void OnWindowStateChanged(WindowState state)
     {
+        
+        
         if (state == WindowState.FullScreen)
             CanResize = CanMove = false;
         else
