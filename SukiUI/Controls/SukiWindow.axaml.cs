@@ -292,12 +292,8 @@ public class SukiWindow : Window
 
     private void OnWindowStateChanged(WindowState state)
     {
-        
-        
         if (state == WindowState.FullScreen)
             CanResize = CanMove = false;
-        else
-            CanResize = CanMove = true;
     }
 
     private void OnTitleBarPointerPressed(object? sender, PointerPressedEventArgs e)
