@@ -17,9 +17,8 @@
             <TextBlock>
                 Internally the dialog system then uses the ViewLocator registered in your Application resources to build an appropriate view.
             </TextBlock>
-            <Button Classes="Hyperlink"
-                    Command="{Binding OpenViewLocatorSourceCommand}"
-                    Content="The source for our implementation of a ViewLocator that makes this possible can be found here." />
+            <HyperlinkButton NavigateUri="https://github.com/kikipoulet/SukiUI/blob/main/SukiUI.Demo/Common/ViewLocator.cs"
+                             Content="The source for our implementation of a ViewLocator that makes this possible can be found here."/>
             <Button HorizontalContentAlignment="Center"
                     Command="{Binding CloseDialogCommand}"
                     Content="Close" />

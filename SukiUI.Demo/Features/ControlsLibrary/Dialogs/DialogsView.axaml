@@ -19,9 +19,8 @@
                     <TextBlock>
                         As the API for this resides entirely in C#, the source for the examples can be viewed on GitHub at the URL below.
                     </TextBlock>
-                    <Button Classes="Hyperlink"
-                            Command="{Binding OpenSourceUrlCommand}"
-                            Content="Source Here." />
+                    <HyperlinkButton NavigateUri="https://github.com/kikipoulet/SukiUI/blob/main/SukiUI.Demo/Features/ControlsLibrary/Dialogs/DialogsViewModel.cs"
+                                     Content="Source Here." />
                     <TextBlock>
                         Click any of the following buttons to open up a dialog.
                     </TextBlock>

@@ -22,9 +22,9 @@
                 <TextBlock Name="TextBlockWithInline">
                     In this app you'll find a sample page
                     (
-                    <Button Classes="Hyperlink"
-                            Command="{Binding OpenDashboardCommand}"
-                            Content="Dashboard" />
+                    <HyperlinkButton Command="{Binding OpenDashboardCommand}"
+                                     IsVisited="{Binding DashBoardVisited}"
+                                     Content="Dashboard" />
                     )
                     with a variety of controls used together, as well as a control library for testing and demonstration purposes.
                 </TextBlock>
