@@ -16,7 +16,6 @@
         <Setter Property="Transitions">
             <Transitions>
                 <TransformOperationsTransition Property="RenderTransform" Duration="0:0:.075" />
-                <BrushTransition Property="Foreground" Duration="0:0:.9"/>
             </Transitions>
         </Setter>
         <Setter Property="Template">
@@ -35,7 +34,15 @@
                                   VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
             </ControlTemplate>
         </Setter>
-
+        
+        <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Foreground" Duration="{StaticResource ShortAnimationDuration}"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        
         <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
             <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryDarkColor}" />
         </Style>
