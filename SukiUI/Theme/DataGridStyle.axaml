@@ -27,10 +27,8 @@
             <ControlTemplate>
                 <Grid Background="{TemplateBinding Background}" ColumnDefinitions="*,Auto">
                     <ContentPresenter Margin="{TemplateBinding Padding}"
-                                      HorizontalAlignment="Center"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                       VerticalAlignment="Center"
-                                      HorizontalContentAlignment="Center"
-                                      VerticalContentAlignment="Center"
                                       Content="{TemplateBinding Content}"
                                       ContentTemplate="{TemplateBinding ContentTemplate}"
                                       TextBlock.Foreground="{TemplateBinding Foreground}" />
