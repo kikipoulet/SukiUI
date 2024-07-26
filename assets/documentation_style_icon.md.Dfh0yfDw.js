@@ -1,0 +1,1 @@
+import{_ as t,c as e,o}from"./chunks/framework.Cp40vJT9.js";const _=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"documentation/style/icon.md","filePath":"documentation/style/icon.md"}'),n={name:"documentation/style/icon.md"};function a(c,s,r,i,d,m){return o(),e("div")}const l=t(n,[["render",a]]);export{_ as __pageData,l as default};
