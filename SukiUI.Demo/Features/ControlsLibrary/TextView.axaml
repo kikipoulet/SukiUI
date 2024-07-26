@@ -34,9 +34,7 @@
                             </TextBlock>
                         </StackPanel>
                         <showMeTheXaml:XamlDisplay UniqueId="TextHyperlink">
-                            <TextBlock xml:space="preserve">Text With A <Button Classes="Hyperlink"
-                                        Command="{Binding HyperlinkClickedCommand}"
-                                        Content="Hyperlink" /> Inside.</TextBlock>
+                            <TextBlock xml:space="preserve">Text With A <HyperlinkButton Command="{Binding HyperlinkClickedCommand}" IsVisited="{Binding HyperlinkVisited}" Content="Hyperlink" /> Inside.</TextBlock>
                         </showMeTheXaml:XamlDisplay>
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock1">
                             <TextBlock Classes="h1" />

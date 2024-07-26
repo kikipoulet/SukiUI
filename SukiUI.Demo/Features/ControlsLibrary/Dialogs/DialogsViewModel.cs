@@ -21,10 +21,5 @@ public partial class DialogsViewModel() : DemoPageBase("Dialogs", MaterialIconKi
 
     [RelayCommand]
     private static void OpenDialogWindowDemo() => new DialogWindowDemo().Show();
-
-    [RelayCommand]
-    private void OpenSourceUrl() =>
-        UrlUtilities.OpenUrl(
-            $"https://github.com/kikipoulet/SukiUI/blob/main/SukiUI.Demo/Features/ControlsLibrary/Dialogs/{nameof(DialogsViewModel)}.cs");
         
 }

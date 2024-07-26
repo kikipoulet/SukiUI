@@ -373,7 +373,7 @@
                         <Border Name="borderbottom"
                                 Margin="1,-1,1,-1"
                                 BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
                                 ClipToBounds="True"
                                 CornerRadius="1">
                             <Border.Transitions>

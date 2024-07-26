@@ -475,34 +475,6 @@
                 </Style>
             </Style>
         </Style>
-
-        <Style Selector="^.Hyperlink">
-            <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
-            <Setter Property="Padding" Value="0" />
-            <Setter Property="Cursor" Value="Hand" />
-            <Setter Property="VerticalAlignment" Value="Bottom" />
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Template">
-                <ControlTemplate>
-                    <ContentPresenter Content="{TemplateBinding Content}">
-                        <ContentPresenter.Styles>
-                            <Style Selector="TextBlock">
-                                <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
-                                <Setter Property="FontSize" Value="{TemplateBinding FontSize}" />
-                                <Setter Property="TextDecorations" Value="Underline" />
-                                <Setter Property="Transitions">
-                                    <Transitions>
-                                        <BrushTransition Property="Foreground" Duration="{DynamicResource ShortAnimationDuration}" />
-                                    </Transitions>
-                                </Setter>
-                            </Style>
-                        </ContentPresenter.Styles>
-                    </ContentPresenter>
-                </ControlTemplate>
-            </Setter>
-        </Style>
-
         <Style Selector="^.Large">
             <Setter Property="FontSize" Value="18" />
             <Setter Property="Padding" Value="30,12" />
