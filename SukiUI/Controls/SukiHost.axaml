@@ -26,6 +26,7 @@
                             VerticalAlignment="Stretch"
                             Background="{DynamicResource SukiDialogBackground}"
                             IsHitTestVisible="False"
+                            IsVisible="False"
                             Opacity="0.4">
                         
                     </Border>
