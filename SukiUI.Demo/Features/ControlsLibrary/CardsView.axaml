@@ -1,7 +1,7 @@
 <UserControl x:Class="SukiUI.Demo.Features.ControlsLibrary.CardsView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
              xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -12,14 +12,14 @@
              x:DataType="controlsLibrary:CardsViewModel"
              mc:Ignorable="d">
     <UserControl.Styles>
-        <Style Selector="WrapPanel &gt; controls|GlassCard">
+        <Style Selector="WrapPanel &gt; suki|GlassCard">
             <Setter Property="IsOpaque" Value="{Binding IsOpaque}" />
             <Setter Property="IsInteractive" Value="{Binding IsInteractive}" />
         </Style>
     </UserControl.Styles>
     <Grid RowDefinitions="Auto,*">
-        <controls:GlassCard Classes="HeaderCard">
-            <controls:GroupBox Header="Cards">
+        <suki:GlassCard Classes="HeaderCard">
+            <suki:GroupBox Header="Cards">
                 <StackPanel Classes="HeaderContent">
                     <TextBlock>
                         SukiUI provides a simple GlassCard control which has some basic customisation built in.
@@ -44,34 +44,34 @@
                      
                     </DockPanel>
                 </StackPanel>
-            </controls:GroupBox>
-        </controls:GlassCard>
+            </suki:GroupBox>
+        </suki:GlassCard>
         <ScrollViewer Grid.Row="1">
             <StackPanel>
             <WrapPanel Classes="PageContainer">
-                <controls:GlassCard>
-                    <controls:GroupBox Header="Standard">
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Standard">
                         <TextBlock Classes="h3">A standard GlassCard</TextBlock>
-                    </controls:GroupBox>
-                </controls:GlassCard>
-                <controls:GlassCard Classes="Primary">
-                    <controls:GroupBox Header="Primary">
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard Classes="Primary">
+                    <suki:GroupBox Header="Primary">
                         <TextBlock Classes="h3">A primary colored GlassCard</TextBlock>
-                    </controls:GroupBox>
-                </controls:GlassCard>
-                <controls:GlassCard Classes="Accent">
-                    <controls:GroupBox Header="Accent">
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard Classes="Accent">
+                    <suki:GroupBox Header="Accent">
                         <TextBlock Classes="h3">An accent colored GlassCard</TextBlock>
-                    </controls:GroupBox>
-                </controls:GlassCard>
-                <controls:GlassCard>
-                    <controls:GlassCard.Resources>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GlassCard.Resources>
                         <system:Double x:Key="GlassOpacity">0.2</system:Double>
-                    </controls:GlassCard.Resources>
-                    <controls:GroupBox Header="Overriden Opacity">
+                    </suki:GlassCard.Resources>
+                    <suki:GroupBox Header="Overriden Opacity">
                         <TextBlock Classes="h4">This card's resources sets the double resource of "GlassOpacity" to 0.2</TextBlock>
-                    </controls:GroupBox>
-                </controls:GlassCard>
+                    </suki:GroupBox>
+                </suki:GlassCard>
                
             </WrapPanel>
                 
@@ -84,15 +84,15 @@
                 </StackPanel>
                 
                 <Grid ColumnDefinitions="*,*" Margin="15">
-                    <controls:GlassCard HorizontalAlignment="Left" IsAnimated="False" Margin="15">
+                    <suki:GlassCard HorizontalAlignment="Left" IsAnimated="False" Margin="15">
                         <StackPanel Spacing="35">
                             <TextBlock FontWeight="DemiBold" FontSize="17" Text="Not Animated"></TextBlock>
                             <ItemsControl  ItemsSource="{Binding Items}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <controls:GlassCard helpers:AnimationExtensions.FadeIn="500" Width="150" Height="60" Margin="5" IsInteractive="True">
+                                        <suki:GlassCard helpers:AnimationExtensions.FadeIn="500" Width="150" Height="60" Margin="5" IsInteractive="True">
                                            <TextBlock Text="Item" Foreground="{DynamicResource SukiLowText}"></TextBlock>
-                                        </controls:GlassCard>
+                                        </suki:GlassCard>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                                 <ItemsControl.ItemsPanel>
@@ -102,17 +102,17 @@
                                 </ItemsControl.ItemsPanel>
                             </ItemsControl>
                         </StackPanel>
-                    </controls:GlassCard>
+                    </suki:GlassCard>
                     
-                    <controls:GlassCard Grid.Column="1" HorizontalAlignment="Left"  Margin="15">
+                    <suki:GlassCard Grid.Column="1" HorizontalAlignment="Left"  Margin="15">
                         <StackPanel Spacing="35">
                             <TextBlock FontWeight="DemiBold" FontSize="17" Text="Animated"></TextBlock>
                             <ItemsControl  ItemsSource="{Binding Items}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <controls:GlassCard helpers:AnimationExtensions.FadeIn="500" Width="150" Height="60" Margin="5" IsInteractive="True">
+                                        <suki:GlassCard helpers:AnimationExtensions.FadeIn="500" Width="150" Height="60" Margin="5" IsInteractive="True">
                                             <TextBlock Text="Item" Foreground="{DynamicResource SukiLowText}"></TextBlock>
-                                        </controls:GlassCard>
+                                        </suki:GlassCard>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                                 <ItemsControl.ItemsPanel>
@@ -122,7 +122,7 @@
                                 </ItemsControl.ItemsPanel>
                             </ItemsControl>
                         </StackPanel>
-                    </controls:GlassCard>
+                    </suki:GlassCard>
                 </Grid>
                 <Border Height="100"></Border>
             </StackPanel>

@@ -1,7 +1,7 @@
 <UserControl x:Class="SukiUI.Demo.Features.ControlsLibrary.TogglesView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
              xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -12,8 +12,8 @@
              mc:Ignorable="d">
     <ScrollViewer>
         <WrapPanel Classes="PageContainer">
-            <controls:GlassCard>
-                <controls:GroupBox Header="Radio Buttons">
+            <suki:GlassCard>
+                <suki:GroupBox Header="Radio Buttons">
                     <showMeTheXaml:XamlDisplay UniqueId="RadioButtons">
                         <StackPanel VerticalAlignment="Center" Spacing="10">
                             <RadioButton Content="Option One"
@@ -23,10 +23,10 @@
                             <RadioButton Content="Option Three" GroupName="R1" />
                         </StackPanel>
                     </showMeTheXaml:XamlDisplay>
-                </controls:GroupBox>
-            </controls:GlassCard>
-            <controls:GlassCard>
-                <controls:GroupBox Header="Simple GigaChips">
+                </suki:GroupBox>
+            </suki:GlassCard>
+            <suki:GlassCard>
+                <suki:GroupBox Header="Simple GigaChips">
                     <showMeTheXaml:XamlDisplay UniqueId="SimpleGigaChips">
                         <StackPanel>
                             <RadioButton Classes="GigaChips"
@@ -41,10 +41,10 @@
                                          GroupName="R2" />
                         </StackPanel>
                     </showMeTheXaml:XamlDisplay>
-                </controls:GroupBox>
-            </controls:GlassCard>
-            <controls:GlassCard>
-                <controls:GroupBox Header="Complex GigaChips">
+                </suki:GroupBox>
+            </suki:GlassCard>
+            <suki:GlassCard>
+                <suki:GroupBox Header="Complex GigaChips">
                     <showMeTheXaml:XamlDisplay UniqueId="ComplexGigaChips">
                         <StackPanel Orientation="Horizontal">
                             <RadioButton Classes="GigaChips"
@@ -81,10 +81,10 @@
                             </RadioButton>
                         </StackPanel>
                     </showMeTheXaml:XamlDisplay>
-                </controls:GroupBox>
-            </controls:GlassCard>
-            <controls:GlassCard>
-                <controls:GroupBox Header="Toggle Switches">
+                </suki:GroupBox>
+            </suki:GlassCard>
+            <suki:GlassCard>
+                <suki:GroupBox Header="Toggle Switches">
                     <StackPanel>
                         <showMeTheXaml:XamlDisplay UniqueId="ToggleSwitch">
                             <ToggleSwitch IsChecked="True" />
@@ -93,10 +93,10 @@
                             <ToggleSwitch OffContent="Switch Off." OnContent="Switch On." />
                         </showMeTheXaml:XamlDisplay>
                     </StackPanel>
-                </controls:GroupBox>
-            </controls:GlassCard>
-            <controls:GlassCard>
-                <controls:GroupBox Header="Toggle Buttons">
+                </suki:GroupBox>
+            </suki:GlassCard>
+            <suki:GlassCard>
+                <suki:GroupBox Header="Toggle Buttons">
                     <StackPanel>
                         <showMeTheXaml:XamlDisplay UniqueId="ToggleButton">
                             <ToggleButton Content="Toggle Me" />
@@ -108,10 +108,10 @@
                             <ToggleButton Classes="Switch" Content="Toggle Me" />
                         </showMeTheXaml:XamlDisplay>
                     </StackPanel>
-                </controls:GroupBox>
-            </controls:GlassCard>
-            <controls:GlassCard>
-                <controls:GroupBox Header="CheckBoxes">
+                </suki:GroupBox>
+            </suki:GlassCard>
+            <suki:GlassCard>
+                <suki:GroupBox Header="CheckBoxes">
                     <StackPanel>
                         <showMeTheXaml:XamlDisplay UniqueId="CheckBox">
                             <StackPanel Spacing="5">
@@ -121,8 +121,8 @@
                             </StackPanel>
                         </showMeTheXaml:XamlDisplay>
                     </StackPanel>
-                </controls:GroupBox>
-            </controls:GlassCard>
+                </suki:GroupBox>
+            </suki:GlassCard>
         </WrapPanel>
     </ScrollViewer>
 </UserControl>

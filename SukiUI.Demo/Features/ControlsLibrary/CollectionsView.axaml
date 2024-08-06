@@ -1,7 +1,7 @@
 <UserControl x:Class="SukiUI.Demo.Features.ControlsLibrary.CollectionsView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
              xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -13,8 +13,8 @@
              x:DataType="controlsLibrary:CollectionsViewModel"
              mc:Ignorable="d">
     <Grid RowDefinitions="Auto,*">
-        <controls:GlassCard Classes="HeaderCard">
-            <controls:GroupBox Header="Collections">
+        <suki:GlassCard Classes="HeaderCard">
+            <suki:GroupBox Header="Collections">
                 <StackPanel Classes="HeaderContent">
                     <TextBlock>
                         All basic collection controls have been styled and animated.
@@ -23,29 +23,29 @@
                         The DataGrid aligns it's content to the left by default, but you can apply CenterAlign and LeftAlign classes to the CellStyleClasses property of a column definition.
                     </TextBlock>
                 </StackPanel>
-            </controls:GroupBox>
-        </controls:GlassCard>
+            </suki:GroupBox>
+        </suki:GlassCard>
         <ScrollViewer Grid.Row="1">
             <WrapPanel Classes="PageContainer">
-                <controls:GlassCard>
-                    <controls:GroupBox Header="ListBox">
+                <suki:GlassCard>
+                    <suki:GroupBox Header="ListBox">
                         <showMeTheXaml:XamlDisplay UniqueId="ListBox">
                             <ListBox MaxHeight="200"
                                      ItemsSource="{Binding SimpleContent}"
                                      SelectedItem="{Binding SelectedSimpleContent}" />
                         </showMeTheXaml:XamlDisplay>
-                    </controls:GroupBox>
-                </controls:GlassCard>
-                <controls:GlassCard>
-                    <controls:GroupBox Header="ComboBox">
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="ComboBox">
                         <showMeTheXaml:XamlDisplay UniqueId="ComboBox">
                             <ComboBox ItemsSource="{Binding SimpleContent}" SelectedItem="{Binding SelectedSimpleContent}" />
                         </showMeTheXaml:XamlDisplay>
-                    </controls:GroupBox>
-                </controls:GlassCard>
+                    </suki:GroupBox>
+                </suki:GlassCard>
 
-                <controls:GlassCard>
-                    <controls:GroupBox Header="AutoCompleteBox">
+                <suki:GlassCard>
+                    <suki:GroupBox Header="AutoCompleteBox">
                         <showMeTheXaml:XamlDisplay UniqueId="AutoCompleteBox">
                             <AutoCompleteBox>
                                 <AutoCompleteBox.ItemsSource>
@@ -62,10 +62,10 @@
                                 </AutoCompleteBox.ItemsSource>
                             </AutoCompleteBox>
                         </showMeTheXaml:XamlDisplay>
-                    </controls:GroupBox>
-                </controls:GlassCard>
-                <controls:GlassCard>
-                    <controls:GroupBox Header="DataGrid">
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="DataGrid">
                         <StackPanel>
                             <showMeTheXaml:XamlDisplay UniqueId="DataGrid">
                                 <DataGrid MinWidth="350"
@@ -90,10 +90,10 @@
                                            Text="Resizable Columns" />
                             </DockPanel>
                         </StackPanel>
-                    </controls:GroupBox>
-                </controls:GlassCard>
-                <controls:GlassCard>
-                    <controls:GroupBox Header="Tree View">
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Tree View">
                         <showMeTheXaml:XamlDisplay UniqueId="TreeView">
                             <TreeView MaxHeight="200" ItemsSource="{Binding TreeViewContent}">
                                 <TreeView.ItemTemplate>
@@ -103,8 +103,8 @@
                                 </TreeView.ItemTemplate>
                             </TreeView>
                         </showMeTheXaml:XamlDisplay>
-                    </controls:GroupBox>
-                </controls:GlassCard>
+                    </suki:GroupBox>
+                </suki:GlassCard>
             </WrapPanel>
         </ScrollViewer>
     </Grid>

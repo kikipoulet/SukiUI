@@ -2,23 +2,23 @@
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:avaloniaEdit="https://github.com/avaloniaui/avaloniaedit"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:effects="clr-namespace:SukiUI.Demo.Features.Effects"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
              d:DesignHeight="450"
              d:DesignWidth="800"
              x:DataType="effects:EffectsViewModel"
              mc:Ignorable="d">
     <Grid ColumnDefinitions="*,*" RowDefinitions="*,Auto,Auto">
-        <controls:GlassCard Margin="20"><avaloniaEdit:TextEditor  Name="Editor"
-                                                                  ShowLineNumbers="True"
-                                                                  Text="" /></controls:GlassCard>
+        <suki:GlassCard Margin="20"><avaloniaEdit:TextEditor  Name="Editor"
+                                                              ShowLineNumbers="True"
+                                                              Text="" /></suki:GlassCard>
         
-        <controls:InfoBar IsVisible="False" Margin="20,10" Name="ErrorText" IsClosable="False"
-                 Grid.Row="1" Severity="Error"
-                 Grid.Column="0" Title="Error" 
-                 />
+        <suki:InfoBar IsVisible="False" Margin="20,10" Name="ErrorText" IsClosable="False"
+                      Grid.Row="1" Severity="Error"
+                      Grid.Column="0" Title="Error" 
+        />
         <Button Grid.Row="2"
                 Grid.Column="0"
                 Classes="Flat Large" Margin="20"

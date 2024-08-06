@@ -2,7 +2,7 @@
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:colors="clr-namespace:SukiUI.Demo.Features.ControlsLibrary.Colors"
-             xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:theme="clr-namespace:SukiUI.Theme;assembly=SukiUI"
@@ -11,22 +11,22 @@
              x:DataType="colors:ColorsViewModel"
              mc:Ignorable="d">
     <Grid RowDefinitions="Auto,*">
-        <controls:GlassCard Classes="HeaderCard">
-            <controls:GroupBox Header="Colors">
+        <suki:GlassCard Classes="HeaderCard">
+            <suki:GroupBox Header="Colors">
                 <StackPanel Classes="HeaderContent">
                     <TextBlock>Below is a full list of all defined colors that are available either via XAML (DynamicResource) or via Application.Resources.</TextBlock>
                     <TextBlock>Click on any of the colors to copy it's name to your clipboard.</TextBlock>
                 </StackPanel>
-            </controls:GroupBox>
-        </controls:GlassCard>
+            </suki:GroupBox>
+        </suki:GlassCard>
         <ScrollViewer Grid.Row="1">
             <ItemsControl theme:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding Colors}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <controls:GlassCard Margin="15"
-                                            IsInteractive="True"
-                                            PointerPressed="InputElement_OnPointerPressed">
-                            <controls:GroupBox Header="{Binding Name}">
+                        <suki:GlassCard Margin="15"
+                                        IsInteractive="True"
+                                        PointerPressed="InputElement_OnPointerPressed">
+                            <suki:GroupBox Header="{Binding Name}">
                                 <Rectangle Width="50"
                                            Height="50"
                                            Margin="0,7,0,0"
@@ -43,8 +43,8 @@
                                         </Transitions>
                                     </Rectangle.Transitions>
                                 </Rectangle>
-                            </controls:GroupBox>
-                        </controls:GlassCard>
+                            </suki:GroupBox>
+                        </suki:GlassCard>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
                 <ItemsControl.ItemsPanel>
