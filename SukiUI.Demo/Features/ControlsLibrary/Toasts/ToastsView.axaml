@@ -1,7 +1,7 @@
 <UserControl x:Class="SukiUI.Demo.Features.ControlsLibrary.Toasts.ToastsView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:toasts="clr-namespace:SukiUI.Demo.Features.ControlsLibrary.Toasts"
@@ -10,8 +10,8 @@
              x:DataType="toasts:ToastsViewModel"
              mc:Ignorable="d">
     <Grid RowDefinitions="Auto,*">
-        <controls:GlassCard Classes="HeaderCard">
-            <controls:GroupBox Header="Toasts">
+        <suki:GlassCard Classes="HeaderCard">
+            <suki:GroupBox Header="Toasts">
                 <StackPanel Classes="HeaderContent">
                     <TextBlock>
                         SukiUI contains an API for creating and dismissing 4 kinds of toasts, with the ability to set limits on the number of toasts.
@@ -32,66 +32,66 @@
                         NavigateUri="https://github.com/kikipoulet/SukiUI/blob/main/SukiUI.Demo/Features/ControlsLibrary/Toasts/ToastsViewModel.cs"
                         Content="Source Here." />
                 </StackPanel>
-            </controls:GroupBox>
-        </controls:GlassCard>
+            </suki:GroupBox>
+        </suki:GlassCard>
         <ScrollViewer Grid.Row="1">
             <WrapPanel Classes="PageContainer">
-                <controls:GlassCard>
-                    <controls:GroupBox Header="Info Toast">
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Info Toast">
                         <Button Margin="15,10,15,0"
                                 Command="{Binding ShowInfoToastCommand}"
                                 Content="Show Toast" />
-                    </controls:GroupBox>
-                </controls:GlassCard>
-                <controls:GlassCard>
-                    <controls:GroupBox Header="Success Toast">
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Success Toast">
                         <Button Margin="15,10,15,0"
                                 Command="{Binding ShowSuccessToastCommand}"
                                 Content="Show Toast" />
-                    </controls:GroupBox>
-                </controls:GlassCard>
-                <controls:GlassCard>
-                    <controls:GroupBox Header="Warning Toast">
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Warning Toast">
                         <Button Margin="15,10,15,0"
                                 Command="{Binding ShowWarningToastCommand}"
                                 Content="Show Toast" />
-                    </controls:GroupBox>
-                </controls:GlassCard>
-                <controls:GlassCard>
-                    <controls:GroupBox Header="Error Toast">
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Error Toast">
                         <Button Margin="15,10,15,0"
                                 Command="{Binding ShowErrorToastCommand}"
                                 Content="Show Toast" />
-                    </controls:GroupBox>
-                </controls:GlassCard>
-                <controls:GlassCard>
-                    <controls:GroupBox Header="3 Info Toasts">
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="3 Info Toasts">
                         <Button Margin="15,10,15,0"
                                 Command="{Binding ShowThreeInfoToastsCommand}"
                                 Content="Show Toasts" />
-                    </controls:GroupBox>
-                </controls:GlassCard>
-                <controls:GlassCard>
-                    <controls:GroupBox Header="Callback Toast">
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Callback Toast">
                         <Button Margin="15,10,15,0"
                                 Command="{Binding ShowToastWithCallbackCommand}"
                                 Content="Show Toast" />
-                    </controls:GroupBox>
-                </controls:GlassCard>
-                <controls:GlassCard>
-                    <controls:GroupBox Header="Action Toast">
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Action Toast">
                         <Button Margin="15,10,15,0"
                                 Command="{Binding ShowActionToastCommand}"
                                 Content="Show Toast" />
-                    </controls:GroupBox>
-                </controls:GlassCard>
-                <controls:GlassCard>
-                    <controls:GroupBox Header="Separate Toast Window">
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Separate Toast Window">
                         <Button Margin="15,10,15,0"
                                 Command="{Binding ShowToastWindowCommand}"
                                 Content="Open" />
-                    </controls:GroupBox>
-                </controls:GlassCard>
+                    </suki:GroupBox>
+                </suki:GlassCard>
             </WrapPanel>
         </ScrollViewer>
     </Grid>

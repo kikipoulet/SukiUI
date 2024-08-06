@@ -2,7 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:theme="clr-namespace:SukiUI.Theme;assembly=SukiUI"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SukiUI.Demo.Features.ControlsLibrary.DockControls.propertiesview">
      <StackPanel Margin="15,25,15,0" >
@@ -14,11 +14,11 @@
        </Panel>
        <Panel>
          <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Text="Height" FontWeight="DemiBold" Foreground="{DynamicResource SukiLowText}"></TextBlock>
-         <NumericUpDown VerticalAlignment="Center" HorizontalAlignment="Right" Value="800" theme:NumericUpDownExtensions.Unit="px" ShowButtonSpinner="False"></NumericUpDown>
+         <NumericUpDown VerticalAlignment="Center" HorizontalAlignment="Right" Value="800" suki:NumericUpDownExtensions.Unit="px" ShowButtonSpinner="False"></NumericUpDown>
        </Panel>
        <Panel>
          <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Text="Width" FontWeight="DemiBold" Foreground="{DynamicResource SukiLowText}"></TextBlock>
-         <NumericUpDown VerticalAlignment="Center" HorizontalAlignment="Right" Value="1200" theme:NumericUpDownExtensions.Unit="px" ShowButtonSpinner="False"></NumericUpDown>
+         <NumericUpDown VerticalAlignment="Center" HorizontalAlignment="Right" Value="1200" suki:NumericUpDownExtensions.Unit="px" ShowButtonSpinner="False"></NumericUpDown>
        </Panel>
        <Panel>
          <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Text="Maximized" FontWeight="DemiBold" Foreground="{DynamicResource SukiLowText}"></TextBlock>

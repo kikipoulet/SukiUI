@@ -1,7 +1,7 @@
 <UserControl x:Class="SukiUI.Demo.Features.ControlsLibrary.StackPage.StackPageView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:stackPage="clr-namespace:SukiUI.Demo.Features.ControlsLibrary.StackPage"
@@ -10,8 +10,8 @@
              x:DataType="stackPage:StackPageViewModel"
              mc:Ignorable="d">
     <Grid RowDefinitions="Auto, *">
-        <controls:GlassCard Classes="HeaderCard">
-            <controls:GroupBox Header="StackPage">
+        <suki:GlassCard Classes="HeaderCard">
+            <suki:GroupBox Header="StackPage">
                 <StackPanel Classes="HeaderContent">
                     <TextBlock>
                         SukiUI provides a simple StackPage implementation in the form of SukiStackPage.
@@ -41,10 +41,10 @@
                         <TextBlock VerticalAlignment="Center" FontWeight="DemiBold" Text="{Binding Limit}" />
                     </DockPanel>
                 </StackPanel>
-            </controls:GroupBox>
-        </controls:GlassCard>
-        <controls:SukiStackPage Grid.Row="1"
-                                Content="{Binding ActiveVm}"
-                                Limit="{Binding Limit}" />
+            </suki:GroupBox>
+        </suki:GlassCard>
+        <suki:SukiStackPage Grid.Row="1"
+                            Content="{Binding ActiveVm}"
+                            Limit="{Binding Limit}" />
     </Grid>
 </UserControl>

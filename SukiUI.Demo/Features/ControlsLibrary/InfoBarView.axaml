@@ -1,7 +1,7 @@
 ﻿<UserControl x:Class="SukiUI.Demo.Features.ControlsLibrary.InfoBarView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
              xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -10,8 +10,8 @@
              x:DataType="controlsLibrary:InfoBarViewModel"
              mc:Ignorable="d">
     <Grid RowDefinitions="Auto, *">
-        <controls:GlassCard Classes="HeaderCard">
-            <controls:GroupBox Header="InfoBar">
+        <suki:GlassCard Classes="HeaderCard">
+            <suki:GroupBox Header="InfoBar">
                 <StackPanel Classes="HeaderContent" Spacing="15">
                     <TextBlock>
                         InfoBar is a control that displays a message to the user. It can be used to show specific severity message to the user.
@@ -51,37 +51,37 @@
                         <ToggleSwitch Margin="15,0,0,0" IsChecked="{Binding IsOpaque}" />
                     </StackPanel>
                 </StackPanel>
-            </controls:GroupBox>
-        </controls:GlassCard>
+            </suki:GroupBox>
+        </suki:GlassCard>
         <ScrollViewer Grid.Row="1">
             <WrapPanel Classes="PageContainer">
-                <controls:GlassCard>
+                <suki:GlassCard>
                     <StackPanel Spacing="7">
-                        <controls:InfoBar Title="Info" IsOpaque="{Binding IsOpaque}"
-                                          Margin="10"
-                                          IsClosable="{Binding IsClosable}"
-                                          IsOpen="{Binding IsOpen, Mode=TwoWay}"
-                                          Message="{Binding #MessageTextBox.Text}" />
-                        <controls:InfoBar Title="Warning"  IsOpaque="{Binding IsOpaque}"
-                                          Margin="10"
-                                          IsClosable="{Binding IsClosable}"
-                                          IsOpen="{Binding IsOpen, Mode=TwoWay}"
-                                          Message="{Binding #MessageTextBox.Text}"
-                                          Severity="Warning" />
-                        <controls:InfoBar Title="Error"  IsOpaque="{Binding IsOpaque}"
-                                          Margin="10"
-                                          IsClosable="{Binding IsClosable}"
-                                          IsOpen="{Binding IsOpen, Mode=TwoWay}"
-                                          Message="{Binding #MessageTextBox.Text}"
-                                          Severity="Error" />
-                        <controls:InfoBar Title="Success"
-                                          Margin="10"  IsOpaque="{Binding IsOpaque}"
-                                          IsClosable="{Binding IsClosable}"
-                                          IsOpen="{Binding IsOpen, Mode=TwoWay}"
-                                          Message="{Binding #MessageTextBox.Text}"
-                                          Severity="Success" />
+                        <suki:InfoBar Title="Info" IsOpaque="{Binding IsOpaque}"
+                                      Margin="10"
+                                      IsClosable="{Binding IsClosable}"
+                                      IsOpen="{Binding IsOpen, Mode=TwoWay}"
+                                      Message="{Binding #MessageTextBox.Text}" />
+                        <suki:InfoBar Title="Warning"  IsOpaque="{Binding IsOpaque}"
+                                      Margin="10"
+                                      IsClosable="{Binding IsClosable}"
+                                      IsOpen="{Binding IsOpen, Mode=TwoWay}"
+                                      Message="{Binding #MessageTextBox.Text}"
+                                      Severity="Warning" />
+                        <suki:InfoBar Title="Error"  IsOpaque="{Binding IsOpaque}"
+                                      Margin="10"
+                                      IsClosable="{Binding IsClosable}"
+                                      IsOpen="{Binding IsOpen, Mode=TwoWay}"
+                                      Message="{Binding #MessageTextBox.Text}"
+                                      Severity="Error" />
+                        <suki:InfoBar Title="Success"
+                                      Margin="10"  IsOpaque="{Binding IsOpaque}"
+                                      IsClosable="{Binding IsClosable}"
+                                      IsOpen="{Binding IsOpen, Mode=TwoWay}"
+                                      Message="{Binding #MessageTextBox.Text}"
+                                      Severity="Success" />
                     </StackPanel>
-                </controls:GlassCard>
+                </suki:GlassCard>
             </WrapPanel>
         </ScrollViewer>
     </Grid>

@@ -1,79 +1,78 @@
 <UserControl x:Class="SukiUI.Demo.Features.ControlsLibrary.MiscView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
              xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:showMeTheXaml="clr-namespace:ShowMeTheXaml;assembly=ShowMeTheXaml.Avalonia"
-             xmlns:theme="clr-namespace:SukiUI.Theme;assembly=SukiUI"
              d:DesignHeight="450"
              d:DesignWidth="800"
              x:DataType="controlsLibrary:MiscViewModel"
              mc:Ignorable="d">
     <Grid RowDefinitions="Auto,*">
-        <controls:GlassCard Classes="HeaderCard">
-            <controls:GroupBox Header="Miscellaneous">
+        <suki:GlassCard Classes="HeaderCard">
+            <suki:GroupBox Header="Miscellaneous">
                 <StackPanel Classes="HeaderContent">
                     <TextBlock>
                         An assortment of controls that don't otherwise fit neatly into another category.
                     </TextBlock>
                 </StackPanel>
-            </controls:GroupBox>
-        </controls:GlassCard>
+            </suki:GroupBox>
+        </suki:GlassCard>
         <ScrollViewer Grid.Row="1">
             <WrapPanel Classes="PageContainer">
-                <controls:GlassCard MaxWidth="300">
-                    <controls:BusyArea BusyText="Busy..." IsBusy="{Binding IsBusy}">
-                        <controls:GroupBox Header="Busy Area">
+                <suki:GlassCard MaxWidth="300">
+                    <suki:BusyArea BusyText="Busy..." IsBusy="{Binding IsBusy}">
+                        <suki:GroupBox Header="Busy Area">
                             <StackPanel Spacing="10">
                                 <TextBlock Classes="h3" TextWrapping="Wrap">Click this button to set the card area busy for 3 seconds.</TextBlock>
                                 <Button HorizontalAlignment="Center"
                                         Command="{Binding ToggleBusyCommand}"
                                         Content="Click Me." />
                             </StackPanel>
-                        </controls:GroupBox>
-                    </controls:BusyArea>
-                </controls:GlassCard>
-                <controls:GlassCard>
-                    <controls:GroupBox Header="Date Picker">
+                        </suki:GroupBox>
+                    </suki:BusyArea>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Date Picker">
                         <StackPanel Spacing="15">
                             <DatePicker SelectedDate="{Binding SelectedDateTimeOffset}" />
                             <CalendarDatePicker SelectedDate="{Binding SelectedDateTimeOffset}" />
                         </StackPanel>
 
-                    </controls:GroupBox>
-                </controls:GlassCard>
-                <controls:GlassCard>
-                    <controls:GroupBox Header="Calendar">
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Calendar">
                         <Calendar SelectedDate="{Binding SelectedDateTime}" />
-                    </controls:GroupBox>
-                </controls:GlassCard>
-                <controls:GlassCard>
-                    <controls:GroupBox Header="Time Picker">
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Time Picker">
                         <TimePicker />
-                    </controls:GroupBox>
-                </controls:GlassCard>
-                <controls:GlassCard>
-                    <controls:GroupBox Header="Numeric Up/Down">
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Numeric Up/Down">
                         <StackPanel Spacing="10">
                             <showMeTheXaml:XamlDisplay UniqueId="Numeric1">
                                 <NumericUpDown Value="10" />
                             </showMeTheXaml:XamlDisplay>
                             <showMeTheXaml:XamlDisplay UniqueId="Numeric2">
-                                <NumericUpDown theme:NumericUpDownExtensions.Unit="inch" Value="10" />
+                                <NumericUpDown suki:NumericUpDownExtensions.Unit="inch" Value="10" />
                             </showMeTheXaml:XamlDisplay>
                             <showMeTheXaml:XamlDisplay UniqueId="Numeric3">
-                                <NumericUpDown theme:NumericUpDownExtensions.Unit="inch"
+                                <NumericUpDown suki:NumericUpDownExtensions.Unit="inch"
                                                ShowButtonSpinner="False"
                                                Value="10" />
                             </showMeTheXaml:XamlDisplay>
 
                         </StackPanel>
-                    </controls:GroupBox>
-                </controls:GlassCard>
-                <controls:GlassCard>
-                    <controls:GroupBox Header="DropDownButton">
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="DropDownButton">
                         <DropDownButton Content="Click To Open">
                             <DropDownButton.Flyout>
                                 <Flyout>
@@ -87,11 +86,11 @@
                                 </Flyout>
                             </DropDownButton.Flyout>
                         </DropDownButton>
-                    </controls:GroupBox>
-                </controls:GlassCard>
+                    </suki:GroupBox>
+                </suki:GlassCard>
 
-                <controls:GlassCard>
-                    <controls:GroupBox Header="File Picker">
+                <suki:GlassCard>
+                    <suki:GroupBox Header="File Picker">
                         <StackPanel Spacing="8">
                             <Button Margin="5"
                                     HorizontalAlignment="Center"
@@ -112,11 +111,11 @@
                                     Command="{Binding OpenFolderCommand}"
                                     Content="Open Folder" />
                         </StackPanel>
-                    </controls:GroupBox>
-                </controls:GlassCard>
+                    </suki:GroupBox>
+                </suki:GlassCard>
                 
-                <controls:GlassCard>
-                    <controls:GroupBox Header="Message Box">
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Message Box">
                         <StackPanel Spacing="8">
                             <Button Margin="5"
                                     HorizontalAlignment="Center"
@@ -133,8 +132,8 @@
                                     Content="Open Error MessageBox" />
                             
                         </StackPanel>
-                    </controls:GroupBox>
-                </controls:GlassCard>
+                    </suki:GroupBox>
+                </suki:GlassCard>
             </WrapPanel>
         </ScrollViewer>
     </Grid>

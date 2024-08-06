@@ -6,8 +6,7 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:demo="clr-namespace:SukiUI.Demo"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                 xmlns:models="clr-namespace:SukiUI.Models;assembly=SukiUI"
-                 xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+                 xmlns:suki="https://github.com/kikipoulet/SukiUI"
                  Title="SukiUI - Demo Application"
                  d:DesignHeight="450"
                  d:DesignWidth="800"
@@ -144,7 +143,7 @@
                       Header="Switch To..."
                       ItemsSource="{Binding Themes}">
                 <MenuItem.DataTemplates>
-                    <DataTemplate DataType="{x:Type models:SukiColorTheme}">
+                    <DataTemplate DataType="{x:Type suki:SukiColorTheme}">
                         <TextBlock Foreground="{Binding PrimaryBrush}" Text="{Binding DisplayName}" />
                     </DataTemplate>
                 </MenuItem.DataTemplates>
