@@ -155,6 +155,9 @@ namespace SukiUI.Controls
             _animCancellationToken.Cancel();
             _animCancellationToken.Dispose();
             _animCancellationToken = new CancellationTokenSource();
+
+            FirstBuffer = null;
+            SecondBuffer = null;
             
             if (_isFirstBufferActive) SecondBuffer = content;
             else FirstBuffer = content;

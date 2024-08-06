@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+                    xmlns:suki="https://github.com/kikipoulet/SukiUI"
                     xmlns:core="using:Dock.Model.Core"
                     xmlns:dmc="using:Dock.Model.Controls">
     <Design.PreviewWith>
@@ -18,7 +18,7 @@
         <Setter Property="Template">
             <ControlTemplate>
 
-                <controls:GlassCard Margin="5" Padding="12,15">
+                <suki:GlassCard Margin="5" Padding="12,15">
                     <DockPanel x:Name="PART_DockPanel"
                                x:CompileBindings="True"
                                x:DataType="dmc:IDocumentDock"
@@ -53,7 +53,7 @@
                             </DockableControl>
                         </Border>
                     </DockPanel>
-                </controls:GlassCard>
+                </suki:GlassCard>
             </ControlTemplate>
         </Setter>
 

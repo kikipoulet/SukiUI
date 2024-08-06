@@ -1,12 +1,11 @@
 <UserControl x:Class="SukiUI.Demo.Features.ControlsLibrary.ButtonsView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
              xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:showMeTheXaml="clr-namespace:ShowMeTheXaml;assembly=ShowMeTheXaml.Avalonia"
-             xmlns:theme="clr-namespace:SukiUI.Theme;assembly=SukiUI"
              d:DesignHeight="450"
              d:DesignWidth="800"
              x:DataType="controlsLibrary:ButtonsViewModel"
@@ -14,14 +13,14 @@
     <UserControl.Styles>
         <Style Selector="Button">
             <Setter Property="Content" Value="Button" />
-            <Setter Property="theme:ButtonExtensions.ShowProgress" Value="{Binding IsBusy}" />
+            <Setter Property="suki:ButtonExtensions.ShowProgress" Value="{Binding IsBusy}" />
             <Setter Property="Command" Value="{Binding ButtonClickedCommand}" />
             <Setter Property="IsEnabled" Value="{Binding IsEnabled}" />
         </Style>
     </UserControl.Styles>
     <Grid RowDefinitions="Auto,*">
-        <controls:GlassCard Classes="HeaderCard">
-            <controls:GroupBox Header="Buttons">
+        <suki:GlassCard Classes="HeaderCard">
+            <suki:GroupBox Header="Buttons">
                 <StackPanel Classes="HeaderContent">
                     <TextBlock>
                         SukiUI has a handful of button styles, available in both the standard primary color, but also in the theme's accent color.
@@ -40,95 +39,95 @@
 
                     </StackPanel>
                 </StackPanel>
-            </controls:GroupBox>
-        </controls:GlassCard>
+            </suki:GroupBox>
+        </suki:GlassCard>
         <ScrollViewer Grid.Row="1">
             <WrapPanel Classes="PageContainer">
-                <controls:GlassCard>
-                    <controls:GroupBox Header="Standard Button">
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Standard Button">
                         <showMeTheXaml:XamlDisplay UniqueId="Button1">
                             <Button />
                         </showMeTheXaml:XamlDisplay>
-                    </controls:GroupBox>
-                </controls:GlassCard>
-                <controls:GlassCard>
-                    <controls:GroupBox Header="Basic Button">
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Basic Button">
                         <showMeTheXaml:XamlDisplay UniqueId="Button2">
                             <Button Classes="Basic" />
                         </showMeTheXaml:XamlDisplay>
-                    </controls:GroupBox>
-                </controls:GlassCard>
-                <controls:GlassCard>
-                    <controls:GroupBox Header="Flat Button">
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Flat Button">
                         <showMeTheXaml:XamlDisplay UniqueId="Button3">
                             <Button Classes="Flat" />
                         </showMeTheXaml:XamlDisplay>
-                    </controls:GroupBox>
-                </controls:GlassCard>
-                <controls:GlassCard>
-                    <controls:GroupBox Header="Flat Rounded Button">
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Flat Rounded Button">
                         <showMeTheXaml:XamlDisplay UniqueId="Button4">
                             <Button Classes="Rounded Flat" />
                         </showMeTheXaml:XamlDisplay>
-                    </controls:GroupBox>
-                </controls:GlassCard>
-                <controls:GlassCard>
-                    <controls:GroupBox Header="Outlined Button">
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Outlined Button">
                         <showMeTheXaml:XamlDisplay UniqueId="Button5">
                             <Button Classes="Outlined" />
                         </showMeTheXaml:XamlDisplay>
-                    </controls:GroupBox>
-                </controls:GlassCard>
-                <controls:GlassCard>
-                    <controls:GroupBox Header="Standard Accent Button">
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Standard Accent Button">
                         <showMeTheXaml:XamlDisplay UniqueId="Button6">
                             <Button Classes="Accent" />
                         </showMeTheXaml:XamlDisplay>
-                    </controls:GroupBox>
-                </controls:GlassCard>
-                <controls:GlassCard>
-                    <controls:GroupBox Header="Basic Accent Button">
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Basic Accent Button">
                         <showMeTheXaml:XamlDisplay UniqueId="Button7">
                             <Button Classes="Basic Accent" />
                         </showMeTheXaml:XamlDisplay>
-                    </controls:GroupBox>
-                </controls:GlassCard>
-                <controls:GlassCard>
-                    <controls:GroupBox Header="Flat Accent Button">
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Flat Accent Button">
                         <showMeTheXaml:XamlDisplay UniqueId="Button8">
                             <Button Classes="Flat Accent" />
                         </showMeTheXaml:XamlDisplay>
-                    </controls:GroupBox>
-                </controls:GlassCard>
-                <controls:GlassCard>
-                    <controls:GroupBox Header="Flat Rounded Accent Button">
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Flat Rounded Accent Button">
                         <showMeTheXaml:XamlDisplay UniqueId="Button9">
                             <Button Classes="Rounded Flat Accent" />
                         </showMeTheXaml:XamlDisplay>
-                    </controls:GroupBox>
-                </controls:GlassCard>
-                <controls:GlassCard>
-                    <controls:GroupBox Header="Outlined Accent Button">
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Outlined Accent Button">
                         <showMeTheXaml:XamlDisplay UniqueId="Button10">
                             <Button Classes="Outlined Accent" />
                         </showMeTheXaml:XamlDisplay>
-                    </controls:GroupBox>
-                </controls:GlassCard>
-                <controls:GlassCard>
-                    <controls:GroupBox Header="Busy Button">
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Busy Button">
                         <showMeTheXaml:XamlDisplay UniqueId="Button11">
-                            <Button theme:ButtonExtensions.ShowProgress="True" />
+                            <Button suki:ButtonExtensions.ShowProgress="True" />
                         </showMeTheXaml:XamlDisplay>
-                    </controls:GroupBox>
-                </controls:GlassCard>
+                    </suki:GroupBox>
+                </suki:GlassCard>
 
-                <controls:GlassCard>
-                    <controls:GroupBox Header="Large Button">
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Large Button">
                         <showMeTheXaml:XamlDisplay UniqueId="Button12">
                             <Button Classes="Flat Large" />
                         </showMeTheXaml:XamlDisplay>
-                    </controls:GroupBox>
-                </controls:GlassCard>
+                    </suki:GroupBox>
+                </suki:GlassCard>
             </WrapPanel>
         </ScrollViewer>
     </Grid>

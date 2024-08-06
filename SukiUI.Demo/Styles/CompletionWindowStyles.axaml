@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:cc="clr-namespace:AvaloniaEdit.CodeCompletion;assembly=AvaloniaEdit"
-                    xmlns:theme="clr-namespace:SukiUI.Theme;assembly=SukiUI">
+                    xmlns:suki="https://github.com/kikipoulet/SukiUI"
+                    xmlns:cc="clr-namespace:AvaloniaEdit.CodeCompletion;assembly=AvaloniaEdit">
     <ControlTheme x:Key="{x:Type cc:CompletionListBox}"
                   BasedOn="{StaticResource {x:Type ListBox}}"
                   TargetType="cc:CompletionListBox">
@@ -29,7 +29,7 @@
                         ClipToBounds="{TemplateBinding ClipToBounds}"
                         CornerRadius="{TemplateBinding CornerRadius}">
                     <Border.Resources>
-                        <theme:BiggestItemListBoxConverter x:Key="BiggestListitem" />
+                        <suki:BiggestItemListBoxConverter x:Key="BiggestListitem" />
                     </Border.Resources>
                     <Grid>
                         <ListBoxItem Margin="0,0,32,0"

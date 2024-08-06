@@ -1,12 +1,11 @@
 <UserControl x:Class="SukiUI.Demo.Features.ControlsLibrary.TextView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
              xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:showMeTheXaml="clr-namespace:ShowMeTheXaml;assembly=ShowMeTheXaml.Avalonia"
-             xmlns:theme="clr-namespace:SukiUI.Theme;assembly=SukiUI"
              d:DesignHeight="450"
              d:DesignWidth="800"
              x:DataType="controlsLibrary:TextViewModel"
@@ -22,8 +21,8 @@
     </UserControl.Styles>
     <ScrollViewer HorizontalScrollBarVisibility="Disabled">
         <WrapPanel Classes="PageContainer">
-            <controls:GlassCard>
-                <controls:GroupBox Header="Text Styles">
+            <suki:GlassCard>
+                <suki:GroupBox Header="Text Styles">
                     <StackPanel Spacing="15">
                         <StackPanel Classes="HeaderContent">
                             <TextBlock>
@@ -34,9 +33,7 @@
                             </TextBlock>
                         </StackPanel>
                         <showMeTheXaml:XamlDisplay UniqueId="TextHyperlink">
-                            <TextBlock xml:space="preserve">Text With A <Button Classes="Hyperlink"
-                                        Command="{Binding HyperlinkClickedCommand}"
-                                        Content="Hyperlink" /> Inside.</TextBlock>
+                            <TextBlock xml:space="preserve">Text With A <HyperlinkButton Command="{Binding HyperlinkClickedCommand}" IsVisited="{Binding HyperlinkVisited}" Content="Hyperlink" /> Inside.</TextBlock>
                         </showMeTheXaml:XamlDisplay>
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock1">
                             <TextBlock Classes="h1" />
@@ -64,10 +61,10 @@
                         </showMeTheXaml:XamlDisplay>
                         <TextBox Text="{Binding TextBlockValue}" />
                     </StackPanel>
-                </controls:GroupBox>
-            </controls:GlassCard>
-            <controls:GlassCard>
-                <controls:GroupBox Header="Text Input">
+                </suki:GroupBox>
+            </suki:GlassCard>
+            <suki:GlassCard>
+                <suki:GroupBox Header="Text Input">
                     <StackPanel Classes="HeaderContent">
                        
                         <TextBlock>
@@ -80,17 +77,17 @@
                             <TextBox Text="" Watermark="Watermark" />
                         </showMeTheXaml:XamlDisplay>
                         <showMeTheXaml:XamlDisplay UniqueId="TextBox3">
-                            <TextBox theme:TextBoxExtensions.Prefix="https://" />
+                            <TextBox suki:TextBoxExtensions.Prefix="https://" />
                         </showMeTheXaml:XamlDisplay>
                         <showMeTheXaml:XamlDisplay UniqueId="TextBox4">
                             <TextBox PasswordChar="*" />
                         </showMeTheXaml:XamlDisplay>
                         <showMeTheXaml:XamlDisplay UniqueId="TextBox5">
-                            <TextBox theme:TextBoxExtensions.AddDeleteButton="True" />
+                            <TextBox suki:TextBoxExtensions.AddDeleteButton="True" />
                         </showMeTheXaml:XamlDisplay>
                     </StackPanel>
-                </controls:GroupBox>
-            </controls:GlassCard>
+                </suki:GroupBox>
+            </suki:GlassCard>
         </WrapPanel>
     </ScrollViewer>
 </UserControl>

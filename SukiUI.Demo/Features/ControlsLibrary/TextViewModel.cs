@@ -12,10 +12,12 @@ public partial class TextViewModel() : DemoPageBase("Text", MaterialIconKind.Tex
 
     [ObservableProperty] private string _textBoxValue = DefaultText;
     [ObservableProperty] private string _textBlockValue = DefaultText;
+    [ObservableProperty] private bool _hyperlinkVisited;
 
     [RelayCommand]
-    private static Task HyperlinkClicked()
+    private Task HyperlinkClicked()
     {
+        HyperlinkVisited = true;
         return SukiHost.ShowToast("Clicked a hyperlink", "You clicked the hyperlink on the Text page.");
     }
 }

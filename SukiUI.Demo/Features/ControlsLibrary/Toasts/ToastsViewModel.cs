@@ -13,11 +13,6 @@ namespace SukiUI.Demo.Features.ControlsLibrary.Toasts;
 public partial class ToastsViewModel() : DemoPageBase("Toasts", MaterialIconKind.BellRing)
 {
     [RelayCommand]
-    private static void OpenSourceUrl() =>
-        UrlUtilities.OpenUrl(
-            $"https://github.com/kikipoulet/SukiUI/blob/main/SukiUI.Demo/Features/ControlsLibrary/Toasts/{nameof(ToastsViewModel)}.cs");
-
-    [RelayCommand]
     private static Task ShowSingleStandardToast() =>
         SukiHost.ShowToast("A Simple Toast", "This is the content of a toast.");
         

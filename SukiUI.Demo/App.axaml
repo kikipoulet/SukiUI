@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:common="clr-namespace:SukiUI.Demo.Common"
-             xmlns:sukiUi="clr-namespace:SukiUI;assembly=SukiUI"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
              RequestedThemeVariant="Default">
     <Application.DataTemplates>
         <common:ViewLocator />
@@ -22,7 +22,7 @@
         
         <StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />
         <StyleInclude Source="avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml" />
-        <sukiUi:SukiTheme ThemeColor="Blue"/>
+        <suki:SukiTheme ThemeColor="Blue"/>
         <StyleInclude Source="avares://SukiUI.Demo/Styles/ShowMeTheXamlStyles.axaml" />
         <StyleInclude Source="avares://SukiUI.Demo/Styles/WrapPanelStyles.axaml" />
         <StyleInclude Source="avares://SukiUI.Demo/Styles/TextStyles.axaml" />

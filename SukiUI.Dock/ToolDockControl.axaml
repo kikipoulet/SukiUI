@@ -1,6 +1,6 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+                    xmlns:suki="https://github.com/kikipoulet/SukiUI"
                     xmlns:converters="clr-namespace:Dock.Avalonia.Converters"
                     xmlns:core="using:Dock.Model.Core">
     <Design.PreviewWith>
@@ -17,7 +17,7 @@
                             CornerRadius="20"
                             IsVisible="{TemplateBinding Background,
                                                         Converter={x:Static converters:TransparentToTrueConverter.Instance}}" />
-                    <controls:GlassCard Margin="5" Padding="0">
+                    <suki:GlassCard Margin="5" Padding="0">
                         <Panel>
 
                             <Panel IsVisible="{TemplateBinding Background, Converter={x:Static converters:TransparentToTrueConverter.Instance}}">
@@ -44,7 +44,7 @@
                                 </ToolChromeControl>
                             </DockableControl>
                         </Panel>
-                    </controls:GlassCard>
+                    </suki:GlassCard>
                 </Panel>
             </ControlTemplate>
         </Setter>
