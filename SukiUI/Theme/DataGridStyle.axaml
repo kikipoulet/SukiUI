@@ -59,7 +59,7 @@
 
     <Style Selector="DataGridColumnHeader">
         <Setter Property="HorizontalContentAlignment" Value="Left" />
-        <Setter Property="FontWeight" Value="DemiBold" />
+        <Setter Property="FontWeight" Value="{DynamicResource DefaultDemiBold}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="SeparatorBrush" Value="{DynamicResource ThemeControlLowColor}" />
         <Setter Property="Padding" Value="12" />

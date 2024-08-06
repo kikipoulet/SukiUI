@@ -1,11 +1,3 @@
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Controls.Primitives;
-using Avalonia.Layout;
-using Avalonia.Markup.Xaml.MarkupExtensions;
-using Avalonia.Media;
-using Avalonia.Threading;
-using SukiUI.Content;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,33 +5,41 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
+using Avalonia.Layout;
+using Avalonia.Markup.Xaml.MarkupExtensions;
+using Avalonia.Media;
+using Avalonia.Threading;
+using SukiUI.Content;
 
 namespace SukiUI.Controls
 {
     public class Stepper : TemplatedControl
     {
         public static readonly StyledProperty<bool> AlternativeStyleProperty =
-            AvaloniaProperty.Register<Stepper, bool>(nameof(AlternativeStyle), defaultValue: false);
-
-        public bool AlternativeStyle
-        {
-            get { return GetValue(AlternativeStyleProperty); }
-            set { SetValue(AlternativeStyleProperty, value); }
-        }
+            AvaloniaProperty.Register<Stepper, bool>(nameof(AlternativeStyle));
 
 
         public static readonly StyledProperty<int> IndexProperty =
             AvaloniaProperty.Register<Stepper, int>(nameof(Index));
+
+        public static readonly StyledProperty<IEnumerable?> StepsProperty =
+            AvaloniaProperty.Register<Stepper, IEnumerable?>(nameof(Steps));
+
+        public bool AlternativeStyle
+        {
+            get => GetValue(AlternativeStyleProperty);
+            set => SetValue(AlternativeStyleProperty, value);
+        }
 
         public int Index
         {
             get => GetValue(IndexProperty);
             set => SetValue(IndexProperty, value);
         }
-
-        public static readonly StyledProperty<IEnumerable?> StepsProperty =
-            AvaloniaProperty.Register<Stepper, IEnumerable?>(nameof(Steps));
 
         public IEnumerable? Steps
         {
@@ -53,7 +53,11 @@ namespace SukiUI.Controls
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
-            if (e.NameScope.Get<Grid>("PART_GridStepper") is not { } grid) return;
+            if (e.NameScope.Get<Grid>("PART_GridStepper") is not { } grid)
+            {
+                return;
+            }
+
             _grid = grid;
         }
 
@@ -72,36 +76,56 @@ namespace SukiUI.Controls
 
         private void StepsChangedHandler(IEnumerable? newSteps)
         {
-            if (newSteps is null) return;
-            if (newSteps is not IEnumerable<object> stepsEnumerable) return;
+            if (newSteps is null)
+            {
+                return;
+            }
+
+            if (newSteps is not IEnumerable<object> stepsEnumerable)
+            {
+                return;
+            }
+
             var steps = stepsEnumerable.ToArray();
 
             if (AlternativeStyle)
+            {
                 UpdateAlternate(steps);
+            }
             else
+            {
                 Update(steps);
+            }
 
             if (newSteps is INotifyCollectionChanged notify)
+            {
                 notify.CollectionChanged += (_, _) => Update(steps);
+            }
         }
 
         #region StepperBaseStyle
 
         private void Update(object[] steps)
         {
-            if (_grid is null) return;
+            if (_grid is null)
+            {
+                return;
+            }
+
             _grid.Children.Clear();
 
             SetColumnDefinitions(_grid, steps);
 
             for (var i = 0; i < steps.Length; i++)
+            {
                 AddStep(steps[i], i, _grid, steps.Length);
+            }
         }
 
         private void SetColumnDefinitions(Grid grid, object[] steps)
         {
             var columns = new ColumnDefinitions();
-            for (int i = 0; i < steps.Length; i++)
+            for (var i = 0; i < steps.Length; i++)
             {
                 columns.Add(new ColumnDefinition());
             }
@@ -111,21 +135,23 @@ namespace SukiUI.Controls
 
         private void AddStep(object step, int index, Grid grid, int stepCount)
         {
-            var griditem = new Grid()
+            var griditem = new Grid
             {
-                ColumnDefinitions = new ColumnDefinitions()
+                ColumnDefinitions = new ColumnDefinitions
                     { new(GridLength.Auto), new(GridLength.Star), new(GridLength.Auto) }
             };
 
-            var icon = new PathIcon()
+            var icon = new PathIcon
                 { Height = 10, Width = 10, Data = Icons.ChevronRight, Margin = new Thickness(0, 0, 20, 0) };
             if (index == stepCount - 1)
+            {
                 icon.IsVisible = false;
+            }
 
             Grid.SetColumn(icon, 2);
             griditem.Children.Add(icon);
 
-            var circle = new Border()
+            var circle = new Border
             {
                 Margin = new Thickness(0, 0, 0, 2),
                 Height = 24,
@@ -140,7 +166,7 @@ namespace SukiUI.Controls
                 circle[!BackgroundProperty] = new DynamicResourceExtension("SukiPrimaryColor");
 
                 circle.BorderThickness = new Thickness(0);
-                circle.Child = new TextBlock()
+                circle.Child = new TextBlock
                 {
                     VerticalAlignment = VerticalAlignment.Center,
                     HorizontalAlignment = HorizontalAlignment.Center,
@@ -154,7 +180,7 @@ namespace SukiUI.Controls
                 circle[!BackgroundProperty] = new DynamicResourceExtension("SukiControlBorderBrush");
 
                 circle.BorderThickness = new Thickness(0);
-                circle.Child = new TextBlock()
+                circle.Child = new TextBlock
                 {
                     VerticalAlignment = VerticalAlignment.Center,
                     HorizontalAlignment = HorizontalAlignment.Center,
@@ -168,15 +194,19 @@ namespace SukiUI.Controls
             griditem.Children.Add(circle);
             Control content = step switch
             {
-                string s => new TextBlock()
+                string s => new TextBlock
                 {
-                    FontWeight = index <= Index ? FontWeight.DemiBold : FontWeight.Normal,
+                    FontWeight = index <= Index
+                        ? TryGetResource("DefaultDemiBold", ActualThemeVariant, out var fontWeight)
+                            ? (FontWeight)fontWeight!
+                            : FontWeight.Bold
+                        : FontWeight.Normal,
                     Margin = new Thickness(10, 0, 0, 0),
                     Text = s,
                     VerticalAlignment = VerticalAlignment.Center,
                     HorizontalAlignment = HorizontalAlignment.Left, TextWrapping = TextWrapping.Wrap
                 },
-                _ => new ContentControl() { Content = step }
+                _ => new ContentControl { Content = step }
             };
 
             Grid.SetColumn(content, 1);
@@ -199,7 +229,11 @@ namespace SukiUI.Controls
 
         public void UpdateAlternate(object[] steps)
         {
-            if (_grid is null) return;
+            if (_grid is null)
+            {
+                return;
+            }
+
             _grid.Children.Clear();
 
             SetColumnDefinitionsAlternate(_grid);
@@ -214,13 +248,16 @@ namespace SukiUI.Controls
         {
             var columns = new ColumnDefinitions();
             foreach (var s in Steps)
+            {
                 columns.Add(new ColumnDefinition());
+            }
+
             grid.ColumnDefinitions = columns;
         }
 
         private void AddStepAlternate(object step, int index, Grid grid, object[] steps)
         {
-            var gridItem = new Grid() { ColumnDefinitions = new ColumnDefinitions() { new(), new() } };
+            var gridItem = new Grid { ColumnDefinitions = new ColumnDefinitions { new(), new() } };
 
             var line = new Border
             {
@@ -239,12 +276,19 @@ namespace SukiUI.Controls
             };
 
             if (index == 0)
+            {
                 line.IsVisible = false;
+            }
+
             if (index == steps.Length - 1)
+            {
                 line1.IsVisible = false;
+            }
 
             if (index == Index)
+            {
                 line[!BackgroundProperty] = new DynamicResourceExtension("SukiPrimaryColor");
+            }
 
             if (index < Index)
             {
@@ -260,13 +304,13 @@ namespace SukiUI.Controls
 
             var gridBorder = new Grid();
 
-            var circle = new Border()
+            var circle = new Border
             {
-                Margin = new Thickness(0, 0, 0, 2), 
-                Height = 30, 
-                Width = 30, 
+                Margin = new Thickness(0, 0, 0, 2),
+                Height = 30,
+                Width = 30,
                 CornerRadius = new CornerRadius(25),
-                HorizontalAlignment = HorizontalAlignment.Center, 
+                HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center
             };
 
@@ -274,7 +318,7 @@ namespace SukiUI.Controls
             {
                 circle[!BackgroundProperty] = new DynamicResourceExtension("SukiPrimaryColor");
                 circle.BorderThickness = new Thickness(0);
-                circle.Child = new TextBlock()
+                circle.Child = new TextBlock
                 {
                     VerticalAlignment = VerticalAlignment.Center,
                     HorizontalAlignment = HorizontalAlignment.Center,
@@ -311,7 +355,7 @@ namespace SukiUI.Controls
 
             gridBorder.Children.Add(circle);
 
-            gridBorder.Children.Add(new TextBlock()
+            gridBorder.Children.Add(new TextBlock
             {
                 FontWeight = index == Index ? FontWeight.Medium : FontWeight.Normal,
                 Text = step.ToString(), VerticalAlignment = VerticalAlignment.Center,
