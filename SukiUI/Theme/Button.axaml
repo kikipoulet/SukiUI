@@ -38,7 +38,7 @@
                                           Content="{TemplateBinding Content}"
                                           FontFamily="{TemplateBinding FontFamily}"
                                           FontSize="{TemplateBinding FontSize}"
-                                          FontWeight="DemiBold"
+                                          FontWeight="{DynamicResource DefaultDemiBold}"
                                           RecognizesAccessKey="True" />
                     </StackPanel>
                 </Border>
@@ -54,7 +54,7 @@
         <!--  Nested Selectors For Basic Button  -->
         <Style Selector="^ /template/ TextBlock">
             <Setter Property="FontSize" Value="15" />
-            <Setter Property="FontWeight" Value="DemiBold" />
+            <Setter Property="FontWeight" Value="{DynamicResource DefaultDemiBold}" />
             <Setter Property="Transitions">
                 <Transitions>
                     <BrushTransition Property="Foreground" Duration="0:0:0.3" />
@@ -462,7 +462,7 @@
             <Setter Property="Padding" Value="0" />
             <Setter Property="Transitions">
                 <Transitions>
-                    <BrushTransition Property="Background" Duration="0.01"/>
+                    <BrushTransition Property="Background" Duration="0.01" />
                 </Transitions>
             </Setter>
             <Style Selector="^:pointerover">
