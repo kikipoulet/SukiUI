@@ -92,7 +92,7 @@
                                     
                                     <suki:GlassCard CornerRadius="15" Padding="15">
                                     <DockPanel>
-                                        <ToggleSwitch VerticalAlignment="Center" DockPanel.Dock="Right" />
+                                        <ToggleSwitch VerticalAlignment="Center" DockPanel.Dock="Right" IsChecked="True" />
                                         <TextBlock DockPanel.Dock="Bottom" Text="Disable notifications." Margin="0,8,0,0"
                                                    Foreground="{DynamicResource SukiLowText}"
                                                    VerticalAlignment="Center" />
@@ -171,7 +171,7 @@
             </MenuItem>
         </MenuItem>
     </suki:SukiWindow.MenuItems>
-    <suki:SukiSideMenu ItemsSource="{Binding DemoPages}" SelectedItem="{Binding ActivePage}">
+    <suki:SukiSideMenu IsSearchEnabled="True" ItemsSource="{Binding DemoPages}" SelectedItem="{Binding ActivePage}">
         <suki:SukiSideMenu.Styles>
             <Style Selector="Image.AppIcon">
                 <Setter Property="Transitions">
@@ -186,7 +186,7 @@
         </suki:SukiSideMenu.Styles>
         <suki:SukiSideMenu.ItemTemplate>
             <DataTemplate>
-                <suki:SukiSideMenuItem Header="{Binding DisplayName}">
+                <suki:SukiSideMenuItem Classes="Compact" Header="{Binding DisplayName}">
                     <suki:SukiSideMenuItem.Icon>
                         <avalonia:MaterialIcon Kind="{Binding Icon}" />
                     </suki:SukiSideMenuItem.Icon>
