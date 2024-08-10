@@ -28,4 +28,4 @@
 
 ## 参阅
 
-[Demo: SukiUI.Demo/Features/ControlsLibrary/CollectionsView.axaml](https://github.com/kikipoulet/SukiUI/blob/main/SukiUI.Demo/Features/ControlsLibrary/CollectionsView.axaml)
+[Demo: SukiUI.Demo/Features/ControlsLibrary/CollectionsView.axaml](https://github.com/kikipoulet/SukiUI/blob/main/SukiUI.Demo/Features/ControlsLibrary/CollectionsView.axaml) 
