@@ -223,9 +223,7 @@
         </Setter>
     </Style>
 
-    <Style Selector="TextBox.NoShadow /template/ Border">
-        <Setter Property="BoxShadow" Value="0 0 0 0 Gray" />
-    </Style>
+
 
     <Style Selector="TextBox.Suffix">
         <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -603,5 +601,19 @@
         <Setter Property="Focusable" Value="False" />
     </Style>
 
+    <Style Selector="TextBox.NoShadow /template/ Border">
+        <Setter Property="BoxShadow" Value="0 0 0 0 Gray" />
+    </Style>
+    
+    <Style Selector="TextBox.NoShadow /template/ suki|GlassCard#border">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+    
+    <Style Selector="TextBox.NoShadow:focus /template/ suki|GlassCard#border">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
 
+    
 </Styles>

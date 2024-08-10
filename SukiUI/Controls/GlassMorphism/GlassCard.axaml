@@ -3,13 +3,14 @@
                     xmlns:suki="clr-namespace:SukiUI.Controls">
     <ControlTheme x:Key="SukiGlassCardStyle" TargetType="suki:GlassCard">
         <Setter Property="BorderBrush" Value="{DynamicResource GlassBorderBrush}" />
+        <Setter Property="Background" Value="{DynamicResource SukiGlassCardBackground}" />
         <Setter Property="Padding" Value="20" />
         <Setter Property="Template">
             <ControlTemplate>
             
                 <Panel Name="RootPanel" Opacity="0">
                     <Border Name="PART_BorderCard" RenderTransformOrigin="50%,50%"
-                            Background="{DynamicResource SukiGlassCardBackground}"
+                            Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             ClipToBounds="{TemplateBinding ClipToBounds}"
@@ -93,6 +94,11 @@
         </Style>
         <Style Selector="^.Primary /template/ Border#PART_BorderCard">
             <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor25}" />
+        </Style>
+        
+        <Style Selector="^.PrimaryOpaque /template/ Border#PART_BorderCard">
+            <Setter Property="Opacity" Value="1"/>
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
         </Style>
         
         <Style Selector="^[IsVisible=True] /template/ Panel#RootPanel">
