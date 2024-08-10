@@ -41,7 +41,7 @@
 
         <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
             <Setter Property="BorderBrush" Value="{DynamicResource ThemeControlHighBrush}" />
-            <Setter Property="TextElement.Foreground" Value="{DynamicResource ThemeForegroundBrush}" />
+            <Setter Property="TextElement.Foreground" Value="{TemplateBinding Foreground}" />
         </Style>
 
         <Style Selector="^:pressed /template/ ContentPresenter#PART_ContentPresenter">
@@ -49,7 +49,7 @@
                 <SolidColorBrush Opacity="0.6" Color="{DynamicResource ThemeControlMidHighColor}" />
             </Setter>
             <Setter Property="BorderBrush" Value="{DynamicResource ThemeControlLowBrush}" />
-            <Setter Property="TextElement.Foreground" Value="{DynamicResource ThemeForegroundBrush}" />
+            <Setter Property="TextElement.Foreground" Value="{TemplateBinding Foreground}" />
         </Style>
 
         <Style Selector="^:disabled /template/ ContentPresenter#PART_ContentPresenter">
