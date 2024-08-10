@@ -67,6 +67,8 @@ export const en = defineConfig({
             items: [
               { text: 'Calendar', link: '/documentation/controls/datetime/calendar' },
               { text: 'DatePicker', link: '/documentation/controls/datetime/datepicker' },
+              { text: 'CalendarDatePicker', link: '/documentation/controls/datetime/calendardatepicker' },
+              { text: 'TimePicker', link: '/documentation/controls/datetime/timepicker' },
             ]
           },
           {

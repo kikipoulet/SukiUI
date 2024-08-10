@@ -1,9 +1,10 @@
 using System;
+using Avalonia.Controls.Notifications;
 using SukiUI.Enums;
 
 namespace SukiUI.Models;
 
-public readonly record struct ToastModel(string Title, object Content, NotificationType Type = NotificationType.Info, TimeSpan? Lifetime = null, Action? OnClicked = null, string? ActionButtonContent = null,Action? ActionButton= null)
+public readonly record struct ToastModel(string Title, object Content, NotificationType Type = NotificationType.Information, TimeSpan? Lifetime = null, Action? OnClicked = null, string? ActionButtonContent = null,Action? ActionButton= null)
 {
     public string Title { get; } = Title;
     public object Content { get; } = Content;

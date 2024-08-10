@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using Avalonia.Controls.Notifications;
 using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
 using SukiUI.Controls;
@@ -18,11 +19,11 @@ public partial class ToastsViewModel() : DemoPageBase("Toasts", MaterialIconKind
         
     [RelayCommand]
     private static Task ShowInfoToast() =>
-        SukiHost.ShowToast("A Simple Toast", "This is the content of an info toast.", NotificationType.Info);
+        SukiHost.ShowToast("A Simple Toast", "This is the content of an info toast.", NotificationType.Information);
     
     [RelayCommand]
     private static Task ShowActionToast() =>
-        SukiHost.ShowToast(new ToastModel("Update Available", "A new version is available for you.", NotificationType.Info, TimeSpan.FromSeconds(5), null, "Update Now",
+        SukiHost.ShowToast(new ToastModel("Update Available", "A new version is available for you.", NotificationType.Information, TimeSpan.FromSeconds(5), null, "Update Now",
             () => { SukiHost.ShowToast("Update", new ProgressBar(){Value = 43, ShowProgressText = true});}));
         
     [RelayCommand]
@@ -47,7 +48,7 @@ public partial class ToastsViewModel() : DemoPageBase("Toasts", MaterialIconKind
     [RelayCommand]
     private static Task ShowToastWithCallback()
     {
-        return SukiHost.ShowToast("Click This Toast", "Click this toast to open a dialog.", NotificationType.Info, TimeSpan.FromSeconds(15),
+        return SukiHost.ShowToast("Click This Toast", "Click this toast to open a dialog.", NotificationType.Information, TimeSpan.FromSeconds(15),
             () => SukiHost.ShowDialog(
                 new TextBlock { Text = "You clicked the toast! - Click anywhere outside of this dialog to close." },
                 allowBackgroundClose: true));
