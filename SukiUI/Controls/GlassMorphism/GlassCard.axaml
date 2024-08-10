@@ -53,6 +53,22 @@
                 </Panel>
             </ControlTemplate>
         </Setter>
+        
+        
+        <Style Selector="^.Control">
+            <Setter Property="IsAnimated" Value="False"></Setter>
+            <Setter Property="Padding" Value="0"></Setter>
+        </Style>
+        <Style Selector="^.Control /template/ Border#PART_BorderCard">
+            <Setter Property="Background" Value="{DynamicResource ControlSukiGlassCardBackground}" />
+            <Setter Property="Opacity" Value="{DynamicResource ControlGlassOpacity}" />
+        </Style>
+        
+        <Style Selector="^.Discrete /template/ Border#PART_BorderCard">
+            
+            <Setter Property="Opacity" Value="{DynamicResource DiscreteControlGlassOpacity}" />
+        </Style>
+        
         <Style Selector="^.Primary /template/ Border#PART_ClipBorder">
             <Setter Property="BorderBrush" Value="{DynamicResource SukiAccentColor0}" />
         </Style>
