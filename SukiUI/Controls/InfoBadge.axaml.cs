@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Notifications;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using Avalonia.Media;
@@ -13,7 +14,7 @@ public class InfoBadge: HeaderedContentControl
     private Border? _badgeContainer;
     
     public static readonly StyledProperty<NotificationType> AppearanceProperty =
-        AvaloniaProperty.Register<InfoBadge, NotificationType>(nameof(Appearance), NotificationType.Info);
+        AvaloniaProperty.Register<InfoBadge, NotificationType>(nameof(Appearance), NotificationType.Information);
 
     public NotificationType Appearance
     {
@@ -22,7 +23,7 @@ public class InfoBadge: HeaderedContentControl
         {
             Background = value switch
             {
-                NotificationType.Info => NotificationColor.InfoIconForeground,
+                NotificationType.Information => NotificationColor.InfoIconForeground,
                 NotificationType.Success => NotificationColor.SuccessIconForeground,
                 NotificationType.Warning => NotificationColor.WarningIconForeground,
                 NotificationType.Error => NotificationColor.ErrorIconForeground,
