@@ -1,15 +1,15 @@
-# DatePicker
+# TimePicker
 
-Controls for picking date data
+Controls for picking a time of day
 
 ## Show
 
-<img src="/controls/datetime/datepicker.gif" height="300px" width="300px"/>
+<img src="/controls/datetime/timepicker.gif" height="300px" width="300px"/>
 
 ## Example
 
 ```xml
-<DatePicker SelectedDate="{Binding SelectedDateTimeOffset}" />
+<TimePicker SelectedTime="{Binding SelectedTime}" />
 ```
 
 ## See Also

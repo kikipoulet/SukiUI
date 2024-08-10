@@ -12,12 +12,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Avalonia.Interactivity;
+using Avalonia.Controls.Notifications;
 using Avalonia.LogicalTree;
 using Avalonia.Media;
 using Avalonia.Rendering.Composition;
-using Avalonia.Rendering.Composition.Animations;
-using Avalonia.VisualTree;
 using SukiUI.Content;
 
 namespace SukiUI.Controls;
@@ -27,9 +25,6 @@ namespace SukiUI.Controls;
 /// </summary>
 public class SukiHost : ContentControl
 {
-    
-  
-
     protected override Type StyleKeyOverride => typeof(SukiHost);
 
     public static readonly StyledProperty<bool> IsDialogOpenProperty =
@@ -172,7 +167,7 @@ public class SukiHost : ContentControl
             ActionButtonContent = model.ActionButtonContent, 
             Icon = model.Type switch
             {
-                NotificationType.Info => Icons.InformationOutline,
+                NotificationType.Information => Icons.InformationOutline,
                 NotificationType.Success => Icons.Check,
                 NotificationType.Warning => Icons.AlertOutline,
                 NotificationType.Error => Icons.AlertOutline,
@@ -180,7 +175,7 @@ public class SukiHost : ContentControl
             }
             , Foreground = model.Type switch
             {
-                NotificationType.Info => SukiHost.GetGradient(Color.FromRgb(47,84,235)),
+                NotificationType.Information => SukiHost.GetGradient(Color.FromRgb(47,84,235)),
                 NotificationType.Success => SukiHost.GetGradient(Color.FromRgb(82,196,26)),
                 NotificationType.Warning => SukiHost.GetGradient(Color.FromRgb(240,140,22)),
                 NotificationType.Error => SukiHost.GetGradient(Color.FromRgb(245,34,45)),
@@ -273,11 +268,11 @@ public class SukiHost : ContentControl
     /// <param name="type">The type of the toast, including Info, Success, Warning and Error</param>
     /// <param name="duration">Duration for this toast to be active. Default is 2 seconds.</param>
     /// <param name="onClicked">A callback that will be fired if the Toast is cleared by clicking.</param>
-    public static Task ShowToast(string title, object content, NotificationType? type = NotificationType.Info, TimeSpan? duration = null, Action? onClicked = null) =>
+    public static Task ShowToast(string title, object content, NotificationType? type = NotificationType.Information, TimeSpan? duration = null, Action? onClicked = null) =>
         ShowToast(new ToastModel(
             title,
             content as Control ?? ViewLocator.TryBuild(content),
-            type ?? NotificationType.Info,
+            type ?? NotificationType.Information,
             duration ?? TimeSpan.FromSeconds(4),
             onClicked));
 
@@ -291,12 +286,12 @@ public class SukiHost : ContentControl
     /// <param name="type">The type of the toast, including Info, Success, Warning and Error</param>
     /// <param name="duration">Duration for this toast to be active. Default is 2 seconds.</param>
     /// <param name="onClicked">A callback that will be fired if the Toast is cleared by clicking.</param>
-    public static Task ShowToast(Window window, string title, object content, NotificationType? type = NotificationType.Info, TimeSpan? duration = null,
+    public static Task ShowToast(Window window, string title, object content, NotificationType? type = NotificationType.Information, TimeSpan? duration = null,
         Action? onClicked = null) =>
         ShowToast(window, new ToastModel(
             title,
             content as Control ?? ViewLocator.TryBuild(content),
-            type ?? NotificationType.Info,
+            type ?? NotificationType.Information,
             duration ?? TimeSpan.FromSeconds(4),
             onClicked));
 

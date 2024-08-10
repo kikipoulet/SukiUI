@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Controls.Notifications;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -32,7 +33,7 @@ public partial class MiscViewModel() : DemoPageBase("Miscellaneous", MaterialIco
     [RelayCommand]
     private void OpenBox()
     {
-        SukiHost.ShowMessageBox(new MessageBoxModel("Update Available", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", NotificationType.Info, "Update Now", () =>{SukiHost.CloseDialog();} ));
+        SukiHost.ShowMessageBox(new MessageBoxModel("Update Available", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", NotificationType.Information, "Update Now", () =>{SukiHost.CloseDialog();} ));
     }
     
     [RelayCommand]

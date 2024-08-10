@@ -67,6 +67,8 @@ export const zh = defineConfig({
             items: [
               { text: 'Calendar', link: '/zh/documentation/controls/datetime/calendar' },
               { text: 'DatePicker', link: '/zh/documentation/controls/datetime/datepicker' },
+              { text: 'CalendarDatePicker', link: '/zh/documentation/controls/datetime/calendardatepicker' },
+              { text: 'TimePicker', link: '/zh/documentation/controls/datetime/timepicker' },
             ]
           },
           {

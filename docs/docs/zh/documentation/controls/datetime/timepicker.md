@@ -1,15 +1,15 @@
-# DatePicker
+# TimePicker
 
-用于选择日期的控件
+选择一天中某一时分的控件
 
 ## 展示
 
-<img src="/controls/datetime/datepicker.gif" height="300px" width="300px"/>
+<img src="/controls/datetime/timepicker.gif" height="300px" width="300px"/>
 
 ## 示例
 
 ```xml
-<DatePicker SelectedDate="{Binding SelectedDateTimeOffset}" />
+<TimePicker SelectedTime="{Binding SelectedTime}" />
 ```
 
 ## 参阅

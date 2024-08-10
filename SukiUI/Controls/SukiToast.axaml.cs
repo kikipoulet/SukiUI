@@ -5,6 +5,7 @@ using Avalonia.Input;
 using SukiUI.Models;
 using System;
 using System.Timers;
+using Avalonia.Controls.Notifications;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using SukiUI.ColorTheme;
@@ -114,7 +115,7 @@ public class SukiToast : ContentControl
         }
         Icon = model.Type switch
         {
-            NotificationType.Info => Icons.InformationOutline,
+            NotificationType.Information => Icons.InformationOutline,
             NotificationType.Success => Icons.Check,
             NotificationType.Warning => Icons.AlertOutline,
             NotificationType.Error => Icons.AlertOutline,
@@ -122,7 +123,7 @@ public class SukiToast : ContentControl
         };
         Foreground = model.Type switch
         {
-            NotificationType.Info => NotificationColor.InfoIconForeground,
+            NotificationType.Information => NotificationColor.InfoIconForeground,
             NotificationType.Success => NotificationColor.SuccessIconForeground,
             NotificationType.Warning => NotificationColor.WarningIconForeground,
             NotificationType.Error => NotificationColor.ErrorIconForeground,

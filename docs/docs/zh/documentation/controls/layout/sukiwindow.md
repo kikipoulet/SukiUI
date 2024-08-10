@@ -17,6 +17,10 @@
     <suki:SukiWindow.MenuItems>
         <!-- Menu -->
     </suki:SukiWindow.MenuItems>
+
+    <suki:SukiWindow.RightWindowTitleBarControls>
+        <!-- Controls show on the right of title bar -->
+    </suki:SukiWindow.RightWindowTitleBarControls>
 </suki:SukiWindow>
 ```
 
