@@ -4,7 +4,7 @@
 
 ## 展示
 
-<img src="/controls/progress/progressbar.gif" height="300px" width="300px"/>
+<img src="/controls/progress/progressbar.gif" height="300px" width="400px"/>
 
 ## 示例
 
