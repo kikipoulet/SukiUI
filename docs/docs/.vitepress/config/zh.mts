@@ -93,7 +93,7 @@ export const zh = defineConfig({
             ]
           },
           {
-            text: 'System',
+            text: '系统 API',
             items: [
               { text: 'FilePicker', link: '/zh/documentation/controls/system/filepicker' },
             ]
