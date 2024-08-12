@@ -8,52 +8,75 @@ using SukiUI.Controls;
 using SukiUI.Demo.Utilities;
 using SukiUI.Enums;
 using SukiUI.Models;
+using SukiUI.Toasts;
 
 namespace SukiUI.Demo.Features.ControlsLibrary.Toasts;
 
-public partial class ToastsViewModel() : DemoPageBase("Toasts", MaterialIconKind.BellRing)
+public partial class ToastsViewModel(ISukiToastManager toastManager) : DemoPageBase("Toasts", MaterialIconKind.BellRing)
 {
     [RelayCommand]
-    private static Task ShowSingleStandardToast() =>
-        SukiHost.ShowToast("A Simple Toast", "This is the content of a toast.");
-        
-    [RelayCommand]
-    private static Task ShowInfoToast() =>
-        SukiHost.ShowToast("A Simple Toast", "This is the content of an info toast.", NotificationType.Information);
-    
-    [RelayCommand]
-    private static Task ShowActionToast() =>
-        SukiHost.ShowToast(new ToastModel("Update Available", "A new version is available for you.", NotificationType.Information, TimeSpan.FromSeconds(5), null, "Update Now",
-            () => { SukiHost.ShowToast("Update", new ProgressBar(){Value = 43, ShowProgressText = true});}));
-        
-    [RelayCommand]
-    private static Task ShowSuccessToast() =>
-        SukiHost.ShowToast("A Simple Toast", "This is the content of a success toast.", NotificationType.Success);
-        
-    [RelayCommand]
-    private static Task ShowWarningToast() =>
-        SukiHost.ShowToast("A Simple Toast", "This is the content of a warning toast.", NotificationType.Warning);
-        
-    [RelayCommand]
-    private static Task ShowErrorToast() =>
-        SukiHost.ShowToast("A Simple Toast", "This is the content of an error toast.", NotificationType.Error);
+    private void ShowInfoToast()
+    {
+        //SukiHost.ShowToast("A Simple Toast", "This is the content of an info toast.", NotificationType.Information);
+        toastManager.CreateSimpleInfoToast()
+            .WithTitle("A Simple Toast")
+            .WithContent("This is the content of an info toast.")
+            .Queue();
+    }
 
     [RelayCommand]
-    private static async Task ShowThreeInfoToasts()
+    private void ShowActionToast()
+    {
+        toastManager.CreateToast()
+            .WithTitle("Update Available")
+            .WithContent("Update v1.0.0 Now Available.")
+            .Dismiss().After(TimeSpan.FromSeconds(5)) // TODO: Action button support.
+            .Queue();
+        // return SukiHost.ShowToast(new ToastModel("Update Available", "A new version is available for you.",
+        //     NotificationType.Information, TimeSpan.FromSeconds(5), null, "Update Now",
+        //     () => { SukiHost.ShowToast("Update", new ProgressBar() { Value = 43, ShowProgressText = true }); }));
+    }
+
+    [RelayCommand]
+    private void ShowSuccessToast() => ShowTypeDemoToast(NotificationType.Success);
+
+    [RelayCommand]
+    private void ShowWarningToast() => ShowTypeDemoToast(NotificationType.Warning);
+
+    [RelayCommand]
+    private void ShowErrorToast() => ShowTypeDemoToast(NotificationType.Error);
+
+    private void ShowTypeDemoToast(NotificationType toastType)
+    {
+        toastManager.CreateToast()
+            .WithTitle($"{toastType}!")
+            .WithContent($"This is the content of {char.ToLower(toastType.ToString()[0]) + toastType.ToString()[1..]} toast.")
+            .OfType(toastType)
+            .Dismiss().After(TimeSpan.FromSeconds(3))
+            .Dismiss().ByClicking()
+            .Queue();
+    }
+
+    [RelayCommand]
+    private void ShowThreeInfoToasts()
     {
         for (var i = 1; i <= 3; i++)
-            await SukiHost.ShowToast("A Simple Toast", $"This is toast number {i} of 3.");
+            toastManager.CreateSimpleInfoToast()
+                .WithTitle($"Toast {i} of 3")
+                .WithContent($"This is toast {i} of 3 being shown all at once.")
+                .Queue();
     }
 
     [RelayCommand]
-    private static Task ShowToastWithCallback()
+    private void ShowToastWithCallback()
     {
-        return SukiHost.ShowToast("Click This Toast", "Click this toast to open a dialog.", NotificationType.Information, TimeSpan.FromSeconds(15),
-            () => SukiHost.ShowDialog(
-                new TextBlock { Text = "You clicked the toast! - Click anywhere outside of this dialog to close." },
-                allowBackgroundClose: true));
+        // TODO: Implement dismiss interactions for the toasts.
+        // return SukiHost.ShowToast("Click This Toast", "Click this toast to open a dialog.", NotificationType.Information, TimeSpan.FromSeconds(15),
+        //     () => SukiHost.ShowDialog(
+        //         new TextBlock { Text = "You clicked the toast! - Click anywhere outside of this dialog to close." },
+        //         allowBackgroundClose: true));
     }
 
     [RelayCommand]
-    private static void ShowToastWindow() => new ToastWindowDemo().Show();
+    private void ShowToastWindow() => new ToastWindowDemo().Show();
 }

@@ -5,20 +5,29 @@ using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Styling;
+using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
+using SukiUI.Demo.Services;
 using SukiUI.Models;
+using SukiUI.Toasts;
 
 namespace SukiUI.Demo.Features.ControlsLibrary.Colors;
 
-public class ColorsViewModel : DemoPageBase
+public partial class ColorsViewModel : DemoPageBase
 {
     public AvaloniaList<ColorViewModel> Colors { get; } = [];
 
     private readonly Dictionary<ThemeVariant, Dictionary<string, IBrush>> _baseThemeCache = new();
     private readonly Dictionary<SukiColorTheme, Dictionary<string, IBrush>> _colorThemeCache = new();
 
-    public ColorsViewModel() : base("Colors", MaterialIconKind.Paintbrush)
+    private readonly ClipboardService _clipboardService;
+    private readonly ISukiToastManager _toastManager;
+
+    public ColorsViewModel(ClipboardService clipboardService, ISukiToastManager toastManager) : base("Colors", MaterialIconKind.Paintbrush)
     {
+        _clipboardService = clipboardService;
+        _toastManager = toastManager;
+        
         var sukiTheme = SukiTheme.GetInstance();
 
         Colors.AddRange(BuildOrGetColorTheme(sukiTheme.ActiveColorTheme!)
@@ -66,5 +75,15 @@ public class ColorsViewModel : DemoPageBase
 
         _baseThemeCache[variant] = brushes;
         return _baseThemeCache[variant];
+    }
+
+    [RelayCommand]
+    private void OnColorClicked(ColorViewModel color)
+    {
+        _clipboardService.CopyToClipboard(color.Name);
+        _toastManager.CreateSimpleInfoToast()
+            .WithTitle("Color Copied To Clipboard")
+            .WithContent($"Copied the name of {color.Name} to your clipboard.")
+            .Queue();
     }
 }

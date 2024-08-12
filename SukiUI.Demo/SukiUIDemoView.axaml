@@ -22,6 +22,10 @@
                  IsMenuVisible="True"
                  IsTitleBarVisible="{Binding TitleBarVisible, Mode=TwoWay}"
                  mc:Ignorable="d">
+    <suki:SukiWindow.Hosts>
+        <suki:SukiHost/>
+        <suki:SukiToastHost Manager="{Binding ToastManager}"/>
+    </suki:SukiWindow.Hosts>
     <suki:SukiWindow.LogoContent>
         <avalonia:MaterialIcon Width="20"
                                Height="20"
@@ -35,9 +39,6 @@
             </avalonia:MaterialIcon.Transitions>
         </avalonia:MaterialIcon>
     </suki:SukiWindow.LogoContent>
-    <suki:SukiWindow.Hosts>
-        <suki:SukiHost/>
-    </suki:SukiWindow.Hosts>
     <suki:SukiWindow.RightWindowTitleBarControls>
         <Button Classes="Basic Rounded WindowControlsButton">
             <avalonia:MaterialIcon Kind="Cog" Foreground="{DynamicResource SukiText}" />

@@ -14,6 +14,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using SukiUI.Demo.Features.Theming;
 using SukiUI.Enums;
+using SukiUI.Toasts;
 
 namespace SukiUI.Demo;
 
@@ -24,6 +25,8 @@ public partial class SukiUIDemoViewModel : ObservableObject
     public IAvaloniaReadOnlyList<SukiColorTheme> Themes { get; }
     
     public IAvaloniaReadOnlyList<SukiBackgroundStyle> BackgroundStyles { get; }
+    
+    public ISukiToastManager ToastManager { get; }
 
     [ObservableProperty] private ThemeVariant _baseTheme;
     [ObservableProperty] private DemoPageBase? _activePage;
@@ -38,8 +41,9 @@ public partial class SukiUIDemoViewModel : ObservableObject
     private readonly SukiTheme _theme;
     private readonly ThemingViewModel _theming;
 
-    public SukiUIDemoViewModel(IEnumerable<DemoPageBase> demoPages, PageNavigationService pageNavigationService)
+    public SukiUIDemoViewModel(IEnumerable<DemoPageBase> demoPages, PageNavigationService pageNavigationService, ISukiToastManager toastManager)
     {
+        ToastManager = toastManager;
         DemoPages = new AvaloniaList<DemoPageBase>(demoPages.OrderBy(x => x.Index).ThenBy(x => x.DisplayName));
         _theming = (ThemingViewModel)DemoPages.First(x => x is ThemingViewModel);
         _theming.BackgroundStyleChanged += style => BackgroundStyle = style;
@@ -65,34 +69,37 @@ public partial class SukiUIDemoViewModel : ObservableObject
         _theme.OnBaseThemeChanged += variant =>
         {
             BaseTheme = variant;
-            SukiHost.ShowToast("Successfully Changed Theme", $"Changed Theme To {variant}");
+            ToastManager.CreateSimpleInfoToast()
+                .WithTitle("Theme Changed")
+                .WithContent($"Theme has changed to {variant}.")
+                .Queue();
         };
         
         // Subscribe to the color theme changed events
-        _theme.OnColorThemeChanged += theme =>
-            SukiHost.ShowToast("Successfully Changed Color", $"Changed Color To {theme.DisplayName}.");
+        _theme.OnColorThemeChanged += theme => ToastManager.CreateSimpleInfoToast()
+            .WithTitle("Color Changed")
+            .WithContent($"Color has changed to {theme.DisplayName}.")
+            .Queue();
     }
 
     [RelayCommand]
-    private Task ToggleAnimations()
+    private void ToggleAnimations()
     {
         AnimationsEnabled = !AnimationsEnabled;
-        var title = AnimationsEnabled ? "Animation Enabled" : "Animation Disabled";
-        var content = AnimationsEnabled
-            ? "Background animations are now enabled."
-            : "Background animations are now disabled.";
-        return SukiHost.ShowToast(title, content);
+        ToastManager.CreateSimpleInfoToast()
+            .WithTitle(AnimationsEnabled ? "Animation Enabled" : "Animation Disabled")
+            .WithContent(AnimationsEnabled ? "Background animations are now enabled." : "Background animations are now disabled.")
+            .Queue();
     }
 
     [RelayCommand]
-    private Task ToggleTransitions()
+    private void ToggleTransitions()
     {
         TransitionsEnabled = !TransitionsEnabled;
-        var title = TransitionsEnabled ? "Transitions Enabled" : "Transitions Disabled";
-        var content = TransitionsEnabled
-            ? "Background transitions are now enabled."
-            : "Background transitions are now disabled.";
-        return SukiHost.ShowToast(title, content);
+        ToastManager.CreateSimpleInfoToast()
+            .WithTitle(TransitionsEnabled ? "Transitions Enabled" : "Transitions Disabled")
+            .WithContent(TransitionsEnabled ? "Background transitions are now enabled." : "Background transitions are now disabled.")
+            .Queue();
     }
 
     [RelayCommand]
@@ -110,18 +117,19 @@ public partial class SukiUIDemoViewModel : ObservableObject
     private void ToggleWindowLock()
     {
         WindowLocked = !WindowLocked;
-        SukiHost.ShowToast(
-            $"Window {(WindowLocked ? "Locked" : "Unlocked")}", 
-            $"Window has been {(WindowLocked ? "locked" : "unlocked")}.");
+        ToastManager.CreateSimpleInfoToast()
+            .WithTitle($"Window {(WindowLocked ? "Locked" : "Unlocked")}")
+            .WithContent($"Window has been {(WindowLocked ? "locked" : "unlocked")}.")
+            .Queue();
     }
 
     [RelayCommand]
     private void ToggleTitleBar()
     {
-        TitleBarVisible = !TitleBarVisible;
-        SukiHost.ShowToast(
-            $"Title Bar {(TitleBarVisible ? "Visible" : "Hidden")}", 
-            $"Window title bar has been {(TitleBarVisible ? "shown" : "hidden")}.");
+        ToastManager.CreateSimpleInfoToast()
+            .WithTitle($"Title Bar {(TitleBarVisible ? "Visible" : "Hidden")}")
+            .WithContent($"Window title bar has been {(TitleBarVisible ? "shown" : "hidden")}.")
+            .Queue();
     }
     
     [RelayCommand]

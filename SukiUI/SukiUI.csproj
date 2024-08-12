@@ -81,6 +81,9 @@
 	    <DependentUpon>WaveProgress.axaml</DependentUpon>
 	    <SubType>Code</SubType>
 	  </Compile>
+	  <Compile Update="Controls\Hosts\SukiToastHost.cs">
+	    <DependentUpon>SukiToastHost.axaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>

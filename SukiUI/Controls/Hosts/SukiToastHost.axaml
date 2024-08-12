@@ -1,0 +1,22 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:suki="https://github.com/kikipoulet/SukiUI">
+    <ControlTheme x:Key="SukiToastHostTheme" TargetType="suki:SukiToastHost">
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Setter Property="ItemsPanel">
+            <ItemsPanelTemplate>
+                <DockPanel VerticalAlignment="Bottom" LastChildFill="True" />
+            </ItemsPanelTemplate>
+        </Setter>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ItemsPresenter/>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+    <ControlTheme x:Key="{x:Type suki:SukiToastHost}"
+                  BasedOn="{StaticResource SukiToastHostTheme}"
+                  TargetType="suki:SukiToastHost" />
+</ResourceDictionary>

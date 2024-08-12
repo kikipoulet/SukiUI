@@ -9,6 +9,8 @@ using SukiUI.Demo.Features;
 using SukiUI.Demo.Services;
 using System;
 using System.Linq;
+using SukiUI.Controls;
+using SukiUI.Toasts;
 
 namespace SukiUI.Demo;
 
@@ -28,8 +30,9 @@ public class App : Application
         {
             var viewLocator = _provider?.GetRequiredService<IDataTemplate>();
             var mainViewModel = _provider?.GetRequiredService<SukiUIDemoViewModel>();
-
-            desktop.MainWindow = viewLocator?.Build(mainViewModel) as Window;
+            var mainView = _provider?.GetRequiredService<SukiUIDemoView>();
+            mainView.DataContext = mainViewModel;
+            desktop.MainWindow = mainView;
         }
 
         base.OnFrameworkInitializationCompleted();
@@ -40,10 +43,15 @@ public class App : Application
         var viewLocator = Current?.DataTemplates.First(x => x is ViewLocator);
         var services = new ServiceCollection();
 
+        // Views
+        services.AddSingleton<SukiUIDemoView>();
+        
         // Services
         if (viewLocator is not null)
             services.AddSingleton(viewLocator);
         services.AddSingleton<PageNavigationService>();
+        services.AddSingleton<ClipboardService>();
+        services.AddSingleton<ISukiToastManager, SukiToastManager>();
 
         // ViewModels
         services.AddSingleton<SukiUIDemoViewModel>();

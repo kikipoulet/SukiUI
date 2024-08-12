@@ -9,7 +9,8 @@ internal static class ToastPool
 
     internal static SukiToast Get()
     {
-        return Pool.Count >= 1 ? Pool.Pop() : new SukiToast();
+        var toast = Pool.Count > 0 ? Pool.Pop() : new SukiToast();
+        return toast.ResetToDefault();
     }
 
     internal static void Return(SukiToast toast) => Pool.Push(toast);

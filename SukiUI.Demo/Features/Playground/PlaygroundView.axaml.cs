@@ -82,17 +82,18 @@ public partial class PlaygroundView : UserControl
             Control demoContent = AvaloniaRuntimeXamlLoader.Parse<Grid>(previewCode);
             _glassPlayground!.Content = demoContent;
         }
+        // TODO: Pass this event to the ViewModel...
         catch (XmlException ex)
         {
-            SukiHost.ShowToast("Error", $"Exception occurred during parsing xml: \n {ex.Message}");
+            //SukiHost.ShowToast("Error", $"Exception occurred during parsing xml: \n {ex.Message}");
         }
         catch (InvalidCastException ex)
         {
-            SukiHost.ShowToast("Error", $"Exception occurred during conversion from xaml string to control: \n {ex.Message}");
+            //SukiHost.ShowToast("Error", $"Exception occurred during conversion from xaml string to control: \n {ex.Message}");
         }
         catch (XamlLoadException ex)
         {
-            SukiHost.ShowToast("Error", $"Exception occurred during loading xaml code for control: \n {ex.Message}");
+            //SukiHost.ShowToast("Error", $"Exception occurred during loading xaml code for control: \n {ex.Message}");
         }
     }
 

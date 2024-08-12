@@ -8,19 +8,7 @@
                     <Panel Name="PART_ContentContainer">
                         <ContentPresenter Content="{TemplateBinding Content}" />
                     </Panel>
-
-                    <ItemsControl Name="PART_ToastPresenter"
-                                  Margin="5,5"
-                                  HorizontalAlignment="Stretch"
-                                  VerticalAlignment="Bottom"
-                                  ItemsSource="{TemplateBinding ToastsCollection}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <DockPanel VerticalAlignment="Bottom" LastChildFill="True" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                    </ItemsControl>
-
+                    
                     <Border Name="PART_DialogBackground"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"

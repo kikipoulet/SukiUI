@@ -53,38 +53,9 @@ public class SukiHost : ContentControl
         get => GetValue(AllowBackgroundCloseProperty);
         set => SetValue(AllowBackgroundCloseProperty, value);
     }
-
-    public static readonly AttachedProperty<ToastLocation> ToastLocationProperty =
-        AvaloniaProperty.RegisterAttached<SukiHost, Window, ToastLocation>("ToastLocation",
-            defaultValue: ToastLocation.BottomRight);
-
-    public static void SetToastLocation(Control element, ToastLocation value) =>
-        element.SetValue(ToastLocationProperty, value);
-
-    public static ToastLocation GetToastLocation(Control element) =>
-        element.GetValue(ToastLocationProperty);
-
-    public static readonly AttachedProperty<int> ToastLimitProperty =
-        AvaloniaProperty.RegisterAttached<SukiHost, Window, int>("ToastLimit", defaultValue: 5);
-
-    public static int GetToastLimit(Control element) => element.GetValue(ToastLimitProperty);
-
-    public static void SetToastLimit(Control element, int value) =>
-        element.SetValue(ToastLimitProperty, value);
-
-    public static readonly StyledProperty<AvaloniaList<SukiToast>?> ToastsCollectionProperty =
-        AvaloniaProperty.Register<SukiHost, AvaloniaList<SukiToast>?>(nameof(ToastsCollection));
-
-    public AvaloniaList<SukiToast>? ToastsCollection
-    {
-        get => GetValue(ToastsCollectionProperty);
-        set => SetValue(ToastsCollectionProperty, value);
-    }
-
+    
     private static Window? _mainWindow;
     private static readonly Dictionary<Window, SukiHost> Instances = new();
-
-    private int _maxToasts;
 
     protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {
@@ -99,16 +70,8 @@ public class SukiHost : ContentControl
         base.OnApplyTemplate(e);
         if (VisualRoot is not Window window)
             throw new InvalidOperationException("SukiHost must be hosted inside a Window or SukiWindow");
-        ToastsCollection ??= new AvaloniaList<SukiToast>();
-        _maxToasts = GetToastLimit(window);
-        var toastLoc = GetToastLocation(window);
 
         e.NameScope.Get<Border>("PART_DialogBackground").PointerPressed += (_, _) => BackgroundRequestClose(this);
-
-        e.NameScope.Get<ItemsControl>("PART_ToastPresenter").HorizontalAlignment =
-            toastLoc == ToastLocation.BottomLeft
-                ? HorizontalAlignment.Left
-                : HorizontalAlignment.Right;
         
         var b = e.NameScope.Get<Border>("PART_DialogBackground");
         b.Loaded += (sender, args) =>
@@ -222,116 +185,6 @@ public class SukiHost : ContentControl
         if (!host.AllowBackgroundClose) return;
         host.IsDialogOpen = false;
     }
-    
-    /// <summary>
-    /// Shows a toast in the SukiHost - The default location is in the bottom right.
-    /// This can be changed with an attached property in SukiWindow.
-    /// </summary>
-    /// <param name="window">The window who's SukiHost should be used to display the toast.</param>
-    /// <param name="model">A pre-constructed <see cref="SukiToastModel"/>.</param>
-    /// <exception cref="InvalidOperationException">Thrown if there is no SukiHost associated with the specified window.</exception>
-    public static async Task ShowToast(Window window, ToastModel model)
-    {
-        try
-        {
-            if (!Instances.TryGetValue(window, out var host))
-                throw new InvalidOperationException("No SukiHost present in this window");
-
-            var toast = ToastPool.Get();
-            toast.Initialize(model, host);
-            if (host.ToastsCollection.Count >= host._maxToasts)
-                await ClearToast(host.ToastsCollection.First());
-            Dispatcher.UIThread.Invoke(() =>
-            {
-                host.ToastsCollection.Add(toast);
-                toast.Animate(OpacityProperty, 0d, 1d, TimeSpan.FromMilliseconds(500));
-                toast.Animate(MarginProperty, new Thickness(0, 10, 0, -10), new Thickness(),
-                    TimeSpan.FromMilliseconds(500));
-            });
-        }catch{}
-    }
-    
-    /// <summary>
-    /// <inheritdoc cref="ShowToast(Window, SukiToastModel)"/>
-    /// This method will show the toast in the earliest opened window.
-    /// </summary>
-    /// <param name="model">A pre-constructed <see cref="SukiToastModel"/>.</param>
-    public static Task ShowToast(ToastModel model) => 
-        ShowToast(_mainWindow, model);
-
-    /// <summary>
-    /// <inheritdoc cref="ShowToast(Window, SukiToastModel)"/>
-    /// This method will show the toast in the earliest opened window.
-    /// </summary>
-    /// <param name="title">The title to display in the toast.</param>
-    /// <param name="content">The content of the toast, this can be any control or ViewModel.</param>
-    /// <param name="type">The type of the toast, including Info, Success, Warning and Error</param>
-    /// <param name="duration">Duration for this toast to be active. Default is 2 seconds.</param>
-    /// <param name="onClicked">A callback that will be fired if the Toast is cleared by clicking.</param>
-    public static Task ShowToast(string title, object content, NotificationType? type = NotificationType.Information, TimeSpan? duration = null, Action? onClicked = null) =>
-        ShowToast(new ToastModel(
-            title,
-            content as Control ?? ViewLocator.TryBuild(content),
-            type ?? NotificationType.Information,
-            duration ?? TimeSpan.FromSeconds(4),
-            onClicked));
-
-    /// <summary>
-    /// <inheritdoc cref="ShowToast(Window, SukiToastModel)"/>
-    /// This method will show the toast in a specific window.
-    /// </summary>
-    /// <param name="window">The window who's SukiHost should be used to display the toast.</param>
-    /// <param name="title">The title to display in the toast.</param>
-    /// <param name="content">The content of the toast, this can be any control or ViewModel.</param>
-    /// <param name="type">The type of the toast, including Info, Success, Warning and Error</param>
-    /// <param name="duration">Duration for this toast to be active. Default is 2 seconds.</param>
-    /// <param name="onClicked">A callback that will be fired if the Toast is cleared by clicking.</param>
-    public static Task ShowToast(Window window, string title, object content, NotificationType? type = NotificationType.Information, TimeSpan? duration = null,
-        Action? onClicked = null) =>
-        ShowToast(window, new ToastModel(
-            title,
-            content as Control ?? ViewLocator.TryBuild(content),
-            type ?? NotificationType.Information,
-            duration ?? TimeSpan.FromSeconds(4),
-            onClicked));
-
-    /// <summary>
-    /// Clears a specific toast from display (if it is still currently being displayed).
-    /// </summary>
-    /// <param name="toast">The toast to clear.</param>
-    public static async Task ClearToast(SukiToast toast)
-    {
-        var wasRemoved = await Task.Run(async () =>
-        {
-            Dispatcher.UIThread.Invoke(() =>
-            {
-                toast.Animate(OpacityProperty, 1d, 0d, TimeSpan.FromMilliseconds(300));
-                toast.Animate(MarginProperty, new Thickness(), new Thickness(0, 50, 0, -50),
-                    TimeSpan.FromMilliseconds(300));
-            });
-            await Task.Delay(300);
-            return Dispatcher.UIThread.Invoke(() => toast.Host.ToastsCollection.Remove(toast));
-        });
-
-        if (!wasRemoved) return;
-        ToastPool.Return(toast);
-    }
-
-    /// <summary>
-    /// Clears all active toasts in a specific window immediately.
-    /// </summary>
-    public static void ClearAllToasts(Window window)
-    {
-        if (!Instances.TryGetValue(window, out var host))
-            throw new InvalidOperationException("No SukiHost present in this window");
-        ToastPool.Return(host.ToastsCollection);
-        Dispatcher.UIThread.Invoke(() => host.ToastsCollection.Clear());
-    }
-
-    /// <summary>
-    /// Clears all active toasts in the earliest open window immediately.
-    /// </summary>
-    public static void ClearAllToasts() => ClearAllToasts(_mainWindow);
 
     protected override void OnDetachedFromLogicalTree(LogicalTreeAttachmentEventArgs e)
     {
