@@ -88,13 +88,23 @@ public partial class ToastsViewModel(ISukiToastManager toastManager) : DemoPageB
     [RelayCommand]
     private void ShowToastWithCallback()
     {
-        // TODO: Implement dismiss interactions for the toasts.
-        // return SukiHost.ShowToast("Click This Toast", "Click this toast to open a dialog.", NotificationType.Information, TimeSpan.FromSeconds(15),
-        //     () => SukiHost.ShowDialog(
-        //         new TextBlock { Text = "You clicked the toast! - Click anywhere outside of this dialog to close." },
-        //         allowBackgroundClose: true));
+        toastManager.CreateToast()
+            .WithTitle("Callback Toast")
+            .WithContent("Click anywhere (other than the button) on this toast to show another toast.")
+            .OnClicked(_ => ShowCallbackToast())
+            .WithActionButton("Dismiss", _ => { }, true)
+            .Queue();
+        return;
+
+        void ShowCallbackToast()
+        {
+            toastManager.CreateSimpleInfoToast()
+                .WithTitle("Opened From Callback.")
+                .WithContent("This toast will close in 3 seconds...")
+                .Queue();
+        }
     }
 
     [RelayCommand]
-    private void ShowToastWindow() => new ToastWindowDemo().Show();
+    private void ShowToastWindow() => new ToastWindowDemo(toastManager).Show();
 }

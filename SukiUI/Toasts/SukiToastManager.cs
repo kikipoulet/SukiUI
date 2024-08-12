@@ -22,7 +22,6 @@ namespace SukiUI.Toasts
         public void Dismiss(ISukiToast toast)
         {
             if(!_toasts.Remove(toast)) return;
-            // TODO: Implement callbacks for the animations - only dismiss when the control is out of view.
             OnToastDismissed?.Invoke(this, new SukiToastManagerEventArgs(toast));
         }
 
