@@ -18,7 +18,14 @@
                                                   x:TypeArguments=CornerRadius}">
                     <VisualLayerManager Name="PART_VisualLayerManager" IsHitTestVisible="True">
                         <VisualLayerManager.ChromeOverlayLayer>
-                            <suki:SukiHost />
+                            <!-- <suki:SukiHost /> -->
+                            <ItemsControl ItemsSource="{TemplateBinding Hosts}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <Panel/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
                         </VisualLayerManager.ChromeOverlayLayer>
                         <Panel x:Name="PART_Root">
                             <suki:SukiBackground Name="PART_Background"

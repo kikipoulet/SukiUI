@@ -176,6 +176,14 @@ public class SukiWindow : Window
         set => SetValue(RightWindowTitleBarControlsProperty, value);
     }
 
+    public static readonly StyledProperty<Avalonia.Controls.Controls> HostsProperty = AvaloniaProperty.Register<SukiWindow, Avalonia.Controls.Controls>(nameof(Hosts));
+
+    public Avalonia.Controls.Controls Hosts
+    {
+        get => GetValue(HostsProperty);
+        set => SetValue(HostsProperty, value);
+    }
+
     public SukiWindow()
     {
         MenuItems = new AvaloniaList<MenuItem>();
