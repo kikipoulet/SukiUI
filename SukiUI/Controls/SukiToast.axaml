@@ -49,14 +49,24 @@
                                                               FontWeight="{DynamicResource DefaultDemiBold}"
                                                               Foreground="{DynamicResource SukiText}" />
                                         </StackPanel>
-                                        <Button Name="ButtonAction"
-                                                Margin="0,14,0,0"
-                                                Padding="14,6"
-                                                HorizontalAlignment="Right"
-                                                Content="{TemplateBinding ActionButtonContent}"
-                                                DockPanel.Dock="Bottom"
-                                                FontSize="14"
-                                                IsVisible="{TemplateBinding ShowActionButton}" />
+                                        <ItemsControl DockPanel.Dock="Bottom" 
+                                                      ItemsSource="{TemplateBinding ActionButtons}" 
+                                                      Margin="0,14,0,0"
+                                                      HorizontalAlignment="Right">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel Orientation="Horizontal" Spacing="5"/>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                        </ItemsControl>
+                                        <!-- <Button Name="ButtonAction" -->
+                                        <!--         Margin="0,14,0,0" -->
+                                        <!--         Padding="14,6" -->
+                                        <!--         HorizontalAlignment="Right" -->
+                                        <!--         Content="{TemplateBinding ActionButtonContent}" -->
+                                        <!--         DockPanel.Dock="Bottom" -->
+                                        <!--         FontSize="14" -->
+                                        <!--         IsVisible="{TemplateBinding ShowActionButton}" /> -->
                                         <ContentPresenter Margin="12,10,0,0"
                                                           Content="{TemplateBinding Content}"
                                                           Foreground="{DynamicResource SukiText}"

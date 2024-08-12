@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
 using SukiUI.ColorTheme;
 using SukiUI.Content;
@@ -19,8 +20,12 @@ namespace SukiUI.Toasts
             Toast.Manager = Manager;
         }
 
-        public void Queue() => Manager.Queue(Toast);
-        
+        public ISukiToast Queue()
+        {
+            Manager.Queue(Toast);
+            return Toast;
+        }
+
         public void SetTitle(string title) => Toast.Title = title;
         
         public void SetContent(object? content) => Toast.Content = content;
@@ -48,9 +53,27 @@ namespace SukiUI.Toasts
         }
         
         
-        public void Delay(TimeSpan delay, Action<ISukiToast> action)
-        {
+        public void Delay(TimeSpan delay, Action<ISukiToast> action) => 
             Task.Delay(delay).ContinueWith(_ => action(Toast), TaskScheduler.FromCurrentSynchronizationContext());
+
+        public void SetOnDismiss(Action<ISukiToast> action) => Toast.OnDismissed = action;
+
+        public void SetOnClicked(Action<ISukiToast> action) => Toast.OnClicked = action;
+        
+        public void AddActionButton(object buttonContent, Action<ISukiToast> action, bool dismissOnClick)
+        {
+            var btn = new Button()
+            {
+                Content = buttonContent,
+                Classes = { "Flat" }
+            };
+            btn.Click += (_, _) =>
+            {
+                action(Toast);
+                if(dismissOnClick)
+                    Manager.Dismiss(Toast);
+            };
+            Toast.ActionButtons.Add(btn);
         }
 
         public class DismissToast

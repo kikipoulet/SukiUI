@@ -1,13 +1,11 @@
 using System;
-using System.Threading.Tasks;
+using System.Reactive.Concurrency;
+using System.Timers;
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
+using Avalonia.Threading;
 using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
-using SukiUI.Controls;
-using SukiUI.Demo.Utilities;
-using SukiUI.Enums;
-using SukiUI.Models;
 using SukiUI.Toasts;
 
 namespace SukiUI.Demo.Features.ControlsLibrary.Toasts;
@@ -30,11 +28,30 @@ public partial class ToastsViewModel(ISukiToastManager toastManager) : DemoPageB
         toastManager.CreateToast()
             .WithTitle("Update Available")
             .WithContent("Update v1.0.0 Now Available.")
-            .Dismiss().After(TimeSpan.FromSeconds(5)) // TODO: Action button support.
+            .WithActionButton("Update", _ => ShowUpdatingToast(), true)
+            .WithActionButton("Dismiss", _ => { }, true)
             .Queue();
-        // return SukiHost.ShowToast(new ToastModel("Update Available", "A new version is available for you.",
-        //     NotificationType.Information, TimeSpan.FromSeconds(5), null, "Update Now",
-        //     () => { SukiHost.ShowToast("Update", new ProgressBar() { Value = 43, ShowProgressText = true }); }));
+    }
+
+    private void ShowUpdatingToast()
+    {
+        var progress = new ProgressBar() { Value = 0, ShowProgressText = true };
+        var toast = toastManager.CreateToast()
+            .WithTitle("Updating...")
+            .WithContent(progress)
+            .Queue();
+        var timer = new Timer(20);
+        timer.Elapsed += (_, _) =>
+        {
+            Dispatcher.UIThread.Invoke(() =>
+            {
+                progress.Value += 1;
+                if (progress.Value < 100) return;
+                timer.Dispose();
+                toastManager.Dismiss(toast);
+            });
+        };
+        timer.Start();
     }
 
     [RelayCommand]
@@ -50,7 +67,8 @@ public partial class ToastsViewModel(ISukiToastManager toastManager) : DemoPageB
     {
         toastManager.CreateToast()
             .WithTitle($"{toastType}!")
-            .WithContent($"This is the content of {char.ToLower(toastType.ToString()[0]) + toastType.ToString()[1..]} toast.")
+            .WithContent(
+                $"This is the content of {char.ToLower(toastType.ToString()[0]) + toastType.ToString()[1..]} toast.")
             .OfType(toastType)
             .Dismiss().After(TimeSpan.FromSeconds(3))
             .Dismiss().ByClicking()

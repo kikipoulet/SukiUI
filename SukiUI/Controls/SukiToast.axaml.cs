@@ -4,6 +4,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using SukiUI.Models;
 using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Timers;
 using Avalonia.Controls.Notifications;
@@ -21,13 +22,8 @@ public class SukiToast : ContentControl, ISukiToast
     protected override Type StyleKeyOverride => typeof(SukiToast);
     
     public ISukiToastManager Manager { get; set; }
-
-    private Action? _onClickedCallback;
-    private Action? _onActionCallback;
-
-    public SukiToast()
-    {
-    }
+    public Action<ISukiToast>? OnDismissed { get; set; }
+    public Action<ISukiToast>? OnClicked { get; set; }
     
     public static readonly StyledProperty<object?> IconProperty =
         AvaloniaProperty.Register<SukiToast, object?>(nameof(Icon));
@@ -46,24 +42,6 @@ public class SukiToast : ContentControl, ISukiToast
         get => GetValue(TitleProperty);
         set => SetValue(TitleProperty, value);
     }
-    
-    public static readonly StyledProperty<bool> ShowActionButtonProperty =
-        AvaloniaProperty.Register<SukiToast, bool>(nameof(ShowActionButton));
-
-    public bool ShowActionButton
-    {
-        get => GetValue(ShowActionButtonProperty);
-        set => SetValue(ShowActionButtonProperty, value);
-    }
-    
-    public static readonly StyledProperty<string> ActionButtonContentProperty =
-        AvaloniaProperty.Register<SukiToast, string>(nameof(ActionButtonContent));
-
-    public string ActionButtonContent
-    {
-        get => GetValue(ActionButtonContentProperty);
-        set => SetValue(ActionButtonContentProperty, value);
-    }
 
     public static readonly StyledProperty<bool> CanDismissByClickingProperty = AvaloniaProperty.Register<SukiToast, bool>(nameof(CanDismissByClicking));
 
@@ -72,26 +50,34 @@ public class SukiToast : ContentControl, ISukiToast
         get => GetValue(CanDismissByClickingProperty);
         set => SetValue(CanDismissByClickingProperty, value);
     }
+    
+    public static readonly StyledProperty<ObservableCollection<object>> ActionButtonsProperty = AvaloniaProperty.Register<SukiToast, 
+        ObservableCollection<object>>(nameof(ActionButtons));
 
+    public ObservableCollection<object> ActionButtons
+    {
+        get => GetValue(ActionButtonsProperty);
+        set => SetValue(ActionButtonsProperty, value);
+    }
+
+    public SukiToast()
+    {
+        ActionButtons = new ObservableCollection<object>();
+    }
+    
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
 
         e.NameScope.Get<Border>("PART_ToastCard").PointerPressed += ToastCardClickedHandler;
-        e.NameScope.Get<Button>("ButtonAction").Click += ButtonActionClicked;
-    }
-
-    private void ButtonActionClicked(object sender, RoutedEventArgs e)
-    {
-        _onActionCallback?.Invoke();
     }
 
     private void ToastCardClickedHandler(object o, PointerPressedEventArgs pointerPressedEventArgs)
     {
+        OnClicked?.Invoke(this);
         if (!CanDismissByClicking) return;
         Manager.Dismiss(this);
-        _onClickedCallback?.Invoke();
-        _onClickedCallback = null;
+        OnDismissed?.Invoke(this);
     }
 
     public void AnimateShow()
@@ -110,7 +96,6 @@ public class SukiToast : ContentControl, ISukiToast
     {
         Title = "Information";
         Content = "Toast Information";
-        ShowActionButton = false;
         Icon = Icons.InformationOutline;
         Foreground = NotificationColor.InfoIconForeground;
         CanDismissByClicking = false;
