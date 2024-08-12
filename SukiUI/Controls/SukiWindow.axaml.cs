@@ -176,8 +176,15 @@ public class SukiWindow : Window
         set => SetValue(RightWindowTitleBarControlsProperty, value);
     }
 
-    public static readonly StyledProperty<Avalonia.Controls.Controls> HostsProperty = AvaloniaProperty.Register<SukiWindow, Avalonia.Controls.Controls>(nameof(Hosts));
+    public static readonly StyledProperty<Avalonia.Controls.Controls> HostsProperty = 
+        AvaloniaProperty.Register<SukiWindow, Avalonia.Controls.Controls>(nameof(Hosts), 
+            defaultValue: new Avalonia.Controls.Controls());
 
+    // TODO: Update docs for this when hosts are implemented.
+    /// <summary>
+    /// These controls are displayed above all others and fill the entire window.
+    /// You can include `SukiDialogHost` and `SukiToastHost` or create your own custom implementations.
+    /// </summary>
     public Avalonia.Controls.Controls Hosts
     {
         get => GetValue(HostsProperty);
@@ -188,6 +195,7 @@ public class SukiWindow : Window
     {
         MenuItems = new AvaloniaList<MenuItem>();
         RightWindowTitleBarControls = new Avalonia.Controls.Controls();
+        Hosts = new Avalonia.Controls.Controls();
     }
 
     private IDisposable? _subscriptionDisposables;

@@ -19,7 +19,7 @@
                     <VisualLayerManager Name="PART_VisualLayerManager" IsHitTestVisible="True">
                         <VisualLayerManager.ChromeOverlayLayer>
                             <!-- <suki:SukiHost /> -->
-                            <ItemsControl ItemsSource="{TemplateBinding Hosts}">
+                            <ItemsControl ItemsSource="{Binding Hosts, RelativeSource={RelativeSource AncestorType={x:Type suki:SukiWindow}}}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <Panel/>
