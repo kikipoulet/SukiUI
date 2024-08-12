@@ -1,10 +1,14 @@
 using System;
 using System.Linq;
+using System.Reactive;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Reactive;
+using Avalonia.Controls.Primitives;
+using Avalonia.Layout;
 using Avalonia.Threading;
+using SukiUI.Enums;
 using SukiUI.Helpers;
 using SukiUI.Toasts;
 
@@ -29,6 +33,51 @@ namespace SukiUI.Controls
             set => SetValue(MaxToastsProperty, value);
         }
 
+        public static readonly StyledProperty<ToastLocation> PositionProperty = AvaloniaProperty.Register<SukiToastHost, ToastLocation>(nameof(Position), defaultValue: ToastLocation.BottomRight);
+
+        public ToastLocation Position
+        {
+            get => GetValue(PositionProperty);
+            set => SetValue(PositionProperty, value);
+        }
+
+        private IDisposable? _subscriptions;
+        
+        protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+        {
+            base.OnApplyTemplate(e);
+            _subscriptions = this.GetObservable(PositionProperty)
+                .Do(OnPositionChanged)
+                .Select(_ => Unit.Default).ObserveOn(new AvaloniaSynchronizationContext())
+                .Subscribe();
+        }
+
+        private void OnPositionChanged(ToastLocation obj)
+        {
+            HorizontalAlignment = Position switch
+            {
+                ToastLocation.BottomRight => HorizontalAlignment.Right,
+                ToastLocation.BottomLeft => HorizontalAlignment.Left,
+                ToastLocation.TopRight => HorizontalAlignment.Right,
+                ToastLocation.TopLeft => HorizontalAlignment.Left,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+            VerticalAlignment = Position switch
+            {
+                ToastLocation.BottomRight => VerticalAlignment.Bottom,
+                ToastLocation.BottomLeft => VerticalAlignment.Bottom,
+                ToastLocation.TopRight => VerticalAlignment.Top,
+                ToastLocation.TopLeft => VerticalAlignment.Top,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
+
+        protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+        {
+            base.OnDetachedFromVisualTree(e);
+            _subscriptions?.Dispose();
+        }
+        
         private static void OnManagerPropertyChanged(AvaloniaObject sender,
             AvaloniaPropertyChangedEventArgs propChanged)
         {
@@ -80,7 +129,7 @@ namespace SukiUI.Controls
         static SukiToastHost()
         {
             ManagerProperty.Changed.Subscribe(
-                new AnonymousObserver<AvaloniaPropertyChangedEventArgs<SukiToastManager>>(x =>
+                new Avalonia.Reactive.AnonymousObserver<AvaloniaPropertyChangedEventArgs<SukiToastManager>>(x =>
                     OnManagerPropertyChanged(x.Sender, x)));
         }
     }
