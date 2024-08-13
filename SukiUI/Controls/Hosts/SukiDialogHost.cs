@@ -89,7 +89,11 @@ namespace SukiUI.Controls
         private void ManagerOnDialogDismissed(object sender, SukiDialogManagerEventArgs args)
         {
             IsDialogOpen = false;
-            Task.Delay(500).ContinueWith(_ => Dialog = null, TaskScheduler.FromCurrentSynchronizationContext());
+            Task.Delay(500).ContinueWith(_ =>
+            {
+                if (Dialog != args.Dialog) return;
+                Dialog = null;
+            }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         static SukiDialogHost()
