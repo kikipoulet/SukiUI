@@ -77,11 +77,11 @@ public partial class PropertyGridTemplateSelector : ResourceDictionary, IDataTem
             {
                 return;
             }
-
-            SukiHost.ShowDialog(new PropertyGridDialog()
-            {
-                DataContext = childViewModel.Value
-            }, true, true);
+            // TODO: Fix this...
+            // SukiHost.ShowDialog(new PropertyGridDialog()
+            // {
+            //     DataContext = childViewModel.Value
+            // }, true, true);
         }
         else
         {

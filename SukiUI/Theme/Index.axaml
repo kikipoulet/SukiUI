@@ -77,7 +77,6 @@
                 <ResourceInclude Source="avares://sukiUI/Theme/Calendar/CalendarItem.axaml" />
 
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiWindow.axaml" />
-                <ResourceInclude Source="avares://sukiUI/Controls/SukiHost.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiToast.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/Hosts/SukiToastHost.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/Hosts/SukiDialogHost.axaml" />

@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
 using SukiUI.Controls;
 using System.Threading.Tasks;
+using SukiUI.Dialogs;
 
 namespace SukiUI.Demo.Features.Dashboard;
 
@@ -26,9 +27,12 @@ public partial class DashboardViewModel : DemoPageBase
     {
         "Dispatched", "En-Route", "Delivered"
     };
+    
+    private readonly ISukiDialogManager _dialogManager;
 
-    public DashboardViewModel() : base("Dashboard", MaterialIconKind.CircleOutline, -100)
+    public DashboardViewModel(ISukiDialogManager dialogManager) : base("Dashboard", MaterialIconKind.CircleOutline, -100)
     {
+        _dialogManager = dialogManager;
         StepperIndex = 1;
     }
 
@@ -46,7 +50,9 @@ public partial class DashboardViewModel : DemoPageBase
     [RelayCommand]
     private void ShowDialog()
     {
-        SukiHost.ShowDialog(new DialogViewModel(), allowBackgroundClose: true);
+        _dialogManager.CreateDialog()
+            .WithViewModel(dialog => new DialogViewModel(dialog))
+            .TryShow();
     }
 
     [RelayCommand]

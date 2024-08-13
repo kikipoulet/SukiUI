@@ -113,8 +113,12 @@ public partial class SukiUIDemoViewModel : ObservableObject
         _theme.ChangeColorTheme(theme);
 
     [RelayCommand]
-    private void CreateCustomTheme() => 
-        SukiHost.ShowDialog(new CustomThemeDialogViewModel(_theme), allowBackgroundClose: true);
+    private void CreateCustomTheme()
+    {
+        DialogManager.CreateDialog()
+            .WithViewModel(dialog => new CustomThemeDialogViewModel(_theme, dialog))
+            .TryShow();
+    }
 
     [RelayCommand]
     private void ToggleWindowLock()

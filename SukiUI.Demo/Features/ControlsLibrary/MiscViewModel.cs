@@ -33,13 +33,13 @@ public partial class MiscViewModel() : DemoPageBase("Miscellaneous", MaterialIco
     [RelayCommand]
     private void OpenBox()
     {
-        SukiHost.ShowMessageBox(new MessageBoxModel("Update Available", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", NotificationType.Information, "Update Now", () =>{SukiHost.CloseDialog();} ));
+        throw new NotImplementedException("Need to roll the MessageBox functionality into dialogs");
     }
     
     [RelayCommand]
     private void OpenBoxError()
     {
-        SukiHost.ShowMessageBox(new MessageBoxModel("Error", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ", NotificationType.Error));
+        throw new NotImplementedException("Need to roll the MessageBox functionality into dialogs");
     }
         
     [RelayCommand]

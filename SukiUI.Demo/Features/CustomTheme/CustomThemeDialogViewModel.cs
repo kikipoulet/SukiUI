@@ -2,11 +2,12 @@ using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SukiUI.Controls;
+using SukiUI.Dialogs;
 using SukiUI.Models;
 
 namespace SukiUI.Demo.Features.CustomTheme;
 
-public partial class CustomThemeDialogViewModel(SukiTheme theme) : ObservableObject
+public partial class CustomThemeDialogViewModel(SukiTheme theme, ISukiDialog dialog) : ObservableObject
 {
     [ObservableProperty] private string _displayName = "Pink";
     [ObservableProperty] private Color _primaryColor = Colors.DeepPink;
@@ -19,6 +20,6 @@ public partial class CustomThemeDialogViewModel(SukiTheme theme) : ObservableObj
         var theme1 = new SukiColorTheme(DisplayName, PrimaryColor, AccentColor);
         theme.AddColorTheme(theme1);
         theme.ChangeColorTheme(theme1);
-        SukiHost.CloseDialog();
+        dialog.Dismiss();
     }
 }
