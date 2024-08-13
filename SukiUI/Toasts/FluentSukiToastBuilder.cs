@@ -3,11 +3,13 @@ using Avalonia.Controls.Notifications;
 
 namespace SukiUI.Toasts
 {
-    // TODO: Docs
     public static class FluentSukiToastBuilder
     {
         #region Content
-
+        
+        /// <summary>
+        /// Creates a <see cref="SukiToastBuilder"/> instance that can be used to construct a <see cref="ISukiToast"/>
+        /// </summary>
         public static SukiToastBuilder CreateToast(this ISukiToastManager manager) => new(manager);
 
         /// <summary>
@@ -17,22 +19,32 @@ namespace SukiUI.Toasts
         public static SukiToastBuilder CreateSimpleInfoToast(this ISukiToastManager manager)
         {
             return new SukiToastBuilder(manager)
+                .OfType(NotificationType.Information)
                 .Dismiss().After(TimeSpan.FromSeconds(3))
                 .Dismiss().ByClicking();
         }
 
+        /// <summary>
+        /// Gives the toast a title.
+        /// </summary>
         public static SukiToastBuilder WithTitle(this SukiToastBuilder builder, string title)
         {
             builder.SetTitle(title);
             return builder;
         }
-
+        
+        /// <summary>
+        /// Gives the toast some content. This can be a ViewModel if desired - View will be located via the default location strategy.
+        /// </summary>
         public static SukiToastBuilder WithContent(this SukiToastBuilder builder, object? content)
         {
             builder.SetContent(content);
             return builder;
         }
-
+        
+        /// <summary>
+        /// Sets the notification type - By default it is <see cref="NotificationType.Information"/>
+        /// </summary>
         public static SukiToastBuilder OfType(this SukiToastBuilder builder, NotificationType type)
         {
             builder.SetType(type);
@@ -87,7 +99,10 @@ namespace SukiUI.Toasts
             builder.SetOnDismiss(onDismissAction);
             return builder;
         }
-
+        
+        /// <summary>
+        /// Adds an action button to the toast which will call the provided callback on click. Any number of buttons can be added to a toast.
+        /// </summary>
         public static SukiToastBuilder WithActionButton(this SukiToastBuilder builder, object buttonContent, Action<ISukiToast> onClicked, bool dismissOnClick =  false)
         {
             builder.AddActionButton(buttonContent, onClicked, dismissOnClick);
