@@ -6,7 +6,7 @@
         <Border Padding="20">
             <StackPanel Orientation="Horizontal" Spacing="5" >
             <NumericUpDown Value="4" />
-            <TextBox Text="test"></TextBox>
+            <TextBox Classes="NoShadow" Text="test"></TextBox>
             </StackPanel>
         </Border>
     </Design.PreviewWith>

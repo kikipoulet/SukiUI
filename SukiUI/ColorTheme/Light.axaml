@@ -38,7 +38,7 @@
     <system:Double x:Key="GlassOpacity">0.42</system:Double>
     
     <system:Double x:Key="ControlGlassOpacity">0.05</system:Double>
-    <system:Double x:Key="DiscreteControlGlassOpacity">0.3</system:Double>
+    <system:Double x:Key="DiscreteControlGlassOpacity">0.31</system:Double>
     <Color x:Key="ControlSukiGlassCardBackground">#fd111111</Color>
     
 </ResourceDictionary>

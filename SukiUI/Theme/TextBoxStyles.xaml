@@ -27,7 +27,7 @@
                 <TextBox Width="200"
                          Margin="5"
                          Text="Elem" />
-                <TextBox Classes="FlatTextBox" Text="Elem" />
+                <TextBox Classes="NoShadow" Text="Elem" />
 
                 <Panel>
                     <Border Margin="0,0,0,25" Classes="Card">
@@ -357,6 +357,7 @@
                        
                         <theme:StringToDoubleConverter x:Key="StringToDoubleC" />
                     </Border.Resources>
+                    <Panel>
                     <suki:GlassCard Name="border"
                             Padding="0" Classes="Discrete"
                             BorderBrush="{TemplateBinding BorderBrush}"
@@ -368,6 +369,7 @@
                                 <BrushTransition Property="BorderBrush" Duration="0:0:0.2" />
                             </Transitions>
                         </suki:GlassCard.Transitions>
+                    </suki:GlassCard>
                         <Border Name="borderbottom"
                                 Margin="1,-1,1,-1"
                                 BorderBrush="{TemplateBinding BorderBrush}"
@@ -458,7 +460,7 @@
 
                             </DockPanel>
                         </Border>
-                    </suki:GlassCard>
+                    </Panel>
                 </Border>
 
             </ControlTemplate>
@@ -608,6 +610,7 @@
     <Style Selector="TextBox.NoShadow /template/ suki|GlassCard#border">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="IsVisible" Value="False"></Setter>
     </Style>
     
     <Style Selector="TextBox.NoShadow:focus /template/ suki|GlassCard#border">

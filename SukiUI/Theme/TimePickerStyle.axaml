@@ -2,7 +2,8 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:icons="clr-namespace:SukiUI.Content"
-                    xmlns:sys="using:System">
+                    xmlns:sys="using:System"
+                    xmlns:suki="https://github.com/kikipoulet/SukiUI">
     <Design.PreviewWith>
         <Border Height="500" Padding="20">
             <StackPanel VerticalAlignment="Center" Spacing="20">
@@ -59,7 +60,7 @@
 
     <ControlTheme x:Key="{x:Type TimePicker}" TargetType="TimePicker">
         <Setter Property="FontSize" Value="{DynamicResource FontSizeNormal}" />
-        <Setter Property="BorderThickness" Value="0,0,0,1" />
+        <Setter Property="BorderThickness" Value="0,0,0,0" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiMediumBorderBrush}" />
@@ -71,6 +72,8 @@
             <ControlTemplate>
                 <DataValidationErrors>
                     <Grid Name="LayoutRoot">
+                        <suki:GlassCard Height="{TemplateBinding Height}" CornerRadius="{DynamicResource SmallCornerRadius}" Classes="Discrete" >
+
                         <Button x:Name="PART_FlyoutButton"
                                 MinWidth="{DynamicResource TimePickerThemeMinWidth}"
                                 MaxWidth="{DynamicResource TimePickerThemeMaxWidth}"
@@ -144,7 +147,7 @@
                                 </Grid>
                             </DockPanel>
                         </Button>
-
+</suki:GlassCard>
                         <Popup Name="PART_Popup"
                                IsLightDismissEnabled="True"
                                Placement="Bottom"
