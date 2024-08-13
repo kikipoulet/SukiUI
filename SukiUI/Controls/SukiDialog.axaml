@@ -5,8 +5,8 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Border Padding="0" ClipToBounds="True" Background="{DynamicResource SukiCardBackground}" CornerRadius="20">
-                    <Panel Margin="-5">
-                        <Panel IsVisible="{DynamicResource IsDark}">
+                    <Panel>
+                        <Panel IsVisible="{DynamicResource IsDark}" Margin="-5">
                             <Panel.Background>
                                 <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
                                     <GradientStop Color="{DynamicResource SukiAccentColor3}" Offset="0"></GradientStop>
@@ -14,7 +14,7 @@
                                 </LinearGradientBrush>
                             </Panel.Background>
                         </Panel>
-                        <Panel IsVisible="{DynamicResource IsLight}">
+                        <Panel IsVisible="{DynamicResource IsLight}" Margin="-5">
                             <Panel.Background>
                                 <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
                                     <GradientStop Color="{DynamicResource SukiAccentColor5}" Offset="0"></GradientStop>
@@ -22,9 +22,24 @@
                                 </LinearGradientBrush>
                             </Panel.Background>
                         </Panel>
-                        <suki:GroupBox Header="{TemplateBinding Title}">
-                            <ContentControl Content="{TemplateBinding Content}"/>
+                        <suki:GroupBox Header="{TemplateBinding Title}" Margin="15" IsVisible="{Binding !IsViewModelOnly, RelativeSource={RelativeSource TemplatedParent}}">
+                            <StackPanel Spacing="5">
+                                <ContentControl Content="{TemplateBinding Content}"/>
+                                <ItemsControl ItemsSource="{TemplateBinding ActionButtons}">
+                                    <ItemsControl.Styles>
+                                        <Style Selector="Button:nth-child(1n+2)">
+                                            <Setter Property="Margin" Value="5,0,0,0"/>
+                                        </Style>
+                                    </ItemsControl.Styles>
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <UniformGrid Columns="0" Rows="1"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                </ItemsControl>
+                            </StackPanel>
                         </suki:GroupBox>
+                        <ContentControl Content="{TemplateBinding ViewModel}" Margin="15" IsVisible="{TemplateBinding IsViewModelOnly}"/>
                     </Panel>
                 </Border>
             </ControlTemplate>

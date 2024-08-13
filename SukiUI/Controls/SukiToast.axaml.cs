@@ -21,7 +21,7 @@ public class SukiToast : ContentControl, ISukiToast
 {
     protected override Type StyleKeyOverride => typeof(SukiToast);
     
-    public ISukiToastManager Manager { get; set; }
+    public ISukiToastManager? Manager { get; set; }
     public Action<ISukiToast>? OnDismissed { get; set; }
     public Action<ISukiToast>? OnClicked { get; set; }
     

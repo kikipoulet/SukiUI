@@ -9,17 +9,12 @@
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             Background="{DynamicResource SukiDialogBackground}"
-                            IsHitTestVisible="False"
-                            Opacity="0"/>
-                    <Border Name="borderDialog"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Background="{DynamicResource SukiBackground}"
-                            Classes.opened="False"
-                            CornerRadius="15"
-                            IsHitTestVisible="False"
-                            IsVisible="False">
-                        <Border.Transitions>
+                            Opacity="0" />
+                    <ContentControl Name="PART_DialogContent"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Content="{TemplateBinding Dialog}">
+                        <ContentControl.Transitions>
                             <Transitions>
                                 <ThicknessTransition Property="Margin" Duration="0:0:0.25">
                                     <ThicknessTransition.Easing>
@@ -33,16 +28,15 @@
                                     </TransformOperationsTransition.Easing>
                                 </TransformOperationsTransition>
                             </Transitions>
-                        </Border.Transitions>
-                        <ContentPresenter Margin="20" Content="{TemplateBinding Dialog}" />
-                    </Border>
+                        </ContentControl.Transitions>
+                    </ContentControl>
                     <Panel.Styles>
                         <Style Selector="suki|SukiDialogHost[IsDialogOpen=True]">
                             <Style Selector="^ Border#PART_DialogBackground">
                                 <Setter Property="Opacity" Value="0.4" />
                                 <Setter Property="IsHitTestVisible" Value="True" />
                             </Style>
-                            <Style Selector="^ Border#borderDialog">
+                            <Style Selector="^ ContentControl#PART_DialogContent">
                                 <Setter Property="Margin" Value="0,25,0,0" />
                                 <Setter Property="IsVisible" Value="True" />
                                 <Setter Property="IsHitTestVisible" Value="True" />
@@ -54,7 +48,7 @@
                                 <Setter Property="Opacity" Value="0" />
                                 <Setter Property="IsHitTestVisible" Value="False" />
                             </Style>
-                            <Style Selector="^ Border#borderDialog">
+                            <Style Selector="^ ContentControl#PART_DialogContent">
                                 <Setter Property="IsVisible" Value="False" />
                                 <Setter Property="IsHitTestVisible" Value="False" />
                                 <Setter Property="RenderTransform" Value="scale(0.7)" />

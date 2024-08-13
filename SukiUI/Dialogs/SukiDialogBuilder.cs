@@ -13,6 +13,7 @@ namespace SukiUI.Dialogs
         {
             Manager = manager;
             Dialog = DialogPool.Get();
+            Dialog.Manager = Manager;
         }
         
         public bool TryShow() => Manager.TryShowDialog(Dialog);
@@ -21,7 +22,10 @@ namespace SukiUI.Dialogs
 
         public void SetContent(object content) => Dialog.Content = content;
 
-        public void SetViewModel(object viewModel) => Dialog.ViewModel = viewModel;
+        public void SetViewModel(Func<ISukiDialog,object> viewModel)
+        {
+            Dialog.ViewModel = viewModel(Dialog);
+        }
 
         public void SetCanDismissWithBackgroundClick(bool canDismissWithBackgroundClick) =>
             Dialog.CanDismissWithBackgroundClick = canDismissWithBackgroundClick;
@@ -32,7 +36,8 @@ namespace SukiUI.Dialogs
         {
             var btn = new Button()
             {
-                Content = buttonContent
+                Content = buttonContent,
+                Classes = { "Flat" }
             };
             btn.Click += (_,_) =>
             {

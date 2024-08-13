@@ -37,6 +37,13 @@
                     </suki:GroupBox>
                 </suki:GlassCard>
                 <suki:GlassCard>
+                    <suki:GroupBox Header="Multi Option Dialog">
+                        <Button Margin="15,10,15,0"
+                                Command="{Binding OpenMultiOptionDialogCommand}"
+                                Content="Show Dialog" />
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
                     <suki:GroupBox Header="Background Closable Dialog">
                         <Button Margin="15,10,15,0"
                                 Command="{Binding OpenBackgroundCloseDialogCommand}"

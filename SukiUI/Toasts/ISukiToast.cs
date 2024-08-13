@@ -7,7 +7,7 @@ namespace SukiUI.Toasts
 {
     public interface ISukiToast
     {
-        ISukiToastManager Manager { get; set; }
+        ISukiToastManager? Manager { get; set; }
         
         public string Title { get; set; }
         public object? Content { get; set; }

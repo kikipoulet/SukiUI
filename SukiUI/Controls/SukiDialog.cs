@@ -32,10 +32,39 @@ namespace SukiUI.Controls
             set => SetValue(ContentProperty, value);
         }
 
-        public ObservableCollection<object> ActionButtons { get; } = new();
+        public static readonly StyledProperty<bool> IsViewModelOnlyProperty = AvaloniaProperty.Register<SukiDialog, bool>(nameof(IsViewModelOnly));
+
+        internal bool IsViewModelOnly
+        {
+            get => GetValue(IsViewModelOnlyProperty);
+            set => SetValue(IsViewModelOnlyProperty, value);
+        }
+
+        public static readonly StyledProperty<ObservableCollection<object>> ActionButtonsProperty = AvaloniaProperty.Register<SukiDialog, ObservableCollection<object>>(nameof(ActionButtons));
+
+        public ObservableCollection<object> ActionButtons
+        {
+            get => GetValue(ActionButtonsProperty);
+            set => SetValue(ActionButtonsProperty, value);
+        }
+        
+        public ISukiDialogManager? Manager { get; set; }
         
         public Action<ISukiDialog>? OnDismissed { get; set; }
 
         public bool CanDismissWithBackgroundClick { get; set; }
+        
+        public SukiDialog()
+        {
+            ActionButtons = new ObservableCollection<object>();
+        }
+        
+        public void Dismiss() => Manager?.TryDismissDialog(this);
+        
+        protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+        {
+            base.OnApplyTemplate(e);
+            IsViewModelOnly = ViewModel != null;
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace SukiUI.Dialogs
             return builder;
         }
 
-        public static SukiDialogBuilder WithViewModel(this SukiDialogBuilder builder, object viewModel)
+        public static SukiDialogBuilder WithViewModel(this SukiDialogBuilder builder, Func<ISukiDialog,object> viewModel)
         {
             builder.SetViewModel(viewModel);
             return builder;

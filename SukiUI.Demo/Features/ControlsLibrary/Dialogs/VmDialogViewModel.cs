@@ -1,12 +1,11 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SukiUI.Controls;
-using SukiUI.Demo.Utilities;
+using SukiUI.Dialogs;
 
 namespace SukiUI.Demo.Features.ControlsLibrary.Dialogs;
 
-public partial class VmDialogViewModel : ObservableObject
+public partial class VmDialogViewModel(ISukiDialog dialog) : ObservableObject
 {
     [RelayCommand]
-    private static void CloseDialog() => SukiHost.CloseDialog();
+    private void CloseDialog() => dialog.Dismiss();
 }
