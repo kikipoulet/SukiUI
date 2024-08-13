@@ -1,4 +1,5 @@
 using System;
+using Avalonia.Controls.Notifications;
 
 namespace SukiUI.Dialogs
 {
@@ -8,6 +9,12 @@ namespace SukiUI.Dialogs
 
         public static SukiDialogBuilder CreateDialog(this ISukiDialogManager mgr) => new(mgr);
 
+        public static SukiDialogBuilder OfType(this SukiDialogBuilder builder, NotificationType type)
+        {
+            builder.SetType(type);
+            return builder;
+        }
+        
         public static SukiDialogBuilder WithTitle(this SukiDialogBuilder builder, string title)
         {
             builder.SetTitle(title);

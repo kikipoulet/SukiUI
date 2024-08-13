@@ -2,6 +2,7 @@ using System;
 using System.Collections.ObjectModel;
 using Avalonia;
 using Avalonia.Controls.Primitives;
+using Avalonia.Media;
 using SukiUI.Dialogs;
 
 namespace SukiUI.Controls
@@ -38,6 +39,22 @@ namespace SukiUI.Controls
         {
             get => GetValue(IsViewModelOnlyProperty);
             set => SetValue(IsViewModelOnlyProperty, value);
+        }
+
+        public static readonly StyledProperty<object?> IconProperty = AvaloniaProperty.Register<SukiDialog, object?>(nameof(Icon));
+
+        public object? Icon
+        {
+            get => GetValue(IconProperty);
+            set => SetValue(IconProperty, value);
+        }
+
+        public static readonly StyledProperty<IBrush?> IconColorProperty = AvaloniaProperty.Register<SukiDialog, IBrush?>(nameof(IconColor));
+
+        public IBrush? IconColor
+        {
+            get => GetValue(IconColorProperty);
+            set => SetValue(IconColorProperty, value);
         }
 
         public static readonly StyledProperty<ObservableCollection<object>> ActionButtonsProperty = AvaloniaProperty.Register<SukiDialog, ObservableCollection<object>>(nameof(ActionButtons));

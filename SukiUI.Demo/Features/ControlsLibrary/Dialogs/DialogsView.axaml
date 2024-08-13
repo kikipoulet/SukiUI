@@ -51,6 +51,16 @@
                     </suki:GroupBox>
                 </suki:GlassCard>
                 <suki:GlassCard>
+                    <suki:GroupBox Header="Messagebox Style Dialogs">
+                        <StackPanel Spacing="5">
+                            <ComboBox ItemsSource="{Binding NotificationTypes}" SelectedItem="{Binding SelectedType}"/>
+                            <Button Margin="15,10,15,0"
+                                    Command="{Binding OpenMessageBoxStyleDialogCommand}"
+                                    Content="Show Dialog" />
+                        </StackPanel>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
                     <suki:GroupBox Header="ViewModel Dialog">
                         <Button Margin="15,10,15,0"
                                 Command="{Binding OpenViewModelDialogCommand}"

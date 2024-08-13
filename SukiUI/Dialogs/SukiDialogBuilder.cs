@@ -1,5 +1,8 @@
 using System;
 using Avalonia.Controls;
+using Avalonia.Controls.Notifications;
+using SukiUI.ColorTheme;
+using SukiUI.Content;
 using SukiUI.Helpers;
 
 namespace SukiUI.Dialogs
@@ -26,6 +29,26 @@ namespace SukiUI.Dialogs
         {
             Dialog.ViewModel = viewModel(Dialog);
         }
+        
+        public void SetType(NotificationType notificationType)
+        {
+            Dialog.Icon = notificationType switch
+            {
+                NotificationType.Information => Icons.InformationOutline,
+                NotificationType.Success => Icons.Check,
+                NotificationType.Warning => Icons.AlertOutline,
+                NotificationType.Error => Icons.AlertOutline,
+                _ => throw new ArgumentOutOfRangeException(nameof(notificationType), notificationType, null)
+            };
+            Dialog.IconColor = notificationType switch
+            {
+                NotificationType.Information => NotificationColor.InfoIconForeground,
+                NotificationType.Success => NotificationColor.SuccessIconForeground,
+                NotificationType.Warning => NotificationColor.WarningIconForeground,
+                NotificationType.Error => NotificationColor.ErrorIconForeground,
+                _ => throw new ArgumentOutOfRangeException(nameof(notificationType), notificationType, null)
+            };
+        }
 
         public void SetCanDismissWithBackgroundClick(bool canDismissWithBackgroundClick) =>
             Dialog.CanDismissWithBackgroundClick = canDismissWithBackgroundClick;
@@ -47,6 +70,7 @@ namespace SukiUI.Dialogs
             };
             Dialog.ActionButtons.Add(btn);
         }
+         
 
         public class DismissDialog
         {

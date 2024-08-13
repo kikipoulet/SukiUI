@@ -29,18 +29,6 @@ public partial class MiscViewModel() : DemoPageBase("Miscellaneous", MaterialIco
         await Task.Delay(3000);
         IsBusy = false;
     }
-    
-    [RelayCommand]
-    private void OpenBox()
-    {
-        throw new NotImplementedException("Need to roll the MessageBox functionality into dialogs");
-    }
-    
-    [RelayCommand]
-    private void OpenBoxError()
-    {
-        throw new NotImplementedException("Need to roll the MessageBox functionality into dialogs");
-    }
         
     [RelayCommand]
     private void OpenFile()

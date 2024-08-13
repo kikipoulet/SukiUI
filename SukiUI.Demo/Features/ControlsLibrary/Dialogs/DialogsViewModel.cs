@@ -1,4 +1,6 @@
 using System;
+using Avalonia.Controls.Notifications;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
 using SukiUI.Dialogs;
@@ -8,6 +10,10 @@ namespace SukiUI.Demo.Features.ControlsLibrary.Dialogs;
 
 public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToastManager toastManager) : DemoPageBase("Dialogs", MaterialIconKind.Forum)
 {
+    public NotificationType[] NotificationTypes { get; } = Enum.GetValues<NotificationType>();
+    
+    [ObservableProperty] private NotificationType _selectedType;
+    
     [RelayCommand]
     private void OpenStandardDialog()
     {
@@ -48,6 +54,18 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
             .Dismiss().ByClicking()
             .Dismiss().After(TimeSpan.FromSeconds(3))
             .Queue();
+    }
+
+    [RelayCommand]
+    private void OpenMessageBoxStyleDialog()
+    {
+        dialogManager.CreateDialog()
+            .OfType(SelectedType)
+            .WithTitle("MessageBox style dialog.")
+            .WithContent($"This MessageBox is - {SelectedType}.")
+            .WithActionButton("Dismiss", _ => { }, true)
+            .Dismiss().ByClickingBackground()
+            .TryShow();
     }
 
     [RelayCommand]

@@ -13,6 +13,7 @@
                     <ContentControl Name="PART_DialogContent"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
+                                    ClipToBounds="False"
                                     Content="{TemplateBinding Dialog}">
                         <ContentControl.Transitions>
                             <Transitions>
@@ -37,7 +38,7 @@
                                 <Setter Property="IsHitTestVisible" Value="True" />
                             </Style>
                             <Style Selector="^ ContentControl#PART_DialogContent">
-                                <Setter Property="Margin" Value="0,25,0,0" />
+                                <Setter Property="Margin" Value="0" />
                                 <Setter Property="IsVisible" Value="True" />
                                 <Setter Property="IsHitTestVisible" Value="True" />
                                 <Setter Property="RenderTransform" Value="scale(1)" />
