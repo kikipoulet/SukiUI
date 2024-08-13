@@ -180,10 +180,9 @@ public class SukiWindow : Window
         AvaloniaProperty.Register<SukiWindow, Avalonia.Controls.Controls>(nameof(Hosts), 
             defaultValue: new Avalonia.Controls.Controls());
 
-    // TODO: Update docs for this when hosts are implemented.
     /// <summary>
     /// These controls are displayed above all others and fill the entire window.
-    /// You can include `SukiDialogHost` and `SukiToastHost` or create your own custom implementations.
+    /// You can include <see cref="SukiDialogHost"/> and <see cref="SukiToastHost"/> or create your own custom implementations.
     /// </summary>
     public Avalonia.Controls.Controls Hosts
     {

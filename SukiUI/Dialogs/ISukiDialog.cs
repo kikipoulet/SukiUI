@@ -6,15 +6,15 @@ namespace SukiUI.Dialogs
 {
     public interface ISukiDialog
     {
-        public ISukiDialogManager? Manager { get; set; }
-        public object? ViewModel { get; set; }
-        public string? Title { get; set; }
-        public object? Content { get; set; }
-        internal object? Icon { get; set; }
-        internal IBrush? IconColor { get; set; }
-        public ObservableCollection<object> ActionButtons { get; }
-        public Action<ISukiDialog>? OnDismissed { get; set; }
-        public bool CanDismissWithBackgroundClick { get; set; }
+        ISukiDialogManager? Manager { get; set; }
+        object? ViewModel { get; set; }
+        string? Title { get; set; }
+        object? Content { get; set; }
+        object? Icon { get; set; }
+        IBrush? IconColor { get; set; }
+        ObservableCollection<object> ActionButtons { get; }
+        Action<ISukiDialog>? OnDismissed { get; set; }
+        bool CanDismissWithBackgroundClick { get; set; }
         void Dismiss();
     }
 }

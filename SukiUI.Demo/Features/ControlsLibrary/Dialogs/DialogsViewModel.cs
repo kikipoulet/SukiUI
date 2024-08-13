@@ -77,6 +77,6 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
     }
 
     [RelayCommand]
-    private void OpenDialogWindowDemo() => new DialogWindowDemo().Show();
+    private void OpenDialogWindowDemo() => new DialogWindowDemo(dialogManager).Show();
         
 }

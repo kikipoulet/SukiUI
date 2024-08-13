@@ -16,8 +16,8 @@ namespace SukiUI.Controls
 {
     public class SukiToastHost : ItemsControl
     {
-        public static readonly StyledProperty<SukiToastManager> ManagerProperty =
-            AvaloniaProperty.Register<SukiToastHost, SukiToastManager>(nameof(Manager));
+        public static readonly StyledProperty<ISukiToastManager> ManagerProperty =
+            AvaloniaProperty.Register<SukiToastHost, ISukiToastManager>(nameof(Manager));
 
         public ISukiToastManager Manager
         {
@@ -133,7 +133,7 @@ namespace SukiUI.Controls
         static SukiToastHost()
         {
             ManagerProperty.Changed.Subscribe(
-                new Avalonia.Reactive.AnonymousObserver<AvaloniaPropertyChangedEventArgs<SukiToastManager>>(x =>
+                new Avalonia.Reactive.AnonymousObserver<AvaloniaPropertyChangedEventArgs<ISukiToastManager>>(x =>
                     OnManagerPropertyChanged(x.Sender, x)));
         }
     }

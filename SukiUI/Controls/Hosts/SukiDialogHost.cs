@@ -12,9 +12,9 @@ namespace SukiUI.Controls
 {
     public class SukiDialogHost : TemplatedControl
     {
-        public static readonly StyledProperty<SukiDialogManager> ManagerProperty = AvaloniaProperty.Register<SukiDialogHost, SukiDialogManager>(nameof(Manager));
+        public static readonly StyledProperty<ISukiDialogManager> ManagerProperty = AvaloniaProperty.Register<SukiDialogHost, ISukiDialogManager>(nameof(Manager));
 
-        public SukiDialogManager Manager
+        public ISukiDialogManager Manager
         {
             get => GetValue(ManagerProperty);
             set => SetValue(ManagerProperty, value);
@@ -99,7 +99,7 @@ namespace SukiUI.Controls
         static SukiDialogHost()
         {
             ManagerProperty.Changed.Subscribe(
-                new Avalonia.Reactive.AnonymousObserver<AvaloniaPropertyChangedEventArgs<SukiDialogManager>>(x =>
+                new Avalonia.Reactive.AnonymousObserver<AvaloniaPropertyChangedEventArgs<ISukiDialogManager>>(x =>
                     OnManagerPropertyChanged(x.Sender, x)));
         }
     }
