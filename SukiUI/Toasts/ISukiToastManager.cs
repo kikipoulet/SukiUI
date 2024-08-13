@@ -10,5 +10,6 @@ namespace SukiUI.Toasts
         event EventHandler OnAllToastsDismissed;
         void Queue(ISukiToast toast);
         void Dismiss(ISukiToast toast);
+        void DismissAll();
     }
 }

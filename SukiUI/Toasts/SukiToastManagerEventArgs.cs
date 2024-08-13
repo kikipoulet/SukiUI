@@ -12,7 +12,5 @@ namespace SukiUI.Toasts
         }
     }
     
-    public delegate void SukiToastManagerEventHandler(
-        object sender,
-        SukiToastManagerEventArgs args);
+    public delegate void SukiToastManagerEventHandler(object sender, SukiToastManagerEventArgs args);
 }

@@ -24,5 +24,6 @@ namespace SukiUI.Toasts
         
         public void AnimateShow();
         public void AnimateDismiss();
+        public ISukiToast ResetToDefault();
     }
 }

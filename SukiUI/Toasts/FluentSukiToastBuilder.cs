@@ -6,7 +6,7 @@ namespace SukiUI.Toasts
     // TODO: Docs
     public static class FluentSukiToastBuilder
     {
-        #region Basics
+        #region Content
 
         public static SukiToastBuilder CreateToast(this ISukiToastManager manager) => new(manager);
 

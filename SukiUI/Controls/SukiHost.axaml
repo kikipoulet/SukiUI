@@ -8,7 +8,6 @@
                     <Panel Name="PART_ContentContainer">
                         <ContentPresenter Content="{TemplateBinding Content}" />
                     </Panel>
-                    
                     <Border Name="PART_DialogBackground"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
@@ -16,9 +15,7 @@
                             IsHitTestVisible="False"
                             IsVisible="False"
                             Opacity="0.4">
-                        
                     </Border>
-
                     <Border Name="borderDialog"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
@@ -43,7 +40,6 @@
                                 </TransformOperationsTransition>
                             </Transitions>
                         </Border.Transitions> 
-
                         <Panel>
                             <Border Name="BorderDialog1" Padding="0"
                                     ClipToBounds="True" Background="{DynamicResource SukiCardBackground}"
@@ -76,15 +72,12 @@
                             <ContentPresenter Margin="20" Content="{TemplateBinding DialogContent}" />
                         </Panel>
                     </Border>
-
                     <Panel.Styles>
                         <Style Selector="suki|SukiHost[IsDialogOpen=True]">
-
                             <Style Selector="^ Border#PART_DialogBackground">
                                 <Setter Property="IsVisible" Value="True" />
                                 <Setter Property="IsHitTestVisible" Value="True" />
                             </Style>
-
                             <Style Selector="^ Panel#PART_ContentContainer">
                                 <Setter Property="IsHitTestVisible" Value="False" />
                                 <!--  Please do not remove this empty blur  -->
@@ -98,25 +91,19 @@
                                         </KeyFrame>
                                     </Animation>
                                 </Style.Animations>
-
                             </Style>
-
                             <Style Selector="^ Border#borderDialog">
                                 <Setter Property="Margin" Value="0,25,0,0" />
                                 <Setter Property="IsVisible" Value="True" />
                                 <Setter Property="IsHitTestVisible" Value="True" />
                                 <Setter Property="RenderTransform" Value="scale(1)" />
                             </Style>
-
                         </Style>
-
                         <Style Selector="suki|SukiHost[IsDialogOpen=False]">
-
                             <Style Selector="^ Border#PART_DialogBackground">
                                 <Setter Property="IsVisible" Value="False" />
                                 <Setter Property="IsHitTestVisible" Value="False" />
                             </Style>
-
                             <Style Selector="^ Panel#PART_ContentContainer">
                                 <Setter Property="IsHitTestVisible" Value="True" />
                                 <!--  Please do not remove this empty blur  -->
@@ -131,7 +118,6 @@
                                     </Animation>
                                 </Style.Animations>
                             </Style>
-
                             <Style Selector="^ Border#borderDialog">
                                 <Setter Property="IsVisible" Value="False" />
                                 <Setter Property="IsHitTestVisible" Value="False" />
@@ -140,7 +126,6 @@
                             </Style>
                         </Style>
                     </Panel.Styles>
-
                 </Panel>
             </ControlTemplate>
         </Setter>

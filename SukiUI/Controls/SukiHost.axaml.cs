@@ -79,8 +79,6 @@ public class SukiHost : ContentControl
             var v = ElementComposition.GetElementVisual(b);
             CompositionAnimationHelper.MakeOpacityAnimated(v, 400);
         }; 
-        
-     
     }
     
 
@@ -169,7 +167,6 @@ public class SukiHost : ContentControl
         if (!Instances.TryGetValue(window, out var host))
             throw new InvalidOperationException("No SukiHost present in this window");
         host.IsDialogOpen = false;
-       
     }
 
     /// <summary>

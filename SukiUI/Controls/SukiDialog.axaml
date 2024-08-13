@@ -1,0 +1,36 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:suki="https://github.com/kikipoulet/SukiUI">
+    <ControlTheme TargetType="suki:SukiDialog" x:Key="SukiDialogTheme">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Padding="0" ClipToBounds="True" Background="{DynamicResource SukiCardBackground}" CornerRadius="20">
+                    <Panel Margin="-5">
+                        <Panel IsVisible="{DynamicResource IsDark}">
+                            <Panel.Background>
+                                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                                    <GradientStop Color="{DynamicResource SukiAccentColor3}" Offset="0"></GradientStop>
+                                    <GradientStop Color="{DynamicResource SukiPrimaryColor15}" Offset="1"></GradientStop>
+                                </LinearGradientBrush>
+                            </Panel.Background>
+                        </Panel>
+                        <Panel IsVisible="{DynamicResource IsLight}">
+                            <Panel.Background>
+                                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                                    <GradientStop Color="{DynamicResource SukiAccentColor5}" Offset="0"></GradientStop>
+                                    <GradientStop Color="{DynamicResource SukiPrimaryColor7}" Offset="1"></GradientStop>
+                                </LinearGradientBrush>
+                            </Panel.Background>
+                        </Panel>
+                        <suki:GroupBox Header="{TemplateBinding Title}">
+                            <ContentControl Content="{TemplateBinding Content}"/>
+                        </suki:GroupBox>
+                    </Panel>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+    <ControlTheme TargetType="suki:SukiDialog" 
+                  BasedOn="{StaticResource SukiDialogTheme}" 
+                  x:Key="{x:Type suki:SukiDialog}"/>
+</ResourceDictionary>

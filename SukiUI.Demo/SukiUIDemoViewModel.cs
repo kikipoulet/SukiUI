@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SukiUI.Demo.Features.Theming;
+using SukiUI.Dialogs;
 using SukiUI.Enums;
 using SukiUI.Toasts;
 
@@ -27,6 +28,7 @@ public partial class SukiUIDemoViewModel : ObservableObject
     public IAvaloniaReadOnlyList<SukiBackgroundStyle> BackgroundStyles { get; }
     
     public ISukiToastManager ToastManager { get; }
+    public ISukiDialogManager DialogManager { get; }
 
     [ObservableProperty] private ThemeVariant _baseTheme;
     [ObservableProperty] private DemoPageBase? _activePage;
@@ -41,9 +43,10 @@ public partial class SukiUIDemoViewModel : ObservableObject
     private readonly SukiTheme _theme;
     private readonly ThemingViewModel _theming;
 
-    public SukiUIDemoViewModel(IEnumerable<DemoPageBase> demoPages, PageNavigationService pageNavigationService, ISukiToastManager toastManager)
+    public SukiUIDemoViewModel(IEnumerable<DemoPageBase> demoPages, PageNavigationService pageNavigationService, ISukiToastManager toastManager, ISukiDialogManager dialogManager)
     {
         ToastManager = toastManager;
+        DialogManager = dialogManager;
         DemoPages = new AvaloniaList<DemoPageBase>(demoPages.OrderBy(x => x.Index).ThenBy(x => x.DisplayName));
         _theming = (ThemingViewModel)DemoPages.First(x => x is ThemingViewModel);
         _theming.BackgroundStyleChanged += style => BackgroundStyle = style;

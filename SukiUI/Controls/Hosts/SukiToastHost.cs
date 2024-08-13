@@ -123,7 +123,11 @@ namespace SukiUI.Controls
         {
             if (!Items.Contains(toast)) return;
             toast.AnimateDismiss();
-            Task.Delay(300).ContinueWith(_ => { Items.Remove(toast); }, TaskScheduler.FromCurrentSynchronizationContext());
+            Task.Delay(300).ContinueWith(_ =>
+            {
+                Items.Remove(toast);
+                ToastPool.Return((SukiToast)toast);
+            }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         static SukiToastHost()

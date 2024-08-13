@@ -92,10 +92,10 @@ public class SukiToast : ContentControl, ISukiToast
         this.Animate(MarginProperty, new Thickness(), new Thickness(0, 50, 0, -50), TimeSpan.FromMilliseconds(300));
     }
 
-    public SukiToast ResetToDefault()
+    public ISukiToast ResetToDefault()
     {
-        Title = "Information";
-        Content = "Toast Information";
+        Title = string.Empty;
+        Content = string.Empty;
         Icon = Icons.InformationOutline;
         Foreground = NotificationColor.InfoIconForeground;
         CanDismissByClicking = false;

@@ -2,14 +2,22 @@ using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
 using SukiUI.Controls;
 using SukiUI.Demo.Utilities;
+using SukiUI.Dialogs;
 
 namespace SukiUI.Demo.Features.ControlsLibrary.Dialogs;
 
-public partial class DialogsViewModel() : DemoPageBase("Dialogs", MaterialIconKind.Forum)
+public partial class DialogsViewModel(ISukiDialogManager dialogManager) : DemoPageBase("Dialogs", MaterialIconKind.Forum)
 {
     [RelayCommand]
-    private static void OpenStandardDialog() =>
-        SukiHost.ShowDialog(new StandardDialog());
+    private void OpenStandardDialog()
+    {
+        //SukiHost.ShowDialog(new StandardDialog());
+        dialogManager.CreateDialog()
+            .WithTitle("Hello, World!")
+            .WithContent("Dialog Content Goes Here!")
+            .Dismiss().ByClickingBackground()
+            .TryShow();
+    }
 
     [RelayCommand]
     private static void OpenBackgroundCloseDialog() =>

@@ -84,6 +84,12 @@
 	  <Compile Update="Controls\Hosts\SukiToastHost.cs">
 	    <DependentUpon>SukiToastHost.axaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Controls\Hosts\SukiDialogHost.cs">
+	    <DependentUpon>SukiDialogHost.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Controls\SukiDialog.cs">
+	    <DependentUpon>SukiDialog.axaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>

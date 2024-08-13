@@ -10,6 +10,7 @@ using SukiUI.Demo.Services;
 using System;
 using System.Linq;
 using SukiUI.Controls;
+using SukiUI.Dialogs;
 using SukiUI.Toasts;
 
 namespace SukiUI.Demo;
@@ -52,6 +53,7 @@ public class App : Application
         services.AddSingleton<PageNavigationService>();
         services.AddSingleton<ClipboardService>();
         services.AddSingleton<ISukiToastManager, SukiToastManager>();
+        services.AddSingleton<ISukiDialogManager, SukiDialogManager>();
 
         // ViewModels
         services.AddSingleton<SukiUIDemoViewModel>();
