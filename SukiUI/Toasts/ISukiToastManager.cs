@@ -28,6 +28,18 @@ namespace SukiUI.Toasts
         /// Dismisses a given toast from the stack, if it is still present.
         /// </summary>
         void Dismiss(ISukiToast toast);
+
+        /// <summary>
+        /// Dismisses a specific number of toasts from the stack.
+        /// </summary>
+        void Dismiss(int count);
+
+        /// <summary>
+        /// Ensures that the toast stack doesn't exceed the specified maximum.
+        /// If it does, it will dismiss the oldest toasts down to the maximum.
+        /// </summary>
+        /// <param name="maxAllowed"></param>
+        void EnsureMaximum(int maxAllowed);
         
         /// <summary>
         /// Dismisses all toasts from the stack immediately.

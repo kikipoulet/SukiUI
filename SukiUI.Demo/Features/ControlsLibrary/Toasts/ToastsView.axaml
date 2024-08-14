@@ -17,10 +17,7 @@
                         SukiUI contains an API for creating and dismissing 4 kinds of toasts, with the ability to set limits on the number of toasts.
                     </TextBlock>
                     <TextBlock>
-                        It is also possible to set the toasts to appear in the bottom right (default) or in the bottom left.
-                    </TextBlock>
-                    <TextBlock>
-                        Toasts by default will be automatically dismissed after 4 seconds, this can be set as required, Toasts can also be dismissed by simply clicking on them.
+                        It is also possible to set the toasts to appear in any of the 4 corners, by default they are displayed in the bottom right.
                     </TextBlock>
                     <TextBlock>
                         A callback can be provided also which will be invoked if a toast is closed by being clicked by a user.

@@ -99,6 +99,9 @@ public class SukiToast : ContentControl, ISukiToast
         Icon = Icons.InformationOutline;
         Foreground = NotificationColor.InfoIconForeground;
         CanDismissByClicking = false;
+        ActionButtons.Clear();
+        OnDismissed = null;
+        OnClicked = null;
         DockPanel.SetDock(this, Dock.Bottom);
         return this;
     }

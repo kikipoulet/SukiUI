@@ -113,9 +113,8 @@ namespace SukiUI.Controls
         {
             if (MaxToasts <= 0) return;
             var toast = args.Toast;
-            if (Items.Count >= MaxToasts) 
-                Manager.Dismiss((ISukiToast)Items.First()!);
             Items.Add(args.Toast);
+            Manager.EnsureMaximum(MaxToasts);
             toast.AnimateShow();
         }
         
