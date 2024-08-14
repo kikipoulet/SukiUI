@@ -56,7 +56,7 @@
                                 CornerRadius="0" Padding="0"
                                 IsEnabled="{TemplateBinding IsEnabled}"
                                 TemplatedControl.IsTemplateFocusTarget="True">
-                            <suki:GlassCard CornerRadius="{DynamicResource SmallCornerRadius}" Height="{TemplateBinding Height}" BorderBrush="{TemplateBinding BorderBrush}"
+                            <suki:GlassCard CornerRadius="{DynamicResource SmallCornerRadius}" Height="{TemplateBinding Height}" 
                                             BorderThickness="{TemplateBinding BorderThickness}" Classes="Discrete" >
                             <Grid Margin="14,0"  ColumnDefinitions="Auto,Auto">
                                 <Grid Name="PART_ButtonContentGrid"

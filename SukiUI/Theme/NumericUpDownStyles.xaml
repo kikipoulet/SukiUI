@@ -19,7 +19,7 @@
         <Setter Property="Padding" Value="4" />
         <Setter Property="Template">
             <ControlTemplate>
-                <suki:GlassCard VerticalAlignment="Center" CornerRadius="{TemplateBinding CornerRadius}" Padding="0">
+                <suki:GlassCard Classes="Discrete" VerticalAlignment="Center" CornerRadius="{TemplateBinding CornerRadius}" Padding="0">
                 <ButtonSpinner Name="PART_Spinner" 
                                Margin="5,4" 
                                Height="26"
