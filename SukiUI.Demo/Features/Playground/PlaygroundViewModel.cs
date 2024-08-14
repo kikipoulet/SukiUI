@@ -1,10 +1,13 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using Avalonia.Controls.Notifications;
 using Material.Icons;
 using SukiUI.Demo.Utilities;
+using SukiUI.Toasts;
 
 namespace SukiUI.Demo.Features.Playground;
 
-internal class PlaygroundViewModel() : DemoPageBase("Playground", MaterialIconKind.Pencil, -150)
+internal class PlaygroundViewModel(ISukiToastManager toastManager) : DemoPageBase("Playground", MaterialIconKind.Pencil, -150)
 {
     public ObservableCollection<string> ButtonsElements { get; init; } =
     [
@@ -56,4 +59,15 @@ internal class PlaygroundViewModel() : DemoPageBase("Playground", MaterialIconKi
         XamlData.Layout["Expander"],
         XamlData.Layout["TabControl"]
     ];
+
+    public void DisplayError(string message)
+    {
+        toastManager.CreateToast()
+            .OfType(NotificationType.Error)
+            .WithTitle("Playground Error")
+            .WithContent(message)
+            .Dismiss().After(TimeSpan.FromSeconds(5))
+            .Dismiss().ByClicking()
+            .Queue();
+    }
 }

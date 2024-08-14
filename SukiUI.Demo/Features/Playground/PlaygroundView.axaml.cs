@@ -35,6 +35,8 @@ public partial class PlaygroundView : UserControl
     private Button? _renderButton;
 
     private Button? _clearButton;
+    
+    private PlaygroundViewModel PlaygroundDataContext => (PlaygroundViewModel)DataContext!;
 
     public PlaygroundView()
     {
@@ -84,15 +86,15 @@ public partial class PlaygroundView : UserControl
         }
         catch (XmlException ex)
         {
-            SukiHost.ShowToast("Error", $"Exception occurred during parsing xml: \n {ex.Message}");
+            PlaygroundDataContext.DisplayError($"Exception occurred during parsing xml: \n {ex.Message}");
         }
         catch (InvalidCastException ex)
         {
-            SukiHost.ShowToast("Error", $"Exception occurred during conversion from xaml string to control: \n {ex.Message}");
+            PlaygroundDataContext.DisplayError( $"Exception occurred during conversion from xaml string to control: \n {ex.Message}");
         }
         catch (XamlLoadException ex)
         {
-            SukiHost.ShowToast("Error", $"Exception occurred during loading xaml code for control: \n {ex.Message}");
+            PlaygroundDataContext.DisplayError( $"Exception occurred during loading xaml code for control: \n {ex.Message}");
         }
     }
 

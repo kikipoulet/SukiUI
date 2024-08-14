@@ -1,0 +1,68 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:suki="https://github.com/kikipoulet/SukiUI">
+    <ControlTheme TargetType="suki:SukiDialog" x:Key="SukiDialogTheme">
+        <Setter Property="ClipToBounds" Value="False"/> 
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel>
+                    <Border Padding="0" 
+                            ClipToBounds="True" 
+                            Background="{DynamicResource SukiCardBackground}"
+                            CornerRadius="20">
+                        <Panel>
+                            <Panel IsVisible="{DynamicResource IsDark}" Margin="-5">
+                                <Panel.Background>
+                                    <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                                        <GradientStop Color="{DynamicResource SukiAccentColor3}" Offset="0"></GradientStop>
+                                        <GradientStop Color="{DynamicResource SukiPrimaryColor15}" Offset="1"></GradientStop>
+                                    </LinearGradientBrush>
+                                </Panel.Background>
+                            </Panel>
+                            <Panel IsVisible="{DynamicResource IsLight}" Margin="-5">
+                                <Panel.Background>
+                                    <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                                        <GradientStop Color="{DynamicResource SukiAccentColor5}" Offset="0"></GradientStop>
+                                        <GradientStop Color="{DynamicResource SukiPrimaryColor7}" Offset="1"></GradientStop>
+                                    </LinearGradientBrush>
+                                </Panel.Background>
+                            </Panel>
+                            <suki:GroupBox Header="{TemplateBinding Title}" Margin="15"
+                                           IsVisible="{Binding !IsViewModelOnly, RelativeSource={RelativeSource TemplatedParent}}">
+                                <StackPanel Spacing="5">
+                                    <ContentControl Content="{TemplateBinding Content}" />
+                                    <ItemsControl ItemsSource="{TemplateBinding ActionButtons}">
+                                        <ItemsControl.Styles>
+                                            <Style Selector="Button:nth-child(1n+2)">
+                                                <Setter Property="Margin" Value="5,0,0,0" />
+                                            </Style>
+                                        </ItemsControl.Styles>
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <UniformGrid Columns="0" Rows="1" />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </suki:GroupBox>
+                            <ContentControl Content="{TemplateBinding ViewModel}" Margin="15"
+                                            IsVisible="{TemplateBinding IsViewModelOnly}" />
+                        </Panel>
+                    </Border>
+                    <Panel HorizontalAlignment="Right"
+                           VerticalAlignment="Top"
+                           Margin="-15,-15,0,0">
+                        <Ellipse Width="35" Height="35" Fill="{TemplateBinding IconColor}"/>
+                        <PathIcon Data="{TemplateBinding Icon}"
+                                  Foreground="White"
+                                  Width="25"
+                                  Height="25" />
+                    </Panel>
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+    <ControlTheme TargetType="suki:SukiDialog"
+                  BasedOn="{StaticResource SukiDialogTheme}"
+                  x:Key="{x:Type suki:SukiDialog}" />
+</ResourceDictionary>

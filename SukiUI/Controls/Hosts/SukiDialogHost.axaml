@@ -1,0 +1,67 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:suki="https://github.com/kikipoulet/SukiUI">
+    <ControlTheme x:Key="SukiDialogHostTheme" TargetType="suki:SukiDialogHost">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel>
+                    <Border Name="PART_DialogBackground"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Background="{DynamicResource SukiDialogBackground}"
+                            Opacity="0" />
+                    <ContentControl Name="PART_DialogContent"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    ClipToBounds="False"
+                                    Content="{TemplateBinding Dialog}">
+                        <ContentControl.Transitions>
+                            <Transitions>
+                                <ThicknessTransition Property="Margin" Duration="0:0:0.25">
+                                    <ThicknessTransition.Easing>
+                                        <CircularEaseOut />
+                                    </ThicknessTransition.Easing>
+                                </ThicknessTransition>
+                                <DoubleTransition Property="Opacity" Duration="0:0:0.15" />
+                                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.25">
+                                    <TransformOperationsTransition.Easing>
+                                        <CircularEaseOut />
+                                    </TransformOperationsTransition.Easing>
+                                </TransformOperationsTransition>
+                            </Transitions>
+                        </ContentControl.Transitions>
+                    </ContentControl>
+                    <Panel.Styles>
+                        <Style Selector="suki|SukiDialogHost[IsDialogOpen=True]">
+                            <Style Selector="^ Border#PART_DialogBackground">
+                                <Setter Property="Opacity" Value="0.4" />
+                                <Setter Property="IsHitTestVisible" Value="True" />
+                            </Style>
+                            <Style Selector="^ ContentControl#PART_DialogContent">
+                                <Setter Property="Margin" Value="0" />
+                                <Setter Property="IsVisible" Value="True" />
+                                <Setter Property="IsHitTestVisible" Value="True" />
+                                <Setter Property="RenderTransform" Value="scale(1)" />
+                            </Style>
+                        </Style>
+                        <Style Selector="suki|SukiDialogHost[IsDialogOpen=False]">
+                            <Style Selector="^ Border#PART_DialogBackground">
+                                <Setter Property="Opacity" Value="0" />
+                                <Setter Property="IsHitTestVisible" Value="False" />
+                            </Style>
+                            <Style Selector="^ ContentControl#PART_DialogContent">
+                                <Setter Property="IsVisible" Value="False" />
+                                <Setter Property="IsHitTestVisible" Value="False" />
+                                <Setter Property="RenderTransform" Value="scale(0.7)" />
+                                <Setter Property="Margin" Value="0,125,0,0" />
+                            </Style>
+                        </Style>
+                    </Panel.Styles>
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+    <ControlTheme x:Key="{x:Type suki:SukiDialogHost}"
+                  BasedOn="{StaticResource SukiDialogHostTheme}"
+                  TargetType="suki:SukiDialogHost" />
+</ResourceDictionary>

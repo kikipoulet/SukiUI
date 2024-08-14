@@ -4,6 +4,8 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using SukiUI.Models;
 using System;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Timers;
 using Avalonia.Controls.Notifications;
 using Avalonia.Interactivity;
@@ -11,30 +13,17 @@ using Avalonia.Media;
 using SukiUI.ColorTheme;
 using SukiUI.Content;
 using SukiUI.Enums;
+using SukiUI.Toasts;
 
 namespace SukiUI.Controls;
 
-public class SukiToast : ContentControl
+public class SukiToast : ContentControl, ISukiToast
 {
     protected override Type StyleKeyOverride => typeof(SukiToast);
     
-    internal SukiHost Host { get; private set; }
-
-    private readonly Timer _timer = new();
-
-    private Action? _onClickedCallback;
-    private Action? _onActionCallback;
-
-    public SukiToast()
-    {
-        _timer.Elapsed += TimerOnElapsed;
-    }
-
-    private async void TimerOnElapsed(object sender, ElapsedEventArgs e)
-    {
-        _timer.Stop();
-        await SukiHost.ClearToast(this);
-    }
+    public ISukiToastManager? Manager { get; set; }
+    public Action<ISukiToast>? OnDismissed { get; set; }
+    public Action<ISukiToast>? OnClicked { get; set; }
     
     public static readonly StyledProperty<object?> IconProperty =
         AvaloniaProperty.Register<SukiToast, object?>(nameof(Icon));
@@ -53,86 +42,67 @@ public class SukiToast : ContentControl
         get => GetValue(TitleProperty);
         set => SetValue(TitleProperty, value);
     }
-    
-    public static readonly StyledProperty<bool> ShowActionButtonProperty =
-        AvaloniaProperty.Register<SukiToast, bool>(nameof(ShowActionButton));
 
-    public bool ShowActionButton
+    public static readonly StyledProperty<bool> CanDismissByClickingProperty = AvaloniaProperty.Register<SukiToast, bool>(nameof(CanDismissByClicking));
+
+    public bool CanDismissByClicking
     {
-        get => GetValue(ShowActionButtonProperty);
-        set => SetValue(ShowActionButtonProperty, value);
+        get => GetValue(CanDismissByClickingProperty);
+        set => SetValue(CanDismissByClickingProperty, value);
     }
     
-    public static readonly StyledProperty<string> ActionButtonContentProperty =
-        AvaloniaProperty.Register<SukiToast, string>(nameof(ActionButtonContent));
+    public static readonly StyledProperty<ObservableCollection<object>> ActionButtonsProperty = AvaloniaProperty.Register<SukiToast, 
+        ObservableCollection<object>>(nameof(ActionButtons));
 
-    public string ActionButtonContent
+    public ObservableCollection<object> ActionButtons
     {
-        get => GetValue(ActionButtonContentProperty);
-        set => SetValue(ActionButtonContentProperty, value);
+        get => GetValue(ActionButtonsProperty);
+        set => SetValue(ActionButtonsProperty, value);
     }
 
+    public SukiToast()
+    {
+        ActionButtons = new ObservableCollection<object>();
+    }
+    
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
 
         e.NameScope.Get<Border>("PART_ToastCard").PointerPressed += ToastCardClickedHandler;
-        e.NameScope.Get<Button>("ButtonAction").Click += ButtonActionClicked;
     }
 
-    private void ButtonActionClicked(object sender, RoutedEventArgs e)
+    private void ToastCardClickedHandler(object o, PointerPressedEventArgs pointerPressedEventArgs)
     {
-        _onActionCallback?.Invoke();
+        OnClicked?.Invoke(this);
+        if (!CanDismissByClicking) return;
+        Manager.Dismiss(this);
+        OnDismissed?.Invoke(this);
     }
 
-    private async void ToastCardClickedHandler(object o, PointerPressedEventArgs pointerPressedEventArgs)
+    public void AnimateShow()
     {
-        _onClickedCallback?.Invoke();
-        _onClickedCallback = null;
-        await SukiHost.ClearToast(this);
+        this.Animate(OpacityProperty, 0d, 1d, TimeSpan.FromMilliseconds(500));
+        this.Animate(MarginProperty, new Thickness(0, 10, 0, -10), new Thickness(), TimeSpan.FromMilliseconds(500));
     }
-    
-    // Icon Foreground Brushes
-    // Note: it would be better to place them into a resource dictionary, but findResource performs slightly slower
-    
 
-    public void Initialize(ToastModel model, SukiHost host)
+    public void AnimateDismiss()
     {
-        Host = host;
-        Title = model.Title;
-        Content = model.Content;
-        if (model.ActionButtonContent != null || model.ActionButton != null)
-        {
-            ShowActionButton = true;
-            ActionButtonContent = model.ActionButtonContent;
-            _onActionCallback = model.OnActionButtonClicked;
-        }
-        else
-        {
-            ShowActionButton = false;
-            ActionButtonContent = "";
-            _onActionCallback = null;
-        }
-        Icon = model.Type switch
-        {
-            NotificationType.Information => Icons.InformationOutline,
-            NotificationType.Success => Icons.Check,
-            NotificationType.Warning => Icons.AlertOutline,
-            NotificationType.Error => Icons.AlertOutline,
-            _ => Icons.InformationOutline
-        };
-        Foreground = model.Type switch
-        {
-            NotificationType.Information => NotificationColor.InfoIconForeground,
-            NotificationType.Success => NotificationColor.SuccessIconForeground,
-            NotificationType.Warning => NotificationColor.WarningIconForeground,
-            NotificationType.Error => NotificationColor.ErrorIconForeground,
-            _ => NotificationColor.InfoIconForeground
-        };
-        _onClickedCallback = model.OnClicked;
-       
-        _timer.Interval = model.Lifetime?.TotalMilliseconds ?? TimeSpan.FromSeconds(6).TotalMilliseconds;
-        _timer.Start();
+        this.Animate(OpacityProperty, 1d, 0d, TimeSpan.FromMilliseconds(300));
+        this.Animate(MarginProperty, new Thickness(), new Thickness(0, 50, 0, -50), TimeSpan.FromMilliseconds(300));
+    }
+
+    public ISukiToast ResetToDefault()
+    {
+        Title = string.Empty;
+        Content = string.Empty;
+        Icon = Icons.InformationOutline;
+        Foreground = NotificationColor.InfoIconForeground;
+        CanDismissByClicking = false;
+        ActionButtons.Clear();
+        OnDismissed = null;
+        OnClicked = null;
         DockPanel.SetDock(this, Dock.Bottom);
+        return this;
     }
 }

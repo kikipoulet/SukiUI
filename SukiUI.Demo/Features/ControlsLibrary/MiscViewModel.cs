@@ -29,18 +29,6 @@ public partial class MiscViewModel() : DemoPageBase("Miscellaneous", MaterialIco
         await Task.Delay(3000);
         IsBusy = false;
     }
-    
-    [RelayCommand]
-    private void OpenBox()
-    {
-        SukiHost.ShowMessageBox(new MessageBoxModel("Update Available", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", NotificationType.Information, "Update Now", () =>{SukiHost.CloseDialog();} ));
-    }
-    
-    [RelayCommand]
-    private void OpenBoxError()
-    {
-        SukiHost.ShowMessageBox(new MessageBoxModel("Error", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ", NotificationType.Error));
-    }
         
     [RelayCommand]
     private void OpenFile()

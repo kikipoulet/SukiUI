@@ -3,13 +3,12 @@
                     xmlns:content="clr-namespace:SukiUI.Content"
                     xmlns:suki="clr-namespace:SukiUI.Controls">
     <Design.PreviewWith>
-        <suki:SukiToast Title="titre" Content="message" />
+        <suki:SukiToast Title="Title" Content="Message" />
     </Design.PreviewWith>
     <ControlTheme x:Key="SukiToastTheme" TargetType="suki:SukiToast">
         <Setter Property="Template">
             <ControlTemplate>
                 <Panel>
-
                     <Border Name="PART_ToastCard"
                             Width="300"
                             Margin="40,5,30,10"
@@ -27,28 +26,21 @@
                                             <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
                                                 <GradientStop Offset="0" Color="{DynamicResource SukiAccentColor5}" />
                                                 <GradientStop Offset="1" Color="{DynamicResource SukiPrimaryColor10}" />
-
                                             </LinearGradientBrush>
                                         </Panel.Background>
                                     </Panel>
                                 </Panel>
-
                                 <Panel IsVisible="{DynamicResource IsLight}">
                                     <Panel Margin="0">
                                         <Panel.Background>
                                             <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
                                                 <GradientStop Offset="0" Color="{DynamicResource SukiAccentColor3}" />
                                                 <GradientStop Offset="1" Color="{DynamicResource SukiPrimaryColor3}" />
-
                                             </LinearGradientBrush>
                                         </Panel.Background>
                                     </Panel>
-
                                 </Panel>
-
-
                                 <Panel Margin="20,22">
-
                                     <DockPanel Margin="0,-7" LastChildFill="True">
                                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
                                             <ContentPresenter Margin="12,0,0,0"
@@ -57,14 +49,16 @@
                                                               FontWeight="{DynamicResource DefaultDemiBold}"
                                                               Foreground="{DynamicResource SukiText}" />
                                         </StackPanel>
-                                        <Button Name="ButtonAction"
-                                                Margin="0,14,0,0"
-                                                Padding="14,6"
-                                                HorizontalAlignment="Right"
-                                                Content="{TemplateBinding ActionButtonContent}"
-                                                DockPanel.Dock="Bottom"
-                                                FontSize="14"
-                                                IsVisible="{TemplateBinding ShowActionButton}" />
+                                        <ItemsControl DockPanel.Dock="Bottom" 
+                                                      ItemsSource="{TemplateBinding ActionButtons}" 
+                                                      Margin="0,14,0,0"
+                                                      HorizontalAlignment="Right">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel Orientation="Horizontal" Spacing="5"/>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                        </ItemsControl>
                                         <ContentPresenter Margin="12,10,0,0"
                                                           Content="{TemplateBinding Content}"
                                                           Foreground="{DynamicResource SukiText}"

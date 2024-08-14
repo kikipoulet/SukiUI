@@ -1,25 +1,82 @@
+using System;
+using Avalonia.Controls.Notifications;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
-using SukiUI.Controls;
-using SukiUI.Demo.Utilities;
+using SukiUI.Dialogs;
+using SukiUI.Toasts;
 
 namespace SukiUI.Demo.Features.ControlsLibrary.Dialogs;
 
-public partial class DialogsViewModel() : DemoPageBase("Dialogs", MaterialIconKind.Forum)
+public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToastManager toastManager) : DemoPageBase("Dialogs", MaterialIconKind.Forum)
 {
+    public NotificationType[] NotificationTypes { get; } = Enum.GetValues<NotificationType>();
+    
+    [ObservableProperty] private NotificationType _selectedType;
+    
     [RelayCommand]
-    private static void OpenStandardDialog() =>
-        SukiHost.ShowDialog(new StandardDialog());
+    private void OpenStandardDialog()
+    {
+        dialogManager.CreateDialog()
+            .WithTitle("A Standard Dialog")
+            .WithContent("This is a standard dialog. Click the button below to dismiss.")
+            .WithActionButton("Dismiss", _ => { }, true)
+            .TryShow();
+    }
 
     [RelayCommand]
-    private static void OpenBackgroundCloseDialog() =>
-        SukiHost.ShowDialog(new BackgroundCloseDialog(), allowBackgroundClose: true);
-        
-    [RelayCommand]
-    private static void OpenViewModelDialog() =>
-        SukiHost.ShowDialog(new VmDialogViewModel(), allowBackgroundClose: true);
+    private void OpenBackgroundCloseDialog()
+    {
+        dialogManager.CreateDialog()
+            .WithTitle("Background Closing Dialog")
+            .WithContent("Dismiss this dialog by clicking anywhere outside of it.")
+            .Dismiss().ByClickingBackground()
+            .TryShow();
+    }
 
     [RelayCommand]
-    private static void OpenDialogWindowDemo() => new DialogWindowDemo().Show();
+    private void OpenMultiOptionDialog()
+    {
+        dialogManager.CreateDialog()
+            .WithTitle("Multi Option Dialog")
+            .WithContent("Select any one of the below options:")
+            .WithActionButton("Option 1", _ => ShowOptionToast(1), true)
+            .WithActionButton("Option 2", _ => ShowOptionToast(2), true)
+            .WithActionButton("Option 3", _ => ShowOptionToast(3), true)
+            .TryShow();
+    }
+
+    private void ShowOptionToast(int option)
+    {
+        toastManager.CreateToast()
+            .WithTitle("Dialog Option Clicked")
+            .WithContent($"You clicked option #{option}")
+            .Dismiss().ByClicking()
+            .Dismiss().After(TimeSpan.FromSeconds(3))
+            .Queue();
+    }
+
+    [RelayCommand]
+    private void OpenMessageBoxStyleDialog()
+    {
+        dialogManager.CreateDialog()
+            .OfType(SelectedType)
+            .WithTitle("MessageBox style dialog.")
+            .WithContent($"This MessageBox is - {SelectedType}.")
+            .WithActionButton("Dismiss", _ => { }, true)
+            .Dismiss().ByClickingBackground()
+            .TryShow();
+    }
+
+    [RelayCommand]
+    private void OpenViewModelDialog()
+    {
+        dialogManager.CreateDialog()
+            .WithViewModel(dialog => new VmDialogViewModel(dialog))
+            .TryShow();
+    }
+
+    [RelayCommand]
+    private void OpenDialogWindowDemo() => new DialogWindowDemo(dialogManager).Show();
         
 }

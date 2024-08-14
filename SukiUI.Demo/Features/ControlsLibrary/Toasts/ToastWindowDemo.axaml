@@ -2,14 +2,12 @@
                  xmlns="https://github.com/avaloniaui"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:suki="https://github.com/kikipoulet/SukiUI"
-                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  Title="Toast Window Demo"
-                 Width="550"
-                 Height="400"
-                 d:DesignHeight="450"
-                 d:DesignWidth="800"
-                 mc:Ignorable="d">
+                 Width="720"
+                 Height="400">
+    <suki:SukiWindow.Hosts>
+        <suki:SukiToastHost Name="ToastHost"/>
+    </suki:SukiWindow.Hosts>
     <Grid RowDefinitions="Auto,*">
         <suki:GlassCard Classes="HeaderCard">
             <suki:GroupBox Header="Toasts">
@@ -33,6 +31,13 @@
                     <suki:GroupBox Header="Show In MainWindow">
                         <Button Margin="15,10,15,0"
                                 Click="ShowToastInMainWindowClicked"
+                                Content="Show Toast" />
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Show In Both Windows">
+                        <Button Margin="15,10,15,0"
+                                Click="ShowToastInBothWindowsClicked"
                                 Content="Show Toast" />
                     </suki:GroupBox>
                 </suki:GlassCard>

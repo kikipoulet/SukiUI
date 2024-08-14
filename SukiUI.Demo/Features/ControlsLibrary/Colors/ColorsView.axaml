@@ -25,7 +25,8 @@
                     <DataTemplate>
                         <suki:GlassCard Margin="15"
                                         IsInteractive="True"
-                                        PointerPressed="InputElement_OnPointerPressed">
+                                        Command="{Binding $parent[colors:ColorsView].((colors:ColorsViewModel)DataContext).ColorClickedCommand}"
+                                        CommandParameter="{Binding}">
                             <suki:GroupBox Header="{Binding Name}">
                                 <Rectangle Width="50"
                                            Height="50"

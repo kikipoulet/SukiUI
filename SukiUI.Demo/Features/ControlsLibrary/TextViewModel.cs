@@ -1,12 +1,14 @@
+using System;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
 using SukiUI.Controls;
 using System.Threading.Tasks;
+using SukiUI.Toasts;
 
 namespace SukiUI.Demo.Features.ControlsLibrary;
 
-public partial class TextViewModel() : DemoPageBase("Text", MaterialIconKind.Text)
+public partial class TextViewModel(ISukiToastManager toastManager) : DemoPageBase("Text", MaterialIconKind.Text)
 {
     private const string DefaultText = "Hello, World!";
 
@@ -15,9 +17,14 @@ public partial class TextViewModel() : DemoPageBase("Text", MaterialIconKind.Tex
     [ObservableProperty] private bool _hyperlinkVisited;
 
     [RelayCommand]
-    private Task HyperlinkClicked()
+    private void HyperlinkClicked()
     {
         HyperlinkVisited = true;
-        return SukiHost.ShowToast("Clicked a hyperlink", "You clicked the hyperlink on the Text page.");
+        toastManager.CreateToast()
+            .WithTitle("Clicked Hyperlink")
+            .WithContent("You clicked the hyperlink on the Text page.")
+            .Dismiss().After(TimeSpan.FromSeconds(5))
+            .Dismiss().ByClicking()
+            .Queue();
     }
 }

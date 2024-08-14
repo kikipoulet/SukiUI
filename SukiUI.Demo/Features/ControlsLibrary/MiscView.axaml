@@ -113,27 +113,6 @@
                         </StackPanel>
                     </suki:GroupBox>
                 </suki:GlassCard>
-                
-                <suki:GlassCard>
-                    <suki:GroupBox Header="Message Box">
-                        <StackPanel Spacing="8">
-                            <Button Margin="5"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Classes="Primary"
-                                    Command="{Binding OpenBoxCommand}"
-                                    Content="Open MessageBox" />
-                            
-                            <Button Margin="5"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Classes="Primary"
-                                    Command="{Binding OpenBoxErrorCommand}"
-                                    Content="Open Error MessageBox" />
-                            
-                        </StackPanel>
-                    </suki:GroupBox>
-                </suki:GlassCard>
             </WrapPanel>
         </ScrollViewer>
     </Grid>

@@ -22,6 +22,10 @@
                  IsMenuVisible="True"
                  IsTitleBarVisible="{Binding TitleBarVisible, Mode=TwoWay}"
                  mc:Ignorable="d">
+    <suki:SukiWindow.Hosts>
+        <suki:SukiToastHost Manager="{Binding ToastManager}"/>
+        <suki:SukiDialogHost Manager="{Binding DialogManager}"/>
+    </suki:SukiWindow.Hosts>
     <suki:SukiWindow.LogoContent>
         <avalonia:MaterialIcon Width="20"
                                Height="20"

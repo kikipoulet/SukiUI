@@ -31,7 +31,7 @@
         <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
         <Setter Property="Template">
             <ControlTemplate>
-                <DockPanel>
+                <DockPanel Name="DP">
                     <ContentPresenter x:Name="PART_OffContentPresenter"
                                       DockPanel.Dock="Left" Margin="0,0,7,0"
                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -173,6 +173,8 @@
         </Setter>
     </Style>
 
+   
+    
     <Style Selector="ToggleSwitch:unchecked /template/ Border#SwitchKnob">
         <Style.Animations>
             <Animation FillMode="Both" Duration="0:0:0.25">

@@ -12,13 +12,4 @@ public partial class IconsView : UserControl
     {
         InitializeComponent();
     }
-
-    private void InputElement_OnPointerPressed(object? sender, PointerPressedEventArgs e)
-    {
-        if (VisualRoot is not Window win) return;
-        if (sender is not Control control) return;
-        if (control.DataContext is not KeyValuePair<string, StreamGeometry> kvp) return;
-        win.Clipboard!.SetTextAsync($"<PathIcon Data=\"{{x:Static content:Icons.{kvp.Key}}}\" />");
-        SukiHost.ShowToast("Copied To Clipboard", $"Copied the XAML for {kvp.Key} to clipboard.");
-    }
 }

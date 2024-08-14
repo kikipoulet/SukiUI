@@ -1,22 +1,25 @@
+using System.Collections.Concurrent;
 using SukiUI.Controls;
 using System.Collections.Generic;
+using SukiUI.Toasts;
 
 namespace SukiUI.Helpers;
 
 internal static class ToastPool
 {
-    private static readonly Stack<SukiToast> Pool = new();
+    private static readonly ConcurrentBag<ISukiToast> Pool = new();
 
-    internal static SukiToast Get()
+    internal static ISukiToast Get()
     {
-        return Pool.Count >= 1 ? Pool.Pop() : new SukiToast();
+        var toast = Pool.TryTake(out var item) ? item : new SukiToast();
+        return toast.ResetToDefault();
     }
 
-    internal static void Return(SukiToast toast) => Pool.Push(toast);
+    internal static void Return(ISukiToast toast) => Pool.Add(toast);
 
-    internal static void Return(IEnumerable<SukiToast> toasts)
+    internal static void Return(IEnumerable<ISukiToast> toasts)
     {
         foreach (var toast in toasts)
-            Pool.Push(toast);
+            Pool.Add(toast);
     }
 }

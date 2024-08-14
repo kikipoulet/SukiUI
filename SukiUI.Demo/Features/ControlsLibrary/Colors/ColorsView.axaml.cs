@@ -10,13 +10,4 @@ public partial class ColorsView : UserControl
     {
         InitializeComponent();
     }
-
-    private void InputElement_OnPointerPressed(object? sender, PointerPressedEventArgs e)
-    {
-        if (VisualRoot is not Window win) return;
-        if (sender is not Control control) return;
-        if (control.DataContext is not ColorViewModel vm) return;
-        win.Clipboard!.SetTextAsync(vm.Name);
-        SukiHost.ShowToast("Copied To Clipboard", $"Copied the name of {vm.Name} to clipboard.");
-    }
 }
