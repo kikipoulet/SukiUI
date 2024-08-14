@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
 using SukiUI.ColorTheme;
@@ -60,13 +61,17 @@ namespace SukiUI.Toasts
 
         public void SetOnClicked(Action<ISukiToast> action) => Toast.OnClicked = action;
         
-        public void AddActionButton(object buttonContent, Action<ISukiToast> action, bool dismissOnClick)
+        public void AddActionButton(object buttonContent, Action<ISukiToast> action, bool dismissOnClick, bool flatstyle = true)
         {
-            var btn = new Button()
-            {
-                Content = buttonContent,
-                Classes = { "Flat" }
-            };
+            Button btn = new Button()
+                {
+                    Content = buttonContent,
+                    Classes = { flatstyle ?"Flat" : "Basic" },
+                    Margin = flatstyle ? new Thickness(14, 9, 0, 12) : new Thickness(14, -3, 0, 3)
+                };
+            
+           
+
             btn.Click += (_, _) =>
             {
                 action(Toast);

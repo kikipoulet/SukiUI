@@ -10,7 +10,7 @@
             <ControlTemplate>
                 <Panel>
                     <Border Name="PART_ToastCard"
-                            Width="300"
+                            MinWidth="300" MaxWidth="400"
                             Margin="40,5,30,10"
                             Padding="0"
                             Background="{DynamicResource SukiCardBackground}"
@@ -40,29 +40,41 @@
                                         </Panel.Background>
                                     </Panel>
                                 </Panel>
-                                <Panel Margin="20,22">
-                                    <DockPanel Margin="0,-7" LastChildFill="True">
+                                <Panel Margin="20,22,20,8">
+                                    <DockPanel Margin="0,-7,0,-4" LastChildFill="True">
                                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
                                             <ContentPresenter Margin="12,0,0,0"
                                                               Content="{TemplateBinding Title}"
-                                                              FontSize="15"
+                                                              FontSize="17"
                                                               FontWeight="{DynamicResource DefaultDemiBold}"
-                                                              Foreground="{DynamicResource SukiText}" />
+                                                              Foreground="{DynamicResource SukiText}" >
+                                                <ContentPresenter.Styles>
+                                                    <Style Selector="TextBlock">
+                                                        <Setter Property="FontSize" Value="16" />
+                                                    </Style>
+                                                </ContentPresenter.Styles>
+                                            </ContentPresenter>
                                         </StackPanel>
                                         <ItemsControl DockPanel.Dock="Bottom" 
                                                       ItemsSource="{TemplateBinding ActionButtons}" 
-                                                      Margin="0,14,0,0"
+                                                      Margin="0,10,0,0"
                                                       HorizontalAlignment="Right">
                                             <ItemsControl.ItemsPanel>
                                                 <ItemsPanelTemplate>
-                                                    <StackPanel Orientation="Horizontal" Spacing="5"/>
+                                                    <StackPanel Orientation="Horizontal"/>
                                                 </ItemsPanelTemplate>
                                             </ItemsControl.ItemsPanel>
                                         </ItemsControl>
-                                        <ContentPresenter Margin="12,10,0,0"
+                                        <ContentPresenter Margin="12,10,0,0" 
                                                           Content="{TemplateBinding Content}"
                                                           Foreground="{DynamicResource SukiText}"
-                                                          TextWrapping="Wrap" />
+                                                          TextWrapping="Wrap" >
+                                            <ContentPresenter.Styles>
+                                                <Style Selector="TextBlock">
+                                                    <Setter Property="FontSize" Value="14" />
+                                                </Style>
+                                            </ContentPresenter.Styles>
+                                        </ContentPresenter>
 
                                     </DockPanel>
                                 </Panel>
@@ -71,13 +83,13 @@
                     </Border>
                     <Border Width="35"
                             Height="35"
-                            Margin="22,0,0,0"
+                            Margin="22,0,0,3"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Background="{DynamicResource SukiCardBackground}"
                             BoxShadow="{DynamicResource SukiSmallPopupShadow}"
                             CornerRadius="35">
-                        <Border ClipToBounds="True" CornerRadius="35">
+                        <Border  ClipToBounds="True" CornerRadius="35">
                             <Panel>
                                 <Panel Background="{TemplateBinding Foreground}" Opacity="1" />
                                 <PathIcon Width="15"

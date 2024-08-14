@@ -27,9 +27,9 @@ public partial class ToastsViewModel(ISukiToastManager toastManager) : DemoPageB
     {
         toastManager.CreateToast()
             .WithTitle("Update Available")
-            .WithContent("Update v1.0.0 Now Available.")
+            .WithContent("Information, Update v1.0.0.0 is Now Available.")
+            .WithActionButtonNormal("Later", _ => { }, true)
             .WithActionButton("Update", _ => ShowUpdatingToast(), true)
-            .WithActionButton("Dismiss", _ => { }, true)
             .Queue();
     }
 
@@ -92,7 +92,7 @@ public partial class ToastsViewModel(ISukiToastManager toastManager) : DemoPageB
             .WithTitle("Callback Toast")
             .WithContent("Click anywhere (other than the button) on this toast to show another toast.")
             .OnClicked(_ => ShowCallbackToast())
-            .WithActionButton("Dismiss", _ => { }, true)
+            .WithActionButtonNormal("Close", _ => { }, true)
             .Queue();
         return;
 

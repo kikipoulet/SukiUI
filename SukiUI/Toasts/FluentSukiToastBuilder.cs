@@ -108,6 +108,12 @@ namespace SukiUI.Toasts
             builder.AddActionButton(buttonContent, onClicked, dismissOnClick);
             return builder;
         }
+        
+        public static SukiToastBuilder WithActionButtonNormal(this SukiToastBuilder builder, object buttonContent, Action<ISukiToast> onClicked, bool dismissOnClick =  false)
+        {
+            builder.AddActionButton(buttonContent, onClicked, dismissOnClick, false);
+            return builder;
+        }
 
         #endregion
     }
