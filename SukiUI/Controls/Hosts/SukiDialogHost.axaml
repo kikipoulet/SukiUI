@@ -6,7 +6,7 @@
             <ControlTemplate>
                 <Panel>
                     <Border Name="PART_DialogBackground"
-                            HorizontalAlignment="Stretch"
+                            HorizontalAlignment="Stretch" IsVisible="False"
                             VerticalAlignment="Stretch"
                             Background="{DynamicResource SukiDialogBackground}"
                             Opacity="0" />
@@ -35,6 +35,7 @@
                         <Style Selector="suki|SukiDialogHost[IsDialogOpen=True]">
                             <Style Selector="^ Border#PART_DialogBackground">
                                 <Setter Property="Opacity" Value="0.4" />
+                                <Setter Property="IsVisible" Value="True" />
                                 <Setter Property="IsHitTestVisible" Value="True" />
                             </Style>
                             <Style Selector="^ ContentControl#PART_DialogContent">
@@ -48,9 +49,12 @@
                             <Style Selector="^ Border#PART_DialogBackground">
                                 <Setter Property="Opacity" Value="0" />
                                 <Setter Property="IsHitTestVisible" Value="False" />
+                                
+                                <!-- need to make isvisible to false to make tooltips work ! -->
+                                <Setter Property="IsVisible" Value="False"></Setter>
                             </Style>
                             <Style Selector="^ ContentControl#PART_DialogContent">
-                                <Setter Property="IsVisible" Value="False" />
+                                <Setter Property="Opacity" Value="0" />
                                 <Setter Property="IsHitTestVisible" Value="False" />
                                 <Setter Property="RenderTransform" Value="scale(0.7)" />
                                 <Setter Property="Margin" Value="0,125,0,0" />
