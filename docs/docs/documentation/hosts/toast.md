@@ -26,6 +26,41 @@ public class ExampleViewModel
 
 Is is possible to set `MaxToasts` to limit the number of toasts displayed in any given host.
 
+If you do not wish to use MVVM, or would rather a simpler solution that "just works", then you can choose to implement it like this:
+
+### AXAML
+```xml
+<!-- XMLNS definitions omitted for brevity -->
+<suki:SukiWindow>
+	<suki:SukiWindow.Hosts>
+		<suki:SukiToastHost Name="ToastManager"/>
+	</suki:SukiWindow.Hosts>
+<suki:SukiWindow>
+```
+### Code-Behind
+```cs
+public class MainWindow : SukiWindow
+{
+	public static ISukiToastManager ToastManager = new SukiToastManager();
+
+	public MainWindow()
+	{
+		InitializeComponent();
+		ToastHost.Manager = ToastManager;
+	}
+}
+
+// and then...
+
+MainWindow.ToastManager.CreateToast()
+	.Queue();
+```
+### Usage
+```cs
+MainWindow.ToastManager.CreateToast()
+	.Queue();
+```
+
 
 ## Displaying Toasts
 
