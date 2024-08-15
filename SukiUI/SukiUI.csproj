@@ -12,7 +12,7 @@
 		<RepositoryUrl>https://github.com/kikipoulet/SukiUI</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<GenerateDocumentationFile>False</GenerateDocumentationFile>
 		<IsPackable>true</IsPackable>
 		<RootNamespace>SukiUI</RootNamespace>
 		<Version>5.0.4</Version>
@@ -27,39 +27,36 @@
 		<PackageIcon>OIG.N5o-removebg-preview.png</PackageIcon>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <DebugType>none</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <DebugType>none</DebugType>
+	</PropertyGroup>
+
 	<ItemGroup>
-		<PackageReference Include="Avalonia" Version="11.1.0" />
-		<PackageReference Include="Avalonia.Skia" Version="11.1.0" />
+		<PackageReference Include="Avalonia" Version="11.1.2" />
+		<PackageReference Include="Avalonia.Skia" Version="11.1.2" />
 		<PackageReference Include="SkiaSharp" Version="2.88.8" />
-		<PackageReference Include="Avalonia.Controls.DataGrid" Version="11.1.0" />
-		<PackageReference Include="Avalonia.Themes.Simple" Version="11.1.0" />
+		<PackageReference Include="Avalonia.Controls.DataGrid" Version="11.1.2" />
+		<PackageReference Include="Avalonia.Themes.Simple" Version="11.1.2" />
 		<PackageReference Include="ReactiveUI" Version="20.1.1" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<AvaloniaResource Include="**\*.xaml" />
 		<AvaloniaResource Include="Content\Images\icons8-file-explorer-new-48.png" />
-		<None Remove="CustomFont\MiSans\MiSansLatin-Bold.ttf" />
-	
-		<None Remove="CustomFont\MiSans\MiSansLatin-Demibold.ttf" />
-		<None Remove="CustomFont\MiSans\MiSansLatin-ExtraLight.ttf" />
-		<None Remove="CustomFont\MiSans\MiSansLatin-Heavy.ttf" />
-		<None Remove="CustomFont\MiSans\MiSansLatin-Light.ttf" />
-		<None Remove="CustomFont\MiSans\MiSansLatin-Medium.ttf" />
-		<None Remove="CustomFont\MiSans\MiSansLatin-Normal.ttf" />
-		<None Remove="CustomFont\MiSans\MiSansLatin-Regular.ttf" />
-		<None Remove="CustomFont\MiSans\MiSansLatin-Semibold.ttf" />
-		<None Remove="CustomFont\MiSans\MiSansLatin-Thin.ttf" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<AvaloniaResource Include="Roboto-Regular.ttf" />
 		<AvaloniaResource Include="Roboto-Medium.ttf" />
-		<AvaloniaResource Include="CustomFont\Quicksand-Bold.ttf" />
-		<AvaloniaResource Include="CustomFont\Quicksand-Light.ttf" />
-		<AvaloniaResource Include="CustomFont\Quicksand-Medium.ttf" />
-		<AvaloniaResource Include="CustomFont\Quicksand-Regular.ttf" />
-		<AvaloniaResource Include="CustomFont\Quicksand-SemiBold.ttf" />
+		<AvaloniaResource Include="CustomFont\MiSans-Bold.ttf" />
+		<AvaloniaResource Include="CustomFont\MiSans-Light.ttf" />
+		<AvaloniaResource Include="CustomFont\MiSans-Medium.ttf" />
+		<AvaloniaResource Include="CustomFont\MiSans-Regular.ttf" />
+		<AvaloniaResource Include="CustomFont\MiSans-SemiBold.ttf" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -84,13 +81,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="Content\Shaders\Background\bubblestrong.sksl" />
-	  <EmbeddedResource Include="Content\Shaders\Background\cells.sksl" />
-	  <EmbeddedResource Include="Content\Shaders\Background\flat.sksl" />
-	  <EmbeddedResource Include="Content\Shaders\Background\bubble.sksl" />
-	  <EmbeddedResource Include="Content\Shaders\Background\waves.sksl" />
-	  <None Remove="Content\Shaders\Background\gradient.sksl" />
-	  <EmbeddedResource Include="Content\Shaders\Background\gradient.sksl" />
+		<EmbeddedResource Include="Content\Shaders\Background\bubblestrong.sksl" />
+		<EmbeddedResource Include="Content\Shaders\Background\cells.sksl" />
+		<EmbeddedResource Include="Content\Shaders\Background\flat.sksl" />
+		<EmbeddedResource Include="Content\Shaders\Background\bubble.sksl" />
+		<EmbeddedResource Include="Content\Shaders\Background\waves.sksl" />
+		<None Remove="Content\Shaders\Background\gradient.sksl" />
+		<EmbeddedResource Include="Content\Shaders\Background\gradient.sksl" />
 	</ItemGroup>
 
 </Project>

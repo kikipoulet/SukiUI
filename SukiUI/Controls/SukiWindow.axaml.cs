@@ -7,7 +7,7 @@ using Avalonia.Threading;
 using System;
 using System.Reactive;
 using System.Reactive.Linq;
-using System.Reflection;
+using System.Runtime.InteropServices;
 using Avalonia.Collections;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
@@ -180,6 +180,19 @@ public class SukiWindow : Window
     {
         MenuItems = new AvaloniaList<MenuItem>();
         RightWindowTitleBarControls = new Avalonia.Controls.Controls();
+        SetSystemDecorationsBasedOnPlatform();
+    }
+
+    private void SetSystemDecorationsBasedOnPlatform()
+    {
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            this.SystemDecorations = SystemDecorations.Full;
+        }
+        else
+        {
+            this.SystemDecorations = SystemDecorations.BorderOnly;
+        }
     }
 
     private IDisposable? _subscriptionDisposables;

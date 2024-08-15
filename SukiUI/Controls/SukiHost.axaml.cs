@@ -152,7 +152,32 @@ public class SukiHost : ContentControl
         host.AllowBackgroundClose = allowBackgroundClose;
         host.GetTemplateChildren().First(n => n.Name == "BorderDialog1").Opacity = showCardBehind ? 1 : 0;
     }
-    
+
+    public static Task ShowDialogAsync(Window window, object? content, bool showCardBehind = true, bool allowBackgroundClose = false)
+    {
+        if (!Instances.TryGetValue(window, out var host))
+            throw new InvalidOperationException("No SukiHost present in this window");
+
+        var control = content as Control ?? ViewLocator.TryBuild(content);
+        host.IsDialogOpen = true;
+        host.DialogContent = control;
+        host.AllowBackgroundClose = allowBackgroundClose;
+        host.GetTemplateChildren().First(n => n.Name == "BorderDialog1").Opacity = showCardBehind ? 1 : 0;
+
+        var tcs = new TaskCompletionSource<object>();
+        EventHandler<AvaloniaPropertyChangedEventArgs> dialogOpenChanged = null;
+        dialogOpenChanged = (sender, args) =>
+        {
+            if (!host.IsDialogOpen)
+            {
+                tcs.TrySetResult(null);
+                host.PropertyChanged -= dialogOpenChanged;
+            }
+        };
+        host.PropertyChanged += dialogOpenChanged;
+        return tcs.Task;
+    }
+
     /// <summary>
     /// <inheritdoc cref="ShowDialog(Avalonia.Controls.Window,object?,bool,bool)"/>
     /// </summary>
@@ -161,6 +186,11 @@ public class SukiHost : ContentControl
     /// <param name="allowBackgroundClose">Allows the dialog to be closed by clicking outside of it.</param>
     public static void ShowDialog(object? content, bool showCardBehind = true, bool allowBackgroundClose = false) =>
         ShowDialog(_mainWindow, content, showCardBehind, allowBackgroundClose);
+
+    public static async Task ShowDialogAsync(object? content, bool showCardBehind = true, bool allowBackgroundClose = false)
+    {
+        await ShowDialogAsync(_mainWindow, content, showCardBehind, allowBackgroundClose);
+    }
 
     public static void ShowMessageBox(MessageBoxModel model, bool allowbackgroundclose = true)
     {
