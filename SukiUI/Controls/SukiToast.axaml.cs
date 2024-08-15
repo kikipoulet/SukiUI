@@ -60,6 +60,8 @@ public class SukiToast : ContentControl, ISukiToast
         set => SetValue(ActionButtonsProperty, value);
     }
 
+    private bool _dismissed;
+
     public SukiToast()
     {
         ActionButtons = new ObservableCollection<object>();
@@ -82,12 +84,15 @@ public class SukiToast : ContentControl, ISukiToast
 
     public void AnimateShow()
     {
+        _dismissed = false;
         this.Animate(OpacityProperty, 0d, 1d, TimeSpan.FromMilliseconds(500));
         this.Animate(MarginProperty, new Thickness(0, 10, 0, -10), new Thickness(), TimeSpan.FromMilliseconds(500));
     }
 
     public void AnimateDismiss()
     {
+        if (_dismissed) return;
+        _dismissed = true;
         this.Animate(OpacityProperty, 1d, 0d, TimeSpan.FromMilliseconds(300));
         this.Animate(MarginProperty, new Thickness(), new Thickness(0, 50, 0, -50), TimeSpan.FromMilliseconds(300));
     }
