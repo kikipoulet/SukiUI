@@ -93,6 +93,13 @@ export const en = defineConfig({
             ]
           },
           {
+            text: 'Notification',
+            items: [
+              { text: 'InfoBar', link: '/documentation/controls/notification/infobar' },
+              { text: 'InfoBadge', link: '/documentation/controls/notification/infobadge' },
+            ]
+          },
+          {
             text: 'System',
             items: [
               { text: 'FilePicker', link: '/documentation/controls/system/filepicker' },
@@ -101,13 +108,11 @@ export const en = defineConfig({
         ]
       },
       {
-        text: 'Notification',
+        text: 'Hosts',
         items: [
-          { text: 'Dialog', link: '/documentation/notification/dialog' },
-          { text: 'Toast', link: '/documentation/notification/toast' },
-          { text: 'MessageBox', link: '/documentation/notification/messagebox' },
-          { text: 'InfoBar', link: '/documentation/notification/infobar' },
-          { text: 'InfoBadge', link: '/documentation/notification/infobadge' },
+          { text: 'About Hosts', link: '/documentation/hosts/hosts' },
+          { text: 'Dialog', link: '/documentation/hosts/dialog' },
+          { text: 'Toast', link: '/documentation/hosts/toast' },
         ]
       },
       {

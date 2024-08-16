@@ -93,6 +93,13 @@ export const zh = defineConfig({
             ]
           },
           {
+            text: '提醒',
+            items: [
+              { text: 'InfoBar', link: '/zh/documentation/controls/notification/infobar' },
+              { text: 'InfoBadge', link: '/zh/documentation/controls/notification/infobadge' },
+            ]
+          },
+          {
             text: '系统 API',
             items: [
               { text: 'FilePicker', link: '/zh/documentation/controls/system/filepicker' },
@@ -101,13 +108,11 @@ export const zh = defineConfig({
         ]
       },
       {
-        text: '通知',
+        text: '可选窗口控件',
         items: [
-          { text: 'Dialog', link: '/zh/documentation/notification/dialog' },
-          { text: 'Toast', link: '/zh/documentation/notification/toast' },
-          { text: 'MessageBox', link: '/zh/documentation/notification/messagebox' },
-          { text: 'InfoBar', link: '/zh/documentation/notification/infobar' },
-          { text: 'InfoBadge', link: '/zh/documentation/notification/infobadge' },
+          { text: '有关 Hosts', link: '/zh/documentation/hosts/hosts' },
+          { text: 'Dialog', link: '/zh/documentation/hosts/dialog' },
+          { text: 'Toast', link: '/zh/documentation/hosts/toast' },
         ]
       },
       {
