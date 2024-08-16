@@ -24,7 +24,9 @@ public class ExampleViewModel
 }
 ```
 
-Is is possible to set `MaxToasts` to limit the number of toasts displayed in any given host.
+It is possible to set `MaxToasts` to limit the number of toasts displayed in any given host.
+
+---
 
 If you do not wish to use MVVM, or would rather a simpler solution that "just works", then you can choose to implement it like this:
 
@@ -49,18 +51,14 @@ public class MainWindow : SukiWindow
 		ToastHost.Manager = ToastManager;
 	}
 }
-
-// and then...
-
-MainWindow.ToastManager.CreateToast()
-	.Queue();
 ```
+
 ### Usage
+
 ```cs
 MainWindow.ToastManager.CreateToast()
 	.Queue();
 ```
-
 
 ## Displaying Toasts
 
@@ -70,7 +68,7 @@ From here method calls can be chained to construct the toast as desired, most of
 
 Finally to display a toast the `.Queue()` method can be called to immediately queue the toast for display.
 
-Here is a simple example, expanding on the ViewModel above:
+Here is a simple example, expanding on the `ViewModel` above:
 
 ```cs
 public void DisplayToast()
