@@ -45,5 +45,10 @@ namespace SukiUI.Toasts
         /// Dismisses all toasts from the stack immediately.
         /// </summary>
         void DismissAll();
+        
+        /// <summary>
+        /// Checks to see if a <see cref="ISukiToast"/> has already been dismissed from the stack.
+        /// </summary>
+        bool IsDismissed(ISukiToast toast);
     }
 }

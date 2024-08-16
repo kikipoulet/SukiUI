@@ -107,4 +107,7 @@ public partial class ToastsViewModel(ISukiToastManager toastManager) : DemoPageB
 
     [RelayCommand]
     private void ShowToastWindow() => new ToastWindowDemo(toastManager).Show();
+
+    [RelayCommand]
+    private void DismissAllToasts() => toastManager.DismissAll();
 }
