@@ -106,8 +106,11 @@ namespace SukiUI.Controls
         private void ManagerOnToastDismissed(object sender, SukiToastManagerEventArgs args) => 
             ClearToast(args.Toast);
 
-        private void ManagerOnAllToastsDismissed(object sender, EventArgs e) => 
-            Items.Clear();
+        private void ManagerOnAllToastsDismissed(object sender, EventArgs e)
+        {
+            foreach(var toast in Items)
+                ClearToast((ISukiToast)toast!);
+        }
 
         private void ManagerOnToastQueued(object sender, SukiToastManagerEventArgs args)
         {
@@ -120,7 +123,7 @@ namespace SukiUI.Controls
         
         private void ClearToast(ISukiToast toast)
         {
-            if (!Items.Contains(toast)) return;
+            if (Manager.IsDismissed(toast)) return;
             toast.AnimateDismiss();
             Task.Delay(300).ContinueWith(_ =>
             {

@@ -59,6 +59,8 @@ public class SukiToast : ContentControl, ISukiToast
         get => GetValue(ActionButtonsProperty);
         set => SetValue(ActionButtonsProperty, value);
     }
+    
+    public Action<ISukiToast>? DelayDismissAction { get; set; }
 
     public SukiToast()
     {
@@ -102,6 +104,7 @@ public class SukiToast : ContentControl, ISukiToast
         ActionButtons.Clear();
         OnDismissed = null;
         OnClicked = null;
+        DelayDismissAction = null;
         DockPanel.SetDock(this, Dock.Bottom);
         return this;
     }
