@@ -19,5 +19,10 @@ namespace SukiUI.Toasts
         void AnimateShow();
         void AnimateDismiss();
         ISukiToast ResetToDefault();
+        /// <summary>
+        /// This is what's called when a delay based dismiss is used.
+        /// This is tracked so that it can be disposed of when the toast is dismissed by other means.
+        /// </summary>
+        Action<ISukiToast>? DelayDismissAction { get; set; }
     }
 }

@@ -54,8 +54,16 @@ namespace SukiUI.Toasts
         }
         
         
-        public void Delay(TimeSpan delay, Action<ISukiToast> action) => 
-            Task.Delay(delay).ContinueWith(_ => action(Toast), TaskScheduler.FromCurrentSynchronizationContext());
+        public void Delay(TimeSpan delay, Action<ISukiToast> action)
+        {
+            Toast.DelayDismissAction = action;
+            Task.Delay(delay).ContinueWith(_ =>
+                {
+                    if (Toast.DelayDismissAction != action) return;
+                    Toast.DelayDismissAction.Invoke(Toast);
+                }, 
+                TaskScheduler.FromCurrentSynchronizationContext());
+        }
 
         public void SetOnDismiss(Action<ISukiToast> action) => Toast.OnDismissed = action;
 

@@ -28,6 +28,7 @@
                     <HyperlinkButton
                         NavigateUri="https://github.com/kikipoulet/SukiUI/blob/main/SukiUI.Demo/Features/ControlsLibrary/Toasts/ToastsViewModel.cs"
                         Content="Source Here." />
+                    <Button Command="{Binding DismissAllToastsCommand}" Content="Click To Dismiss All Active Toasts" HorizontalAlignment="Left" Classes="Flat"/>
                 </StackPanel>
             </suki:GroupBox>
         </suki:GlassCard>
