@@ -32,6 +32,16 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <DockPanel Name="DP">
+                    <DockPanel.Resources>
+                        <ResourceDictionary>
+                            <ResourceDictionary.ThemeDictionaries>
+                                <ResourceDictionary x:Key="Dark">
+                                    <system:Double x:Key="ControlGlassOpacity">0.4</system:Double>
+                                </ResourceDictionary>
+                                </ResourceDictionary.ThemeDictionaries>
+                        </ResourceDictionary>
+                        
+                    </DockPanel.Resources>
                     <ContentPresenter x:Name="PART_OffContentPresenter"
                                       DockPanel.Dock="Left" Margin="0,0,7,0"
                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"

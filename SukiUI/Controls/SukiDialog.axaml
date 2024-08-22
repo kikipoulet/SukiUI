@@ -12,22 +12,10 @@
                             Background="{DynamicResource SukiCardBackground}"
                             CornerRadius="25">
                         <Panel>
-                            <Panel IsVisible="{DynamicResource IsDark}" Margin="-5">
-                                <Panel.Background>
-                                    <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
-                                        <GradientStop Color="{DynamicResource SukiAccentColor3}" Offset="0"></GradientStop>
-                                        <GradientStop Color="{DynamicResource SukiPrimaryColor15}" Offset="1"></GradientStop>
-                                    </LinearGradientBrush>
-                                </Panel.Background>
+                            <Panel Background="{DynamicResource PopupGradientBrush}" Margin="-5">
+                               
                             </Panel>
-                            <Panel IsVisible="{DynamicResource IsLight}" Margin="-5">
-                                <Panel.Background>
-                                    <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
-                                        <GradientStop Color="{DynamicResource SukiAccentColor5}" Offset="0"></GradientStop>
-                                        <GradientStop Color="{DynamicResource SukiPrimaryColor7}" Offset="1"></GradientStop>
-                                    </LinearGradientBrush>
-                                </Panel.Background>
-                            </Panel>
+                           
                           
                                            
                                 <StackPanel Margin="30,30,30,5" IsVisible="{Binding !IsViewModelOnly, RelativeSource={RelativeSource TemplatedParent}}" Spacing="24">

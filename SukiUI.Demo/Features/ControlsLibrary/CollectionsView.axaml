@@ -39,7 +39,7 @@
                 <suki:GlassCard>
                     <suki:GroupBox Header="ComboBox">
                         <showMeTheXaml:XamlDisplay UniqueId="ComboBox">
-                            <ComboBox ItemsSource="{Binding SimpleContent}" SelectedItem="{Binding SelectedSimpleContent}" />
+                            <ComboBox VerticalAlignment="Top" ItemsSource="{Binding SimpleContent}" SelectedItem="{Binding SelectedSimpleContent}" />
                         </showMeTheXaml:XamlDisplay>
                     </suki:GroupBox>
                 </suki:GlassCard>
@@ -47,7 +47,7 @@
                 <suki:GlassCard>
                     <suki:GroupBox Header="AutoCompleteBox">
                         <showMeTheXaml:XamlDisplay UniqueId="AutoCompleteBox">
-                            <AutoCompleteBox>
+                            <AutoCompleteBox VerticalAlignment="Top">
                                 <AutoCompleteBox.ItemsSource>
                                     <objectModel:ObservableCollection x:TypeArguments="system:String">
                                         <system:String>USA 1</system:String>

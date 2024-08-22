@@ -75,7 +75,7 @@ namespace SukiUI.Toasts
                 {
                     Content = buttonContent,
                     Classes = { flatstyle ?"Flat" : "Basic" },
-                    Margin = flatstyle ? new Thickness(14, 9, 0, 12) : new Thickness(14, -3, 0, 3)
+                    Margin = flatstyle ? new Thickness(14, 9, 0, 12) : new Thickness(14, -3, 0, 2)
                 };
             
            

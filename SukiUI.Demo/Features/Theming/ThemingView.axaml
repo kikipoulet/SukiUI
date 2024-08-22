@@ -159,7 +159,7 @@
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate>
                                                         <Button Margin="10"
-                                                                Classes="Flat"
+                                                              
                                                                 Command="{Binding $parent[theming:ThemingView].((theming:ThemingViewModel)DataContext).TryCustomShaderCommand}"
                                                                 CommandParameter="{Binding}"
                                                                 Content="{Binding}" />

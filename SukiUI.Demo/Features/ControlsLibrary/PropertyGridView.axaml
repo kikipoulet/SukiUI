@@ -34,20 +34,20 @@
                         </Style>
                     </ScrollViewer.Styles>
                     <StackPanel DataContext="{Binding Form}" Orientation="Vertical">
-                        <TextBox suki:TextBoxExtensions.Prefix="NullableName:  " Text="{Binding NullableName}" />
-                        <TextBox suki:TextBoxExtensions.Prefix="NullableDescription:  " Text="{Binding NullableDescription}" />
-                        <TextBox suki:TextBoxExtensions.Prefix="NullableBoolean:  " Text="{Binding NullableBoolean}" />
-                        <TextBox suki:TextBoxExtensions.Prefix="NullableDateTime:  " Text="{Binding NullableDateTime}" />
-                        <TextBox suki:TextBoxExtensions.Prefix="NullableInteger:  " Text="{Binding NullableInteger}" />
-                        <TextBox suki:TextBoxExtensions.Prefix="NullableLong:  " Text="{Binding NullableLong}" />
-                        <TextBox suki:TextBoxExtensions.Prefix="NullableDecimal:  " Text="{Binding NullableDecimal}" />
-                        <TextBox suki:TextBoxExtensions.Prefix="NullableFloat:  " Text="{Binding NullableFloat}" />
-                        <TextBox suki:TextBoxExtensions.Prefix="NullableDouble:  " Text="{Binding NullableDouble}" />
-                        <TextBox suki:TextBoxExtensions.Prefix="Name:  " Text="{Binding Name}" />
-                        <TextBox suki:TextBoxExtensions.Prefix="Integer:  " Text="{Binding Integer}" />
-                        <TextBox suki:TextBoxExtensions.Prefix="Decimal:  " Text="{Binding Decimal}" />
-                        <TextBox suki:TextBoxExtensions.Prefix="Boolean:  " Text="{Binding Boolean}" />
-                        <TextBox suki:TextBoxExtensions.Prefix="DateTime:  " Text="{Binding DateTime}" />
+                        <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="NullableName:  " Text="{Binding NullableName}" />
+                        <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="NullableDescription:  " Text="{Binding NullableDescription}" />
+                        <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="NullableBoolean:  " Text="{Binding NullableBoolean}" />
+                        <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="NullableDateTime:  " Text="{Binding NullableDateTime}" />
+                        <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="NullableInteger:  " Text="{Binding NullableInteger}" />
+                        <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="NullableLong:  " Text="{Binding NullableLong}" />
+                        <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="NullableDecimal:  " Text="{Binding NullableDecimal}" />
+                        <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="NullableFloat:  " Text="{Binding NullableFloat}" />
+                        <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="NullableDouble:  " Text="{Binding NullableDouble}" />
+                        <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="Name:  " Text="{Binding Name}" />
+                        <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="Integer:  " Text="{Binding Integer}" />
+                        <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="Decimal:  " Text="{Binding Decimal}" />
+                        <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="Boolean:  " Text="{Binding Boolean}" />
+                        <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="DateTime:  " Text="{Binding DateTime}" />
                     </StackPanel>
                 </ScrollViewer>
             </suki:GroupBox>

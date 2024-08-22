@@ -73,7 +73,7 @@
                 </suki:GlassCard>
                 <suki:GlassCard>
                     <suki:GroupBox Header="DropDownButton">
-                        <DropDownButton Content="Click To Open">
+                        <DropDownButton VerticalAlignment="Top" Content="Click To Open">
                             <DropDownButton.Flyout>
                                 <Flyout>
                                     <Border Padding="10"
