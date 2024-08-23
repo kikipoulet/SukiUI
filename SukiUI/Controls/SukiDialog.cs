@@ -49,6 +49,14 @@ namespace SukiUI.Controls
             set => SetValue(IconProperty, value);
         }
 
+        public static readonly StyledProperty<bool> ShowCardBackgroundProperty = AvaloniaProperty.Register<SukiDialog, bool>(nameof(ShowCardBackground), defaultValue: true);
+
+        public bool ShowCardBackground
+        {
+            get => GetValue(ShowCardBackgroundProperty);
+            set => SetValue(ShowCardBackgroundProperty, value);
+        }
+        
         public static readonly StyledProperty<IBrush?> IconColorProperty = AvaloniaProperty.Register<SukiDialog, IBrush?>(nameof(IconColor));
 
         public IBrush? IconColor

@@ -23,6 +23,8 @@ namespace SukiUI.Dialogs
 
         public void SetTitle(string title) => Dialog.Title = title;
 
+        public void SetShowCardBackground(bool show) => Dialog.ShowCardBackground = show;
+
         public void SetContent(object content) => Dialog.Content = content;
 
         public void SetViewModel(Func<ISukiDialog,object> viewModel)

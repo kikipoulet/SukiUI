@@ -7,14 +7,19 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Panel>
+                    
                     <Border Padding="0"  Margin="0,55,0,0"
                             ClipToBounds="True"  MinWidth="450" 
-                            Background="{DynamicResource SukiCardBackground}"
+                            
                             CornerRadius="25">
                         <Panel>
-                            <Panel Background="{DynamicResource PopupGradientBrush}" Margin="-5">
+                            
+                            <Border IsVisible="{TemplateBinding ShowCardBackground}" CornerRadius="25" Background="{DynamicResource SukiCardBackground}">
+                                <Panel Background="{DynamicResource PopupGradientBrush}" Margin="-5">
                                
-                            </Panel>
+                                </Panel>
+                        
+                            </Border>
                            
                           
                                            

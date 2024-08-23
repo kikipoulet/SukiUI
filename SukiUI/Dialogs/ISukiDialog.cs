@@ -15,6 +15,7 @@ namespace SukiUI.Dialogs
         ObservableCollection<object> ActionButtons { get; }
         Action<ISukiDialog>? OnDismissed { get; set; }
         bool CanDismissWithBackgroundClick { get; set; }
+        bool ShowCardBackground { get; set; }
         void Dismiss();
     }
 }

@@ -38,6 +38,15 @@ namespace SukiUI.Dialogs
             builder.SetContent(content);
             return builder;
         }
+        
+        /// <summary>
+        /// Hide Card background.
+        /// </summary>
+        public static SukiDialogBuilder ShowCardBackground(this SukiDialogBuilder builder, bool show)
+        {
+            builder.SetShowCardBackground(show);
+            return builder;
+        }
 
         /// <summary>
         /// Gives the dialog a ViewModel. If this is used, Title/Content are ignored and only the ViewModel is rendered - the View being located by the usual strategy.
