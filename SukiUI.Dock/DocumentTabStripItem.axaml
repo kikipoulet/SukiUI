@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:core="using:Dock.Model.Core"
+                    xmlns:suki="https://github.com/kikipoulet/SukiUI"
                     x:CompileBindings="True">
   <Design.PreviewWith>
     <Border Padding="20">
@@ -58,21 +59,11 @@
           <Border Name="SelectedBorder" IsVisible="False"
             Margin="6,0"
             Padding="0"
-            BoxShadow="{DynamicResource SukiSmallPopupShadow}"
-            Background="{DynamicResource SukiCardBackground}"
+            
             CornerRadius="8">
-            <Border CornerRadius="8" ClipToBounds="True">
-              <Panel>
-                <Panel Margin="0">
-                  <Panel.Background>
-                    <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
-                      <GradientStop Color="{DynamicResource SukiAccentColor5}" Offset="0"></GradientStop>
-                      <GradientStop Color="{DynamicResource SukiPrimaryColor5}" Offset="1"></GradientStop>
-                    </LinearGradientBrush>
-                  </Panel.Background>
-                </Panel>
-                </Panel>
-              </Border>
+            <suki:GlassCard Classes="Control" CornerRadius="8">
+             
+              </suki:GlassCard>
           </Border>
         
         <Border Margin="12,4" Background="{TemplateBinding Background}"

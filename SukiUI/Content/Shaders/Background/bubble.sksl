@@ -66,7 +66,7 @@ vec4 main(vec2 fragCoord) {
     float opacityLayer2 = 0.85 - (iDark / 2);
 
     
-    float iPrimaryOpacity = 1.1; // Exemple de nouvelle opacité pour iPrimary
+    float iPrimaryOpacity = 1.1;
     if (iDark == 1) {
         iPrimaryOpacity = 0.52;
     }

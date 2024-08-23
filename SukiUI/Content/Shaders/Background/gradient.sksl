@@ -68,14 +68,14 @@ vec4 main(vec2 fragCoord) {
     
     float iPrimaryOpacity = 0.2; // Exemple de nouvelle opacité pour iPrimary
     if (iDark == 1) {
-        iPrimaryOpacity = 0.8;
+        iPrimaryOpacity = 0.4;
     }
     vec3 iPrimaryWithOpacity = iPrimary * iPrimaryOpacity;
 
   
     float iAccentOpacity = 1; 
     if (iDark == 1) {
-            iAccentOpacity = 1.8;
+            iAccentOpacity = 2;
         }
     vec3 iAccentWithOpacity = iPrimary * iAccentOpacity;
 

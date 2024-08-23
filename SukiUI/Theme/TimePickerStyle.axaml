@@ -13,7 +13,7 @@
         </Border>
     </Design.PreviewWith>
 
-    <x:Double x:Key="TimePickerFlyoutPresenterItemHeight">40</x:Double>
+  <!--  <x:Double x:Key="TimePickerFlyoutPresenterItemHeight">40</x:Double>
     <x:Double x:Key="TimePickerSpacerThemeWidth">1</x:Double>
     <Thickness x:Key="TimePickerBorderThemeThickness">1</Thickness>
     <x:Double x:Key="TimePickerFlyoutPresenterHighlightHeight">40</x:Double>
@@ -96,7 +96,7 @@
                                           Foreground="{DynamicResource SukiLowText}" />
 
                                 <Grid Name="PART_FlyoutButtonContentGrid">
-                                    <!--  Ignore col defs here, set in code  -->
+                                  
                                     <Border x:Name="PART_FirstPickerHost"
                                             Grid.Column="0"
                                             HorizontalAlignment="Stretch"
@@ -239,7 +239,7 @@
                                     </Setter>
                                 </Style>
                             </Grid.Styles>
-                            <!--  Ignore col defs here, set in code  -->
+                        
                             <Panel Name="PART_HourHost" Grid.Column="0">
                                 <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
                                     <DateTimePickerPanel Name="PART_HourSelector"
@@ -328,7 +328,7 @@
                                                Text="Apply" />
                                 </StackPanel>
                             </Button>
-                            <!--  <Button Name="PART_DismissButton"
+                              <Button Name="PART_DismissButton"
                       Grid.Column="1"
                       Height="{DynamicResource TimePickerFlyoutPresenterAcceptDismissHostGridHeight}"
                       HorizontalAlignment="Stretch"
@@ -339,7 +339,7 @@
                       Stroke="{Binding $parent[Button].Foreground}"
                       StrokeLineCap="Round"
                       StrokeThickness="0.75" />
-              </Button>-->
+              </Button>
                         </Grid>
                     </Grid>
                 </Border>
@@ -351,5 +351,5 @@
                 <Setter Property="IsVisible" Value="True" />
             </Style>
         </Style>
-    </ControlTheme>
+    </ControlTheme> -->
 </ResourceDictionary>
