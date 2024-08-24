@@ -65,6 +65,16 @@
                         <TabControl TabStripPlacement="Bottom" />
                     </suki:GroupBox>
                 </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Horizontal Left Tab Control">
+                        <TabControl Classes="HorizontalTabs" TabStripPlacement="Left" />
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Horizontal Right Tab Control">
+                        <TabControl Classes="HorizontalTabs" TabStripPlacement="Right" />
+                    </suki:GroupBox>
+                </suki:GlassCard>
             </WrapPanel>
         </ScrollViewer>
     </Grid>
