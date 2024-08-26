@@ -120,7 +120,7 @@
                         </PathIcon.Transitions>
                     </PathIcon>
                     <Border Name="SelectedBorder"
-                            Margin="4"
+                            Margin="3"
                             BorderBrush="{DynamicResource SukiPrimaryColor}"
                             BorderThickness="2"
                             CornerRadius="{TemplateBinding CornerRadius}"
