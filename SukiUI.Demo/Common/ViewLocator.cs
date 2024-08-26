@@ -12,23 +12,23 @@ public class ViewLocator : IDataTemplate
 
     public Control Build(object? data)
     {
-        var fullName = data?.GetType().FullName;
-        if (fullName is null)
-        {
-            return new TextBlock { Text = "Data is null or has no name." };
-        }
+        if(data is null) 
+            return new TextBlock { Text = "Data is null." };
+        
+        var fullName = data.GetType().FullName;
+        
+        if (string.IsNullOrWhiteSpace(fullName)) 
+            return new TextBlock { Text = "Type has no name, or name is empty." };
         
         var name = fullName.Replace("ViewModel", "View");
         var type = Type.GetType(name);
         if (type is null)
-        {
             return new TextBlock { Text = $"No View For {name}." };
-        }
 
-        if (!_controlCache.TryGetValue(data!, out var res))
+        if (!_controlCache.TryGetValue(data, out var res))
         {
             res ??= (Control)Activator.CreateInstance(type)!;
-            _controlCache[data!] = res;
+            _controlCache[data] = res;
         }
 
         res.DataContext = data;
