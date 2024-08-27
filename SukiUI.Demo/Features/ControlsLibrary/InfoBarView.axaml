@@ -14,7 +14,7 @@
             <suki:GroupBox Header="InfoBar">
                 <StackPanel Classes="HeaderContent" Spacing="15">
                     <TextBlock>
-                        InfoBar is a control that displays a message to the user. It can be used to show specific severity message to the user.
+                        InfoBar is a control that displays a message and can be used to show specific severity message to the user.
                     </TextBlock>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="0,0,0,0"
