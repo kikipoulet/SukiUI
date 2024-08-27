@@ -8,6 +8,27 @@
     <Application.DataTemplates>
         <common:ViewLocator />
     </Application.DataTemplates>
+    
+    <TrayIcon.Icons>
+        <TrayIcons>
+            <TrayIcon Icon="/Assets/OIG.N5o-removebg-preview.png" 
+                      ToolTipText="SukiUI Native Menu Demo">
+                <TrayIcon.Menu>
+                    <NativeMenu>
+                        <NativeMenuItem Header="Native Menu Demo">
+                            <NativeMenu>
+                                <NativeMenuItem Header="Option 1"   />
+                                <NativeMenuItem Header="Option 2"   />
+                                <NativeMenuItemSeparator/>
+                                <NativeMenuItem Header="Option 3"  />
+                            </NativeMenu>
+                        </NativeMenuItem>
+                    </NativeMenu>
+                </TrayIcon.Menu>
+            </TrayIcon>
+        </TrayIcons>
+    </TrayIcon.Icons>
+    
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

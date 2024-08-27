@@ -37,10 +37,11 @@
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Header="Separator Next" />
-                <MenuItem Header="-" />
+                <Separator/>
                 <MenuItem Header="Submenu">
                     <MenuItem Header="Sub-Submenu">
                         <MenuItem Command="{Binding NestedOptionClickedCommand}" Header="Nested Option" />
+                        <MenuItem Header="-" />
                         <MenuItem Header="Disabled Nested Option" IsEnabled="False" />
                     </MenuItem>
                 </MenuItem>
