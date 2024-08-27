@@ -4,4 +4,4 @@ cache
 temp
 dist
 pnpm-lock.yaml
-helper
+tools
