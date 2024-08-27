@@ -1,7 +1,7 @@
 # Installation
 
 ::: info
-When this page was written, the latest Avalonia version was `11.1.0-beta2` with SukiUI version `6.0.0-beta6`
+When this page was written, the latest Avalonia version was `11.2.0-beta1` with SukiUI version `6.0.0-beta8`
 :::
 
 SukiUI can be installed in two ways:
@@ -48,8 +48,12 @@ Visit [SukiUI on Nuget](https://www.nuget.org/packages/SukiUI) for more informat
 
 5. Select `SukiUI.dll` you downloaded
 
+6. Add a Nuget package `System.Reactive`
+
 ::: tip
 The package list should be:
 
 ![](/getting-started/introduction-final-package-list.webp "package list")
+
+If installed by referencing `.dll`, there should be a `System.Reactive` here.
 :::

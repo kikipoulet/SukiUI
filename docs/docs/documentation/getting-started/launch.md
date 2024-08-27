@@ -80,3 +80,15 @@ public partial class MainWindow : SukiWindow // [!code highlight]
 ## Done
 
 You're now ready to use SukiUI !
+
+::: warning
+If you encounter the following exception:
+- `SukiWindow` not found [Issue#265](https://github.com/kikipoulet/SukiUI/issues/265)
+- System.MissingMethodException: Method not found: System.Collections.Generic.IReadOnlyList`1<System.Object> Avalonia.Markup.Xaml.XamlIl.Runtime.IAvaloniaXamlIlEagerParentStackProvider.get_DirectParents() [Issue#276](https://github.com/kikipoulet/SukiUI/issues/276)
+- Unable to resolve type `SukiTheme` from namespace clr-namespace:SukiUI;assembly=SukiUI [Discussion#276](https://github.com/kikipoulet/SukiUI/discussions/278)
+- and other similar exceptions
+
+There are two possible solutions to try:
+- Upgrade or downgrade the version of `Avalonia` and `SukiUI` until the exception is resolved
+- While ensuring that `Avalonia` is up to date (beta), reference the build `.dll` from [Github Action](https://github.com/kikipoulet/SukiUI/actions/workflows/build.yml) and proceed with the [following steps](/documentation/getting-started/installation#via-github-action)
+:::
