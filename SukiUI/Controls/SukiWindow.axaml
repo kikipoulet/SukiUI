@@ -22,14 +22,15 @@
                             <ItemsControl ItemsSource="{Binding Hosts, RelativeSource={RelativeSource AncestorType={x:Type suki:SukiWindow}}}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <Panel/>
+                                        <Panel />
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                             </ItemsControl>
                         </VisualLayerManager.ChromeOverlayLayer>
                         <Panel x:Name="PART_Root">
-                            <!-- Margin -100 is there to exclude the unwanted bright corners -->
-                            <suki:SukiBackground Name="PART_Background" Margin="-150"
+                            <!--  Margin -100 is there to exclude the unwanted bright corners  -->
+                            <suki:SukiBackground Name="PART_Background"
+                                                 Margin="-150"
                                                  AnimationEnabled="{TemplateBinding BackgroundAnimationEnabled}"
                                                  ShaderCode="{TemplateBinding BackgroundShaderCode}"
                                                  ShaderFile="{TemplateBinding BackgroundShaderFile}"
@@ -133,36 +134,53 @@
         <Style Selector="^[WindowState=Normal] /template/ PathIcon#MaximizeIcon">
             <Setter Property="Data" Value="{x:Static icons:Icons.WindowMaximize}" />
         </Style>
-
-        <Style Selector="^[IsTitleBarVisible=True] /template/ LayoutTransformControl#PART_LayoutTransform">
-            <Style.Animations>
-                <Animation Easing="{StaticResource MenuEasing}"
-                           FillMode="Forward"
-                           Duration="{StaticResource MediumAnimationDuration}">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="ScaleTransform.ScaleY" Value="0" />
-                        <Setter Property="IsVisible" Value="True" />
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="ScaleTransform.ScaleY" Value="1" />
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
+        <Style Selector="^[IsTitleBarVisible=True]">
+            <Style Selector="^[TitleBarAnimationEnabled=True]">
+                <Style Selector="^ /template/ LayoutTransformControl#PART_LayoutTransform">
+                    <Style.Animations>
+                        <Animation Easing="{StaticResource MenuEasing}"
+                                   FillMode="Forward"
+                                   Duration="{StaticResource MediumAnimationDuration}">
+                            <KeyFrame Cue="0%">
+                                <Setter Property="ScaleTransform.ScaleY" Value="0" />
+                                <Setter Property="IsVisible" Value="True" />
+                            </KeyFrame>
+                            <KeyFrame Cue="100%">
+                                <Setter Property="ScaleTransform.ScaleY" Value="1" />
+                            </KeyFrame>
+                        </Animation>
+                    </Style.Animations>
+                </Style>
+            </Style>
+            <Style Selector="^[TitleBarAnimationEnabled=False]">
+                <Style Selector="^ /template/ LayoutTransformControl#PART_LayoutTransform">
+                    <Setter Property="IsVisible" Value="True" />
+                </Style>
+            </Style>
         </Style>
-        <Style Selector="^[IsTitleBarVisible=False] /template/ LayoutTransformControl#PART_LayoutTransform">
-            <Style.Animations>
-                <Animation Easing="{StaticResource MenuEasing}"
-                           FillMode="Forward"
-                           Duration="{StaticResource MediumAnimationDuration}">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="ScaleTransform.ScaleY" Value="1" />
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="ScaleTransform.ScaleY" Value="0" />
-                        <Setter Property="IsVisible" Value="False" />
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
+        <Style Selector="^[IsTitleBarVisible=False]">
+            <Style Selector="^[TitleBarAnimationEnabled=True]">
+                <Style Selector="^ /template/ LayoutTransformControl#PART_LayoutTransform">
+                    <Style.Animations>
+                        <Animation Easing="{StaticResource MenuEasing}"
+                                   FillMode="Forward"
+                                   Duration="{StaticResource MediumAnimationDuration}">
+                            <KeyFrame Cue="0%">
+                                <Setter Property="ScaleTransform.ScaleY" Value="1" />
+                            </KeyFrame>
+                            <KeyFrame Cue="100%">
+                                <Setter Property="ScaleTransform.ScaleY" Value="0" />
+                                <Setter Property="IsVisible" Value="False" />
+                            </KeyFrame>
+                        </Animation>
+                    </Style.Animations>
+                </Style>
+            </Style>
+            <Style Selector="^[TitleBarAnimationEnabled=False]">
+                <Style Selector="^ /template/ LayoutTransformControl#PART_LayoutTransform">
+                    <Setter Property="IsVisible" Value="False" />
+                </Style>
+            </Style>
         </Style>
     </ControlTheme>
     <ControlTheme x:Key="{x:Type suki:SukiWindow}"
