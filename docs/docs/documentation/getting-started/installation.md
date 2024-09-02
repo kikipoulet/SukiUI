@@ -30,11 +30,16 @@ The Nuget installation is suitable for most users, but if you want to use the la
 dotnet add package SukiUI --version 6.0.0
 ```
 
+You're done !
+
 ::: tip
 Visit [SukiUI on Nuget](https://www.nuget.org/packages/SukiUI) for more information
 :::
 
 ### Via Github Action
+
+<details>
+  <summary>Github Action Guide</summary>
 
 1. Visit [SukiUI CI](https://github.com/kikipoulet/SukiUI/actions/workflows/build.yml)
 2. Select the latest workflow
@@ -57,3 +62,4 @@ The package list should be:
 
 If installed by referencing `.dll`, there should be a `System.Reactive` here.
 :::
+ </details>
