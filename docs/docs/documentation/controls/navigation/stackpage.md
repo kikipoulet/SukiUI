@@ -15,16 +15,11 @@ already in it's stack.
 ## Example
 
 ```xml
-<controls:SukiStackPage Limit="5">
+<controls:SukiStackPage Content="{Binding CurrentPage}" Limit="5">
     <!-- Content -->
 </controls:SukiStackPage>
 ```
 
-Push a new page:
-
-```csharp
-this.Get<StackPage>("StackSettings").Push("Network", b);
-```
 
 ## See Also
 

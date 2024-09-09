@@ -79,7 +79,10 @@ public partial class MainWindow : SukiWindow // [!code highlight]
 
 ## Done
 
-You're now ready to use SukiUI !
+You're now ready to use SukiUI ! We advise you to theme your app now. Please check the [Theming Page](https://kikipoulet.github.io/SukiUI/documentation/theming/basic.html) and the [SukiWindow Page](https://kikipoulet.github.io/SukiUI/documentation/controls/layout/sukiwindow.html)
+
+
+
 
 ::: warning
 If you encounter the following exception:

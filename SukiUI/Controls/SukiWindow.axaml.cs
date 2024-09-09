@@ -65,6 +65,15 @@ public class SukiWindow : Window
         set => SetValue(IsTitleBarVisibleProperty, value);
     }
 
+    public static readonly StyledProperty<bool> TitleBarAnimationEnabledProperty =
+        AvaloniaProperty.Register<SukiWindow, bool>(nameof(TitleBarAnimationEnabled), defaultValue: true);
+
+    public bool TitleBarAnimationEnabled
+    {
+        get => GetValue(TitleBarAnimationEnabledProperty);
+        set => SetValue(TitleBarAnimationEnabledProperty, value);
+    }
+
     public static readonly StyledProperty<bool> IsMenuVisibleProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(IsMenuVisible), defaultValue: false);
 
