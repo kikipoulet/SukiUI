@@ -63,6 +63,11 @@ namespace SukiUI.Demo.Controls
                 }
                 canvas.Restore();
             }
+
+            protected override void RenderSoftware(SKCanvas canvas, SKRect rect)
+            {
+                throw new System.NotImplementedException();
+            }
         }
     }
 

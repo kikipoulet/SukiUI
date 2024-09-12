@@ -88,6 +88,14 @@ namespace SukiUI.Controls
             get => GetValue(TransitionTimeProperty);
             set => SetValue(TransitionTimeProperty, value);
         }
+
+        public static readonly StyledProperty<bool> ForceSoftwareRenderingProperty = AvaloniaProperty.Register<SukiBackground, bool>(nameof(ForceSoftwareRendering));
+
+        public bool ForceSoftwareRendering
+        {
+            get => GetValue(ForceSoftwareRenderingProperty);
+            set => SetValue(ForceSoftwareRenderingProperty, value);
+        }
         
         private readonly EffectBackgroundDraw _draw;
         private readonly IDisposable _observables;
@@ -96,9 +104,13 @@ namespace SukiUI.Controls
         {
             IsHitTestVisible = false;
             _draw = new EffectBackgroundDraw(new Rect(0, 0, Bounds.Width, Bounds.Height));
+            var forceSwRenderingObs = this.GetObservable(ForceSoftwareRenderingProperty)
+                .Do(enabled => _draw.ForceSoftwareRendering = enabled)
+                .Select(_ => Unit.Default);
             var transEnabledObs = this.GetObservable(TransitionsEnabledProperty)
                 .Do(enabled => _draw.TransitionsEnabled = enabled)
-                .Select(_ => Unit.Default);
+                .Select(_ => Unit.Default)
+                .Merge(forceSwRenderingObs);
             var transTime = this.GetObservable(TransitionTimeProperty)
                 .Do(time => _draw.TransitionTime = time)
                 .Select(_ => Unit.Default)
