@@ -1,6 +1,8 @@
 using System;
 using System.Diagnostics;
 using Avalonia;
+using Avalonia.Skia;
+using Avalonia.Styling;
 using SkiaSharp;
 
 namespace SukiUI.Utilities.Effects
@@ -59,6 +61,14 @@ namespace SukiUI.Utilities.Effects
                 else
                     _oldEffect = null;
             }
+        }
+
+        protected override void RenderSoftware(SKCanvas canvas, SKRect rect)
+        {
+            if (ActiveVariant == ThemeVariant.Dark)
+                canvas.Clear(ActiveTheme.Background.ToSKColor());
+            else
+                canvas.Clear(new SKColorF(0.95f, 0.95f, 0.95f, 1f));
         }
 
         private static double InverseLerp(double start, double end, double value) =>

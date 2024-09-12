@@ -50,6 +50,11 @@ namespace SukiUI.Demo.Features.Effects
                 }
                 canvas.Restore();
             }
+
+            protected override void RenderSoftware(SKCanvas canvas, SKRect rect)
+            {
+                throw new System.NotImplementedException();
+            }
         }
     }
 }

@@ -175,6 +175,18 @@ public class SukiWindow : Window
         AvaloniaProperty.Register<SukiWindow, Avalonia.Controls.Controls>(nameof(RightWindowTitleBarControls), 
             defaultValue: new Avalonia.Controls.Controls());
 
+    public static readonly StyledProperty<bool> BackgroundForceSoftwareRenderingProperty = AvaloniaProperty.Register<SukiWindow, bool>(nameof(BackgroundForceSoftwareRendering));
+    
+    /// <summary>
+    /// Forces the background of the window to utilise software rendering.
+    /// This prevents use of any advanced effects or animations and provides only a flat background colour that changes with the theme.
+    /// </summary>
+    public bool BackgroundForceSoftwareRendering
+    {
+        get => GetValue(BackgroundForceSoftwareRenderingProperty);
+        set => SetValue(BackgroundForceSoftwareRenderingProperty, value);
+    }
+
     /// <summary>
     /// Controls that are displayed on the right side of the title bar,
     /// to the left of the normal window control buttons. (Displays provided controls right-to-left)
