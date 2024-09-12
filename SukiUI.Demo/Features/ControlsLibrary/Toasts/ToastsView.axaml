@@ -62,6 +62,14 @@
                                 Content="Show Toast" />
                     </suki:GroupBox>
                 </suki:GlassCard>
+                
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Loading Toast">
+                        <Button Margin="15,10,15,0"
+                                Command="{Binding ShowLoadingToastCommand}"
+                                Content="Show Toast" />
+                    </suki:GroupBox>
+                </suki:GlassCard>
                 <suki:GlassCard>
                     <suki:GroupBox Header="3 Info Toasts">
                         <Button Margin="15,10,15,0"

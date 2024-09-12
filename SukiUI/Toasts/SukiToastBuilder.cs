@@ -32,6 +32,7 @@ namespace SukiUI.Toasts
         public void SetContent(object? content) => Toast.Content = content;
         
         public void SetCanDismissByClicking(bool canDismiss) => Toast.CanDismissByClicking = canDismiss;
+        public void SetLoadingState(bool loading) => Toast.LoadingState = loading;
         
         public void SetType(NotificationType type)
         {

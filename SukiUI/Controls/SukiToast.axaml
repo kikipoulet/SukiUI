@@ -99,7 +99,10 @@
                                           VerticalAlignment="Center"
                                           Data="{TemplateBinding Icon}"
                                           Foreground="White" />
-
+                                <Border IsVisible="{TemplateBinding LoadingState}" Background="{DynamicResource SukiCardBackground}">
+                                  
+                                    <suki:WaveProgress IsTextVisible="False" Value="50" Height="35" Width="35"></suki:WaveProgress>
+                                </Border>
                             </Panel>
                         </Border>
                     </Border>

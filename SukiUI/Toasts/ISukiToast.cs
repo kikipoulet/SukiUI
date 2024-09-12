@@ -13,6 +13,7 @@ namespace SukiUI.Toasts
         object? Icon { get; set; }
         IBrush? Foreground { get; set; }
         bool CanDismissByClicking { get; set; }
+        bool LoadingState { get; set; }
         Action<ISukiToast>? OnDismissed { get; set; }
         Action<ISukiToast> OnClicked { get; set; }
         ObservableCollection<object> ActionButtons { get; }

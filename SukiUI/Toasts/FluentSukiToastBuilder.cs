@@ -33,6 +33,16 @@ namespace SukiUI.Toasts
             return builder;
         }
         
+        
+        /// <summary>
+        /// Show a loading Toast.
+        /// </summary>
+        public static SukiToastBuilder WithLoadingState(this SukiToastBuilder builder, bool state)
+        {
+            builder.SetLoadingState(state);
+            return builder;
+        }
+        
         /// <summary>
         /// Gives the toast some content. This can be a ViewModel if desired - View will be located via the default location strategy.
         /// </summary>

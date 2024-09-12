@@ -63,6 +63,18 @@ public partial class ToastsViewModel(ISukiToastManager toastManager) : DemoPageB
     [RelayCommand]
     private void ShowErrorToast() => ShowTypeDemoToast(NotificationType.Error);
 
+    [RelayCommand]
+    private void ShowLoadingToast()
+    {
+        toastManager.CreateToast()
+            .WithTitle("Loading")
+            .WithLoadingState(true)
+            .WithContent(
+                $"This is a loading toast.")
+            .Dismiss().After(TimeSpan.FromSeconds(3))
+            .Dismiss().ByClicking()
+            .Queue();
+    }
     private void ShowTypeDemoToast(NotificationType toastType)
     {
         toastManager.CreateToast()

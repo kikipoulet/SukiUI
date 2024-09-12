@@ -42,6 +42,14 @@ public class SukiToast : ContentControl, ISukiToast
         get => GetValue(TitleProperty);
         set => SetValue(TitleProperty, value);
     }
+    
+    public static readonly StyledProperty<bool> LoadingStateProperty = AvaloniaProperty.Register<SukiToast, bool>(nameof(LoadingState));
+
+    public bool LoadingState
+    {
+        get => GetValue(LoadingStateProperty);
+        set => SetValue(LoadingStateProperty, value);
+    }
 
     public static readonly StyledProperty<bool> CanDismissByClickingProperty = AvaloniaProperty.Register<SukiToast, bool>(nameof(CanDismissByClicking));
 
