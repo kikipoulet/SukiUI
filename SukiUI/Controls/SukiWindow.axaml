@@ -37,7 +37,7 @@
                                                  Style="{TemplateBinding BackgroundStyle}"
                                                  TransitionTime="{TemplateBinding BackgroundTransitionTime}"
                                                  TransitionsEnabled="{TemplateBinding BackgroundTransitionsEnabled}" 
-                                                 ForceSoftwareRendering="True"/>
+                                                 ForceSoftwareRendering="{TemplateBinding BackgroundForceSoftwareRendering}"/>
                             <Panel Background="White"
                                    IsVisible="{DynamicResource IsLight}"
                                    Opacity="0.1" />
