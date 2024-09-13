@@ -36,7 +36,8 @@
                                                  ShaderFile="{TemplateBinding BackgroundShaderFile}"
                                                  Style="{TemplateBinding BackgroundStyle}"
                                                  TransitionTime="{TemplateBinding BackgroundTransitionTime}"
-                                                 TransitionsEnabled="{TemplateBinding BackgroundTransitionsEnabled}" />
+                                                 TransitionsEnabled="{TemplateBinding BackgroundTransitionsEnabled}" 
+                                                 ForceSoftwareRendering="{TemplateBinding BackgroundForceSoftwareRendering}"/>
                             <Panel Background="White"
                                    IsVisible="{DynamicResource IsLight}"
                                    Opacity="0.1" />

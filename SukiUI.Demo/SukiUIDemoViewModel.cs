@@ -133,6 +133,7 @@ public partial class SukiUIDemoViewModel : ObservableObject
     [RelayCommand]
     private void ToggleTitleBar()
     {
+        TitleBarVisible = !TitleBarVisible;
         ToastManager.CreateSimpleInfoToast()
             .WithTitle($"Title Bar {(TitleBarVisible ? "Visible" : "Hidden")}")
             .WithContent($"Window title bar has been {(TitleBarVisible ? "shown" : "hidden")}.")
