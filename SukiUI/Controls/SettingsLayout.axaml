@@ -122,7 +122,7 @@
         <Style Selector="controls|SettingsLayout">
             <Setter Property="Template">
                 <ControlTemplate>
-                    <DockPanel MaxWidth="1400" SizeChanged="DockPanel_SizeChanged">
+                    <DockPanel MaxWidth="1400"  SizeChanged="DockPanel_SizeChanged">
                         <StackPanel Name="StackSummary"
                                     Width="400"
                                     Margin="0,25,0,0"
@@ -130,7 +130,7 @@
                                     DockPanel.Dock="Left" />
                         <ScrollViewer Name="MyScroll" Classes="Stack">
                             <StackPanel Name="StackItems"
-                                        Margin="-10,0"
+                                        Margin="20,0"
                                         theme:StackPanelExtensions.AnimatedScroll="True" />
                         </ScrollViewer>
                     </DockPanel>

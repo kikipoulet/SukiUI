@@ -13,7 +13,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using Avalonia.Layout;
 
 namespace SukiUI.Controls;
 
@@ -137,109 +139,34 @@ public partial class SettingsLayout : UserControl
         };
     }
 
+    private  Mutex mut = new Mutex();
+
+    private double LastDesiredSize = -1;
+    
     private async void DockPanel_SizeChanged(object sender, SizeChangedEventArgs e)
     {
-        if (isAnimatingWidth)
+        
+        var stack = this.GetTemplateChildren().First(n => n.Name == "StackSummary");
+        var desiredSize = e.NewSize.Width > 1100 ? 400 : 0;
+        
+        if(LastDesiredSize == desiredSize)
             return;
 
-        var currentwidth = this.GetTemplateChildren().First(n => n.Name == "StackSummary").Width;
-        var desiredSize = e.NewSize.Width > 1000 ? 400 : 0;
+        LastDesiredSize = desiredSize;
 
-        if (desiredSize != currentwidth)
-            if ((currentwidth == 0 || currentwidth == 400))
-                await AnimateSummaryWidth(this.GetTemplateChildren().First(n => n.Name == "StackSummary").Width, desiredSize);
-
-        if (e.NewSize.Width <= 1000 && e.NewSize.Width > 850)
-            await AnimateItemsMargin(new Thickness(100, 0));
-        else if (e.NewSize.Width <= 850 && e.NewSize.Width > 700)
-            await AnimateItemsMargin(new Thickness(50, 0));
-        else
-            await AnimateItemsMargin(new Thickness(-10, 0));
+        if (stack.Width != desiredSize && (stack.Width == 0 || stack.Width == 400)) 
+            stack.Animate<double>(WidthProperty, stack.Width, desiredSize, TimeSpan.FromMilliseconds(800));
+        
+       
     }
 
     private bool isAnimatingWidth = false;
     private bool isAnimatingMargin = false;
     private bool isAnimatingScroll = false;
 
-    private async Task AnimateItemsMargin(Thickness desiredSize)
-    {
-        if (isAnimatingMargin)
-            return;
 
-        var myScroll = (ScrollViewer)this.GetTemplateChildren().First(n => n.Name == "MyScroll");
-        if (myScroll.Content is not StackPanel stackItems)
-            return;
 
-        if (stackItems.Margin.Left == desiredSize.Left)
-            return;
-
-        isAnimatingMargin = true;
-
-        var animationTask = new Animation
-        {
-            Duration = TimeSpan.FromMilliseconds(800),
-            FillMode = FillMode.Forward,
-            Easing = new CubicEaseInOut(),
-            IterationCount = new IterationCount(1),
-            PlaybackDirection = PlaybackDirection.Normal,
-            Children =
-            {
-                new KeyFrame()
-                {
-                    Setters = { new Setter { Property = MarginProperty, Value = stackItems.Margin } },
-                    KeyTime = TimeSpan.FromSeconds(0)
-                },
-                new KeyFrame()
-                {
-                    Setters = { new Setter { Property = MarginProperty, Value = desiredSize } },
-                    KeyTime = TimeSpan.FromMilliseconds(800)
-                }
-            }
-        }.RunAsync(stackItems);
-
-        var abortTask = Task.Run(async () =>
-        {
-            await Task.Delay(1000);
-            isAnimatingMargin = false;
-        });
-
-        await Task.WhenAll(animationTask, abortTask);
-    }
-
-    private async Task AnimateSummaryWidth(double current, double desiredSize)
-    {
-        isAnimatingWidth = true;
-
-        var animationTask = new Animation
-        {
-            Duration = TimeSpan.FromMilliseconds(800),
-            FillMode = FillMode.Forward,
-            Easing = new CubicEaseInOut(),
-            IterationCount = new IterationCount(1),
-            PlaybackDirection = PlaybackDirection.Normal,
-            Children =
-            {
-                new KeyFrame()
-                {
-                    Setters = { new Setter { Property = WidthProperty, Value = current } },
-                    KeyTime = TimeSpan.FromSeconds(0)
-                },
-                new KeyFrame()
-                {
-                    Setters = { new Setter { Property = WidthProperty, Value = desiredSize } },
-                    KeyTime = TimeSpan.FromMilliseconds(800)
-                }
-            }
-        }.RunAsync(this.GetTemplateChildren().First(n => n.Name == "StackSummary"));
-
-        var abortTask = Task.Run(async () =>
-        {
-            await Task.Delay(1000);
-            isAnimatingWidth = false;
-        });
-
-        await Task.WhenAll(animationTask, abortTask);
-    }
+   
 
     private async Task AnimateScroll(double desiredScroll)
     {
@@ -262,7 +189,7 @@ public partial class SettingsLayout : UserControl
                 },
                 new KeyFrame()
                 {
-                    Setters = { new Setter { Property = ScrollViewer.OffsetProperty, Value = new Vector(myscroll.Offset.X, desiredScroll) } },
+                    Setters = { new Setter { Property = ScrollViewer.OffsetProperty, Value = new Vector(myscroll.Offset.X, desiredScroll -30) } },
                     KeyTime = TimeSpan.FromMilliseconds(800)
                 }
             }
@@ -276,4 +203,6 @@ public partial class SettingsLayout : UserControl
 
         await Task.WhenAll(animationTask, abortTask);
     }
+
+   
 }
