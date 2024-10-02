@@ -1,12 +1,9 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
-using Avalonia.Threading;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reactive;
-using System.Reactive.Linq;
 using Avalonia.Interactivity;
 using Avalonia.Layout;
 using SukiUI.Enums;
@@ -112,14 +109,14 @@ public class SukiSideMenu : SelectingItemsControl
 
     private bool IsSpacerVisible => !IsMenuExpanded;
 
-    private IDisposable? _subscriptionDisposable;
-    private IDisposable? _contentDisposable;
+
+    private SukiTransitioningContentControl? _contentControl;
+    private Grid? _spacer;
     
     public SukiSideMenu()
     {
         SelectionMode = SelectionMode.Single | SelectionMode.AlwaysSelected;
     }
-
 
     private void MenuExpandedClicked()
     {
@@ -143,49 +140,43 @@ public class SukiSideMenu : SelectingItemsControl
             SelectedItem = Items.First();
         }
 
-        e.NameScope.Get<Button>("PART_SidebarToggleButton").Click += (_, _) =>
-            MenuExpandedClicked();
-      
-
-        if (e.NameScope.Get<Grid>("PART_Spacer") is { } spacer)
-        {
-            spacer.IsVisible = IsSpacerVisible;
-            var menuObservable = this.GetObservable(IsMenuExpandedProperty)
-                .Select(_ => Unit.Default);
-           
-            _subscriptionDisposable = menuObservable
-               
-                .ObserveOn(new AvaloniaSynchronizationContext())
-                .Subscribe(_ => spacer.IsVisible = IsSpacerVisible);
-        }
-
-        if (e.NameScope.Get<SukiTransitioningContentControl>("PART_TransitioningContentControl") is { } contentControl)
-        {
-            _contentDisposable = this.GetObservable(SelectedItemProperty)
-                .ObserveOn(new AvaloniaSynchronizationContext())
-                .Do(obj =>
-                {
-                    contentControl.Content = obj switch
-                    {
-                        SukiSideMenuItem { PageContent: { } sukiMenuPageContent } => sukiMenuPageContent,
-                        _ => obj
-                    };
-                })
-                .Subscribe();
-        }
-
+        e.NameScope.Get<Button>("PART_SidebarToggleButton").Click += (_, _) => MenuExpandedClicked();
+        _contentControl = e.NameScope.Get<SukiTransitioningContentControl>("PART_TransitioningContentControl");
+        _spacer = e.NameScope.Get<Grid>("PART_Spacer");
+        if(_spacer != null) _spacer.IsVisible = IsSpacerVisible;
     }
 
-    public bool UpdateSelectionFromPointerEvent(Control source)
+    protected override void OnLoaded(RoutedEventArgs e)
     {
-        return UpdateSelectionFromEventSource(source);
+        base.OnLoaded(e);
+        SetContentControlContent(SelectedItem);
     }
+
+    protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+    {
+        base.OnPropertyChanged(change);
+        if (change.Property == SelectedItemProperty && _contentControl != null) 
+            SetContentControlContent(change.NewValue);
+        if (change.Property == IsMenuExpandedProperty && _spacer != null) 
+            _spacer.IsVisible = IsSpacerVisible;
+    }
+
+    private void SetContentControlContent(object? newContent)
+    {
+        if (_contentControl == null) return;
+        _contentControl.Content = newContent switch
+        {
+            SukiSideMenuItem { PageContent: { } sukiMenuPageContent } => sukiMenuPageContent,
+            _ => newContent
+        };
+    }
+
+    public bool UpdateSelectionFromPointerEvent(Control source) => UpdateSelectionFromEventSource(source);
 
     protected override Control CreateContainerForItemOverride(object? item, int index, object? recycleKey)
     {
-        SukiSideMenuItem menuItem =
-            (ItemTemplate != null && ItemTemplate.Match(item) &&
-             ItemTemplate.Build(item) is SukiSideMenuItem sukiMenuItem)
+        var menuItem = (ItemTemplate != null && ItemTemplate.Match(item) &&
+                        ItemTemplate.Build(item) is SukiSideMenuItem sukiMenuItem)
                 ? sukiMenuItem
                 : new SukiSideMenuItem();
         menuItem.IsContentMovable = IsSelectedItemContentMovable;
@@ -193,17 +184,10 @@ public class SukiSideMenu : SelectingItemsControl
         return menuItem;
     }
 
-    private List<SukiSideMenuItem> _sideMenuItems = new();
+    private readonly List<SukiSideMenuItem> _sideMenuItems = new();
 
     protected override bool NeedsContainerOverride(object? item, int index, out object? recycleKey)
     {
         return NeedsContainer<SukiSideMenuItem>(item, out recycleKey);
-    }
-
-    protected override void OnUnloaded(RoutedEventArgs e)
-    {
-        base.OnUnloaded(e);
-        _contentDisposable?.Dispose();
-        _subscriptionDisposable?.Dispose();
     }
 }

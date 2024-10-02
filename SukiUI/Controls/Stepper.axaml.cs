@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Reactive;
-using System.Reactive.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
@@ -48,7 +46,6 @@ namespace SukiUI.Controls
         }
 
         private Grid? _grid;
-        private IDisposable? _subscriptionDisposables;
 
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
@@ -59,19 +56,14 @@ namespace SukiUI.Controls
             }
 
             _grid = grid;
+            StepsChangedHandler(Steps);
         }
 
-        protected override void OnLoaded(RoutedEventArgs e)
+        protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
         {
-            var indexObs = this.GetObservable(IndexProperty)
-                .Do(_ => StepsChangedHandler(Steps))
-                .Select(_ => Unit.Default);
-            _subscriptionDisposables = this.GetObservable(StepsProperty)
-                .Do(_ => StepsChangedHandler(Steps))
-                .Select(_ => Unit.Default)
-                .Merge(indexObs)
-                .ObserveOn(new AvaloniaSynchronizationContext())
-                .Subscribe();
+            base.OnPropertyChanged(change);
+            if (change.Property == IndexProperty || change.Property == StepsProperty) 
+                StepsChangedHandler(Steps);
         }
 
         private void StepsChangedHandler(IEnumerable? newSteps)
@@ -215,12 +207,6 @@ namespace SukiUI.Controls
             Grid.SetColumn(griditem, index);
 
             grid.Children.Add(griditem);
-        }
-
-        protected override void OnUnloaded(RoutedEventArgs e)
-        {
-            base.OnUnloaded(e);
-            _subscriptionDisposables?.Dispose();
         }
 
         #endregion

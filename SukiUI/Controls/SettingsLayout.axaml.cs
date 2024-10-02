@@ -8,14 +8,12 @@ using Avalonia.Data;
 using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
-using DynamicData;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Avalonia.Layout;
 
 namespace SukiUI.Controls;
 
@@ -30,11 +28,6 @@ public partial class SettingsLayout : UserControl
     public SettingsLayout()
     {
         InitializeComponent();
-    }
-
-    protected override void OnAttachedToLogicalTree(LogicalTreeAttachmentEventArgs e)
-    {
-        base.OnAttachedToLogicalTree(e);
     }
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
@@ -55,11 +48,10 @@ public partial class SettingsLayout : UserControl
     private ObservableCollection<SettingsLayoutItem> _items;
 
     public static readonly DirectProperty<SettingsLayout, ObservableCollection<SettingsLayoutItem>> StepsProperty =
-        AvaloniaProperty.RegisterDirect<SettingsLayout, ObservableCollection<SettingsLayoutItem>>(nameof(Items), l => l.Items,
-            (numpicker, v) =>
-            {
-                numpicker.Items = v;
-            }, defaultBindingMode: BindingMode.TwoWay, enableDataValidation: true);
+        AvaloniaProperty.RegisterDirect<SettingsLayout, ObservableCollection<SettingsLayoutItem>>(nameof(Items),
+            l => l.Items,
+            (numpicker, v) => { numpicker.Items = v; }, defaultBindingMode: BindingMode.TwoWay,
+            enableDataValidation: true);
 
     public ObservableCollection<SettingsLayoutItem> Items
     {
@@ -110,7 +102,7 @@ public partial class SettingsLayout : UserControl
             var summaryButton = new RadioButton()
             {
                 Content = new TextBlock() { Text = settingsLayoutItem.Header, FontSize = 17 },
-                Classes = { new string[] { "MenuChip" } }
+                Classes = {  "MenuChip" }
             };
             summaryButton.Click += async (sender, args) =>
             {
@@ -119,7 +111,7 @@ public partial class SettingsLayout : UserControl
                 var x = border.TranslatePoint(new Point(), stackItems);
 
                 if (x.HasValue)
-                    await AnimateScroll(x.Value.Y);  // myScroll.Offset = new Vector(0, x.Value.Y);
+                    await AnimateScroll(x.Value.Y); // myScroll.Offset = new Vector(0, x.Value.Y);
             };
             radios.Add(summaryButton);
             stackSummary.Children.Add(summaryButton);
@@ -139,34 +131,27 @@ public partial class SettingsLayout : UserControl
         };
     }
 
-    private  Mutex mut = new Mutex();
+    private Mutex mut = new Mutex();
 
     private double LastDesiredSize = -1;
-    
+
     private async void DockPanel_SizeChanged(object sender, SizeChangedEventArgs e)
     {
-        
         var stack = this.GetTemplateChildren().First(n => n.Name == "StackSummary");
         var desiredSize = e.NewSize.Width > 1100 ? 400 : 0;
-        
-        if(LastDesiredSize == desiredSize)
+
+        if (LastDesiredSize == desiredSize)
             return;
 
         LastDesiredSize = desiredSize;
 
-        if (stack.Width != desiredSize && (stack.Width == 0 || stack.Width == 400)) 
+        if (stack.Width != desiredSize && (stack.Width == 0 || stack.Width == 400))
             stack.Animate<double>(WidthProperty, stack.Width, desiredSize, TimeSpan.FromMilliseconds(800));
-        
-       
     }
 
     private bool isAnimatingWidth = false;
     private bool isAnimatingMargin = false;
     private bool isAnimatingScroll = false;
-
-
-
-   
 
     private async Task AnimateScroll(double desiredScroll)
     {
@@ -189,7 +174,14 @@ public partial class SettingsLayout : UserControl
                 },
                 new KeyFrame()
                 {
-                    Setters = { new Setter { Property = ScrollViewer.OffsetProperty, Value = new Vector(myscroll.Offset.X, desiredScroll -30) } },
+                    Setters =
+                    {
+                        new Setter
+                        {
+                            Property = ScrollViewer.OffsetProperty,
+                            Value = new Vector(myscroll.Offset.X, desiredScroll - 30)
+                        }
+                    },
                     KeyTime = TimeSpan.FromMilliseconds(800)
                 }
             }
@@ -203,6 +195,4 @@ public partial class SettingsLayout : UserControl
 
         await Task.WhenAll(animationTask, abortTask);
     }
-
-   
 }

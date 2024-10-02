@@ -1,13 +1,10 @@
 using System;
-using System.Reactive;
-using System.Reactive.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Threading;
 using SukiUI.Enums;
-using SukiUI.Utilities;
 using SukiUI.Utilities.Effects;
 
 namespace SukiUI.Controls
@@ -98,39 +95,36 @@ namespace SukiUI.Controls
         }
         
         private readonly EffectBackgroundDraw _draw;
-        private readonly IDisposable _observables;
 
         public SukiBackground()
         {
             IsHitTestVisible = false;
             _draw = new EffectBackgroundDraw(new Rect(0, 0, Bounds.Width, Bounds.Height));
-            var forceSwRenderingObs = this.GetObservable(ForceSoftwareRenderingProperty)
-                .Do(enabled => _draw.ForceSoftwareRendering = enabled)
-                .Select(_ => Unit.Default);
-            var transEnabledObs = this.GetObservable(TransitionsEnabledProperty)
-                .Do(enabled => _draw.TransitionsEnabled = enabled)
-                .Select(_ => Unit.Default)
-                .Merge(forceSwRenderingObs);
-            var transTime = this.GetObservable(TransitionTimeProperty)
-                .Do(time => _draw.TransitionTime = time)
-                .Select(_ => Unit.Default)
-                .Merge(transEnabledObs);
-            var animObs = this.GetObservable(AnimationEnabledProperty)
-                .Do(enabled => _draw.AnimationEnabled = enabled)
-                .Select(_ => Unit.Default)
-                .Merge(transTime);
-            var bgStyleObs = this.GetObservable(StyleProperty)
-                .Select(_ => Unit.Default)
-                .Merge(animObs);
-            var bgShaderFileObs = this.GetObservable(ShaderFileProperty)
-                .Select(_ => Unit.Default)
-                .Merge(bgStyleObs);
-            var bgShaderCodeObs = this.GetObservable(ShaderCodeProperty)
-                .Select(_ => Unit.Default)
-                .Merge(bgShaderFileObs)
-                .Do(_ => HandleBackgroundStyleChanges())
-                .ObserveOn(new AvaloniaSynchronizationContext());
-            _observables = bgShaderCodeObs.Subscribe();
+        }
+
+        protected override void OnLoaded(RoutedEventArgs e)
+        {
+            base.OnLoaded(e);
+            _draw.ForceSoftwareRendering = ForceSoftwareRendering;
+            _draw.TransitionsEnabled = TransitionsEnabled;
+            _draw.TransitionTime = TransitionTime;
+            _draw.AnimationEnabled = AnimationEnabled;
+            HandleBackgroundStyleChanges();
+        }
+
+        protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+        {
+            base.OnPropertyChanged(change);
+            if (change.Property == ForceSoftwareRenderingProperty && change.NewValue is bool forceSoftwareRendering)
+                _draw.ForceSoftwareRendering = forceSoftwareRendering;
+            else if(change.Property == TransitionsEnabledProperty && change.NewValue is bool transitionEnabled)
+                _draw.TransitionsEnabled = transitionEnabled;
+            else if(change.Property == TransitionTimeProperty && change.NewValue is double transitionTime)
+                _draw.TransitionTime = transitionTime;
+            else if(change.Property == AnimationEnabledProperty && change.NewValue is bool animationEnabled)
+                _draw.AnimationEnabled = animationEnabled;
+            else if(change.Property == StyleProperty || change.Property == ShaderFileProperty || change.Property == ShaderCodeProperty)
+                HandleBackgroundStyleChanges();
         }
 
         public override void Render(DrawingContext context)
@@ -148,11 +142,6 @@ namespace SukiUI.Controls
                 _draw.Effect = SukiEffect.FromString(ShaderCode);
             else
                 _draw.Effect = SukiEffect.FromEmbeddedResource(Style.ToString());
-        }
-
-        protected override void OnUnloaded(RoutedEventArgs e)
-        {
-            _observables.Dispose();
         }
     }
 }

@@ -2,16 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using Avalonia.Data;
 using Avalonia.Data.Converters;
-using ReactiveUI;
-
-
-
 
 namespace SukiUI.Controls
 {
     // sirdoombox will kill me because of this
+    // this is quite disgusting but if it works it works... -Doom
     internal class SukiSideMenuService : INotifyPropertyChanged
     {
         

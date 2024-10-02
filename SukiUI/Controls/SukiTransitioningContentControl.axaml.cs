@@ -1,13 +1,10 @@
 using System;
-using System.Reactive.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Animation;
 using Avalonia.Controls;
 using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
-using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Styling;
 using Avalonia.Threading;
@@ -49,8 +46,6 @@ namespace SukiUI.Controls
 
         private ContentPresenter _firstBuffer = null!;
         private ContentPresenter _secondBuffer = null!;
-
-        private IDisposable? _disposable;
 
         private static readonly Animation FadeIn;
         private static readonly Animation FadeOut;
@@ -129,14 +124,11 @@ namespace SukiUI.Controls
 
         private CancellationTokenSource _animCancellationToken = new();
 
-        private IDisposable? _contentDisposable;
-
-        protected override void OnLoaded(RoutedEventArgs e)
+        protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
         {
-            base.OnLoaded(e);
-            _contentDisposable = this.GetObservable(ContentProperty)
-                .ObserveOn(new AvaloniaSynchronizationContext())
-                .Subscribe(PushContent);
+            base.OnPropertyChanged(change);
+            if(change.Property == ContentProperty)
+                PushContent(change.NewValue);
         }
 
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
@@ -179,8 +171,6 @@ namespace SukiUI.Controls
         protected override void OnUnloaded(RoutedEventArgs e)
         {
             base.OnUnloaded(e);
-            _disposable?.Dispose();
-            _contentDisposable?.Dispose();
             _animCancellationToken.Dispose();
         }
     }
