@@ -15,6 +15,10 @@ Include SukiUI styles in your `App.axaml`
 </Application>
 ```
 
+::: warning
+If a default `ThemeColor` is not set and you do not set the theme by any other means, your window and many controls will be completely transparent.
+:::
+
 ## Use SukiWindow as MainWindow
 
 Change MainWindow from Window class to SukiWindow class.
