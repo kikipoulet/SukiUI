@@ -33,7 +33,6 @@
 		<PackageReference Include="SkiaSharp" Version="2.88.8" />
 		<PackageReference Include="Avalonia.Controls.DataGrid" Version="11.2.0-beta1" />
 		<PackageReference Include="Avalonia.Themes.Simple" Version="11.2.0-beta1" />
-		<PackageReference Include="ReactiveUI" Version="20.1.1" />
 	</ItemGroup>
 
 	<ItemGroup>

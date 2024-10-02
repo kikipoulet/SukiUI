@@ -1,7 +1,4 @@
 using System;
-using System.Linq;
-using System.Reactive;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
@@ -41,20 +38,22 @@ namespace SukiUI.Controls
             set => SetValue(PositionProperty, value);
         }
 
-        private IDisposable? _subscriptions;
-        
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
-            _subscriptions = this.GetObservable(PositionProperty)
-                .Do(OnPositionChanged)
-                .Select(_ => Unit.Default).ObserveOn(new AvaloniaSynchronizationContext())
-                .Subscribe();
+            OnPositionChanged(Position);
         }
 
-        private void OnPositionChanged(ToastLocation obj)
+        protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
         {
-            HorizontalAlignment = Position switch
+            base.OnPropertyChanged(change);
+            if (change.Property == PositionProperty && change.NewValue is ToastLocation loc) 
+                OnPositionChanged(loc);
+        }
+
+        private void OnPositionChanged(ToastLocation newLoc)
+        {
+            HorizontalAlignment = newLoc switch
             {
                 ToastLocation.BottomRight => HorizontalAlignment.Right,
                 ToastLocation.BottomLeft => HorizontalAlignment.Left,
@@ -62,7 +61,7 @@ namespace SukiUI.Controls
                 ToastLocation.TopLeft => HorizontalAlignment.Left,
                 _ => throw new ArgumentOutOfRangeException()
             };
-            VerticalAlignment = Position switch
+            VerticalAlignment = newLoc switch
             {
                 ToastLocation.BottomRight => VerticalAlignment.Bottom,
                 ToastLocation.BottomLeft => VerticalAlignment.Bottom,
@@ -70,12 +69,6 @@ namespace SukiUI.Controls
                 ToastLocation.TopLeft => VerticalAlignment.Top,
                 _ => throw new ArgumentOutOfRangeException()
             };
-        }
-
-        protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
-        {
-            base.OnDetachedFromVisualTree(e);
-            _subscriptions?.Dispose();
         }
         
         private static void OnManagerPropertyChanged(AvaloniaObject sender,

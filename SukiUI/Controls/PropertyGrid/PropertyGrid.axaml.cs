@@ -2,17 +2,16 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using System;
 using System.ComponentModel;
-using System.Reactive.Linq;
 
+// ReSharper disable once CheckNamespace
 namespace SukiUI.Controls
 {
     public partial class PropertyGrid : UserControl
     {
         static PropertyGrid()
         {
-            ItemProperty.Changed.Subscribe(OnItemChanged);
+            ItemProperty.Changed.AddClassHandler<PropertyGrid>((_, args) => OnItemChanged(args));
         }
 
         public PropertyGrid()
@@ -40,8 +39,8 @@ namespace SukiUI.Controls
             get { return GetValue(InstanceProperty); }
             set { SetValue(InstanceProperty, value); }
         }
-
-        private static void OnItemChanged(AvaloniaPropertyChangedEventArgs e)
+        
+        private static void OnItemChanged( AvaloniaPropertyChangedEventArgs e)
         {
             if (e.Sender is PropertyGrid propertyGrid)
             {

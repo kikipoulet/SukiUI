@@ -3,16 +3,11 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Media;
-using Avalonia.Threading;
 using System;
-using System.Reactive;
-using System.Reactive.Linq;
-using System.Reflection;
 using Avalonia.Collections;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
 using SukiUI.Enums;
-using SukiUI.Utilities;
 
 namespace SukiUI.Controls;
 
@@ -91,7 +86,7 @@ public class SukiWindow : Window
         get => GetValue(MenuItemsProperty);
         set => SetValue(MenuItemsProperty, value);
     }
-    
+
     public static readonly StyledProperty<bool> CanMinimizeProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(CanMinimize), defaultValue: true);
 
@@ -123,7 +118,7 @@ public class SukiWindow : Window
     public static readonly StyledProperty<SukiBackgroundStyle> BackgroundStyleProperty =
         AvaloniaProperty.Register<SukiWindow, SukiBackgroundStyle>(nameof(BackgroundStyle),
             defaultValue: SukiBackgroundStyle.Bubble);
-    
+
     /// <inheritdoc cref="SukiBackground.Style"/>
     public SukiBackgroundStyle BackgroundStyle
     {
@@ -143,17 +138,17 @@ public class SukiWindow : Window
 
     public static readonly StyledProperty<string?> BackgroundShaderCodeProperty =
         AvaloniaProperty.Register<SukiWindow, string?>(nameof(BackgroundShaderCode));
-    
+
     /// <inheritdoc cref="SukiBackground.ShaderCode"/>
     public string? BackgroundShaderCode
     {
         get => GetValue(BackgroundShaderCodeProperty);
         set => SetValue(BackgroundShaderCodeProperty, value);
     }
-    
+
     public static readonly StyledProperty<bool> BackgroundTransitionsEnabledProperty =
         AvaloniaProperty.Register<SukiBackground, bool>(nameof(BackgroundTransitionsEnabled), defaultValue: false);
-    
+
     /// <inheritdoc cref="SukiBackground.TransitionsEnabled"/>
     public bool BackgroundTransitionsEnabled
     {
@@ -163,7 +158,7 @@ public class SukiWindow : Window
 
     public static readonly StyledProperty<double> BackgroundTransitionTimeProperty =
         AvaloniaProperty.Register<SukiBackground, double>(nameof(BackgroundTransitionTime), defaultValue: 1.0);
-    
+
     /// <inheritdoc cref="SukiBackground.TransitionTime"/>
     public double BackgroundTransitionTime
     {
@@ -171,12 +166,13 @@ public class SukiWindow : Window
         set => SetValue(BackgroundTransitionTimeProperty, value);
     }
 
-    public static readonly StyledProperty<Avalonia.Controls.Controls> RightWindowTitleBarControlsProperty = 
-        AvaloniaProperty.Register<SukiWindow, Avalonia.Controls.Controls>(nameof(RightWindowTitleBarControls), 
+    public static readonly StyledProperty<Avalonia.Controls.Controls> RightWindowTitleBarControlsProperty =
+        AvaloniaProperty.Register<SukiWindow, Avalonia.Controls.Controls>(nameof(RightWindowTitleBarControls),
             defaultValue: new Avalonia.Controls.Controls());
 
-    public static readonly StyledProperty<bool> BackgroundForceSoftwareRenderingProperty = AvaloniaProperty.Register<SukiWindow, bool>(nameof(BackgroundForceSoftwareRendering));
-    
+    public static readonly StyledProperty<bool> BackgroundForceSoftwareRenderingProperty =
+        AvaloniaProperty.Register<SukiWindow, bool>(nameof(BackgroundForceSoftwareRendering));
+
     /// <summary>
     /// Forces the background of the window to utilise software rendering.
     /// This prevents use of any advanced effects or animations and provides only a flat background colour that changes with the theme.
@@ -197,8 +193,8 @@ public class SukiWindow : Window
         set => SetValue(RightWindowTitleBarControlsProperty, value);
     }
 
-    public static readonly StyledProperty<Avalonia.Controls.Controls> HostsProperty = 
-        AvaloniaProperty.Register<SukiWindow, Avalonia.Controls.Controls>(nameof(Hosts), 
+    public static readonly StyledProperty<Avalonia.Controls.Controls> HostsProperty =
+        AvaloniaProperty.Register<SukiWindow, Avalonia.Controls.Controls>(nameof(Hosts),
             defaultValue: new Avalonia.Controls.Controls());
 
     /// <summary>
@@ -218,12 +214,10 @@ public class SukiWindow : Window
         Hosts = new Avalonia.Controls.Controls();
     }
 
-    private IDisposable? _subscriptionDisposables;
-
     protected override void OnLoaded(RoutedEventArgs e)
     {
         base.OnLoaded(e);
-        
+
         if (Application.Current?.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop)
             return;
         if (desktop.MainWindow is SukiWindow window && window != this)
@@ -233,68 +227,26 @@ public class SukiWindow : Window
             // if (LogoContent is null) LogoContent = s.LogoContent;
         }
     }
-    
+
+    protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+    {
+        base.OnPropertyChanged(change);
+        if (change.Property == WindowStateProperty && change.NewValue is WindowState windowState) 
+            OnWindowStateChanged(windowState);
+    }
+
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
-
-        _subscriptionDisposables = this.GetObservable(WindowStateProperty)
-            .Do(OnWindowStateChanged)
-            .Select(_ => Unit.Default).ObserveOn(new AvaloniaSynchronizationContext())
-            .Subscribe();
+        OnWindowStateChanged(WindowState);
         try
         {
             // Create handlers for buttons
             if (e.NameScope.Get<Button>("PART_MaximizeButton") is { } maximize)
             {
                 maximize.Click += OnMaximizeButtonClicked;
-                var pointerOnMaxButton = false;
-                var setter = typeof(Button).GetProperty("IsPointerOver");
-
-                // Windows Snap Layout
-                var proc = 
-                    (IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam, ref bool handled) =>
-                {
-                    switch (msg)
-                    {
-                        case 533:
-                            if (!pointerOnMaxButton) break;
-                            if (!CanResize) break;
-                            WindowState = WindowState == WindowState.Maximized
-                                ? WindowState.Normal
-                                : WindowState.Maximized;
-                            break;
-                        case 0x0084:
-                            var point = new PixelPoint(
-                                (short)(ToInt32(lParam) & 0xffff),
-                                (short)(ToInt32(lParam) >> 16));
-                            var buttonLeftTop = maximize.PointToScreen(new Point(0, 0));
-                            var x               = (buttonLeftTop.X - point.X)         / RenderScaling;
-                            var y               = (point.Y         - buttonLeftTop.Y) / RenderScaling;
-                            if (new Rect(0, 0,
-                                    maximize.DesiredSize.Width,
-                                    maximize.DesiredSize.Height)
-                                .Contains(new Point(x, y)))
-                            {
-                                setter?.SetValue(maximize, true);
-                                pointerOnMaxButton   = true;
-                                handled              = true;
-                                return (IntPtr)9;
-                            }
-
-                            pointerOnMaxButton = false;
-                            setter?.SetValue(maximize, false);
-                            break;
-                    }
-
-                    return IntPtr.Zero;
-                    
-                    static int ToInt32(IntPtr ptr) => IntPtr.Size == 4 
-                                                    ? ptr.ToInt32() : (int)(ptr.ToInt64() & 0xffffffff);
-                };
-                
-                Win32Properties.AddWndProcHookCallback(this, new Win32Properties.CustomWndProcHookCallback(proc));
-            } 
+                EnableWindowsSnapLayout(maximize);
+            }
 
             if (e.NameScope.Get<Button>("PART_MinimizeButton") is { } minimize)
                 minimize.Click += (_, _) => WindowState = WindowState.Minimized;
@@ -318,18 +270,65 @@ public class SukiWindow : Window
     {
         if (!CanResize) return;
         WindowState = WindowState == WindowState.Maximized
-                    ? WindowState.Normal
-                    : WindowState.Maximized;
+            ? WindowState.Normal
+            : WindowState.Maximized;
+    }
+
+    private void EnableWindowsSnapLayout(Button maximize)
+    {
+        var pointerOnMaxButton = false;
+        var setter = typeof(Button).GetProperty("IsPointerOver");
+        var proc = (IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam, ref bool handled) =>
+        {
+            switch (msg)
+            {
+                case 533:
+                    if (!pointerOnMaxButton) break;
+                    if (!CanResize) break;
+                    WindowState = WindowState == WindowState.Maximized
+                        ? WindowState.Normal
+                        : WindowState.Maximized;
+                    break;
+                case 0x0084:
+                    var point = new PixelPoint(
+                        (short)(ToInt32(lParam) & 0xffff),
+                        (short)(ToInt32(lParam) >> 16));
+                    var buttonLeftTop = maximize.PointToScreen(new Point(0, 0));
+                    var x = (buttonLeftTop.X - point.X) / RenderScaling;
+                    var y = (point.Y - buttonLeftTop.Y) / RenderScaling;
+                    if (new Rect(0, 0,
+                            maximize.DesiredSize.Width,
+                            maximize.DesiredSize.Height)
+                        .Contains(new Point(x, y)))
+                    {
+                        setter?.SetValue(maximize, true);
+                        pointerOnMaxButton = true;
+                        handled = true;
+                        return (IntPtr)9;
+                    }
+
+                    pointerOnMaxButton = false;
+                    setter?.SetValue(maximize, false);
+                    break;
+            }
+
+            return IntPtr.Zero;
+
+            static int ToInt32(IntPtr ptr) => IntPtr.Size == 4
+                ? ptr.ToInt32()
+                : (int)(ptr.ToInt64() & 0xffffffff);
+        };
+
+        Win32Properties.AddWndProcHookCallback(this, new Win32Properties.CustomWndProcHookCallback(proc));
     }
 
     private void OnWindowStateChanged(WindowState state)
     {
         if (state == WindowState.FullScreen)
             CanResize = CanMove = false;
-        
         if (state == WindowState.Maximized)
             Margin = new Thickness(7);
-        else 
+        else
             Margin = new Thickness(0);
     }
 
@@ -337,11 +336,5 @@ public class SukiWindow : Window
     {
         base.OnPointerPressed(e);
         BeginMoveDrag(e);
-    }
-
-    protected override void OnUnloaded(RoutedEventArgs e)
-    {
-        base.OnUnloaded(e);
-        _subscriptionDisposables?.Dispose();
     }
 }
