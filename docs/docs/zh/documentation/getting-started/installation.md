@@ -48,12 +48,8 @@ dotnet add package SukiUI --version 6.0.0
 
 5. 选择刚刚下载的 `SukiUI.dll` 并添加
 
-6. 添加 Nuget 包 `System.Reactive`
-
 ::: tip
 最终，你的包列表应为：
 
 ![](/getting-started/introduction-final-package-list.webp "package list")
-
-如果你是以引用`dll`的方式安装的，此处应有 `System.Reactive`
 :::
