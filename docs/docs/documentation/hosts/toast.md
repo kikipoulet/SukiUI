@@ -60,6 +60,8 @@ MainWindow.ToastManager.CreateToast()
 	.Queue();
 ```
 
+<br/>
+
 ## Displaying Toasts
 
 In order to construct and therefore display toasts, a fluent style builder is provided that makes constructing toasts simple. To begin constructing a toast, it's recommended to call the extension method `.CreateToast()` on the `ISukiToastManager` instance you want it to be displayed in.
@@ -80,6 +82,12 @@ public void DisplayToast()
 }
 ```
 
+
+![toastsimple](https://github.com/user-attachments/assets/841b13a3-7983-4f39-9c15-3ce97510ba0d)
+
+
+<br/>
+
 ## Dismissing Toasts
 
 By default, toasts have no mechanism to be dismissed other than the capacity of the `SukiToastHost` being exceeded, at which point older toasts are dismissed to make room. In order to add dismissal mechanisms to a toast it's necessary to use the `.Dismiss()` method, at which point you can provide a method by which the toast can be dismissed. It is possible to have more than 1 dismissal method for a toast.
@@ -95,6 +103,7 @@ public void DisplayToast()
         .Queue();
 }
 ```
+<br/>
 
 ## Interactions
 
@@ -112,4 +121,131 @@ public void DisplayToast()
         .WithActionButton("Dismiss", _ => { }, true)
         .Queue();
 }
+```
+
+<br/>
+
+## Toast Types
+
+### Information
+
+![toastsimple](https://github.com/user-attachments/assets/6a9f14b6-64a9-4a7b-a6b6-e15d8ad80ebc)
+
+
+```cs
+public void DisplayToast()
+{
+	ToastManager.CreateToast()
+            .OfType(NotificationType.Information)
+            .Queue();
+}
+```
+
+### Success
+
+
+![success](https://github.com/user-attachments/assets/71ea5077-21b6-4f8b-bbe8-7ef2760041ef)
+
+
+```cs
+public void DisplayToast()
+{
+	ToastManager.CreateToast()
+            .OfType(NotificationType.Success)
+            .Queue();
+}
+```
+
+### Warning
+
+![warning](https://github.com/user-attachments/assets/303999ab-44ba-4819-82ad-a8869c7ca5f3)
+
+
+```cs
+public void DisplayToast()
+{
+	ToastManager.CreateToast()
+            .OfType(NotificationType.Warning)
+            .Queue();
+}
+```
+
+### Error
+
+![error](https://github.com/user-attachments/assets/686da808-e594-41cf-b44a-ae586eadedc7)
+
+
+```cs
+public void DisplayToast()
+{
+	ToastManager.CreateToast()
+            .OfType(NotificationType.Error)
+            .Queue();
+}
+```
+
+
+
+
+
+<br/>
+
+## Loading Toast
+
+![loading](https://github.com/user-attachments/assets/7857721a-e7a0-4bf5-beff-31363c606ce4)
+
+
+```cs
+public void DisplayToast()
+{
+	ToastManager.CreateToast()
+            .WithLoadingState(true)
+            .Queue();
+}
+```
+
+
+
+
+<br/>
+
+## Complex Interaction
+
+Here is an example of an "Update" toast.
+
+
+![loading](https://github.com/user-attachments/assets/479d7e09-a37b-4595-85a5-02c669b8592a)
+
+
+```cs
+    private void ShowActionToast()
+    {
+        toastManager.CreateToast()
+            .WithTitle("Update Available")
+            .WithContent("Information, Update v1.0.0.0 is Now Available.")
+            .WithActionButtonNormal("Later", _ => { }, true)
+            .WithActionButton("Update", _ => ShowUpdatingToast(), true)
+            .Queue();
+    }
+
+    private void ShowUpdatingToast()
+    {
+        var progress = new ProgressBar() { Value = 0, ShowProgressText = true };
+        var toast = toastManager.CreateToast()
+            .WithTitle("Updating...")
+            .WithContent(progress)
+            .Queue();
+        var timer = new Timer(20);
+        timer.Elapsed += (_, _) =>
+        {
+            Dispatcher.UIThread.Invoke(() =>
+            {
+                progress.Value += 1;
+                if (progress.Value < 100) return;
+                timer.Dispose();
+                toastManager.Dismiss(toast);
+            });
+        };
+        timer.Start();
+    }
 ```
