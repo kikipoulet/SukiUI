@@ -82,6 +82,9 @@ public void DisplayDialog()
 }
 ```
 
+![dialog](https://github.com/user-attachments/assets/efd34873-b4c1-45bf-a14b-d7a7b11a77c1)
+
+
 ## Dismissing Dialogs
 
 By default, dialogs have no mechanism to be dismissed. In order to add dismissal mechanisms to a dialog it's necessary to use the `.Dismiss()` method, at which point you can provide a method by which the dialogs can be dismissed. Currently the only standalone dismissal is `.ByClickingBackground()` which will dismiss the dialog when the user clicks outside of it.
@@ -115,6 +118,12 @@ public void DisplayDialog()
 }
 ```
 
+![dialogclose](https://github.com/user-attachments/assets/3d07344f-c302-400a-b2cf-88865e7713ba)
+
+
 ## MessageBox Style
 
 It is possible to use the `.OfType()` method to cause the dialog to use an included MessageBox style, the styles included are: `Information`, `Success`, `Warning` and `Error`. 
+
+![dialogtypes](https://github.com/user-attachments/assets/1c596315-5e9a-4f4c-b577-e27d0d6b0a1d)
+
