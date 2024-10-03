@@ -112,6 +112,7 @@ public class SukiToast : ContentControl, ISukiToast
         ActionButtons.Clear();
         OnDismissed = null;
         OnClicked = null;
+        LoadingState = false;
         DelayDismissAction = null;
         DockPanel.SetDock(this, Dock.Bottom);
         return this;
