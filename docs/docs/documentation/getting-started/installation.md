@@ -53,13 +53,9 @@ Visit [SukiUI on Nuget](https://www.nuget.org/packages/SukiUI) for more informat
 
 5. Select `SukiUI.dll` you downloaded
 
-6. Add a Nuget package `System.Reactive`
-
 ::: tip
 The package list should be:
 
 ![](/getting-started/introduction-final-package-list.webp "package list")
-
-If installed by referencing `.dll`, there should be a `System.Reactive` here.
 :::
  </details>

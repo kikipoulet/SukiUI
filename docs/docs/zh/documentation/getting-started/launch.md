@@ -15,6 +15,10 @@
 </Application>
 ```
 
+::: warning
+如果没有设置主题颜色 `ThemeColor`，创建的窗口和许多控件都将完全透明
+:::
+
 ## 将 MainWindow 更改为 SukiWindow
 
 原来的 `MainWindow.axaml`:
@@ -59,7 +63,6 @@ public partial class MainWindow : Window
 ```
 
 修改后的 `MainWindow.axaml.cs`: 
-
 
 ```csharp
 using SukiUI.Controls; // [!code highlight]

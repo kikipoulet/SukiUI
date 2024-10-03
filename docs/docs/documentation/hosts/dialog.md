@@ -7,6 +7,7 @@ The host is designed in such a way as to be MVVM friendly and as long as you hav
 Here is a simple example setup using MVVM:
 
 ### View
+
 ```xml
 <!-- XMLNS definitions omitted for brevity -->
 <suki:SukiWindow>
@@ -17,6 +18,7 @@ Here is a simple example setup using MVVM:
 ```
 
 ### ViewModel
+
 ```cs
 public class ExampleViewModel
 {
@@ -28,6 +30,7 @@ public class ExampleViewModel
 If you do not wish to use MVVM, or would rather a simpler solution that "just works", then you can choose to implement it like this:
 
 ### AXAML
+
 ```xml
 <!-- XMLNS definitions omitted for brevity -->
 <suki:SukiWindow>
@@ -36,7 +39,9 @@ If you do not wish to use MVVM, or would rather a simpler solution that "just wo
 	</suki:SukiWindow.Hosts>
 <suki:SukiWindow>
 ```
+
 ### Code-Behind
+
 ```cs
 public class MainWindow : SukiWindow
 {
@@ -105,11 +110,11 @@ public void DisplayDialog()
 {
     dialogManager.CreateDialog()
         .WithActionButton("Don't Close", _ => { })
-        .WithActionButton("Close ", _ => { }, true) // last parameter optional
+        .WithActionButton("Close ", _ => { }, true)  // last parameter optional
         .TryShow();
 }
 ```
 
 ## MessageBox Style
 
-It is possible to use the `.OfType()` method to cause the dialog to use an included MessageBox style, the styles included are: Information, Success, Warning and Error. 
+It is possible to use the `.OfType()` method to cause the dialog to use an included MessageBox style, the styles included are: `Information`, `Success`, `Warning` and `Error`. 
