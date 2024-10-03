@@ -63,8 +63,8 @@
                                       Content="{TemplateBinding Content}"
                                       ContentTemplate="{TemplateBinding ContentTemplate}" />
                     <Border Name="BadgeBorder"
-                            MinWidth="18"
-                            MinHeight="18"
+                            MinWidth="25"
+                            MinHeight="25"
                             Padding="5,2,5,2"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Top"
