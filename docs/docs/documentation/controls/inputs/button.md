@@ -2,13 +2,11 @@
 
 SukiUI has a handful of button styles, available in both the standard primary color, but also in the theme's accent color.
 
-<br/>
-
 ## Styles
 
 ### Standard
 
-<img src="https://sleekshot.app/api/download/wWleWLZYWqR6" />
+<img src="https://sleekshot.app/api/download/wWleWLZYWqR6" width="200px" />
 
 ```xml
 <Button Content="Button" ></Button>
@@ -16,7 +14,7 @@ SukiUI has a handful of button styles, available in both the standard primary co
 
 ### Flat
 
-<img src="https://sleekshot.app/api/download/tYN4eE9SLoot" />
+<img src="https://sleekshot.app/api/download/tYN4eE9SLoot" width="200px" />
 
 ```xml
 <Button Content="Button" Classes="Flat" ></Button>
@@ -24,7 +22,7 @@ SukiUI has a handful of button styles, available in both the standard primary co
 
 ### Rounded
 
-<img src="https://sleekshot.app/api/download/zKfpsqmZzaHV" />
+<img src="https://sleekshot.app/api/download/zKfpsqmZzaHV" width="200px" />
 
 ```xml
 <Button Content="Button" Classes="Flat Rounded" ></Button>
@@ -32,7 +30,7 @@ SukiUI has a handful of button styles, available in both the standard primary co
 
 ### Outlined
 
-<img src="https://sleekshot.app/api/download/uVA8CTxZ989L" />
+<img src="https://sleekshot.app/api/download/uVA8CTxZ989L" width="200px" />
 
 ```xml
 <Button Content="Button" Classes="Outlined" ></Button>
@@ -40,16 +38,15 @@ SukiUI has a handful of button styles, available in both the standard primary co
 
 ### Basic
 
-<img src="https://sleekshot.app/api/download/KTKtsjlVKsth" />
+<img src="https://sleekshot.app/api/download/KTKtsjlVKsth" width="200px" />
 
 ```xml
 <Button Content="Button" Classes="Basic" ></Button>
 ```
 
-
 ### Flat Accent
 
-<img src="https://sleekshot.app/api/download/vGFvTPZG1E8i" />
+<img src="https://sleekshot.app/api/download/vGFvTPZG1E8i" width="200px" />
 
 ```xml
 <Button Content="Button" Classes="Flat Accent" ></Button>
@@ -57,20 +54,17 @@ SukiUI has a handful of button styles, available in both the standard primary co
 
 ### Large
 
-<img src="https://sleekshot.app/api/download/LiWhO4edwZi3" />
+<img src="https://sleekshot.app/api/download/LiWhO4edwZi3" width="200px" />
 
 ```xml
 <Button Content="Button" Classes="Flat Large" ></Button>
 ```
 
-
-<br/>
-
 ## Busy/Loading Button
 
-<img src="/controls/inputs/button-busy.gif" height="300px" width="300px"/>
+<img src="/controls/inputs/button-busy.gif" width="300px"/>
 
-### Xaml
+### Axaml
 
 ```xml
 ...
@@ -87,7 +81,6 @@ xmlns:theme="clr-namespace:SukiUI.Theme;assembly=SukiUI"
 
    MyButton.HideProgress();
 ```
-
 
 ## See Also
 

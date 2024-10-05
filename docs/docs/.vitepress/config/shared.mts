@@ -5,7 +5,7 @@ export const shared = defineConfig({
   title: "SukiUI",
 
   head: [
-    ['link', { rel: 'icon', type: 'image/webp', href: '/suki.webp' }],
+    ['link', { rel: 'icon', href: '/SukiUI/favicon.ico' }]
   ],
 
   themeConfig: {

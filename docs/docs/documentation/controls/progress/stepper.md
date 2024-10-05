@@ -2,12 +2,11 @@
 
 A bar that guides users through the steps of a task
 
-<br/>
-
 <img src="https://sleekshot.app/api/download/9UWKAIevk5i2"/>
 
+## Usage
 
-### XAML
+### Axaml
 
 ```xml .axaml
 <suki:Stepper Index="{Binding StepIndex}" Steps="{Binding Steps}" />
@@ -21,19 +20,15 @@ public IEnumerable<string> Steps { get; } =
                            ["First Step", "Second Step", "Third Step"];
 ```
 
-<br/>
-
 ## Alternative Style 
 
 <img src="https://sleekshot.app/api/download/siVzTBuU6zhn"/>
 
-### XAML
+### Axaml
 
 ```xml .axaml
 <suki:Stepper AlternativeStyle="True" />
 ```
-
-<br/>
 
 ## See Also
 

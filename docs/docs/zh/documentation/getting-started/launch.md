@@ -80,7 +80,7 @@ public partial class MainWindow : SukiWindow // [!code highlight]
 
 ## 完成
 
-至此，SukiUI 安装完成
+至此，SukiUI 安装完成。创建项目后，建议参阅 [设置主题](/zh/documentation/theming/basic) 和 [SukiWindow 页面](/zh/documentation/controls/layout/sukiwindow)。
 
 ::: warning
 如果你遇到了包括但不限于以下异常：

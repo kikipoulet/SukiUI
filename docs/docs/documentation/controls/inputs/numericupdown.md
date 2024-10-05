@@ -2,10 +2,11 @@
 
 A control for numeric input.
 
+## Examples
+
 ### Simple
 
 <img src="https://sleekshot.app/api/download/nzfzrV8DgYEh"/>
-
 
 ```xml
 <NumericUpDown Value="10" />
@@ -15,7 +16,6 @@ A control for numeric input.
 
 <img src="https://sleekshot.app/api/download/qeEBVOXYPPC2"/>
 
-
 ```xml
 <NumericUpDown theme:NumericUpDownExtensions.Unit="inch" Value="10" />
 ```
@@ -24,12 +24,9 @@ A control for numeric input.
 
 <img src="https://sleekshot.app/api/download/4a9VFYrRaGb2"/>
 
-
 ```xml
 <NumericUpDown theme:NumericUpDownExtensions.Unit="inch" ShowButtonSpinner="False" Value="10" />
 ```
-
-
 
 ## See Also
 

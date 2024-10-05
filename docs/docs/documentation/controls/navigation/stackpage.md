@@ -15,11 +15,8 @@ already in it's stack.
 ## Example
 
 ```xml
-<controls:SukiStackPage Content="{Binding CurrentPage}" Limit="5">
-    <!-- Content -->
-</controls:SukiStackPage>
+<controls:SukiStackPage Content="{Binding CurrentPage}" Limit="5" />
 ```
-
 
 ## See Also
 

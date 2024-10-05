@@ -4,7 +4,7 @@
 
 ## 展示
 
-<img src="/controls/inputs/slider.gif"/>
+![slider](https://github.com/user-attachments/assets/80afe350-0032-41a8-b81c-5ff7acddf1e2)
 
 ## 示例
 

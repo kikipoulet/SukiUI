@@ -2,7 +2,15 @@
 
 SukiUI 借助由 `AvaloniaUI` 提供的 [主题变体](https://docs.avaloniaui.net/zh-Hans/docs/guides/styles-and-resources/how-to-use-theme-variants) 轻松实现主题切换
 
-<img src="https://i.ibb.co/XzzfB9r/theming-theme.gif" alt="theming-theme">
+## 主题
+
+### 暗色
+
+![dark theme](https://github.com/user-attachments/assets/bdfeec4e-d0e7-4d7e-b075-b0616720acbd)
+
+### 亮色
+
+![light theme](https://github.com/user-attachments/assets/84dd83b4-be4f-4a0f-8c86-4d0c0e01e3ea)
 
 ## 切换至暗色
 

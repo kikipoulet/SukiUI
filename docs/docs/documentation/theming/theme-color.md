@@ -4,7 +4,6 @@
 
 ![themechanging](https://github.com/user-attachments/assets/ae55a431-3b4e-4673-b14b-bec46fe22bf6)
 
-
 ## Switch between available Color Theme
 
 ```csharp

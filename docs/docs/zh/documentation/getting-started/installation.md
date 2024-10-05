@@ -36,6 +36,9 @@ dotnet add package SukiUI --version 6.0.0
 
 ### 通过 Github Action 安装
 
+<details>
+  <summary>Github Action 步骤</summary>
+
 1. 访问 [SukiUI CI](https://github.com/kikipoulet/SukiUI/actions/workflows/build.yml)
 2. 选择最后一个`workflow`
 ![](/getting-started/introduction-workflow.webp "workflow")
@@ -53,3 +56,5 @@ dotnet add package SukiUI --version 6.0.0
 
 ![](/getting-started/introduction-final-package-list.webp "package list")
 :::
+
+ </details>
