@@ -9,6 +9,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Media;
 using Avalonia.Styling;
 using SkiaSharp;
+using SukiUI.Extensions;
 
 namespace SukiUI.Utilities.Effects
 {
@@ -125,34 +126,51 @@ namespace SukiUI.Utilities.Effects
         }
 
         private static readonly float[] White = { 0.95f, 0.95f, 0.95f };
-     
+        private readonly float[] _backgroundAlloc = new float[3];
+        private readonly float[] _backgroundAccentAlloc = new float[3];
+        private readonly float[] _backgroundPrimaryAlloc = new float[3];
+        private readonly float[] _boundsAlloc = new float[3];
 
         internal SKShader ToShaderWithUniforms(float timeSeconds, ThemeVariant activeVariant, Rect bounds,
             float animationScale, float alpha = 1f)
         {
             var suki = SukiTheme.GetInstance();
-            var acc = ToFloat(suki.ActiveColorTheme!.BackgroundAccent);
-            var prim = ToFloat(suki.ActiveColorTheme.BackgroundPrimary);
-            var darkBackground = ToFloat(suki.ActiveColorTheme.Background);
+            if(suki is null) throw new InvalidOperationException("No Suki Theme Instance is available.");
+            if (suki.ActiveColorTheme is null) throw new InvalidOperationException("No ActiveColorTheme is available.");
+            
+            // Update allocated color arrays.
+            suki.ActiveColorTheme.Background.ToFloatArrayNonAlloc(_backgroundAlloc);
+            suki.ActiveColorTheme.BackgroundAccent.ToFloatArrayNonAlloc(_backgroundAccentAlloc);
+            suki.ActiveColorTheme.BackgroundPrimary.ToFloatArrayNonAlloc(_backgroundPrimaryAlloc);
+            _boundsAlloc[0] = (float)bounds.Width;
+            _boundsAlloc[1] = (float)bounds.Height;
+            
             var inputs = new SKRuntimeEffectUniforms(Effect)
             {
-                { "iResolution", new[] { (float)bounds.Width, (float)bounds.Height, 0f } },
+                { "iResolution", _boundsAlloc },
                 { "iTime", timeSeconds * animationScale },
                 {
                     "iBase",
                     activeVariant == ThemeVariant.Dark
-                        ? new[] { darkBackground.r, darkBackground.g, darkBackground.b }
+                        ? _backgroundAlloc
                         : White
                 },
-                { "iAccent", new[] { acc.r, acc.g, acc.b } },
-                { "iPrimary", new[] { prim.r, prim.g, prim.b } },
+                { "iAccent", _backgroundAccentAlloc },
+                { "iPrimary", _backgroundPrimaryAlloc },
                 { "iDark", activeVariant == ThemeVariant.Dark ? 1f : 0f },
                 { "iAlpha", alpha }
             };
             return Effect.ToShader(false, inputs);
+        }
 
-            (float r, float g, float b) ToFloat(Color col) =>
-                (col.R / 255f, col.G / 255f, col.B / 255f);
+        internal SKShader ToShaderWithCustomUniforms(Func<SKRuntimeEffect,SKRuntimeEffectUniforms> uniformFactory, float timeSeconds, Rect bounds,
+            float animationScale, float alpha = 1f)
+        {
+            var uniforms = uniformFactory(Effect);
+            uniforms.Add("iResolution", new[] { (float)bounds.Width, (float)bounds.Height, 0f });
+            uniforms.Add("iTime", timeSeconds * animationScale);
+            uniforms.Add("iAlpha", alpha);
+            return Effect.ToShader(false, uniforms);
         }
         
         /// <summary>

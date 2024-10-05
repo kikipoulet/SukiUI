@@ -2,7 +2,6 @@
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:suki="https://github.com/kikipoulet/SukiUI"
-             xmlns:controls1="clr-namespace:SukiUI.Demo.Controls"
              xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -64,7 +63,8 @@
                     <suki:GroupBox Header="Wave Progress">
                         <Grid>
                             <showMeTheXaml:XamlDisplay VerticalAlignment="Center" UniqueId="WaveProgress">
-                                <suki:WaveProgress IsTextVisible="{Binding IsTextVisible}" Value="{Binding ProgressValue}" />
+                                <suki:WaveProgress IsTextVisible="{Binding IsTextVisible}"
+                                                   Value="{Binding ProgressValue}" />
                             </showMeTheXaml:XamlDisplay>
                         </Grid>
                     </suki:GroupBox>
@@ -140,21 +140,7 @@
                                 <suki:Loading />
                             </showMeTheXaml:XamlDisplay>
                             <showMeTheXaml:XamlDisplay UniqueId="Loading2">
-                                <suki:Loading Classes="Accent" />
-                            </showMeTheXaml:XamlDisplay>
-                        </StackPanel>
-                    </suki:GroupBox>
-                </suki:GlassCard>
-
-
-                <suki:GlassCard>
-                    <suki:GroupBox Header="Custom Loading Indicators">
-                        <StackPanel Spacing="15">
-                            <showMeTheXaml:XamlDisplay UniqueId="Loading3">
-                                <controls1:LoadingTest />
-                            </showMeTheXaml:XamlDisplay>
-                            <showMeTheXaml:XamlDisplay UniqueId="Loading4">
-                                <controls1:LoadingTest LoadingStyle="Pellets" />
+                                <suki:Loading LoadingStyle="Pellets" />
                             </showMeTheXaml:XamlDisplay>
                         </StackPanel>
                     </suki:GroupBox>

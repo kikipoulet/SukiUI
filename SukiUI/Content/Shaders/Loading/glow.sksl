@@ -1,3 +1,5 @@
+uniform vec3 iForeground;
+
 const float pi = 3.14159265358979323846;
 
 float smoothstep(float a, float b, float x) {
@@ -65,5 +67,5 @@ vec4 main(vec2 fragCoord) {
     float color = smoothstep(pixelSize, 0.0, abs(radius - len) - lineWidth) * fallOff;
     color += smoothstep(glowSize * fallOff, 0.0, abs(radius - len) - lineWidth) * fallOff * 0.5;
 
-    return vec4(color) * vec4(iAccent, iAlpha);
+    return vec4(color) * vec4(iForeground, iAlpha);
 }

@@ -92,6 +92,12 @@ namespace SukiUI.Utilities.Effects
         protected SKShader? EffectWithUniforms(SukiEffect? effect, float alpha = 1f) => 
             effect?.ToShaderWithUniforms(AnimationSeconds, ActiveVariant, Bounds, AnimationSpeedScale, alpha);
 
+        protected SKShader? EffectWithCustomUniforms(Func<SKRuntimeEffect,SKRuntimeEffectUniforms> uniformFactory, float alpha = 1f) =>
+            EffectWithCustomUniforms(Effect, uniformFactory, alpha);
+        
+        protected SKShader? EffectWithCustomUniforms(SukiEffect? effect, Func<SKRuntimeEffect,SKRuntimeEffectUniforms> uniformFactory, float alpha = 1f) =>
+            effect?.ToShaderWithCustomUniforms(uniformFactory, AnimationSeconds, Bounds, AnimationSpeedScale, alpha);
+
         protected virtual void EffectChanged(SukiEffect? oldValue, SukiEffect? newValue)
         {
             // no-op

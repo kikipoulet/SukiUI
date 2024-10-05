@@ -1,3 +1,5 @@
+uniform vec3 iForeground;
+
 float smoothstep(float a, float b, float x) {
     float t = clamp((x - a) / (b - a), 0.0, 1.0);
     return t * t * (3.0 - 2.0 * t);
@@ -24,5 +26,5 @@ vec4 main(vec2 fragCoord) {
     i;
     for (i = 0.; i < 1.; i += .5)
     d = min(A(p * D(mix(-.5, .625, fract(T / 2. + i)) - .125 * T), .0625), d); // distance to shorter arcs ("pellets")
-    return vec4(smoothstep(.01, .0, d)) * vec4(iAccent, iAlpha);
+    return vec4(smoothstep(.01, .0, d)) * vec4(iForeground, iAlpha);
 }
