@@ -9,6 +9,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Media;
 using Avalonia.Styling;
 using SkiaSharp;
+using SukiUI.Extensions;
 
 namespace SukiUI.Utilities.Effects
 {
@@ -131,9 +132,7 @@ namespace SukiUI.Utilities.Effects
             float animationScale, float alpha = 1f)
         {
             var suki = SukiTheme.GetInstance();
-            var acc = ToFloat(suki.ActiveColorTheme!.BackgroundAccent);
-            var prim = ToFloat(suki.ActiveColorTheme.BackgroundPrimary);
-            var darkBackground = ToFloat(suki.ActiveColorTheme.Background);
+            if(suki is null) throw new InvalidOperationException("No Suki Theme Instance is available.");
             var inputs = new SKRuntimeEffectUniforms(Effect)
             {
                 { "iResolution", new[] { (float)bounds.Width, (float)bounds.Height, 0f } },
@@ -141,18 +140,25 @@ namespace SukiUI.Utilities.Effects
                 {
                     "iBase",
                     activeVariant == ThemeVariant.Dark
-                        ? new[] { darkBackground.r, darkBackground.g, darkBackground.b }
+                        ? suki.ActiveColorTheme.Background.ToFloatArray()
                         : White
                 },
-                { "iAccent", new[] { acc.r, acc.g, acc.b } },
-                { "iPrimary", new[] { prim.r, prim.g, prim.b } },
+                { "iAccent", suki.ActiveColorTheme!.BackgroundAccent.ToFloatArray() },
+                { "iPrimary", suki.ActiveColorTheme.BackgroundPrimary.ToFloatArray() },
                 { "iDark", activeVariant == ThemeVariant.Dark ? 1f : 0f },
                 { "iAlpha", alpha }
             };
             return Effect.ToShader(false, inputs);
+        }
 
-            (float r, float g, float b) ToFloat(Color col) =>
-                (col.R / 255f, col.G / 255f, col.B / 255f);
+        internal SKShader ToShaderWithCustomUniforms(Func<SKRuntimeEffect,SKRuntimeEffectUniforms> uniformFactory, float timeSeconds, Rect bounds,
+            float animationScale, float alpha = 1f)
+        {
+            var uniforms = uniformFactory(Effect);
+            uniforms.Add("iResolution", new[] { (float)bounds.Width, (float)bounds.Height, 0f });
+            uniforms.Add("iTime", timeSeconds * animationScale);
+            uniforms.Add("iAlpha", alpha);
+            return Effect.ToShader(false, uniforms);
         }
         
         /// <summary>

@@ -63,7 +63,8 @@
                     <suki:GroupBox Header="Wave Progress">
                         <Grid>
                             <showMeTheXaml:XamlDisplay VerticalAlignment="Center" UniqueId="WaveProgress">
-                                <suki:WaveProgress IsTextVisible="{Binding IsTextVisible}" Value="{Binding ProgressValue}" />
+                                <suki:WaveProgress IsTextVisible="{Binding IsTextVisible}"
+                                                   Value="{Binding ProgressValue}" />
                             </showMeTheXaml:XamlDisplay>
                         </Grid>
                     </suki:GroupBox>
@@ -134,26 +135,14 @@
 
                 <suki:GlassCard>
                     <suki:GroupBox Header="Loading Indicator">
-                        <UniformGrid Columns="3" Rows="2">
+                        <StackPanel Spacing="15">
                             <showMeTheXaml:XamlDisplay UniqueId="Loading1">
                                 <suki:Loading />
                             </showMeTheXaml:XamlDisplay>
                             <showMeTheXaml:XamlDisplay UniqueId="Loading2">
-                                <suki:Loading  LoadingStyle="GlowAccent"/>
+                                <suki:Loading LoadingStyle="Pellets" />
                             </showMeTheXaml:XamlDisplay>
-                            <showMeTheXaml:XamlDisplay UniqueId="Loading3">
-                                <suki:Loading  LoadingStyle="GlowText"/>
-                            </showMeTheXaml:XamlDisplay>
-                            <showMeTheXaml:XamlDisplay UniqueId="Loading4">
-                                <suki:Loading LoadingStyle="Pellets"/>
-                            </showMeTheXaml:XamlDisplay>
-                            <showMeTheXaml:XamlDisplay UniqueId="Loading5">
-                                <suki:Loading LoadingStyle="PelletsAccent"/>
-                            </showMeTheXaml:XamlDisplay>
-                            <showMeTheXaml:XamlDisplay UniqueId="Loading6">
-                                <suki:Loading LoadingStyle="PelletsText"/>
-                            </showMeTheXaml:XamlDisplay>
-                        </UniformGrid>
+                        </StackPanel>
                     </suki:GroupBox>
                 </suki:GlassCard>
 

@@ -2,14 +2,16 @@ using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
+using Avalonia.Media.Immutable;
 using SkiaSharp;
+using SukiUI.Extensions;
 using SukiUI.Utilities.Effects;
 
 namespace SukiUI.Controls
 {
     public class Loading : Control
     {
-        public static readonly StyledProperty<LoadingStyle> LoadingStyleProperty = 
+        public static readonly StyledProperty<LoadingStyle> LoadingStyleProperty =
             AvaloniaProperty.Register<Loading, LoadingStyle>(nameof(LoadingStyle), defaultValue: LoadingStyle.Glow);
 
         public LoadingStyle LoadingStyle
@@ -18,15 +20,20 @@ namespace SukiUI.Controls
             set => SetValue(LoadingStyleProperty, value);
         }
 
+        public static readonly StyledProperty<IBrush?> ForegroundProperty =
+            AvaloniaProperty.Register<Loading, IBrush?>(nameof(Foreground));
+
+        public IBrush? Foreground
+        {
+            get => GetValue(ForegroundProperty);
+            set => SetValue(ForegroundProperty, value);
+        }
+
         private static readonly IReadOnlyDictionary<LoadingStyle, SukiEffect> Effects =
             new Dictionary<LoadingStyle, SukiEffect>()
             {
-                { LoadingStyle.Glow, SukiEffect.FromEmbeddedResource("glow_primary") },
-                { LoadingStyle.Pellets, SukiEffect.FromEmbeddedResource("pellets_primary") },
-                { LoadingStyle.GlowAccent, SukiEffect.FromEmbeddedResource("glow_accent") },
-                { LoadingStyle.PelletsAccent, SukiEffect.FromEmbeddedResource("pellets_accent") },
-                { LoadingStyle.GlowText, SukiEffect.FromEmbeddedResource("glow_text") },
-                { LoadingStyle.PelletsText, SukiEffect.FromEmbeddedResource("pellets_text") }
+                { LoadingStyle.Glow, SukiEffect.FromEmbeddedResource("glow") },
+                { LoadingStyle.Pellets, SukiEffect.FromEmbeddedResource("pellets") },
             };
 
         private readonly LoadingEffectDraw _draw;
@@ -37,16 +44,20 @@ namespace SukiUI.Controls
             Height = 50;
             _draw = new LoadingEffectDraw(Bounds);
         }
-        
+
         public override void Render(DrawingContext context)
         {
             _draw.Bounds = Bounds;
             _draw.Effect = Effects[LoadingStyle];
+            if (Foreground is ImmutableSolidColorBrush brush)
+                brush.Color.ToColorArrayNonAlloc(_draw.Color);
             context.Custom(_draw);
         }
-        
+
         public class LoadingEffectDraw : EffectDrawBase
         {
+            public float[] Color { get; } = { 1.0f, 1.0f, 1.0f };
+
             public LoadingEffectDraw(Rect bounds) : base(bounds)
             {
                 AnimationEnabled = true;
@@ -55,16 +66,20 @@ namespace SukiUI.Controls
 
             protected override void Render(SKCanvas canvas, SKRect rect)
             {
-                canvas.Scale(1,-1);
+                canvas.Scale(1, -1);
                 canvas.Translate(0, (float)-Bounds.Height);
                 using var mainShaderPaint = new SKPaint();
-            
+
                 if (Effect is not null)
                 {
-                    using var shader = EffectWithUniforms();
+                    using var shader = EffectWithCustomUniforms(effect => new SKRuntimeEffectUniforms(effect)
+                    {
+                        { "iForeground", Color }
+                    });
                     mainShaderPaint.Shader = shader;
                     canvas.DrawRect(rect, mainShaderPaint);
                 }
+
                 canvas.Restore();
             }
 
@@ -81,10 +96,6 @@ namespace SukiUI.Controls
     public enum LoadingStyle
     {
         Glow,
-        GlowAccent,
-        GlowText,
-        Pellets,
-        PelletsAccent,
-        PelletsText
+        Pellets
     }
 }
