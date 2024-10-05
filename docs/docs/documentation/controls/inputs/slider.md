@@ -4,8 +4,7 @@ A control for displaying current value and intervals in range.
 
 ## Show
 
-![sliid](https://github.com/user-attachments/assets/80afe350-0032-41a8-b81c-5ff7acddf1e2)
-
+![slider](https://github.com/user-attachments/assets/80afe350-0032-41a8-b81c-5ff7acddf1e2)
 
 ## Example
 

@@ -2,20 +2,32 @@
 
 指引用户分步骤完成一项任务的控件
 
-## 展示
+<img src="https://sleekshot.app/api/download/9UWKAIevk5i2"/>
 
-<img src="/controls/progress/stepper.gif" height="300px" width="300px"/>
+## 用法
 
-## 示例
+### Axaml
 
 ```xml .axaml
 <suki:Stepper Index="{Binding StepIndex}" Steps="{Binding Steps}" />
 ```
 
+### ViewModel
+
 ```csharp
 [ObservableProperty] private int _stepIndex = 1;
 public IEnumerable<string> Steps { get; } = 
                            ["First Step", "Second Step", "Third Step"];
+```
+
+## 使用另一种样式
+
+<img src="https://sleekshot.app/api/download/siVzTBuU6zhn"/>
+
+### Axaml
+
+```xml .axaml
+<suki:Stepper AlternativeStyle="True" />
 ```
 
 ## 参阅
