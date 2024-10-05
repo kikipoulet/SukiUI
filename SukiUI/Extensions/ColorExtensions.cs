@@ -22,7 +22,7 @@ public static class ColorExtensions
     /// </summary>
     /// <param name="c"></param>
     /// <param name="array"></param>
-    public static void ToColorArrayNonAlloc(this Color c, float[] array)
+    public static void ToFloatArrayNonAlloc(this Color c, float[] array)
     {
         array[0] = c.R / 255f;
         array[1] = c.G / 255f;

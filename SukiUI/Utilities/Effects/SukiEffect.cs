@@ -126,25 +126,37 @@ namespace SukiUI.Utilities.Effects
         }
 
         private static readonly float[] White = { 0.95f, 0.95f, 0.95f };
-     
+        private readonly float[] _backgroundAlloc = new float[3];
+        private readonly float[] _backgroundAccentAlloc = new float[3];
+        private readonly float[] _backgroundPrimaryAlloc = new float[3];
+        private readonly float[] _boundsAlloc = new float[3];
 
         internal SKShader ToShaderWithUniforms(float timeSeconds, ThemeVariant activeVariant, Rect bounds,
             float animationScale, float alpha = 1f)
         {
             var suki = SukiTheme.GetInstance();
             if(suki is null) throw new InvalidOperationException("No Suki Theme Instance is available.");
+            if (suki.ActiveColorTheme is null) throw new InvalidOperationException("No ActiveColorTheme is available.");
+            
+            // Update allocated color arrays.
+            suki.ActiveColorTheme.Background.ToFloatArrayNonAlloc(_backgroundAlloc);
+            suki.ActiveColorTheme.BackgroundAccent.ToFloatArrayNonAlloc(_backgroundAccentAlloc);
+            suki.ActiveColorTheme.BackgroundPrimary.ToFloatArrayNonAlloc(_backgroundPrimaryAlloc);
+            _boundsAlloc[0] = (float)bounds.Width;
+            _boundsAlloc[1] = (float)bounds.Height;
+            
             var inputs = new SKRuntimeEffectUniforms(Effect)
             {
-                { "iResolution", new[] { (float)bounds.Width, (float)bounds.Height, 0f } },
+                { "iResolution", _boundsAlloc },
                 { "iTime", timeSeconds * animationScale },
                 {
                     "iBase",
                     activeVariant == ThemeVariant.Dark
-                        ? suki.ActiveColorTheme.Background.ToFloatArray()
+                        ? _backgroundAlloc
                         : White
                 },
-                { "iAccent", suki.ActiveColorTheme!.BackgroundAccent.ToFloatArray() },
-                { "iPrimary", suki.ActiveColorTheme.BackgroundPrimary.ToFloatArray() },
+                { "iAccent", _backgroundAccentAlloc },
+                { "iPrimary", _backgroundPrimaryAlloc },
                 { "iDark", activeVariant == ThemeVariant.Dark ? 1f : 0f },
                 { "iAlpha", alpha }
             };

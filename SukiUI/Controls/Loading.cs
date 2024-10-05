@@ -50,7 +50,7 @@ namespace SukiUI.Controls
             _draw.Bounds = Bounds;
             _draw.Effect = Effects[LoadingStyle];
             if (Foreground is ImmutableSolidColorBrush brush)
-                brush.Color.ToColorArrayNonAlloc(_draw.Color);
+                brush.Color.ToFloatArrayNonAlloc(_draw.Color);
             context.Custom(_draw);
         }
 
