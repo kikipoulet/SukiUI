@@ -116,6 +116,12 @@ export const en = defineConfig({
         ]
       },
       {
+        text: 'FAQ',
+        items: [
+          { text: 'Custom Font', link: '/documentation/faq/custom-font' },
+        ]
+      },
+      {
         text: 'Style',
         items: [
           { text: 'Text', link: '/documentation/style/text' },

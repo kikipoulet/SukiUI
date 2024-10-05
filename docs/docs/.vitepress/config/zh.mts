@@ -116,6 +116,12 @@ export const zh = defineConfig({
         ]
       },
       {
+        text: 'FAQ',
+        items: [
+          { text: '自定义字体', link: '/zh/documentation/faq/custom-font' },
+        ]
+      },
+      {
         text: '样式',
         items: [
           { text: 'Text', link: '/zh/documentation/style/text' },
