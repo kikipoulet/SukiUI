@@ -13,15 +13,7 @@
 ## 示例
 
 ```xml
-<controls:SukiStackPage Limit="5">
-    <!-- Content -->
-</controls:SukiStackPage>
-```
-
-添加新页面:
-
-```csharp
-this.Get<StackPage>("StackSettings").Push("Network", b);
+<controls:SukiStackPage Content="{Binding CurrentPage}" Limit="5" />
 ```
 
 ## 参阅
