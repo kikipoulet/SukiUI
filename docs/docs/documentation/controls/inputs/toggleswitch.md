@@ -6,7 +6,6 @@ Switching between two states.
 
 ![tgs](https://github.com/user-attachments/assets/9fe52016-a002-4b4d-ad98-a3e2157a498c)
 
-
 ## Example
 
 ```xml

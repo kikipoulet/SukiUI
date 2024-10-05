@@ -4,14 +4,12 @@
 
 ## 展示
 
-<img src="/controls/inputs/toggleswitch.gif" height="300px" width="300px"/>
+![tgs](https://github.com/user-attachments/assets/9fe52016-a002-4b4d-ad98-a3e2157a498c)
 
 ## 示例
 
 ```xml
 <ToggleSwitch IsChecked="True" />
-
-<ToggleSwitch OffContent="Switch Off." OnContent="Switch On." />
 ```
 
 ## 参阅

@@ -2,32 +2,84 @@
 
 SukiUI 提供了多种样式的按钮，并支持添加主题色
 
-## 展示
+## 样式
 
-<img src="/controls/inputs/button.webp" />
+### Standard
 
-- Busy
-
-<img src="/controls/inputs/button-busy.gif" height="300px" width="300px"/>
-
-## 示例
+<img src="https://sleekshot.app/api/download/wWleWLZYWqR6" width="200px" />
 
 ```xml
-<Button>
-    <!-- Content -->
-</Button>
+<Button Content="Button" ></Button>
 ```
 
-### Busy
+### Flat
+
+<img src="https://sleekshot.app/api/download/tYN4eE9SLoot" width="200px" />
+
+```xml
+<Button Content="Button" Classes="Flat" ></Button>
+```
+
+### Rounded
+
+<img src="https://sleekshot.app/api/download/zKfpsqmZzaHV" width="200px" />
+
+```xml
+<Button Content="Button" Classes="Flat Rounded" ></Button>
+```
+
+### Outlined
+
+<img src="https://sleekshot.app/api/download/uVA8CTxZ989L" width="200px" />
+
+```xml
+<Button Content="Button" Classes="Outlined" ></Button>
+```
+
+### Basic
+
+<img src="https://sleekshot.app/api/download/KTKtsjlVKsth" width="200px" />
+
+```xml
+<Button Content="Button" Classes="Basic" ></Button>
+```
+
+### Flat Accent
+
+<img src="https://sleekshot.app/api/download/vGFvTPZG1E8i" width="200px" />
+
+```xml
+<Button Content="Button" Classes="Flat Accent" ></Button>
+```
+
+### Large
+
+<img src="https://sleekshot.app/api/download/LiWhO4edwZi3" width="200px" />
+
+```xml
+<Button Content="Button" Classes="Flat Large" ></Button>
+```
+
+## Busy/Loading 状态
+
+<img src="/controls/inputs/button-busy.gif" width="300px"/>
+
+### Axaml
 
 ```xml
 ...
 xmlns:theme="clr-namespace:SukiUI.Theme;assembly=SukiUI"
 ...
 
-<Button theme:ButtonExtensions.ShowProgress="true">
-    <!-- Content -->
-</Button>
+<Button theme:ButtonExtensions.ShowProgress="true"></Button>
+```
+
+### C#
+
+```Csharp
+   MyButton.ShowProgress();
+
+   MyButton.HideProgress();
 ```
 
 ## 参阅
