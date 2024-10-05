@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
 using SkiaSharp;
@@ -49,14 +50,24 @@ namespace SukiUI.Controls
         {
             _draw.Bounds = Bounds;
             _draw.Effect = Effects[LoadingStyle];
+            if (Foreground is null)
+                this[!ForegroundProperty] = new DynamicResourceExtension("SukiPrimaryColor");
             if (Foreground is ImmutableSolidColorBrush brush)
                 brush.Color.ToFloatArrayNonAlloc(_draw.Color);
             context.Custom(_draw);
         }
 
+        protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+        {
+            base.OnPropertyChanged(change);
+            if (change.Property != ForegroundProperty) return;
+            if (Foreground is ImmutableSolidColorBrush brush)
+                brush.Color.ToFloatArrayNonAlloc(_draw.Color);
+        }
+
         public class LoadingEffectDraw : EffectDrawBase
         {
-            public float[] Color { get; } = { 1.0f, 1.0f, 1.0f };
+            public float[] Color { get; } = { 1.0f, 0f, 0f };
 
             public LoadingEffectDraw(Rect bounds) : base(bounds)
             {
