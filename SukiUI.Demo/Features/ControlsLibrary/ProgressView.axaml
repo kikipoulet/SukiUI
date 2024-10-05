@@ -134,7 +134,7 @@
 
                 <suki:GlassCard>
                     <suki:GroupBox Header="Loading Indicator">
-                        <StackPanel Spacing="15">
+                        <UniformGrid Columns="3" Rows="2">
                             <showMeTheXaml:XamlDisplay UniqueId="Loading1">
                                 <suki:Loading />
                             </showMeTheXaml:XamlDisplay>
@@ -153,7 +153,7 @@
                             <showMeTheXaml:XamlDisplay UniqueId="Loading6">
                                 <suki:Loading LoadingStyle="PelletsText"/>
                             </showMeTheXaml:XamlDisplay>
-                        </StackPanel>
+                        </UniformGrid>
                     </suki:GroupBox>
                 </suki:GlassCard>
 
