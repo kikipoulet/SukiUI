@@ -97,6 +97,12 @@
 	  <EmbeddedResource Include="Content\Shaders\Background\flat.sksl" />
 	  <EmbeddedResource Include="Content\Shaders\Background\bubble.sksl" />
 	  <EmbeddedResource Include="Content\Shaders\Background\waves.sksl" />
+	  <EmbeddedResource Include="Content\Shaders\Loading\glow_accent.sksl" />
+	  <EmbeddedResource Include="Content\Shaders\Loading\glow_primary.sksl" />
+	  <EmbeddedResource Include="Content\Shaders\Loading\glow_text.sksl" />
+	  <EmbeddedResource Include="Content\Shaders\Loading\pellets_accent.sksl" />
+	  <EmbeddedResource Include="Content\Shaders\Loading\pellets_primary.sksl" />
+	  <EmbeddedResource Include="Content\Shaders\Loading\pellets_text.sksl" />
 	  <None Remove="Content\Shaders\Background\gradient.sksl" />
 	  <EmbeddedResource Include="Content\Shaders\Background\gradient.sksl" />
 	</ItemGroup>

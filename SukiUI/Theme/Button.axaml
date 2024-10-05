@@ -31,7 +31,7 @@
                                     <DoubleTransition Property="Width" Duration="0:0:0.3" />
                                 </Transitions>
                             </Viewbox.Transitions>
-                            <controls:Loading Foreground="{DynamicResource SukiText}" />
+                            <controls:Loading LoadingStyle="GlowText" />
                         </Viewbox>
                         <ContentPresenter HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -62,7 +62,7 @@
             </Setter>
         </Style>
         <Style Selector="^ /template/ controls|Loading">
-            <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+            <Setter Property="LoadingStyle" Value="Glow" />
         </Style>
 
 
@@ -191,7 +191,7 @@
                 <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
             </Style>
             <Style Selector="^ /template/ controls|Loading">
-                <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+                <Setter Property="LoadingStyle" Value="Glow" />
             </Style>
             <Style Selector="^ /template/ Border">
                 <Setter Property="BoxShadow" Value="0 0 0 0 Transparent" />
@@ -222,7 +222,7 @@
                     <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
                 </Style>
                 <Style Selector="^ /template/ controls|Loading">
-                    <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
+                    <Setter Property="LoadingStyle" Value="GlowAccent" />
                 </Style>
                 <Style Selector="^ /template/ ContentPresenter">
                     <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
@@ -269,7 +269,7 @@
             </Style>
 
             <Style Selector="^ /template/ controls|Loading">
-                <Setter Property="Foreground" Value="White" />
+                <Setter Property="LoadingStyle" Value="GlowText" />
             </Style>
             <Style Selector="^ /template/ ContentPresenter">
                 <Setter Property="Foreground" Value="White" />
@@ -326,7 +326,7 @@
             </Style>
 
             <Style Selector="^ /template/ controls|Loading">
-                <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+                <Setter Property="LoadingStyle" Value="Glow" />
             </Style>
             <Style Selector="^ /template/ ContentPresenter">
                 <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
@@ -366,7 +366,7 @@
                     <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
                 </Style>
                 <Style Selector="^ /template/ controls|Loading">
-                    <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
+                    <Setter Property="LoadingStyle" Value="GlowAccent" />
                 </Style>
                 <Style Selector="^ /template/ ContentPresenter">
                     <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />

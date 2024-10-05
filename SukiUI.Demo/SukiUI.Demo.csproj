@@ -58,8 +58,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="Assets\glow.sksl" />
-	  <EmbeddedResource Include="Assets\pellets.sksl" />
 	  <EmbeddedResource Include="Assets\space.sksl" />
 	  <EmbeddedResource Include="Assets\clouds.sksl" />
 	  <EmbeddedResource Include="Assets\weird.sksl" />
@@ -71,5 +69,9 @@
 
 	<ItemGroup>
 	  <EmbeddedResource Include="Features\Effects\shaderart.sksl" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Controls\" />
 	</ItemGroup>
 </Project>

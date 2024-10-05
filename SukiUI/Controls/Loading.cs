@@ -5,12 +5,12 @@ using Avalonia.Media;
 using SkiaSharp;
 using SukiUI.Utilities.Effects;
 
-namespace SukiUI.Demo.Controls
+namespace SukiUI.Controls
 {
-    public class LoadingTest : Control
+    public class Loading : Control
     {
         public static readonly StyledProperty<LoadingStyle> LoadingStyleProperty = 
-            AvaloniaProperty.Register<LoadingTest, LoadingStyle>(nameof(LoadingStyle));
+            AvaloniaProperty.Register<Loading, LoadingStyle>(nameof(LoadingStyle), defaultValue: LoadingStyle.Glow);
 
         public LoadingStyle LoadingStyle
         {
@@ -21,13 +21,17 @@ namespace SukiUI.Demo.Controls
         private static readonly IReadOnlyDictionary<LoadingStyle, SukiEffect> Effects =
             new Dictionary<LoadingStyle, SukiEffect>()
             {
-                { LoadingStyle.Glow, SukiEffect.FromEmbeddedResource("glow") },
-                { LoadingStyle.Pellets, SukiEffect.FromEmbeddedResource("pellets") }
+                { LoadingStyle.Glow, SukiEffect.FromEmbeddedResource("glow_primary") },
+                { LoadingStyle.Pellets, SukiEffect.FromEmbeddedResource("pellets_primary") },
+                { LoadingStyle.GlowAccent, SukiEffect.FromEmbeddedResource("glow_accent") },
+                { LoadingStyle.PelletsAccent, SukiEffect.FromEmbeddedResource("pellets_accent") },
+                { LoadingStyle.GlowText, SukiEffect.FromEmbeddedResource("glow_text") },
+                { LoadingStyle.PelletsText, SukiEffect.FromEmbeddedResource("pellets_text") }
             };
 
         private readonly LoadingEffectDraw _draw;
 
-        public LoadingTest()
+        public Loading()
         {
             Width = 50;
             Height = 50;
@@ -64,6 +68,9 @@ namespace SukiUI.Demo.Controls
                 canvas.Restore();
             }
 
+            // I'm not really sure how to render this properly in software fallback scenarios.
+            // This is likely to cause issues with the previewer.
+            // Might be worth just drawing a circle or something...
             protected override void RenderSoftware(SKCanvas canvas, SKRect rect)
             {
                 throw new System.NotImplementedException();
@@ -74,6 +81,10 @@ namespace SukiUI.Demo.Controls
     public enum LoadingStyle
     {
         Glow,
-        Pellets
+        GlowAccent,
+        GlowText,
+        Pellets,
+        PelletsAccent,
+        PelletsText
     }
 }

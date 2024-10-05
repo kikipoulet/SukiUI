@@ -1,0 +1,28 @@
+float smoothstep(float a, float b, float x) {
+    float t = clamp((x - a) / (b - a), 0.0, 1.0);
+    return t * t * (3.0 - 2.0 * t);
+}
+
+float A(vec2 p, float a) {
+    a *= 3.14159;\
+    vec2 s = vec2(sin(a), cos(a));
+    p.x = abs(p.x);
+    return ((s.y * p.x > s.x * p.y) ? length(p - s * .7) :
+    abs(length(p) - .7)) - .13;
+}
+
+mat2 D(float a) {
+    a *= 3.14159;\
+    vec2 s = vec2(sin(a), cos(a));
+    return mat2(s.y, -s.x, s.x, s.y);
+}
+
+vec4 main(vec2 fragCoord) {
+    vec2 r = iResolution.xy, p = (2. * fragCoord - r) / r.y;
+    float T = iTime * 1.,
+    d = A(p * D(1. - .125 * floor(T)), .4375), // distance to longest arc
+    i;
+    for (i = 0.; i < 1.; i += .5)
+    d = min(A(p * D(mix(-.5, .625, fract(T / 2. + i)) - .125 * T), .0625), d); // distance to shorter arcs ("pellets")
+    return vec4(smoothstep(.01, .0, d)) * vec4(iDark, iDark, iDark, iAlpha);
+}
