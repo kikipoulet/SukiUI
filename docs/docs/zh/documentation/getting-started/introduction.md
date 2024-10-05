@@ -10,7 +10,7 @@
 <a href="https://www.nuget.org/packages/SukiUI"><img src="https://img.shields.io/nuget/vpre/SukiUI?style=for-the-badge" alt="Nuget Pre"/></a> 
 </div>
 
-![dashboard](/getting-started/introduction-dashboard.webp)
+![overview](https://github.com/user-attachments/assets/00622266-dbb8-4c05-8d1f-782483f4ca14)
 
 ## Gallery
 

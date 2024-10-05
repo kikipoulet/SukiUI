@@ -9,7 +9,7 @@
 ## Example
 
 ```xml
-<suki:SukiSideMenu IsSearchEnabled="True"  >
+<suki:SukiSideMenu IsSearchEnabled="True">
     <suki:SukiSideMenu.Items>
         <suki:SukiSideMenuItem Header="Page Title" Classes="Compact" >
             <suki:SukiSideMenuItem.Icon>
@@ -20,7 +20,7 @@
             </suki:SukiSideMenuItem.PageContent>
         </suki:SukiSideMenuItem>
 
-        <!-- Other Pages ... -->
+        <!-- Other Pages -->
 
     </suki:SukiSideMenu.Items>
 

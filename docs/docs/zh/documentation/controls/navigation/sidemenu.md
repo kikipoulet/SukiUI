@@ -9,11 +9,9 @@
 ## 示例
 
 ```xml
-<suki:SukiSideMenu 
-    IsSearchEnabled="True"  // 启用搜索
-    >
+<suki:SukiSideMenu IsSearchEnabled="True">
     <suki:SukiSideMenu.Items>
-        <suki:SukiSideMenuItem Header="Statistics">
+        <suki:SukiSideMenuItem Header="Page Title" Classes="Compact">
             <suki:SukiSideMenuItem.Icon>
                 <!-- Icon -->
             </suki:SukiSideMenuItem.Icon>
@@ -21,19 +19,10 @@
                 <!-- Page Content -->
             </suki:SukiSideMenuItem.PageContent>
         </suki:SukiSideMenuItem>
-    </suki:SukiSideMenu.Items>
+        
+        <!-- 其他页面 -->
 
-    <suki:SukiSideMenu.ItemTemplate>
-        <DataTemplate>
-            <suki:SukiSideMenuItem 
-                Classes="Compact"  // 启用紧凑布局
-                Header="{Binding DisplayName}">
-                <suki:SukiSideMenuItem.Icon>
-                    <avalonia:MaterialIcon Kind="{Binding Icon}" />
-                </suki:SukiSideMenuItem.Icon>
-            </suki:SukiSideMenuItem>
-        </DataTemplate>
-    </suki:SukiSideMenu.ItemTemplate>
+    </suki:SukiSideMenu.Items>
 
     <suki:SukiSideMenu.HeaderContent>
         <!-- Header Content -->
