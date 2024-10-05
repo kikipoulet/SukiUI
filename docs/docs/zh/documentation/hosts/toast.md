@@ -61,6 +61,8 @@ MainWindow.ToastManager.CreateToast()
 	.Queue();
 ```
 
+<br/>
+
 ## 显示消息提醒
 
 SukiUI 实现了一个现代的消息构造器。构造时推荐在 `ISukiToastManager` 的实例上调用 `.CreateToast()` 扩展方法
@@ -81,6 +83,10 @@ public void DisplayToast()
 }
 ```
 
+![toastsimple](https://github.com/user-attachments/assets/841b13a3-7983-4f39-9c15-3ce97510ba0d)
+
+<br/>
+
 ## 自动消失
 
 通常地，当消息提醒数量超过预设的最大值后，最老的消息将会立即消失以腾出空间。
@@ -98,6 +104,8 @@ public void DisplayToast()
         .Queue();
 }
 ```
+
+<br/>
 
 ## 交互
 
@@ -118,3 +126,116 @@ public void DisplayToast()
         .Queue();
 }
 ```
+
+<br/>
+
+## Toast 类型
+
+### Information
+
+![toastsimple](https://github.com/user-attachments/assets/6a9f14b6-64a9-4a7b-a6b6-e15d8ad80ebc)
+
+```cs
+public void DisplayToast()
+{
+	ToastManager.CreateToast()
+            .OfType(NotificationType.Information)
+            .Queue();
+}
+```
+
+### Success
+
+![success](https://github.com/user-attachments/assets/71ea5077-21b6-4f8b-bbe8-7ef2760041ef)
+
+```cs
+public void DisplayToast()
+{
+	ToastManager.CreateToast()
+            .OfType(NotificationType.Success)
+            .Queue();
+}
+```
+
+### Warning
+
+![warning](https://github.com/user-attachments/assets/303999ab-44ba-4819-82ad-a8869c7ca5f3)
+
+```cs
+public void DisplayToast()
+{
+	ToastManager.CreateToast()
+            .OfType(NotificationType.Warning)
+            .Queue();
+}
+```
+
+### Error
+
+![error](https://github.com/user-attachments/assets/686da808-e594-41cf-b44a-ae586eadedc7)
+
+```cs
+public void DisplayToast()
+{
+	ToastManager.CreateToast()
+            .OfType(NotificationType.Error)
+            .Queue();
+}
+```
+
+<br/>
+
+## Loading Toast
+
+![loading](https://github.com/user-attachments/assets/7857721a-e7a0-4bf5-beff-31363c606ce4)
+
+```cs
+public void DisplayToast()
+{
+	ToastManager.CreateToast()
+            .WithLoadingState(true)
+            .Queue();
+}
+```
+
+<br/>
+
+## 复杂交互
+
+这是一个模拟更新操作的 Toast：
+
+![loading](https://github.com/user-attachments/assets/479d7e09-a37b-4595-85a5-02c669b8592a)
+
+```cs
+    private void ShowActionToast()
+    {
+        toastManager.CreateToast()
+            .WithTitle("Update Available")
+            .WithContent("Information, Update v1.0.0.0 is Now Available.")
+            .WithActionButtonNormal("Later", _ => { }, true)
+            .WithActionButton("Update", _ => ShowUpdatingToast(), true)
+            .Queue();
+    }
+
+    private void ShowUpdatingToast()
+    {
+        var progress = new ProgressBar() { Value = 0, ShowProgressText = true };
+        var toast = toastManager.CreateToast()
+            .WithTitle("Updating...")
+            .WithContent(progress)
+            .Queue();
+        var timer = new Timer(20);
+        timer.Elapsed += (_, _) =>
+        {
+            Dispatcher.UIThread.Invoke(() =>
+            {
+                progress.Value += 1;
+                if (progress.Value < 100) return;
+                timer.Dispose();
+                toastManager.Dismiss(toast);
+            });
+        };
+        timer.Start();
+    }
+```
+

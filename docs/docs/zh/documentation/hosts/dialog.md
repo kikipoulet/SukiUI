@@ -82,6 +82,8 @@ public void DisplayDialog()
 }
 ```
 
+![dialog](https://github.com/user-attachments/assets/efd34873-b4c1-45bf-a14b-d7a7b11a77c1)
+
 ## 关闭对话框
 
 默认情况下，对话框没有自动关闭机制。要添加关闭方式，可以使用 `.Dismiss()` 方法。目前最常见的方式是 `.ByClickingBackground()`，即用户点击对话框外部时关闭对话框。
@@ -115,6 +117,10 @@ public void DisplayDialog()
 }
 ```
 
+![dialogclose](https://github.com/user-attachments/assets/3d07344f-c302-400a-b2cf-88865e7713ba)
+
 ## 消息框样式
 
 你还可以通过 `.OfType()` 方法为对话框应用内置的消息框样式，目前支持的信息类型包括：`Information`, `Success`, `Warning` 和 `Error`。
+
+![dialogtypes](https://github.com/user-attachments/assets/1c596315-5e9a-4f4c-b577-e27d0d6b0a1d)

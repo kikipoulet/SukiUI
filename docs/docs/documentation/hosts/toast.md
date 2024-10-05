@@ -82,9 +82,7 @@ public void DisplayToast()
 }
 ```
 
-
 ![toastsimple](https://github.com/user-attachments/assets/841b13a3-7983-4f39-9c15-3ce97510ba0d)
-
 
 <br/>
 
@@ -103,6 +101,7 @@ public void DisplayToast()
         .Queue();
 }
 ```
+
 <br/>
 
 ## Interactions
@@ -131,7 +130,6 @@ public void DisplayToast()
 
 ![toastsimple](https://github.com/user-attachments/assets/6a9f14b6-64a9-4a7b-a6b6-e15d8ad80ebc)
 
-
 ```cs
 public void DisplayToast()
 {
@@ -143,9 +141,7 @@ public void DisplayToast()
 
 ### Success
 
-
 ![success](https://github.com/user-attachments/assets/71ea5077-21b6-4f8b-bbe8-7ef2760041ef)
-
 
 ```cs
 public void DisplayToast()
@@ -160,7 +156,6 @@ public void DisplayToast()
 
 ![warning](https://github.com/user-attachments/assets/303999ab-44ba-4819-82ad-a8869c7ca5f3)
 
-
 ```cs
 public void DisplayToast()
 {
@@ -174,7 +169,6 @@ public void DisplayToast()
 
 ![error](https://github.com/user-attachments/assets/686da808-e594-41cf-b44a-ae586eadedc7)
 
-
 ```cs
 public void DisplayToast()
 {
@@ -184,16 +178,11 @@ public void DisplayToast()
 }
 ```
 
-
-
-
-
 <br/>
 
 ## Loading Toast
 
 ![loading](https://github.com/user-attachments/assets/7857721a-e7a0-4bf5-beff-31363c606ce4)
-
 
 ```cs
 public void DisplayToast()
@@ -204,18 +193,13 @@ public void DisplayToast()
 }
 ```
 
-
-
-
 <br/>
 
 ## Complex Interaction
 
 Here is an example of an "Update" toast.
 
-
 ![loading](https://github.com/user-attachments/assets/479d7e09-a37b-4595-85a5-02c669b8592a)
-
 
 ```cs
     private void ShowActionToast()
