@@ -136,8 +136,11 @@
                 <suki:GlassCard>
                     <suki:GroupBox Header="Loading Indicator">
                         <StackPanel Spacing="15">
+                            <showMeTheXaml:XamlDisplay UniqueId="Loading0">
+                                <suki:Loading LoadingStyle="Simple" />
+                            </showMeTheXaml:XamlDisplay>
                             <showMeTheXaml:XamlDisplay UniqueId="Loading1">
-                                <suki:Loading />
+                                <suki:Loading LoadingStyle="Glow" />
                             </showMeTheXaml:XamlDisplay>
                             <showMeTheXaml:XamlDisplay UniqueId="Loading2">
                                 <suki:Loading LoadingStyle="Pellets" />

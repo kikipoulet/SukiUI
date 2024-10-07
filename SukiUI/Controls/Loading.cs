@@ -13,7 +13,7 @@ namespace SukiUI.Controls
     public class Loading : Control
     {
         public static readonly StyledProperty<LoadingStyle> LoadingStyleProperty =
-            AvaloniaProperty.Register<Loading, LoadingStyle>(nameof(LoadingStyle), defaultValue: LoadingStyle.Glow);
+            AvaloniaProperty.Register<Loading, LoadingStyle>(nameof(LoadingStyle), defaultValue: LoadingStyle.Simple);
 
         public LoadingStyle LoadingStyle
         {
@@ -33,6 +33,7 @@ namespace SukiUI.Controls
         private static readonly IReadOnlyDictionary<LoadingStyle, SukiEffect> Effects =
             new Dictionary<LoadingStyle, SukiEffect>()
             {
+                { LoadingStyle.Simple, SukiEffect.FromEmbeddedResource("simple") },
                 { LoadingStyle.Glow, SukiEffect.FromEmbeddedResource("glow") },
                 { LoadingStyle.Pellets, SukiEffect.FromEmbeddedResource("pellets") },
             };
@@ -106,6 +107,7 @@ namespace SukiUI.Controls
 
     public enum LoadingStyle
     {
+        Simple, 
         Glow,
         Pellets
     }

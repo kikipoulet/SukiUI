@@ -30,14 +30,14 @@
                         <theme:BoolToWidthProgressConverter x:Key="WidthConverter" />
                     </Border.Resources>
                     <StackPanel HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Orientation="Horizontal">
-                        <Viewbox Width="{TemplateBinding theme:ButtonExtensions.ShowProgress, Converter={StaticResource WidthConverter}}" Height="18">
+                        <Viewbox Margin="0,-5" Width="{TemplateBinding theme:ButtonExtensions.ShowProgress, Converter={StaticResource WidthConverter}}" Height="24">
                             <Viewbox.Transitions>
                                 <Transitions>
                                     <DoubleTransition Property="Width" Duration="0:0:0.3" />
                                 </Transitions>
                             </Viewbox.Transitions>
                        
-                            <controls:Loading LoadingStyle="Pellets" Foreground="{DynamicResource SukiText}" />
+                            <controls:Loading  LoadingStyle="Simple" Foreground="{DynamicResource SukiText}" />
                           
                         </Viewbox>
                         <ContentPresenter HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
