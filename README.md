@@ -10,91 +10,84 @@
 </div>
 <br/>
 
-#### Try our Controls Gallery App on Microsoft Store ! 
-<span>
-<a href="https://apps.microsoft.com/detail/9NM01BJ6JTTF?hl=en-us&gl=US">
-   <img src="https://get.microsoft.com/images/en-us%20light.svg" alt="Download SukiUI Controls Gallery" />
-</a>
-</span>
-<br/>
 
-<br/>
+## ✨ 6.0 Release
 
-### ✨ Upcoming : Use [Dock](https://github.com/wieslawsoltes/Dock) library with SukiUI !
-
-<br/>
-
-![image](https://github.com/kikipoulet/SukiUI/assets/19242427/0b4af54b-9903-4df5-9ca1-6577c878d477)
-
-Credits to @wieslawsoltes for the Dock library.
-
-<br/>
+.. Coming soon ..
+<br/><br/>
 
 ## 📄 Documentation
 
-[Wiki](https://github.com/kikipoulet/SukiUI/wiki)
-
-[SukiUI Documentation](https://kikipoulet.github.io/SukiUI/) *Work in Progress* 🚀
-<br/><br/>
 
 
+### [SukiUI Documentation](https://kikipoulet.github.io/SukiUI/)  🚀
+<br/>
+
+Many thanks to [McCree Lee](https://github.com/AuroraZiling) for his work on the documentation and the support for Chinese users.
+
+
+<br/>
 
 ## 📱 UI Theme 
 
-##### SukiUI contains a theme for AvaloniaUI's base controls with support for Light/Dark themes.
-##### SukiUI offers the ability to choose and switch between different color themes, as well as create custom ones.
+<br/>
 
-![colorthemes](https://github.com/kikipoulet/SukiUI/assets/19242427/72c4cc35-876c-47ec-8205-cf6a37be1c59)
+### SukiUI is a theme for AvaloniaUI with support for Light/Dark themes, and different color themes.
 
-## 🕹 Rich Animations
+<br/>
 
-##### SukiUI places special emphasis on creating rich and intuitive animations for the themed controls.
+![colorthemes](https://github.com/user-attachments/assets/78f2ae9c-4fd7-4402-876f-791e5fb8a10a)
 
- <kbd>
-<img src="https://github.com/kikipoulet/SukiUI/assets/19242427/40c93232-c45a-4dd7-b559-e8e22cff9748" ></img> 
-  </kbd>
-  
-<kbd>
-<img src="https://github.com/kikipoulet/SukiUI/assets/19242427/36b1a516-2f16-4d0d-82b2-df59003e2ec6" ></img> 
-  </kbd>
+<br/>
+
+### SukiUI offers a lot of customization options, such as the ability to change the background style for your application.
+
+<br/>
+
+![backgroundstyles](https://github.com/user-attachments/assets/88ea5b54-1e05-431c-be92-15dbbe61f1b9)
+
+<br/>
+
+## 🕹 Richly Animated Controls
+
+<br/>
+
+###  SukiUI contains additional fully animated controls.
+
+<br/>
+
+![animations](https://github.com/user-attachments/assets/7d6d0e94-b315-48d5-8556-01f12f8faaca)
 
  
+<br/>
 
-## 🔨 Additional Controls
+## ⚒ Complete UI Toolkit
 
-##### SukiUI contains additional controls to offer the possibility to make rich and diversified User Interface.
+We aim to provide a complete kit for your UI, encompassing all the necessary functionalities while maintaining a consistent design style. The SukiUI library is packed with various UI features to assist you in your UI development.
 
-<kbd>
-<img src="https://github.com/kikipoulet/SukiUI/assets/19242427/0499e9bb-2187-4c52-bbe2-ac38260dabfa" ></img> 
-  </kbd>
+<br/>
 
-  <kbd>
-<img src="https://github.com/kikipoulet/SukiUI/assets/19242427/0dc7a093-408e-4560-b57a-07d427f64f86" ></img> 
-  </kbd>
+### Toast System - Notification
 
-  <kbd>
-<img src="https://github.com/kikipoulet/SukiUI/assets/19242427/88095be5-565c-4aa2-bddc-ee040ea67ebe" ></img> 
-  </kbd>
-
-  <kbd>
-<img src="https://github.com/kikipoulet/SukiUI/assets/19242427/ac1f43e2-f7cd-4ac7-b64d-e83b5952b019" ></img> 
-  </kbd>
-
-  <kbd>
-<img src="https://github.com/kikipoulet/SukiUI/assets/19242427/a07a5a38-eccf-47a0-b992-abc41d7ee70d" ></img> 
-  </kbd>
+SukiUI offer a versatile way to display unique toasts, to help you create nice interactions easily.
 
 
-## ⚒ UI Functionalities
+![toast](https://github.com/user-attachments/assets/2a07cf6d-f29a-469c-8964-239e7f734a09)
 
-##### SukiUI offer an easy way to display Dialog and Notifications in your application.
+<br/>
 
-  <kbd>
-<img src="https://github.com/kikipoulet/SukiUI/assets/19242427/b29ae757-9d6a-461a-bd6f-6949c3f0ccec" ></img> 
-  </kbd>
+### Dialogs - MessageBox
 
-   <kbd>
-<img src="https://github.com/kikipoulet/SukiUI/assets/19242427/60b7d946-e7b1-42b8-8aca-487f92a50ac2" ></img> 
-  </kbd>
+<br/>
+
+![dialogs](https://github.com/user-attachments/assets/f786d724-0cae-417a-bc60-69e4d1a2bfc0)
+
+<br/> <br/>
+
+### Dock
+
+SukiUI includes styles for the [Dock](https://github.com/wieslawsoltes/Dock) library.
+
+![dock](https://github.com/user-attachments/assets/ef7ec55f-f13c-4214-b5ce-ad5ef3042868)
 
 
