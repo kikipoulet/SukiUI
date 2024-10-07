@@ -3,7 +3,7 @@
 	<h3>Suki UI</h3>
 	<h4><i>A Desktop UI Library for <a href="https://avaloniaui.net/">Avalonia</a></i></h4>
 	<div id="badges" >
-		<a href="https://github.com/kikipoulet/SukiUI/wiki/1.-Installation"><img src="https://img.shields.io/badge/GET%20STARTED-purple?style=for-the-badge" alt="Get Started"/></a>
+		<a href="https://kikipoulet.github.io/SukiUI/documentation/getting-started/installation.html"><img src="https://img.shields.io/badge/GET%20STARTED-purple?style=for-the-badge" alt="Get Started"/></a>
 		<a href="https://www.nuget.org/packages/SukiUI"><img src="https://img.shields.io/nuget/vpre/SukiUI?style=for-the-badge" alt="Nuget Pre"/></a> 
 		<a href="https://github.com/kikipoulet/SukiUI/blob/main/LICENSE"><img src="https://img.shields.io/github/license/kikipoulet/SukiUI?style=for-the-badge" alt="License"/></a>  
 	</div>
