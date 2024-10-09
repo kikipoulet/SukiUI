@@ -66,14 +66,14 @@ vec4 main(vec2 fragCoord) {
     float opacityLayer2 = 0.85 - (iDark / 2);
 
     
-    float iPrimaryOpacity = 0.2; // Exemple de nouvelle opacité pour iPrimary
+    float iPrimaryOpacity = 1.5; // Exemple de nouvelle opacité pour iPrimary
     if (iDark == 1) {
         iPrimaryOpacity = 0.4;
     }
     vec3 iPrimaryWithOpacity = iPrimary * iPrimaryOpacity;
 
   
-    float iAccentOpacity = 1; 
+    float iAccentOpacity = -1.05; 
     if (iDark == 1) {
             iAccentOpacity = 2;
         }
@@ -89,7 +89,7 @@ vec4 main(vec2 fragCoord) {
     
     vec3 col;
     if (iDark == 0) {
-        col = blendOverlay(iBase, finalComp);
+        col = blendOverlay(iBase * 1.02, finalComp);
     } else {
         col = blendOverlayDark(iBase, finalComp);
     }
