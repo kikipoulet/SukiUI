@@ -80,7 +80,8 @@ SukiUI offer a versatile way to display unique toasts, to help you create nice i
 
 <br/>
 
-![dialogs](https://github.com/user-attachments/assets/f786d724-0cae-417a-bc60-69e4d1a2bfc0)
+![dialogslight](https://github.com/user-attachments/assets/51f05964-e847-4ed6-a1f7-78616eea9cee)
+
 
 <br/> <br/>
 
@@ -88,6 +89,7 @@ SukiUI offer a versatile way to display unique toasts, to help you create nice i
 
 SukiUI includes styles for the [Dock](https://github.com/wieslawsoltes/Dock) library.
 
-![dock](https://github.com/user-attachments/assets/ef7ec55f-f13c-4214-b5ce-ad5ef3042868)
+
+![dockgradient](https://github.com/user-attachments/assets/828cf7f1-ca76-4e36-ab27-921c35f93280)
 
 

@@ -1,6 +1,6 @@
 # How to use Custom Font
 
-Here is the `App.axaml` after creating the SukiUI project:
+Here is the `App.axaml` after creating your SukiUI project:
 
 ```xml
 <Application xmlns="https://github.com/avaloniaui"
@@ -21,7 +21,7 @@ Here is the `App.axaml` after creating the SukiUI project:
 </Application>
 ```
 
-Assuming that there exists a font file `Assets/MiSans-Bold.ttf` and set the build action of that to `AvaloniaResource`
+Assuming that there exists a font file `Assets/FontName-xxx.ttf` and set the build action of that to `AvaloniaResource`
 
 Then replace the `DefaultFontFamily` with your font:
 
@@ -37,7 +37,7 @@ Then replace the `DefaultFontFamily` with your font:
 
     <Application.Resources> // [!code highlight]
         <ResourceDictionary> // [!code highlight]
-            <FontFamily x:Key="DefaultFontFamily">avares://SukiTest/Assets/MiSans-Bold.ttf#MiSans</FontFamily> // [!code highlight]
+            <FontFamily x:Key="DefaultFontFamily">avares://YourProject/Assets#FontName</FontFamily> // [!code highlight]
         </ResourceDictionary> // [!code highlight]
     </Application.Resources> // [!code highlight]
 
@@ -50,7 +50,3 @@ Then replace the `DefaultFontFamily` with your font:
     </Application.Styles>
 </Application>
 ```
-
-::: tip
-`#MiSans` is not the same in other font files, you can use a program like `Windows Font Viewer` to see the font name
-:::
