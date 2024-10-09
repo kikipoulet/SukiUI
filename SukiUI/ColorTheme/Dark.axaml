@@ -27,7 +27,7 @@
     <BoxShadows x:Key="SukiBigPopupShadow">1 4 17 0 #111111</BoxShadows>
     
     <LinearGradientBrush x:Key="PopupGradientBrush" StartPoint="0%,0%" EndPoint="100%,100%">
-        <GradientStop Color="{DynamicResource SukiAccentColor3}" Offset="0"></GradientStop>
+        <GradientStop Color="{DynamicResource SukiPrimaryColor3}" Offset="0"></GradientStop>
         <GradientStop Color="{DynamicResource SukiPrimaryColor10}" Offset="0.9"></GradientStop>
 
     </LinearGradientBrush>
