@@ -36,12 +36,10 @@
                     <DockPanel Margin="0,12,0,0">
                         <TextBlock DockPanel.Dock="Left" FontWeight="DemiBold" VerticalAlignment="Center" Text="Is Opaque :" />
                         <ToggleSwitch Margin="8,0,0,0"  IsChecked="{Binding IsOpaque}" />
-                       
                     </DockPanel>
                     <DockPanel>
                         <TextBlock DockPanel.Dock="Left" FontWeight="DemiBold" VerticalAlignment="Center" Text="Is Interactive :" />
                         <ToggleSwitch Margin="8,0,0,0" IsChecked="{Binding IsInteractive}" />
-                     
                     </DockPanel>
                 </StackPanel>
             </suki:GroupBox>
@@ -66,23 +64,19 @@
                 </suki:GlassCard>
                 <suki:GlassCard>
                     <suki:GlassCard.Resources>
-                        <system:Double x:Key="GlassOpacity">0.2</system:Double>
+                        <system:Double x:Key="GlassOpacity">0.5</system:Double>
                     </suki:GlassCard.Resources>
                     <suki:GroupBox Header="Overriden Opacity">
-                        <TextBlock Classes="h4">This card's resources sets the double resource of "GlassOpacity" to 0.2</TextBlock>
+                        <TextBlock Classes="h4">This card's resources sets the double resource of "GlassOpacity" to 0.5</TextBlock>
                     </suki:GroupBox>
                 </suki:GlassCard>
-               
             </WrapPanel>
-                
                 <Border Background="{DynamicResource SukiControlBorderBrush}" Height="1" Margin="30,30"></Border>
                 <TextBlock TextWrapping="Wrap" HorizontalAlignment="Left" Margin="30,0,30,30" FontWeight="DemiBold" Text="GlassCard are animated with CompositionAnimations by the property IsAnimated set to 'True' by default. Opacity changes and Size changes of the GlassCard are automatically animated. See below the differences by adding an item."></TextBlock>
-                
                 <StackPanel Spacing="12" Margin="30,10" Orientation="Horizontal">
                     <Button Classes="Flat" Content="Add Item" Command="{Binding AddItemCommand}"></Button>
                     <Button  Content="Remove Item" Command="{Binding RemoveItemCommand}"></Button>
                 </StackPanel>
-                
                 <Grid ColumnDefinitions="*,*" Margin="15">
                     <suki:GlassCard HorizontalAlignment="Left" IsAnimated="False" Margin="15">
                         <StackPanel Spacing="35">
@@ -103,7 +97,6 @@
                             </ItemsControl>
                         </StackPanel>
                     </suki:GlassCard>
-                    
                     <suki:GlassCard Grid.Column="1" HorizontalAlignment="Left"  Margin="15">
                         <StackPanel Spacing="35">
                             <TextBlock FontWeight="DemiBold" FontSize="17" Text="Animated"></TextBlock>
