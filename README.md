@@ -36,7 +36,8 @@ Many thanks to [McCree Lee](https://github.com/AuroraZiling) for his work on the
 
 <br/>
 
-![colorthemes](https://github.com/user-attachments/assets/78f2ae9c-4fd7-4402-876f-791e5fb8a10a)
+![sukicolorpresentation](https://github.com/user-attachments/assets/70fdaa99-6274-478a-bb2a-025a0b7f1182)
+
 
 <br/>
 
