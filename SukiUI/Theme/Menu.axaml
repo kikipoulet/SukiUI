@@ -11,7 +11,7 @@
                 <Border Name="root"
                         Margin="5,5"
                         Background="{TemplateBinding Background}"
-                        BorderBrush="{DynamicResource SukiLightBorderBrush}"
+                        BorderBrush="{DynamicResource SukiMenuBorderBrush}"
                         BorderThickness="0"
                         CornerRadius="8">
                     <Panel>
@@ -49,7 +49,7 @@
                                     <Border Name="PART_Border"
                                             Margin="16,8,8,8"
                                             Background="{DynamicResource SukiCardBackground}"
-                                            BorderBrush="{DynamicResource SukiLightBorderBrush}"
+                                            BorderBrush="{DynamicResource SukiMenuBorderBrush}"
                                             BorderThickness="1"
                                             BoxShadow="{DynamicResource SukiPopupShadow}"
                                             ClipToBounds="True"

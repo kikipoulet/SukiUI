@@ -2,7 +2,7 @@
     <ControlTheme x:Key="SukiMenuFlyoutPresenterStyle" TargetType="MenuFlyoutPresenter">
         <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
         <Setter Property="CornerRadius" Value="6" />
-        <Setter Property="BorderBrush" Value="{DynamicResource SukiLightBorderBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiMenuBorderBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Template">
             <ControlTemplate>

@@ -14,6 +14,7 @@
     <Color x:Key="SukiControlBorderBrush">#cecece</Color>
     <Color x:Key="SukiMediumBorderBrush">#e2e2e2</Color>
     <Color x:Key="SukiLightBorderBrush">#f1f1f1</Color>
+    <Color x:Key="SukiMenuBorderBrush">#d7d7d7</Color>
     <Color x:Key="GlassBorderBrush">#e3e3e7</Color>
 
     <Color x:Key="SukiText">#222222</Color>
