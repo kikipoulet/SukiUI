@@ -14,6 +14,7 @@
     <Color x:Key="SukiControlBorderBrush">#606060</Color>
     <Color x:Key="SukiMediumBorderBrush">#555555</Color>
     <Color x:Key="SukiLightBorderBrush">#454545</Color>
+    <Color x:Key="SukiMenuBorderBrush">#454545</Color>
     <Color x:Key="GlassBorderBrush">#252729</Color>
 
     <Color x:Key="SukiText">#edffffff</Color>
@@ -27,7 +28,7 @@
     <BoxShadows x:Key="SukiBigPopupShadow">1 4 17 0 #111111</BoxShadows>
     
     <LinearGradientBrush x:Key="PopupGradientBrush" StartPoint="0%,0%" EndPoint="100%,100%">
-        <GradientStop Color="{DynamicResource SukiAccentColor3}" Offset="0"></GradientStop>
+        <GradientStop Color="{DynamicResource SukiPrimaryColor3}" Offset="0"></GradientStop>
         <GradientStop Color="{DynamicResource SukiPrimaryColor10}" Offset="0.9"></GradientStop>
 
     </LinearGradientBrush>

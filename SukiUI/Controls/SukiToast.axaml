@@ -24,7 +24,7 @@
                                     <Panel Margin="0">
                                         <Panel.Background>
                                             <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
-                                                <GradientStop Offset="0" Color="{DynamicResource SukiAccentColor5}" />
+                                                <GradientStop Offset="0" Color="{DynamicResource SukiPrimaryColor5}" />
                                                 <GradientStop Offset="1" Color="{DynamicResource SukiPrimaryColor10}" />
                                             </LinearGradientBrush>
                                         </Panel.Background>
@@ -34,8 +34,8 @@
                                     <Panel Margin="0">
                                         <Panel.Background>
                                             <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
-                                                <GradientStop Offset="0" Color="{DynamicResource SukiAccentColor3}" />
-                                                <GradientStop Offset="1" Color="{DynamicResource SukiPrimaryColor3}" />
+                                                <GradientStop Offset="0" Color="{DynamicResource SukiAccentColor1}" />
+                                                <GradientStop Offset="1" Color="{DynamicResource SukiPrimaryColor1}" />
                                             </LinearGradientBrush>
                                         </Panel.Background>
                                     </Panel>

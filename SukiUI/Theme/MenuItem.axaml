@@ -7,6 +7,7 @@
     <converters:PlatformKeyGestureConverter x:Key="KeyGestureConverter" />
 
     <ControlTheme x:Key="SukiMenuItemStyle" TargetType="MenuItem">
+      
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
         <Setter Property="BorderThickness" Value="1.5" />
         <Setter Property="FontSize" Value="14" />
@@ -77,7 +78,7 @@
                                     <Border Name="PART_Border"
                                             Margin="16,8,8,8"
                                             Background="{DynamicResource SukiCardBackground}"
-                                            BorderBrush="{DynamicResource SukiLightBorderBrush}"
+                                            BorderBrush="{DynamicResource SukiMenuBorderBrush}"
                                             BorderThickness="1"
                                             BoxShadow="{DynamicResource SukiPopupShadow}"
                                             ClipToBounds="True"

@@ -117,7 +117,7 @@ public class SukiWindow : Window
 
     public static readonly StyledProperty<SukiBackgroundStyle> BackgroundStyleProperty =
         AvaloniaProperty.Register<SukiWindow, SukiBackgroundStyle>(nameof(BackgroundStyle),
-            defaultValue: SukiBackgroundStyle.Bubble);
+            defaultValue: SukiBackgroundStyle.Gradient);
 
     /// <inheritdoc cref="SukiBackground.Style"/>
     public SukiBackgroundStyle BackgroundStyle

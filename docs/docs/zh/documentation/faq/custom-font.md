@@ -1,6 +1,6 @@
 # 如何使用自定义字体
 
-以下是创建一个新的 SukiUI 项目后的 `App.axaml` 文件：
+以下是创建一个新的基于 SukiUI 项目后的 `App.axaml` 文件：
 
 ```xml
 <Application xmlns="https://github.com/avaloniaui"
@@ -21,7 +21,7 @@
 </Application>
 ```
 
-假设存在一个字体文件 `Assets/MiSans-Bold.ttf`，并将其构建行为设置为 `AvaloniaResource`
+假设存在一组字体文件 `Assets/FontName-xxx.ttf`，并将其构建行为设置为 `AvaloniaResource`
 
 然后替换 `DefaultFontFamily` 为你的字体：
 
@@ -37,7 +37,7 @@
 
     <Application.Resources> // [!code highlight]
         <ResourceDictionary> // [!code highlight]
-            <FontFamily x:Key="DefaultFontFamily">avares://SukiTest/Assets/MiSans-Bold.ttf#MiSans</FontFamily> // [!code highlight]
+            <FontFamily x:Key="DefaultFontFamily">avares://YourProject/Assets#FontName</FontFamily> // [!code highlight]
         </ResourceDictionary> // [!code highlight]
     </Application.Resources> // [!code highlight]
 
@@ -50,7 +50,3 @@
     </Application.Styles>
 </Application>
 ```
-
-::: tip
-`#MiSans` 在其他字体中的名称都不一样，你可以使用类似 `Windows 字体查看器` 等软件查看字体名称
-:::
