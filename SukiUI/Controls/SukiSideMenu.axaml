@@ -27,13 +27,14 @@
                                             VerticalAlignment="Top"
                                             Classes="Basic"
                                             Cursor="Hand"
-                                            DockPanel.Dock="Top">
+                                            DockPanel.Dock="Top"
+											IsVisible="{TemplateBinding SidebarToggleEnabled}">
                                         <Panel>
                                             <PathIcon Name="PART_ExpandIcon"
-                                                      Width="12"
-                                                      Height="12"
-                                                      Data="{x:Static content:Icons.ChevronLeft}"
-                                                      Foreground="{DynamicResource SukiText}">
+                                                        Width="12"
+                                                        Height="12"
+                                                        Data="{x:Static content:Icons.ChevronLeft}"
+                                                        Foreground="{DynamicResource SukiText}">
                                                 <PathIcon.Transitions>
                                                     <Transitions>
                                                         <TransformOperationsTransition Property="RenderTransform" Duration="{StaticResource MediumAnimationDuration}" />
@@ -42,7 +43,7 @@
                                             </PathIcon>
                                         </Panel>
                                     </Button>
-                                    <Grid MinHeight="{TemplateBinding HeaderMinHeight}"
+									<Grid MinHeight="{TemplateBinding HeaderMinHeight}"
                                           DockPanel.Dock="Top"
                                           IsVisible="{TemplateBinding IsMenuExpanded}">
                                         <ContentPresenter Content="{TemplateBinding HeaderContent}" />
