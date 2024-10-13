@@ -6,7 +6,7 @@ SukiUI 在 `SukiWindow` 内提供了 `Hosts` 属性，可以在该属性内添�
 <!-- XMLNS 定义已略去 -->
 <suki:SukiWindow>
 	<suki:SukiWindow.Hosts>
-		<!-- 你的控件 -->
+		<!-- 你的控件代码 -->
 	</suki:SukiWindow.Hosts>
 </suki:SukiWindow>
 ```
@@ -14,5 +14,5 @@ SukiUI 在 `SukiWindow` 内提供了 `Hosts` 属性，可以在该属性内添�
 SukiUI 本身提供两个可选的窗口控件，即 [SukiDialogHost](./dialog) 和 [SukiToastHost](./toast)
 
 ::: warning
-`suki:SukiWindow.Hosts` 仅在 `SukiWindow` 有效，请注意不要不小心在页面（`Views`）中声明，这将没有任何效果。
+`suki:SukiWindow.Hosts` 仅在 `SukiWindow` 有效，请注意不要在页面（`Views`）中声明，这是无效的。
 :::
