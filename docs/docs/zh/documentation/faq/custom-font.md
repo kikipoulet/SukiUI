@@ -21,9 +21,7 @@
 </Application>
 ```
 
-假设存在一组字体文件 `Assets/FontName-xxx.ttf`，并将其构建行为设置为 `AvaloniaResource`
-
-然后替换 `DefaultFontFamily` 为你的字体：
+假设存在一组字体文件 `Assets/FontName-xxx.ttf`，将其构建行为设置为 `AvaloniaResource`后，请替换 `DefaultFontFamily` 为你的字体：
 
 ```xml
 <Application
