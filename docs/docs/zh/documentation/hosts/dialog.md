@@ -27,7 +27,7 @@ public class ExampleViewModel
 ```
 ---
 
-如果你并未使用 MVVM 设计模式，只是想做一些简单实现，可以参考以下方法：
+如果你并未使用 MVVM 设计模式，只是想做一些简单的实现，可以参考以下方法：
 
 ### AXAML
 
@@ -64,13 +64,13 @@ MainWindow.DialogManager.CreateDialog()
 
 ## 显示对话框
 
-为了创建和显示对话框，SukiUI 提供了一种现代的构建方式。你可以在 `ISukiDialogManager` 实例上调用 `.CreateDialog()` 方法来开始构建对话框。
+SukiUI 提供了一种现代的构建方式来创建和显示对话框。你可以在 `ISukiDialogManager` 实例上调用 `.CreateDialog()` 方法来构建对话框。
 
-接下来，通过链式调用可以轻松设置对话框的标题、内容等。所有方法都有相应的 XML 注释说明。
+对话框构建完成后，通过**链式调用**可以轻松地设置对话框的标题、内容等。所有方法都有相应的 XML 注释说明。
 
-构建完对话框后，调用 `.TryShow()` 方法即可显示对话框，前提是当前没有其他对话框正在显示。
+构建完对话框后，调用 `.TryShow()` 方法即可显示对话框（若当前没有其他对话框正在显示）。
 
-例如，下面是一个简单的对话框示例：
+下面是一个简单的对话框示例：
 
 ```cs
 public void DisplayDialog()
@@ -99,7 +99,7 @@ public void DisplayDialog()
 }
 ```
 
-另一种关闭对话框的方式是通过操作按钮，接下来将介绍这一点。
+另一种关闭对话框的方式是通过按钮来交互，接下来将介绍这一点。
 
 ## 交互操作
 
@@ -121,6 +121,6 @@ public void DisplayDialog()
 
 ## 消息框样式
 
-你还可以通过 `.OfType()` 方法为对话框应用内置的消息框样式，目前支持的信息类型包括：`Information`, `Success`, `Warning` 和 `Error`。
+你还可以通过 `.OfType()` 方法为对话框应用内置的消息框样式，目前支持的样式类型有：`Information`, `Success`, `Warning` 和 `Error`。
 
 ![dialogtypes](https://github.com/user-attachments/assets/1c596315-5e9a-4f4c-b577-e27d0d6b0a1d)

@@ -15,6 +15,15 @@ public class SukiSideMenu : SelectingItemsControl
     public static readonly StyledProperty<bool> IsSearchEnabledProperty =
         AvaloniaProperty.Register<SukiSideMenu, bool>(nameof(IsSearchEnabled), defaultValue: false);
 
+    public static readonly StyledProperty<bool> SidebarToggleEnabledProperty =
+        AvaloniaProperty.Register<SukiWindow, bool>(nameof(SidebarToggleEnabled), defaultValue: true);
+
+    public bool SidebarToggleEnabled
+    {
+        get => GetValue(SidebarToggleEnabledProperty);
+        set => SetValue(SidebarToggleEnabledProperty, value);
+    }
+
     public bool IsSearchEnabled
     {
         get => GetValue(IsSearchEnabledProperty);
