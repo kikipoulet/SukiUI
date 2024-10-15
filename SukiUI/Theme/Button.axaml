@@ -1,7 +1,8 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="clr-namespace:SukiUI.Controls"
-                    xmlns:theme="clr-namespace:SukiUI.Theme">
+                    xmlns:theme="clr-namespace:SukiUI.Theme"
+                    xmlns:suki="https://github.com/kikipoulet/SukiUI">
     <ControlTheme x:Key="SukiButtonStyle" TargetType="Button">
         <Setter Property="BorderThickness" Value="1.2" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiMediumBorderBrush}" />
@@ -30,14 +31,14 @@
                         <theme:BoolToWidthProgressConverter x:Key="WidthConverter" />
                     </Border.Resources>
                     <StackPanel HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Orientation="Horizontal">
-                        <Viewbox Margin="0,-5" Width="{TemplateBinding theme:ButtonExtensions.ShowProgress, Converter={StaticResource WidthConverter}}" Height="24">
+                        <Viewbox  Margin="0,-5" Width="{TemplateBinding theme:ButtonExtensions.ShowProgress, Converter={StaticResource WidthConverter}}" Height="24">
                             <Viewbox.Transitions>
                                 <Transitions>
                                     <DoubleTransition Property="Width" Duration="0:0:0.3" />
                                 </Transitions>
                             </Viewbox.Transitions>
                        
-                            <controls:Loading  LoadingStyle="Simple" Foreground="{DynamicResource SukiText}" />
+                           <ContentPresenter Content="{TemplateBinding theme:ButtonExtensions.ShowProgress, Converter={x:Static suki:ProgressToContentCOnverter.Instance}}"></ContentPresenter>
                           
                         </Viewbox>
                         <ContentPresenter HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"

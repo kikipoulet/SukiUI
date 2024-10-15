@@ -29,6 +29,7 @@
     <StyleInclude Source="avares://SukiUI/Theme/CheckBoxStyles.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ScrollBarStyle.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ScrollViewerStyles.axaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/ButtonLoadingStyles.axaml" />
 
     <Styles.Resources>
         <ResourceDictionary>

@@ -1,0 +1,32 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:suki="https://github.com/kikipoulet/SukiUI">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+    
+    <Style Selector="Button suki|Loading">
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}"></Setter>
+    </Style>
+    
+    <Style Selector="Button.Outlined suki|Loading">
+        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}"></Setter>
+    </Style>
+
+    <Style Selector="Button.Basic suki|Loading">
+        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}"></Setter>
+    </Style>
+  
+    <Style Selector="Button.Accent suki|Loading">
+        <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}"></Setter>
+    </Style>
+
+      
+    <Style Selector="Button.Flat suki|Loading">
+        <Setter Property="Foreground" Value="White"></Setter>
+    </Style>
+
+  
+</Styles>
