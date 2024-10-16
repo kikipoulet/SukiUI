@@ -10,6 +10,7 @@ namespace SukiUI.Demo.Features.Effects
     public class ShaderToyRenderer : Control
     {
         private CompositionCustomVisual? _customVisual;
+        private SukiEffect? _sukiEffect;
 
         protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
         {
@@ -20,6 +21,7 @@ namespace SukiUI.Demo.Features.Effects
             _customVisual = comp.CreateCustomVisual(visualHandler);
             ElementComposition.SetElementChildVisual(this, _customVisual);
             _customVisual.SendHandlerMessage(EffectDrawBase.StartAnimations);
+            if(_sukiEffect != null) _customVisual.SendHandlerMessage(_sukiEffect);
             Update();
         }
         
@@ -31,6 +33,7 @@ namespace SukiUI.Demo.Features.Effects
 
         public void SetEffect(SukiEffect effect)
         {
+            _sukiEffect = effect;
             _customVisual?.SendHandlerMessage(effect);
         }
 
