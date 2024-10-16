@@ -1,9 +1,6 @@
-using System;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Interactivity;
-using Avalonia.Media;
-using Avalonia.Threading;
+using Avalonia.Rendering.Composition;
 using SukiUI.Enums;
 using SukiUI.Utilities.Effects;
 
@@ -54,7 +51,7 @@ namespace SukiUI.Controls
             AvaloniaProperty.Register<SukiWindow, bool>(nameof(AnimationEnabled), defaultValue: false);
         
         /// <summary>
-        /// Enables/disables animations - DEFAULT: False
+        /// [WARNING: This feature is experimental and has relatively high GPU utilisation] Enables/disables animations - DEFAULT: False 
         /// </summary>
         public bool AnimationEnabled
         {
@@ -65,8 +62,8 @@ namespace SukiUI.Controls
         public static readonly StyledProperty<bool> TransitionsEnabledProperty =
             AvaloniaProperty.Register<SukiBackground, bool>(nameof(TransitionsEnabled), defaultValue: false);
         
-        /// <summary>
-        /// Enables/disables transition animations when switching backgrounds - DEFAULT: False
+         /// <summary>
+        /// Enables/disables transition animations when switching backgrounds, Currently non-functional - DEFAULT: False
         /// </summary>
         public bool TransitionsEnabled
         {
@@ -94,54 +91,64 @@ namespace SukiUI.Controls
             set => SetValue(ForceSoftwareRenderingProperty, value);
         }
         
-        private readonly EffectBackgroundDraw _draw;
-
+        private CompositionCustomVisual? _customVisual;
+        
         public SukiBackground()
         {
             IsHitTestVisible = false;
-            _draw = new EffectBackgroundDraw(new Rect(0, 0, Bounds.Width, Bounds.Height));
         }
 
-        protected override void OnLoaded(RoutedEventArgs e)
+        protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
         {
-            base.OnLoaded(e);
-            _draw.ForceSoftwareRendering = ForceSoftwareRendering;
-            _draw.TransitionsEnabled = TransitionsEnabled;
-            _draw.TransitionTime = TransitionTime;
-            _draw.AnimationEnabled = AnimationEnabled;
+            base.OnAttachedToVisualTree(e);
+            var comp = ElementComposition.GetElementVisual(this)?.Compositor;
+            if (comp == null || _customVisual?.Compositor == comp) return;
+            var visualHandler = new EffectBackgroundDraw();
+            _customVisual = comp.CreateCustomVisual(visualHandler);
+            ElementComposition.SetElementChildVisual(this, _customVisual);
             HandleBackgroundStyleChanges();
+            Update();
+        }
+        
+        private void Update()
+        {
+            if (_customVisual == null) return;
+            _customVisual.Size = new Vector(Bounds.Width, Bounds.Height);
         }
 
         protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
         {
             base.OnPropertyChanged(change);
-            if (change.Property == ForceSoftwareRenderingProperty && change.NewValue is bool forceSoftwareRendering)
-                _draw.ForceSoftwareRendering = forceSoftwareRendering;
+            if (change.Property == BoundsProperty) 
+                Update();
+            else if (change.Property == ForceSoftwareRenderingProperty && change.NewValue is bool forceSoftwareRendering)
+                _customVisual?.SendHandlerMessage(forceSoftwareRendering 
+                    ? EffectDrawBase.EnableForceSoftwareRendering 
+                    : EffectDrawBase.DisableForceSoftwareRendering);
             else if(change.Property == TransitionsEnabledProperty && change.NewValue is bool transitionEnabled)
-                _draw.TransitionsEnabled = transitionEnabled;
+                _customVisual?.SendHandlerMessage(transitionEnabled 
+                    ? EffectBackgroundDraw.EnableTransitions 
+                    : EffectBackgroundDraw.DisableTransitions);
             else if(change.Property == TransitionTimeProperty && change.NewValue is double transitionTime)
-                _draw.TransitionTime = transitionTime;
-            else if(change.Property == AnimationEnabledProperty && change.NewValue is bool animationEnabled)
-                _draw.AnimationEnabled = animationEnabled;
+                _customVisual?.SendHandlerMessage(transitionTime);
+            else if (change.Property == AnimationEnabledProperty && change.NewValue is bool animationEnabled)
+                _customVisual?.SendHandlerMessage(animationEnabled
+                    ? EffectDrawBase.StartAnimations
+                    : EffectDrawBase.StopAnimations);
             else if(change.Property == StyleProperty || change.Property == ShaderFileProperty || change.Property == ShaderCodeProperty)
                 HandleBackgroundStyleChanges();
         }
-
-        public override void Render(DrawingContext context)
-        {
-            _draw.Bounds = Bounds;
-            context.Custom(_draw);
-            Dispatcher.UIThread.InvokeAsync(InvalidateVisual, DispatcherPriority.Background);
-        }
-
+        
         private void HandleBackgroundStyleChanges()
         {
+            SukiEffect effect;
             if (ShaderFile is not null)
-                _draw.Effect = SukiEffect.FromEmbeddedResource(ShaderFile);
+                effect = SukiEffect.FromEmbeddedResource(ShaderFile);
             else if (ShaderCode is not null)
-                _draw.Effect = SukiEffect.FromString(ShaderCode);
+                effect = SukiEffect.FromString(ShaderCode);
             else
-                _draw.Effect = SukiEffect.FromEmbeddedResource(Style.ToString());
+                effect = SukiEffect.FromEmbeddedResource(Style.ToString());
+            _customVisual?.SendHandlerMessage(effect);
         }
     }
 }

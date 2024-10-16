@@ -9,6 +9,8 @@ namespace SukiUI.Utilities.Effects
 {
     internal class EffectBackgroundDraw : EffectDrawBase
     {
+        public static readonly object EnableTransitions = new(), DisableTransitions = new();
+        
         internal bool TransitionsEnabled { get; set; }
         internal double TransitionTime { get; set; }
 
@@ -20,10 +22,6 @@ namespace SukiUI.Utilities.Effects
         private float _transitionStartTime;
         private float _transitionEndTime;
 
-        public EffectBackgroundDraw(Rect bounds) : base(bounds)
-        {
-        }
-
         protected override void EffectChanged(SukiEffect? oldValue, SukiEffect? newValue)
         {
             if (!TransitionsEnabled) return;
@@ -33,10 +31,15 @@ namespace SukiUI.Utilities.Effects
             _transitionEndTime = TransitionSeconds + (float)Math.Max(0, TransitionTime);
         }
 
+        public override void OnMessage(object message)
+        {
+            base.OnMessage(message);
+            if (message is float time) 
+                TransitionTime = time;
+        }
+
         protected override void Render(SKCanvas canvas, SKRect rect)
         {
-            canvas.Clear(SKColors.Transparent);
-
             if (Effect is not null)
             {
                 using var paint = new SKPaint();
@@ -46,7 +49,6 @@ namespace SukiUI.Utilities.Effects
             }
             if (_oldEffect is not null)
             {
-                
                 using var paint = new SKPaint();
                 // TODO: Investigate how to blend the shaders better - currently the only problem with this system.
                 // Blend modes effect the transition quite heavily, only these 3 seem to work in any reasonable way.

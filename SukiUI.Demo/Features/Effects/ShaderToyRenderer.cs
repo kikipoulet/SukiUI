@@ -1,7 +1,7 @@
+using System;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Media;
-using Avalonia.Threading;
+using Avalonia.Rendering.Composition;
 using SkiaSharp;
 using SukiUI.Utilities.Effects;
 
@@ -9,28 +9,41 @@ namespace SukiUI.Demo.Features.Effects
 {
     public class ShaderToyRenderer : Control
     {
-        private readonly ShaderToyDraw _draw;
-        
-        public ShaderToyRenderer()
-        {
-            _draw = new ShaderToyDraw(Bounds);
-        }
+        private CompositionCustomVisual? _customVisual;
 
-        public override void Render(DrawingContext context)
+        protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
         {
-            _draw.Bounds = Bounds;
-            context.Custom(_draw);
+            base.OnAttachedToVisualTree(e);
+            var comp = ElementComposition.GetElementVisual(this)?.Compositor;
+            if (comp == null || _customVisual?.Compositor == comp) return;
+            var visualHandler = new ShaderToyDraw();
+            _customVisual = comp.CreateCustomVisual(visualHandler);
+            ElementComposition.SetElementChildVisual(this, _customVisual);
+            _customVisual.SendHandlerMessage(EffectDrawBase.StartAnimations);
+            Update();
+        }
+        
+        private void Update()
+        {
+            if (_customVisual == null) return;
+            _customVisual.Size = new Vector(Bounds.Width, Bounds.Height);
         }
 
         public void SetEffect(SukiEffect effect)
         {
-            _draw.Effect = effect;
-            Dispatcher.UIThread.InvokeAsync(InvalidateVisual, DispatcherPriority.Background);
+            _customVisual?.SendHandlerMessage(effect);
+        }
+
+        protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+        {
+            base.OnPropertyChanged(change);
+            if(change.Property == BoundsProperty)
+                Update();
         }
 
         private class ShaderToyDraw : EffectDrawBase
         {
-            public ShaderToyDraw(Rect bounds) : base(bounds)
+            public ShaderToyDraw()
             {
                 AnimationEnabled = true;
                 AnimationSpeedScale = 2f;
@@ -38,8 +51,6 @@ namespace SukiUI.Demo.Features.Effects
 
             protected override void Render(SKCanvas canvas, SKRect rect)
             {
-                canvas.Scale(1,-1);
-                canvas.Translate(0, (float)-Bounds.Height);
                 using var mainShaderPaint = new SKPaint();
             
                 if (Effect is not null)
@@ -48,7 +59,6 @@ namespace SukiUI.Demo.Features.Effects
                     mainShaderPaint.Shader = shader;
                     canvas.DrawRect(rect, mainShaderPaint);
                 }
-                canvas.Restore();
             }
 
             protected override void RenderSoftware(SKCanvas canvas, SKRect rect)

@@ -109,6 +109,7 @@ public class SukiWindow : Window
     public static readonly StyledProperty<bool> BackgroundAnimationEnabledProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(BackgroundAnimationEnabled), defaultValue: false);
 
+    /// <inheritdoc cref="SukiBackground.AnimationEnabled"/>
     public bool BackgroundAnimationEnabled
     {
         get => GetValue(BackgroundAnimationEnabledProperty);
