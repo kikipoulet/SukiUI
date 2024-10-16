@@ -34,8 +34,9 @@ namespace SukiUI.Utilities.Effects
         public override void OnMessage(object message)
         {
             base.OnMessage(message);
-            if (message is float time) 
-                TransitionTime = time;
+            if (message == EnableTransitions) TransitionsEnabled = true;
+            else if (message == DisableTransitions) TransitionsEnabled = false;
+            if (message is double time) TransitionTime = time;
         }
 
         protected override void Render(SKCanvas canvas, SKRect rect)
@@ -59,7 +60,10 @@ namespace SukiUI.Utilities.Effects
                 using var shader = EffectWithUniforms(_oldEffect, (float)(1 - lerped));
                 paint.Shader = shader;
                 if (lerped < 1)
+                {
                     canvas.DrawRect(rect, paint);
+                    if(!AnimationEnabled) Invalidate();
+                }
                 else
                     _oldEffect = null;
             }

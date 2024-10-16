@@ -106,6 +106,7 @@ namespace SukiUI.Controls
             var visualHandler = new EffectBackgroundDraw();
             _customVisual = comp.CreateCustomVisual(visualHandler);
             ElementComposition.SetElementChildVisual(this, _customVisual);
+            _customVisual.SendHandlerMessage(TransitionTime);
             HandleBackgroundStyleChanges();
             Update();
         }
