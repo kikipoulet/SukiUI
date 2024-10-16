@@ -176,11 +176,7 @@ namespace SukiUI.Controls
                     });
                 });
                 FadeIn.RunAsync(To, _animCancellationToken.Token).ContinueWith(_ => 
-                    Dispatcher.UIThread.Invoke(() =>
-                    {
-                        Console.WriteLine(To.Name);
-                        return To.IsHitTestVisible = true;
-                    }));
+                    Dispatcher.UIThread.Invoke(() => To.IsHitTestVisible = true));
             }
             catch
             {
