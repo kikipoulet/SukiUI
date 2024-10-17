@@ -14,14 +14,17 @@ namespace SukiUI.Utilities.Effects
         internal bool TransitionsEnabled { get; set; }
         internal double TransitionTime { get; set; }
 
-        private static readonly Stopwatch TransitionTick = Stopwatch.StartNew();
-
-        private static float TransitionSeconds => (float)TransitionTick.Elapsed.TotalSeconds;
+        private float TransitionSeconds => (float)CompositionNow.TotalSeconds;
 
         private SukiEffect? _oldEffect;
         private float _transitionStartTime;
         private float _transitionEndTime;
 
+        public EffectBackgroundDraw() : base(true)
+        {
+            
+        }
+        
         protected override void EffectChanged(SukiEffect? oldValue, SukiEffect? newValue)
         {
             if (!TransitionsEnabled) return;

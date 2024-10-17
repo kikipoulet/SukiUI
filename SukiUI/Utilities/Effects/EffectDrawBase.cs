@@ -54,9 +54,11 @@ namespace SukiUI.Utilities.Effects
         protected float AnimationSeconds => (float)_animationTick.Elapsed.TotalSeconds;
         
         private readonly Stopwatch _animationTick = new();
+        private readonly bool _invalidateRect;
 
-        protected EffectDrawBase()
+        protected EffectDrawBase(bool invalidateRect = false)
         {
+            _invalidateRect = invalidateRect;
             var sTheme = SukiTheme.GetInstance();
             sTheme.OnBaseThemeChanged += v => ActiveVariant = v;
             ActiveVariant = sTheme.ActiveBaseTheme;
@@ -96,7 +98,10 @@ namespace SukiUI.Utilities.Effects
         public override void OnAnimationFrameUpdate()
         {
             if (!AnimationEnabled) return;
-            Invalidate(GetRenderBounds());
+            if(_invalidateRect)
+                Invalidate(GetRenderBounds());
+            else
+                Invalidate();
             RegisterForNextAnimationFrameUpdate();
         }
 
