@@ -3,6 +3,7 @@ using System.Diagnostics;
 using Avalonia;
 using Avalonia.Media;
 using Avalonia.Platform;
+using Avalonia.Rendering.Composition;
 using Avalonia.Rendering.SceneGraph;
 using Avalonia.Skia;
 using Avalonia.Styling;
@@ -11,10 +12,11 @@ using SukiUI.Models;
 
 namespace SukiUI.Utilities.Effects
 {
-    public abstract class EffectDrawBase : ICustomDrawOperation
+    public abstract class EffectDrawBase : CompositionCustomVisualHandler
     {
-        public Rect Bounds { get; set; }
-
+        public static readonly object StartAnimations = new(), StopAnimations = new(), 
+            EnableForceSoftwareRendering = new(), DisableForceSoftwareRendering = new();
+        
         private SukiEffect? _effect;
 
         public SukiEffect? Effect
@@ -29,7 +31,7 @@ namespace SukiUI.Utilities.Effects
             }
         }
 
-        private bool _animationEnabled = true;
+        private bool _animationEnabled;
         public bool AnimationEnabled
         {
             get => _animationEnabled;
@@ -51,30 +53,59 @@ namespace SukiUI.Utilities.Effects
         
         protected float AnimationSeconds => (float)_animationTick.Elapsed.TotalSeconds;
         
-        private readonly Stopwatch _animationTick = Stopwatch.StartNew();
+        private readonly Stopwatch _animationTick = new();
+        private readonly bool _invalidateRect;
 
-        protected EffectDrawBase(Rect bounds)
+        protected EffectDrawBase(bool invalidateRect = true)
         {
-            Bounds = bounds;
+            _invalidateRect = invalidateRect;
             var sTheme = SukiTheme.GetInstance();
             sTheme.OnBaseThemeChanged += v => ActiveVariant = v;
             ActiveVariant = sTheme.ActiveBaseTheme;
             sTheme.OnColorThemeChanged += t => ActiveTheme = t;
             ActiveTheme = sTheme.ActiveColorTheme!;
-            
         }
 
-        public void Render(ImmediateDrawingContext context)
+        public override void OnRender(ImmediateDrawingContext context)
         {
             var leaseFeature = context.TryGetFeature<ISkiaSharpApiLeaseFeature>();
             if (leaseFeature is null) throw new InvalidOperationException("Unable to lease Skia API");
             using var lease = leaseFeature.Lease();
-            var rect = SKRect.Create((float)Bounds.Width, (float)Bounds.Height);
-            if(lease.GrContext is null || ForceSoftwareRendering) // GrContext is null whenever
+            var rect = SKRect.Create((float)EffectiveSize.X, (float)EffectiveSize.Y);
+            if(lease.GrContext is null || ForceSoftwareRendering) // GrContext is null whenever there is no hardware acceleration available
                 RenderSoftware(lease.SkCanvas, rect);
             else
                 Render(lease.SkCanvas, rect);
         }
+        
+        public override void OnMessage(object message)
+        {
+            if (message == StartAnimations)
+            {
+                AnimationEnabled = true;
+                RegisterForNextAnimationFrameUpdate();
+            }
+            else if (message == StopAnimations)
+            {
+                AnimationEnabled = false;
+            }
+            else if (message is SukiEffect effect)
+            {
+                Effect = effect;
+            }
+        }
+
+        public override void OnAnimationFrameUpdate()
+        {
+            if (!AnimationEnabled) return;
+            if(_invalidateRect)
+                Invalidate(GetRenderBounds());
+            else
+                Invalidate();
+            RegisterForNextAnimationFrameUpdate();
+        }
+
+        //protected abstract void InvalidateInternal();
 
         /// <summary>
         /// Called every frame to render content.
@@ -90,13 +121,13 @@ namespace SukiUI.Utilities.Effects
             EffectWithUniforms(Effect, alpha);
 
         protected SKShader? EffectWithUniforms(SukiEffect? effect, float alpha = 1f) => 
-            effect?.ToShaderWithUniforms(AnimationSeconds, ActiveVariant, Bounds, AnimationSpeedScale, alpha);
+            effect?.ToShaderWithUniforms(AnimationSeconds, ActiveVariant, GetRenderBounds(), AnimationSpeedScale, alpha);
 
         protected SKShader? EffectWithCustomUniforms(Func<SKRuntimeEffect,SKRuntimeEffectUniforms> uniformFactory, float alpha = 1f) =>
             EffectWithCustomUniforms(Effect, uniformFactory, alpha);
         
         protected SKShader? EffectWithCustomUniforms(SukiEffect? effect, Func<SKRuntimeEffect,SKRuntimeEffectUniforms> uniformFactory, float alpha = 1f) =>
-            effect?.ToShaderWithCustomUniforms(uniformFactory, AnimationSeconds, Bounds, AnimationSpeedScale, alpha);
+            effect?.ToShaderWithCustomUniforms(uniformFactory, AnimationSeconds, GetRenderBounds(), AnimationSpeedScale, alpha);
 
         protected virtual void EffectChanged(SukiEffect? oldValue, SukiEffect? newValue)
         {

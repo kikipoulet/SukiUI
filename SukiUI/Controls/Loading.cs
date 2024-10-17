@@ -4,6 +4,7 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
+using Avalonia.Rendering.Composition;
 using SkiaSharp;
 using SukiUI.Extensions;
 using SukiUI.Utilities.Effects;
@@ -37,62 +38,77 @@ namespace SukiUI.Controls
                 { LoadingStyle.Glow, SukiEffect.FromEmbeddedResource("glow") },
                 { LoadingStyle.Pellets, SukiEffect.FromEmbeddedResource("pellets") },
             };
-
-        private readonly LoadingEffectDraw _draw;
-
+        
+        private CompositionCustomVisual? _customVisual;
+        
         public Loading()
         {
             Width = 50;
             Height = 50;
-            _draw = new LoadingEffectDraw(Bounds);
         }
 
-        public override void Render(DrawingContext context)
+        protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
         {
-            _draw.Bounds = Bounds;
-            _draw.Effect = Effects[LoadingStyle];
+            base.OnAttachedToVisualTree(e);
+            var comp = ElementComposition.GetElementVisual(this)?.Compositor;
+            if (comp == null || _customVisual?.Compositor == comp) return;
+            var visualHandler = new LoadingEffectDraw();
+            _customVisual = comp.CreateCustomVisual(visualHandler);
+            ElementComposition.SetElementChildVisual(this, _customVisual);
+            _customVisual.SendHandlerMessage(EffectDrawBase.StartAnimations);
             if (Foreground is null)
                 this[!ForegroundProperty] = new DynamicResourceExtension("SukiPrimaryColor");
             if (Foreground is ImmutableSolidColorBrush brush)
-                brush.Color.ToFloatArrayNonAlloc(_draw.Color);
-            context.Custom(_draw);
+                brush.Color.ToFloatArrayNonAlloc(_color);
+            _customVisual.SendHandlerMessage(_color);
+            _customVisual.SendHandlerMessage(Effects[LoadingStyle]);
+            Update();
         }
+        
+        private void Update()
+        {
+            if (_customVisual == null) return;
+            _customVisual.Size = new Vector(Bounds.Width, Bounds.Height);
+        }
+
+        private readonly float[] _color = new float[3];
 
         protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
         {
             base.OnPropertyChanged(change);
-            if (change.Property != ForegroundProperty) return;
-            if (Foreground is ImmutableSolidColorBrush brush)
-                brush.Color.ToFloatArrayNonAlloc(_draw.Color);
+            if (change.Property == BoundsProperty)
+                Update();
+            else if (change.Property == ForegroundProperty && Foreground is ImmutableSolidColorBrush brush)
+            {
+                brush.Color.ToFloatArrayNonAlloc(_color);
+                _customVisual?.SendHandlerMessage(_color);
+            }
+            else if (change.Property == LoadingStyleProperty) 
+                _customVisual?.SendHandlerMessage(Effects[LoadingStyle]);
         }
 
         public class LoadingEffectDraw : EffectDrawBase
         {
-            public float[] Color { get; } = { 1.0f, 0f, 0f };
+            private float[] _color = { 1.0f, 0f, 0f };
 
-            public LoadingEffectDraw(Rect bounds) : base(bounds)
+            public LoadingEffectDraw()
             {
-                AnimationEnabled = true;
                 AnimationSpeedScale = 2f;
             }
 
             protected override void Render(SKCanvas canvas, SKRect rect)
             {
-                canvas.Scale(1, -1);
-                canvas.Translate(0, (float)-Bounds.Height);
                 using var mainShaderPaint = new SKPaint();
 
                 if (Effect is not null)
                 {
                     using var shader = EffectWithCustomUniforms(effect => new SKRuntimeEffectUniforms(effect)
                     {
-                        { "iForeground", Color }
+                        { "iForeground", _color }
                     });
                     mainShaderPaint.Shader = shader;
                     canvas.DrawRect(rect, mainShaderPaint);
                 }
-
-                canvas.Restore();
             }
 
             // I'm not really sure how to render this properly in software fallback scenarios.
@@ -101,6 +117,13 @@ namespace SukiUI.Controls
             protected override void RenderSoftware(SKCanvas canvas, SKRect rect)
             {
                 throw new System.NotImplementedException();
+            }
+
+            public override void OnMessage(object message)
+            {
+                base.OnMessage(message);
+                if (message is float[] color)
+                    _color = color;
             }
         }
     }

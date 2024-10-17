@@ -6,6 +6,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
+using Avalonia.Media;
 using Avalonia.Styling;
 using Avalonia.Threading;
 
@@ -44,14 +45,16 @@ namespace SukiUI.Controls
 
         private bool _isFirstBufferActive;
 
-        private ContentPresenter _firstBuffer = null!;
-        private ContentPresenter _secondBuffer = null!;
+        private ContentPresenter? _firstBuffer = null;
+        private ContentPresenter? _secondBuffer = null;
 
         private static readonly Animation FadeIn;
         private static readonly Animation FadeOut;
         
-        private ContentPresenter To => _isFirstBufferActive ? _secondBuffer : _firstBuffer;
-        private ContentPresenter From => _isFirstBufferActive ? _firstBuffer : _secondBuffer;
+        private ContentPresenter? To => _isFirstBufferActive ? _firstBuffer : _secondBuffer;
+        private ContentPresenter? From => _isFirstBufferActive ? _secondBuffer : _firstBuffer;
+
+        private object? _contentBeforeApplied;
 
         static SukiTransitioningContentControl()
         {
@@ -123,6 +126,7 @@ namespace SukiUI.Controls
         }
 
         private CancellationTokenSource _animCancellationToken = new();
+        
 
         protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
         {
@@ -138,34 +142,46 @@ namespace SukiUI.Controls
                 _firstBuffer = fBuff;
             if (e.NameScope.Get<ContentPresenter>("PART_SecondBufferControl") is { } sBuff)
                 _secondBuffer = sBuff;
+            if (_contentBeforeApplied != null)
+            {
+                PushContent(_contentBeforeApplied);
+                _contentBeforeApplied = null;
+            }
         }
 
-        public void PushContent(object? content)
+        private void PushContent(object? content)
         {
-            if (content is null) return;
+            if (To is null || From is null)
+            {
+                _contentBeforeApplied = content;
+                return;
+            }
             
             _animCancellationToken.Cancel();
             _animCancellationToken.Dispose();
             _animCancellationToken = new CancellationTokenSource();
-
-            FirstBuffer = null;
-            SecondBuffer = null;
             
             if (_isFirstBufferActive) SecondBuffer = content;
             else FirstBuffer = content;
+            _isFirstBufferActive = !_isFirstBufferActive;
             try
             {
-                FadeOut.RunAsync(From, _animCancellationToken.Token);
-                FadeIn.RunAsync(To, _animCancellationToken.Token);
+                FadeOut.RunAsync(From, _animCancellationToken.Token).ContinueWith(_ =>
+                {
+                    Dispatcher.UIThread.Invoke(() =>
+                    {
+                        From.IsHitTestVisible = false;
+                        if (_isFirstBufferActive) SecondBuffer = null;
+                        else FirstBuffer = null;
+                    });
+                });
+                FadeIn.RunAsync(To, _animCancellationToken.Token).ContinueWith(_ => 
+                    Dispatcher.UIThread.Invoke(() => To.IsHitTestVisible = true));
             }
             catch
             {
                 // ignored
             }
-
-            To.IsHitTestVisible = true;
-            From.IsHitTestVisible = false;
-            _isFirstBufferActive = !_isFirstBufferActive;
         }
 
         protected override void OnUnloaded(RoutedEventArgs e)
