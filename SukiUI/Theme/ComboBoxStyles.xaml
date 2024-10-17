@@ -121,7 +121,7 @@
                                     <Panel>
                                         <Border Margin="10,-10,0,0"
                                                 Background="{DynamicResource SukiCardBackground}"
-                                                BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                                                BorderBrush="{DynamicResource SukiMenuBorderBrush}"
                                                 BorderThickness="1,1,1,1"
                                                 BoxShadow="{DynamicResource SukiSmallPopupShadow}"
                                                 CornerRadius="{DynamicResource SmallCornerRadius}">
