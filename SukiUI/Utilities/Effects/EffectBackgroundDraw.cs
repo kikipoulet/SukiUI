@@ -20,7 +20,7 @@ namespace SukiUI.Utilities.Effects
         private float _transitionStartTime;
         private float _transitionEndTime;
 
-        public EffectBackgroundDraw() : base(true)
+        public EffectBackgroundDraw() : base(false)
         {
             
         }

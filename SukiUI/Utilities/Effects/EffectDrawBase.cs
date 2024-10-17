@@ -56,7 +56,7 @@ namespace SukiUI.Utilities.Effects
         private readonly Stopwatch _animationTick = new();
         private readonly bool _invalidateRect;
 
-        protected EffectDrawBase(bool invalidateRect = false)
+        protected EffectDrawBase(bool invalidateRect = true)
         {
             _invalidateRect = invalidateRect;
             var sTheme = SukiTheme.GetInstance();
