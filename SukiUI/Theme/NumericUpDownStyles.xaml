@@ -1,12 +1,12 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:theme="clr-namespace:SukiUI.Theme"
-        xmlns:suki="https://github.com/kikipoulet/SukiUI">
+        xmlns:suki="https://github.com/kikipoulet/SukiUI"
+        xmlns:theme="clr-namespace:SukiUI.Theme">
     <Design.PreviewWith>
         <Border Padding="20">
-            <StackPanel Orientation="Horizontal" Spacing="5" >
-            <NumericUpDown Value="4" />
-            <TextBox Classes="NoShadow" Text="test"></TextBox>
+            <StackPanel Orientation="Horizontal" Spacing="5">
+                <NumericUpDown Value="4" />
+                <TextBox Classes="NoShadow" Text="test" />
             </StackPanel>
         </Border>
     </Design.PreviewWith>
@@ -19,45 +19,50 @@
         <Setter Property="Padding" Value="4" />
         <Setter Property="Template">
             <ControlTemplate>
-                <suki:GlassCard Classes="Discrete" VerticalAlignment="Center" CornerRadius="{TemplateBinding CornerRadius}" Padding="0">
-                <ButtonSpinner Name="PART_Spinner" 
-                               Margin="5,4" 
-                               Height="26"
-                               HorizontalContentAlignment="Stretch"
-                               VerticalContentAlignment="Stretch"
-                               AllowSpin="{TemplateBinding AllowSpin}"
-                               Background="{TemplateBinding Background}"
-                               BorderBrush="{TemplateBinding BorderBrush}"
-                               BorderThickness="{TemplateBinding BorderThickness}"
-                               ButtonSpinnerLocation="{TemplateBinding ButtonSpinnerLocation}"
-                               CornerRadius="{TemplateBinding CornerRadius}"
-                               ShowButtonSpinner="{TemplateBinding ShowButtonSpinner}">
-                    <Grid ColumnDefinitions="*,Auto">
-                        <TextBox Name="PART_TextBox"
-                                 MinWidth="20"
-                                 Margin="-5,-5,-5,-6"
-                                 Padding="{TemplateBinding Padding}"
-                                 HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                 VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                 theme:TextBoxExtensions.AddDeleteButton="False"
-                                 AcceptsReturn="False"
-                                 Background="Transparent" 
-                                 BorderThickness="0"
-                                 Classes="NoShadow"
-                                 CornerRadius="0"
-                                 DataValidationErrors.Errors="{TemplateBinding (DataValidationErrors.Errors)}"
-                                 IsReadOnly="{TemplateBinding IsReadOnly}"
-                                 Text="{TemplateBinding Text}"
-                                 TextWrapping="NoWrap"
-                                 Watermark="{TemplateBinding Watermark}" />
-                        <TextBlock VerticalAlignment="Center" Margin="0,1,9,0"
-                                   FontSize="13" Grid.Column="1"
-                                   Foreground="{DynamicResource SukiLowText}"
-                                   Text="{TemplateBinding theme:NumericUpDownExtensions.Unit}" />
-                    </Grid>
-                   
-                </ButtonSpinner>
-                    </suki:GlassCard>
+                <suki:GlassCard Padding="0"
+                                VerticalAlignment="Center"
+                                Classes="Discrete"
+                                CornerRadius="{TemplateBinding CornerRadius}">
+                    <ButtonSpinner Name="PART_Spinner"
+                                   Height="26"
+                                   Margin="5,4"
+                                   HorizontalContentAlignment="Stretch"
+                                   VerticalContentAlignment="Stretch"
+                                   AllowSpin="{TemplateBinding AllowSpin}"
+                                   Background="{TemplateBinding Background}"
+                                   BorderBrush="{TemplateBinding BorderBrush}"
+                                   BorderThickness="{TemplateBinding BorderThickness}"
+                                   ButtonSpinnerLocation="{TemplateBinding ButtonSpinnerLocation}"
+                                   CornerRadius="{TemplateBinding CornerRadius}"
+                                   ShowButtonSpinner="{TemplateBinding ShowButtonSpinner}">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <TextBox Name="PART_TextBox"
+                                     MinWidth="20"
+                                     Margin="-5,-5,-5,-6"
+                                     Padding="{TemplateBinding Padding}"
+                                     HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                     VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                     theme:TextBoxExtensions.AddDeleteButton="False"
+                                     AcceptsReturn="False"
+                                     Background="Transparent"
+                                     BorderThickness="0"
+                                     Classes="NoShadow"
+                                     CornerRadius="0"
+                                     DataValidationErrors.Errors="{TemplateBinding (DataValidationErrors.Errors)}"
+                                     IsReadOnly="{TemplateBinding IsReadOnly}"
+                                     Text="{TemplateBinding Text}"
+                                     TextWrapping="NoWrap"
+                                     Watermark="{TemplateBinding Watermark}" />
+                            <TextBlock Grid.Column="1"
+                                       Margin="0,1,9,0"
+                                       VerticalAlignment="Center"
+                                       FontSize="13"
+                                       Foreground="{DynamicResource SukiLowText}"
+                                       Text="{TemplateBinding theme:NumericUpDownExtensions.Unit}" />
+                        </Grid>
+
+                    </ButtonSpinner>
+                </suki:GlassCard>
             </ControlTemplate>
         </Setter>
     </Style>
@@ -76,6 +81,9 @@
     <Style Selector="NumericUpDown:pressed /template/ TextBox">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
+    </Style>
+    <Style Selector="NumericUpDown:disabled">
+        <Setter Property="Foreground" Value="{DynamicResource SukiDisabledText}" />
     </Style>
 
     <Style Selector="RepeatButton:pointerover">
@@ -128,7 +136,6 @@
                                 </RepeatButton>
                             </UniformGrid>
                             <ContentPresenter Name="PART_ContentPresenter"
-                                              Grid.Column="1"
                                               Padding="{TemplateBinding Padding}"
                                               HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                               VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
