@@ -1,11 +1,11 @@
 <UserControl x:Class="SukiUI.Demo.Features.ControlsLibrary.MiscView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:suki="https://github.com/kikipoulet/SukiUI"
              xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:showMeTheXaml="clr-namespace:ShowMeTheXaml;assembly=ShowMeTheXaml.Avalonia"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
              d:DesignHeight="450"
              d:DesignWidth="800"
              x:DataType="controlsLibrary:MiscViewModel"
@@ -50,7 +50,7 @@
                 </suki:GlassCard>
                 <suki:GlassCard>
                     <suki:GroupBox Header="Time Picker">
-                      <!--  <TimePicker /> -->
+                        <!--  <TimePicker /> -->
                     </suki:GroupBox>
                 </suki:GlassCard>
                 <suki:GlassCard>
@@ -91,26 +91,26 @@
 
                 <suki:GlassCard>
                     <suki:GroupBox Header="File Picker">
-                        <StackPanel Spacing="8">
-                            <Button Margin="5"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Classes="Primary"
-                                    Command="{Binding OpenFileCommand}"
-                                    Content="Open File" />
-                            <Button Margin="5"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Classes="Primary"
-                                    Command="{Binding SaveFileCommand}"
-                                    Content="Save File" />
-                            <Button Margin="5"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Classes="Primary"
-                                    Command="{Binding OpenFolderCommand}"
-                                    Content="Open Folder" />
-                        </StackPanel>
+                        <!-- <StackPanel Spacing="8"> -->
+                        <!--  <Button Margin="5"  -->
+                        <!--  HorizontalAlignment="Center"  -->
+                        <!--  VerticalAlignment="Center"  -->
+                        <!--  Classes="Primary"  -->
+                        <!--  Command="{Binding OpenFileCommand}"  -->
+                        <!--  Content="Open File" />  -->
+                        <!--  <Button Margin="5"  -->
+                        <!--  HorizontalAlignment="Center"  -->
+                        <!--  VerticalAlignment="Center"  -->
+                        <!--  Classes="Primary"  -->
+                        <!--  Command="{Binding SaveFileCommand}"  -->
+                        <!--  Content="Save File" />  -->
+                        <!--  <Button Margin="5"  -->
+                        <!--  HorizontalAlignment="Center"  -->
+                        <!--  VerticalAlignment="Center"  -->
+                        <!--  Classes="Primary"  -->
+                        <!--  Command="{Binding OpenFolderCommand}"  -->
+                        <!--  Content="Open Folder" />  -->
+                        <!-- </StackPanel> -->
                     </suki:GroupBox>
                 </suki:GlassCard>
             </WrapPanel>
