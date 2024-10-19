@@ -1,14 +1,21 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Avalonia.Controls.Notifications;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
 using SukiUI.Demo.Utilities;
 using SukiUI.Toasts;
 
 namespace SukiUI.Demo.Features.Playground;
 
-internal class PlaygroundViewModel(ISukiToastManager toastManager) : DemoPageBase("Playground", MaterialIconKind.Pencil, -150)
+internal partial class PlaygroundViewModel(ISukiToastManager toastManager) : DemoPageBase("Playground", MaterialIconKind.Pencil, -150)
 {
+    // Delay the toggle pane to handle System.InvalidOperationException: The observable can only be subscribed once.
+    [RelayCommand]
+    private async Task TogglePaneDelay() => await Task.Delay(500);
+    
     public ObservableCollection<string> ButtonsElements { get; init; } =
     [
         XamlData.Buttons["ButtonFlat"],
