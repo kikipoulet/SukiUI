@@ -75,6 +75,11 @@
             <Setter Property="Foreground" Value="White" />
             <Setter Property="FontWeight" Value="Bold"></Setter>
         </Style>
+        
+    <Style Selector="RadioButton.Chips:checked  AccessText">
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontWeight" Value="DemiBold"></Setter>
+    </Style>
 
         <Style Selector="RadioButton.Chips:checked  Border">
             <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
