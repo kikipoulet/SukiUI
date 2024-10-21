@@ -176,8 +176,7 @@
                                            Text="{TemplateBinding Watermark}">
                                     <TextBlock.IsVisible>
                                         <MultiBinding Converter="{x:Static BoolConverters.And}">
-                                            <Binding Path="UseFloatingWatermark"
-                                                     RelativeSource="{RelativeSource TemplatedParent}" />
+                                            <Binding Path="UseFloatingWatermark" RelativeSource="{RelativeSource TemplatedParent}" />
                                             <Binding Converter="{x:Static StringConverters.IsNotNullOrEmpty}"
                                                      Path="Text"
                                                      RelativeSource="{RelativeSource TemplatedParent}" />
@@ -280,8 +279,7 @@
                                            Text="{TemplateBinding Watermark}">
                                     <TextBlock.IsVisible>
                                         <MultiBinding Converter="{x:Static BoolConverters.And}">
-                                            <Binding Path="UseFloatingWatermark"
-                                                     RelativeSource="{RelativeSource TemplatedParent}" />
+                                            <Binding Path="UseFloatingWatermark" RelativeSource="{RelativeSource TemplatedParent}" />
                                             <Binding Converter="{x:Static StringConverters.IsNotNullOrEmpty}"
                                                      Path="Text"
                                                      RelativeSource="{RelativeSource TemplatedParent}" />
@@ -394,8 +392,7 @@
                                            Text="{TemplateBinding Watermark}">
                                     <TextBlock.IsVisible>
                                         <MultiBinding Converter="{x:Static BoolConverters.And}">
-                                            <Binding Path="UseFloatingWatermark"
-                                                     RelativeSource="{RelativeSource TemplatedParent}" />
+                                            <Binding Path="UseFloatingWatermark" RelativeSource="{RelativeSource TemplatedParent}" />
                                             <Binding Converter="{x:Static StringConverters.IsNotNullOrEmpty}"
                                                      Path="Text"
                                                      RelativeSource="{RelativeSource TemplatedParent}" />
@@ -407,8 +404,8 @@
 
                                     <Grid ColumnDefinitions="Auto,*,Auto">
                                         <Panel>
-                                            <TextBlock Margin="0,1,3,0"
-                                                       FontSize="13"
+                                            <TextBlock Margin="3,1,3,0"
+                                                       FontSize="14"
                                                        Foreground="{DynamicResource SukiLowText}"
                                                        Text="{TemplateBinding theme:TextBoxExtensions.Prefix}" />
                                         </Panel>
@@ -595,8 +592,7 @@
         </Setter>
     </Style>
 
-    <Style
-        Selector="ToggleButton.passwordBoxRevealButton:not(ToggleButton:checked) /template/ Path#PART_GlyphElement_Hide">
+    <Style Selector="ToggleButton.passwordBoxRevealButton:not(ToggleButton:checked) /template/ Path#PART_GlyphElement_Hide">
         <Setter Property="IsVisible" Value="False" />
     </Style>
 

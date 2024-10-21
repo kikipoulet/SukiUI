@@ -2,6 +2,14 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:content="clr-namespace:SukiUI.Content"
                     xmlns:controls="clr-namespace:SukiUI.Controls">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <Expander Header="Expander" IsExpanded="True">
+                <TextBlock Text="Content" />
+            </Expander>
+        </Border>
+    </Design.PreviewWith>
+
     <ControlTheme x:Key="SukiExpanderStyle" TargetType="Expander">
         <Setter Property="TextBlock.TextAlignment" Value="Start" />
         <Setter Property="ClipToBounds" Value="False" />
@@ -24,12 +32,13 @@
 
                             <LayoutTransformControl Name="PART_ToggleTransform">
                                 <DockPanel>
-
                                     <Border Name="PART_BottomBorder"
                                             Height="2"
                                             HorizontalAlignment="Stretch"
                                             Background="{DynamicResource SukiBorderBrush}"
-                                            DockPanel.Dock="Bottom" />
+                                            CornerRadius="10"
+                                            DockPanel.Dock="Bottom"
+                                            Opacity="0.8" />
 
                                     <ToggleButton Name="PART_ToggleButton"
                                                   HorizontalAlignment="Stretch"

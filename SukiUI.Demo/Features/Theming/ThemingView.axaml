@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:suki="https://github.com/kikipoulet/SukiUI"
              xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
              xmlns:theming="clr-namespace:SukiUI.Demo.Features.Theming"
              d:DesignHeight="450"
              d:DesignWidth="800"
@@ -30,7 +30,7 @@
                                                 Background="#fafafa"
                                                 CornerRadius="{DynamicResource MediumCornerRadius}">
                                             <Grid>
-                                                <TextBlock Margin="42"
+                                                <TextBlock Margin="58,42,42,42"
                                                            HorizontalAlignment="Center"
                                                            VerticalAlignment="Bottom"
                                                            FontWeight="DemiBold"
@@ -49,7 +49,7 @@
                                                 Background="#222222"
                                                 CornerRadius="{DynamicResource MediumCornerRadius}">
                                             <Grid>
-                                                <TextBlock Margin="42"
+                                                <TextBlock Margin="58,42,42,42"
                                                            HorizontalAlignment="Center"
                                                            VerticalAlignment="Bottom"
                                                            FontWeight="DemiBold"
@@ -94,86 +94,84 @@
                         <suki:SettingsLayoutItem Header="Background">
                             <suki:SettingsLayoutItem.Content>
                                 <StackPanel>
-                                <suki:GlassCard Padding="25" Margin="0,25,0,0">
-                                    <StackPanel Spacing="40">
-                                        <DockPanel>
-                                            <ToggleSwitch VerticalAlignment="Top"
-                                                          Classes="Switch"
-                                                          DockPanel.Dock="Right"
-                                                          IsChecked="{Binding BackgroundAnimations}" />
-                                            <StackPanel HorizontalAlignment="Left">
-                                                <TextBlock FontSize="16"
-                                                           FontWeight="DemiBold"
-                                                           Text="Animated Background" />
-                                                <TextBlock Margin="0,12,70,0"
-                                                           Foreground="{DynamicResource SukiLowText}"
-                                                           Text="Enable/disable the animations for the background, which are driven by the currently active effect."
-                                                           TextWrapping="Wrap" />
-                                            </StackPanel>
-                                        </DockPanel>
-                                        <DockPanel>
-                                            <ToggleSwitch VerticalAlignment="Top"
-                                                          
-                                                          DockPanel.Dock="Right"
-                                                          IsChecked="{Binding BackgroundTransitions}" />
-                                            <StackPanel HorizontalAlignment="Left">
-                                                <TextBlock FontSize="16"
-                                                           FontWeight="DemiBold"
-                                                           Text="Background Transitions" />
-                                                <TextBlock Margin="0,12,70,0"
-                                                           Foreground="{DynamicResource SukiLowText}"
-                                                           Text="Enable/disable the transitions for the background, these will fade between the active effects when changed."
-                                                           TextWrapping="Wrap" />
-                                            </StackPanel>
-                                        </DockPanel>
-                                        
-                                    </StackPanel>
-                                </suki:GlassCard>
-                                <suki:GlassCard Padding="25"  Margin="0,45,0,0">
-                                    <StackPanel Spacing="40">
-                                        <DockPanel>
-                                            <ComboBox DockPanel.Dock="Right"
-                                                      ItemsSource="{Binding AvailableBackgroundStyles}"
-                                                      SelectedItem="{Binding BackgroundStyle}" />
-                                            <StackPanel HorizontalAlignment="Left">
-                                                <TextBlock FontSize="16"
-                                                           FontWeight="DemiBold"
-                                                           Text="Background Style" />
-                                                <TextBlock Margin="0,12,70,0"
-                                                           Foreground="{DynamicResource SukiLowText}"
-                                                           Text="Select from the included background styles."
-                                                           TextWrapping="Wrap" />
-                                            </StackPanel>
-                                        </DockPanel>
-                                        <DockPanel>
-                                            <StackPanel HorizontalAlignment="Left" DockPanel.Dock="Top">
-                                                <TextBlock FontSize="16"
-                                                           FontWeight="DemiBold"
-                                                           Text="Custom Shaders" />
-                                                <TextBlock Margin="0,12,70,0"
-                                                           Foreground="{DynamicResource SukiLowText}"
-                                                           Text="Click any of the buttons below to enable a background shader. Click it again to disable it. These are likely to put quite a load on your GPU and are purely to demonstrate and test the capabilities of the background renderer."
-                                                           TextWrapping="Wrap" />
-                                            </StackPanel>
-                                            <ItemsControl Margin="0,15,0,0" ItemsSource="{Binding CustomShaders}">
-                                                <ItemsControl.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <Button Margin="10"
-                                                              
-                                                                Command="{Binding $parent[theming:ThemingView].((theming:ThemingViewModel)DataContext).TryCustomShaderCommand}"
-                                                                CommandParameter="{Binding}"
-                                                                Content="{Binding}" />
-                                                    </DataTemplate>
-                                                </ItemsControl.ItemTemplate>
-                                                <ItemsControl.ItemsPanel>
-                                                    <ItemsPanelTemplate>
-                                                        <UniformGrid Rows="1" />
-                                                    </ItemsPanelTemplate>
-                                                </ItemsControl.ItemsPanel>
-                                            </ItemsControl>
-                                        </DockPanel>
-                                    </StackPanel>
-                                </suki:GlassCard>
+                                    <suki:GlassCard Margin="0,25,0,0" Padding="25">
+                                        <StackPanel Spacing="40">
+                                            <DockPanel>
+                                                <ToggleSwitch VerticalAlignment="Top"
+                                                              Classes="Switch"
+                                                              DockPanel.Dock="Right"
+                                                              IsChecked="{Binding BackgroundAnimations}" />
+                                                <StackPanel HorizontalAlignment="Left">
+                                                    <TextBlock FontSize="16"
+                                                               FontWeight="DemiBold"
+                                                               Text="Animated Background" />
+                                                    <TextBlock Margin="0,12,70,0"
+                                                               Foreground="{DynamicResource SukiLowText}"
+                                                               Text="Enable/disable the animations for the background, which are driven by the currently active effect."
+                                                               TextWrapping="Wrap" />
+                                                </StackPanel>
+                                            </DockPanel>
+                                            <DockPanel>
+                                                <ToggleSwitch VerticalAlignment="Top"
+                                                              DockPanel.Dock="Right"
+                                                              IsChecked="{Binding BackgroundTransitions}" />
+                                                <StackPanel HorizontalAlignment="Left">
+                                                    <TextBlock FontSize="16"
+                                                               FontWeight="DemiBold"
+                                                               Text="Background Transitions" />
+                                                    <TextBlock Margin="0,12,70,0"
+                                                               Foreground="{DynamicResource SukiLowText}"
+                                                               Text="Enable/disable the transitions for the background, these will fade between the active effects when changed."
+                                                               TextWrapping="Wrap" />
+                                                </StackPanel>
+                                            </DockPanel>
+
+                                        </StackPanel>
+                                    </suki:GlassCard>
+                                    <suki:GlassCard Margin="0,45,0,0" Padding="25">
+                                        <StackPanel Spacing="40">
+                                            <DockPanel>
+                                                <ComboBox DockPanel.Dock="Right"
+                                                          ItemsSource="{Binding AvailableBackgroundStyles}"
+                                                          SelectedItem="{Binding BackgroundStyle}" />
+                                                <StackPanel HorizontalAlignment="Left">
+                                                    <TextBlock FontSize="16"
+                                                               FontWeight="DemiBold"
+                                                               Text="Background Style" />
+                                                    <TextBlock Margin="0,12,70,0"
+                                                               Foreground="{DynamicResource SukiLowText}"
+                                                               Text="Select from the included background styles."
+                                                               TextWrapping="Wrap" />
+                                                </StackPanel>
+                                            </DockPanel>
+                                            <DockPanel>
+                                                <StackPanel HorizontalAlignment="Left" DockPanel.Dock="Top">
+                                                    <TextBlock FontSize="16"
+                                                               FontWeight="DemiBold"
+                                                               Text="Custom Shaders" />
+                                                    <TextBlock Margin="0,12,70,0"
+                                                               Foreground="{DynamicResource SukiLowText}"
+                                                               Text="Click any of the buttons below to enable a background shader. Click it again to disable it. These are likely to put quite a load on your GPU and are purely to demonstrate and test the capabilities of the background renderer."
+                                                               TextWrapping="Wrap" />
+                                                </StackPanel>
+                                                <ItemsControl Margin="0,15,0,0" ItemsSource="{Binding CustomShaders}">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Button Margin="10"
+                                                                    Command="{Binding $parent[theming:ThemingView].((theming:ThemingViewModel)DataContext).TryCustomShaderCommand}"
+                                                                    CommandParameter="{Binding}"
+                                                                    Content="{Binding}" />
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                    <ItemsControl.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <UniformGrid Rows="1" />
+                                                        </ItemsPanelTemplate>
+                                                    </ItemsControl.ItemsPanel>
+                                                </ItemsControl>
+                                            </DockPanel>
+                                        </StackPanel>
+                                    </suki:GlassCard>
                                 </StackPanel>
                             </suki:SettingsLayoutItem.Content>
                         </suki:SettingsLayoutItem>
