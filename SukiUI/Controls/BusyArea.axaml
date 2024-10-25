@@ -9,16 +9,51 @@
              d:DesignWidth="800"
              mc:Ignorable="d">
     <UserControl.Styles>
+        
+        
+        <Style Selector="suki|BusyArea DockPanel#LoadingBusyArea">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.3" />
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="suki|BusyArea[IsBusy=True]  /template/ DockPanel#LoadingBusyArea">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+
+        <Style Selector="suki|BusyArea[IsBusy=False] /template/ DockPanel#LoadingBusyArea">
+            <Setter Property="Opacity" Value="0" />
+        </Style>
+
+        <Style Selector="suki|BusyArea ContentControl">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.3" />
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="suki|BusyArea[IsBusy=True]  /template/ ContentControl#BusyContent">
+            <Setter Property="Opacity" Value="0.1" />
+        </Style>
+
+        <Style Selector="suki|BusyArea[IsBusy=False]  /template/ ContentControl#BusyContent">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+
+        
         <Style Selector="suki|BusyArea">
             <Setter Property="Template">
                 <ControlTemplate>
                     <Panel>
-                        <ContentControl Content="{TemplateBinding Content}" />
+                        <ContentControl Name="BusyContent" Content="{TemplateBinding Content}" />
                         <DockPanel Name="LoadingBusyArea"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    LastChildFill="True">
-                            <TextBlock Margin="10"
+                            <TextBlock Margin="3"
                                        DockPanel.Dock="Bottom"
                                        FontWeight="{DynamicResource DefaultDemiBold}"
                                        IsVisible="{TemplateBinding BusyText,
@@ -34,38 +69,6 @@
                     </Panel>
                 </ControlTemplate>
             </Setter>
-        </Style>
-
-        <Style Selector="suki|BusyArea DockPanel#LoadingBusyArea">
-            <Setter Property="Transitions">
-                <Transitions>
-                    <DoubleTransition Property="Opacity" Duration="0:0:0.3" />
-                </Transitions>
-            </Setter>
-        </Style>
-
-        <Style Selector="suki|BusyArea[IsBusy=True] DockPanel#LoadingBusyArea">
-            <Setter Property="Opacity" Value="1" />
-        </Style>
-
-        <Style Selector="suki|BusyArea[IsBusy=False] DockPanel#LoadingBusyArea">
-            <Setter Property="Opacity" Value="0" />
-        </Style>
-
-        <Style Selector="suki|BusyArea ContentControl">
-            <Setter Property="Transitions">
-                <Transitions>
-                    <DoubleTransition Property="Opacity" Duration="0:0:0.3" />
-                </Transitions>
-            </Setter>
-        </Style>
-
-        <Style Selector="suki|BusyArea[IsBusy=True] ContentControl">
-            <Setter Property="Opacity" Value="0.1" />
-        </Style>
-
-        <Style Selector="suki|BusyArea[IsBusy=False] ContentControl">
-            <Setter Property="Opacity" Value="1" />
         </Style>
 
     </UserControl.Styles>
