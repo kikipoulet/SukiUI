@@ -11,9 +11,13 @@
 <br/>
 
 
-## ✨ 6.0 Release
+## ✨ 6.0 Release Candidate
 
-.. Coming soon ..
+I’m pleased to announce the 6.0 Release Candidate. This is our biggest release yet, and after a long journey, the library is now close to the initial idealized vision I had for it. I’m happy to say that both the style and various APIs are now finalized.
+
+Moving forward, our focus will be on maintaining the library and potentially extending certain functionalities. No major changes are expected unless absolutely necessary.
+
+Massive thanks to [sirdoombox](https://github.com/sirdoombox) for his incredible work. Without him, this library would definitely not be the same.
 <br/><br/>
 
 ## 📄 Documentation
