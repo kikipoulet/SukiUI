@@ -1,4 +1,6 @@
-﻿using Avalonia.Controls;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
@@ -9,8 +11,10 @@ namespace SukiUI.Controls;
 
 public partial class PropertyGridTemplateSelector : ResourceDictionary, IDataTemplate
 {
+    public SukiDialogHost? SukiDialogHost { get; set; }
+
     public bool UseSukiHost { get; set; } = true;
-    
+
     public PropertyGridTemplateSelector()
     {
         InitializeComponent();
@@ -57,46 +61,80 @@ public partial class PropertyGridTemplateSelector : ResourceDictionary, IDataTem
             return false;
         }
 
-        if (ContainsKey(key) == false)
-        {
-            return false;
-        }
-
-        return true;
+        return ContainsKey(key) != false;
     }
 
-    private async void OnMoreInfoClick(object sender, RoutedEventArgs e)
+    private static void ShowSukiHostDialog(ISukiDialogManager manager, ComplexTypeViewModel viewModel)
+    {
+        manager
+            .CreateDialog()
+            .WithContent(new PropertyGridDialog()
+            {
+                DataContext = viewModel.Value
+            })
+            .WithTitle(viewModel.DisplayName)
+            .Dismiss().ByClickingBackground()
+            .TryShow();
+    }
+
+    private static async Task ShowWindowDialogAsync(Control control)
+    {
+        var root = control.GetVisualRoot();
+        if (root is not Window parentWindow || control.DataContext is not ComplexTypeViewModel childViewModel || childViewModel.Value is null)
+        {
+            return;
+        }
+
+        var window = new PropertyGridWindow()
+        {
+            DataContext = childViewModel.Value,
+            Title = childViewModel.DisplayName,
+        };
+
+        await window.ShowDialog(parentWindow);
+    }
+
+    protected virtual async void OnMoreInfoClick(object sender, RoutedEventArgs e)
     {
         if (sender is not Control control)
         {
             return;
         }
-        // TODO: No longer possible to just statically use SukiHost to show dialogs.
-        // if (UseSukiHost)
-        // {
-        //     if (control.DataContext is not ComplexTypeViewModel childViewModel || childViewModel.Value is null)
-        //     {
-        //         return;
-        //     }
-        //     SukiHost.ShowDialog(new PropertyGridDialog()
-        //     {
-        //         DataContext = childViewModel.Value
-        //     }, true, true);
-        // }
+
+        var sukiDialogHost = SukiDialogHost;
+        if (UseSukiHost)
+        {
+            if (sukiDialogHost is not null)
+            {
+                if (control.DataContext is not ComplexTypeViewModel childViewModel || childViewModel.Value is null)
+                {
+                    return;
+                }
+
+                ShowSukiHostDialog(sukiDialogHost.Manager, childViewModel);
+            }
+            else
+            {
+                var root = control.GetVisualRoot();
+                if (root is not SukiWindow parentWindow || control.DataContext is not ComplexTypeViewModel childViewModel || childViewModel.Value is null)
+                {
+                    return;
+                }
+
+                sukiDialogHost = parentWindow.Hosts.Where(p => p is SukiDialogHost).Cast<SukiDialogHost>().FirstOrDefault();
+                if (sukiDialogHost is not null)
+                {
+                    ShowSukiHostDialog(sukiDialogHost.Manager, childViewModel);
+                }
+                else
+                {
+                    await ShowWindowDialogAsync(control);
+                }
+            }
+        }
         else
         {
-            var root = control.GetVisualRoot();
-            if (root is not Window parentWindow || control.DataContext is not ComplexTypeViewModel childViewModel || childViewModel.Value is null)
-            {
-                return;
-            }
-
-            var window = new PropertyGridWindow()
-            {
-                DataContext = childViewModel,
-            };
-
-            await window.ShowDialog(parentWindow);
+            await ShowWindowDialogAsync(control);
         }
     }
 }

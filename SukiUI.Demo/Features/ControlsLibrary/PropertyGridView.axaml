@@ -1,27 +1,38 @@
 <UserControl x:Class="SukiUI.Demo.Features.ControlsLibrary.PropertyGridView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:suki="https://github.com/kikipoulet/SukiUI"
              xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
              d:DesignHeight="1050"
              d:DesignWidth="800"
              x:DataType="controlsLibrary:PropertyGridViewModel"
              mc:Ignorable="d">
 
+    <UserControl.Resources>
+        <suki:PropertyGridTemplateSelector x:Key="PropertyGridTemplateSelector" UseSukiHost="True" />
+    </UserControl.Resources>
+
     <WrapPanel Classes="PageContainer" Orientation="Horizontal">
         <suki:GlassCard Width="500">
             <ScrollViewer>
-                <suki:PropertyGrid Item="{Binding Form}">
-                    <suki:PropertyGrid.DataTemplates>
-                        <!--
-                            replace the PropertyGridTemplateSelector with your own type or subclass it,
-                            if you want to customize the dataTemplates being used
-                        -->
-                        <suki:PropertyGridTemplateSelector UseSukiHost="False" />
-                    </suki:PropertyGrid.DataTemplates>
-                </suki:PropertyGrid>
+                <DockPanel>
+                    <ToggleButton HorizontalAlignment="Right"
+                                  Content="Use external dialog window"
+                                  DockPanel.Dock="Top"
+                                  IsChecked="True"
+                                  IsCheckedChanged="ToggleButton_OnIsCheckedChanged" />
+                    <suki:PropertyGrid Item="{Binding Form}">
+                        <suki:PropertyGrid.DataTemplates>
+                            <!--
+                                replace the PropertyGridTemplateSelector with your own type or subclass it,
+                                if you want to customize the dataTemplates being used
+                            -->
+                            <StaticResource ResourceKey="PropertyGridTemplateSelector" />
+                        </suki:PropertyGrid.DataTemplates>
+                    </suki:PropertyGrid>
+                </DockPanel>
             </ScrollViewer>
         </suki:GlassCard>
 
