@@ -47,7 +47,11 @@ Enabling `BackgroundTransitionsEnabled` will cause any change in the background 
 
 ## Animation
 
-The background renderer does support animation via `BackgroundAnimationEnabled` and will run at native framerates, however due to the need to invalidate the entire visual tree every frame this can be extremely costly (a bump of roughly 5% CPU utilisation and upwards of 20% GPU utilisation depending on your hardware) - only use this if you are clearly aware of the cost involved.
+The background renderer does support animation via `BackgroundAnimationEnabled` and will run at native framerates, all default SukiUI backgrounds support animation out of the box (except for `Flat`).
+
+::: warning
+Due to the need for an invalidation and repaint of the entire visual tree, animations can have a significant impact on performance and it is recommended that you only use it if absolutely necessary. In limited testing we see a roughly 5% bump in CPU and 20% bump in GPU utilization _at all times_ when animation is enabled.
+:::
 
 ## Software fallback
 
