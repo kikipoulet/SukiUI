@@ -23,6 +23,7 @@ export const en = defineConfig({
           { text: 'Basic', link: '/documentation/theming/basic' },
           { text: 'Light & Dark', link: '/documentation/theming/theme' },
           { text: 'Color', link: '/documentation/theming/theme-color' },
+          { text: 'Background', link: '/documentation/theming/background' },
         ]
       },
       {
