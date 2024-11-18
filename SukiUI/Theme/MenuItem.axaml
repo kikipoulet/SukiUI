@@ -150,6 +150,10 @@
                 </ControlTemplate>
             </Setter>
         </Style>
+
+		<Style Selector="^[FlowDirection=RightToLeft] /template/ Popup#PART_Popup">
+			<Setter Property="HorizontalOffset" Value="25"/>
+		</Style>
     </ControlTheme>
     <ControlTheme x:Key="{x:Type MenuItem}"
                   BasedOn="{StaticResource SukiMenuItemStyle}"
