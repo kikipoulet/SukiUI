@@ -139,7 +139,10 @@ public partial class SukiUIDemoViewModel : ObservableObject
             .WithContent($"Window title bar has been {(TitleBarVisible ? "shown" : "hidden")}.")
             .Queue();
     }
-    
+
+    [RelayCommand]
+    private void ToggleRightToLeft() => _theme.IsRightToLeft = !_theme.IsRightToLeft;
+
     [RelayCommand]
     private static void OpenUrl(string url) => UrlUtilities.OpenUrl(url);
 
