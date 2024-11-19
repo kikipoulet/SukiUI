@@ -138,14 +138,14 @@
                         Kind="{Binding TitleBarVisible, Converter={x:Static converters:BoolToIconConverters.Visibility}}" />
                 </MenuItem.Icon>
             </MenuItem>
-			<MenuItem Command="{Binding ToggleRightToLeftCommand}"
+            <MenuItem Command="{Binding ToggleRightToLeftCommand}"
                       Header="Right To Left"
                       ToolTip.Tip="Toggles the right to left.">
                 <MenuItem.Icon>
                     <avalonia:MaterialIcon
                         Kind="SwapHorizontal" />
                 </MenuItem.Icon>
-			</MenuItem>
+            </MenuItem>
             <MenuItem Header="Fullscreen"
                       PointerPressed="MakeFullScreenPressed"
                       ToolTip.Tip="Makes the app fullscreen." />

@@ -34,7 +34,7 @@
                                        DockPanel.Dock="Left"
                                        Fill="{DynamicResource SukiLightBorderBrush}" />
                             <PathIcon Name="PART_RightArrow"
-									  Classes="Flippable"
+                                      Classes="Flippable"
                                       Width="8"
                                       Height="8"
                                       Margin="5,0,10,0"
@@ -151,9 +151,9 @@
             </Setter>
         </Style>
 
-		<Style Selector="^[FlowDirection=RightToLeft] /template/ Popup#PART_Popup">
-			<Setter Property="HorizontalOffset" Value="25"/>
-		</Style>
+        <Style Selector="^[FlowDirection=RightToLeft] /template/ Popup#PART_Popup">
+            <Setter Property="HorizontalOffset" Value="25"/>
+        </Style>
     </ControlTheme>
     <ControlTheme x:Key="{x:Type MenuItem}"
                   BasedOn="{StaticResource SukiMenuItemStyle}"
