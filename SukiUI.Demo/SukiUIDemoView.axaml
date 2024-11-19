@@ -61,7 +61,7 @@
                                     <Grid ColumnDefinitions="*,20,*">
                                         
                                         <suki:GlassCard  CornerRadius="15" Padding="15">
-                                            <DockPanel FlowDirection="LeftToRight">
+                                            <DockPanel>
                                                 <Border Background="{DynamicResource SukiPrimaryColor}" Height="35" Padding="0" CornerRadius="100" Width="35">
                                                     <avalonia:MaterialIcon Height="20" Width="20" Kind="Wifi" HorizontalAlignment="Center" VerticalAlignment="Center"   Foreground="White"></avalonia:MaterialIcon>
                                                 </Border>
@@ -70,7 +70,7 @@
                                             </DockPanel>
                                         </suki:GlassCard>
                                         <suki:GlassCard Grid.Column="2"  CornerRadius="15" Padding="15">
-                                            <DockPanel FlowDirection="LeftToRight">
+                                            <DockPanel>
                                                 <suki:GlassCard  Height="35" Padding="0" CornerRadius="100" Width="35">
                                                     <avalonia:MaterialIcon Height="20" Width="20"  HorizontalAlignment="Center" VerticalAlignment="Center"  Kind="Bluetooth"   Foreground="{DynamicResource SukiText}"></avalonia:MaterialIcon>
                                                 </suki:GlassCard>
@@ -82,7 +82,7 @@
                                     
                                     <suki:GlassCard CornerRadius="15" Padding="15">
                                         
-                                    <DockPanel  FlowDirection="LeftToRight">
+                                    <DockPanel>
                                         <TextBlock  Text="Volume" Margin="0,0,0,10" FontSize="15"
                                                    DockPanel.Dock="Top" FontWeight="DemiBold" 
                                                    VerticalAlignment="Center" />
@@ -94,7 +94,7 @@
                                     </suki:GlassCard>
                                     
                                     <suki:GlassCard CornerRadius="15" Padding="15">
-                                    <DockPanel  FlowDirection="LeftToRight">
+                                    <DockPanel>
                                         <ToggleSwitch VerticalAlignment="Center" DockPanel.Dock="Right" IsChecked="True" />
                                         <TextBlock DockPanel.Dock="Bottom" Text="Disable notifications." Margin="0,8,0,0"
                                                    Foreground="{DynamicResource SukiLowText}"
