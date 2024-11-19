@@ -103,6 +103,8 @@
 	  <EmbeddedResource Include="Content\Shaders\Background\gradient.sksl" />
 	  <None Remove="Content\Shaders\Loading\simple.sksl" />
 	  <EmbeddedResource Include="Content\Shaders\Loading\simple.sksl" />
+	  <None Remove="Content\Shaders\Background\gradientsoft.sksl" />
+	  <EmbeddedResource Include="Content\Shaders\Background\gradientsoft.sksl" />
 	</ItemGroup>
 
 </Project>
