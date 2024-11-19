@@ -54,6 +54,7 @@
                                 </ToggleButton.Transitions>
                                 <PathIcon Width="7"
                                           Height="7"
+										  Classes="Flippable"
                                           Data="{x:Static content:Icons.ChevronRight}" />
                             </ToggleButton>
                             <ContentPresenter Name="PART_HeaderPresenter"

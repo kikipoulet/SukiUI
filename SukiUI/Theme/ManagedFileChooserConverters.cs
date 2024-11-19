@@ -49,7 +49,8 @@ namespace SukiUI.Theme
                 var p = new PathIcon
                 {
                     Height = 6, Margin = new Thickness(12, 4, 12, 2), Width = 5, Data = Icons.ChevronRight,
-                    IsVisible = i != pathes.Length - 1, VerticalAlignment = VerticalAlignment.Center
+                    IsVisible = i != pathes.Length - 1, VerticalAlignment = VerticalAlignment.Center,
+                    Classes = { "Flippable" }
                 };
 
                 p[!TemplatedControl.ForegroundProperty] = new DynamicResourceExtension("SukiLowText");

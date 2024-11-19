@@ -134,7 +134,7 @@ namespace SukiUI.Controls
             };
 
             var icon = new PathIcon
-                { Height = 10, Width = 10, Data = Icons.ChevronRight, Margin = new Thickness(0, 0, 20, 0) };
+                { Height = 10, Width = 10, Data = Icons.ChevronRight, Margin = new Thickness(0, 0, 20, 0), Classes = { "Flippable" } };
             if (index == stepCount - 1)
             {
                 icon.IsVisible = false;

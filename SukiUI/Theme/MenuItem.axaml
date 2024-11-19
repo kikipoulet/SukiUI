@@ -34,6 +34,7 @@
                                        DockPanel.Dock="Left"
                                        Fill="{DynamicResource SukiLightBorderBrush}" />
                             <PathIcon Name="PART_RightArrow"
+									  Classes="Flippable"
                                       Width="8"
                                       Height="8"
                                       Margin="5,0,10,0"

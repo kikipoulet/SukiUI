@@ -31,6 +31,8 @@
     <StyleInclude Source="avares://SukiUI/Theme/ScrollViewerStyles.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ButtonLoadingStyles.axaml" />
 
+    <StyleInclude Source="avares://SukiUI/Theme/PathIconStyles.axaml" />
+
     <Styles.Resources>
         <ResourceDictionary>
 
