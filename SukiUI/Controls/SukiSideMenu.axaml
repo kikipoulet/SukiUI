@@ -74,7 +74,7 @@
                                                 <PathIcon Width="13" DockPanel.Dock="Left" VerticalAlignment="Center" Foreground="{DynamicResource SukiLowText}"
                                                           Height="13"
                                                           Data="{x:Static content:Icons.Search}" />
-                                                <TextBox theme:TextBoxExtensions.AddDeleteButton="True" Classes="NoShadow" Text="{Binding Search, Mode=TwoWay}" x:DataType="suki:SukiSideMenuService" DataContext="{x:Static suki:SukiSideMenuService.Instance}" BorderThickness="0" Watermark="Search"></TextBox>
+                                                <TextBox theme:TextBoxExtensions.AddDeleteButton="True" Classes="NoShadow" Text="{TemplateBinding SearchText, Mode=TwoWay}" BorderThickness="0" Watermark="Search"/>
                                             </DockPanel>
                                         </suki:GlassCard>
                                             

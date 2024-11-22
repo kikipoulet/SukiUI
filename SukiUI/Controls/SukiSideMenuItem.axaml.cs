@@ -1,11 +1,7 @@
-using System;
-using System.Globalization;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
-using Avalonia.Data;
-using Avalonia.Data.Converters;
 using Avalonia.Input;
 
 namespace SukiUI.Controls;
@@ -14,6 +10,8 @@ public class SukiSideMenuItem : ListBoxItem
 {
     public static readonly StyledProperty<object?> IconProperty =
         AvaloniaProperty.Register<SukiSideMenuItem, object?>(nameof(Icon));
+
+    private Border? _border;
 
     public object? Icon
     {
@@ -39,9 +37,32 @@ public class SukiSideMenuItem : ListBoxItem
         set => SetValue(PageContentProperty, value);
     }
 
+    public void Show()
+    {
+        if (_border == null)
+        {
+            return;
+        }
+
+        _border.MaxHeight = 200.0;
+    }
+
+    public void Hide()
+    {
+        if (_border == null)
+        {
+            return;
+        }
+
+        _border.MaxHeight = 0.0;
+    }
+
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
+
+        _border = e.NameScope.Get<Border>("PART_Border");
+
         if (e.NameScope.Get<ContentPresenter>("PART_AltDisplay") is { } contentControl)
         {
             if (Header is not null || Icon is not null)
