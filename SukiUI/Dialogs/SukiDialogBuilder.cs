@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
 using SukiUI.ColorTheme;
@@ -57,13 +58,15 @@ namespace SukiUI.Dialogs
         
         public void SetOnDismissed(Action<ISukiDialog> onDismissed) => Dialog.OnDismissed = onDismissed;
         
-        public void AddActionButton(object? buttonContent, Action<ISukiDialog> onClicked, bool dismissOnClick)
+        public void AddActionButton(object? buttonContent, Action<ISukiDialog> onClicked, bool dismissOnClick, string[] classes)
         {
-            var btn = new Button()
-            {
-                Content = buttonContent,
-                Classes = { "Flat" }
-            };
+            if(classes.Length == 0)
+                classes = new[] { "Flat" };
+            
+            var btn = new Button { Content = buttonContent };
+            foreach(var @class in classes)
+                btn.Classes.Add(@class);
+            
             btn.Click += (_,_) =>
             {
                 onClicked(Dialog);
