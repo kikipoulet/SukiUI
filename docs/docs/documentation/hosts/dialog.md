@@ -117,6 +117,19 @@ public void DisplayDialog()
 }
 ```
 
+Buttons can also have their class or classes specified as the last optional parameter, by default the `Flat` style is used, however any one of the standard [button styles](./controls/inputs/button) 
+
+In the following example, the dialog will have the flat style button, with the accent color:
+
+```cs
+public void DisplayDialog()
+{
+    dialogManager.CreateDialog()
+        .WithActionButton("Styled Button ", _ => { }, true, "Flat", "Accent")
+        .TryShow();
+}
+```
+
 ![dialogclose](https://github.com/user-attachments/assets/3d07344f-c302-400a-b2cf-88865e7713ba)
 
 ## MessageBox Style
