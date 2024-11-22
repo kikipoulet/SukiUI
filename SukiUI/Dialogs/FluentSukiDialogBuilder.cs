@@ -85,9 +85,9 @@ namespace SukiUI.Dialogs
         /// Any number of buttons can be added to the dialog.
         /// </summary>
         public static SukiDialogBuilder WithActionButton(this SukiDialogBuilder builder, object? content, Action<ISukiDialog> onClicked,
-            bool dismissOnClick = false)
+            bool dismissOnClick = false, params string[] classes)
         {
-            builder.AddActionButton(content, onClicked, dismissOnClick);
+            builder.AddActionButton(content, onClicked, dismissOnClick, classes);
             return builder;
         }
 
