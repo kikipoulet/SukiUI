@@ -31,10 +31,6 @@ public partial class PlaygroundView : UserControl
     private TextEditor? _textEditor;
 
     private GlassCard? _glassPlayground;
-
-    private Button? _renderButton;
-
-    private Button? _clearButton;
     
     private PlaygroundViewModel PlaygroundDataContext => (PlaygroundViewModel)DataContext!;
 
@@ -59,11 +55,6 @@ public partial class PlaygroundView : UserControl
         _textEditor.Text = XamlData.PlaygroundStartingCode;
         _textEditor.TextArea.IndentationStrategy = new CSharpIndentationStrategy(_textEditor.Options);
         _textEditor.TextArea.RightClickMovesCaret = true;
-
-        _renderButton = this.FindControl<Button>("RenderButton")!;
-        _renderButton.Click += OnRenderClicked;
-        _clearButton = this.FindControl<Button>("ClearButton")!;
-        //  _clearButton.Click += OnClearClicked;
 
         OnBaseThemeChanged(Application.Current!.ActualThemeVariant);
         SukiTheme.GetInstance().OnBaseThemeChanged += OnBaseThemeChanged;
@@ -95,6 +86,10 @@ public partial class PlaygroundView : UserControl
         catch (XamlLoadException ex)
         {
             PlaygroundDataContext.DisplayError( $"Exception occurred during loading xaml code for control: \n {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            PlaygroundDataContext.DisplayError( $"Exception occurred during creating control: {ex.Message}");
         }
     }
 

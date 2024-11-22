@@ -17,7 +17,15 @@ public sealed class StringToControlConverter : IValueConverter
         if (string.IsNullOrWhiteSpace(xamlCode)) return null;
 
         var previewCode = XamlData.InsertIntoGridControl(xamlCode);
-        return AvaloniaRuntimeXamlLoader.Parse<Grid>(previewCode);
+
+        try
+        {
+            return AvaloniaRuntimeXamlLoader.Parse<Grid>(previewCode);
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
