@@ -117,7 +117,7 @@ public void DisplayDialog()
 }
 ```
 
-Buttons can also have their class or classes specified as the last optional parameter, by default the `Flat` style is used, however any one of the standard [button styles](./controls/inputs/button) 
+Buttons can also have their class or classes specified as the last optional parameter, by default the `Flat` style is used, however any one of the standard [button styles](/documentation/controls/inputs/button) 
 
 In the following example, the dialog will have the flat style button, with the accent color:
 
