@@ -2,6 +2,7 @@
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:avaloniaEdit="https://github.com/avaloniaui/avaloniaedit"
              xmlns:common="clr-namespace:SukiUI.Demo.Common"
              xmlns:suki="https://github.com/kikipoulet/SukiUI"
              RequestedThemeVariant="Default">
@@ -42,6 +43,9 @@
     </Application.Resources>
     <Application.Styles>
     <FluentTheme></FluentTheme>
+        <Style Selector="avaloniaEdit|TextEditor">
+            <Setter Property="FlowDirection" Value="LeftToRight"/>
+        </Style>
         <StyleInclude Source="avares://SukiUI.Dock/Index.axaml" />
         <StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />
         <StyleInclude Source="avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml" />
@@ -50,6 +54,7 @@
         <StyleInclude Source="avares://SukiUI.Demo/Styles/WrapPanelStyles.axaml" />
         <StyleInclude Source="avares://SukiUI.Demo/Styles/TextStyles.axaml" />
         <StyleInclude Source="avares://SukiUI.Demo/Styles/GlassCardStyles.axaml" />
+        <StyleInclude Source="avares://SukiUI.Demo/Styles/MaterialIconStyles.axaml" />
         <avalonia:MaterialIconStyles />
     </Application.Styles>
 

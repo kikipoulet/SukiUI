@@ -31,6 +31,7 @@
 											IsVisible="{TemplateBinding SidebarToggleEnabled}">
                                         <Panel>
                                             <PathIcon Name="PART_ExpandIcon"
+                                                      Classes="Flippable"
                                                         Width="12"
                                                         Height="12"
                                                         Data="{x:Static content:Icons.ChevronLeft}"

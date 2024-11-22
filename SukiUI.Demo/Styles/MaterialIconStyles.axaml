@@ -1,0 +1,17 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:icons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <StackPanel FlowDirection="RightToLeft">
+                <icons:MaterialIcon Kind="Check" />
+                <icons:MaterialIcon Kind="Check" Classes="Flippable" />
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="icons|MaterialIcon:not(.Flippable)">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+    </Style>
+
+</Styles>

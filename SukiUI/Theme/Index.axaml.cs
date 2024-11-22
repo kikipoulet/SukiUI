@@ -19,6 +19,10 @@ public partial class SukiTheme : Styles
         AvaloniaProperty.Register<SukiTheme, SukiColor>(nameof(Color), defaultBindingMode: BindingMode.OneTime,
             defaultValue: SukiColor.Blue);
 
+    public static readonly StyledProperty<bool> IsRightToLeftProperty =
+        AvaloniaProperty.Register<SukiTheme, bool>(nameof(IsRightToLeft), defaultBindingMode: BindingMode.OneTime,
+            defaultValue: false);
+
     /// <summary>
     /// Used to assign the ColorTheme at launch,
     /// </summary>
@@ -30,6 +34,12 @@ public partial class SukiTheme : Styles
             SetValue(ThemeColorProperty, value);
             SetColorThemeResourcesOnColorThemeChanged();
         }
+    }
+
+    public bool IsRightToLeft
+    {
+        get => GetValue(IsRightToLeftProperty);
+        set => SetValue(IsRightToLeftProperty, value);
     }
 
     /// <summary>
@@ -74,6 +84,18 @@ public partial class SukiTheme : Styles
         _app.ActualThemeVariantChanged += (_, e) => OnBaseThemeChanged?.Invoke(_app.ActualThemeVariant);
         foreach (var theme in DefaultColorThemes)
             AddColorTheme(theme.Value);
+
+        UpdateFlowDirectionResources(IsRightToLeft);
+    }
+
+    protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+    {
+        if (change.Property == IsRightToLeftProperty)
+        {
+            UpdateFlowDirectionResources(change.GetNewValue<bool>());
+        }
+
+        base.OnPropertyChanged(change);
     }
 
     /// <summary>
@@ -150,6 +172,15 @@ public partial class SukiTheme : Styles
             ? ThemeVariant.Light
             : ThemeVariant.Dark;
         Application.Current.RequestedThemeVariant = newBase;
+    }
+
+    private void UpdateFlowDirectionResources(bool rightToLeft)
+    {
+        var primary = rightToLeft ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+        var opposite = rightToLeft ? FlowDirection.LeftToRight : FlowDirection.RightToLeft;
+
+        Resources["FlowDirectionPrimary"] = primary;
+        Resources["FlowDirectionOpposite"] = opposite;
     }
 
     /// <summary>

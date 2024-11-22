@@ -162,7 +162,8 @@ namespace SukiUI.Controls
                 Width = 15,
                 Margin = new Thickness(15, -3, 15, 0),
                 HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
-                VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center
+                VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
+                Classes = { "Flippable" }
             };
             _disposables.Push(pathIcon.Bind(ForegroundProperty, ColorResource));
             _stackHeaders!.Children.Add(pathIcon);
