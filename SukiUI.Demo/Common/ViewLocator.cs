@@ -1,12 +1,11 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 
 namespace SukiUI.Demo.Common;
 
-public class ViewLocator(SukiViews views, ServiceProvider provider) : IDataTemplate
+public class ViewLocator(SukiViews views) : IDataTemplate
 {
     private readonly Dictionary<object, Control> _controlCache = [];
 
@@ -22,7 +21,7 @@ public class ViewLocator(SukiViews views, ServiceProvider provider) : IDataTempl
             return control;
         }
 
-        if (views.TryCreateView(provider, param, out var view))
+        if (views.TryCreateView(param, out var view))
         {
             _controlCache.Add(param, view);
 

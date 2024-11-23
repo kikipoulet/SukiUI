@@ -40,10 +40,10 @@ public class SukiViews
     {
         var viewModel = provider.GetRequiredService(viewModelType);
 
-        return TryCreateView(provider, viewModel, out view);
+        return TryCreateView(viewModel, out view);
     }
 
-    public bool TryCreateView(IServiceProvider provider, object? viewModel, [NotNullWhen(true)] out Control? view)
+    public bool TryCreateView(object? viewModel, [NotNullWhen(true)] out Control? view)
     {
         view = null;
 

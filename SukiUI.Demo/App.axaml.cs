@@ -40,7 +40,7 @@ public class App : Application
             var views = ConfigureViews(services);
             var provider = ConfigureServices(services);
 
-            DataTemplates.Add(new ViewLocator(views, provider));
+            DataTemplates.Add(new ViewLocator(views));
 
             desktop.MainWindow = views.CreateView<SukiUIDemoViewModel>(provider) as Window;
         }
