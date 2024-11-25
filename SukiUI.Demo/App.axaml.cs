@@ -15,6 +15,7 @@ using SukiUI.Demo.Features.CustomTheme;
 using SukiUI.Demo.Features.Dashboard;
 using SukiUI.Demo.Features.Effects;
 using SukiUI.Demo.Features.Playground;
+using SukiUI.Demo.Features.Splash;
 using SukiUI.Demo.Features.Theming;
 using SukiUI.Demo.Services;
 using SukiUI.Dialogs;
@@ -56,6 +57,7 @@ public class App : Application
             .AddView<SukiUIDemoView, SukiUIDemoViewModel>(services)
 
             // Add pages
+            .AddView<SplashView, SplashViewModel>(services)
             .AddView<ThemingView, ThemingViewModel>(services)
             .AddView<PlaygroundView, PlaygroundViewModel>(services)
             .AddView<EffectsView, EffectsViewModel>(services)
