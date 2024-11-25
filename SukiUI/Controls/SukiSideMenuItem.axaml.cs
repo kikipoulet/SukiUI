@@ -13,6 +13,9 @@ public class SukiSideMenuItem : ListBoxItem
 
     private Border? _border;
 
+    private static readonly Point s_invalidPoint = new Point(double.NaN, double.NaN);
+    private Point _pointerDownPoint = s_invalidPoint;
+    
     public object? Icon
     {
         get => GetValue(IconProperty);
@@ -75,6 +78,9 @@ public class SukiSideMenuItem : ListBoxItem
     protected override void OnPointerPressed(PointerPressedEventArgs e)
     {
         base.OnPointerPressed(e);
+
+        _pointerDownPoint = s_invalidPoint;
+
         if (e.Handled)
             return;
 
@@ -90,8 +96,55 @@ public class SukiSideMenuItem : ListBoxItem
                     // If the pressed point comes from a mouse, perform the selection immediately.
                     e.Handled = owner.UpdateSelectionFromPointerEvent(this);
                 }
+                else
+                {
+                    // Otherwise perform the selection when the pointer is released as to not
+                    // interfere with gestures.
+                    _pointerDownPoint = p.Position;
+
+                    // Ideally we'd set handled here, but that would prevent the scroll gesture
+                    // recognizer from working.
+                    ////e.Handled = true;
+                }
             }
         }
+    }
+
+    protected override void OnPointerReleased(PointerReleasedEventArgs e)
+    {
+        base.OnPointerReleased(e);
+
+        if (!e.Handled && 
+            !double.IsNaN(_pointerDownPoint.X) &&
+            e.InitialPressMouseButton is MouseButton.Left or MouseButton.Right)
+        {
+            var point = e.GetCurrentPoint(this);
+            var settings = TopLevel.GetTopLevel(e.Source as Visual)?.PlatformSettings;
+            var tapSize = settings?.GetTapSize(point.Pointer.Type) ?? new Size(4, 4);
+            var tapRect = new Rect(_pointerDownPoint, new Size())
+                .Inflate(new Thickness(tapSize.Width, tapSize.Height));
+
+            if (new Rect(Bounds.Size).ContainsExclusive(point.Position) &&
+                tapRect.ContainsExclusive(point.Position) &&
+                ItemsControl.ItemsControlFromItemContainer(this) is SukiSideMenu owner)
+            {
+                if (owner.UpdateSelectionFromPointerEvent(this))
+                {
+                    // As we only update selection from touch/pen on pointer release, we need to raise
+                    // the pointer event on the owner to trigger a commit.
+                    if (e.Pointer.Type != PointerType.Mouse)
+                    {
+                        var sourceBackup = e.Source;
+                        owner.RaiseEvent(e);
+                        e.Source = sourceBackup;
+                    }
+
+                    e.Handled = true;
+                }
+            }
+        }
+
+        _pointerDownPoint = s_invalidPoint;
     }
     
     public static readonly StyledProperty<bool> IsContentMovableProperty =
