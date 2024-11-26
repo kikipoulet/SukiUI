@@ -39,25 +39,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Features\ControlsLibrary\Toasts\ToastsView.axaml.cs">
-	    <DependentUpon>ToastsView.axaml</DependentUpon>
-	    <SubType>Code</SubType>
-	  </Compile>
-	  <Compile Update="Features\ControlsLibrary\Dialogs\DialogsView.axaml.cs">
-	    <DependentUpon>DialogsView.axaml</DependentUpon>
-	    <SubType>Code</SubType>
-	  </Compile>
-	  <Compile Update="Features\ControlsLibrary\Colors\ColorsView.axaml.cs">
-	    <DependentUpon>ColorsView.axaml</DependentUpon>
-	    <SubType>Code</SubType>
-	  </Compile>
-	  <Compile Update="Features\ControlsLibrary\TabControl\TabControlView.axaml.cs">
-	    <DependentUpon>TabControlView.axaml</DependentUpon>
-	    <SubType>Code</SubType>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
 	  <EmbeddedResource Include="Assets\space.sksl" />
 	  <EmbeddedResource Include="Assets\clouds.sksl" />
 	  <EmbeddedResource Include="Assets\weird.sksl" />
@@ -71,7 +52,4 @@
 	  <EmbeddedResource Include="Features\Effects\shaderart.sksl" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Controls\" />
-	</ItemGroup>
 </Project>
