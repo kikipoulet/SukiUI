@@ -5,15 +5,16 @@
              xmlns:suki="https://github.com/kikipoulet/SukiUI"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:effects="clr-namespace:SukiUI.Demo.Features.Effects"
+             xmlns:controls="using:SukiUI.Demo.Controls"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="450"
              d:DesignWidth="800"
              x:DataType="effects:EffectsViewModel"
              mc:Ignorable="d">
     <Grid ColumnDefinitions="*,*" RowDefinitions="*,Auto,Auto">
-        <suki:GlassCard Margin="20"><avaloniaEdit:TextEditor  Name="Editor"
-                                                              ShowLineNumbers="True"
-                                                              Text="" /></suki:GlassCard>
+        <suki:GlassCard Margin="20">
+            <controls:CodeEditor Name="Editor" Language="hlsl" />
+        </suki:GlassCard>
         
         <suki:InfoBar IsVisible="False" Margin="20,10" Name="ErrorText" IsClosable="False"
                       Grid.Row="1" Severity="Error"
