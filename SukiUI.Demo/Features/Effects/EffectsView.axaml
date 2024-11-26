@@ -24,6 +24,7 @@
                 Grid.Column="0"
                 Classes="Flat Large" Margin="20"
                 Click="Button_OnClick"
+                IsDefault="True"
                 Content="Compile and Run" />
 
         <Border Grid.Row="0"

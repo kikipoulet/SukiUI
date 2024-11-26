@@ -59,7 +59,7 @@
                                     <DockPanel>
                                         <StackPanel IsVisible="{TemplateBinding IsSearchEnabled}" DockPanel.Dock="Top">
                                             <StackPanel.Styles>
-                                                <Style Selector="suki|GlassCard.Search:pointerover">
+                                                <Style Selector="suki|GlassCard.Search:pointerover, suki|GlassCard.Search:focus-within">
                                                     <Setter Property="Width" Value="190"></Setter>
                                                     <Setter Property="CornerRadius" Value="12" />
                                                 </Style>
