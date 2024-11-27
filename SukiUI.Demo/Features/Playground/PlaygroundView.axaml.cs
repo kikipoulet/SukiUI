@@ -51,15 +51,7 @@ public partial class PlaygroundView : UserControl
         _textEditor.Text = XamlData.PlaygroundStartingCode;
         _textEditor.TextArea.IndentationStrategy = new CSharpIndentationStrategy(_textEditor.Options);
         _textEditor.TextArea.RightClickMovesCaret = true;
-
-
-        _renderButton = this.FindControl<Button>("RenderButton")!;
-        _renderButton.Click += OnRenderClicked;
-        _clearButton = this.FindControl<Button>("ClearButton")!;
-
-        OnBaseThemeChanged(Application.Current!.ActualThemeVariant);
-        SukiTheme.GetInstance().OnBaseThemeChanged += OnBaseThemeChanged;
-
+        
     }
     
     private void OnClearClicked(object? sender, RoutedEventArgs e)
