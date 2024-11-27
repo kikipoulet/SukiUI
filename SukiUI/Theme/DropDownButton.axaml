@@ -10,7 +10,6 @@
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="FontSize" Value="15" />
         <Setter Property="Padding" Value="20,8" />
-        <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}" />
         <Setter Property="FontWeight" Value="{DynamicResource DefaultDemiBold}" />
         <Setter Property="Template">
             <Setter.Value>

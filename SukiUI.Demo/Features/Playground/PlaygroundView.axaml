@@ -7,6 +7,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:playground="clr-namespace:SukiUI.Demo.Features.Playground"
+             xmlns:controls="clr-namespace:SukiUI.Demo.Controls"
              xmlns:suki="https://github.com/kikipoulet/SukiUI"
              d:DesignHeight="450"
              d:DesignWidth="800"
@@ -191,10 +192,7 @@
                 <Grid ColumnDefinitions="*, 4, *">
                     <suki:GlassCard Margin="20">
                         <Grid RowDefinitions="*, Auto">
-                            <avaloniaEdit:TextEditor Name="Editor"
-                                                     ShowLineNumbers="True"
-                                                     Text="" />
-
+                            <controls:CodeEditor Name="Editor" Language="xml" />
                             <Button Name="RenderButton"
                                     Grid.Row="0"
                                     Width="120"

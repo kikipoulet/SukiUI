@@ -1,11 +1,9 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ControlTheme x:Key="SukiTextBlockStyle" TargetType="TextBlock">
         <Setter Property="FontSize" Value="14" />
-        <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}" />
 
         <Style Selector="^.h4">
             <Setter Property="Margin" Value="0 7 0 10" />
-
             <Setter Property="FontSize" Value="20" />
         </Style>
         <Style Selector="^.h3">
