@@ -320,9 +320,15 @@
                             <Grid>
                                 <DataGrid Margin="15,0,15,10"
                                           VerticalAlignment="Top"
-                                          AutoGenerateColumns="True"
                                           IsReadOnly="True"
-                                          ItemsSource="{Binding Invoices}" />
+                                          ItemsSource="{Binding Invoices}" >
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Binding="{Binding Id}" Header="Id" />
+                                        <DataGridTextColumn Binding="{Binding BillingName}" Header="BillingName"/>
+                                        <DataGridTextColumn Binding="{Binding AmountPaid}" Header="AmountPaid" />
+                                        <DataGridCheckBoxColumn Binding="{Binding Paid}" Header="Paid" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
                             </Grid>
                         </TabItem>
                         <TabItem>

@@ -1,39 +1,37 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using System;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.Generic;
-using System.ComponentModel;
 
 namespace SukiUI.Demo.Common;
 
-public class ViewLocator : IDataTemplate
+public class ViewLocator(SukiViews views) : IDataTemplate
 {
-    private readonly Dictionary<object, Control> _controlCache = new();
+    private readonly Dictionary<object, Control> _controlCache = [];
 
-    public Control Build(object? data)
+    public Control Build(object? param)
     {
-        if(data is null) 
-            return new TextBlock { Text = "Data is null." };
-        
-        var fullName = data.GetType().FullName;
-        
-        if (string.IsNullOrWhiteSpace(fullName)) 
-            return new TextBlock { Text = "Type has no name, or name is empty." };
-        
-        var name = fullName.Replace("ViewModel", "View");
-        var type = Type.GetType(name);
-        if (type is null)
-            return new TextBlock { Text = $"No View For {name}." };
-
-        if (!_controlCache.TryGetValue(data, out var res))
+        if (param is null)
         {
-            res ??= (Control)Activator.CreateInstance(type)!;
-            _controlCache[data] = res;
+            return CreateText("Data is null.");
         }
 
-        res.DataContext = data;
-        return res;
+        if (_controlCache.TryGetValue(param, out var control))
+        {
+            return control;
+        }
+
+        if (views.TryCreateView(param, out var view))
+        {
+            _controlCache.Add(param, view);
+
+            return view;
+        }
+
+        return CreateText($"No View For {param.GetType().Name}.");
     }
 
-    public bool Match(object? data) => data is INotifyPropertyChanged;
+    public bool Match(object? data) => data is ObservableObject;
+
+    private static TextBlock CreateText(string text) => new TextBlock { Text = text };
 }

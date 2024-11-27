@@ -26,9 +26,7 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Panel>
-                <Border 
-                         MaxHeight="{Binding #PSearch.MaxHeight}"
-                         Name="PART_Border"
+                <Border Name="PART_Border"
                          MinWidth="85"
                          Margin="15,2"
                          Padding="30,15,15,15"
@@ -77,15 +75,6 @@
 
                     </Panel>
                 </Border>
-                    <Panel Name="PSearch" x:DataType="suki:SukiSideMenuService" DataContext="{x:Static suki:SukiSideMenuService.Instance}">
-                        <Border.MaxHeight>
-                            <MultiBinding Converter="{x:Static suki:SideMenuSearchToVisibilityConverter.Instance}">
-                                <Binding Path="Search"  ></Binding>
-                                <TemplateBinding Property="Header"></TemplateBinding>
-                            </MultiBinding>
-                        </Border.MaxHeight>
-                    </Panel>
-                    
                 </Panel>
             </ControlTemplate>
         </Setter>
