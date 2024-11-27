@@ -7,11 +7,15 @@ using System.Linq;
 using Avalonia.Interactivity;
 using Avalonia.Layout;
 using SukiUI.Enums;
+using Avalonia.Controls.Templates;
 
 namespace SukiUI.Controls;
 
 public class SukiSideMenu : SelectingItemsControl
 {
+    public static readonly StyledProperty<string?> SearchTextProperty =
+        AvaloniaProperty.Register<SukiSideMenu, string?>(nameof(SearchText));
+
     public static readonly StyledProperty<bool> IsSearchEnabledProperty =
         AvaloniaProperty.Register<SukiSideMenu, bool>(nameof(IsSearchEnabled), defaultValue: false);
 
@@ -22,6 +26,12 @@ public class SukiSideMenu : SelectingItemsControl
     {
         get => GetValue(SidebarToggleEnabledProperty);
         set => SetValue(SidebarToggleEnabledProperty, value);
+    }
+
+    public string? SearchText
+    {
+        get => GetValue(SearchTextProperty);
+        set => SetValue(SearchTextProperty, value);
     }
 
     public bool IsSearchEnabled
@@ -164,10 +174,35 @@ public class SukiSideMenu : SelectingItemsControl
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
         base.OnPropertyChanged(change);
+
+        if (change.Property == SearchTextProperty)
+        {
+            FilterItems(change.GetNewValue<string>());
+        }
+
         if (change.Property == SelectedItemProperty && _contentControl != null) 
             SetContentControlContent(change.NewValue);
         if (change.Property == IsMenuExpandedProperty && _spacer != null) 
             _spacer.IsVisible = IsSpacerVisible;
+    }
+
+    private void FilterItems(string search)
+    {
+        search = search.ToLower();
+
+        foreach (var item in _sideMenuItems)
+        {
+            var header = item.Header?.ToLower() ?? "";
+
+            if (header.Contains(search))
+            {
+                item.Show();
+            }
+            else
+            {
+                item.Hide();
+            }
+        }
     }
 
     private void SetContentControlContent(object? newContent)

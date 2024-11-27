@@ -8,6 +8,11 @@
 		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)' != 'Debug'">
+		<PublishAot>true</PublishAot>
+		<InvariantGlobalization>true</InvariantGlobalization>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<PackageReference Include="Avalonia" Version="11.2.1" />
 		<PackageReference Include="Avalonia.AvaloniaEdit" Version="11.1.0" />

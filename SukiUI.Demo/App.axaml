@@ -6,9 +6,6 @@
              xmlns:common="clr-namespace:SukiUI.Demo.Common"
              xmlns:suki="https://github.com/kikipoulet/SukiUI"
              RequestedThemeVariant="Default">
-    <Application.DataTemplates>
-        <common:ViewLocator />
-    </Application.DataTemplates>
     
     <TrayIcon.Icons>
         <TrayIcons>
