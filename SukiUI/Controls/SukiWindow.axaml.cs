@@ -126,7 +126,7 @@ public class SukiWindow : Window
 
     public static readonly StyledProperty<SukiBackgroundStyle> BackgroundStyleProperty =
         AvaloniaProperty.Register<SukiWindow, SukiBackgroundStyle>(nameof(BackgroundStyle),
-            defaultValue: SukiBackgroundStyle.Gradient);
+            defaultValue: SukiBackgroundStyle.GradientSoft);
 
     /// <inheritdoc cref="SukiBackground.Style"/>
     public SukiBackgroundStyle BackgroundStyle

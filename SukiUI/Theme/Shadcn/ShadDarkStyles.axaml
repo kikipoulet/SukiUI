@@ -1,0 +1,138 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:suki="https://github.com/kikipoulet/SukiUI">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+
+    
+       
+            <Style Selector="Button.Flat /template/ TextBlock">
+                <Setter Property="Foreground" Value="Black" />
+            </Style>
+
+            <Style Selector="Button.Flat /template/ suki|Loading">
+                <Setter Property="Foreground" Value="Black" />
+            </Style>
+            <Style Selector="Button.Flat /template/ ContentPresenter">
+                <Setter Property="Foreground" Value="Black" />
+            </Style>
+    
+    
+    <Style Selector="ToggleSwitch /template/ Border">
+       <Setter Property="Background" Value="#111111" />
+       <Setter Property="BorderBrush" Value="#111111" />
+       <Setter Property="CornerRadius" Value="100"></Setter>
+   
+    </Style>   
+    
+    <Style Selector="ToggleSwitch:checked /template/ Border#SwitchBackground">
+        <Setter Property="Background" Value="White" />
+   
+   
+    </Style>   
+    
+    <Style Selector="RadioButton.Chips:checked  TextBlock">
+        <Setter Property="Foreground" Value="#111111" />
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+    </Style>
+    
+    <Style Selector="RadioButton.Chips:checked  AccessText">
+        <Setter Property="Foreground" Value="#111111" />
+
+    </Style>
+   
+    <Style Selector="ToggleButton:checked AccessText">
+        <Setter Property="Foreground" Value="#111111" />
+    </Style>
+    <Style Selector="Border.ThumbB">
+        <Setter Property="Background" Value="#111111" />
+
+    </Style>
+    
+    <Style Selector="CheckBox">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid ColumnDefinitions="Auto,*">
+                    <suki:GlassCard IsInteractive="True" Classes="Control" Name="border"
+                            Width="20"
+                            Height="20"
+                            VerticalAlignment="Center"  
+                        Classes.PrimaryOpaque="{TemplateBinding IsChecked}"
+                       
+                            CornerRadius="6">
+                        
+                        <Panel>
+                            <Path Name="checkMark"
+                                  Width="9"
+                                  Height="9" Opacity="1"
+                                  Margin="1,1,0,0"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+								  FlowDirection="LeftToRight"
+                                  Data="M 1145.607177734375,430 C1145.607177734375,430 1141.449951171875,435.0772705078125 1141.449951171875,435.0772705078125 1141.449951171875,435.0772705078125 1139.232177734375,433.0999755859375 1139.232177734375,433.0999755859375 1139.232177734375,433.0999755859375 1138,434.5538330078125 1138,434.5538330078125 1138,434.5538330078125 1141.482177734375,438 1141.482177734375,438 1141.482177734375,438 1141.96875,437.9375 1141.96875,437.9375 1141.96875,437.9375 1147,431.34619140625 1147,431.34619140625 1147,431.34619140625 1145.607177734375,430 1145.607177734375,430 z"
+                                  Fill="#111111"
+                                  Stretch="Uniform" >
+                                <Path.Transitions>
+                                    <Transitions>
+                                    <DoubleTransition Property="Opacity" Duration="0:0:0.2"></DoubleTransition>
+                                        </Transitions>
+                                </Path.Transitions>
+                            </Path>
+                            <Border Name="IndetBorder" Opacity="0" VerticalAlignment="Center" HorizontalAlignment="Center" Background="White" Height="3" Width="8" CornerRadius="2">
+                                <Border.Transitions>
+                                    <Transitions>
+                                    <DoubleTransition Property="Opacity" Duration="0:0:0.2"></DoubleTransition>
+                                    </Transitions>
+                                </Border.Transitions>
+                            </Border>
+                        </Panel>
+                    </suki:GlassCard>
+                    <ContentPresenter Name="PART_ContentPresenter"
+                                      Grid.Column="1"
+                                      Margin="{TemplateBinding Padding}"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      FontSize="{TemplateBinding FontSize}"
+                                      IsVisible="{TemplateBinding Content,
+                                                                  Converter={x:Static ObjectConverters.IsNotNull}}"
+                                      RecognizesAccessKey="True" />
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+   
+    <Style Selector="RadioButton">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1.2" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid Background="{TemplateBinding Background}" ColumnDefinitions="Auto,*">
+                    <suki:GlassCard Width="20" Height="20" CornerRadius="50" Classes="Control"
+                                    Classes.PrimaryOpaque="{TemplateBinding IsChecked}"
+                    />
+                    
+                    <Ellipse Height="8" Width="8" HorizontalAlignment="Center" VerticalAlignment="Center" IsVisible="{TemplateBinding IsChecked}"  Fill="#111111"/>
+                    <ContentPresenter Name="PART_ContentPresenter"
+                                      Grid.Column="1"
+                                      Margin="10,0,0,0"
+                                      VerticalAlignment="Center"
+                                      Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      FontSize="{TemplateBinding FontSize}"
+                                      RecognizesAccessKey="True" />
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+    
+    
+   
+  
+</Styles>

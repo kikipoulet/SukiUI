@@ -1,8 +1,12 @@
+using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Controls.Templates;
 using Avalonia.Markup.Xaml;
+using Avalonia.Markup.Xaml.Styling;
+using Avalonia.Media;
+using Avalonia.Styling;
 using Microsoft.Extensions.DependencyInjection;
 using SukiUI.Demo.Common;
 using SukiUI.Demo.Features.ControlsLibrary;
@@ -19,6 +23,8 @@ using SukiUI.Demo.Features.Splash;
 using SukiUI.Demo.Features.Theming;
 using SukiUI.Demo.Services;
 using SukiUI.Dialogs;
+using SukiUI.Models;
+using SukiUI.Theme.Shadcn;
 using SukiUI.Toasts;
 
 namespace SukiUI.Demo;
@@ -28,6 +34,7 @@ public class App : Application
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
+        
     }
 
     public override void OnFrameworkInitializationCompleted()
@@ -47,6 +54,8 @@ public class App : Application
         }
 
         base.OnFrameworkInitializationCompleted();
+        
+    //    Shadcn.Configure(Application.Current, ThemeVariant.Dark);
     }
 
     private static SukiViews ConfigureViews(ServiceCollection services)

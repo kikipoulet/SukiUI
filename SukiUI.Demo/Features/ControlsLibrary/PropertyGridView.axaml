@@ -18,11 +18,15 @@
         <suki:GlassCard Width="500">
             <ScrollViewer>
                 <DockPanel>
-                    <ToggleButton HorizontalAlignment="Right"
-                                  Content="Use external dialog window"
-                                  DockPanel.Dock="Top"
-                                  IsChecked="True"
-                                  IsCheckedChanged="ToggleButton_OnIsCheckedChanged" />
+                    <suki:GlassCard Padding="12" Margin="0,0,0,25"  DockPanel.Dock="Top" HorizontalAlignment="Right">
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" FontWeight="DemiBold" Text="Use external dialog window :"></TextBlock>
+                            <ToggleSwitch 
+                                          IsChecked="True"
+                                          IsCheckedChanged="ToggleButton_OnIsCheckedChanged" />
+                        </StackPanel>
+                    </suki:GlassCard>
+                    
                     <suki:PropertyGrid Item="{Binding Form}">
                         <suki:PropertyGrid.DataTemplates>
                             <!--

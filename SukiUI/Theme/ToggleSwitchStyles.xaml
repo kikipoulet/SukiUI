@@ -138,6 +138,7 @@
                                                     <SineEaseOut />
                                             </ThicknessTransition.Easing>
                                         </ThicknessTransition>
+                                     <DoubleTransition Property="Opacity" Duration="0:0:0.5"></DoubleTransition>
                                     </Transitions>
                                 </Panel.Transitions>
                             </Panel>
@@ -165,7 +166,7 @@
                                     Width="18"
                                     Height="18"
                                     Margin="0,0,0,0"
-                                    Background="#fcfcfc"
+                                    
                                     BoxShadow="{DynamicResource SukiSwitchShadow}"
                                     CornerRadius="{DynamicResource MediumCornerRadius}">
                                 <Border />
@@ -196,7 +197,10 @@
     </Style>
 
    
-    
+    <Style Selector="ToggleSwitch /template/ Border#SwitchKnob">
+
+        <Setter Property="Background" Value="#fcfcfc" />
+    </Style>
     <Style Selector="ToggleSwitch:unchecked /template/ Border#SwitchKnob">
         <Setter Property="Width" Value="18" />
         <Setter Property="Canvas.Left" Value="2" />
@@ -212,6 +216,7 @@
 
     </Style>
 
+    
 
  
 

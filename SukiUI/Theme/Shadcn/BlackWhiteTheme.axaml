@@ -1,0 +1,27 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="https://github.com/kikipoulet/SukiUI"
+                    xmlns:system="clr-namespace:System;assembly=netstandard">
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key='Light'>
+            <Color x:Key='SukiPrimaryColor'>Black</Color>
+            <system:Double x:Key="GlassOpacity">0.5</system:Double>
+            <Color x:Key="GlassBorderBrush">#cccccc</Color>
+            <Color x:Key="SukiCardBackground">#ffffff</Color>
+        </ResourceDictionary>
+        <ResourceDictionary x:Key='Dark'>
+        
+            <Color x:Key='SukiPrimaryColor'>White</Color>
+            <system:Double x:Key="GlassOpacity">0.09</system:Double>
+            <BoxShadows x:Key="SukiSwitchShadow">0 0 0 0 Transparent</BoxShadows>
+            <Color x:Key="SukiCardBackground">#2a2a2a</Color>
+            <Color x:Key="GlassBorderBrush">White</Color>
+            <LinearGradientBrush x:Key="PopupGradientBrush" StartPoint="0%,0%" EndPoint="100%,100%">
+                <GradientStop Color="{DynamicResource Transparent}" Offset="0"></GradientStop>
+                <GradientStop Color="{DynamicResource Transparent}" Offset="0.9"></GradientStop>
+
+            </LinearGradientBrush>
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+
+</ResourceDictionary>
