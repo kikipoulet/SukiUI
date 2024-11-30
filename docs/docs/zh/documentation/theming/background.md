@@ -64,6 +64,6 @@ SukiUI 的背景渲染器支持动画（以原生帧率运行），且通过 `Ba
 由于需要重绘整个[可视树](https://docs.avaloniaui.net/zh-Hans/docs/concepts/control-trees#%E5%8F%AF%E8%A7%86%E6%A0%91)，启用动画会对性能产生显著影响，因此建议仅在必要时使用。在一些测试中，我们发现启用动画时 CPU 使用率大约增加 5%，而 GPU 使用率增加约 20%。
 :::
 
-## 软件渲染可能
+## 考虑软件渲染？
 
-如果 [SkiaSharp](https://github.com/mono/SkiaSharp)（Avalonia 的渲染引擎）无法找到任何可用的硬件加速，SukiUI 将退回到软件渲染解决方案，即在 CPU 上渲染 `Flat` 背景样式。
+如果 [SkiaSharp](https://github.com/mono/SkiaSharp)（Avalonia 的渲染引擎）没有发现任何可用的硬件加速，SukiUI 将回到软件渲染的解决方案，即在 CPU 上渲染 `Flat` 背景样式。

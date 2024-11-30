@@ -117,6 +117,19 @@ public void DisplayDialog()
 }
 ```
 
+按钮也可以通过最后一个可选参数指定类(默认使用 `Flat` 样式)，也可以使用任意一种标准的[按钮样式](./controls/inputs/button)。
+
+以下示例代码创建了带有 `Flat` 样式按钮的对话框，并使用强调色：
+
+```cs
+public void DisplayDialog()
+{
+    dialogManager.CreateDialog()
+        .WithActionButton("Styled Button ", _ => { }, true, "Flat", "Accent")
+        .TryShow();
+}
+```
+
 ![dialogclose](https://github.com/user-attachments/assets/3d07344f-c302-400a-b2cf-88865e7713ba)
 
 ## 消息框样式
