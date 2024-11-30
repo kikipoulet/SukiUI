@@ -12,20 +12,11 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Authors></Authors>
-    <Copyright></Copyright>
-    <Owners></Owners>
-    <Description>https://github.com/kikipoulet/SukiUI</Description>
-    <RepositoryUrl>https://github.com/kikipoulet/SukiUI</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-  </PropertyGroup>
-
-  <PropertyGroup>
     <IsPackable>true</IsPackable>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageVersion>6.0.0-beta8</PackageVersion>
     <PackageDescription></PackageDescription>
-    <PackageTags>avalonia;avaloniaui;ui;theme</PackageTags>
+    <PackageTags>avalonia;avaloniaui;ui;theme;sukiui</PackageTags>
     <PackageProjectUrl>https://github.com/kikipoulet/SukiUI</PackageProjectUrl>
     <PackageIcon>OIG.N5o-removebg-preview.png</PackageIcon>
   </PropertyGroup>

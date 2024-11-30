@@ -5,4 +5,13 @@
     <Nullable>enable</Nullable>
     <LangVersion>13.0</LangVersion>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <Authors></Authors>
+    <Copyright></Copyright>
+    <Owners></Owners>
+    <Description>https://github.com/kikipoulet/SukiUI</Description>
+    <RepositoryUrl>https://github.com/kikipoulet/SukiUI</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
 </Project>
