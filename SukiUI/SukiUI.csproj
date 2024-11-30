@@ -1,114 +1,117 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>netstandard2.0</TargetFramework>
-		<IsPackable>true</IsPackable>
-		<Authors></Authors>
-		<Copyright></Copyright>
-		<PackageProjectUrl>https://github.com/kikipoulet/SukiUI</PackageProjectUrl>
-		<PackageDescription></PackageDescription>
-		<Owners></Owners>
-		<PackageTags>avalonia;avaloniaui;ui;theme</PackageTags>
-		<RepositoryUrl>https://github.com/kikipoulet/SukiUI</RepositoryUrl>
-		<RepositoryType>git</RepositoryType>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<IsPackable>true</IsPackable>
-		<RootNamespace>SukiUI</RootNamespace>
-		<Version>5.0.4</Version>
-		<FileVersion>2.0.0</FileVersion>
-		<AssemblyVersion>2.0.0</AssemblyVersion>
-		<LangVersion>10</LangVersion>
-		<UserSecretsId>712f85e4-12d3-41b0-a417-5714a113666f</UserSecretsId>
-		<Description>https://github.com/kikipoulet/SukiUI</Description>
-		<PackageVersion>6.0.0-beta8</PackageVersion>
-		<Nullable>enable</Nullable>
-		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-		<PackageIcon>OIG.N5o-removebg-preview.png</PackageIcon>
-	</PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <RootNamespace>SukiUI</RootNamespace>
+    <Version>5.0.4</Version>
+    <FileVersion>2.0.0</FileVersion>
+    <AssemblyVersion>2.0.0</AssemblyVersion>
+    <UserSecretsId>712f85e4-12d3-41b0-a417-5714a113666f</UserSecretsId>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Avalonia" Version="11.2.1" />
-		<PackageReference Include="Avalonia.Skia" Version="11.2.1" />
-		<PackageReference Include="SkiaSharp" Version="2.88.8" />
-		<PackageReference Include="Avalonia.Controls.DataGrid" Version="11.2.1" />
-		<PackageReference Include="Avalonia.Themes.Simple" Version="11.2.1" />
-	</ItemGroup>
+  <PropertyGroup>
+    <Authors></Authors>
+    <Copyright></Copyright>
+    <Owners></Owners>
+    <Description>https://github.com/kikipoulet/SukiUI</Description>
+    <RepositoryUrl>https://github.com/kikipoulet/SukiUI</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
 
-	<ItemGroup>
-		<AvaloniaResource Include="**\*.xaml" />
-		<AvaloniaResource Include="Content\Images\icons8-file-explorer-new-48.png" />
-		<None Remove="CustomFont\MiSans\MiSansLatin-Bold.ttf" />
-	
-		<None Remove="CustomFont\MiSans\MiSansLatin-Demibold.ttf" />
-		<None Remove="CustomFont\MiSans\MiSansLatin-ExtraLight.ttf" />
-		<None Remove="CustomFont\MiSans\MiSansLatin-Heavy.ttf" />
-		<None Remove="CustomFont\MiSans\MiSansLatin-Light.ttf" />
-		<None Remove="CustomFont\MiSans\MiSansLatin-Medium.ttf" />
-		<None Remove="CustomFont\MiSans\MiSansLatin-Normal.ttf" />
-		<None Remove="CustomFont\MiSans\MiSansLatin-Regular.ttf" />
-		<None Remove="CustomFont\MiSans\MiSansLatin-Semibold.ttf" />
-		<None Remove="CustomFont\MiSans\MiSansLatin-Thin.ttf" />
-	</ItemGroup>
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageVersion>6.0.0-beta8</PackageVersion>
+    <PackageDescription></PackageDescription>
+    <PackageTags>avalonia;avaloniaui;ui;theme</PackageTags>
+    <PackageProjectUrl>https://github.com/kikipoulet/SukiUI</PackageProjectUrl>
+    <PackageIcon>OIG.N5o-removebg-preview.png</PackageIcon>
+  </PropertyGroup>
 
-	<ItemGroup>
-		<AvaloniaResource Include="Roboto-Regular.ttf" />
-		<AvaloniaResource Include="Roboto-Medium.ttf" />
-		<AvaloniaResource Include="CustomFont\Quicksand-Bold.ttf" />
-		<AvaloniaResource Include="CustomFont\Quicksand-Light.ttf" />
-		<AvaloniaResource Include="CustomFont\Quicksand-Medium.ttf" />
-		<AvaloniaResource Include="CustomFont\Quicksand-Regular.ttf" />
-		<AvaloniaResource Include="CustomFont\Quicksand-SemiBold.ttf" />
-	</ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+    <PackageReference Include="Avalonia.Skia" />
+    <PackageReference Include="SkiaSharp" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" />
+    <PackageReference Include="Avalonia.Themes.Simple" />
+  </ItemGroup>
 
-	<ItemGroup>
-	  <None Update="OIG.N5o-removebg-preview.png">
-	    <Pack>True</Pack>
-	    <PackagePath />
-	  </None>
-	</ItemGroup>
+  <ItemGroup>
+    <AvaloniaResource Include="**\*.xaml" />
+    <AvaloniaResource Include="Content\Images\icons8-file-explorer-new-48.png" />
+    <None Remove="CustomFont\MiSans\MiSansLatin-Bold.ttf" />
 
-	<ItemGroup>
-	  <UpToDateCheckInput Remove="Controls\TouchInput\TouchKeyboard\TouchKeyboard.axaml" />
-	  <UpToDateCheckInput Remove="Controls\TouchInput\TouchKeyboard\TouchKeyboardPopUp.axaml" />
-	  <UpToDateCheckInput Remove="Controls\TouchInput\TouchNumericPad\NumericPadPopUp.axaml" />
-	  <UpToDateCheckInput Remove="Controls\TouchInput\TouchNumericPad\TouchNumericPad.axaml" />
-	</ItemGroup>
+    <None Remove="CustomFont\MiSans\MiSansLatin-Demibold.ttf" />
+    <None Remove="CustomFont\MiSans\MiSansLatin-ExtraLight.ttf" />
+    <None Remove="CustomFont\MiSans\MiSansLatin-Heavy.ttf" />
+    <None Remove="CustomFont\MiSans\MiSansLatin-Light.ttf" />
+    <None Remove="CustomFont\MiSans\MiSansLatin-Medium.ttf" />
+    <None Remove="CustomFont\MiSans\MiSansLatin-Normal.ttf" />
+    <None Remove="CustomFont\MiSans\MiSansLatin-Regular.ttf" />
+    <None Remove="CustomFont\MiSans\MiSansLatin-Semibold.ttf" />
+    <None Remove="CustomFont\MiSans\MiSansLatin-Thin.ttf" />
+  </ItemGroup>
 
-	<ItemGroup>
-	  <Compile Update="Controls\WaveProgress.axaml.cs">
-	    <DependentUpon>WaveProgress.axaml</DependentUpon>
-	    <SubType>Code</SubType>
-	  </Compile>
-	  <Compile Update="Controls\Hosts\SukiToastHost.cs">
-	    <DependentUpon>SukiToastHost.axaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Controls\Hosts\SukiDialogHost.cs">
-	    <DependentUpon>SukiDialogHost.axaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Controls\SukiDialog.cs">
-	    <DependentUpon>SukiDialog.axaml</DependentUpon>
-	  </Compile>
-	</ItemGroup>
+  <ItemGroup>
+    <AvaloniaResource Include="Roboto-Regular.ttf" />
+    <AvaloniaResource Include="Roboto-Medium.ttf" />
+    <AvaloniaResource Include="CustomFont\Quicksand-Bold.ttf" />
+    <AvaloniaResource Include="CustomFont\Quicksand-Light.ttf" />
+    <AvaloniaResource Include="CustomFont\Quicksand-Medium.ttf" />
+    <AvaloniaResource Include="CustomFont\Quicksand-Regular.ttf" />
+    <AvaloniaResource Include="CustomFont\Quicksand-SemiBold.ttf" />
+  </ItemGroup>
 
-	<ItemGroup>
-	  <EmbeddedResource Include="Content\Shaders\Background\bubblestrong.sksl" />
-	  <EmbeddedResource Include="Content\Shaders\Background\cells.sksl" />
-	  <EmbeddedResource Include="Content\Shaders\Background\flat.sksl" />
-	  <EmbeddedResource Include="Content\Shaders\Background\bubble.sksl" />
-	  <EmbeddedResource Include="Content\Shaders\Background\waves.sksl" />
-	  <EmbeddedResource Include="Content\Shaders\Loading\glow.sksl" />
-	  <EmbeddedResource Include="Content\Shaders\Loading\pellets.sksl" />
-	  <None Remove="Content\Shaders\Background\gradient.sksl" />
-	  <EmbeddedResource Include="Content\Shaders\Background\gradient.sksl" />
-	  <None Remove="Content\Shaders\Loading\simple.sksl" />
-	  <EmbeddedResource Include="Content\Shaders\Loading\simple.sksl" />
-	  <None Remove="Content\Shaders\Background\gradientsoft.sksl" />
-	  <EmbeddedResource Include="Content\Shaders\Background\gradientsoft.sksl" />
-	  <None Remove="Content\Shaders\Background\gradientdarker.sksl" />
-	  <EmbeddedResource Include="Content\Shaders\Background\gradientdarker.sksl" />
-	  <None Remove="Content\Shaders\Background\backgroundshadcn.sksl" />
-	  <EmbeddedResource Include="Content\Shaders\Background\backgroundshadcn.sksl" />
-	</ItemGroup>
+  <ItemGroup>
+    <None Update="OIG.N5o-removebg-preview.png">
+      <Pack>True</Pack>
+      <PackagePath />
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Controls\TouchInput\TouchKeyboard\TouchKeyboard.axaml" />
+    <UpToDateCheckInput Remove="Controls\TouchInput\TouchKeyboard\TouchKeyboardPopUp.axaml" />
+    <UpToDateCheckInput Remove="Controls\TouchInput\TouchNumericPad\NumericPadPopUp.axaml" />
+    <UpToDateCheckInput Remove="Controls\TouchInput\TouchNumericPad\TouchNumericPad.axaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Controls\WaveProgress.axaml.cs">
+      <DependentUpon>WaveProgress.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\Hosts\SukiToastHost.cs">
+      <DependentUpon>SukiToastHost.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\Hosts\SukiDialogHost.cs">
+      <DependentUpon>SukiDialogHost.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\SukiDialog.cs">
+      <DependentUpon>SukiDialog.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Content\Shaders\Background\bubblestrong.sksl" />
+    <EmbeddedResource Include="Content\Shaders\Background\cells.sksl" />
+    <EmbeddedResource Include="Content\Shaders\Background\flat.sksl" />
+    <EmbeddedResource Include="Content\Shaders\Background\bubble.sksl" />
+    <EmbeddedResource Include="Content\Shaders\Background\waves.sksl" />
+    <EmbeddedResource Include="Content\Shaders\Loading\glow.sksl" />
+    <EmbeddedResource Include="Content\Shaders\Loading\pellets.sksl" />
+    <None Remove="Content\Shaders\Background\gradient.sksl" />
+    <EmbeddedResource Include="Content\Shaders\Background\gradient.sksl" />
+    <None Remove="Content\Shaders\Loading\simple.sksl" />
+    <EmbeddedResource Include="Content\Shaders\Loading\simple.sksl" />
+    <None Remove="Content\Shaders\Background\gradientsoft.sksl" />
+    <EmbeddedResource Include="Content\Shaders\Background\gradientsoft.sksl" />
+    <None Remove="Content\Shaders\Background\gradientdarker.sksl" />
+    <EmbeddedResource Include="Content\Shaders\Background\gradientdarker.sksl" />
+    <None Remove="Content\Shaders\Background\backgroundshadcn.sksl" />
+    <EmbeddedResource Include="Content\Shaders\Background\backgroundshadcn.sksl" />
+  </ItemGroup>
 
 </Project>

@@ -1,0 +1,28 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="Avalonia.AvaloniaEdit" Version="11.1.0" />
+    <PackageVersion Include="Avalonia.Controls.ColorPicker" Version="11.2.1" />
+    <PackageVersion Include="Avalonia.Desktop" Version="11.2.1" />
+    <PackageVersion Include="Avalonia.Fonts.Inter" Version="11.2.1" />
+    <PackageVersion Include="Avalonia.Diagnostics" Version="11.2.1" />
+    <PackageVersion Include="Avalonia.Themes.Fluent" Version="11.2.1" />
+    <PackageVersion Include="AvaloniaEdit.TextMate" Version="11.1.0" />
+    <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+    <PackageVersion Include="Dock.Model" Version="11.2.0" />
+    <PackageVersion Include="Material.Icons.Avalonia" Version="2.1.10" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
+    <PackageVersion Include="ShowMeTheXaml.Avalonia" Version="1.5.1" />
+    <PackageVersion Include="ShowMeTheXaml.Avalonia.Generator" Version="1.5.1" />
+    <PackageVersion Include="Avalonia" Version="11.2.1" />
+    <PackageVersion Include="Avalonia.Skia" Version="11.2.1" />
+    <PackageVersion Include="SkiaSharp" Version="2.88.8" />
+    <PackageVersion Include="Avalonia.Controls.DataGrid" Version="11.2.1" />
+    <PackageVersion Include="Avalonia.Themes.Simple" Version="11.2.1" />
+    <PackageVersion Include="Dock.Avalonia" Version="11.2.0" />
+    <PackageVersion Include="Dock.Model.Avalonia" Version="11.2.0" />
+    <PackageVersion Include="System.Text.Json" Version="8.0.5" />
+  </ItemGroup>
+</Project>
