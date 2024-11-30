@@ -126,7 +126,7 @@ public class SukiWindow : Window
 
     public static readonly StyledProperty<SukiBackgroundStyle> BackgroundStyleProperty =
         AvaloniaProperty.Register<SukiWindow, SukiBackgroundStyle>(nameof(BackgroundStyle),
-            defaultValue: SukiBackgroundStyle.Gradient);
+            defaultValue: SukiBackgroundStyle.GradientSoft);
 
     /// <inheritdoc cref="SukiBackground.Style"/>
     public SukiBackgroundStyle BackgroundStyle
@@ -302,12 +302,15 @@ public class SukiWindow : Window
                     var point = new PixelPoint(
                         (short)(ToInt32(lParam) & 0xffff),
                         (short)(ToInt32(lParam) >> 16));
-                    var buttonLeftTop = maximize.PointToScreen(new Point(0, 0));
+                    var desiredSize = maximize.DesiredSize;
+                    var buttonLeftTop = maximize.PointToScreen(FlowDirection == FlowDirection.LeftToRight
+                                                               ? new Point(desiredSize.Width, 0)
+                                                               : new Point(0, 0));
                     var x = (buttonLeftTop.X - point.X) / RenderScaling;
                     var y = (point.Y - buttonLeftTop.Y) / RenderScaling;
                     if (new Rect(0, 0,
-                            maximize.DesiredSize.Width,
-                            maximize.DesiredSize.Height)
+                            desiredSize.Width,
+                            desiredSize.Height)
                         .Contains(new Point(x, y)))
                     {
                         setter?.SetValue(maximize, true);

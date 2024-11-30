@@ -1,0 +1,23 @@
+name: Build Gallery (Native)
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Native
+        run: dotnet publish SukiUI.Demo/SukiUI.Demo.csproj -c Release -r win-x64 -o bin/
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: gallery-native
+          path: bin

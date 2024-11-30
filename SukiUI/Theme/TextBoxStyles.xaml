@@ -339,10 +339,8 @@
         <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
-
-
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
-        <Setter Property="SelectionBrush" Value="{DynamicResource SukiBorderBrush}" />
+        <Setter Property="SelectionBrush" Value="{DynamicResource SukiPrimaryColor75}" />
         <Setter Property="MinHeight" Value="45" />
         <Setter Property="Padding" Value="6,8,5,6" />
         <Setter Property="ContextFlyout" Value="{StaticResource DefaultTextBoxContextFlyout}" />

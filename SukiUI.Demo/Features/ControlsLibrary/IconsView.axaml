@@ -38,18 +38,17 @@
             </suki:GroupBox>
         </suki:GlassCard>
         <ScrollViewer Grid.Row="1">
-            <ItemsControl suki:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding AllIcons}">
+            <ItemsControl suki:ItemsControlExtensions.AnimatedScroll="True" ItemsSource="{Binding Icons}">
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate x:CompileBindings="False">
+                    <DataTemplate x:DataType="controlsLibrary:IconItemViewModel">
                         <suki:GlassCard Margin="15,15,15,15"
                                         IsInteractive="True"
-                                        Command="{Binding $parent[controlsLibrary:IconsView].((controlsLibrary:IconsViewModel)DataContext).IconClickedCommand}"
-                                        CommandParameter="{Binding Key}">
-                            <suki:GroupBox Header="{Binding Key}">
+                                        Command="{Binding ClickCommand}">
+                            <suki:GroupBox Header="{Binding Name}">
                                 <PathIcon Width="25"
                                           Height="25"
                                           Margin="0,8,0,0"
-                                          Data="{Binding Value}" />
+                                          Data="{Binding Geometry}" />
                             </suki:GroupBox>
                         </suki:GlassCard>
                     </DataTemplate>

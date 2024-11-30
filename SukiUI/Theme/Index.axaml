@@ -5,6 +5,8 @@
 
     <SimpleTheme />
 
+    <StyleInclude Source="avares://SukiUI/Theme/TextStyles.axaml"/>
+
     <StyleInclude Source="avares://SukiUI/Theme/ComboBoxStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/Colors.xaml" />
 
@@ -31,6 +33,8 @@
     <StyleInclude Source="avares://SukiUI/Theme/ScrollViewerStyles.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ButtonLoadingStyles.axaml" />
 
+    <StyleInclude Source="avares://SukiUI/Theme/PathIconStyles.axaml" />
+
     <Styles.Resources>
         <ResourceDictionary>
 
@@ -46,9 +50,6 @@
             <system:TimeSpan x:Key="MediumAnimationDuration">0.35</system:TimeSpan>
             <system:TimeSpan x:Key="ShortAnimationDuration">0.2</system:TimeSpan>
             <Easing x:Key="MenuEasing">CircularEaseOut</Easing>
-
-            <FontFamily x:Key="DefaultFontFamily">avares://SukiUI/CustomFont#Quicksand</FontFamily>
-            <FontWeight x:Key="DefaultDemiBold">DemiBold</FontWeight>
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="avares://sukiUI/Theme/TextBlock.xaml" />

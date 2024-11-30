@@ -4,6 +4,7 @@ using Avalonia.Interactivity;
 using SukiUI.Controls;
 using SukiUI.Enums;
 using SukiUI.Models;
+using System.Runtime.CompilerServices;
 
 namespace SukiUI.Demo;
 
@@ -12,6 +13,11 @@ public partial class SukiUIDemoView : SukiWindow
     public SukiUIDemoView()
     {
         InitializeComponent();
+
+        if (RuntimeFeature.IsDynamicCodeCompiled == false)
+        {
+            Title += " (native)";
+        }
     }
 
     private void ThemeMenuItem_OnClick(object? sender, RoutedEventArgs e)

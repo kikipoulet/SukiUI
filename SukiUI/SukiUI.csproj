@@ -28,11 +28,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Avalonia" Version="11.2.0-beta1" />
-		<PackageReference Include="Avalonia.Skia" Version="11.2.0-beta1" />
+		<PackageReference Include="Avalonia" Version="11.2.1" />
+		<PackageReference Include="Avalonia.Skia" Version="11.2.1" />
 		<PackageReference Include="SkiaSharp" Version="2.88.8" />
-		<PackageReference Include="Avalonia.Controls.DataGrid" Version="11.2.0-beta1" />
-		<PackageReference Include="Avalonia.Themes.Simple" Version="11.2.0-beta1" />
+		<PackageReference Include="Avalonia.Controls.DataGrid" Version="11.2.1" />
+		<PackageReference Include="Avalonia.Themes.Simple" Version="11.2.1" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -103,6 +103,12 @@
 	  <EmbeddedResource Include="Content\Shaders\Background\gradient.sksl" />
 	  <None Remove="Content\Shaders\Loading\simple.sksl" />
 	  <EmbeddedResource Include="Content\Shaders\Loading\simple.sksl" />
+	  <None Remove="Content\Shaders\Background\gradientsoft.sksl" />
+	  <EmbeddedResource Include="Content\Shaders\Background\gradientsoft.sksl" />
+	  <None Remove="Content\Shaders\Background\gradientdarker.sksl" />
+	  <EmbeddedResource Include="Content\Shaders\Background\gradientdarker.sksl" />
+	  <None Remove="Content\Shaders\Background\backgroundshadcn.sksl" />
+	  <EmbeddedResource Include="Content\Shaders\Background\backgroundshadcn.sksl" />
 	</ItemGroup>
 
 </Project>

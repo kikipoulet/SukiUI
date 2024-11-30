@@ -55,6 +55,7 @@ public partial class CodeView : UserControl
             new PathIcon()
             {
                 Data = Icons.ChevronRight,
+                Classes = { "Flippable" },
                 Foreground =
                     new Avalonia.Media.SolidColorBrush(
                         (Avalonia.Media.Color)Application.Current.FindRequiredResource("SukiText")),

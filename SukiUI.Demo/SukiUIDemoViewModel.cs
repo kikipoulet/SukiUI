@@ -34,7 +34,7 @@ public partial class SukiUIDemoViewModel : ObservableObject
     [ObservableProperty] private DemoPageBase? _activePage;
     [ObservableProperty] private bool _windowLocked;
     [ObservableProperty] private bool _titleBarVisible = true;
-    [ObservableProperty] private SukiBackgroundStyle _backgroundStyle = SukiBackgroundStyle.Gradient;
+    [ObservableProperty] private SukiBackgroundStyle _backgroundStyle = SukiBackgroundStyle.GradientSoft;
     [ObservableProperty] private bool _animationsEnabled;
     [ObservableProperty] private string? _customShaderFile;
     [ObservableProperty] private bool _transitionsEnabled;
@@ -139,7 +139,10 @@ public partial class SukiUIDemoViewModel : ObservableObject
             .WithContent($"Window title bar has been {(TitleBarVisible ? "shown" : "hidden")}.")
             .Queue();
     }
-    
+
+    [RelayCommand]
+    private void ToggleRightToLeft() => _theme.IsRightToLeft = !_theme.IsRightToLeft;
+
     [RelayCommand]
     private static void OpenUrl(string url) => UrlUtilities.OpenUrl(url);
 

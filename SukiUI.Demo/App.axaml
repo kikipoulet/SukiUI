@@ -2,12 +2,10 @@
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:avaloniaEdit="https://github.com/avaloniaui/avaloniaedit"
              xmlns:common="clr-namespace:SukiUI.Demo.Common"
              xmlns:suki="https://github.com/kikipoulet/SukiUI"
              RequestedThemeVariant="Default">
-    <Application.DataTemplates>
-        <common:ViewLocator />
-    </Application.DataTemplates>
     
     <TrayIcon.Icons>
         <TrayIcons>
@@ -50,6 +48,7 @@
         <StyleInclude Source="avares://SukiUI.Demo/Styles/WrapPanelStyles.axaml" />
         <StyleInclude Source="avares://SukiUI.Demo/Styles/TextStyles.axaml" />
         <StyleInclude Source="avares://SukiUI.Demo/Styles/GlassCardStyles.axaml" />
+        <StyleInclude Source="avares://SukiUI.Demo/Styles/MaterialIconStyles.axaml" />
         <avalonia:MaterialIconStyles />
     </Application.Styles>
 

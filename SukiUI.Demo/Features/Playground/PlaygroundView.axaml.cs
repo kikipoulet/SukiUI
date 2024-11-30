@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Xml;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
-using Avalonia.Styling;
-using AvaloniaEdit;
-using AvaloniaEdit.TextMate;
 using AvaloniaEdit.CodeCompletion;
 using AvaloniaEdit.Document;
 using AvaloniaEdit.Editing;
 using AvaloniaEdit.Indentation.CSharp;
 using SukiUI.Controls;
-using TextMateSharp.Grammars;
 using SukiUI.Demo.Utilities;
+using SukiUI.Demo.Controls;
 
 namespace SukiUI.Demo.Features.Playground;
 
@@ -28,13 +24,9 @@ public partial class PlaygroundView : UserControl
 {
     private CompletionWindow? _completionWindow;
 
-    private TextEditor? _textEditor;
+    private CodeEditor? _textEditor;
 
     private GlassCard? _glassPlayground;
-
-    private Button? _renderButton;
-
-    private Button? _clearButton;
     
     private PlaygroundViewModel PlaygroundDataContext => (PlaygroundViewModel)DataContext!;
 
@@ -52,21 +44,14 @@ public partial class PlaygroundView : UserControl
     {
         base.OnApplyTemplate(e);
 
-        _textEditor = this.FindControl<TextEditor>("Editor")!;
+        _textEditor = this.FindControl<CodeEditor>("Editor")!;
         _glassPlayground = this.FindControl<GlassCard>("GlassExample")!;
         _textEditor.TextArea.TextEntered += TextEditor_TextArea_TextEntered!;
         _textEditor.TextArea.TextEntering += TextEditor_TextArea_TextEntering!;
         _textEditor.Text = XamlData.PlaygroundStartingCode;
         _textEditor.TextArea.IndentationStrategy = new CSharpIndentationStrategy(_textEditor.Options);
         _textEditor.TextArea.RightClickMovesCaret = true;
-
-        _renderButton = this.FindControl<Button>("RenderButton")!;
-        _renderButton.Click += OnRenderClicked;
-        _clearButton = this.FindControl<Button>("ClearButton")!;
-        //  _clearButton.Click += OnClearClicked;
-
-        OnBaseThemeChanged(Application.Current!.ActualThemeVariant);
-        SukiTheme.GetInstance().OnBaseThemeChanged += OnBaseThemeChanged;
+        
     }
     
     private void OnClearClicked(object? sender, RoutedEventArgs e)
@@ -96,16 +81,10 @@ public partial class PlaygroundView : UserControl
         {
             PlaygroundDataContext.DisplayError( $"Exception occurred during loading xaml code for control: \n {ex.Message}");
         }
-    }
-
-    private void OnBaseThemeChanged(ThemeVariant currentTheme)
-    {
-        var registryOptions = new RegistryOptions(
-            currentTheme == ThemeVariant.Dark ? ThemeName.DarkPlus : ThemeName.LightPlus);
-
-        var textMateInstallation = _textEditor.InstallTextMate(registryOptions);
-        textMateInstallation.SetGrammar(registryOptions.GetScopeByLanguageId(registryOptions
-            .GetLanguageByExtension(".xaml").Id));
+        catch (Exception ex)
+        {
+            PlaygroundDataContext.DisplayError( $"Exception occurred during creating control: {ex.Message}");
+        }
     }
 
     private void TextEditor_TextArea_TextEntering(object sender, TextInputEventArgs e)
