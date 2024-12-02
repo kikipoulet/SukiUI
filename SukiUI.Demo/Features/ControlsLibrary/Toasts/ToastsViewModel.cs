@@ -1,6 +1,3 @@
-using System;
-using System.Reactive.Concurrency;
-using System.Timers;
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
 using Avalonia.Threading;
@@ -40,7 +37,7 @@ public partial class ToastsViewModel(ISukiToastManager toastManager) : DemoPageB
             .WithTitle("Updating...")
             .WithContent(progress)
             .Queue();
-        var timer = new Timer(20);
+        var timer = new System.Timers.Timer(20);
         timer.Elapsed += (_, _) =>
         {
             Dispatcher.UIThread.Invoke(() =>
@@ -75,6 +72,7 @@ public partial class ToastsViewModel(ISukiToastManager toastManager) : DemoPageB
             .Dismiss().ByClicking()
             .Queue();
     }
+
     private void ShowTypeDemoToast(NotificationType toastType)
     {
         toastManager.CreateToast()

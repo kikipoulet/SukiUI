@@ -1,60 +1,60 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<OutputType>WinExe</OutputType>
-		<TargetFramework>net8.0</TargetFramework>
-		<Nullable>enable</Nullable>
-		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
-		<ApplicationManifest>app.manifest</ApplicationManifest>
-		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-	</PropertyGroup>
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+  </PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)' != 'Debug'">
-		<PublishAot>true</PublishAot>
-		<InvariantGlobalization>true</InvariantGlobalization>
-	</PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' != 'Debug'">
+    <PublishAot>true</PublishAot>
+    <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Avalonia" Version="11.2.1" />
-		<PackageReference Include="Avalonia.AvaloniaEdit" Version="11.1.0" />
-		<PackageReference Include="Avalonia.Controls.ColorPicker" Version="11.2.1" />
-		<PackageReference Include="Avalonia.Desktop" Version="11.2.1" />
-		<PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.1" />
-		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.2.1" />
-		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.1" />
-		<PackageReference Include="AvaloniaEdit.TextMate" Version="11.1.0" />
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
-		<PackageReference Include="Dock.Avalonia" Version="11.2.0" />
-		<PackageReference Include="Dock.Model" Version="11.2.0" />
-		<PackageReference Include="Dock.Model.Avalonia" Version="11.2.0" />
-		<PackageReference Include="Material.Icons.Avalonia" Version="2.1.10" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
-		<PackageReference Include="ShowMeTheXaml.Avalonia" Version="1.5.1" />
-		<PackageReference Include="ShowMeTheXaml.Avalonia.Generator" Version="1.5.1" />
-	</ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+    <PackageReference Include="Avalonia.AvaloniaEdit" />
+    <PackageReference Include="Avalonia.Controls.ColorPicker" />
+    <PackageReference Include="Avalonia.Desktop" />
+    <PackageReference Include="Avalonia.Fonts.Inter" />
+    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" />
+    <PackageReference Include="Avalonia.Themes.Fluent" />
+    <PackageReference Include="AvaloniaEdit.TextMate" />
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+    <PackageReference Include="Dock.Avalonia" />
+    <PackageReference Include="Dock.Model" />
+    <PackageReference Include="Dock.Model.Avalonia" />
+    <PackageReference Include="Material.Icons.Avalonia" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    <PackageReference Include="ShowMeTheXaml.Avalonia" />
+    <PackageReference Include="ShowMeTheXaml.Avalonia.Generator" />
+    <PackageReference Include="System.Text.Json" />
+  </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\SukiUI.Dock\SukiUI.Dock.csproj" />
-		<ProjectReference Include="..\SukiUI\SukiUI.csproj" />
-	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SukiUI.Dock\SukiUI.Dock.csproj" />
+    <ProjectReference Include="..\SukiUI\SukiUI.csproj" />
+  </ItemGroup>
 
-	<ItemGroup>
-	  <None Remove="Assets\OIG.N5o-removebg-preview.png" />
-	  <AvaloniaResource Include="Assets\OIG.N5o-removebg-preview.png" />
-	</ItemGroup>
+  <ItemGroup>
+    <None Remove="Assets\OIG.N5o-removebg-preview.png" />
+    <AvaloniaResource Include="Assets\OIG.N5o-removebg-preview.png" />
+  </ItemGroup>
 
-	<ItemGroup>
-	  <EmbeddedResource Include="Assets\space.sksl" />
-	  <EmbeddedResource Include="Assets\clouds.sksl" />
-	  <EmbeddedResource Include="Assets\weird.sksl" />
-	</ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\space.sksl" />
+    <EmbeddedResource Include="Assets\clouds.sksl" />
+    <EmbeddedResource Include="Assets\weird.sksl" />
+  </ItemGroup>
 
-	<ItemGroup>
-	  <UpToDateCheckInput Remove="Features\ControlsLibrary\Effects\EffectsView.axaml" />
-	</ItemGroup>
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Features\ControlsLibrary\Effects\EffectsView.axaml" />
+  </ItemGroup>
 
-	<ItemGroup>
-	  <EmbeddedResource Include="Features\Effects\shaderart.sksl" />
-	</ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Features\Effects\shaderart.sksl" />
+  </ItemGroup>
 
 </Project>

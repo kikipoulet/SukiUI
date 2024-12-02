@@ -1,28 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Version>6.0.0-beta7</Version>
-        <PackageIcon>OIG.N5o-removebg-preview.png</PackageIcon>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>6.0.0-beta7</Version>
+  </PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\SukiUI\SukiUI.csproj" />
-    </ItemGroup>
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageVersion>6.0.0-beta7</PackageVersion>
+    <PackageDescription></PackageDescription>
+    <PackageTags>avalonia;avaloniaui;ui;theme;dock;docking;sukiui</PackageTags>
+    <PackageProjectUrl>https://github.com/kikipoulet/SukiUI</PackageProjectUrl>
+    <PackageIcon>OIG.N5o-removebg-preview.png</PackageIcon>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\SukiUI\SukiUI.csproj" />
+  </ItemGroup>
 
-    <ItemGroup>
-      <PackageReference Include="Dock.Avalonia" Version="11.2.0" />
-      <PackageReference Include="Dock.Model.Avalonia" Version="11.2.0" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Dock.Avalonia" />
+    <PackageReference Include="Dock.Model.Avalonia" />
+  </ItemGroup>
 
-    <ItemGroup>
-      <None Update="OIG.N5o-removebg-preview.png">
-        <Pack>True</Pack>
-        <PackagePath></PackagePath>
-      </None>
-    </ItemGroup>
+  <ItemGroup>
+    <None Update="OIG.N5o-removebg-preview.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
