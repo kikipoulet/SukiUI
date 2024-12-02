@@ -23,6 +23,7 @@ export const zh = defineConfig({
           { text: '主题实例', link: '/zh/documentation/theming/basic' },
           { text: '明暗主题切换', link: '/zh/documentation/theming/theme' },
           { text: '主题色', link: '/zh/documentation/theming/theme-color' },
+          { text: '背景', link: '/zh/documentation/theming/background' },
         ]
       },
       {
