@@ -12,9 +12,11 @@ using SukiUI.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Avalonia;
 using SukiUI.Demo.Features.Theming;
 using SukiUI.Dialogs;
 using SukiUI.Enums;
+using SukiUI.Theme.Shadcn;
 using SukiUI.Toasts;
 
 namespace SukiUI.Demo;
@@ -112,6 +114,12 @@ public partial class SukiUIDemoViewModel : ObservableObject
     public void ChangeTheme(SukiColorTheme theme) =>
         _theme.ChangeColorTheme(theme);
 
+    [RelayCommand]
+    private void ShadCnMode()
+    {
+        Shadcn.Configure(Application.Current, Application.Current.ActualThemeVariant);
+    }
+    
     [RelayCommand]
     private void CreateCustomTheme()
     {

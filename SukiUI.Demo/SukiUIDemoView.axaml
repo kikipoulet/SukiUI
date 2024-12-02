@@ -162,6 +162,8 @@
             </MenuItem>
             <MenuItem Header="-" />
             <MenuItem Command="{Binding CreateCustomThemeCommand}" Header="Create Custom" />
+            <MenuItem Header="-" />
+            <MenuItem Command="{Binding ShadCnModeCommand}" Header="Shadcn Mode" />
         </MenuItem>
         <MenuItem Header="Background">
             <MenuItem Click="BackgroundMenuItem_OnClick"
