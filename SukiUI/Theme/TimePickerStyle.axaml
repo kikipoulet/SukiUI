@@ -13,7 +13,7 @@
         </Border>
     </Design.PreviewWith>
 
-  <!--  <x:Double x:Key="TimePickerFlyoutPresenterItemHeight">40</x:Double>
+    <x:Double x:Key="TimePickerFlyoutPresenterItemHeight">40</x:Double>
     <x:Double x:Key="TimePickerSpacerThemeWidth">1</x:Double>
     <Thickness x:Key="TimePickerBorderThemeThickness">1</Thickness>
     <x:Double x:Key="TimePickerFlyoutPresenterHighlightHeight">40</x:Double>
@@ -74,80 +74,101 @@
                     <Grid Name="LayoutRoot">
                         <suki:GlassCard Height="{TemplateBinding Height}" CornerRadius="{DynamicResource SmallCornerRadius}" Classes="Discrete" >
 
-                        <Button x:Name="PART_FlyoutButton"
-                                MinWidth="{DynamicResource TimePickerThemeMinWidth}"
-                                MaxWidth="{DynamicResource TimePickerThemeMaxWidth}"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="{TemplateBinding CornerRadius}"
-                                Foreground="{TemplateBinding Foreground}"
-                                IsEnabled="{TemplateBinding IsEnabled}"
-                                Theme="{StaticResource SimpleTimePickerFlyoutButton}">
-                            <DockPanel Margin="{TemplateBinding Padding}">
-                                <PathIcon Width="16"
-                                          Height="16"
-                                          Margin="12,0,0,0"
-                                          HorizontalAlignment="Right"
-                                          Data="{x:Static icons:Icons.Calendar}"
-                                          DockPanel.Dock="Right"
-                                          Foreground="{DynamicResource SukiLowText}" />
+                            <Button x:Name="PART_FlyoutButton"
+                                    MinWidth="{DynamicResource TimePickerThemeMinWidth}"
+                                    MaxWidth="{DynamicResource TimePickerThemeMaxWidth}"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="{TemplateBinding CornerRadius}"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    IsEnabled="{TemplateBinding IsEnabled}"
+                                    Theme="{StaticResource SimpleTimePickerFlyoutButton}">
+                                <DockPanel Margin="{TemplateBinding Padding}">
+                                    <PathIcon Width="16"
+                                              Height="16"
+                                              Margin="12,0,0,0"
+                                              HorizontalAlignment="Right"
+                                              Data="{x:Static icons:Icons.Calendar}"
+                                              DockPanel.Dock="Right"
+                                              Foreground="{DynamicResource SukiLowText}" />
 
-                                <Grid Name="PART_FlyoutButtonContentGrid">
+                                    <Grid Name="PART_FlyoutButtonContentGrid">
                                   
-                                    <Border x:Name="PART_FirstPickerHost"
-                                            Grid.Column="0"
-                                            HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Stretch">
-                                        <TextBlock x:Name="PART_HourTextBlock"
-                                                   Padding="{DynamicResource TimePickerHostPadding}"
+                                        <Border x:Name="PART_FirstPickerHost"
+                                                Grid.Column="0"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Stretch">
+                                            <TextBlock x:Name="PART_HourTextBlock"
+                                                       Text="{DynamicResource StringTimePickerHourText}"
+                                                       Padding="{DynamicResource TimePickerHostPadding}"
+                                                       HorizontalAlignment="Center"
+                                                       FontFamily="{TemplateBinding FontFamily}"
+                                                       FontSize="{TemplateBinding FontSize}"
+                                                       FontWeight="{TemplateBinding FontWeight}" />
+                                        </Border>
+
+                                        <Rectangle Name="PART_FirstColumnDivider"
+                                                   Grid.Column="1"
+                                                   Width="{DynamicResource TimePickerSpacerThemeWidth}"
                                                    HorizontalAlignment="Center"
-                                                   FontFamily="{TemplateBinding FontFamily}"
-                                                   FontSize="{TemplateBinding FontSize}"
-                                                   FontWeight="{TemplateBinding FontWeight}" />
-                                    </Border>
+                                                   Fill="{DynamicResource SukiMediumBorderBrush}" />
 
-                                    <Rectangle Name="PART_FirstColumnDivider"
-                                               Grid.Column="1"
-                                               Width="1"
-                                               HorizontalAlignment="Center"
-                                               Fill="{DynamicResource SukiMediumBorderBrush}" />
+                                        <Border x:Name="PART_SecondPickerHost"
+                                                Grid.Column="2"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Stretch">
+                                            <TextBlock x:Name="PART_MinuteTextBlock"
+                                                       Text="{DynamicResource StringTimePickerMinuteText}"
+                                                       Padding="{DynamicResource TimePickerHostPadding}"
+                                                       HorizontalAlignment="Center"
+                                                       FontFamily="{TemplateBinding FontFamily}"
+                                                       FontSize="{TemplateBinding FontSize}"
+                                                       FontWeight="{TemplateBinding FontWeight}" />
+                                        </Border>
 
-                                    <Border x:Name="PART_SecondPickerHost"
-                                            Grid.Column="2"
-                                            HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Stretch">
-                                        <TextBlock x:Name="PART_MinuteTextBlock"
-                                                   Padding="{DynamicResource TimePickerHostPadding}"
+                                        <Rectangle Name="PART_SecondColumnDivider"
+                                                   Grid.Column="3"
+                                                   Width="{DynamicResource TimePickerSpacerThemeWidth}"
                                                    HorizontalAlignment="Center"
-                                                   FontFamily="{TemplateBinding FontFamily}"
-                                                   FontSize="{TemplateBinding FontSize}"
-                                                   FontWeight="{TemplateBinding FontWeight}" />
-                                    </Border>
+                                                   Fill="{DynamicResource SukiMediumBorderBrush}" />
 
-                                    <Rectangle Name="PART_SecondColumnDivider"
-                                               Grid.Column="3"
-                                               Width="{DynamicResource TimePickerSpacerThemeWidth}"
-                                               HorizontalAlignment="Center"
-                                               Fill="{DynamicResource TimePickerSpacerFill}" />
+                                        <Border x:Name="PART_ThirdPickerHost"
+                                                Grid.Column="4"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Stretch">
+                                            <TextBlock x:Name="PART_SecondTextBlock"
+                                                       Text="{DynamicResource StringTimePickerSecondText}"
+                                                       Padding="{DynamicResource TimePickerHostPadding}"
+                                                       HorizontalAlignment="Center"
+                                                       FontFamily="{TemplateBinding FontFamily}"
+                                                       FontSize="{TemplateBinding FontSize}"
+                                                       FontWeight="{TemplateBinding FontWeight}" />
+                                        </Border>
 
-                                    <Border x:Name="PART_ThirdPickerHost"
-                                            Grid.Column="4"
-                                            HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Stretch">
-                                        <TextBlock x:Name="PART_PeriodTextBlock"
-                                                   Padding="{DynamicResource TimePickerHostPadding}"
+                                        <Rectangle Name="PART_ThirdColumnDivider"
+                                                   Fill="{DynamicResource SukiMediumBorderBrush}"
                                                    HorizontalAlignment="Center"
-                                                   FontFamily="{TemplateBinding FontFamily}"
-                                                   FontSize="{TemplateBinding FontSize}"
-                                                   FontWeight="{TemplateBinding FontWeight}" />
-                                    </Border>
-                                </Grid>
-                            </DockPanel>
-                        </Button>
-</suki:GlassCard>
+                                                   Width="{DynamicResource TimePickerSpacerThemeWidth}"
+                                                   Grid.Column="5" />
+
+                                        <Border x:Name="PART_FourthPickerHost"
+                                                Grid.Column="6"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Stretch">
+                                            <TextBlock x:Name="PART_PeriodTextBlock"
+                                                       Padding="{DynamicResource TimePickerHostPadding}"
+                                                       HorizontalAlignment="Center"
+                                                       FontFamily="{TemplateBinding FontFamily}"
+                                                       FontSize="{TemplateBinding FontSize}"
+                                                       FontWeight="{TemplateBinding FontWeight}" />
+                                        </Border>
+                                    </Grid>
+                                </DockPanel>
+                            </Button>
+                        </suki:GlassCard>
                         <Popup Name="PART_Popup"
                                IsLightDismissEnabled="True"
                                Placement="Bottom"
@@ -171,8 +192,8 @@
     </ControlTheme>
 
     <ControlTheme x:Key="{x:Type TimePickerPresenter}" TargetType="TimePickerPresenter">
-        <Setter Property="Width" Value="242" />
-        <Setter Property="MinWidth" Value="242" />
+        <Setter Property="Width" Value="262" />
+        <Setter Property="MinWidth" Value="262" />
         <Setter Property="MaxHeight" Value="398" />
         <Setter Property="FontWeight" Value="Normal" />
         <Setter Property="CornerRadius" Value="10" />
@@ -262,7 +283,18 @@
                                 <RepeatButton Name="PART_MinuteDownButton" Theme="{StaticResource SimpleDateTimePickerDownButton}" />
                             </Panel>
 
-                            <Panel Name="PART_PeriodHost" Grid.Column="4">
+                            <Panel Name="PART_SecondHost" Grid.Column="4">
+                                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                                    <DateTimePickerPanel Name="PART_SecondSelector"
+                                                         ItemHeight="{DynamicResource TimePickerFlyoutPresenterItemHeight}"
+                                                         PanelType="Second"
+                                                         ShouldLoop="True" />
+                                </ScrollViewer>
+                                <RepeatButton Name="PART_SecondUpButton" Theme="{StaticResource SimpleDateTimePickerUpButton}" />
+                                <RepeatButton Name="PART_SecondDownButton" Theme="{StaticResource SimpleDateTimePickerDownButton}" />
+                            </Panel>
+
+                            <Panel Name="PART_PeriodHost" Grid.Column="6">
                                 <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
                                     <DateTimePickerPanel Name="PART_PeriodSelector"
                                                          ItemHeight="{DynamicResource TimePickerFlyoutPresenterItemHeight}"
@@ -275,7 +307,7 @@
 
                             <Border x:Name="HighlightRect"
                                     Grid.Column="0"
-                                    Grid.ColumnSpan="5"
+                                    Grid.ColumnSpan="7"
                                     Height="{DynamicResource TimePickerFlyoutPresenterHighlightHeight}"
                                     Margin="5,0"
                                     VerticalAlignment="Center"
@@ -297,8 +329,27 @@
                             <Rectangle Name="PART_SecondSpacer"
                                        Grid.Column="3"
                                        Width="{DynamicResource TimePickerSpacerThemeWidth}"
-                                       HorizontalAlignment="Center"
-                                       Fill="{DynamicResource ThemeControlMidHighBrush}" />
+                                       HorizontalAlignment="Center">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush StartPoint="48%,0%" EndPoint="50%,100%">
+                                        <GradientStop Offset="0" Color="Transparent" />
+                                        <GradientStop Offset="0.5" Color="{DynamicResource SukiMediumBorderBrush}" />
+                                        <GradientStop Offset="1" Color="Transparent" />
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Rectangle Name="PART_ThirdSpacer"
+                                       Grid.Column="4"
+                                       Width="{DynamicResource TimePickerSpacerThemeWidth}"
+                                       HorizontalAlignment="Center">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush StartPoint="48%,0%" EndPoint="50%,100%">
+                                        <GradientStop Offset="0" Color="Transparent" />
+                                        <GradientStop Offset="0.5" Color="{DynamicResource SukiMediumBorderBrush}" />
+                                        <GradientStop Offset="1" Color="Transparent" />
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
                         </Grid>
 
                         <Grid Name="AcceptDismissGrid"
@@ -328,18 +379,18 @@
                                                Text="Apply" />
                                 </StackPanel>
                             </Button>
-                              <Button Name="PART_DismissButton"
-                      Grid.Column="1"
-                      Height="{DynamicResource TimePickerFlyoutPresenterAcceptDismissHostGridHeight}"
-                      HorizontalAlignment="Stretch"
-                      VerticalAlignment="Stretch"
-                      FontSize="16"
-                      Theme="{StaticResource SimpleDateTimePickerButton}">
-                <Path Data="M2,2 14,14 M2,14 14 2"
-                      Stroke="{Binding $parent[Button].Foreground}"
-                      StrokeLineCap="Round"
-                      StrokeThickness="0.75" />
-              </Button>
+                            <Button Name="PART_DismissButton"
+                                  Grid.Column="0"
+                                  Height="{DynamicResource TimePickerFlyoutPresenterAcceptDismissHostGridHeight}"
+                                  HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Stretch"
+                                  FontSize="16"
+                                  Theme="{StaticResource SimpleDateTimePickerButton}">
+                                  <PathIcon Width="12"
+                                          Height="12"
+                                          Data="{x:Static icons:Icons.Cross}"
+                                          Foreground="{DynamicResource SukiPrimaryColor}" />
+                          </Button>
                         </Grid>
                     </Grid>
                 </Border>
@@ -351,5 +402,5 @@
                 <Setter Property="IsVisible" Value="True" />
             </Style>
         </Style>
-    </ControlTheme> -->
+    </ControlTheme>
 </ResourceDictionary>
