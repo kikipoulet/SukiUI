@@ -17,7 +17,22 @@
             <Setter Property="Command" Value="{Binding ButtonClickedCommand}" />
             <Setter Property="IsEnabled" Value="{Binding IsEnabled}" />
         </Style>
+        <Style Selector="Button.Icon">
+            <Setter Property="Content">
+                <Template>
+                    <PathIcon Margin="0 3 0 0" 
+                              Data="{StaticResource HeartIcon}"
+                              Foreground="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType=Button}}"/>
+                </Template>
+            </Setter>
+        </Style>
+
     </UserControl.Styles>
+    <UserControl.Resources>
+        <StreamGeometry x:Key="HeartIcon">
+            F1 M19 14C20.49 12.54 22 10.79 22 8.5Q22 8.36498 21.9934 8.23013Q21.9867 8.09527 21.9735 7.96091Q21.9603 7.82654 21.9405 7.69298Q21.9207 7.55943 21.8943 7.427Q21.868 7.29458 21.8352 7.16361Q21.8024 7.03264 21.7632 6.90343Q21.724 6.77423 21.6785 6.64711Q21.633 6.51998 21.5813 6.39524Q21.5297 6.2705 21.4719 6.14845Q21.4142 6.02639 21.3506 5.90732Q21.2869 5.78824 21.2175 5.67243Q21.1481 5.55663 21.0731 5.44436Q20.9981 5.3321 20.9176 5.22365Q20.8372 5.11521 20.7516 5.01084Q20.6659 4.90647 20.5752 4.80643Q20.4846 4.70638 20.3891 4.61091Q20.2936 4.51544 20.1936 4.42477Q20.0935 4.3341 19.9892 4.24844Q19.8848 4.16279 19.7763 4.08236Q19.6679 4.00193 19.5556 3.92692Q19.4434 3.85191 19.3276 3.78249Q19.2118 3.71308 19.0927 3.64943Q18.9736 3.58579 18.8515 3.52806Q18.7295 3.47033 18.6048 3.41866Q18.48 3.36699 18.3529 3.32151Q18.2258 3.27602 18.0966 3.23683Q17.9674 3.19763 17.8364 3.16483Q17.7054 3.13202 17.573 3.10568Q17.4406 3.07934 17.307 3.05953Q17.1735 3.03972 17.0391 3.02648Q16.9047 3.01325 16.7699 3.00663Q16.635 3 16.5 3C14.74 3 13.5 3.5 12 5C10.5 3.5 9.26 3 7.5 3Q7.36498 3 7.23013 3.00662Q7.09527 3.01325 6.96091 3.02648Q6.82654 3.03972 6.69298 3.05953Q6.55943 3.07934 6.427 3.10568Q6.29458 3.13202 6.16361 3.16483Q6.03264 3.19763 5.90343 3.23683Q5.77423 3.27602 5.64711 3.32151Q5.51998 3.36699 5.39524 3.41866Q5.2705 3.47033 5.14845 3.52806Q5.02639 3.58579 4.90732 3.64943Q4.78824 3.71308 4.67243 3.78249Q4.55663 3.85191 4.44436 3.92692Q4.3321 4.00193 4.22365 4.08236Q4.11521 4.16279 4.01084 4.24844Q3.90647 4.3341 3.80643 4.42477Q3.70638 4.51544 3.61091 4.61091Q3.51544 4.70638 3.42477 4.80643Q3.3341 4.90647 3.24844 5.01084Q3.16279 5.11521 3.08236 5.22365Q3.00193 5.3321 2.92692 5.44436Q2.85191 5.55663 2.78249 5.67243Q2.71308 5.78824 2.64943 5.90732Q2.58579 6.02639 2.52806 6.14845Q2.47033 6.2705 2.41866 6.39524Q2.36699 6.51998 2.32151 6.64711Q2.27602 6.77423 2.23683 6.90343Q2.19763 7.03264 2.16483 7.16361Q2.13202 7.29458 2.10568 7.427Q2.07934 7.55943 2.05953 7.69298Q2.03972 7.82654 2.02648 7.96091Q2.01325 8.09527 2.00662 8.23013Q2 8.36498 2 8.5C2 10.8 3.5 12.55 5 14L12 21L19 14Z
+        </StreamGeometry>
+    </UserControl.Resources>
     <Grid RowDefinitions="Auto,*">
         <suki:GlassCard Classes="HeaderCard">
             <suki:GroupBox Header="Buttons">
@@ -125,6 +140,41 @@
                     <suki:GroupBox Header="Large Button">
                         <showMeTheXaml:XamlDisplay UniqueId="Button12">
                             <Button Classes="Flat Large" />
+                        </showMeTheXaml:XamlDisplay>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Standard Icon Button">
+                        <showMeTheXaml:XamlDisplay UniqueId="Button13">
+                            <Button Classes="Icon"/>
+                        </showMeTheXaml:XamlDisplay>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Basic Icon Button">
+                        <showMeTheXaml:XamlDisplay UniqueId="Button14">
+                            <Button Classes="Basic Icon" />
+                        </showMeTheXaml:XamlDisplay>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Flat Icon Button">
+                        <showMeTheXaml:XamlDisplay UniqueId="Button15">
+                            <Button Classes="Flat Icon" />
+                        </showMeTheXaml:XamlDisplay>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Flat Rounded Icon Button">
+                        <showMeTheXaml:XamlDisplay UniqueId="Button16">
+                            <Button Classes="Rounded Flat Icon" />
+                        </showMeTheXaml:XamlDisplay>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Outlined Icon Button">
+                        <showMeTheXaml:XamlDisplay UniqueId="Button17">
+                            <Button Classes="Outlined Icon Void" />
                         </showMeTheXaml:XamlDisplay>
                     </suki:GroupBox>
                 </suki:GlassCard>
