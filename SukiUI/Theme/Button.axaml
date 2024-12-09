@@ -11,6 +11,7 @@
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="FontSize" Value="15" />
+        <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Padding" Value="20,8" />
         <Setter Property="Template">
             <ControlTemplate>
