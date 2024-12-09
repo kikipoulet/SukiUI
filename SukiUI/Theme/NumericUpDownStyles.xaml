@@ -19,6 +19,9 @@
         <Setter Property="Padding" Value="4" />
         <Setter Property="Template">
             <ControlTemplate>
+                <Border   Background="{TemplateBinding Background}"
+                          BorderBrush="{TemplateBinding BorderBrush}"
+                          BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding CornerRadius}">
                 <suki:GlassCard Padding="0"
                                 VerticalAlignment="Center"
                                 Classes="Discrete"
@@ -29,9 +32,7 @@
                                    HorizontalContentAlignment="Stretch"
                                    VerticalContentAlignment="Stretch"
                                    AllowSpin="{TemplateBinding AllowSpin}"
-                                   Background="{TemplateBinding Background}"
-                                   BorderBrush="{TemplateBinding BorderBrush}"
-                                   BorderThickness="{TemplateBinding BorderThickness}"
+                                   BorderThickness="0"
                                    ButtonSpinnerLocation="{TemplateBinding ButtonSpinnerLocation}"
                                    CornerRadius="{TemplateBinding CornerRadius}"
                                    ShowButtonSpinner="{TemplateBinding ShowButtonSpinner}">
@@ -63,6 +64,7 @@
 
                     </ButtonSpinner>
                 </suki:GlassCard>
+                </Border>
             </ControlTemplate>
         </Setter>
     </Style>
