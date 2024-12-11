@@ -12,11 +12,21 @@
                      Background="{DynamicResource SukiBackground}"
                      mc:Ignorable="d">
 
-    <Border Padding="5" Background="{DynamicResource SukiBackground}">
+    <Border Padding="18" Background="{DynamicResource SukiBackground}">
         <ScrollViewer>
             <controls:PropertyGrid Item="{Binding}">
                 <controls:PropertyGrid.DataTemplates>
 
+                    <DataTemplate DataType="controls:CategoryViewModel">
+                        <controls:GlassCard Padding="15,15,15,5" Margin="10">
+                            <Expander   Grid.IsSharedSizeScope="True"
+                                        Header="{Binding DisplayName}"
+                                        IsExpanded="True">
+                                <ItemsControl Margin="7,0,0,20" ItemsSource="{Binding Properties}" />
+                            </Expander>
+                        </controls:GlassCard>
+                    </DataTemplate>
+                    
                     <!--
                         replace the PropertyGridTemplateSelector with your own type or subclass it,
                         if you want to customize the datatemplates being used

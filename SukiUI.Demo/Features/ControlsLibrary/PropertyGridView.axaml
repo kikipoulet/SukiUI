@@ -15,18 +15,10 @@
     </UserControl.Resources>
 
     <WrapPanel Classes="PageContainer" Orientation="Horizontal">
-        <suki:GlassCard Width="500">
-            <ScrollViewer>
-                <DockPanel>
-                    <suki:GlassCard Padding="12" Margin="0,0,0,25"  DockPanel.Dock="Top" HorizontalAlignment="Right">
-                        <StackPanel Orientation="Horizontal" Spacing="12">
-                            <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" FontWeight="DemiBold" Text="Use external dialog window :"></TextBlock>
-                            <ToggleSwitch 
-                                          IsChecked="True"
-                                          IsCheckedChanged="ToggleButton_OnIsCheckedChanged" />
-                        </StackPanel>
-                    </suki:GlassCard>
-                    
+        
+            <suki:GlassCard Width="500">
+                <ScrollViewer>
+               
                     <suki:PropertyGrid Item="{Binding Form}">
                         <suki:PropertyGrid.DataTemplates>
                             <!--
@@ -36,10 +28,24 @@
                             <StaticResource ResourceKey="PropertyGridTemplateSelector" />
                         </suki:PropertyGrid.DataTemplates>
                     </suki:PropertyGrid>
-                </DockPanel>
-            </ScrollViewer>
-        </suki:GlassCard>
+            
+                </ScrollViewer>
+            </suki:GlassCard>
+        
+       
+        <StackPanel Spacing="0">
+            <suki:GlassCard Width="400" Padding="17" Margin="0,15,0,17"  DockPanel.Dock="Top" HorizontalAlignment="Right">
+                <Panel >
+                    <StackPanel Spacing="18" Margin="8,0,0,5" >
+                        <TextBlock VerticalAlignment="Center" FontSize="16" Margin="0,8,0,0" FontWeight="DemiBold" Text="Child Dialog"></TextBlock>
+                        <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Foreground="{DynamicResource SukiLowText}" Text="Show children objects in a SukiUI dialog instead of a new window. Useful for applications running in a window-less environment."></TextBlock>
 
+                    </StackPanel>
+                    <ToggleSwitch HorizontalAlignment="Right" VerticalAlignment="Top"
+                                  IsChecked="True"
+                                  IsCheckedChanged="ToggleButton_OnIsCheckedChanged" />
+                </Panel>
+            </suki:GlassCard>
         <suki:GlassCard Width="400">
             <suki:GroupBox Header="Form Output">
                 <ScrollViewer>
@@ -67,5 +73,6 @@
                 </ScrollViewer>
             </suki:GroupBox>
         </suki:GlassCard>
+            </StackPanel>
     </WrapPanel>
 </UserControl>
