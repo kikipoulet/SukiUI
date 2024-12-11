@@ -141,6 +141,11 @@ public class SukiSideMenu : SelectingItemsControl
     {
         IsMenuExpanded = !IsMenuExpanded;
         
+        UpdateMenuItemsExpansion();
+    }
+
+    private void UpdateMenuItemsExpansion()
+    {
         if(_sideMenuItems.Any())
             foreach (var item in _sideMenuItems)
                 item.IsTopMenuExpanded = IsMenuExpanded;
@@ -163,12 +168,15 @@ public class SukiSideMenu : SelectingItemsControl
         _contentControl = e.NameScope.Get<SukiTransitioningContentControl>("PART_TransitioningContentControl");
         _spacer = e.NameScope.Get<Grid>("PART_Spacer");
         if(_spacer != null) _spacer.IsVisible = IsSpacerVisible;
+        
+       
     }
 
     protected override void OnLoaded(RoutedEventArgs e)
     {
         base.OnLoaded(e);
         SetContentControlContent(SelectedItem);
+        UpdateMenuItemsExpansion();
     }
 
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
