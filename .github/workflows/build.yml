@@ -17,10 +17,10 @@ jobs:
           with:
             fetch-depth: 0
      
-        - name: Install .Net 8
+        - name: Install .NET
           uses: actions/setup-dotnet@v4
           with: 
-            dotnet-version: 8.0.x
+            dotnet-version: 9.0.x
 
         - name: Restore
           run: dotnet restore ${{ env.Project_Path }}
