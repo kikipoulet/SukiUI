@@ -7,9 +7,9 @@ using SukiUI.Controls;
 
 namespace SukiUI.Converters
 {
-    public class ProgressToContentCOnverter : IValueConverter
+    public class ProgressToContentConverter : IValueConverter
     {
-        public static readonly ProgressToContentCOnverter Instance = new ProgressToContentCOnverter();
+        public static readonly ProgressToContentConverter Instance = new ProgressToContentConverter();
         
         
         public object? Convert(object? value, Type targetType, object? parameter, 
