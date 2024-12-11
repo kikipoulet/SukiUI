@@ -1,20 +1,15 @@
-<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=netstandard">
     <Design.PreviewWith>
-        <Border Padding="20">
-            <DataGrid>
-                <DataGrid.Columns>
-
-                    <DataGridTextColumn Binding="{Binding Name}" Header="Name" />
-
-                    <DataGridTemplateColumn Header="Birthday">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <DatePicker BorderThickness="0" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-
-                </DataGrid.Columns>
+        <Border Background="White" Padding="20">
+            <DataGrid GridLinesVisibility="All" CanUserResizeColumns="True" Height="200" AutoGenerateColumns="True">
+               <DataGrid.ItemsSource>
+                   <objectModel:ObservableCollection x:TypeArguments="DataGridCell">
+                       <DataGridCell HorizontalAlignment="Left"></DataGridCell>
+                       <DataGridCell HorizontalAlignment="Left"></DataGridCell>
+                       <DataGridCell HorizontalAlignment="Left"></DataGridCell>
+                   </objectModel:ObservableCollection>
+               </DataGrid.ItemsSource>
             </DataGrid>
         </Border>
     </Design.PreviewWith>
@@ -27,7 +22,7 @@
             <ControlTemplate>
                 <Grid Background="{TemplateBinding Background}" ColumnDefinitions="*,Auto">
                     <ContentPresenter Margin="{TemplateBinding Padding}"
-                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
                                       VerticalAlignment="Center"
                                       Content="{TemplateBinding Content}"
                                       ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -37,7 +32,7 @@
                                Grid.Column="1"
                                HorizontalAlignment="Stretch"
                                VerticalAlignment="Stretch"
-                               Stroke="WhiteSmoke"
+                               Stroke="{DynamicResource SukiBorderBrush}" 
                                StrokeThickness="1" />
                 </Grid>
             </ControlTemplate>
@@ -81,8 +76,8 @@
                                               ContentTemplate="{TemplateBinding ContentTemplate}" />
                             <Path Name="SortIcon"
                                   Grid.Column="1"
-                                  Width="8"
-                                  Margin="4,0,0,0"
+                                  Width="10"
+                                  Margin="8,0,8,0"
                                   HorizontalAlignment="Left"
                                   VerticalAlignment="Center"
                                   Data="F1 M -5.215,6.099L 5.215,6.099L 0,0L -5.215,6.099 Z "
@@ -101,7 +96,7 @@
     </Style>
 
     <Style Selector="DataGrid[CanUserResizeColumns=True] DataGridColumnHeader:not(#PART_TopRightCornerHeader) /template/ Border#PART_Border">
-        <Setter Property="BorderThickness" Value="0,0,1,1.5" />
+        <Setter Property="BorderThickness" Value="0,0,0,1.5" />
     </Style>
 
     <Style Selector="DataGridColumnHeader:dragIndicator">
@@ -154,8 +149,8 @@
                                        DataGridFrozenGrid.IsFrozen="True" />
                     <DataGridCellsPresenter Name="PART_CellsPresenter"
                                             Grid.Row="0"
-                                            Grid.Column="1"
-                                            Margin="6"
+                                            Grid.Column="1" 
+                                            Margin="6,0"
                                             DataGridFrozenGrid.IsFrozen="True" />
                     <DataGridDetailsPresenter Name="PART_DetailsPresenter"
                                               Grid.Row="1"
@@ -300,8 +295,8 @@
         <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
         <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="SelectionMode" Value="Extended" />
-        <Setter Property="HorizontalGridLinesBrush" Value="WhiteSmoke" />
-        <Setter Property="VerticalGridLinesBrush" Value="WhiteSmoke" />
+        <Setter Property="HorizontalGridLinesBrush" Value="Transparent" />
+        <Setter Property="VerticalGridLinesBrush" Value="{DynamicResource SukiBorderBrush}" />
         <Setter Property="BorderBrush" Value="Gray" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="DropLocationIndicatorTemplate">
