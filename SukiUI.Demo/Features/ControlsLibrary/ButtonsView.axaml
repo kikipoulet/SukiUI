@@ -2,6 +2,7 @@
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             xmlns:content="using:SukiUI.Content"
              xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -16,6 +17,14 @@
             <Setter Property="suki:ButtonExtensions.ShowProgress" Value="{Binding IsBusy}" />
             <Setter Property="Command" Value="{Binding ButtonClickedCommand}" />
             <Setter Property="IsEnabled" Value="{Binding IsEnabled}" />
+        </Style>
+        <Style Selector="Button.Icon">
+            <Setter Property="Content">
+                <Template>
+                    <PathIcon Data="{x:Static content:Icons.Star}"
+                              Foreground="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType=Button}}"/>
+                </Template>
+            </Setter>
         </Style>
     </UserControl.Styles>
     <Grid RowDefinitions="Auto,*">
@@ -125,6 +134,55 @@
                     <suki:GroupBox Header="Large Button">
                         <showMeTheXaml:XamlDisplay UniqueId="Button12">
                             <Button Classes="Flat Large" />
+                        </showMeTheXaml:XamlDisplay>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Standard Icon Button">
+                        <showMeTheXaml:XamlDisplay UniqueId="Button13">
+                            <Button Classes="Icon"/>
+                        </showMeTheXaml:XamlDisplay>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Basic Icon Button">
+                        <showMeTheXaml:XamlDisplay UniqueId="Button14">
+                            <Button Classes="Basic Icon" />
+                        </showMeTheXaml:XamlDisplay>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Flat Icon Button">
+                        <showMeTheXaml:XamlDisplay UniqueId="Button15">
+                            <Button Classes="Flat Icon" />
+                        </showMeTheXaml:XamlDisplay>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Outlined Icon Button">
+                        <showMeTheXaml:XamlDisplay UniqueId="Button16">
+                            <Button Classes="Outlined Icon" />
+                        </showMeTheXaml:XamlDisplay>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Basic Accent Icon Button">
+                        <showMeTheXaml:XamlDisplay UniqueId="Button17">
+                            <Button Classes="Basic Accent Icon" />
+                        </showMeTheXaml:XamlDisplay>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Flat Accent Icon Button">
+                        <showMeTheXaml:XamlDisplay UniqueId="Button18">
+                            <Button Classes="Flat Accent Icon" />
+                        </showMeTheXaml:XamlDisplay>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Outlined Accent Icon Button">
+                        <showMeTheXaml:XamlDisplay UniqueId="Button19">
+                            <Button Classes="Outlined Accent Icon" />
                         </showMeTheXaml:XamlDisplay>
                     </suki:GroupBox>
                 </suki:GlassCard>
