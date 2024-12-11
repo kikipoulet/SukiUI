@@ -37,7 +37,7 @@
                                 </Transitions>
                             </Viewbox.Transitions>
                        
-                           <ContentPresenter Content="{TemplateBinding theme:ButtonExtensions.ShowProgress, Converter={x:Static suki:ProgressToContentCOnverter.Instance}}"></ContentPresenter>
+                           <ContentPresenter Content="{TemplateBinding theme:ButtonExtensions.ShowProgress, Converter={x:Static suki:ProgressToContentConverter.Instance}}"/>
                           
                         </Viewbox>
                         <ContentPresenter HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -290,7 +290,7 @@
         <Style Selector="^.Flat">
             <Setter Property="Padding" Value="20,8,20,8" />
             <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor75}" />
             <Setter Property="Foreground" Value="White" />
             <Setter Property="Transitions">
                 <Transitions>

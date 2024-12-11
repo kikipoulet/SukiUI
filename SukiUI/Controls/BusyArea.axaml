@@ -62,7 +62,7 @@
                             
                             <ContentPresenter HorizontalAlignment="Center"
                                               VerticalAlignment="Center"
-                                              IsHitTestVisible="False" Content="{TemplateBinding IsBusy, Converter={x:Static converters:ProgressToContentCOnverter.Instance}}"></ContentPresenter>
+                                              IsHitTestVisible="False" Content="{TemplateBinding IsBusy, Converter={x:Static converters:ProgressToContentConverter.Instance}}"></ContentPresenter>
 
                             
                         </DockPanel>
