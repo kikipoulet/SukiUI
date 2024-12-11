@@ -395,6 +395,7 @@
                     <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
                 </Style>
                 <Style Selector="^:pointerover">
+                    <Setter Property="Foreground" Value="White" />
                     <Setter Property="Background" Value="{DynamicResource SukiAccentColor}" />
                     <Style Selector="^ /template/ ContentPresenter">
                         <Setter Property="Foreground" Value="White" />
