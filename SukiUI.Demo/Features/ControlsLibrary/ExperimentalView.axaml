@@ -24,7 +24,7 @@
                 <StackPanel Spacing="5" Orientation="Horizontal">
                 <suki:GlassCard Margin="25" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <suki:GroupBox Header="ChatView">
-                        <experimental:ChatUI Messages="{Binding Messages}"  FriendImageSource="/Assets/cat-modified.png" UserImageSource="/Assets/OIG.N5o-removebg-preview.png" Height="450" Width="600" />
+                        <experimental:ChatUI Margin="0,15,0,0" Messages="{Binding Messages}"  FriendImageSource="/Assets/cat-modified.png" UserImageSource="/Assets/OIG.N5o-removebg-preview.png" Height="450" Width="600" />
                     </suki:GroupBox>
                 </suki:GlassCard>
                     
