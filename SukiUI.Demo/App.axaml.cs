@@ -89,6 +89,7 @@ public class App : Application
             .AddView<StackPageView, StackPageViewModel>(services)
             .AddView<DialogsView, DialogsViewModel>(services)
             .AddView<ColorsView, ColorsViewModel>(services)
+            .AddView<ExperimentalView, ExperimentalViewModel>(services)
 
             // Add additional views
             .AddView<DialogView, DialogViewModel>(services)

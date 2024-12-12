@@ -41,6 +41,9 @@
   <ItemGroup>
     <None Remove="Assets\OIG.N5o-removebg-preview.png" />
     <AvaloniaResource Include="Assets\OIG.N5o-removebg-preview.png" />
+    <None Remove="Assets\cat.jpeg" />
+    <None Remove="Assets\cat-modified.png" />
+    <AvaloniaResource Include="Assets\cat-modified.png" />
   </ItemGroup>
 
   <ItemGroup>
