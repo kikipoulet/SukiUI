@@ -290,7 +290,7 @@
         <Style Selector="^.Flat">
             <Setter Property="Padding" Value="20,8,20,8" />
             <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor75}" />
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
             <Setter Property="Foreground" Value="White" />
             <Setter Property="Transitions">
                 <Transitions>
@@ -313,10 +313,10 @@
             </Style>
             <!--  Events  -->
             <Style Selector="^:pointerover">
-                <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
+                <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor75}" />
             </Style>
             <Style Selector="^:pressed /template/ Border">
-                <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
+                <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor75}" />
             </Style>
           
             <!--  Color Variants  -->
