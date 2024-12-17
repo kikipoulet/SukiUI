@@ -1,0 +1,99 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:desktopEnvironment="clr-namespace:SukiUI.Controls.Experimental.DesktopEnvironment"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="SukiUI.Controls.Experimental.DesktopEnvironment.SukiDesktopEnvironment">
+    <UserControl.Styles>
+        <Style Selector="desktopEnvironment|SukiDesktopEnvironment">
+            <Setter Property="Template">
+                <ControlTemplate>
+
+    <Panel>
+      <Image  Source="{TemplateBinding DesktopBackgroundImageSource}" Stretch="UniformToFill" >
+         
+      </Image>
+      
+      <Panel>
+          <Border BorderThickness="1" BorderBrush="#55888888" BoxShadow="{DynamicResource SukiBigPopupShadow}"   VerticalAlignment="Bottom" Margin="-2"  Height="56" >
+                  <Border ClipToBounds="True">
+                      <Panel>
+                       <suki:SukiBackground Style="GradientSoft" Margin="-150"/>
+                      </Panel>
+                  </Border>
+          </Border>
+          <StackPanel Margin="15,0,0,0" Height="50" Spacing="12" VerticalAlignment="Bottom" HorizontalAlignment="Left" Orientation="Horizontal">
+              <Image PointerPressed="InputElement_OnPointerPressed" Source="{TemplateBinding HomeImageSource}" VerticalAlignment="Center" Height="24" Width="24" >
+                  <FlyoutBase.AttachedFlyout>
+                      <Flyout ShowMode="TransientWithDismissOnPointerMoveAway" Placement="TopEdgeAlignedLeft">
+                          <Panel Margin="-25,2" MinHeight="350" MinWidth="500" MaxHeight="700" MaxWidth="1000">
+                              <Border Margin="25" CornerRadius="13" BoxShadow="{DynamicResource SukiPopupShadow}"></Border>
+                              <Border  Margin="25"
+                                       ClipToBounds="True"
+                                       CornerRadius="13">
+                                  <Panel>
+                                      <suki:SukiBackground Style="GradientSoft" Margin="-150"/>
+                                      <DockPanel  Margin="5">
+                                          <TextBlock DockPanel.Dock="Top" FontWeight="DemiBold" Foreground="{DynamicResource SukiLowText}" Margin="20" Text="Applications"></TextBlock>
+                                          <ScrollViewer VerticalAlignment="Top" HorizontalAlignment="Left">
+                                              <ItemsControl VerticalAlignment="Top" HorizontalAlignment="Left" ItemsSource="{TemplateBinding Softwares}">
+                                                  <ItemsControl.ItemTemplate>
+                                                      <DataTemplate x:DataType="desktopEnvironment:SDESoftware">
+                                                          <Button HorizontalAlignment="Left" Tag="{Binding }" Classes="Basic" Click="open">
+                                                              <StackPanel Spacing="12" HorizontalAlignment="Left" Orientation="Horizontal">
+                                                              <Image Source="{Binding Icon}" VerticalAlignment="Center" Height="48" Width="48" ></Image>
+                                                                  <TextBlock Foreground="{DynamicResource SukiText}" VerticalAlignment="Center" Text="{Binding Name}" FontSize="15" FontWeight="DemiBold"></TextBlock>
+                                                              </StackPanel>
+                                                          </Button>
+                                                      </DataTemplate>
+                                                  </ItemsControl.ItemTemplate>
+                                                  <ItemsControl.ItemsPanel>
+                                                      <ItemsPanelTemplate>
+                                                          <StackPanel Margin="20,0" Spacing="10" Orientation="Vertical"/>
+                                                      </ItemsPanelTemplate>
+                                                  </ItemsControl.ItemsPanel>
+                                              </ItemsControl>
+                                          </ScrollViewer>
+                                      </DockPanel>
+                                  </Panel>
+                              </Border>
+                          </Panel>
+                      </Flyout>
+                  </FlyoutBase.AttachedFlyout>
+              </Image>
+              
+              <TextBox Width="180" CornerRadius="50" Height="24" VerticalAlignment="Center" Watermark="Search"></TextBox>
+              
+              <ItemsControl  ItemsSource="{TemplateBinding Softwares}">
+                  <ItemsControl.ItemTemplate>
+                      <DataTemplate x:DataType="desktopEnvironment:SDESoftware">
+                          <Button Tag="{Binding }" Classes="Basic" Click="open">
+                              <StackPanel>
+                              <Image Source="{Binding Icon}" VerticalAlignment="Center" Height="24" Width="24" ></Image>
+                                  <Border Margin="0,2,0,-7" Background="{DynamicResource SukiPrimaryColor}" CornerRadius="10" Height="5" Width="5" IsVisible="{Binding Instance, Converter={x:Static ObjectConverters.IsNotNull}}"></Border>
+                              </StackPanel>
+                          </Button>
+                      </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                  <ItemsControl.ItemsPanel>
+                      <ItemsPanelTemplate>
+                          <StackPanel Orientation="Horizontal"/>
+                      </ItemsPanelTemplate>
+                  </ItemsControl.ItemsPanel>
+              </ItemsControl>
+              
+          </StackPanel>
+          
+          <desktopEnvironment:WindowManager Margin="0,0,0,50" Name="WM"/>
+          
+          
+      </Panel>
+      
+  </Panel>
+                    </ControlTemplate>
+                </Setter>
+            </Style>
+        </UserControl.Styles>
+</UserControl>

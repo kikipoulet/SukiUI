@@ -44,6 +44,26 @@
     <None Remove="Assets\cat.jpeg" />
     <None Remove="Assets\cat-modified.png" />
     <AvaloniaResource Include="Assets\cat-modified.png" />
+    <None Remove="Assets\desktopbackground.jpg" />
+    <AvaloniaResource Include="Assets\desktopbackground.jpg" />
+    <None Remove="Assets\Icons\icons8-note-48 (1).png" />
+    <None Remove="Assets\Icons\mail.png" />
+    <AvaloniaResource Include="Assets\Icons\mail.png" />
+    <None Remove="Assets\Icons\notes.png" />
+    <AvaloniaResource Include="Assets\Icons\notes.png" />
+    <None Remove="Assets\Icons\Mail\icons8-trash-96.png" />
+    <AvaloniaResource Include="Assets\Icons\Mail\icons8-trash-96.png" />
+    <None Remove="Assets\Icons\Mail\icons8-mailbox-96.png" />
+    <AvaloniaResource Include="Assets\Icons\Mail\icons8-mailbox-96.png" />
+    <None Remove="Assets\Icons\Mail\icons8-folder-96.png" />
+    <AvaloniaResource Include="Assets\Icons\Mail\icons8-folder-96.png" />
+    <None Remove="Assets\Icons\Mail\icons8-draft-96.png" />
+    <AvaloniaResource Include="Assets\Icons\Mail\icons8-draft-96.png" />
+    <None Remove="Assets\Icons\Mail\icons8-user-male-96.png" />
+    <AvaloniaResource Include="Assets\Icons\Mail\icons8-user-male-96.png" />
+    <None Remove="Assets\Icons\Mail\icons8-female-user-96.png" />
+    <AvaloniaResource Include="Assets\Icons\Mail\icons8-female-user-96.png" />
+
   </ItemGroup>
 
   <ItemGroup>
@@ -58,6 +78,13 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Features\Effects\shaderart.sksl" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Features\ControlsLibrary\ExperimentalControls\ExperimentalView.axaml.cs">
+      <DependentUpon>ExperimentalView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>
