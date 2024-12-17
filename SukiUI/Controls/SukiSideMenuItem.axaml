@@ -64,7 +64,7 @@
                                 <TextBlock Name="PART_Header"
                                            Margin="15,0"
                                            VerticalAlignment="Center"
-                                           FontSize="14"
+                                           FontSize="{TemplateBinding FontSize}"
                                            IsVisible="{Binding IsMenuExpanded, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type suki:SukiSideMenu}}}"
                                            Text="{TemplateBinding Header}" />
                             </Viewbox>
