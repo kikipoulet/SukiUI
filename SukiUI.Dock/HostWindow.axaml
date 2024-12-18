@@ -10,7 +10,6 @@
 
   <ControlTheme x:Key="{x:Type HostWindow}" TargetType="HostWindow">
 
-    <Setter Property="Background" Value="Transparent" />
     <Setter Property="(TextElement.FontSize)" Value="{DynamicResource DockFontSizeNormal}" />
     <!-- <Setter Property="FontFamily" Value="{TemplateBinding FontFamily}" /> -->
     <Setter Property="TextBlock.Foreground" Value="{DynamicResource DockThemeForegroundBrush}" />
@@ -18,8 +17,6 @@
     <Setter Property="UseLayoutRounding" Value="True" />
     <Setter Property="Title" Value="{Binding ActiveDockable.Title}" />
     <Setter Property="Topmost" Value="{Binding Window.Topmost}" x:DataType="controls:IRootDock" />
-    <Setter Property="SystemDecorations" Value="None" />
-   <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
     <Setter Property="ExtendClientAreaChromeHints" Value="NoChrome"/>
 <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="-1"></Setter>
     <Setter Property="Template">

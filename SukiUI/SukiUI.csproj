@@ -83,6 +83,10 @@
     <Compile Update="Controls\SukiDialog.cs">
       <DependentUpon>SukiDialog.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Controls\Experimental\ChatUI\ChatUI.axaml.cs">
+      <DependentUpon>ChatUI.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

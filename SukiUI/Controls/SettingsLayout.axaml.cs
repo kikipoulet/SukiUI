@@ -25,6 +25,14 @@ public class SettingsLayoutItem
 
 public partial class SettingsLayout : UserControl
 {
+    public static readonly DirectProperty<SettingsLayout, double> MinWidthWhetherStackShowProperty =
+        AvaloniaProperty.RegisterDirect<SettingsLayout, double>(
+            nameof(MinWidthWhetherStackSummaryShow), o => o.MinWidthWhetherStackSummaryShow,
+            (o, v) => o.MinWidthWhetherStackSummaryShow = v, 1100);
+
+    public static readonly StyledProperty<double> StackSummaryWidthProperty =
+        AvaloniaProperty.Register<SettingsLayout, double>(nameof(StackSummaryWidth), 400);
+
     public SettingsLayout()
     {
         InitializeComponent();
@@ -43,6 +51,42 @@ public partial class SettingsLayout : UserControl
     private void InitializeComponent()
     {
         AvaloniaXamlLoader.Load(this);
+    }
+
+    private double _minWidthWhetherStackSummaryShow = 1100;
+
+    /// <summary>
+    /// Get or set a value that represents the minimum width for displaying the StackSummary in the SettingsLayout. 
+    /// If the width of the SettingsLayout is less than this value, the StackSummary will not be displayed.
+    /// The default value is 1100, and the minimum configurable value is 1.
+    /// </summary>
+    public double MinWidthWhetherStackSummaryShow
+    {
+        get=> _minWidthWhetherStackSummaryShow;
+        set
+        {
+            if (value < 1)
+            {
+                return;
+            }
+            SetAndRaise(MinWidthWhetherStackShowProperty, ref _minWidthWhetherStackSummaryShow, value);
+        }
+    }
+
+    /// <summary>
+    /// Get or set the width of the StackSummary. The default value is 400, and the minimum configurable value is 0.
+    /// </summary>
+    public double StackSummaryWidth
+    {
+        get => GetValue(StackSummaryWidthProperty);
+        set
+        {
+            if (value < 0)
+            {
+                return;
+            }
+            SetValue(StackSummaryWidthProperty, value);
+        }
     }
 
     private ObservableCollection<SettingsLayoutItem> _items;
@@ -138,14 +182,14 @@ public partial class SettingsLayout : UserControl
     private async void DockPanel_SizeChanged(object sender, SizeChangedEventArgs e)
     {
         var stack = this.GetTemplateChildren().First(n => n.Name == "StackSummary");
-        var desiredSize = e.NewSize.Width > 1100 ? 400 : 0;
+        var desiredSize = e.NewSize.Width > MinWidthWhetherStackSummaryShow ? StackSummaryWidth : 0;
 
         if (LastDesiredSize == desiredSize)
             return;
 
         LastDesiredSize = desiredSize;
 
-        if (stack.Width != desiredSize && (stack.Width == 0 || stack.Width == 400))
+        if (stack.Width != desiredSize && (stack.Width == 0 || stack.Width == StackSummaryWidth))
             stack.Animate<double>(WidthProperty, stack.Width, desiredSize, TimeSpan.FromMilliseconds(800));
     }
 

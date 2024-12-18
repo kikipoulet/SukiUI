@@ -1,0 +1,52 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="SukiUI.Demo.Features.ControlsLibrary.ExperimentalControls.Apps.Notes">
+    <suki:SukiSideMenu >
+        <suki:SukiSideMenu.Items>
+            <suki:SukiSideMenuItem Header="First Note"  >
+                <suki:SukiSideMenuItem.Icon>
+                    <Image Source="/Assets/Icons/notes.png" Height="24" Width="24"></Image>
+                </suki:SukiSideMenuItem.Icon>
+                <suki:SukiSideMenuItem.PageContent>
+                    <DockPanel>
+                        <DockPanel.Resources>
+                            <system:Double x:Key="GlassOpacity">0.05</system:Double>
+                        </DockPanel.Resources>
+                        <suki:GlassCard Margin="-1,0,-1,-1" Padding="3" DockPanel.Dock="Bottom" CornerRadius="0">
+                            <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="12" Margin="15,2" Text="Ln 1, Col 4"></TextBlock>
+                        </suki:GlassCard>
+                        <suki:GlassCard Padding="5" Margin="-1" CornerRadius="0">
+                            <DockPanel>
+                                <TextBlock Margin="15" FontSize="22" FontWeight="Bold" Text="My First Note" DockPanel.Dock="Top"></TextBlock>
+                                <TextBox VerticalContentAlignment="Top" Text="Hello world !" Classes="NoShadow"></TextBox>
+                            </DockPanel>
+                             </suki:GlassCard>
+                        
+                    </DockPanel>
+                </suki:SukiSideMenuItem.PageContent>
+            </suki:SukiSideMenuItem>
+
+            <!-- Other Pages -->
+
+        </suki:SukiSideMenu.Items>
+
+
+        <suki:SukiSideMenu.HeaderContent>
+            <StackPanel>
+            <Image Source="/Assets/OIG.N5o-removebg-preview.png" Height="96" Margin="15,15,15,8"></Image>
+                <TextBlock Margin="0,0,0,20" HorizontalAlignment="Center" FontSize="16" FontWeight="DemiBold" Text="Suki Notes"></TextBlock>
+            </StackPanel>
+        </suki:SukiSideMenu.HeaderContent>
+
+        <suki:SukiSideMenu.FooterContent>
+            <Button Margin="15,2" Classes="Flat">
+                <TextBlock FontWeight="Bold" Text="New Note"></TextBlock>
+            </Button>
+        </suki:SukiSideMenu.FooterContent>
+    </suki:SukiSideMenu>
+</UserControl>

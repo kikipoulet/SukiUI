@@ -1,0 +1,96 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             xmlns:glassMorphism="clr-namespace:SukiUI.Controls.GlassMorphism"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="SukiUI.Controls.Experimental.DesktopEnvironment.InternalWindow">
+      <Panel Width="1000" Height="600"  Name="WindowBorder">
+       
+        <Border Margin="15" CornerRadius="10" BoxShadow="{DynamicResource SukiPopupShadow}"></Border>
+        <Border  Margin="15"
+                 ClipToBounds="True"
+                 CornerRadius="10">
+          <Panel>
+             
+            <suki:SukiBackground  Style="GradientSoft" Margin="-150"/>
+             
+      
+             
+              <VisualLayerManager Name="PART_VisualLayerManager" IsHitTestVisible="True">
+                        
+                        <Panel x:Name="PART_Root">
+                        
+                            <DockPanel LastChildFill="True">
+                                <Panel DockPanel.Dock="Top">
+                                    
+                                    <StackPanel>
+                                        <LayoutTransformControl Name="PART_LayoutTransform" RenderTransformOrigin="0%,0%">
+                                            <Panel>
+                                                <suki:GlassCard Name="PART_TitleBarBackground"
+                                                                BorderThickness="0"
+                                                                CornerRadius="0"
+                                                                IsAnimated="False" />
+                                                <DockPanel Margin="12,9" LastChildFill="True">
+                                                    <StackPanel VerticalAlignment="Center"
+                                                                DockPanel.Dock="Right"
+                                                                FlowDirection="RightToLeft"
+                                                                Orientation="Horizontal"
+                                                                Spacing="7">
+                                                        <StackPanel.Styles>
+                                                            <Style Selector="PathIcon">
+                                                                <Setter Property="Height" Value="10" />
+                                                                <Setter Property="Width" Value="10" />
+                                                            </Style>
+                                                        </StackPanel.Styles>
+                                                        <Button Name="PART_CloseButton" Click="CloseButton_OnClick" Classes="Basic Rounded WindowControlsButton Close">
+                                                            <PathIcon Data="{x:Static suki:Icons.WindowClose}" />
+                                                        </Button>
+                                                        <Button Name="PART_MaximizeButton" Click="PART_MaximizeButton_OnClick"
+                                                                Classes="Basic Rounded WindowControlsButton"
+                                                                >
+                                                            <PathIcon x:Name="MaximizeIcon" Data="{x:Static suki:Icons.WindowMaximize}" />
+                                                        </Button>
+                                                        <Button Name="PART_MinimizeButton" Click="PART_MinimizeButton_OnClick"
+                                                                VerticalContentAlignment="Bottom"
+                                                                Classes="Basic Rounded WindowControlsButton"
+                                                                >
+                                                            <PathIcon Margin="0,0,0,4"
+                                                                      VerticalAlignment="Bottom"
+                                                                      Data="{x:Static suki:Icons.WindowMinimize}" />
+                                                        </Button>
+                                                      
+                                                    </StackPanel>
+                                                    <StackPanel VerticalAlignment="Center"
+                                                                IsHitTestVisible="False"
+                                                                Orientation="Horizontal"
+                                                                Spacing="10">
+                                                        <Image HorizontalAlignment="Left"
+                                                                      
+                                                                          IsHitTestVisible="False" />
+                                                        <TextBlock VerticalAlignment="Center"
+                                                                   FontSize="14" Foreground="{DynamicResource SukiText}"
+                                                                   FontWeight="DemiBold"
+                                                                   IsHitTestVisible="False"
+                                                                   Name="TBTitle" />
+                                                    </StackPanel>
+                                                </DockPanel>
+                                            </Panel>
+                                        </LayoutTransformControl>
+                                     
+                                        
+                                    </StackPanel>
+                                </Panel>
+                                <ContentControl Name="WindowContent"
+                                                Margin="0"/>
+                            </DockPanel>
+                        </Panel>
+                    </VisualLayerManager>
+          </Panel>
+                </Border>
+        <Border Background="Transparent"  PointerReleased="resizereleased" Cursor="SizeWestEast"  PointerMoved="rezisebordermove" PointerPressed="resizeborder" HorizontalAlignment="Right" Width="10" Margin="5"></Border>
+        <Border Background="Transparent" PointerReleased="resizereleased" Cursor="SizeNorthSouth"  PointerMoved="rezisebordermoveNS" PointerPressed="resizeborder" VerticalAlignment="Bottom" Height="10" Margin="5"></Border>
+
+    </Panel>
+</UserControl>

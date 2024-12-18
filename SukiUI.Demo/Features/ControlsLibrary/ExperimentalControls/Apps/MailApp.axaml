@@ -1,0 +1,136 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="650"
+             x:Class="SukiUI.Demo.Features.ControlsLibrary.ExperimentalControls.Apps.MailApp">
+        <suki:SukiSideMenu >
+        <suki:SukiSideMenu.Items>
+            <suki:SukiSideMenuItem Classes="Compact" Header="Inbox"  >
+                <suki:SukiSideMenuItem.Icon>
+                    <Image Source="/Assets/Icons/Mail/icons8-mailbox-96.png" Height="24" Width="24"></Image>
+                </suki:SukiSideMenuItem.Icon>
+                <suki:SukiSideMenuItem.PageContent>
+                   
+                    
+                    
+                    <DockPanel>
+                        <StackPanel HorizontalAlignment="Left" DockPanel.Dock="Left" Width="370">
+                            <Panel>
+                                <TextBlock HorizontalAlignment="Left" Margin="20" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Text="Inbox"></TextBlock>
+                                <CheckBox Margin="0,0,20,0" IsChecked="True" HorizontalAlignment="Right" VerticalAlignment="Center" Content="Unread"></CheckBox>
+                            </Panel>
+                            <TextBox Margin="10,-7" Watermark="Search" CornerRadius="50"></TextBox>
+                            <Border Height="20"></Border>
+                            <suki:GlassCard Padding="13" Margin="17,6" CornerRadius="12">
+                                <Panel>
+                                    <TextBlock Margin="0,6,6,0" FontSize="12" Foreground="{DynamicResource SukiLowText}" HorizontalAlignment="Right" VerticalAlignment="Top" Text="1 year ago"></TextBlock>
+                                    <DockPanel>
+                                        <Image VerticalAlignment="Top" DockPanel.Dock="Left" Margin="0,1,10,10" Source="/Assets/Icons/Mail/icons8-user-male-96.png" Height="24" Width="24"></Image>
+                                        <StackPanel Margin="0,5,0,0">
+                                            <TextBlock FontSize="15" FontWeight="DemiBold" Text="William Smith"></TextBlock>
+                                            <TextBlock Margin="0,3" Foreground="{DynamicResource SukiLowText}" FontSize="13" FontWeight="DemiBold" Text="Meeting Tomorrow"></TextBlock>
+                                            <TextBlock TextWrapping="Wrap" MaxHeight="35" Margin="0,3" Foreground="{DynamicResource SukiLowText}" FontSize="12" Text="Hi, let's have a meeting tomorrow to discuss the project. I've been reviewing the project details and have some ideas I'd like to share. It's crucial that we align on our next steps to ensure the project's success."></TextBlock>
+                                        </StackPanel>
+                                    </DockPanel>
+                                </Panel>
+                            </suki:GlassCard>
+                            <suki:GlassCard Padding="13" Margin="17,6" CornerRadius="12">
+                                <Panel>
+                                    <TextBlock Margin="0,6,6,0" FontSize="12" Foreground="{DynamicResource SukiLowText}" HorizontalAlignment="Right" VerticalAlignment="Top" Text="1 year ago"></TextBlock>
+                                    <DockPanel>
+                                        <Image VerticalAlignment="Top" DockPanel.Dock="Left" Margin="0,1,10,10" Source="/Assets/Icons/Mail/icons8-female-user-96.png" Height="24" Width="24"></Image>
+                                        <StackPanel Margin="0,5,0,0">
+                                            <TextBlock FontSize="15" FontWeight="DemiBold" Text="Alice Smith"></TextBlock>
+                                            <TextBlock Margin="0,3" Foreground="{DynamicResource SukiLowText}" FontSize="13" FontWeight="DemiBold" Text="Re: Project Update"></TextBlock>
+                                            <TextBlock TextWrapping="Wrap" MaxHeight="35" Margin="0,3" Foreground="{DynamicResource SukiLowText}" FontSize="12" Text="Hi, let's have a meeting tomorrow to discuss the project. I've been reviewing the project details and have some ideas I'd like to share. It's crucial that we align on our next steps to ensure the project's success."></TextBlock>
+                                        </StackPanel>
+                                    </DockPanel>
+                                </Panel>
+                            </suki:GlassCard>
+                        </StackPanel>
+                        <suki:GlassCard CornerRadius="0">
+                            <Panel>
+                                <TextBlock Margin="0,10,6,0" FontSize="13" Foreground="{DynamicResource SukiLowText}" HorizontalAlignment="Right" VerticalAlignment="Top" Text="1 year ago"></TextBlock>
+<StackPanel>
+                                <DockPanel>
+                                    <Image VerticalAlignment="Top" DockPanel.Dock="Left" Margin="0,1,10,10" Source="/Assets/Icons/Mail/icons8-user-male-96.png" Height="48" Width="48"></Image>
+                                    <StackPanel Margin="7,7,0,0">
+                                        <TextBlock FontSize="16" FontWeight="DemiBold" Text="William Smith"></TextBlock>
+                                        <TextBlock Margin="0,3" Foreground="{DynamicResource SukiLowText}" FontSize="13" FontWeight="DemiBold" Text="Meeting Tomorrow"></TextBlock>
+                                        </StackPanel>
+                                </DockPanel>
+    <Border Height="1" Background="{DynamicResource SukiBorderBrush}" Margin="0,15"></Border>
+    <TextBlock TextWrapping="Wrap"  Margin="0,3" Foreground="{DynamicResource SukiLowText}" FontSize="13" >
+        Hi, let's have a meeting tomorrow to discuss the project. I've been reviewing the project details and have some ideas I'd like to share. It's crucial that we align on our next steps to ensure the project's success.<LineBreak/><LineBreak/>
+
+        Please come prepared with any questions or insights you may have. Looking forward to our meeting!<LineBreak/><LineBreak/>
+
+        Best regards, William
+    </TextBlock>
+
+</StackPanel>
+                                <StackPanel Margin="-8,0" VerticalAlignment="Bottom">
+                                    <TextBox Padding="8,15" VerticalContentAlignment="Top" Watermark="Reply William Smith .." MinHeight="80"></TextBox>
+                                    <Panel Margin="0,7,0,0">
+                                        <StackPanel Orientation="Horizontal" Spacing="-3">
+                                            <ToggleSwitch Margin="-5,0,0,0"><ToggleSwitch.RenderTransform>
+                                                <ScaleTransform ScaleX="0.8" ScaleY="0.8"></ScaleTransform>
+                                            </ToggleSwitch.RenderTransform></ToggleSwitch>
+                                            <TextBlock Foreground="{DynamicResource SukiLowText}" FontSize="12" VerticalAlignment="Center" Text="Mute this thread"></TextBlock>
+                                        </StackPanel>
+                                        <Button  Classes="Flat" HorizontalAlignment="Right" Margin="5" Content="Send"></Button>
+                                    </Panel>
+                                </StackPanel>
+                            </Panel>
+                        </suki:GlassCard>
+                    </DockPanel>
+                    
+                    
+                    
+                </suki:SukiSideMenuItem.PageContent>
+            </suki:SukiSideMenuItem>
+            <suki:SukiSideMenuItem Classes="Compact" Header="Drafts"  >
+                <suki:SukiSideMenuItem.Icon>
+                    <Image Source="/Assets/Icons/Mail/icons8-draft-96.png" Height="24" Width="24"></Image>
+                </suki:SukiSideMenuItem.Icon>
+                <suki:SukiSideMenuItem.PageContent>
+                    <Panel></Panel>
+                </suki:SukiSideMenuItem.PageContent>
+            </suki:SukiSideMenuItem>
+            <suki:SukiSideMenuItem Classes="Compact" Header="Trash"  >
+                <suki:SukiSideMenuItem.Icon>
+                    <Image Source="/Assets/Icons/Mail/icons8-trash-96.png" Height="24" Width="24"></Image>
+                </suki:SukiSideMenuItem.Icon>
+                <suki:SukiSideMenuItem.PageContent>
+                    <Panel></Panel>
+                </suki:SukiSideMenuItem.PageContent>
+            </suki:SukiSideMenuItem>
+            <suki:SukiSideMenuItem Classes="Compact" Header="Archive"  >
+                <suki:SukiSideMenuItem.Icon>
+                    <Image Source="/Assets/Icons/Mail/icons8-folder-96.png" Height="24" Width="24"></Image>
+                </suki:SukiSideMenuItem.Icon>
+                <suki:SukiSideMenuItem.PageContent>
+                    <Panel></Panel>
+                </suki:SukiSideMenuItem.PageContent>
+            </suki:SukiSideMenuItem>
+
+            <!-- Other Pages -->
+
+        </suki:SukiSideMenu.Items>
+
+
+        <suki:SukiSideMenu.HeaderContent>
+            
+            <StackPanel Margin="10,-40,0,20"  Orientation="Horizontal">
+            <Image Source="/Assets/OIG.N5o-removebg-preview.png" Height="24" Margin="15,5,15,5"></Image>
+                <TextBlock Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14" FontWeight="DemiBold" Text="Suki User"></TextBlock>
+            </StackPanel>
+           
+        </suki:SukiSideMenu.HeaderContent>
+
+        
+    </suki:SukiSideMenu>
+</UserControl>
