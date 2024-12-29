@@ -4,6 +4,6 @@
     {
         public bool IsUser { get; set; }
         public bool IsWriting { get; set; }
-        public string Content { get; set; }
+        public object Content { get; set; }
     }
 }

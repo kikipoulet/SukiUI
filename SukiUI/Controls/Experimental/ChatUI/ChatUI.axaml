@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:experimental="clr-namespace:SukiUI.Controls.Experimental"
              xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SukiUI.Controls.Experimental.ChatUI">
     <UserControl.Styles>
@@ -74,6 +75,7 @@
            
            <ItemsControl  Name="IC"  ItemsSource="{TemplateBinding Messages}">
            <ItemsControl.DataTemplates>
+        
                <DataTemplate DataType="experimental:ChatMessage">
                    
                        
@@ -81,10 +83,11 @@
                           
                           
                                <DockPanel Margin="0,0,150,0" IsVisible="{Binding !IsUser}">
+                                   
                                    <Image Source="{Binding  $parent[experimental:ChatUI].FriendImageSource}" DockPanel.Dock="Left"   VerticalAlignment="Center" Margin="22,0,15,0"  Height="38" Width="38"></Image>
                                  
                                    <suki:GlassCard MinHeight="52" Padding="15,10" CornerRadius="15" MinWidth="100" MaxWidth="1000" HorizontalAlignment="Left" >
-                                       <TextBlock VerticalAlignment="Center" TextWrapping="Wrap" Text="{Binding Content}"></TextBlock>
+                                       <ContentPresenter VerticalAlignment="Center" TextWrapping="Wrap" Content="{Binding Content, Converter={x:Static experimental:ContentToControlConverter.Instance}}"></ContentPresenter>
                                    </suki:GlassCard>
                                </DockPanel>
                              

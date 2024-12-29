@@ -22,11 +22,15 @@
                         <experimental:ChatUI Margin="0,15,0,0" Messages="{Binding Messages}"  FriendImageSource="/Assets/cat-modified.png" UserImageSource="/Assets/OIG.N5o-removebg-preview.png" Height="450" Width="600" />
                     </suki:GroupBox>
                 </suki:GlassCard>
-                    
-                        <Button Margin="30,25,30,30" Classes="Flat" VerticalAlignment="Top" Command="{Binding AddFriendMessageCommand}">
-                            Send Friend Message
+                    <StackPanel>
+                        <Button Margin="30,25,30,10" Classes="Flat" VerticalAlignment="Top" Command="{Binding AddFriendMessageCommand}">
+                            Receive Friend Message
                         </Button>
                     
+                    <Button Margin="30,10" Classes="Flat" VerticalAlignment="Top" Command="{Binding AddFriendFileCommand}">
+                        Receive Friend File
+                    </Button>
+                    </StackPanel>
                 </WrapPanel>
                 </ScrollViewer>
             </TabItem>

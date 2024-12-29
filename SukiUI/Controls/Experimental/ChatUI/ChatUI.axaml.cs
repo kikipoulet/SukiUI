@@ -1,10 +1,12 @@
 ﻿using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Globalization;
 using Avalonia;
 using Avalonia.Animation;
 using Avalonia.Animation.Easings;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using Avalonia.Data.Converters;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
@@ -119,6 +121,23 @@ namespace SukiUI.Controls.Experimental
                     }
                 }
             }.RunAsync(ChatScroll, AnimationToken.Token);
+        }
+    }
+    
+    public class ContentToControlConverter : IValueConverter
+    {
+        public static ContentToControlConverter Instance = new ContentToControlConverter();
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is string)
+                return new TextBlock() { Text = (string?)value };
+
+            return value;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
         }
     }
 }
