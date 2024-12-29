@@ -222,10 +222,10 @@
 
     <Style Selector="DataGridRowGroupHeader">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Height" Value="20" />
+        <Setter Property="Height" Value="32" />
         <Setter Property="Template">
             <ControlTemplate>
-                <DataGridFrozenGrid Name="Root"
+                <DataGridFrozenGrid Name="Root" 
                                     Background="{TemplateBinding Background}"
                                     ColumnDefinitions="Auto,Auto,Auto,Auto"
                                     RowDefinitions="Auto,*,Auto">
@@ -233,34 +233,34 @@
                     <Rectangle Name="IndentSpacer"
                                Grid.Row="1"
                                Grid.Column="1" />
-                    <ToggleButton Name="ExpanderButton"
+                    <ToggleButton Name="PART_ExpanderButton"
                                   Grid.Row="1"
                                   Grid.Column="2"
                                   FontWeight="DemiBold"
                                   Foreground="{DynamicResource SukiText}"
-                                  Margin="2,0,0,0" />
+                                  Margin="2,11,0,0" />
 
                     <StackPanel Grid.Row="1"
                                 Grid.Column="3"
-                                Margin="0,1,0,1"
+                                Margin="0,11,0,0"
                                 VerticalAlignment="Center"
                                 Orientation="Horizontal">
-                        <TextBlock Name="PropertyNameElement"
+                        <TextBlock Name="PART_PropertyNameElement"
                                    Margin="4,0,0,0"
                                    FontWeight="DemiBold"
                                    IsVisible="{TemplateBinding IsPropertyNameVisible}" />
                         <TextBlock Margin="4,0,0,0" 
-                                   FontWeight="DemiBold"
+                                   FontWeight="DemiBold" FontSize="16"
                                    Text="{Binding Key}" />
-                        <TextBlock Name="ItemCountElement"
-                                   Margin="4,0,0,0"
+                        <TextBlock Name="PART_ItemCountElement" FontSize="14" Foreground="{DynamicResource SukiLowText}"
+                                   Margin="8,2,0,0"
                                    FontWeight="DemiBold"
                                    IsVisible="{TemplateBinding IsItemCountVisible}" />
                     </StackPanel>
 
                     <DataGridRowHeader Name="RowHeader"
                                        Grid.Row="0"
-                                       Grid.RowSpan="3"
+                                       Grid.RowSpan="3" Margin="-25,25,0,0"
                                        Grid.Column="0"
                                        DataGridFrozenGrid.IsFrozen="True"/>
 
@@ -269,11 +269,11 @@
         </Setter>
     </Style>
 
-    <Style Selector="DataGridRowGroupHeader /template/ ToggleButton#ExpanderButton">
+    <Style Selector="DataGridRowGroupHeader /template/ ToggleButton#PART_ExpanderButton">
         <Setter Property="Template">
             <ControlTemplate>
-                <Border Width="20"
-                        Height="20"
+                <Border Width="30"
+                        Height="30"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Background="Transparent">
@@ -286,7 +286,7 @@
         </Setter>
     </Style>
 
-    <Style Selector="DataGridRowGroupHeader /template/ ToggleButton#ExpanderButton:checked /template/ Path">
+    <Style Selector="DataGridRowGroupHeader /template/ ToggleButton#PART_ExpanderButton:checked /template/ Path">
         <Setter Property="RenderTransform">
             <RotateTransform Angle="90" />
         </Setter>
