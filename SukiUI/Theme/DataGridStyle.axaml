@@ -221,7 +221,7 @@
     </Style>
 
     <Style Selector="DataGridRowGroupHeader">
-        <Setter Property="Background" Value="{DynamicResource ThemeControlMidHighBrush}" />
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="Height" Value="20" />
         <Setter Property="Template">
             <ControlTemplate>
@@ -236,6 +236,8 @@
                     <ToggleButton Name="ExpanderButton"
                                   Grid.Row="1"
                                   Grid.Column="2"
+                                  FontWeight="DemiBold"
+                                  Foreground="{DynamicResource SukiText}"
                                   Margin="2,0,0,0" />
 
                     <StackPanel Grid.Row="1"
@@ -245,10 +247,14 @@
                                 Orientation="Horizontal">
                         <TextBlock Name="PropertyNameElement"
                                    Margin="4,0,0,0"
+                                   FontWeight="DemiBold"
                                    IsVisible="{TemplateBinding IsPropertyNameVisible}" />
-                        <TextBlock Margin="4,0,0,0" Text="{Binding Key}" />
+                        <TextBlock Margin="4,0,0,0" 
+                                   FontWeight="DemiBold"
+                                   Text="{Binding Key}" />
                         <TextBlock Name="ItemCountElement"
                                    Margin="4,0,0,0"
+                                   FontWeight="DemiBold"
                                    IsVisible="{TemplateBinding IsItemCountVisible}" />
                     </StackPanel>
 
@@ -256,7 +262,7 @@
                                        Grid.Row="0"
                                        Grid.RowSpan="3"
                                        Grid.Column="0"
-                                       DataGridFrozenGrid.IsFrozen="True" />
+                                       DataGridFrozenGrid.IsFrozen="True"/>
 
                 </DataGridFrozenGrid>
             </ControlTemplate>
@@ -274,7 +280,7 @@
                     <Path HorizontalAlignment="Center"
                           VerticalAlignment="Center"
                           Data="M 0 2 L 4 6 L 0 10 Z"
-                          Fill="Transparent" />
+                          Fill="{DynamicResource SukiText}" />
                 </Border>
             </ControlTemplate>
         </Setter>

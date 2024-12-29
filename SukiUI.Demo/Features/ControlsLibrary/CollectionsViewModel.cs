@@ -10,7 +10,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary;
 public partial class CollectionsViewModel : DemoPageBase
 {
     public AvaloniaList<string> SimpleContent { get; } = [];
-    public AvaloniaList<DataGridContentViewModel> DataGridContent { get; } = [];
+    public DataGridCollectionView DataGridContent { get; }
     public AvaloniaList<Node> TreeViewContent { get; } = [];
     [ObservableProperty] private string _selectedSimpleContent;
     [ObservableProperty] private bool _isDataGridColumnsResizable;
@@ -18,7 +18,9 @@ public partial class CollectionsViewModel : DemoPageBase
     public CollectionsViewModel() : base("Collections", MaterialIconKind.ListBox)
     {
         SimpleContent.AddRange(Enumerable.Range(1, 50).Select(x => $"Option {x}"));
-        DataGridContent.AddRange(Enumerable.Range(1, 50).Select(x => new DataGridContentViewModel(x)));
+        DataGridContent = new DataGridCollectionView(Enumerable.Range(1, 50).Select(x => new DataGridContentViewModel(x)));
+        DataGridContent.GroupDescriptions.Add(new DataGridPathGroupDescription("Group"));
+        //DataGridContent.AddRange(Enumerable.Range(1, 50).Select(x => new DataGridContentViewModel(x)));
         SelectedSimpleContent = SimpleContent.First();
         TreeViewContent.AddRange(
             Enumerable.Range(1, 10).Select(x => new Node($"Outer {x}",
@@ -30,8 +32,9 @@ public partial class CollectionsViewModel : DemoPageBase
 public partial class DataGridContentViewModel(int value) : ObservableObject
 {
     [ObservableProperty] private string _stringColumn = $"Content {value}";
-    [ObservableProperty] private int _intColumn = value;
+    [ObservableProperty] [NotifyPropertyChangedFor(nameof(Group))] private int _intColumn = value;
     [ObservableProperty] private bool _boolColumn = Random.Shared.Next(0, 2) == 0;
+    public string Group => IntColumn % 2 == 0 ? "Even" : "Odd";
 }
 
 public partial class Node(string value, IEnumerable<Node>? subNodes = null) : ObservableObject

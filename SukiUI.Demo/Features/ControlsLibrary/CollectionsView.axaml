@@ -72,15 +72,16 @@
                                           MaxHeight="200"
                                           CanUserResizeColumns="{Binding IsDataGridColumnsResizable}"
                                           ItemsSource="{Binding DataGridContent}">
+                                    <DataGrid.Styles>
+                                        <Style Selector="DataGridRowGroupHeader">
+                                            <Setter Property="IsItemCountVisible" Value="True" />
+                                        </Style>
+                                    </DataGrid.Styles>
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Binding="{Binding StringColumn}" Header="String" />
-                                        <DataGridTextColumn Binding="{Binding IntColumn}"
-                                                            
-                                                            Header="Int" />
-                                        <DataGridCheckBoxColumn Binding="{Binding BoolColumn}"
-                                                               
-                                                                Header="Bool" />
-                                        
+                                        <DataGridTextColumn Binding="{Binding StringColumn, DataType=controlsLibrary:DataGridContentViewModel}" Header="String" />
+                                        <DataGridTextColumn Binding="{Binding IntColumn, DataType=controlsLibrary:DataGridContentViewModel}" Header="Int" />
+                                        <DataGridCheckBoxColumn Binding="{Binding BoolColumn, DataType=controlsLibrary:DataGridContentViewModel}" Header="Bool" />
+                                        <DataGridTextColumn Binding="{Binding Group, DataType=controlsLibrary:DataGridContentViewModel}" Header="Group" />
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </showMeTheXaml:XamlDisplay>
