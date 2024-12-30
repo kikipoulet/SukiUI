@@ -95,6 +95,14 @@ public class SukiWindow : Window
         get => GetValue(CanMinimizeProperty);
         set => SetValue(CanMinimizeProperty, value);
     }
+    
+    public static readonly StyledProperty<bool> ShowTitlebarBackgroundProperty =
+        AvaloniaProperty.Register<SukiWindow, bool>(nameof(ShowTitlebarBackground), defaultValue: true);
+    public bool ShowTitlebarBackground
+    {
+        get => GetValue(ShowTitlebarBackgroundProperty);
+        set => SetValue(ShowTitlebarBackgroundProperty, value);
+    }
 
     public static readonly StyledProperty<bool> CanMaximizeProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(CanMaximize), defaultValue: true);

@@ -41,6 +41,9 @@ public partial class SukiUIDemoViewModel : ObservableObject
     [ObservableProperty] private string? _customShaderFile;
     [ObservableProperty] private bool _transitionsEnabled;
     [ObservableProperty] private double _transitionTime;
+    
+    [ObservableProperty] private bool _showTitleBar = true;
+    [ObservableProperty] private bool _showBottomBar = true;
 
     private readonly SukiTheme _theme;
     private readonly ThemingViewModel _theming;
@@ -136,6 +139,13 @@ public partial class SukiUIDemoViewModel : ObservableObject
             .WithTitle($"Window {(WindowLocked ? "Locked" : "Unlocked")}")
             .WithContent($"Window has been {(WindowLocked ? "locked" : "unlocked")}.")
             .Queue();
+    }
+    
+    [RelayCommand]
+    private void ToggleTitleBackground()
+    {
+        ShowTitleBar = !ShowTitleBar;
+        ShowBottomBar = !ShowBottomBar;
     }
 
     [RelayCommand]

@@ -20,6 +20,7 @@
                  CanResize="{Binding !WindowLocked}"
                  Icon="Assets/OIG.N5o-removebg-preview.png"
                  IsMenuVisible="True"
+                 ShowTitlebarBackground="{Binding ShowTitleBar}" ShowBottomBorder="{Binding ShowBottomBar}"
                  IsTitleBarVisible="{Binding TitleBarVisible, Mode=TwoWay}"
                  mc:Ignorable="d">
     <suki:SukiWindow.Hosts>
@@ -138,6 +139,13 @@
                         Kind="{Binding TitleBarVisible, Converter={x:Static converters:BoolToIconConverters.Visibility}}" />
                 </MenuItem.Icon>
             </MenuItem>
+            <MenuItem Command="{Binding ToggleTitleBackgroundCommand}"
+                      Header="Change TitleBar Visibility"
+                  >
+                <MenuItem.Icon>
+                    <avalonia:MaterialIcon Kind="Visibility" />
+                </MenuItem.Icon>
+            </MenuItem>
             <MenuItem Command="{Binding ToggleRightToLeftCommand}"
                       Header="Right To Left"
                       ToolTip.Tip="Toggles the right to left.">
@@ -214,7 +222,7 @@
                    IsVisible="{Binding $parent[suki:SukiWindow].((demo:SukiUIDemoViewModel)DataContext).TitleBarVisible}"
                    PointerPressed="InputElement_OnPointerPressed"
                    Source="Assets/OIG.N5o-removebg-preview.png"
-                   ToolTip.ShowDelay="0"
+                   
                    ToolTip.Tip="Click To Toggle Top Menu." />
         </suki:SukiSideMenu.HeaderContent>
         <suki:SukiSideMenu.FooterContent>

@@ -59,7 +59,7 @@
                                     <StackPanel>
                                         <LayoutTransformControl Name="PART_LayoutTransform" RenderTransformOrigin="0%,0%">
                                             <Panel>
-                                                <suki:GlassCard Name="PART_TitleBarBackground"
+                                                <suki:GlassCard Name="PART_TitleBarBackground" IsVisible="{TemplateBinding ShowTitlebarBackground}"
                                                                 BorderThickness="0"
                                                                 CornerRadius="0"
                                                                 IsAnimated="False" />
@@ -114,7 +114,11 @@
                                                 </DockPanel>
                                             </Panel>
                                         </LayoutTransformControl>
-                                        <Menu IsEnabled="{TemplateBinding IsMenuVisible}" ItemsSource="{TemplateBinding MenuItems}" />
+                                        <Panel IsVisible="{TemplateBinding IsMenuVisible}">
+                                            <suki:GlassCard CornerRadius="0" BorderThickness="0" Margin="0,0,0,0" IsVisible="{TemplateBinding ShowTitlebarBackground}"></suki:GlassCard>
+                                            <suki:GlassCard CornerRadius="13" Margin="10,2,10,10" Name="AlternativeGlassMenuBackground"></suki:GlassCard>
+                                            <Menu Name="PART_Menu" IsEnabled="{TemplateBinding IsMenuVisible}" ItemsSource="{TemplateBinding MenuItems}" />
+                                        </Panel>
                                         <Border Name="PART_BottomBorder" BorderBrush="{DynamicResource SukiBorderBrush}" />
                                     </StackPanel>
                                 </Panel>
@@ -131,6 +135,13 @@
                 </Border>
             </ControlTemplate>
         </Setter>
+        
+        <Style Selector="^[ShowTitlebarBackground=False] /template/ Menu#PART_Menu">
+            <Setter Property="Margin" Value="10,0,0,7"></Setter>
+            </Style>
+        <Style Selector="^[ShowTitlebarBackground=True] /template/ suki|GlassCard#AlternativeGlassMenuBackground">
+            <Setter Property="IsVisible" Value="False"></Setter>
+        </Style> 
 
         <Style Selector="^[WindowState=Maximized] /template/ PathIcon#MaximizeIcon">
             <Setter Property="Data" Value="{x:Static icons:Icons.WindowRestore}" />

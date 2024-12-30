@@ -99,16 +99,16 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <LayoutTransformControl Name="PART_LayoutTransform" RenderTransformOrigin="50%, 0%">
-                    <controls:GlassCard Height="45"
+                    <Border Height="45"
                                         Padding="{TemplateBinding Padding}"
                                         BorderBrush="{DynamicResource SukiBorderBrush}"
                                         BorderThickness="0"
                                         CornerRadius="{TemplateBinding CornerRadius}"
-                                        IsAnimated="False">
+                                        >
                         <ItemsPresenter Name="PART_ItemsPresenter"
                                         ItemsPanel="{TemplateBinding ItemsPanel}"
                                         KeyboardNavigation.TabNavigation="Continue" />
-                    </controls:GlassCard>
+                    </Border>
                 </LayoutTransformControl>
             </ControlTemplate>
         </Setter>
