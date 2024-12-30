@@ -3,11 +3,14 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Avalonia.Interactivity;
 using Avalonia.Layout;
 using SukiUI.Enums;
 using Avalonia.Controls.Templates;
+using Avalonia.Data.Converters;
+using SukiUI.Theme;
 
 namespace SukiUI.Controls;
 
@@ -243,3 +246,50 @@ public class SukiSideMenu : SelectingItemsControl
         return NeedsContainer<SukiSideMenuItem>(item, out recycleKey);
     }
 }
+
+
+
+public class WindowBackgroundToCornerRadiusConverter : IValueConverter
+{
+    public static readonly WindowBackgroundToCornerRadiusConverter Instance = new();
+
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        if (value == null)
+            return new CornerRadius(0);
+
+        if((bool)value == false)
+            return new CornerRadius(17);
+        
+        return new CornerRadius(0);
+    }
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        throw new NotSupportedException();
+    }
+}
+
+
+public class WindowBackgroundToMarginConverter : IValueConverter
+{
+    public static readonly WindowBackgroundToMarginConverter Instance = new();
+
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        if (value == null)
+            return new Thickness(0);
+
+        if((bool)value == false)
+            return new Thickness(10,5,0,10);
+        
+        return new Thickness(0);
+    }
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        throw new NotSupportedException();
+    }
+}
+
+

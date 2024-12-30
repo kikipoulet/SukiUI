@@ -14,11 +14,18 @@
                            IsPaneOpen="{TemplateBinding IsMenuExpanded}"
                            OpenPaneLength="{TemplateBinding OpenPaneLength}">
                     <SplitView.Pane>
-                        <Border>
+                        <Border Margin="{Binding ShowTitlebarBackground, Converter={x:Static suki:WindowBackgroundToMarginConverter.Instance}, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type suki:SukiWindow}}}"
+                        >
                             <Grid Background="Transparent">
-                                <suki:GlassCard Name="Glass" Classes=""
+                                <Grid.Styles>
+                                    <Style Selector="suki|GlassCard">
+                                        <!-- in case someone use sukisidemenu without sukiwindow -->
+                                        <Setter Property="CornerRadius" Value="0"></Setter>
+                                    </Style>
+                                </Grid.Styles>
+                                <suki:GlassCard Name="Glass"
                                                 BorderThickness="0,0,1,0"
-                                                CornerRadius="0"
+                                                CornerRadius="{Binding ShowTitlebarBackground, Converter={x:Static suki:WindowBackgroundToCornerRadiusConverter.Instance}, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type suki:SukiWindow}}}"
                                                 IsAnimated="False" />
                                 <DockPanel>
                                     <Button Name="PART_SidebarToggleButton"
