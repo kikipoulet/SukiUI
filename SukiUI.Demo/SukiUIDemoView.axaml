@@ -140,7 +140,7 @@
                 </MenuItem.Icon>
             </MenuItem>
             <MenuItem Command="{Binding ToggleTitleBackgroundCommand}"
-                      Header="Change TitleBar Visibility"
+                      Header="Change TitleBar Background Visibility"
                   >
                 <MenuItem.Icon>
                     <avalonia:MaterialIcon Kind="Visibility" />
