@@ -137,7 +137,7 @@
                     <Border Name="BackgroundRectangle"
                             Grid.RowSpan="2"
                             Grid.ColumnSpan="2"
-                            Padding="18"
+                            Padding="18" Background="{TemplateBinding Background}"
                             BorderBrush="{DynamicResource SukiBorderBrush}"
                             BorderThickness="0,0,0,1"
                             CornerRadius="0" />
