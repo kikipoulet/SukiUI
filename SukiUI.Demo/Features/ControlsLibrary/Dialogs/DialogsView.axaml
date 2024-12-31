@@ -37,6 +37,13 @@
                     </suki:GroupBox>
                 </suki:GlassCard>
                 <suki:GlassCard>
+                    <suki:GroupBox Header="Long Dialog">
+                        <Button VerticalAlignment="Top" Margin="15,10,15,0"
+                                Command="{Binding OpenLongDialogCommand}"
+                                Content="Show Dialog" />
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
                     <suki:GroupBox Header="Multi Option Dialog">
                         <Button VerticalAlignment="Top" Margin="15,10,15,0"
                                 Command="{Binding OpenMultiOptionDialogCommand}"

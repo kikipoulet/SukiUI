@@ -1,4 +1,5 @@
 using System;
+using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -20,6 +21,20 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
         dialogManager.CreateDialog()
             .WithTitle("A Standard Dialog")
             .WithContent("This is a standard dialog. Click the button below to dismiss.")
+            .WithActionButton("Dismiss", _ => { }, true)
+            .TryShow();
+    }
+
+    [RelayCommand]
+    private void OpenLongDialog()
+    {
+        var listbox = new ListBox
+        {
+            ItemsSource = Enumerable.Range(0, 1000)
+        };
+        dialogManager.CreateDialog()
+            .WithTitle("A Long Dialog with a ListBox")
+            .WithContent(listbox)
             .WithActionButton("Dismiss", _ => { }, true)
             .TryShow();
     }
