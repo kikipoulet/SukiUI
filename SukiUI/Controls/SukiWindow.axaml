@@ -42,7 +42,7 @@
                                                  TransitionTime="{TemplateBinding BackgroundTransitionTime}"
                                                  TransitionsEnabled="{TemplateBinding BackgroundTransitionsEnabled}" 
                                                  ForceSoftwareRendering="{TemplateBinding BackgroundForceSoftwareRendering}"/>
-                            <Panel Background="White"
+                            <Panel Background="White" IsHitTestVisible="False"
                                    IsVisible="{DynamicResource IsLight}"
                                    Opacity="0.1" />
 
