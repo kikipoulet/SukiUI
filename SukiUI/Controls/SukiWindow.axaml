@@ -47,7 +47,8 @@
                                    Opacity="0.1" />
 
                             <DockPanel LastChildFill="True">
-                                <Panel DockPanel.Dock="Top">
+                                <Panel ContextMenu="{TemplateBinding TitleBarContextMenu}" DockPanel.Dock="Top">
+                                    
                                     <Panel.Styles>
                                         <Style Selector="suki|SukiWindow[ShowBottomBorder=True] /template/ Border#PART_BottomBorder">
                                             <Setter Property="BorderThickness" Value="0,0,0,1" />

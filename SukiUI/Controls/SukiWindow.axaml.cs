@@ -23,6 +23,15 @@ public class SukiWindow : Window
         get => GetValue(TitleFontSizeProperty);
         set => SetValue(TitleFontSizeProperty, value);
     }
+    
+    public static readonly StyledProperty<ContextMenu> TitleBarContextMenuProperty =
+        AvaloniaProperty.Register<SukiWindow, ContextMenu>(nameof(TitleBarContextMenu), defaultValue: null);
+
+    public ContextMenu TitleBarContextMenu
+    {
+        get => GetValue(TitleBarContextMenuProperty);
+        set => SetValue(TitleBarContextMenuProperty, value);
+    }
 
     public static readonly StyledProperty<FontWeight> TitleFontWeightProperty =
         AvaloniaProperty.Register<SukiWindow, FontWeight>(nameof(TitleFontWeight), defaultValue: FontWeight.Bold);

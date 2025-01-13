@@ -23,6 +23,11 @@
                  ShowTitlebarBackground="{Binding ShowTitleBar}" ShowBottomBorder="{Binding ShowBottomBar}"
                  IsTitleBarVisible="{Binding TitleBarVisible, Mode=TwoWay}"
                  mc:Ignorable="d">
+    <suki:SukiWindow.TitleBarContextMenu>
+        <ContextMenu>
+            <MenuItem Header="Custom TitleBar Context Menu Item"></MenuItem>
+        </ContextMenu>
+    </suki:SukiWindow.TitleBarContextMenu>
     <suki:SukiWindow.Hosts>
         <suki:SukiToastHost Manager="{Binding ToastManager}"/>
         <suki:SukiDialogHost Manager="{Binding DialogManager}"/>
