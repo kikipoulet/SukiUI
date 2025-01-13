@@ -353,8 +353,7 @@ public class SukiWindow : Window
 
     private void OnWindowStateChanged(WindowState state)
     {
-        if (state == WindowState.FullScreen)
-            CanMaximize = CanResize = CanMove = false;
+        
         if (state == WindowState.Maximized)
             Margin = new Thickness(7);
         else
