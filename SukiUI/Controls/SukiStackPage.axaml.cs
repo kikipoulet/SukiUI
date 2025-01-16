@@ -29,6 +29,16 @@ namespace SukiUI.Controls
             get => GetValue(LimitProperty);
             set => SetValue(LimitProperty, value);
         }
+        
+        public static readonly StyledProperty<bool> AlwaysGoBackToFirstPageProperty =
+            AvaloniaProperty.Register<SukiStackPage, bool>(nameof(AlwaysGoBackToFirstPage), defaultValue: false);
+
+        public bool AlwaysGoBackToFirstPage
+        {
+            get => GetValue(AlwaysGoBackToFirstPageProperty);
+            set => SetValue(AlwaysGoBackToFirstPageProperty, value);
+        }
+
 
         private static readonly DynamicResourceExtension ColorResource = new("SukiLowText");
 
@@ -180,7 +190,13 @@ namespace SukiUI.Controls
             _disposables.Push(button.Bind(ForegroundProperty, ColorResource));
 
             button.PointerReleased += (_, _) =>
-                Content = model.Content;
+            {
+                if(AlwaysGoBackToFirstPage)
+                    Content = _stackPages[0].Content;
+                else
+                    Content = model.Content;
+            };
+                
 
             button.PointerEntered += (_, _) =>
                 button.RenderTransform = new ScaleTransform() { ScaleX = 1.02, ScaleY = 1.02 };

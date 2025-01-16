@@ -15,7 +15,11 @@
                                 Margin="0,-20,0,0"
                                 Background="{DynamicResource SukiControlBorderBrush}" />
                     </StackPanel>
-                    <ContentPresenter Content="{TemplateBinding Content}" />
+                    <TransitioningContentControl Content="{TemplateBinding Content}" >
+                        <TransitioningContentControl.PageTransition>
+                            <CrossFade Duration="0:0:0.4"></CrossFade>
+                        </TransitioningContentControl.PageTransition>
+                    </TransitioningContentControl>
                 </DockPanel>
             </ControlTemplate>
         </Setter>
