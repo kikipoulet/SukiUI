@@ -17,16 +17,23 @@ namespace SukiUI.Dialogs
 
         public bool TryDismissDialog(ISukiDialog dialog)
         {
-            if (_activeDialog == null || _activeDialog != dialog) return false;
+            if (_activeDialog == null || _activeDialog != dialog) 
+                return false;
+            
             OnDialogDismissed?.Invoke(this, new SukiDialogManagerEventArgs(_activeDialog));
+            _activeDialog.OnDismissed?.Invoke(_activeDialog);
             _activeDialog = null;
+            
             return true;
         }
 
         public void DismissDialog()
         {
-            if (_activeDialog == null) return;
+            if (_activeDialog == null) 
+                return;
+            
             OnDialogDismissed?.Invoke(this, new SukiDialogManagerEventArgs(_activeDialog));
+            _activeDialog.OnDismissed?.Invoke(_activeDialog);
             _activeDialog = null;
         }
     }
