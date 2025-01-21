@@ -1,0 +1,13 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="controlsLibrary:DockMvvmViewModel"
+             x:Class="SukiUI.Demo.Features.ControlsLibrary.DockMvvmView">
+    <DockControl
+        x:Name="DockControl"
+        Layout="{Binding Layout}"
+        Margin="4"/>
+</UserControl>
