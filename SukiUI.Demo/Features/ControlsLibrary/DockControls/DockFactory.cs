@@ -59,6 +59,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary.DockControls
                 VisibleDockables = CreateList<IDockable>
                 (
                     documentDock,
+                    new ProportionalDockSplitter(),
                     new ToolDock
                     {
                         ActiveDockable = propertiesTool,
@@ -92,7 +93,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary.DockControls
                 VisibleDockables = CreateList<IDockable>
                 (
                     rightTopDock,
-                   
+                    new ProportionalDockSplitter(),
                     rightBottomDock
                 )
             };
