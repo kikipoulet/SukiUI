@@ -86,7 +86,7 @@
               <!-- Properties Pane -->
               <ToolDock x:Name="PropertiesPane" Id="PropertiesPane" Proportion="0.25" Alignment="Right">
                 <Tool x:Name="Properties" Id="Properties" Title="Properties" x:DataType="Tool">
-                 <dockControls:propertiesview></dockControls:propertiesview>
+                 <dockControls:PropertiesView></dockControls:PropertiesView>
                 </Tool>
               </ToolDock>
 
