@@ -1,0 +1,23 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dockControls="clr-namespace:SukiUI.Demo.Features.ControlsLibrary.DockControls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="dockControls:OutputViewModel"
+             x:Class="SukiUI.Demo.Features.ControlsLibrary.DockControls.OutputView">
+    <TextBlock HorizontalAlignment="Left" Margin="15,12" FontSize="13" Foreground="{DynamicResource SukiLowText}" >
+        Build: Dock.Model.Avalonia.Controls.Tool, Id='SolutionExplorer'<LineBreak></LineBreak>
+        <Run Foreground="Green"> [Added] </Run>SolutionExplorer, Dock.Avalonia.Controls.ToolContentControl<LineBreak></LineBreak>
+        <Run Foreground="Green"> [Added] </Run> Avalonia.Markup.Xaml.XamlIl.Runtime.XamlIlRuntimeHelpers+PointerDeferredContent`1[Avalonia.Controls.Control], DockXamlSample.SolutionExplore<LineBreak></LineBreak>
+        Build: Dock.Model.Avalonia.Controls.Document, Id='Document1'<LineBreak></LineBreak>
+        <Run Foreground="Green"> [Added] </Run> Document1, Dock.Avalonia.Controls.DocumentContentControl<LineBreak></LineBreak>
+        <Run Foreground="Green"> [Added] </Run> Avalonia.Markup.Xaml.XamlIl.Runtime.XamlIlRuntimeHelpers+PointerDeferredContent`1[Avalonia.Controls.Control], Avalonia.Controls.TextBlock<LineBreak></LineBreak>
+        Build: Dock.Model.Avalonia.Controls.Tool, Id='Properties'<LineBreak></LineBreak>
+        <Run Foreground="Green"> [Added] </Run> Properties, Dock.Avalonia.Controls.ToolContentControl<LineBreak></LineBreak>
+        <Run Foreground="Green"> [Added] </Run> Avalonia.Markup.Xaml.XamlIl.Runtime.XamlIlRuntimeHelpers+PointerDeferredContent`1[Avalonia.Controls.Control], DockXamlSample.propertiesview<LineBreak></LineBreak>
+        Build: Dock.Model.Avalonia.Controls.Tool, Id='Output'<LineBreak></LineBreak>
+        <Run Foreground="Green"> [Added] </Run> Output, Dock.Avalonia.Controls.ToolContentControl<LineBreak></LineBreak>
+        <Run Foreground="Green"> [Added] </Run> Avalonia.Markup.Xaml.XamlIl.Runtime.XamlIlRuntimeHelpers+PointerDeferredContent`1[Avalonia.Controls.Control], Avalonia.Controls.TextBlock<LineBreak></LineBreak>
+    </TextBlock>
+</UserControl>
