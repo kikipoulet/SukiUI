@@ -6,6 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:showMeTheXaml="clr-namespace:ShowMeTheXaml;assembly=ShowMeTheXaml.Avalonia"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              d:DesignHeight="450"
              d:DesignWidth="800"
              x:DataType="controlsLibrary:TextViewModel"
@@ -72,6 +73,16 @@
                         </TextBlock>
                         <showMeTheXaml:XamlDisplay UniqueId="TextBox1">
                             <TextBox  />
+                        </showMeTheXaml:XamlDisplay>
+                        <showMeTheXaml:XamlDisplay UniqueId="TextBox1Search">
+                            <TextBox  >
+                                <TextBox.InnerLeftContent>
+                                    <avalonia:MaterialIcon Kind="Search" Foreground="{DynamicResource SukiLowText}" Margin="5,0" Height="17" Width="17" VerticalAlignment="Center"/>
+                                </TextBox.InnerLeftContent>
+                                <TextBox.InnerRightContent>
+                                    <avalonia:MaterialIcon Kind="Check" Foreground="{DynamicResource SukiLowText}" Margin="5,0" Height="17" Width="17" VerticalAlignment="Center"/>
+                                </TextBox.InnerRightContent>
+                            </TextBox>
                         </showMeTheXaml:XamlDisplay>
                         <showMeTheXaml:XamlDisplay UniqueId="TextBox2">
                             <TextBox Text="" Watermark="Watermark" />

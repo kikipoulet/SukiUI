@@ -402,10 +402,13 @@
 
                                     <Grid ColumnDefinitions="Auto,*,Auto">
                                         <Panel>
-                                            <TextBlock Margin="3,1,3,0"
-                                                       FontSize="14"
-                                                       Foreground="{DynamicResource SukiLowText}"
-                                                       Text="{TemplateBinding theme:TextBoxExtensions.Prefix}" />
+                                            <StackPanel Orientation="Horizontal">
+                                                <ContentPresenter Content="{TemplateBinding InnerLeftContent}"></ContentPresenter>
+                                                <TextBlock Margin="3,1,3,0"
+                                                           FontSize="14"
+                                                           Foreground="{DynamicResource SukiLowText}"
+                                                           Text="{TemplateBinding theme:TextBoxExtensions.Prefix}" />
+                                            </StackPanel>
                                         </Panel>
                                         <ScrollViewer Grid.Column="1"
                                                       HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
@@ -437,20 +440,24 @@
                                                                TextWrapping="{TemplateBinding TextWrapping}" />
                                             </Panel>
                                         </ScrollViewer>
-                                        <theme:TextEraserButton Grid.Column="2"
-                                                                Margin="5,0,0,0"
-                                                                Cursor="Hand"
-                                                                IsVisible="{TemplateBinding theme:TextBoxExtensions.AddDeleteButton}"
-                                                                Opacity="{TemplateBinding Text,
+                                        <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                            <theme:TextEraserButton 
+                                                                    Margin="5,0,2,0"
+                                                                    Cursor="Hand"
+                                                                    IsVisible="{TemplateBinding theme:TextBoxExtensions.AddDeleteButton}"
+                                                                    Opacity="{TemplateBinding Text,
                                                                                           Converter={StaticResource StringToDoubleC}}"
-                                                                Text="{TemplateBinding Text,
+                                                                    Text="{TemplateBinding Text,
                                                                                        Mode=TwoWay}">
-                                            <theme:TextEraserButton.Transitions>
-                                                <Transitions>
-                                                    <DoubleTransition Property="Opacity" Duration="0:0:0.35" />
-                                                </Transitions>
-                                            </theme:TextEraserButton.Transitions>
-                                        </theme:TextEraserButton>
+                                                <theme:TextEraserButton.Transitions>
+                                                    <Transitions>
+                                                        <DoubleTransition Property="Opacity" Duration="0:0:0.35" />
+                                                    </Transitions>
+                                                </theme:TextEraserButton.Transitions>
+                                            </theme:TextEraserButton>
+                                            <ContentPresenter Content="{TemplateBinding InnerRightContent}"></ContentPresenter>
+                                        </StackPanel>
+                                       
 
                                     </Grid>
                                 </DataValidationErrors>
