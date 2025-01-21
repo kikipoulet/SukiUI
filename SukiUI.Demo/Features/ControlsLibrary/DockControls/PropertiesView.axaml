@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:suki="https://github.com/kikipoulet/SukiUI"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="SukiUI.Demo.Features.ControlsLibrary.DockControls.propertiesview">
+             x:Class="SukiUI.Demo.Features.ControlsLibrary.DockControls.PropertiesView">
      <StackPanel Margin="15,25,15,0" >
    <Expander Header="Window Informations" IsExpanded="True">
      <StackPanel Margin="25,0" Spacing="10">

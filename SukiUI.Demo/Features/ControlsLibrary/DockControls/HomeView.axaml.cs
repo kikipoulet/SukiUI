@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace SukiUI.Demo.Features.ControlsLibrary.DockControls
 {
-    public partial class propertiesview : UserControl
+    public partial class HomeView : UserControl
     {
-        public propertiesview()
+        public HomeView()
         {
             InitializeComponent();
         }

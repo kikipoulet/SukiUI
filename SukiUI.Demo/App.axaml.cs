@@ -12,6 +12,7 @@ using SukiUI.Demo.Common;
 using SukiUI.Demo.Features.ControlsLibrary;
 using SukiUI.Demo.Features.ControlsLibrary.Colors;
 using SukiUI.Demo.Features.ControlsLibrary.Dialogs;
+using SukiUI.Demo.Features.ControlsLibrary.DockControls;
 using SukiUI.Demo.Features.ControlsLibrary.StackPage;
 using SukiUI.Demo.Features.ControlsLibrary.TabControl;
 using SukiUI.Demo.Features.ControlsLibrary.Toasts;
@@ -76,6 +77,7 @@ public class App : Application
             .AddView<CollectionsView, CollectionsViewModel>(services)
             .AddView<ContextMenusView, ContextMenusViewModel>(services)
             .AddView<DockView, DockViewModel>(services)
+            .AddView<DockMvvmView, DockMvvmViewModel>(services)
             .AddView<ExpanderView, ExpanderViewModel>(services)
             .AddView<IconsView, IconsViewModel>(services)
             .AddView<InfoBarView, InfoBarViewModel>(services)
@@ -91,6 +93,13 @@ public class App : Application
             .AddView<ColorsView, ColorsViewModel>(services)
             .AddView<ExperimentalView, ExperimentalViewModel>(services)
 
+            // Add docks view for DockMvvvm
+            .AddView<DocumentText, DocumentTextViewModel>(services)
+            .AddView<ErrorList, ErrorListViewModel>(services)
+            .AddView<OutputView, OutputViewModel>(services)
+            .AddView<PropertiesView, PropertiesViewModel>(services)
+            .AddView<SolutionExplore, SolutionExploreViewModel>(services)
+            
             // Add additional views
             .AddView<DialogView, DialogViewModel>(services)
             .AddView<VmDialogView, VmDialogViewModel>(services)
