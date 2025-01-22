@@ -37,7 +37,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary.DockControls
                     {
                         ActiveDockable = solutionExploreTool,
                         VisibleDockables = CreateList<IDockable>(solutionExploreTool),
-                        Alignment = Alignment.Left
+                        Alignment = Alignment.Left,
                     }
                 )
             };
@@ -64,7 +64,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary.DockControls
                     {
                         ActiveDockable = propertiesTool,
                         VisibleDockables = CreateList<IDockable>(propertiesTool),
-                        Alignment = Alignment.Top,
+                        Alignment = Alignment.Right,
                     }
                 )
             };
@@ -80,7 +80,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary.DockControls
                     {
                         ActiveDockable = outputTool,
                         VisibleDockables = CreateList<IDockable>(errorListTool, outputTool),
-                        Alignment = Alignment.Top,
+                        Alignment = Alignment.Bottom,
                     }
                 )
             };
