@@ -5,6 +5,7 @@
     <Color x:Key="SukiStrongBackground">#fcfcfc</Color>
     <Color x:Key="SukiLightBackground">Transparent</Color>
     <Color x:Key="SukiCardBackground">White</Color>
+    <Color x:Key="SukiPopupBackground">#fefefe</Color>
     <Color x:Key="SukiGlassCardBackground">#fdfefefe</Color>
     <Color x:Key="SukiGlassCardOpaqueBackground">#fcfcfc</Color>
     <Color x:Key="SukiControlTouchBackground">#FFFFFF</Color>
@@ -23,7 +24,7 @@
 
     <BoxShadows x:Key="SukiLowShadow">0 0 3 0 #eaeaea</BoxShadows>
     <BoxShadows x:Key="SukiSwitchShadow">0 1 5 0 #aaaaaa</BoxShadows>
-    <BoxShadows x:Key="SukiSmallPopupShadow">0 0 2 0 DimGray</BoxShadows>
+    <BoxShadows x:Key="SukiSmallPopupShadow">0 2 5 0 LightGray</BoxShadows>
     <BoxShadows x:Key="SukiPopupShadow">1 1 8 0 LightGray</BoxShadows>
     <BoxShadows x:Key="SukiBigPopupShadow">1 4 17 0 #999999</BoxShadows>
     

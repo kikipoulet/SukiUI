@@ -120,13 +120,13 @@
                                 <Border Name="B1" Padding="5,10,5,5">
                                     <Panel>
                                         <Border Margin="10,-10,0,0"
-                                                Background="{DynamicResource SukiCardBackground}"
+                                                Background="{DynamicResource SukiPopupBackground}"
                                                 BorderBrush="{DynamicResource SukiMenuBorderBrush}"
                                                 BorderThickness="1,1,1,1"
                                                 BoxShadow="{DynamicResource SukiSmallPopupShadow}"
                                                 CornerRadius="{DynamicResource SmallCornerRadius}">
                                             <Panel Background="{DynamicResource PopupGradientBrush}">
-                                            
+                                            <suki:GlassCard Margin="-1" CornerRadius="{DynamicResource SmallCornerRadius}"></suki:GlassCard>
                                             <ScrollViewer  HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
                                                
                                                 <ItemsPresenter Name="PART_ItemsPresenter"
