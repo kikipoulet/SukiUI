@@ -10,7 +10,6 @@ namespace SukiUI.Demo.Features.ControlsLibrary.DockControls
     {
         private readonly object _context = context;
         private IRootDock? _rootDock;
-        private IDocumentDock? _documentDock;
 
         public override IRootDock CreateLayout()
         {
@@ -123,8 +122,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary.DockControls
             rootDock.ActiveDockable = homeView;
             rootDock.DefaultDockable = homeView;
             rootDock.VisibleDockables = CreateList<IDockable>(homeView);
-
-            _documentDock = documentDock;
+            
             _rootDock = rootDock;
 
             return rootDock;
@@ -152,8 +150,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary.DockControls
 
             DockableLocator = new Dictionary<string, Func<IDockable?>>()
             {
-                ["Root"] = () => _rootDock,
-                ["Documents"] = () => _documentDock
+                ["Home"] = () => _rootDock,
             };
 
             HostWindowLocator = new Dictionary<string, Func<IHostWindow?>>

@@ -3,11 +3,50 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="controlsLibrary:DockMvvmViewModel"
              x:Class="SukiUI.Demo.Features.ControlsLibrary.DockMvvmView">
-    <DockControl
-        x:Name="DockControl"
-        Layout="{Binding Layout}"
-        Margin="4"/>
+    <Grid
+        Margin="15">
+        <Grid
+            ZIndex="1"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left">
+            <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Spacing="5">
+                <Button
+                    ToolTip.Tip="Open Layout"
+                    Classes="Icon"
+                    Width="30"
+                    Height="30"
+                    x:Name="FileOpenLayout"
+                    Command="{Binding OpenLayoutCommand}">
+                    <avalonia:MaterialIcon
+                        Width="20"
+                        Height="20"
+                        Kind="File"/>
+                </Button>
+                <Button
+                    ToolTip.Tip="Save as"
+                    Classes="Icon"
+                    Width="30"
+                    Height="30"
+                    x:Name="FileSaveLayout"
+                    Command="{Binding SaveLayoutCommand}">
+                    <avalonia:MaterialIcon
+                        Width="20"
+                        Height="20"
+                        Kind="ContentSave"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <DockControl
+            x:Name="DockControl"
+            Layout="{Binding Layout}"
+            Margin="4"/>
+    </Grid>
 </UserControl>
