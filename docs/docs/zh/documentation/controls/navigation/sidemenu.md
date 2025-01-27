@@ -16,7 +16,7 @@
                 <!-- Icon -->
             </suki:SukiSideMenuItem.Icon>
             <suki:SukiSideMenuItem.PageContent>
-                <!-- Page Content -->
+                <!-- Page Content (必需) -->
             </suki:SukiSideMenuItem.PageContent>
         </suki:SukiSideMenuItem>
         
@@ -33,6 +33,12 @@
     </suki:SukiSideMenu.FooterContent>
 </suki:SukiSideMenu>
 ```
+
+::: warning
+ 
+如果 `suki:SukiSideMenuItem.PageContent` 内没有内容，类似 `System.InvalidOperationException: The control SukiUI.Controls.SukiSideMenuItem already has a visual parent StackPanel while trying to add it as a child of ContentPresenter (Name = PART_FirstBufferControl)` 的异常会被触发。
+
+:::
 
 ## 参阅
 
