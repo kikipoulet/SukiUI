@@ -116,41 +116,50 @@
         <Setter Property="MinHeight" Value="40" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" MinWidth="26" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Border Name="TrackBackground"
-                            Grid.Column="1"
-                            Width="4"
-                            Margin="0,6"
-                            HorizontalAlignment="Center" />
+                   <Grid Name="grid">
+             
+                    <suki:GlassCard Name="TrackBackground"
+                           Classes="Control"
+                            Width="22"
+                            Margin="8,8"
+                            HorizontalAlignment="Center"
+                            BorderThickness="0"
+                            CornerRadius="20" />
+
                     <Track Name="PART_Track"
-                           Grid.Column="1"
+                        
                            IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
                            Orientation="Vertical">
                         <Track.DecreaseButton>
-                            <RepeatButton Name="PART_DecreaseButton" Classes="Decrease" />
+                            <RepeatButton Name="PART_DecreaseButton"
+                                          Width="22"
+                                          Margin="0,-30,0,7"
+                                          HorizontalAlignment="Stretch"
+                                          Background="{DynamicResource SukiPrimaryColor}"
+                                          BorderThickness="0"
+                                          CornerRadius="20" />
                         </Track.DecreaseButton>
                         <Track.IncreaseButton>
                             <RepeatButton Name="PART_IncreaseButton" Classes="repeattrack" />
                         </Track.IncreaseButton>
-                        <Thumb Name="thumb"
-                               MinWidth="20"
-                               MinHeight="20">
+                        <Thumb Name="thumb" Margin="0,0,0,2">
                             <Thumb.Template>
                                 <ControlTemplate>
-                                    <Panel>
-                                        <Ellipse Width="12"
-                                                 Height="12"
-                                                 Fill="{DynamicResource ThemeAccentBrush}" />
-                                    </Panel>
+                                    <Grid Width="32" Height="32">
+                                        <Border Width="16"
+                                                Height="16"
+                                                Margin="0"
+                                                Background="White"
+                                                BorderThickness="0"
+                                                Classes="ThumbBorder ThumbB"
+                                                CornerRadius="{DynamicResource MediumCornerRadius}" />
+                                    </Grid>
                                 </ControlTemplate>
                             </Thumb.Template>
                         </Thumb>
                     </Track>
+
+
                 </Grid>
             </ControlTemplate>
         </Setter>
