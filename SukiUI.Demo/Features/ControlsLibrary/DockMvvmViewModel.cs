@@ -97,9 +97,8 @@ namespace SukiUI.Demo.Features.ControlsLibrary
 
                     if (layout is not null)
                     {
-                        Layout = layout;
-
                         _factory!.InitLayout(layout);
+                        Layout = layout;
                     }
                 }
                 catch (Exception e)

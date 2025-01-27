@@ -6,9 +6,9 @@ using Dock.Model.Mvvm.Controls;
 
 namespace SukiUI.Demo.Features.ControlsLibrary.DockControls
 {
-    public class DockFactory(object context) : Factory
+    public class DockFactory(DockMvvmViewModel context) : Factory
     {
-        private readonly object _context = context;
+        private readonly DockMvvmViewModel _context = context;
         private IRootDock? _rootDock;
 
         public override IRootDock CreateLayout()
@@ -144,7 +144,6 @@ namespace SukiUI.Demo.Features.ControlsLibrary.DockControls
         {
             ContextLocator = new Dictionary<string, Func<object?>>
             {
-                ["Dashboard"] = () => layout,
                 ["Home"] = () => _context
             };
 
