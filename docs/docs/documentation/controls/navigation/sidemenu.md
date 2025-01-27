@@ -16,7 +16,7 @@
                 <!-- Icon -->
             </suki:SukiSideMenuItem.Icon>
             <suki:SukiSideMenuItem.PageContent>
-                <!-- Page Content -->
+                <!-- Page Content (Required) -->
             </suki:SukiSideMenuItem.PageContent>
         </suki:SukiSideMenuItem>
 
@@ -34,6 +34,12 @@
     </suki:SukiSideMenu.FooterContent>
 </suki:SukiSideMenu>
 ```
+
+::: warning
+
+If there is no content inside `suki:SukiSideMenuItem.PageContent`, it will trigger an exception similar to `System.InvalidOperationException: The control SukiUI.Controls.SukiSideMenuItem already has a visual parent StackPanel while trying to add it as a child of ContentPresenter (Name = PART_FirstBufferControl)`.
+
+:::
 
 ## See Also
 
