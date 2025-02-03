@@ -6,8 +6,12 @@
         <FontWeight x:Key="DefaultDemiBold">DemiBold</FontWeight>
     </Styles.Resources>
     
-    <Style Selector="TextBlock, TextBox, Button, RadioButton, DropDownButton">
+    <Style Selector="TextBlock, TextBox, Button, RadioButton, DropDownButton, SelectableTextBlock">
         <Setter Property="TextBlock.FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
     </Style>
-	
+    <Style Selector="SelectableTextBlock">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="SelectionBrush" Value="{DynamicResource SukiPrimaryColor}"/>
+        <Setter Property="SelectionForegroundBrush" Value="White"/>
+    </Style>
 </Styles>
