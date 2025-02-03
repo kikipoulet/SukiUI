@@ -39,7 +39,7 @@
                                        FontSize="13"
                                        FontWeight="{DynamicResource DefaultDemiBold}"
                                        Text="Username" />
-                            <TextBox BorderThickness="1" BorderBrush="Red" />
+                            <TextBox BorderBrush="Red" BorderThickness="1" />
 
                             <TextBlock Margin="6,18,0,3"
                                        FontSize="13"
@@ -78,19 +78,19 @@
             <MenuItem x:Name="TextBoxContextFlyoutCutItem"
                       Margin="10,0,0,0"
                       Command="{Binding $parent[TextBox].Cut}"
-                      Header="Cut"
+                      Header="{DynamicResource STRING_MENU_CUT}"
                       InputGesture="{x:Static TextBox.CutGesture}"
                       IsEnabled="{Binding $parent[TextBox].CanCut}" />
             <MenuItem x:Name="TextBoxContextFlyoutCopyItem"
                       Margin="10,0,0,0"
                       Command="{Binding $parent[TextBox].Copy}"
-                      Header="Copy"
+                      Header="{DynamicResource STRING_MENU_COPY}"
                       InputGesture="{x:Static TextBox.CopyGesture}"
                       IsEnabled="{Binding $parent[TextBox].CanCopy}" />
             <MenuItem x:Name="TextBoxContextFlyoutPasteItem"
                       Margin="10,0,0,0"
                       Command="{Binding $parent[TextBox].Paste}"
-                      Header="Paste"
+                      Header="{DynamicResource STRING_MENU_PASTE}"
                       InputGesture="{x:Static TextBox.PasteGesture}"
                       IsEnabled="{Binding $parent[TextBox].CanPaste}" />
         </MenuFlyout>
@@ -152,7 +152,6 @@
                                         Padding="0"
                                         BorderBrush="{TemplateBinding BorderBrush}"
                                         BorderThickness="{TemplateBinding BorderThickness}"
-                                        
                                         CornerRadius="{TemplateBinding CornerRadius}">
                             <suki:GlassCard.Transitions>
                                 <Transitions>
@@ -195,7 +194,7 @@
                                     <Grid ColumnDefinitions="Auto,*,Auto">
                                         <Panel>
                                             <StackPanel Orientation="Horizontal">
-                                                <ContentPresenter Content="{TemplateBinding InnerLeftContent}"></ContentPresenter>
+                                                <ContentPresenter Content="{TemplateBinding InnerLeftContent}" />
                                                 <TextBlock Margin="3,1,3,0"
                                                            FontSize="14"
                                                            Foreground="{DynamicResource SukiLowText}"
@@ -232,24 +231,23 @@
                                                                TextWrapping="{TemplateBinding TextWrapping}" />
                                             </Panel>
                                         </ScrollViewer>
-                                        <StackPanel Orientation="Horizontal" Grid.Column="2">
-                                            <theme:TextEraserButton 
-                                                                    Margin="5,0,2,0"
+                                        <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                            <theme:TextEraserButton Margin="5,0,2,0"
                                                                     Cursor="Hand"
                                                                     IsVisible="{TemplateBinding theme:TextBoxExtensions.AddDeleteButton}"
                                                                     Opacity="{TemplateBinding Text,
-                                                                                          Converter={StaticResource StringToDoubleC}}"
+                                                                                              Converter={StaticResource StringToDoubleC}}"
                                                                     Text="{TemplateBinding Text,
-                                                                                       Mode=TwoWay}">
+                                                                                           Mode=TwoWay}">
                                                 <theme:TextEraserButton.Transitions>
                                                     <Transitions>
                                                         <DoubleTransition Property="Opacity" Duration="0:0:0.35" />
                                                     </Transitions>
                                                 </theme:TextEraserButton.Transitions>
                                             </theme:TextEraserButton>
-                                            <ContentPresenter Content="{TemplateBinding InnerRightContent}"></ContentPresenter>
+                                            <ContentPresenter Content="{TemplateBinding InnerRightContent}" />
                                         </StackPanel>
-                                       
+
 
                                     </Grid>
                                 </DataValidationErrors>

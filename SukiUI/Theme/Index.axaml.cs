@@ -9,7 +9,10 @@ using SukiUI.Extensions;
 using SukiUI.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using Avalonia.Controls;
+using SukiUI.Locale;
 
 namespace SukiUI;
 
@@ -262,4 +265,85 @@ public partial class SukiTheme : Styles
     /// <returns>A <see cref="SukiTheme"/> instance that can be used to change themes.</returns>
     /// <exception cref="InvalidOperationException">Thrown if no SukiTheme has been defined in App.axaml.</exception>
     public static SukiTheme GetInstance() => GetInstance(Application.Current!);
+
+    // Localization
+
+    private static readonly Dictionary<CultureInfo, ResourceDictionary> LocaleToResource = new()
+    {
+        { new CultureInfo("en-US"), new en_US() },
+        { new CultureInfo("zh-CN"), new zh_CN() }
+    };
+
+    private static readonly ResourceDictionary DefaultResource = new en_US();
+
+    private CultureInfo? _locale;
+
+    public CultureInfo? Locale
+    {
+        get => _locale;
+        set
+        {
+            try
+            {
+                if (TryGetLocaleResource(value, out var resource) && resource is not null)
+                {
+                    _locale = value;
+                    foreach (var keyValue in resource) Resources[keyValue.Key] = keyValue.Value;
+                }
+                else
+                {
+                    _locale = new CultureInfo("en-US");
+                    foreach (var keyValue in DefaultResource) Resources[keyValue.Key] = keyValue.Value;
+                }
+            }
+            catch
+            {
+                _locale = CultureInfo.InvariantCulture;
+            }
+        }
+    }
+
+    private static bool TryGetLocaleResource(CultureInfo? locale, out ResourceDictionary? resourceDictionary)
+    {
+        if (Equals(locale, CultureInfo.InvariantCulture))
+        {
+            resourceDictionary = DefaultResource;
+            return true;
+        }
+
+        if (locale is null)
+        {
+            resourceDictionary = DefaultResource;
+            return false;
+        }
+
+        if (LocaleToResource.TryGetValue(locale, out var resource))
+        {
+            resourceDictionary = resource;
+            return true;
+        }
+
+        resourceDictionary = DefaultResource;
+        return false;
+    }
+
+    public static void OverrideLocaleResources(Application application, CultureInfo? culture)
+    {
+        if (culture is null) return;
+        if (!LocaleToResource.TryGetValue(culture, out var resources)) return;
+        foreach (var keyValue in resources)
+        {
+            application.Resources[keyValue.Key] = keyValue.Value;
+        }
+    }
+
+    public static void OverrideLocaleResources(StyledElement element, CultureInfo? culture)
+    {
+        if (culture is null) return;
+        if (!LocaleToResource.TryGetValue(culture, out var resources)) return;
+        foreach (var keyValue in resources)
+        {
+            element.Resources[keyValue.Key] = keyValue.Value;
+        }
+    }
 }

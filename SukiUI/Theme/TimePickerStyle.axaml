@@ -96,13 +96,13 @@
                                               Foreground="{DynamicResource SukiLowText}" />
 
                                     <Grid Name="PART_FlyoutButtonContentGrid">
-                                  
+
                                         <Border x:Name="PART_FirstPickerHost"
                                                 Grid.Column="0"
                                                 HorizontalAlignment="Stretch"
                                                 VerticalAlignment="Stretch">
                                             <TextBlock x:Name="PART_HourTextBlock"
-                                                       Text="{DynamicResource StringTimePickerHourText}"
+                                                       Text="{DynamicResource STRING_TIMEPICKER_HOUR_TEXT}"
                                                        Padding="{DynamicResource TimePickerHostPadding}"
                                                        HorizontalAlignment="Center"
                                                        FontFamily="{TemplateBinding FontFamily}"
@@ -121,7 +121,7 @@
                                                 HorizontalAlignment="Stretch"
                                                 VerticalAlignment="Stretch">
                                             <TextBlock x:Name="PART_MinuteTextBlock"
-                                                       Text="{DynamicResource StringTimePickerMinuteText}"
+                                                       Text="{DynamicResource STRING_TIMEPICKER_MINUTE_TEXT}"
                                                        Padding="{DynamicResource TimePickerHostPadding}"
                                                        HorizontalAlignment="Center"
                                                        FontFamily="{TemplateBinding FontFamily}"
@@ -140,7 +140,7 @@
                                                 HorizontalAlignment="Stretch"
                                                 VerticalAlignment="Stretch">
                                             <TextBlock x:Name="PART_SecondTextBlock"
-                                                       Text="{DynamicResource StringTimePickerSecondText}"
+                                                       Text="{DynamicResource STRING_TIMEPICKER_SECOND_TEXT}"
                                                        Padding="{DynamicResource TimePickerHostPadding}"
                                                        HorizontalAlignment="Center"
                                                        FontFamily="{TemplateBinding FontFamily}"
@@ -260,7 +260,7 @@
                                     </Setter>
                                 </Style>
                             </Grid.Styles>
-                        
+
                             <Panel Name="PART_HourHost" Grid.Column="0">
                                 <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
                                     <DateTimePickerPanel Name="PART_HourSelector"
@@ -376,21 +376,21 @@
                                                FontSize="15"
                                                FontWeight="{DynamicResource DefaultDemiBold}"
                                                Foreground="{DynamicResource SukiPrimaryColor}"
-                                               Text="Apply" />
+                                               Text="{DynamicResource STRING_TIMEPICKER_APPLY}" />
                                 </StackPanel>
                             </Button>
                             <Button Name="PART_DismissButton"
-                                  Grid.Column="0"
-                                  Height="{DynamicResource TimePickerFlyoutPresenterAcceptDismissHostGridHeight}"
-                                  HorizontalAlignment="Stretch"
-                                  VerticalAlignment="Stretch"
-                                  FontSize="16"
-                                  Theme="{StaticResource SimpleDateTimePickerButton}">
-                                  <PathIcon Width="12"
+                                    Grid.Column="0"
+                                    Height="{DynamicResource TimePickerFlyoutPresenterAcceptDismissHostGridHeight}"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    FontSize="16"
+                                    Theme="{StaticResource SimpleDateTimePickerButton}">
+                                <PathIcon Width="12"
                                           Height="12"
                                           Data="{x:Static icons:Icons.Cross}"
                                           Foreground="{DynamicResource SukiPrimaryColor}" />
-                          </Button>
+                            </Button>
                         </Grid>
                     </Grid>
                 </Border>

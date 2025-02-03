@@ -71,14 +71,14 @@
                                                FontSize="{TemplateBinding FontSize}"
                                                FontWeight="{TemplateBinding FontWeight}"
                                                Foreground="{DynamicResource SukiText}"
-                                               Text="day" />
+                                               Text="{DynamicResource STRING_DATEPICKER_DAY_TEXT}" />
                                     <TextBlock Name="PART_MonthTextBlock"
                                                Padding="5,0,0,0"
                                                FontFamily="{TemplateBinding FontFamily}"
                                                FontSize="{TemplateBinding FontSize}"
                                                FontWeight="{TemplateBinding FontWeight}"
                                                Foreground="{DynamicResource SukiText}"
-                                               Text="month"
+                                               Text="{DynamicResource STRING_DATEPICKER_MONTH_TEXT}"
                                                TextAlignment="Left" />
                                     <TextBlock Name="PART_YearTextBlock"
                                                Margin="8,0,0,0"
@@ -88,7 +88,7 @@
                                                FontSize="{TemplateBinding FontSize}"
                                                FontWeight="{TemplateBinding FontWeight}"
                                                Foreground="{DynamicResource SukiText}"
-                                               Text="year" />
+                                               Text="{DynamicResource STRING_DATEPICKER_YEAR_TEXT}" />
                                     <Rectangle x:Name="PART_FirstSpacer"
                                                Grid.Column="1"
                                                Width="0"
@@ -268,7 +268,7 @@
                                                FontSize="16"
                                                FontWeight="{DynamicResource DefaultDemiBold}"
                                                Foreground="{DynamicResource SukiPrimaryColor}"
-                                               Text="Apply" />
+                                               Text="{DynamicResource STRING_DATEPICKER_APPLY}" />
                                 </StackPanel>
                             </Button>
 
