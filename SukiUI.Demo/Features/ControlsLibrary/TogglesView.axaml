@@ -151,6 +151,13 @@
                         <showMeTheXaml:XamlDisplay UniqueId="ToggleButtonSwitch">
                             <ToggleButton Classes="Switch" Content="Toggle Me" />
                         </showMeTheXaml:XamlDisplay>
+                        <ToggleSplitButton Content="ToggleSplitButton">
+                            <ToggleSplitButton.Flyout>
+                                <MenuFlyout>
+                                    <MenuItem Header="Hello"/>
+                                </MenuFlyout>
+                            </ToggleSplitButton.Flyout>
+                        </ToggleSplitButton>
                     </StackPanel>
                 </suki:GroupBox>
             </suki:GlassCard>

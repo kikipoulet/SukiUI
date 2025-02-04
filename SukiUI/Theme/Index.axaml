@@ -53,6 +53,7 @@
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="avares://sukiUI/Theme/TextBlock.xaml" />
+                <ResourceInclude Source="avares://sukiUI/Theme/SplitButton.axaml" />
                 <ResourceInclude Source="avares://SukiUI/Theme/SplitView.axaml" />
                 <ResourceInclude Source="avares://SukiUI/Theme/DatePicker.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/ToolTipStyle.axaml" />

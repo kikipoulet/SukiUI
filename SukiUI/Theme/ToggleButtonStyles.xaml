@@ -21,8 +21,8 @@
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
         <Setter Property="Transitions">
             <Transitions>
-                <BrushTransition Property="Background" Duration="0:0:0.3" />
-                <BrushTransition Property="BorderBrush" Duration="0:0:0.3" />
+              
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.15" />
             </Transitions>
         </Setter>
         <Setter Property="Template">
@@ -44,6 +44,13 @@
         </Setter>
     </Style>
 
+    <Style Selector="ToggleButton:pressed">
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <ScaleTransform ScaleX="0.97" ScaleY="0.97" />
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <Style Selector="ToggleButton:pointerover &gt; TextBlock">
         <Setter Property="Foreground" Value="White" />
@@ -53,7 +60,7 @@
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
         <Setter Property="Transitions">
             <Transitions>
-                <BrushTransition Property="Foreground" Duration="0:0:0.3" />
+                <BrushTransition Property="Foreground" Duration="0:0:0.15" />
             </Transitions>
         </Setter>
 
