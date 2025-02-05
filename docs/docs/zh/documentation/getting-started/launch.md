@@ -19,6 +19,21 @@
 如果没有设置主题色 `ThemeColor`，创建的窗口和许多控件都会变成透明
 :::
 
+## 本地化
+
+Avalonia 中的一些内置控件包含文本信息（例如 TextBox 的默认上下文菜单）。您可以通过设置 Suki UI 的 `Locale` 来选择这些文本的语言。Suki UI 默认使用英语，但如果您需要使用其他语言（如中文），可以按如下方式设置：
+
+```xml
+<Application
+    ...
+    xmlns:sukiUi="clr-namespace:SukiUI;assembly=SukiUI"
+    >
+    <Application.Styles>
+        <sukiUi:SukiTheme Locale="zh-CN" ThemeColor="Blue"  /> // [!code highlight]
+    </Application.Styles>
+</Application>
+```
+
 ## 将 MainWindow 更改为 SukiWindow
 
 原来的 `MainWindow.axaml`:

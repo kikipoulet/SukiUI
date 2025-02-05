@@ -94,6 +94,8 @@
                 <ResourceInclude Source="avares://sukiUI/Controls/InfoBar.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/GlassMorphism/GlassCard.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/ContentExpandControl.axaml" />
+
+                <ResourceInclude Source="avares://SukiUI/Locale/en-US.axaml" />
             </ResourceDictionary.MergedDictionaries>
 
         </ResourceDictionary>

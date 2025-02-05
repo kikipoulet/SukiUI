@@ -19,6 +19,21 @@ Include SukiUI styles in your `App.axaml`
 If a default `ThemeColor` is not set and you do not set the theme by any other means, your window and many controls will be completely transparent.
 :::
 
+## Localization
+
+Some of the built-in controls in Avalonia contain textual information (e.g. the default context menu for TextBox). You can select the language of these texts by setting the `Locale` of Suki UI. Suki UI uses English by default, but if you need to use other language(e.g. Chinese), you can set it as follows:
+
+```xml
+<Application
+    ...
+    xmlns:sukiUi="clr-namespace:SukiUI;assembly=SukiUI"
+    >
+    <Application.Styles>
+        <sukiUi:SukiTheme Locale="zh-CN" ThemeColor="Blue"  /> // [!code highlight]
+    </Application.Styles>
+</Application>
+```
+
 ## Use SukiWindow as MainWindow
 
 Change MainWindow from Window class to SukiWindow class.
