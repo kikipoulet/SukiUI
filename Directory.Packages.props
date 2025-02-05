@@ -13,6 +13,7 @@
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.3.2" />
     <PackageVersion Include="Dock.Model" Version="11.2.0" />
     <PackageVersion Include="Dock.Model.Mvvm" Version="11.2.0" />
+    <PackageVersion Include="Dock.Serializer" Version="11.2.0" />
     <PackageVersion Include="Material.Icons.Avalonia" Version="2.1.10" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
     <PackageVersion Include="ShowMeTheXaml.Avalonia" Version="1.5.1" />

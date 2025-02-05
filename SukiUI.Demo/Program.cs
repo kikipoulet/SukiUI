@@ -24,7 +24,10 @@ internal static class Program
             .UseXamlDisplay();
 
         if (OperatingSystem.IsWindows() || OperatingSystem.IsMacOS() || OperatingSystem.IsLinux())
-            app.UseManagedSystemDialogs();
+        {
+            //app.UseManagedSystemDialogs();
+        }
+
         return app;
     }
 }

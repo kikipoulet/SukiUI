@@ -6,11 +6,10 @@ using Dock.Model.Mvvm.Controls;
 
 namespace SukiUI.Demo.Features.ControlsLibrary.DockControls
 {
-    public class DockFactory(object context) : Factory
+    public class DockFactory(DockMvvmViewModel context) : Factory
     {
-        private readonly object _context = context;
+        private readonly DockMvvmViewModel _context = context;
         private IRootDock? _rootDock;
-        private IDocumentDock? _documentDock;
 
         public override IRootDock CreateLayout()
         {
@@ -37,7 +36,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary.DockControls
                     {
                         ActiveDockable = solutionExploreTool,
                         VisibleDockables = CreateList<IDockable>(solutionExploreTool),
-                        Alignment = Alignment.Left
+                        Alignment = Alignment.Left,
                     }
                 )
             };
@@ -64,7 +63,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary.DockControls
                     {
                         ActiveDockable = propertiesTool,
                         VisibleDockables = CreateList<IDockable>(propertiesTool),
-                        Alignment = Alignment.Top,
+                        Alignment = Alignment.Right,
                     }
                 )
             };
@@ -80,7 +79,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary.DockControls
                     {
                         ActiveDockable = outputTool,
                         VisibleDockables = CreateList<IDockable>(errorListTool, outputTool),
-                        Alignment = Alignment.Top,
+                        Alignment = Alignment.Bottom,
                     }
                 )
             };
@@ -123,8 +122,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary.DockControls
             rootDock.ActiveDockable = homeView;
             rootDock.DefaultDockable = homeView;
             rootDock.VisibleDockables = CreateList<IDockable>(homeView);
-
-            _documentDock = documentDock;
+            
             _rootDock = rootDock;
 
             return rootDock;
@@ -146,14 +144,12 @@ namespace SukiUI.Demo.Features.ControlsLibrary.DockControls
         {
             ContextLocator = new Dictionary<string, Func<object?>>
             {
-                ["Dashboard"] = () => layout,
                 ["Home"] = () => _context
             };
 
             DockableLocator = new Dictionary<string, Func<IDockable?>>()
             {
-                ["Root"] = () => _rootDock,
-                ["Documents"] = () => _documentDock
+                ["Home"] = () => _rootDock,
             };
 
             HostWindowLocator = new Dictionary<string, Func<IHostWindow?>>
