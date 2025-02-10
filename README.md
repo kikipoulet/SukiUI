@@ -11,9 +11,9 @@
 <br/>
 
 
-## ✨ 6.0 Release Candidate
+## ✨ 6.0 Release
 
-I’m pleased to announce the 6.0 Release Candidate. This is our biggest release yet, and after a long journey, the library is now close to the initial idealized vision I had for it. I’m happy to say that both the style and various APIs are now finalized.
+I’m pleased to announce the 6.0 Release. This is our biggest release yet, and after a long journey, the library is now close to the initial idealized vision I had for it. I’m happy to say that both the style and various APIs are now finalized.
 
 Moving forward, our focus will be on maintaining the library and potentially extending certain functionalities. No major changes are expected unless absolutely necessary.
 
