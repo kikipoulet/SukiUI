@@ -116,7 +116,7 @@
                                             </Panel>
                                         </LayoutTransformControl>
                                         <Panel IsVisible="{TemplateBinding IsMenuVisible}">
-                                            <suki:GlassCard CornerRadius="0" BorderThickness="0" Margin="0,0,0,0" IsVisible="{TemplateBinding ShowTitlebarBackground}"></suki:GlassCard>
+                                            <suki:GlassCard CornerRadius="0" BorderThickness="0" Margin="0,0,0,0" IsAnimated="False" IsVisible="{TemplateBinding ShowTitlebarBackground}"></suki:GlassCard>
                                             <suki:GlassCard CornerRadius="13" Margin="10,2,10,10" Name="AlternativeGlassMenuBackground"></suki:GlassCard>
                                             <Menu Name="PART_Menu" IsEnabled="{TemplateBinding IsMenuVisible}" ItemsSource="{TemplateBinding MenuItems}" />
                                         </Panel>
