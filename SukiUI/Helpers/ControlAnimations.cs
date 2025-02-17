@@ -102,8 +102,10 @@ public static class ControlAnimationHelper
         }.RunAsync(control);
     }
 
-    public static void Animate<T>(this Animatable control, AvaloniaProperty Property, T from, T to, TimeSpan duration, ulong count = 1)
+    public static CancellationTokenSource Animate<T>(this Animatable control, AvaloniaProperty Property, T from, T to, TimeSpan duration, ulong count = 1)
     {
+        var tokensource = new CancellationTokenSource();
+        
         new Avalonia.Animation.Animation
         {
             Duration = duration,
@@ -124,11 +126,15 @@ public static class ControlAnimationHelper
                     KeyTime = duration
                 }
             }
-        }.RunAsync(control);
+        }.RunAsync(control, tokensource.Token);
+        
+        return tokensource;
     }
 
-    public static void Animate<T>(this Animatable control, AvaloniaProperty Property, T from, T to)
+    public static CancellationTokenSource Animate<T>(this Animatable control, AvaloniaProperty Property, T from, T to)
     {
+        var tokensource = new CancellationTokenSource();
+        
         new Avalonia.Animation.Animation
         {
             Duration = TimeSpan.FromMilliseconds(500),
@@ -149,6 +155,12 @@ public static class ControlAnimationHelper
                     KeyTime = TimeSpan.FromMilliseconds(500)
                 }
             }
-        }.RunAsync(control);
+        }.RunAsync(control, tokensource.Token);
+
+        return tokensource;
     }
+ 
+    
+    
 }
+
