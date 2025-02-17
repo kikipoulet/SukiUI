@@ -68,19 +68,13 @@ namespace SukiUI.Utilities.Effects
             shaderName = shaderName.ToLowerInvariant();
             if (!shaderName.EndsWith(".sksl"))
                 shaderName += ".sksl";
-            var assembly = Assembly.GetEntryAssembly();
-            var resName = assembly!.GetManifestResourceNames()
+            var assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
+            var resName = assembly.GetManifestResourceNames()
                 .FirstOrDefault(x => x.ToLowerInvariant().Contains(shaderName));
-            if (resName is null)
-            {
-                assembly = Assembly.GetExecutingAssembly();
-                resName = assembly.GetManifestResourceNames()
-                    .FirstOrDefault(x => x.ToLowerInvariant().Contains(shaderName));
-            }
-
             if (resName is null)
                 throw new FileNotFoundException(
                     $"Unable to find a file with the name \"{shaderName}\" anywhere in the assembly.");
+
             using var tr = new StreamReader(assembly.GetManifestResourceStream(resName)!);
             return FromString(tr.ReadToEnd());
         }
