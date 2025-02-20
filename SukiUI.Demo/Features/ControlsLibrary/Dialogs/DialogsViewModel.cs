@@ -78,7 +78,7 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
             .OfType(SelectedType)
             .WithTitle("MessageBox style dialog.")
             .WithContent("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.")
-            .WithActionButton("Close " + SelectedType.ToString(), _ => { }, true, "Flat", "Accent")
+            .WithActionButton("Close " + SelectedType.ToString(), _ => { }, true, "Flat")
             .Dismiss().ByClickingBackground()
             .TryShow();
     }

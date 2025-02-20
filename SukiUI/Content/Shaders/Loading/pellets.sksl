@@ -1,12 +1,9 @@
 uniform vec3 iForeground;
 
-float smoothstep(float a, float b, float x) {
-    float t = clamp((x - a) / (b - a), 0.0, 1.0);
-    return t * t * (3.0 - 2.0 * t);
-}
+
 
 float A(vec2 p, float a) {
-    a *= 3.14159;\
+    a *= 3.14159;
     vec2 s = vec2(sin(a), cos(a));
     p.x = abs(p.x);
     return ((s.y * p.x > s.x * p.y) ? length(p - s * .6) :
@@ -14,7 +11,7 @@ float A(vec2 p, float a) {
 }
 
 mat2 D(float a) {
-    a *= 3.14159;\
+    a *= 3.14159;
     vec2 s = vec2(sin(a), cos(a));
     return mat2(s.y, -s.x, s.x, s.y);
 }
@@ -23,8 +20,8 @@ vec4 main(vec2 fragCoord) {
     vec2 r = iResolution.xy, p = (2. * fragCoord - r) / r.y;
     float T = iTime * 1.0;
     float d = A(p * D(1. - 0.125 * floor(T)), 0.4375); // distance to longest arc
-    float i;
-    for (i = 0.0; i < 1.0; i += 0.5)
+
+    for (float i = 0.0; i < 1.0; i += 0.5)
         d = min(A(p * D(mix(-0.5, 0.625, fract(T / 2.0 + i)) - 0.125 * T), 0.0625), d); // distance to shorter arcs ("pellets")
 
     // Ajustement de la largeur de la ligne

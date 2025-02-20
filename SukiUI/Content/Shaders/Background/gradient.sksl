@@ -1,7 +1,4 @@
-﻿float smoothstep(float a, float b, float x) {
-    float t = clamp((x - a) / (b - a), 0.0, 1.0);
-    return t * t * (3.0 - 2.0 * t);
-}
+﻿
 
 vec3 blendOverlay(vec3 base, vec3 blend) {
     return vec3(
