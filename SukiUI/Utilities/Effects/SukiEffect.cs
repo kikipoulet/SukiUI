@@ -72,17 +72,22 @@ namespace SukiUI.Utilities.Effects
 
 
             var assembly = Assembly.GetEntryAssembly();
-            var resName = assembly!.GetManifestResourceNames()
+            var resName = assembly?.GetManifestResourceNames()
                 .FirstOrDefault(x => x.ToLowerInvariant().Contains(shaderName));
             
             if (resName is null)
             {
                 assembly = Assembly.GetExecutingAssembly();
-                resName = assembly!.GetManifestResourceNames()
+                resName = assembly?.GetManifestResourceNames()
                     .FirstOrDefault(x => x.ToLowerInvariant().Contains(shaderName));
             }
 
-
+            if (resName is null)
+            {
+                assembly = typeof(SukiEffect).Assembly;
+                resName = assembly?.GetManifestResourceNames()
+                    .FirstOrDefault(x => x.ToLowerInvariant().Contains(shaderName));
+            }
            
             if (resName is null)
                 throw new FileNotFoundException(
