@@ -9,7 +9,6 @@
 
   <PropertyGroup Condition="'$(Configuration)' != 'Debug'">
     <PublishAot>true</PublishAot>
-    <InvariantGlobalization>true</InvariantGlobalization>
   </PropertyGroup>
 
   <ItemGroup>
