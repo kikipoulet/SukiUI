@@ -4,10 +4,13 @@ using Avalonia.Markup.Xaml;
 using System;
 using System.ComponentModel;
 using System.Linq.Dynamic.Core;
+using System.Linq.Dynamic.Core.CustomTypeProviders;
+using System.Reflection;
+using Avalonia.Media;
 
 namespace SukiUI.Helpers.ConditionalXAML
 {
-     public class B_If : MarkupExtension
+     public class InlineSharp : MarkupExtension
     {
         public string Expression { get; set; }
 
@@ -25,7 +28,6 @@ namespace SukiUI.Helpers.ConditionalXAML
 
             var updater = new ReactiveUpdater(targetObject, targetProperty, Expression);
             updater.Attach();
-            
             return updater.CurrentValue;
         }
 
@@ -99,12 +101,19 @@ namespace SukiUI.Helpers.ConditionalXAML
 
                 try
                 {
-                    var config = new ParsingConfig();
+                    var config = new ParsingConfig()
+                    {
+                        AllowNewToEvaluateAnyType = true,
+                        ResolveTypesBySimpleName = true,
+                        CustomTypeProvider = new InlineTypeProvider()
+                    };
+
+                    
                     var parameter = System.Linq.Expressions.Expression.Parameter(dataContext.GetType(), "x");
                     var lambda = DynamicExpressionParser.ParseLambda(
                         config,
                         new[] { parameter },
-                        typeof(object),
+                        _targetProperty.PropertyType,
                         _expression
                     );
                     var result = lambda.Compile().DynamicInvoke(dataContext);
@@ -118,5 +127,34 @@ namespace SukiUI.Helpers.ConditionalXAML
                 }
             }
         }
+    }
+}
+public class InlineTypeProvider : IDynamicLinqCustomTypeProvider
+{
+    public HashSet<Type> _customTypes = new()
+    {
+        typeof(Brushes),
+        typeof(Brush),
+        typeof(FontWeight)
+    };
+
+    public HashSet<Type> GetCustomTypes()
+    {
+        return _customTypes;
+    }
+
+    public Dictionary<Type, List<MethodInfo>> GetExtensionMethods()
+    {
+        return new Dictionary<Type, List<MethodInfo>>(); 
+    }
+
+    public Type? ResolveType(string typeName)
+    {
+        return _customTypes.FirstOrDefault(t => t.FullName == typeName);
+    }
+
+    public Type? ResolveTypeBySimpleName(string simpleTypeName)
+    {
+        return _customTypes.FirstOrDefault(t => t.Name == simpleTypeName);
     }
 }

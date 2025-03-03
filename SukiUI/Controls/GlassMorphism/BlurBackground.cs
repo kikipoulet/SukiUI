@@ -118,7 +118,7 @@ public class BlurBackground : Control
                 canvas.DrawRect(0, 0, (float)_bounds.Width, (float)_bounds.Height, blurSnapPaint);
             }
 
-            //return;
+            return;
 
             using var acrylliPaint = new SKPaint();
             acrylliPaint.IsAntialias = true;

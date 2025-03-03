@@ -12,7 +12,7 @@ namespace SukiUI.Demo.Features.Helpers
     {
         
         [ObservableProperty] private bool myBool;
-        [ObservableProperty] private int counter;
+        [ObservableProperty] private int counter =8;
         
         
         public void IncreaseCounter()
