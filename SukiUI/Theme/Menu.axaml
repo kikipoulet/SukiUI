@@ -39,7 +39,7 @@
                                IsOpen="{TemplateBinding IsSubMenuOpen,
                                                         Mode=TwoWay}"
                                Opacity="0"
-                               OverlayInputPassThroughElement="{Binding $parent[Menu]}"
+                               OverlayInputPassThroughElement="{Binding $parent[MenuItem]}"
                                Placement="BottomEdgeAlignedLeft">
                             <LayoutTransformControl Name="PART_LayoutTransform" RenderTransformOrigin="50%, 0%">
                                 <Grid Margin="-12,0,0,0">
