@@ -115,7 +115,6 @@ public class SukiWindow : Window
         get => GetValue(CanMinimizeProperty);
         set => SetValue(CanMinimizeProperty, value);
     }
-    private int _canMinimize = 0; // 0: uninitialized/notset, 1: true, 2: false
 
     public static readonly StyledProperty<bool> ShowTitlebarBackgroundProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(ShowTitlebarBackground), defaultValue: true);
@@ -282,8 +281,6 @@ public class SukiWindow : Window
         // save the initial values of CanMaximize, CanMinimize, and CanMove
         if (_canMaximize == 0)
             _canMaximize = CanMaximize == true ? 1 : 2;
-        if (_canMinimize == 0)
-            _canMinimize = CanMinimize == true ? 1 : 2;
         if (_canMove == 0)
             _canMove = CanMove == true ? 1 : 2;
 
@@ -393,8 +390,6 @@ public class SukiWindow : Window
             // Disable window control capabilities
             _canMaximize = CanMaximize == true ? 1 : 2;
             CanMaximize = false;
-            _canMinimize = CanMinimize == true ? 1 : 2;
-            CanMinimize = false;
             _canMove = CanMove == true ? 1 : 2;
             CanMove = false;
         }
@@ -402,7 +397,6 @@ public class SukiWindow : Window
         {
             // Restore window control capabilities
             CanMaximize = _canMaximize == 1 ? true : false;
-            CanMinimize = _canMinimize == 1 ? true : false;
             CanMove = _canMove == 1 ? true : false;
         }
 
