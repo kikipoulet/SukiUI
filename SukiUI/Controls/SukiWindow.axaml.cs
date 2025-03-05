@@ -131,7 +131,7 @@ public class SukiWindow : Window
         get => GetValue(CanMaximizeProperty);
         set => SetValue(CanMaximizeProperty, value);
     }
-    private int _canMaximize = 0; // 0: uninitialized/notset, 1: true, 2: false
+    private bool _canMaximize = default;
 
     public static readonly StyledProperty<bool> CanMoveProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(CanMove), defaultValue: true);
@@ -141,7 +141,7 @@ public class SukiWindow : Window
         get => GetValue(CanMoveProperty);
         set => SetValue(CanMoveProperty, value);
     }
-    private int _canMove = 0; // 0: uninitialized/notset, 1: true, 2: false
+    private bool _canMove = default;
 
     // Background properties
     public static readonly StyledProperty<bool> BackgroundAnimationEnabledProperty =
@@ -278,11 +278,11 @@ public class SukiWindow : Window
     {
         base.OnApplyTemplate(e);
 
-        // save the initial values of CanMaximize, CanMinimize, and CanMove
-        if (_canMaximize == 0)
-            _canMaximize = CanMaximize == true ? 1 : 2;
-        if (_canMove == 0)
-            _canMove = CanMove == true ? 1 : 2;
+        // save the initial values of CanMaximize and CanMove
+        if (_canMaximize == default)
+            _canMaximize = CanMaximize;
+        if (_canMove == default)
+            _canMove = CanMove;
 
         OnWindowStateChanged(WindowState);
         try
@@ -388,16 +388,16 @@ public class SukiWindow : Window
         if (state == WindowState.FullScreen)
         {
             // Disable window control capabilities
-            _canMaximize = CanMaximize == true ? 1 : 2;
+            _canMaximize = CanMaximize;
             CanMaximize = false;
-            _canMove = CanMove == true ? 1 : 2;
+            _canMove = CanMove;
             CanMove = false;
         }
         else
         {
             // Restore window control capabilities
-            CanMaximize = _canMaximize == 1 ? true : false;
-            CanMove = _canMove == 1 ? true : false;
+            CanMaximize = _canMaximize;
+            CanMove = _canMove;
         }
 
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) // only for windows platform
