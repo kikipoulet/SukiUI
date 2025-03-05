@@ -311,7 +311,7 @@ public class SukiWindow : Window
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                if (CanResize && e.NameScope.Get<Panel>("PART_Root") is { } rootPanel)
+                if (e.NameScope.Get<Panel>("PART_Root") is { } rootPanel)
                 {
                     AddResizeGripForLinux(rootPanel);
                 }
@@ -523,6 +523,7 @@ public class SukiWindow : Window
 
     private void RaiseResize(object? sender, PointerPressedEventArgs e)
     {
+        if (!CanResize) return;
         if (sender is not Border border || border.Tag is not string edge) return;
         if (VisualRoot is not Window window)
             return;
