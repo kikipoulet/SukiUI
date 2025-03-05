@@ -99,7 +99,7 @@ public class SukiWindow : Window
     }
 
     public static readonly StyledProperty<CornerRadius> RootCornerRadiusProperty =
-        AvaloniaProperty.Register<Border, CornerRadius>(nameof(RootCornerRadius));
+        AvaloniaProperty.Register<Border, CornerRadius>(nameof(RootCornerRadius), defaultValue: default);
 
     public CornerRadius RootCornerRadius
     {
@@ -315,7 +315,7 @@ public class SukiWindow : Window
                 {
                     AddResizeGripForLinux(rootPanel);
                 }
-                if (RootCornerRadius == null)
+                if (RootCornerRadius == default)
                 {
                     RootCornerRadius = new CornerRadius(10);
                 }
