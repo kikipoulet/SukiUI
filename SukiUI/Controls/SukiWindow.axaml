@@ -4,10 +4,8 @@
                     xmlns:suki="clr-namespace:SukiUI.Controls">
     <ControlTheme x:Key="SukiWindowTheme" TargetType="suki:SukiWindow">
         <Setter Property="Margin" Value="0" />
-        
         <Setter Property="TransparencyLevelHint" Value="Transparent"></Setter>
         <Setter Property="SystemDecorations" Value="{OnPlatform Full, Linux=None, x:TypeArguments=SystemDecorations}" />
-        
         <Setter Property="ExtendClientAreaChromeHints" Value="NoChrome" />
         <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="-1" />
         <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
@@ -17,9 +15,7 @@
             <ControlTemplate>
                 <Border Margin="{TemplateBinding Margin}"
                         ClipToBounds="True"
-                        CornerRadius="{OnPlatform '0',
-                                                  Linux='10',
-                                                  x:TypeArguments=CornerRadius}">
+                        CornerRadius="{Binding RootCornerRadius, RelativeSource={RelativeSource AncestorType={x:Type suki:SukiWindow}}}">
                     <VisualLayerManager Name="PART_VisualLayerManager" IsHitTestVisible="True">
                         <VisualLayerManager.ChromeOverlayLayer>
                             <!-- <suki:SukiHost /> -->
@@ -40,15 +36,13 @@
                                                  ShaderFile="{TemplateBinding BackgroundShaderFile}"
                                                  Style="{TemplateBinding BackgroundStyle}"
                                                  TransitionTime="{TemplateBinding BackgroundTransitionTime}"
-                                                 TransitionsEnabled="{TemplateBinding BackgroundTransitionsEnabled}" 
+                                                 TransitionsEnabled="{TemplateBinding BackgroundTransitionsEnabled}"
                                                  ForceSoftwareRendering="{TemplateBinding BackgroundForceSoftwareRendering}"/>
                             <Panel Background="White" IsHitTestVisible="False"
                                    IsVisible="{DynamicResource IsLight}"
                                    Opacity="0.1" />
-
                             <DockPanel LastChildFill="True">
                                 <Panel ContextMenu="{TemplateBinding TitleBarContextMenu}" DockPanel.Dock="Top">
-                                    
                                     <Panel.Styles>
                                         <Style Selector="suki|SukiWindow[ShowBottomBorder=True] /template/ Border#PART_BottomBorder">
                                             <Setter Property="BorderThickness" Value="0,0,0,1" />
@@ -136,13 +130,13 @@
                 </Border>
             </ControlTemplate>
         </Setter>
-        
+
         <Style Selector="^[ShowTitlebarBackground=False] /template/ Menu#PART_Menu">
             <Setter Property="Margin" Value="10,0,0,7"></Setter>
-            </Style>
+        </Style>
         <Style Selector="^[ShowTitlebarBackground=True] /template/ suki|GlassCard#AlternativeGlassMenuBackground">
             <Setter Property="IsVisible" Value="False"></Setter>
-        </Style> 
+        </Style>
 
         <Style Selector="^[WindowState=Maximized] /template/ PathIcon#MaximizeIcon">
             <Setter Property="Data" Value="{x:Static icons:Icons.WindowRestore}" />

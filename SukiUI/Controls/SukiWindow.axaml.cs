@@ -8,6 +8,8 @@ using Avalonia.Collections;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
 using SukiUI.Enums;
+using System.Runtime.InteropServices;
+using Avalonia.Layout;
 
 namespace SukiUI.Controls;
 
@@ -23,9 +25,9 @@ public class SukiWindow : Window
         get => GetValue(TitleFontSizeProperty);
         set => SetValue(TitleFontSizeProperty, value);
     }
-    
+
     public static readonly StyledProperty<ContextMenu> TitleBarContextMenuProperty =
-        AvaloniaProperty.Register<SukiWindow, ContextMenu>(nameof(TitleBarContextMenu), defaultValue: null);
+        AvaloniaProperty.Register<SukiWindow, ContextMenu>(nameof(TitleBarContextMenu));
 
     public ContextMenu TitleBarContextMenu
     {
@@ -96,6 +98,15 @@ public class SukiWindow : Window
         set => SetValue(MenuItemsProperty, value);
     }
 
+    public static readonly StyledProperty<CornerRadius> RootCornerRadiusProperty =
+        AvaloniaProperty.Register<Border, CornerRadius>(nameof(RootCornerRadius), defaultValue: default);
+
+    public CornerRadius RootCornerRadius
+    {
+        get => GetValue(RootCornerRadiusProperty);
+        set => SetValue(RootCornerRadiusProperty, value);
+    }
+
     public static readonly StyledProperty<bool> CanMinimizeProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(CanMinimize), defaultValue: true);
 
@@ -104,7 +115,7 @@ public class SukiWindow : Window
         get => GetValue(CanMinimizeProperty);
         set => SetValue(CanMinimizeProperty, value);
     }
-    
+
     public static readonly StyledProperty<bool> ShowTitlebarBackgroundProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(ShowTitlebarBackground), defaultValue: true);
     public bool ShowTitlebarBackground
@@ -120,6 +131,7 @@ public class SukiWindow : Window
         get => GetValue(CanMaximizeProperty);
         set => SetValue(CanMaximizeProperty, value);
     }
+    private bool _canMaximize = default;
 
     public static readonly StyledProperty<bool> CanMoveProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(CanMove), defaultValue: true);
@@ -129,6 +141,7 @@ public class SukiWindow : Window
         get => GetValue(CanMoveProperty);
         set => SetValue(CanMoveProperty, value);
     }
+    private bool _canMove = default;
 
     // Background properties
     public static readonly StyledProperty<bool> BackgroundAnimationEnabledProperty =
@@ -257,13 +270,20 @@ public class SukiWindow : Window
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
         base.OnPropertyChanged(change);
-        if (change.Property == WindowStateProperty && change.NewValue is WindowState windowState) 
+        if (change.Property == WindowStateProperty && change.NewValue is WindowState windowState)
             OnWindowStateChanged(windowState);
     }
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
+
+        // save the initial values of CanMaximize and CanMove
+        if (_canMaximize == default)
+            _canMaximize = CanMaximize;
+        if (_canMove == default)
+            _canMove = CanMove;
+
         OnWindowStateChanged(WindowState);
         try
         {
@@ -284,6 +304,18 @@ public class SukiWindow : Window
             {
                 titleBar.PointerPressed += OnTitleBarPointerPressed;
                 titleBar.DoubleTapped += OnMaximizeButtonClicked;
+            }
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                if (e.NameScope.Get<Panel>("PART_Root") is { } rootPanel)
+                {
+                    AddResizeGripForLinux(rootPanel);
+                }
+                if (RootCornerRadius == default)
+                {
+                    RootCornerRadius = new CornerRadius(10);
+                }
             }
         }
         catch
@@ -354,16 +386,156 @@ public class SukiWindow : Window
     private void OnWindowStateChanged(WindowState state)
     {
         if (state == WindowState.FullScreen)
-            CanMaximize = CanResize = CanMove = false;
-        if (state == WindowState.Maximized)
-            Margin = new Thickness(7);
+        {
+            // Disable window control capabilities
+            _canMaximize = CanMaximize;
+            CanMaximize = false;
+            _canMove = CanMove;
+            CanMove = false;
+        }
         else
-            Margin = new Thickness(0);
+        {
+            // Restore window control capabilities
+            CanMaximize = _canMaximize;
+            CanMove = _canMove;
+        }
+
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) // only for windows platform
+        {
+            if (state == WindowState.Maximized)
+                Margin = new Thickness(7);
+            else
+                Margin = new Thickness(0);
+        }
     }
 
     private void OnTitleBarPointerPressed(object? sender, PointerPressedEventArgs e)
     {
+        if (!CanMove)
+            return;
         base.OnPointerPressed(e);
         BeginMoveDrag(e);
+    }
+
+    private void AddResizeGripForLinux(Panel rootPanel)
+    {
+        var resizeBorders = new[]
+        {
+            new {
+                Tag = "North",
+                VerticalAlignment = VerticalAlignment.Top,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                Cursor = StandardCursorType.SizeNorthSouth,
+                IsCorner = false
+            },
+            new {
+                Tag = "South",
+                VerticalAlignment = VerticalAlignment.Bottom,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                Cursor = StandardCursorType.SizeNorthSouth,
+                IsCorner = false
+            },
+            new {
+                Tag = "West",
+                VerticalAlignment = VerticalAlignment.Stretch,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                Cursor = StandardCursorType.SizeWestEast,
+                IsCorner = false
+            },
+            new {
+                Tag = "East",
+                VerticalAlignment = VerticalAlignment.Stretch,
+                HorizontalAlignment = HorizontalAlignment.Right,
+                Cursor = StandardCursorType.SizeWestEast,
+                IsCorner = false
+            },
+
+            new {
+                Tag = "NW",
+                VerticalAlignment = VerticalAlignment.Top,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                Cursor = StandardCursorType.TopLeftCorner,
+                IsCorner = true
+            },
+            new {
+                Tag = "NE",
+                VerticalAlignment = VerticalAlignment.Top,
+                HorizontalAlignment = HorizontalAlignment.Right,
+                Cursor = StandardCursorType.TopRightCorner,
+                IsCorner = true
+            },
+            new {
+                Tag = "SW",
+                VerticalAlignment = VerticalAlignment.Bottom,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                Cursor = StandardCursorType.BottomLeftCorner,
+                IsCorner = true
+            },
+            new {
+                Tag = "SE",
+                VerticalAlignment = VerticalAlignment.Bottom,
+                HorizontalAlignment = HorizontalAlignment.Right,
+                Cursor = StandardCursorType.BottomRightCorner,
+                IsCorner = true
+            }
+        };
+
+        foreach (var config in resizeBorders)
+        {
+            var border = new Border
+            {
+                Tag = config.Tag,
+                Background = Brushes.Transparent,
+                Cursor = new Cursor(config.Cursor)
+            };
+
+            if (config.IsCorner)
+            {
+                border.Width = 8;
+                border.Height = 8;
+                border.VerticalAlignment = config.VerticalAlignment;
+                border.HorizontalAlignment = config.HorizontalAlignment;
+            }
+            else
+            {
+                if (config.VerticalAlignment == VerticalAlignment.Stretch)
+                {
+                    border.Width = 6;
+                }
+                if (config.HorizontalAlignment == HorizontalAlignment.Stretch)
+                {
+                    border.Height = 6;
+                }
+                border.VerticalAlignment = config.VerticalAlignment;
+                border.HorizontalAlignment = config.HorizontalAlignment;
+            }
+
+            border.PointerPressed += RaiseResize;
+            rootPanel.Children.Add(border);
+        }
+    }
+
+    private void RaiseResize(object? sender, PointerPressedEventArgs e)
+    {
+        if (!CanResize) return;
+        if (sender is not Border border || border.Tag is not string edge) return;
+        if (VisualRoot is not Window window)
+            return;
+
+        var windowEdge = edge switch
+        {
+            "North" => WindowEdge.North,
+            "South" => WindowEdge.South,
+            "West" => WindowEdge.West,
+            "East" => WindowEdge.East,
+            "NW" => WindowEdge.NorthWest,
+            "NE" => WindowEdge.NorthEast,
+            "SW" => WindowEdge.SouthWest,
+            "SE" => WindowEdge.SouthEast,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+
+        window?.BeginResizeDrag(windowEdge, e);
+        e.Handled = true;
     }
 }
