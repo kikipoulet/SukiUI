@@ -17,11 +17,8 @@ using System.Threading.Tasks;
 
 namespace SukiUI.Controls;
 
-public class SettingsLayoutItem
 public class SettingsLayoutItem : Control
 {
-    public string Header { get; set; }
-    public Control Content { get; set; }
     public static readonly DirectProperty<SettingsLayoutItem, string?> HeaderProperty =
         AvaloniaProperty.RegisterDirect<SettingsLayoutItem, string?>(
             nameof(Header),
