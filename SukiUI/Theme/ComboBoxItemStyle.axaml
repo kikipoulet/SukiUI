@@ -1,6 +1,7 @@
-﻿<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:icons="clr-namespace:SukiUI.Content">
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:icons="clr-namespace:SukiUI.Content"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <Border Padding="20">
             <StackPanel Spacing="10">
@@ -8,10 +9,11 @@
                     <ComboBoxItem>Item 1</ComboBoxItem>
                     <ComboBoxItem>Item 2</ComboBoxItem>
                 </ComboBox>
-                <ComboBox Width="200"
-                          HorizontalContentAlignment="Center"
-                          IsEnabled="False"
-                          SelectedIndex="1">
+                <ComboBox
+                    HorizontalContentAlignment="Center"
+                    IsEnabled="False"
+                    SelectedIndex="1"
+                    Width="200">
                     <ComboBoxItem>Item 1</ComboBoxItem>
                     <ComboBoxItem>Item 2</ComboBoxItem>
                 </ComboBox>
@@ -23,32 +25,35 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Padding" Value="2" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Border Name="BorderBasicStyle"
-                        Margin="3,0,3,3"
-                        Padding="5,0"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="6">
+                <Border
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="6"
+                    Margin="3,0,3,3"
+                    Name="BorderBasicStyle"
+                    Padding="5,0">
                     <DockPanel>
-                        <PathIcon Name="CheckSelected"
-                                  Width="12"
-                                  Height="12"
-                                  Margin="0,0,3,0"
-                                  Data="{x:Static icons:Icons.Check}"
-                                  DockPanel.Dock="Right"
-                                  Foreground="{DynamicResource SukiPrimaryColor}" />
-                        <ContentPresenter Name="PART_ContentPresenter"
-                                          Margin="1"
-                                          Padding="5"
-                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          Content="{TemplateBinding Content}"
-                                          ContentTemplate="{TemplateBinding ContentTemplate}"
-                                          CornerRadius="{DynamicResource SmallCornerRadius}" />
+                        <PathIcon
+                            Data="{x:Static icons:Icons.Check}"
+                            DockPanel.Dock="Right"
+                            Foreground="{DynamicResource SukiPrimaryColor}"
+                            Height="12"
+                            Margin="0,0,3,0"
+                            Name="CheckSelected"
+                            Width="12" />
+                        <ContentPresenter
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            CornerRadius="{DynamicResource SmallCornerRadius}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            Margin="1"
+                            Name="PART_ContentPresenter"
+                            Padding="5"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
 
                     </DockPanel>
                 </Border>
