@@ -21,6 +21,11 @@
                          Watermark="@gmail.com" />
                 <TextBox Width="200"
                          Margin="5"
+                         Text="suki"
+                         UseFloatingWatermark="True"
+                         Watermark="Username" />
+                <TextBox Width="200"
+                         Margin="5"
                          Classes="BottomBar"
                          Text="Elem" />
                 <TextBox Width="200"
@@ -178,6 +183,7 @@
 
                                 <TextBlock Name="floatingWatermark"
                                            DockPanel.Dock="Top"
+                                           Foreground="{DynamicResource SukiPrimaryColor}"
                                            Text="{TemplateBinding Watermark}">
                                     <TextBlock.IsVisible>
                                         <MultiBinding Converter="{x:Static BoolConverters.And}">
