@@ -5,7 +5,7 @@
              xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             d:DesignHeight="450"
+             d:DesignHeight="1000"
              d:DesignWidth="800"
              x:DataType="controlsLibrary:InfoBarViewModel"
              mc:Ignorable="d">
@@ -30,11 +30,30 @@
                         <TextBlock Margin="0,0,0,0"
                                    VerticalAlignment="Center"
                                    FontWeight="DemiBold"
+                                   Text="Icon Size:" />
+                        <NumericUpDown Width="500"
+                                       FormatString="F0"
+                                       Margin="15,0,0,0"
+                                       Value="{Binding IconSize}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="0,0,0,0"
+                                   VerticalAlignment="Center"
+                                   FontWeight="DemiBold"
                                    Text="IsOpen Status" />
                         <Button Margin="15,0,0,0"
                                 Command="{Binding RefreshIsOpenStatusCommand}"
                                 Content="Refresh" />
                     </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="0,0,0,0"
+                                   VerticalAlignment="Center"
+                                   FontWeight="DemiBold"
+                                   Text="IsTextSelectable" />
+                        <ToggleSwitch Margin="15,0,0,0" IsChecked="{Binding IsTextSelectable}" />
+                    </StackPanel>
+
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="0,0,0,0"
                                    VerticalAlignment="Center"
@@ -42,7 +61,7 @@
                                    Text="IsClosable" />
                         <ToggleSwitch Margin="15,0,0,0" IsChecked="{Binding IsClosable}" />
                     </StackPanel>
-                    
+
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="0,0,0,0"
                                    VerticalAlignment="Center"
@@ -57,25 +76,47 @@
             <WrapPanel Classes="PageContainer">
                 <suki:GlassCard>
                     <StackPanel Spacing="7">
-                        <suki:InfoBar Title="Info" IsOpaque="{Binding IsOpaque}"
+                        <suki:InfoBar Title="Info"
+                                      IsTextSelectable="{Binding IsTextSelectable}"
+                                      IconSize="{Binding IconSize}"
+                                      IsOpaque="{Binding IsOpaque}"
                                       Margin="10"
                                       IsClosable="{Binding IsClosable}"
                                       IsOpen="{Binding IsOpen, Mode=TwoWay}"
                                       Message="{Binding #MessageTextBox.Text}" />
-                        <suki:InfoBar Title="Warning"  IsOpaque="{Binding IsOpaque}"
+                        <suki:InfoBar Title="Warning"
+                                      IsTextSelectable="{Binding IsTextSelectable}"
+                                      IconSize="{Binding IconSize}"
+                                      IsOpaque="{Binding IsOpaque}"
                                       Margin="10"
                                       IsClosable="{Binding IsClosable}"
                                       IsOpen="{Binding IsOpen, Mode=TwoWay}"
                                       Message="{Binding #MessageTextBox.Text}"
                                       Severity="Warning" />
-                        <suki:InfoBar Title="Error"  IsOpaque="{Binding IsOpaque}"
+                        <suki:InfoBar Title="Error"
+                                      IsTextSelectable="{Binding IsTextSelectable}"
+                                      IconSize="{Binding IconSize}"
+                                      IsOpaque="{Binding IsOpaque}"
                                       Margin="10"
                                       IsClosable="{Binding IsClosable}"
                                       IsOpen="{Binding IsOpen, Mode=TwoWay}"
                                       Message="{Binding #MessageTextBox.Text}"
                                       Severity="Error" />
                         <suki:InfoBar Title="Success"
-                                      Margin="10"  IsOpaque="{Binding IsOpaque}"
+                                      IsTextSelectable="{Binding IsTextSelectable}"
+                                      Margin="10"
+                                      IconSize="{Binding IconSize}"
+                                      IsOpaque="{Binding IsOpaque}"
+                                      IsClosable="{Binding IsClosable}"
+                                      IsOpen="{Binding IsOpen, Mode=TwoWay}"
+                                      Message="{Binding #MessageTextBox.Text}"
+                                      Severity="Success" />
+                        <suki:InfoBar Title="Vertical title"
+                                      IsTextSelectable="{Binding IsTextSelectable}"
+                                      TitleOrientation="Vertical"
+                                      Margin="10"
+                                      IconSize="{Binding IconSize}"
+                                      IsOpaque="{Binding IsOpaque}"
                                       IsClosable="{Binding IsClosable}"
                                       IsOpen="{Binding IsOpen, Mode=TwoWay}"
                                       Message="{Binding #MessageTextBox.Text}"
