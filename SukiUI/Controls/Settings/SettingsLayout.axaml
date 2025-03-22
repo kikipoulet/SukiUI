@@ -8,9 +8,9 @@
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
+
     <UserControl.Styles>
         <Style Selector="RadioButton.MenuChip">
-
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderMidBrush}" />
             <Setter Property="BorderThickness" Value="0" />
@@ -54,22 +54,17 @@
 
         <Style Selector="RadioButton.MenuChip:checked">
             <Setter Property="TextBlock.FontWeight" Value="{DynamicResource DefaultDemiBold}" />
-
             <Setter Property="BorderThickness" Value="0,0,0,0" />
             <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
-
         </Style>
 
         <Style Selector="RadioButton.MenuChip:pointerover /template/ Border">
-
             <Setter Property="Background" Value="{DynamicResource SukiLightBackground}" />
-
         </Style>
 
         <Style Selector="RadioButton.MenuChip  TextBlock">
             <Setter Property="FontSize" Value="50" />
         </Style>
-
 
         <Style Selector="RadioButton.MenuChip:checked  TextBlock">
             <Setter Property="FontWeight" Value="{DynamicResource DefaultDemiBold}" />
@@ -95,11 +90,9 @@
 
         <Style Selector="RadioButton.MenuChip:checked /template/ Border">
             <Setter Property="Transitions">
-
                 <Transitions>
                     <BrushTransition Property="Background" Duration="0:0:0.15" />
                 </Transitions>
-
             </Setter>
 
             <Setter Property="TextBlock.FontWeight" Value="{DynamicResource DefaultDemiBold}" />
@@ -111,11 +104,9 @@
 
         <Style Selector="RadioButton.MenuChip /template/ ContentPresenter#PART_ContentPresenter">
             <Setter Property="Transitions">
-
                 <Transitions>
                     <ThicknessTransition Property="Margin" Duration="0:0:0.25" />
                 </Transitions>
-
             </Setter>
         </Style>
 
@@ -137,6 +128,5 @@
                 </ControlTemplate>
             </Setter>
         </Style>
-
     </UserControl.Styles>
 </UserControl>
