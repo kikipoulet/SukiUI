@@ -3,19 +3,47 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Media;
-using System;
 using Avalonia.Collections;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
 using SukiUI.Enums;
 using System.Runtime.InteropServices;
 using Avalonia.Layout;
+using Avalonia.Threading;
 
 namespace SukiUI.Controls;
 
-public class SukiWindow : Window
+public class SukiWindow : Window, IDisposable
 {
+    public enum TitleBarVisibilityMode
+    {
+        Unchanged,
+        Visible,
+        Hidden,
+        AutoHidden
+    }
+
     protected override Type StyleKeyOverride => typeof(SukiWindow);
+
+    private bool _isDisposed;
+
+    private bool _canMaximize;
+    private bool _canMove;
+    private bool _canResize;
+    private bool _wasTitleBarVisibleBeforeFullScreen = true;
+
+    private const int DefaultAutoHideDelay = 1000;
+    private const int DefaultAutoShowDelay = 300;
+    private readonly DispatcherTimer _hideTitleBarTimer = new DispatcherTimer()
+    {
+        Interval = TimeSpan.FromMilliseconds(DefaultAutoHideDelay)
+    };
+    private readonly DispatcherTimer _showTitleBarTimer = new DispatcherTimer()
+    {
+        Interval = TimeSpan.FromMilliseconds(DefaultAutoShowDelay)
+    };
+
+    private readonly List<Action> _disposeActions = new List<Action>();
 
     public static readonly StyledProperty<double> TitleFontSizeProperty =
         AvaloniaProperty.Register<SukiWindow, double>(nameof(TitleFontSize), defaultValue: 13);
@@ -71,8 +99,37 @@ public class SukiWindow : Window
         set => SetValue(IsTitleBarVisibleProperty, value);
     }
 
+
+    public static readonly StyledProperty<TitleBarVisibilityMode> TitleBarVisibilityOnFullScreenProperty =
+        AvaloniaProperty.Register<SukiWindow, TitleBarVisibilityMode>(nameof(TitleBarVisibilityOnFullScreen), TitleBarVisibilityMode.AutoHidden);
+
+    public TitleBarVisibilityMode TitleBarVisibilityOnFullScreen
+    {
+        get => GetValue(TitleBarVisibilityOnFullScreenProperty);
+        set => SetValue(TitleBarVisibilityOnFullScreenProperty, value);
+    }
+
+    public static readonly StyledProperty<int> TitleBarAutoHideDelayProperty =
+        AvaloniaProperty.Register<SukiWindow, int>(nameof(TitleBarAutoHideDelay), DefaultAutoHideDelay);
+
+    public int TitleBarAutoHideDelay
+    {
+        get => GetValue(TitleBarAutoHideDelayProperty);
+        set => SetValue(TitleBarAutoHideDelayProperty, value);
+    }
+
+    public static readonly StyledProperty<int> TitleBarAutoShowDelayProperty =
+        AvaloniaProperty.Register<SukiWindow, int>(nameof(TitleBarAutoShowDelay), DefaultAutoShowDelay);
+
+    public int TitleBarAutoShowDelay
+    {
+        get => GetValue(TitleBarAutoShowDelayProperty);
+        set => SetValue(TitleBarAutoShowDelayProperty, value);
+    }
+
     public static readonly StyledProperty<bool> TitleBarAnimationEnabledProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(TitleBarAnimationEnabled), defaultValue: true);
+
 
     public bool TitleBarAnimationEnabled
     {
@@ -124,6 +181,22 @@ public class SukiWindow : Window
         set => SetValue(ShowTitlebarBackgroundProperty, value);
     }
 
+    public static readonly StyledProperty<bool> CanFullScreenProperty =
+        AvaloniaProperty.Register<SukiWindow, bool>(nameof(CanFullScreen), defaultValue: true);
+    public bool CanFullScreen
+    {
+        get => GetValue(CanFullScreenProperty);
+        set => SetValue(CanFullScreenProperty, value);
+    }
+
+    public static readonly StyledProperty<bool> CanPinProperty =
+        AvaloniaProperty.Register<SukiWindow, bool>(nameof(CanPin), defaultValue: true);
+    public bool CanPin
+    {
+        get => GetValue(CanPinProperty);
+        set => SetValue(CanPinProperty, value);
+    }
+
     public static readonly StyledProperty<bool> CanMaximizeProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(CanMaximize), defaultValue: true);
     public bool CanMaximize
@@ -131,7 +204,6 @@ public class SukiWindow : Window
         get => GetValue(CanMaximizeProperty);
         set => SetValue(CanMaximizeProperty, value);
     }
-    private bool _canMaximize = default;
 
     public static readonly StyledProperty<bool> CanMoveProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(CanMove), defaultValue: true);
@@ -141,7 +213,6 @@ public class SukiWindow : Window
         get => GetValue(CanMoveProperty);
         set => SetValue(CanMoveProperty, value);
     }
-    private bool _canMove = default;
 
     // Background properties
     public static readonly StyledProperty<bool> BackgroundAnimationEnabledProperty =
@@ -246,11 +317,26 @@ public class SukiWindow : Window
         set => SetValue(HostsProperty, value);
     }
 
+    public static readonly DirectProperty<SukiWindow, WindowState> PreviousVisibleWindowStateProperty =
+        AvaloniaProperty.RegisterDirect<SukiWindow, WindowState>(
+            nameof(PreviousVisibleWindowState),
+            o => o.PreviousVisibleWindowState);
+
+    private WindowState _previousVisibleWindowState = WindowState.Normal;
+    public WindowState PreviousVisibleWindowState
+    {
+        get => _previousVisibleWindowState;
+        private set => SetAndRaise(PreviousVisibleWindowStateProperty, ref _previousVisibleWindowState, value);
+    }
+
     public SukiWindow()
     {
         MenuItems = new AvaloniaList<MenuItem>();
         RightWindowTitleBarControls = new Avalonia.Controls.Controls();
         Hosts = new Avalonia.Controls.Controls();
+
+        _hideTitleBarTimer.Tick += HideTitleBarTimerOnTick;
+        _showTitleBarTimer.Tick += ShowTitleBarTimerOnTick;
     }
 
     protected override void OnLoaded(RoutedEventArgs e)
@@ -271,7 +357,48 @@ public class SukiWindow : Window
     {
         base.OnPropertyChanged(change);
         if (change.Property == WindowStateProperty && change.NewValue is WindowState windowState)
+        {
+            if (change.OldValue is WindowState oldWindowState)
+            {
+                if (oldWindowState != WindowState.Minimized)
+                    PreviousVisibleWindowState = oldWindowState;
+            }
+
             OnWindowStateChanged(windowState);
+        }
+        else if (change.Property == TitleBarVisibilityOnFullScreenProperty)
+        {
+            if (WindowState != WindowState.FullScreen) return;
+
+            if (change.NewValue is TitleBarVisibilityMode mode)
+            {
+                IsTitleBarVisible = mode switch
+                {
+                    TitleBarVisibilityMode.Unchanged => _wasTitleBarVisibleBeforeFullScreen,
+                    TitleBarVisibilityMode.Visible => true,
+                    TitleBarVisibilityMode.Hidden or TitleBarVisibilityMode.AutoHidden => false,
+                    _ => IsTitleBarVisible
+                };
+
+                PointerMoved -= AutoHideTitleBarOnPointerMoved;
+                if (mode == TitleBarVisibilityMode.AutoHidden)
+                {
+                    PointerMoved += AutoHideTitleBarOnPointerMoved;
+                }
+            }
+        }
+        else if (change.Property == TitleBarAutoHideDelayProperty)
+        {
+            _hideTitleBarTimer.Interval = TimeSpan.FromMilliseconds(TitleBarAutoHideDelay);
+        }
+        else if (change.Property == TitleBarAutoShowDelayProperty)
+        {
+            _showTitleBarTimer.Interval = TimeSpan.FromMilliseconds(TitleBarAutoShowDelay);
+        }
+        /*else if (change.Property == IsTitleBarVisibleProperty) // Debug
+        {
+            var value = IsTitleBarVisible;
+        }*/
     }
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
@@ -279,31 +406,57 @@ public class SukiWindow : Window
         base.OnApplyTemplate(e);
 
         // save the initial values of CanMaximize and CanMove
-        if (_canMaximize == default)
+        if (_canMaximize == false)
             _canMaximize = CanMaximize;
-        if (_canMove == default)
+        if (_canMove == false)
             _canMove = CanMove;
+        if (_canResize == false)
+            _canResize = CanResize;
 
         OnWindowStateChanged(WindowState);
         try
         {
             // Create handlers for buttons
-            if (e.NameScope.Get<Button>("PART_MaximizeButton") is { } maximize)
+            if (e.NameScope.Get<Button>("PART_FullScreenButton") is { } fullscreen)
             {
-                maximize.Click += OnMaximizeButtonClicked;
-                EnableWindowsSnapLayout(maximize);
+                fullscreen.Click += OnFullScreenButtonClicked;
+                _disposeActions.Add(() => fullscreen.Click -= OnFullScreenButtonClicked);
+            }
+
+            if (e.NameScope.Get<Button>("PART_PinButton") is { } pin)
+            {
+                pin.Click += OnPinButtonClicked;
+                _disposeActions.Add(() => pin.Click -= OnPinButtonClicked);
             }
 
             if (e.NameScope.Get<Button>("PART_MinimizeButton") is { } minimize)
-                minimize.Click += (_, _) => WindowState = WindowState.Minimized;
+            {
+                minimize.Click += OnMinimizeButtonClicked;
+                _disposeActions.Add(() => minimize.Click -= OnMinimizeButtonClicked);
+            }
+
+            if (e.NameScope.Get<Button>("PART_MaximizeButton") is { } maximize)
+            {
+                maximize.Click += OnMaximizeButtonClicked;
+                _disposeActions.Add(() => maximize.Click -= OnMaximizeButtonClicked);
+                EnableWindowsSnapLayout(maximize);
+            }
 
             if (e.NameScope.Get<Button>("PART_CloseButton") is { } close)
-                close.Click += (_, _) => Close();
+            {
+                close.Click += OnCloseButtonClicked;
+                _disposeActions.Add(() => close.Click -= OnCloseButtonClicked);
+            }
 
             if (e.NameScope.Get<GlassCard>("PART_TitleBarBackground") is { } titleBar)
             {
                 titleBar.PointerPressed += OnTitleBarPointerPressed;
                 titleBar.DoubleTapped += OnMaximizeButtonClicked;
+                _disposeActions.Add(() =>
+                {
+                    titleBar.PointerPressed -= OnTitleBarPointerPressed;
+                    titleBar.DoubleTapped -= OnMaximizeButtonClicked;
+                });
             }
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
@@ -324,12 +477,34 @@ public class SukiWindow : Window
         }
     }
 
+    private void OnFullScreenButtonClicked(object? sender, RoutedEventArgs args)
+    {
+        if (!CanFullScreen) return;
+        ToggleFullScreen();
+    }
+
+    private void OnPinButtonClicked(object? sender, RoutedEventArgs args)
+    {
+        if (!CanPin) return;
+        Topmost = !Topmost;
+    }
+
+    private void OnMinimizeButtonClicked(object sender, RoutedEventArgs e)
+    {
+        WindowState = WindowState.Minimized;
+    }
+
     private void OnMaximizeButtonClicked(object? sender, RoutedEventArgs args)
     {
         if (!CanMaximize) return;
         WindowState = WindowState == WindowState.Maximized
             ? WindowState.Normal
             : WindowState.Maximized;
+    }
+
+    private void OnCloseButtonClicked(object sender, RoutedEventArgs e)
+    {
+        Close();
     }
 
     private void EnableWindowsSnapLayout(Button maximize)
@@ -380,11 +555,18 @@ public class SukiWindow : Window
                 : (int)(ptr.ToInt64() & 0xffffffff);
         };
 
-        Win32Properties.AddWndProcHookCallback(this, new Win32Properties.CustomWndProcHookCallback(proc));
+        var wndProcHookCallback = new Win32Properties.CustomWndProcHookCallback(proc);
+        Win32Properties.AddWndProcHookCallback(this, wndProcHookCallback);
+
+        _disposeActions.Add(() => Win32Properties.RemoveWndProcHookCallback(this, wndProcHookCallback));
     }
 
     private void OnWindowStateChanged(WindowState state)
     {
+        PointerMoved -= AutoHideTitleBarOnPointerMoved;
+        _showTitleBarTimer.Stop();
+        _hideTitleBarTimer.Stop();
+        var titleBarVisibilityOnFullScreen = TitleBarVisibilityOnFullScreen;
         if (state == WindowState.FullScreen)
         {
             // Disable window control capabilities
@@ -392,12 +574,35 @@ public class SukiWindow : Window
             CanMaximize = false;
             _canMove = CanMove;
             CanMove = false;
+            _canResize = CanResize;
+            CanResize = false;
+
+            _wasTitleBarVisibleBeforeFullScreen = IsTitleBarVisible;
+            switch (titleBarVisibilityOnFullScreen)
+            {
+                case TitleBarVisibilityMode.Visible:
+                    IsTitleBarVisible = true;
+                    break;
+                case TitleBarVisibilityMode.Hidden:
+                    IsTitleBarVisible = false;
+                    break;
+                case TitleBarVisibilityMode.AutoHidden:
+                    if (IsTitleBarVisible) _hideTitleBarTimer.Start();
+                    PointerMoved += AutoHideTitleBarOnPointerMoved;
+                    break;
+            }
         }
         else
         {
             // Restore window control capabilities
             CanMaximize = _canMaximize;
             CanMove = _canMove;
+            CanResize = _canResize;
+
+            if (titleBarVisibilityOnFullScreen != TitleBarVisibilityMode.Unchanged)
+            {
+                IsTitleBarVisible = _wasTitleBarVisibleBeforeFullScreen;
+            }
         }
 
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) // only for windows platform
@@ -406,6 +611,29 @@ public class SukiWindow : Window
                 Margin = new Thickness(7);
             else
                 Margin = new Thickness(0);
+        }
+    }
+
+
+    private void AutoHideTitleBarOnPointerMoved(object sender, PointerEventArgs e)
+    {
+        var position = e.GetPosition(this);
+
+        if (position.Y <= 3)
+        {
+            _hideTitleBarTimer.Stop();
+            if (!IsTitleBarVisible)
+            {
+                _showTitleBarTimer.Start();
+            }
+        }
+        else if(position.Y >= 50)
+        {
+            _showTitleBarTimer.Stop();
+            if (IsTitleBarVisible)
+            {
+                _hideTitleBarTimer.Start();
+            }
         }
     }
 
@@ -511,6 +739,7 @@ public class SukiWindow : Window
             }
 
             border.PointerPressed += RaiseResize;
+            _disposeActions.Add(() => border.PointerPressed -= RaiseResize);
             rootPanel.Children.Add(border);
         }
     }
@@ -535,7 +764,49 @@ public class SukiWindow : Window
             _ => throw new ArgumentOutOfRangeException()
         };
 
-        window?.BeginResizeDrag(windowEdge, e);
+        window.BeginResizeDrag(windowEdge, e);
         e.Handled = true;
+    }
+
+    private void HideTitleBarTimerOnTick(object sender, EventArgs e)
+    {
+        IsTitleBarVisible = false;
+    }
+
+    private void ShowTitleBarTimerOnTick(object sender, EventArgs e)
+    {
+        IsTitleBarVisible = true;
+    }
+
+    public void ToggleFullScreen()
+    {
+        WindowState = WindowState == WindowState.FullScreen
+            ? PreviousVisibleWindowState
+            : WindowState.FullScreen;
+    }
+
+    protected override void OnClosed(EventArgs e)
+    {
+        Dispose();
+        base.OnClosed(e);
+    }
+
+    public void Dispose()
+    {
+        if (_isDisposed) return;
+        _isDisposed = true;
+
+        _hideTitleBarTimer.Tick -= HideTitleBarTimerOnTick;
+        _showTitleBarTimer.Tick -= ShowTitleBarTimerOnTick;
+
+        _hideTitleBarTimer.Stop();
+        _showTitleBarTimer.Stop();
+
+        // Release all events
+        PointerMoved -= AutoHideTitleBarOnPointerMoved;
+        foreach (var disposeAction in _disposeActions)
+        {
+            disposeAction.Invoke();
+        }
     }
 }
