@@ -182,7 +182,7 @@ public class SukiWindow : Window, IDisposable
     }
 
     public static readonly StyledProperty<bool> CanFullScreenProperty =
-        AvaloniaProperty.Register<SukiWindow, bool>(nameof(CanFullScreen), defaultValue: true);
+        AvaloniaProperty.Register<SukiWindow, bool>(nameof(CanFullScreen));
     public bool CanFullScreen
     {
         get => GetValue(CanFullScreenProperty);
@@ -190,7 +190,7 @@ public class SukiWindow : Window, IDisposable
     }
 
     public static readonly StyledProperty<bool> CanPinProperty =
-        AvaloniaProperty.Register<SukiWindow, bool>(nameof(CanPin), defaultValue: true);
+        AvaloniaProperty.Register<SukiWindow, bool>(nameof(CanPin));
     public bool CanPin
     {
         get => GetValue(CanPinProperty);
