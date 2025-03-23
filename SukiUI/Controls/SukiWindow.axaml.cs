@@ -8,11 +8,26 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
 using SukiUI.Enums;
 using System.Runtime.InteropServices;
+using Avalonia.Controls.Metadata;
 using Avalonia.Layout;
 using Avalonia.Threading;
+using Avalonia.Controls.Presenters;
 
 namespace SukiUI.Controls;
 
+[TemplatePart("PART_VisualLayerManager", typeof(VisualLayerManager))]
+[TemplatePart("PART_Root", typeof(Panel))]
+[TemplatePart("PART_Background", typeof(SukiBackground))]
+[TemplatePart("PART_LayoutTransform", typeof(LayoutTransformControl))]
+[TemplatePart("PART_TitleBarBackground", typeof(GlassCard))]
+[TemplatePart("PART_FullScreenButton", typeof(Button))]
+[TemplatePart("PART_PinButton", typeof(Button))]
+[TemplatePart("PART_MinimizeButton", typeof(Button))]
+[TemplatePart("PART_MaximizeButton", typeof(Button))]
+[TemplatePart("PART_CloseButton", typeof(Button))]
+[TemplatePart("PART_Menu", typeof(Menu))]
+[TemplatePart("PART_BottomBorder", typeof(Border))]
+[TemplatePart("PART_ContentPresenter", typeof(ContentPresenter))]
 public class SukiWindow : Window, IDisposable
 {
     public enum TitleBarVisibilityMode
@@ -414,67 +429,61 @@ public class SukiWindow : Window, IDisposable
             _canResize = CanResize;
 
         OnWindowStateChanged(WindowState);
-        try
+        // Create handlers for buttons
+        if (e.NameScope.Find<Button>("PART_FullScreenButton") is { } fullscreen)
         {
-            // Create handlers for buttons
-            if (e.NameScope.Get<Button>("PART_FullScreenButton") is { } fullscreen)
-            {
-                fullscreen.Click += OnFullScreenButtonClicked;
-                _disposeActions.Add(() => fullscreen.Click -= OnFullScreenButtonClicked);
-            }
+            fullscreen.Click += OnFullScreenButtonClicked;
+            _disposeActions.Add(() => fullscreen.Click -= OnFullScreenButtonClicked);
+        }
 
-            if (e.NameScope.Get<Button>("PART_PinButton") is { } pin)
-            {
-                pin.Click += OnPinButtonClicked;
-                _disposeActions.Add(() => pin.Click -= OnPinButtonClicked);
-            }
+        if (e.NameScope.Find<Button>("PART_PinButton") is { } pin)
+        {
+            pin.Click += OnPinButtonClicked;
+            _disposeActions.Add(() => pin.Click -= OnPinButtonClicked);
+        }
 
-            if (e.NameScope.Get<Button>("PART_MinimizeButton") is { } minimize)
-            {
-                minimize.Click += OnMinimizeButtonClicked;
-                _disposeActions.Add(() => minimize.Click -= OnMinimizeButtonClicked);
-            }
+        if (e.NameScope.Find<Button>("PART_MinimizeButton") is { } minimize)
+        {
+            minimize.Click += OnMinimizeButtonClicked;
+            _disposeActions.Add(() => minimize.Click -= OnMinimizeButtonClicked);
+        }
 
-            if (e.NameScope.Get<Button>("PART_MaximizeButton") is { } maximize)
-            {
-                maximize.Click += OnMaximizeButtonClicked;
-                _disposeActions.Add(() => maximize.Click -= OnMaximizeButtonClicked);
-                EnableWindowsSnapLayout(maximize);
-            }
+        if (e.NameScope.Find<Button>("PART_MaximizeButton") is { } maximize)
+        {
+            maximize.Click += OnMaximizeButtonClicked;
+            _disposeActions.Add(() => maximize.Click -= OnMaximizeButtonClicked);
+            EnableWindowsSnapLayout(maximize);
+        }
 
-            if (e.NameScope.Get<Button>("PART_CloseButton") is { } close)
-            {
-                close.Click += OnCloseButtonClicked;
-                _disposeActions.Add(() => close.Click -= OnCloseButtonClicked);
-            }
+        if (e.NameScope.Find<Button>("PART_CloseButton") is { } close)
+        {
+            close.Click += OnCloseButtonClicked;
+            _disposeActions.Add(() => close.Click -= OnCloseButtonClicked);
+        }
 
-            if (e.NameScope.Get<GlassCard>("PART_TitleBarBackground") is { } titleBar)
+        if (e.NameScope.Find<GlassCard>("PART_TitleBarBackground") is { } titleBar)
+        {
+            titleBar.PointerPressed += OnTitleBarPointerPressed;
+            titleBar.DoubleTapped += OnMaximizeButtonClicked;
+            _disposeActions.Add(() =>
             {
-                titleBar.PointerPressed += OnTitleBarPointerPressed;
-                titleBar.DoubleTapped += OnMaximizeButtonClicked;
-                _disposeActions.Add(() =>
-                {
-                    titleBar.PointerPressed -= OnTitleBarPointerPressed;
-                    titleBar.DoubleTapped -= OnMaximizeButtonClicked;
-                });
-            }
+                titleBar.PointerPressed -= OnTitleBarPointerPressed;
+                titleBar.DoubleTapped -= OnMaximizeButtonClicked;
+            });
+        }
 
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            if (e.NameScope.Find<Panel>("PART_Root") is { } rootPanel)
             {
-                if (e.NameScope.Get<Panel>("PART_Root") is { } rootPanel)
-                {
-                    AddResizeGripForLinux(rootPanel);
-                }
-                if (RootCornerRadius == default)
-                {
-                    RootCornerRadius = new CornerRadius(10);
-                }
+                AddResizeGripForLinux(rootPanel);
+            }
+            if (RootCornerRadius == default)
+            {
+                RootCornerRadius = new CornerRadius(10);
             }
         }
-        catch
-        {
-            // ignored
-        }
+
     }
 
     private void OnFullScreenButtonClicked(object? sender, RoutedEventArgs args)
@@ -627,7 +636,7 @@ public class SukiWindow : Window, IDisposable
                 _showTitleBarTimer.Start();
             }
         }
-        else if(position.Y >= 50)
+        else if (position.Y >= 50)
         {
             _showTitleBarTimer.Stop();
             if (IsTitleBarVisible)
