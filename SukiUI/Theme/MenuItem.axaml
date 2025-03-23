@@ -6,8 +6,44 @@
                     xmlns:system="clr-namespace:System;assembly=netstandard">
     <converters:PlatformKeyGestureConverter x:Key="KeyGestureConverter" />
 
+    <Design.PreviewWith>
+        <Border Margin="20" MinWidth="600" MinHeight="400">
+            <Menu VerticalAlignment="Top">
+                <MenuItem Header="File">
+                    <MenuItem Header="Open" Icon="🗎" InputGesture="Ctrl + O">
+                        <MenuItem Header="Recent file 1" Icon="🗎"/>
+                        <MenuItem Header="Recent file 2" Icon="🗎"/>
+                        <MenuItem Header="Recent file 3" Icon="🗎"/>
+                        <MenuItem Header="Recent file 4" Icon="🗎"/>
+                        <Separator/>
+                        <MenuItem Header="Clear recent files" Icon="🗙" InputGesture="Ctrl + Alt + O"/>
+                    </MenuItem>
+                    <MenuItem Header="Save" Icon="💾" InputGesture="Ctrl + S"/>
+                    <MenuItem Header="Fullscreen" Icon="⛶" InputGesture="F11" HotKey="F11"/>
+                    <MenuItem Header="Close" Icon="🗙" InputGesture="Alt + F4"/>
+                </MenuItem>
+
+                <MenuItem Header="View">
+                    <MenuItem Header="Grid options">
+                        <MenuItem Header="Show grid lines"/>
+                        <MenuItem Header="Show grid separator"/>
+                        <MenuItem Header="Show grid "/>
+                    </MenuItem>
+                    <MenuItem Header="Title bar"/>
+                </MenuItem>
+
+                <MenuItem Header="Help">
+                    <MenuItem Header="About"/>
+                    <MenuItem Header="Website"/>
+                    <MenuItem Header="Discussions"/>
+                    <MenuItem Header="Donate"/>
+                </MenuItem>
+            </Menu>
+        </Border>
+    </Design.PreviewWith>
+
     <ControlTheme x:Key="SukiMenuItemStyle" TargetType="MenuItem">
-      
+
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
         <Setter Property="BorderThickness" Value="1.5" />
         <Setter Property="FontSize" Value="14" />
@@ -33,16 +69,30 @@
                                        Margin="5,-2"
                                        DockPanel.Dock="Left"
                                        Fill="{DynamicResource SukiLightBorderBrush}" />
-                            <PathIcon Name="PART_RightArrow"
-                                      Classes="Flippable"
-                                      Width="8"
-                                      Height="8"
-                                      Margin="5,0,10,0"
-                                      HorizontalAlignment="Right"
-                                      VerticalAlignment="Center"
-                                      Data="{x:Static content:Icons.ChevronRight}"
-                                      DockPanel.Dock="Right"
-                                      Foreground="{DynamicResource SukiText}" />
+
+                            <Border Width="24"
+                                    DockPanel.Dock="Right">
+                                <PathIcon Name="PART_RightArrow"
+                                          Classes="Flippable"
+                                          Width="8"
+                                          Height="8"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Data="{x:Static content:Icons.ChevronRight}"
+
+                                          Foreground="{DynamicResource SukiText}" />
+                            </Border>
+
+
+                            <TextBlock Name="PART_InputGestureText"
+                                       VerticalAlignment="Center"
+                                       Margin="20,0,0,0"
+                                       Foreground="{DynamicResource SukiMuteText}"
+                                       IsVisible="{Binding InputGesture, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                       Text="{TemplateBinding InputGesture,
+                                                          Converter={StaticResource KeyGestureConverter}}"
+                                       DockPanel.Dock="Right"/>
+
                             <ContentPresenter Name="PART_HeaderPresenter"
                                               Margin="5,0"
                                               HorizontalAlignment="Left"
@@ -56,10 +106,6 @@
                             </ContentPresenter>
                         </DockPanel>
 
-                        <TextBlock Name="PART_InputGestureText"
-                                   VerticalAlignment="Center"
-                                   Text="{TemplateBinding InputGesture,
-                                                          Converter={StaticResource KeyGestureConverter}}" />
                         <Popup Name="PART_Popup"
                                ClipToBounds="True"
                                HorizontalOffset="-25"
