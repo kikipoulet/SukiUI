@@ -796,14 +796,14 @@ public class SukiWindow : Window, IDisposable
         if (_isDisposed) return;
         _isDisposed = true;
 
-        _hideTitleBarTimer.Tick -= HideTitleBarTimerOnTick;
-        _showTitleBarTimer.Tick -= ShowTitleBarTimerOnTick;
-
+        // Stop timers if running
         _hideTitleBarTimer.Stop();
         _showTitleBarTimer.Stop();
 
         // Release all events
         PointerMoved -= AutoHideTitleBarOnPointerMoved;
+        _hideTitleBarTimer.Tick -= HideTitleBarTimerOnTick;
+        _showTitleBarTimer.Tick -= ShowTitleBarTimerOnTick;
         foreach (var disposeAction in _disposeActions)
         {
             disposeAction.Invoke();
