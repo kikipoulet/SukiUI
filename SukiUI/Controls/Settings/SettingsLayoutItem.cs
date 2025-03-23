@@ -5,19 +5,19 @@ namespace SukiUI.Controls;
 
 public class SettingsLayoutItem : Control
 {
-    public static readonly DirectProperty<SettingsLayoutItem, TextBlock?> HeaderProperty =
-        AvaloniaProperty.RegisterDirect<SettingsLayoutItem, TextBlock?>(
+    public static readonly DirectProperty<SettingsLayoutItem, string?> HeaderProperty =
+        AvaloniaProperty.RegisterDirect<SettingsLayoutItem, string?>(
             nameof(Header),
             o => o.Header,
             (o, v) => o.Header = v);
 
-    public TextBlock? Header
+    public string? Header
     {
         get { return _header; }
         set { SetAndRaise(HeaderProperty, ref _header, value); }
     }
 
-    private TextBlock? _header;
+    private string? _header;
 
     public static readonly DirectProperty<SettingsLayoutItem, Control?> ContentProperty =
     AvaloniaProperty.RegisterDirect<SettingsLayoutItem, Control?>(

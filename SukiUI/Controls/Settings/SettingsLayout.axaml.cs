@@ -4,6 +4,7 @@ using Avalonia.Animation.Easings;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
+using Avalonia.Data;
 using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
@@ -117,12 +118,18 @@ public partial class SettingsLayout : UserControl
                 continue;
             }
 
+            var header = new TextBlock();
+            header.Bind(TextBlock.TextProperty, new Binding(nameof(SettingsLayoutItem.Header))
+            {
+                Source = settingsLayoutItem
+            });
+
             var border = new Border
             {
                 Child = new GroupBox()
                 {
                     Margin = new Thickness(10, 20),
-                    Header = settingsLayoutItem.Header,
+                    Header = header,
                     Content = new Border()
                     {
                         Margin = new Thickness(35, 12),
@@ -134,9 +141,15 @@ public partial class SettingsLayout : UserControl
             borders.Add(border);
             stackItems.Children.Add(border);
 
+            var textBlock = new TextBlock { FontSize = 17 };
+            textBlock.Bind(TextBlock.TextProperty, new Binding(nameof(SettingsLayoutItem.Header))
+            {
+                Source = settingsLayoutItem
+            });
+
             var summaryButton = new RadioButton()
             {
-                Content = new TextBlock() { [!TextBlock.TextProperty] = settingsLayoutItem.Header[!TextBlock.TextProperty], FontSize = 17 },
+                Content = textBlock,
                 Classes = { "MenuChip" }
             };
             summaryButton.Click += async (sender, args) =>

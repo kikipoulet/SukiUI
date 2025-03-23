@@ -13,10 +13,7 @@
 
     <UserControl.Resources>
         <generic:List x:Key="Collection" x:TypeArguments="suki:SettingsLayoutItem">
-            <suki:SettingsLayoutItem x:Name="ThemeHeader">
-                <suki:SettingsLayoutItem.Header>
-                    <TextBlock Text="Base Theme" />
-                </suki:SettingsLayoutItem.Header>
+            <suki:SettingsLayoutItem x:Name="ThemeHeader" Header="Base Theme">
                 <suki:SettingsLayoutItem.Content>
                     <StackPanel HorizontalAlignment="Center"
                                 Orientation="Horizontal"
@@ -63,10 +60,7 @@
                 </suki:SettingsLayoutItem.Content>
             </suki:SettingsLayoutItem>
 
-            <suki:SettingsLayoutItem>
-                <suki:SettingsLayoutItem.Header>
-                    <TextBlock Text="Color Theme" />
-                </suki:SettingsLayoutItem.Header>
+            <suki:SettingsLayoutItem Header="Color Theme">
                 <suki:SettingsLayoutItem.Content>
                     <ItemsControl HorizontalAlignment="Center" ItemsSource="{Binding AvailableColors}">
                         <ItemsControl.ItemsPanel>
@@ -95,10 +89,7 @@
                 </suki:SettingsLayoutItem.Content>
             </suki:SettingsLayoutItem>
 
-            <suki:SettingsLayoutItem>
-                <suki:SettingsLayoutItem.Header>
-                    <TextBlock Text="Background" />
-                </suki:SettingsLayoutItem.Header>
+            <suki:SettingsLayoutItem Header="Background">
                 <suki:SettingsLayoutItem.Content>
                     <StackPanel>
                         <suki:GlassCard Margin="0,25,0,0" Padding="25">
@@ -186,7 +177,6 @@
 
     <suki:SukiStackPage Margin="20">
         <suki:SukiStackPage.Content>
-
             <suki:SettingsLayout Name="Theming" Items="{StaticResource Collection}" />
         </suki:SukiStackPage.Content>
     </suki:SukiStackPage>
