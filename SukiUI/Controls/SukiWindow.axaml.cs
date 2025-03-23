@@ -30,6 +30,7 @@ namespace SukiUI.Controls;
 [TemplatePart("PART_ContentPresenter", typeof(ContentPresenter))]
 public class SukiWindow : Window, IDisposable
 {
+    #region Enums
     public enum TitleBarVisibilityMode
     {
         Unchanged,
@@ -37,9 +38,13 @@ public class SukiWindow : Window, IDisposable
         Hidden,
         AutoHidden
     }
+    #endregion
 
+    #region Template
     protected override Type StyleKeyOverride => typeof(SukiWindow);
+    #endregion
 
+    #region Members
     private bool _isDisposed;
 
     private bool _canMaximize;
@@ -59,7 +64,9 @@ public class SukiWindow : Window, IDisposable
     };
 
     private readonly List<Action> _disposeActions = new List<Action>();
+    #endregion
 
+    #region Properties
     public static readonly StyledProperty<double> TitleFontSizeProperty =
         AvaloniaProperty.Register<SukiWindow, double>(nameof(TitleFontSize), defaultValue: 13);
 
@@ -343,7 +350,9 @@ public class SukiWindow : Window, IDisposable
         get => _previousVisibleWindowState;
         private set => SetAndRaise(PreviousVisibleWindowStateProperty, ref _previousVisibleWindowState, value);
     }
+    #endregion
 
+    #region Constructor
     public SukiWindow()
     {
         MenuItems = new AvaloniaList<MenuItem>();
@@ -353,69 +362,9 @@ public class SukiWindow : Window, IDisposable
         _hideTitleBarTimer.Tick += HideTitleBarTimerOnTick;
         _showTitleBarTimer.Tick += ShowTitleBarTimerOnTick;
     }
+    #endregion
 
-    protected override void OnLoaded(RoutedEventArgs e)
-    {
-        base.OnLoaded(e);
-
-        if (Application.Current?.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop)
-            return;
-        if (desktop.MainWindow is SukiWindow window && window != this)
-        {
-            Icon ??= window.Icon;
-            // This would be nice to do, but obviously LogoContent is a control and you can't attach it twice.
-            // if (LogoContent is null) LogoContent = s.LogoContent;
-        }
-    }
-
-    protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
-    {
-        base.OnPropertyChanged(change);
-        if (change.Property == WindowStateProperty && change.NewValue is WindowState windowState)
-        {
-            if (change.OldValue is WindowState oldWindowState)
-            {
-                if (oldWindowState != WindowState.Minimized)
-                    PreviousVisibleWindowState = oldWindowState;
-            }
-
-            OnWindowStateChanged(windowState);
-        }
-        else if (change.Property == TitleBarVisibilityOnFullScreenProperty)
-        {
-            if (WindowState != WindowState.FullScreen) return;
-
-            if (change.NewValue is TitleBarVisibilityMode mode)
-            {
-                IsTitleBarVisible = mode switch
-                {
-                    TitleBarVisibilityMode.Unchanged => _wasTitleBarVisibleBeforeFullScreen,
-                    TitleBarVisibilityMode.Visible => true,
-                    TitleBarVisibilityMode.Hidden or TitleBarVisibilityMode.AutoHidden => false,
-                    _ => IsTitleBarVisible
-                };
-
-                PointerMoved -= AutoHideTitleBarOnPointerMoved;
-                if (mode == TitleBarVisibilityMode.AutoHidden)
-                {
-                    PointerMoved += AutoHideTitleBarOnPointerMoved;
-                }
-            }
-        }
-        else if (change.Property == TitleBarAutoHideDelayProperty)
-        {
-            _hideTitleBarTimer.Interval = TimeSpan.FromMilliseconds(TitleBarAutoHideDelay);
-        }
-        else if (change.Property == TitleBarAutoShowDelayProperty)
-        {
-            _showTitleBarTimer.Interval = TimeSpan.FromMilliseconds(TitleBarAutoShowDelay);
-        }
-        /*else if (change.Property == IsTitleBarVisibleProperty) // Debug
-        {
-            var value = IsTitleBarVisible;
-        }*/
-    }
-
+    #region Overrides
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
@@ -429,6 +378,7 @@ public class SukiWindow : Window, IDisposable
             _canResize = CanResize;
 
         OnWindowStateChanged(WindowState);
+
         // Create handlers for buttons
         if (e.NameScope.Find<Button>("PART_FullScreenButton") is { } fullscreen)
         {
@@ -486,90 +436,76 @@ public class SukiWindow : Window, IDisposable
 
     }
 
-    private void OnFullScreenButtonClicked(object? sender, RoutedEventArgs args)
+    protected override void OnLoaded(RoutedEventArgs e)
     {
-        if (!CanFullScreen) return;
-        ToggleFullScreen();
-    }
+        base.OnLoaded(e);
 
-    private void OnPinButtonClicked(object? sender, RoutedEventArgs args)
-    {
-        if (!CanPin) return;
-        Topmost = !Topmost;
-    }
-
-    private void OnMinimizeButtonClicked(object sender, RoutedEventArgs e)
-    {
-        WindowState = WindowState.Minimized;
-    }
-
-    private void OnMaximizeButtonClicked(object? sender, RoutedEventArgs args)
-    {
-        if (!CanMaximize) return;
-        WindowState = WindowState == WindowState.Maximized
-            ? WindowState.Normal
-            : WindowState.Maximized;
-    }
-
-    private void OnCloseButtonClicked(object sender, RoutedEventArgs e)
-    {
-        Close();
-    }
-
-    private void EnableWindowsSnapLayout(Button maximize)
-    {
-        var pointerOnMaxButton = false;
-        var setter = typeof(Button).GetProperty("IsPointerOver");
-        var proc = (IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam, ref bool handled) =>
+        if (Application.Current?.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop)
+            return;
+        if (desktop.MainWindow is SukiWindow window && window != this)
         {
-            switch (msg)
-            {
-                case 533:
-                    if (!pointerOnMaxButton) break;
-                    if (!CanMaximize) break;
-                    WindowState = WindowState == WindowState.Maximized
-                        ? WindowState.Normal
-                        : WindowState.Maximized;
-                    break;
-                case 0x0084:
-                    var point = new PixelPoint(
-                        (short)(ToInt32(lParam) & 0xffff),
-                        (short)(ToInt32(lParam) >> 16));
-                    var desiredSize = maximize.DesiredSize;
-                    var buttonLeftTop = maximize.PointToScreen(FlowDirection == FlowDirection.LeftToRight
-                                                               ? new Point(desiredSize.Width, 0)
-                                                               : new Point(0, 0));
-                    var x = (buttonLeftTop.X - point.X) / RenderScaling;
-                    var y = (point.Y - buttonLeftTop.Y) / RenderScaling;
-                    if (new Rect(0, 0,
-                            desiredSize.Width,
-                            desiredSize.Height)
-                        .Contains(new Point(x, y)))
-                    {
-                        setter?.SetValue(maximize, true);
-                        pointerOnMaxButton = true;
-                        handled = true;
-                        return (IntPtr)9;
-                    }
+            Icon ??= window.Icon;
+            // This would be nice to do, but obviously LogoContent is a control and you can't attach it twice.
+            // if (LogoContent is null) LogoContent = s.LogoContent;
+        }
+    }
 
-                    pointerOnMaxButton = false;
-                    setter?.SetValue(maximize, false);
-                    break;
+    protected override void OnClosed(EventArgs e)
+    {
+        Dispose();
+        base.OnClosed(e);
+    }
+
+    protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+    {
+        base.OnPropertyChanged(change);
+        if (change.Property == WindowStateProperty && change.NewValue is WindowState windowState)
+        {
+            if (change.OldValue is WindowState oldWindowState)
+            {
+                if (oldWindowState != WindowState.Minimized)
+                    PreviousVisibleWindowState = oldWindowState;
             }
 
-            return IntPtr.Zero;
+            OnWindowStateChanged(windowState);
+        }
+        else if (change.Property == TitleBarVisibilityOnFullScreenProperty)
+        {
+            if (WindowState != WindowState.FullScreen) return;
 
-            static int ToInt32(IntPtr ptr) => IntPtr.Size == 4
-                ? ptr.ToInt32()
-                : (int)(ptr.ToInt64() & 0xffffffff);
-        };
+            if (change.NewValue is TitleBarVisibilityMode mode)
+            {
+                IsTitleBarVisible = mode switch
+                {
+                    TitleBarVisibilityMode.Unchanged => _wasTitleBarVisibleBeforeFullScreen,
+                    TitleBarVisibilityMode.Visible => true,
+                    TitleBarVisibilityMode.Hidden or TitleBarVisibilityMode.AutoHidden => false,
+                    _ => IsTitleBarVisible
+                };
 
-        var wndProcHookCallback = new Win32Properties.CustomWndProcHookCallback(proc);
-        Win32Properties.AddWndProcHookCallback(this, wndProcHookCallback);
-
-        _disposeActions.Add(() => Win32Properties.RemoveWndProcHookCallback(this, wndProcHookCallback));
+                PointerMoved -= AutoHideTitleBarOnPointerMoved;
+                if (mode == TitleBarVisibilityMode.AutoHidden)
+                {
+                    PointerMoved += AutoHideTitleBarOnPointerMoved;
+                }
+            }
+        }
+        else if (change.Property == TitleBarAutoHideDelayProperty)
+        {
+            _hideTitleBarTimer.Interval = TimeSpan.FromMilliseconds(TitleBarAutoHideDelay);
+        }
+        else if (change.Property == TitleBarAutoShowDelayProperty)
+        {
+            _showTitleBarTimer.Interval = TimeSpan.FromMilliseconds(TitleBarAutoShowDelay);
+        }
+        /*else if (change.Property == IsTitleBarVisibleProperty) // Debug
+        {
+            var value = IsTitleBarVisible;
+        }*/
     }
+    #endregion
 
+    #region Events
     private void OnWindowStateChanged(WindowState state)
     {
         PointerMoved -= AutoHideTitleBarOnPointerMoved;
@@ -623,6 +559,35 @@ public class SukiWindow : Window, IDisposable
         }
     }
 
+    private void OnFullScreenButtonClicked(object? sender, RoutedEventArgs args)
+    {
+        if (!CanFullScreen) return;
+        ToggleFullScreen();
+    }
+
+    private void OnPinButtonClicked(object? sender, RoutedEventArgs args)
+    {
+        if (!CanPin) return;
+        Topmost = !Topmost;
+    }
+
+    private void OnMinimizeButtonClicked(object sender, RoutedEventArgs e)
+    {
+        WindowState = WindowState.Minimized;
+    }
+
+    private void OnMaximizeButtonClicked(object? sender, RoutedEventArgs args)
+    {
+        if (!CanMaximize) return;
+        WindowState = WindowState == WindowState.Maximized
+            ? WindowState.Normal
+            : WindowState.Maximized;
+    }
+
+    private void OnCloseButtonClicked(object sender, RoutedEventArgs e)
+    {
+        Close();
+    }
 
     private void AutoHideTitleBarOnPointerMoved(object sender, PointerEventArgs e)
     {
@@ -652,6 +617,96 @@ public class SukiWindow : Window, IDisposable
             return;
         base.OnPointerPressed(e);
         BeginMoveDrag(e);
+    }
+
+    private void RaiseResize(object? sender, PointerPressedEventArgs e)
+    {
+        if (!CanResize) return;
+        if (sender is not Border border || border.Tag is not string edge) return;
+        if (VisualRoot is not Window window)
+            return;
+
+        var windowEdge = edge switch
+        {
+            "North" => WindowEdge.North,
+            "South" => WindowEdge.South,
+            "West" => WindowEdge.West,
+            "East" => WindowEdge.East,
+            "NW" => WindowEdge.NorthWest,
+            "NE" => WindowEdge.NorthEast,
+            "SW" => WindowEdge.SouthWest,
+            "SE" => WindowEdge.SouthEast,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+
+        window.BeginResizeDrag(windowEdge, e);
+        e.Handled = true;
+    }
+
+    private void HideTitleBarTimerOnTick(object sender, EventArgs e)
+    {
+        IsTitleBarVisible = false;
+    }
+
+    private void ShowTitleBarTimerOnTick(object sender, EventArgs e)
+    {
+        IsTitleBarVisible = true;
+    }
+    #endregion
+
+    #region Methods
+    private void EnableWindowsSnapLayout(Button maximize)
+    {
+        var pointerOnMaxButton = false;
+        var setter = typeof(Button).GetProperty("IsPointerOver");
+        var proc = (IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam, ref bool handled) =>
+        {
+            switch (msg)
+            {
+                case 533:
+                    if (!pointerOnMaxButton) break;
+                    if (!CanMaximize) break;
+                    WindowState = WindowState == WindowState.Maximized
+                        ? WindowState.Normal
+                        : WindowState.Maximized;
+                    break;
+                case 0x0084:
+                    var point = new PixelPoint(
+                        (short)(ToInt32(lParam) & 0xffff),
+                        (short)(ToInt32(lParam) >> 16));
+                    var desiredSize = maximize.DesiredSize;
+                    var buttonLeftTop = maximize.PointToScreen(FlowDirection == FlowDirection.LeftToRight
+                                                               ? new Point(desiredSize.Width, 0)
+                                                               : new Point(0, 0));
+                    var x = (buttonLeftTop.X - point.X) / RenderScaling;
+                    var y = (point.Y - buttonLeftTop.Y) / RenderScaling;
+                    if (new Rect(0, 0,
+                            desiredSize.Width,
+                            desiredSize.Height)
+                        .Contains(new Point(x, y)))
+                    {
+                        setter?.SetValue(maximize, true);
+                        pointerOnMaxButton = true;
+                        handled = true;
+                        return (IntPtr)9;
+                    }
+
+                    pointerOnMaxButton = false;
+                    setter?.SetValue(maximize, false);
+                    break;
+            }
+
+            return IntPtr.Zero;
+
+            static int ToInt32(IntPtr ptr) => IntPtr.Size == 4
+                ? ptr.ToInt32()
+                : (int)(ptr.ToInt64() & 0xffffffff);
+        };
+
+        var wndProcHookCallback = new Win32Properties.CustomWndProcHookCallback(proc);
+        Win32Properties.AddWndProcHookCallback(this, wndProcHookCallback);
+
+        _disposeActions.Add(() => Win32Properties.RemoveWndProcHookCallback(this, wndProcHookCallback));
     }
 
     private void AddResizeGripForLinux(Panel rootPanel)
@@ -753,40 +808,6 @@ public class SukiWindow : Window, IDisposable
         }
     }
 
-    private void RaiseResize(object? sender, PointerPressedEventArgs e)
-    {
-        if (!CanResize) return;
-        if (sender is not Border border || border.Tag is not string edge) return;
-        if (VisualRoot is not Window window)
-            return;
-
-        var windowEdge = edge switch
-        {
-            "North" => WindowEdge.North,
-            "South" => WindowEdge.South,
-            "West" => WindowEdge.West,
-            "East" => WindowEdge.East,
-            "NW" => WindowEdge.NorthWest,
-            "NE" => WindowEdge.NorthEast,
-            "SW" => WindowEdge.SouthWest,
-            "SE" => WindowEdge.SouthEast,
-            _ => throw new ArgumentOutOfRangeException()
-        };
-
-        window.BeginResizeDrag(windowEdge, e);
-        e.Handled = true;
-    }
-
-    private void HideTitleBarTimerOnTick(object sender, EventArgs e)
-    {
-        IsTitleBarVisible = false;
-    }
-
-    private void ShowTitleBarTimerOnTick(object sender, EventArgs e)
-    {
-        IsTitleBarVisible = true;
-    }
-
     public void ToggleFullScreen()
     {
         WindowState = WindowState == WindowState.FullScreen
@@ -794,12 +815,9 @@ public class SukiWindow : Window, IDisposable
             : WindowState.FullScreen;
     }
 
-    protected override void OnClosed(EventArgs e)
-    {
-        Dispose();
-        base.OnClosed(e);
-    }
+    #endregion
 
+    #region Dispose
     public void Dispose()
     {
         if (_isDisposed) return;
@@ -818,4 +836,5 @@ public class SukiWindow : Window, IDisposable
             disposeAction.Invoke();
         }
     }
+    #endregion
 }
