@@ -63,7 +63,7 @@
                                     Margin="13,10"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Top"
-                                    Classes="Basic Rounded WindowControlsButton Close"
+                                    Classes="WindowControlsButton Close"
                                     Command="{Binding Cancel}">
                                 <PathIcon Width="13"
                                           Height="13"
