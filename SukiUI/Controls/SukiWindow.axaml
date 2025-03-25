@@ -80,7 +80,7 @@
                                                                 VerticalContentAlignment="Bottom"
                                                                 Classes="WindowControlsButton"
                                                                 IsVisible="{TemplateBinding CanMinimize}">
-                                                            <PathIcon Margin="0,0,0,4"
+                                                            <PathIcon Margin="0,0,0,6.5"
                                                                       VerticalAlignment="Bottom"
                                                                       Data="{x:Static icons:Icons.WindowMinimize}" />
                                                         </Button>
