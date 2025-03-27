@@ -76,20 +76,32 @@
                                                                 </ItemsPanelTemplate>
                                                             </ItemsControl.ItemsPanel>
                                                         </ItemsControl>
+                                                        <Button Name="PART_FullScreenButton"
+                                                                Classes="Basic Rounded WindowControlsButton"
+                                                                IsEnabled="{TemplateBinding CanFullScreen}"
+                                                                IsVisible="{TemplateBinding CanFullScreen}">
+                                                            <PathIcon x:Name="FullScreenIcon" Data="{x:Static icons:Icons.WindowFullScreen}" />
+                                                        </Button>
+                                                        <Button Name="PART_PinButton"
+                                                                Classes="Basic Rounded WindowControlsButton"
+                                                                IsEnabled="{TemplateBinding CanPin}"
+                                                                IsVisible="{TemplateBinding CanPin}">
+                                                            <PathIcon x:Name="PinIcon" Data="{x:Static icons:Icons.WindowPin}" />
+                                                        </Button>
                                                         <Button Name="PART_MinimizeButton"
                                                                 VerticalContentAlignment="Bottom"
-                                                                Classes="Basic Rounded WindowControlsButton"
+                                                                Classes="WindowControlsButton"
                                                                 IsVisible="{TemplateBinding CanMinimize}">
-                                                            <PathIcon Margin="0,0,0,4"
+                                                            <PathIcon Margin="0,0,0,6.5"
                                                                       VerticalAlignment="Bottom"
                                                                       Data="{x:Static icons:Icons.WindowMinimize}" />
                                                         </Button>
                                                         <Button Name="PART_MaximizeButton"
-                                                                Classes="Basic Rounded WindowControlsButton"
+                                                                Classes="WindowControlsButton"
                                                                 IsVisible="{TemplateBinding CanMaximize}">
                                                             <PathIcon x:Name="MaximizeIcon" Data="{x:Static icons:Icons.WindowMaximize}" />
                                                         </Button>
-                                                        <Button Name="PART_CloseButton" Classes="Basic Rounded WindowControlsButton Close">
+                                                        <Button Name="PART_CloseButton" Classes="WindowControlsButton Close">
                                                             <PathIcon Data="{x:Static icons:Icons.WindowClose}" />
                                                         </Button>
                                                     </StackPanel>
@@ -137,6 +149,18 @@
         <Style Selector="^[ShowTitlebarBackground=True] /template/ suki|GlassCard#AlternativeGlassMenuBackground">
             <Setter Property="IsVisible" Value="False"></Setter>
         </Style>
+
+        <Style Selector="^[WindowState=FullScreen] /template/ PathIcon#FullScreenIcon">
+            <Setter Property="Data" Value="{x:Static icons:Icons.WindowFullScreenOff}" />
+        </Style>
+
+        <Style Selector="^[Topmost=False] /template/ PathIcon#PinIcon">
+            <Setter Property="Data" Value="{x:Static icons:Icons.WindowPin}" />
+        </Style>
+        <Style Selector="^[Topmost=True] /template/ PathIcon#PinIcon">
+            <Setter Property="Data" Value="{x:Static icons:Icons.WindowPinOff}" />
+        </Style>
+
 
         <Style Selector="^[WindowState=Maximized] /template/ PathIcon#MaximizeIcon">
             <Setter Property="Data" Value="{x:Static icons:Icons.WindowRestore}" />

@@ -15,22 +15,25 @@
                  BackgroundShaderFile="{Binding CustomShaderFile}"
                  BackgroundStyle="{Binding BackgroundStyle}"
                  BackgroundTransitionsEnabled="{Binding TransitionsEnabled}"
+                 CanFullScreen="True"
                  CanMinimize="{Binding !WindowLocked}"
                  CanMove="{Binding !WindowLocked}"
+                 CanPin="True"
                  CanResize="{Binding !WindowLocked}"
                  Icon="Assets/OIG.N5o-removebg-preview.png"
                  IsMenuVisible="True"
-                 ShowTitlebarBackground="{Binding ShowTitleBar}" ShowBottomBorder="{Binding ShowBottomBar}"
                  IsTitleBarVisible="{Binding TitleBarVisible, Mode=TwoWay}"
+                 ShowBottomBorder="{Binding ShowBottomBar}"
+                 ShowTitlebarBackground="{Binding ShowTitleBar}"
                  mc:Ignorable="d">
     <suki:SukiWindow.TitleBarContextMenu>
         <ContextMenu>
-            <MenuItem Header="Custom TitleBar Context Menu Item"></MenuItem>
+            <MenuItem Header="Custom TitleBar Context Menu Item" />
         </ContextMenu>
     </suki:SukiWindow.TitleBarContextMenu>
     <suki:SukiWindow.Hosts>
-        <suki:SukiToastHost Manager="{Binding ToastManager}"/>
-        <suki:SukiDialogHost Manager="{Binding DialogManager}"/>
+        <suki:SukiToastHost Manager="{Binding ToastManager}" />
+        <suki:SukiDialogHost Manager="{Binding DialogManager}" />
     </suki:SukiWindow.Hosts>
     <suki:SukiWindow.LogoContent>
         <avalonia:MaterialIcon Width="20"
@@ -46,76 +49,118 @@
         </avalonia:MaterialIcon>
     </suki:SukiWindow.LogoContent>
     <suki:SukiWindow.RightWindowTitleBarControls>
-        <Button Classes="Basic Rounded WindowControlsButton">
-            <avalonia:MaterialIcon Kind="Cog" Foreground="{DynamicResource SukiText}" />
+        <Button Classes="WindowControlsButton">
+            <avalonia:MaterialIcon Foreground="{DynamicResource SukiText}" Kind="Cog" />
             <Button.Flyout>
                 <Flyout>
                     <Panel>
-                        
-                        <Border CornerRadius="20" Margin="20" BoxShadow="{DynamicResource SukiPopupShadow}"></Border>
-                        
-                        <Border Margin="20" CornerRadius="15" 
-                                ClipToBounds="True" MinWidth="350"
+
+                        <Border Margin="20"
+                                BoxShadow="{DynamicResource SukiPopupShadow}"
+                                CornerRadius="20" />
+
+                        <Border MinWidth="350"
+                                Margin="20"
                                 Background="{DynamicResource SukiCardBackground}"
                                 BorderBrush="{DynamicResource SukiLightBorderBrush}"
-                                BorderThickness="1">
-                        <Border Background="{DynamicResource PopupGradientBrush}"
-                                Padding="15">
-                            
+                                BorderThickness="1"
+                                ClipToBounds="True"
+                                CornerRadius="15">
+                            <Border Padding="15" Background="{DynamicResource PopupGradientBrush}">
+
                                 <StackPanel Margin="0,0,0,0" Spacing="20">
-                                    
+
                                     <Grid ColumnDefinitions="*,20,*">
-                                        
-                                        <suki:GlassCard  CornerRadius="15" Padding="15">
+
+                                        <suki:GlassCard Padding="15" CornerRadius="15">
                                             <DockPanel>
-                                                <Border Background="{DynamicResource SukiPrimaryColor}" Height="35" Padding="0" CornerRadius="100" Width="35">
-                                                    <avalonia:MaterialIcon Height="20" Width="20" Kind="Wifi" HorizontalAlignment="Center" VerticalAlignment="Center"   Foreground="White"></avalonia:MaterialIcon>
+                                                <Border Width="35"
+                                                        Height="35"
+                                                        Padding="0"
+                                                        Background="{DynamicResource SukiPrimaryColor}"
+                                                        CornerRadius="100">
+                                                    <avalonia:MaterialIcon Width="20"
+                                                                           Height="20"
+                                                                           HorizontalAlignment="Center"
+                                                                           VerticalAlignment="Center"
+                                                                           Foreground="White"
+                                                                           Kind="Wifi" />
                                                 </Border>
-                                                
-                                                <TextBlock Text="Wifi" FontWeight="DemiBold" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+
+                                                <TextBlock HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center"
+                                                           FontSize="15"
+                                                           FontWeight="DemiBold"
+                                                           Text="Wifi" />
                                             </DockPanel>
                                         </suki:GlassCard>
-                                        <suki:GlassCard Grid.Column="2"  CornerRadius="15" Padding="15">
+                                        <suki:GlassCard Grid.Column="2"
+                                                        Padding="15"
+                                                        CornerRadius="15">
                                             <DockPanel>
-                                                <suki:GlassCard  Height="35" Padding="0" CornerRadius="100" Width="35">
-                                                    <avalonia:MaterialIcon Height="20" Width="20"  HorizontalAlignment="Center" VerticalAlignment="Center"  Kind="Bluetooth"   Foreground="{DynamicResource SukiText}"></avalonia:MaterialIcon>
+                                                <suki:GlassCard Width="35"
+                                                                Height="35"
+                                                                Padding="0"
+                                                                CornerRadius="100">
+                                                    <avalonia:MaterialIcon Width="20"
+                                                                           Height="20"
+                                                                           HorizontalAlignment="Center"
+                                                                           VerticalAlignment="Center"
+                                                                           Foreground="{DynamicResource SukiText}"
+                                                                           Kind="Bluetooth" />
                                                 </suki:GlassCard>
-                                                
-                                                <TextBlock Text="Bluetooth" FontWeight="DemiBold" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+
+                                                <TextBlock HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center"
+                                                           FontSize="14"
+                                                           FontWeight="DemiBold"
+                                                           Text="Bluetooth" />
                                             </DockPanel>
                                         </suki:GlassCard>
-                                        </Grid>
-                                    
-                                    <suki:GlassCard CornerRadius="15" Padding="15">
-                                        
-                                    <DockPanel>
-                                        <TextBlock  Text="Volume" Margin="0,0,0,10" FontSize="15"
-                                                   DockPanel.Dock="Top" FontWeight="DemiBold" 
-                                                   VerticalAlignment="Center" />
-                                        <avalonia:MaterialIcon DockPanel.Dock="Left" Foreground="{DynamicResource SukiLowText}" Kind="VolumeLow"> </avalonia:MaterialIcon>
-                                        <avalonia:MaterialIcon DockPanel.Dock="Right" Foreground="{DynamicResource SukiLowText}" Kind="VolumeHigh"> </avalonia:MaterialIcon>
-                                        <Slider Value="50" MinWidth="100" />
-                                    </DockPanel>
-                                        
+                                    </Grid>
+
+                                    <suki:GlassCard Padding="15" CornerRadius="15">
+
+                                        <DockPanel>
+                                            <TextBlock Margin="0,0,0,10"
+                                                       VerticalAlignment="Center"
+                                                       DockPanel.Dock="Top"
+                                                       FontSize="15"
+                                                       FontWeight="DemiBold"
+                                                       Text="Volume" />
+                                            <avalonia:MaterialIcon DockPanel.Dock="Left"
+                                                                   Foreground="{DynamicResource SukiLowText}"
+                                                                   Kind="VolumeLow" />
+                                            <avalonia:MaterialIcon DockPanel.Dock="Right"
+                                                                   Foreground="{DynamicResource SukiLowText}"
+                                                                   Kind="VolumeHigh" />
+                                            <Slider MinWidth="100" Value="50" />
+                                        </DockPanel>
+
                                     </suki:GlassCard>
-                                    
-                                    <suki:GlassCard CornerRadius="15" Padding="15">
-                                    <DockPanel>
-                                        <ToggleSwitch VerticalAlignment="Center" DockPanel.Dock="Right" IsChecked="True" />
-                                        <TextBlock DockPanel.Dock="Bottom" Text="Disable notifications." Margin="0,8,0,0"
-                                                   Foreground="{DynamicResource SukiLowText}"
-                                                   VerticalAlignment="Center" />
-                                        <TextBlock Text="Mute" FontSize="15"
-                                                   FontWeight="DemiBold"
-                                                   VerticalAlignment="Center" />
-                                        
-                                    </DockPanel>
-                                        </suki:GlassCard>
+
+                                    <suki:GlassCard Padding="15" CornerRadius="15">
+                                        <DockPanel>
+                                            <ToggleSwitch VerticalAlignment="Center"
+                                                          DockPanel.Dock="Right"
+                                                          IsChecked="True" />
+                                            <TextBlock Margin="0,8,0,0"
+                                                       VerticalAlignment="Center"
+                                                       DockPanel.Dock="Bottom"
+                                                       Foreground="{DynamicResource SukiLowText}"
+                                                       Text="Disable notifications." />
+                                            <TextBlock VerticalAlignment="Center"
+                                                       FontSize="15"
+                                                       FontWeight="DemiBold"
+                                                       Text="Mute" />
+
+                                        </DockPanel>
+                                    </suki:GlassCard>
                                 </StackPanel>
-                          
+
+                            </Border>
                         </Border>
-                    </Border>
-                        </Panel>
+                    </Panel>
                 </Flyout>
             </Button.Flyout>
         </Button>
@@ -128,25 +173,15 @@
                     <avalonia:MaterialIcon Kind="Lightbulb" />
                 </MenuItem.Icon>
             </MenuItem>
-            <MenuItem Command="{Binding ToggleWindowLockCommand}"
-                      Header="Window Lock"
-                      ToolTip.Tip="Toggles minimizing and resizing.">
-                <MenuItem.Icon>
-                    <avalonia:MaterialIcon
-                        Kind="{Binding WindowLocked, Converter={x:Static converters:BoolToIconConverters.WindowLock}}" />
-                </MenuItem.Icon>
-            </MenuItem>
+
             <MenuItem Command="{Binding ToggleTitleBarCommand}"
                       Header="Title Bar"
                       ToolTip.Tip="Toggles the title bar.">
                 <MenuItem.Icon>
-                    <avalonia:MaterialIcon
-                        Kind="{Binding TitleBarVisible, Converter={x:Static converters:BoolToIconConverters.Visibility}}" />
+                    <avalonia:MaterialIcon Kind="{Binding TitleBarVisible, Converter={x:Static converters:BoolToIconConverters.Visibility}}" />
                 </MenuItem.Icon>
             </MenuItem>
-            <MenuItem Command="{Binding ToggleTitleBackgroundCommand}"
-                      Header="Change TitleBar Background Visibility"
-                  >
+            <MenuItem Command="{Binding ToggleTitleBackgroundCommand}" Header="Change TitleBar Background Visibility">
                 <MenuItem.Icon>
                     <avalonia:MaterialIcon Kind="Visibility" />
                 </MenuItem.Icon>
@@ -155,13 +190,58 @@
                       Header="Right To Left"
                       ToolTip.Tip="Toggles the right to left.">
                 <MenuItem.Icon>
-                    <avalonia:MaterialIcon
-                        Kind="SwapHorizontal" />
+                    <avalonia:MaterialIcon Kind="SwapHorizontal" />
                 </MenuItem.Icon>
             </MenuItem>
-            <MenuItem Header="Fullscreen"
-                      PointerPressed="MakeFullScreenPressed"
-                      ToolTip.Tip="Makes the app fullscreen." />
+
+
+
+            <MenuItem Header="Window Options">
+                <MenuItem.Icon>
+                    <avalonia:MaterialIcon Kind="WindowRestore" />
+                </MenuItem.Icon>
+                <MenuItem Command="{Binding ToggleWindowLockCommand}"
+                          Header="Window Lock"
+                          ToolTip.Tip="Toggles minimizing and resizing.">
+                    <MenuItem.Icon>
+                        <avalonia:MaterialIcon Kind="{Binding WindowLocked, Converter={x:Static converters:BoolToIconConverters.WindowLock}}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Command="{Binding $parent[suki:SukiWindow].ToggleFullScreen}"
+                          Header="Fullscreen"
+                          ToolTip.Tip="Makes the app fullscreen.">
+                    <MenuItem.Icon>
+                        <avalonia:MaterialIcon Kind="Fullscreen" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="CanFullscreen"
+                          IsChecked="{Binding $parent[suki:SukiWindow].CanFullScreen, Mode=TwoWay}"
+                          ToggleType="CheckBox" />
+
+                <MenuItem Header="CanPin"
+                          IsChecked="{Binding $parent[suki:SukiWindow].CanPin, Mode=TwoWay}"
+                          ToggleType="CheckBox" />
+
+                <MenuItem Header="CanMinimize"
+                          IsChecked="{Binding $parent[suki:SukiWindow].CanMinimize, Mode=TwoWay}"
+                          ToggleType="CheckBox" />
+
+                <MenuItem Header="CanMaximize"
+                          IsChecked="{Binding $parent[suki:SukiWindow].CanMaximize, Mode=TwoWay}"
+                          ToggleType="CheckBox" />
+
+                <MenuItem Header="CanMove"
+                          IsChecked="{Binding $parent[suki:SukiWindow].CanMove, Mode=TwoWay}"
+                          ToggleType="CheckBox" />
+
+                <MenuItem Header="CanResize"
+                          IsChecked="{Binding $parent[suki:SukiWindow].CanResize, Mode=TwoWay}"
+                          ToggleType="CheckBox" />
+            </MenuItem>
+
+
+
         </MenuItem>
         <MenuItem Header="Theme">
             <MenuItem Click="ThemeMenuItem_OnClick"
@@ -185,19 +265,19 @@
             <MenuItem Header="-" />
             <MenuItem Command="{Binding ToggleAnimationsCommand}" Header="Animations">
                 <MenuItem.Icon>
-                    <avalonia:MaterialIcon
-                        Kind="{Binding AnimationsEnabled, Converter={x:Static converters:BoolToIconConverters.Animation}}" />
+                    <avalonia:MaterialIcon Kind="{Binding AnimationsEnabled, Converter={x:Static converters:BoolToIconConverters.Animation}}" />
                 </MenuItem.Icon>
             </MenuItem>
             <MenuItem Command="{Binding ToggleTransitionsCommand}" Header="Transitions">
                 <MenuItem.Icon>
-                    <avalonia:MaterialIcon
-                        Kind="{Binding TransitionsEnabled, Converter={x:Static converters:BoolToIconConverters.Animation}}" />
+                    <avalonia:MaterialIcon Kind="{Binding TransitionsEnabled, Converter={x:Static converters:BoolToIconConverters.Animation}}" />
                 </MenuItem.Icon>
             </MenuItem>
         </MenuItem>
     </suki:SukiWindow.MenuItems>
-    <suki:SukiSideMenu IsSearchEnabled="True" ItemsSource="{Binding DemoPages}" SelectedItem="{Binding ActivePage}">
+    <suki:SukiSideMenu IsSearchEnabled="True"
+                       ItemsSource="{Binding DemoPages}"
+                       SelectedItem="{Binding ActivePage}">
         <suki:SukiSideMenu.Styles>
             <Style Selector="Image.AppIcon">
                 <Setter Property="Transitions">
@@ -227,7 +307,6 @@
                    IsVisible="{Binding $parent[suki:SukiWindow].((demo:SukiUIDemoViewModel)DataContext).TitleBarVisible}"
                    PointerPressed="InputElement_OnPointerPressed"
                    Source="Assets/OIG.N5o-removebg-preview.png"
-                   
                    ToolTip.Tip="Click To Toggle Top Menu." />
         </suki:SukiSideMenu.HeaderContent>
         <suki:SukiSideMenu.FooterContent>

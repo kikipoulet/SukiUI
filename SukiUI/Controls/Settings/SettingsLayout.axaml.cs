@@ -8,48 +8,24 @@ using Avalonia.Data;
 using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace SukiUI.Controls;
 
-public class SettingsLayoutItem : Control
-{
-    public static readonly DirectProperty<SettingsLayoutItem, string?> HeaderProperty =
-        AvaloniaProperty.RegisterDirect<SettingsLayoutItem, string?>(
-            nameof(Header),
-            o => o.Header,
-            (o, v) => o.Header = v);
-
-    public string? Header
-    {
-        get { return _header; }
-        set { SetAndRaise(HeaderProperty, ref _header, value); }
-    }
-
-    private string? _header;
-
-    public static readonly DirectProperty<SettingsLayoutItem, Control?> ContentProperty =
-    AvaloniaProperty.RegisterDirect<SettingsLayoutItem, Control?>(
-        nameof(Content),
-        o => o.Content,
-        (o, v) => o.Content = v);
-
-    public Control? Content
-    {
-        get { return _content; }
-        set { SetAndRaise(ContentProperty, ref _content, value); }
-    }
-
-    private Control? _content;
-}
-
 public partial class SettingsLayout : UserControl
 {
+    public static readonly DirectProperty<SettingsLayout, IEnumerable<SettingsLayoutItem>> ItemsProperty =
+    AvaloniaProperty.RegisterDirect<SettingsLayout, IEnumerable<SettingsLayoutItem>>(
+        nameof(Items),
+        o => o.Items);
+
+    private IEnumerable<SettingsLayoutItem> _bounds;
+
+    public IEnumerable<SettingsLayoutItem> Items
+    {
+        get { return _bounds; }
+        set { SetAndRaise(ItemsProperty, ref _bounds, value); }
+    }
+
     public static readonly DirectProperty<SettingsLayout, double> MinWidthWhetherStackShowProperty =
         AvaloniaProperty.RegisterDirect<SettingsLayout, double>(
             nameof(MinWidthWhetherStackSummaryShow), o => o.MinWidthWhetherStackSummaryShow,
@@ -63,16 +39,6 @@ public partial class SettingsLayout : UserControl
         InitializeComponent();
     }
 
-    protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
-    {
-        base.OnApplyTemplate(e);
-        UpdateItems();
-    }
-
-    protected override void OnDetachedFromLogicalTree(LogicalTreeAttachmentEventArgs e)
-    {
-    }
-
     private void InitializeComponent()
     {
         AvaloniaXamlLoader.Load(this);
@@ -81,13 +47,13 @@ public partial class SettingsLayout : UserControl
     private double _minWidthWhetherStackSummaryShow = 1100;
 
     /// <summary>
-    /// Get or set a value that represents the minimum width for displaying the StackSummary in the SettingsLayout. 
+    /// Get or set a value that represents the minimum width for displaying the StackSummary in the SettingsLayout.
     /// If the width of the SettingsLayout is less than this value, the StackSummary will not be displayed.
     /// The default value is 1100, and the minimum configurable value is 1.
     /// </summary>
     public double MinWidthWhetherStackSummaryShow
     {
-        get=> _minWidthWhetherStackSummaryShow;
+        get => _minWidthWhetherStackSummaryShow;
         set
         {
             if (value < 1)
@@ -114,18 +80,14 @@ public partial class SettingsLayout : UserControl
         }
     }
 
-    private ObservableCollection<SettingsLayoutItem> _items;
-
-    public static readonly DirectProperty<SettingsLayout, ObservableCollection<SettingsLayoutItem>> StepsProperty =
-        AvaloniaProperty.RegisterDirect<SettingsLayout, ObservableCollection<SettingsLayoutItem>>(nameof(Items),
-            l => l.Items,
-            (numpicker, v) => { numpicker.Items = v; }, defaultBindingMode: BindingMode.TwoWay,
-            enableDataValidation: true);
-
-    public ObservableCollection<SettingsLayoutItem> Items
+    protected override void OnDetachedFromLogicalTree(LogicalTreeAttachmentEventArgs e)
     {
-        get { return _items; }
-        set { SetAndRaise(StepsProperty, ref _items, value); }
+    }
+
+    protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+    {
+        base.OnApplyTemplate(e);
+        UpdateItems();
     }
 
     private void UpdateItems()
@@ -135,14 +97,14 @@ public partial class SettingsLayout : UserControl
             return;
         }
 
-        var stackSummary = (StackPanel)this.GetTemplateChildren().First(n => n.Name == "StackSummary");
-        var myScroll = (ScrollViewer)this.GetTemplateChildren().First(n => n.Name == "MyScroll");
+        var stackSummary = this.GetTemplateChildren().First(n => n.Name == "StackSummary") as StackPanel;
+        var myScroll = this.GetTemplateChildren().First(n => n.Name == "MyScroll") as ScrollViewer;
 
-        if (myScroll.Content is not StackPanel stackItems)
+        if (myScroll?.Content is not StackPanel stackItems)
             return;
 
-        stackItems.Children.Clear();
-        stackSummary.Children.Clear();
+        if (stackSummary is not StackPanel)
+            return;
 
         var radios = new List<RadioButton>();
         var borders = new List<Border>();
@@ -151,12 +113,23 @@ public partial class SettingsLayout : UserControl
 
         foreach (var settingsLayoutItem in Items)
         {
+            if (settingsLayoutItem.Header is null)
+            {
+                continue;
+            }
+
+            var header = new TextBlock();
+            header.Bind(TextBlock.TextProperty, new Binding(nameof(SettingsLayoutItem.Header))
+            {
+                Source = settingsLayoutItem
+            });
+
             var border = new Border
             {
                 Child = new GroupBox()
                 {
                     Margin = new Thickness(10, 20),
-                    Header = new TextBlock() { Text = settingsLayoutItem.Header },
+                    Header = header,
                     Content = new Border()
                     {
                         Margin = new Thickness(35, 12),
@@ -168,10 +141,16 @@ public partial class SettingsLayout : UserControl
             borders.Add(border);
             stackItems.Children.Add(border);
 
+            var textBlock = new TextBlock { FontSize = 17 };
+            textBlock.Bind(TextBlock.TextProperty, new Binding(nameof(SettingsLayoutItem.Header))
+            {
+                Source = settingsLayoutItem
+            });
+
             var summaryButton = new RadioButton()
             {
-                Content = new TextBlock() { Text = settingsLayoutItem.Header, FontSize = 17 },
-                Classes = {  "MenuChip" }
+                Content = textBlock,
+                Classes = { "MenuChip" }
             };
             summaryButton.Click += async (sender, args) =>
             {
@@ -200,11 +179,9 @@ public partial class SettingsLayout : UserControl
         };
     }
 
-    private Mutex mut = new Mutex();
-
     private double LastDesiredSize = -1;
 
-    private async void DockPanel_SizeChanged(object sender, SizeChangedEventArgs e)
+    private void DockPanel_SizeChanged(object sender, SizeChangedEventArgs e)
     {
         var stack = this.GetTemplateChildren().First(n => n.Name == "StackSummary");
         var desiredSize = e.NewSize.Width > MinWidthWhetherStackSummaryShow ? StackSummaryWidth : 0;
@@ -218,8 +195,6 @@ public partial class SettingsLayout : UserControl
             stack.Animate<double>(WidthProperty, stack.Width, desiredSize, TimeSpan.FromMilliseconds(800));
     }
 
-    private bool isAnimatingWidth = false;
-    private bool isAnimatingMargin = false;
     private bool isAnimatingScroll = false;
 
     private async Task AnimateScroll(double desiredScroll)

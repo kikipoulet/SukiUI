@@ -52,9 +52,9 @@ namespace SukiUI.Dialogs
         /// Gives the dialog a ViewModel. If this is used, Title/Content are ignored and only the ViewModel is rendered - the View being located by the usual strategy.
         /// This is useful for custom dialogs.
         /// </summary>
-        public static SukiDialogBuilder WithViewModel(this SukiDialogBuilder builder, Func<ISukiDialog,object> viewModel)
+        public static SukiDialogBuilder WithViewModel(this SukiDialogBuilder builder, Func<ISukiDialog,object> viewModel, bool isViewModelOnly = true)
         {
-            builder.SetViewModel(viewModel);
+            builder.SetViewModel(viewModel, isViewModelOnly);
             return builder;
         }
 

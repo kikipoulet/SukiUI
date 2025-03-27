@@ -7,20 +7,29 @@ namespace SukiUI.Helpers
 {
     internal static class DialogPool
     {
-        private static readonly ConcurrentBag<ISukiDialog> Pool = new();
+        private static readonly ConcurrentStack<ISukiDialog> Pool = new();
+
+        static DialogPool()
+        {
+            Pool.Push(new SukiDialog());
+            Pool.Push(new SukiDialog());
+        }
         
         internal static ISukiDialog Get()
         {
-            var dialog = Pool.TryTake(out var item) ? item : new SukiDialog();
-            return dialog;//.ResetToDefault();
+            var dialog = Pool.TryPop(out var item) ? item : new SukiDialog();
+            dialog.ResetToDefault();
+            return dialog;
         }
 
-        internal static void Return(ISukiDialog toast) => Pool.Add(toast);
+        internal static void Return(ISukiDialog dialog) => Pool.Push(dialog);
 
         internal static void Return(IEnumerable<ISukiDialog> dialogs)
         {
             foreach (var dialog in dialogs)
-                Pool.Add(dialog);
+            {
+                Pool.Push(dialog);
+            }
         }
     }
 }

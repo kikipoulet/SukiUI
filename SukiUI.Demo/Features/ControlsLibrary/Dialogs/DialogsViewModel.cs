@@ -92,6 +92,17 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
     }
 
     [RelayCommand]
+    private void OpenViewModelWithActionButtonsDialog()
+    {
+        dialogManager.CreateDialog()
+            .OfType(NotificationType.Warning)
+            .WithTitle("Dialog with content set to a VM")
+            .WithViewModel(dialog => new VmDialogViewModel(dialog), false)
+            .WithActionButton("Extra Close Button", _ => { }, true, "Flat")
+            .TryShow();
+    }
+
+    [RelayCommand]
     private void OpenDialogWindowDemo() => new DialogWindowDemo(dialogManager).Show();
         
 }

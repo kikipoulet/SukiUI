@@ -9,27 +9,18 @@
                 Padding="20"
                 Background="{DynamicResource SukiBackground}">
             <StackPanel>
+
                 <TextBox Width="200"
                          Margin="5"
-                         Classes="Prefix"
-                         Text="avaloniaui.net"
-                         Watermark="https://" />
+                         Text="test"
+                         Watermark="Elem" />
+
                 <TextBox Width="200"
                          Margin="5"
-                         Classes="Suffix"
-                         Text="avaloniaui"
-                         Watermark="@gmail.com" />
-                <TextBox Width="200"
-                         Margin="5"
-                         Classes="BottomBar"
-                         Text="Elem" />
-                <TextBox Width="200"
-                         Margin="5"
-                         Text="Elem" />
-                <TextBox Width="200"
-                         Margin="5"
-                         IsEnabled="False"
-                         Text="Elem" />
+                         Text="test"
+                         UseFloatingWatermark="True"
+                         Watermark="Elem" />
+
                 <TextBox Classes="NoShadow" Text="Elem" />
 
                 <Panel>
@@ -141,122 +132,116 @@
 
             <ControlTemplate>
 
-                <Border Padding="5">
-                    <Border.Resources>
+                <StackPanel>
 
 
-                        <theme:StringToDoubleConverter x:Key="StringToDoubleC" />
-                    </Border.Resources>
-                    <Panel>
-                        <suki:GlassCard Name="border"
-                                        Padding="0"
-                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                        BorderThickness="{TemplateBinding BorderThickness}"
-                                        CornerRadius="{TemplateBinding CornerRadius}">
-                            <suki:GlassCard.Transitions>
-                                <Transitions>
-                                    <BrushTransition Property="BorderBrush" Duration="0:0:0.2" />
-                                </Transitions>
-                            </suki:GlassCard.Transitions>
-                        </suki:GlassCard>
-                        <Border Name="borderbottom"
-                                Margin="1,-1,1,-1"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="0"
-                                ClipToBounds="True"
-                                CornerRadius="1">
-                            <Border.Transitions>
-                                <Transitions>
-                                    <BrushTransition Property="BorderBrush" Duration="0:0:0.2" />
-                                </Transitions>
-                            </Border.Transitions>
+                    <TextBlock Name="floatingWatermark"
+                               Margin="3,5"
+                               FontSize="13"
+                               FontWeight="DemiBold"
+                               Foreground="{DynamicResource SukiLowText}"
+                               IsVisible="{Binding UseFloatingWatermark, RelativeSource={RelativeSource TemplatedParent}}"
+                               Opacity="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static suki:IsNotNullOrEmptyToDouble.Instance}}"
+                               Text="{TemplateBinding Watermark}">
+                        <TextBlock.Transitions>
+                            <Transitions>
+                                <DoubleTransition Property="Opacity" Duration="0:0:0.35" />
+                            </Transitions>
+                        </TextBlock.Transitions>
+                    </TextBlock>
 
 
-                            <DockPanel Margin="{TemplateBinding Padding}"
-                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
 
-                                <TextBlock Name="floatingWatermark"
-                                           DockPanel.Dock="Top"
-                                           Text="{TemplateBinding Watermark}">
-                                    <TextBlock.IsVisible>
-                                        <MultiBinding Converter="{x:Static BoolConverters.And}">
-                                            <Binding Path="UseFloatingWatermark" RelativeSource="{RelativeSource TemplatedParent}" />
-                                            <Binding Converter="{x:Static StringConverters.IsNotNullOrEmpty}"
-                                                     Path="Text"
-                                                     RelativeSource="{RelativeSource TemplatedParent}" />
-                                        </MultiBinding>
-                                    </TextBlock.IsVisible>
-                                </TextBlock>
+                    <suki:GlassCard Name="border"
+                                    Padding="0"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="{TemplateBinding CornerRadius}">
+                        <suki:GlassCard.Transitions>
+                            <Transitions>
+                                <BrushTransition Property="BorderBrush" Duration="0:0:0.2" />
+                            </Transitions>
+                        </suki:GlassCard.Transitions>
+                        <suki:GlassCard.Resources>
+                            <theme:StringToDoubleConverter x:Key="StringToDoubleC" />
+                        </suki:GlassCard.Resources>
+                        <DataValidationErrors>
 
-                                <DataValidationErrors>
+                            <Grid Margin="{TemplateBinding Padding}"
+                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  ColumnDefinitions="Auto,*,Auto">
+                                <Panel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <ContentPresenter Content="{TemplateBinding InnerLeftContent}" />
+                                        <TextBlock Margin="3,1,3,0"
+                                                   FontSize="14"
+                                                   Foreground="{DynamicResource SukiLowText}"
+                                                   Text="{TemplateBinding theme:TextBoxExtensions.Prefix}" />
+                                    </StackPanel>
+                                </Panel>
+                                <ScrollViewer Grid.Column="1"
+                                              HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                                              VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
+                                    <Panel>
+                                        <TextBlock Name="watermark"
+                                                   FontSize="{TemplateBinding FontSize}"
+                                                   IsVisible="{TemplateBinding Text,
+                                                                               Converter={x:Static StringConverters.IsNullOrEmpty}}"
+                                                   Opacity="0.5"
+                                                   Text="{TemplateBinding Watermark}"
+                                                   TextAlignment="{TemplateBinding TextAlignment}"
+                                                   TextWrapping="{TemplateBinding TextWrapping}" />
+                                        <TextPresenter Name="PART_TextPresenter"
+                                                       Margin="0,0,0,0"
+                                                       CaretBrush="{DynamicResource SukiLowText}"
+                                                       CaretIndex="{TemplateBinding CaretIndex}"
+                                                       PasswordChar="{TemplateBinding PasswordChar}"
+                                                       RevealPassword="{TemplateBinding RevealPassword}"
+                                                       SelectionBrush="{TemplateBinding SelectionBrush}"
+                                                       SelectionEnd="{TemplateBinding SelectionEnd}"
+                                                       SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                                                       SelectionStart="{TemplateBinding SelectionStart}"
+                                                       Text="{TemplateBinding Text,
+                                                                              Mode=TwoWay}"
+                                                       TextAlignment="{TemplateBinding TextAlignment}"
+                                                       TextBlock.FontSize="{TemplateBinding FontSize}"
+                                                       TextBlock.Foreground="{TemplateBinding Foreground}"
+                                                       TextWrapping="{TemplateBinding TextWrapping}" />
+                                    </Panel>
+                                </ScrollViewer>
+                                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                    <theme:TextEraserButton Margin="5,0,2,0"
+                                                            Cursor="Hand"
+                                                            IsVisible="{TemplateBinding theme:TextBoxExtensions.AddDeleteButton}"
+                                                            Opacity="{TemplateBinding Text,
+                                                                                      Converter={StaticResource StringToDoubleC}}"
+                                                            Text="{TemplateBinding Text,
+                                                                                   Mode=TwoWay}">
+                                        <theme:TextEraserButton.Transitions>
+                                            <Transitions>
+                                                <DoubleTransition Property="Opacity" Duration="0:0:0.35" />
+                                            </Transitions>
+                                        </theme:TextEraserButton.Transitions>
+                                    </theme:TextEraserButton>
+                                    <ContentPresenter Content="{TemplateBinding InnerRightContent}" />
+                                </StackPanel>
 
-                                    <Grid ColumnDefinitions="Auto,*,Auto">
-                                        <Panel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <ContentPresenter Content="{TemplateBinding InnerLeftContent}" />
-                                                <TextBlock Margin="3,1,3,0"
-                                                           FontSize="14"
-                                                           Foreground="{DynamicResource SukiLowText}"
-                                                           Text="{TemplateBinding theme:TextBoxExtensions.Prefix}" />
-                                            </StackPanel>
-                                        </Panel>
-                                        <ScrollViewer Grid.Column="1"
-                                                      HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
-                                                      VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
-                                            <Panel>
-                                                <TextBlock Name="watermark"
-                                                           FontSize="{TemplateBinding FontSize}"
-                                                           IsVisible="{TemplateBinding Text,
-                                                                                       Converter={x:Static StringConverters.IsNullOrEmpty}}"
-                                                           Opacity="0.5"
-                                                           Text="{TemplateBinding Watermark}"
-                                                           TextAlignment="{TemplateBinding TextAlignment}"
-                                                           TextWrapping="{TemplateBinding TextWrapping}" />
-                                                <TextPresenter Name="PART_TextPresenter"
-                                                               Margin="0,0,0,0"
-                                                               CaretBrush="{DynamicResource SukiLowText}"
-                                                               CaretIndex="{TemplateBinding CaretIndex}"
-                                                               PasswordChar="{TemplateBinding PasswordChar}"
-                                                               RevealPassword="{TemplateBinding RevealPassword}"
-                                                               SelectionBrush="{TemplateBinding SelectionBrush}"
-                                                               SelectionEnd="{TemplateBinding SelectionEnd}"
-                                                               SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
-                                                               SelectionStart="{TemplateBinding SelectionStart}"
-                                                               Text="{TemplateBinding Text,
-                                                                                      Mode=TwoWay}"
-                                                               TextAlignment="{TemplateBinding TextAlignment}"
-                                                               TextBlock.FontSize="{TemplateBinding FontSize}"
-                                                               TextBlock.Foreground="{TemplateBinding Foreground}"
-                                                               TextWrapping="{TemplateBinding TextWrapping}" />
-                                            </Panel>
-                                        </ScrollViewer>
-                                        <StackPanel Grid.Column="2" Orientation="Horizontal">
-                                            <theme:TextEraserButton Margin="5,0,2,0"
-                                                                    Cursor="Hand"
-                                                                    IsVisible="{TemplateBinding theme:TextBoxExtensions.AddDeleteButton}"
-                                                                    Opacity="{TemplateBinding Text,
-                                                                                              Converter={StaticResource StringToDoubleC}}"
-                                                                    Text="{TemplateBinding Text,
-                                                                                           Mode=TwoWay}">
-                                                <theme:TextEraserButton.Transitions>
-                                                    <Transitions>
-                                                        <DoubleTransition Property="Opacity" Duration="0:0:0.35" />
-                                                    </Transitions>
-                                                </theme:TextEraserButton.Transitions>
-                                            </theme:TextEraserButton>
-                                            <ContentPresenter Content="{TemplateBinding InnerRightContent}" />
-                                        </StackPanel>
+
+                            </Grid>
+                        </DataValidationErrors>
+
+                    </suki:GlassCard>
 
 
-                                    </Grid>
-                                </DataValidationErrors>
 
-                            </DockPanel>
-                        </Border>
-                    </Panel>
-                </Border>
 
+
+
+
+
+
+                </StackPanel>
             </ControlTemplate>
         </Setter>
     </Style>
