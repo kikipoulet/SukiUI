@@ -4,55 +4,101 @@
                     xmlns:suki="clr-namespace:SukiUI.Controls">
     <Design.PreviewWith>
         <StackPanel Width="400" Spacing="3">
-            <suki:InfoBar Title="Title"
+            <suki:InfoBar Title="Selectable justified text"
+                          IconSize="24"
                           IsClosable="True"
-                          Message="Long Text Test Long Text Test Long Text Test Long Text Test" />
-            <suki:InfoBar Title="Title" Message="Default" />
+                          IsTextSelectable="True"
+                          MessageTextAlignment="Justify"
+                          Message="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." />
+            <suki:InfoBar Title="Title"
+                          Message="Default text sample"
+                          Severity="Success" />
+            <suki:InfoBar Title="Please fix the following errors:"
+                          TitleOrientation="Vertical"
+                          IsTextSelectable="True"
+                          MessageTextAlignment="Justify"
+                          IsClosable="False"
+                          Message="- Username does not contain a valid string format.
+&#xA;- Password must contain between 8 and 100 characters."
+                          Severity="Error" />
+            <suki:InfoBar Title="Center" Message="Centered v/h text"
+                          Severity="Warning"
+                          Height="120"
+                          VerticalContentAlignment="Center"
+                          HorizontalContentAlignment="Center"/>
+            <suki:InfoBar Title="Right" Message="Right to left align to bottom"
+                          VerticalContentAlignment="Bottom"
+                          Severity="Error"
+                          HorizontalContentAlignment="Right"/>
+            <suki:InfoBar Icon="{x:Null}" Title="Message:" Message="No icon"/>
+            <suki:InfoBar Icon="{x:Null}" Message="No icon nor title!"/>
         </StackPanel>
     </Design.PreviewWith>
     <ControlTheme x:Key="SukiInfoBarStyle" TargetType="suki:InfoBar">
         <Setter Property="MinWidth" Value="200" />
+        <Setter Property="VerticalContentAlignment" Value="Top" />
         <Setter Property="Template">
             <ControlTemplate>
-                <suki:GlassCard MinWidth="300" IsOpaque="{TemplateBinding IsOpaque}" Padding="0,0,0,15"
+                <suki:GlassCard MinWidth="300"
+                                IsOpaque="{TemplateBinding IsOpaque}"
+                                Padding="0,0,0,15"
                         CornerRadius="10"
                         IsVisible="{TemplateBinding IsOpen}">
-                    <Grid ColumnDefinitions="50,*,40">
-                        <StackPanel Grid.Column="0"
-                                    HorizontalAlignment="Left"
-                                    Orientation="Horizontal">
-                            <Border Width="20"
-                                    Height="20"
-                                    Margin="15,15,0,0"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Top"
-                                    Background="{DynamicResource SukiCardBackground}"
-                                    CornerRadius="35">
-                                <Border ClipToBounds="True" CornerRadius="35">
-                                    <Panel>
-                                        <Panel Background="{TemplateBinding IconForeground}" Opacity="1" />
-                                        <PathIcon Width="10"
-                                                  Height="10"
-                                                  Margin="0,0,0,0"
-                                                  HorizontalAlignment="Center"
-                                                  VerticalAlignment="Center"
-                                                  Data="{TemplateBinding Icon}"
-                                                  Foreground="White" />
-                                    </Panel>
-                                </Border>
+                    <Grid ColumnDefinitions="Auto,*,Auto">
+                        <Border Grid.Column="0"
+                                Padding="10"
+                                Margin="15,15,0,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Background="{TemplateBinding IconForeground}"
+                                Opacity="1"
+                                CornerRadius="60"
+                                IsVisible="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNotNull}}">
+                            <Border ClipToBounds="True" CornerRadius="35">
+                                <Panel>
+                                    <Panel Background="{TemplateBinding IconForeground}" Opacity="1" />
+                                    <PathIcon Width="{TemplateBinding IconSize}"
+                                              Height="{TemplateBinding IconSize}"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Data="{TemplateBinding Icon}"
+                                              Foreground="White" />
+                                </Panel>
                             </Border>
-                        </StackPanel>
+                        </Border>
 
                         <WrapPanel Name="PART_TextPanel"
+                                   Orientation="{TemplateBinding TitleOrientation}"
+                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                    Grid.Column="1"
-                                   Margin="0,12,0,0">
-                            <TextBlock Margin="0,5,10,0"
-                                       FontWeight="Bold"
-                                       Text="{TemplateBinding Title}" />
-                            <Border Width="7"></Border>
-                            <TextBlock Margin="0,5,0,0"
-                                       Text="{TemplateBinding Message}"
-                                       TextWrapping="Wrap" />
+                                   Margin="15,10,0,0">
+
+                            <Panel IsVisible="{TemplateBinding Title, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                                   Margin="0,5,10,0">
+                                <SelectableTextBlock FontWeight="Bold"
+                                                     TextAlignment="Left"
+                                                     IsVisible="{TemplateBinding IsTextSelectable}"
+                                                     Text="{TemplateBinding Title}" />
+                                <TextBlock FontWeight="Bold"
+                                           TextAlignment="Left"
+                                           Text="{TemplateBinding Title}"
+                                           IsVisible="{Binding !IsTextSelectable, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            </Panel>
+
+
+                            <Panel Margin="0,5,10,0"
+                                   IsVisible="{TemplateBinding Message, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                                <SelectableTextBlock IsVisible="{TemplateBinding IsTextSelectable}"
+                                                     Text="{TemplateBinding Message}"
+                                                     TextAlignment="{TemplateBinding MessageTextAlignment}"
+                                                     TextWrapping="Wrap" />
+                                <TextBlock IsVisible="{Binding !IsTextSelectable, RelativeSource={RelativeSource TemplatedParent}}"
+                                           Text="{TemplateBinding Message}"
+                                           TextAlignment="{TemplateBinding MessageTextAlignment}"
+                                           TextWrapping="Wrap" />
+                            </Panel>
+
                         </WrapPanel>
 
                         <Button Name="PART_CloseButton"

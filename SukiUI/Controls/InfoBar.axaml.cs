@@ -2,6 +2,7 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
 using Avalonia.Controls.Primitives;
+using Avalonia.Layout;
 using Avalonia.Media;
 using SukiUI.ColorTheme;
 using SukiUI.Content;
@@ -26,7 +27,7 @@ public class InfoBar : ContentControl
                 NotificationType.Error => Icons.AlertOutline,
                 _ => Icons.InformationOutline
             };
-            
+
             IconForeground = value switch
             {
                 NotificationType.Information => NotificationColor.InfoIconForeground,
@@ -35,11 +36,11 @@ public class InfoBar : ContentControl
                 NotificationType.Error => NotificationColor.ErrorIconForeground,
                 _ => NotificationColor.InfoIconForeground
             };
-            
+
             SetValue(SeverityProperty, value);
         }
     }
-    
+
     public static readonly StyledProperty<object?> IconProperty =
         AvaloniaProperty.Register<InfoBar, object?>(nameof(Icon), Icons.InformationOutline);
 
@@ -48,16 +49,25 @@ public class InfoBar : ContentControl
         get => GetValue(IconProperty);
         private set => SetValue(IconProperty, value);
     }
-    
+
+    public static readonly StyledProperty<int> IconSizeProperty =
+        AvaloniaProperty.Register<InfoBar, int>(nameof(IconSize), 12);
+
+    public int IconSize
+    {
+        get => GetValue(IconSizeProperty);
+        private set => SetValue(IconSizeProperty, value);
+    }
+
     public static readonly StyledProperty<IBrush?> IconForegroundProperty =
         AvaloniaProperty.Register<InfoBar, IBrush?>(nameof(IconForeground), NotificationColor.InfoIconForeground);
-    
+
     public IBrush? IconForeground
     {
         get => GetValue(IconForegroundProperty);
         private set => SetValue(IconForegroundProperty, value);
     }
-    
+
     public static readonly StyledProperty<bool> IsOpenProperty =
         AvaloniaProperty.Register<InfoBar, bool>(nameof(IsOpen), true);
 
@@ -66,7 +76,7 @@ public class InfoBar : ContentControl
         get => GetValue(IsOpenProperty);
         set => SetValue(IsOpenProperty, value);
     }
-    
+
     public static readonly StyledProperty<bool> IsClosableProperty =
         AvaloniaProperty.Register<InfoBar, bool>(nameof(IsClosable), true);
 
@@ -75,8 +85,8 @@ public class InfoBar : ContentControl
         get => GetValue(IsClosableProperty);
         set => SetValue(IsClosableProperty, value);
     }
-    
-       
+
+
     public static readonly StyledProperty<bool> IsOpaqueProperty =
         AvaloniaProperty.Register<InfoBar, bool>(nameof(IsOpaque), false);
 
@@ -85,7 +95,7 @@ public class InfoBar : ContentControl
         get => GetValue(IsOpaqueProperty);
         set => SetValue(IsOpaqueProperty, value);
     }
-    
+
     public static readonly StyledProperty<string> TitleProperty =
         AvaloniaProperty.Register<InfoBar, string>(nameof(Title), string.Empty);
 
@@ -95,6 +105,18 @@ public class InfoBar : ContentControl
         set => SetValue(TitleProperty, value);
     }
 
+    /// <summary>
+    /// Defines the <see cref="TitleOrientation"/> property
+    /// </summary>
+    public static readonly StyledProperty<Orientation> TitleOrientationProperty =
+        WrapPanel.OrientationProperty.AddOwner<InfoBar>();
+
+    public Orientation TitleOrientation
+    {
+        get => GetValue(TitleOrientationProperty);
+        set => SetValue(TitleOrientationProperty, value);
+    }
+
     public static readonly StyledProperty<string> MessageProperty =
         AvaloniaProperty.Register<InfoBar, string>(nameof(Message), string.Empty);
 
@@ -102,6 +124,27 @@ public class InfoBar : ContentControl
     {
         get => GetValue(MessageProperty);
         set => SetValue(MessageProperty, value);
+    }
+
+    /// <summary>
+    /// Defines the <see cref="MessageTextAlignment"/> property
+    /// </summary>
+    public static readonly StyledProperty<TextAlignment> MessageTextAlignmentProperty =
+        TextBlock.TextAlignmentProperty.AddOwner<InfoBar>();
+
+    public TextAlignment MessageTextAlignment
+    {
+        get => GetValue(MessageTextAlignmentProperty);
+        set => SetValue(MessageTextAlignmentProperty, value);
+    }
+
+    public static readonly StyledProperty<bool> IsTextSelectableProperty =
+        AvaloniaProperty.Register<InfoBar, bool>(nameof(IsTextSelectable));
+
+    public bool IsTextSelectable
+    {
+        get => GetValue(IsTextSelectableProperty);
+        set => SetValue(IsTextSelectableProperty, value);
     }
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
