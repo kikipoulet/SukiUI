@@ -75,6 +75,13 @@
                     </suki:GroupBox>
                 </suki:GlassCard>
                 <suki:GlassCard>
+                    <suki:GroupBox Header="ViewModel With Action Buttons Dialog">
+                        <Button VerticalAlignment="Top" Margin="15,10,15,0"
+                                Command="{Binding OpenViewModelWithActionButtonsDialogCommand}"
+                                Content="Show Dialog" />
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
                     <suki:GroupBox Header="Window Dialog Demo">
                         <Button VerticalAlignment="Top" Margin="15,10,15,0"
                                 Command="{Binding OpenDialogWindowDemoCommand}"
