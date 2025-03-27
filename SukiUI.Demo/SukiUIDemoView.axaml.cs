@@ -40,10 +40,4 @@ public partial class SukiUIDemoView : SukiWindow
     {
         IsMenuVisible = !IsMenuVisible;
     }
-
-    private void MakeFullScreenPressed(object? sender, PointerPressedEventArgs e)
-    {
-        WindowState = WindowState == WindowState.FullScreen ? WindowState.Normal : WindowState.FullScreen;
-        IsTitleBarVisible = WindowState != WindowState.FullScreen;
-    }
 }
