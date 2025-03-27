@@ -7,7 +7,7 @@
     <converters:PlatformKeyGestureConverter x:Key="KeyGestureConverter" />
 
     <ControlTheme x:Key="SukiMenuItemStyle" TargetType="MenuItem">
-      
+
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
         <Setter Property="BorderThickness" Value="1.5" />
         <Setter Property="FontSize" Value="14" />
@@ -21,25 +21,31 @@
                         ClipToBounds="True">
                     <Panel>
                         <DockPanel Margin="5,10">
-                            <ContentPresenter Name="PART_Icon"
-                                              Width="15"
-                                              Height="15"
-                                              Margin="5,0"
-                                              HorizontalAlignment="Center"
-                                              VerticalAlignment="Center"
-                                              Content="{TemplateBinding Icon}"
-                                              DockPanel.Dock="Left" />
+                            <Panel DockPanel.Dock="Left">
+                                <ContentPresenter Name="PART_Icon"
+                                                  Width="15"
+                                                  Height="15"
+                                                  Margin="5,0"
+                                                  HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"
+                                                  Content="{TemplateBinding Icon}" />
+                                <CheckBox Name="PART_Check"
+                                          Margin="2,0,0,0"
+                                          IsChecked="{TemplateBinding IsChecked,
+                                                                      Mode=TwoWay}"
+                                          IsVisible="False" />
+                            </Panel>
                             <Rectangle Width="1"
                                        Margin="5,-2"
                                        DockPanel.Dock="Left"
                                        Fill="{DynamicResource SukiLightBorderBrush}" />
                             <PathIcon Name="PART_RightArrow"
-                                      Classes="Flippable"
                                       Width="8"
                                       Height="8"
                                       Margin="5,0,10,0"
                                       HorizontalAlignment="Right"
                                       VerticalAlignment="Center"
+                                      Classes="Flippable"
                                       Data="{x:Static content:Icons.ChevronRight}"
                                       DockPanel.Dock="Right"
                                       Foreground="{DynamicResource SukiText}" />
@@ -146,13 +152,17 @@
         <Style Selector="^:separator">
             <Setter Property="Template">
                 <ControlTemplate>
-                    <Separator Margin="0"/>
+                    <Separator Margin="0" />
                 </ControlTemplate>
             </Setter>
         </Style>
 
+        <Style Selector="^:toggle /template/ CheckBox#PART_Check">
+            <Setter Property="IsVisible" Value="True" />
+        </Style>
+
         <Style Selector="^[FlowDirection=RightToLeft] /template/ Popup#PART_Popup">
-            <Setter Property="HorizontalOffset" Value="25"/>
+            <Setter Property="HorizontalOffset" Value="25" />
         </Style>
     </ControlTheme>
     <ControlTheme x:Key="{x:Type MenuItem}"
