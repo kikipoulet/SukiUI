@@ -28,9 +28,18 @@ namespace SukiUI.Dialogs
 
         public void SetContent(object content) => Dialog.Content = content;
 
-        public void SetViewModel(Func<ISukiDialog,object> viewModel)
+        public void SetViewModel(Func<ISukiDialog,object> viewModel, bool isViewModelOnly)
         {
-            Dialog.ViewModel = viewModel(Dialog);
+            if (isViewModelOnly)
+            {
+                Dialog.ViewModel = viewModel(Dialog);
+                Dialog.IsViewModelOnly = true;
+            }
+            else
+            {
+                Dialog.Content = viewModel(Dialog);
+                Dialog.IsViewModelOnly = false;
+            }
         }
         
         public void SetType(NotificationType notificationType)

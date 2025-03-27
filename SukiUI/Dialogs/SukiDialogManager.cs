@@ -1,3 +1,5 @@
+using SukiUI.Helpers;
+
 namespace SukiUI.Dialogs
 {
     public class SukiDialogManager : ISukiDialogManager
