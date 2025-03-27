@@ -657,53 +657,68 @@ public class SukiWindow : Window, IDisposable
     #region Methods
     private void EnableWindowsSnapLayout(Button maximize)
     {
-        var pointerOnMaxButton = false;
-        var setter = typeof(Button).GetProperty("IsPointerOver");
-        var proc = (IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam, ref bool handled) =>
+        const int HTMAXBUTTON = 9;
+        const uint WM_NCHITTEST = 0x0084;
+        const uint WM_CAPTURECHANGED = 0x0215;
+
+        var pointerOnButton = false;
+        var pointerOverSetter = typeof(Button).GetProperty("IsPointerOver");
+
+        nint ProcHookCallback(nint hWnd, uint msg, nint wParam, nint lParam, ref bool handled)
         {
-            switch (msg)
+            if (msg == WM_NCHITTEST)
             {
-                case 533:
-                    if (!pointerOnMaxButton) break;
-                    if (!CanMaximize) break;
-                    WindowState = WindowState == WindowState.Maximized
-                        ? WindowState.Normal
-                        : WindowState.Maximized;
-                    break;
-                case 0x0084:
-                    var point = new PixelPoint(
-                        (short)(ToInt32(lParam) & 0xffff),
-                        (short)(ToInt32(lParam) >> 16));
-                    var desiredSize = maximize.DesiredSize;
-                    var buttonLeftTop = maximize.PointToScreen(FlowDirection == FlowDirection.LeftToRight
-                                                               ? new Point(desiredSize.Width, 0)
-                                                               : new Point(0, 0));
-                    var x = (buttonLeftTop.X - point.X) / RenderScaling;
-                    var y = (point.Y - buttonLeftTop.Y) / RenderScaling;
-                    if (new Rect(0, 0,
-                            desiredSize.Width,
-                            desiredSize.Height)
-                        .Contains(new Point(x, y)))
+                var point = new PixelPoint((short)(ToInt32(lParam) & 0xffff), (short)(ToInt32(lParam) >> 16));
+
+                var buttonSize = maximize.DesiredSize;
+
+                var buttonLeftTop = maximize.PointToScreen(FlowDirection == FlowDirection.LeftToRight
+                                                           ? new Point(buttonSize.Width, 0)
+                                                           : new Point(0, 0));
+
+                var x = (buttonLeftTop.X - point.X) / RenderScaling;
+                var y = (point.Y - buttonLeftTop.Y) / RenderScaling;
+
+                if (new Rect(default, buttonSize).Contains(new Point(x, y)))
+                {
+                    handled = true;
+
+                    if (pointerOnButton == false)
                     {
-                        setter?.SetValue(maximize, true);
-                        pointerOnMaxButton = true;
-                        handled = true;
-                        return (IntPtr)9;
+                        pointerOnButton = true;
+                        pointerOverSetter.SetValue(maximize, true);
                     }
 
-                    pointerOnMaxButton = false;
-                    setter?.SetValue(maximize, false);
-                    break;
+                    return HTMAXBUTTON;
+                }
+                else
+                {
+                    if (pointerOnButton)
+                    {
+                        pointerOnButton = false;
+                        pointerOverSetter.SetValue(maximize, false);
+                    }
+                }
+            }
+            else if (msg == WM_CAPTURECHANGED)
+            {
+                if (pointerOnButton && CanMaximize)
+                {
+                    WindowState = WindowState == WindowState.Maximized
+                                  ? WindowState.Normal
+                                  : WindowState.Maximized;
+
+                    pointerOverSetter.SetValue(maximize, false);
+                }
             }
 
-            return IntPtr.Zero;
+            return 0;
+        }
 
-            static int ToInt32(IntPtr ptr) => IntPtr.Size == 4
-                ? ptr.ToInt32()
-                : (int)(ptr.ToInt64() & 0xffffffff);
-        };
+        static int ToInt32(IntPtr ptr) => IntPtr.Size == 4 ? ptr.ToInt32() : (int)(ptr.ToInt64() & 0xffffffff);
 
-        var wndProcHookCallback = new Win32Properties.CustomWndProcHookCallback(proc);
+
+        var wndProcHookCallback = new Win32Properties.CustomWndProcHookCallback(ProcHookCallback);
         Win32Properties.AddWndProcHookCallback(this, wndProcHookCallback);
 
         _disposeActions.Add(() => Win32Properties.RemoveWndProcHookCallback(this, wndProcHookCallback));

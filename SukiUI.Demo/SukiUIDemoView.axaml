@@ -48,7 +48,7 @@
         </avalonia:MaterialIcon>
     </suki:SukiWindow.LogoContent>
     <suki:SukiWindow.RightWindowTitleBarControls>
-        <Button Classes="Basic Rounded WindowControlsButton">
+        <Button Classes="WindowControlsButton">
             <avalonia:MaterialIcon Kind="Cog" Foreground="{DynamicResource SukiText}" />
             <Button.Flyout>
                 <Flyout>

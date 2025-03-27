@@ -35,7 +35,7 @@ namespace SukiUI.Controls
 
         public static readonly StyledProperty<bool> IsViewModelOnlyProperty = AvaloniaProperty.Register<SukiDialog, bool>(nameof(IsViewModelOnly));
 
-        internal bool IsViewModelOnly
+        public bool IsViewModelOnly
         {
             get => GetValue(IsViewModelOnlyProperty);
             set => SetValue(IsViewModelOnlyProperty, value);
@@ -81,15 +81,18 @@ namespace SukiUI.Controls
         
         public SukiDialog()
         {
-            ActionButtons = new ObservableCollection<object>();
+            ActionButtons = [];
         }
         
         public void Dismiss() => Manager?.TryDismissDialog(this);
-        
-        protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+
+        public void ResetToDefault()
         {
-            base.OnApplyTemplate(e);
-            IsViewModelOnly = ViewModel != null;
+            ActionButtons.Clear();
+            ViewModel = null;
+            Title = null;
+            Content = null;
+            IsViewModelOnly = false;
         }
     }
 }
