@@ -1,12 +1,12 @@
 <UserControl x:Class="SukiUI.Demo.Features.ControlsLibrary.TextView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:showMeTheXaml="clr-namespace:ShowMeTheXaml;assembly=ShowMeTheXaml.Avalonia"
-             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
              d:DesignHeight="450"
              d:DesignWidth="800"
              x:DataType="controlsLibrary:TextViewModel"
@@ -34,7 +34,9 @@
                             </TextBlock>
                         </StackPanel>
                         <showMeTheXaml:XamlDisplay UniqueId="TextHyperlink">
-                            <TextBlock xml:space="preserve">Text With A <HyperlinkButton Command="{Binding HyperlinkClickedCommand}" IsVisited="{Binding HyperlinkVisited}" Content="Hyperlink" /> Inside.</TextBlock>
+                            <TextBlock xml:space="preserve">Text With A <HyperlinkButton Command="{Binding HyperlinkClickedCommand}"
+                                                 Content="Hyperlink"
+                                                 IsVisited="{Binding HyperlinkVisited}" /> Inside.</TextBlock>
                         </showMeTheXaml:XamlDisplay>
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock1">
                             <TextBlock Classes="h1" />
@@ -67,20 +69,30 @@
             <suki:GlassCard>
                 <suki:GroupBox Header="Text Input">
                     <StackPanel Classes="HeaderContent">
-                       
+
                         <TextBlock>
                             There are a few helpers available to make textboxes simpler and more powerful to use.
                         </TextBlock>
                         <showMeTheXaml:XamlDisplay UniqueId="TextBox1">
-                            <TextBox  />
+                            <TextBox />
                         </showMeTheXaml:XamlDisplay>
                         <showMeTheXaml:XamlDisplay UniqueId="TextBox1Search">
-                            <TextBox  >
+                            <TextBox>
                                 <TextBox.InnerLeftContent>
-                                    <avalonia:MaterialIcon Kind="Search" Foreground="{DynamicResource SukiLowText}" Margin="5,0" Height="17" Width="17" VerticalAlignment="Center"/>
+                                    <avalonia:MaterialIcon Width="17"
+                                                           Height="17"
+                                                           Margin="5,0"
+                                                           VerticalAlignment="Center"
+                                                           Foreground="{DynamicResource SukiLowText}"
+                                                           Kind="Search" />
                                 </TextBox.InnerLeftContent>
                                 <TextBox.InnerRightContent>
-                                    <avalonia:MaterialIcon Kind="Check" Foreground="{DynamicResource SukiLowText}" Margin="5,0" Height="17" Width="17" VerticalAlignment="Center"/>
+                                    <avalonia:MaterialIcon Width="17"
+                                                           Height="17"
+                                                           Margin="5,0"
+                                                           VerticalAlignment="Center"
+                                                           Foreground="{DynamicResource SukiLowText}"
+                                                           Kind="Check" />
                                 </TextBox.InnerRightContent>
                             </TextBox>
                         </showMeTheXaml:XamlDisplay>
@@ -96,6 +108,19 @@
                         <showMeTheXaml:XamlDisplay UniqueId="TextBox5">
                             <TextBox suki:TextBoxExtensions.AddDeleteButton="True" />
                         </showMeTheXaml:XamlDisplay>
+
+                        <suki:GlassCard Width="400"
+                                        Margin="25"
+                                        HorizontalAlignment="Center">
+                            <StackPanel Spacing="8">
+
+                                <TextBox Text=""
+                                         UseFloatingWatermark="True"
+                                         Watermark="Username" />
+
+                            </StackPanel>
+                        </suki:GlassCard>
+
                     </StackPanel>
                 </suki:GroupBox>
             </suki:GlassCard>
