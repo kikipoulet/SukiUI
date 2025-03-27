@@ -78,18 +78,18 @@
                                                         </ItemsControl>
                                                         <Button Name="PART_MinimizeButton"
                                                                 VerticalContentAlignment="Bottom"
-                                                                Classes="Basic Rounded WindowControlsButton"
+                                                                Classes="WindowControlsButton"
                                                                 IsVisible="{TemplateBinding CanMinimize}">
-                                                            <PathIcon Margin="0,0,0,4"
+                                                            <PathIcon Margin="0,0,0,6.5"
                                                                       VerticalAlignment="Bottom"
                                                                       Data="{x:Static icons:Icons.WindowMinimize}" />
                                                         </Button>
                                                         <Button Name="PART_MaximizeButton"
-                                                                Classes="Basic Rounded WindowControlsButton"
+                                                                Classes="WindowControlsButton"
                                                                 IsVisible="{TemplateBinding CanMaximize}">
                                                             <PathIcon x:Name="MaximizeIcon" Data="{x:Static icons:Icons.WindowMaximize}" />
                                                         </Button>
-                                                        <Button Name="PART_CloseButton" Classes="Basic Rounded WindowControlsButton Close">
+                                                        <Button Name="PART_CloseButton" Classes="WindowControlsButton Close">
                                                             <PathIcon Data="{x:Static icons:Icons.WindowClose}" />
                                                         </Button>
                                                     </StackPanel>

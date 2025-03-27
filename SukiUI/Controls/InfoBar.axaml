@@ -110,7 +110,7 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Top"
                                 BorderThickness="0"
-                                Classes="Basic Rounded WindowControlsButton Close"
+                                Classes="WindowControlsButton Close"
                                 IsVisible="{TemplateBinding IsClosable}">
                             <PathIcon Width="10"
                                       Height="10"

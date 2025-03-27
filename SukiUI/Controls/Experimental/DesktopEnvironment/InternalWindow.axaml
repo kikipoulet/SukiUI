@@ -44,17 +44,17 @@
                                                                 <Setter Property="Width" Value="10" />
                                                             </Style>
                                                         </StackPanel.Styles>
-                                                        <Button Name="PART_CloseButton" Click="CloseButton_OnClick" Classes="Basic Rounded WindowControlsButton Close">
+                                                        <Button Name="PART_CloseButton" Click="CloseButton_OnClick" Classes="WindowControlsButton Close">
                                                             <PathIcon Data="{x:Static suki:Icons.WindowClose}" />
                                                         </Button>
                                                         <Button Name="PART_MaximizeButton" Click="PART_MaximizeButton_OnClick"
-                                                                Classes="Basic Rounded WindowControlsButton"
+                                                                Classes="WindowControlsButton"
                                                                 >
                                                             <PathIcon x:Name="MaximizeIcon" Data="{x:Static suki:Icons.WindowMaximize}" />
                                                         </Button>
                                                         <Button Name="PART_MinimizeButton" Click="PART_MinimizeButton_OnClick"
                                                                 VerticalContentAlignment="Bottom"
-                                                                Classes="Basic Rounded WindowControlsButton"
+                                                                Classes="WindowControlsButton"
                                                                 >
                                                             <PathIcon Margin="0,0,0,4"
                                                                       VerticalAlignment="Bottom"
