@@ -7,10 +7,7 @@ using Avalonia.Styling;
 using SukiUI.Enums;
 using SukiUI.Extensions;
 using SukiUI.Models;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using Avalonia.Controls;
 using SukiUI.Locale;
 
@@ -271,8 +268,9 @@ public partial class SukiTheme : Styles
     private static readonly Dictionary<CultureInfo, ResourceDictionary> LocaleToResource = new()
     {
         { new CultureInfo("en-US"), new en_US() },
-        { new CultureInfo("zh-CN"), new zh_CN() },
-        { new CultureInfo("nl-NL"), new nl_NL() }
+        { new CultureInfo("nl-NL"), new nl_NL() },
+        { new CultureInfo("pt-PT"), new pt_PT() },
+        { new CultureInfo("zh-CN"), new zh_CN() }
     };
 
     private static readonly ResourceDictionary DefaultResource = new en_US();
