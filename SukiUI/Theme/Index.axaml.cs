@@ -271,7 +271,8 @@ public partial class SukiTheme : Styles
     private static readonly Dictionary<CultureInfo, ResourceDictionary> LocaleToResource = new()
     {
         { new CultureInfo("en-US"), new en_US() },
-        { new CultureInfo("zh-CN"), new zh_CN() }
+        { new CultureInfo("zh-CN"), new zh_CN() },
+        { new CultureInfo("nl-NL"), new nl_NL() }
     };
 
     private static readonly ResourceDictionary DefaultResource = new en_US();

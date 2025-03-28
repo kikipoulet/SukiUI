@@ -2,13 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>6.0.0-beta7</Version>
   </PropertyGroup>
 
   <PropertyGroup>
     <IsPackable>true</IsPackable>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageVersion>6.0.0-beta7</PackageVersion>
     <PackageDescription></PackageDescription>
     <PackageTags>avalonia;avaloniaui;ui;theme;dock;docking;sukiui</PackageTags>
     <PackageProjectUrl>https://github.com/kikipoulet/SukiUI</PackageProjectUrl>

@@ -23,6 +23,8 @@
 
                 <TextBox Classes="NoShadow" Text="Elem" />
 
+                <NumericUpDown Value="1" />
+
                 <Panel>
                     <Border Margin="0,0,0,25" Classes="Card">
                         <StackPanel>
@@ -391,7 +393,7 @@
     <Style Selector="TextBox.NoShadow /template/ suki|GlassCard#border">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="IsVisible" Value="False" />
+        <Setter Property="Margin" Value="0,9,0,0" />
     </Style>
 
     <Style Selector="TextBox.NoShadow:focus /template/ suki|GlassCard#border">

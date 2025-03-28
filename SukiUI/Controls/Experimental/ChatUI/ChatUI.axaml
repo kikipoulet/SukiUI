@@ -1,116 +1,165 @@
-﻿<UserControl xmlns="https://github.com/avaloniaui"
+﻿<UserControl x:Class="SukiUI.Controls.Experimental.ChatUI"
+             xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:experimental="clr-namespace:SukiUI.Controls.Experimental"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:suki="https://github.com/kikipoulet/SukiUI"
              xmlns:sys="clr-namespace:System;assembly=netstandard"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="SukiUI.Controls.Experimental.ChatUI">
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
     <UserControl.Styles>
-    <Style Selector="experimental|ChatUI">
-        <Setter Property="Template">
-            <ControlTemplate>
-  
-      <DockPanel>
-          <DockPanel.Styles>
-              <Style Selector="Grid.FadeIn">
-                  <Style.Animations>
-                      <Animation Duration="0:0:0.400" IterationCount="1"
-                                 FillMode="Forward"
-                                 PlaybackDirection="Normal"
-                      >
-                          <KeyFrame Cue="0%">
-                              <Setter Property="Opacity" Value="0"/>
-                              <Setter Property="ScaleTransform.ScaleX" Value="0.8"></Setter>
-                              <Setter Property="ScaleTransform.ScaleY" Value="0.8"></Setter>
-                              <Setter Property="TranslateTransform.Y" Value="30"/>
-                              <Setter Property="TranslateTransform.X" Value="80"/>
-                          </KeyFrame>
-                   
-                          <KeyFrame Cue="100%">
-                              <Setter Property="Opacity" Value="1"/>
-                              <Setter Property="ScaleTransform.ScaleX" Value="1"></Setter>
-                              <Setter Property="ScaleTransform.ScaleY" Value="1"></Setter>
-                              <Setter Property="TranslateTransform.Y" Value="0"/>
-                              <Setter Property="TranslateTransform.X" Value="0"/>
-                          </KeyFrame>
-                      </Animation>
-                  </Style.Animations>
-              </Style>
-              <Style Selector="Button.H:pointerover">
-                  <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor5}" />
-              </Style>
-              <Style Selector="Button.H:pressed">
-                  <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor5}" />
-              </Style>
-              <Style Selector="TextBox.B /template/ Border">
-                  <Setter Property="BoxShadow" Value="0 0 0 0 Transparent"></Setter>
-                  <Setter Property="BorderThickness" Value="0"></Setter>
-              </Style>
-              
-          </DockPanel.Styles>
-          <Grid Margin="10" DockPanel.Dock="Bottom">
-           <DockPanel>
-               <Border Margin="0,15" Background="{DynamicResource SukiBorderBrush}" DockPanel.Dock="Top" Height="1" ></Border>
-               <Button Click="SendMessage" Height="55" Width="55" CornerRadius="30" IsDefault="True" Classes="Rounded Basic H" DockPanel.Dock="Right">
-                  <PathIcon Margin="5,3,0,0"  Height="22" Width="22" Foreground="{DynamicResource SukiLowText}">
-                      <PathIcon.Data>
-                      <StreamGeometry>M3.78963301,2.77233335 L24.8609339,12.8499121 C25.4837277,13.1477699 25.7471402,13.8941055 25.4492823,14.5168992 C25.326107,14.7744476 25.1184823,14.9820723 24.8609339,15.1052476 L3.78963301,25.1828263 C3.16683929,25.4806842 2.42050372,25.2172716 2.12264586,24.5944779 C1.99321184,24.3238431 1.96542524,24.015685 2.04435886,23.7262618 L4.7030903,13.9775798 L2.04435886,4.22889788 C1.8627142,3.56286745 2.25538645,2.87569101 2.92141688,2.69404635 C3.21084015,2.61511273 3.51899823,2.64289932 3.78963301,2.77233335 Z M3.63522914,4.36121177 L6.058,13.249 L17,13.25 C17.3796958,13.25 17.693491,13.5321539 17.7431534,13.8982294 L17.75,14 C17.75,14.3796958 17.4678461,14.693491 17.1017706,14.7431534 L17,14.75 L6.046,14.749 L3.63522914,23.5939479 L23.7421805,13.9775798 L3.63522914,4.36121177 Z</StreamGeometry>
-                      </PathIcon.Data>
-                  </PathIcon>
-               </Button>
-               <Image Source="{TemplateBinding UserImageSource}" DockPanel.Dock="Left"  Height="38" Width="38"></Image>
-              
-               <TextBox  HorizontalAlignment="Stretch" Classes="B NoShadow" Watermark="Type your message here .." Text="{TemplateBinding Text, Mode=TwoWay}" Margin="0,0,10,0" TextWrapping="Wrap" Padding="10,5"></TextBox>
-           </DockPanel>
-       </Grid>
-                
-               
-                    
-                   
-                    
-                    <ScrollViewer Name="ChatScrollViewer" >
-           
-           
-           <ItemsControl  Name="IC"  ItemsSource="{TemplateBinding Messages}">
-           <ItemsControl.DataTemplates>
-        
-               <DataTemplate DataType="experimental:ChatMessage">
-                   
-                       
-                       <Grid RenderTransformOrigin="50%,50%" Classes="FadeIn" Margin="0,10">
-                          
-                          
-                               <DockPanel Margin="0,0,150,0" IsVisible="{Binding !IsUser}">
-                                   
-                                   <Image Source="{Binding  $parent[experimental:ChatUI].FriendImageSource}" DockPanel.Dock="Left"   VerticalAlignment="Center" Margin="22,0,15,0"  Height="38" Width="38"></Image>
-                                 
-                                   <suki:GlassCard MinHeight="52" Padding="15,10" CornerRadius="15" MinWidth="100" MaxWidth="1000" HorizontalAlignment="Left" >
-                                       <ContentPresenter VerticalAlignment="Center" TextWrapping="Wrap" Content="{Binding Content, Converter={x:Static experimental:ContentToControlConverter.Instance}}"></ContentPresenter>
-                                   </suki:GlassCard>
-                               </DockPanel>
-                             
-                           
-                          
-                               <DockPanel  Margin="150,0,0,0" IsVisible="{Binding IsUser}">
-                                   <Image Source="{Binding  $parent[experimental:ChatUI].UserImageSource}" DockPanel.Dock="Right"  VerticalAlignment="Center" Margin="15,0,22,0"  Height="38" Width="38"></Image>
-            
-                                   <suki:GlassCard MinHeight="52" Padding="15,10" CornerRadius="15" MinWidth="100" HorizontalAlignment="Right"  >
-                                      
-                                       <TextBlock VerticalAlignment="Center" TextWrapping="Wrap" Text="{Binding Content}"></TextBlock>
-                                   </suki:GlassCard>
-                               </DockPanel>
-                           
-                           </Grid>
-                        
-               </DataTemplate>
-           </ItemsControl.DataTemplates>
-       </ItemsControl>
+        <Style Selector="experimental|ChatUI">
+            <Setter Property="Template">
+                <ControlTemplate>
+
+                    <DockPanel>
+                        <DockPanel.Styles>
+                            <Style Selector="Grid.FadeIn">
+                                <Style.Animations>
+                                    <Animation FillMode="Forward"
+                                               IterationCount="1"
+                                               PlaybackDirection="Normal"
+                                               Duration="0:0:0.400">
+                                        <KeyFrame Cue="0%">
+                                            <Setter Property="Opacity" Value="0" />
+                                            <Setter Property="ScaleTransform.ScaleX" Value="0.8" />
+                                            <Setter Property="ScaleTransform.ScaleY" Value="0.8" />
+                                            <Setter Property="TranslateTransform.Y" Value="30" />
+                                            <Setter Property="TranslateTransform.X" Value="80" />
+                                        </KeyFrame>
+
+                                        <KeyFrame Cue="100%">
+                                            <Setter Property="Opacity" Value="1" />
+                                            <Setter Property="ScaleTransform.ScaleX" Value="1" />
+                                            <Setter Property="ScaleTransform.ScaleY" Value="1" />
+                                            <Setter Property="TranslateTransform.Y" Value="0" />
+                                            <Setter Property="TranslateTransform.X" Value="0" />
+                                        </KeyFrame>
+                                    </Animation>
+                                </Style.Animations>
+                            </Style>
+                            <Style Selector="Button.H:pointerover">
+                                <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor5}" />
+                            </Style>
+                            <Style Selector="Button.H:pressed">
+                                <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor5}" />
+                            </Style>
+                            <Style Selector="TextBox.B /template/ Border">
+                                <Setter Property="BoxShadow" Value="0 0 0 0 Transparent" />
+                                <Setter Property="BorderThickness" Value="0" />
+                            </Style>
+
+                        </DockPanel.Styles>
+                        <Grid Margin="10" DockPanel.Dock="Bottom">
+                            <DockPanel>
+                                <Border Height="1"
+                                        Margin="0,15"
+                                        Background="{DynamicResource SukiBorderBrush}"
+                                        DockPanel.Dock="Top" />
+                                <Button Width="55"
+                                        Height="55"
+                                        Classes="Rounded Basic H"
+                                        Click="SendMessage"
+                                        CornerRadius="30"
+                                        DockPanel.Dock="Right"
+                                        IsDefault="True">
+                                    <PathIcon Width="22"
+                                              Height="22"
+                                              Margin="5,3,0,0"
+                                              Foreground="{DynamicResource SukiLowText}">
+                                        <PathIcon.Data>
+                                            <StreamGeometry>M3.78963301,2.77233335 L24.8609339,12.8499121 C25.4837277,13.1477699 25.7471402,13.8941055 25.4492823,14.5168992 C25.326107,14.7744476 25.1184823,14.9820723 24.8609339,15.1052476 L3.78963301,25.1828263 C3.16683929,25.4806842 2.42050372,25.2172716 2.12264586,24.5944779 C1.99321184,24.3238431 1.96542524,24.015685 2.04435886,23.7262618 L4.7030903,13.9775798 L2.04435886,4.22889788 C1.8627142,3.56286745 2.25538645,2.87569101 2.92141688,2.69404635 C3.21084015,2.61511273 3.51899823,2.64289932 3.78963301,2.77233335 Z M3.63522914,4.36121177 L6.058,13.249 L17,13.25 C17.3796958,13.25 17.693491,13.5321539 17.7431534,13.8982294 L17.75,14 C17.75,14.3796958 17.4678461,14.693491 17.1017706,14.7431534 L17,14.75 L6.046,14.749 L3.63522914,23.5939479 L23.7421805,13.9775798 L3.63522914,4.36121177 Z</StreamGeometry>
+                                        </PathIcon.Data>
+                                    </PathIcon>
+                                </Button>
+                                <Image Width="38"
+                                       Height="38"
+                                       DockPanel.Dock="Left"
+                                       Source="{TemplateBinding UserImageSource}" />
+
+                                <TextBox Margin="0,6,10,0"
+                                         Padding="10,5"
+                                         HorizontalAlignment="Stretch"
+                                         Classes="B NoShadow"
+                                         Text="{TemplateBinding Text,
+                                                                Mode=TwoWay}"
+                                         TextWrapping="Wrap"
+                                         Watermark="Type your message here .." />
+                            </DockPanel>
+                        </Grid>
+
+
+
+
+
+                        <ScrollViewer Name="ChatScrollViewer">
+
+
+                            <ItemsControl Name="IC" ItemsSource="{TemplateBinding Messages}">
+                                <ItemsControl.DataTemplates>
+
+                                    <DataTemplate DataType="experimental:ChatMessage">
+
+
+                                        <Grid Margin="0,10"
+                                              Classes="FadeIn"
+                                              RenderTransformOrigin="50%,50%">
+
+
+                                            <DockPanel Margin="0,0,150,0" IsVisible="{Binding !IsUser}">
+
+                                                <Image Width="38"
+                                                       Height="38"
+                                                       Margin="22,0,15,0"
+                                                       VerticalAlignment="Center"
+                                                       DockPanel.Dock="Left"
+                                                       Source="{Binding $parent[experimental:ChatUI].FriendImageSource}" />
+
+                                                <suki:GlassCard MinWidth="100"
+                                                                MinHeight="52"
+                                                                MaxWidth="1000"
+                                                                Padding="15,10"
+                                                                HorizontalAlignment="Left"
+                                                                CornerRadius="15">
+                                                    <ContentPresenter VerticalAlignment="Center"
+                                                                      Content="{Binding Content, Converter={x:Static experimental:ContentToControlConverter.Instance}}"
+                                                                      TextWrapping="Wrap" />
+                                                </suki:GlassCard>
+                                            </DockPanel>
+
+
+
+                                            <DockPanel Margin="150,0,0,0" IsVisible="{Binding IsUser}">
+                                                <Image Width="38"
+                                                       Height="38"
+                                                       Margin="15,0,22,0"
+                                                       VerticalAlignment="Center"
+                                                       DockPanel.Dock="Right"
+                                                       Source="{Binding $parent[experimental:ChatUI].UserImageSource}" />
+
+                                                <suki:GlassCard MinWidth="100"
+                                                                MinHeight="52"
+                                                                Padding="15,10"
+                                                                HorizontalAlignment="Right"
+                                                                CornerRadius="15">
+
+                                                    <TextBlock VerticalAlignment="Center"
+                                                               Text="{Binding Content}"
+                                                               TextWrapping="Wrap" />
+                                                </suki:GlassCard>
+                                            </DockPanel>
+
+                                        </Grid>
+
+                                    </DataTemplate>
+                                </ItemsControl.DataTemplates>
+                            </ItemsControl>
                         </ScrollViewer>
-      </DockPanel>
+                    </DockPanel>
                 </ControlTemplate>
             </Setter>
         </Style>
-        </UserControl.Styles>
+    </UserControl.Styles>
 </UserControl>

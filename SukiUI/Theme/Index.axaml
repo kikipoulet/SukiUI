@@ -18,6 +18,7 @@
     <StyleInclude Source="avares://SukiUI/Theme/ListBoxStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/TreeViewStyles.xaml" />
 
+    <StyleInclude Source="avares://SukiUI/Theme/ToolTipStyles.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ToggleSwitchStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/RadioButtonStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ToggleButtonStyles.xaml" />
@@ -56,7 +57,6 @@
                 <ResourceInclude Source="avares://sukiUI/Theme/SplitButton.axaml" />
                 <ResourceInclude Source="avares://SukiUI/Theme/SplitView.axaml" />
                 <ResourceInclude Source="avares://SukiUI/Theme/DatePicker.axaml" />
-                <ResourceInclude Source="avares://sukiUI/Theme/ToolTipStyle.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/Button.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/HyperlinkButton.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/PathIcon.axaml" />
