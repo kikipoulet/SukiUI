@@ -1,0 +1,18 @@
+<ResourceDictionary x:Class="SukiUI.Locale.nl_NL"
+                    xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--  DatePicker  -->
+    <x:String x:Key="STRING_DATEPICKER_DAY_TEXT">dag</x:String>
+    <x:String x:Key="STRING_DATEPICKER_MONTH_TEXT">maand</x:String>
+    <x:String x:Key="STRING_DATEPICKER_YEAR_TEXT">jaar</x:String>
+    <x:String x:Key="STRING_DATEPICKER_APPLY">Toepassen</x:String>
+    <!--  TimePicker  -->
+    <x:String x:Key="STRING_TIMEPICKER_HOUR_TEXT">uur</x:String>
+    <x:String x:Key="STRING_TIMEPICKER_MINUTE_TEXT">minuut</x:String>
+    <x:String x:Key="STRING_TIMEPICKER_SECOND_TEXT">seconde</x:String>
+    <x:String x:Key="STRING_TIMEPICKER_APPLY">Toepassen</x:String>
+    <!--  TextBox  -->
+    <x:String x:Key="STRING_MENU_CUT">Knippen</x:String>
+    <x:String x:Key="STRING_MENU_COPY">Kopiëren</x:String>
+    <x:String x:Key="STRING_MENU_PASTE">Plakken</x:String>
+</ResourceDictionary>
