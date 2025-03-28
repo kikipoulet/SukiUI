@@ -32,6 +32,7 @@
     <PackageReference Include="ShowMeTheXaml.Avalonia" />
     <PackageReference Include="ShowMeTheXaml.Avalonia.Generator" />
     <PackageReference Include="System.Text.Json" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux" />
   </ItemGroup>
 
   <ItemGroup>
