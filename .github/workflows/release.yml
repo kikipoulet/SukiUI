@@ -1,0 +1,46 @@
+name: Release
+
+on:
+  push:
+    tags: 
+      - "*.*.*"
+
+env:
+  VERSION: ${{ github.ref_name }}
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Build
+        run: |
+          dotnet build -c Release SukiUI/SukiUI.csproj -p:Version=${{ env.VERSION }}
+          dotnet build -c Release SukiUI.Dock/SukiUI.Dock.csproj -p:Version=${{ env.VERSION }}
+
+      - name: Pack
+        run: |
+          dotnet pack -c Release -o . SukiUI/SukiUI.csproj -p:Version=${{ env.VERSION }}
+          dotnet pack -c Release -o . SukiUI.Dock/SukiUI.Dock.csproj -p:Version=${{ env.VERSION }}
+          ls
+
+      - name: Publish NuGet Package
+        run: dotnet nuget push *.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+
+      - name: Create GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: >
+          gh release create ${{ env.VERSION }}
+          --repo ${{ github.event.repository.full_name }}
+          --title ${{ env.VERSION }}
+          --verify-tag
+          --generate-notes
