@@ -26,9 +26,6 @@
     <PackageReference Include="System.Linq.Dynamic.Core" />
   </ItemGroup>
 
-  <ItemGroup Condition="$(RuntimeIdentifier.StartsWith('linux'))">
-    <PackageReference Include="SkiaSharp.NativeAssets.Linux" />
-  </ItemGroup>
 
   <ItemGroup>
     <AvaloniaResource Include="**\*.xaml" />
@@ -121,9 +118,4 @@
     <None Remove="Content\Shaders\Background\backgroundshadcn.sksl" />
     <EmbeddedResource Include="Content\Shaders\Background\backgroundshadcn.sksl" />
   </ItemGroup>
-
-  <ItemGroup>
-    <PackageVersion Update="SkiaSharp.NativeAssets.Linux" />
-  </ItemGroup>
-
 </Project>
