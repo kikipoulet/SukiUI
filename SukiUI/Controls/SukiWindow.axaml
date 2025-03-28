@@ -77,13 +77,13 @@
                                                             </ItemsControl.ItemsPanel>
                                                         </ItemsControl>
                                                         <Button Name="PART_FullScreenButton"
-                                                                Classes="Basic Rounded WindowControlsButton"
+                                                                Classes="WindowControlsButton"
                                                                 IsEnabled="{TemplateBinding CanFullScreen}"
                                                                 IsVisible="{TemplateBinding CanFullScreen}">
                                                             <PathIcon x:Name="FullScreenIcon" Data="{x:Static icons:Icons.WindowFullScreen}" />
                                                         </Button>
                                                         <Button Name="PART_PinButton"
-                                                                Classes="Basic Rounded WindowControlsButton"
+                                                                Classes="WindowControlsButton"
                                                                 IsEnabled="{TemplateBinding CanPin}"
                                                                 IsVisible="{TemplateBinding CanPin}">
                                                             <PathIcon x:Name="PinIcon" Data="{x:Static icons:Icons.WindowPin}" />

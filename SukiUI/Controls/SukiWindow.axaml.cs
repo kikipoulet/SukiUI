@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
@@ -12,6 +13,8 @@ using Avalonia.Controls.Metadata;
 using Avalonia.Layout;
 using Avalonia.Threading;
 using Avalonia.Controls.Presenters;
+using SukiUI.Extensions;
+using Avalonia.Platform;
 
 namespace SukiUI.Controls;
 
@@ -33,9 +36,16 @@ public class SukiWindow : Window, IDisposable
     #region Enums
     public enum TitleBarVisibilityMode
     {
+        [Description("Unchanged: The title bar visibility will be kept unchanged during diferent states.")]
         Unchanged,
+
+        [Description("Visible: The title bar is visible.")]
         Visible,
+
+        [Description("Hidden: The title bar is hidden.")]
         Hidden,
+
+        [Description("Auto Hidden: The title bar is auto hidden when cursor is far from it.")]
         AutoHidden
     }
     #endregion
@@ -67,6 +77,24 @@ public class SukiWindow : Window, IDisposable
     #endregion
 
     #region Properties
+    public static readonly StyledProperty<double> MaxWidthScreenRatioProperty =
+        AvaloniaProperty.Register<SukiWindow, double>(nameof(MaxWidthScreenRatio));
+
+    public double MaxWidthScreenRatio
+    {
+        get => GetValue(MaxWidthScreenRatioProperty);
+        set => SetValue(MaxWidthScreenRatioProperty, value);
+    }
+
+    public static readonly StyledProperty<double> MaxHeightScreenRatioProperty =
+        AvaloniaProperty.Register<SukiWindow, double>(nameof(MaxHeightScreenRatio));
+
+    public double MaxHeightScreenRatio
+    {
+        get => GetValue(MaxHeightScreenRatioProperty);
+        set => SetValue(MaxHeightScreenRatioProperty, value);
+    }
+
     public static readonly StyledProperty<double> TitleFontSizeProperty =
         AvaloniaProperty.Register<SukiWindow, double>(nameof(TitleFontSize), defaultValue: 13);
 
@@ -120,7 +148,6 @@ public class SukiWindow : Window, IDisposable
         get => GetValue(IsTitleBarVisibleProperty);
         set => SetValue(IsTitleBarVisibleProperty, value);
     }
-
 
     public static readonly StyledProperty<TitleBarVisibilityMode> TitleBarVisibilityOnFullScreenProperty =
         AvaloniaProperty.Register<SukiWindow, TitleBarVisibilityMode>(nameof(TitleBarVisibilityOnFullScreen), TitleBarVisibilityMode.AutoHidden);
@@ -456,11 +483,67 @@ public class SukiWindow : Window, IDisposable
         base.OnClosed(e);
     }
 
+    private void ConstrainToMaxSizeRatio(bool constrainMaxWidth = true, bool constrainMaxHeight = true)
+    {
+        Screen? screen = null;
+        var windowState = WindowState;
+
+        if (constrainMaxWidth)
+        {
+            var widthRatio = MaxWidthScreenRatio;
+            if (widthRatio <= 0 || windowState is WindowState.FullScreen or WindowState.Maximized)
+            {
+                MaxWidth = double.PositiveInfinity;
+            }
+            else
+            {
+                screen = this.GetHostScreen();
+                if (screen is null) return;
+
+                var desiredMaxWidth = screen.WorkingArea.Width / screen.Scaling * widthRatio;
+
+                MaxWidth = MinWidth > 0
+                    ? Math.Max(MinWidth, desiredMaxWidth)
+                    : desiredMaxWidth;
+            }
+        }
+
+        if (constrainMaxHeight)
+        {
+            var heightRatio = MaxHeightScreenRatio;
+            if (heightRatio <= 0 || windowState is WindowState.FullScreen or WindowState.Maximized)
+            {
+                MaxHeight = double.PositiveInfinity;
+            }
+            else
+            {
+                screen ??= this.GetHostScreen();
+                if (screen is null) return;
+
+                var desiredMaxHeight = screen.WorkingArea.Height / screen.Scaling * heightRatio;
+                MaxHeight = MinHeight > 0
+                    ? Math.Max(MinHeight, desiredMaxHeight)
+                    : desiredMaxHeight;
+            }
+        }
+    }
+
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
         base.OnPropertyChanged(change);
-        if (change.Property == WindowStateProperty && change.NewValue is WindowState windowState)
+
+        if (change.Property == MaxWidthScreenRatioProperty)
         {
+            ConstrainToMaxSizeRatio(constrainMaxWidth: true, constrainMaxHeight: false);
+        }
+        else if (change.Property == MaxHeightScreenRatioProperty)
+        {
+            ConstrainToMaxSizeRatio(constrainMaxWidth: false, constrainMaxHeight: true);
+        }
+        else if (change.Property == WindowStateProperty)
+        {
+            if (change.NewValue is not WindowState windowState) return;
+
             if (change.OldValue is WindowState oldWindowState)
             {
                 if (oldWindowState != WindowState.Minimized)
@@ -471,10 +554,10 @@ public class SukiWindow : Window, IDisposable
         }
         else if (change.Property == TitleBarVisibilityOnFullScreenProperty)
         {
-            if (WindowState != WindowState.FullScreen) return;
-
-            if (change.NewValue is TitleBarVisibilityMode mode)
+            if (WindowState == WindowState.FullScreen)
             {
+                if (change.NewValue is not TitleBarVisibilityMode mode) return;
+
                 IsTitleBarVisible = mode switch
                 {
                     TitleBarVisibilityMode.Unchanged => _wasTitleBarVisibleBeforeFullScreen,
@@ -498,10 +581,6 @@ public class SukiWindow : Window, IDisposable
         {
             _showTitleBarTimer.Interval = TimeSpan.FromMilliseconds(TitleBarAutoShowDelay);
         }
-        /*else if (change.Property == IsTitleBarVisibleProperty) // Debug
-        {
-            var value = IsTitleBarVisible;
-        }*/
     }
     #endregion
 
@@ -512,6 +591,9 @@ public class SukiWindow : Window, IDisposable
         _showTitleBarTimer.Stop();
         _hideTitleBarTimer.Stop();
         var titleBarVisibilityOnFullScreen = TitleBarVisibilityOnFullScreen;
+
+        if (state == WindowState.Minimized) return;
+
         if (state == WindowState.FullScreen)
         {
             // Disable window control capabilities
@@ -557,6 +639,8 @@ public class SukiWindow : Window, IDisposable
             else
                 Margin = new Thickness(0);
         }
+
+        ConstrainToMaxSizeRatio(MaxWidthScreenRatio > 0, MaxHeightScreenRatio > 0);
     }
 
     private void OnFullScreenButtonClicked(object? sender, RoutedEventArgs args)
@@ -662,7 +746,8 @@ public class SukiWindow : Window, IDisposable
         const uint WM_CAPTURECHANGED = 0x0215;
 
         var pointerOnButton = false;
-        var pointerOverSetter = typeof(Button).GetProperty("IsPointerOver");
+        var pointerOverSetter = typeof(Button).GetProperty(nameof(IsPointerOver));
+        if (pointerOverSetter is null) throw new NullReferenceException($"Unable to find Button.{nameof(IsPointerOver)} property.");
 
         nint ProcHookCallback(nint hWnd, uint msg, nint wParam, nint lParam, ref bool handled)
         {

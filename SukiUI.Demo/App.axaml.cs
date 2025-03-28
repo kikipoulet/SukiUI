@@ -36,7 +36,7 @@ public class App : Application
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
-        
+
     }
 
     public override void OnFrameworkInitializationCompleted()
@@ -56,7 +56,7 @@ public class App : Application
         }
 
         base.OnFrameworkInitializationCompleted();
-        
+
     //    Shadcn.Configure(Application.Current, ThemeVariant.Dark);
     }
 
@@ -101,7 +101,7 @@ public class App : Application
             .AddView<OutputView, OutputViewModel>(services)
             .AddView<PropertiesView, PropertiesViewModel>(services)
             .AddView<SolutionExplore, SolutionExploreViewModel>(services)
-            
+
             // Add additional views
             .AddView<DialogView, DialogViewModel>(services)
             .AddView<VmDialogView, VmDialogViewModel>(services)
