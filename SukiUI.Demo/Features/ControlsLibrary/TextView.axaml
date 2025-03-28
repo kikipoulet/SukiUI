@@ -11,6 +11,7 @@
              d:DesignWidth="800"
              x:DataType="controlsLibrary:TextViewModel"
              mc:Ignorable="d">
+
     <UserControl.Styles>
         <Style Selector="showMeTheXaml|XamlDisplay &gt; TextBox">
             <Setter Property="Text" Value="{Binding TextBoxValue}" />
@@ -20,6 +21,7 @@
             <Setter Property="TextWrapping" Value="Wrap" />
         </Style>
     </UserControl.Styles>
+
     <ScrollViewer HorizontalScrollBarVisibility="Disabled">
         <WrapPanel Classes="PageContainer">
             <suki:GlassCard>
@@ -33,49 +35,64 @@
                                 The h and color styles can be combined.
                             </TextBlock>
                         </StackPanel>
+
                         <showMeTheXaml:XamlDisplay UniqueId="TextHyperlink">
                             <TextBlock xml:space="preserve">Text With A <HyperlinkButton Command="{Binding HyperlinkClickedCommand}"
                                                  Content="Hyperlink"
                                                  IsVisited="{Binding HyperlinkVisited}" /> Inside.</TextBlock>
                         </showMeTheXaml:XamlDisplay>
+
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock1">
                             <TextBlock Classes="h1" />
                         </showMeTheXaml:XamlDisplay>
+
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock2">
                             <TextBlock Classes="h2" />
                         </showMeTheXaml:XamlDisplay>
+
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock3">
                             <TextBlock Classes="h3" />
                         </showMeTheXaml:XamlDisplay>
+
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock4">
                             <TextBlock Classes="h4" />
                         </showMeTheXaml:XamlDisplay>
+
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock5">
                             <TextBlock Classes="Caption" />
                         </showMeTheXaml:XamlDisplay>
+
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock6">
                             <TextBlock Classes="Primary" />
                         </showMeTheXaml:XamlDisplay>
+
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock7">
                             <TextBlock Classes="Accent" />
                         </showMeTheXaml:XamlDisplay>
+
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock8">
                             <TextBlock />
                         </showMeTheXaml:XamlDisplay>
-                        <TextBox Text="{Binding TextBlockValue}" />
+
+                        <TextBox suki:TextBoxExtensions.AddDeleteButton="True"
+                                 Text="{Binding TextBlockValue}"
+                                 UseFloatingWatermark="True"
+                                 Watermark="Textlock content" />
                     </StackPanel>
                 </suki:GroupBox>
             </suki:GlassCard>
+
             <suki:GlassCard>
                 <suki:GroupBox Header="Text Input">
                     <StackPanel Classes="HeaderContent">
-
                         <TextBlock>
                             There are a few helpers available to make textboxes simpler and more powerful to use.
                         </TextBlock>
+
                         <showMeTheXaml:XamlDisplay UniqueId="TextBox1">
                             <TextBox />
                         </showMeTheXaml:XamlDisplay>
+
                         <showMeTheXaml:XamlDisplay UniqueId="TextBox1Search">
                             <TextBox>
                                 <TextBox.InnerLeftContent>
@@ -96,30 +113,34 @@
                                 </TextBox.InnerRightContent>
                             </TextBox>
                         </showMeTheXaml:XamlDisplay>
+
                         <showMeTheXaml:XamlDisplay UniqueId="TextBox2">
                             <TextBox Text="" Watermark="Watermark" />
                         </showMeTheXaml:XamlDisplay>
+
                         <showMeTheXaml:XamlDisplay UniqueId="TextBox3">
                             <TextBox suki:TextBoxExtensions.Prefix="https://" />
                         </showMeTheXaml:XamlDisplay>
+
                         <showMeTheXaml:XamlDisplay UniqueId="TextBox4">
                             <TextBox PasswordChar="*" />
                         </showMeTheXaml:XamlDisplay>
+
                         <showMeTheXaml:XamlDisplay UniqueId="TextBox5">
                             <TextBox suki:TextBoxExtensions.AddDeleteButton="True" />
                         </showMeTheXaml:XamlDisplay>
 
-                        <suki:GlassCard Width="400"
-                                        Margin="25"
-                                        HorizontalAlignment="Center">
-                            <StackPanel Spacing="8">
-
-                                <TextBox Text=""
-                                         UseFloatingWatermark="True"
-                                         Watermark="Username" />
-
-                            </StackPanel>
-                        </suki:GlassCard>
+                        <showMeTheXaml:XamlDisplay UniqueId="TextBox6">
+                            <suki:GlassCard Width="400"
+                                            Margin="25"
+                                            HorizontalAlignment="Center">
+                                <StackPanel Spacing="8">
+                                    <TextBox Text=""
+                                             UseFloatingWatermark="True"
+                                             Watermark="Username" />
+                                </StackPanel>
+                            </suki:GlassCard>
+                        </showMeTheXaml:XamlDisplay>
 
                     </StackPanel>
                 </suki:GroupBox>
