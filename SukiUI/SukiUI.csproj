@@ -92,6 +92,10 @@
       <DependentUpon>zh-CN.axaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Locale\nl-NL.axaml.cs">
+      <DependentUpon>nl-NL.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
