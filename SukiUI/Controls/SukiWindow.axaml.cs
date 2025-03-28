@@ -34,6 +34,9 @@ namespace SukiUI.Controls;
 public class SukiWindow : Window, IDisposable
 {
     #region Enums
+    /// <summary>
+    /// Specifies the visibility mode of the title bar.
+    /// </summary>
     public enum TitleBarVisibilityMode
     {
         [Description("Unchanged: The title bar visibility will be kept unchanged during diferent states.")]
@@ -51,6 +54,8 @@ public class SukiWindow : Window, IDisposable
     #endregion
 
     #region Template
+
+    /// <inheritdoc />
     protected override Type StyleKeyOverride => typeof(SukiWindow);
     #endregion
 
@@ -80,6 +85,9 @@ public class SukiWindow : Window, IDisposable
     public static readonly StyledProperty<double> MaxWidthScreenRatioProperty =
         AvaloniaProperty.Register<SukiWindow, double>(nameof(MaxWidthScreenRatio));
 
+    /// <summary>
+    /// Gets or sets the maximum width of the window as a ratio of the host screen width.
+    /// </summary>
     public double MaxWidthScreenRatio
     {
         get => GetValue(MaxWidthScreenRatioProperty);
@@ -89,60 +97,21 @@ public class SukiWindow : Window, IDisposable
     public static readonly StyledProperty<double> MaxHeightScreenRatioProperty =
         AvaloniaProperty.Register<SukiWindow, double>(nameof(MaxHeightScreenRatio));
 
+    /// <summary>
+    /// Gets or sets the maximum height of the window as a ratio of the host screen height.
+    /// </summary>
     public double MaxHeightScreenRatio
     {
         get => GetValue(MaxHeightScreenRatioProperty);
         set => SetValue(MaxHeightScreenRatioProperty, value);
     }
 
-    public static readonly StyledProperty<double> TitleFontSizeProperty =
-        AvaloniaProperty.Register<SukiWindow, double>(nameof(TitleFontSize), defaultValue: 13);
-
-    public double TitleFontSize
-    {
-        get => GetValue(TitleFontSizeProperty);
-        set => SetValue(TitleFontSizeProperty, value);
-    }
-
-    public static readonly StyledProperty<ContextMenu> TitleBarContextMenuProperty =
-        AvaloniaProperty.Register<SukiWindow, ContextMenu>(nameof(TitleBarContextMenu));
-
-    public ContextMenu TitleBarContextMenu
-    {
-        get => GetValue(TitleBarContextMenuProperty);
-        set => SetValue(TitleBarContextMenuProperty, value);
-    }
-
-    public static readonly StyledProperty<FontWeight> TitleFontWeightProperty =
-        AvaloniaProperty.Register<SukiWindow, FontWeight>(nameof(TitleFontWeight), defaultValue: FontWeight.Bold);
-
-    public FontWeight TitleFontWeight
-    {
-        get => GetValue(TitleFontWeightProperty);
-        set => SetValue(TitleFontWeightProperty, value);
-    }
-
-    public static readonly StyledProperty<Control?> LogoContentProperty =
-        AvaloniaProperty.Register<SukiWindow, Control?>(nameof(LogoContent));
-
-    public Control? LogoContent
-    {
-        get => GetValue(LogoContentProperty);
-        set => SetValue(LogoContentProperty, value);
-    }
-
-    public static readonly StyledProperty<bool> ShowBottomBorderProperty =
-        AvaloniaProperty.Register<SukiWindow, bool>(nameof(ShowBottomBorder), defaultValue: true);
-
-    public bool ShowBottomBorder
-    {
-        get => GetValue(ShowBottomBorderProperty);
-        set => SetValue(ShowBottomBorderProperty, value);
-    }
-
     public static readonly StyledProperty<bool> IsTitleBarVisibleProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(IsTitleBarVisible), defaultValue: true);
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the title bar is visible.
+    /// </summary>
     public bool IsTitleBarVisible
     {
         get => GetValue(IsTitleBarVisibleProperty);
@@ -152,6 +121,9 @@ public class SukiWindow : Window, IDisposable
     public static readonly StyledProperty<TitleBarVisibilityMode> TitleBarVisibilityOnFullScreenProperty =
         AvaloniaProperty.Register<SukiWindow, TitleBarVisibilityMode>(nameof(TitleBarVisibilityOnFullScreen), TitleBarVisibilityMode.AutoHidden);
 
+    /// <summary>
+    /// Gets or sets the visibility mode of the title bar when the window is in full screen mode.
+    /// </summary>
     public TitleBarVisibilityMode TitleBarVisibilityOnFullScreen
     {
         get => GetValue(TitleBarVisibilityOnFullScreenProperty);
@@ -161,6 +133,9 @@ public class SukiWindow : Window, IDisposable
     public static readonly StyledProperty<int> TitleBarAutoHideDelayProperty =
         AvaloniaProperty.Register<SukiWindow, int>(nameof(TitleBarAutoHideDelay), DefaultAutoHideDelay);
 
+    /// <summary>
+    /// Gets or sets the delay in milliseconds before the title bar is automatically hidden.
+    /// </summary>
     public int TitleBarAutoHideDelay
     {
         get => GetValue(TitleBarAutoHideDelayProperty);
@@ -170,6 +145,9 @@ public class SukiWindow : Window, IDisposable
     public static readonly StyledProperty<int> TitleBarAutoShowDelayProperty =
         AvaloniaProperty.Register<SukiWindow, int>(nameof(TitleBarAutoShowDelay), DefaultAutoShowDelay);
 
+    /// <summary>
+    /// Gets or sets the delay in milliseconds before the title bar is automatically shown.
+    /// </summary>
     public int TitleBarAutoShowDelay
     {
         get => GetValue(TitleBarAutoShowDelayProperty);
@@ -180,15 +158,81 @@ public class SukiWindow : Window, IDisposable
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(TitleBarAnimationEnabled), defaultValue: true);
 
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the title bar animations are enabled.
+    /// </summary>
     public bool TitleBarAnimationEnabled
     {
         get => GetValue(TitleBarAnimationEnabledProperty);
         set => SetValue(TitleBarAnimationEnabledProperty, value);
     }
 
+    public static readonly StyledProperty<double> TitleFontSizeProperty =
+        AvaloniaProperty.Register<SukiWindow, double>(nameof(TitleFontSize), defaultValue: 13);
+
+    /// <summary>
+    /// Gets or sets the font size of the title bar.
+    /// </summary>
+    public double TitleFontSize
+    {
+        get => GetValue(TitleFontSizeProperty);
+        set => SetValue(TitleFontSizeProperty, value);
+    }
+
+    public static readonly StyledProperty<FontWeight> TitleFontWeightProperty =
+        AvaloniaProperty.Register<SukiWindow, FontWeight>(nameof(TitleFontWeight), defaultValue: FontWeight.Bold);
+
+    /// <summary>
+    /// Gets or sets the font weight of the title bar.
+    /// </summary>
+    public FontWeight TitleFontWeight
+    {
+        get => GetValue(TitleFontWeightProperty);
+        set => SetValue(TitleFontWeightProperty, value);
+    }
+
+    public static readonly StyledProperty<ContextMenu> TitleBarContextMenuProperty =
+        AvaloniaProperty.Register<SukiWindow, ContextMenu>(nameof(TitleBarContextMenu));
+
+    /// <summary>
+    /// Gets or sets the context menu that appears when the title bar is right-clicked.
+    /// </summary>
+    public ContextMenu TitleBarContextMenu
+    {
+        get => GetValue(TitleBarContextMenuProperty);
+        set => SetValue(TitleBarContextMenuProperty, value);
+    }
+
+    public static readonly StyledProperty<Control?> LogoContentProperty =
+        AvaloniaProperty.Register<SukiWindow, Control?>(nameof(LogoContent));
+
+    /// <summary>
+    /// Gets or sets the content of the logo displayed in the title bar.
+    /// </summary>
+    public Control? LogoContent
+    {
+        get => GetValue(LogoContentProperty);
+        set => SetValue(LogoContentProperty, value);
+    }
+
+    public static readonly StyledProperty<bool> ShowBottomBorderProperty =
+        AvaloniaProperty.Register<SukiWindow, bool>(nameof(ShowBottomBorder), defaultValue: true);
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the bottom border of the window is visible.
+    /// </summary>
+    public bool ShowBottomBorder
+    {
+        get => GetValue(ShowBottomBorderProperty);
+        set => SetValue(ShowBottomBorderProperty, value);
+    }
+
     public static readonly StyledProperty<bool> IsMenuVisibleProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(IsMenuVisible), defaultValue: false);
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the menu is visible.
+    /// </summary>
     public bool IsMenuVisible
     {
         get => GetValue(IsMenuVisibleProperty);
@@ -198,6 +242,9 @@ public class SukiWindow : Window, IDisposable
     public static readonly StyledProperty<AvaloniaList<MenuItem>?> MenuItemsProperty =
         AvaloniaProperty.Register<SukiWindow, AvaloniaList<MenuItem>?>(nameof(MenuItems));
 
+    /// <summary>
+    /// Gets or sets the menu items that are displayed in the menu.
+    /// </summary>
     public AvaloniaList<MenuItem>? MenuItems
     {
         get => GetValue(MenuItemsProperty);
@@ -207,6 +254,9 @@ public class SukiWindow : Window, IDisposable
     public static readonly StyledProperty<CornerRadius> RootCornerRadiusProperty =
         AvaloniaProperty.Register<Border, CornerRadius>(nameof(RootCornerRadius), defaultValue: default);
 
+    /// <summary>
+    /// Gets or sets the corner radius of the window.
+    /// </summary>
     public CornerRadius RootCornerRadius
     {
         get => GetValue(RootCornerRadiusProperty);
@@ -216,6 +266,9 @@ public class SukiWindow : Window, IDisposable
     public static readonly StyledProperty<bool> CanMinimizeProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(CanMinimize), defaultValue: true);
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the window can be minimized.
+    /// </summary>
     public bool CanMinimize
     {
         get => GetValue(CanMinimizeProperty);
@@ -224,6 +277,10 @@ public class SukiWindow : Window, IDisposable
 
     public static readonly StyledProperty<bool> ShowTitlebarBackgroundProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(ShowTitlebarBackground), defaultValue: true);
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the title bar background is visible.
+    /// </summary>
     public bool ShowTitlebarBackground
     {
         get => GetValue(ShowTitlebarBackgroundProperty);
@@ -232,6 +289,10 @@ public class SukiWindow : Window, IDisposable
 
     public static readonly StyledProperty<bool> CanFullScreenProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(CanFullScreen));
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the window can be full-screened.
+    /// </summary>
     public bool CanFullScreen
     {
         get => GetValue(CanFullScreenProperty);
@@ -240,6 +301,10 @@ public class SukiWindow : Window, IDisposable
 
     public static readonly StyledProperty<bool> CanPinProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(CanPin));
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the window can be pinned.
+    /// </summary>
     public bool CanPin
     {
         get => GetValue(CanPinProperty);
@@ -248,6 +313,10 @@ public class SukiWindow : Window, IDisposable
 
     public static readonly StyledProperty<bool> CanMaximizeProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(CanMaximize), defaultValue: true);
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the window can be maximized.
+    /// </summary>
     public bool CanMaximize
     {
         get => GetValue(CanMaximizeProperty);
@@ -257,6 +326,9 @@ public class SukiWindow : Window, IDisposable
     public static readonly StyledProperty<bool> CanMoveProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(CanMove), defaultValue: true);
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the window can be moved.
+    /// </summary>
     public bool CanMove
     {
         get => GetValue(CanMoveProperty);
@@ -372,6 +444,9 @@ public class SukiWindow : Window, IDisposable
             o => o.PreviousVisibleWindowState);
 
     private WindowState _previousVisibleWindowState = WindowState.Normal;
+    /// <summary>
+    /// Gets the previous visible window state.
+    /// </summary>
     public WindowState PreviousVisibleWindowState
     {
         get => _previousVisibleWindowState;
@@ -392,6 +467,8 @@ public class SukiWindow : Window, IDisposable
     #endregion
 
     #region Overrides
+
+    /// <inheritdoc />
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
@@ -463,6 +540,7 @@ public class SukiWindow : Window, IDisposable
 
     }
 
+    /// <inheritdoc />
     protected override void OnLoaded(RoutedEventArgs e)
     {
         base.OnLoaded(e);
@@ -477,57 +555,14 @@ public class SukiWindow : Window, IDisposable
         }
     }
 
+    /// <inheritdoc />
     protected override void OnClosed(EventArgs e)
     {
         Dispose();
         base.OnClosed(e);
     }
 
-    private void ConstrainToMaxSizeRatio(bool constrainMaxWidth = true, bool constrainMaxHeight = true)
-    {
-        Screen? screen = null;
-        var windowState = WindowState;
-
-        if (constrainMaxWidth)
-        {
-            var widthRatio = MaxWidthScreenRatio;
-            if (widthRatio <= 0 || windowState is WindowState.FullScreen or WindowState.Maximized)
-            {
-                MaxWidth = double.PositiveInfinity;
-            }
-            else
-            {
-                screen = this.GetHostScreen();
-                if (screen is null) return;
-
-                var desiredMaxWidth = screen.WorkingArea.Width / screen.Scaling * widthRatio;
-
-                MaxWidth = MinWidth > 0
-                    ? Math.Max(MinWidth, desiredMaxWidth)
-                    : desiredMaxWidth;
-            }
-        }
-
-        if (constrainMaxHeight)
-        {
-            var heightRatio = MaxHeightScreenRatio;
-            if (heightRatio <= 0 || windowState is WindowState.FullScreen or WindowState.Maximized)
-            {
-                MaxHeight = double.PositiveInfinity;
-            }
-            else
-            {
-                screen ??= this.GetHostScreen();
-                if (screen is null) return;
-
-                var desiredMaxHeight = screen.WorkingArea.Height / screen.Scaling * heightRatio;
-                MaxHeight = MinHeight > 0
-                    ? Math.Max(MinHeight, desiredMaxHeight)
-                    : desiredMaxHeight;
-            }
-        }
-    }
-
+    /// <inheritdoc />
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
         base.OnPropertyChanged(change);
@@ -585,6 +620,10 @@ public class SukiWindow : Window, IDisposable
     #endregion
 
     #region Events
+    /// <summary>
+    /// Occurs when the window state changes.
+    /// </summary>
+    /// <param name="state"></param>
     private void OnWindowStateChanged(WindowState state)
     {
         PointerMoved -= AutoHideTitleBarOnPointerMoved;
@@ -643,23 +682,43 @@ public class SukiWindow : Window, IDisposable
         ConstrainToMaxSizeRatio(MaxWidthScreenRatio > 0, MaxHeightScreenRatio > 0);
     }
 
+    /// <summary>
+    /// Occurs when the full screen button is clicked.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
     private void OnFullScreenButtonClicked(object? sender, RoutedEventArgs args)
     {
         if (!CanFullScreen) return;
         ToggleFullScreen();
     }
 
+    /// <summary>
+    /// Occurs when the pin button is clicked.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
     private void OnPinButtonClicked(object? sender, RoutedEventArgs args)
     {
         if (!CanPin) return;
         Topmost = !Topmost;
     }
 
+    /// <summary>
+    /// Occurs when the minimize button is clicked.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void OnMinimizeButtonClicked(object sender, RoutedEventArgs e)
     {
         WindowState = WindowState.Minimized;
     }
 
+    /// <summary>
+    /// Occurs when the maximize button is clicked.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
     private void OnMaximizeButtonClicked(object? sender, RoutedEventArgs args)
     {
         if (!CanMaximize) return;
@@ -668,11 +727,21 @@ public class SukiWindow : Window, IDisposable
             : WindowState.Maximized;
     }
 
+    /// <summary>
+    /// Occurs when the close button is clicked.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void OnCloseButtonClicked(object sender, RoutedEventArgs e)
     {
         Close();
     }
 
+    /// <summary>
+    /// Occurs when the cursor is moved when the application is in fullscreen mode and title bar visibility is set to <see cref="TitleBarVisibilityMode.AutoHidden"/>.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void AutoHideTitleBarOnPointerMoved(object sender, PointerEventArgs e)
     {
         var position = e.GetPosition(this);
@@ -695,6 +764,11 @@ public class SukiWindow : Window, IDisposable
         }
     }
 
+    /// <summary>
+    /// Occurs when the title bar is clicked.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void OnTitleBarPointerPressed(object? sender, PointerPressedEventArgs e)
     {
         if (!CanMove)
@@ -703,6 +777,12 @@ public class SukiWindow : Window, IDisposable
         BeginMoveDrag(e);
     }
 
+    /// <summary>
+    /// Occurs when the resize grip is clicked.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
     private void RaiseResize(object? sender, PointerPressedEventArgs e)
     {
         if (!CanResize) return;
@@ -809,6 +889,10 @@ public class SukiWindow : Window, IDisposable
         _disposeActions.Add(() => Win32Properties.RemoveWndProcHookCallback(this, wndProcHookCallback));
     }
 
+    /// <summary>
+    /// Adds resize grips to the window for Linux system.
+    /// </summary>
+    /// <param name="rootPanel"></param>
     private void AddResizeGripForLinux(Panel rootPanel)
     {
         var resizeBorders = new[]
@@ -908,6 +992,59 @@ public class SukiWindow : Window, IDisposable
         }
     }
 
+    /// <summary>
+    /// Constrains the window to a maximum size ratio of the host screen.
+    /// </summary>
+    /// <param name="constrainMaxWidth"></param>
+    /// <param name="constrainMaxHeight"></param>
+    private void ConstrainToMaxSizeRatio(bool constrainMaxWidth = true, bool constrainMaxHeight = true)
+    {
+        Screen? screen = null;
+        var windowState = WindowState;
+
+        if (constrainMaxWidth)
+        {
+            var widthRatio = MaxWidthScreenRatio;
+            if (widthRatio <= 0 || windowState is WindowState.FullScreen or WindowState.Maximized)
+            {
+                MaxWidth = double.PositiveInfinity;
+            }
+            else
+            {
+                screen = this.GetHostScreen();
+                if (screen is null) return;
+
+                var desiredMaxWidth = screen.WorkingArea.Width / screen.Scaling * widthRatio;
+
+                MaxWidth = MinWidth > 0
+                    ? Math.Max(MinWidth, desiredMaxWidth)
+                    : desiredMaxWidth;
+            }
+        }
+
+        if (constrainMaxHeight)
+        {
+            var heightRatio = MaxHeightScreenRatio;
+            if (heightRatio <= 0 || windowState is WindowState.FullScreen or WindowState.Maximized)
+            {
+                MaxHeight = double.PositiveInfinity;
+            }
+            else
+            {
+                screen ??= this.GetHostScreen();
+                if (screen is null) return;
+
+                var desiredMaxHeight = screen.WorkingArea.Height / screen.Scaling * heightRatio;
+                MaxHeight = MinHeight > 0
+                    ? Math.Max(MinHeight, desiredMaxHeight)
+                    : desiredMaxHeight;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Toggles the full screen mode.
+    /// </summary>
     public void ToggleFullScreen()
     {
         WindowState = WindowState == WindowState.FullScreen
@@ -918,6 +1055,8 @@ public class SukiWindow : Window, IDisposable
     #endregion
 
     #region Dispose
+
+    /// <inheritdoc />
     public void Dispose()
     {
         if (_isDisposed) return;
