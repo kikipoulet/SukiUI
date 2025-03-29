@@ -470,6 +470,13 @@ public class SukiWindow : Window, IDisposable
     {
         base.OnApplyTemplate(e);
 
+        // Dispose all previous event in a case of re-applying the template
+        foreach (var disposeAction in _disposeActions)
+        {
+            disposeAction.Invoke();
+        }
+        _disposeActions.Clear();
+
         // save the initial values
         _wasTitleBarVisibleBeforeFullScreen = IsTitleBarVisible;
 
@@ -530,7 +537,6 @@ public class SukiWindow : Window, IDisposable
                 RootCornerRadius = new CornerRadius(10);
             }
         }
-
     }
 
     /// <inheritdoc />
