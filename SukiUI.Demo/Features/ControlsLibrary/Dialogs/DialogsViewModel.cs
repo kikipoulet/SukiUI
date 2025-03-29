@@ -1,13 +1,9 @@
-using System;
 using System.Text;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
-using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
-using SukiUI.Controls;
 using SukiUI.Dialogs;
 using SukiUI.Toasts;
 
