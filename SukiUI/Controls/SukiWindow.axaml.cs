@@ -62,9 +62,6 @@ public class SukiWindow : Window, IDisposable
     #region Members
     private bool _isDisposed;
 
-    private bool _canMaximize;
-    private bool _canMove;
-    private bool _canResize;
     private bool _wasTitleBarVisibleBeforeFullScreen = true;
 
     private const int DefaultAutoHideDelay = 1000;
@@ -473,15 +470,11 @@ public class SukiWindow : Window, IDisposable
     {
         base.OnApplyTemplate(e);
 
-        // save the initial values of CanMaximize and CanMove
-        if (_canMaximize == false)
-            _canMaximize = CanMaximize;
-        if (_canMove == false)
-            _canMove = CanMove;
-        if (_canResize == false)
-            _canResize = CanResize;
+        // save the initial values
+        _wasTitleBarVisibleBeforeFullScreen = IsTitleBarVisible;
 
-        OnWindowStateChanged(WindowState);
+        var windowState = WindowState;
+        OnWindowStateChanged(windowState, windowState);
 
         // Create handlers for buttons
         if (e.NameScope.Find<Button>("PART_FullScreenButton") is { } fullscreen)
@@ -577,15 +570,10 @@ public class SukiWindow : Window, IDisposable
         }
         else if (change.Property == WindowStateProperty)
         {
-            if (change.NewValue is not WindowState windowState) return;
+            if (change.OldValue is not WindowState oldWindowState
+            || change.NewValue is not WindowState newWindowState) return;
 
-            if (change.OldValue is WindowState oldWindowState)
-            {
-                if (oldWindowState != WindowState.Minimized)
-                    PreviousVisibleWindowState = oldWindowState;
-            }
-
-            OnWindowStateChanged(windowState);
+            OnWindowStateChanged(oldWindowState, newWindowState);
         }
         else if (change.Property == TitleBarVisibilityOnFullScreenProperty)
         {
@@ -620,31 +608,28 @@ public class SukiWindow : Window, IDisposable
     #endregion
 
     #region Events
+
     /// <summary>
-    /// Occurs when the window state changes.
+    /// Occurs when the window newState changes.
     /// </summary>
-    /// <param name="state"></param>
-    private void OnWindowStateChanged(WindowState state)
+    /// <param name="oldState"></param>
+    /// <param name="newState"></param>
+    private void OnWindowStateChanged(WindowState oldState, WindowState newState)
     {
         PointerMoved -= AutoHideTitleBarOnPointerMoved;
         _showTitleBarTimer.Stop();
         _hideTitleBarTimer.Stop();
-        var titleBarVisibilityOnFullScreen = TitleBarVisibilityOnFullScreen;
 
-        if (state == WindowState.Minimized) return;
-
-        if (state == WindowState.FullScreen)
+        if (oldState != WindowState.Minimized)
         {
-            // Disable window control capabilities
-            _canMaximize = CanMaximize;
-            CanMaximize = false;
-            _canMove = CanMove;
-            CanMove = false;
-            _canResize = CanResize;
-            CanResize = false;
+            PreviousVisibleWindowState = oldState;
+        }
 
+        if (newState == WindowState.Minimized) return;
+        if (newState == WindowState.FullScreen)
+        {
             _wasTitleBarVisibleBeforeFullScreen = IsTitleBarVisible;
-            switch (titleBarVisibilityOnFullScreen)
+            switch (TitleBarVisibilityOnFullScreen)
             {
                 case TitleBarVisibilityMode.Visible:
                     IsTitleBarVisible = true;
@@ -658,14 +643,10 @@ public class SukiWindow : Window, IDisposable
                     break;
             }
         }
-        else
+        else if (oldState == WindowState.FullScreen)
         {
-            // Restore window control capabilities
-            CanMaximize = _canMaximize;
-            CanMove = _canMove;
-            CanResize = _canResize;
-
-            if (titleBarVisibilityOnFullScreen != TitleBarVisibilityMode.Unchanged)
+            // Restore window control capabilities from a state before the fullscreen
+            if (TitleBarVisibilityOnFullScreen != TitleBarVisibilityMode.Unchanged)
             {
                 IsTitleBarVisible = _wasTitleBarVisibleBeforeFullScreen;
             }
@@ -673,10 +654,9 @@ public class SukiWindow : Window, IDisposable
 
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) // only for windows platform
         {
-            if (state == WindowState.Maximized)
-                Margin = new Thickness(7);
-            else
-                Margin = new Thickness(0);
+            Margin = new Thickness(newState == WindowState.Maximized
+                ? 7
+                : 0);
         }
 
         ConstrainToMaxSizeRatio(MaxWidthScreenRatio > 0, MaxHeightScreenRatio > 0);
@@ -721,8 +701,9 @@ public class SukiWindow : Window, IDisposable
     /// <param name="args"></param>
     private void OnMaximizeButtonClicked(object? sender, RoutedEventArgs args)
     {
-        if (!CanMaximize) return;
-        WindowState = WindowState == WindowState.Maximized
+        var windowState = WindowState;
+        if (!CanMaximize || windowState == WindowState.FullScreen) return;
+        WindowState = windowState == WindowState.Maximized
             ? WindowState.Normal
             : WindowState.Maximized;
     }
@@ -771,7 +752,7 @@ public class SukiWindow : Window, IDisposable
     /// <param name="e"></param>
     private void OnTitleBarPointerPressed(object? sender, PointerPressedEventArgs e)
     {
-        if (!CanMove)
+        if (!CanMove || WindowState == WindowState.FullScreen)
             return;
         base.OnPointerPressed(e);
         BeginMoveDrag(e);
@@ -785,7 +766,7 @@ public class SukiWindow : Window, IDisposable
     /// <exception cref="ArgumentOutOfRangeException"></exception>
     private void RaiseResize(object? sender, PointerPressedEventArgs e)
     {
-        if (!CanResize) return;
+        if (!CanResize || WindowState != WindowState.Normal) return;
         if (sender is not Border border || border.Tag is not string edge) return;
         if (VisualRoot is not Window window)
             return;
@@ -831,6 +812,8 @@ public class SukiWindow : Window, IDisposable
 
         nint ProcHookCallback(nint hWnd, uint msg, nint wParam, nint lParam, ref bool handled)
         {
+            if (!maximize.IsVisible) return 0;
+
             if (msg == WM_NCHITTEST)
             {
                 var point = new PixelPoint((short)(ToInt32(lParam) & 0xffff), (short)(ToInt32(lParam) >> 16));

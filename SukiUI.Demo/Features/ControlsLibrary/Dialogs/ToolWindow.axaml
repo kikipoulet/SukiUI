@@ -75,6 +75,7 @@
                                 Orientation="Horizontal"
                                 Spacing="5">
                         <Button Click="CenterOnScreenButton_OnClick" Content="Center on screen" />
+                        <Button Click="ToggleAutoWindowSize_OnClick" Content="Toggle auto window size" />
                     </StackPanel>
                 </Grid>
             </suki:GroupBox>

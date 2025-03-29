@@ -64,6 +64,9 @@
                                         <Style Selector="suki|SukiWindow[ShowBottomBorder=False] /template/ Border#PART_BottomBorder">
                                             <Setter Property="BorderThickness" Value="0,0,0,0" />
                                         </Style>
+                                        <Style Selector="suki|SukiWindow[WindowState=FullScreen] /template/ Button#PART_MaximizeButton">
+                                            <Setter Property="IsVisible" Value="False" />
+                                        </Style>
                                     </Panel.Styles>
                                     <StackPanel>
                                         <LayoutTransformControl Name="PART_LayoutTransform" RenderTransformOrigin="0%,0%">
