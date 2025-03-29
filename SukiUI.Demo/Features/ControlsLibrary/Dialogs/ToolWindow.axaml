@@ -11,9 +11,8 @@
                  d:DesignHeight="450"
                  d:DesignWidth="800"
                  x:DataType="dialogs:ToolWindowModel"
-                 CanFullScreen="True"
-                 CanMaximize="{Binding CanMaximize, Mode=TwoWay}"
-                 CanResize="{Binding CanResize, Mode=TwoWay}"
+                 CanMaximize="False"
+                 CanResize="False"
                  MaxHeightScreenRatio="{Binding MaxHeightScreenRatio}"
                  MaxWidthScreenRatio="{Binding MaxWidthScreenRatio}"
                  SizeToContent="WidthAndHeight"
@@ -27,6 +26,7 @@
             <suki:GroupBox Header="Window options">
 
                 <Grid ColumnDefinitions="Auto,10,Auto,20,Auto,10,Auto" RowDefinitions="Auto,10,Auto,10,Auto">
+                    <!-- Debug purposes
                     <TextBlock Grid.Row="0"
                                Grid.Column="0"
                                VerticalAlignment="Center"
@@ -42,6 +42,7 @@
                     <ToggleSwitch Grid.Row="0"
                                   Grid.Column="6"
                                   IsChecked="{Binding CanMaximize}" />
+                    -->
 
                     <TextBlock Grid.Row="2"
                                Grid.Column="0"
@@ -75,7 +76,9 @@
                                 Orientation="Horizontal"
                                 Spacing="5">
                         <Button Click="CenterOnScreenButton_OnClick" Content="Center on screen" />
+                        <!-- Debug purposes
                         <Button Click="ToggleAutoWindowSize_OnClick" Content="Toggle auto window size" />
+                        <!-->
                     </StackPanel>
                 </Grid>
             </suki:GroupBox>

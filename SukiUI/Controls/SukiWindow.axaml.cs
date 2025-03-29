@@ -61,12 +61,12 @@ public class SukiWindow : Window, IDisposable
     #endregion
 
     #region Members
-    private bool _isDisposed;
-
-    private bool _wasTitleBarVisibleBeforeFullScreen = true;
-
     private const int DefaultAutoHideDelay = 1000;
     private const int DefaultAutoShowDelay = 300;
+
+    private bool _isDisposed;
+    private bool _wasTitleBarVisibleBeforeFullScreen = true;
+
     private readonly DispatcherTimer _hideTitleBarTimer = new DispatcherTimer()
     {
         Interval = TimeSpan.FromMilliseconds(DefaultAutoHideDelay)
@@ -472,6 +472,7 @@ public class SukiWindow : Window, IDisposable
         Hosts = new Avalonia.Controls.Controls();
 
         ScalingChanged += OnScalingChanged;
+
         _hideTitleBarTimer.Tick += HideTitleBarTimerOnTick;
         _showTitleBarTimer.Tick += ShowTitleBarTimerOnTick;
     }
@@ -495,17 +496,16 @@ public class SukiWindow : Window, IDisposable
         // save the initial values
         _wasTitleBarVisibleBeforeFullScreen = IsTitleBarVisible;
 
-        var windowState = WindowState;
-        OnWindowStateChanged(windowState, windowState);
-
         // Create handlers for buttons
         if (e.NameScope.Find<GlassCard>("PART_TitleBarBackground") is { } titleBar)
         {
             titleBar.PointerPressed += OnTitleBarPointerPressed;
+            titleBar.PointerReleased += OnTitleBarPointerReleased;
             titleBar.DoubleTapped += OnMaximizeButtonClicked;
             _disposeActions.Add(() =>
             {
                 titleBar.PointerPressed -= OnTitleBarPointerPressed;
+                titleBar.PointerReleased -= OnTitleBarPointerReleased;
                 titleBar.DoubleTapped -= OnMaximizeButtonClicked;
             });
         }
@@ -802,8 +802,19 @@ public class SukiWindow : Window, IDisposable
     {
         if (!CanMove || WindowState == WindowState.FullScreen)
             return;
-        base.OnPointerPressed(e);
         BeginMoveDrag(e);
+    }
+
+    /// <summary>
+    /// Occurs when the title bar is released
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void OnTitleBarPointerReleased(object sender, PointerReleasedEventArgs e)
+    {
+        // Ensure correct window max size if dropped on other screen/resolution while using max size ratio
+        if (!CanMove || e.InitialPressMouseButton != MouseButton.Left) return;
+        ConstrainToMaxSizeRatio(MaxWidthScreenRatio > 0, MaxHeightScreenRatio > 0);
     }
 
     /// <summary>
@@ -838,11 +849,13 @@ public class SukiWindow : Window, IDisposable
 
     private void HideTitleBarTimerOnTick(object sender, EventArgs e)
     {
+        _hideTitleBarTimer.Stop();
         IsTitleBarVisible = false;
     }
 
     private void ShowTitleBarTimerOnTick(object sender, EventArgs e)
     {
+        _showTitleBarTimer.Stop();
         IsTitleBarVisible = true;
     }
     #endregion
@@ -1031,11 +1044,12 @@ public class SukiWindow : Window, IDisposable
     protected virtual void ConstrainToMaxSizeRatio(bool constrainMaxWidth = true, bool constrainMaxHeight = true)
     {
         Screen? screen = null;
-        var windowState = WindowState;
+        WindowState? windowState = null;
 
         if (constrainMaxWidth)
         {
             var widthRatio = MaxWidthScreenRatio;
+            windowState = WindowState;
             if (widthRatio <= 0 || windowState is WindowState.FullScreen or WindowState.Maximized)
             {
                 MaxWidth = double.PositiveInfinity;
@@ -1056,6 +1070,7 @@ public class SukiWindow : Window, IDisposable
         if (constrainMaxHeight)
         {
             var heightRatio = MaxHeightScreenRatio;
+            windowState ??= WindowState;
             if (heightRatio <= 0 || windowState is WindowState.FullScreen or WindowState.Maximized)
             {
                 MaxHeight = double.PositiveInfinity;
