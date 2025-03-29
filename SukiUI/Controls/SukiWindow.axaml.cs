@@ -23,6 +23,7 @@ namespace SukiUI.Controls;
 [TemplatePart("PART_Background", typeof(SukiBackground))]
 [TemplatePart("PART_LayoutTransform", typeof(LayoutTransformControl))]
 [TemplatePart("PART_TitleBarBackground", typeof(GlassCard))]
+[TemplatePart("PART_Logo", typeof(ContentPresenter))]
 [TemplatePart("PART_FullScreenButton", typeof(Button))]
 [TemplatePart("PART_PinButton", typeof(Button))]
 [TemplatePart("PART_MinimizeButton", typeof(Button))]
@@ -210,6 +211,18 @@ public class SukiWindow : Window, IDisposable
     {
         get => GetValue(LogoContentProperty);
         set => SetValue(LogoContentProperty, value);
+    }
+
+    public static readonly StyledProperty<bool> LogoDoubleTapClosesWindowProperty =
+        AvaloniaProperty.Register<SukiWindow, bool>(nameof(LogoDoubleTapClosesWindow));
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the bottom border of the window is visible.
+    /// </summary>
+    public bool LogoDoubleTapClosesWindow
+    {
+        get => GetValue(LogoDoubleTapClosesWindowProperty);
+        set => SetValue(LogoDoubleTapClosesWindowProperty, value);
     }
 
     public static readonly StyledProperty<bool> ShowBottomBorderProperty =
@@ -458,9 +471,11 @@ public class SukiWindow : Window, IDisposable
         RightWindowTitleBarControls = new Avalonia.Controls.Controls();
         Hosts = new Avalonia.Controls.Controls();
 
+        ScalingChanged += OnScalingChanged;
         _hideTitleBarTimer.Tick += HideTitleBarTimerOnTick;
         _showTitleBarTimer.Tick += ShowTitleBarTimerOnTick;
     }
+
     #endregion
 
     #region Overrides
@@ -484,6 +499,23 @@ public class SukiWindow : Window, IDisposable
         OnWindowStateChanged(windowState, windowState);
 
         // Create handlers for buttons
+        if (e.NameScope.Find<GlassCard>("PART_TitleBarBackground") is { } titleBar)
+        {
+            titleBar.PointerPressed += OnTitleBarPointerPressed;
+            titleBar.DoubleTapped += OnMaximizeButtonClicked;
+            _disposeActions.Add(() =>
+            {
+                titleBar.PointerPressed -= OnTitleBarPointerPressed;
+                titleBar.DoubleTapped -= OnMaximizeButtonClicked;
+            });
+        }
+
+        if (e.NameScope.Find<ContentPresenter>("PART_Logo") is { } logo)
+        {
+            logo.DoubleTapped += LogoOnDoubleTapped;
+            _disposeActions.Add(() => logo.DoubleTapped -= LogoOnDoubleTapped);
+        }
+
         if (e.NameScope.Find<Button>("PART_FullScreenButton") is { } fullscreen)
         {
             fullscreen.Click += OnFullScreenButtonClicked;
@@ -513,17 +545,6 @@ public class SukiWindow : Window, IDisposable
         {
             close.Click += OnCloseButtonClicked;
             _disposeActions.Add(() => close.Click -= OnCloseButtonClicked);
-        }
-
-        if (e.NameScope.Find<GlassCard>("PART_TitleBarBackground") is { } titleBar)
-        {
-            titleBar.PointerPressed += OnTitleBarPointerPressed;
-            titleBar.DoubleTapped += OnMaximizeButtonClicked;
-            _disposeActions.Add(() =>
-            {
-                titleBar.PointerPressed -= OnTitleBarPointerPressed;
-                titleBar.DoubleTapped -= OnMaximizeButtonClicked;
-            });
         }
 
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
@@ -616,6 +637,16 @@ public class SukiWindow : Window, IDisposable
     #region Events
 
     /// <summary>
+    /// Occurs when the scaling of the window changes.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void OnScalingChanged(object sender, EventArgs e)
+    {
+        ConstrainToMaxSizeRatio(MaxWidthScreenRatio > 0, MaxHeightScreenRatio > 0);
+    }
+
+    /// <summary>
     /// Occurs when the window newState changes.
     /// </summary>
     /// <param name="oldState"></param>
@@ -666,6 +697,17 @@ public class SukiWindow : Window, IDisposable
         }
 
         ConstrainToMaxSizeRatio(MaxWidthScreenRatio > 0, MaxHeightScreenRatio > 0);
+    }
+
+    /// <summary>
+    /// Occurs when the logo is double-tapped.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void LogoOnDoubleTapped(object sender, TappedEventArgs e)
+    {
+        if (!LogoDoubleTapClosesWindow) return;
+        Close();
     }
 
     /// <summary>
@@ -986,7 +1028,7 @@ public class SukiWindow : Window, IDisposable
     /// </summary>
     /// <param name="constrainMaxWidth"></param>
     /// <param name="constrainMaxHeight"></param>
-    private void ConstrainToMaxSizeRatio(bool constrainMaxWidth = true, bool constrainMaxHeight = true)
+    protected virtual void ConstrainToMaxSizeRatio(bool constrainMaxWidth = true, bool constrainMaxHeight = true)
     {
         Screen? screen = null;
         var windowState = WindowState;
@@ -1003,7 +1045,7 @@ public class SukiWindow : Window, IDisposable
                 screen = this.GetHostScreen();
                 if (screen is null) return;
 
-                var desiredMaxWidth = screen.WorkingArea.Width / screen.Scaling * widthRatio;
+                var desiredMaxWidth = screen.WorkingArea.Width / RenderScaling * widthRatio;
 
                 MaxWidth = MinWidth > 0
                     ? Math.Max(MinWidth, desiredMaxWidth)
@@ -1023,7 +1065,7 @@ public class SukiWindow : Window, IDisposable
                 screen ??= this.GetHostScreen();
                 if (screen is null) return;
 
-                var desiredMaxHeight = screen.WorkingArea.Height / screen.Scaling * heightRatio;
+                var desiredMaxHeight = screen.WorkingArea.Height / RenderScaling * heightRatio;
                 MaxHeight = MinHeight > 0
                     ? Math.Max(MinHeight, desiredMaxHeight)
                     : desiredMaxHeight;
@@ -1056,6 +1098,7 @@ public class SukiWindow : Window, IDisposable
         _showTitleBarTimer.Stop();
 
         // Release all events
+        ScalingChanged -= OnScalingChanged;
         PointerMoved -= AutoHideTitleBarOnPointerMoved;
         _hideTitleBarTimer.Tick -= HideTitleBarTimerOnTick;
         _showTitleBarTimer.Tick -= ShowTitleBarTimerOnTick;

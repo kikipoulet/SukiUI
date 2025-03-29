@@ -124,12 +124,12 @@
                                                         </Button>
                                                     </StackPanel>
                                                     <StackPanel VerticalAlignment="Center"
-                                                                IsHitTestVisible="False"
                                                                 Orientation="Horizontal"
                                                                 Spacing="10">
-                                                        <ContentPresenter HorizontalAlignment="Left"
-                                                                          Content="{TemplateBinding LogoContent}"
-                                                                          IsHitTestVisible="False" />
+                                                        <ContentPresenter Name="PART_Logo"
+                                                                          HorizontalAlignment="Left"
+                                                                          Background="Transparent"
+                                                                          Content="{TemplateBinding LogoContent}" />
                                                         <TextBlock VerticalAlignment="Center"
                                                                    FontSize="{TemplateBinding TitleFontSize}"
                                                                    FontWeight="{TemplateBinding TitleFontWeight}"
