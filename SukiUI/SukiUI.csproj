@@ -26,6 +26,7 @@
     <PackageReference Include="System.Linq.Dynamic.Core" />
   </ItemGroup>
 
+
   <ItemGroup>
     <AvaloniaResource Include="**\*.xaml" />
     <AvaloniaResource Include="Content\Images\icons8-file-explorer-new-48.png" />
@@ -84,6 +85,10 @@
       <DependentUpon>ChatUI.axaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Locale\de-de.axaml.cs">
+      <DependentUpon>de-de.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Locale\en-US.axaml.cs">
       <DependentUpon>en-US.axaml</DependentUpon>
       <SubType>Code</SubType>
@@ -120,5 +125,4 @@
     <None Remove="Content\Shaders\Background\backgroundshadcn.sksl" />
     <EmbeddedResource Include="Content\Shaders\Background\backgroundshadcn.sksl" />
   </ItemGroup>
-
 </Project>

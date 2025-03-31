@@ -76,7 +76,6 @@ public partial class SukiTheme : Styles
     private readonly HashSet<SukiColorTheme> _colorThemeHashset = new();
     private readonly AvaloniaList<SukiColorTheme> _allThemes = new();
 
-
     public SukiTheme()
     {
         AvaloniaXamlLoader.Load(this);
@@ -270,7 +269,8 @@ public partial class SukiTheme : Styles
         { new CultureInfo("en-US"), new en_US() },
         { new CultureInfo("nl-NL"), new nl_NL() },
         { new CultureInfo("pt-PT"), new pt_PT() },
-        { new CultureInfo("zh-CN"), new zh_CN() }
+        { new CultureInfo("zh-CN"), new zh_CN() },
+        { new CultureInfo("de-DE"), new de_DE() }
     };
 
     private static readonly ResourceDictionary DefaultResource = new en_US();
