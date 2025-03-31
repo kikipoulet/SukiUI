@@ -1,4 +1,4 @@
-using System;
+using System.Text;
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -12,9 +12,9 @@ namespace SukiUI.Demo.Features.ControlsLibrary.Dialogs;
 public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToastManager toastManager) : DemoPageBase("Dialogs", MaterialIconKind.Forum)
 {
     public NotificationType[] NotificationTypes { get; } = Enum.GetValues<NotificationType>();
-    
+
     [ObservableProperty] private NotificationType _selectedType;
-    
+
     [RelayCommand]
     private void OpenStandardDialog()
     {
@@ -104,5 +104,37 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
 
     [RelayCommand]
     private void OpenDialogWindowDemo() => new DialogWindowDemo(dialogManager).Show();
-        
+
+    [RelayCommand]
+    private void OpenToolWindowDemo()
+    {
+        var sb = new StringBuilder();
+
+        for (int i = 0; i < 100; i++)
+        {
+            sb.AppendLine(
+                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. " +
+                "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. " +
+                "It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. " +
+                "It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, " +
+                "and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.");
+            sb.AppendLine();
+        }
+
+        var model = new ToolWindowModel
+        {
+            Header = "Testing a tool window dialog with auto size constrained to a max-size related to screen",
+            Message = sb.ToString(),
+            MaxHeightScreenRatio = 0.6,
+            MaxWidthScreenRatio = 0.6
+        };
+
+        var window = new ToolWindow
+        {
+            Title = "Tool Window Demo",
+            DataContext = model,
+        };
+
+        window.Show();
+    }
 }

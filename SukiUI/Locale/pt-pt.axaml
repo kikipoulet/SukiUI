@@ -1,0 +1,18 @@
+<ResourceDictionary x:Class="SukiUI.Locale.pt_PT"
+                    xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--  DatePicker  -->
+    <x:String x:Key="STRING_DATEPICKER_DAY_TEXT">dia</x:String>
+    <x:String x:Key="STRING_DATEPICKER_MONTH_TEXT">mês</x:String>
+    <x:String x:Key="STRING_DATEPICKER_YEAR_TEXT">ano</x:String>
+    <x:String x:Key="STRING_DATEPICKER_APPLY">Aplicar</x:String>
+    <!--  TimePicker  -->
+    <x:String x:Key="STRING_TIMEPICKER_HOUR_TEXT">hora</x:String>
+    <x:String x:Key="STRING_TIMEPICKER_MINUTE_TEXT">minuto</x:String>
+    <x:String x:Key="STRING_TIMEPICKER_SECOND_TEXT">segundo</x:String>
+    <x:String x:Key="STRING_TIMEPICKER_APPLY">Aplicar</x:String>
+    <!--  TextBox  -->
+    <x:String x:Key="STRING_MENU_CUT">Cortar</x:String>
+    <x:String x:Key="STRING_MENU_COPY">Copiar</x:String>
+    <x:String x:Key="STRING_MENU_PASTE">Colar</x:String>
+</ResourceDictionary>
