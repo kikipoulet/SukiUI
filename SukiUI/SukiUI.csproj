@@ -26,6 +26,7 @@
     <PackageReference Include="System.Linq.Dynamic.Core" />
   </ItemGroup>
 
+
   <ItemGroup>
     <AvaloniaResource Include="**\*.xaml" />
     <AvaloniaResource Include="Content\Images\icons8-file-explorer-new-48.png" />
@@ -121,5 +122,4 @@
     <None Remove="Content\Shaders\Background\backgroundshadcn.sksl" />
     <EmbeddedResource Include="Content\Shaders\Background\backgroundshadcn.sksl" />
   </ItemGroup>
-
 </Project>
