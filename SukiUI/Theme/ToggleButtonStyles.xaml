@@ -1,4 +1,6 @@
-<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:suki="https://github.com/kikipoulet/SukiUI">
     <Design.PreviewWith>
         <StackPanel Width="250"
                     Margin="20"
@@ -21,7 +23,7 @@
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
         <Setter Property="Transitions">
             <Transitions>
-              
+
                 <BrushTransition Property="BorderBrush" Duration="0:0:0.15" />
             </Transitions>
         </Setter>
@@ -312,7 +314,7 @@
             </Animation>
         </Style.Animations>
         <Setter Property="Width" Value="20" />
-    </Style>    -->
+    </Style>-->
 
     <Style Selector="ToggleButton.Switch:checked /template/ Border#SwitchBackground">
         <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
@@ -345,5 +347,36 @@
                 </Setter.Value>
             </Setter>
         </Style>
+    </Style>
+
+    <Style Selector="ToggleButton.CircleGlass">
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Padding" Value="18,10,18,8" />
+        <Setter Property="FontWeight" Value="{DynamicResource DefaultDemiBold}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+        <Setter Property="Transitions">
+            <Transitions>
+
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.15" />
+            </Transitions>
+        </Setter>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <suki:GlassCard Width="{TemplateBinding Width}"
+                                Height="{TemplateBinding Height}"
+                                Padding="6,4"
+                                CornerRadius="100">
+                    <ContentPresenter HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      Content="{TemplateBinding Content}"
+                                      RecognizesAccessKey="True" />
+                </suki:GlassCard>
+
+            </ControlTemplate>
+        </Setter>
     </Style>
 </Styles>

@@ -36,16 +36,19 @@
                                        FontWeight="DemiBold"
                                        Text="Sign-in to your account" />
                             <TextBlock Margin="6,0,0,3"
-                                       FontWeight="DemiBold" Foreground="{DynamicResource SukiLowText}"
+                                       FontWeight="DemiBold"
+                                       Foreground="{DynamicResource SukiLowText}"
                                        Text="Username" />
                             <TextBox suki:TextBoxExtensions.Prefix="" Watermark="John" />
                             <TextBlock Margin="6,18,0,3"
-                                       FontWeight="DemiBold"  Foreground="{DynamicResource SukiLowText}"
+                                       FontWeight="DemiBold"
+                                       Foreground="{DynamicResource SukiLowText}"
                                        Text="Password" />
-                            <TextBox Name="PasswordTextBox" Watermark="*******"
+                            <TextBox Name="PasswordTextBox"
                                      Margin="0,0,0,25"
                                      suki:TextBoxExtensions.AddDeleteButton="False"
-                                     PasswordChar="*" />
+                                     PasswordChar="*"
+                                     Watermark="*******" />
                         </StackPanel>
                     </suki:BusyArea>
                 </suki:GlassCard>
@@ -65,97 +68,97 @@
 
             <!--  Upload progress  -->
             <StackPanel>
-            <suki:GlassCard Width="300"
-                            Height="80"
-                            Margin="15">
-                <Grid>
-                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
-                        <TextBlock FontSize="16"
+                <suki:GlassCard Width="300"
+                                Height="80"
+                                Margin="15">
+                    <Grid>
+                        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <TextBlock FontSize="16"
+                                       FontWeight="DemiBold"
+                                       Text="Uploading File .." />
+                            <TextBlock Margin="2,4,0,0"
+                                       FontSize="12"
+                                       Foreground="{DynamicResource SukiLowText}"
+                                       Text="Presentation.pdf" />
+                        </StackPanel>
+                        <suki:CircleProgressBar Width="37"
+                                                Height="37"
+                                                Margin="-55,-65,-10,-65"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Center"
+                                                StrokeWidth="4"
+                                                Value="67">
+                            <TextBlock Margin="1,1,0,0"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontSize="13"
+                                       FontWeight="DemiBold"
+                                       Text="67" />
+                        </suki:CircleProgressBar>
+                    </Grid>
+                </suki:GlassCard>
+
+                <!--  work progress  -->
+                <suki:GlassCard Width="300"
+                                Margin="15"
+                                Classes="Card">
+                    <StackPanel>
+                        <TextBlock HorizontalAlignment="Left"
+                                   FontSize="16"
                                    FontWeight="DemiBold"
-                                   Text="Uploading File .." />
-                        <TextBlock Margin="2,4,0,0"
-                                   FontSize="12"
-                                   Foreground="{DynamicResource SukiLowText}"
-                                   Text="Presentation.pdf" />
+                                   Text="Daily Progress" />
+                        <Grid Margin="0,18,0,0">
+                            <TextBlock HorizontalAlignment="Left"
+                                       FontSize="12"
+                                       FontWeight="DemiBold"
+                                       Foreground="{DynamicResource SukiLowText}"
+                                       Text="Project Workforce" />
+                            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                <TextBlock FontSize="13"
+                                           Foreground="Green"
+                                           Text="32.21%" />
+                                <avalonia:MaterialIcon Margin="5,0,0,0"
+                                                       Foreground="Green"
+                                                       Kind="ArrowUp" />
+                            </StackPanel>
+                        </Grid>
+                        <ProgressBar Margin="0,1,0,0" Value="16" />
+                        <Grid Margin="0,13,0,0">
+                            <TextBlock HorizontalAlignment="Left"
+                                       FontSize="12"
+                                       FontWeight="DemiBold"
+                                       Foreground="{DynamicResource SukiLowText}"
+                                       Text="Project Velocity" />
+                            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                <TextBlock FontSize="13"
+                                           Foreground="Red"
+                                           Text="7.18%" />
+                                <avalonia:MaterialIcon Margin="5,0,0,0"
+                                                       Foreground="Red"
+                                                       Kind="ArrowDown" />
+                            </StackPanel>
+                        </Grid>
+                        <ProgressBar Margin="0,1,0,0" Value="62" />
+
+                        <Grid Margin="0,13,0,0">
+                            <TextBlock HorizontalAlignment="Left"
+                                       FontSize="12"
+                                       FontWeight="DemiBold"
+                                       Foreground="{DynamicResource SukiLowText}"
+                                       Text="Critical Hours" />
+                            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                <TextBlock FontSize="13"
+                                           Foreground="Green"
+                                           Text="16.89%" />
+                                <avalonia:MaterialIcon Margin="5,0,0,0"
+                                                       Foreground="Green"
+                                                       Kind="ArrowUp" />
+                            </StackPanel>
+                        </Grid>
+                        <ProgressBar Margin="0,1,0,0" Value="34" />
+
                     </StackPanel>
-                    <suki:CircleProgressBar Width="37"
-                                            Height="37"
-                                            Margin="-55,-65,-10,-65"
-                                            HorizontalAlignment="Right"
-                                            VerticalAlignment="Center"
-                                            StrokeWidth="4"
-                                            Value="67">
-                        <TextBlock Margin="1,1,0,0"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   FontSize="13"
-                                   FontWeight="DemiBold"
-                                   Text="67" />
-                    </suki:CircleProgressBar>
-                </Grid>
-            </suki:GlassCard>
-
-            <!--  work progress  -->
-            <suki:GlassCard Width="300"
-                            Margin="15"
-                            Classes="Card">
-                <StackPanel>
-                    <TextBlock HorizontalAlignment="Left"
-                               FontSize="16"
-                               FontWeight="DemiBold"
-                               Text="Daily Progress" />
-                    <Grid Margin="0,18,0,0">
-                        <TextBlock HorizontalAlignment="Left"
-                                   FontSize="12"
-                                   FontWeight="DemiBold"
-                                   Foreground="{DynamicResource SukiLowText}"
-                                   Text="Project Workforce" />
-                        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                            <TextBlock FontSize="13"
-                                       Foreground="Green"
-                                       Text="32.21%" />
-                            <avalonia:MaterialIcon Margin="5,0,0,0"
-                                                   Foreground="Green"
-                                                   Kind="ArrowUp" />
-                        </StackPanel>
-                    </Grid>
-                    <ProgressBar Margin="0,1,0,0" Value="16" />
-                    <Grid Margin="0,13,0,0">
-                        <TextBlock HorizontalAlignment="Left"
-                                   FontSize="12"
-                                   FontWeight="DemiBold"
-                                   Foreground="{DynamicResource SukiLowText}"
-                                   Text="Project Velocity" />
-                        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                            <TextBlock FontSize="13"
-                                       Foreground="Red"
-                                       Text="7.18%" />
-                            <avalonia:MaterialIcon Margin="5,0,0,0"
-                                                   Foreground="Red"
-                                                   Kind="ArrowDown" />
-                        </StackPanel>
-                    </Grid>
-                    <ProgressBar Margin="0,1,0,0" Value="62" />
-
-                    <Grid Margin="0,13,0,0">
-                        <TextBlock HorizontalAlignment="Left"
-                                   FontSize="12"
-                                   FontWeight="DemiBold"
-                                   Foreground="{DynamicResource SukiLowText}"
-                                   Text="Critical Hours" />
-                        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                            <TextBlock FontSize="13"
-                                       Foreground="Green"
-                                       Text="16.89%" />
-                            <avalonia:MaterialIcon Margin="5,0,0,0"
-                                                   Foreground="Green"
-                                                   Kind="ArrowUp" />
-                        </StackPanel>
-                    </Grid>
-                    <ProgressBar Margin="0,1,0,0" Value="34" />
-
-                </StackPanel>
-            </suki:GlassCard>
+                </suki:GlassCard>
             </StackPanel>
 
             <!--  humidity  -->
@@ -321,10 +324,10 @@
                                 <DataGrid Margin="15,0,15,10"
                                           VerticalAlignment="Top"
                                           IsReadOnly="True"
-                                          ItemsSource="{Binding Invoices}" >
+                                          ItemsSource="{Binding Invoices}">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Binding="{Binding Id}" Header="Id" />
-                                        <DataGridTextColumn Binding="{Binding BillingName}" Header="BillingName"/>
+                                        <DataGridTextColumn Binding="{Binding BillingName}" Header="BillingName" />
                                         <DataGridTextColumn Binding="{Binding AmountPaid}" Header="AmountPaid" />
                                         <DataGridCheckBoxColumn Binding="{Binding Paid}" Header="Paid" />
                                     </DataGrid.Columns>
@@ -446,6 +449,156 @@
                     </WrapPanel>
                 </suki:GroupBox>
             </suki:GlassCard>
+
+            <suki:GlassCard Width="1000"
+                            Height="500"
+                            Margin="15"
+                            Padding="-2"
+                            ClipToBounds="True">
+                <suki:SukiSideMenu IsSearchEnabled="True">
+                    <suki:SukiSideMenu.Items>
+                        <suki:SukiSideMenuItem Classes="Compact" Header="Page Title">
+                            <suki:SukiSideMenuItem.Icon>
+                                <PathIcon Width="13"
+                                          Height="13"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Data="{x:Static suki:Icons.Search}"
+                                          Foreground="{DynamicResource SukiLowText}" />
+                            </suki:SukiSideMenuItem.Icon>
+                            <suki:SukiSideMenuItem.PageContent>
+                                <Panel />
+                            </suki:SukiSideMenuItem.PageContent>
+                        </suki:SukiSideMenuItem>
+
+                        <suki:SukiSideMenuItem Classes="Compact" Header="Collection">
+                            <suki:SukiSideMenuItem.Icon>
+                                <PathIcon Width="13"
+                                          Height="13"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Data="{x:Static suki:Icons.Search}"
+                                          Foreground="{DynamicResource SukiLowText}" />
+                            </suki:SukiSideMenuItem.Icon>
+                            <suki:SukiSideMenuItem.PageContent>
+                                <Panel />
+                            </suki:SukiSideMenuItem.PageContent>
+                            <suki:SukiSideMenuItem.Items>
+
+
+
+                                <suki:SukiSideMenuItem Classes="Compact" Header="Page Title">
+                                    <suki:SukiSideMenuItem.Icon>
+                                        <PathIcon Width="13"
+                                                  Height="13"
+                                                  HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"
+                                                  Data="{x:Static suki:Icons.Search}"
+                                                  Foreground="{DynamicResource SukiLowText}" />
+                                    </suki:SukiSideMenuItem.Icon>
+                                    <suki:SukiSideMenuItem.PageContent>
+                                        <Panel />
+                                    </suki:SukiSideMenuItem.PageContent>
+                                </suki:SukiSideMenuItem>
+                                <suki:SukiSideMenuItem Classes="Compact" Header="Page Title">
+                                    <suki:SukiSideMenuItem.Icon>
+                                        <PathIcon Width="13"
+                                                  Height="13"
+                                                  HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"
+                                                  Data="{x:Static suki:Icons.Search}"
+                                                  Foreground="{DynamicResource SukiLowText}" />
+                                    </suki:SukiSideMenuItem.Icon>
+                                    <suki:SukiSideMenuItem.PageContent>
+                                        <Panel />
+                                    </suki:SukiSideMenuItem.PageContent>
+                                </suki:SukiSideMenuItem>
+
+
+
+                            </suki:SukiSideMenuItem.Items>
+                        </suki:SukiSideMenuItem>
+
+                        <suki:SukiSideMenuItem Classes="Compact" Header="Collection">
+                            <suki:SukiSideMenuItem.Icon>
+                                <PathIcon Width="13"
+                                          Height="13"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Data="{x:Static suki:Icons.Search}"
+                                          Foreground="{DynamicResource SukiLowText}" />
+                            </suki:SukiSideMenuItem.Icon>
+                            <suki:SukiSideMenuItem.PageContent>
+                                <Panel />
+                            </suki:SukiSideMenuItem.PageContent>
+                            <suki:SukiSideMenuItem.Items>
+
+
+
+                                <suki:SukiSideMenuItem Classes="Compact" Header="Page Title">
+                                    <suki:SukiSideMenuItem.Icon>
+                                        <PathIcon Width="13"
+                                                  Height="13"
+                                                  HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"
+                                                  Data="{x:Static suki:Icons.Search}"
+                                                  Foreground="{DynamicResource SukiLowText}" />
+                                    </suki:SukiSideMenuItem.Icon>
+                                    <suki:SukiSideMenuItem.PageContent>
+                                        <Panel />
+                                    </suki:SukiSideMenuItem.PageContent>
+                                </suki:SukiSideMenuItem>
+                                <suki:SukiSideMenuItem Classes="Compact" Header="Page Title">
+                                    <suki:SukiSideMenuItem.Icon>
+                                        <PathIcon Width="13"
+                                                  Height="13"
+                                                  HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"
+                                                  Data="{x:Static suki:Icons.Search}"
+                                                  Foreground="{DynamicResource SukiLowText}" />
+                                    </suki:SukiSideMenuItem.Icon>
+                                    <suki:SukiSideMenuItem.PageContent>
+                                        <Panel />
+                                    </suki:SukiSideMenuItem.PageContent>
+                                </suki:SukiSideMenuItem>
+
+
+
+                            </suki:SukiSideMenuItem.Items>
+                        </suki:SukiSideMenuItem>
+
+                        <suki:SukiSideMenuItem Classes="Compact" Header="Page Title">
+                            <suki:SukiSideMenuItem.Icon>
+                                <PathIcon Width="13"
+                                          Height="13"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Data="{x:Static suki:Icons.Search}"
+                                          Foreground="{DynamicResource SukiLowText}" />
+                            </suki:SukiSideMenuItem.Icon>
+                            <suki:SukiSideMenuItem.PageContent>
+                                <Panel />
+                            </suki:SukiSideMenuItem.PageContent>
+                        </suki:SukiSideMenuItem>
+                        <!--  Other Pages  -->
+
+                    </suki:SukiSideMenu.Items>
+
+
+                    <suki:SukiSideMenu.HeaderContent>
+                        <Image Width="80"
+                               Height="80"
+                               Margin="30,10,30,30"
+                               Classes="AppIcon"
+                               Source="../../Assets/OIG.N5o-removebg-preview.png" />
+                    </suki:SukiSideMenu.HeaderContent>
+
+                    <suki:SukiSideMenu.FooterContent>
+                        <!--  Footer Content  -->
+                    </suki:SukiSideMenu.FooterContent>
+                </suki:SukiSideMenu>
+            </suki:GlassCard>
+
         </WrapPanel>
 
     </ScrollViewer>

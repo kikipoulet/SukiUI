@@ -1,6 +1,7 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:content="clr-namespace:SukiUI.Content"
+                    xmlns:converters="https://github.com/kikipoulet/SukiUI"
                     xmlns:suki="clr-namespace:SukiUI.Controls">
     <Design.PreviewWith>
         <suki:SukiSideMenu>
@@ -25,57 +26,94 @@
     <ControlTheme x:Key="SukiSideMenuItemStyle" TargetType="suki:SukiSideMenuItem">
         <Setter Property="Template">
             <ControlTemplate>
-                <Panel>
-                <Border Name="PART_Border"
-                         MinWidth="85"
-                         Margin="15,2"
-                         Padding="30,15,15,15"
-                         Background="{DynamicResource SukiPrimaryColor0}"
-                         CornerRadius="{DynamicResource MediumCornerRadius}">
-                   
-                    <Border.Transitions>
-                        <Transitions>
-                            <DoubleTransition Property="MaxHeight" Duration="0:0:1">
-                                <DoubleTransition.Easing>CubicEaseInOut</DoubleTransition.Easing>
-                            </DoubleTransition>
-                            <BrushTransition Property="Background" Duration="0:0:0.35" />
-                            <ThicknessTransition Property="Padding" Duration="0:0:0.35">
-                                <ThicknessTransition.Easing>CubicEaseInOut</ThicknessTransition.Easing>
-                            </ThicknessTransition>
-                        </Transitions>
-                    </Border.Transitions>
-                    <Panel>
-                        <DockPanel Name="PART_NormalDisplay" LastChildFill="True">
-                            <DockPanel.Resources />
-
-                            <ContentControl Name="PART_Icon"
-                                            Width="24"
-                                            Height="24"
-                                            Content="{TemplateBinding Icon}"
-                                            DockPanel.Dock="Left">
-                                <ContentControl.Transitions>
-                                    <Transitions>
-                                        <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" />
-                                        <DoubleTransition Property="Opacity" Duration="0:0:0.2" />
-                                    </Transitions>
-                                </ContentControl.Transitions>
-                            </ContentControl>
-                            <Viewbox HorizontalAlignment="Left" StretchDirection="DownOnly">
-                                <TextBlock Name="PART_Header"
-                                           Margin="15,0"
-                                           VerticalAlignment="Center"
-                                           FontSize="{TemplateBinding FontSize}"
-                                           IsVisible="{Binding IsMenuExpanded, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type suki:SukiSideMenu}}}"
-                                           Text="{TemplateBinding Header}" />
-                            </Viewbox>
-                        </DockPanel>
-                        <ContentPresenter Name="PART_AltDisplay"
-                                          Content="{TemplateBinding Content}"
-                                          ContentTemplate="{TemplateBinding ContentTemplate}" />
-
+                <DockPanel>
+                    <Panel DockPanel.Dock="Bottom" IsVisible="{Binding IsMenuExpanded, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type suki:SukiSideMenu}}}">
+                        <ItemsPresenter Name="PART_ItemsPresenter"
+                                        Margin="20,0,0,0"
+                                        IsVisible="{TemplateBinding IsExpanded}"
+                                        ItemsPanel="{TemplateBinding ItemsPanel}" />
                     </Panel>
-                </Border>
-                </Panel>
+                    <Border Name="PART_Border"
+                            MinWidth="85"
+                            Margin="15,2"
+                            Padding="30,15,15,15"
+                            Background="{DynamicResource SukiPrimaryColor0}"
+                            CornerRadius="{DynamicResource MediumCornerRadius}">
+
+                        <Border.Transitions>
+                            <Transitions>
+                                <DoubleTransition Property="MaxHeight" Duration="0:0:1">
+                                    <DoubleTransition.Easing>CubicEaseInOut</DoubleTransition.Easing>
+                                </DoubleTransition>
+                                <BrushTransition Property="Background" Duration="0:0:0.35" />
+                                <ThicknessTransition Property="Padding" Duration="0:0:0.35">
+                                    <ThicknessTransition.Easing>CubicEaseInOut</ThicknessTransition.Easing>
+                                </ThicknessTransition>
+                            </Transitions>
+                        </Border.Transitions>
+                        <Panel>
+                            <DockPanel Name="PART_NormalDisplay" LastChildFill="True">
+                                <DockPanel.Resources />
+                                <DockPanel.Styles>
+                                    <Style Selector="ToggleButton[IsChecked=True]">
+                                        <Setter Property="RenderTransform" Value="rotate(-180deg)" />
+                                    </Style>
+                                </DockPanel.Styles>
+                                <ToggleButton Margin="0,0,-8,0"
+                                              HorizontalContentAlignment="Center"
+                                              VerticalContentAlignment="Center"
+                                              Classes="CircleGlass"
+                                              DockPanel.Dock="Right"
+                                              Focusable="False"
+                                              IsChecked="{TemplateBinding IsExpanded,
+                                                                          Mode=TwoWay}"
+                                              IsVisible="{TemplateBinding ItemCount,
+                                                                          Converter={x:Static converters:IsBiggerThanZero.Instance}}">
+                                    <ToggleButton.Transitions>
+                                        <Transitions>
+                                            <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.3" />
+                                        </Transitions>
+                                    </ToggleButton.Transitions>
+                                    <PathIcon Width="10"
+                                              Height="10"
+                                              Margin="0,2,0,0"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Data="{x:Static content:Icons.ChevronDown}"
+                                              Foreground="{DynamicResource SukiLowText}" />
+
+                                </ToggleButton>
+
+                                <ContentControl Name="PART_Icon"
+                                                Width="24"
+                                                Height="24"
+                                                Content="{TemplateBinding Icon}"
+                                                DockPanel.Dock="Left">
+                                    <ContentControl.Transitions>
+                                        <Transitions>
+                                            <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" />
+                                            <DoubleTransition Property="Opacity" Duration="0:0:0.2" />
+                                        </Transitions>
+                                    </ContentControl.Transitions>
+                                </ContentControl>
+                                <Viewbox HorizontalAlignment="Left" StretchDirection="DownOnly">
+                                    <TextBlock Name="PART_Header"
+                                               Margin="15,0"
+                                               VerticalAlignment="Center"
+                                               FontSize="{TemplateBinding FontSize}"
+                                               IsVisible="{Binding IsMenuExpanded, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type suki:SukiSideMenu}}}"
+                                               Text="{TemplateBinding Header}" />
+                                </Viewbox>
+                            </DockPanel>
+                            <!-- <ContentPresenter Name="PART_AltDisplay"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}" />-->
+
+
+                        </Panel>
+                    </Border>
+
+                </DockPanel>
             </ControlTemplate>
         </Setter>
         <Style Selector="^.Compact /template/ Border#PART_Border">

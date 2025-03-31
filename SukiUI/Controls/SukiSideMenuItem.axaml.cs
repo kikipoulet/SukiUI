@@ -6,7 +6,7 @@ using Avalonia.Input;
 
 namespace SukiUI.Controls;
 
-public class SukiSideMenuItem : ListBoxItem
+public class SukiSideMenuItem : TreeViewItem
 {
     public static readonly StyledProperty<object?> IconProperty =
         AvaloniaProperty.Register<SukiSideMenuItem, object?>(nameof(Icon));
@@ -66,13 +66,16 @@ public class SukiSideMenuItem : ListBoxItem
 
         _border = e.NameScope.Get<Border>("PART_Border");
 
-        if (e.NameScope.Get<ContentPresenter>("PART_AltDisplay") is { } contentControl)
+        
+        // /!\ WARNING /!\ - Commented to make SubMenus work.
+        
+    /*    if (e.NameScope.Get<ContentPresenter>("PART_AltDisplay") is { } contentControl) 
         {
             if (Header is not null || Icon is not null)
             {
                 contentControl.IsVisible = false;
             }
-        }
+        } */
     }
 
     protected override void OnPointerPressed(PointerPressedEventArgs e)
@@ -94,7 +97,10 @@ public class SukiSideMenuItem : ListBoxItem
                 if (p.Pointer.Type == PointerType.Mouse)
                 {
                     // If the pressed point comes from a mouse, perform the selection immediately.
-                    e.Handled = owner.UpdateSelectionFromPointerEvent(this);
+                    
+                    
+                    // /!\ WARNING /!\ - Line commented to make it work with subitems. Doesn't seem to break anything on my
+                        // e.Handled = owner.UpdateSelectionFromPointerEvent(this);
                 }
                 else
                 {

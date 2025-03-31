@@ -14,7 +14,7 @@ using SukiUI.Theme;
 
 namespace SukiUI.Controls;
 
-public class SukiSideMenu : SelectingItemsControl
+public class SukiSideMenu : TreeView
 {
     public static readonly StyledProperty<string?> SearchTextProperty =
         AvaloniaProperty.Register<SukiSideMenu, string?>(nameof(SearchText));
