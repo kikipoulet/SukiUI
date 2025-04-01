@@ -11,6 +11,11 @@ namespace SukiUI.MessageBox;
 public static class SukiMessageBox
 {
     #region Create MessageBox
+    /// <summary>
+    /// Creates a base message box window.
+    /// </summary>
+    /// <param name="options"></param>
+    /// <returns></returns>
     public static SukiWindow CreateMessageBoxWindow(SukiMessageBoxOptions? options = null)
     {
         options ??= new SukiMessageBoxOptions();
@@ -37,17 +42,28 @@ public static class SukiMessageBox
     #endregion
 
     #region ShowDialog
-    public static Task<object?> ShowDialog(Window owner, SukiMessageBoxHost host, SukiMessageBoxOptions? windowOptions = null)
+    /// <summary>
+    /// Shows a message box dialog.
+    /// </summary>
+    /// <param name="owner">Parent window to own this message box.</param>
+    /// <param name="messageBox">The message box.</param>
+    /// <param name="windowOptions">The window options.</param>
+    /// <returns>
+    /// <see cref="SukiMessageBoxResult"/> when a preset button was clicked.<br/>
+    /// <see cref="Button"/> when a custom button was clicked.<br/>
+    /// <c>null</c> when the window was closed without clicking a button.
+    /// </returns>
+    public static Task<object?> ShowDialog(Window owner, SukiMessageBoxHost messageBox, SukiMessageBoxOptions? windowOptions = null)
     {
         var window = CreateMessageBoxWindow(windowOptions);
         window.Icon ??= owner.Icon;
         if (string.IsNullOrWhiteSpace(window.Title)) window.Title = $"{owner.Title} Message";
-        window.Tag = host;
+        window.Tag = messageBox;
         window.Closed += WindowOnClosed;
 
-        if (host.Header is string headerText)
+        if (messageBox.Header is string headerText)
         {
-            host.Header = new SelectableTextBlock
+            messageBox.Header = new SelectableTextBlock
             {
                 Text = headerText,
                 FontSize = 16,
@@ -55,16 +71,16 @@ public static class SukiMessageBox
             };
         }
 
-        if (host.Content is string contentText)
+        if (messageBox.Content is string contentText)
         {
-            host.Content = new SelectableTextBlock
+            messageBox.Content = new SelectableTextBlock
             {
                 Text = contentText,
                 TextWrapping = TextWrapping.Wrap
             };
         }
 
-        var actionButtons = host.ActionButtons;
+        var actionButtons = messageBox.ActionButtons;
         if (actionButtons is not null)
         {
             var buttonArray = actionButtons as Button[] ?? actionButtons.ToArray();
@@ -89,17 +105,28 @@ public static class SukiMessageBox
             window.KeyUp += WindowOnKeyUp;
         }
 
-        window.Content = host;
+        window.Content = messageBox;
         return window.ShowDialog<object?>(owner);
     }
 
-    public static Task<object?> ShowDialog(SukiMessageBoxHost host, SukiMessageBoxOptions? windowOptions = null)
+    /// <summary>
+    /// Shows a message box dialog.
+    /// </summary>
+    /// <param name="messageBox">The message box.</param>
+    /// <param name="windowOptions">The window options.</param>
+    /// <returns>
+    /// <see cref="SukiMessageBoxResult"/> when a preset button was clicked.<br/>
+    /// <see cref="Button"/> when a custom button was clicked.<br/>
+    /// <c>null</c> when the window was closed without clicking a button.
+    /// </returns>
+    /// <exception cref="InvalidOperationException">The application does not contain a main window.</exception>
+    public static Task<object?> ShowDialog(SukiMessageBoxHost messageBox, SukiMessageBoxOptions? windowOptions = null)
     {
         if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             if (desktop.MainWindow is not null)
             {
-                return ShowDialog(desktop.MainWindow, host, windowOptions);
+                return ShowDialog(desktop.MainWindow, messageBox, windowOptions);
             }
 
             throw new InvalidOperationException("The application does not contain a main window.");
