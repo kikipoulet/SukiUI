@@ -413,6 +413,7 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
                     Content = e.ToString(),
                     FooterLeftItemsSource = new Control[]
                     {
+                        SukiMessageBoxButtonsFactory.CreateButton("Copy details"),
                         new SelectableTextBlock()
                         {
                             VerticalAlignment = VerticalAlignment.Center,
