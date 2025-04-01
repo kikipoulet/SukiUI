@@ -24,6 +24,7 @@
     <PackageReference Include="Avalonia.Controls.DataGrid" />
     <PackageReference Include="Avalonia.Themes.Simple" />
     <PackageReference Include="System.Linq.Dynamic.Core" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux" />
   </ItemGroup>
 
 
