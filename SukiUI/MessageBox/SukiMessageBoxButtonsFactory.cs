@@ -8,6 +8,12 @@ namespace SukiUI.MessageBox;
 
 public static class SukiMessageBoxButtonsFactory
 {
+    /// <summary>
+    /// Create a custom button with the specified content and classes.
+    /// </summary>
+    /// <param name="content"></param>
+    /// <param name="classes"></param>
+    /// <returns></returns>
     public static Button CreateButton(object? content = null, params IEnumerable<string> classes)
     {
         var button = new Button
@@ -20,10 +26,30 @@ public static class SukiMessageBoxButtonsFactory
         return button;
     }
 
+    /// <summary>
+    /// Create a custom button with the specified content, result and classes.
+    /// </summary>
+    /// <param name="content"></param>
+    /// <param name="result"></param>
+    /// <param name="classes"></param>
+    /// <returns></returns>
+    public static Button CreateButton(object? content, SukiMessageBoxResult result, params IEnumerable<string> classes)
+    {
+        var button = CreateButton(content, classes);
+        button.Tag = result;
+        button.Classes.AddRange(classes);
+        return button;
+    }
+
+
+    /// <summary>
+    /// Create and builds a button for the specified result.
+    /// </summary>
+    /// <param name="result"></param>
+    /// <returns></returns>
     public static Button CreateButton(SukiMessageBoxResult result)
     {
-        var button = CreateButton(null, "Flat");
-        button.Tag = result;
+        var button = CreateButton(null, result, "Flat");
 
         var pathIcon = new PathIcon
         {

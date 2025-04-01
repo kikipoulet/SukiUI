@@ -157,11 +157,11 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
         });
 
         toastManager.CreateToast()
-            .WithTitle("Dialog Option Clicked")
-            .WithContent($"You clicked option: {result}")
-            .Dismiss().ByClicking()
-            .Dismiss().After(TimeSpan.FromSeconds(3))
-            .Queue();
+                .WithTitle("Dialog Option Clicked")
+                .WithContent($"You clicked option: {result}")
+                .Dismiss().ByClicking()
+                .Dismiss().After(TimeSpan.FromSeconds(3))
+                .Queue();
     }
 
     [RelayCommand]
@@ -195,8 +195,7 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
     [RelayCommand]
     private async Task OpenCustomMarkdownMessageBox()
     {
-        var autoUpgradeButton = SukiMessageBoxButtonsFactory.CreateButton("Auto upgrade", "Flat", "Accent");
-        autoUpgradeButton.Tag = SukiMessageBoxResult.Yes;
+        var autoUpgradeButton = SukiMessageBoxButtonsFactory.CreateButton("Auto upgrade", SukiMessageBoxResult.Yes, "Flat", "Accent");
         var manualUpgradeButton = SukiMessageBoxButtonsFactory.CreateButton("Manual upgrade");
         var cancelButton = SukiMessageBoxButtonsFactory.CreateButton(SukiMessageBoxResult.Cancel);
 
@@ -245,8 +244,11 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
             ActionButtons = [autoUpgradeButton, manualUpgradeButton, cancelButton]
         });
 
-
-        if (ReferenceEquals(result, manualUpgradeButton))
+        if (result is SukiMessageBoxResult.Yes)
+        {
+            // Do auto upgrade
+        }
+        else if (ReferenceEquals(result, manualUpgradeButton))
         {
             var launcher = TopLevel.GetTopLevel(((IClassicDesktopStyleApplicationLifetime)Application.Current?.ApplicationLifetime!).MainWindow)!.Launcher;
             await launcher.LaunchUriAsync(new Uri("https://github.com/kikipoulet/SukiUI"));
