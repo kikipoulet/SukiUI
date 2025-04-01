@@ -173,7 +173,7 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
             Header = "Reformat file",
             Content = "Are you sure you want to process this action?",
             ActionButtonsPreset = SukiMessageBoxButtons.YesNoCancel,
-            LeftContentItems = new[]
+            FooterLeftItemsSource = new[]
                 {
                     new Button()
                     {
@@ -241,7 +241,7 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
                            For any feedback or support, please reach out to our support team at support@example.com.
                            """
             } ,
-            ActionButtons = [autoUpgradeButton, manualUpgradeButton, cancelButton]
+            ActionButtonsSource = [autoUpgradeButton, manualUpgradeButton, cancelButton]
         });
 
         if (result is SukiMessageBoxResult.Yes)
@@ -315,7 +315,7 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
         {
             IconPreset = SukiMessageBoxIcons.Success,
             ActionButtonsPreset = SukiMessageBoxButtons.OK,
-            LeftContentItems = new Control[]
+            FooterLeftItemsSource = new Control[]
             {
                 checkBox
             },
@@ -340,7 +340,7 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
                       There's not internet connection to perform this action.
                       Do you want to queue a retry in 10 seconds?
                       """,
-            LeftContentItems = new Control[]
+            FooterLeftItemsSource = new Control[]
             {
                 new Border()
                 {
@@ -393,7 +393,7 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
                     IconPreset = SukiMessageBoxIcons.Error,
                     Header = $"Exception: {e.GetType().Name}",
                     Content = e.ToString(),
-                    LeftContentItems = new Control[]
+                    FooterLeftItemsSource = new Control[]
                     {
                         new SelectableTextBlock()
                         {
@@ -511,7 +511,7 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
         var result = await SukiMessageBox.ShowDialog(new SukiMessageBoxHost
         {
             Content = text,
-            LeftContentItems = new Control[]
+            FooterLeftItemsSource = new Control[]
             {
                 new SelectableTextBlock()
                 {

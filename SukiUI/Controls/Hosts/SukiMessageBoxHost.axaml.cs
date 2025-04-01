@@ -68,33 +68,33 @@ public class SukiMessageBoxHost : HeaderedContentControl
     }
 
     /// <summary>
-    /// Defines the <see cref="LeftContentItems"/> property.
+    /// Defines the <see cref="FooterLeftItemsSource"/> property.
     /// </summary>
-    public static readonly StyledProperty<IEnumerable?> LeftContentItemsProperty =
-        AvaloniaProperty.Register<SukiMessageBoxHost, IEnumerable?>(nameof(LeftContentItems));
+    public static readonly StyledProperty<IEnumerable?> FooterLeftItemsSourceProperty =
+        AvaloniaProperty.Register<SukiMessageBoxHost, IEnumerable?>(nameof(FooterLeftItemsSource));
 
     /// <summary>
-    /// Gets or sets the items to display in bottom left of the message box
+    /// Gets or sets the items source to display in the footer left of the message box
     /// </summary>
-    public IEnumerable? LeftContentItems
+    public IEnumerable? FooterLeftItemsSource
     {
-        get => GetValue(LeftContentItemsProperty);
-        set => SetValue(LeftContentItemsProperty, value);
+        get => GetValue(FooterLeftItemsSourceProperty);
+        set => SetValue(FooterLeftItemsSourceProperty, value);
     }
 
     /// <summary>
-    /// Defines the <see cref="ActionButtons"/> property.
+    /// Defines the <see cref="ActionButtonsSource"/> property.
     /// </summary>
-    public static readonly StyledProperty<IEnumerable<Button>?> ActionButtonsProperty =
-        AvaloniaProperty.Register<SukiMessageBoxHost, IEnumerable<Button>?>(nameof(ActionButtons));
+    public static readonly StyledProperty<IEnumerable<Button>?> ActionButtonsSourceProperty =
+        AvaloniaProperty.Register<SukiMessageBoxHost, IEnumerable<Button>?>(nameof(ActionButtonsSource));
 
     /// <summary>
     /// Gets or sets the action buttons to display in bottom right of the message box.
     /// </summary>
-    public IEnumerable<Button>? ActionButtons
+    public IEnumerable<Button>? ActionButtonsSource
     {
-        get => GetValue(ActionButtonsProperty);
-        set => SetValue(ActionButtonsProperty, value);
+        get => GetValue(ActionButtonsSourceProperty);
+        set => SetValue(ActionButtonsSourceProperty, value);
     }
 
     /// <summary>
@@ -129,7 +129,7 @@ public class SukiMessageBoxHost : HeaderedContentControl
             var preset = ActionButtonsPreset;
             if (preset is null) return;
 
-            ActionButtons = preset switch
+            ActionButtonsSource = preset switch
             {
                 SukiMessageBoxButtons.OK => new[]
                 {

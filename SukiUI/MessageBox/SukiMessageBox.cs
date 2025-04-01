@@ -80,7 +80,7 @@ public static class SukiMessageBox
             };
         }
 
-        var actionButtons = messageBox.ActionButtons;
+        var actionButtons = messageBox.ActionButtonsSource;
         if (actionButtons is not null)
         {
             var buttonArray = actionButtons as Button[] ?? actionButtons.ToArray();
@@ -158,7 +158,7 @@ public static class SukiMessageBox
         window.KeyUp -= WindowOnKeyUp;
         window.Closed -= WindowOnClosed;
 
-        var actionButtons = host.ActionButtons;
+        var actionButtons = host.ActionButtonsSource;
         if (actionButtons is not null)
         {
             foreach (var button in actionButtons)
