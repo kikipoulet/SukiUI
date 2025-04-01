@@ -6,19 +6,18 @@
              xmlns:common="clr-namespace:SukiUI.Demo.Common"
              xmlns:suki="https://github.com/kikipoulet/SukiUI"
              RequestedThemeVariant="Default">
-    
+
     <TrayIcon.Icons>
         <TrayIcons>
-            <TrayIcon Icon="/Assets/OIG.N5o-removebg-preview.png" 
-                      ToolTipText="SukiUI Native Menu Demo">
+            <TrayIcon Icon="/Assets/OIG.N5o-removebg-preview.png" ToolTipText="SukiUI Native Menu Demo">
                 <TrayIcon.Menu>
                     <NativeMenu>
                         <NativeMenuItem Header="Native Menu Demo">
                             <NativeMenu>
-                                <NativeMenuItem Header="Option 1"   />
-                                <NativeMenuItem Header="Option 2"   />
-                                <NativeMenuItemSeparator/>
-                                <NativeMenuItem Header="Option 3"  />
+                                <NativeMenuItem Header="Option 1" />
+                                <NativeMenuItem Header="Option 2" />
+                                <NativeMenuItemSeparator />
+                                <NativeMenuItem Header="Option 3" />
                             </NativeMenu>
                         </NativeMenuItem>
                     </NativeMenu>
@@ -26,10 +25,10 @@
             </TrayIcon>
         </TrayIcons>
     </TrayIcon.Icons>
-    
+
     <!--
-    Refer to the link below to customize your font.
-    https://kikipoulet.github.io/SukiUI/documentation/faq/custom-font.html#how-to-use-custom-font
+        Refer to the link below to customize your font.
+        https://kikipoulet.github.io/SukiUI/documentation/faq/custom-font.html#how-to-use-custom-font
     -->
     <Application.Resources>
         <ResourceDictionary>
@@ -39,7 +38,7 @@
         </ResourceDictionary>
     </Application.Resources>
     <Application.Styles>
-    <FluentTheme></FluentTheme>
+        <FluentTheme />
         <StyleInclude Source="avares://SukiUI.Dock/Index.axaml" />
         <StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />
         <StyleInclude Source="avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml" />

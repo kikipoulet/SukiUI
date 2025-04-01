@@ -15,4 +15,15 @@
     <x:String x:Key="STRING_MENU_CUT">Cut</x:String>
     <x:String x:Key="STRING_MENU_COPY">Copy</x:String>
     <x:String x:Key="STRING_MENU_PASTE">Paste</x:String>
+    <!--  Prompts  -->
+    <x:String x:Key="STRING_PROMPT_OK">OK</x:String>
+    <x:String x:Key="STRING_PROMPT_YES">Yes</x:String>
+    <x:String x:Key="STRING_PROMPT_NO">No</x:String>
+    <x:String x:Key="STRING_PROMPT_CANCEL">Cancel</x:String>
+    <x:String x:Key="STRING_PROMPT_APPLY">Apply</x:String>
+    <x:String x:Key="STRING_PROMPT_IGNORE">Ignore</x:String>
+    <x:String x:Key="STRING_PROMPT_RETRY">Retry</x:String>
+    <x:String x:Key="STRING_PROMPT_ABORT">Abort</x:String>
+    <x:String x:Key="STRING_PROMPT_CONTINUE">Continue</x:String>
+    <x:String x:Key="STRING_PROMPT_CLOSE">Close</x:String>
 </ResourceDictionary>

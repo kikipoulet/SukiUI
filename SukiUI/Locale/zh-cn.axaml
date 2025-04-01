@@ -15,4 +15,15 @@
     <x:String x:Key="STRING_MENU_CUT">剪切</x:String>
     <x:String x:Key="STRING_MENU_COPY">复制</x:String>
     <x:String x:Key="STRING_MENU_PASTE">粘贴</x:String>
+    <!--  Prompts  -->
+    <x:String x:Key="STRING_PROMPT_OK">确定</x:String>
+    <x:String x:Key="STRING_PROMPT_YES">是</x:String>
+    <x:String x:Key="STRING_PROMPT_NO">否</x:String>
+    <x:String x:Key="STRING_PROMPT_CANCEL">取消</x:String>
+    <x:String x:Key="STRING_PROMPT_APPLY">应用</x:String>
+    <x:String x:Key="STRING_PROMPT_IGNORE">忽略</x:String>
+    <x:String x:Key="STRING_PROMPT_RETRY">重试</x:String>
+    <x:String x:Key="STRING_PROMPT_ABORT">中止</x:String>
+    <x:String x:Key="STRING_PROMPT_CONTINUE">继续</x:String>
+    <x:String x:Key="STRING_PROMPT_CLOSE">关闭</x:String>
 </ResourceDictionary>

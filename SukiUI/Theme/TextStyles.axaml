@@ -1,17 +1,46 @@
-﻿<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
+﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
     <Styles.Resources>
         <FontFamily x:Key="DefaultFontFamily">avares://SukiUI/CustomFont#Quicksand</FontFamily>
         <FontWeight x:Key="DefaultDemiBold">DemiBold</FontWeight>
     </Styles.Resources>
-    
+
     <Style Selector="TextBlock, TextBox, Button, RadioButton, DropDownButton, SelectableTextBlock">
-        <Setter Property="TextBlock.FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
+        <Setter Property="TextBlock.FontFamily" Value="{DynamicResource DefaultFontFamily}" />
     </Style>
     <Style Selector="SelectableTextBlock">
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="SelectionBrush" Value="{DynamicResource SukiPrimaryColor}"/>
-        <Setter Property="SelectionForegroundBrush" Value="White"/>
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="SelectionBrush" Value="{DynamicResource SukiPrimaryColor}" />
+        <Setter Property="SelectionForegroundBrush" Value="White" />
+    </Style>
+
+    <Style Selector="SelectableTextBlock.h4">
+        <Setter Property="Margin" Value="0 7 0 10" />
+        <Setter Property="FontSize" Value="20" />
+    </Style>
+    <Style Selector="SelectableTextBlock.h3">
+
+        <Setter Property="Margin" Value="0 10 0 15" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="FontSize" Value="25" />
+    </Style>
+    <Style Selector="SelectableTextBlock.h2">
+        <Setter Property="Margin" Value="0 12 0 20" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="FontSize" Value="30" />
+    </Style>
+    <Style Selector="SelectableTextBlock.h1">
+        <Setter Property="Margin" Value="0 20 0 30" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="FontSize" Value="40" />
+    </Style>
+    <Style Selector="SelectableTextBlock.Caption">
+        <Setter Property="Foreground" Value="{DynamicResource ThemeControlHighBrush}" />
+    </Style>
+    <Style Selector="SelectableTextBlock.Primary">
+        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+    </Style>
+    <Style Selector="SelectableTextBlock.Accent">
+        <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
     </Style>
 </Styles>

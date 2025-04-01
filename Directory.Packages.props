@@ -16,6 +16,7 @@
     <PackageVersion Include="Dock.Model.Mvvm" Version="11.2.0.2" />
     <PackageVersion Include="Dock.Serializer" Version="11.2.0.2" />
     <PackageVersion Include="Material.Icons.Avalonia" Version="2.2.0" />
+    <PackageVersion Include="Markdown.Avalonia" Version="11.0.0" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="9.0.2" />
     <PackageVersion Include="ShowMeTheXaml.Avalonia" Version="1.5.1" />
     <PackageVersion Include="ShowMeTheXaml.Avalonia.Generator" Version="1.5.1" />

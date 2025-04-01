@@ -15,4 +15,15 @@
     <x:String x:Key="STRING_MENU_CUT">Knippen</x:String>
     <x:String x:Key="STRING_MENU_COPY">Kopiëren</x:String>
     <x:String x:Key="STRING_MENU_PASTE">Plakken</x:String>
+    <!--  Prompts  -->
+    <x:String x:Key="STRING_PROMPT_OK">OK</x:String>
+    <x:String x:Key="STRING_PROMPT_YES">Ja</x:String>
+    <x:String x:Key="STRING_PROMPT_NO">Nee</x:String>
+    <x:String x:Key="STRING_PROMPT_APPLY">Toepassen</x:String>
+    <x:String x:Key="STRING_PROMPT_CANCEL">Annuleren</x:String>
+    <x:String x:Key="STRING_PROMPT_IGNORE">Negeren</x:String>
+    <x:String x:Key="STRING_PROMPT_RETRY">Opnieuw</x:String>
+    <x:String x:Key="STRING_PROMPT_ABORT">Afbreken</x:String>
+    <x:String x:Key="STRING_PROMPT_CONTINUE">Doorgaan</x:String>
+    <x:String x:Key="STRING_PROMPT_CLOSE">Sluiten</x:String>
 </ResourceDictionary>
