@@ -8,7 +8,7 @@ namespace SukiUI.Converters
         {
             progress = Math.Max(0.0, Math.Min(1.0, progress));
             
-            const double c1 = 1.01; 
+            const double c1 = 1.05; 
             const double c3 = c1 + 1.0;
             double p = progress - 1.0; 
 

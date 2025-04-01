@@ -6,9 +6,10 @@
             <ControlTemplate>
                 <Panel>
                     <Border Name="PART_DialogBackground"
-                            HorizontalAlignment="Stretch" IsVisible="False"
+                            HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             Background="{DynamicResource SukiDialogBackground}"
+                            IsVisible="False"
                             Opacity="0" />
                     <ContentControl Name="PART_DialogContent"
                                     HorizontalAlignment="Center"
@@ -17,15 +18,17 @@
                                     Content="{TemplateBinding Dialog}">
                         <ContentControl.Transitions>
                             <Transitions>
-                                <ThicknessTransition Property="Margin" Duration="0:0:0.25">
+                                <ThicknessTransition Property="Margin" Duration="0:0:0.40">
                                     <ThicknessTransition.Easing>
-                                        <CircularEaseOut />
+                                        <!--  <CircularEaseOut /> -->
+                                        <suki:SukiEasingOut />
                                     </ThicknessTransition.Easing>
                                 </ThicknessTransition>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.15" />
-                                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.25">
+                                <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.40">
                                     <TransformOperationsTransition.Easing>
-                                        <CircularEaseOut />
+                                        <!--  <CircularEaseOut /> -->
+                                        <suki:SukiEasingOut />
                                     </TransformOperationsTransition.Easing>
                                 </TransformOperationsTransition>
                             </Transitions>
@@ -49,9 +52,9 @@
                             <Style Selector="^ Border#PART_DialogBackground">
                                 <Setter Property="Opacity" Value="0" />
                                 <Setter Property="IsHitTestVisible" Value="False" />
-                                
-                                <!-- need to make isvisible to false to make tooltips work ! -->
-                                <Setter Property="IsVisible" Value="False"></Setter>
+
+                                <!--  need to make isvisible to false to make tooltips work !  -->
+                                <Setter Property="IsVisible" Value="False" />
                             </Style>
                             <Style Selector="^ ContentControl#PART_DialogContent">
                                 <Setter Property="Opacity" Value="0" />
