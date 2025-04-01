@@ -67,8 +67,7 @@
                                               Focusable="False"
                                               IsChecked="{TemplateBinding IsExpanded,
                                                                           Mode=TwoWay}"
-                                              IsVisible="{TemplateBinding ItemCount,
-                                                                          Converter={x:Static converters:IsBiggerThanZero.Instance}}">
+                                              IsVisible="{TemplateBinding ItemCount}">
                                     <ToggleButton.Transitions>
                                         <Transitions>
                                             <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.3" />
