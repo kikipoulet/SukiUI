@@ -11,7 +11,6 @@ using Material.Icons;
 using Material.Icons.Avalonia;
 using SukiUI.Controls;
 using SukiUI.Dialogs;
-using SukiUI.Helpers;
 using SukiUI.MessageBox;
 using SukiUI.Toasts;
 
@@ -22,6 +21,17 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
     public NotificationType[] NotificationTypes { get; } = Enum.GetValues<NotificationType>();
 
     [ObservableProperty] private NotificationType _selectedType;
+
+    public SukiMessageBoxIcons[] MessageBoxIcons { get; } = Enum.GetValues<SukiMessageBoxIcons>();
+
+    [ObservableProperty] private SukiMessageBoxIcons _selectedMessageBoxIcon = SukiMessageBoxIcons.Information;
+
+
+    public SukiMessageBoxButtons[] MessageBoxButtons { get; } = Enum.GetValues<SukiMessageBoxButtons>();
+
+    [ObservableProperty] private SukiMessageBoxButtons _selectedMessageBoxButtons = SukiMessageBoxButtons.YesNoCancel;
+    [ObservableProperty] private bool _useAlternativeHeaderStyle = false;
+    [ObservableProperty] private bool _showHeaderContentSeparator = true;
 
     [RelayCommand]
     private void OpenStandardDialog()
@@ -169,10 +179,10 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
     {
         var result = await SukiMessageBox.ShowDialog(new SukiMessageBoxHost
         {
-            IconPreset = SukiMessageBoxIcons.Information,
+            IconPreset = SelectedMessageBoxIcon,
             Header = "Reformat file",
             Content = "Are you sure you want to process this action?",
-            ActionButtonsPreset = SukiMessageBoxButtons.YesNoCancel,
+            ActionButtonsPreset = SelectedMessageBoxButtons,
             FooterLeftItemsSource = new[]
                 {
                     new Button()
@@ -203,7 +213,8 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
         {
             IconPresetSize = 32,
             IconPreset = SukiMessageBoxIcons.Star,
-            ShowHeaderContentSeparator = true,
+            UseAlternativeHeaderStyle = UseAlternativeHeaderStyle,
+            ShowHeaderContentSeparator = ShowHeaderContentSeparator,
             Header = "Changelog - Version 2.5.0",
             Content = new Markdown.Avalonia.MarkdownScrollViewer()
             {
@@ -267,7 +278,7 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
     }
 
     [RelayCommand]
-    private async Task OpenAlternativeHeaderMessageBox()
+    private async Task OpenAnimatedHeaderMessageBox()
     {
         var icon = new MaterialIcon
         {
@@ -277,14 +288,20 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
             Height = 10,
         };
 
-        icon.Animate(MaterialIcon.WidthProperty, 10d, 42d, TimeSpan.FromSeconds(2));
-        icon.Animate(MaterialIcon.HeightProperty, 10d, 42d, TimeSpan.FromSeconds(2));
+        var header = new SelectableTextBlock()
+        {
+            Text = "Thank you!"
+        };
+
+        icon.Animate(Layoutable.WidthProperty, 10d, 42d, TimeSpan.FromSeconds(2));
+        icon.Animate(Layoutable.HeightProperty, 10d, 42d, TimeSpan.FromSeconds(2));
+        header.Animate(TextBlock.FontSizeProperty, 10d, 28d, TimeSpan.FromSeconds(2));
 
         var result = await SukiMessageBox.ShowDialog(new SukiMessageBoxHost
         {
             UseAlternativeHeaderStyle = true,
             Icon = icon,
-            Header = "Thank you!",
+            Header = header,
             Content = "We sincerely appreciate your continued support and feedback. Your input helps us improve and create a better experience for everyone. Thank you for being a valued part of our community!",
             ActionButtonsPreset = SukiMessageBoxButtons.Close,
         }, new SukiMessageBoxOptions()
