@@ -68,6 +68,22 @@ public class SukiMessageBoxHost : HeaderedContentControl
     }
 
     /// <summary>
+    /// Defines the <see cref="ShowHeaderContentSeparator"/> property.
+    /// </summary>
+    public static readonly StyledProperty<bool> ShowHeaderContentSeparatorProperty =
+        AvaloniaProperty.Register<SukiMessageBoxHost, bool>(nameof(ShowHeaderContentSeparator));
+
+    /// <summary>
+    /// Gets or sets a value indicating whether to show the header/content separator.
+    /// </summary>
+    /// <remarks>Only visible if <see cref="UseAlternativeHeaderStyle"/> is <c>false</c>.</remarks>
+    public bool ShowHeaderContentSeparator
+    {
+        get => GetValue(ShowHeaderContentSeparatorProperty);
+        set => SetValue(ShowHeaderContentSeparatorProperty, value);
+    }
+
+    /// <summary>
     /// Defines the <see cref="FooterLeftItemsSource"/> property.
     /// </summary>
     public static readonly StyledProperty<IEnumerable?> FooterLeftItemsSourceProperty =

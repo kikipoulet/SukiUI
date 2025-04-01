@@ -203,6 +203,7 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
         {
             IconPresetSize = 32,
             IconPreset = SukiMessageBoxIcons.Star,
+            ShowHeaderContentSeparator = true,
             Header = "Changelog - Version 2.5.0",
             Content = new Markdown.Avalonia.MarkdownScrollViewer()
             {
