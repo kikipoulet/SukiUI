@@ -8,6 +8,9 @@ using SukiUI.Controls;
 
 namespace SukiUI.MessageBox;
 
+/// <summary>
+/// Message box factory.
+/// </summary>
 public static class SukiMessageBox
 {
     #region Create MessageBox

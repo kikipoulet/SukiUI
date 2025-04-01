@@ -20,6 +20,7 @@
     <x:String x:Key="STRING_PROMPT_YES">是</x:String>
     <x:String x:Key="STRING_PROMPT_NO">否</x:String>
     <x:String x:Key="STRING_PROMPT_CANCEL">取消</x:String>
+    <x:String x:Key="STRING_PROMPT_APPLY">应用</x:String>
     <x:String x:Key="STRING_PROMPT_IGNORE">忽略</x:String>
     <x:String x:Key="STRING_PROMPT_RETRY">重试</x:String>
     <x:String x:Key="STRING_PROMPT_ABORT">中止</x:String>

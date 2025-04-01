@@ -185,11 +185,7 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
             ActionButtonsPreset = SelectedMessageBoxButtons,
             FooterLeftItemsSource = new[]
                 {
-                    new Button()
-                    {
-                        Padding = new Thickness(10),
-                        Content = "About"
-                    }
+                    SukiMessageBoxButtonsFactory.CreateButton("About"),
                 }
         });
 
@@ -205,7 +201,7 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
     [RelayCommand]
     private async Task OpenCustomMarkdownMessageBox()
     {
-        var autoUpgradeButton = SukiMessageBoxButtonsFactory.CreateButton("Auto upgrade", SukiMessageBoxResult.Yes, "Flat", "Accent");
+        var autoUpgradeButton = SukiMessageBoxButtonsFactory.CreateButton("Auto upgrade", SukiMessageBoxResult.Yes, "Flat Accent");
         var manualUpgradeButton = SukiMessageBoxButtonsFactory.CreateButton("Manual upgrade");
         var cancelButton = SukiMessageBoxButtonsFactory.CreateButton(SukiMessageBoxResult.Cancel);
 

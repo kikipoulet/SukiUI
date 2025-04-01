@@ -20,6 +20,7 @@
     <x:String x:Key="STRING_PROMPT_YES">Ja</x:String>
     <x:String x:Key="STRING_PROMPT_NO">Nein</x:String>
     <x:String x:Key="STRING_PROMPT_CANCEL">Abbrechen</x:String>
+    <x:String x:Key="STRING_PROMPT_APPLY">Übernehmen</x:String>
     <x:String x:Key="STRING_PROMPT_IGNORE">Ignorieren</x:String>
     <x:String x:Key="STRING_PROMPT_RETRY">Wiederholen</x:String>
     <x:String x:Key="STRING_PROMPT_ABORT">Abbrechen</x:String>

@@ -2,6 +2,9 @@
 
 namespace SukiUI.MessageBox;
 
+/// <summary>
+/// Represents the options for a message box window.
+/// </summary>
 public record SukiMessageBoxOptions
 {
     /// <summary>

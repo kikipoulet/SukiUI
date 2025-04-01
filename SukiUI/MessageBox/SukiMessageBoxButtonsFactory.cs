@@ -6,6 +6,9 @@ using SukiUI.Content;
 
 namespace SukiUI.MessageBox;
 
+/// <summary>
+/// Factory for creating buttons for the message box.
+/// </summary>
 public static class SukiMessageBoxButtonsFactory
 {
     /// <summary>
@@ -14,15 +17,19 @@ public static class SukiMessageBoxButtonsFactory
     /// <param name="content"></param>
     /// <param name="classes"></param>
     /// <returns></returns>
-    public static Button CreateButton(object? content = null, params IEnumerable<string> classes)
+    public static Button CreateButton(object? content = null, string? classes = null)
     {
         var button = new Button
         {
-            Padding = new Thickness(15, 10),
             Content = content
         };
 
-        button.Classes.AddRange(classes);
+        if (!string.IsNullOrWhiteSpace(classes))
+        {
+            var split = classes!.Split([' '], StringSplitOptions.RemoveEmptyEntries);
+            button.Classes.AddRange(split);
+        }
+        button.Classes.Add("MessageBoxAction");
         return button;
     }
 
@@ -33,11 +40,10 @@ public static class SukiMessageBoxButtonsFactory
     /// <param name="result"></param>
     /// <param name="classes"></param>
     /// <returns></returns>
-    public static Button CreateButton(object? content, SukiMessageBoxResult result, params IEnumerable<string> classes)
+    public static Button CreateButton(object? content, SukiMessageBoxResult result, string? classes = null)
     {
         var button = CreateButton(content, classes);
         button.Tag = result;
-        button.Classes.AddRange(classes);
         return button;
     }
 
@@ -65,10 +71,6 @@ public static class SukiMessageBoxButtonsFactory
                 button.IsDefault = true;
                 pathIcon.Data = Icons.Check;
                 break;
-            case SukiMessageBoxResult.Cancel:
-                button.IsCancel = true;
-                pathIcon.Data = Icons.Cancel;
-                break;
             case SukiMessageBoxResult.Yes:
                 button.IsDefault = true;
                 pathIcon.Data = Icons.Check;
@@ -76,6 +78,14 @@ public static class SukiMessageBoxButtonsFactory
             case SukiMessageBoxResult.No:
                 button.IsCancel = true;
                 pathIcon.Data = Icons.Cross;
+                break;
+            case SukiMessageBoxResult.Cancel:
+                button.IsCancel = true;
+                pathIcon.Data = Icons.Cancel;
+                break;
+            case SukiMessageBoxResult.Apply:
+                button.IsDefault = true;
+                pathIcon.Data = Icons.Check;
                 break;
             case SukiMessageBoxResult.Ignore:
                 pathIcon.Data = Icons.DebugStepOver;
@@ -95,6 +105,8 @@ public static class SukiMessageBoxButtonsFactory
                 button.IsCancel = true;
                 pathIcon.Data = Icons.Logout;
                 break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(result), result, null);
         }
 
         Application.Current!.TryFindResource($"STRING_PROMPT_{result.ToString().ToUpperInvariant()}", out var buttonLocale);

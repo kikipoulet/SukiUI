@@ -20,6 +20,7 @@
     <x:String x:Key="STRING_PROMPT_YES">Yes</x:String>
     <x:String x:Key="STRING_PROMPT_NO">No</x:String>
     <x:String x:Key="STRING_PROMPT_CANCEL">Cancel</x:String>
+    <x:String x:Key="STRING_PROMPT_APPLY">Apply</x:String>
     <x:String x:Key="STRING_PROMPT_IGNORE">Ignore</x:String>
     <x:String x:Key="STRING_PROMPT_RETRY">Retry</x:String>
     <x:String x:Key="STRING_PROMPT_ABORT">Abort</x:String>

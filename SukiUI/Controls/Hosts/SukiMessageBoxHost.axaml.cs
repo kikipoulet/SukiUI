@@ -172,6 +172,11 @@ public class SukiMessageBoxHost : HeaderedContentControl
                     SukiMessageBoxButtonsFactory.CreateButton(SukiMessageBoxResult.Yes),
                     SukiMessageBoxButtonsFactory.CreateButton(SukiMessageBoxResult.Ignore)
                 ],
+                SukiMessageBoxButtons.ApplyCancel =>
+                [
+                    SukiMessageBoxButtonsFactory.CreateButton(SukiMessageBoxResult.Apply),
+                    SukiMessageBoxButtonsFactory.CreateButton(SukiMessageBoxResult.Cancel)
+                ],
                 SukiMessageBoxButtons.RetryCancel =>
                 [
                     SukiMessageBoxButtonsFactory.CreateButton(SukiMessageBoxResult.Retry),

@@ -1,17 +1,20 @@
-﻿namespace SukiUI.MessageBox;
+﻿using System.ComponentModel;
+
+namespace SukiUI.MessageBox;
 
 /// <summary>
 /// Specifies the buttons that are displayed on a message box.
 /// </summary>
 public enum SukiMessageBoxButtons
 {
-    OK = 0,
-    OKCancel = 1,
-    YesNo = 2,
-    YesNoCancel = 3,
-    YesIgnore = 4,
-    RetryCancel = 6,
-    RetryIgnoreAbort = 7,
-    RetryContinueCancel = 8,
-    Close = 9
+    [Description("[OK]")] OK,
+    [Description("[OK] [Cancel]")] OKCancel,
+    [Description("[Yes] [No]")] YesNo,
+    [Description("[Yes] [No] [Cancel]")] YesNoCancel,
+    [Description("[Yes] [Ignore]")] YesIgnore,
+    [Description("[Apply] [Cancel]")] ApplyCancel,
+    [Description("[Retry] [Cancel]")] RetryCancel,
+    [Description("[Retry] [Cancel] [Abort]")] RetryIgnoreAbort,
+    [Description("[Retry] [Continue] [Abort]")] RetryContinueCancel,
+    [Description("[Close]")] Close
 }

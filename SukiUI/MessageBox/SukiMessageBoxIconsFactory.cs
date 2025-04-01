@@ -4,6 +4,9 @@ using SukiUI.Content;
 
 namespace SukiUI.MessageBox;
 
+/// <summary>
+/// Factory for creating icons for the message box.
+/// </summary>
 public static class SukiMessageBoxIconsFactory
 {
     public static PathIcon CreateIcon(double size = 24)
