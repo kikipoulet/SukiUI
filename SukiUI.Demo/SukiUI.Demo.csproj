@@ -28,6 +28,7 @@
     <PackageReference Include="Dock.Model.Mvvm" />
     <PackageReference Include="Dock.Serializer" />
     <PackageReference Include="Material.Icons.Avalonia" />
+    <PackageReference Include="Markdown.Avalonia" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
     <PackageReference Include="ShowMeTheXaml.Avalonia" />
     <PackageReference Include="ShowMeTheXaml.Avalonia.Generator" />
