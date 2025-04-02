@@ -1,8 +1,5 @@
-using System;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using Avalonia.Media;
-using Avalonia.Threading;
 
 namespace SukiUI.Toasts;
 
