@@ -13,7 +13,7 @@ namespace SukiUI.Toasts
     {
         public ISukiToastManager Manager { get; }
         public ISukiToast Toast { get; }
-        
+
         public SukiToastBuilder(ISukiToastManager manager)
         {
             Manager = manager;
@@ -28,12 +28,12 @@ namespace SukiUI.Toasts
         }
 
         public void SetTitle(string title) => Toast.Title = title;
-        
+
         public void SetContent(object? content) => Toast.Content = content;
-        
+
         public void SetCanDismissByClicking(bool canDismiss) => Toast.CanDismissByClicking = canDismiss;
         public void SetLoadingState(bool loading) => Toast.LoadingState = loading;
-        
+
         public void SetType(NotificationType type)
         {
             Toast.Icon = type switch
@@ -53,23 +53,19 @@ namespace SukiUI.Toasts
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
             };
         }
-        
-        
-        public void Delay(TimeSpan delay, Action<ISukiToast> action)
+
+
+        public void SetDismissAfter(TimeSpan delay, bool interruptWhileHover = true)
         {
-            Toast.DelayDismissAction = action;
-            Task.Delay(delay).ContinueWith(_ =>
-                {
-                    if (Toast.DelayDismissAction != action) return;
-                    Toast.DelayDismissAction.Invoke(Toast);
-                }, 
-                TaskScheduler.FromCurrentSynchronizationContext());
+            Toast.InterruptDismissTimerWhileHover = interruptWhileHover;
+            Toast.CanDismissByTime = delay.TotalMilliseconds > 0;
+            Toast.DismissTimeout = delay;
         }
 
-        public void SetOnDismiss(Action<ISukiToast> action) => Toast.OnDismissed = action;
+        public void SetOnDismiss(Action<ISukiToast, SukiToastDismissSource> action) => Toast.OnDismissed = action;
 
         public void SetOnClicked(Action<ISukiToast> action) => Toast.OnClicked = action;
-        
+
         public void AddActionButton(object buttonContent, Action<ISukiToast> action, bool dismissOnClick, bool flatstyle = true)
         {
             Button btn = new Button()
@@ -78,8 +74,8 @@ namespace SukiUI.Toasts
                     Classes = { flatstyle ?"Flat" : "Basic" },
                     Margin = flatstyle ? new Thickness(14, 9, 0, 12) : new Thickness(14, -3, 0, 2)
                 };
-            
-           
+
+
 
             btn.Click += (_, _) =>
             {
@@ -93,7 +89,7 @@ namespace SukiUI.Toasts
         public class DismissToast
         {
             public SukiToastBuilder Builder { get; }
-            
+
             public DismissToast(SukiToastBuilder builder)
             {
                 Builder = builder;
