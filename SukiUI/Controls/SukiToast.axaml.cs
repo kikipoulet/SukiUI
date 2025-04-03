@@ -17,7 +17,6 @@ namespace SukiUI.Controls;
 public class SukiToast : ContentControl, ISukiToast
 {
     private bool _wasDismissTimerInterrupted;
-    //private readonly Stopwatch _dismissStopwatch = new();
     private Border? _toastCard;
 
     public ISukiToastManager? Manager { get; set; }
@@ -132,21 +131,13 @@ public class SukiToast : ContentControl, ISukiToast
     protected override void OnLoaded(RoutedEventArgs e)
     {
         base.OnLoaded(e);
-
-
         DismissStartTimestamp = Stopwatch.GetTimestamp() * 1000d / Stopwatch.Frequency;
-        //if (CanDismissByTime && _dismissTimer.Interval.TotalMilliseconds > 0)
-        //{
-        //    StartDismissTimer();
-        //}
     }
 
     protected override void OnUnloaded(RoutedEventArgs e)
     {
         base.OnUnloaded(e);
-
         DismissStartTimestamp = 0;
-        //StopDismissTimer();
     }
 
     protected override void OnPointerEntered(PointerEventArgs e)
@@ -158,7 +149,6 @@ public class SukiToast : ContentControl, ISukiToast
             _wasDismissTimerInterrupted = true;
             DismissProgressValue = 100;
             DismissStartTimestamp = 0;
-            //StopDismissTimer();
         }
     }
 
