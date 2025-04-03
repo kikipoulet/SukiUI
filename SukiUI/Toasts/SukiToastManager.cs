@@ -132,5 +132,12 @@ public class SukiToastManager : ISukiToastManager, IDisposable
         _isDisposed = true;
         DismissAll();
         _dismissPollingTimer.Tick -= DismissPollingTimerOnTick;
+
+        // Unsubscribe event handlers
+        OnToastQueued = null;
+        OnToastDismissed = null;
+        OnAllToastsDismissed = null;
+
+        GC.SuppressFinalize(this);
     }
 }
