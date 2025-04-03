@@ -1,6 +1,7 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="clr-namespace:SukiUI.Controls"
+                    xmlns:suki="https://github.com/kikipoulet/SukiUI"
                     xmlns:system="clr-namespace:System;assembly=netstandard">
     <ControlTheme x:Key="SukiTopLevelMenuItem" TargetType="MenuItem">
         <Setter Property="FontWeight" Value="{DynamicResource DefaultDemiBold}" />
@@ -15,10 +16,13 @@
                         BorderThickness="0"
                         CornerRadius="8">
                     <Panel>
-                        <controls:GlassCard CornerRadius="8" Opacity="0" Name="GlassMenuItemBackground" Classes="Control">
+                        <controls:GlassCard Name="GlassMenuItemBackground"
+                                            Classes="Control"
+                                            CornerRadius="8"
+                                            Opacity="0">
                             <controls:GlassCard.Transitions>
                                 <Transitions>
-                                    <DoubleTransition Property="Opacity" Duration="0:0:0.15"></DoubleTransition>
+                                    <DoubleTransition Property="Opacity" Duration="0:0:0.15" />
                                 </Transitions>
                             </controls:GlassCard.Transitions>
                         </controls:GlassCard>
@@ -77,15 +81,22 @@
             <Style.Animations>
                 <Animation Easing="{StaticResource MenuEasing}"
                            FillMode="Forward"
-                           Duration="{StaticResource ShortAnimationDuration}">
+                           Duration="0:0:0.3">
                     <KeyFrame Cue="0%">
                         <Setter Property="ScaleTransform.ScaleY" Value="0.88" />
                         <Setter Property="ScaleTransform.ScaleX" Value="0.88" />
-                        <Setter Property="Opacity" Value="0" />
                     </KeyFrame>
                     <KeyFrame Cue="100%">
                         <Setter Property="ScaleTransform.ScaleY" Value="1" />
                         <Setter Property="ScaleTransform.ScaleX" Value="1" />
+                    </KeyFrame>
+                </Animation>
+
+                <Animation FillMode="Forward" Duration="0:0:0.25">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Opacity" Value="0" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
                         <Setter Property="Opacity" Value="1" />
                     </KeyFrame>
                 </Animation>
@@ -100,11 +111,10 @@
             <ControlTemplate>
                 <LayoutTransformControl Name="PART_LayoutTransform" RenderTransformOrigin="50%, 0%">
                     <Border Height="45"
-                                        Padding="{TemplateBinding Padding}"
-                                        BorderBrush="{DynamicResource SukiBorderBrush}"
-                                        BorderThickness="0"
-                                        CornerRadius="{TemplateBinding CornerRadius}"
-                                        >
+                            Padding="{TemplateBinding Padding}"
+                            BorderBrush="{DynamicResource SukiBorderBrush}"
+                            BorderThickness="0"
+                            CornerRadius="{TemplateBinding CornerRadius}">
                         <ItemsPresenter Name="PART_ItemsPresenter"
                                         ItemsPanel="{TemplateBinding ItemsPanel}"
                                         KeyboardNavigation.TabNavigation="Continue" />
@@ -114,9 +124,10 @@
         </Setter>
         <Style Selector="^[IsEnabled=True] /template/ LayoutTransformControl#PART_LayoutTransform">
             <Style.Animations>
-                <Animation Easing="{StaticResource MenuEasing}"
-                           FillMode="Forward"
-                           Duration="{StaticResource MediumAnimationDuration}">
+                <Animation FillMode="Forward" Duration="{StaticResource MediumAnimationDuration}">
+                    <Animation.Easing>
+                        <suki:SukiSmoothEasingOut />
+                    </Animation.Easing>
                     <KeyFrame Cue="0%">
                         <Setter Property="ScaleTransform.ScaleY" Value="0.92" />
                         <Setter Property="ScaleTransform.ScaleX" Value="0.92" />
@@ -133,9 +144,10 @@
         </Style>
         <Style Selector="^[IsEnabled=False] /template/ LayoutTransformControl#PART_LayoutTransform">
             <Style.Animations>
-                <Animation Easing="{StaticResource MenuEasing}"
-                           FillMode="Forward"
-                           Duration="{StaticResource MediumAnimationDuration}">
+                <Animation FillMode="Forward" Duration="{StaticResource MediumAnimationDuration}">
+                    <Animation.Easing>
+                        <suki:SukiSmoothEasingOut />
+                    </Animation.Easing>
                     <KeyFrame Cue="0%">
                         <Setter Property="ScaleTransform.ScaleY" Value="1" />
                         <Setter Property="ScaleTransform.ScaleX" Value="1" />

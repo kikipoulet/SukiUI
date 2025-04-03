@@ -21,11 +21,11 @@
                                 ClipToBounds="True"
                                 CornerRadius="{TemplateBinding CornerRadius}">
                             <Panel Background="{DynamicResource PopupGradientBrush}">
-                            <ItemsPresenter Name="PART_ItemsPresenter"
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Center"
-                                            ItemsPanel="{TemplateBinding ItemsPanel}"
-                                            KeyboardNavigation.TabNavigation="Continue" />
+                                <ItemsPresenter Name="PART_ItemsPresenter"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                ItemsPanel="{TemplateBinding ItemsPanel}"
+                                                KeyboardNavigation.TabNavigation="Continue" />
                             </Panel>
                         </Border>
                     </Panel>
@@ -36,15 +36,21 @@
             <Style.Animations>
                 <Animation Easing="{StaticResource MenuEasing}"
                            FillMode="Forward"
-                           Duration="{StaticResource ShortAnimationDuration}">
+                           Duration="0:0:0.3">
                     <KeyFrame Cue="0%">
                         <Setter Property="ScaleTransform.ScaleY" Value="0.92" />
                         <Setter Property="ScaleTransform.ScaleX" Value="0.92" />
-                        <Setter Property="Opacity" Value="0" />
                     </KeyFrame>
                     <KeyFrame Cue="100%">
                         <Setter Property="ScaleTransform.ScaleY" Value="1" />
                         <Setter Property="ScaleTransform.ScaleX" Value="1" />
+                    </KeyFrame>
+                </Animation>
+                <Animation FillMode="Forward" Duration="0:0:0.25">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Opacity" Value="0" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
                         <Setter Property="Opacity" Value="1" />
                     </KeyFrame>
                 </Animation>

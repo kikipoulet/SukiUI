@@ -7,36 +7,49 @@
     <converters:PlatformKeyGestureConverter x:Key="KeyGestureConverter" />
 
     <Design.PreviewWith>
-        <Border Margin="20" MinWidth="600" MinHeight="400">
+        <Border MinWidth="600"
+                MinHeight="400"
+                Margin="20">
             <Menu VerticalAlignment="Top">
                 <MenuItem Header="File">
-                    <MenuItem Header="Open" Icon="🗎" InputGesture="Ctrl + O">
-                        <MenuItem Header="Recent file 1" Icon="🗎"/>
-                        <MenuItem Header="Recent file 2" Icon="🗎"/>
-                        <MenuItem Header="Recent file 3" Icon="🗎"/>
-                        <MenuItem Header="Recent file 4" Icon="🗎"/>
-                        <Separator/>
-                        <MenuItem Header="Clear recent files" Icon="🗙" InputGesture="Ctrl + Alt + O"/>
+                    <MenuItem Header="Open"
+                              Icon="🗎"
+                              InputGesture="Ctrl + O">
+                        <MenuItem Header="Recent file 1" Icon="🗎" />
+                        <MenuItem Header="Recent file 2" Icon="🗎" />
+                        <MenuItem Header="Recent file 3" Icon="🗎" />
+                        <MenuItem Header="Recent file 4" Icon="🗎" />
+                        <Separator />
+                        <MenuItem Header="Clear recent files"
+                                  Icon="🗙"
+                                  InputGesture="Ctrl + Alt + O" />
                     </MenuItem>
-                    <MenuItem Header="Save" Icon="💾" InputGesture="Ctrl + S"/>
-                    <MenuItem Header="Fullscreen" Icon="⛶" InputGesture="F11" HotKey="F11"/>
-                    <MenuItem Header="Close" Icon="🗙" InputGesture="Alt + F4"/>
+                    <MenuItem Header="Save"
+                              Icon="💾"
+                              InputGesture="Ctrl + S" />
+                    <MenuItem Header="Fullscreen"
+                              HotKey="F11"
+                              Icon="⛶"
+                              InputGesture="F11" />
+                    <MenuItem Header="Close"
+                              Icon="🗙"
+                              InputGesture="Alt + F4" />
                 </MenuItem>
 
                 <MenuItem Header="View">
                     <MenuItem Header="Grid options">
-                        <MenuItem Header="Show grid lines"/>
-                        <MenuItem Header="Show grid separator"/>
-                        <MenuItem Header="Show grid "/>
+                        <MenuItem Header="Show grid lines" />
+                        <MenuItem Header="Show grid separator" />
+                        <MenuItem Header="Show grid " />
                     </MenuItem>
-                    <MenuItem Header="Title bar"/>
+                    <MenuItem Header="Title bar" />
                 </MenuItem>
 
                 <MenuItem Header="Help">
-                    <MenuItem Header="About"/>
-                    <MenuItem Header="Website"/>
-                    <MenuItem Header="Discussions"/>
-                    <MenuItem Header="Donate"/>
+                    <MenuItem Header="About" />
+                    <MenuItem Header="Website" />
+                    <MenuItem Header="Discussions" />
+                    <MenuItem Header="Donate" />
                 </MenuItem>
             </Menu>
         </Border>
@@ -76,27 +89,26 @@
                                        DockPanel.Dock="Left"
                                        Fill="{DynamicResource SukiLightBorderBrush}" />
 
-                            <Border Width="24"
-                                    DockPanel.Dock="Right">
+                            <Border Width="24" DockPanel.Dock="Right">
                                 <PathIcon Name="PART_RightArrow"
-                                          Classes="Flippable"
                                           Width="8"
                                           Height="8"
                                           HorizontalAlignment="Center"
                                           VerticalAlignment="Center"
+                                          Classes="Flippable"
                                           Data="{x:Static content:Icons.ChevronRight}"
                                           Foreground="{DynamicResource SukiText}" />
                             </Border>
 
 
                             <TextBlock Name="PART_InputGestureText"
-                                       VerticalAlignment="Center"
                                        Margin="20,0,0,0"
+                                       VerticalAlignment="Center"
+                                       DockPanel.Dock="Right"
                                        Foreground="{DynamicResource SukiMuteText}"
                                        IsVisible="{Binding InputGesture, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNotNull}}"
                                        Text="{TemplateBinding InputGesture,
-                                                          Converter={StaticResource KeyGestureConverter}}"
-                                       DockPanel.Dock="Right"/>
+                                                              Converter={StaticResource KeyGestureConverter}}" />
 
 
                             <ContentPresenter Name="PART_HeaderPresenter"
@@ -158,18 +170,26 @@
             <Style.Animations>
                 <Animation Easing="{StaticResource MenuEasing}"
                            FillMode="Forward"
-                           Duration="{StaticResource ShortAnimationDuration}">
+                           Duration="0:0:0.3">
                     <KeyFrame Cue="0%">
                         <Setter Property="ScaleTransform.ScaleY" Value="0.92" />
                         <Setter Property="ScaleTransform.ScaleX" Value="0.92" />
-                        <Setter Property="Opacity" Value="0" />
+
                     </KeyFrame>
                     <KeyFrame Cue="100%">
                         <Setter Property="ScaleTransform.ScaleY" Value="1" />
                         <Setter Property="ScaleTransform.ScaleX" Value="1" />
+                    </KeyFrame>
+                </Animation>
+                <Animation FillMode="Forward" Duration="0:0:0.25">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Opacity" Value="0" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
                         <Setter Property="Opacity" Value="1" />
                     </KeyFrame>
                 </Animation>
+
             </Style.Animations>
         </Style>
 

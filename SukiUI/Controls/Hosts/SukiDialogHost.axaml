@@ -21,14 +21,14 @@
                                 <ThicknessTransition Property="Margin" Duration="0:0:0.40">
                                     <ThicknessTransition.Easing>
                                         <!--  <CircularEaseOut /> -->
-                                        <suki:SukiEasingOut />
+                                        <suki:SukiEasingOutBounced />
                                     </ThicknessTransition.Easing>
                                 </ThicknessTransition>
                                 <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
                                 <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.40">
                                     <TransformOperationsTransition.Easing>
                                         <!--  <CircularEaseOut /> -->
-                                        <suki:SukiEasingOut />
+                                        <suki:SukiEasingOutBounced />
                                     </TransformOperationsTransition.Easing>
                                 </TransformOperationsTransition>
                             </Transitions>
@@ -53,8 +53,11 @@
                                 <Setter Property="Opacity" Value="0" />
                                 <Setter Property="IsHitTestVisible" Value="False" />
 
+
                                 <!--  need to make isvisible to false to make tooltips work !  -->
                                 <Setter Property="IsVisible" Value="False" />
+
+
                             </Style>
                             <Style Selector="^ ContentControl#PART_DialogContent">
                                 <Setter Property="Opacity" Value="0" />
