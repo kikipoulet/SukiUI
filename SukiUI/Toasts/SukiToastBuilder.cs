@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
@@ -7,93 +5,92 @@ using SukiUI.ColorTheme;
 using SukiUI.Content;
 using SukiUI.Helpers;
 
-namespace SukiUI.Toasts
+namespace SukiUI.Toasts;
+
+public class SukiToastBuilder
 {
-    public class SukiToastBuilder
+    public ISukiToastManager Manager { get; }
+    public ISukiToast Toast { get; }
+
+    public SukiToastBuilder(ISukiToastManager manager)
     {
-        public ISukiToastManager Manager { get; }
-        public ISukiToast Toast { get; }
+        Manager = manager;
+        Toast = ToastPool.Get();
+        Toast.Manager = Manager;
+    }
 
-        public SukiToastBuilder(ISukiToastManager manager)
+    public ISukiToast Queue()
+    {
+        Manager.Queue(Toast);
+        return Toast;
+    }
+
+    public void SetTitle(string title) => Toast.Title = title;
+
+    public void SetContent(object? content) => Toast.Content = content;
+
+    public void SetCanDismissByClicking(bool canDismiss) => Toast.CanDismissByClicking = canDismiss;
+    public void SetLoadingState(bool loading) => Toast.LoadingState = loading;
+
+    public void SetType(NotificationType type)
+    {
+        Toast.Icon = type switch
         {
-            Manager = manager;
-            Toast = ToastPool.Get();
-            Toast.Manager = Manager;
-        }
-
-        public ISukiToast Queue()
+            NotificationType.Information => Icons.InformationOutline,
+            NotificationType.Success => Icons.Check,
+            NotificationType.Warning => Icons.AlertOutline,
+            NotificationType.Error => Icons.AlertOutline,
+            _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+        };
+        Toast.Foreground = type switch
         {
-            Manager.Queue(Toast);
-            return Toast;
-        }
+            NotificationType.Information => NotificationColor.InfoIconForeground,
+            NotificationType.Success => NotificationColor.SuccessIconForeground,
+            NotificationType.Warning => NotificationColor.WarningIconForeground,
+            NotificationType.Error => NotificationColor.ErrorIconForeground,
+            _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+        };
+    }
 
-        public void SetTitle(string title) => Toast.Title = title;
 
-        public void SetContent(object? content) => Toast.Content = content;
+    public void SetDismissAfter(TimeSpan delay, bool interruptWhileHover = true)
+    {
+        Toast.InterruptDismissTimerWhileHover = interruptWhileHover;
+        Toast.CanDismissByTime = delay.TotalMilliseconds > 0;
+        Toast.DismissTimeout = delay;
+    }
 
-        public void SetCanDismissByClicking(bool canDismiss) => Toast.CanDismissByClicking = canDismiss;
-        public void SetLoadingState(bool loading) => Toast.LoadingState = loading;
+    public void SetOnDismiss(Action<ISukiToast, SukiToastDismissSource> action) => Toast.OnDismissed = action;
 
-        public void SetType(NotificationType type)
+    public void SetOnClicked(Action<ISukiToast> action) => Toast.OnClicked = action;
+
+    public void AddActionButton(object buttonContent, Action<ISukiToast> action, bool dismissOnClick, bool flatstyle = true)
+    {
+        Button btn = new Button()
         {
-            Toast.Icon = type switch
-            {
-                NotificationType.Information => Icons.InformationOutline,
-                NotificationType.Success => Icons.Check,
-                NotificationType.Warning => Icons.AlertOutline,
-                NotificationType.Error => Icons.AlertOutline,
-                _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
-            };
-            Toast.Foreground = type switch
-            {
-                NotificationType.Information => NotificationColor.InfoIconForeground,
-                NotificationType.Success => NotificationColor.SuccessIconForeground,
-                NotificationType.Warning => NotificationColor.WarningIconForeground,
-                NotificationType.Error => NotificationColor.ErrorIconForeground,
-                _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
-            };
-        }
+            Content = buttonContent,
+            Classes = { flatstyle ?"Flat" : "Basic" },
+            Margin = flatstyle ? new Thickness(14, 9, 0, 12) : new Thickness(14, -3, 0, 2)
+        };
 
 
-        public void SetDismissAfter(TimeSpan delay, bool interruptWhileHover = true)
+
+        btn.Click += (_, _) =>
         {
-            Toast.InterruptDismissTimerWhileHover = interruptWhileHover;
-            Toast.CanDismissByTime = delay.TotalMilliseconds > 0;
-            Toast.DismissTimeout = delay;
-        }
+            action(Toast);
+            if(dismissOnClick)
+                Manager.Dismiss(Toast, SukiToastDismissSource.ActionButton);
+        };
+        Toast.ActionButtons.Add(btn);
+    }
 
-        public void SetOnDismiss(Action<ISukiToast, SukiToastDismissSource> action) => Toast.OnDismissed = action;
+    public class DismissToast
+    {
+        public SukiToastBuilder Builder { get; }
 
-        public void SetOnClicked(Action<ISukiToast> action) => Toast.OnClicked = action;
-
-        public void AddActionButton(object buttonContent, Action<ISukiToast> action, bool dismissOnClick, bool flatstyle = true)
+        public DismissToast(SukiToastBuilder builder)
         {
-            Button btn = new Button()
-                {
-                    Content = buttonContent,
-                    Classes = { flatstyle ?"Flat" : "Basic" },
-                    Margin = flatstyle ? new Thickness(14, 9, 0, 12) : new Thickness(14, -3, 0, 2)
-                };
-
-
-
-            btn.Click += (_, _) =>
-            {
-                action(Toast);
-                if(dismissOnClick)
-                    Manager.Dismiss(Toast, SukiToastDismissSource.ActionButton);
-            };
-            Toast.ActionButtons.Add(btn);
-        }
-
-        public class DismissToast
-        {
-            public SukiToastBuilder Builder { get; }
-
-            public DismissToast(SukiToastBuilder builder)
-            {
-                Builder = builder;
-            }
+            Builder = builder;
         }
     }
 }

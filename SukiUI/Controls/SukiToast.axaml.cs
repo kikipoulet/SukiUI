@@ -6,7 +6,6 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Avalonia.Controls.Metadata;
 using Avalonia.Interactivity;
-using Avalonia.Threading;
 using SukiUI.ColorTheme;
 using SukiUI.Content;
 using SukiUI.Toasts;
@@ -18,7 +17,7 @@ namespace SukiUI.Controls;
 public class SukiToast : ContentControl, ISukiToast
 {
     private bool _wasDismissTimerInterrupted;
-    private readonly Stopwatch _dismissStopwatch = new();
+    //private readonly Stopwatch _dismissStopwatch = new();
     private Border? _toastCard;
 
     public ISukiToastManager? Manager { get; set; }
@@ -27,6 +26,17 @@ public class SukiToast : ContentControl, ISukiToast
 
     public static readonly StyledProperty<object?> IconProperty =
         AvaloniaProperty.Register<SukiToast, object?>(nameof(Icon));
+
+    public static readonly DirectProperty<SukiToast, double> DismissStartTimestampProperty =
+        AvaloniaProperty.RegisterDirect<SukiToast, double>(nameof(DismissStartTimestamp), o => o.DismissStartTimestamp,
+            (o, value) => o.DismissStartTimestamp = value);
+
+    private double _dismissStartTimestamp;
+    public double DismissStartTimestamp
+    {
+        get => _dismissStartTimestamp;
+        set => SetAndRaise(DismissStartTimestampProperty, ref _dismissStartTimestamp, value);
+    }
 
     public object? Icon
     {
@@ -87,13 +97,14 @@ public class SukiToast : ContentControl, ISukiToast
     }
 
     public static readonly DirectProperty<SukiToast, double> DismissProgressValueProperty =
-        AvaloniaProperty.RegisterDirect<SukiToast, double>(nameof(DismissProgressValue), o => o.DismissProgressValue);
+        AvaloniaProperty.RegisterDirect<SukiToast, double>(nameof(DismissProgressValue), o => o.DismissProgressValue,
+            (o, value) => o.DismissProgressValue = value);
 
     private double _dismissProgressValue = 100;
     public double DismissProgressValue
     {
         get => _dismissProgressValue;
-        private set => SetAndRaise(DismissProgressValueProperty, ref _dismissProgressValue, value);
+        set => SetAndRaise(DismissProgressValueProperty, ref _dismissProgressValue, value);
     }
 
     public static readonly StyledProperty<ObservableCollection<object>> ActionButtonsProperty = AvaloniaProperty.Register<SukiToast,
@@ -103,21 +114,6 @@ public class SukiToast : ContentControl, ISukiToast
     {
         get => GetValue(ActionButtonsProperty);
         set => SetValue(ActionButtonsProperty, value);
-    }
-
-    private readonly DispatcherTimer _dismissTimer = new DispatcherTimer()
-    {
-        Interval = TimeSpan.FromSeconds(5)
-    };
-    private readonly DispatcherTimer _dismissProgressValueTimer = new DispatcherTimer()
-    {
-        Interval = TimeSpan.FromMilliseconds(50)
-    };
-
-    public SukiToast()
-    {
-        _dismissTimer.Tick += DismissTimerOnTick;
-        _dismissProgressValueTimer.Tick += DismissProgressValueTimerOnTick;
     }
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
@@ -137,51 +133,32 @@ public class SukiToast : ContentControl, ISukiToast
     {
         base.OnLoaded(e);
 
-        if (CanDismissByTime && _dismissTimer.Interval.TotalMilliseconds > 0)
-        {
-            StartDismissTimer();
-        }
+
+        DismissStartTimestamp = Stopwatch.GetTimestamp() * 1000d / Stopwatch.Frequency;
+        //if (CanDismissByTime && _dismissTimer.Interval.TotalMilliseconds > 0)
+        //{
+        //    StartDismissTimer();
+        //}
     }
 
     protected override void OnUnloaded(RoutedEventArgs e)
     {
         base.OnUnloaded(e);
 
-        StopDismissTimer();
-    }
-
-    protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs e)
-    {
-        base.OnPropertyChanged(e);
-
-        if (ReferenceEquals(e.Property, CanDismissByTimeProperty))
-        {
-            if (IsLoaded)
-            {
-                if (CanDismissByTime)
-                {
-                    StartDismissTimer();
-                }
-                else
-                {
-                    StopDismissTimer();
-                }
-            }
-        }
-        else if (ReferenceEquals(e.Property, DismissTimeoutProperty))
-        {
-            _dismissTimer.Interval = DismissTimeout;
-        }
+        DismissStartTimestamp = 0;
+        //StopDismissTimer();
     }
 
     protected override void OnPointerEntered(PointerEventArgs e)
     {
         base.OnPointerEntered(e);
 
-        if (InterruptDismissTimerWhileHover && _dismissTimer.IsEnabled)
+        if (InterruptDismissTimerWhileHover)
         {
             _wasDismissTimerInterrupted = true;
-            StopDismissTimer();
+            DismissProgressValue = 100;
+            DismissStartTimestamp = 0;
+            //StopDismissTimer();
         }
     }
 
@@ -193,7 +170,7 @@ public class SukiToast : ContentControl, ISukiToast
         {
             _wasDismissTimerInterrupted = false;
             if (IsLoaded && CanDismissByTime) // Need to check for IsLoaded as this method will still trigger after Unloaded!
-                StartDismissTimer();
+                DismissStartTimestamp = Stopwatch.GetTimestamp() * 1000d / Stopwatch.Frequency;
         }
     }
 
@@ -207,14 +184,14 @@ public class SukiToast : ContentControl, ISukiToast
 
     private void DismissTimerOnTick(object sender, EventArgs e)
     {
-        StopDismissTimer(0);
+        //StopDismissTimer(0);
         Manager.Dismiss(this, SukiToastDismissSource.Timeout);
         OnDismissed?.Invoke(this, SukiToastDismissSource.Timeout);
     }
 
     private void DismissProgressValueTimerOnTick(object sender, EventArgs e)
     {
-        DismissProgressValue = Math.Min(Math.Max(100 - _dismissStopwatch.ElapsedMilliseconds / DismissTimeout.TotalMilliseconds * 100, 0), 100);
+        //DismissProgressValue = Math.Min(Math.Max(100 - _dismissStopwatch.ElapsedMilliseconds / DismissTimeout.TotalMilliseconds * 100, 0), 100);
     }
 
     public void AnimateShow()
@@ -230,25 +207,10 @@ public class SukiToast : ContentControl, ISukiToast
         this.Animate(MarginProperty, new Thickness(), new Thickness(0, 0, 0, 10), TimeSpan.FromMilliseconds(300));
     }
 
-    private void StartDismissTimer()
-    {
-        if (_dismissTimer.IsEnabled) return;
-        _dismissStopwatch.Restart();
-        _dismissTimer.Start();
-        _dismissProgressValueTimer.Start();
-    }
-
-    private void StopDismissTimer(double dismissProgressValue = 100)
-    {
-        _dismissTimer.Stop();
-        _dismissProgressValueTimer.Stop();
-        _dismissStopwatch.Stop();
-        DismissProgressValue = dismissProgressValue;
-    }
-
     public ISukiToast ResetToDefault()
     {
         _wasDismissTimerInterrupted = false;
+        DismissStartTimestamp = 0;
 
         Title = string.Empty;
         Content = string.Empty;
