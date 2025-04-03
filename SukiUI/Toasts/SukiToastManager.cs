@@ -4,11 +4,13 @@ using Avalonia.Threading;
 namespace SukiUI.Toasts;
 
 // It's important that events are raised BEFORE removing them from the manager so that the animation only plays once.
-public class SukiToastManager : ISukiToastManager
+public class SukiToastManager : ISukiToastManager, IDisposable
 {
     public event SukiToastQueuedEventHandler? OnToastQueued;
     public event SukiToastDismissedEventHandler? OnToastDismissed;
     public event EventHandler? OnAllToastsDismissed;
+
+    private bool _isDisposed;
 
     private readonly List<ISukiToast> _toasts = new();
 
@@ -16,7 +18,6 @@ public class SukiToastManager : ISukiToastManager
     {
         Interval = TimeSpan.FromMilliseconds(50)
     };
-
 
     public SukiToastManager()
     {
@@ -77,9 +78,9 @@ public class SukiToastManager : ISukiToastManager
     public void DismissAll()
     {
         if (_toasts.Count == 0) return;
+        _dismissPollingTimer.Stop();
         OnAllToastsDismissed?.Invoke(this, EventArgs.Empty);
         _toasts.Clear();
-        _dismissPollingTimer.Stop();
     }
 
     public bool IsDismissed(ISukiToast toast) => !_toasts.Contains(toast);
@@ -122,5 +123,14 @@ public class SukiToastManager : ISukiToastManager
                     Math.Min(Math.Max(100 - (elapsedMilliseconds / toast.DismissTimeout.TotalMilliseconds * 100), 0), 100);
             }
         }
+    }
+
+    /// <inheritdoc />
+    public void Dispose()
+    {
+        if (_isDisposed) return;
+        _isDisposed = true;
+        DismissAll();
+        _dismissPollingTimer.Tick -= DismissPollingTimerOnTick;
     }
 }
