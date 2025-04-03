@@ -137,7 +137,5 @@ public class SukiToastManager : ISukiToastManager, IDisposable
         OnToastQueued = null;
         OnToastDismissed = null;
         OnAllToastsDismissed = null;
-
-        GC.SuppressFinalize(this);
     }
 }
