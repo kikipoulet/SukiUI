@@ -201,14 +201,14 @@ public class SukiToast : ContentControl, ISukiToast
     {
         OnClicked?.Invoke(this);
         if (!CanDismissByClicking) return;
-        Manager.Dismiss(this);
+        Manager.Dismiss(this, SukiToastDismissSource.Click);
         OnDismissed?.Invoke(this, SukiToastDismissSource.Click);
     }
 
     private void DismissTimerOnTick(object sender, EventArgs e)
     {
         StopDismissTimer(0);
-        Manager.Dismiss(this);
+        Manager.Dismiss(this, SukiToastDismissSource.Timeout);
         OnDismissed?.Invoke(this, SukiToastDismissSource.Timeout);
     }
 

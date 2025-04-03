@@ -81,7 +81,7 @@ namespace SukiUI.Toasts
             {
                 action(Toast);
                 if(dismissOnClick)
-                    Manager.Dismiss(Toast);
+                    Manager.Dismiss(Toast, SukiToastDismissSource.ActionButton);
             };
             Toast.ActionButtons.Add(btn);
         }
