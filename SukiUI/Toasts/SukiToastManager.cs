@@ -26,7 +26,6 @@ public class SukiToastManager : ISukiToastManager, IDisposable
 
     public void Queue(ISukiToast toast)
     {
-        toast.DismissStartTimestamp = Stopwatch.GetTimestamp();
         _toasts.Add(toast);
         OnToastQueued?.Invoke(this, new SukiToastQueuedEventArgs(toast));
         if (toast.CanDismissByTime && !_dismissPollingTimer.IsEnabled) _dismissPollingTimer.Start();
