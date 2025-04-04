@@ -34,10 +34,7 @@ public class SukiToastManager : ISukiToastManager, IDisposable
 
     public void Dismiss(ISukiToast toast, SukiToastDismissSource dismissSource = SukiToastDismissSource.Code)
     {
-        if (!_toasts.Contains(toast)) return;
-        OnToastDismissed?.Invoke(this, new SukiToastDismissedEventArgs(toast, dismissSource));
-        _toasts.Remove(toast);
-        SafelyStopDismissTimer();
+        Dismiss(_toasts.IndexOf(toast), dismissSource);
     }
 
     public void Dismiss(int index, SukiToastDismissSource dismissSource = SukiToastDismissSource.Code)
@@ -45,6 +42,7 @@ public class SukiToastManager : ISukiToastManager, IDisposable
         if (index < 0 || index >= _toasts.Count) return;
         var toast = _toasts[index];
         OnToastDismissed?.Invoke(toast, new SukiToastDismissedEventArgs(toast, dismissSource));
+        toast.OnDismissed?.Invoke(toast, dismissSource);
         _toasts.RemoveAt(index);
         SafelyStopDismissTimer();
     }
@@ -63,6 +61,7 @@ public class SukiToastManager : ISukiToastManager, IDisposable
         {
             var removed = _toasts[i];
             OnToastDismissed?.Invoke(this, new SukiToastDismissedEventArgs(removed, SukiToastDismissSource.Code));
+            removed.OnDismissed?.Invoke(removed, SukiToastDismissSource.Code);
             _toasts.RemoveAt(i);
         }
 

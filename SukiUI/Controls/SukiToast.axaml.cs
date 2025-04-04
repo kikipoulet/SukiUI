@@ -169,19 +169,11 @@ public class SukiToast : ContentControl, ISukiToast
         OnClicked?.Invoke(this);
         if (!CanDismissByClicking) return;
         Manager.Dismiss(this, SukiToastDismissSource.Click);
-        OnDismissed?.Invoke(this, SukiToastDismissSource.Click);
     }
 
-    private void DismissTimerOnTick(object sender, EventArgs e)
+    public void Dismiss(SukiToastDismissSource dismiss = SukiToastDismissSource.Code)
     {
-        //StopDismissTimer(0);
-        Manager.Dismiss(this, SukiToastDismissSource.Timeout);
-        OnDismissed?.Invoke(this, SukiToastDismissSource.Timeout);
-    }
-
-    private void DismissProgressValueTimerOnTick(object sender, EventArgs e)
-    {
-        //DismissProgressValue = Math.Min(Math.Max(100 - _dismissStopwatch.ElapsedMilliseconds / DismissTimeout.TotalMilliseconds * 100, 0), 100);
+        Manager.Dismiss(this, dismiss);
     }
 
     public void AnimateShow()
