@@ -118,7 +118,7 @@ public class SukiToastManager : ISukiToastManager, IDisposable
             else
             {
                 toast.DismissProgressValue =
-                    Math.Min(Math.Max(100 - (elapsedMilliseconds / toast.DismissTimeout.TotalMilliseconds * 100), 0), 100);
+                    Math.Min(Math.Max(1 - elapsedMilliseconds / toast.DismissTimeout.TotalMilliseconds, 0.0), 1.0);
             }
         }
     }

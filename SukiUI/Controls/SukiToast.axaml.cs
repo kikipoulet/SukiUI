@@ -99,7 +99,7 @@ public class SukiToast : ContentControl, ISukiToast
         AvaloniaProperty.RegisterDirect<SukiToast, double>(nameof(DismissProgressValue), o => o.DismissProgressValue,
             (o, value) => o.DismissProgressValue = value);
 
-    private double _dismissProgressValue = 100;
+    private double _dismissProgressValue = 1;
     public double DismissProgressValue
     {
         get => _dismissProgressValue;
@@ -147,7 +147,7 @@ public class SukiToast : ContentControl, ISukiToast
         if (InterruptDismissTimerWhileHover)
         {
             _wasDismissTimerInterrupted = true;
-            DismissProgressValue = 100;
+            DismissProgressValue = 1;
             DismissStartTimestamp = 0;
         }
     }
@@ -202,7 +202,7 @@ public class SukiToast : ContentControl, ISukiToast
         CanDismissByTime = false;
         DismissTimeout = TimeSpan.FromSeconds(5);
         InterruptDismissTimerWhileHover = true;
-        DismissProgressValue = 100;
+        DismissProgressValue = 1;
 
         ActionButtons.Clear();
         OnDismissed = null;

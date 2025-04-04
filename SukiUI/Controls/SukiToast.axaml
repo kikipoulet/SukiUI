@@ -44,8 +44,8 @@
                                              Margin="0,-7,0,0"
                                              VerticalAlignment="Top"
                                              IsVisible="{TemplateBinding CanDismissByTime}"
-                                             Maximum="100"
-                                             Minimum="0"
+                                             Maximum="1.0"
+                                             Minimum="0.0"
                                              ShowProgressText="False"
                                              Value="{TemplateBinding DismissProgressValue,
                                                                      Mode=OneWay}" />
