@@ -9,7 +9,6 @@ using Avalonia.Interactivity;
 using SukiUI.ColorTheme;
 using SukiUI.Content;
 using SukiUI.Toasts;
-using System.Threading.Tasks;
 
 namespace SukiUI.Controls;
 
@@ -107,13 +106,15 @@ public class SukiToast : ContentControl, ISukiToast
         set => SetAndRaise(DismissProgressValueProperty, ref _dismissProgressValue, value);
     }
 
-    public static readonly StyledProperty<ObservableCollection<object>> ActionButtonsProperty = AvaloniaProperty.Register<SukiToast,
-        ObservableCollection<object>>(nameof(ActionButtons), new ObservableCollection<object>());
+    public static readonly DirectProperty<SukiToast, ObservableCollection<object>> ActionButtonsProperty =
+        AvaloniaProperty.RegisterDirect<SukiToast, ObservableCollection<object>>(nameof(ActionButtons), o => o.ActionButtons,
+            (o, value) => o.ActionButtons = value);
 
+    private ObservableCollection<object> _actionButtons = new();
     public ObservableCollection<object> ActionButtons
     {
-        get => GetValue(ActionButtonsProperty);
-        set => SetValue(ActionButtonsProperty, value);
+        get => _actionButtons;
+        set => SetAndRaise(ActionButtonsProperty, ref _actionButtons, value);
     }
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)

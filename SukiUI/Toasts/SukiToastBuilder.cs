@@ -1,7 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
-using Avalonia.Styling;
 using SukiUI.ColorTheme;
 using SukiUI.Content;
 using SukiUI.Enums;
