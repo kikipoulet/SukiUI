@@ -74,7 +74,9 @@ public class SukiToastBuilder
             btn = new Button
             {
                 Content = buttonContent,
-                Margin = (style & SukiButtonStyles.Basic) == 0 ? new Thickness(14, 9, 0, 12) : new Thickness(14, -3, 0, 2),
+                Margin = (style & SukiButtonStyles.Basic) == SukiButtonStyles.Basic
+                    ? new Thickness(14, -3, 0, 2)
+                    : new Thickness(14, 9, 0, 12),
             };
 
             var styles = style.GetSetFlagsIgnoring(SukiButtonStyles.Standard)
