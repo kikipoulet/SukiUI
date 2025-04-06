@@ -126,17 +126,11 @@
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
         <Setter Property="SelectionBrush" Value="{DynamicResource SukiPrimaryColor75}" />
-        <Setter Property="MinHeight" Value="45" />
         <Setter Property="Padding" Value="6,8,5,6" />
         <Setter Property="ContextFlyout" Value="{StaticResource DefaultTextBoxContextFlyout}" />
-
         <Setter Property="Template">
-
             <ControlTemplate>
-
-                <StackPanel>
-
-
+                <Grid>
                     <TextBlock Name="floatingWatermark"
                                Margin="3,5"
                                FontSize="13"
@@ -151,8 +145,6 @@
                             </Transitions>
                         </TextBlock.Transitions>
                     </TextBlock>
-
-
 
                     <suki:GlassCard Name="border"
                                     Padding="0"
@@ -228,22 +220,10 @@
                                     </theme:TextEraserButton>
                                     <ContentPresenter Content="{TemplateBinding InnerRightContent}" />
                                 </StackPanel>
-
-
                             </Grid>
                         </DataValidationErrors>
-
                     </suki:GlassCard>
-
-
-
-
-
-
-
-
-
-                </StackPanel>
+                </Grid>
             </ControlTemplate>
         </Setter>
     </Style>
