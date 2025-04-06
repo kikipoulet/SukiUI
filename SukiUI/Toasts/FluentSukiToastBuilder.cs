@@ -1,4 +1,5 @@
 using Avalonia.Controls.Notifications;
+using SukiUI.Enums;
 
 namespace SukiUI.Toasts;
 
@@ -112,15 +113,9 @@ public static class FluentSukiToastBuilder
     /// <summary>
     /// Adds an action button to the toast which will call the provided callback on click. Any number of buttons can be added to a toast.
     /// </summary>
-    public static SukiToastBuilder WithActionButton(this SukiToastBuilder builder, object buttonContent, Action<ISukiToast> onClicked, bool dismissOnClick =  false)
+    public static SukiToastBuilder WithActionButton(this SukiToastBuilder builder, object buttonContent, Action<ISukiToast> onClicked, bool dismissOnClick = false, SukiButtonStyles style = SukiButtonStyles.Flat)
     {
-        builder.AddActionButton(buttonContent, onClicked, dismissOnClick);
-        return builder;
-    }
-
-    public static SukiToastBuilder WithActionButtonNormal(this SukiToastBuilder builder, object buttonContent, Action<ISukiToast> onClicked, bool dismissOnClick =  false)
-    {
-        builder.AddActionButton(buttonContent, onClicked, dismissOnClick, false);
+        builder.AddActionButton(buttonContent, onClicked, dismissOnClick, style);
         return builder;
     }
 

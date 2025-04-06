@@ -1,8 +1,11 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
+using Avalonia.Styling;
 using SukiUI.ColorTheme;
 using SukiUI.Content;
+using SukiUI.Enums;
+using SukiUI.Extensions;
 using SukiUI.Helpers;
 
 namespace SukiUI.Toasts;
@@ -64,23 +67,23 @@ public class SukiToastBuilder
 
     public void SetOnClicked(Action<ISukiToast> action) => Toast.OnClicked = action;
 
-    public void AddActionButton(object buttonContent, Action<ISukiToast> action, bool dismissOnClick, bool flatstyle = true)
+    public void AddActionButton(object buttonContent, Action<ISukiToast> action, bool dismissOnClick, SukiButtonStyles style = SukiButtonStyles.Flat)
     {
-        Button btn = new Button()
+        if (buttonContent is not Button btn)
         {
-            Content = buttonContent,
-            Classes = { flatstyle ?"Flat" : "Basic" },
-            Margin = flatstyle ? new Thickness(14, 9, 0, 12) : new Thickness(14, -3, 0, 2)
-        };
+            btn = new Button
+            {
+                Content = buttonContent,
+                Margin = (style & SukiButtonStyles.Basic) == 0 ? new Thickness(14, 9, 0, 12) : new Thickness(14, -3, 0, 2),
+            };
 
+            var styles = style.GetSetFlagsIgnoring(SukiButtonStyles.Standard)
+                .Select(v => v.ToString());
 
+            btn.Classes.AddRange(styles);
+        }
 
-        btn.Click += (_, _) =>
-        {
-            action(Toast);
-            if(dismissOnClick)
-                Manager.Dismiss(Toast, SukiToastDismissSource.ActionButton);
-        };
+        btn.Tag = (action, dismissOnClick);
         Toast.ActionButtons.Add(btn);
     }
 

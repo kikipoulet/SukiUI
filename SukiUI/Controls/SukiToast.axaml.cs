@@ -9,6 +9,7 @@ using Avalonia.Interactivity;
 using SukiUI.ColorTheme;
 using SukiUI.Content;
 using SukiUI.Toasts;
+using System.Threading.Tasks;
 
 namespace SukiUI.Controls;
 
@@ -131,6 +132,14 @@ public class SukiToast : ContentControl, ISukiToast
     protected override void OnLoaded(RoutedEventArgs e)
     {
         base.OnLoaded(e);
+
+        foreach (var actionButton in ActionButtons)
+        {
+            if (actionButton is not Button button) continue;
+            if (button.Tag is not ValueTuple<Action<ISukiToast>, bool> tuple) continue;
+            button.Click += OnActionButtonClick;
+        }
+
         DismissStartTimestamp = Stopwatch.GetTimestamp() * 1000d / Stopwatch.Frequency;
     }
 
@@ -138,6 +147,13 @@ public class SukiToast : ContentControl, ISukiToast
     {
         base.OnUnloaded(e);
         DismissStartTimestamp = 0;
+
+        foreach (var actionButton in ActionButtons)
+        {
+            if (actionButton is not Button button) continue;
+            if (button.Tag is not ValueTuple<Action<ISukiToast>, bool> tuple) continue;
+            button.Click -= OnActionButtonClick;
+        }
     }
 
     protected override void OnPointerEntered(PointerEventArgs e)
@@ -168,7 +184,18 @@ public class SukiToast : ContentControl, ISukiToast
     {
         OnClicked?.Invoke(this);
         if (!CanDismissByClicking) return;
-        Manager.Dismiss(this, SukiToastDismissSource.Click);
+        Dismiss(SukiToastDismissSource.Click);
+    }
+
+    private void OnActionButtonClick(object sender, RoutedEventArgs e)
+    {
+        if (sender is not Button button) return;
+        if (button.Tag is not ValueTuple<Action<ISukiToast>, bool> tuple) return;
+        tuple.Item1(this);
+        if (tuple.Item2) // Is dismiss on click
+        {
+            Dismiss(SukiToastDismissSource.ActionButton);
+        }
     }
 
     public void Dismiss(SukiToastDismissSource dismiss = SukiToastDismissSource.Code)
