@@ -3,6 +3,7 @@ using Avalonia.Controls.Notifications;
 using Avalonia.Threading;
 using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
+using Material.Icons.Avalonia;
 using SukiUI.Enums;
 using SukiUI.Toasts;
 
@@ -60,6 +61,25 @@ public partial class ToastsViewModel(ISukiToastManager toastManager) : DemoPageB
 
     [RelayCommand]
     private void ShowErrorToast() => ShowTypeDemoToast(NotificationType.Error);
+
+    [RelayCommand]
+    private void ShowStyledButtonsToast()
+    {
+        toastManager.CreateToast()
+            .WithTitle("Styled buttons")
+            .WithContent("This is the content of styled buttons toast.")
+            .OfType(NotificationType.Information)
+            .Dismiss().ByClicking()
+            .WithActionButton(new MaterialIcon()
+            {
+                Kind = MaterialIconKind.Check
+            }, _ => { }, true, SukiButtonStyles.Flat | SukiButtonStyles.Accent | SukiButtonStyles.Icon)
+            .WithActionButton(new MaterialIcon()
+            {
+                Kind = MaterialIconKind.Close
+            }, _ => { }, true, SukiButtonStyles.Icon)
+            .Queue();
+    }
 
     [RelayCommand]
     private void ShowLoadingToast()
