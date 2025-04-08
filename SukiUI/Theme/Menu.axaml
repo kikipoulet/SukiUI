@@ -126,7 +126,7 @@
             <Style.Animations>
                 <Animation FillMode="Forward" Duration="{StaticResource MediumAnimationDuration}">
                     <Animation.Easing>
-                        <suki:SukiSmoothEasingOut />
+                        <suki:SukiEaseInOut />
                     </Animation.Easing>
                     <KeyFrame Cue="0%">
                         <Setter Property="ScaleTransform.ScaleY" Value="0.92" />
@@ -146,7 +146,7 @@
             <Style.Animations>
                 <Animation FillMode="Forward" Duration="{StaticResource MediumAnimationDuration}">
                     <Animation.Easing>
-                        <suki:SukiSmoothEasingOut />
+                        <suki:SukiEaseInOut />
                     </Animation.Easing>
                     <KeyFrame Cue="0%">
                         <Setter Property="ScaleTransform.ScaleY" Value="1" />

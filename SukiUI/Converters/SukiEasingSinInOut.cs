@@ -1,4 +1,6 @@
-﻿using Avalonia.Animation.Easings;
+﻿using Avalonia.Animation;
+using Avalonia.Animation.Easings;
+using Avalonia.Media;
 
 namespace SukiUI.Converters
 {
@@ -7,72 +9,87 @@ namespace SukiUI.Converters
     {
         Soft,Normal,Strong
     }
-    
-    // There should be better implementation btw, as I'm not a mathematician I asked chatgpt for functions close to what I wanted.
-    public class SukiEasingSmoothOutBounced: Easing
+
+
+    public class SukiEaseInBackOutBack : Easing
     {
-        public EasingIntensity BounceIntensity { get; set; }= EasingIntensity.Normal;
-       public override double Ease(double progress)
+        public EasingIntensity BounceIntensity { get; set; } = EasingIntensity.Normal;
+
+        public override double Ease(double progress)
         {
-
-            double warpedProgress = Math.Sqrt(progress);
-
-            double baseEaseValue;
-            if (warpedProgress < 0.5)
+            double Pi = Math.PI;
+            double c1 = BounceIntensity switch
             {
-                baseEaseValue = 4.0 * warpedProgress * warpedProgress * warpedProgress;
+                EasingIntensity.Soft => 0.9,
+                EasingIntensity.Normal => 1.15,
+                EasingIntensity.Strong => 1.5,
+                _ => 1.0
+            };
+
+            double c2 = c1 * 1.525;
+
+            if (progress < 0.5)
+            {
+                double term = 2 * progress;
+                return (Math.Pow(term, 2) * ((c2 + 1) * term - c2)) / 2.0;
             }
             else
             {
-                double factor = -2.0 * warpedProgress + 2.0;
-                baseEaseValue = 1.0 - Math.Pow(factor, 3) / 2.0;
-            }   
-
-     
-            double c1 = BounceIntensity switch
-            {
-                EasingIntensity.Soft   => 0.65,
-                EasingIntensity.Normal => 1.0, 
-                EasingIntensity.Strong => 1.3,  
-                _                      => 1.0
-            };
-       
-            double c3 = c1 + 1.0;
-
-            double p = baseEaseValue - 1.0;
-        
-            return 1.0 + c3 * p * p * p + c1 * p * p;
+                double term = 2 * progress - 2;
+                return (Math.Pow(term, 2) * ((c2 + 1) * term + c2) + 2) / 2.0;
+            }
         }
     }
+
+    public class SukiEaseInOutBack: Easing
+    {
+        public EasingIntensity BounceIntensity { get; set; }= EasingIntensity.Normal;
+        
+        public override double Ease(double progress)
+        {
+            double c1 = BounceIntensity switch
+            {
+                EasingIntensity.Soft   => 0.9,
+                EasingIntensity.Normal => 1.15,
+                EasingIntensity.Strong => 1.5,
+                _                      => 1.0
+            };
+            
+            double c3 = c1 + 1;
+
+            double t = progress;
+            double smoothedStart = t * t * (2 - t); 
+            double p = smoothedStart;
+
+            return 1 + c3 * Math.Pow(p - 1, 3) + c1 * Math.Pow(p - 1, 2);
+        }
+
+    }
     
-    public class SukiEasingOutBounced: Easing
+    public class SukiEaseOutBack: Easing
     {
         public EasingIntensity BounceIntensity { get; set; }= EasingIntensity.Normal;
      
          public override double Ease(double progress)
         {
-
             double c1 = BounceIntensity switch
             {
-                EasingIntensity.Soft   => 0.65,
-                EasingIntensity.Normal => 1.0,
-                EasingIntensity.Strong => 1.3,
+                EasingIntensity.Soft   => 0.9,
+                EasingIntensity.Normal => 1.15,
+                EasingIntensity.Strong => 1.5,
                 _                      => 1.0
             };
-
-            double c3 = c1 + 1.0; 
-            double c4 = c1 * 0.5; 
         
-            double p = progress - 1.0;
-        
-            return 1.0 + c4 * p * p * p * p + c3 * p * p * p + c1 * p * p;
+            double  c3 = c1 + 1;
+            
+            return 1 + c3 * Math.Pow(progress - 1, 3) + c1 * Math.Pow(progress - 1, 2);
+   
         }
     
     }
     
-    public class SukiSmoothEasingOut : Easing
+    public class SukiEaseInOut : Easing
     {
-
         public override double Ease(double progress)
         {
             double warpedProgress = Math.Sqrt(progress);
@@ -83,11 +100,9 @@ namespace SukiUI.Converters
             }
             else
             {
-          
                 double factor = -2.0 * warpedProgress + 2.0;
                 return 1.0 - Math.Pow(factor, 3) / 2.0;
             }
-
         }
     }
 

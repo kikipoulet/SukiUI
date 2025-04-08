@@ -177,7 +177,7 @@
         <Style.Animations>
             <Animation FillMode="Forward" Duration="0:0:0.4">
                 <Animation.Easing>
-                    <suki:SukiEasingOutBounced BounceIntensity="Soft" />
+                    <suki:SukiEaseOutBack BounceIntensity="Soft" />
                 </Animation.Easing>
                 <KeyFrame Cue="0%">
                     <Setter Property="ScaleTransform.ScaleY" Value="0.7" />

@@ -20,7 +20,7 @@
     <SolidColorBrush x:Key="SplitViewLightDismissOverlayBackground"
                      Opacity="0.6"
                      Color="{DynamicResource ThemeControlLowColor}" />
-    <sys:TimeSpan x:Key="SplitViewPaneAnimationOpenDuration">00:00:1</sys:TimeSpan>
+    <sys:TimeSpan x:Key="SplitViewPaneAnimationOpenDuration">00:00:0.7</sys:TimeSpan>
     <sys:TimeSpan x:Key="SplitViewPaneAnimationCloseDuration">00:00:0.6</sys:TimeSpan>
 
     <!-- Not used here (directly), but preserving for reference
@@ -199,7 +199,7 @@
                 <Transitions>
                     <DoubleTransition Property="Width" Duration="{StaticResource SplitViewPaneAnimationOpenDuration}">
                         <DoubleTransition.Easing>
-                            <suki:SukiEasingSmoothOutBounced />
+                            <suki:SukiEaseInOutBack BounceIntensity="Strong" />
                         </DoubleTransition.Easing>
                     </DoubleTransition>
                 </Transitions>
@@ -222,7 +222,7 @@
                 <Transitions>
                     <DoubleTransition Property="Width" Duration="{StaticResource SplitViewPaneAnimationCloseDuration}">
                         <DoubleTransition.Easing>
-                            <suki:SukiSmoothEasingOut />
+                            <suki:SukiEaseInOut />
                         </DoubleTransition.Easing>
                     </DoubleTransition>
                 </Transitions>
