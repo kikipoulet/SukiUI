@@ -76,6 +76,10 @@ public partial class ToastsViewModel(ISukiToastManager toastManager) : DemoPageB
             }, _ => { }, true, SukiButtonStyles.Flat | SukiButtonStyles.Accent | SukiButtonStyles.Icon)
             .WithActionButton(new MaterialIcon()
             {
+                Kind = MaterialIconKind.QuestionMark
+            }, _ => { }, true, SukiButtonStyles.Flat | SukiButtonStyles.Icon)
+            .WithActionButton(new MaterialIcon()
+            {
                 Kind = MaterialIconKind.Close
             }, _ => { }, true, SukiButtonStyles.Icon)
             .Queue();
