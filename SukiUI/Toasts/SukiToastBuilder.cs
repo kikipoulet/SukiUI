@@ -66,6 +66,12 @@ public class SukiToastBuilder
 
     public void SetOnClicked(Action<ISukiToast> action) => Toast.OnClicked = action;
 
+    [Obsolete("Use the new AddActionButton overload and pass SukiButtonStyles instead for cleaner control over the button style.")]
+    public void AddActionButton(object buttonContent, Action<ISukiToast> action, bool dismissOnClick, bool flatStyle)
+    {
+        AddActionButton(buttonContent, action, dismissOnClick, flatStyle ? SukiButtonStyles.Flat : SukiButtonStyles.Basic);
+    }
+
     public void AddActionButton(object buttonContent, Action<ISukiToast> action, bool dismissOnClick, SukiButtonStyles style = SukiButtonStyles.Flat)
     {
         if (buttonContent is not Button btn)
