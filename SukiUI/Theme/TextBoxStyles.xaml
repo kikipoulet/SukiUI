@@ -134,10 +134,10 @@
 
             <ControlTemplate>
 
-                <StackPanel>
-
+                <Grid RowDefinitions="Auto *">
 
                     <TextBlock Name="floatingWatermark"
+                               Grid.Row="0"
                                Margin="3,5"
                                FontSize="13"
                                FontWeight="DemiBold"
@@ -152,9 +152,8 @@
                         </TextBlock.Transitions>
                     </TextBlock>
 
-
-
                     <suki:GlassCard Name="border"
+                                    Grid.Row="1"
                                     Padding="0"
                                     BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="{TemplateBinding BorderThickness}"
@@ -235,15 +234,7 @@
 
                     </suki:GlassCard>
 
-
-
-
-
-
-
-
-
-                </StackPanel>
+                </Grid>
             </ControlTemplate>
         </Setter>
     </Style>
