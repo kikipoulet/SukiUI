@@ -20,6 +20,10 @@
             <Setter Property="Text" Value="{Binding TextBlockValue}" />
             <Setter Property="TextWrapping" Value="Wrap" />
         </Style>
+        <Style Selector="SelectableTextBlock">
+            <Setter Property="Text" Value="{Binding SelectableTextBlockValue}" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
     </UserControl.Styles>
 
     <ScrollViewer HorizontalScrollBarVisibility="Disabled">
@@ -71,13 +75,103 @@
                         </showMeTheXaml:XamlDisplay>
 
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock8">
+                            <TextBlock Classes="Success" />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="TextBlock9">
+                            <TextBlock Classes="Information" />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="TextBlock10">
+                            <TextBlock Classes="Warning" />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="TextBlock11">
+                            <TextBlock Classes="Danger" />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="TextBlock12">
                             <TextBlock />
                         </showMeTheXaml:XamlDisplay>
 
                         <TextBox suki:TextBoxExtensions.AddDeleteButton="True"
                                  Text="{Binding TextBlockValue}"
                                  UseFloatingWatermark="True"
-                                 Watermark="Textlock content" />
+                                 Watermark="TextBlock content" />
+                    </StackPanel>
+                </suki:GroupBox>
+            </suki:GlassCard>
+
+            <suki:GlassCard>
+                <suki:GroupBox Header="Selectable Text Styles">
+                    <StackPanel Spacing="15">
+                        <StackPanel Classes="HeaderContent">
+                            <SelectableTextBlock>
+                                SukiUI defines some basic text classes that you can use in your application.
+                            </SelectableTextBlock>
+                            <TextBlock>
+                                The h and color styles can be combined.
+                            </TextBlock>
+                        </StackPanel>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="SelectableTextHyperlink">
+                            <SelectableTextBlock xml:space="preserve">Text With A <HyperlinkButton Command="{Binding HyperlinkClickedCommand}"
+                                                 Content="Hyperlink"
+                                                 IsVisited="{Binding HyperlinkVisited}" /> Inside.</SelectableTextBlock>
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="SelectableTextBlock1">
+                            <SelectableTextBlock Classes="h1" />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="SelectableTextBlock2">
+                            <SelectableTextBlock Classes="h2" />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="SelectableTextBlock3">
+                            <SelectableTextBlock Classes="h3" />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="SelectableTextBlock4">
+                            <SelectableTextBlock Classes="h4" />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="SelectableTextBlock5">
+                            <SelectableTextBlock Classes="Caption" />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="SelectableTextBlock6">
+                            <SelectableTextBlock Classes="Primary" />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="SelectableTextBlock7">
+                            <SelectableTextBlock Classes="Accent" />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="SelectableTextBlock8">
+                            <SelectableTextBlock Classes="Success" />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="SelectableTextBlock9">
+                            <SelectableTextBlock Classes="Information" />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="SelectableTextBlock10">
+                            <SelectableTextBlock Classes="Warning" />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="SelectableTextBlock11">
+                            <SelectableTextBlock Classes="Danger" />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="SelectableTextBlock12">
+                            <SelectableTextBlock />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <TextBox suki:TextBoxExtensions.AddDeleteButton="True"
+                                 Text="{Binding SelectableTextBlockValue}"
+                                 UseFloatingWatermark="True"
+                                 Watermark="SelectableTextBlock content" />
                     </StackPanel>
                 </suki:GroupBox>
             </suki:GlassCard>
