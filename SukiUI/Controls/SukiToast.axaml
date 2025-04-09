@@ -1,6 +1,5 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:content="clr-namespace:SukiUI.Content"
                     xmlns:suki="clr-namespace:SukiUI.Controls">
     <Design.PreviewWith>
         <suki:SukiToast Title="Title" Content="Message" />
@@ -10,7 +9,8 @@
             <ControlTemplate>
                 <Panel>
                     <Border Name="PART_ToastCard"
-                            MinWidth="300" MaxWidth="400"
+                            MinWidth="300"
+                            MaxWidth="400"
                             Margin="40,5,30,10"
                             Padding="0"
                             Background="{DynamicResource SukiCardBackground}"
@@ -40,6 +40,15 @@
                                         </Panel.Background>
                                     </Panel>
                                 </Panel>
+                                <ProgressBar Name="PART_DismissProgressBar"
+                                             Margin="0,-7,0,0"
+                                             VerticalAlignment="Top"
+                                             IsVisible="{TemplateBinding CanDismissByTime}"
+                                             Maximum="1.0"
+                                             Minimum="0.0"
+                                             ShowProgressText="False"
+                                             Value="{TemplateBinding DismissProgressValue,
+                                                                     Mode=OneWay}" />
                                 <Panel Margin="20,22,20,8">
                                     <DockPanel Margin="0,-7,0,-4" LastChildFill="True">
                                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
@@ -47,7 +56,7 @@
                                                               Content="{TemplateBinding Title}"
                                                               FontSize="17"
                                                               FontWeight="{DynamicResource DefaultDemiBold}"
-                                                              Foreground="{DynamicResource SukiText}" >
+                                                              Foreground="{DynamicResource SukiText}">
                                                 <ContentPresenter.Styles>
                                                     <Style Selector="TextBlock">
                                                         <Setter Property="FontSize" Value="16" />
@@ -55,20 +64,20 @@
                                                 </ContentPresenter.Styles>
                                             </ContentPresenter>
                                         </StackPanel>
-                                        <ItemsControl DockPanel.Dock="Bottom" 
-                                                      ItemsSource="{TemplateBinding ActionButtons}" 
-                                                      Margin="0,10,0,0"
-                                                      HorizontalAlignment="Right">
+                                        <ItemsControl Margin="0,10,0,0"
+                                                      HorizontalAlignment="Right"
+                                                      DockPanel.Dock="Bottom"
+                                                      ItemsSource="{TemplateBinding ActionButtons}">
                                             <ItemsControl.ItemsPanel>
                                                 <ItemsPanelTemplate>
-                                                    <StackPanel Orientation="Horizontal"/>
+                                                    <StackPanel Orientation="Horizontal" />
                                                 </ItemsPanelTemplate>
                                             </ItemsControl.ItemsPanel>
                                         </ItemsControl>
-                                        <ContentPresenter Margin="12,10,0,0" 
+                                        <ContentPresenter Margin="12,10,0,0"
                                                           Content="{TemplateBinding Content}"
                                                           Foreground="{DynamicResource SukiText}"
-                                                          TextWrapping="Wrap" >
+                                                          TextWrapping="Wrap">
                                             <ContentPresenter.Styles>
                                                 <Style Selector="TextBlock">
                                                     <Setter Property="FontSize" Value="14" />
@@ -89,7 +98,7 @@
                             Background="{DynamicResource SukiCardBackground}"
                             BoxShadow="{DynamicResource SukiSmallPopupShadow}"
                             CornerRadius="35">
-                        <Border  ClipToBounds="True" CornerRadius="35">
+                        <Border ClipToBounds="True" CornerRadius="35">
                             <Panel>
                                 <Panel Background="{TemplateBinding Foreground}" Opacity="1" />
                                 <PathIcon Width="15"
@@ -99,9 +108,12 @@
                                           VerticalAlignment="Center"
                                           Data="{TemplateBinding Icon}"
                                           Foreground="White" />
-                                <Border IsVisible="{TemplateBinding LoadingState}" Background="{DynamicResource SukiCardBackground}">
-                                  
-                                    <suki:WaveProgress IsTextVisible="False" Value="50" Height="35" Width="35"></suki:WaveProgress>
+                                <Border Background="{DynamicResource SukiCardBackground}" IsVisible="{TemplateBinding LoadingState}">
+
+                                    <suki:WaveProgress Width="35"
+                                                       Height="35"
+                                                       IsTextVisible="False"
+                                                       Value="50" />
                                 </Border>
                             </Panel>
                         </Border>
