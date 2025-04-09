@@ -1,10 +1,7 @@
-using System;
-using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
-using Avalonia.Threading;
 using SukiUI.Enums;
 using SukiUI.Helpers;
 using SukiUI.Toasts;
@@ -47,7 +44,7 @@ namespace SukiUI.Controls
         protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
         {
             base.OnPropertyChanged(change);
-            if (change.Property == PositionProperty && change.NewValue is ToastLocation loc) 
+            if (change.Property == PositionProperty && change.NewValue is ToastLocation loc)
                 OnPositionChanged(loc);
         }
 
@@ -70,7 +67,7 @@ namespace SukiUI.Controls
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
-        
+
         private static void OnManagerPropertyChanged(AvaloniaObject sender,
             AvaloniaPropertyChangedEventArgs propChanged)
         {
@@ -96,7 +93,7 @@ namespace SukiUI.Controls
             oldManager.OnAllToastsDismissed -= ManagerOnAllToastsDismissed;
         }
 
-        private void ManagerOnToastDismissed(object sender, SukiToastManagerEventArgs args) => 
+        private void ManagerOnToastDismissed(object sender, SukiToastDismissedEventArgs args) =>
             ClearToast(args.Toast);
 
         private void ManagerOnAllToastsDismissed(object sender, EventArgs e)
@@ -105,7 +102,7 @@ namespace SukiUI.Controls
                 ClearToast((ISukiToast)toast!);
         }
 
-        private void ManagerOnToastQueued(object sender, SukiToastManagerEventArgs args)
+        private void ManagerOnToastQueued(object sender, SukiToastQueuedEventArgs args)
         {
             if (MaxToasts <= 0) return;
             var toast = args.Toast;
@@ -113,7 +110,7 @@ namespace SukiUI.Controls
             Manager.EnsureMaximum(MaxToasts);
             toast.AnimateShow();
         }
-        
+
         private void ClearToast(ISukiToast toast)
         {
             if (Manager.IsDismissed(toast)) return;
