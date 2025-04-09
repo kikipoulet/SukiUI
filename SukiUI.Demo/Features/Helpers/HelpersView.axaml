@@ -1,24 +1,32 @@
-﻿<UserControl xmlns="https://github.com/avaloniaui"
+﻿<UserControl x:Class="SukiUI.Demo.Features.Helpers.HelpersView"
+             xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:X="clr-namespace:SukiUI.Helpers.ConditionalXAML;assembly=SukiUI"
-             xmlns:helpers="clr-namespace:SukiUI.Demo.Features.Helpers"
-             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:glassMorphism="clr-namespace:SukiUI.Controls.GlassMorphism;assembly=SukiUI"
+             xmlns:helpers="clr-namespace:SukiUI.Demo.Features.Helpers"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
              x:DataType="helpers:HelpersViewModel"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="SukiUI.Demo.Features.Helpers.HelpersView">
+             mc:Ignorable="d">
     <Panel>
-       
-   <ScrollViewer>
-     
-       <StackPanel Margin="50" Spacing="20">
-           <TextBlock Classes="h1">Introduction</TextBlock>
-        
-           <Border Background="{DynamicResource SukiControlBorderBrush}" Margin="0,-50,0,20" Height="1"></Border>
-        
-           <TextBlock TextWrapping="Wrap" FontSize="15" Margin="0,0,0,0" FontWeight="DemiBold"  xml:space="preserve"  >
+
+        <ScrollViewer>
+
+            <StackPanel Margin="50" Spacing="20">
+                <TextBlock Classes="h1">Introduction</TextBlock>
+
+                <Border Height="1"
+                        Margin="0,-70,0,20"
+                        Background="{DynamicResource SukiControlBorderBrush}" />
+
+                <TextBlock Margin="0,0,0,0"
+                           xml:space="preserve"
+                           FontSize="15"
+                           FontWeight="DemiBold"
+                           TextWrapping="Wrap">
             <TextBlock.Text>
 I highly doubt that someone will read this one day, but as this library includes some helpers/shortcuts I personally use in my projects, this page explains them and is my personal opinion btw.
 
@@ -31,40 +39,58 @@ I like MVVM. But when a very polished UI is aimed, MVVM can be annoying and I fe
 All the examples shown in this page use the "MyBool" and "Counter" values in a ViewModel that you can play with in the floating panel below. The ugly one with weird colored borders. 
 </TextBlock.Text>
 </TextBlock>
-        
-           <TextBlock Margin="0,0,0,0" Classes="h1">1. Getting rid of ValueConverters</TextBlock>
-        
-           <Border Background="{DynamicResource SukiControlBorderBrush}" Margin="0,-20,0,20" Height="1"></Border>
-        
-        <TextBlock Classes="h2">Inline C# XAML</TextBlock>
-        
-        <Border Background="{DynamicResource SukiControlBorderBrush}" Margin="0,-38,0,20" Height="1"></Border>
-           
-           
-        <Grid  >
-            <suki:GlassCard Margin="0,0,10,0">
-                <StackPanel>
-                
-                    <TextBlock FontSize="13" FontWeight="DemiBold" Text="Preview"></TextBlock>
-                    <Border Margin="0,5,0,20" BorderThickness="1.5" Padding="10" BorderBrush="{DynamicResource SukiControlBorderBrush}">
-                       <StackPanel Spacing="20">
-                           
-                           <Border HorizontalAlignment="Left" Height="50" Width="50" Background="{X:InlineSharp Expression='MyBool ? Brushes.Red : Brushes.Blue'}"></Border>
-                           
-                           <ToggleSwitch IsChecked="{X:InlineSharp Expression='Counter == 0'}" /> 
-                          
-                           <TextBlock Text="This text fontsize is counter x2" 
-                                      FontWeight="{X:InlineSharp Expression='MyBool ? FontWeight.Bold : FontWeight.Thin'}" 
-                                      FontSize="{X:InlineSharp Expression='Counter * 2 > 5 ? Counter * 2 : 5'}" /> 
-        
-                           <TextBlock FontSize="16" Text="{X:InlineSharp Expression='Counter > 5 ? &quot;Counter is Bigger than 5&quot; : &quot;Counter is Smaller than 5&quot;'}"></TextBlock>
-                       </StackPanel>
-                    </Border>
-                
-               
-                
-                    <Border Background="{DynamicResource SukiPopupBackground}" CornerRadius="12" Padding="0">
-                        <TextBlock FontWeight="DemiBold" Foreground="{DynamicResource SukiLowText}" HorizontalAlignment="Left" xml:space="preserve" MaxLines="20" >
+
+                <TextBlock Margin="0,0,0,0" Classes="h1">1. Getting rid of ValueConverters</TextBlock>
+
+                <Border Height="1"
+                        Margin="0,-15,0,20"
+                        Background="{DynamicResource SukiControlBorderBrush}" />
+
+                <TextBlock Classes="h2">Inline C# XAML</TextBlock>
+
+                <Border Height="1"
+                        Margin="0,-45,0,20"
+                        Background="{DynamicResource SukiControlBorderBrush}" />
+
+
+                <Grid>
+                    <suki:GlassCard Margin="0,0,10,0">
+                        <StackPanel>
+
+                            <TextBlock FontSize="13"
+                                       FontWeight="DemiBold"
+                                       Text="Preview" />
+                            <Border Margin="0,5,0,20"
+                                    Padding="10"
+                                    BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                                    BorderThickness="1.5">
+                                <StackPanel Spacing="20">
+
+                                    <Border Width="50"
+                                            Height="50"
+                                            HorizontalAlignment="Left"
+                                            Background="{X:InlineSharp Expression='MyBool ? Brushes.Red : Brushes.Blue'}" />
+
+                                    <ToggleSwitch IsChecked="{X:InlineSharp Expression='Counter == 0'}" />
+
+                                    <TextBlock FontSize="{X:InlineSharp Expression='Counter * 2 > 5 ? Counter * 2 : 5'}"
+                                               FontWeight="{X:InlineSharp Expression='MyBool ? FontWeight.Bold : FontWeight.Thin'}"
+                                               Text="This text fontsize is counter x2" />
+
+                                    <TextBlock FontSize="16" Text="{X:InlineSharp Expression='Counter > 5 ? &quot;Counter is Bigger than 5&quot; : &quot;Counter is Smaller than 5&quot;'}" />
+                                </StackPanel>
+                            </Border>
+
+
+
+                            <Border Padding="0"
+                                    Background="{DynamicResource SukiPopupBackground}"
+                                    CornerRadius="12">
+                                <TextBlock HorizontalAlignment="Left"
+                                           xml:space="preserve"
+                                           FontWeight="DemiBold"
+                                           Foreground="{DynamicResource SukiLowText}"
+                                           MaxLines="20">
             <TextBlock.Text>
     &lt;Border Background=&quot;{X:InlineSharp Expression='MyBool ? Brushes.Red : Brushes.Blue'}&quot;   /&gt;
 
@@ -78,180 +104,354 @@ All the examples shown in this page use the "MyBool" and "Counter" values in a V
     &lt;TextBlock Text=&quot;{X:InlineSharp     Expression='Counter &gt; 5 ? &amp;quot;Counter is Bigger than 5&amp;quot; : &amp;quot;Counter is Smaller than 5&amp;quot;'}&quot;&gt;&lt;/TextBlock&gt;
 </TextBlock.Text>
         </TextBlock>
-                    </Border>
-                
-                </StackPanel>
-           
-            
-            </suki:GlassCard>
-            </Grid>
-        
-        
-         <TextBlock Classes="h2">Conditional XAML</TextBlock>
-        
-        <Border Background="{DynamicResource SukiControlBorderBrush}" Margin="0,-38,0,20" Height="1"></Border>
-           
-        <Grid ColumnDefinitions="*,*" >
-        <suki:GlassCard Margin="0,0,10,0">
-            <StackPanel>
-                
-                <TextBlock FontSize="13" FontWeight="DemiBold" Text="Preview"></TextBlock>
-                <Border Margin="0,5,0,20" BorderThickness="1.5" Padding="10" BorderBrush="{DynamicResource SukiControlBorderBrush}">
-                    <X:If Condition="Counter > -1">
-                        <TextBlock  Margin="10" Text="Counter is above -1 !"/>
-                    </X:If>
-                    
-                </Border>
-                
-               
-                
-                <Border Background="{DynamicResource SukiPopupBackground}" CornerRadius="12" Padding="0">
-                    <TextBlock FontWeight="DemiBold" Foreground="{DynamicResource SukiLowText}" HorizontalAlignment="Left" xml:space="preserve" MaxLines="20" >
+                            </Border>
+
+                        </StackPanel>
+
+
+                    </suki:GlassCard>
+                </Grid>
+
+
+                <TextBlock Classes="h2">Conditional XAML</TextBlock>
+
+                <Border Height="1"
+                        Margin="0,-45,0,20"
+                        Background="{DynamicResource SukiControlBorderBrush}" />
+
+                <Grid ColumnDefinitions="*,*">
+                    <suki:GlassCard Margin="0,0,10,0">
+                        <StackPanel>
+
+                            <TextBlock FontSize="13"
+                                       FontWeight="DemiBold"
+                                       Text="Preview" />
+                            <Border Margin="0,5,0,20"
+                                    Padding="10"
+                                    BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                                    BorderThickness="1.5">
+                                <X:If Condition="Counter &gt; -1">
+                                    <TextBlock Margin="10" Text="Counter is above -1 !" />
+                                </X:If>
+
+                            </Border>
+
+
+
+                            <Border Padding="0"
+                                    Background="{DynamicResource SukiPopupBackground}"
+                                    CornerRadius="12">
+                                <TextBlock HorizontalAlignment="Left"
+                                           xml:space="preserve"
+                                           FontWeight="DemiBold"
+                                           Foreground="{DynamicResource SukiLowText}"
+                                           MaxLines="20">
             <TextBlock.Text>
     &lt;X:If Condition=&quot;Counter &gt; -1&quot;&gt; 
         &lt;TextBlock Text=&quot;Counter is above -1 !&quot;/&gt;&#xD;
     &lt;/X:If&gt;</TextBlock.Text>
         </TextBlock>
-                </Border>
-                
-            </StackPanel>
-           
-            
-        </suki:GlassCard>
-        
-        <suki:GlassCard Margin="10,0,0,0" Grid.Column="1">
-            <StackPanel>
-                
-                <TextBlock FontSize="13" FontWeight="DemiBold" Text="Preview"></TextBlock>
-                <Border Margin="0,5,0,20" BorderThickness="1.5" Padding="10" BorderBrush="{DynamicResource SukiControlBorderBrush}">
-                    <X:If Condition="Counter > -1 || MyBool == true">
-                        <TextBlock Margin="10" Text="One of these conditions is true !"/>
-                    </X:If>
-                </Border>
-                
-               
-                
-                <Border Background="{DynamicResource SukiPopupBackground}" CornerRadius="12" Padding="0">
-                    <TextBlock FontWeight="DemiBold" Foreground="{DynamicResource SukiLowText}" HorizontalAlignment="Left" xml:space="preserve" MaxLines="20" >
+                            </Border>
+
+                        </StackPanel>
+
+
+                    </suki:GlassCard>
+
+                    <suki:GlassCard Grid.Column="1" Margin="10,0,0,0">
+                        <StackPanel>
+
+                            <TextBlock FontSize="13"
+                                       FontWeight="DemiBold"
+                                       Text="Preview" />
+                            <Border Margin="0,5,0,20"
+                                    Padding="10"
+                                    BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                                    BorderThickness="1.5">
+                                <X:If Condition="Counter &gt; -1 || MyBool == true">
+                                    <TextBlock Margin="10" Text="One of these conditions is true !" />
+                                </X:If>
+                            </Border>
+
+
+
+                            <Border Padding="0"
+                                    Background="{DynamicResource SukiPopupBackground}"
+                                    CornerRadius="12">
+                                <TextBlock HorizontalAlignment="Left"
+                                           xml:space="preserve"
+                                           FontWeight="DemiBold"
+                                           Foreground="{DynamicResource SukiLowText}"
+                                           MaxLines="20">
             <TextBlock.Text>
     &lt;X:If Condition=&quot;Counter &gt; -1 || MyBool == true&quot;&gt; 
         &lt;TextBlock Text=&quot;One of these conditions is valid !&quot;/&gt;&#xD;
     &lt;/X:If&gt;&#xD;</TextBlock.Text>
         </TextBlock>
 
-                </Border>
-                
-            </StackPanel>
-           
-            
-        </suki:GlassCard>
-            
-            </Grid>
+                            </Border>
 
-        
-       
-        
-           
-           
-           
-           
-           
-           
-           
-              <TextBlock Margin="0,20,0,0" Classes="h1">2. Easy Animations from C#</TextBlock>
-        
-           <Border Background="{DynamicResource SukiControlBorderBrush}" Margin="0,-20,0,20" Height="1"></Border>
-        
-       
-           
-        <Grid  >
-            <suki:GlassCard Margin="0,0,10,0">
-                <StackPanel>
-                
-                    <TextBlock FontSize="13" FontWeight="DemiBold" Text="Preview"></TextBlock>
-                    <Border Margin="0,5,0,20" BorderThickness="1.5" Padding="10" BorderBrush="{DynamicResource SukiControlBorderBrush}">
-                       <StackPanel Spacing="20">
-                           
-                           <Border Name="MyBorder" HorizontalAlignment="Left" Height="50" Width="50" Background="Red"></Border>
-                           
-                           <Button HorizontalAlignment="Left" Classes="Flat" Content="Click Me !" Click="MoveBorderWidth"></Button>
-                       </StackPanel>
-                    </Border>
-                
-               
-                
-                    <Border Background="{DynamicResource SukiPopupBackground}" CornerRadius="12" Padding="0">
-                        <TextBlock FontWeight="DemiBold" Foreground="{DynamicResource SukiLowText}" HorizontalAlignment="Left" xml:space="preserve" MaxLines="20" >
+                        </StackPanel>
+
+
+                    </suki:GlassCard>
+
+                </Grid>
+
+
+
+
+
+
+
+
+
+
+
+                <TextBlock Margin="0,20,0,0" Classes="h1">2. Easy Animations from C#</TextBlock>
+
+                <Border Height="1"
+                        Margin="0,-15,0,20"
+                        Background="{DynamicResource SukiControlBorderBrush}" />
+
+
+
+                <Grid>
+                    <suki:GlassCard Margin="0,0,10,0">
+                        <StackPanel>
+
+                            <TextBlock FontSize="13"
+                                       FontWeight="DemiBold"
+                                       Text="Preview" />
+                            <Border Margin="0,5,0,20"
+                                    Padding="10"
+                                    BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                                    BorderThickness="1.5">
+                                <StackPanel Spacing="20">
+
+                                    <Border Name="MyBorder"
+                                            Width="50"
+                                            Height="50"
+                                            HorizontalAlignment="Left"
+                                            Background="Red" />
+
+                                    <Button HorizontalAlignment="Left"
+                                            Classes="Flat"
+                                            Click="MoveBorderWidth"
+                                            Content="Click Me !" />
+                                </StackPanel>
+                            </Border>
+
+
+
+                            <Border Padding="0"
+                                    Background="{DynamicResource SukiPopupBackground}"
+                                    CornerRadius="12">
+                                <TextBlock HorizontalAlignment="Left"
+                                           xml:space="preserve"
+                                           FontWeight="DemiBold"
+                                           Foreground="{DynamicResource SukiLowText}"
+                                           MaxLines="20">
             <TextBlock.Text>
         MyBorder.Animate&lt;Double&gt;(WidthProperty, 50, 300);</TextBlock.Text>
         </TextBlock>
-                    </Border>
-                    
-                    <TextBlock Margin="0,15" FontWeight="DemiBold" Text="-> Alternatively, there's a fluent API available. "></TextBlock>
-                    
-                    <Border Background="{DynamicResource SukiPopupBackground}" CornerRadius="12" Padding="0">
-                        <TextBlock FontWeight="DemiBold" Foreground="{DynamicResource SukiLowText}" HorizontalAlignment="Left" xml:space="preserve" MaxLines="20" >
+                            </Border>
+
+                            <TextBlock Margin="0,15"
+                                       FontWeight="DemiBold"
+                                       Text="-&gt; Alternatively, there's a fluent API available. " />
+
+                            <Border Padding="0"
+                                    Background="{DynamicResource SukiPopupBackground}"
+                                    CornerRadius="12">
+                                <TextBlock HorizontalAlignment="Left"
+                                           xml:space="preserve"
+                                           FontWeight="DemiBold"
+                                           Foreground="{DynamicResource SukiLowText}"
+                                           MaxLines="20">
             <TextBlock.Text>
         MyBorder.Animate(WidthProperty)
                         .From(50).To(200)
                         .Start();</TextBlock.Text>
         </TextBlock>
-                    </Border>
+                            </Border>
 
-                
-                    <TextBlock Margin="0,15,0,0" FontWeight="DemiBold" Text="-> Both Methods return a CancellationToken. "></TextBlock>
-                    
-                </StackPanel>
-           
-            
-            </suki:GlassCard>
-            </Grid>
-  
 
-<Border Height="150"></Border>
-    </StackPanel>
-   </ScrollViewer>
-        <Border Padding="-1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="25" BorderThickness="1.5" CornerRadius="15">
+                            <TextBlock Margin="0,15,0,0"
+                                       FontWeight="DemiBold"
+                                       Text="-&gt; Both Methods return a CancellationToken. " />
+
+                        </StackPanel>
+
+
+                    </suki:GlassCard>
+                </Grid>
+
+                <TextBlock Margin="0,70,0,0" Classes="h1">3. Custom Easings</TextBlock>
+                <Border Height="1"
+                        Margin="0,-15,0,20"
+                        Background="{DynamicResource SukiControlBorderBrush}" />
+                <TextBlock Margin="0,30,0,0" Classes="h3">SukiEaseInBackOutBack</TextBlock>
+
+                <TextBlock Margin="0,15,0,-5" Classes="h5">Soft</TextBlock>
+                <suki:GlassCard Padding="5" HorizontalAlignment="Left">
+                    <helpers:EasingDemoBoxControl HorizontalAlignment="Left">
+                        <helpers:EasingDemoBoxControl.Ease>
+                            <suki:SukiEaseInBackOutBack BounceIntensity="Soft" />
+                        </helpers:EasingDemoBoxControl.Ease>
+                    </helpers:EasingDemoBoxControl>
+                </suki:GlassCard>
+
+                <TextBlock Margin="0,15,0,-5" Classes="h5">Normal</TextBlock>
+                <suki:GlassCard Padding="5" HorizontalAlignment="Left">
+                    <helpers:EasingDemoBoxControl HorizontalAlignment="Left">
+                        <helpers:EasingDemoBoxControl.Ease>
+                            <suki:SukiEaseInBackOutBack BounceIntensity="Normal" />
+                        </helpers:EasingDemoBoxControl.Ease>
+                    </helpers:EasingDemoBoxControl>
+                </suki:GlassCard>
+
+                <TextBlock Margin="0,15,0,-5" Classes="h5">Strong</TextBlock>
+                <suki:GlassCard Padding="5" HorizontalAlignment="Left">
+                    <helpers:EasingDemoBoxControl HorizontalAlignment="Left">
+                        <helpers:EasingDemoBoxControl.Ease>
+                            <suki:SukiEaseInBackOutBack BounceIntensity="Strong" />
+                        </helpers:EasingDemoBoxControl.Ease>
+                    </helpers:EasingDemoBoxControl>
+                </suki:GlassCard>
+
+                <TextBlock Margin="0,30,0,0" Classes="h3">SukiEaseInOutBack</TextBlock>
+
+                <TextBlock Margin="0,15,0,-5" Classes="h5">Soft</TextBlock>
+                <suki:GlassCard Padding="5" HorizontalAlignment="Left">
+                    <helpers:EasingDemoBoxControl HorizontalAlignment="Left">
+                        <helpers:EasingDemoBoxControl.Ease>
+                            <suki:SukiEaseInOutBack BounceIntensity="Soft" />
+                        </helpers:EasingDemoBoxControl.Ease>
+                    </helpers:EasingDemoBoxControl>
+                </suki:GlassCard>
+
+                <TextBlock Margin="0,15,0,-5" Classes="h5">Normal</TextBlock>
+                <suki:GlassCard Padding="5" HorizontalAlignment="Left">
+                    <helpers:EasingDemoBoxControl HorizontalAlignment="Left">
+                        <helpers:EasingDemoBoxControl.Ease>
+                            <suki:SukiEaseInOutBack BounceIntensity="Normal" />
+                        </helpers:EasingDemoBoxControl.Ease>
+                    </helpers:EasingDemoBoxControl>
+                </suki:GlassCard>
+
+                <TextBlock Margin="0,15,0,-5" Classes="h5">Strong</TextBlock>
+                <suki:GlassCard Padding="5" HorizontalAlignment="Left">
+                    <helpers:EasingDemoBoxControl HorizontalAlignment="Left">
+                        <helpers:EasingDemoBoxControl.Ease>
+                            <suki:SukiEaseInOutBack BounceIntensity="Strong" />
+                        </helpers:EasingDemoBoxControl.Ease>
+                    </helpers:EasingDemoBoxControl>
+                </suki:GlassCard>
+
+                <TextBlock Margin="0,30,0,0" Classes="h3">SukiEaseOutBack</TextBlock>
+
+                <TextBlock Margin="0,15,0,-5" Classes="h5">Soft</TextBlock>
+                <suki:GlassCard Padding="5" HorizontalAlignment="Left">
+                    <helpers:EasingDemoBoxControl HorizontalAlignment="Left">
+                        <helpers:EasingDemoBoxControl.Ease>
+                            <suki:SukiEaseOutBack BounceIntensity="Soft" />
+                        </helpers:EasingDemoBoxControl.Ease>
+                    </helpers:EasingDemoBoxControl>
+                </suki:GlassCard>
+
+                <TextBlock Margin="0,15,0,-5" Classes="h5">Normal</TextBlock>
+                <suki:GlassCard Padding="5" HorizontalAlignment="Left">
+                    <helpers:EasingDemoBoxControl HorizontalAlignment="Left">
+                        <helpers:EasingDemoBoxControl.Ease>
+                            <suki:SukiEaseOutBack BounceIntensity="Normal" />
+                        </helpers:EasingDemoBoxControl.Ease>
+                    </helpers:EasingDemoBoxControl>
+                </suki:GlassCard>
+
+                <TextBlock Margin="0,15,0,-5" Classes="h5">Strong</TextBlock>
+                <suki:GlassCard Padding="5" HorizontalAlignment="Left">
+                    <helpers:EasingDemoBoxControl HorizontalAlignment="Left">
+                        <helpers:EasingDemoBoxControl.Ease>
+                            <suki:SukiEaseOutBack BounceIntensity="Strong" />
+                        </helpers:EasingDemoBoxControl.Ease>
+                    </helpers:EasingDemoBoxControl>
+                </suki:GlassCard>
+
+                <TextBlock Margin="0,30,0,0" Classes="h3">SukiEaseInOut</TextBlock>
+
+                <suki:GlassCard Padding="5" HorizontalAlignment="Left">
+                    <helpers:EasingDemoBoxControl HorizontalAlignment="Left">
+                        <helpers:EasingDemoBoxControl.Ease>
+                            <suki:SukiEaseInOut />
+                        </helpers:EasingDemoBoxControl.Ease>
+                    </helpers:EasingDemoBoxControl>
+                </suki:GlassCard>
+
+
+
+                <Border Height="150" />
+            </StackPanel>
+        </ScrollViewer>
+        <Border Margin="25"
+                Padding="-1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                BorderThickness="1.5"
+                CornerRadius="15">
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="20%,-20%" EndPoint="100%,100%">
                     <GradientStop Offset="0" Color="{DynamicResource SukiAccentColor75}" />
                     <GradientStop Offset="1" Color="{DynamicResource SukiPrimaryColor}" />
                 </LinearGradientBrush>
             </Border.BorderBrush>
-            <suki:GlassCard CornerRadius="15" ClipToBounds="True" Padding="50,10"   >
-           
-            <Panel>
-                <Panel Background="Black" Opacity="0.2" IsVisible="{DynamicResource IsDark}" Margin="-50" />
-                <Panel Background="White" Opacity="0.5" IsVisible="{DynamicResource IsLight}" Margin="-50" />
-                    
-                <glassMorphism:BlurBackground Margin="-100"  />
-                
-                <StackPanel  Margin="25,0">
-                  
-                <StackPanel Margin="0,8,0,0" Orientation="Horizontal">
-                    <TextBlock Margin="0,0,0,0"
-                               VerticalAlignment="Center"
-                               FontWeight="DemiBold"
-                               Text="Toggle MyBool : " />
-                    <ToggleSwitch Margin="15,0,0,0"
-                                  Classes="Switch"
-                                  IsChecked="{Binding MyBool}" />
+            <suki:GlassCard Padding="50,10"
+                            ClipToBounds="True"
+                            CornerRadius="15">
 
-                </StackPanel>
-                <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
-                    <TextBlock Margin="0,0,10,0"
-                               VerticalAlignment="Center"
-                               FontWeight="DemiBold"
-                               Text="Counter : " />
-                        
-                    <Button Command="{Binding DecreaseCounter}" Classes="Basic">-</Button>
-                    <TextBlock VerticalAlignment="Center" Margin="2,0" FontWeight="DemiBold" FontSize="16" Text="{Binding Counter}"></TextBlock>
-                    <Button Command="{Binding IncreaseCounter}" Classes="Basic">+</Button>
+                <Panel>
+                    <Panel Margin="-50"
+                           Background="Black"
+                           IsVisible="{DynamicResource IsDark}"
+                           Opacity="0.2" />
+                    <Panel Margin="-50"
+                           Background="White"
+                           IsVisible="{DynamicResource IsLight}"
+                           Opacity="0.5" />
 
-                </StackPanel>
-            </StackPanel>
-            </Panel>
-        </suki:GlassCard>
+                    <glassMorphism:BlurBackground Margin="-100" />
+
+                    <StackPanel Margin="25,0">
+
+                        <StackPanel Margin="0,8,0,0" Orientation="Horizontal">
+                            <TextBlock Margin="0,0,0,0"
+                                       VerticalAlignment="Center"
+                                       FontWeight="DemiBold"
+                                       Text="Toggle MyBool : " />
+                            <ToggleSwitch Margin="15,0,0,0"
+                                          Classes="Switch"
+                                          IsChecked="{Binding MyBool}" />
+
+                        </StackPanel>
+                        <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
+                            <TextBlock Margin="0,0,10,0"
+                                       VerticalAlignment="Center"
+                                       FontWeight="DemiBold"
+                                       Text="Counter : " />
+
+                            <Button Classes="Basic" Command="{Binding DecreaseCounter}">-</Button>
+                            <TextBlock Margin="2,0"
+                                       VerticalAlignment="Center"
+                                       FontSize="16"
+                                       FontWeight="DemiBold"
+                                       Text="{Binding Counter}" />
+                            <Button Classes="Basic" Command="{Binding IncreaseCounter}">+</Button>
+
+                        </StackPanel>
+
+                    </StackPanel>
+                </Panel>
+            </suki:GlassCard>
         </Border>
     </Panel>
 </UserControl>

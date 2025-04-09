@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="SukiUI.Demo.Features.Helpers.EasingDemoBoxControl"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+    <DockPanel>
+        <Button Margin="25"
+                Classes="Flat"
+                Click="LaunchBox"
+                Content="Launch"
+                DockPanel.Dock="Right" />
+
+        <Panel Width="300" Margin="10,0,0,0">
+            <Border Name="Box"
+                    Width="60"
+                    Height="60"
+                    HorizontalAlignment="Left"
+                    Background="{DynamicResource SukiPrimaryColor}"
+                    CornerRadius="10" />
+        </Panel>
+    </DockPanel>
+</UserControl>
