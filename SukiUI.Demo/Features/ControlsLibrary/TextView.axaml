@@ -94,6 +94,10 @@
                             <TextBlock />
                         </showMeTheXaml:XamlDisplay>
 
+                        <showMeTheXaml:XamlDisplay UniqueId="TextBlock13">
+                            <TextBlock IsEnabled="False" />
+                        </showMeTheXaml:XamlDisplay>
+
                         <TextBox suki:TextBoxExtensions.AddDeleteButton="True"
                                  Text="{Binding TextBlockValue}"
                                  UseFloatingWatermark="True"
@@ -166,6 +170,10 @@
 
                         <showMeTheXaml:XamlDisplay UniqueId="SelectableTextBlock12">
                             <SelectableTextBlock />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="SelectableTextBlock13">
+                            <SelectableTextBlock IsEnabled="False" />
                         </showMeTheXaml:XamlDisplay>
 
                         <TextBox suki:TextBoxExtensions.AddDeleteButton="True"

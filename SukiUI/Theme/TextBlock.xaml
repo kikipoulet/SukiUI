@@ -119,6 +119,5 @@
         <Style Selector="^[CanCopy=True]">
             <Setter Property="ContextFlyout" Value="{StaticResource SelectableTextBlockContextFlyout}" />
         </Style>
-
     </ControlTheme>
 </ResourceDictionary>
