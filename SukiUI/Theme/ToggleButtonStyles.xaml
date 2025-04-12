@@ -10,9 +10,9 @@
             <ToggleButton Classes="Basic" Content="Basic" />
             <ToggleButton Classes="CircleGlass" Content="CircleGlass" />
             <ToggleButton Content="Disabled" IsEnabled="False" />
-            <ToggleButton Content="Test" />
-            <ToggleButton suki:ButtonExtensions.Icon="&#129416;&#128161;" Content="Test with icon" />
-            <ToggleButton Classes="Accent" Content="Test" />
+            <ToggleButton Content="Standard" />
+            <ToggleButton suki:ButtonExtensions.Icon="&#129416;&#128161;" Content="Standard with icon" />
+            <ToggleButton Classes="Accent" Content="Accent" />
             <ToggleButton Classes="Success" Content="Success" />
             <ToggleButton Classes="Information" Content="Information" />
             <ToggleButton Classes="Warning" Content="Warning" />
