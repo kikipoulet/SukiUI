@@ -1,12 +1,13 @@
 <UserControl x:Class="SukiUI.Demo.Features.ControlsLibrary.ButtonsView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:content="using:SukiUI.Content"
              xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:showMeTheXaml="clr-namespace:ShowMeTheXaml;assembly=ShowMeTheXaml.Avalonia"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
              d:DesignHeight="450"
              d:DesignWidth="800"
              x:DataType="controlsLibrary:ButtonsViewModel"
@@ -21,8 +22,7 @@
         <Style Selector="Button.Icon">
             <Setter Property="Content">
                 <Template>
-                    <PathIcon Data="{x:Static content:Icons.Star}"
-                              Foreground="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType=Button}}"/>
+                    <PathIcon Data="{x:Static content:Icons.Star}" Foreground="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType=Button}}" />
                 </Template>
             </Setter>
         </Style>
@@ -70,6 +70,13 @@
                     <suki:GroupBox Header="Flat Button">
                         <showMeTheXaml:XamlDisplay UniqueId="Button3">
                             <Button Classes="Flat" />
+                        </showMeTheXaml:XamlDisplay>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Flat Button with icon">
+                        <showMeTheXaml:XamlDisplay UniqueId="Button3WithIcon">
+                            <Button suki:ButtonExtensions.Icon="{avalonia:MaterialIconExt Kind=Add}" Classes="Flat" />
                         </showMeTheXaml:XamlDisplay>
                     </suki:GroupBox>
                 </suki:GlassCard>
@@ -123,6 +130,41 @@
                     </suki:GroupBox>
                 </suki:GlassCard>
                 <suki:GlassCard>
+                    <suki:GroupBox Header="Success Button">
+                        <showMeTheXaml:XamlDisplay UniqueId="ButtonSuccess">
+                            <Button Classes="Success" />
+                        </showMeTheXaml:XamlDisplay>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Success Rounded Button">
+                        <showMeTheXaml:XamlDisplay UniqueId="ButtonSuccessRounded">
+                            <Button Classes="Success Rounded" />
+                        </showMeTheXaml:XamlDisplay>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Information Button">
+                        <showMeTheXaml:XamlDisplay UniqueId="ButtonInformation">
+                            <Button Classes="Information" />
+                        </showMeTheXaml:XamlDisplay>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Warning Button">
+                        <showMeTheXaml:XamlDisplay UniqueId="ButtonWarning">
+                            <Button Classes="Warning" />
+                        </showMeTheXaml:XamlDisplay>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Danger Button">
+                        <showMeTheXaml:XamlDisplay UniqueId="ButtonDanger">
+                            <Button Classes="Danger" />
+                        </showMeTheXaml:XamlDisplay>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
                     <suki:GroupBox Header="Busy Button">
                         <showMeTheXaml:XamlDisplay UniqueId="Button11">
                             <Button suki:ButtonExtensions.ShowProgress="True" />
@@ -140,7 +182,7 @@
                 <suki:GlassCard>
                     <suki:GroupBox Header="Standard Icon Button">
                         <showMeTheXaml:XamlDisplay UniqueId="Button13">
-                            <Button Classes="Icon"/>
+                            <Button Classes="Icon" />
                         </showMeTheXaml:XamlDisplay>
                     </suki:GroupBox>
                 </suki:GlassCard>

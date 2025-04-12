@@ -7,7 +7,16 @@
                     Background="{DynamicResource SukiBackground}"
                     Spacing="24">
             <ToggleButton Classes="Switch" IsChecked="False" />
+            <ToggleButton Classes="Basic" Content="Basic" />
+            <ToggleButton Classes="CircleGlass" Content="CircleGlass" />
+            <ToggleButton Content="Disabled" IsEnabled="False" />
             <ToggleButton Content="Test" />
+            <ToggleButton suki:ButtonExtensions.Icon="&#129416;&#128161;" Content="Test with icon" />
+            <ToggleButton Classes="Accent" Content="Test" />
+            <ToggleButton Classes="Success" Content="Success" />
+            <ToggleButton Classes="Information" Content="Information" />
+            <ToggleButton Classes="Warning" Content="Warning" />
+            <ToggleButton Classes="Danger" Content="Danger" />
         </StackPanel>
     </Design.PreviewWith>
 
@@ -29,21 +38,77 @@
         </Setter>
         <Setter Property="Template">
             <ControlTemplate>
-                <ContentPresenter Padding="{TemplateBinding Padding}"
-                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                  Background="{TemplateBinding Background}"
-                                  BorderBrush="{TemplateBinding BorderBrush}"
-                                  BorderThickness="{TemplateBinding BorderThickness}"
-                                  Content="{TemplateBinding Content}"
-                                  ContentTemplate="{TemplateBinding ContentTemplate}"
-                                  CornerRadius="{TemplateBinding CornerRadius}"
-                                  FontSize="{TemplateBinding FontSize}"
-                                  Foreground="{TemplateBinding Foreground}"
-                                  RecognizesAccessKey="True"
-                                  TextElement.Foreground="{TemplateBinding Foreground}" />
+                <Border Name="RootBorder"
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        TextElement.Foreground="{TemplateBinding Foreground}"
+                        Transitions="{TemplateBinding Transitions}">
+                    <Border.Resources>
+                        <suki:BoolToWidthProgressConverter x:Key="WidthConverter" />
+                    </Border.Resources>
+                    <StackPanel HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                Orientation="Horizontal"
+                                Spacing="10">
+                        <Viewbox Name="PART_ExtShowProgressViewBox"
+                                 Width="{TemplateBinding suki:ButtonExtensions.ShowProgress,
+                                                         Converter={StaticResource WidthConverter}}"
+                                 Height="24"
+                                 Margin="0,-5,-10,-5">
+                            <Viewbox.Styles>
+                                <Style Selector="Viewbox#PART_ExtShowProgressViewBox[Width=0]">
+                                    <Setter Property="IsVisible" Value="False" />
+                                </Style>
+                            </Viewbox.Styles>
+                            <Viewbox.Transitions>
+                                <Transitions>
+                                    <DoubleTransition Property="Width" Duration="0:0:0.3" />
+                                </Transitions>
+                            </Viewbox.Transitions>
+
+                            <ContentPresenter Name="PART_ExtShowProgress" Content="{TemplateBinding suki:ButtonExtensions.ShowProgress, Converter={x:Static suki:ProgressToContentConverter.Instance}}" />
+                        </Viewbox>
+
+                        <Viewbox Name="PART_ExtIconViewBox"
+                                 Height="{TemplateBinding FontSize}"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"
+                                 IsVisible="{TemplateBinding suki:ButtonExtensions.Icon,
+                                                             Converter={x:Static ObjectConverters.IsNotNull}}">
+                            <ContentControl Name="PART_ExtIcon"
+                                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            Content="{TemplateBinding suki:ButtonExtensions.Icon}"
+                                            FontFamily="{TemplateBinding FontFamily}"
+                                            FontSize="{TemplateBinding FontSize}"
+                                            FontWeight="{DynamicResource DefaultDemiBold}"
+                                            Foreground="{TemplateBinding Foreground}" />
+
+                        </Viewbox>
+
+                        <ContentPresenter HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          FontFamily="{TemplateBinding FontFamily}"
+                                          FontSize="{TemplateBinding FontSize}"
+                                          FontWeight="{DynamicResource DefaultDemiBold}"
+                                          Foreground="{TemplateBinding Foreground}"
+                                          IsVisible="{TemplateBinding Content,
+                                                                      Converter={x:Static ObjectConverters.IsNotNull}}"
+                                          RecognizesAccessKey="True" />
+                    </StackPanel>
+                </Border>
             </ControlTemplate>
         </Setter>
+        <Style Selector="^ /template/ Path">
+            <Setter Property="Fill" Value="{TemplateBinding Foreground}" />
+        </Style>
+        <Style Selector="^ /template/ PathIcon">
+            <Setter Property="Foreground" Value="{TemplateBinding Foreground}" />
+        </Style>
     </Style>
 
     <Style Selector="ToggleButton:pressed">
@@ -72,16 +137,23 @@
         <Setter Property="Foreground" Value="White" />
     </Style>
 
-    <Style Selector="ToggleButton:pointerover AccessText">
-        <Setter Property="Foreground" Value="White" />
-    </Style>
-
     <Style Selector="ToggleButton:pointerover">
-        <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor75}" />
-        <Setter Property="Foreground" Value="White" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor75}" />
 
         <Style Selector="^.Accent">
-            <Setter Property="Background" Value="{DynamicResource SukiAccentColor75}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource SukiAccentColor75}" />
+        </Style>
+        <Style Selector="^.Success">
+            <Setter Property="BorderBrush" Value="{DynamicResource SukiSuccessColor}" />
+        </Style>
+        <Style Selector="^.Information">
+            <Setter Property="BorderBrush" Value="{DynamicResource SukiInformationColor}" />
+        </Style>
+        <Style Selector="^.Warning">
+            <Setter Property="BorderBrush" Value="{DynamicResource SukiWarningColor}" />
+        </Style>
+        <Style Selector="^.Danger">
+            <Setter Property="BorderBrush" Value="{DynamicResource SukiDangerColor}" />
         </Style>
     </Style>
 
@@ -94,6 +166,26 @@
             <Setter Property="Background" Value="{DynamicResource SukiAccentColor}" />
             <Setter Property="BorderBrush" Value="{DynamicResource SukiAccentColor}" />
         </Style>
+        <Style Selector="^.Success">
+            <Setter Property="Background" Value="{DynamicResource SukiSuccessMediumColor}" />
+            <Setter Property="Foreground" Value="{DynamicResource SukiSuccessForeground}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource SukiSuccessDarkColor}" />
+        </Style>
+        <Style Selector="^.Information">
+            <Setter Property="Background" Value="{DynamicResource SukiInformationMediumColor}" />
+            <Setter Property="Foreground" Value="{DynamicResource SukiInformationForeground}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource SukiInformationDarkColor}" />
+        </Style>
+        <Style Selector="^.Warning">
+            <Setter Property="Background" Value="{DynamicResource SukiWarningMediumColor}" />
+            <Setter Property="Foreground" Value="{DynamicResource SukiWarningForeground}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource SukiWarningDarkColor}" />
+        </Style>
+        <Style Selector="^.Danger">
+            <Setter Property="Background" Value="{DynamicResource SukiDangerMediumColor}" />
+            <Setter Property="Foreground" Value="{DynamicResource SukiDangerForeground}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource SukiDangerDarkColor}" />
+        </Style>
     </Style>
 
 
@@ -101,6 +193,18 @@
         <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor75}" />
         <Style Selector="^.Accent">
             <Setter Property="Background" Value="{DynamicResource SukiAccentColor75}" />
+        </Style>
+        <Style Selector="^.Success">
+            <Setter Property="Background" Value="{DynamicResource SukiSuccessColor}" />
+        </Style>
+        <Style Selector="^.Information">
+            <Setter Property="Background" Value="{DynamicResource SukiInformationColor}" />
+        </Style>
+        <Style Selector="^.Warning">
+            <Setter Property="Background" Value="{DynamicResource SukiWarningColor}" />
+        </Style>
+        <Style Selector="^.Danger">
+            <Setter Property="Background" Value="{DynamicResource SukiDangerColor}" />
         </Style>
     </Style>
 
