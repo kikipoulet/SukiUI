@@ -26,6 +26,18 @@
                 </Template>
             </Setter>
         </Style>
+        <Style Selector="DropDownButton">
+            <Setter Property="Content" Value="Button" />
+            <Setter Property="suki:ButtonExtensions.ShowProgress" Value="{Binding IsBusy}" />
+            <Setter Property="IsEnabled" Value="{Binding IsEnabled}" />
+            <Setter Property="Flyout">
+                <MenuFlyout>
+                    <MenuItem Header="Item 1" />
+                    <MenuItem Header="Item 2" />
+                    <MenuItem Header="Item 3" />
+                </MenuFlyout>
+            </Setter>
+        </Style>
     </UserControl.Styles>
     <Grid RowDefinitions="Auto,*">
         <suki:GlassCard Classes="HeaderCard">
@@ -67,6 +79,13 @@
                     </suki:GroupBox>
                 </suki:GlassCard>
                 <suki:GlassCard>
+                    <suki:GroupBox Header="Discrete Button">
+                        <showMeTheXaml:XamlDisplay UniqueId="ButtonDiscrete">
+                            <Button Classes="Discrete" />
+                        </showMeTheXaml:XamlDisplay>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
                     <suki:GroupBox Header="Flat Button">
                         <showMeTheXaml:XamlDisplay UniqueId="Button3">
                             <Button Classes="Flat" />
@@ -76,7 +95,7 @@
                 <suki:GlassCard>
                     <suki:GroupBox Header="Flat Button with icon">
                         <showMeTheXaml:XamlDisplay UniqueId="Button3WithIcon">
-                            <Button suki:ButtonExtensions.Icon="{avalonia:MaterialIconExt Kind=Add}" Classes="Flat" />
+                            <Button suki:ButtonExtensions.Icon="{avalonia:MaterialIconExt Kind=Calendar}" Classes="Flat" />
                         </showMeTheXaml:XamlDisplay>
                     </suki:GroupBox>
                 </suki:GlassCard>
@@ -225,6 +244,62 @@
                     <suki:GroupBox Header="Outlined Accent Icon Button">
                         <showMeTheXaml:XamlDisplay UniqueId="Button19">
                             <Button Classes="Outlined Accent Icon" />
+                        </showMeTheXaml:XamlDisplay>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="DropDownButton">
+                        <showMeTheXaml:XamlDisplay UniqueId="DropDownButton1">
+                            <DropDownButton />
+                        </showMeTheXaml:XamlDisplay>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Flat DropDownButton">
+                        <showMeTheXaml:XamlDisplay UniqueId="DropDownButtonFlat">
+                            <DropDownButton Classes="Flat" />
+                        </showMeTheXaml:XamlDisplay>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Flat DropDownButton">
+                        <showMeTheXaml:XamlDisplay UniqueId="DropDownButtonFlatAccent">
+                            <DropDownButton Classes="Flat Accent" />
+                        </showMeTheXaml:XamlDisplay>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Success DropDownButton">
+                        <showMeTheXaml:XamlDisplay UniqueId="DropDownButtonSuccess">
+                            <DropDownButton Classes="Success" />
+                        </showMeTheXaml:XamlDisplay>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Information DropDownButton">
+                        <showMeTheXaml:XamlDisplay UniqueId="DropDownButtonInformation">
+                            <DropDownButton Classes="Information" />
+                        </showMeTheXaml:XamlDisplay>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Warning DropDownButton">
+                        <showMeTheXaml:XamlDisplay UniqueId="DropDownButtonWarning">
+                            <DropDownButton Classes="Warning" />
+                        </showMeTheXaml:XamlDisplay>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Danger DropDownButton">
+                        <showMeTheXaml:XamlDisplay UniqueId="DropDownButtonDanger">
+                            <DropDownButton Classes="Danger" />
+                        </showMeTheXaml:XamlDisplay>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Flat Icon DropDownButton">
+                        <showMeTheXaml:XamlDisplay UniqueId="DropDownButtonFlatIcon">
+                            <DropDownButton suki:ButtonExtensions.Icon="{avalonia:MaterialIconExt Cog}" Classes="Flat" />
                         </showMeTheXaml:XamlDisplay>
                     </suki:GroupBox>
                 </suki:GlassCard>

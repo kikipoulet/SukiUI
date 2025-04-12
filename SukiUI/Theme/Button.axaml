@@ -1,6 +1,5 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="clr-namespace:SukiUI.Controls"
                     xmlns:suki="https://github.com/kikipoulet/SukiUI"
                     xmlns:theme="clr-namespace:SukiUI.Theme">
     <Design.PreviewWith>
@@ -22,9 +21,19 @@
                             Classes="Accent"
                             Content="Accent" />
                     <Button Margin="5"
-                            theme:ButtonExtensions.Icon="&#9729;"
+                            Classes="Discrete"
+                            Content="Discrete">
+                        <theme:ButtonExtensions.Icon>
+                            <PathIcon Data="{x:Static suki:Icons.Star}" />
+                        </theme:ButtonExtensions.Icon>
+                    </Button>
+                    <Button Margin="5"
                             Classes="Flat"
-                            Content="Flat" />
+                            Content="Flat">
+                        <theme:ButtonExtensions.Icon>
+                            <PathIcon Data="{x:Static suki:Icons.Calendar}" />
+                        </theme:ButtonExtensions.Icon>
+                    </Button>
                     <Button Margin="5" Classes="Outlined Icon">
                         <theme:ButtonExtensions.Icon>
                             <PathIcon Data="{x:Static suki:Icons.Calendar}" />
@@ -72,6 +81,10 @@
                                FontWeight="Bold"
                                Text="RepeatButton: " />
                     <RepeatButton Margin="5" Content="Standard" />
+                    <RepeatButton Margin="5"
+                                  theme:ButtonExtensions.Icon="&#9729;"
+                                  Classes="Discrete"
+                                  Content="Discrete" />
                     <RepeatButton Margin="5"
                                   theme:ButtonExtensions.Icon="&#9729;"
                                   Classes="Flat"
@@ -240,6 +253,11 @@
                     <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
                 </Style>
             </Style>
+        </Style>
+
+        <Style Selector="^.Discrete">
+            <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
+            <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
         </Style>
 
         <!--  Classes  -->
