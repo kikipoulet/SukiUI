@@ -35,8 +35,11 @@
                         </theme:ButtonExtensions.Icon>
                     </Button>
                     <Button Margin="5" Classes="Outlined Icon">
+                        <PathIcon Data="{x:Static suki:Icons.Star}" />
+                    </Button>
+                    <Button Margin="5" Classes="Outlined Icon">
                         <theme:ButtonExtensions.Icon>
-                            <PathIcon Data="{x:Static suki:Icons.Calendar}" />
+                            <PathIcon Data="{x:Static suki:Icons.Star}" />
                         </theme:ButtonExtensions.Icon>
                     </Button>
                     <Button Margin="5"
@@ -171,15 +174,15 @@
                                  VerticalAlignment="Center"
                                  IsVisible="{TemplateBinding theme:ButtonExtensions.Icon,
                                                              Converter={x:Static ObjectConverters.IsNotNull}}">
-                            <ContentControl Name="PART_ExtIcon"
-                                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                            Content="{TemplateBinding theme:ButtonExtensions.Icon}"
-                                            FontFamily="{TemplateBinding FontFamily}"
-                                            FontSize="{TemplateBinding FontSize}"
-                                            FontWeight="{DynamicResource DefaultDemiBold}"
-                                            Foreground="{TemplateBinding Foreground}" />
 
+                            <ContentPresenter Name="PART_ExtIcon"
+                                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              Content="{TemplateBinding theme:ButtonExtensions.Icon}"
+                                              FontFamily="{TemplateBinding FontFamily}"
+                                              FontSize="{TemplateBinding FontSize}"
+                                              FontWeight="{DynamicResource DefaultDemiBold}"
+                                              Foreground="{TemplateBinding Foreground}" />
                         </Viewbox>
 
                         <ContentPresenter Name="PART_ContentPresenter"
@@ -198,13 +201,6 @@
                 </Border>
             </ControlTemplate>
         </Setter>
-
-        <Style Selector="^ /template/ Path">
-            <Setter Property="Fill" Value="{TemplateBinding Foreground}" />
-        </Style>
-        <Style Selector="^ /template/ PathIcon">
-            <Setter Property="Foreground" Value="{TemplateBinding Foreground}" />
-        </Style>
 
         <!--  Nested Selectors For Basic Button  -->
         <Style Selector="^:disabled">
@@ -466,30 +462,21 @@
             </Style>
         </Style>
 
-        <Style Selector="^.Card">
-            <Setter Property="Padding" Value="20" />
-            <Setter Property="CornerRadius" Value="{DynamicResource MediumCornerRadius}" />
-            <Setter Property="BorderThickness" Value="1.5" />
-            <Setter Property="BorderBrush" Value="{DynamicResource SukiLightBorderBrush}" />
-            <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
-            <Setter Property="Margin" Value="7" />
-            <Setter Property="Template">
-                <ControlTemplate>
-                    <ContentPresenter Name="PART_ContentPresenter"
-                                      Margin="7"
-                                      Padding="{TemplateBinding Padding}"
-                                      HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                      VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                      Background="{TemplateBinding Background}"
-                                      BorderBrush="{TemplateBinding BorderBrush}"
-                                      BorderThickness="{TemplateBinding BorderThickness}"
-                                      Content="{TemplateBinding Content}"
-                                      ContentTemplate="{TemplateBinding ContentTemplate}"
-                                      CornerRadius="{TemplateBinding CornerRadius}"
-                                      RecognizesAccessKey="True"
-                                      TextElement.Foreground="{TemplateBinding Foreground}" />
-                </ControlTemplate>
-            </Setter>
+        <Style Selector="^.Rounded">
+            <Setter Property="CornerRadius" Value="100" />
+        </Style>
+        <Style Selector="^.Large">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="Padding" Value="30,12" />
+            <Setter Property="CornerRadius" Value="9" />
+        </Style>
+
+        <Style Selector="^.Icon">
+            <Setter Property="CornerRadius" Value="100" />
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Padding" Value="0" />
         </Style>
 
         <Style Selector="^.WindowControlsButton">
@@ -497,6 +484,7 @@
             <Setter Property="CornerRadius" Value="20" />
             <Setter Property="Height" Value="25" />
             <Setter Property="Width" Value="25" />
+            <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
             <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor0}" />
             <Setter Property="Padding" Value="0" />
             <Setter Property="Transitions">
@@ -516,19 +504,33 @@
                 </Style>
             </Style>
         </Style>
-        <Style Selector="^.Rounded">
-            <Setter Property="CornerRadius" Value="100" />
-        </Style>
-        <Style Selector="^.Large">
-            <Setter Property="FontSize" Value="18" />
-            <Setter Property="Padding" Value="30,12" />
-            <Setter Property="CornerRadius" Value="9" />
-        </Style>
-        <Style Selector="^.Icon">
-            <Setter Property="CornerRadius" Value="100" />
-            <Setter Property="Width" Value="40" />
-            <Setter Property="Height" Value="40" />
-            <Setter Property="Padding" Value="0" />
+
+        <Style Selector="^.Card">
+            <Setter Property="Padding" Value="20" />
+            <Setter Property="CornerRadius" Value="{DynamicResource MediumCornerRadius}" />
+            <Setter Property="BorderThickness" Value="1.5" />
+            <Setter Property="BorderBrush" Value="{DynamicResource SukiLightBorderBrush}" />
+            <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
+            <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+            <Setter Property="Margin" Value="7" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <ContentPresenter Name="PART_ContentPresenter"
+                                      Margin="7"
+                                      Padding="{TemplateBinding Padding}"
+                                      HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      Background="{TemplateBinding Background}"
+                                      BorderBrush="{TemplateBinding BorderBrush}"
+                                      BorderThickness="{TemplateBinding BorderThickness}"
+                                      Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      CornerRadius="{TemplateBinding CornerRadius}"
+                                      Foreground="{TemplateBinding Foreground}"
+                                      RecognizesAccessKey="True"
+                                      TextElement.Foreground="{TemplateBinding Foreground}" />
+                </ControlTemplate>
+            </Setter>
         </Style>
     </ControlTheme>
     <ControlTheme x:Key="{x:Type Button}"
