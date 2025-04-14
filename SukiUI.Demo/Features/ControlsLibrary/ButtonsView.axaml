@@ -15,6 +15,8 @@
     <UserControl.Styles>
         <Style Selector="Button">
             <Setter Property="Content" Value="Button" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="suki:ButtonExtensions.ShowProgress" Value="{Binding IsBusy}" />
             <Setter Property="Command" Value="{Binding ButtonClickedCommand}" />
             <Setter Property="IsEnabled" Value="{Binding IsEnabled}" />
@@ -187,6 +189,22 @@
                     <suki:GroupBox Header="Busy Button">
                         <showMeTheXaml:XamlDisplay UniqueId="Button11">
                             <Button suki:ButtonExtensions.ShowProgress="True" />
+                        </showMeTheXaml:XamlDisplay>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Small Button">
+                        <showMeTheXaml:XamlDisplay UniqueId="ButtonSmall">
+                            <Button Classes="Flat Small" />
+                        </showMeTheXaml:XamlDisplay>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Small Action Button">
+                        <showMeTheXaml:XamlDisplay UniqueId="ButtonSmallAction">
+                            <Button Classes="Warning Small" Content="{avalonia:MaterialIconExt Warning}" />
                         </showMeTheXaml:XamlDisplay>
                     </suki:GroupBox>
                 </suki:GlassCard>
