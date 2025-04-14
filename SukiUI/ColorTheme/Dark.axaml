@@ -29,24 +29,25 @@
     <BoxShadows x:Key="SukiPopupShadow">1 1 14 1 #101010</BoxShadows>
     <BoxShadows x:Key="SukiBigPopupShadow">1 4 17 0 #111111</BoxShadows>
 
-    <Color x:Key="SukiSuccessColor">#16A34A</Color>
-    <Color x:Key="SukiSuccessMediumColor">#15803D</Color>
-    <Color x:Key="SukiSuccessDarkColor">#166534</Color>
+    <Color x:Key="SukiSuccessColor">#228b22</Color>
+    <Color x:Key="SukiSuccessMediumColor">#1d771d</Color>
+    <Color x:Key="SukiSuccessDarkColor">#1d771d</Color>
     <Color x:Key="SukiSuccessForeground">White</Color>
 
-    <Color x:Key="SukiInformationColor">#60A5FA</Color>
-    <Color x:Key="SukiInformationMediumColor">#3B82F6</Color>
-    <Color x:Key="SukiInformationDarkColor">#2563EB</Color>
+    <Color x:Key="SukiInformationColor">#2f54eb</Color>
+    <Color x:Key="SukiInformationMediumColor">#1d39c4</Color>
+    <Color x:Key="SukiInformationDarkColor">#1d39c4</Color>
     <Color x:Key="SukiInformationForeground">White</Color>
 
-    <Color x:Key="SukiWarningColor">#D97706</Color>
-    <Color x:Key="SukiWarningMediumColor">#B45309</Color>
-    <Color x:Key="SukiWarningDarkColor">#92400E</Color>
+
+    <Color x:Key="SukiWarningColor">#d4380d</Color>
+    <Color x:Key="SukiWarningMediumColor">#ad4e00</Color>
+    <Color x:Key="SukiWarningDarkColor">#ad4e00</Color>
     <Color x:Key="SukiWarningForeground">White</Color>
 
-    <Color x:Key="SukiDangerColor">#DC2626</Color>
-    <Color x:Key="SukiDangerMediumColor">#B91C1C</Color>
-    <Color x:Key="SukiDangerDarkColor">#991B1B</Color>
+    <Color x:Key="SukiDangerColor">#cf1322</Color>
+    <Color x:Key="SukiDangerMediumColor">#a8071a</Color>
+    <Color x:Key="SukiDangerDarkColor">#a8071a</Color>
     <Color x:Key="SukiDangerForeground">White</Color>
 
     <LinearGradientBrush x:Key="PopupGradientBrush" StartPoint="0%,0%" EndPoint="100%,100%">
