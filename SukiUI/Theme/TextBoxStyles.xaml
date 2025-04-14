@@ -134,7 +134,7 @@
 
             <ControlTemplate>
 
-                <Grid RowDefinitions="Auto *">
+                <Grid RowDefinitions="Auto Auto">
 
                     <TextBlock Name="floatingWatermark"
                                Grid.Row="0"
