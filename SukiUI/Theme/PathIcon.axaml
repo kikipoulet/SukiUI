@@ -38,6 +38,11 @@
                 </Border>
             </ControlTemplate>
         </Setter>
+
+        <Style Selector="^:not(.Flippable)">
+            <Setter Property="FlowDirection" Value="LeftToRight" />
+        </Style>
+
         <Style Selector="^.Theme">
             <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
         </Style>

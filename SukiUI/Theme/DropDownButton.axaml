@@ -1,6 +1,7 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:content="clr-namespace:SukiUI.Content"
+                    xmlns:converters="clr-namespace:Avalonia.Controls.Converters;assembly=Avalonia.Controls"
                     xmlns:suki="https://github.com/kikipoulet/SukiUI">
     <Design.PreviewWith>
         <Border MinWidth="300"
@@ -67,6 +68,10 @@
             </WrapPanel>
         </Border>
     </Design.PreviewWith>
+
+    <converters:MarginMultiplierConverter x:Key="GlyphMarginMultiplier"
+                                          Indent="0.7"
+                                          Left="True" />
 
     <ControlTheme x:Key="{x:Type DropDownButton}"
                   BasedOn="{StaticResource SukiButtonStyle}"
@@ -144,7 +149,8 @@
                                   Grid.Column="1"
                                   Width="12"
                                   Height="12"
-                                  Margin="10,0,0,0"
+                                  Margin="{TemplateBinding Padding,
+                                                           Converter={StaticResource GlyphMarginMultiplier}}"
                                   HorizontalAlignment="Right"
                                   VerticalAlignment="Center"
                                   Data="{x:Static content:Icons.ChevronDown}"

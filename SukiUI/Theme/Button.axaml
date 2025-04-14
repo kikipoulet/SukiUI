@@ -72,10 +72,36 @@
                     <Button Margin="5"
                             Classes="Danger"
                             Content="Danger" />
-
-
+                    <Button Margin="5"
+                            VerticalAlignment="Top"
+                            Classes="Small"
+                            Content="Small" />
+                    <Button Margin="5"
+                            VerticalAlignment="Top"
+                            Classes="Small">
+                        <theme:ButtonExtensions.Icon>
+                            <PathIcon Data="{x:Static suki:Icons.TriangleAlert}" />
+                        </theme:ButtonExtensions.Icon>
+                    </Button>
+                    <Button Margin="5"
+                            VerticalAlignment="Top"
+                            Classes="Small Flat">
+                        <theme:ButtonExtensions.Icon>
+                            <PathIcon Data="{x:Static suki:Icons.CircleHelp}" />
+                        </theme:ButtonExtensions.Icon>
+                    </Button>
 
                 </WrapPanel>
+
+                <WrapPanel Orientation="Horizontal">
+                    <Button Margin="5"
+                            Classes="Large Flat"
+                            Content="Large" />
+                    <Button Margin="5"
+                            Classes="Large Flat Rounded"
+                            Content="Large Rounded" />
+                </WrapPanel>
+
 
                 <WrapPanel Orientation="Horizontal">
 
@@ -115,24 +141,17 @@
 
         </Border>
     </Design.PreviewWith>
-    <ControlTheme x:Key="SukiButtonStyle" TargetType="Button">
-        <Setter Property="BorderThickness" Value="1.2" />
-        <Setter Property="BorderBrush" Value="{DynamicResource SukiMediumBorderBrush}" />
-        <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
+    <ControlTheme x:Key="SukiBaseButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="FontSize" Value="15" />
-        <Setter Property="Padding" Value="20,8" />
-        <Setter Property="Transitions">
-            <Transitions>
-                <BrushTransition Property="Background" Duration="0:0:0.1" />
-                <BrushTransition Property="Foreground" Duration="0:0:0.1" />
-                <BrushTransition Property="BorderBrush" Duration="0:0:0.20" />
-                <DoubleTransition Property="Opacity" Duration="0:0:0.35" />
-            </Transitions>
-        </Setter>
+        <Setter Property="FontWeight" Value="{DynamicResource DefaultDemiBold}" />
+        <Setter Property="BorderThickness" Value="1.2" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
+        <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
+        <Setter Property="Padding" Value="20, 10" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Border Name="RootBorder"
@@ -181,7 +200,7 @@
                                               Content="{TemplateBinding theme:ButtonExtensions.Icon}"
                                               FontFamily="{TemplateBinding FontFamily}"
                                               FontSize="{TemplateBinding FontSize}"
-                                              FontWeight="{DynamicResource DefaultDemiBold}"
+                                              FontWeight="{TemplateBinding FontWeight}"
                                               Foreground="{TemplateBinding Foreground}" />
                         </Viewbox>
 
@@ -192,7 +211,7 @@
                                           ContentTemplate="{TemplateBinding ContentTemplate}"
                                           FontFamily="{TemplateBinding FontFamily}"
                                           FontSize="{TemplateBinding FontSize}"
-                                          FontWeight="{DynamicResource DefaultDemiBold}"
+                                          FontWeight="{TemplateBinding FontWeight}"
                                           Foreground="{TemplateBinding Foreground}"
                                           IsVisible="{TemplateBinding Content,
                                                                       Converter={x:Static ObjectConverters.IsNotNull}}"
@@ -201,6 +220,20 @@
                 </Border>
             </ControlTemplate>
         </Setter>
+    </ControlTheme>
+
+
+    <ControlTheme x:Key="SukiButtonStyle"
+                  BasedOn="{StaticResource SukiBaseButtonStyle}"
+                  TargetType="Button">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.1" />
+                <BrushTransition Property="Foreground" Duration="0:0:0.1" />
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.20" />
+                <DoubleTransition Property="Opacity" Duration="0:0:0.35" />
+            </Transitions>
+        </Setter>
 
         <!--  Nested Selectors For Basic Button  -->
         <Style Selector="^:disabled">
@@ -208,7 +241,7 @@
         </Style>
 
         <!--  Events For Basic Button  -->
-        <Style Selector="^:pointerover">
+        <Style Selector="^:pointerover, ^:flyout-open">
             <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
             <Style Selector="^ /template/ Border">
                 <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
@@ -252,14 +285,13 @@
         </Style>
 
         <Style Selector="^.Discrete">
-            <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
             <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
         </Style>
 
         <!--  Classes  -->
         <Style Selector="^.Accent">
             <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor75}" />
-            <Style Selector="^:pointerover">
+            <Style Selector="^:pointerover, ^:flyout-open">
                 <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor75}" />
                 <Style Selector="^ /template/ Border">
                     <Setter Property="BorderBrush" Value="{DynamicResource SukiAccentColor}" />
@@ -296,7 +328,7 @@
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
             <!--  Events  -->
-            <Style Selector="^:pointerover">
+            <Style Selector="^:pointerover, ^:flyout-open">
                 <Setter Property="Background" Value="Transparent" />
                 <Setter Property="RenderTransform">
                     <Setter.Value>
@@ -304,7 +336,7 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-            <Style Selector="^.Icon:pointerover">
+            <Style Selector="^.Icon:pointerover, ^.Icon:flyout-open">
                 <Setter Property="Background" Value="Transparent" />
                 <Setter Property="RenderTransform">
                     <Setter.Value>
@@ -330,7 +362,7 @@
             <Setter Property="Margin" Value="0" />
             <Setter Property="Background" Value="Transparent" />
             <!--  Events  -->
-            <Style Selector="^:pointerover">
+            <Style Selector="^:pointerover, ^:flyout-open">
                 <Setter Property="RenderTransform">
                     <Setter.Value>
                         <ScaleTransform ScaleX="1.03" ScaleY="1.03" />
@@ -348,7 +380,7 @@
                 <Setter Property="BoxShadow" Value="{DynamicResource SukiLowShadow}" />
             </Style>
             <!--  Events  -->
-            <Style Selector="^:pointerover">
+            <Style Selector="^:pointerover, ^:flyout-open">
                 <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor75}" />
             </Style>
             <Style Selector="^:pressed">
@@ -357,12 +389,12 @@
 
             <!--  Color Variants  -->
             <Style Selector="^.Accent">
-                <Setter Property="Background" Value="{DynamicResource SukiAccentColor75}" />
-                <Style Selector="^:pointerover">
-                    <Setter Property="Background" Value="{DynamicResource SukiAccentColor}" />
+                <Setter Property="Background" Value="{DynamicResource SukiAccentColor}" />
+                <Style Selector="^:pointerover, ^:flyout-open">
+                    <Setter Property="Background" Value="{DynamicResource SukiAccentColor75}" />
                 </Style>
                 <Style Selector="^:pressed">
-                    <Setter Property="Background" Value="{DynamicResource SukiAccentColor}" />
+                    <Setter Property="Background" Value="{DynamicResource SukiAccentColor75}" />
                 </Style>
 
             </Style>
@@ -374,7 +406,7 @@
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
             <!--  Events  -->
-            <Style Selector="^:pointerover">
+            <Style Selector="^:pointerover, ^:flyout-open">
                 <Setter Property="BorderBrush" Value="Transparent" />
                 <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
                 <Setter Property="Foreground" Value="White" />
@@ -387,7 +419,7 @@
             <Style Selector="^.Accent">
                 <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
                 <Setter Property="BorderBrush" Value="{DynamicResource SukiAccentColor}" />
-                <Style Selector="^:pointerover">
+                <Style Selector="^:pointerover, ^:flyout-open">
                     <Setter Property="Foreground" Value="White" />
                     <Setter Property="Background" Value="{DynamicResource SukiAccentColor}" />
                 </Style>
@@ -406,7 +438,7 @@
                 <Setter Property="BoxShadow" Value="{DynamicResource SukiLowShadow}" />
             </Style>
             <!--  Events  -->
-            <Style Selector="^:pointerover">
+            <Style Selector="^:pointerover, ^:flyout-open">
                 <Setter Property="Background" Value="{DynamicResource SukiSuccessMediumColor}" />
             </Style>
             <Style Selector="^:pressed">
@@ -422,7 +454,7 @@
                 <Setter Property="BoxShadow" Value="{DynamicResource SukiLowShadow}" />
             </Style>
             <!--  Events  -->
-            <Style Selector="^:pointerover">
+            <Style Selector="^:pointerover, ^:flyout-open">
                 <Setter Property="Background" Value="{DynamicResource SukiInformationMediumColor}" />
             </Style>
             <Style Selector="^:pressed">
@@ -438,7 +470,7 @@
                 <Setter Property="BoxShadow" Value="{DynamicResource SukiLowShadow}" />
             </Style>
             <!--  Events  -->
-            <Style Selector="^:pointerover">
+            <Style Selector="^:pointerover, ^:flyout-open">
                 <Setter Property="Background" Value="{DynamicResource SukiWarningMediumColor}" />
             </Style>
             <Style Selector="^:pressed">
@@ -454,7 +486,7 @@
                 <Setter Property="BoxShadow" Value="{DynamicResource SukiLowShadow}" />
             </Style>
             <!--  Events  -->
-            <Style Selector="^:pointerover">
+            <Style Selector="^:pointerover, ^:flyout-open">
                 <Setter Property="Background" Value="{DynamicResource SukiDangerMediumColor}" />
             </Style>
             <Style Selector="^:pressed">
@@ -465,10 +497,13 @@
         <Style Selector="^.Rounded">
             <Setter Property="CornerRadius" Value="100" />
         </Style>
+        <Style Selector="^.Small">
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Padding" Value="10" />
+        </Style>
         <Style Selector="^.Large">
             <Setter Property="FontSize" Value="18" />
             <Setter Property="Padding" Value="30,12" />
-            <Setter Property="CornerRadius" Value="9" />
         </Style>
 
         <Style Selector="^.Icon">
@@ -492,11 +527,11 @@
                     <BrushTransition Property="Background" Duration="0.01" />
                 </Transitions>
             </Setter>
-            <Style Selector="^:pointerover">
+            <Style Selector="^:pointerover, ^:flyout-open">
                 <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor25}" />
             </Style>
             <Style Selector="^.Close">
-                <Style Selector="^:pointerover">
+                <Style Selector="^:pointerover, ^:flyout-open">
                     <Setter Property="Background" Value="#90D00000" />
                 </Style>
                 <Style Selector="^:pressed">

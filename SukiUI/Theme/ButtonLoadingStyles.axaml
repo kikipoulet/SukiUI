@@ -3,30 +3,30 @@
         xmlns:suki="https://github.com/kikipoulet/SukiUI">
     <Design.PreviewWith>
         <Border Padding="20">
-            <!-- Add Controls for Previewer Here -->
+            <!--  Add Controls for Previewer Here  -->
         </Border>
     </Design.PreviewWith>
-    
+
     <Style Selector="Button suki|Loading">
-        <Setter Property="Foreground" Value="{DynamicResource SukiText}"></Setter>
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
     </Style>
-    
+
     <Style Selector="Button.Outlined suki|Loading">
-        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}"></Setter>
+        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
     </Style>
 
     <Style Selector="Button.Basic suki|Loading">
-        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}"></Setter>
+        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
     </Style>
-  
+
     <Style Selector="Button.Accent suki|Loading">
-        <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}"></Setter>
+        <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
     </Style>
 
-      
+
     <Style Selector="Button.Flat suki|Loading">
-        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="Foreground" Value="White" />
     </Style>
 
-  
+
 </Styles>

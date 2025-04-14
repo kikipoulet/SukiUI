@@ -1,0 +1,331 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:suki="https://github.com/kikipoulet/SukiUI">
+    <!--  Add Resources Here  -->
+    <Design.PreviewWith>
+        <StackPanel Margin="20" Spacing="10">
+            <ProgressBar Width="100" Value="50" />
+            <ProgressBar Width="100" IsIndeterminate="True" />
+            <ProgressBar Width="100"
+                         Classes="Accent"
+                         Value="50" />
+            <ProgressBar Width="100"
+                         Classes="Success"
+                         Value="50" />
+            <ProgressBar Width="100"
+                         Classes="Information"
+                         Value="50" />
+            <ProgressBar Width="100"
+                         Classes="Warning"
+                         Value="50" />
+            <ProgressBar Width="100"
+                         Classes="Danger"
+                         ShowProgressText="True"
+                         Value="50" />
+
+            <StackPanel Orientation="Horizontal">
+                <ProgressBar Width="100"
+                             Orientation="Vertical"
+                             ShowProgressText="True"
+                             Value="50" />
+
+                <ProgressBar Width="100"
+                             Classes="Danger"
+                             IsIndeterminate="True"
+                             Orientation="Vertical"
+                             ShowProgressText="True" />
+            </StackPanel>
+
+
+        </StackPanel>
+    </Design.PreviewWith>
+
+    <ControlTheme x:Key="SukiProgressBarStyle" TargetType="ProgressBar">
+        <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
+        <Setter Property="Background" Value="{DynamicResource SukiBorderBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+
+        <Setter Property="Template">
+            <ControlTemplate>
+                <DockPanel Name="PART_Dock">
+                    <DockPanel.Resources />
+                    <TextBlock Name="PART_Text"
+                               Width="0"
+                               Height="0"
+                               Margin="0,0,0,1"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               DockPanel.Dock="Right"
+                               FontWeight="{DynamicResource DefaultDemiBold}"
+                               Foreground="{DynamicResource SukiText}"
+                               Text="{Binding Value, RelativeSource={RelativeSource TemplatedParent}, StringFormat={}{0:0}%}"
+                               TextAlignment="Right" />
+
+                    <suki:GlassCard Name="PART_RootBorder"
+                                    MinWidth="{TemplateBinding MinWidth}"
+                                    Padding="0"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    Classes="Control"
+                                    ClipToBounds="True"
+                                    CornerRadius="{TemplateBinding CornerRadius}">
+                        <Panel>
+                            <Panel x:Name="DeterminateRoot" Opacity="1">
+                                <Panel.Transitions>
+                                    <Transitions>
+                                        <DoubleTransition Property="Opacity" Duration="0:0:0.197" />
+                                    </Transitions>
+                                </Panel.Transitions>
+                                <Border Name="PART_Indicator"
+                                        Width="8"
+                                        Height="8"
+                                        Background="{TemplateBinding Foreground}"
+                                        CornerRadius="{TemplateBinding CornerRadius}"
+                                        IsVisible="{Binding !IsIndeterminate, RelativeSource={RelativeSource TemplatedParent}}">
+
+                                    <Border.Transitions>
+                                        <Transitions>
+                                            <DoubleTransition Easing="CircularEaseOut"
+                                                              Property="Width"
+                                                              Duration="0:0:0.6" />
+                                            <DoubleTransition Easing="CircularEaseOut"
+                                                              Property="Height"
+                                                              Duration="0:0:0.6" />
+                                            <BrushTransition Property="Background" Duration="0:0:0.5" />
+                                        </Transitions>
+                                    </Border.Transitions>
+                                </Border>
+                            </Panel>
+                            <Panel x:Name="IndeterminateRoot" Opacity="0">
+                                <Panel.Transitions>
+                                    <Transitions>
+                                        <DoubleTransition Property="Opacity" Duration="0:0:0.197" />
+                                    </Transitions>
+                                </Panel.Transitions>
+                                <Border x:Name="IndeterminateProgressBarIndicator"
+                                        Margin="{TemplateBinding Padding}"
+                                        Background="{TemplateBinding Foreground}"
+                                        CornerRadius="{TemplateBinding CornerRadius}" />
+                                <Border x:Name="IndeterminateProgressBarIndicator2"
+                                        Margin="{TemplateBinding Padding}"
+                                        Background="{TemplateBinding Foreground}"
+                                        CornerRadius="{TemplateBinding CornerRadius}" />
+                            </Panel>
+                        </Panel>
+                    </suki:GlassCard>
+
+
+                </DockPanel>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^[FlowDirection=RightToLeft] /template/ TextBlock#PART_Text">
+            <Setter Property="TextAlignment" Value="Left" />
+        </Style>
+
+        <Style Selector="^:indeterminate /template/ Panel#DeterminateRoot">
+            <Setter Property="Opacity" Value="0" />
+        </Style>
+        <Style Selector="^:indeterminate /template/ Panel#IndeterminateRoot">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+
+        <Style Selector="^:horizontal /template/ Border#PART_Indicator">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+        </Style>
+        <Style Selector="^:vertical /template/ DockPanel#PART_Dock">
+            <Setter Property="Width" Value="35" />
+        </Style>
+        <Style Selector="^:vertical /template/ Border#PART_Indicator">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+        </Style>
+
+        <Style Selector="^:horizontal">
+            <Setter Property="MinWidth" Value="200" />
+
+        </Style>
+
+        <Style Selector="^:vertical">
+
+            <Setter Property="MinHeight" Value="200" />
+        </Style>
+
+        <Style Selector="^:horizontal /template/ TextBlock#PART_Text">
+            <Setter Property="DockPanel.Dock" Value="Right" />
+            <Setter Property="Height" Value="15" />
+        </Style>
+
+        <Style Selector="^:vertical /template/ TextBlock#PART_Text">
+            <Setter Property="DockPanel.Dock" Value="Bottom" />
+            <Setter Property="Margin" Value="10,10,0,0" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="Width" Value="35" />
+        </Style>
+
+        <Style Selector="^:horizontal[ShowProgressText=True] /template/ TextBlock#PART_Text">
+            <Style.Animations>
+                <Animation FillMode="Forward" Duration="0:0:0.35">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Width" Value="0" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Width" Value="40" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+
+        <Style Selector="^:horizontal[ShowProgressText=False] /template/ TextBlock#PART_Text">
+            <Style.Animations>
+                <Animation FillMode="Forward" Duration="0:0:0.35">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Width" Value="40" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Width" Value="0" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+
+        <Style Selector="^:vertical[ShowProgressText=True] /template/ TextBlock#PART_Text">
+            <Style.Animations>
+                <Animation FillMode="Forward" Duration="0:0:0.35">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Height" Value="0" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Height" Value="35" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+
+        <Style Selector="^:vertical[ShowProgressText=False] /template/ TextBlock#PART_Text">
+            <Style.Animations>
+                <Animation FillMode="Forward" Duration="0:0:0.35">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Height" Value="35" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Height" Value="0" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+
+        <Style Selector="^:horizontal /template/ suki|GlassCard#PART_RootBorder">
+            <Setter Property="MinHeight" Value="8" />
+            <Setter Property="Height" Value="8" />
+            <Setter Property="MaxHeight" Value="8" />
+        </Style>
+
+        <Style Selector="^:vertical /template/ suki|GlassCard#PART_RootBorder">
+            <Setter Property="MinWidth" Value="8" />
+            <Setter Property="Width" Value="8" />
+            <Setter Property="MaxWidth" Value="8" />
+        </Style>
+
+        <Style Selector="^:vertical /template/ LayoutTransformControl#PART_LayoutTransformControl">
+            <Setter Property="LayoutTransform">
+                <Setter.Value>
+                    <RotateTransform Angle="90" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style Selector="^:horizontal:indeterminate /template/ Border#IndeterminateProgressBarIndicator">
+            <Style.Animations>
+                <Animation IterationCount="Infinite" Duration="0:0:2">
+                    <KeyFrame KeySpline="0.4,0,0.6,1" KeyTime="0:0:0">
+                        <Setter Property="TranslateTransform.X" Value="{Binding $parent[ProgressBar].TemplateSettings.ContainerAnimationStartPosition}" />
+                    </KeyFrame>
+                    <KeyFrame KeySpline="0.4,0,0.6,1" KeyTime="0:0:1.5">
+                        <Setter Property="TranslateTransform.X" Value="{Binding $parent[ProgressBar].TemplateSettings.ContainerAnimationEndPosition}" />
+                    </KeyFrame>
+                    <KeyFrame KeySpline="0.4,0,0.6,1" KeyTime="0:0:2">
+                        <Setter Property="TranslateTransform.X" Value="{Binding $parent[ProgressBar].TemplateSettings.ContainerAnimationEndPosition}" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+        <Style Selector="^:horizontal:indeterminate /template/ Border#IndeterminateProgressBarIndicator2">
+            <Style.Animations>
+                <Animation IterationCount="Infinite" Duration="0:0:2">
+                    <KeyFrame KeySpline="0.4,0,0.6,1" KeyTime="0:0:0">
+                        <Setter Property="TranslateTransform.X" Value="{Binding $parent[ProgressBar].TemplateSettings.Container2AnimationStartPosition}" />
+                    </KeyFrame>
+                    <KeyFrame KeySpline="0.4,0,0.6,1" KeyTime="0:0:0.75">
+                        <Setter Property="TranslateTransform.X" Value="{Binding $parent[ProgressBar].TemplateSettings.Container2AnimationStartPosition}" />
+                    </KeyFrame>
+                    <KeyFrame KeySpline="0.4,0,0.6,1" KeyTime="0:0:2">
+                        <Setter Property="TranslateTransform.X" Value="{Binding $parent[ProgressBar].TemplateSettings.Container2AnimationEndPosition}" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+
+        <Style Selector="^:vertical:indeterminate /template/ Border#IndeterminateProgressBarIndicator">
+            <Style.Animations>
+                <Animation IterationCount="Infinite" Duration="0:0:2">
+                    <KeyFrame KeySpline="0.4,0,0.6,1" KeyTime="0:0:0">
+                        <Setter Property="TranslateTransform.Y" Value="{Binding $parent[ProgressBar].TemplateSettings.ContainerAnimationStartPosition}" />
+                    </KeyFrame>
+                    <KeyFrame KeySpline="0.4,0,0.6,1" KeyTime="0:0:1.5">
+                        <Setter Property="TranslateTransform.Y" Value="{Binding $parent[ProgressBar].TemplateSettings.ContainerAnimationEndPosition}" />
+                    </KeyFrame>
+                    <KeyFrame KeySpline="0.4,0,0.6,1" KeyTime="0:0:2">
+                        <Setter Property="TranslateTransform.Y" Value="{Binding $parent[ProgressBar].TemplateSettings.ContainerAnimationEndPosition}" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+        <Style Selector="^:vertical:indeterminate /template/ Border#IndeterminateProgressBarIndicator2">
+            <Style.Animations>
+                <Animation IterationCount="Infinite" Duration="0:0:2">
+                    <KeyFrame KeySpline="0.4,0,0.6,1" KeyTime="0:0:0">
+                        <Setter Property="TranslateTransform.Y" Value="{Binding $parent[ProgressBar].TemplateSettings.Container2AnimationStartPosition}" />
+                    </KeyFrame>
+                    <KeyFrame KeySpline="0.4,0,0.6,1" KeyTime="0:0:0.75">
+                        <Setter Property="TranslateTransform.Y" Value="{Binding $parent[ProgressBar].TemplateSettings.Container2AnimationStartPosition}" />
+                    </KeyFrame>
+                    <KeyFrame KeySpline="0.4,0,0.6,1" KeyTime="0:0:2">
+                        <Setter Property="TranslateTransform.Y" Value="{Binding $parent[ProgressBar].TemplateSettings.Container2AnimationEndPosition}" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+
+        <Style Selector="^.Light">
+            <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor75}" />
+        </Style>
+
+        <Style Selector="^.Accent">
+            <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
+        </Style>
+
+        <Style Selector="^.Success">
+            <Setter Property="Foreground" Value="{DynamicResource SukiSuccessColor}" />
+        </Style>
+
+        <Style Selector="^.Information">
+            <Setter Property="Foreground" Value="{DynamicResource SukiInformationColor}" />
+        </Style>
+
+        <Style Selector="^.Warning">
+            <Setter Property="Foreground" Value="{DynamicResource SukiWarningColor}" />
+        </Style>
+
+        <Style Selector="^.Danger">
+            <Setter Property="Foreground" Value="{DynamicResource SukiDangerColor}" />
+        </Style>
+
+    </ControlTheme>
+
+    <ControlTheme x:Key="{x:Type ProgressBar}"
+                  BasedOn="{StaticResource SukiProgressBarStyle}"
+                  TargetType="ProgressBar" />
+
+</ResourceDictionary>
