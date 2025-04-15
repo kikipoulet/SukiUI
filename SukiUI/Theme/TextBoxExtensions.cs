@@ -77,6 +77,19 @@ public static class ButtonExtensions
     {
         textBox.SetValue(ShowProgressProperty, false);
     }
+
+    public static readonly AttachedProperty<object?> IconProperty =
+        AvaloniaProperty.RegisterAttached<Button, object?>("Icon", typeof(Button));
+
+    public static object? GetIcon(Button textBox)
+    {
+        return textBox.GetValue(IconProperty);
+    }
+
+    public static void SetIcon(Button textBox, object? value)
+    {
+        textBox.SetValue(IconProperty, value);
+    }
 }
 
 public class StringToDoubleConverter : IValueConverter

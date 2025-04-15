@@ -14,6 +14,7 @@ public partial class TextViewModel(ISukiToastManager toastManager) : DemoPageBas
 
     [ObservableProperty] private string _textBoxValue = DefaultText;
     [ObservableProperty] private string _textBlockValue = DefaultText;
+    [ObservableProperty] private string _SelectableTextBlockValue = DefaultText;
     [ObservableProperty] private bool _hyperlinkVisited;
 
     [RelayCommand]

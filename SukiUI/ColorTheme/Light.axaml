@@ -29,9 +29,30 @@
     <BoxShadows x:Key="SukiPopupShadow">1 1 8 0 LightGray</BoxShadows>
     <BoxShadows x:Key="SukiBigPopupShadow">1 4 17 0 #999999</BoxShadows>
 
+    <Color x:Key="SukiSuccessColor">#279f27</Color>
+    <Color x:Key="SukiSuccessMediumColor">#279f27</Color>
+    <Color x:Key="SukiSuccessDarkColor">#279f27</Color>
+    <Color x:Key="SukiSuccessForeground">White</Color>
+
+    <Color x:Key="SukiInformationColor">#2f54eb</Color>
+    <Color x:Key="SukiInformationMediumColor">#597ef7</Color>
+    <Color x:Key="SukiInformationDarkColor">#597ef7</Color>
+    <Color x:Key="SukiInformationForeground">White</Color>
+
+
+    <Color x:Key="SukiWarningColor">#fa541c</Color>
+    <Color x:Key="SukiWarningMediumColor">#ff7a45</Color>
+    <Color x:Key="SukiWarningDarkColor">#ff7a45</Color>
+    <Color x:Key="SukiWarningForeground">White</Color>
+
+    <Color x:Key="SukiDangerColor">#f5222d</Color>
+    <Color x:Key="SukiDangerMediumColor">#ff4d4f</Color>
+    <Color x:Key="SukiDangerDarkColor">#ff4d4f</Color>
+    <Color x:Key="SukiDangerForeground">White</Color>
+
     <LinearGradientBrush x:Key="PopupGradientBrush" StartPoint="0%,0%" EndPoint="100%,100%">
-        <GradientStop Color="#03111111" Offset="0"></GradientStop>
-        <GradientStop Color="#02111111" Offset="1"></GradientStop>
+        <GradientStop Offset="0" Color="#03111111" />
+        <GradientStop Offset="1" Color="#02111111" />
 
     </LinearGradientBrush>
 
