@@ -1,0 +1,390 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:suki="https://github.com/kikipoulet/SukiUI">
+    <Design.PreviewWith>
+        <StackPanel Width="250"
+                    Margin="20"
+                    Background="{DynamicResource SukiBackground}"
+                    Spacing="24">
+            <WrapPanel Orientation="Horizontal">
+                <ToggleButton Classes="Switch" />
+                <ToggleButton Classes="Switch" IsChecked="True" />
+                <ToggleButton Classes="Switch Discrete" IsChecked="True" />
+                <ToggleButton Classes="Switch Accent" IsChecked="True" />
+                <ToggleButton Classes="Switch Success" IsChecked="True" />
+                <ToggleButton Classes="Switch Information" IsChecked="True" />
+                <ToggleButton Classes="Switch Warning" IsChecked="True" />
+                <ToggleButton Classes="Switch Danger" IsChecked="True" />
+            </WrapPanel>
+
+            <ToggleButton Classes="Basic" Content="Basic" />
+            <ToggleButton Classes="CircleGlass" Content="CircleGlass" />
+            <ToggleButton Content="Disabled" IsEnabled="False" />
+            <ToggleButton Content="Standard" />
+            <ToggleButton Classes="Discrete" Content="Discrete" />
+            <ToggleButton suki:ButtonExtensions.Icon="&#129416;&#128161;" Content="Standard with icon" />
+            <ToggleButton Classes="Accent" Content="Accent" />
+            <ToggleButton Classes="Success" Content="Success" />
+            <ToggleButton Classes="Information" Content="Information" />
+            <ToggleButton Classes="Warning" Content="Warning" />
+            <ToggleButton Classes="Danger" Content="Danger" />
+        </StackPanel>
+    </Design.PreviewWith>
+
+    <ControlTheme x:Key="{x:Type ToggleButton}"
+                  BasedOn="{StaticResource SukiBaseButtonStyle}"
+                  TargetType="ToggleButton">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.01" />
+                <BrushTransition Property="Foreground" Duration="0:0:0.1" />
+                <DoubleTransition Property="Opacity" Duration="0:0:0.35" />
+            </Transitions>
+        </Setter>
+
+        <Style Selector="^:disabled">
+            <Setter Property="Opacity" Value="0.5" />
+        </Style>
+
+        <Style Selector="^:pointerover">
+            <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor75}" />
+
+            <Style Selector="^.Accent">
+                <Setter Property="BorderBrush" Value="{DynamicResource SukiAccentColor75}" />
+            </Style>
+            <Style Selector="^.Success">
+                <Setter Property="BorderBrush" Value="{DynamicResource SukiSuccessColor}" />
+            </Style>
+            <Style Selector="^.Information">
+                <Setter Property="BorderBrush" Value="{DynamicResource SukiInformationColor}" />
+            </Style>
+            <Style Selector="^.Warning">
+                <Setter Property="BorderBrush" Value="{DynamicResource SukiWarningColor}" />
+            </Style>
+            <Style Selector="^.Danger">
+                <Setter Property="BorderBrush" Value="{DynamicResource SukiDangerColor}" />
+            </Style>
+        </Style>
+
+        <Style Selector="^:pressed">
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="0.97" ScaleY="0.97" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style Selector="^:checked">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
+
+            <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
+            <Style Selector="^.Discrete">
+                <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
+                <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+            </Style>
+            <Style Selector="^.Accent">
+                <Setter Property="Background" Value="{DynamicResource SukiAccentColor}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource SukiAccentColor}" />
+            </Style>
+            <Style Selector="^.Success">
+                <Setter Property="Background" Value="{DynamicResource SukiSuccessMediumColor}" />
+                <Setter Property="Foreground" Value="{DynamicResource SukiSuccessForeground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource SukiSuccessDarkColor}" />
+            </Style>
+            <Style Selector="^.Information">
+                <Setter Property="Background" Value="{DynamicResource SukiInformationMediumColor}" />
+                <Setter Property="Foreground" Value="{DynamicResource SukiInformationForeground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource SukiInformationDarkColor}" />
+            </Style>
+            <Style Selector="^.Warning">
+                <Setter Property="Background" Value="{DynamicResource SukiWarningMediumColor}" />
+                <Setter Property="Foreground" Value="{DynamicResource SukiWarningForeground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource SukiWarningDarkColor}" />
+            </Style>
+            <Style Selector="^.Danger">
+                <Setter Property="Background" Value="{DynamicResource SukiDangerMediumColor}" />
+                <Setter Property="Foreground" Value="{DynamicResource SukiDangerForeground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource SukiDangerDarkColor}" />
+            </Style>
+        </Style>
+
+
+        <Style Selector="^:pointerover:checked">
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor75}" />
+            <Style Selector="^.Discrete">
+                <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
+                <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+            </Style>
+            <Style Selector="^.Accent">
+                <Setter Property="Background" Value="{DynamicResource SukiAccentColor75}" />
+            </Style>
+            <Style Selector="^.Success">
+                <Setter Property="Background" Value="{DynamicResource SukiSuccessColor}" />
+            </Style>
+            <Style Selector="^.Information">
+                <Setter Property="Background" Value="{DynamicResource SukiInformationColor}" />
+            </Style>
+            <Style Selector="^.Warning">
+                <Setter Property="Background" Value="{DynamicResource SukiWarningColor}" />
+            </Style>
+            <Style Selector="^.Danger">
+                <Setter Property="Background" Value="{DynamicResource SukiDangerColor}" />
+            </Style>
+        </Style>
+
+        <Style Selector="^.Switch">
+            <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+            <Setter Property="RenderTransform">
+                <ScaleTransform ScaleX="1.15" ScaleY="1.15" />
+            </Setter>
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Grid Background="Transparent" RowDefinitions="Auto,*">
+
+                        <ContentPresenter x:Name="PART_ContentPresenter"
+                                          Grid.Row="0"
+                                          VerticalAlignment="Top"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          RecognizesAccessKey="True" />
+
+                        <Grid Grid.Row="1"
+                              MinWidth="{DynamicResource ToggleSwitchThemeMinWidth}"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Top">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="{DynamicResource ToggleSwitchPreContentMargin}" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="{DynamicResource ToggleSwitchPostContentMargin}" />
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="12" MaxWidth="12" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid x:Name="SwitchAreaGrid"
+                                  Grid.RowSpan="3"
+                                  Grid.ColumnSpan="3"
+                                  Margin="0,5"
+                                  TemplatedControl.IsTemplateFocusTarget="True" />
+
+
+                            <Border x:Name="OuterBorder"
+                                    Grid.Row="1"
+                                    Width="40"
+                                    Height="20"
+                                    Background="{DynamicResource SukiControlBorderBrush}"
+                                    BorderThickness="0"
+                                    CornerRadius="{DynamicResource MediumCornerRadius}">
+                                <Border.Transitions>
+                                    <Transitions>
+                                        <DoubleTransition Property="Opacity" Duration="0:0:0.15" />
+                                    </Transitions>
+                                </Border.Transitions>
+                            </Border>
+
+                            <Border x:Name="SwitchBackground"
+                                    Grid.Row="1"
+                                    Width="40"
+                                    Height="20"
+                                    Background="{DynamicResource SukiControlBorderBrush}"
+                                    BorderThickness="0"
+                                    CornerRadius="{DynamicResource MediumCornerRadius}">
+
+                                <Border.Transitions>
+                                    <Transitions>
+                                        <DoubleTransition Property="Opacity" Duration="0:0:0.15" />
+                                        <BrushTransition Property="Background" Duration="0:0:0.15" />
+                                    </Transitions>
+                                </Border.Transitions>
+                            </Border>
+
+                            <Canvas x:Name="PART_SwitchKnob"
+                                    Grid.Row="1"
+                                    Width="20"
+                                    Height="20"
+                                    HorizontalAlignment="Left">
+
+
+                                <Border x:Name="SwitchKnob"
+                                        Canvas.Left="2"
+                                        Canvas.Top="2"
+                                        Width="16"
+                                        Height="16"
+                                        Margin="0,0,0,0"
+                                        Background="#fcfcfc"
+                                        BoxShadow="{DynamicResource SukiSwitchShadow}"
+                                        CornerRadius="{DynamicResource MediumCornerRadius}">
+                                    <Border />
+                                    <Border.Transitions>
+                                        <Transitions />
+                                    </Border.Transitions>
+                                </Border>
+
+
+                            </Canvas>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter>
+
+            <Style Selector="^:unchecked /template/ Border#SwitchKnob">
+                <Style.Animations>
+                    <Animation FillMode="Both" Duration="0:0:0.4">
+                        <Animation.Easing>
+                            <QuadraticEaseOut />
+                        </Animation.Easing>
+
+                        <KeyFrame Cue="30%">
+                            <Setter Property="Width" Value="22" />
+                            <Setter Property="Canvas.Left" Value="11" />
+
+                        </KeyFrame>
+                        <KeyFrame Cue="70%">
+                            <Setter Property="Width" Value="22" />
+                            <Setter Property="Canvas.Left" Value="2" />
+
+                        </KeyFrame>
+
+
+                        <KeyFrame Cue="100%">
+                            <Setter Property="Width" Value="16" />
+                            <Setter Property="Canvas.Left" Value="2" />
+
+                        </KeyFrame>
+
+                    </Animation>
+                </Style.Animations>
+
+            </Style>
+
+            <Style Selector="^:checked /template/ Border#SwitchKnob">
+
+                <Setter Property="BoxShadow" Value="0 0 0 0 White" />
+                <Style.Animations>
+                    <Animation FillMode="Both" Duration="0:0:0.4">
+                        <Animation.Easing>
+                            <QuadraticEaseOut />
+                        </Animation.Easing>
+
+
+                        <KeyFrame Cue="30%">
+                            <Setter Property="Width" Value="22" />
+                            <Setter Property="Canvas.Left" Value="2" />
+                        </KeyFrame>
+
+                        <KeyFrame Cue="60%">
+                            <Setter Property="Width" Value="20" />
+                            <Setter Property="Canvas.Left" Value="11" />
+
+                        </KeyFrame>
+
+
+                        <KeyFrame Cue="80%">
+                            <Setter Property="Width" Value="18" />
+                        </KeyFrame>
+                        <KeyFrame Cue="90%">
+                            <Setter Property="Width" Value="16" />
+                        </KeyFrame>
+
+
+                        <KeyFrame Cue="100%">
+                            <Setter Property="Width" Value="16" />
+                            <Setter Property="Canvas.Left" Value="22" />
+
+                        </KeyFrame>
+
+                    </Animation>
+                </Style.Animations>
+
+            </Style>
+
+            <Style Selector="^:checked /template/ Border#SwitchBackground">
+                <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
+            </Style>
+
+            <Style Selector="^.Discrete:checked /template/ Border#SwitchBackground">
+                <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
+            </Style>
+
+            <Style Selector="^.Accent:checked /template/ Border#SwitchBackground">
+                <Setter Property="Background" Value="{DynamicResource SukiAccentColor}" />
+            </Style>
+
+            <Style Selector="^.Success:checked /template/ Border#SwitchBackground">
+                <Setter Property="Background" Value="{DynamicResource SukiSuccessColor}" />
+            </Style>
+
+            <Style Selector="^.Information:checked /template/ Border#SwitchBackground">
+                <Setter Property="Background" Value="{DynamicResource SukiInformationColor}" />
+            </Style>
+
+            <Style Selector="^.Warning:checked /template/ Border#SwitchBackground">
+                <Setter Property="Background" Value="{DynamicResource SukiWarningColor}" />
+            </Style>
+
+            <Style Selector="^.Danger:checked /template/ Border#SwitchBackground">
+                <Setter Property="Background" Value="{DynamicResource SukiDangerColor}" />
+            </Style>
+        </Style>
+
+
+        <Style Selector="^.Basic">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="Padding" Value="11,8" />
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="Background" Value="Transparent" />
+            <Style Selector="^:checked">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+            </Style>
+            <Style Selector="^:pointerover">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+            </Style>
+            <Style Selector="^:checked">
+                <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
+            </Style>
+        </Style>
+
+        <Style Selector="^.CircleGlass">
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Padding" Value="18,10,18,8" />
+            <Setter Property="FontWeight" Value="{DynamicResource DefaultDemiBold}" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="BorderBrush" Duration="0:0:0.15" />
+                </Transitions>
+            </Setter>
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <suki:GlassCard Width="{TemplateBinding Width}"
+                                    Height="{TemplateBinding Height}"
+                                    Padding="6,4"
+                                    CornerRadius="100">
+                        <ContentPresenter HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Content="{TemplateBinding Content}"
+                                          RecognizesAccessKey="True" />
+                    </suki:GlassCard>
+
+                </ControlTemplate>
+            </Setter>
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>

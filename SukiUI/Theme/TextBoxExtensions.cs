@@ -3,7 +3,6 @@ using Avalonia.Controls;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
 using Avalonia.Threading;
-using System;
 using System.Globalization;
 
 namespace SukiUI.Theme;
@@ -58,37 +57,76 @@ public static class ButtonExtensions
     public static readonly AttachedProperty<bool> ShowProgressProperty =
         AvaloniaProperty.RegisterAttached<Button, bool>("ShowProgress", typeof(Button), defaultValue: false);
 
-    public static bool GetShowProgress(Button textBox)
+    public static bool GetShowProgress(Button button)
     {
-        return textBox.GetValue(ShowProgressProperty);
+        return button.GetValue(ShowProgressProperty);
     }
 
-    public static void SetShowProgress(Button textBox, bool value)
+    public static void SetShowProgress(Button button, bool value)
     {
-        textBox.SetValue(ShowProgressProperty, value);
+        button.SetValue(ShowProgressProperty, value);
     }
 
-    public static void ShowProgress(this Button textBox)
+    public static void ShowProgress(this Button button)
     {
-        textBox.SetValue(ShowProgressProperty, true);
+        button.SetValue(ShowProgressProperty, true);
     }
 
-    public static void HideProgress(this Button textBox)
+    public static void HideProgress(this Button button)
     {
-        textBox.SetValue(ShowProgressProperty, false);
+        button.SetValue(ShowProgressProperty, false);
     }
 
     public static readonly AttachedProperty<object?> IconProperty =
         AvaloniaProperty.RegisterAttached<Button, object?>("Icon", typeof(Button));
 
-    public static object? GetIcon(Button textBox)
+    public static object? GetIcon(Button button)
     {
-        return textBox.GetValue(IconProperty);
+        return button.GetValue(IconProperty);
     }
 
-    public static void SetIcon(Button textBox, object? value)
+    public static void SetIcon(Button button, object? value)
     {
-        textBox.SetValue(IconProperty, value);
+        button.SetValue(IconProperty, value);
+    }
+}
+
+public static class SplitButtonExtensions
+{
+    public static readonly AttachedProperty<bool> ShowProgressProperty =
+        AvaloniaProperty.RegisterAttached<SplitButton, bool>("ShowProgress", typeof(SplitButton), defaultValue: false);
+
+    public static bool GetShowProgress(SplitButton button)
+    {
+        return button.GetValue(ShowProgressProperty);
+    }
+
+    public static void SetShowProgress(SplitButton button, bool value)
+    {
+        button.SetValue(ShowProgressProperty, value);
+    }
+
+    public static void ShowProgress(this SplitButton button)
+    {
+        button.SetValue(ShowProgressProperty, true);
+    }
+
+    public static void HideProgress(this SplitButton button)
+    {
+        button.SetValue(ShowProgressProperty, false);
+    }
+
+    public static readonly AttachedProperty<object?> IconProperty =
+        AvaloniaProperty.RegisterAttached<SplitButton, object?>("Icon", typeof(SplitButton));
+
+    public static object? GetIcon(SplitButton button)
+    {
+        return button.GetValue(IconProperty);
+    }
+
+    public static void SetIcon(SplitButton button, object? value)
+    {
+        button.SetValue(IconProperty, value);
     }
 }
 

@@ -15,14 +15,11 @@
     <StyleInclude Source="avares://SukiUI/Theme/RichTextBoxStyles.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/BorderStyles.xaml" />
 
-    <StyleInclude Source="avares://SukiUI/Theme/ProgressBarStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ListBoxStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/TreeViewStyles.xaml" />
 
     <StyleInclude Source="avares://SukiUI/Theme/ToolTipStyles.axaml" />
-    <StyleInclude Source="avares://SukiUI/Theme/ToggleSwitchStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/RadioButtonStyles.xaml" />
-    <StyleInclude Source="avares://SukiUI/Theme/ToggleButtonStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/SliderStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/NumericUpDownStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/DataGridStyle.axaml" />
@@ -34,8 +31,6 @@
     <StyleInclude Source="avares://SukiUI/Theme/ScrollBarStyle.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ScrollViewerStyles.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ButtonLoadingStyles.axaml" />
-
-    <StyleInclude Source="avares://SukiUI/Theme/PathIconStyles.axaml" />
 
     <Styles.Resources>
         <ResourceDictionary>
@@ -57,10 +52,13 @@
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="avares://sukiUI/Theme/TextBlock.xaml" />
+                <ResourceInclude Source="avares://sukiUI/Theme/Button.axaml" />
+                <ResourceInclude Source="avares://sukiUI/Theme/ToggleButton.axaml" />
+                <ResourceInclude Source="avares://sukiUI/Theme/ToggleSwitch.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/SplitButton.axaml" />
+                <ResourceInclude Source="avares://sukiUI/Theme/ProgressBar.axaml" />
                 <ResourceInclude Source="avares://SukiUI/Theme/SplitView.axaml" />
                 <ResourceInclude Source="avares://SukiUI/Theme/DatePicker.axaml" />
-                <ResourceInclude Source="avares://sukiUI/Theme/Button.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/HyperlinkButton.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/PathIcon.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/Expander.axaml" />
