@@ -277,7 +277,9 @@
     </suki:SukiWindow.MenuItems>
     <suki:SukiSideMenu IsSearchEnabled="True"
                        ItemsSource="{Binding DemoPages}"
-                       SelectedItem="{Binding ActivePage}">
+                       SelectedItem="{Binding ActivePage}"
+                       IsContentVisible="False"
+                       >
         <suki:SukiSideMenu.Styles>
             <Style Selector="Image.AppIcon">
                 <Setter Property="Transitions">

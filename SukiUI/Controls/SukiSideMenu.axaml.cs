@@ -21,10 +21,19 @@ public class SukiSideMenu : TreeView
 
     public static readonly StyledProperty<bool> IsSearchEnabledProperty =
         AvaloniaProperty.Register<SukiSideMenu, bool>(nameof(IsSearchEnabled), defaultValue: false);
+    
+    public static readonly StyledProperty<bool> IsContentVisibleProperty =
+        AvaloniaProperty.Register<SukiSideMenu, bool>(nameof(IsContentVisible), defaultValue: true);
 
     public static readonly StyledProperty<bool> SidebarToggleEnabledProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(SidebarToggleEnabled), defaultValue: true);
-
+    
+    public bool IsContentVisible
+    {
+        get => GetValue(IsContentVisibleProperty);
+        set => SetValue(IsContentVisibleProperty, value);
+    }
+    
     public bool SidebarToggleEnabled
     {
         get => GetValue(SidebarToggleEnabledProperty);
