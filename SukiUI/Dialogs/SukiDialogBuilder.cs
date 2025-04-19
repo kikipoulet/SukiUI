@@ -3,6 +3,7 @@ using Avalonia.Controls.Notifications;
 using SukiUI.ColorTheme;
 using SukiUI.Content;
 using SukiUI.Helpers;
+using System.Diagnostics;
 
 namespace SukiUI.Dialogs
 {
@@ -33,7 +34,10 @@ namespace SukiUI.Dialogs
             var completion = Completion;
             if (completion is null)
             {
-                throw new InvalidOperationException();
+#if DEBUG
+                Debugger.Break();
+#endif
+                throw new InvalidOperationException($"{nameof(SukiDialogBuilder)} is not configured corretly. Its missing a valid value for {nameof(Completion)}.");
             }
 
             cancellationToken.Register(CancellationRequested);
@@ -42,7 +46,12 @@ namespace SukiUI.Dialogs
             var result = Manager.TryShowDialog(Dialog);
             if (!result)
             {
-                throw new InvalidOperationException();
+#if DEBUG
+                Debugger.Break();
+#endif
+
+                dialog.OnDismissed -= DialogCancellationRequested;
+                throw new InvalidOperationException("Opening a new dialog failed. Looks like there is already one open.");
             }
 
             return await completion.Task;
