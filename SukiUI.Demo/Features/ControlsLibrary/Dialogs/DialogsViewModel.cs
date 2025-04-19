@@ -26,7 +26,6 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
 
     [ObservableProperty] private SukiMessageBoxIcons _selectedMessageBoxIcon = SukiMessageBoxIcons.Information;
 
-
     public SukiMessageBoxButtons[] MessageBoxButtons { get; } = Enum.GetValues<SukiMessageBoxButtons>();
 
     [ObservableProperty] private SukiMessageBoxButtons _selectedMessageBoxButtons = SukiMessageBoxButtons.YesNoCancel;
@@ -99,6 +98,39 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
             .WithActionButton("Close " + SelectedType.ToString(), _ => { }, true, "Flat")
             .Dismiss().ByClickingBackground()
             .TryShow();
+
+        toastManager.CreateToast()
+                .WithTitle("Dialog opened")
+                .WithContent($"Dialog opened")
+                .Dismiss().After(TimeSpan.FromSeconds(3))
+                .Queue();
+    }
+
+    [RelayCommand(AllowConcurrentExecutions = false)]
+    private async Task OpenAsyncMessageBoxStyleDialog()
+    {
+        var task = dialogManager.CreateDialog()
+             .OfType(SelectedType)
+             .WithTitle("MessageBox style dialog.")
+             .WithContent("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.")
+             .WithYesNoResult("Yes", "No")
+             .Dismiss().ByClickingBackground()
+             .TryShowAsync();
+
+        toastManager.CreateToast()
+            .WithTitle("Dialog opened")
+            .WithContent($"Dialog opened")
+            .Dismiss().After(TimeSpan.FromSeconds(3))
+            .Queue();
+
+        var result = await task;
+
+        toastManager.CreateToast()
+                .WithTitle("Dialog closed")
+                .WithContent($"DialogResult: {result}")
+                .Dismiss().ByClicking()
+                .Dismiss().After(TimeSpan.FromSeconds(3))
+                .Queue();
     }
 
     [RelayCommand]
@@ -189,7 +221,6 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
                 }
         });
 
-
         toastManager.CreateToast()
             .WithTitle("Dialog Option Clicked")
             .WithContent($"You clicked option: {result}")
@@ -248,7 +279,7 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
 
                            For any feedback or support, please reach out to our support team at support@example.com.
                            """
-            } ,
+            },
             ActionButtonsSource = [autoUpgradeButton, manualUpgradeButton, cancelButton]
         });
 
@@ -308,7 +339,6 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
             Height = 320,
         });
 
-
         toastManager.CreateToast()
             .WithTitle("Dialog Option Clicked")
             .WithContent($"You clicked option: {result}")
@@ -316,7 +346,6 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
             .Dismiss().After(TimeSpan.FromSeconds(3))
             .Queue();
     }
-
 
     [RelayCommand]
     private async Task OpenSuccessMessageBox()
@@ -393,7 +422,6 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
                     int i = 0;
                     int error = 10 / i;
                 }
-
                 else
                 {
                     byte[] bytes = [];
@@ -480,7 +508,6 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
                    Line 004: Wide content: When generating code or text programmatically, raw string literals can serve as perfect templates, containing placeholders that can be replaced at runtime while keeping all the surrounding formatting intact and perfectly readable in the source code.
                    Line 005: Both dimensions: The vertical expansion allows for clear separation of logical sections, while horizontal expansion accommodates content that needs to remain unbroken, such as long URLs, cryptographic keys, or minified resources.
 
-
                    SECTION 4: PRACTICAL APPLICATIONS
                    ----------------------------------------------------------------------------------------------------
                    1.EMBEDDED DOCUMENTATION:
@@ -491,7 +518,6 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
                        2.COMPLEX REGULAR EXPRESSIONS:
                       @"^(([^<>()[\]\\.,;:\s@""]+(\.[^<>()[\]\\.,;:\s@""]+)*)|("".+""))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$"
                       (The above complex email regex is much more readable in a raw string literal)
-
 
                    3.DATA TEMPLATES:
                        {
