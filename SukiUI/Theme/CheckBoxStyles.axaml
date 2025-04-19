@@ -30,7 +30,7 @@
                             Width="20"
                             Height="20"
                             VerticalAlignment="Center"  
-                        Classes.PrimaryOpaque="{TemplateBinding IsChecked}"
+                        Classes.PrimaryOpaque="{TemplateBinding IsChecked,Converter={x:Static suki:BoolConvert.NotFalse}}"
                        
                             CornerRadius="6">
                         
