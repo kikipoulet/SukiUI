@@ -1,4 +1,14 @@
-﻿using Avalonia.Controls.Notifications;
+
+﻿using System;
+using System.Text;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Controls.Notifications;
+using Avalonia.Layout;
+using Avalonia.Media;
+using Avalonia.Platform;
+
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
@@ -40,6 +50,32 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
     [RelayCommand]
     private void OpenDialogWindowDemo()
         => new DialogWindowDemo(_dialogManager).Show();
+
+    [RelayCommand]
+    private void OpenDialogNativeWindowDemo()
+    {
+        var dialogHost = new SukiDialogHost
+        {
+            Manager = new SukiDialogManager()
+        };
+        var toastHost = new SukiToastHost
+        {
+            Manager = new SukiToastManager()
+        };
+
+        var window = new Window
+        {
+            Title = "SukiUI in a stock Avalonia Window",
+            Icon = new WindowIcon(AssetLoader.Open(new Uri("avares://SukiUI.Demo/Assets/OIG.N5o-removebg-preview.png"))),
+            Content = new SukiMainHost
+            {
+                Hosts = [dialogHost, toastHost],
+                Content = new DialogsViewModel(dialogHost.Manager, toastHost.Manager)
+            }
+        };
+
+        window.Show();
+    }
 
     [RelayCommand]
     private void OpenToolWindowDemo()

@@ -29,6 +29,7 @@
             </suki:GroupBox>
         </suki:GlassCard>
 
+
         <ScrollViewer Grid.Row="1" Margin="32">
             <StackPanel Spacing="32">
                 <Expander ExpandDirection="Down"
@@ -248,10 +249,17 @@
                                             Content="Open" />
                                 </suki:GroupBox>
                             </suki:GlassCard>
+                          
+                             <suki:GlassCard>
+                                <suki:GroupBox Header="Native Window Dialog Demo">
+                                  <Button Margin="15,10,15,0" VerticalAlignment="Top" Command="{Binding OpenDialogNativeWindowDemoCommand}" Content="Open" />
+                                </suki:GroupBox>
+                            </suki:GlassCard>
                         </WrapPanel>
                     </ScrollViewer>
                 </Expander>
             </StackPanel>
+
         </ScrollViewer>
     </Grid>
 </UserControl>
