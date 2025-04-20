@@ -248,7 +248,7 @@ public class SukiWindow : Window, IDisposable
     }
 
     public static readonly StyledProperty<AvaloniaList<MenuItem>?> MenuItemsProperty =
-        AvaloniaProperty.Register<SukiWindow, AvaloniaList<MenuItem>?>(nameof(MenuItems), defaultValue:[]);
+        AvaloniaProperty.Register<SukiWindow, AvaloniaList<MenuItem>?>(nameof(MenuItems));
 
     /// <summary>
     /// Gets or sets the menu items that are displayed in the menu.
@@ -465,6 +465,7 @@ public class SukiWindow : Window, IDisposable
     {
         Hosts = [];
         RightWindowTitleBarControls = [];
+        MenuItems = [];
         ScalingChanged += OnScalingChanged;
 
         _hideTitleBarTimer.Tick += HideTitleBarTimerOnTick;
