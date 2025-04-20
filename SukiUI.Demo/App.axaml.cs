@@ -1,13 +1,9 @@
-using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Controls.Templates;
 using Avalonia.Markup.Xaml;
-using Avalonia.Markup.Xaml.Styling;
-using Avalonia.Media;
-using Avalonia.Styling;
 using Microsoft.Extensions.DependencyInjection;
+using SukiUI.Controls;
 using SukiUI.Demo.Common;
 using SukiUI.Demo.Features.ControlsLibrary;
 using SukiUI.Demo.Features.ControlsLibrary.Colors;
@@ -25,8 +21,6 @@ using SukiUI.Demo.Features.Splash;
 using SukiUI.Demo.Features.Theming;
 using SukiUI.Demo.Services;
 using SukiUI.Dialogs;
-using SukiUI.Models;
-using SukiUI.Theme.Shadcn;
 using SukiUI.Toasts;
 
 namespace SukiUI.Demo;
@@ -41,18 +35,37 @@ public class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             var services = new ServiceCollection();
-
             services.AddSingleton(desktop);
-
             var views = ConfigureViews(services);
             var provider = ConfigureServices(services);
-
+            DataTemplates.Add(new ViewLocator(views));
+            desktop.MainWindow = views.CreateView<SukiUIDemoViewModel>(provider) as Window;
+        }
+        else if (ApplicationLifetime is ISingleViewApplicationLifetime singleView)
+        {
+            var services = new ServiceCollection();
+            services.AddSingleton(singleView);
+            var views = ConfigureViews(services);
+            var provider = ConfigureServices(services);
             DataTemplates.Add(new ViewLocator(views));
 
-            desktop.MainWindow = views.CreateView<SukiUIDemoViewModel>(provider) as Window;
+
+            // Ideally, we want to create a MainView that host app content
+            // and use it for both IClassicDesktopStyleApplicationLifetime and ISingleViewApplicationLifetime
+            singleView.MainView = new SukiMainHost()
+            {
+                Hosts = [
+                    new SukiDialogHost
+                    {
+                        Manager = new SukiDialogManager()
+                    }
+                ],
+                Content = views.CreateView<DialogViewModel>(provider)
+            };
         }
 
         base.OnFrameworkInitializationCompleted();
