@@ -87,10 +87,9 @@ namespace SukiUI.Demo.Features.ControlsLibrary.Dialogs
                 Header = "Reformat file",
                 Content = "Are you sure you want to process this action?",
                 ActionButtonsPreset = SelectedMessageBoxButtons,
-                FooterLeftItemsSource = new[]
-                    {
+                FooterLeftItemsSource = [
                     SukiMessageBoxButtonsFactory.CreateButton("About"),
-                }
+                ]
             });
 
             toastManager.CreateToast()
@@ -153,6 +152,9 @@ namespace SukiUI.Demo.Features.ControlsLibrary.Dialogs
                            """
                 },
                 ActionButtonsSource = [autoUpgradeButton, manualUpgradeButton, cancelButton]
+            }, new SukiMessageBoxOptions
+            {
+                UseNativeWindow = UseNativeWindow
             });
 
             if (result is SukiMessageBoxResult.Yes)
@@ -230,10 +232,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary.Dialogs
             {
                 IconPreset = SukiMessageBoxIcons.Success,
                 ActionButtonsPreset = SukiMessageBoxButtons.OK,
-                FooterLeftItemsSource = new Control[]
-                {
-                checkBox
-                },
+                FooterLeftItemsSource = [checkBox],
                 Content = "The operation was completed successfully.\nTook: 25 seconds.",
             });
 
@@ -255,21 +254,20 @@ namespace SukiUI.Demo.Features.ControlsLibrary.Dialogs
                       There's not internet connection to perform this action.
                       Do you want to queue a retry in 10 seconds?
                       """,
-                FooterLeftItemsSource = new Control[]
-                {
-                new Border()
-                {
-                    Background = Brushes.Red,
-                    Width = 16,
-                    Height = 16,
-                    CornerRadius = new CornerRadius(50),
-                },
-                new SelectableTextBlock()
-                {
-                    VerticalAlignment = VerticalAlignment.Center,
-                    Text = "Status: Offline",
-                },
-                },
+                FooterLeftItemsSource = [
+                    new Border
+                    {
+                        Background = Brushes.Red,
+                        Width = 16,
+                        Height = 16,
+                        CornerRadius = new CornerRadius(50),
+                    },
+                    new SelectableTextBlock
+                    {
+                        VerticalAlignment = VerticalAlignment.Center,
+                        Text = "Status: Offline",
+                    },
+                ],
                 ActionButtonsPreset = SukiMessageBoxButtons.YesNo
             });
 
@@ -307,15 +305,14 @@ namespace SukiUI.Demo.Features.ControlsLibrary.Dialogs
                         IconPreset = SukiMessageBoxIcons.Error,
                         Header = $"Exception: {e.GetType().Name}",
                         Content = e.ToString(),
-                        FooterLeftItemsSource = new Control[]
-                        {
+                        FooterLeftItemsSource = [
                         SukiMessageBoxButtonsFactory.CreateButton("Copy details"),
-                        new SelectableTextBlock()
-                        {
-                            VerticalAlignment = VerticalAlignment.Center,
-                            Text = $"Retry count: {retryCount}",
-                        },
-                        },
+                            new SelectableTextBlock()
+                            {
+                                VerticalAlignment = VerticalAlignment.Center,
+                                Text = $"Retry count: {retryCount}",
+                            },
+                        ],
                         ActionButtonsPreset = SukiMessageBoxButtons.RetryIgnoreAbort
                     });
 
@@ -333,7 +330,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary.Dialogs
         }
 
         [RelayCommand]
-        private async Task OpenLongMessageBox()
+        private async Task OpenLongMessageBox(bool useNativeWindow = false)
         {
             var text = """"
                    ====================================================================================================
@@ -424,16 +421,18 @@ namespace SukiUI.Demo.Features.ControlsLibrary.Dialogs
             var result = await SukiMessageBox.ShowDialog(new SukiMessageBoxHost
             {
                 Content = text,
-                FooterLeftItemsSource = new Control[]
-                {
-                new SelectableTextBlock()
-                {
-                    VerticalAlignment = VerticalAlignment.Center,
-                    FontWeight = FontWeight.Bold,
-                    Text = $"Text length: {text.Length:N}",
-                },
-                },
+                FooterLeftItemsSource = [
+                    new SelectableTextBlock
+                    {
+                        VerticalAlignment = VerticalAlignment.Center,
+                        FontWeight = FontWeight.Bold,
+                        Text = $"Text length: {text.Length:N}",
+                    },
+                ],
                 ActionButtonsPreset = SukiMessageBoxButtons.OK
+            }, new SukiMessageBoxOptions
+            {
+                UseNativeWindow = useNativeWindow
             });
 
             toastManager.CreateToast()

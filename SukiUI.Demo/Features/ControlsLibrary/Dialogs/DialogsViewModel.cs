@@ -35,8 +35,9 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
     public SukiMessageBoxButtons[] MessageBoxButtons { get; } = Enum.GetValues<SukiMessageBoxButtons>();
 
     [ObservableProperty] private SukiMessageBoxButtons _selectedMessageBoxButtons = SukiMessageBoxButtons.YesNoCancel;
-    [ObservableProperty] private bool _useAlternativeHeaderStyle = false;
+    [ObservableProperty] private bool _useAlternativeHeaderStyle;
     [ObservableProperty] private bool _showHeaderContentSeparator = true;
+    [ObservableProperty] private bool _useNativeWindow;
 
     private void ShowOptionToast(int option)
     {

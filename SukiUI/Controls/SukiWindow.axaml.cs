@@ -79,7 +79,7 @@ public class SukiWindow : Window, IDisposable
 
     #region Properties
     public static readonly StyledProperty<double> MaxWidthScreenRatioProperty =
-        AvaloniaProperty.Register<SukiWindow, double>(nameof(MaxWidthScreenRatio));
+        AvaloniaProperty.Register<SukiWindow, double>(nameof(MaxWidthScreenRatio), double.NaN);
 
     /// <summary>
     /// Gets or sets the maximum width of the window as a ratio of the host screen width.
@@ -91,7 +91,7 @@ public class SukiWindow : Window, IDisposable
     }
 
     public static readonly StyledProperty<double> MaxHeightScreenRatioProperty =
-        AvaloniaProperty.Register<SukiWindow, double>(nameof(MaxHeightScreenRatio));
+        AvaloniaProperty.Register<SukiWindow, double>(nameof(MaxHeightScreenRatio), double.NaN);
 
     /// <summary>
     /// Gets or sets the maximum height of the window as a ratio of the host screen height.
@@ -584,11 +584,11 @@ public class SukiWindow : Window, IDisposable
 
         if (change.Property == MaxWidthScreenRatioProperty)
         {
-            ConstrainToMaxSizeRatio(constrainMaxWidth: true, constrainMaxHeight: false);
+            this.ConstrainMaxSizeToScreenRatio(MaxWidthScreenRatio, double.NaN);
         }
         else if (change.Property == MaxHeightScreenRatioProperty)
         {
-            ConstrainToMaxSizeRatio(constrainMaxWidth: false, constrainMaxHeight: true);
+            this.ConstrainMaxSizeToScreenRatio(double.NaN, MaxHeightScreenRatio);
         }
         else if (change.Property == WindowStateProperty)
         {
@@ -638,7 +638,7 @@ public class SukiWindow : Window, IDisposable
     /// <param name="e"></param>
     private void OnScalingChanged(object sender, EventArgs e)
     {
-        ConstrainToMaxSizeRatio(MaxWidthScreenRatio > 0, MaxHeightScreenRatio > 0);
+        this.ConstrainMaxSizeToScreenRatio(MaxWidthScreenRatio, MaxHeightScreenRatio);
     }
 
     /// <summary>
@@ -691,7 +691,7 @@ public class SukiWindow : Window, IDisposable
                 : 0);
         }
 
-        ConstrainToMaxSizeRatio(MaxWidthScreenRatio > 0, MaxHeightScreenRatio > 0);
+        this.ConstrainMaxSizeToScreenRatio(MaxWidthScreenRatio, MaxHeightScreenRatio);
     }
 
     /// <summary>
@@ -809,7 +809,7 @@ public class SukiWindow : Window, IDisposable
     {
         // Ensure correct window max size if dropped on other screen/resolution while using max size ratio
         if (!CanMove || e.InitialPressMouseButton != MouseButton.Left) return;
-        ConstrainToMaxSizeRatio(MaxWidthScreenRatio > 0, MaxHeightScreenRatio > 0);
+        this.ConstrainMaxSizeToScreenRatio(MaxWidthScreenRatio, MaxHeightScreenRatio);
     }
 
     /// <summary>
@@ -1001,6 +1001,8 @@ public class SukiWindow : Window, IDisposable
             {
                 Tag = config.Tag,
                 Background = Brushes.Transparent,
+                VerticalAlignment = config.VerticalAlignment,
+                HorizontalAlignment = config.HorizontalAlignment,
                 Cursor = new Cursor(config.Cursor)
             };
 
@@ -1008,8 +1010,6 @@ public class SukiWindow : Window, IDisposable
             {
                 border.Width = 8;
                 border.Height = 8;
-                border.VerticalAlignment = config.VerticalAlignment;
-                border.HorizontalAlignment = config.HorizontalAlignment;
             }
             else
             {
@@ -1021,65 +1021,11 @@ public class SukiWindow : Window, IDisposable
                 {
                     border.Height = 6;
                 }
-                border.VerticalAlignment = config.VerticalAlignment;
-                border.HorizontalAlignment = config.HorizontalAlignment;
             }
 
             border.PointerPressed += RaiseResize;
             _disposeActions.Add(() => border.PointerPressed -= RaiseResize);
             rootPanel.Children.Add(border);
-        }
-    }
-
-    /// <summary>
-    /// Constrains the window to a maximum size ratio of the host screen.
-    /// </summary>
-    /// <param name="constrainMaxWidth"></param>
-    /// <param name="constrainMaxHeight"></param>
-    protected virtual void ConstrainToMaxSizeRatio(bool constrainMaxWidth = true, bool constrainMaxHeight = true)
-    {
-        Screen? screen = null;
-        WindowState? windowState = null;
-
-        if (constrainMaxWidth)
-        {
-            var widthRatio = MaxWidthScreenRatio;
-            windowState = WindowState;
-            if (widthRatio <= 0 || windowState is WindowState.FullScreen or WindowState.Maximized)
-            {
-                MaxWidth = double.PositiveInfinity;
-            }
-            else
-            {
-                screen = this.GetHostScreen();
-                if (screen is null) return;
-
-                var desiredMaxWidth = screen.WorkingArea.Width / RenderScaling * widthRatio;
-
-                MaxWidth = MinWidth > 0
-                    ? Math.Max(MinWidth, desiredMaxWidth)
-                    : desiredMaxWidth;
-            }
-        }
-
-        if (constrainMaxHeight)
-        {
-            var heightRatio = MaxHeightScreenRatio;
-            windowState ??= WindowState;
-            if (heightRatio <= 0 || windowState is WindowState.FullScreen or WindowState.Maximized)
-            {
-                MaxHeight = double.PositiveInfinity;
-            }
-            else
-            {
-                screen ??= this.GetHostScreen();
-                if (screen is null) return;
-
-                var desiredMaxHeight = screen.WorkingArea.Height / RenderScaling * heightRatio;
-                MaxHeight = MinHeight > 0
-                    ? Math.Max(MinHeight, desiredMaxHeight)
-                    : desiredMaxHeight;
-            }
         }
     }
 

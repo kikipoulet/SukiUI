@@ -19,6 +19,7 @@
                     <TextBlock Classes="h2" Text="h2 TextBlock" />
                     <TextBlock Classes="h3" Text="h3 TextBlock" />
                     <TextBlock Classes="h4" Text="h4 TextBlock" />
+                    <TextBlock Classes="h5" Text="h5 TextBlock" />
                     <TextBlock Classes="Caption" Text="Caption TextBlock" />
                     <TextBlock Classes="Primary" Text="Primary TextBlock" />
                     <TextBlock Classes="Accent" Text="Accent TextBlock" />
@@ -36,6 +37,7 @@
                     <SelectableTextBlock Classes="h2" Text="h2 SelectableTextBlock" />
                     <SelectableTextBlock Classes="h3" Text="h3 SelectableTextBlock" />
                     <SelectableTextBlock Classes="h4" Text="h4 SelectableTextBlock" />
+                    <SelectableTextBlock Classes="h5" Text="h5 SelectableTextBlock" />
                     <SelectableTextBlock Classes="Caption" Text="Caption SelectableTextBlock" />
                     <SelectableTextBlock Classes="Primary" Text="Primary SelectableTextBlock" />
                     <SelectableTextBlock Classes="Accent" Text="Accent SelectableTextBlock" />
@@ -52,6 +54,9 @@
     <ControlTheme x:Key="SukiTextBlockStyle" TargetType="TextBlock">
         <Setter Property="FontSize" Value="14" />
 
+        <Style Selector="^.h5">
+            <Setter Property="FontSize" Value="16" />
+        </Style>
         <Style Selector="^.h4">
             <Setter Property="Margin" Value="0 7 0 10" />
             <Setter Property="FontSize" Value="20" />
@@ -59,17 +64,17 @@
         <Style Selector="^.h3">
 
             <Setter Property="Margin" Value="0 10 0 15" />
-            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontWeight" Value="DemiBold" />
             <Setter Property="FontSize" Value="25" />
         </Style>
         <Style Selector="^.h2">
             <Setter Property="Margin" Value="0 12 0 20" />
-            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontWeight" Value="DemiBold" />
             <Setter Property="FontSize" Value="30" />
         </Style>
         <Style Selector="^.h1">
             <Setter Property="Margin" Value="0 20 0 30" />
-            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontWeight" Value="DemiBold" />
             <Setter Property="FontSize" Value="40" />
         </Style>
         <Style Selector="^.Caption">
