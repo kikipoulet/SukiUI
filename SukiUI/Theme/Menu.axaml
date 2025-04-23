@@ -1,68 +1,77 @@
-<ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="clr-namespace:SukiUI.Controls"
-                    xmlns:suki="https://github.com/kikipoulet/SukiUI"
-                    xmlns:system="clr-namespace:System;assembly=netstandard">
-    <ControlTheme x:Key="SukiTopLevelMenuItem" TargetType="MenuItem">
+<ResourceDictionary
+    xmlns="https://github.com/avaloniaui"
+    xmlns:animations="clr-namespace:SukiUI.Animations"
+    xmlns:controls="clr-namespace:SukiUI.Controls"
+    xmlns:suki="https://github.com/kikipoulet/SukiUI"
+    xmlns:system="clr-namespace:System;assembly=netstandard"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTheme TargetType="MenuItem" x:Key="SukiTopLevelMenuItem">
         <Setter Property="FontWeight" Value="{DynamicResource DefaultDemiBold}" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Padding" Value="10 0" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Border Name="root"
-                        Margin="5,5"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{DynamicResource SukiMenuBorderBrush}"
-                        BorderThickness="0"
-                        CornerRadius="8">
+                <Border
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{DynamicResource SukiMenuBorderBrush}"
+                    BorderThickness="0"
+                    CornerRadius="8"
+                    Margin="5,5"
+                    Name="root">
                     <Panel>
-                        <controls:GlassCard Name="GlassMenuItemBackground"
-                                            Classes="Control"
-                                            CornerRadius="8"
-                                            Opacity="0">
+                        <controls:GlassCard
+                            Classes="Control"
+                            CornerRadius="8"
+                            Name="GlassMenuItemBackground"
+                            Opacity="0">
                             <controls:GlassCard.Transitions>
                                 <Transitions>
-                                    <DoubleTransition Property="Opacity" Duration="0:0:0.15" />
+                                    <DoubleTransition Duration="0:0:0.15" Property="Opacity" />
                                 </Transitions>
                             </controls:GlassCard.Transitions>
                         </controls:GlassCard>
-                        <ContentPresenter Name="PART_HeaderPresenter"
-                                          Margin="{TemplateBinding Padding}"
-                                          HorizontalContentAlignment="Left"
-                                          VerticalContentAlignment="Center"
-                                          Content="{TemplateBinding Header}">
+                        <ContentPresenter
+                            Content="{TemplateBinding Header}"
+                            HorizontalContentAlignment="Left"
+                            Margin="{TemplateBinding Padding}"
+                            Name="PART_HeaderPresenter"
+                            VerticalContentAlignment="Center">
                             <ContentPresenter.DataTemplates>
                                 <DataTemplate DataType="system:String">
                                     <TextBlock FontWeight="{DynamicResource DefaultDemiBold}" Text="{CompiledBinding}" />
                                 </DataTemplate>
                             </ContentPresenter.DataTemplates>
                         </ContentPresenter>
-                        <Popup Name="PART_Popup"
-                               ClipToBounds="True"
-                               IsLightDismissEnabled="True"
-                               IsOpen="{TemplateBinding IsSubMenuOpen,
-                                                        Mode=TwoWay}"
-                               Opacity="0"
-                               OverlayInputPassThroughElement="{Binding $parent[MenuItem]}"
-                               Placement="BottomEdgeAlignedLeft">
+                        <Popup
+                            ClipToBounds="True"
+                            IsLightDismissEnabled="True"
+                            IsOpen="{TemplateBinding IsSubMenuOpen,
+                                                     Mode=TwoWay}"
+                            Name="PART_Popup"
+                            Opacity="0"
+                            OverlayInputPassThroughElement="{Binding $parent[MenuItem]}"
+                            Placement="BottomEdgeAlignedLeft">
                             <LayoutTransformControl Name="PART_LayoutTransform" RenderTransformOrigin="50%, 0%">
                                 <Grid Margin="-12,0,0,0">
-                                    <Border Margin="16,8,8,8"
-                                            BoxShadow="{DynamicResource SukiPopupShadow}"
-                                            CornerRadius="6" />
-                                    <Border Name="PART_Border"
-                                            Margin="16,8,8,8"
-                                            Background="{DynamicResource SukiCardBackground}"
-                                            BorderBrush="{DynamicResource SukiMenuBorderBrush}"
-                                            BorderThickness="1"
-                                            BoxShadow="{DynamicResource SukiPopupShadow}"
-                                            ClipToBounds="True"
-                                            CornerRadius="6">
+                                    <Border
+                                        BoxShadow="{DynamicResource SukiPopupShadow}"
+                                        CornerRadius="6"
+                                        Margin="16,8,8,8" />
+                                    <Border
+                                        Background="{DynamicResource SukiCardBackground}"
+                                        BorderBrush="{DynamicResource SukiMenuBorderBrush}"
+                                        BorderThickness="1"
+                                        BoxShadow="{DynamicResource SukiPopupShadow}"
+                                        ClipToBounds="True"
+                                        CornerRadius="6"
+                                        Margin="16,8,8,8"
+                                        Name="PART_Border">
                                         <Panel Background="{DynamicResource PopupGradientBrush}">
                                             <ScrollViewer>
-                                                <ItemsPresenter Name="PART_ItemsPresenter"
-                                                                Grid.IsSharedSizeScope="True"
-                                                                ItemsPanel="{TemplateBinding ItemsPanel}" />
+                                                <ItemsPresenter
+                                                    Grid.IsSharedSizeScope="True"
+                                                    ItemsPanel="{TemplateBinding ItemsPanel}"
+                                                    Name="PART_ItemsPresenter" />
                                             </ScrollViewer>
                                         </Panel>
                                     </Border>
@@ -79,9 +88,10 @@
 
         <Style Selector="^:open /template/ LayoutTransformControl#PART_LayoutTransform">
             <Style.Animations>
-                <Animation Easing="{StaticResource MenuEasing}"
-                           FillMode="Forward"
-                           Duration="0:0:0.3">
+                <Animation
+                    Duration="0:0:0.3"
+                    Easing="{StaticResource MenuEasing}"
+                    FillMode="Forward">
                     <KeyFrame Cue="0%">
                         <Setter Property="ScaleTransform.ScaleY" Value="0.88" />
                         <Setter Property="ScaleTransform.ScaleX" Value="0.88" />
@@ -92,7 +102,7 @@
                     </KeyFrame>
                 </Animation>
 
-                <Animation FillMode="Forward" Duration="0:0:0.25">
+                <Animation Duration="0:0:0.25" FillMode="Forward">
                     <KeyFrame Cue="0%">
                         <Setter Property="Opacity" Value="0" />
                     </KeyFrame>
@@ -104,29 +114,31 @@
         </Style>
     </ControlTheme>
 
-    <ControlTheme x:Key="SukiMenuStyle" TargetType="Menu">
+    <ControlTheme TargetType="Menu" x:Key="SukiMenuStyle">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="ItemContainerTheme" Value="{StaticResource SukiTopLevelMenuItem}" />
         <Setter Property="Template">
             <ControlTemplate>
                 <LayoutTransformControl Name="PART_LayoutTransform" RenderTransformOrigin="50%, 0%">
-                    <Border Height="45"
-                            Padding="{TemplateBinding Padding}"
-                            BorderBrush="{DynamicResource SukiBorderBrush}"
-                            BorderThickness="0"
-                            CornerRadius="{TemplateBinding CornerRadius}">
-                        <ItemsPresenter Name="PART_ItemsPresenter"
-                                        ItemsPanel="{TemplateBinding ItemsPanel}"
-                                        KeyboardNavigation.TabNavigation="Continue" />
+                    <Border
+                        BorderBrush="{DynamicResource SukiBorderBrush}"
+                        BorderThickness="0"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        Height="45"
+                        Padding="{TemplateBinding Padding}">
+                        <ItemsPresenter
+                            ItemsPanel="{TemplateBinding ItemsPanel}"
+                            KeyboardNavigation.TabNavigation="Continue"
+                            Name="PART_ItemsPresenter" />
                     </Border>
                 </LayoutTransformControl>
             </ControlTemplate>
         </Setter>
         <Style Selector="^[IsEnabled=True] /template/ LayoutTransformControl#PART_LayoutTransform">
             <Style.Animations>
-                <Animation FillMode="Forward" Duration="{StaticResource MediumAnimationDuration}">
+                <Animation Duration="{StaticResource MediumAnimationDuration}" FillMode="Forward">
                     <Animation.Easing>
-                        <suki:SukiEaseInOut />
+                        <animations:SukiEaseInOut />
                     </Animation.Easing>
                     <KeyFrame Cue="0%">
                         <Setter Property="ScaleTransform.ScaleY" Value="0.92" />
@@ -144,9 +156,9 @@
         </Style>
         <Style Selector="^[IsEnabled=False] /template/ LayoutTransformControl#PART_LayoutTransform">
             <Style.Animations>
-                <Animation FillMode="Forward" Duration="{StaticResource MediumAnimationDuration}">
+                <Animation Duration="{StaticResource MediumAnimationDuration}" FillMode="Forward">
                     <Animation.Easing>
-                        <suki:SukiEaseInOut />
+                        <animations:SukiEaseInOut />
                     </Animation.Easing>
                     <KeyFrame Cue="0%">
                         <Setter Property="ScaleTransform.ScaleY" Value="1" />
@@ -163,7 +175,8 @@
             </Style.Animations>
         </Style>
     </ControlTheme>
-    <ControlTheme x:Key="{x:Type Menu}"
-                  BasedOn="{StaticResource SukiMenuStyle}"
-                  TargetType="Menu" />
+    <ControlTheme
+        BasedOn="{StaticResource SukiMenuStyle}"
+        TargetType="Menu"
+        x:Key="{x:Type Menu}" />
 </ResourceDictionary>

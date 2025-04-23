@@ -1,9 +1,11 @@
-﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:suki="https://github.com/kikipoulet/SukiUI"
-                    xmlns:sys="using:System">
+﻿<ResourceDictionary
+    xmlns="https://github.com/avaloniaui"
+    xmlns:animations="clr-namespace:SukiUI.Animations"
+    xmlns:suki="https://github.com/kikipoulet/SukiUI"
+    xmlns:sys="using:System"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
-        <Border Width="400" Height="400">
+        <Border Height="400" Width="400">
             <SplitView DisplayMode="Inline" IsPaneOpen="True">
                 <SplitView.Pane>
                     <Border Background="Green" />
@@ -17,16 +19,17 @@
 
     <x:Double x:Key="SplitViewOpenPaneThemeLength">320</x:Double>
     <x:Double x:Key="SplitViewCompactPaneThemeLength">48</x:Double>
-    <SolidColorBrush x:Key="SplitViewLightDismissOverlayBackground"
-                     Opacity="0.6"
-                     Color="{DynamicResource ThemeControlLowColor}" />
+    <SolidColorBrush
+        Color="{DynamicResource ThemeControlLowColor}"
+        Opacity="0.6"
+        x:Key="SplitViewLightDismissOverlayBackground" />
     <sys:TimeSpan x:Key="SplitViewPaneAnimationOpenDuration">00:00:0.7</sys:TimeSpan>
     <sys:TimeSpan x:Key="SplitViewPaneAnimationCloseDuration">00:00:0.6</sys:TimeSpan>
 
     <!-- Not used here (directly), but preserving for reference
         <x:String x:Key="SplitViewPaneAnimationOpenPreDuration">00:00:00.19999</x:String>-->
 
-    <ControlTheme x:Key="{x:Type SplitView}" TargetType="SplitView">
+    <ControlTheme TargetType="SplitView" x:Key="{x:Type SplitView}">
         <Setter Property="OpenPaneLength" Value="{DynamicResource SplitViewOpenPaneThemeLength}" />
         <Setter Property="CompactPaneLength" Value="{DynamicResource SplitViewCompactPaneThemeLength}" />
         <Setter Property="PaneBackground" Value="{DynamicResource ThemeControlHighlightLowBrush}" />
@@ -35,30 +38,34 @@
         <Style Selector="^:left">
             <Setter Property="Template">
                 <ControlTemplate TargetType="SplitView">
-                    <Grid Name="Container" Background="{TemplateBinding Background}">
+                    <Grid Background="{TemplateBinding Background}" Name="Container">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.PaneColumnGridLength}" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <Panel Name="PART_PaneRoot"
-                               HorizontalAlignment="Left"
-                               Background="Transparent"
-                               ClipToBounds="True"
-                               ZIndex="100">
-                            <ContentPresenter x:Name="PART_PanePresenter"
-                                              Content="{TemplateBinding Pane}"
-                                              ContentTemplate="{TemplateBinding PaneTemplate}" />
-                            <Rectangle Name="HCPaneBorder"
-                                       Width="1"
-                                       HorizontalAlignment="Right"
-                                       Fill="Transparent" />
+                        <Panel
+                            Background="Transparent"
+                            ClipToBounds="True"
+                            HorizontalAlignment="Left"
+                            Name="PART_PaneRoot"
+                            ZIndex="100">
+                            <ContentPresenter
+                                Content="{TemplateBinding Pane}"
+                                ContentTemplate="{TemplateBinding PaneTemplate}"
+                                x:Name="PART_PanePresenter" />
+                            <Rectangle
+                                Fill="Transparent"
+                                HorizontalAlignment="Right"
+                                Name="HCPaneBorder"
+                                Width="1" />
                         </Panel>
 
                         <Panel Name="ContentRoot">
-                            <ContentPresenter x:Name="PART_ContentPresenter"
-                                              Content="{TemplateBinding Content}"
-                                              ContentTemplate="{TemplateBinding ContentTemplate}" />
+                            <ContentPresenter
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                x:Name="PART_ContentPresenter" />
                             <Rectangle Name="LightDismissLayer" />
                         </Panel>
 
@@ -117,30 +124,34 @@
         <Style Selector="^:right">
             <Setter Property="Template">
                 <ControlTemplate TargetType="SplitView">
-                    <Grid Name="Container" Background="{TemplateBinding Background}">
+                    <Grid Background="{TemplateBinding Background}" Name="Container">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.PaneColumnGridLength}" />
                         </Grid.ColumnDefinitions>
 
-                        <Panel Name="PART_PaneRoot"
-                               HorizontalAlignment="Right"
-                               Background="{TemplateBinding PaneBackground}"
-                               ClipToBounds="True"
-                               ZIndex="100">
-                            <ContentPresenter x:Name="PART_PanePresenter"
-                                              Content="{TemplateBinding Pane}"
-                                              ContentTemplate="{TemplateBinding PaneTemplate}" />
-                            <Rectangle Name="HCPaneBorder"
-                                       Width="1"
-                                       HorizontalAlignment="Left"
-                                       Fill="Transparent" />
+                        <Panel
+                            Background="{TemplateBinding PaneBackground}"
+                            ClipToBounds="True"
+                            HorizontalAlignment="Right"
+                            Name="PART_PaneRoot"
+                            ZIndex="100">
+                            <ContentPresenter
+                                Content="{TemplateBinding Pane}"
+                                ContentTemplate="{TemplateBinding PaneTemplate}"
+                                x:Name="PART_PanePresenter" />
+                            <Rectangle
+                                Fill="Transparent"
+                                HorizontalAlignment="Left"
+                                Name="HCPaneBorder"
+                                Width="1" />
                         </Panel>
 
                         <Panel Name="ContentRoot">
-                            <ContentPresenter x:Name="PART_ContentPresenter"
-                                              Content="{TemplateBinding Content}"
-                                              ContentTemplate="{TemplateBinding ContentTemplate}" />
+                            <ContentPresenter
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                x:Name="PART_ContentPresenter" />
                             <Rectangle Name="LightDismissLayer" />
                         </Panel>
 
@@ -197,9 +208,9 @@
         <Style Selector="^:open /template/ Panel#PART_PaneRoot">
             <Setter Property="Transitions">
                 <Transitions>
-                    <DoubleTransition Property="Width" Duration="{StaticResource SplitViewPaneAnimationOpenDuration}">
+                    <DoubleTransition Duration="{StaticResource SplitViewPaneAnimationOpenDuration}" Property="Width">
                         <DoubleTransition.Easing>
-                            <suki:SukiEaseInOutBack BounceIntensity="Strong" />
+                            <animations:SukiEaseInOutBack BounceIntensity="Strong" />
                         </DoubleTransition.Easing>
                     </DoubleTransition>
                 </Transitions>
@@ -209,9 +220,10 @@
         <Style Selector="^:open /template/ Rectangle#LightDismissLayer">
             <Setter Property="Transitions">
                 <Transitions>
-                    <DoubleTransition Easing="SineEaseOut"
-                                      Property="Opacity"
-                                      Duration="{StaticResource SplitViewPaneAnimationOpenDuration}" />
+                    <DoubleTransition
+                        Duration="{StaticResource SplitViewPaneAnimationOpenDuration}"
+                        Easing="SineEaseOut"
+                        Property="Opacity" />
                 </Transitions>
             </Setter>
             <Setter Property="Opacity" Value="1.0" />
@@ -220,9 +232,9 @@
         <Style Selector="^:closed /template/ Panel#PART_PaneRoot">
             <Setter Property="Transitions">
                 <Transitions>
-                    <DoubleTransition Property="Width" Duration="{StaticResource SplitViewPaneAnimationCloseDuration}">
+                    <DoubleTransition Duration="{StaticResource SplitViewPaneAnimationCloseDuration}" Property="Width">
                         <DoubleTransition.Easing>
-                            <suki:SukiEaseInOut />
+                            <animations:SukiEaseInOut />
                         </DoubleTransition.Easing>
                     </DoubleTransition>
                 </Transitions>
@@ -232,9 +244,10 @@
         <Style Selector="^:closed /template/ Rectangle#LightDismissLayer">
             <Setter Property="Transitions">
                 <Transitions>
-                    <DoubleTransition Easing="SineEaseOut"
-                                      Property="Opacity"
-                                      Duration="{StaticResource SplitViewPaneAnimationCloseDuration}" />
+                    <DoubleTransition
+                        Duration="{StaticResource SplitViewPaneAnimationCloseDuration}"
+                        Easing="SineEaseOut"
+                        Property="Opacity" />
                 </Transitions>
             </Setter>
             <Setter Property="Opacity" Value="0.0" />

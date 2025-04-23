@@ -1,0 +1,43 @@
+﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="SukiUI.Demo.Features.Helpers.OrganicMove"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:suki="https://github.com/kikipoulet/SukiUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel Margin="50" Spacing="20">
+        <TextBlock Classes="h3" Margin="0,30,0,10">Organic Move</TextBlock>
+        <suki:GlassCard Height="600" Width="600">
+            <Panel>
+                <suki:GlassCard
+                    HorizontalAlignment="Left"
+                    Name="GlassMove"
+                    VerticalAlignment="Top">
+                    <StackPanel Spacing="22">
+                        <suki:CircleProgressBar
+                            Height="70"
+                            HorizontalAlignment="Center"
+                            StrokeWidth="8"
+                            Value="50"
+                            Width="70">
+                            <TextBlock
+                                FontWeight="DemiBold"
+                                Margin="0,2,0,0"
+                                Text="50%" />
+                        </suki:CircleProgressBar>
+                        <Button
+                            Classes="Flat"
+                            Click="MoveOrganic"
+                            Content="Click Me !"
+                            HorizontalAlignment="Center"
+                            Width="150" />
+                    </StackPanel>
+
+                </suki:GlassCard>
+            </Panel>
+        </suki:GlassCard>
+    </StackPanel>
+</UserControl>
