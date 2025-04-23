@@ -87,6 +87,40 @@
                 </suki:SukiSideMenuItem.PageContent>
             </suki:SukiSideMenuItem>
 
+            <!-- <suki:SukiSideMenuItem Classes="Compact" Header="Organic Move">
+                <suki:SukiSideMenuItem.Icon>
+                    <PathIcon Width="13"
+                              Height="13"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Data="{x:Static suki:Icons.ChevronRight}"
+                              Foreground="{DynamicResource SukiLowText}" />
+
+                </suki:SukiSideMenuItem.Icon>
+                <suki:SukiSideMenuItem.PageContent>
+                    <ScrollViewer>
+                        <helpers:OrganicMove />
+                    </ScrollViewer>
+                </suki:SukiSideMenuItem.PageContent>
+            </suki:SukiSideMenuItem>-->
+
+            <suki:SukiSideMenuItem Classes="Compact" Header="Pulling Effect">
+                <suki:SukiSideMenuItem.Icon>
+                    <PathIcon Width="13"
+                              Height="13"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Data="{x:Static suki:Icons.ChevronRight}"
+                              Foreground="{DynamicResource SukiLowText}" />
+
+                </suki:SukiSideMenuItem.Icon>
+                <suki:SukiSideMenuItem.PageContent>
+                    <ScrollViewer>
+                        <helpers:PullingEffect />
+                    </ScrollViewer>
+                </suki:SukiSideMenuItem.PageContent>
+            </suki:SukiSideMenuItem>
+
             <!--  Other Pages  -->
 
         </suki:SukiSideMenu.Items>

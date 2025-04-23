@@ -13,10 +13,27 @@ namespace SukiUI.Demo.Features.Helpers
             InitializeComponent();
         }
         
-        private void MoveOrganic(object? sender, RoutedEventArgs e)
+        private void GoToTopRight(object? sender, RoutedEventArgs e)
         {
             var card = this.Get<GlassCard>("GlassMove");
-            card.MoveToOrganic(new Thickness( card.Margin.Left == 0 ? 300 : 0, 0, 0, 0), TimeSpan.FromMilliseconds(2000));
+            card.MoveToOrganic(new Thickness( 300 , 0, 0, 0), TimeSpan.FromMilliseconds(2000));
+        }
+        private void GoToTopLeft(object? sender, RoutedEventArgs e)
+        {
+            var card = this.Get<GlassCard>("GlassMove");
+            card.MoveToOrganic(new Thickness( 0 , 0, 0, 0), TimeSpan.FromMilliseconds(2000));
+        }
+        
+        private void GoToBotLeft(object? sender, RoutedEventArgs e)
+        {
+            var card = this.Get<GlassCard>("GlassMove");
+            card.MoveToOrganic(new Thickness( 0 , 300, 0, 0), TimeSpan.FromMilliseconds(2000));
+        }
+        
+        private void GoToBotRight(object? sender, RoutedEventArgs e)
+        {
+            var card = this.Get<GlassCard>("GlassMove");
+            card.MoveToOrganic(new Thickness( 300 , 300, 0, 0), TimeSpan.FromMilliseconds(2000));
         }
     }
 }
