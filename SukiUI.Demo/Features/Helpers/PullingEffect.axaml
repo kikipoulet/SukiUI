@@ -1,19 +1,41 @@
-﻿<UserControl x:Class="SukiUI.Demo.Features.Helpers.PullingEffect"
-             xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             d:DesignHeight="450"
-             d:DesignWidth="800"
-             mc:Ignorable="d">
-    <Panel>
-        <Border x:Name="RB"
-                Width="200"
-                Height="100"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Background="LightGray"
-                CornerRadius="15"
-                RenderTransformOrigin="0.5,0.5" />
-    </Panel>
+﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="SukiUI.Demo.Features.Helpers.PullingEffect"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:animations="clr-namespace:SukiUI.Animations;assembly=SukiUI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <StackPanel Spacing="50" VerticalAlignment="Center">
+        <Border
+            Background="LightGray"
+            CornerRadius="15"
+            Height="100"
+            HorizontalAlignment="Center"
+            Margin="25"
+            RenderTransformOrigin="0.5,0.5"
+            VerticalAlignment="Center"
+            Width="200"
+            animations:SquishyExtensions.Enable="True" />
+
+
+        <Slider
+            Margin="25"
+            Width="350"
+            animations:SquishyExtensions.Enable="True" />
+
+        <Slider
+            Margin="25"
+            Width="350"
+            animations:SquishyExtensions.Enable="True"
+            animations:SquishyExtensions.Intensity="0.12"
+            animations:SquishyExtensions.SquishDepth="0.05" />
+
+
+
+    </StackPanel>
+
 </UserControl>
