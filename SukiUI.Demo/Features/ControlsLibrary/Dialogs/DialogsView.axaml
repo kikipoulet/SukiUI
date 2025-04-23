@@ -162,6 +162,7 @@
                                     <StackPanel Spacing="10">
                                         <CheckBox Content="Use alternative header style" IsChecked="{Binding UseAlternativeHeaderStyle}" />
                                         <CheckBox Content="Show header/content separator" IsChecked="{Binding ShowHeaderContentSeparator}" />
+                                        <CheckBox Content="Use native window" IsChecked="{Binding UseNativeWindow}" />
                                         <Button Margin="15,10,15,0"
                                                 VerticalAlignment="Top"
                                                 Command="{Binding OpenCustomMarkdownMessageBoxCommand}"
@@ -211,6 +212,17 @@
                                     <Button Margin="15,10,15,0"
                                             VerticalAlignment="Top"
                                             Command="{Binding OpenLongMessageBoxCommand}"
+                                            CommandParameter="{x:False}"
+                                            Content="Open" />
+                                </suki:GroupBox>
+                            </suki:GlassCard>
+
+                            <suki:GlassCard Width="250">
+                                <suki:GroupBox Header="Long Native Window">
+                                    <Button Margin="15,10,15,0"
+                                            VerticalAlignment="Top"
+                                            Command="{Binding OpenLongMessageBoxCommand}"
+                                            CommandParameter="{x:True}"
                                             Content="Open" />
                                 </suki:GroupBox>
                             </suki:GlassCard>
@@ -249,10 +261,13 @@
                                             Content="Open" />
                                 </suki:GroupBox>
                             </suki:GlassCard>
-                          
-                             <suki:GlassCard>
+
+                            <suki:GlassCard>
                                 <suki:GroupBox Header="Native Window Dialog Demo">
-                                  <Button Margin="15,10,15,0" VerticalAlignment="Top" Command="{Binding OpenDialogNativeWindowDemoCommand}" Content="Open" />
+                                    <Button Margin="15,10,15,0"
+                                            VerticalAlignment="Top"
+                                            Command="{Binding OpenDialogNativeWindowDemoCommand}"
+                                            Content="Open" />
                                 </suki:GroupBox>
                             </suki:GlassCard>
                         </WrapPanel>
