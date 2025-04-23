@@ -63,6 +63,7 @@
                                     IsVisible="{DynamicResource IsLight}"
                                     Opacity="0.1" />
 
+
                             <ContentPresenter x:Name="PART_ContentPresenter"
                                               Margin="{TemplateBinding Padding}"
                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"

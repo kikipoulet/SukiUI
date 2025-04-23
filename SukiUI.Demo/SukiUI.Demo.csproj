@@ -27,7 +27,7 @@
     <PackageReference Include="Dock.Model.Avalonia" />
     <PackageReference Include="Dock.Model.Mvvm" />
     <PackageReference Include="Dock.Serializer" />
-    <PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" />
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.0.0-rc5.4"  />
     <PackageReference Include="Material.Icons.Avalonia" />
     <PackageReference Include="Markdown.Avalonia" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
@@ -92,7 +92,10 @@
       <DependentUpon>SpringEasing.axaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Remove="Features\ControlsLibrary\Dialogs\DialogsViewModel.MessageBoxes.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageVersion Update="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.0.0-rc5.4" />
   </ItemGroup>
 
 </Project>
