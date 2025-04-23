@@ -92,6 +92,7 @@
       <DependentUpon>SpringEasing.axaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Remove="Features\ControlsLibrary\Dialogs\DialogsViewModel.MessageBoxes.cs" />
   </ItemGroup>
 
 </Project>

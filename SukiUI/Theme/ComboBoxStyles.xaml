@@ -1,5 +1,6 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:animations="clr-namespace:SukiUI.Animations"
         xmlns:glassMorphism="clr-namespace:SukiUI.Controls.GlassMorphism"
         xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=netstandard"
         xmlns:suki="https://github.com/kikipoulet/SukiUI"
@@ -177,7 +178,7 @@
         <Style.Animations>
             <Animation FillMode="Forward" Duration="0:0:0.4">
                 <Animation.Easing>
-                    <suki:SukiEaseOutBack />
+                    <animations:SukiEaseOutBack />
                 </Animation.Easing>
 
                 <KeyFrame Cue="0%">
@@ -193,7 +194,7 @@
             </Animation>
             <Animation FillMode="Forward" Duration="0:0:0.4">
                 <Animation.Easing>
-                    <suki:SukiEaseOutBack BounceIntensity="Soft" />
+                    <animations:SukiEaseOutBack BounceIntensity="Soft" />
                 </Animation.Easing>
 
                 <KeyFrame Cue="0%">
