@@ -1,10 +1,9 @@
-<Styles
-    x:Class="SukiUI.SukiTheme"
-    xmlns="https://github.com/avaloniaui"
-    xmlns:animations="clr-namespace:SukiUI.Animations"
-    xmlns:suki="https://github.com/kikipoulet/SukiUI"
-    xmlns:system="clr-namespace:System;assembly=netstandard"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Styles x:Class="SukiUI.SukiTheme"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:animations="clr-namespace:SukiUI.Animations"
+        xmlns:suki="https://github.com/kikipoulet/SukiUI"
+        xmlns:system="clr-namespace:System;assembly=netstandard">
 
     <SimpleTheme />
 
@@ -38,8 +37,8 @@
         <ResourceDictionary>
 
             <ResourceDictionary.ThemeDictionaries>
-                <ResourceInclude Source="../ColorTheme/Light.axaml" x:Key="Light" />
-                <ResourceInclude Source="../ColorTheme/Dark.axaml" x:Key="Dark" />
+                <ResourceInclude x:Key="Light" Source="../ColorTheme/Light.axaml" />
+                <ResourceInclude x:Key="Dark" Source="../ColorTheme/Dark.axaml" />
             </ResourceDictionary.ThemeDictionaries>
 
             <CornerRadius x:Key="SmallCornerRadius">8</CornerRadius>
@@ -49,7 +48,7 @@
             <system:TimeSpan x:Key="MediumAnimationDuration">0.35</system:TimeSpan>
             <system:TimeSpan x:Key="ShortAnimationDuration">0.2</system:TimeSpan>
 
-            <animations:SukiEaseOutBack BounceIntensity="Soft" x:Key="MenuEasing" />
+            <animations:SukiEaseOutBack x:Key="MenuEasing" BounceIntensity="Soft" />
 
 
             <ResourceDictionary.MergedDictionaries>
@@ -83,6 +82,7 @@
                 <ResourceInclude Source="avares://sukiUI/Theme/Calendar/CalendarDayButton.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/Calendar/CalendarItem.axaml" />
 
+                <ResourceInclude Source="avares://sukiUI/Controls/SukiMainHost.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiWindow.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiToast.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/Hosts/SukiToastHost.axaml" />
