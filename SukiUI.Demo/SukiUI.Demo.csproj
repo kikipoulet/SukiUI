@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="Avalonia" />
-    <PackageReference Include="Avalonia.AvaloniaEdit" />
+    <PackageReference Include="Avalonia.AvaloniaEdit" Version="11.2.0"/>
     <PackageReference Include="Avalonia.Controls.ColorPicker" />
     <PackageReference Include="Avalonia.Desktop" />
     <PackageReference Include="Avalonia.Fonts.Inter" />
@@ -94,8 +94,6 @@
     </Compile>
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageVersion Update="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.0.0-rc5.4" />
-  </ItemGroup>
+
 
 </Project>

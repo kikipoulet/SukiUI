@@ -8,7 +8,7 @@ using Avalonia.Threading;
 
 namespace SukiUI.Animations
 {
-    public class SquishyExtensions
+    public class SquishyDragExtensions
     {
         
         private class State
@@ -20,6 +20,7 @@ namespace SukiUI.Animations
 
             public double Intensity = 1;
             public double SquishDepth = 1;
+            public bool EnableTilt = true;
         }
         
         private static readonly AttachedProperty<State> StateProperty = AvaloniaProperty.RegisterAttached<Control, State>(
@@ -27,6 +28,21 @@ namespace SukiUI.Animations
             typeof(Control)
         );
         
+        
+        public static readonly AttachedProperty<bool> EnableTiltProperty =
+            AvaloniaProperty.RegisterAttached<Control, bool>(
+                "EnableTilt", typeof(Control), true);
+
+        public static bool GetEnableTilt(Control control)
+        {
+            return control.GetValue(EnableTiltProperty);
+        }
+
+        public static void SetEnableTilt(Control control, bool value)
+        {
+            control.SetValue(EnableTiltProperty, value);
+            control.GetValue(StateProperty).EnableTilt = value;
+        }
         
         
         public static readonly AttachedProperty<double> IntensityProperty =
@@ -129,20 +145,23 @@ namespace SukiUI.Animations
             double translateFactor = 0.05 * state.Intensity;
             double scaleFactor = 0.0001 * state.Intensity;
 
-            var Xangle = dx * skewFactor;
-            if (Xangle > 3 * state.SquishDepth)
-                Xangle = 3 * state.SquishDepth;
-            if (Xangle < -3 * state.SquishDepth)
-                Xangle = -3 * state.SquishDepth;
-            
-            var Yangle = -dy * skewFactor;
-            if (Yangle > 3 * state.SquishDepth)
-                Yangle = 3 * state.SquishDepth;
-            if (Yangle < -3 * state.SquishDepth)
-                Yangle = -3 * state.SquishDepth;
+            if (state.EnableTilt)
+            {
+                var Xangle = dx * skewFactor;
+                if (Xangle > 3 * state.SquishDepth)
+                    Xangle = 3 * state.SquishDepth;
+                if (Xangle < -3 * state.SquishDepth)
+                    Xangle = -3 * state.SquishDepth;
 
-            state.Skew.AngleX = (Yangle < 0 ? Xangle : -Xangle) * Math.Abs(Yangle) * 0.3;
-            state.Skew.AngleY = (Xangle < 0 ? Yangle : -Yangle) * Math.Abs(Xangle) * 0.3;
+                var Yangle = -dy * skewFactor;
+                if (Yangle > 3 * state.SquishDepth)
+                    Yangle = 3 * state.SquishDepth;
+                if (Yangle < -3 * state.SquishDepth)
+                    Yangle = -3 * state.SquishDepth;
+
+                state.Skew.AngleX = (Yangle < 0 ? Xangle : -Xangle) * Math.Abs(Yangle) * 0.3;
+                state.Skew.AngleY = (Xangle < 0 ? Yangle : -Yangle) * Math.Abs(Xangle) * 0.3;
+            }
 
             state.Translate.X = dx * translateFactor;
             state.Translate.Y = dy * translateFactor;
