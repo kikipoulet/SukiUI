@@ -1,11 +1,11 @@
 <UserControl x:Class="SukiUI.Demo.Features.ControlsLibrary.TogglesView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:suki="https://github.com/kikipoulet/SukiUI"
              xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:showMeTheXaml="clr-namespace:ShowMeTheXaml;assembly=ShowMeTheXaml.Avalonia"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
              d:DesignHeight="450"
              d:DesignWidth="800"
              x:DataType="controlsLibrary:TogglesViewModel"
@@ -25,19 +25,22 @@
                     </showMeTheXaml:XamlDisplay>
                 </suki:GroupBox>
             </suki:GlassCard>
-            
+
             <suki:GlassCard>
                 <suki:GroupBox Header="Simple Chips">
                     <showMeTheXaml:XamlDisplay UniqueId="SimpleChips">
                         <StackPanel Orientation="Horizontal" Spacing="10">
-                            <RadioButton Height="40" Classes="Chips"
+                            <RadioButton Height="40"
+                                         Classes="Chips"
                                          Content="Option One"
                                          GroupName="R10"
                                          IsChecked="True" />
-                            <RadioButton Height="40" Classes="Chips"
+                            <RadioButton Height="40"
+                                         Classes="Chips"
                                          Content="Option Two"
                                          GroupName="R10" />
-                            <RadioButton Height="40" Classes="Chips"
+                            <RadioButton Height="40"
+                                         Classes="Chips"
                                          Content="Three State"
                                          GroupName="R10" />
                         </StackPanel>
@@ -48,14 +51,17 @@
                 <suki:GroupBox Header="Simple GigaChips">
                     <showMeTheXaml:XamlDisplay UniqueId="SimpleGigaChips">
                         <StackPanel Orientation="Horizontal" Spacing="10">
-                            <RadioButton Height="60" Classes="GigaChips"
+                            <RadioButton Height="60"
+                                         Classes="GigaChips"
                                          Content="Option One"
                                          GroupName="R2"
                                          IsChecked="True" />
-                            <RadioButton Height="60" Classes="GigaChips"
+                            <RadioButton Height="60"
+                                         Classes="GigaChips"
                                          Content="Option Two"
                                          GroupName="R2" />
-                            <RadioButton Height="60" Classes="GigaChips"
+                            <RadioButton Height="60"
+                                         Classes="GigaChips"
                                          Content="Three State"
                                          GroupName="R2" />
                         </StackPanel>
@@ -65,65 +71,66 @@
             <suki:GlassCard>
                 <suki:GroupBox Header="Complex GigaChips">
                     <showMeTheXaml:XamlDisplay UniqueId="ComplexGigaChips">
-                         <StackPanel Orientation="Horizontal" Margin="0,25,0,0"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center">
-                        <RadioButton Width="210"
-                                     Height="138"
-                                     Margin="7"
-                                     Classes="GigaChips"
-                                     IsChecked="True">
-                            <StackPanel HorizontalAlignment="Left" Spacing="0,8">
-                                <TextBlock FontSize="12"
-                                           FontWeight="DemiBold"
-                                           Foreground="{DynamicResource SukiLowText}"
-                                           Text="HOBBY" />
-                                <TextBlock FontSize="23"
-                                           FontWeight="DemiBold"
-                                           Text="1 Gb" />
-                                <TextBlock FontSize="15"
-                                           Foreground="{DynamicResource SukiLowText}"
-                                           Text="Plan for a moderate use as hobby."
-                                           TextWrapping="Wrap" />
-                            </StackPanel>
-                        </RadioButton>
-                        <RadioButton Width="210"
-                                     Height="138"
-                                     Margin="7"
-                                     Classes="GigaChips">
-                            <StackPanel HorizontalAlignment="Left" Spacing="0,8">
-                                <TextBlock FontSize="12"
-                                           FontWeight="DemiBold"
-                                           Foreground="{DynamicResource SukiLowText}"
-                                           Text="PROFESSIONAL" />
-                                <TextBlock FontSize="23"
-                                           FontWeight="DemiBold"
-                                           Text="5 Gb" />
-                                <TextBlock FontSize="15"
-                                           Foreground="{DynamicResource SukiLowText}"
-                                           Text="Professional use in an application."
-                                           TextWrapping="Wrap" />
-                            </StackPanel>
-                        </RadioButton>
-                        <RadioButton Width="210"
-                                     Height="138"
-                                     Margin="7"
-                                     Classes="GigaChips">
-                            <StackPanel HorizontalAlignment="Left" Spacing="0,8">
-                                <TextBlock FontSize="12"
-                                           FontWeight="DemiBold"
-                                           Foreground="{DynamicResource SukiLowText}"
-                                           Text="COMPANY" />
-                                <TextBlock FontSize="23"
-                                           FontWeight="DemiBold"
-                                           Text="50 Gb" />
-                                <TextBlock FontSize="15"
-                                           Foreground="{DynamicResource SukiLowText}"
-                                           Text="Plan for a industrial use in a company."
-                                           TextWrapping="Wrap" />
-                            </StackPanel>
-                        </RadioButton>
-                    </StackPanel>
+                        <StackPanel Margin="0,25,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Orientation="Horizontal">
+                            <RadioButton Width="210"
+                                         Height="138"
+                                         Margin="7"
+                                         Classes="GigaChips"
+                                         IsChecked="True">
+                                <StackPanel HorizontalAlignment="Left" Spacing="0,8">
+                                    <TextBlock FontSize="12"
+                                               FontWeight="DemiBold"
+                                               Foreground="{DynamicResource SukiLowText}"
+                                               Text="HOBBY" />
+                                    <TextBlock FontSize="23"
+                                               FontWeight="DemiBold"
+                                               Text="1 Gb" />
+                                    <TextBlock FontSize="15"
+                                               Foreground="{DynamicResource SukiLowText}"
+                                               Text="Plan for a moderate use as hobby."
+                                               TextWrapping="Wrap" />
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton Width="210"
+                                         Height="138"
+                                         Margin="7"
+                                         Classes="GigaChips">
+                                <StackPanel HorizontalAlignment="Left" Spacing="0,8">
+                                    <TextBlock FontSize="12"
+                                               FontWeight="DemiBold"
+                                               Foreground="{DynamicResource SukiLowText}"
+                                               Text="PROFESSIONAL" />
+                                    <TextBlock FontSize="23"
+                                               FontWeight="DemiBold"
+                                               Text="5 Gb" />
+                                    <TextBlock FontSize="15"
+                                               Foreground="{DynamicResource SukiLowText}"
+                                               Text="Professional use in an application."
+                                               TextWrapping="Wrap" />
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton Width="210"
+                                         Height="138"
+                                         Margin="7"
+                                         Classes="GigaChips">
+                                <StackPanel HorizontalAlignment="Left" Spacing="0,8">
+                                    <TextBlock FontSize="12"
+                                               FontWeight="DemiBold"
+                                               Foreground="{DynamicResource SukiLowText}"
+                                               Text="COMPANY" />
+                                    <TextBlock FontSize="23"
+                                               FontWeight="DemiBold"
+                                               Text="50 Gb" />
+                                    <TextBlock FontSize="15"
+                                               Foreground="{DynamicResource SukiLowText}"
+                                               Text="Plan for a industrial use in a company."
+                                               TextWrapping="Wrap" />
+                                </StackPanel>
+                            </RadioButton>
+                        </StackPanel>
                     </showMeTheXaml:XamlDisplay>
                 </suki:GroupBox>
             </suki:GlassCard>
@@ -142,25 +149,124 @@
             <suki:GlassCard>
                 <suki:GroupBox Header="Toggle Buttons">
                     <StackPanel>
-                        <showMeTheXaml:XamlDisplay UniqueId="ToggleButton">
-                            <ToggleButton Content="Toggle Me" />
+                        <showMeTheXaml:XamlDisplay UniqueId="ToggleButtonDefault">
+                            <ToggleButton Content="Default" IsChecked="True" />
                         </showMeTheXaml:XamlDisplay>
-                        <showMeTheXaml:XamlDisplay UniqueId="AccentToggleButton">
-                            <ToggleButton Classes="Accent" Content="Toggle Me" />
+
+                        <showMeTheXaml:XamlDisplay UniqueId="ToggleButtonSwitchCircleGlass">
+                            <ToggleButton Classes="CircleGlass"
+                                          Content="Class: CircleGlass"
+                                          IsChecked="True" />
                         </showMeTheXaml:XamlDisplay>
-                        <showMeTheXaml:XamlDisplay UniqueId="ToggleButtonSwitch">
-                            <ToggleButton Classes="Switch" Content="Toggle Me" />
+
+                        <showMeTheXaml:XamlDisplay UniqueId="ToggleButtonSwitchBasic">
+                            <ToggleButton Classes="Basic"
+                                          Content="Class: Basic"
+                                          IsChecked="True" />
                         </showMeTheXaml:XamlDisplay>
-                        <ToggleSplitButton Content="ToggleSplitButton">
-                            <ToggleSplitButton.Flyout>
-                                <MenuFlyout>
-                                    <MenuItem Header="Hello"/>
-                                </MenuFlyout>
-                            </ToggleSplitButton.Flyout>
-                        </ToggleSplitButton>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="ToggleButtonDiscrete">
+                            <ToggleButton Classes="Discrete"
+                                          Content="Class: Discrete"
+                                          IsChecked="True" />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="ToggleButtonAccent">
+                            <ToggleButton Classes="Accent"
+                                          Content="Class: Accent"
+                                          IsChecked="True" />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="ToggleButtonSuccess">
+                            <ToggleButton Classes="Success"
+                                          Content="Class: Success"
+                                          IsChecked="True" />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="ToggleButtonInformation">
+                            <ToggleButton Classes="Information"
+                                          Content="Class: Information"
+                                          IsChecked="True" />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="ToggleButtonWarning">
+                            <ToggleButton Classes="Warning"
+                                          Content="Class: Warning"
+                                          IsChecked="True" />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="ToggleButtonDanger">
+                            <ToggleButton Classes="Danger"
+                                          Content="Class: Danger"
+                                          IsChecked="True" />
+                        </showMeTheXaml:XamlDisplay>
                     </StackPanel>
                 </suki:GroupBox>
             </suki:GlassCard>
+
+            <suki:GlassCard>
+                <suki:GroupBox Header="Toggle Buttons (Switch)">
+                    <WrapPanel Orientation="Horizontal">
+                        <showMeTheXaml:XamlDisplay UniqueId="ToggleButtonSwitch">
+                            <ToggleButton Classes="Switch"
+                                          IsChecked="True"
+                                          ToolTip.Tip="Switch" />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="ToggleButtonSwitchDiscrete">
+                            <ToggleButton Classes="Switch Discrete"
+                                          IsChecked="True"
+                                          ToolTip.Tip="Switch Discrete" />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="ToggleButtonSwitchAccent">
+                            <ToggleButton Classes="Switch Accent"
+                                          IsChecked="True"
+                                          ToolTip.Tip="Switch Accent" />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="ToggleButtonSwitchSuccess">
+                            <ToggleButton Classes="Switch Success"
+                                          IsChecked="True"
+                                          ToolTip.Tip="witch Success" />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="ToggleButtonSwitchInformation">
+                            <ToggleButton Classes="Switch Information"
+                                          IsChecked="True"
+                                          ToolTip.Tip="Switch Information" />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="ToggleButtonSwitchWarning">
+                            <ToggleButton Classes="Switch Warning"
+                                          IsChecked="True"
+                                          ToolTip.Tip="Switch Warning" />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="ToggleButtonSwitchDanger">
+                            <ToggleButton Classes="Switch Danger"
+                                          IsChecked="True"
+                                          ToolTip.Tip="Switch Danger" />
+                        </showMeTheXaml:XamlDisplay>
+                    </WrapPanel>
+                </suki:GroupBox>
+            </suki:GlassCard>
+            <suki:GlassCard>
+                <suki:GroupBox Header="ToggleSplitButtons">
+                    <StackPanel>
+                        <showMeTheXaml:XamlDisplay UniqueId="ToggleSplitButton">
+                            <ToggleSplitButton Content="Toggle Me">
+                                <ToggleSplitButton.Flyout>
+                                    <MenuFlyout>
+                                        <MenuItem Header="Hello" />
+                                    </MenuFlyout>
+                                </ToggleSplitButton.Flyout>
+                            </ToggleSplitButton>
+                        </showMeTheXaml:XamlDisplay>
+                    </StackPanel>
+                </suki:GroupBox>
+            </suki:GlassCard>
+
             <suki:GlassCard>
                 <suki:GroupBox Header="CheckBoxes">
                     <StackPanel>
@@ -168,7 +274,7 @@
                             <StackPanel Spacing="5">
                                 <CheckBox Content="Option One" IsChecked="True" />
                                 <CheckBox Content="Option Two" />
-                                <CheckBox IsThreeState="True" Content="Option Three" />
+                                <CheckBox Content="Option Three" IsThreeState="True" />
                             </StackPanel>
                         </showMeTheXaml:XamlDisplay>
                     </StackPanel>
