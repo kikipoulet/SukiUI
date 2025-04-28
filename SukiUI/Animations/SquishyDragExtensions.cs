@@ -21,6 +21,9 @@ namespace SukiUI.Animations
             public double Intensity = 1;
             public double SquishDepth = 1;
             public bool EnableTilt = true;
+            public bool EnableX = true;
+            public bool EnableY = true;
+            public bool ScaleByXY = true;
         }
         
         private static readonly AttachedProperty<State> StateProperty = AvaloniaProperty.RegisterAttached<Control, State>(
@@ -28,6 +31,35 @@ namespace SukiUI.Animations
             typeof(Control)
         );
         
+        
+        
+        public static readonly AttachedProperty<bool> EnableXProperty = AvaloniaProperty.RegisterAttached<Control, bool>("EnableX", typeof(Control), true);               
+
+
+        public static bool GetEnableX(Control control)
+        {
+            return control.GetValue(EnableXProperty);
+        }
+
+        public static void SetEnableX(Control control, bool value)
+        {
+            control.SetValue(EnableXProperty, value);
+            control.GetValue(StateProperty).EnableX = value;
+        }
+        
+        public static readonly AttachedProperty<bool> EnableYProperty = AvaloniaProperty.RegisterAttached<Control, bool>("EnableY", typeof(Control), true);                    
+
+
+        public static bool GetEnableY(Control control)
+        {
+            return control.GetValue(EnableYProperty);
+        }
+
+        public static void SetEnableY(Control control, bool value)
+        {
+            control.SetValue(EnableYProperty, value);
+            control.GetValue(StateProperty).EnableY = value;
+        }
         
         public static readonly AttachedProperty<bool> EnableTiltProperty =
             AvaloniaProperty.RegisterAttached<Control, bool>(
@@ -45,13 +77,22 @@ namespace SukiUI.Animations
         }
         
         
-        public static readonly AttachedProperty<double> IntensityProperty =
-            AvaloniaProperty.RegisterAttached<Control, double>(
-                "Intensity", typeof(Control), 1.0);
+        public static readonly AttachedProperty<bool> ScaleByXYAxisProperty = AvaloniaProperty.RegisterAttached<Control, bool>("ScaleByXYAxis", typeof(Control), false);
 
-        public static readonly AttachedProperty<double> SquishDepthProperty =
-            AvaloniaProperty.RegisterAttached<Control, double>(
-                "SquishDepth", typeof(Control), 1.0);
+        public static bool GetScaleByXYAxis(Control control)
+        {
+            return control.GetValue(ScaleByXYAxisProperty);
+        }
+
+        public static void SetScaleByXYAxis(Control control, bool value)
+        {
+            control.SetValue(ScaleByXYAxisProperty, value);
+            control.GetValue(StateProperty).ScaleByXY = value;
+        }
+        
+        public static readonly AttachedProperty<double> IntensityProperty = AvaloniaProperty.RegisterAttached<Control, double>("Intensity", typeof(Control), 1.0);
+
+        public static readonly AttachedProperty<double> SquishDepthProperty = AvaloniaProperty.RegisterAttached<Control, double>("SquishDepth", typeof(Control), 1.0);
 
         public static double GetIntensity(Control control)
         {
@@ -163,11 +204,25 @@ namespace SukiUI.Animations
                 state.Skew.AngleY = (Xangle < 0 ? Yangle : -Yangle) * Math.Abs(Xangle) * 0.3;
             }
 
-            state.Translate.X = dx * translateFactor;
-            state.Translate.Y = dy * translateFactor;
+            if(state.EnableX)
+                state.Translate.X = dx * translateFactor;
+            if(state.EnableY)
+                state.Translate.Y = dy * translateFactor;
 
-            state.Scale.ScaleX = 1 - Math.Abs(dx) * scaleFactor;
-            state.Scale.ScaleY = 1 - Math.Abs(dy) * scaleFactor;
+            if (state.ScaleByXY)
+            {
+                if(state.EnableX)
+                    state.Scale.ScaleX = 1 - dx * (scaleFactor *1.5);
+                if(state.EnableY)
+                    state.Scale.ScaleY = 1 - dy * (scaleFactor * 1.5);
+            }
+            else
+            {
+                if (state.EnableX)
+                    state.Scale.ScaleX = 1 - Math.Abs(dx) * scaleFactor;
+                if (state.EnableY)
+                    state.Scale.ScaleY = 1 - Math.Abs(dy) * scaleFactor;
+            }
         }
 
         private static void OnPointerReleased(object? sender, PointerReleasedEventArgs e)
