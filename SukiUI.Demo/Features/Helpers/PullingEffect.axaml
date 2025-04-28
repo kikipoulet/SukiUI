@@ -2,6 +2,7 @@
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:animations="clr-namespace:SukiUI.Animations;assembly=SukiUI"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:suki="https://github.com/kikipoulet/SukiUI"
@@ -133,6 +134,74 @@
                                 animations:SquishyOverExtensions.Intensity="0.2"
                                 Classes="Flat"
                                 Content="Here !" />
+
+                    </Panel>
+                </suki:GroupBox>
+            </suki:GlassCard>
+
+            <suki:GlassCard Margin="20">
+                <suki:GroupBox Width="300"
+                               Height="250"
+                               Header="Touch Slider">
+                    <Panel>
+                        <Panel.Styles>
+                            <Style Selector="Slider:vertical">
+                                <Setter Property="MinWidth" Value="20" />
+                                <Setter Property="MinHeight" Value="40" />
+                                <Setter Property="Template">
+                                    <ControlTemplate>
+                                        <Grid Name="grid">
+
+                                            <suki:GlassCard Name="TrackBackground"
+                                                            Width="60"
+                                                            Margin="8,8"
+                                                            HorizontalAlignment="Center"
+                                                            BorderThickness="0"
+                                                            Classes="Control"
+                                                            ClipToBounds="True"
+                                                            CornerRadius="16">
+
+                                                <Track Name="PART_Track"
+                                                       IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                                                       Orientation="Vertical">
+                                                    <Track.DecreaseButton>
+                                                        <RepeatButton Name="PART_DecreaseButton"
+                                                                      Width="60"
+                                                                      Margin="-10"
+                                                                      HorizontalAlignment="Stretch"
+                                                                      Background="{DynamicResource SukiPrimaryColor75}"
+                                                                      BorderThickness="0"
+                                                                      CornerRadius="2,2,2,2" />
+                                                    </Track.DecreaseButton>
+                                                    <Track.IncreaseButton>
+                                                        <RepeatButton Name="PART_IncreaseButton" Classes="repeattrack" />
+                                                    </Track.IncreaseButton>
+                                                    <Thumb Name="thumb" Margin="0,0,0,2" />
+                                                </Track>
+                                            </suki:GlassCard>
+
+                                            <avalonia:MaterialIcon Width="21"
+                                                                   Height="21"
+                                                                   Margin="0,20"
+                                                                   HorizontalAlignment="Center"
+                                                                   VerticalAlignment="Bottom"
+                                                                   Foreground="{DynamicResource SukiLowText}"
+                                                                   Kind="VolumeHigh" />
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter>
+                            </Style>
+                        </Panel.Styles>
+                        <Slider Height="160"
+                                Margin="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                animations:SquishyDragExtensions.Enable="True"
+                                animations:SquishyDragExtensions.EnableX="False"
+                                animations:SquishyDragExtensions.Intensity="0.2"
+                                animations:SquishyDragExtensions.ScaleByXYAxis="True"
+                                Orientation="Vertical"
+                                Value="50" />
 
                     </Panel>
                 </suki:GroupBox>
