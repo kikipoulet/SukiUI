@@ -3,7 +3,7 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
 
-    <AvaloniaVersion>11.2.7</AvaloniaVersion>
+    <AvaloniaVersion>11.3.0</AvaloniaVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="Avalonia" Version="$(AvaloniaVersion)" />
@@ -16,11 +16,11 @@
     <PackageVersion Include="Avalonia.Controls.DataGrid" Version="$(AvaloniaVersion)" />
     <PackageVersion Include="Avalonia.Controls.ColorPicker" Version="$(AvaloniaVersion)" />
 
-    <PackageVersion Include="Dock.Avalonia" Version="$(AvaloniaVersion)" />
-    <PackageVersion Include="Dock.Model" Version="$(AvaloniaVersion)" />
-    <PackageVersion Include="Dock.Model.Avalonia" Version="$(AvaloniaVersion)" />
-    <PackageVersion Include="Dock.Model.Mvvm" Version="$(AvaloniaVersion)" />
-    <PackageVersion Include="Dock.Serializer" Version="$(AvaloniaVersion)" />
+    <PackageVersion Include="Dock.Avalonia" Version="11.2.7" />
+    <PackageVersion Include="Dock.Model" Version="11.2.7" />
+    <PackageVersion Include="Dock.Model.Avalonia" Version="11.2.7" />
+    <PackageVersion Include="Dock.Model.Mvvm" Version="11.2.7" />
+    <PackageVersion Include="Dock.Serializer" Version="11.2.7" />
 
     <PackageVersion Include="Avalonia.AvaloniaEdit" Version="11.2.0" />
     <PackageVersion Include="AvaloniaEdit.TextMate" Version="11.2.0" />
