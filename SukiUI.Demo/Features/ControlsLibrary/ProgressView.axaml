@@ -1,12 +1,12 @@
 <UserControl x:Class="SukiUI.Demo.Features.ControlsLibrary.ProgressView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:suki="https://github.com/kikipoulet/SukiUI"
              xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:showMeTheXaml="clr-namespace:ShowMeTheXaml;assembly=ShowMeTheXaml.Avalonia"
-             d:DesignHeight="450"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             d:DesignHeight="650"
              d:DesignWidth="800"
              x:DataType="controlsLibrary:ProgressViewModel"
              mc:Ignorable="d">
@@ -63,8 +63,7 @@
                     <suki:GroupBox Header="Wave Progress">
                         <Grid>
                             <showMeTheXaml:XamlDisplay VerticalAlignment="Center" UniqueId="WaveProgress">
-                                <suki:WaveProgress IsTextVisible="{Binding IsTextVisible}"
-                                                   Value="{Binding ProgressValue}" />
+                                <suki:WaveProgress IsTextVisible="{Binding IsTextVisible}" Value="{Binding ProgressValue}" />
                             </showMeTheXaml:XamlDisplay>
                         </Grid>
                     </suki:GroupBox>
@@ -117,6 +116,18 @@
                             <showMeTheXaml:XamlDisplay UniqueId="Progress2">
                                 <ProgressBar Classes="Accent" IsIndeterminate="{Binding IsIndeterminate}" />
                             </showMeTheXaml:XamlDisplay>
+                            <showMeTheXaml:XamlDisplay UniqueId="ProgressSuccess">
+                                <ProgressBar Classes="Success" IsIndeterminate="{Binding IsIndeterminate}" />
+                            </showMeTheXaml:XamlDisplay>
+                            <showMeTheXaml:XamlDisplay UniqueId="ProgressInformation">
+                                <ProgressBar Classes="Information" IsIndeterminate="{Binding IsIndeterminate}" />
+                            </showMeTheXaml:XamlDisplay>
+                            <showMeTheXaml:XamlDisplay UniqueId="ProgressWarning">
+                                <ProgressBar Classes="Warning" IsIndeterminate="{Binding IsIndeterminate}" />
+                            </showMeTheXaml:XamlDisplay>
+                            <showMeTheXaml:XamlDisplay UniqueId="ProgressDanger">
+                                <ProgressBar Classes="Danger" IsIndeterminate="{Binding IsIndeterminate}" />
+                            </showMeTheXaml:XamlDisplay>
                             <StackPanel VerticalAlignment="Stretch"
                                         Orientation="Horizontal"
                                         Spacing="15">
@@ -125,6 +136,26 @@
                                 </showMeTheXaml:XamlDisplay>
                                 <showMeTheXaml:XamlDisplay UniqueId="Progress4">
                                     <ProgressBar Classes="Accent"
+                                                 IsIndeterminate="{Binding IsIndeterminate}"
+                                                 Orientation="Vertical" />
+                                </showMeTheXaml:XamlDisplay>
+                                <showMeTheXaml:XamlDisplay UniqueId="VerticalProgressSuccess">
+                                    <ProgressBar Classes="Success"
+                                                 IsIndeterminate="{Binding IsIndeterminate}"
+                                                 Orientation="Vertical" />
+                                </showMeTheXaml:XamlDisplay>
+                                <showMeTheXaml:XamlDisplay UniqueId="VerticalProgressInformation">
+                                    <ProgressBar Classes="Information"
+                                                 IsIndeterminate="{Binding IsIndeterminate}"
+                                                 Orientation="Vertical" />
+                                </showMeTheXaml:XamlDisplay>
+                                <showMeTheXaml:XamlDisplay UniqueId="VerticalProgressWarning">
+                                    <ProgressBar Classes="Warning"
+                                                 IsIndeterminate="{Binding IsIndeterminate}"
+                                                 Orientation="Vertical" />
+                                </showMeTheXaml:XamlDisplay>
+                                <showMeTheXaml:XamlDisplay UniqueId="VerticalProgressDanger">
+                                    <ProgressBar Classes="Danger"
                                                  IsIndeterminate="{Binding IsIndeterminate}"
                                                  Orientation="Vertical" />
                                 </showMeTheXaml:XamlDisplay>

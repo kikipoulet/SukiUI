@@ -1,34 +1,38 @@
-<ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:suki="https://github.com/kikipoulet/SukiUI">
-    <ControlTheme x:Key="SukiDialogHostTheme" TargetType="suki:SukiDialogHost">
+<ResourceDictionary
+    xmlns="https://github.com/avaloniaui"
+    xmlns:animations="clr-namespace:SukiUI.Animations"
+    xmlns:suki="https://github.com/kikipoulet/SukiUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTheme TargetType="suki:SukiDialogHost" x:Key="SukiDialogHostTheme">
         <Setter Property="Template">
             <ControlTemplate>
                 <Panel>
-                    <Border Name="PART_DialogBackground"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            Background="{DynamicResource SukiDialogBackground}"
-                            IsVisible="False"
-                            Opacity="0" />
-                    <ContentControl Name="PART_DialogContent"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    ClipToBounds="False"
-                                    Content="{TemplateBinding Dialog}">
+                    <Border
+                        Background="{DynamicResource SukiDialogBackground}"
+                        HorizontalAlignment="Stretch"
+                        IsVisible="False"
+                        Name="PART_DialogBackground"
+                        Opacity="0"
+                        VerticalAlignment="Stretch" />
+                    <ContentControl
+                        ClipToBounds="False"
+                        Content="{TemplateBinding Dialog}"
+                        HorizontalAlignment="Center"
+                        Name="PART_DialogContent"
+                        VerticalAlignment="Center">
                         <ContentControl.Transitions>
                             <Transitions>
-                                <ThicknessTransition Property="Margin" Duration="0:0:0.40">
+                                <ThicknessTransition Duration="0:0:0.40" Property="Margin">
                                     <ThicknessTransition.Easing>
                                         <!--  <CircularEaseOut /> -->
-                                        <suki:SukiEaseOutBack />
+                                        <animations:SukiEaseOutBack />
                                     </ThicknessTransition.Easing>
                                 </ThicknessTransition>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
-                                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.40">
+                                <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
+                                <TransformOperationsTransition Duration="0:0:0.40" Property="RenderTransform">
                                     <TransformOperationsTransition.Easing>
                                         <!--  <CircularEaseOut /> -->
-                                        <suki:SukiEaseOutBack />
+                                        <animations:SukiEaseOutBack BounceIntensity="Strong" />
                                     </TransformOperationsTransition.Easing>
                                 </TransformOperationsTransition>
                             </Transitions>
@@ -71,7 +75,8 @@
             </ControlTemplate>
         </Setter>
     </ControlTheme>
-    <ControlTheme x:Key="{x:Type suki:SukiDialogHost}"
-                  BasedOn="{StaticResource SukiDialogHostTheme}"
-                  TargetType="suki:SukiDialogHost" />
+    <ControlTheme
+        BasedOn="{StaticResource SukiDialogHostTheme}"
+        TargetType="suki:SukiDialogHost"
+        x:Key="{x:Type suki:SukiDialogHost}" />
 </ResourceDictionary>

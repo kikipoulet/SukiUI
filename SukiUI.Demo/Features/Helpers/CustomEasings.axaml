@@ -1,0 +1,125 @@
+﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="SukiUI.Demo.Features.Helpers.CustomEasings"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:animations="clr-namespace:SukiUI.Animations;assembly=SukiUI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="clr-namespace:SukiUI.Demo.Features.Helpers"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:suki="https://github.com/kikipoulet/SukiUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel Margin="50" Spacing="20">
+
+        <TextBlock Classes="h1" Margin="0,70,0,0">3. Custom Easings</TextBlock>
+
+        <Border
+            Background="{DynamicResource SukiControlBorderBrush}"
+            Height="1"
+            Margin="0,-15,0,20" />
+        <TextBlock Classes="h3" Margin="0,30,0,0">SukiEaseInBackOutBack</TextBlock>
+
+        <TextBlock Classes="h5" Margin="0,15,0,-5">Soft</TextBlock>
+        <suki:GlassCard HorizontalAlignment="Left" Padding="5">
+            <helpers:EasingDemoBoxControl HorizontalAlignment="Left">
+                <helpers:EasingDemoBoxControl.Ease>
+                    <animations:SukiEaseInBackOutBack BounceIntensity="Soft" />
+                </helpers:EasingDemoBoxControl.Ease>
+            </helpers:EasingDemoBoxControl>
+        </suki:GlassCard>
+
+        <TextBlock Classes="h5" Margin="0,15,0,-5">Normal</TextBlock>
+        <suki:GlassCard HorizontalAlignment="Left" Padding="5">
+            <helpers:EasingDemoBoxControl HorizontalAlignment="Left">
+                <helpers:EasingDemoBoxControl.Ease>
+                    <animations:SukiEaseInBackOutBack BounceIntensity="Normal" />
+                </helpers:EasingDemoBoxControl.Ease>
+            </helpers:EasingDemoBoxControl>
+        </suki:GlassCard>
+
+        <TextBlock Classes="h5" Margin="0,15,0,-5">Strong</TextBlock>
+        <suki:GlassCard HorizontalAlignment="Left" Padding="5">
+            <helpers:EasingDemoBoxControl HorizontalAlignment="Left">
+                <helpers:EasingDemoBoxControl.Ease>
+                    <animations:SukiEaseInBackOutBack BounceIntensity="Strong" />
+                </helpers:EasingDemoBoxControl.Ease>
+            </helpers:EasingDemoBoxControl>
+        </suki:GlassCard>
+
+        <TextBlock Classes="h3" Margin="0,30,0,0">SukiEaseInOutBack</TextBlock>
+
+        <TextBlock Classes="h5" Margin="0,15,0,-5">Soft</TextBlock>
+        <suki:GlassCard HorizontalAlignment="Left" Padding="5">
+            <helpers:EasingDemoBoxControl HorizontalAlignment="Left">
+                <helpers:EasingDemoBoxControl.Ease>
+                    <animations:SukiEaseInOutBack BounceIntensity="Soft" />
+                </helpers:EasingDemoBoxControl.Ease>
+            </helpers:EasingDemoBoxControl>
+        </suki:GlassCard>
+
+        <TextBlock Classes="h5" Margin="0,15,0,-5">Normal</TextBlock>
+        <suki:GlassCard HorizontalAlignment="Left" Padding="5">
+            <helpers:EasingDemoBoxControl HorizontalAlignment="Left">
+                <helpers:EasingDemoBoxControl.Ease>
+                    <animations:SukiEaseInOutBack BounceIntensity="Normal" />
+                </helpers:EasingDemoBoxControl.Ease>
+            </helpers:EasingDemoBoxControl>
+        </suki:GlassCard>
+
+        <TextBlock Classes="h5" Margin="0,15,0,-5">Strong</TextBlock>
+        <suki:GlassCard HorizontalAlignment="Left" Padding="5">
+            <helpers:EasingDemoBoxControl HorizontalAlignment="Left">
+                <helpers:EasingDemoBoxControl.Ease>
+                    <animations:SukiEaseInOutBack BounceIntensity="Strong" />
+                </helpers:EasingDemoBoxControl.Ease>
+            </helpers:EasingDemoBoxControl>
+        </suki:GlassCard>
+
+        <TextBlock Classes="h3" Margin="0,30,0,0">SukiEaseOutBack</TextBlock>
+
+        <TextBlock Classes="h5" Margin="0,15,0,-5">Soft</TextBlock>
+        <suki:GlassCard HorizontalAlignment="Left" Padding="5">
+            <helpers:EasingDemoBoxControl HorizontalAlignment="Left">
+                <helpers:EasingDemoBoxControl.Ease>
+                    <animations:SukiEaseOutBack BounceIntensity="Soft" />
+                </helpers:EasingDemoBoxControl.Ease>
+            </helpers:EasingDemoBoxControl>
+        </suki:GlassCard>
+
+        <TextBlock Classes="h5" Margin="0,15,0,-5">Normal</TextBlock>
+        <suki:GlassCard HorizontalAlignment="Left" Padding="5">
+            <helpers:EasingDemoBoxControl HorizontalAlignment="Left">
+                <helpers:EasingDemoBoxControl.Ease>
+                    <animations:SukiEaseOutBack BounceIntensity="Normal" />
+                </helpers:EasingDemoBoxControl.Ease>
+            </helpers:EasingDemoBoxControl>
+        </suki:GlassCard>
+
+        <TextBlock Classes="h5" Margin="0,15,0,-5">Strong</TextBlock>
+        <suki:GlassCard HorizontalAlignment="Left" Padding="5">
+            <helpers:EasingDemoBoxControl HorizontalAlignment="Left">
+                <helpers:EasingDemoBoxControl.Ease>
+                    <animations:SukiEaseOutBack BounceIntensity="Strong" />
+                </helpers:EasingDemoBoxControl.Ease>
+            </helpers:EasingDemoBoxControl>
+        </suki:GlassCard>
+
+        <TextBlock Classes="h3" Margin="0,30,0,0">SukiEaseInOut</TextBlock>
+
+        <suki:GlassCard HorizontalAlignment="Left" Padding="5">
+            <helpers:EasingDemoBoxControl HorizontalAlignment="Left">
+                <helpers:EasingDemoBoxControl.Ease>
+                    <animations:SukiEaseInOut />
+                </helpers:EasingDemoBoxControl.Ease>
+            </helpers:EasingDemoBoxControl>
+        </suki:GlassCard>
+
+
+
+
+
+
+        <Border Height="150" />
+    </StackPanel>
+</UserControl>

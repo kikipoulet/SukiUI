@@ -1,20 +1,32 @@
-using System.Collections;
 using Avalonia;
+using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
+using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
 using SukiUI.MessageBox;
 
 namespace SukiUI.Controls;
 
 [TemplatePart("PART_AlternativeHeaderGrid", typeof(Grid))]
+[TemplatePart("PART_AlternativeIcon", typeof(ContentPresenter))]
+[TemplatePart("PART_AlternativeHeader", typeof(ContentPresenter))]
 [TemplatePart("PART_HeaderGrid", typeof(Grid))]
+[TemplatePart("PART_Icon", typeof(ContentPresenter))]
+[TemplatePart("PART_Header", typeof(ContentPresenter))]
 [TemplatePart("PART_Content", typeof(ScrollViewer))]
 [TemplatePart("PART_FooterGrid", typeof(Grid))]
 [TemplatePart("PART_LeftContentItems", typeof(ItemsControl))]
 [TemplatePart("PART_ActionButtons", typeof(ItemsControl))]
 public class SukiMessageBoxHost : HeaderedContentControl
 {
+    private const int DefaultItemsSpacing = 10;
+    private const double DefaultIconPresetSize = 24;
+
+
+    /// <summary>
+    /// Defines the <see cref="UseAlternativeHeaderStyle"/> property.
+    /// </summary>
     public static readonly StyledProperty<bool> UseAlternativeHeaderStyleProperty = AvaloniaProperty.Register<SukiMessageBoxHost, bool>(nameof(UseAlternativeHeaderStyle));
 
     /// <summary>
@@ -56,7 +68,7 @@ public class SukiMessageBoxHost : HeaderedContentControl
     /// Defines the <see cref="IconPresetSize"/> property.
     /// </summary>
     public static readonly StyledProperty<double> IconPresetSizeProperty =
-        AvaloniaProperty.Register<SukiMessageBoxHost, double>(nameof(IconPresetSize), 24);
+        AvaloniaProperty.Register<SukiMessageBoxHost, double>(nameof(IconPresetSize), DefaultIconPresetSize);
 
     /// <summary>
     /// Gets or sets the size of the preset icon.
@@ -86,13 +98,13 @@ public class SukiMessageBoxHost : HeaderedContentControl
     /// <summary>
     /// Defines the <see cref="FooterLeftItemsSource"/> property.
     /// </summary>
-    public static readonly StyledProperty<IEnumerable?> FooterLeftItemsSourceProperty =
-        AvaloniaProperty.Register<SukiMessageBoxHost, IEnumerable?>(nameof(FooterLeftItemsSource));
+    public static readonly StyledProperty<Avalonia.Controls.Controls?> FooterLeftItemsSourceProperty =
+        AvaloniaProperty.Register<SukiMessageBoxHost, Avalonia.Controls.Controls?>(nameof(FooterLeftItemsSource));
 
     /// <summary>
     /// Gets or sets the items source to display in the footer left of the message box
     /// </summary>
-    public IEnumerable? FooterLeftItemsSource
+    public Avalonia.Controls.Controls? FooterLeftItemsSource
     {
         get => GetValue(FooterLeftItemsSourceProperty);
         set => SetValue(FooterLeftItemsSourceProperty, value);
@@ -101,13 +113,13 @@ public class SukiMessageBoxHost : HeaderedContentControl
     /// <summary>
     /// Defines the <see cref="ActionButtonsSource"/> property.
     /// </summary>
-    public static readonly StyledProperty<IEnumerable<Button>?> ActionButtonsSourceProperty =
-        AvaloniaProperty.Register<SukiMessageBoxHost, IEnumerable<Button>?>(nameof(ActionButtonsSource));
+    public static readonly StyledProperty<AvaloniaList<Button>?> ActionButtonsSourceProperty =
+        AvaloniaProperty.Register<SukiMessageBoxHost, AvaloniaList<Button>?>(nameof(ActionButtonsSource));
 
     /// <summary>
     /// Gets or sets the action buttons to display in bottom right of the message box.
     /// </summary>
-    public IEnumerable<Button>? ActionButtonsSource
+    public AvaloniaList<Button>? ActionButtonsSource
     {
         get => GetValue(ActionButtonsSourceProperty);
         set => SetValue(ActionButtonsSourceProperty, value);
@@ -128,6 +140,28 @@ public class SukiMessageBoxHost : HeaderedContentControl
         set => SetValue(ActionButtonsPresetProperty, value);
     }
 
+    /// <summary>
+    /// Defines the <see cref="ItemsSpacing"/> property.
+    /// </summary>
+    public static readonly StyledProperty<int> ItemsSpacingProperty =
+        AvaloniaProperty.Register<SukiMessageBoxHost, int>(nameof(ItemsSpacing), DefaultItemsSpacing);
+
+    /// <summary>
+    /// Gets or sets the spacing between the items (<see cref="FooterLeftItemsSource"/> and <see cref="ActionButtonsSource"/>) in the message box.
+    /// </summary>
+    public int ItemsSpacing
+    {
+        get => GetValue(ItemsSpacingProperty);
+        set => SetValue(ItemsSpacingProperty, value);
+    }
+
+    public SukiMessageBoxHost()
+    {
+        FooterLeftItemsSource = [];
+        ActionButtonsSource = [];
+    }
+
+
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs e)
     {
         base.OnPropertyChanged(e);
@@ -145,12 +179,12 @@ public class SukiMessageBoxHost : HeaderedContentControl
             var preset = ActionButtonsPreset;
             if (preset is null) return;
 
-            ActionButtonsSource = preset switch
+            Button[] buttons = preset switch
             {
-                SukiMessageBoxButtons.OK => new[]
-                {
+                SukiMessageBoxButtons.OK =>
+                [
                     SukiMessageBoxButtonsFactory.CreateButton(SukiMessageBoxResult.OK)
-                },
+                ],
                 SukiMessageBoxButtons.OKCancel =>
                 [
                     SukiMessageBoxButtonsFactory.CreateButton(SukiMessageBoxResult.OK),
@@ -200,8 +234,33 @@ public class SukiMessageBoxHost : HeaderedContentControl
                 ],
                 _ => throw new ArgumentOutOfRangeException(nameof(preset), preset, null)
             };
+
+            if (ActionButtonsSource is null)
+            {
+                ActionButtonsSource = new AvaloniaList<Button>(buttons);
+            }
+            else
+            {
+                ActionButtonsSource.Clear();
+                ActionButtonsSource.AddRange(buttons);
+            }
         }
     }
 
+    public void ResetToDefaults()
+    {
+        UseAlternativeHeaderStyle = false;
+        ShowHeaderContentSeparator = false;
 
+        Icon = null;
+        IconPreset = null;
+        IconPresetSize = DefaultIconPresetSize;
+        Content = null;
+
+        FooterLeftItemsSource?.Clear();
+        ActionButtonsSource?.Clear();
+        ActionButtonsPreset = null;
+
+        ItemsSpacing = DefaultItemsSpacing;
+    }
 }

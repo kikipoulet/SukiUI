@@ -1,0 +1,104 @@
+﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="SukiUI.Demo.Features.Helpers.Easy_Animations"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:suki="https://github.com/kikipoulet/SukiUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel Margin="50" Spacing="20">
+
+
+        <TextBlock Classes="h1" Margin="0,20,0,0">2. Easy Animations from C#</TextBlock>
+
+        <Border
+            Background="{DynamicResource SukiControlBorderBrush}"
+            Height="1"
+            Margin="0,-15,0,20" />
+
+
+
+        <Grid>
+            <suki:GlassCard Margin="0,0,10,0">
+                <StackPanel>
+
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="DemiBold"
+                        Text="Preview" />
+                    <Border
+                        BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                        BorderThickness="1.5"
+                        Margin="0,5,0,20"
+                        Padding="10">
+                        <StackPanel Spacing="20">
+
+                            <Border
+                                Background="Red"
+                                Height="50"
+                                HorizontalAlignment="Left"
+                                Name="MyBorder"
+                                Width="50" />
+
+                            <Button
+                                Classes="Flat"
+                                Click="MoveBorderWidth"
+                                Content="Click Me !"
+                                HorizontalAlignment="Left" />
+                        </StackPanel>
+                    </Border>
+
+
+
+                    <Border
+                        Background="{DynamicResource SukiPopupBackground}"
+                        CornerRadius="12"
+                        Padding="0">
+                        <TextBlock
+                            FontWeight="DemiBold"
+                            Foreground="{DynamicResource SukiLowText}"
+                            HorizontalAlignment="Left"
+                            MaxLines="20"
+                            xml:space="preserve">
+            <TextBlock.Text>
+        MyBorder.Animate&lt;Double&gt;(WidthProperty, 50, 300);</TextBlock.Text>
+        </TextBlock>
+                    </Border>
+
+                    <TextBlock
+                        FontWeight="DemiBold"
+                        Margin="0,15"
+                        Text="-&gt; Alternatively, there's a fluent API available. " />
+
+                    <Border
+                        Background="{DynamicResource SukiPopupBackground}"
+                        CornerRadius="12"
+                        Padding="0">
+                        <TextBlock
+                            FontWeight="DemiBold"
+                            Foreground="{DynamicResource SukiLowText}"
+                            HorizontalAlignment="Left"
+                            MaxLines="20"
+                            xml:space="preserve">
+            <TextBlock.Text>
+        MyBorder.Animate(WidthProperty)
+                        .From(50).To(200)
+                        .Start();</TextBlock.Text>
+        </TextBlock>
+                    </Border>
+
+
+                    <TextBlock
+                        FontWeight="DemiBold"
+                        Margin="0,15,0,0"
+                        Text="-&gt; Both Methods return a CancellationToken. " />
+
+                </StackPanel>
+
+
+            </suki:GlassCard>
+        </Grid>
+    </StackPanel>
+</UserControl>

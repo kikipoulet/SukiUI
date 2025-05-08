@@ -1,4 +1,7 @@
 ﻿using Avalonia.Controls;
+using Avalonia.Media;
+using SukiUI.Controls;
+using SukiUI.Enums;
 
 namespace SukiUI.MessageBox;
 
@@ -7,6 +10,11 @@ namespace SukiUI.MessageBox;
 /// </summary>
 public record SukiMessageBoxOptions
 {
+    /// <summary>
+    /// Gets if the window should use the native <see cref="Window"/>, otherwise it will use the <see cref="SukiWindow"/>.
+    /// </summary>
+    public bool UseNativeWindow { get; init; }
+
     /// <summary>
     /// Gets if the window can resize.
     /// </summary>
@@ -36,6 +44,11 @@ public record SukiMessageBoxOptions
     /// Gets if the window can show in the taskbar.
     /// </summary>
     public bool ShowInTaskbar { get; init; } = false;
+
+    /// <summary>
+    /// Gets the flow direction of the window.
+    /// </summary>
+    public FlowDirection FlowDirection { get; init; }
 
     /// <summary>
     /// Gets the minimum width of the window.
@@ -81,4 +94,30 @@ public record SukiMessageBoxOptions
     /// Gets the window title to display in the title har.
     /// </summary>
     public string Title { get; init; } = string.Empty;
+
+
+    /// <inheritdoc cref="SukiBackground.AnimationEnabled"/>
+    public bool? BackgroundAnimationEnabled { get; init; }
+
+
+    /// <inheritdoc cref="SukiBackground.Style"/>
+    public SukiBackgroundStyle? BackgroundStyle { get; init; }
+
+
+    /// <inheritdoc cref="SukiBackground.ShaderFile"/>
+    public string? BackgroundShaderFile { get; init; }
+
+
+    /// <inheritdoc cref="SukiBackground.ShaderCode"/>
+    public string? BackgroundShaderCode { get; init; }
+
+
+    /// <inheritdoc cref="SukiBackground.TransitionsEnabled"/>
+    public bool? BackgroundTransitionsEnabled { get; init; }
+
+    /// <inheritdoc cref="SukiBackground.TransitionsEnabled"/>
+    public double? BackgroundTransitionTime { get; init; }
+
+    /// <inheritdoc cref="SukiBackground.ForceSoftwareRendering"/>
+    public bool? BackgroundForceSoftwareRendering { get; init; }
 }

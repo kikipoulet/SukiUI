@@ -15,28 +15,13 @@ namespace SukiUI.Demo.Features.Helpers
             InitializeComponent();
         }
 
-        private void MoveBorderWidth(object? sender, RoutedEventArgs e)
-        {
-            this.Get<Border>("MyBorder").Animate(WidthProperty).From(50).To(200).Start();
-        }
+      
 
 
 
         private CancellationTokenSource token;
-        private void InputElement_OnPointerEntered(object? sender, PointerEventArgs e)
-        {
-            if(token is not null)
-                token.Cancel();
-            
-            (sender as GlassCard).Animate<double>(WidthProperty, (sender as GlassCard).Width, 200);
-        }
 
-        private void InputElement_OnPointerExited(object? sender, PointerEventArgs e)
-        {
-            if(token is not null)
-                token.Cancel();
-            
-            (sender as GlassCard).Animate<double>(WidthProperty, (sender as GlassCard).Width, 50);
-        }
+
+       
     }
 }
