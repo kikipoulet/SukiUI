@@ -59,14 +59,14 @@
                                         <Setter Property="RenderTransform" Value="rotate(-180deg)" />
                                     </Style>
                                 </DockPanel.Styles>
-                                <ToggleButton Margin="0,0,-8,0"
+                                <ToggleButton Name="PART_ExpandedButton"
+                                              Margin="0,0,-8,0"
                                               HorizontalContentAlignment="Center"
                                               VerticalContentAlignment="Center"
                                               Classes="CircleGlass"
                                               DockPanel.Dock="Right"
                                               Focusable="False"
-                                              IsChecked="{TemplateBinding IsExpanded,
-                                                                          Mode=TwoWay}"
+                                              IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}"
                                               IsVisible="{TemplateBinding ItemCount}">
                                     <ToggleButton.Transitions>
                                         <Transitions>
@@ -115,6 +115,11 @@
                 </DockPanel>
             </ControlTemplate>
         </Setter>
+
+        <Style Selector="^[IsTopMenuExpanded=False] /template/ ToggleButton#PART_ExpandedButton">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+
         <Style Selector="^.Compact /template/ Border#PART_Border">
             <Setter Property="Padding" Value="30,10,15,10" />
             <Setter Property="CornerRadius" Value="12" />
@@ -143,6 +148,7 @@
                 <Style Selector="^[IsTopMenuExpanded=True] /template/ ContentControl#PART_Icon">
                     <Setter Property="Opacity" Value="0" />
                 </Style>
+
                 <Style Selector="^[IsTopMenuExpanded=False] /template/ ContentControl#PART_Icon">
                     <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
                     <Setter Property="RenderTransform">
