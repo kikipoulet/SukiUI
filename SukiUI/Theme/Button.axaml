@@ -151,7 +151,7 @@
         <Setter Property="BorderThickness" Value="1.2" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
-        <Setter Property="Padding" Value="20, 10" />
+        <Setter Property="Padding" Value="20, 8" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Border Name="RootBorder"
@@ -232,6 +232,7 @@
                 <BrushTransition Property="Foreground" Duration="0:0:0.1" />
                 <BrushTransition Property="BorderBrush" Duration="0:0:0.20" />
                 <DoubleTransition Property="Opacity" Duration="0:0:0.35" />
+                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.1" />
             </Transitions>
         </Setter>
 
@@ -249,22 +250,14 @@
         </Style>
         <Style Selector="^:pressed">
             <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
-            <Setter Property="RenderTransform">
-                <Setter.Value>
-                    <ScaleTransform ScaleX="0.97" ScaleY="0.97" />
-                </Setter.Value>
-            </Setter>
+            <Setter Property="RenderTransform" Value="scale(0.97)" />
             <Style Selector="^ /template/ Border">
                 <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
             </Style>
             <Style Selector="^.Icon /template/ Border">
                 <!--  <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" /> -->
                 <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
-                <Setter Property="RenderTransform">
-                    <Setter.Value>
-                        <ScaleTransform ScaleX="0.95" ScaleY="0.95" />
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="RenderTransform" Value="scale(0.95)" />
             </Style>
         </Style>
 
@@ -300,22 +293,14 @@
             <Style Selector="^:pressed">
                 <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
                 <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
-                <Setter Property="RenderTransform">
-                    <Setter.Value>
-                        <ScaleTransform ScaleX="0.97" ScaleY="0.97" />
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="RenderTransform" Value="scale(0.97)" />
                 <Style Selector="^ /template/ Border">
                     <Setter Property="BorderBrush" Value="{DynamicResource SukiAccentColor}" />
                 </Style>
                 <Style Selector="^.Icon /template/ Border">
                     <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
                     <Setter Property="BorderBrush" Value="{DynamicResource SukiAccentColor}" />
-                    <Setter Property="RenderTransform">
-                        <Setter.Value>
-                            <ScaleTransform ScaleX="0.95" ScaleY="0.95" />
-                        </Setter.Value>
-                    </Setter>
+                    <Setter Property="RenderTransform" Value="scale(0.95)" />
                 </Style>
             </Style>
         </Style>
@@ -330,19 +315,11 @@
             <!--  Events  -->
             <Style Selector="^:pointerover, ^:flyout-open">
                 <Setter Property="Background" Value="Transparent" />
-                <Setter Property="RenderTransform">
-                    <Setter.Value>
-                        <ScaleTransform ScaleX="1.03" ScaleY="1.03" />
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="RenderTransform" Value="scale(1.03)" />
             </Style>
             <Style Selector="^.Icon:pointerover, ^.Icon:flyout-open">
                 <Setter Property="Background" Value="Transparent" />
-                <Setter Property="RenderTransform">
-                    <Setter.Value>
-                        <ScaleTransform ScaleX="1.07" ScaleY="1.07" />
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="RenderTransform" Value="scale(1.07)" />
             </Style>
             <Style Selector="^:pressed">
                 <Setter Property="Background" Value="Transparent" />
@@ -363,11 +340,7 @@
             <Setter Property="Background" Value="Transparent" />
             <!--  Events  -->
             <Style Selector="^:pointerover, ^:flyout-open">
-                <Setter Property="RenderTransform">
-                    <Setter.Value>
-                        <ScaleTransform ScaleX="1.03" ScaleY="1.03" />
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="RenderTransform" Value="scale(1.03)" />
             </Style>
         </Style>
 

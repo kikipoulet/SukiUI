@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:animations="clr-namespace:SukiUI.Animations"
                     xmlns:suki="https://github.com/kikipoulet/SukiUI"
                     xmlns:sys="using:System">
     <Design.PreviewWith>
@@ -199,7 +200,7 @@
                 <Transitions>
                     <DoubleTransition Property="Width" Duration="{StaticResource SplitViewPaneAnimationOpenDuration}">
                         <DoubleTransition.Easing>
-                            <suki:SukiEaseInOutBack BounceIntensity="Strong" />
+                            <animations:SukiEaseInOutBack BounceIntensity="Strong" />
                         </DoubleTransition.Easing>
                     </DoubleTransition>
                 </Transitions>
@@ -222,7 +223,7 @@
                 <Transitions>
                     <DoubleTransition Property="Width" Duration="{StaticResource SplitViewPaneAnimationCloseDuration}">
                         <DoubleTransition.Easing>
-                            <suki:SukiEaseInOut />
+                            <animations:SukiEaseInOut />
                         </DoubleTransition.Easing>
                     </DoubleTransition>
                 </Transitions>

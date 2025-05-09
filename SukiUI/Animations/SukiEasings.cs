@@ -2,7 +2,7 @@
 using Avalonia.Animation.Easings;
 using Avalonia.Media;
 
-namespace SukiUI.Converters
+namespace SukiUI.Animations
 {
 
     public enum EasingIntensity
@@ -88,6 +88,15 @@ namespace SukiUI.Converters
     
     }
     
+    public class SukiEaseOut : Easing
+    {
+        public override double Ease(double progress)
+        {
+            double warpedProgress = Math.Sqrt(progress);
+            return 1.0 - Math.Pow(1.0 - warpedProgress, 3);
+        }
+    }
+    
     public class SukiEaseInOut : Easing
     {
         public override double Ease(double progress)
@@ -105,5 +114,4 @@ namespace SukiUI.Converters
             }
         }
     }
-
 }

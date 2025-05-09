@@ -40,9 +40,9 @@
     <Color x:Key="SukiInformationForeground">White</Color>
 
 
-    <Color x:Key="SukiWarningColor">#fa541c</Color>
-    <Color x:Key="SukiWarningMediumColor">#ff7a45</Color>
-    <Color x:Key="SukiWarningDarkColor">#ff7a45</Color>
+    <Color x:Key="SukiWarningColor">#fa8c16</Color>
+    <Color x:Key="SukiWarningMediumColor">#ffa940</Color>
+    <Color x:Key="SukiWarningDarkColor">#ffa940</Color>
     <Color x:Key="SukiWarningForeground">White</Color>
 
     <Color x:Key="SukiDangerColor">#f5222d</Color>

@@ -63,38 +63,42 @@
                         </showMeTheXaml:XamlDisplay>
 
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock5">
-                            <TextBlock Classes="Caption" />
+                            <TextBlock Classes="h5" />
                         </showMeTheXaml:XamlDisplay>
 
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock6">
-                            <TextBlock Classes="Primary" />
+                            <TextBlock Classes="Caption" />
                         </showMeTheXaml:XamlDisplay>
 
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock7">
-                            <TextBlock Classes="Accent" />
+                            <TextBlock Classes="Primary" />
                         </showMeTheXaml:XamlDisplay>
 
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock8">
-                            <TextBlock Classes="Success" />
+                            <TextBlock Classes="Accent" />
                         </showMeTheXaml:XamlDisplay>
 
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock9">
-                            <TextBlock Classes="Information" />
+                            <TextBlock Classes="Success" />
                         </showMeTheXaml:XamlDisplay>
 
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock10">
-                            <TextBlock Classes="Warning" />
+                            <TextBlock Classes="Information" />
                         </showMeTheXaml:XamlDisplay>
 
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock11">
-                            <TextBlock Classes="Danger" />
+                            <TextBlock Classes="Warning" />
                         </showMeTheXaml:XamlDisplay>
 
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock12">
-                            <TextBlock />
+                            <TextBlock Classes="Danger" />
                         </showMeTheXaml:XamlDisplay>
 
                         <showMeTheXaml:XamlDisplay UniqueId="TextBlock13">
+                            <TextBlock />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="TextBlock14">
                             <TextBlock IsEnabled="False" />
                         </showMeTheXaml:XamlDisplay>
 
@@ -141,38 +145,42 @@
                         </showMeTheXaml:XamlDisplay>
 
                         <showMeTheXaml:XamlDisplay UniqueId="SelectableTextBlock5">
-                            <SelectableTextBlock Classes="Caption" />
+                            <SelectableTextBlock Classes="h5" />
                         </showMeTheXaml:XamlDisplay>
 
                         <showMeTheXaml:XamlDisplay UniqueId="SelectableTextBlock6">
-                            <SelectableTextBlock Classes="Primary" />
+                            <SelectableTextBlock Classes="Caption" />
                         </showMeTheXaml:XamlDisplay>
 
                         <showMeTheXaml:XamlDisplay UniqueId="SelectableTextBlock7">
-                            <SelectableTextBlock Classes="Accent" />
+                            <SelectableTextBlock Classes="Primary" />
                         </showMeTheXaml:XamlDisplay>
 
                         <showMeTheXaml:XamlDisplay UniqueId="SelectableTextBlock8">
-                            <SelectableTextBlock Classes="Success" />
+                            <SelectableTextBlock Classes="Accent" />
                         </showMeTheXaml:XamlDisplay>
 
                         <showMeTheXaml:XamlDisplay UniqueId="SelectableTextBlock9">
-                            <SelectableTextBlock Classes="Information" />
+                            <SelectableTextBlock Classes="Success" />
                         </showMeTheXaml:XamlDisplay>
 
                         <showMeTheXaml:XamlDisplay UniqueId="SelectableTextBlock10">
-                            <SelectableTextBlock Classes="Warning" />
+                            <SelectableTextBlock Classes="Information" />
                         </showMeTheXaml:XamlDisplay>
 
                         <showMeTheXaml:XamlDisplay UniqueId="SelectableTextBlock11">
-                            <SelectableTextBlock Classes="Danger" />
+                            <SelectableTextBlock Classes="Warning" />
                         </showMeTheXaml:XamlDisplay>
 
                         <showMeTheXaml:XamlDisplay UniqueId="SelectableTextBlock12">
-                            <SelectableTextBlock />
+                            <SelectableTextBlock Classes="Danger" />
                         </showMeTheXaml:XamlDisplay>
 
                         <showMeTheXaml:XamlDisplay UniqueId="SelectableTextBlock13">
+                            <SelectableTextBlock />
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="SelectableTextBlock14">
                             <SelectableTextBlock IsEnabled="False" />
                         </showMeTheXaml:XamlDisplay>
 

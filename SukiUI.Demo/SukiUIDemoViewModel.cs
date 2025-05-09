@@ -1,4 +1,3 @@
-using System;
 using Avalonia.Collections;
 using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -9,10 +8,10 @@ using SukiUI.Demo.Features.CustomTheme;
 using SukiUI.Demo.Services;
 using SukiUI.Demo.Utilities;
 using SukiUI.Models;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
+using SukiUI.Demo.Features.ControlsLibrary.Dialogs;
 using SukiUI.Demo.Features.Theming;
 using SukiUI.Dialogs;
 using SukiUI.Enums;
@@ -24,11 +23,12 @@ namespace SukiUI.Demo;
 public partial class SukiUIDemoViewModel : ObservableObject
 {
     public IAvaloniaReadOnlyList<DemoPageBase> DemoPages { get; }
+    public PageNavigationService PageNavigationService { get; }
 
     public IAvaloniaReadOnlyList<SukiColorTheme> Themes { get; }
-    
+
     public IAvaloniaReadOnlyList<SukiBackgroundStyle> BackgroundStyles { get; }
-    
+
     public ISukiToastManager ToastManager { get; }
     public ISukiDialogManager DialogManager { get; }
 
@@ -41,7 +41,7 @@ public partial class SukiUIDemoViewModel : ObservableObject
     [ObservableProperty] private string? _customShaderFile;
     [ObservableProperty] private bool _transitionsEnabled;
     [ObservableProperty] private double _transitionTime;
-    
+
     [ObservableProperty] private bool _showTitleBar = true;
     [ObservableProperty] private bool _showBottomBar = true;
 
@@ -53,15 +53,16 @@ public partial class SukiUIDemoViewModel : ObservableObject
         ToastManager = toastManager;
         DialogManager = dialogManager;
         DemoPages = new AvaloniaList<DemoPageBase>(demoPages.OrderBy(x => x.Index).ThenBy(x => x.DisplayName));
+        PageNavigationService = pageNavigationService;
         _theming = (ThemingViewModel)DemoPages.First(x => x is ThemingViewModel);
         _theming.BackgroundStyleChanged += style => BackgroundStyle = style;
         _theming.BackgroundAnimationsChanged += enabled => AnimationsEnabled = enabled;
         _theming.CustomBackgroundStyleChanged += shader => CustomShaderFile = shader;
         _theming.BackgroundTransitionsChanged += enabled => TransitionsEnabled = enabled;
-        
+
         BackgroundStyles = new AvaloniaList<SukiBackgroundStyle>(Enum.GetValues<SukiBackgroundStyle>());
         _theme = SukiTheme.GetInstance();
-        
+
         // Subscribe to the navigation service (when a page navigation is requested)
         pageNavigationService.NavigationRequested += pageType =>
         {
@@ -69,10 +70,10 @@ public partial class SukiUIDemoViewModel : ObservableObject
             if (page is null || ActivePage?.GetType() == pageType) return;
             ActivePage = page;
         };
-        
+
         Themes = _theme.ColorThemes;
         BaseTheme = _theme.ActiveBaseTheme;
-        
+
         // Subscribe to the base theme changed events
         _theme.OnBaseThemeChanged += variant =>
         {
@@ -82,7 +83,7 @@ public partial class SukiUIDemoViewModel : ObservableObject
                 .WithContent($"Theme has changed to {variant}.")
                 .Queue();
         };
-        
+
         // Subscribe to the color theme changed events
         _theme.OnColorThemeChanged += theme => ToastManager.CreateSimpleInfoToast()
             .WithTitle("Color Changed")
@@ -122,7 +123,7 @@ public partial class SukiUIDemoViewModel : ObservableObject
     {
         Shadcn.Configure(Application.Current, Application.Current.ActualThemeVariant);
     }
-    
+
     [RelayCommand]
     private void CreateCustomTheme()
     {
@@ -140,7 +141,7 @@ public partial class SukiUIDemoViewModel : ObservableObject
             .WithContent($"Window has been {(WindowLocked ? "locked" : "unlocked")}.")
             .Queue();
     }
-    
+
     [RelayCommand]
     private void ToggleTitleBackground()
     {
@@ -164,10 +165,10 @@ public partial class SukiUIDemoViewModel : ObservableObject
     [RelayCommand]
     private static void OpenUrl(string url) => UrlUtilities.OpenUrl(url);
 
-    partial void OnBackgroundStyleChanged(SukiBackgroundStyle value) => 
+    partial void OnBackgroundStyleChanged(SukiBackgroundStyle value) =>
         _theming.BackgroundStyle = value;
 
-    partial void OnAnimationsEnabledChanged(bool value) => 
+    partial void OnAnimationsEnabledChanged(bool value) =>
         _theming.BackgroundAnimations = value;
 
     partial void OnTransitionsEnabledChanged(bool value) =>

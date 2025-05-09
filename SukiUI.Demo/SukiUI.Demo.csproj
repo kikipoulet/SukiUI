@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="Avalonia" />
-    <PackageReference Include="Avalonia.AvaloniaEdit" />
+    <PackageReference Include="Avalonia.AvaloniaEdit"/>
     <PackageReference Include="Avalonia.Controls.ColorPicker" />
     <PackageReference Include="Avalonia.Desktop" />
     <PackageReference Include="Avalonia.Fonts.Inter" />
@@ -27,6 +27,7 @@
     <PackageReference Include="Dock.Model.Avalonia" />
     <PackageReference Include="Dock.Model.Mvvm" />
     <PackageReference Include="Dock.Serializer" />
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia"/>
     <PackageReference Include="Material.Icons.Avalonia" />
     <PackageReference Include="Markdown.Avalonia" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
@@ -85,6 +86,10 @@
   <ItemGroup>
     <Compile Update="Features\ControlsLibrary\ExperimentalControls\ExperimentalView.axaml.cs">
       <DependentUpon>ExperimentalView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Features\Helpers\SpringEase\SpringEasing.axaml.cs">
+      <DependentUpon>SpringEasing.axaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

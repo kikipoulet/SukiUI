@@ -9,6 +9,7 @@
              d:DesignWidth="800"
              x:DataType="dialogs:DialogsViewModel"
              mc:Ignorable="d">
+
     <Grid RowDefinitions="Auto,*">
         <suki:GlassCard Classes="HeaderCard">
             <suki:GroupBox Header="Dialogs">
@@ -23,197 +24,257 @@
                     <TextBlock>
                         Click any of the following buttons to open up a dialog.
                     </TextBlock>
+
                 </StackPanel>
             </suki:GroupBox>
         </suki:GlassCard>
-        <ScrollViewer Grid.Row="1">
-            <WrapPanel Classes="PageContainer">
-                <suki:GlassCard>
-                    <suki:GroupBox Header="Standard Dialog">
-                        <Button Margin="15,10,15,0"
-                                VerticalAlignment="Top"
-                                Command="{Binding OpenStandardDialogCommand}"
-                                Content="Show Dialog" />
-                    </suki:GroupBox>
-                </suki:GlassCard>
-                <suki:GlassCard>
-                    <suki:GroupBox Header="Long Dialog">
-                        <Button Margin="15,10,15,0"
-                                VerticalAlignment="Top"
-                                Command="{Binding OpenLongDialogCommand}"
-                                Content="Show Dialog" />
-                    </suki:GroupBox>
-                </suki:GlassCard>
-                <suki:GlassCard>
-                    <suki:GroupBox Header="Multi Option Dialog">
-                        <Button Margin="15,10,15,0"
-                                VerticalAlignment="Top"
-                                Command="{Binding OpenMultiOptionDialogCommand}"
-                                Content="Show Dialog" />
-                    </suki:GroupBox>
-                </suki:GlassCard>
-                <suki:GlassCard>
-                    <suki:GroupBox Header="Background Closable Dialog">
-                        <Button Margin="15,10,15,0"
-                                VerticalAlignment="Top"
-                                Command="{Binding OpenBackgroundCloseDialogCommand}"
-                                Content="Show Dialog" />
-                    </suki:GroupBox>
-                </suki:GlassCard>
-                <suki:GlassCard>
-                    <suki:GroupBox Header="Messagebox Style Dialogs">
-                        <StackPanel Spacing="5">
-                            <ComboBox ItemsSource="{Binding NotificationTypes}" SelectedItem="{Binding SelectedType}" />
-                            <Button Margin="15,10,15,0"
-                                    VerticalAlignment="Top"
-                                    Command="{Binding OpenMessageBoxStyleDialogCommand}"
-                                    Content="Show Dialog" />
-                        </StackPanel>
-                    </suki:GroupBox>
-                </suki:GlassCard>
-                <suki:GlassCard>
-                    <suki:GroupBox Header="ViewModel Dialog">
-                        <Button Margin="15,10,15,0"
-                                VerticalAlignment="Top"
-                                Command="{Binding OpenViewModelDialogCommand}"
-                                Content="Show Dialog" />
-                    </suki:GroupBox>
-                </suki:GlassCard>
-                <suki:GlassCard>
-                    <suki:GroupBox Header="ViewModel With Action Buttons Dialog">
-                        <Button Margin="15,10,15,0"
-                                VerticalAlignment="Top"
-                                Command="{Binding OpenViewModelWithActionButtonsDialogCommand}"
-                                Content="Show Dialog" />
-                    </suki:GroupBox>
-                </suki:GlassCard>
-                <suki:GlassCard>
-                    <suki:GroupBox Header="Window Dialog Demo">
-                        <Button Margin="15,10,15,0"
-                                VerticalAlignment="Top"
-                                Command="{Binding OpenDialogWindowDemoCommand}"
-                                Content="Open" />
-                    </suki:GroupBox>
-                </suki:GlassCard>
-                <suki:GlassCard>
-                    <suki:GroupBox Header="Tool Window Demo">
-                        <Button Margin="15,10,15,0"
-                                VerticalAlignment="Top"
-                                Command="{Binding OpenToolWindowDemoCommand}"
-                                Content="Open" />
-                    </suki:GroupBox>
-                </suki:GlassCard>
 
-                <suki:GlassCard>
-                    <suki:GroupBox Header="Simple Question MessageBox">
-                        <Button Margin="15,10,15,0"
-                                VerticalAlignment="Top"
-                                Command="{Binding OpenSimpleQuestionMessageBoxCommand}"
-                                Content="Open" />
-                    </suki:GroupBox>
-                </suki:GlassCard>
 
-                <suki:GlassCard>
-                    <suki:GroupBox Header="Advanced Question MessageBox">
-                        <Grid ColumnDefinitions="Auto,5,*" RowDefinitions="Auto,5,Auto,5,Auto">
+        <ScrollViewer Grid.Row="1" Margin="32">
+            <StackPanel Spacing="32">
+                <Expander ExpandDirection="Down"
+                          Header="Dialogs"
+                          IsExpanded="True">
+                    <ScrollViewer>
+                        <WrapPanel Classes="PageContainer">
+                            <suki:GlassCard Width="250">
+                                <suki:GroupBox Header="Standard">
+                                    <Button Margin="15,10,15,0"
+                                            VerticalAlignment="Top"
+                                            Command="{Binding OpenStandardDialogCommand}"
+                                            Content="Open" />
+                                </suki:GroupBox>
+                            </suki:GlassCard>
+                            <suki:GlassCard Width="250">
+                                <suki:GroupBox Header="Long">
+                                    <Button Margin="15,10,15,0"
+                                            VerticalAlignment="Top"
+                                            Command="{Binding OpenLongDialogCommand}"
+                                            Content="Open" />
+                                </suki:GroupBox>
+                            </suki:GlassCard>
+                            <suki:GlassCard Width="250">
+                                <suki:GroupBox Header="Multi Option">
+                                    <Button Margin="15,10,15,0"
+                                            VerticalAlignment="Top"
+                                            Command="{Binding OpenMultiOptionDialogCommand}"
+                                            Content="Open" />
+                                </suki:GroupBox>
+                            </suki:GlassCard>
+                            <suki:GlassCard Width="250">
+                                <suki:GroupBox Header="Background Closable">
+                                    <Button Margin="15,10,15,0"
+                                            VerticalAlignment="Top"
+                                            Command="{Binding OpenBackgroundCloseDialogCommand}"
+                                            Content="Open" />
+                                </suki:GroupBox>
+                            </suki:GlassCard>
+                            <suki:GlassCard Width="250">
+                                <suki:GroupBox Header="ViewModel">
+                                    <Button Margin="15,10,15,0"
+                                            VerticalAlignment="Top"
+                                            Command="{Binding OpenViewModelDialogCommand}"
+                                            Content="Open" />
+                                </suki:GroupBox>
+                            </suki:GlassCard>
+                            <suki:GlassCard Width="250">
+                                <suki:GroupBox Header="ViewModel With Action Buttons">
+                                    <Button Margin="15,10,15,0"
+                                            VerticalAlignment="Top"
+                                            Command="{Binding OpenViewModelWithActionButtonsDialogCommand}"
+                                            Content="Open" />
+                                </suki:GroupBox>
+                            </suki:GlassCard>
+                        </WrapPanel>
+                    </ScrollViewer>
+                </Expander>
 
-                            <TextBlock Grid.Row="0"
-                                       Grid.Column="0"
-                                       VerticalAlignment="Center"
-                                       Text="Icon:" />
-                            <ComboBox Grid.Row="0"
-                                      Grid.Column="2"
-                                      ItemsSource="{Binding MessageBoxIcons}"
-                                      SelectedItem="{Binding SelectedMessageBoxIcon}" />
+                <Expander ExpandDirection="Down"
+                          Header="Messageboxes"
+                          IsExpanded="True">
+                    <ScrollViewer>
+                        <WrapPanel Classes="PageContainer">
+                            <suki:GlassCard Width="250">
+                                <suki:GroupBox Header="Basic">
+                                    <StackPanel Spacing="5">
+                                        <ComboBox ItemsSource="{Binding NotificationTypes}" SelectedItem="{Binding SelectedType}" />
+                                        <Button Margin="15,10,15,0"
+                                                VerticalAlignment="Top"
+                                                Command="{Binding OpenMessageBoxStyleDialogCommand}"
+                                                Content="Open" />
+                                    </StackPanel>
+                                </suki:GroupBox>
+                            </suki:GlassCard>
+                            <suki:GlassCard Width="250">
+                                <suki:GroupBox Header="Async blocking">
+                                    <StackPanel Spacing="5">
+                                        <ComboBox ItemsSource="{Binding NotificationTypes}" SelectedItem="{Binding SelectedType}" />
+                                        <Button Margin="15,10,15,0"
+                                                VerticalAlignment="Top"
+                                                Command="{Binding OpenAsyncMessageBoxStyleDialogCommand}"
+                                                Content="Open" />
+                                    </StackPanel>
+                                </suki:GroupBox>
+                            </suki:GlassCard>
 
-                            <TextBlock Grid.Row="2"
-                                       Grid.Column="0"
-                                       VerticalAlignment="Center"
-                                       Text="Buttons:" />
-                            <ComboBox Grid.Row="2"
-                                      Grid.Column="2"
-                                      ItemsSource="{Binding MessageBoxButtons}"
-                                      SelectedItem="{Binding SelectedMessageBoxButtons}" />
-                            <Button Grid.Row="4"
-                                    Grid.Column="0"
-                                    Grid.ColumnSpan="3"
-                                    Margin="15,10,15,0"
-                                    VerticalAlignment="Top"
-                                    Command="{Binding OpenAdvancedQuestionMessageBoxCommand}"
-                                    Content="Open" />
-                        </Grid>
-                    </suki:GroupBox>
-                </suki:GlassCard>
+                            <suki:GlassCard Width="250">
+                                <suki:GroupBox Header="Question">
+                                    <Button Margin="15,10,15,0"
+                                            VerticalAlignment="Top"
+                                            Command="{Binding OpenSimpleQuestionMessageBoxCommand}"
+                                            Content="Open" />
+                                </suki:GroupBox>
+                            </suki:GlassCard>
 
-                <suki:GlassCard>
-                    <suki:GroupBox Header="Custom Markdown MessageBox">
-                        <StackPanel Spacing="10">
-                            <CheckBox Content="Use alternative header style" IsChecked="{Binding UseAlternativeHeaderStyle}" />
-                            <CheckBox Content="Show header/content separator" IsChecked="{Binding ShowHeaderContentSeparator}" />
-                            <Button Margin="15,10,15,0"
-                                    VerticalAlignment="Top"
-                                    Command="{Binding OpenCustomMarkdownMessageBoxCommand}"
-                                    Content="Open" />
-                        </StackPanel>
+                            <suki:GlassCard Width="250">
+                                <suki:GroupBox Header="Advanced Question">
+                                    <Grid ColumnDefinitions="Auto,5,*" RowDefinitions="Auto,5,Auto,5,Auto">
+                                        <TextBlock Grid.Row="0"
+                                                   Grid.Column="0"
+                                                   VerticalAlignment="Center"
+                                                   Text="Icon:" />
+                                        <ComboBox Grid.Row="0"
+                                                  Grid.Column="2"
+                                                  ItemsSource="{Binding MessageBoxIcons}"
+                                                  SelectedItem="{Binding SelectedMessageBoxIcon}" />
 
-                    </suki:GroupBox>
-                </suki:GlassCard>
+                                        <TextBlock Grid.Row="2"
+                                                   Grid.Column="0"
+                                                   VerticalAlignment="Center"
+                                                   Text="Buttons:" />
+                                        <ComboBox Grid.Row="2"
+                                                  Grid.Column="2"
+                                                  ItemsSource="{Binding MessageBoxButtons}"
+                                                  SelectedItem="{Binding SelectedMessageBoxButtons}" />
+                                        <Button Grid.Row="4"
+                                                Grid.Column="0"
+                                                Grid.ColumnSpan="3"
+                                                Margin="15,10,15,0"
+                                                VerticalAlignment="Top"
+                                                Command="{Binding OpenAdvancedQuestionMessageBoxCommand}"
+                                                Content="Open" />
+                                    </Grid>
+                                </suki:GroupBox>
+                            </suki:GlassCard>
 
-                <suki:GlassCard>
-                    <suki:GroupBox Header="Animated Header MessageBox">
-                        <Button Margin="15,10,15,0"
-                                VerticalAlignment="Top"
-                                Command="{Binding OpenAnimatedHeaderMessageBoxCommand}"
-                                Content="Open" />
-                    </suki:GroupBox>
-                </suki:GlassCard>
+                            <suki:GlassCard Width="250">
+                                <suki:GroupBox Header="Custom Markdown">
+                                    <StackPanel Spacing="10">
+                                        <CheckBox Content="Use alternative header style" IsChecked="{Binding UseAlternativeHeaderStyle}" />
+                                        <CheckBox Content="Show header/content separator" IsChecked="{Binding ShowHeaderContentSeparator}" />
+                                        <CheckBox Content="Use native window" IsChecked="{Binding UseNativeWindow}" />
+                                        <Button Margin="15,10,15,0"
+                                                VerticalAlignment="Top"
+                                                Command="{Binding OpenCustomMarkdownMessageBoxCommand}"
+                                                Content="Open" />
+                                    </StackPanel>
+                                </suki:GroupBox>
+                            </suki:GlassCard>
 
-                <suki:GlassCard>
-                    <suki:GroupBox Header="Success MessageBox">
-                        <Button Margin="15,10,15,0"
-                                VerticalAlignment="Top"
-                                Command="{Binding OpenSuccessMessageBoxCommand}"
-                                Content="Open" />
-                    </suki:GroupBox>
-                </suki:GlassCard>
+                            <suki:GlassCard Width="250">
+                                <suki:GroupBox Header="Animated Header">
+                                    <Button Margin="15,10,15,0"
+                                            VerticalAlignment="Top"
+                                            Command="{Binding OpenAnimatedHeaderMessageBoxCommand}"
+                                            Content="Open" />
+                                </suki:GroupBox>
+                            </suki:GlassCard>
 
-                <suki:GlassCard>
-                    <suki:GroupBox Header="Warning MessageBox">
-                        <Button Margin="15,10,15,0"
-                                VerticalAlignment="Top"
-                                Command="{Binding OpenWarningMessageBoxCommand}"
-                                Content="Open" />
-                    </suki:GroupBox>
-                </suki:GlassCard>
+                            <suki:GlassCard Width="250">
+                                <suki:GroupBox Header="Success">
+                                    <Button Margin="15,10,15,0"
+                                            VerticalAlignment="Top"
+                                            Command="{Binding OpenSuccessMessageBoxCommand}"
+                                            Content="Open" />
+                                </suki:GroupBox>
+                            </suki:GlassCard>
 
-                <suki:GlassCard>
-                    <suki:GroupBox Header="Error MessageBox">
-                        <Button Margin="15,10,15,0"
-                                VerticalAlignment="Top"
-                                Command="{Binding OpenErrorMessageBoxCommand}"
-                                Content="Open" />
-                    </suki:GroupBox>
-                </suki:GlassCard>
+                            <suki:GlassCard Width="250">
+                                <suki:GroupBox Header="Warning">
+                                    <Button Margin="15,10,15,0"
+                                            VerticalAlignment="Top"
+                                            Command="{Binding OpenWarningMessageBoxCommand}"
+                                            Content="Open" />
+                                </suki:GroupBox>
+                            </suki:GlassCard>
 
-                <suki:GlassCard>
-                    <suki:GroupBox Header="Long MessageBox">
-                        <Button Margin="15,10,15,0"
-                                VerticalAlignment="Top"
-                                Command="{Binding OpenLongMessageBoxCommand}"
-                                Content="Open" />
-                    </suki:GroupBox>
-                </suki:GlassCard>
+                            <suki:GlassCard Width="250">
+                                <suki:GroupBox Header="Error">
+                                    <Button Margin="15,10,15,0"
+                                            VerticalAlignment="Top"
+                                            Command="{Binding OpenErrorMessageBoxCommand}"
+                                            Content="Open" />
+                                </suki:GroupBox>
+                            </suki:GlassCard>
 
-                <suki:GlassCard>
-                    <suki:GroupBox Header="ViewModel MessageBox">
-                        <Button Margin="15,10,15,0"
-                                VerticalAlignment="Top"
-                                Command="{Binding OpenViewModelMessageBoxCommand}"
-                                Content="Open" />
-                    </suki:GroupBox>
-                </suki:GlassCard>
-            </WrapPanel>
+                            <suki:GlassCard Width="250">
+                                <suki:GroupBox Header="Long">
+                                    <Button Margin="15,10,15,0"
+                                            VerticalAlignment="Top"
+                                            Command="{Binding OpenLongMessageBoxCommand}"
+                                            CommandParameter="{x:False}"
+                                            Content="Open" />
+                                </suki:GroupBox>
+                            </suki:GlassCard>
+
+                            <suki:GlassCard Width="250">
+                                <suki:GroupBox Header="Long Native Window">
+                                    <Button Margin="15,10,15,0"
+                                            VerticalAlignment="Top"
+                                            Command="{Binding OpenLongMessageBoxCommand}"
+                                            CommandParameter="{x:True}"
+                                            Content="Open" />
+                                </suki:GroupBox>
+                            </suki:GlassCard>
+
+                            <suki:GlassCard Width="250">
+                                <suki:GroupBox Header="ViewModel">
+                                    <Button Margin="15,10,15,0"
+                                            VerticalAlignment="Top"
+                                            Command="{Binding OpenViewModelMessageBoxCommand}"
+                                            Content="Open" />
+                                </suki:GroupBox>
+                            </suki:GlassCard>
+                        </WrapPanel>
+                    </ScrollViewer>
+                </Expander>
+
+                <Expander ExpandDirection="Down"
+                          Header="Window Demos"
+                          IsExpanded="True">
+                    <ScrollViewer>
+                        <WrapPanel Classes="PageContainer">
+                            <suki:GlassCard>
+                                <suki:GroupBox Width="250" Header="Dialog Window">
+                                    <Button Margin="15,10,15,0"
+                                            VerticalAlignment="Top"
+                                            Command="{Binding OpenDialogWindowDemoCommand}"
+                                            Content="Open" />
+                                </suki:GroupBox>
+                            </suki:GlassCard>
+
+                            <suki:GlassCard>
+                                <suki:GroupBox Width="250" Header="Tool Window">
+                                    <Button Margin="15,10,15,0"
+                                            VerticalAlignment="Top"
+                                            Command="{Binding OpenToolWindowDemoCommand}"
+                                            Content="Open" />
+                                </suki:GroupBox>
+                            </suki:GlassCard>
+
+                            <suki:GlassCard>
+                                <suki:GroupBox Header="Native Window Dialog Demo">
+                                    <Button Margin="15,10,15,0"
+                                            VerticalAlignment="Top"
+                                            Command="{Binding OpenDialogNativeWindowDemoCommand}"
+                                            Content="Open" />
+                                </suki:GroupBox>
+                            </suki:GlassCard>
+                        </WrapPanel>
+                    </ScrollViewer>
+                </Expander>
+            </StackPanel>
+
         </ScrollViewer>
     </Grid>
-
 </UserControl>

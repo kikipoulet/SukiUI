@@ -22,150 +22,120 @@
         <Setter Property="ExtendClientAreaChromeHints" Value="NoChrome" />
         <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="-1" />
         <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
-        <Setter Property="TextElement.Foreground" Value="{DynamicResource SukiText}" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
         <Setter Property="FlowDirection" Value="{DynamicResource FlowDirectionPrimary}" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Border Margin="{TemplateBinding Margin}"
-                        ClipToBounds="True"
-                        CornerRadius="{Binding RootCornerRadius, RelativeSource={RelativeSource AncestorType={x:Type suki:SukiWindow}}}">
-                    <VisualLayerManager Name="PART_VisualLayerManager" IsHitTestVisible="True">
-                        <VisualLayerManager.ChromeOverlayLayer>
-                            <!-- <suki:SukiHost /> -->
-                            <ItemsControl ItemsSource="{Binding Hosts, RelativeSource={RelativeSource AncestorType={x:Type suki:SukiWindow}}}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <Panel />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                            </ItemsControl>
-                        </VisualLayerManager.ChromeOverlayLayer>
-                        <Panel x:Name="PART_Root">
-                            <!--  Margin -100 is there to exclude the unwanted bright corners  -->
-                            <suki:SukiBackground Name="PART_Background"
-                                                 Margin="-150"
-                                                 AnimationEnabled="{TemplateBinding BackgroundAnimationEnabled}"
-                                                 ForceSoftwareRendering="{TemplateBinding BackgroundForceSoftwareRendering}"
-                                                 ShaderCode="{TemplateBinding BackgroundShaderCode}"
-                                                 ShaderFile="{TemplateBinding BackgroundShaderFile}"
-                                                 Style="{TemplateBinding BackgroundStyle}"
-                                                 TransitionTime="{TemplateBinding BackgroundTransitionTime}"
-                                                 TransitionsEnabled="{TemplateBinding BackgroundTransitionsEnabled}" />
-                            <Panel Background="White"
-                                   IsHitTestVisible="False"
-                                   IsVisible="{DynamicResource IsLight}"
-                                   Opacity="0.1" />
-                            <DockPanel LastChildFill="True">
-                                <Panel ContextMenu="{TemplateBinding TitleBarContextMenu}" DockPanel.Dock="Top">
-                                    <Panel.Styles>
-                                        <Style Selector="suki|SukiWindow[ShowBottomBorder=True] /template/ Border#PART_BottomBorder">
-                                            <Setter Property="BorderThickness" Value="0,0,0,1" />
-                                        </Style>
-                                        <Style Selector="suki|SukiWindow[ShowBottomBorder=False] /template/ Border#PART_BottomBorder">
-                                            <Setter Property="BorderThickness" Value="0,0,0,0" />
-                                        </Style>
-                                        <Style Selector="suki|SukiWindow[WindowState=FullScreen] /template/ Button#PART_MaximizeButton">
-                                            <Setter Property="IsVisible" Value="False" />
-                                        </Style>
-                                    </Panel.Styles>
-                                    <StackPanel>
-                                        <LayoutTransformControl Name="PART_LayoutTransform" RenderTransformOrigin="0%,0%">
-                                            <Panel>
-                                                <suki:GlassCard Name="PART_TitleBarBackground"
-                                                                BorderThickness="0"
-                                                                CornerRadius="0"
-                                                                IsAnimated="False"
-                                                                IsVisible="{TemplateBinding ShowTitlebarBackground}" />
-                                                <DockPanel Margin="12,9" LastChildFill="True">
-                                                    <StackPanel VerticalAlignment="Center"
-                                                                DockPanel.Dock="Right"
-                                                                Orientation="Horizontal"
-                                                                Spacing="7">
-                                                        <StackPanel.Styles>
-                                                            <Style Selector="PathIcon">
-                                                                <Setter Property="Height" Value="10" />
-                                                                <Setter Property="Width" Value="10" />
-                                                            </Style>
-                                                        </StackPanel.Styles>
-                                                        <ItemsControl ItemsSource="{TemplateBinding RightWindowTitleBarControls}">
-                                                            <ItemsControl.ItemsPanel>
-                                                                <ItemsPanelTemplate>
-                                                                    <StackPanel FlowDirection="{DynamicResource FlowDirectionOpposite}" Orientation="Horizontal" />
-                                                                </ItemsPanelTemplate>
-                                                            </ItemsControl.ItemsPanel>
-                                                        </ItemsControl>
-                                                        <Button Name="PART_FullScreenButton"
-                                                                Classes="WindowControlsButton"
-                                                                IsEnabled="{TemplateBinding CanFullScreen}"
-                                                                IsVisible="{TemplateBinding CanFullScreen}">
-                                                            <PathIcon x:Name="FullScreenIcon" Data="{x:Static icons:Icons.WindowFullScreen}" />
-                                                        </Button>
-                                                        <Button Name="PART_PinButton"
-                                                                Classes="WindowControlsButton"
-                                                                IsEnabled="{TemplateBinding CanPin}"
-                                                                IsVisible="{TemplateBinding CanPin}">
-                                                            <PathIcon x:Name="PinIcon" Data="{x:Static icons:Icons.WindowPin}" />
-                                                        </Button>
-                                                        <Button Name="PART_MinimizeButton"
-                                                                VerticalContentAlignment="Bottom"
-                                                                Classes="WindowControlsButton"
-                                                                IsVisible="{TemplateBinding CanMinimize}">
-                                                            <PathIcon Margin="0,0,0,6.5"
-                                                                      VerticalAlignment="Bottom"
-                                                                      Data="{x:Static icons:Icons.WindowMinimize}" />
-                                                        </Button>
-                                                        <Button Name="PART_MaximizeButton"
-                                                                Classes="WindowControlsButton"
-                                                                IsVisible="{TemplateBinding CanMaximize}">
-                                                            <PathIcon x:Name="MaximizeIcon" Data="{x:Static icons:Icons.WindowMaximize}" />
-                                                        </Button>
-                                                        <Button Name="PART_CloseButton" Classes="WindowControlsButton Close">
-                                                            <PathIcon Data="{x:Static icons:Icons.WindowClose}" />
-                                                        </Button>
-                                                    </StackPanel>
-                                                    <StackPanel VerticalAlignment="Center"
-                                                                Orientation="Horizontal"
-                                                                Spacing="10">
-                                                        <ContentPresenter Name="PART_Logo"
-                                                                          HorizontalAlignment="Left"
-                                                                          Background="Transparent"
-                                                                          Content="{TemplateBinding LogoContent}" />
-                                                        <TextBlock VerticalAlignment="Center"
-                                                                   FontSize="{TemplateBinding TitleFontSize}"
-                                                                   FontWeight="{TemplateBinding TitleFontWeight}"
-                                                                   IsHitTestVisible="False"
-                                                                   Text="{TemplateBinding Title}" />
-                                                    </StackPanel>
-                                                </DockPanel>
-                                            </Panel>
-                                        </LayoutTransformControl>
-                                        <Panel IsVisible="{TemplateBinding IsMenuVisible}">
-                                            <suki:GlassCard Margin="0,0,0,0"
+                <Panel Name="PART_Root">
+                    <suki:SukiMainHost BackgroundAnimationEnabled="{TemplateBinding BackgroundAnimationEnabled}"
+                                       BackgroundForceSoftwareRendering="{TemplateBinding BackgroundForceSoftwareRendering}"
+                                       BackgroundShaderCode="{TemplateBinding BackgroundShaderCode}"
+                                       BackgroundShaderFile="{TemplateBinding BackgroundShaderFile}"
+                                       BackgroundStyle="{TemplateBinding BackgroundStyle}"
+                                       BackgroundTransitionTime="{TemplateBinding BackgroundTransitionTime}"
+                                       BackgroundTransitionsEnabled="{TemplateBinding BackgroundTransitionsEnabled}"
+                                       CornerRadius="{TemplateBinding RootCornerRadius}"
+                                       Foreground="{TemplateBinding Foreground}"
+                                       Hosts="{Binding Hosts, RelativeSource={RelativeSource AncestorType={x:Type suki:SukiWindow}}}">
+                        <DockPanel LastChildFill="True">
+                            <Panel ContextMenu="{TemplateBinding TitleBarContextMenu}" DockPanel.Dock="Top">
+                                <StackPanel>
+                                    <LayoutTransformControl Name="PART_LayoutTransform" RenderTransformOrigin="0%,0%">
+                                        <Panel>
+                                            <suki:GlassCard Name="PART_TitleBarBackground"
                                                             BorderThickness="0"
                                                             CornerRadius="0"
                                                             IsAnimated="False"
                                                             IsVisible="{TemplateBinding ShowTitlebarBackground}" />
-                                            <suki:GlassCard Name="AlternativeGlassMenuBackground"
-                                                            Margin="10,2,10,10"
-                                                            CornerRadius="13" />
-                                            <Menu Name="PART_Menu"
-                                                  IsEnabled="{TemplateBinding IsMenuVisible}"
-                                                  ItemsSource="{TemplateBinding MenuItems}" />
+                                            <DockPanel Margin="12,9" LastChildFill="True">
+                                                <StackPanel VerticalAlignment="Center"
+                                                            DockPanel.Dock="Right"
+                                                            Orientation="Horizontal"
+                                                            Spacing="7">
+                                                    <StackPanel.Styles>
+                                                        <Style Selector="PathIcon">
+                                                            <Setter Property="Height" Value="10" />
+                                                            <Setter Property="Width" Value="10" />
+                                                        </Style>
+                                                    </StackPanel.Styles>
+                                                    <ItemsControl ItemsSource="{TemplateBinding RightWindowTitleBarControls}">
+                                                        <ItemsControl.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <StackPanel FlowDirection="{DynamicResource FlowDirectionOpposite}" Orientation="Horizontal" />
+                                                            </ItemsPanelTemplate>
+                                                        </ItemsControl.ItemsPanel>
+                                                    </ItemsControl>
+                                                    <Button Name="PART_FullScreenButton"
+                                                            Classes="WindowControlsButton"
+                                                            IsEnabled="{TemplateBinding CanFullScreen}"
+                                                            IsVisible="{TemplateBinding CanFullScreen}">
+                                                        <PathIcon x:Name="FullScreenIcon" Data="{x:Static icons:Icons.WindowFullScreen}" />
+                                                    </Button>
+                                                    <Button Name="PART_PinButton"
+                                                            Classes="WindowControlsButton"
+                                                            IsEnabled="{TemplateBinding CanPin}"
+                                                            IsVisible="{TemplateBinding CanPin}">
+                                                        <PathIcon x:Name="PinIcon" Data="{x:Static icons:Icons.WindowPin}" />
+                                                    </Button>
+                                                    <Button Name="PART_MinimizeButton"
+                                                            VerticalContentAlignment="Bottom"
+                                                            Classes="WindowControlsButton"
+                                                            IsVisible="{TemplateBinding CanMinimize}">
+                                                        <PathIcon Margin="0,0,0,6.5"
+                                                                  VerticalAlignment="Bottom"
+                                                                  Data="{x:Static icons:Icons.WindowMinimize}" />
+                                                    </Button>
+                                                    <Button Name="PART_MaximizeButton"
+                                                            Classes="WindowControlsButton"
+                                                            IsVisible="{TemplateBinding CanMaximize}">
+                                                        <PathIcon x:Name="MaximizeIcon" Data="{x:Static icons:Icons.WindowMaximize}" />
+                                                    </Button>
+                                                    <Button Name="PART_CloseButton" Classes="WindowControlsButton Close">
+                                                        <PathIcon Data="{x:Static icons:Icons.WindowClose}" />
+                                                    </Button>
+                                                </StackPanel>
+                                                <StackPanel VerticalAlignment="Center"
+                                                            Orientation="Horizontal"
+                                                            Spacing="10">
+                                                    <ContentPresenter Name="PART_Logo"
+                                                                      HorizontalAlignment="Left"
+                                                                      Background="Transparent"
+                                                                      Content="{TemplateBinding LogoContent}" />
+                                                    <TextBlock VerticalAlignment="Center"
+                                                               FontSize="{TemplateBinding TitleFontSize}"
+                                                               FontWeight="{TemplateBinding TitleFontWeight}"
+                                                               IsHitTestVisible="False"
+                                                               Text="{TemplateBinding Title}" />
+                                                </StackPanel>
+                                            </DockPanel>
                                         </Panel>
-                                        <Border Name="PART_BottomBorder" BorderBrush="{DynamicResource SukiBorderBrush}" />
-                                    </StackPanel>
-                                </Panel>
-                                <ContentPresenter x:Name="PART_ContentPresenter"
-                                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                  Content="{TemplateBinding Content}"
-                                                  ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                  CornerRadius="10"
-                                                  IsHitTestVisible="True" />
-                            </DockPanel>
-                        </Panel>
-                    </VisualLayerManager>
-                </Border>
+                                    </LayoutTransformControl>
+                                    <Panel IsVisible="{TemplateBinding IsMenuVisible}">
+                                        <suki:GlassCard Margin="0,0,0,0"
+                                                        BorderThickness="0"
+                                                        CornerRadius="0"
+                                                        IsAnimated="False"
+                                                        IsVisible="{TemplateBinding ShowTitlebarBackground}" />
+                                        <suki:GlassCard Name="AlternativeGlassMenuBackground"
+                                                        Margin="10,2,10,10"
+                                                        CornerRadius="13" />
+                                        <Menu Name="PART_Menu"
+                                              IsEnabled="{TemplateBinding IsMenuVisible}"
+                                              ItemsSource="{TemplateBinding MenuItems}" />
+                                    </Panel>
+                                    <Border Name="PART_BottomBorder" BorderBrush="{DynamicResource SukiBorderBrush}" />
+                                </StackPanel>
+                            </Panel>
+                            <ContentPresenter x:Name="PART_ContentPresenter"
+                                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              Content="{TemplateBinding Content}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              CornerRadius="10"
+                                              IsHitTestVisible="True" />
+                        </DockPanel>
+                    </suki:SukiMainHost>
+                </Panel>
             </ControlTemplate>
         </Setter>
 
@@ -174,10 +144,6 @@
         </Style>
         <Style Selector="^[ShowTitlebarBackground=True] /template/ suki|GlassCard#AlternativeGlassMenuBackground">
             <Setter Property="IsVisible" Value="False" />
-        </Style>
-
-        <Style Selector="^[WindowState=FullScreen] /template/ PathIcon#FullScreenIcon">
-            <Setter Property="Data" Value="{x:Static icons:Icons.WindowFullScreenOff}" />
         </Style>
 
         <Style Selector="^[Topmost=False] /template/ PathIcon#PinIcon">
@@ -194,6 +160,21 @@
         <Style Selector="^[WindowState=Normal] /template/ PathIcon#MaximizeIcon">
             <Setter Property="Data" Value="{x:Static icons:Icons.WindowMaximize}" />
         </Style>
+
+        <Style Selector="^[WindowState=FullScreen] /template/ Button#PART_MaximizeButton">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <Style Selector="^[WindowState=FullScreen] /template/ PathIcon#FullScreenIcon">
+            <Setter Property="Data" Value="{x:Static icons:Icons.WindowFullScreenOff}" />
+        </Style>
+
+        <Style Selector="^[ShowBottomBorder=True] /template/ Border#PART_BottomBorder">
+            <Setter Property="BorderThickness" Value="0,0,0,1" />
+        </Style>
+        <Style Selector="^[ShowBottomBorder=False] /template/ Border#PART_BottomBorder">
+            <Setter Property="BorderThickness" Value="0,0,0,0" />
+        </Style>
+
         <Style Selector="^[IsTitleBarVisible=True]">
             <Style Selector="^[TitleBarAnimationEnabled=True]">
                 <Style Selector="^ /template/ LayoutTransformControl#PART_LayoutTransform">
@@ -243,6 +224,7 @@
             </Style>
         </Style>
     </ControlTheme>
+
     <ControlTheme x:Key="{x:Type suki:SukiWindow}"
                   BasedOn="{StaticResource SukiWindowTheme}"
                   TargetType="suki:SukiWindow" />

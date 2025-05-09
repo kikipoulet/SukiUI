@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="SukiUI.Demo.Features.Helpers.OrganicMove"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+    <StackPanel Margin="50" Spacing="20">
+        <TextBlock Margin="0,30,0,10" Classes="h3">Organic Move</TextBlock>
+        <suki:GlassCard Width="600" Height="600">
+            <Panel>
+                <suki:GlassCard Name="GlassMove"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top">
+                    <StackPanel Spacing="22">
+                        <suki:CircleProgressBar Width="70"
+                                                Height="70"
+                                                HorizontalAlignment="Center"
+                                                StrokeWidth="8"
+                                                Value="50">
+                            <TextBlock Margin="0,2,0,0"
+                                       FontWeight="DemiBold"
+                                       Text="50%" />
+                        </suki:CircleProgressBar>
+                        <StackPanel Orientation="Horizontal" Spacing="7">
+                            <Button Width="40"
+                                    Padding="0,5"
+                                    HorizontalAlignment="Center"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    Classes="Flat"
+                                    Click="GoToTopLeft"
+                                    Content="TL" />
+                            <Button Width="40"
+                                    Padding="0,5"
+                                    HorizontalAlignment="Center"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    Classes="Flat"
+                                    Click="GoToTopRight"
+                                    Content="TR" />
+                            <Button Width="40"
+                                    Padding="0,5"
+                                    HorizontalAlignment="Center"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    Classes="Flat"
+                                    Click="GoToBotRight"
+                                    Content="BR" />
+                            <Button Width="40"
+                                    Padding="0,5"
+                                    HorizontalAlignment="Center"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    Classes="Flat"
+                                    Click="GoToBotLeft"
+                                    Content="BL" />
+                        </StackPanel>
+
+                    </StackPanel>
+
+                </suki:GlassCard>
+            </Panel>
+        </suki:GlassCard>
+    </StackPanel>
+</UserControl>

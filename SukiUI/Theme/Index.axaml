@@ -1,6 +1,7 @@
 <Styles x:Class="SukiUI.SukiTheme"
         xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:animations="clr-namespace:SukiUI.Animations"
         xmlns:suki="https://github.com/kikipoulet/SukiUI"
         xmlns:system="clr-namespace:System;assembly=netstandard">
 
@@ -47,7 +48,7 @@
             <system:TimeSpan x:Key="MediumAnimationDuration">0.35</system:TimeSpan>
             <system:TimeSpan x:Key="ShortAnimationDuration">0.2</system:TimeSpan>
 
-            <suki:SukiEaseOutBack x:Key="MenuEasing" BounceIntensity="Soft" />
+            <animations:SukiEaseOutBack x:Key="MenuEasing" BounceIntensity="Soft" />
 
 
             <ResourceDictionary.MergedDictionaries>
@@ -81,6 +82,7 @@
                 <ResourceInclude Source="avares://sukiUI/Theme/Calendar/CalendarDayButton.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/Calendar/CalendarItem.axaml" />
 
+                <ResourceInclude Source="avares://sukiUI/Controls/SukiMainHost.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiWindow.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiToast.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/Hosts/SukiToastHost.axaml" />

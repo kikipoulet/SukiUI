@@ -1,5 +1,6 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:animations="clr-namespace:SukiUI.Animations"
                     xmlns:controls="clr-namespace:SukiUI.Controls"
                     xmlns:suki="https://github.com/kikipoulet/SukiUI"
                     xmlns:system="clr-namespace:System;assembly=netstandard">
@@ -126,7 +127,7 @@
             <Style.Animations>
                 <Animation FillMode="Forward" Duration="{StaticResource MediumAnimationDuration}">
                     <Animation.Easing>
-                        <suki:SukiEaseInOut />
+                        <animations:SukiEaseInOut />
                     </Animation.Easing>
                     <KeyFrame Cue="0%">
                         <Setter Property="ScaleTransform.ScaleY" Value="0.92" />
@@ -146,7 +147,7 @@
             <Style.Animations>
                 <Animation FillMode="Forward" Duration="{StaticResource MediumAnimationDuration}">
                     <Animation.Easing>
-                        <suki:SukiEaseInOut />
+                        <animations:SukiEaseInOut />
                     </Animation.Easing>
                     <KeyFrame Cue="0%">
                         <Setter Property="ScaleTransform.ScaleY" Value="1" />

@@ -1,29 +1,27 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:generic="clr-namespace:System.Collections.Generic;assembly=netstandard"
+                    xmlns:converters="clr-namespace:Avalonia.Controls.Converters;assembly=Avalonia.Controls"
                     xmlns:icons="https://github.com/kikipoulet/SukiUI"
                     xmlns:suki="using:SukiUI.Controls">
 
     <Design.PreviewWith>
         <StackPanel Width="600" Spacing="10">
-            <suki:SukiMessageBoxHost Header="Changelog version 1.0:"
-                                     IconPreset="Star"
-                                     ShowHeaderContentSeparator="True">
+            <suki:SukiMessageBoxHost IconPreset="Star" ShowHeaderContentSeparator="True">
                 <suki:SukiMessageBoxHost.FooterLeftItemsSource>
-                    <generic:List x:TypeArguments="Control">
-                        <Border Width="20"
-                                Height="20"
-                                Background="DarkGreen"
-                                CornerRadius="50" />
-                    </generic:List>
+                    <Border Width="20"
+                            Height="20"
+                            Background="DarkGreen"
+                            CornerRadius="50" />
                 </suki:SukiMessageBoxHost.FooterLeftItemsSource>
 
+                <suki:SukiMessageBoxHost.Header>
+                    <SelectableTextBlock Text="Changelog version 1.0:" />
+                </suki:SukiMessageBoxHost.Header>
+
                 <suki:SukiMessageBoxHost.ActionButtonsSource>
-                    <generic:List x:TypeArguments="Button">
-                        <Button Classes="Flat Accent" Content="Upgrade now" />
-                        <Button Classes="Flat" Content="Manual download" />
-                        <Button Classes="Flat" Content="Cancel" />
-                    </generic:List>
+                    <Button Classes="Flat Accent" Content="Upgrade now" />
+                    <Button Classes="Flat" Content="Manual download" />
+                    <Button Classes="Flat" Content="Cancel" />
                 </suki:SukiMessageBoxHost.ActionButtonsSource>
 
                 <SelectableTextBlock Text="- Added new user authentication module.&#10;- Fixed bug with the search functionality where results were not displaying correctly.&#10;- Improved performance on mobile devices.&#10;- Updated dependencies for security patches." TextWrapping="Wrap" />
@@ -61,6 +59,13 @@
         </StackPanel>
     </Design.PreviewWith>
 
+    <converters:MarginMultiplierConverter x:Key="FooterBetweenMarginConverter"
+                                          Indent="1"
+                                          Left="True"
+                                          Right="True" />
+
+    <Thickness x:Key="IconTitleMargin">0,0,15,0</Thickness>
+
     <ControlTheme x:Key="{x:Type suki:SukiMessageBoxHost}" TargetType="suki:SukiMessageBoxHost">
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Padding" Value="20" />
@@ -69,6 +74,7 @@
                 <DockPanel Margin="{TemplateBinding Padding}" LastChildFill="True">
                     <Grid Name="PART_AlternativeHeaderGrid"
                           Margin="10,0,10,15"
+                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                           ColumnDefinitions="Auto,*"
                           DockPanel.Dock="Top"
                           RowDefinitions="Auto">
@@ -80,34 +86,30 @@
                                          RelativeSource="{RelativeSource TemplatedParent}" />
                             </MultiBinding>
                         </Grid.IsVisible>
-                        <ContentControl Grid.Row="0"
-                                        Grid.Column="0"
-                                        Margin="0,0,10,0"
-                                        Content="{TemplateBinding Icon}"
-                                        FontWeight="DemiBold"
-                                        IsVisible="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNotNull}}" />
-                        <ContentControl Grid.Row="0"
-                                        Grid.Column="1"
-                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                        Content="{TemplateBinding Header}"
-                                        ContentTemplate="{TemplateBinding HeaderTemplate}"
-                                        FontWeight="DemiBold" />
+                        <ContentPresenter Name="PART_AlternativeIcon"
+                                          Grid.Row="0"
+                                          Grid.Column="0"
+                                          Margin="{StaticResource IconTitleMargin}"
+                                          Content="{TemplateBinding Icon}"
+                                          IsVisible="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                        <ContentPresenter Name="PART_AlternativeHeader"
+                                          Grid.Row="0"
+                                          Grid.Column="1"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Content="{TemplateBinding Header}"
+                                          ContentTemplate="{TemplateBinding HeaderTemplate}" />
                     </Grid>
 
 
                     <Grid Name="PART_FooterGrid"
                           Margin="0,20,0,0"
-                          ColumnDefinitions="Auto,20,*"
+                          ColumnDefinitions="*,Auto,Auto"
                           DockPanel.Dock="Bottom"
                           RowDefinitions="Auto">
                         <Grid.IsVisible>
                             <MultiBinding Converter="{x:Static BoolConverters.Or}">
-                                <Binding Converter="{x:Static ObjectConverters.IsNotNull}"
-                                         Path="FooterLeftItemsSource"
-                                         RelativeSource="{RelativeSource TemplatedParent}" />
-                                <Binding Converter="{x:Static ObjectConverters.IsNotNull}"
-                                         Path="ActionButtonsSource"
-                                         RelativeSource="{RelativeSource TemplatedParent}" />
+                                <Binding Path="!!FooterLeftItemsSource.Count" RelativeSource="{RelativeSource TemplatedParent}" />
+                                <Binding Path="!!ActionButtonsSource.Count" RelativeSource="{RelativeSource TemplatedParent}" />
                             </MultiBinding>
                         </Grid.IsVisible>
                         <ItemsControl Name="PART_LeftContentItems"
@@ -118,12 +120,14 @@
                                       ItemsSource="{TemplateBinding FooterLeftItemsSource}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <StackPanel HorizontalAlignment="Right"
-                                                Orientation="Horizontal"
-                                                Spacing="10" />
+                                    <StackPanel Orientation="Horizontal" Spacing="{Binding ItemsSpacing, RelativeSource={RelativeSource FindAncestor, AncestorType=suki:SukiMessageBoxHost}}" />
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                         </ItemsControl>
+
+                        <Border Grid.Row="0"
+                                Grid.Column="1"
+                                Margin="{TemplateBinding ItemsSpacing, Converter={StaticResource FooterBetweenMarginConverter}}" />
 
                         <ItemsControl Name="PART_ActionButtons"
                                       Grid.Row="0"
@@ -133,7 +137,7 @@
                                 <ItemsPanelTemplate>
                                     <StackPanel HorizontalAlignment="Right"
                                                 Orientation="Horizontal"
-                                                Spacing="10" />
+                                                Spacing="{Binding ItemsSpacing, RelativeSource={RelativeSource FindAncestor, AncestorType=suki:SukiMessageBoxHost}}" />
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                         </ItemsControl>
@@ -157,20 +161,21 @@
                                 </Grid.IsVisible>
                                 <Grid Grid.Row="0"
                                       Grid.Column="0"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                       ColumnDefinitions="Auto,*"
                                       RowDefinitions="Auto">
-                                    <ContentControl Grid.Row="0"
-                                                    Grid.Column="0"
-                                                    Margin="0,0,10,0"
-                                                    Content="{TemplateBinding Icon}"
-                                                    FontWeight="DemiBold"
-                                                    IsVisible="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNotNull}}" />
-                                    <ContentControl Grid.Row="0"
-                                                    Grid.Column="1"
-                                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                    Content="{TemplateBinding Header}"
-                                                    ContentTemplate="{TemplateBinding HeaderTemplate}"
-                                                    FontWeight="DemiBold" />
+                                    <ContentPresenter Name="PART_Icon"
+                                                      Grid.Row="0"
+                                                      Grid.Column="0"
+                                                      Margin="0,0,10,0"
+                                                      Content="{TemplateBinding Icon}"
+                                                      IsVisible="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                                    <ContentPresenter Name="PART_Header"
+                                                      Grid.Row="0"
+                                                      Grid.Column="1"
+                                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                      Content="{TemplateBinding Header}"
+                                                      ContentTemplate="{TemplateBinding HeaderTemplate}" />
                                 </Grid>
 
                                 <Border Grid.Row="1"
@@ -183,14 +188,15 @@
 
                             <Grid Grid.Row="1"
                                   Grid.Column="0"
+                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                   ColumnDefinitions="Auto,*"
                                   RowDefinitions="*">
-                                <ContentControl Grid.Row="0"
-                                                Grid.Column="0"
-                                                Margin="0,0,15,0"
-                                                Content="{TemplateBinding Icon}"
-                                                FontWeight="DemiBold">
-                                    <ContentControl.IsVisible>
+                                <ContentPresenter Grid.Row="0"
+                                                  Grid.Column="0"
+                                                  Margin="{StaticResource IconTitleMargin}"
+                                                  Content="{TemplateBinding Icon}"
+                                                  FontWeight="DemiBold">
+                                    <ContentPresenter.IsVisible>
                                         <MultiBinding Converter="{x:Static BoolConverters.And}">
                                             <Binding Converter="{x:Static ObjectConverters.IsNotNull}"
                                                      Path="Icon"
@@ -199,8 +205,8 @@
                                                      Path="Header"
                                                      RelativeSource="{RelativeSource TemplatedParent}" />
                                         </MultiBinding>
-                                    </ContentControl.IsVisible>
-                                </ContentControl>
+                                    </ContentPresenter.IsVisible>
+                                </ContentPresenter>
 
                                 <ScrollViewer Name="PART_Content"
                                               Grid.Row="0"
@@ -215,5 +221,13 @@
                 </DockPanel>
             </ControlTemplate>
         </Setter>
+
+        <Style Selector="^ /template/ ContentPresenter#PART_AlternativeIcon, ^ /template/ ContentPresenter#PART_Icon, ^ /template/ ContentPresenter#PART_AlternativeHeader, ^ /template/ ContentPresenter#PART_Header">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="DemiBold" />
+        </Style>
+
+
+
     </ControlTheme>
 </ResourceDictionary>

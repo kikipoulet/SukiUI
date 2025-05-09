@@ -1,0 +1,324 @@
+﻿<UserControl x:Class="SukiUI.Demo.Features.Helpers.PullingEffect"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:animations="clr-namespace:SukiUI.Animations;assembly=SukiUI"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+
+    <StackPanel Margin="50,25"
+                VerticalAlignment="Center"
+                Spacing="20">
+
+        <TextBlock Classes="h2">.. What ?</TextBlock>
+
+        <Border Height="1"
+                Margin="0,-45,0,20"
+                Background="{DynamicResource SukiControlBorderBrush}" />
+
+        <TextBlock TextWrapping="Wrap">
+            This is the page where you think the dude who made this is a complete lunatic. A lot of these helpers page are experiments, this one is too. The overall obsession in this library, beside soft glassy design, is to create controls that feel as lively as possible, because it is to me what makes an application satisfying to use. We want users to actually like clicking on a button to feel a satisfying feedback, and all the work in this library has been done from this perspective.
+        </TextBlock>
+        <TextBlock TextWrapping="Wrap">When doing UI/UX design, balancing is very important. We want to create nice-looking satisfying design while never sacrificing functionality. From this perspective, the squishy experiment shown here can look absolutely overkilled and counterproductive. However, there are some cases where we want to push UI to a next completely stupid level, when we want even more interaction and satisfying feedback.</TextBlock>
+
+        <TextBlock TextWrapping="Wrap">Maybe you want to draw attention to a specific input control ? Or maybe you want to configure an excessively satisfying feedback or something, like a touch control (Think about iOS volume slider in the control panel !). In that case, maybe you will be interested in the examples below.</TextBlock>
+
+
+        <TextBlock Classes="h2">Squishy Effects</TextBlock>
+
+        <Border Height="1"
+                Margin="0,-45,0,20"
+                Background="{DynamicResource SukiControlBorderBrush}" />
+
+        <WrapPanel Orientation="Horizontal">
+            <suki:GlassCard Margin="20">
+                <suki:GroupBox Width="400"
+                               Height="250"
+                               Header="Drag">
+                    <Panel>
+                        <suki:GlassCard Width="200"
+                                        Height="100"
+                                        Margin="25"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        animations:SquishyDragExtensions.Enable="True"
+                                        Background="LightGray"
+                                        Classes="Primary"
+                                        CornerRadius="15"
+                                        RenderTransformOrigin="0.5,0.5">
+                            <suki:GlassCard.Resources>
+                                <system:Double x:Key="GlassOpacity">0.5</system:Double>
+                            </suki:GlassCard.Resources>
+                            <TextBlock HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontWeight="DemiBold"
+                                       Text="Drag Me !" />
+                        </suki:GlassCard>
+                    </Panel>
+                </suki:GroupBox>
+            </suki:GlassCard>
+            <suki:GlassCard Margin="20">
+                <suki:GroupBox Width="400"
+                               Height="250"
+                               Header="Hover">
+                    <Panel>
+                        <suki:GlassCard Width="200"
+                                        Height="100"
+                                        Margin="25"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        animations:SquishyOverExtensions.Enable="True"
+                                        Background="LightGray"
+                                        Classes="Primary"
+                                        CornerRadius="15"
+                                        RenderTransformOrigin="0.5,0.5">
+                            <suki:GlassCard.Resources>
+                                <system:Double x:Key="GlassOpacity">0.5</system:Double>
+                            </suki:GlassCard.Resources>
+                            <TextBlock HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontWeight="DemiBold"
+                                       Text="Hover Me !" />
+                        </suki:GlassCard>
+                    </Panel>
+                </suki:GroupBox>
+            </suki:GlassCard>
+        </WrapPanel>
+
+
+        <TextBlock Classes="h2">Potential Applications</TextBlock>
+
+
+        <Border Height="1"
+                Margin="0,-45,0,20"
+                Background="{DynamicResource SukiControlBorderBrush}" />
+
+
+        <WrapPanel Orientation="Horizontal">
+            <suki:GlassCard Margin="20">
+                <suki:GroupBox Width="450"
+                               Height="250"
+                               Header="Feedback Slider">
+                    <Panel>
+                        <Slider Width="320"
+                                Margin="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                animations:SquishyDragExtensions.Enable="True"
+                                animations:SquishyDragExtensions.Intensity="0.12"
+                                animations:SquishyDragExtensions.SquishDepth="0.05"
+                                Maximum="100"
+                                Minimum="0"
+                                Value="50" />
+
+                    </Panel>
+                </suki:GroupBox>
+            </suki:GlassCard>
+
+
+
+            <suki:GlassCard Margin="20">
+                <suki:GroupBox Width="300"
+                               Height="250"
+                               Header="Button wants to be clicked">
+                    <Panel>
+                        <Button Margin="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                animations:SquishyOverExtensions.Enable="True"
+                                animations:SquishyOverExtensions.Intensity="0.2"
+                                Classes="Flat"
+                                Content="Here !" />
+
+                    </Panel>
+                </suki:GroupBox>
+            </suki:GlassCard>
+
+            <suki:GlassCard Margin="20">
+                <suki:GroupBox Width="300"
+                               Height="250"
+                               Header="Touch Slider">
+                    <Panel>
+                        <Panel.Styles>
+                            <Style Selector="Slider:vertical">
+                                <Setter Property="MinWidth" Value="20" />
+                                <Setter Property="MinHeight" Value="40" />
+                                <Setter Property="Template">
+                                    <ControlTemplate>
+                                        <Grid Name="grid">
+
+                                            <suki:GlassCard Name="TrackBackground"
+                                                            Width="60"
+                                                            Margin="8,8"
+                                                            HorizontalAlignment="Center"
+                                                            BorderThickness="0"
+                                                            Classes="Control"
+                                                            ClipToBounds="True"
+                                                            CornerRadius="16">
+
+                                                <Track Name="PART_Track"
+                                                       IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                                                       Orientation="Vertical">
+                                                    <Track.DecreaseButton>
+                                                        <RepeatButton Name="PART_DecreaseButton"
+                                                                      Width="60"
+                                                                      Margin="-10"
+                                                                      HorizontalAlignment="Stretch"
+                                                                      Background="{DynamicResource SukiPrimaryColor75}"
+                                                                      BorderThickness="0"
+                                                                      CornerRadius="2,2,2,2" />
+                                                    </Track.DecreaseButton>
+                                                    <Track.IncreaseButton>
+                                                        <RepeatButton Name="PART_IncreaseButton" Classes="repeattrack" />
+                                                    </Track.IncreaseButton>
+                                                    <Thumb Name="thumb" Margin="0,0,0,2" />
+                                                </Track>
+                                            </suki:GlassCard>
+
+                                            <avalonia:MaterialIcon Width="21"
+                                                                   Height="21"
+                                                                   Margin="0,20"
+                                                                   HorizontalAlignment="Center"
+                                                                   VerticalAlignment="Bottom"
+                                                                   Foreground="{DynamicResource SukiLowText}"
+                                                                   Kind="VolumeHigh" />
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter>
+                            </Style>
+                        </Panel.Styles>
+                        <Slider Height="160"
+                                Margin="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                animations:SquishyDragExtensions.Enable="True"
+                                animations:SquishyDragExtensions.EnableX="False"
+                                animations:SquishyDragExtensions.Intensity="0.2"
+                                animations:SquishyDragExtensions.ScaleByXYAxis="True"
+                                Orientation="Vertical"
+                                Value="50" />
+
+                    </Panel>
+                </suki:GroupBox>
+            </suki:GlassCard>
+
+
+
+            <suki:GlassCard Margin="20">
+                <suki:GroupBox Width="400" Header="Interactive Form (this is a showcase, not a good practice)">
+                    <Panel>
+                        <suki:GlassCard Margin="15">
+                            <StackPanel>
+                                <TextBlock Margin="0,20,0,45"
+                                           HorizontalAlignment="Center"
+                                           FontSize="22"
+                                           FontWeight="DemiBold"
+                                           Text="Sign-in to your account" />
+                                <TextBlock Margin="6,0,0,5"
+                                           FontWeight="DemiBold"
+                                           Foreground="{DynamicResource SukiLowText}"
+                                           Text="Username" />
+                                <TextBox animations:SquishyOverExtensions.Enable="True"
+                                         animations:SquishyOverExtensions.Intensity="0.12"
+                                         suki:TextBoxExtensions.Prefix=""
+                                         Watermark="John" />
+                                <TextBlock Margin="6,18,0,5"
+                                           FontWeight="DemiBold"
+                                           Foreground="{DynamicResource SukiLowText}"
+                                           Text="Password" />
+                                <TextBox Name="PasswordTextBox"
+                                         Margin="0,0,0,15"
+                                         animations:SquishyOverExtensions.Enable="True"
+                                         animations:SquishyOverExtensions.Intensity="0.12"
+                                         suki:TextBoxExtensions.AddDeleteButton="False"
+                                         PasswordChar="*"
+                                         Watermark="*******" />
+
+                                <StackPanel Orientation="Horizontal" Spacing="9">
+                                    <TextBlock VerticalAlignment="Center"
+                                               FontWeight="DemiBold"
+                                               Foreground="{DynamicResource SukiLowText}"
+                                               Text="Remind me Later : " />
+                                    <ToggleSwitch VerticalAlignment="Center"
+                                                  animations:SquishyOverExtensions.Enable="True"
+                                                  animations:SquishyOverExtensions.Intensity="0.25" />
+                                </StackPanel>
+
+                                <Button Width="150"
+                                        Margin="0,25,0,0"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        animations:SquishyOverExtensions.Enable="True"
+                                        animations:SquishyOverExtensions.Intensity="0.13"
+                                        Classes="Flat"
+                                        Content="Log In" />
+                            </StackPanel>
+                        </suki:GlassCard>
+
+                    </Panel>
+                </suki:GroupBox>
+            </suki:GlassCard>
+
+            <suki:GlassCard Margin="20">
+                <suki:GroupBox Width="400" Header="Interactive Form (this is a showcase, not a good practice)">
+                    <Panel>
+                        <suki:GlassCard Margin="15"
+                                        animations:SquishyOverExtensions.Enable="True"
+                                        animations:SquishyOverExtensions.Intensity="0.05"
+                                        animations:SquishyOverExtensions.SquishDepth="0.05">
+                            <StackPanel>
+                                <TextBlock Margin="0,20,0,45"
+                                           HorizontalAlignment="Center"
+                                           FontSize="22"
+                                           FontWeight="DemiBold"
+                                           Text="Sign-in to your account" />
+                                <TextBlock Margin="6,0,0,5"
+                                           FontWeight="DemiBold"
+                                           Foreground="{DynamicResource SukiLowText}"
+                                           Text="Username" />
+                                <TextBox suki:TextBoxExtensions.Prefix="" Watermark="John" />
+                                <TextBlock Margin="6,18,0,5"
+                                           FontWeight="DemiBold"
+                                           Foreground="{DynamicResource SukiLowText}"
+                                           Text="Password" />
+                                <TextBox Margin="0,0,0,15"
+                                         suki:TextBoxExtensions.AddDeleteButton="False"
+                                         PasswordChar="*"
+                                         Watermark="*******" />
+
+                                <StackPanel Orientation="Horizontal" Spacing="9">
+                                    <TextBlock VerticalAlignment="Center"
+                                               FontWeight="DemiBold"
+                                               Foreground="{DynamicResource SukiLowText}"
+                                               Text="Remind me Later : " />
+                                    <ToggleSwitch VerticalAlignment="Center" />
+                                </StackPanel>
+
+                                <Button Width="150"
+                                        Margin="0,25,0,0"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Classes="Flat"
+                                        Content="Log In" />
+                            </StackPanel>
+                        </suki:GlassCard>
+
+                    </Panel>
+                </suki:GroupBox>
+            </suki:GlassCard>
+
+
+        </WrapPanel>
+
+
+
+
+
+    </StackPanel>
+
+</UserControl>
