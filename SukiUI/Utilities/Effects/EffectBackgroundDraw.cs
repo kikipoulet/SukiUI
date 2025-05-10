@@ -1,45 +1,62 @@
-using System;
-using System.Diagnostics;
-using Avalonia;
 using Avalonia.Skia;
 using Avalonia.Styling;
 using SkiaSharp;
 
 namespace SukiUI.Utilities.Effects
 {
-    internal class EffectBackgroundDraw : EffectDrawBase
+    internal class EffectBackgroundDraw() : EffectDrawBase(false)
     {
-        public static readonly object EnableTransitions = new(), DisableTransitions = new();
-        
-        internal bool TransitionsEnabled { get; set; }
-        internal double TransitionTime { get; set; }
+        public enum Operation
+        {
+            EnableTransitions,
+            DisableTransitions
+        }
 
         private float TransitionSeconds => (float)CompositionNow.TotalSeconds;
 
         private SukiEffect? _oldEffect;
+        private bool _transitionsEnabled;
+        private double _transitionTime;
         private float _transitionStartTime;
         private float _transitionEndTime;
+        private SKMatrix _matrix = SKMatrix.Identity;
 
-        public EffectBackgroundDraw() : base(false)
-        {
-            
-        }
-        
         protected override void EffectChanged(SukiEffect? oldValue, SukiEffect? newValue)
         {
-            if (!TransitionsEnabled) return;
+            if (!_transitionsEnabled) return;
             if (oldValue is null || Equals(oldValue, newValue)) return;
             _oldEffect = oldValue;
             _transitionStartTime = TransitionSeconds;
-            _transitionEndTime = TransitionSeconds + (float)Math.Max(0, TransitionTime);
+            _transitionEndTime = TransitionSeconds + (float)Math.Max(0, _transitionTime);
         }
 
         public override void OnMessage(object message)
         {
             base.OnMessage(message);
-            if (message == EnableTransitions) TransitionsEnabled = true;
-            else if (message == DisableTransitions) TransitionsEnabled = false;
-            if (message is double time) TransitionTime = time;
+
+            switch (message)
+            {
+                case Operation.EnableTransitions:
+                {
+                    _transitionsEnabled = true;
+                    break;
+                }
+                case Operation.DisableTransitions:
+                {
+                    _transitionsEnabled = false;
+                    break;
+                }
+                case double time:
+                {
+                    _transitionTime = time;
+                    break;
+                }
+                case SKMatrix matrix:
+                {
+                    _matrix = matrix;
+                    break;
+                }
+            }
         }
 
         protected override void Render(SKCanvas canvas, SKRect rect)
@@ -48,9 +65,11 @@ namespace SukiUI.Utilities.Effects
             {
                 using var paint = new SKPaint();
                 using var shader = EffectWithUniforms();
-                paint.Shader = shader;
+                using var transformed = shader?.WithLocalMatrix(_matrix);
+                paint.Shader = transformed;
                 canvas.DrawRect(rect, paint);
             }
+
             if (_oldEffect is not null)
             {
                 using var paint = new SKPaint();
@@ -61,7 +80,8 @@ namespace SukiUI.Utilities.Effects
                 paint.BlendMode = SKBlendMode.Darken; // - Best
                 var lerped = InverseLerp(_transitionStartTime, _transitionEndTime, TransitionSeconds);
                 using var shader = EffectWithUniforms(_oldEffect, (float)(1 - lerped));
-                paint.Shader = shader;
+                using var transformed = shader?.WithLocalMatrix(_matrix);
+                paint.Shader = transformed;
                 if (lerped < 1)
                 {
                     canvas.DrawRect(rect, paint);
