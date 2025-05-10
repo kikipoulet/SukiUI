@@ -21,7 +21,7 @@ namespace SukiUI.Utilities.Effects
         private float _transitionStartTime;
         private float _transitionEndTime;
         private SKMatrix _matrix = SKMatrix.Identity;
-        private SKPoint[] _cornerRadius;
+        private SKPoint[]? _cornerRadius;
 
         protected override void EffectChanged(SukiEffect? oldValue, SukiEffect? newValue)
         {
