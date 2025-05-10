@@ -95,6 +95,15 @@ namespace SukiUI.Controls
             set => SetValue(ForceSoftwareRenderingProperty, value);
         }
 
+        public static readonly StyledProperty<CornerRadius> CornerRadiusProperty =
+            AvaloniaProperty.Register<SukiBackground, CornerRadius>(nameof(CornerRadius));
+
+        public CornerRadius CornerRadius
+        {
+            get => GetValue(CornerRadiusProperty);
+            set => SetValue(CornerRadiusProperty, value);
+        }
+
         private CompositionCustomVisual? _customVisual;
 
         public SukiBackground()
@@ -125,6 +134,7 @@ namespace SukiUI.Controls
             _customVisual = comp.CreateCustomVisual(visualHandler);
             ElementComposition.SetElementChildVisual(this, _customVisual);
             _customVisual.SendHandlerMessage(TransitionTime);
+            _customVisual.SendHandlerMessage(CornerRadius);
             HandleBackgroundStyleChanges();
             UpdateSize();
         }
@@ -182,6 +192,8 @@ namespace SukiUI.Controls
                 _customVisual?.SendHandlerMessage(animationEnabled ? EffectDrawBase.StartAnimations : EffectDrawBase.StopAnimations);
             else if (change.Property == StyleProperty || change.Property == ShaderFileProperty || change.Property == ShaderCodeProperty)
                 HandleBackgroundStyleChanges();
+            else if (change.Property == CornerRadiusProperty && change.NewValue is CornerRadius cornerRadius)
+                _customVisual?.SendHandlerMessage(cornerRadius);
         }
 
         private void HandleBackgroundStyleChanges()

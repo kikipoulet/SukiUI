@@ -1,3 +1,4 @@
+using Avalonia;
 using Avalonia.Skia;
 using Avalonia.Styling;
 using SkiaSharp;
@@ -20,6 +21,7 @@ namespace SukiUI.Utilities.Effects
         private float _transitionStartTime;
         private float _transitionEndTime;
         private SKMatrix _matrix = SKMatrix.Identity;
+        private SKPoint[] _cornerRadius;
 
         protected override void EffectChanged(SukiEffect? oldValue, SukiEffect? newValue)
         {
@@ -56,6 +58,24 @@ namespace SukiUI.Utilities.Effects
                     _matrix = matrix;
                     break;
                 }
+                case CornerRadius cornerRadius:
+                {
+                    if (cornerRadius is { IsUniform: true, TopLeft: 0d })
+                    {
+                        _cornerRadius = [];
+                    }
+                    else
+                    {
+                        _cornerRadius =
+                        [
+                            new SKPoint((float)cornerRadius.TopLeft, (float)cornerRadius.TopLeft),
+                            new SKPoint((float)cornerRadius.TopRight, (float)cornerRadius.TopRight),
+                            new SKPoint((float)cornerRadius.BottomRight, (float)cornerRadius.BottomRight),
+                            new SKPoint((float)cornerRadius.BottomLeft, (float)cornerRadius.BottomLeft),
+                        ];
+                    }
+                    break;
+                }
             }
         }
 
@@ -67,7 +87,16 @@ namespace SukiUI.Utilities.Effects
                 using var shader = EffectWithUniforms();
                 using var transformed = shader?.WithLocalMatrix(_matrix);
                 paint.Shader = transformed;
-                canvas.DrawRect(rect, paint);
+                if (_cornerRadius is { Length: 4 })
+                {
+                    var roundRect = new SKRoundRect();
+                    roundRect.SetRectRadii(rect, _cornerRadius);
+                    canvas.DrawRoundRect(roundRect, paint);
+                }
+                else
+                {
+                    canvas.DrawRect(rect, paint);
+                }
             }
 
             if (_oldEffect is not null)
@@ -84,11 +113,22 @@ namespace SukiUI.Utilities.Effects
                 paint.Shader = transformed;
                 if (lerped < 1)
                 {
-                    canvas.DrawRect(rect, paint);
-                    if(!AnimationEnabled) Invalidate();
+                    if (_cornerRadius is { Length: 4 })
+                    {
+                        var roundRect = new SKRoundRect();
+                        roundRect.SetRectRadii(rect, _cornerRadius);
+                        canvas.DrawRoundRect(roundRect, paint);
+                    }
+                    else
+                    {
+                        canvas.DrawRect(rect, paint);
+                    }
+                    if (!AnimationEnabled) Invalidate();
                 }
                 else
+                {
                     _oldEffect = null;
+                }
             }
         }
 
