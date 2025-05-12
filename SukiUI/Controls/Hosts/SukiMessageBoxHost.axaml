@@ -53,8 +53,8 @@
 
             <Separator Margin="20" Foreground="Black" />
 
-            <suki:SukiMessageBoxHost>
-                Empty message box
+            <suki:SukiMessageBoxHost ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                Empty message box with long text that should have a scroll bar when the text is too long. This is a test to see how the message box handles long text and if it properly displays the scroll bar when needed. The text should be wrapped correctly and the scroll bar should only appear when necessary.
             </suki:SukiMessageBoxHost>
         </StackPanel>
     </Design.PreviewWith>
@@ -69,6 +69,8 @@
     <ControlTheme x:Key="{x:Type suki:SukiMessageBoxHost}" TargetType="suki:SukiMessageBoxHost">
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Padding" Value="20" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="Template">
             <ControlTemplate>
                 <DockPanel Margin="{TemplateBinding Padding}" LastChildFill="True">
@@ -212,9 +214,11 @@
                                               Grid.Row="0"
                                               Grid.Column="1"
                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              AllowAutoHide="{TemplateBinding ScrollViewer.AllowAutoHide}"
                                               Content="{TemplateBinding Content}"
                                               ContentTemplate="{TemplateBinding ContentTemplate}"
-                                              VerticalScrollBarVisibility="Auto" />
+                                              HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                              VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" />
                             </Grid>
                         </Grid>
                     </suki:GlassCard>
