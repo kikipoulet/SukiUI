@@ -26,7 +26,7 @@
         <Setter Property="FlowDirection" Value="{DynamicResource FlowDirectionPrimary}" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Panel Name="PART_Root">
+                <Panel Name="PART_Root" Margin="{TemplateBinding Margin}">
                     <suki:SukiMainHost BackgroundAnimationEnabled="{TemplateBinding BackgroundAnimationEnabled}"
                                        BackgroundForceSoftwareRendering="{TemplateBinding BackgroundForceSoftwareRendering}"
                                        BackgroundShaderCode="{TemplateBinding BackgroundShaderCode}"
@@ -127,6 +127,7 @@
                                 </StackPanel>
                             </Panel>
                             <ContentPresenter x:Name="PART_ContentPresenter"
+                                              Padding="{TemplateBinding Padding}"
                                               HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                               VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                               Content="{TemplateBinding Content}"

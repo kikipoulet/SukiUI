@@ -14,7 +14,6 @@ using Avalonia.Layout;
 using Avalonia.Threading;
 using Avalonia.Controls.Presenters;
 using SukiUI.Extensions;
-using Avalonia.Platform;
 
 namespace SukiUI.Controls;
 
@@ -770,7 +769,7 @@ public class SukiWindow : Window, IDisposable
     {
         var position = e.GetPosition(this);
 
-        if (position.Y <= 3)
+        if (position.Y <= 10)
         {
             _hideTitleBarTimer.Stop();
             if (!IsTitleBarVisible)
