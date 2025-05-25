@@ -87,6 +87,12 @@
             <Setter Property="ClipToBounds" Value="True" />
         </Style>
 
+        <Style Selector="^:expanded /template/ ToggleButton#PART_ToggleButton">
+            <Style Selector="^:checked">
+                <Setter Property="Background" Value="Transparent" />
+            </Style>
+        </Style>
+
         <Style Selector="^ /template/ LayoutTransformControl#PART_ToggleTransform">
             <Setter Property="ClipToBounds" Value="False" />
         </Style>
