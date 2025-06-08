@@ -243,7 +243,7 @@
 
                             <TextBlock Name="PART_FloatingWatermark"
                                        DockPanel.Dock="Top"
-                                       Foreground="{DynamicResource SukiAccentColor}"
+                                       Foreground="{DynamicResource SukiPrimaryColor}"
                                        IsVisible="{TemplateBinding UseFloatingWatermark}"
                                        Text="{TemplateBinding Watermark}" />
 
