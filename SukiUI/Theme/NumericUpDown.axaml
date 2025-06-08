@@ -135,6 +135,7 @@
                                        Theme="{StaticResource SukiNumericUpDownButtonSpinner}">
                             <Grid ColumnDefinitions="*,Auto">
                                 <TextBox Name="PART_TextBox"
+                                         Grid.Column="0"
                                          MinWidth="20"
                                          Padding="{TemplateBinding Padding}"
                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
