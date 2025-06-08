@@ -9,15 +9,15 @@ namespace SukiUI.Theme;
 
 public static class TextBoxExtensions
 {
-    public static readonly AttachedProperty<string> PrefixProperty =
-        AvaloniaProperty.RegisterAttached<TextBox, string>("Prefix", typeof(TextBox), defaultValue: "");
+    public static readonly AttachedProperty<object?> PrefixProperty =
+        AvaloniaProperty.RegisterAttached<TextBox, object?>("Prefix", typeof(TextBox));
 
-    public static string GetPrefix(TextBox textBox)
+    public static object? GetPrefix(TextBox textBox)
     {
         return textBox.GetValue(PrefixProperty);
     }
 
-    public static void SetPrefix(TextBox textBox, string value)
+    public static void SetPrefix(TextBox textBox, object? value)
     {
         textBox.SetValue(PrefixProperty, value);
     }

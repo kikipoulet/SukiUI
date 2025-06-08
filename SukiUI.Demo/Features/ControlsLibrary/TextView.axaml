@@ -229,11 +229,11 @@
                         </showMeTheXaml:XamlDisplay>
 
                         <showMeTheXaml:XamlDisplay UniqueId="TextBox3">
-                            <TextBox suki:TextBoxExtensions.Prefix="https://" />
+                            <TextBox suki:TextBoxExtensions.Prefix="{avalonia:MaterialIconExt Kind=Web}" />
                         </showMeTheXaml:XamlDisplay>
 
                         <showMeTheXaml:XamlDisplay UniqueId="TextBox4">
-                            <TextBox PasswordChar="*" />
+                            <TextBox Classes="revealPasswordButton" PasswordChar="*" />
                         </showMeTheXaml:XamlDisplay>
 
                         <showMeTheXaml:XamlDisplay UniqueId="TextBox5">
@@ -245,9 +245,9 @@
                                             Margin="25"
                                             HorizontalAlignment="Center">
                                 <StackPanel Spacing="8">
-                                    <TextBox Text=""
+                                    <TextBox Text="Programming"
                                              UseFloatingWatermark="True"
-                                             Watermark="Username" />
+                                             Watermark="Hobbies" />
                                 </StackPanel>
                             </suki:GlassCard>
                         </showMeTheXaml:XamlDisplay>

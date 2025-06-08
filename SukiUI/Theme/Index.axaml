@@ -12,8 +12,6 @@
     <StyleInclude Source="avares://SukiUI/Theme/ComboBoxStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/Colors.xaml" />
 
-    <StyleInclude Source="avares://SukiUI/Theme/TextBoxStyles.xaml" />
-    <StyleInclude Source="avares://SukiUI/Theme/RichTextBoxStyles.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/BorderStyles.xaml" />
 
     <StyleInclude Source="avares://SukiUI/Theme/ListBoxStyles.xaml" />
@@ -22,7 +20,6 @@
     <StyleInclude Source="avares://SukiUI/Theme/ToolTipStyles.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/RadioButtonStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/SliderStyles.xaml" />
-    <StyleInclude Source="avares://SukiUI/Theme/NumericUpDownStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/DataGridStyle.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ListBoxItemStyle.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ComboBoxItemStyle.axaml" />
@@ -52,7 +49,9 @@
 
 
             <ResourceDictionary.MergedDictionaries>
-                <ResourceInclude Source="avares://sukiUI/Theme/TextBlock.xaml" />
+                <ResourceInclude Source="avares://sukiUI/Theme/TextBlock.axaml" />
+                <ResourceInclude Source="avares://sukiUI/Theme/TextBox.axaml" />
+                <ResourceInclude Source="avares://sukiUI/Theme/NumericUpDown.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/Button.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/ToggleButton.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/ToggleSwitch.axaml" />

@@ -6,7 +6,7 @@
              xmlns:dashboard="clr-namespace:SukiUI.Demo.Features.Dashboard"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:suki="https://github.com/kikipoulet/SukiUI"
-             d:DesignHeight="450"
+             d:DesignHeight="650"
              d:DesignWidth="800"
              x:DataType="dashboard:DashboardViewModel"
              mc:Ignorable="d">
@@ -39,7 +39,9 @@
                                        FontWeight="DemiBold"
                                        Foreground="{DynamicResource SukiLowText}"
                                        Text="Username" />
-                            <TextBox suki:TextBoxExtensions.Prefix="" Watermark="John" />
+                            <TextBox suki:TextBoxExtensions.Prefix=""
+                                     Classes="clearButton"
+                                     Watermark="John" />
                             <TextBlock Margin="6,18,0,3"
                                        FontWeight="DemiBold"
                                        Foreground="{DynamicResource SukiLowText}"
@@ -47,6 +49,7 @@
                             <TextBox Name="PasswordTextBox"
                                      Margin="0,0,0,25"
                                      suki:TextBoxExtensions.AddDeleteButton="False"
+                                     Classes="revealPasswordButton"
                                      PasswordChar="*"
                                      Watermark="*******" />
                         </StackPanel>

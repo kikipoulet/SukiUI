@@ -6,6 +6,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:showMeTheXaml="clr-namespace:ShowMeTheXaml;assembly=ShowMeTheXaml.Avalonia"
              xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             xmlns:icon="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              d:DesignHeight="450"
              d:DesignWidth="800"
              x:DataType="controlsLibrary:MiscViewModel"
@@ -66,6 +67,14 @@
                                 <NumericUpDown suki:NumericUpDownExtensions.Unit="inch"
                                                ShowButtonSpinner="False"
                                                Value="10" />
+                            </showMeTheXaml:XamlDisplay>
+                            <showMeTheXaml:XamlDisplay UniqueId="Numeric4">
+                                <NumericUpDown suki:NumericUpDownExtensions.Unit="{icon:MaterialIconExt Kind=Alarm}"
+                                               Width="120"
+                                               Minimum="0"
+                                               Maximum="24"
+                                               Increment="0.10"
+                                               Value="8" />
                             </showMeTheXaml:XamlDisplay>
 
                         </StackPanel>
