@@ -13,7 +13,7 @@
         </StackPanel>
     </Design.PreviewWith>
 
-    <Style Selector="TextBlock, SelectableTextBlock, TextBox, Button, RepeatButton, ToggleButton, RadioButton, SplitButton, DropDownButton">
+    <Style Selector="TextBlock, SelectableTextBlock, TextBox, Button, RepeatButton, ToggleButton, RadioButton, SplitButton, DropDownButton, NumericUpDown">
         <Setter Property="TextElement.FontFamily" Value="{DynamicResource DefaultFontFamily}" />
     </Style>
 </Styles>

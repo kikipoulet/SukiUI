@@ -105,6 +105,7 @@
 
     <ControlTheme x:Key="SukiNumericUpDown" TargetType="NumericUpDown">
         <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
@@ -146,6 +147,8 @@
                                          CornerRadius="0"
                                          DataValidationErrors.Errors="{TemplateBinding (DataValidationErrors.Errors)}"
                                          FontSize="{TemplateBinding FontSize}"
+                                         FontWeight="{TemplateBinding FontWeight}"
+                                         Foreground="{TemplateBinding Foreground}"
                                          IsReadOnly="{TemplateBinding IsReadOnly}"
                                          Text="{TemplateBinding Text}"
                                          TextWrapping="NoWrap"
