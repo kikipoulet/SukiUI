@@ -1,23 +1,20 @@
 using Avalonia;
 using Avalonia.Controls;
 
-namespace SukiUI.Theme
+namespace SukiUI.Theme;
+
+public class NumericUpDownExtensions
 {
-    public class NumericUpDownExtensions
+    public static readonly AttachedProperty<object?> UnitProperty =
+        AvaloniaProperty.RegisterAttached<NumericUpDown, object?>("Unit", typeof(NumericUpDown));
+
+    public static object? GetUnit(NumericUpDown textBox)
     {
-        
-        
-            public static readonly AttachedProperty<string> UnitProperty =
-                AvaloniaProperty.RegisterAttached<NumericUpDown, string>("Unit", typeof(NumericUpDown), defaultValue: "");
+        return textBox.GetValue(UnitProperty);
+    }
 
-            public static string GetUnit(NumericUpDown textBox)
-            {
-                return textBox.GetValue(UnitProperty);
-            }
-
-            public static void SetUnit(NumericUpDown textBox, string value)
-            {
-                textBox.SetValue(UnitProperty, value);
-            }
+    public static void SetUnit(NumericUpDown textBox, object? value)
+    {
+        textBox.SetValue(UnitProperty, value);
     }
 }
