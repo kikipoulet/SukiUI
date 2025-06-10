@@ -204,7 +204,7 @@
                 <suki:GlassCard>
                     <suki:GroupBox Header="Small Action Button">
                         <showMeTheXaml:XamlDisplay UniqueId="ButtonSmallAction">
-                            <Button Classes="Warning Small" Content="{avalonia:MaterialIconExt Warning}" />
+                            <Button Classes="Warning Small" Content="{avalonia:MaterialIconExt Kind=Warning}" />
                         </showMeTheXaml:XamlDisplay>
                     </suki:GroupBox>
                 </suki:GlassCard>
@@ -317,7 +317,7 @@
                 <suki:GlassCard>
                     <suki:GroupBox Header="Flat Icon DropDownButton">
                         <showMeTheXaml:XamlDisplay UniqueId="DropDownButtonFlatIcon">
-                            <DropDownButton suki:ButtonExtensions.Icon="{avalonia:MaterialIconExt Cog}" Classes="Flat" />
+                            <DropDownButton suki:ButtonExtensions.Icon="{avalonia:MaterialIconExt Kind=Cog}" Classes="Flat" />
                         </showMeTheXaml:XamlDisplay>
                     </suki:GroupBox>
                 </suki:GlassCard>
