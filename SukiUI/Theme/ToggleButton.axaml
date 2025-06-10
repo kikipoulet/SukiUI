@@ -43,7 +43,7 @@
         </Setter>
 
         <Style Selector="^:disabled">
-            <Setter Property="Opacity" Value="0.5" />
+            <Setter Property="Opacity" Value="{DynamicResource ThemeDisabledOpacity}" />
         </Style>
 
         <Style Selector="^:pointerover">

@@ -238,7 +238,7 @@
 
         <!--  Nested Selectors For Basic Button  -->
         <Style Selector="^:disabled">
-            <Setter Property="Opacity" Value="0.5" />
+            <Setter Property="Opacity" Value="{DynamicResource ThemeDisabledOpacity}" />
         </Style>
 
         <!--  Events For Basic Button  -->

@@ -80,8 +80,7 @@
                                                   Content="{TemplateBinding Icon}" />
                                 <CheckBox Name="PART_Check"
                                           Margin="2,0,0,0"
-                                          IsChecked="{TemplateBinding IsChecked,
-                                                                      Mode=TwoWay}"
+                                          IsChecked="{TemplateBinding IsChecked, Mode=TwoWay}"
                                           IsVisible="False" />
                             </Panel>
                             <Rectangle Width="1"
@@ -107,8 +106,7 @@
                                        DockPanel.Dock="Right"
                                        Foreground="{DynamicResource SukiMuteText}"
                                        IsVisible="{Binding InputGesture, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNotNull}}"
-                                       Text="{TemplateBinding InputGesture,
-                                                              Converter={StaticResource KeyGestureConverter}}" />
+                                       Text="{TemplateBinding InputGesture, Converter={StaticResource KeyGestureConverter}}" />
 
 
                             <ContentPresenter Name="PART_HeaderPresenter"
@@ -128,8 +126,7 @@
                                ClipToBounds="True"
                                HorizontalOffset="-25"
                                IsLightDismissEnabled="False"
-                               IsOpen="{TemplateBinding IsSubMenuOpen,
-                                                        Mode=TwoWay}"
+                               IsOpen="{TemplateBinding IsSubMenuOpen, Mode=TwoWay}"
                                Opacity="0"
                                OverlayInputPassThroughElement="{Binding $parent[MenuItem]}"
                                Placement="RightEdgeAlignedTop"
@@ -208,7 +205,7 @@
         </Style>
 
         <Style Selector="^:not(.Menu):disabled">
-            <Setter Property="Opacity" Value="0.56" />
+            <Setter Property="Opacity" Value="{DynamicResource ThemeDisabledOpacity}" />
         </Style>
 
         <Style Selector="^:empty /template/ PathIcon#PART_RightArrow">
