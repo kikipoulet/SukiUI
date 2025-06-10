@@ -217,7 +217,7 @@
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
         <Setter Property="SelectionBrush" Value="{DynamicResource SukiPrimaryColor75}" />
         <Setter Property="MinHeight" Value="36" />
-        <Setter Property="Padding" Value="10" />
+        <Setter Property="Padding" Value="10,9" />
         <Setter Property="ContextFlyout" Value="{StaticResource DefaultTextBoxContextFlyout}" />
         <Setter Property="Template">
             <ControlTemplate>
@@ -390,13 +390,13 @@
             <Setter Property="BoxShadow" Value="0 0 0 0 Gray" />
         </Style>
 
-        <Style Selector="^.NoShadow /template/ suki|GlassCard#border">
+        <Style Selector="^.NoShadow /template/ suki|GlassCard#PART_GlassBorder">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Margin" Value="0,9,0,0" />
         </Style>
 
-        <Style Selector="^.NoShadow:focus /template/ suki|GlassCard#border">
+        <Style Selector="^.NoShadow:focus /template/ suki|GlassCard#PART_GlassBorder">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderThickness" Value="0" />
         </Style>
