@@ -277,8 +277,7 @@
     </suki:SukiWindow.MenuItems>
     <suki:SukiSideMenu IsSearchEnabled="True"
                        ItemsSource="{Binding DemoPages}"
-                       SelectedItem="{Binding ActivePage}"
-                       >
+                       SelectedItem="{Binding ActivePage}">
         <suki:SukiSideMenu.Styles>
             <Style Selector="Image.AppIcon">
                 <Setter Property="Transitions">
@@ -287,7 +286,7 @@
                     </Transitions>
                 </Setter>
                 <Style Selector="^:pointerover">
-                    <Setter Property="Opacity" Value="0.5" />
+                    <Setter Property="Opacity" Value="{DynamicResource ThemeDisabledOpacity}" />
                 </Style>
             </Style>
         </suki:SukiSideMenu.Styles>

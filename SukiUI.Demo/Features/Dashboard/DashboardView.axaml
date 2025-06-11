@@ -1,9 +1,9 @@
 <UserControl x:Class="SukiUI.Demo.Features.Dashboard.DashboardView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:dashboard="clr-namespace:SukiUI.Demo.Features.Dashboard"
+             xmlns:icon="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:suki="https://github.com/kikipoulet/SukiUI"
              d:DesignHeight="650"
@@ -24,12 +24,12 @@
                                    BusyText="Signing In..."
                                    IsBusy="{Binding IsLoggingIn}">
                         <StackPanel>
-                            <avalonia:MaterialIcon Width="30"
-                                                   Height="30"
-                                                   Margin="10"
-                                                   HorizontalAlignment="Center"
-                                                   Foreground="{DynamicResource SukiPrimaryColor}"
-                                                   Kind="MicrosoftEdge" />
+                            <icon:MaterialIcon Width="30"
+                                               Height="30"
+                                               Margin="10"
+                                               HorizontalAlignment="Center"
+                                               Foreground="{DynamicResource SukiPrimaryColor}"
+                                               Kind="MicrosoftEdge" />
                             <TextBlock Margin="0,5,0,27"
                                        HorizontalAlignment="Center"
                                        FontSize="18"
@@ -39,8 +39,9 @@
                                        FontWeight="DemiBold"
                                        Foreground="{DynamicResource SukiLowText}"
                                        Text="Username" />
-                            <TextBox suki:TextBoxExtensions.Prefix=""
+                            <TextBox suki:TextBoxExtensions.Prefix="{icon:MaterialIconExt Kind=User}"
                                      Classes="clearButton"
+                                     Text="{Binding Username}"
                                      Watermark="John" />
                             <TextBlock Margin="6,18,0,3"
                                        FontWeight="DemiBold"
@@ -48,9 +49,11 @@
                                        Text="Password" />
                             <TextBox Name="PasswordTextBox"
                                      Margin="0,0,0,25"
-                                     suki:TextBoxExtensions.AddDeleteButton="False"
+                                     suki:TextBoxExtensions.AddDeleteButton="True"
+                                     suki:TextBoxExtensions.Prefix="{icon:MaterialIconExt Kind=Password}"
                                      Classes="revealPasswordButton"
                                      PasswordChar="*"
+                                     Text="{Binding Password}"
                                      Watermark="*******" />
                         </StackPanel>
                     </suki:BusyArea>
@@ -120,9 +123,9 @@
                                 <TextBlock FontSize="13"
                                            Foreground="Green"
                                            Text="32.21%" />
-                                <avalonia:MaterialIcon Margin="5,0,0,0"
-                                                       Foreground="Green"
-                                                       Kind="ArrowUp" />
+                                <icon:MaterialIcon Margin="5,0,0,0"
+                                                   Foreground="Green"
+                                                   Kind="ArrowUp" />
                             </StackPanel>
                         </Grid>
                         <ProgressBar Margin="0,1,0,0" Value="16" />
@@ -136,9 +139,9 @@
                                 <TextBlock FontSize="13"
                                            Foreground="Red"
                                            Text="7.18%" />
-                                <avalonia:MaterialIcon Margin="5,0,0,0"
-                                                       Foreground="Red"
-                                                       Kind="ArrowDown" />
+                                <icon:MaterialIcon Margin="5,0,0,0"
+                                                   Foreground="Red"
+                                                   Kind="ArrowDown" />
                             </StackPanel>
                         </Grid>
                         <ProgressBar Margin="0,1,0,0" Value="62" />
@@ -153,9 +156,9 @@
                                 <TextBlock FontSize="13"
                                            Foreground="Green"
                                            Text="16.89%" />
-                                <avalonia:MaterialIcon Margin="5,0,0,0"
-                                                       Foreground="Green"
-                                                       Kind="ArrowUp" />
+                                <icon:MaterialIcon Margin="5,0,0,0"
+                                                   Foreground="Green"
+                                                   Kind="ArrowUp" />
                             </StackPanel>
                         </Grid>
                         <ProgressBar Margin="0,1,0,0" Value="34" />
@@ -181,16 +184,16 @@
                         <suki:WaveProgress Value="{Binding Value, ElementName=SliderT}" />
                     </Viewbox>
                     <DockPanel VerticalAlignment="Bottom">
-                        <avalonia:MaterialIcon Width="20"
-                                               Height="20"
-                                               DockPanel.Dock="Left"
-                                               Foreground="#666666"
-                                               Kind="TemperatureLow" />
-                        <avalonia:MaterialIcon Width="20"
-                                               Height="20"
-                                               DockPanel.Dock="Right"
-                                               Foreground="#666666"
-                                               Kind="TemperatureHigh" />
+                        <icon:MaterialIcon Width="20"
+                                           Height="20"
+                                           DockPanel.Dock="Left"
+                                           Foreground="#666666"
+                                           Kind="TemperatureLow" />
+                        <icon:MaterialIcon Width="20"
+                                           Height="20"
+                                           DockPanel.Dock="Right"
+                                           Foreground="#666666"
+                                           Kind="TemperatureHigh" />
                         <Slider Name="SliderT"
                                 Margin="8,0"
                                 Maximum="100"
@@ -345,7 +348,7 @@
                                 <Expander>
                                     <Expander.Header>
                                         <StackPanel Orientation="Horizontal">
-                                            <avalonia:MaterialIcon Foreground="{DynamicResource SukiText}" Kind="Lock" />
+                                            <icon:MaterialIcon Foreground="{DynamicResource SukiText}" Kind="Lock" />
                                             <TextBlock Text="Test Lock" />
                                         </StackPanel>
                                     </Expander.Header>
@@ -387,7 +390,7 @@
                 <suki:GroupBox>
                     <suki:GroupBox.Header>
                         <StackPanel Orientation="Horizontal">
-                            <avalonia:MaterialIcon Foreground="{DynamicResource SukiLowText}" Kind="Dollar" />
+                            <icon:MaterialIcon Foreground="{DynamicResource SukiLowText}" Kind="Dollar" />
                             <TextBlock Margin="5,0,0,0" Text="Change Plan" />
                         </StackPanel>
                     </suki:GroupBox.Header>

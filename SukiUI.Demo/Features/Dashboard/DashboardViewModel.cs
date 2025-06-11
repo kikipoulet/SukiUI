@@ -1,9 +1,8 @@
+using System.ComponentModel.DataAnnotations;
 using Avalonia.Collections;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
-using SukiUI.Controls;
-using System.Threading.Tasks;
 using SukiUI.Dialogs;
 
 namespace SukiUI.Demo.Features.Dashboard;
@@ -11,6 +10,8 @@ namespace SukiUI.Demo.Features.Dashboard;
 public partial class DashboardViewModel : DemoPageBase
 {
     [ObservableProperty] private bool _isLoggingIn;
+    [ObservableProperty][Required] [MinLength(5)] [MaxLength(20)] private string? _username;
+    [ObservableProperty][Required] [MinLength(6)] [MaxLength(20)] private string? _password;
     [ObservableProperty] private int _stepperIndex;
 
     public IAvaloniaReadOnlyList<InvoiceViewModel> Invoices { get; } = new AvaloniaList<InvoiceViewModel>()
@@ -27,7 +28,7 @@ public partial class DashboardViewModel : DemoPageBase
     {
         "Dispatched", "En-Route", "Delivered"
     };
-    
+
     private readonly ISukiDialogManager _dialogManager;
 
     public DashboardViewModel(ISukiDialogManager dialogManager) : base("Dashboard", MaterialIconKind.CircleOutline, -100)

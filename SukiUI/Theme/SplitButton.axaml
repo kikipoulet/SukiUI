@@ -179,14 +179,12 @@
                             suki:ButtonExtensions.ShowProgress="{TemplateBinding suki:SplitButtonExtensions.ShowProgress}"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness,
-                                                              Converter={StaticResource PrimaryButtonBorderMultiplier}}"
+                            BorderThickness="{TemplateBinding BorderThickness, Converter={StaticResource PrimaryButtonBorderMultiplier}}"
                             Command="{TemplateBinding Command}"
                             CommandParameter="{TemplateBinding CommandParameter}"
                             Content="{TemplateBinding Content}"
                             ContentTemplate="{TemplateBinding ContentTemplate}"
-                            CornerRadius="{TemplateBinding CornerRadius,
-                                                           Converter={StaticResource LeftCornerRadiusFilterConverter}}"
+                            CornerRadius="{TemplateBinding CornerRadius, Converter={StaticResource LeftCornerRadiusFilterConverter}}"
                             Focusable="False"
                             FontFamily="{TemplateBinding FontFamily}"
                             FontSize="{TemplateBinding FontSize}"
@@ -206,10 +204,8 @@
                             VerticalContentAlignment="Center"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness,
-                                                              Converter={StaticResource SecondaryButtonBorderMultiplier}}"
-                            CornerRadius="{TemplateBinding CornerRadius,
-                                                           Converter={StaticResource RightCornerRadiusFilterConverter}}"
+                            BorderThickness="{TemplateBinding BorderThickness, Converter={StaticResource SecondaryButtonBorderMultiplier}}"
+                            CornerRadius="{TemplateBinding CornerRadius, Converter={StaticResource RightCornerRadiusFilterConverter}}"
                             Focusable="False"
                             Foreground="{TemplateBinding Foreground}"
                             KeyboardNavigation.IsTabStop="False"
@@ -233,7 +229,7 @@
         </Setter>
 
         <Style Selector="^:disabled">
-            <Setter Property="Opacity" Value="0.5" />
+            <Setter Property="Opacity" Value="{DynamicResource ThemeDisabledOpacity}" />
         </Style>
 
         <Style Selector="^:flyout-open /template/ Button">

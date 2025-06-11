@@ -17,4 +17,17 @@ public class NumericUpDownExtensions
     {
         textBox.SetValue(UnitProperty, value);
     }
+
+    public static readonly AttachedProperty<bool> UseFloatingWatermarkProperty =
+        AvaloniaProperty.RegisterAttached<NumericUpDown, bool>("UseFloatingWatermark", typeof(NumericUpDown));
+
+    public static bool GetUseFloatingWatermark(NumericUpDown textBox)
+    {
+        return textBox.GetValue(UseFloatingWatermarkProperty);
+    }
+
+    public static void SetUseFloatingWatermark(NumericUpDown textBox, bool value)
+    {
+        textBox.SetValue(UseFloatingWatermarkProperty, value);
+    }
 }
