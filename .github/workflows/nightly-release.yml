@@ -32,17 +32,17 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Get the date of the last successful nightly release
-          LAST_RELEASE_DATE=$(gh run list --workflow=Nightly\ Release --status=success --limit=1 --json createdAt --jq '.[0].createdAt' 2>/dev/null || true)
-          
+          LAST_RELEASE_DATE=$(gh run list --workflow="Nightly Release" --status=success --limit=1 --json createdAt --jq '.[0].createdAt' 2>/dev/null || true)
+
           if [ -z "$LAST_RELEASE_DATE" ]; then
             echo "No previous successful releases found, proceeding with build"
             echo "has-changes=true" >> $GITHUB_OUTPUT
             exit 0
           fi
-          
+
           # Check if there are any commits since last release
           CHANGES=$(git log --since="$LAST_RELEASE_DATE" --oneline)
-          
+
           if [ -z "$CHANGES" ]; then
             echo "No changes since last release at $LAST_RELEASE_DATE"
             echo "has-changes=false" >> $GITHUB_OUTPUT
@@ -68,12 +68,18 @@ jobs:
       - name: Generate nightly version
         id: version
         run: |
-          DATE=$(date +'%Y%m%d')
-          SHORT_SHA=${GITHUB_SHA:0:7}
           BASE_VERSION=${{ needs.check-changes.outputs.base-version }}
-          # Remove build metadata if present in base version
+          # Remove build metadata if present
           CLEAN_VERSION=${BASE_VERSION%%+*}
-          NIGHTLY_VERSION="${CLEAN_VERSION}-nightly${DATE}"
+
+          # Split version and increment patch number
+          IFS='.' read -r -a version_parts <<< "$CLEAN_VERSION"
+          version_parts[2]=$((version_parts[2] + 1))
+          NEW_VERSION="${version_parts[0]}.${version_parts[1]}.${version_parts[2]}"
+
+          DATE=$(date +'%Y%m%d')
+          NIGHTLY_VERSION="${NEW_VERSION}-nightly${DATE}"
+
           echo "NIGHTLY_VERSION=${NIGHTLY_VERSION}" >> $GITHUB_OUTPUT
           echo "Using version: ${NIGHTLY_VERSION}"
 
