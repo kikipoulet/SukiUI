@@ -1,14 +1,14 @@
 <UserControl x:Class="SukiUI.Demo.Features.ControlsLibrary.CollectionsView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:suki="https://github.com/kikipoulet/SukiUI"
              xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
              xmlns:showMeTheXaml="clr-namespace:ShowMeTheXaml;assembly=ShowMeTheXaml.Avalonia"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
-             d:DesignHeight="450"
+             d:DesignHeight="650"
              d:DesignWidth="800"
              x:DataType="controlsLibrary:CollectionsViewModel"
              mc:Ignorable="d">
@@ -39,7 +39,9 @@
                 <suki:GlassCard>
                     <suki:GroupBox Header="ComboBox">
                         <showMeTheXaml:XamlDisplay UniqueId="ComboBox">
-                            <ComboBox VerticalAlignment="Top" ItemsSource="{Binding SimpleContent}" SelectedItem="{Binding SelectedSimpleContent}" />
+                            <ComboBox VerticalAlignment="Top"
+                                      ItemsSource="{Binding SimpleContent}"
+                                      SelectedItem="{Binding SelectedSimpleContent}" />
                         </showMeTheXaml:XamlDisplay>
                     </suki:GroupBox>
                 </suki:GlassCard>
@@ -68,7 +70,7 @@
                     <suki:GroupBox Header="DataGrid">
                         <StackPanel>
                             <showMeTheXaml:XamlDisplay UniqueId="DataGrid">
-                                <DataGrid  MinWidth="350"
+                                <DataGrid MinWidth="350"
                                           MaxHeight="200"
                                           CanUserResizeColumns="{Binding IsDataGridColumnsResizable}"
                                           ItemsSource="{Binding DataGridContent}">
@@ -79,7 +81,11 @@
                                     </DataGrid.Styles>
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Binding="{Binding StringColumn, DataType=controlsLibrary:DataGridContentViewModel}" Header="String" />
-                                        <DataGridTextColumn Binding="{Binding IntColumn, DataType=controlsLibrary:DataGridContentViewModel}" Header="Int" />
+                                        <DataGridTemplateColumn Header="Int" SortMemberPath="IntColumn">
+                                            <DataTemplate>
+                                                <NumericUpDown FormatString="F0" Value="{Binding IntColumn, DataType=controlsLibrary:DataGridContentViewModel}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn>
                                         <DataGridCheckBoxColumn Binding="{Binding BoolColumn, DataType=controlsLibrary:DataGridContentViewModel}" Header="Bool" />
                                         <DataGridTextColumn Binding="{Binding Group, DataType=controlsLibrary:DataGridContentViewModel}" Header="Group" />
                                     </DataGrid.Columns>
