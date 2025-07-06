@@ -41,10 +41,10 @@ namespace SukiUI.Controls
         public static readonly StyledProperty<double> ValueProperty =
             AvaloniaProperty.Register<CircleProgressBar, double>(nameof(Value), defaultValue: 50, coerce: (o, d) => d * 3.6);
 
-        public static readonly StyledProperty<int> StrokeWidthProperty =
-            AvaloniaProperty.Register<CircleProgressBar, int>(nameof(StrokeWidth), defaultValue: 10);
+        public static readonly StyledProperty<double> StrokeWidthProperty =
+            AvaloniaProperty.Register<CircleProgressBar, double>(nameof(StrokeWidth), defaultValue: 10);
 
-        public int StrokeWidth
+        public double StrokeWidth
         {
             get { return GetValue(StrokeWidthProperty); }
             set { SetValue(StrokeWidthProperty, value); }

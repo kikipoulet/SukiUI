@@ -41,8 +41,7 @@
                                 </Transitions>
                             </Arc.Transitions>
                         </Arc>
-                        <ContentControl Margin="{TemplateBinding StrokeWidth}"
-                                        HorizontalContentAlignment="Center"
+                        <ContentControl HorizontalContentAlignment="Center"
                                         VerticalContentAlignment="Center"
                                         Content="{TemplateBinding Content}" />
                     </Panel>
