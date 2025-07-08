@@ -87,7 +87,7 @@
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
             <Style Selector="^ /template/ ContentPresenter#PART_HeaderPresenter">
-                <Setter Property="TextBlock.Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+                <Setter Property="TextBlock.Foreground" Value="{DynamicResource SukiPrimaryColor120}" />
             </Style>
             <Style Selector="^ /template/ Border#PART_SelectedPipe">
                 <Setter Property="Opacity" Value="1" />

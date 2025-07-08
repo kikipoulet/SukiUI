@@ -68,7 +68,7 @@
 
         <Style Selector="RadioButton.MenuChip:checked  TextBlock">
             <Setter Property="FontWeight" Value="{DynamicResource DefaultDemiBold}" />
-            <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+            <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor120}" />
         </Style>
 
         <Style Selector="RadioButton.MenuChip  Ellipse">
