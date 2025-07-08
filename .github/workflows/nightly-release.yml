@@ -1,0 +1,98 @@
+name: Nightly Release
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Runs at midnight UTC every day
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  check-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      has-changes: ${{ steps.check.outputs.has-changes }}
+      base-version: ${{ steps.get-version.outputs.base-version }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Need full history for version checking
+
+      - name: Get last release version
+        id: get-version
+        run: |
+          # Get the most recent release tag matching semantic versioning
+          LAST_TAG=$(git describe --tags --match "[0-9]*.[0-9]*.[0-9]*" --abbrev=0 2>/dev/null || echo "0.0.0")
+          echo "base-version=${LAST_TAG#v}" >> $GITHUB_OUTPUT
+          echo "Using base version: ${LAST_TAG#v}"
+
+      - name: Check for changes since last successful nightly release
+        id: check
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Get the date of the last successful nightly release
+          LAST_RELEASE_DATE=$(gh run list --workflow="Nightly Release" --status=success --limit=1 --json createdAt --jq '.[0].createdAt' 2>/dev/null || true)
+
+          if [ -z "$LAST_RELEASE_DATE" ]; then
+            echo "No previous successful releases found, proceeding with build"
+            echo "has-changes=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Check if there are any commits since last release
+          CHANGES=$(git log --since="$LAST_RELEASE_DATE" --oneline)
+
+          if [ -z "$CHANGES" ]; then
+            echo "No changes since last release at $LAST_RELEASE_DATE"
+            echo "has-changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "Changes detected since last release at $LAST_RELEASE_DATE"
+            echo "has-changes=true" >> $GITHUB_OUTPUT
+          fi
+
+  publish:
+    needs: check-changes
+    if: needs.check-changes.outputs.has-changes == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Generate nightly version
+        id: version
+        run: |
+          BASE_VERSION=${{ needs.check-changes.outputs.base-version }}
+          # Remove build metadata if present
+          CLEAN_VERSION=${BASE_VERSION%%+*}
+
+          # Split version and increment patch number
+          IFS='.' read -r -a version_parts <<< "$CLEAN_VERSION"
+          version_parts[2]=$((version_parts[2] + 1))
+          NEW_VERSION="${version_parts[0]}.${version_parts[1]}.${version_parts[2]}"
+
+          DATE=$(date +'%Y%m%d')
+          NIGHTLY_VERSION="${NEW_VERSION}-nightly${DATE}"
+
+          echo "NIGHTLY_VERSION=${NIGHTLY_VERSION}" >> $GITHUB_OUTPUT
+          echo "Using version: ${NIGHTLY_VERSION}"
+
+      - name: Build
+        run: |
+          dotnet build -c Release SukiUI/SukiUI.csproj -p:Version=${{ steps.version.outputs.NIGHTLY_VERSION }}
+          dotnet build -c Release SukiUI.Dock/SukiUI.Dock.csproj -p:Version=${{ steps.version.outputs.NIGHTLY_VERSION }}
+
+      - name: Pack
+        run: |
+          dotnet pack -c Release -o . SukiUI/SukiUI.csproj -p:Version=${{ steps.version.outputs.NIGHTLY_VERSION }}
+          dotnet pack -c Release -o . SukiUI.Dock/SukiUI.Dock.csproj -p:Version=${{ steps.version.outputs.NIGHTLY_VERSION }}
+          ls
+
+      - name: Publish to GitHub Packages
+        run: dotnet nuget push *.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
