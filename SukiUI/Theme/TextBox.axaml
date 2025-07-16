@@ -254,7 +254,7 @@
 
                         <TextBlock Name="PART_FloatingWatermark"
                                    DockPanel.Dock="Top"
-                                   Foreground="{DynamicResource SukiPrimaryColor}"
+                                   Foreground="{DynamicResource SukiPrimaryColor120}"
                                    Text="{TemplateBinding Watermark}">
                             <TextBox.IsVisible>
                                 <MultiBinding Converter="{x:Static BoolConverters.And}">
