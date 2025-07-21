@@ -32,7 +32,16 @@ Many thanks to [McCree Lee](https://github.com/AuroraZiling) for his work on the
 
 <br/>
 
-## 📱 UI Theme 
+## 📱 Mobile Support
+
+SukiUI is exclusively desktop focused.
+
+If you like the SukiUI theme and want to develop for Mobile, check the [CherylUI Library](https://github.com/kikipoulet/CherylUI.Uno), which is basically Suki theme for Mobile.
+
+
+<br/>
+
+## 🎨 UI Theme 
 
 <br/>
 
