@@ -20,6 +20,15 @@ Moving forward, our focus will be on maintaining the library and potentially ext
 Massive thanks to [sirdoombox](https://github.com/sirdoombox) for his incredible work. Without him, this library would definitely not be the same.
 <br/><br/>
 
+## 📱 Mobile Support
+
+SukiUI is exclusively desktop focused.
+
+If you like the SukiUI theme and want to develop for Mobile, check the [CherylUI Library](https://github.com/kikipoulet/CherylUI.Uno), which is basically Suki theme for Mobile.
+
+
+<br/>
+
 ## 📄 Documentation
 
 
@@ -32,7 +41,9 @@ Many thanks to [McCree Lee](https://github.com/AuroraZiling) for his work on the
 
 <br/>
 
-## 📱 UI Theme 
+
+
+## 🎨 UI Theme 
 
 <br/>
 
