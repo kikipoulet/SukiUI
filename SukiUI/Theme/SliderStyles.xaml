@@ -67,7 +67,7 @@
                     </Grid.RowDefinitions>
                     <suki:GlassCard Name="TrackBackground"
                             Grid.Row="1" Classes="Control"
-                            Height="22"
+                            Height="10"
                             Margin="8,0"
                             VerticalAlignment="Center"
                             BorderThickness="0"
@@ -79,12 +79,12 @@
                            Orientation="Horizontal">
                         <Track.DecreaseButton>
                             <RepeatButton Name="PART_DecreaseButton"
-                                          Height="22"
-                                          Margin="8,0,-30,0"
+                                          Height="10"
+                                          Margin="8,0,-20,0"
                                           HorizontalAlignment="Stretch"
                                           Background="{DynamicResource SukiPrimaryColor}"
                                           BorderThickness="0"
-                                          CornerRadius="20" />
+                                          CornerRadius="20,0,0,20" />
                         </Track.DecreaseButton>
                         <Track.IncreaseButton>
                             <RepeatButton Name="PART_IncreaseButton" Classes="repeattrack" />
@@ -93,11 +93,11 @@
                             <Thumb.Template>
                                 <ControlTemplate>
                                     <Grid Width="32" Height="32">
-                                        <Border Width="16"
-                                                Height="16"
+                                        <Border Width="18"
+                                                Height="18"
                                                 Margin="0"
                                                 Background="White"
-                                                BorderThickness="0"
+                                                BorderThickness="4" BorderBrush="{DynamicResource SukiPrimaryColor120}"
                                                 Classes="ThumbBorder ThumbB"
                                                 CornerRadius="{DynamicResource MediumCornerRadius}" />
                                     </Grid>

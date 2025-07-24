@@ -18,7 +18,8 @@
     </Style>
 
     <Style Selector="ListBoxItem:selected &gt; TextBlock">
-        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor120}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
     </Style>
 
     <Style Selector="ListBoxItem">
