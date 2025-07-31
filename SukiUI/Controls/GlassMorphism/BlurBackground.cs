@@ -84,9 +84,12 @@ half4 main(float2 coord) {
 
             using var blurred = SKSurface.Create(lease.GrContext, false, new SKImageInfo((int)Math.Ceiling(_bounds.Width), (int)Math.Ceiling(_bounds.Height), SKImageInfo.PlatformColorType, SKAlphaType.Premul));
     
-            var sigma =( _bounds.Width + _bounds.Height)/42;
+            var sigma = IsDarkTheme ? ( _bounds.Width + _bounds.Height)/42 : 50;
+            
             if(sigma <20)
                 sigma = 20;
+            
+
             
             using (var filter = SKImageFilter.CreateBlur((float)sigma, (float)sigma))
             using (var blurPaint = new SKPaint
