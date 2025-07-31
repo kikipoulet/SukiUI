@@ -14,12 +14,13 @@
                         Name="PART_DialogBackground"
                         Opacity="0"
                         VerticalAlignment="Stretch" />
-                    <ContentControl
-                        ClipToBounds="False"
-                        Content="{TemplateBinding Dialog}"
-                        HorizontalAlignment="Center"
-                        Name="PART_DialogContent"
-                        VerticalAlignment="Center">
+                    
+                        <ContentControl
+                                                          ClipToBounds="False"
+                                                          Content="{TemplateBinding Dialog}"
+                                                          HorizontalAlignment="Center"
+                                                          Name="PART_DialogContent"
+                                                          VerticalAlignment="Center">
                         <ContentControl.Transitions>
                             <Transitions>
                                 <ThicknessTransition Duration="0:0:0.40" Property="Margin">
@@ -38,6 +39,7 @@
                             </Transitions>
                         </ContentControl.Transitions>
                     </ContentControl>
+                
                     <Panel.Styles>
                         <Style Selector="suki|SukiDialogHost[IsDialogOpen=True]">
                             <Style Selector="^ Border#PART_DialogBackground">

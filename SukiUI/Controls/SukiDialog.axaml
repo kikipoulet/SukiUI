@@ -1,7 +1,8 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:suki="https://github.com/kikipoulet/SukiUI"
-                    xmlns:dialogs="clr-namespace:SukiUI.Dialogs">
+                    xmlns:dialogs="clr-namespace:SukiUI.Dialogs"
+                    xmlns:glassMorphism="clr-namespace:SukiUI.Controls.GlassMorphism">
     <ControlTheme TargetType="suki:SukiDialog" x:Key="SukiDialogTheme">
         <Setter Property="ClipToBounds" Value="False" />
         <Setter Property="Template">
@@ -13,11 +14,18 @@
                             MinWidth="450"
                             CornerRadius="25">
                         <Panel>
-                            <Border IsVisible="{TemplateBinding ShowCardBackground}" CornerRadius="25"
+                            
+                            <suki:GlassCard IsVisible="{TemplateBinding ShowCardBackground}" ClipToBounds="True" CornerRadius="25">
+                                <glassMorphism:SukiBlurBackground Margin="-200"  />
+                            </suki:GlassCard>
+                            
+                            
+                          <!--  <Border IsVisible="{TemplateBinding ShowCardBackground}" CornerRadius="25"
                                     Background="{DynamicResource SukiCardBackground}">
                                 <Panel Background="{DynamicResource PopupGradientBrush}" Margin="-5">
                                 </Panel>
-                            </Border>
+                            </Border> -->
+                            
                             <Grid RowDefinitions="Auto,Auto,*,Auto"
                                   ColumnDefinitions="*"
                                   Margin="30,30,30,5"

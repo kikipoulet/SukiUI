@@ -39,7 +39,7 @@
                         <WrapPanel Classes="PageContainer">
                             <suki:GlassCard Width="250">
                                 <suki:GroupBox Header="Standard">
-                                    <Button Margin="15,10,15,0"
+                                    <Button Margin="15,10,15,0" Classes="Flat"
                                             VerticalAlignment="Top"
                                             Command="{Binding OpenStandardDialogCommand}"
                                             Content="Open" />
@@ -47,7 +47,7 @@
                             </suki:GlassCard>
                             <suki:GlassCard Width="250">
                                 <suki:GroupBox Header="Long">
-                                    <Button Margin="15,10,15,0"
+                                    <Button Margin="15,10,15,0" Classes="Flat"
                                             VerticalAlignment="Top"
                                             Command="{Binding OpenLongDialogCommand}"
                                             Content="Open" />
@@ -55,7 +55,7 @@
                             </suki:GlassCard>
                             <suki:GlassCard Width="250">
                                 <suki:GroupBox Header="Multi Option">
-                                    <Button Margin="15,10,15,0"
+                                    <Button Margin="15,10,15,0" Classes="Flat"
                                             VerticalAlignment="Top"
                                             Command="{Binding OpenMultiOptionDialogCommand}"
                                             Content="Open" />
@@ -63,7 +63,7 @@
                             </suki:GlassCard>
                             <suki:GlassCard Width="250">
                                 <suki:GroupBox Header="Background Closable">
-                                    <Button Margin="15,10,15,0"
+                                    <Button Margin="15,10,15,0" Classes="Flat"
                                             VerticalAlignment="Top"
                                             Command="{Binding OpenBackgroundCloseDialogCommand}"
                                             Content="Open" />
@@ -71,7 +71,7 @@
                             </suki:GlassCard>
                             <suki:GlassCard Width="250">
                                 <suki:GroupBox Header="ViewModel">
-                                    <Button Margin="15,10,15,0"
+                                    <Button Margin="15,10,15,0" Classes="Flat"
                                             VerticalAlignment="Top"
                                             Command="{Binding OpenViewModelDialogCommand}"
                                             Content="Open" />
@@ -79,10 +79,15 @@
                             </suki:GlassCard>
                             <suki:GlassCard Width="250">
                                 <suki:GroupBox Header="ViewModel With Action Buttons">
-                                    <Button Margin="15,10,15,0"
+                                    <Button Margin="15,10,15,0" Classes="Flat"
                                             VerticalAlignment="Top"
                                             Command="{Binding OpenViewModelWithActionButtonsDialogCommand}"
                                             Content="Open" />
+                                </suki:GroupBox>
+                            </suki:GlassCard>
+                            <suki:GlassCard Width="250">
+                                <suki:GroupBox Header="Useless">
+                                    <TextBlock TextWrapping="Wrap" FontWeight="Bold" Foreground="IndianRed" Text="This is a useless message to show glassmorphism renders above this."></TextBlock>
                                 </suki:GroupBox>
                             </suki:GlassCard>
                         </WrapPanel>
