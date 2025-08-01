@@ -1,8 +1,9 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
+using Avalonia.Controls.Templates;
 using Avalonia.Input;
+using Avalonia.LogicalTree;
 
 namespace SukiUI.Controls;
 
@@ -38,6 +39,15 @@ public class SukiSideMenuItem : TreeViewItem
     {
         get => GetValue(PageContentProperty);
         set => SetValue(PageContentProperty, value);
+    }
+
+    public static readonly StyledProperty<IDataTemplate?> SideDisplayTemplateProperty =
+        AvaloniaProperty.Register<SukiSideMenuItem, IDataTemplate?>(nameof(SideDisplayTemplate));
+
+    public IDataTemplate? SideDisplayTemplate
+    {
+        get => GetValue(SideDisplayTemplateProperty);
+        set => SetValue(SideDisplayTemplateProperty, value);
     }
 
     public void Show()

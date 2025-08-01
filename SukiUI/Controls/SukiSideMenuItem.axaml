@@ -95,6 +95,15 @@
                                         </Transitions>
                                     </ContentControl.Transitions>
                                 </ContentControl>
+                                <Grid Name="PART_SideDisplay"
+                                      DockPanel.Dock="Right"
+                                      Margin="5,0"
+                                      IsVisible="{Binding IsMenuExpanded, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type suki:SukiSideMenu}}}">
+                                    <ContentPresenter Name="PART_SideDisplayContent"
+                                                      Content="{Binding}"
+                                                      ContentTemplate="{TemplateBinding SideDisplayTemplate}"
+                                                      IsVisible="{Binding SideDisplayTemplate, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                                </Grid>
                                 <Viewbox HorizontalAlignment="Left" StretchDirection="DownOnly">
                                     <TextBlock Name="PART_Header"
                                                Margin="15,0"
