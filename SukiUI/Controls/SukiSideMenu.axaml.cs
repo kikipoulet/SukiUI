@@ -132,6 +132,24 @@ public class SukiSideMenu : TreeView
         set => SetValue(FooterContentProperty, value);
     }
 
+    public static readonly StyledProperty<object?> ContentProperty =
+        AvaloniaProperty.Register<SukiSideMenu, object?>(nameof(Content));
+
+    public object? Content
+    {
+        get => GetValue(ContentProperty);
+        set => SetValue(ContentProperty, value);
+    }
+
+    public static readonly StyledProperty<bool> UseCustomContentProperty =
+        AvaloniaProperty.Register<SukiSideMenu, bool>(nameof(UseCustomContent), defaultValue: false);
+
+    public bool UseCustomContent
+    {
+        get => GetValue(UseCustomContentProperty);
+        set => SetValue(UseCustomContentProperty, value);
+    }
+
     private bool IsSpacerVisible => !IsMenuExpanded;
 
 
@@ -172,6 +190,7 @@ public class SukiSideMenu : TreeView
 
         e.NameScope.Get<Button>("PART_SidebarToggleButton").Click += (_, _) => MenuExpandedClicked();
         _contentControl = e.NameScope.Get<SukiTransitioningContentControl>("PART_TransitioningContentControl");
+        SetContentControlContent();
         _spacer = e.NameScope.Get<Grid>("PART_Spacer");
         if(_spacer != null) _spacer.IsVisible = IsSpacerVisible;
 
@@ -181,7 +200,7 @@ public class SukiSideMenu : TreeView
     protected override void OnLoaded(RoutedEventArgs e)
     {
         base.OnLoaded(e);
-        SetContentControlContent(SelectedItem);
+        SetContentControlContent();
         UpdateMenuItemsExpansion();
     }
 
@@ -194,13 +213,17 @@ public class SukiSideMenu : TreeView
             FilterItems(change.GetNewValue<string>());
         }
 
-        if (change.Property == SelectedItemProperty && _contentControl != null)
+        if (change.Property.Name == nameof(SelectedItem) && !UseCustomContent)
             SetContentControlContent(change.NewValue);
-        if (change.Property == IsMenuExpandedProperty && _spacer != null)
+        else if (change.Property.Name == nameof(Content) && UseCustomContent)
+            SetContentControlContent(change.NewValue);
+        else if (change.Property.Name == nameof(UseCustomContent))
+            SetContentControlContent();
+        else if (change.Property == IsMenuExpandedProperty && _spacer != null)
             _spacer.IsVisible = IsSpacerVisible;
     }
 
-    private void FilterItems(string search)
+    protected virtual void FilterItems(string search)
     {
         search = search.ToLower();
 
@@ -219,7 +242,7 @@ public class SukiSideMenu : TreeView
         }
     }
 
-    private void SetContentControlContent(object? newContent)
+    protected virtual void SetContentControlContent(object? newContent)
     {
         if (_contentControl == null) return;
         _contentControl.Content = newContent switch
@@ -227,6 +250,14 @@ public class SukiSideMenu : TreeView
             SukiSideMenuItem { PageContent: { } sukiMenuPageContent } => sukiMenuPageContent,
             _ => newContent
         };
+    }
+
+    protected virtual void SetContentControlContent()
+    {
+        if (UseCustomContent)
+            SetContentControlContent(Content);
+        else
+            SetContentControlContent(SelectedItem);
     }
 
     public bool UpdateSelectionFromPointerEvent(Control source) => UpdateSelectionFromEventSource(source);
