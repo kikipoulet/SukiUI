@@ -163,7 +163,33 @@ public static class ControlAnimationHelper
         return tokensource;
     }
  
-    
+    public static Task AnimateAsync<T>(this Animatable control, AvaloniaProperty property, T from, T to, TimeSpan? duration = null)
+    {
+        var animation = new Avalonia.Animation.Animation
+        {
+            Duration = duration ?? TimeSpan.FromMilliseconds(500),
+            FillMode = FillMode.Forward,
+            Easing = new CubicEaseInOut(),
+            IterationCount = new IterationCount(1),
+            PlaybackDirection = PlaybackDirection.Normal,
+            Children =
+            {
+                new KeyFrame()
+                {
+                    Setters = { new Setter { Property = property, Value = from } },
+                    KeyTime = TimeSpan.FromSeconds(0)
+                },
+                new KeyFrame()
+                {
+                    Setters = { new Setter { Property = property, Value = to } },
+                    KeyTime = duration ?? TimeSpan.FromMilliseconds(500)
+                }
+            }
+        };
+
+        var tokenSource = new CancellationTokenSource();
+        return animation.RunAsync(control, tokenSource.Token);
+    }
  
 
     public static CancellationTokenSource MoveToOrganic(this Animatable control, Thickness destination, TimeSpan duration)
