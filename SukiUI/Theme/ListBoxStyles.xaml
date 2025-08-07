@@ -26,7 +26,6 @@
         </Border>
     </Design.PreviewWith>
     <Style Selector="ListBox">
-        <Setter Property="TextBlock.Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
         <Setter Property="BorderThickness" Value="{DynamicResource ListBoxBorderThemeThickness}" />
