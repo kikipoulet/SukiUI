@@ -143,7 +143,7 @@
 
                                     <Border Name="B1" Padding="5,10,5,5">
                                         <Panel>
-                                            <Border Margin="10,-10,0,0"
+                                            <Border Margin="10,-10,0,10"
                                                     Background="{DynamicResource SukiPopupBackground}"
                                                     BorderBrush="{DynamicResource SukiMenuBorderBrush}"
                                                     BorderThickness="1,1,1,1"
