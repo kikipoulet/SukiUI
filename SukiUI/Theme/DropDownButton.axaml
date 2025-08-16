@@ -142,6 +142,7 @@
                                               Foreground="{TemplateBinding Foreground}"
                                               IsVisible="{TemplateBinding Content,
                                                                           Converter={x:Static ObjectConverters.IsNotNull}}"
+                                              IsHitTestVisible="False"
                                               RecognizesAccessKey="True" />
                         </StackPanel>
 
