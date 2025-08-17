@@ -1,19 +1,19 @@
-using System.ComponentModel;
 using Avalonia;
+using Avalonia.Collections;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Controls.Metadata;
+using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
-using Avalonia.Media;
-using Avalonia.Collections;
-using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
-using SukiUI.Enums;
-using System.Runtime.InteropServices;
-using Avalonia.Controls.Metadata;
 using Avalonia.Layout;
+using Avalonia.Media;
 using Avalonia.Threading;
-using Avalonia.Controls.Presenters;
+using SukiUI.Enums;
 using SukiUI.Extensions;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
 
 namespace SukiUI.Controls;
 
@@ -855,11 +855,26 @@ public class SukiWindow : Window, IDisposable
     #endregion
 
     #region Methods
+    [DllImport("user32.dll")]
+    static extern short GetAsyncKeyState(int vKey);
+
+    public static bool IsMouseDown()
+    {
+        const int VK_LBUTTON = 1;
+
+        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            return false;
+        }
+
+        return (GetAsyncKeyState(VK_LBUTTON) & 0x8000) != 0;
+    }
+
     private void EnableWindowsSnapLayout(Button maximize)
     {
+        const int HTCLIENT = 1;
         const int HTMAXBUTTON = 9;
         const uint WM_NCHITTEST = 0x0084;
-        const uint WM_CAPTURECHANGED = 0x0215;
 
         var pointerOnButton = false;
         var pointerOverSetter = typeof(Button).GetProperty(nameof(IsPointerOver));
@@ -892,7 +907,7 @@ public class SukiWindow : Window, IDisposable
                         pointerOverSetter.SetValue(maximize, true);
                     }
 
-                    return HTMAXBUTTON;
+                    return IsMouseDown() ? HTCLIENT : HTMAXBUTTON;
                 }
                 else
                 {
@@ -901,17 +916,6 @@ public class SukiWindow : Window, IDisposable
                         pointerOnButton = false;
                         pointerOverSetter.SetValue(maximize, false);
                     }
-                }
-            }
-            else if (msg == WM_CAPTURECHANGED)
-            {
-                if (pointerOnButton && CanMaximize)
-                {
-                    WindowState = WindowState == WindowState.Maximized
-                                  ? WindowState.Normal
-                                  : WindowState.Maximized;
-
-                    pointerOverSetter.SetValue(maximize, false);
                 }
             }
 
