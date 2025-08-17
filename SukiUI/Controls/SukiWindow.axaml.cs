@@ -270,17 +270,6 @@ public class SukiWindow : Window, IDisposable
         set => SetValue(RootCornerRadiusProperty, value);
     }
 
-    public static readonly StyledProperty<bool> CanMinimizeProperty =
-        AvaloniaProperty.Register<SukiWindow, bool>(nameof(CanMinimize), defaultValue: true);
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the window can be minimized.
-    /// </summary>
-    public bool CanMinimize
-    {
-        get => GetValue(CanMinimizeProperty);
-        set => SetValue(CanMinimizeProperty, value);
-    }
 
     public static readonly StyledProperty<bool> ShowTitlebarBackgroundProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(ShowTitlebarBackground), defaultValue: true);
@@ -318,17 +307,6 @@ public class SukiWindow : Window, IDisposable
         set => SetValue(CanPinProperty, value);
     }
 
-    public static readonly StyledProperty<bool> CanMaximizeProperty =
-        AvaloniaProperty.Register<SukiWindow, bool>(nameof(CanMaximize), defaultValue: true);
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the window can be maximized.
-    /// </summary>
-    public bool CanMaximize
-    {
-        get => GetValue(CanMaximizeProperty);
-        set => SetValue(CanMaximizeProperty, value);
-    }
 
     public static readonly StyledProperty<bool> CanMoveProperty =
         AvaloniaProperty.Register<SukiWindow, bool>(nameof(CanMove), defaultValue: true);
