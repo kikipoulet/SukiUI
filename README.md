@@ -37,6 +37,7 @@ If you like the SukiUI theme and want to develop for Mobile, check the [CherylUI
 <br/>
 
 Many thanks to [McCree Lee](https://github.com/AuroraZiling) for his work on the documentation and the support for Chinese users.
+Btw if you're looking for a Markdown renderer library for avalonia, you can check [LiveMarkdown.Avalonia](https://github.com/DearVa/LiveMarkdown.Avalonia).
 
 
 <br/>
