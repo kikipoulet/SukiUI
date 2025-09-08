@@ -67,15 +67,17 @@
 
         <Style Selector="RadioButton.Chips TextBlock">
             <Setter Property="Foreground" Value="{DynamicResource SukiLowText}" />
-            
-        </Style>
 
+        </Style>
+    <Style Selector="RadioButton.Chips:checked">
+        <Setter Property="Foreground" Value="White" />
+    </Style>
 
         <Style Selector="RadioButton.Chips:checked  TextBlock">
             <Setter Property="Foreground" Value="White" />
             <Setter Property="FontWeight" Value="Bold"></Setter>
         </Style>
-        
+
     <Style Selector="RadioButton.Chips:checked  AccessText">
         <Setter Property="Foreground" Value="White" />
         <Setter Property="FontWeight" Value="DemiBold"></Setter>
@@ -99,13 +101,13 @@
             <ControlTemplate>
                 <Panel>
                     <suki:GlassCard  Name="BigBorder" IsInteractive="True"
-                                   
+
                             Margin="4"
                             Padding="15,15,30,15"
-                            
+
                             ClipToBounds="True"
                             CornerRadius="{TemplateBinding CornerRadius}">
-                      
+
 
 
                         <ContentPresenter Name="PART_ContentPresenter"
@@ -148,7 +150,7 @@
         </Setter>
     </Style>
 
-    
+
     <Style Selector="RadioButton.GigaChips:checked  Border#SelectedBorder">
         <Setter Property="Opacity" Value="1" />
     </Style>
@@ -216,7 +218,7 @@
                     <suki:GlassCard Width="20" Height="20" CornerRadius="50" Classes="Control"
                                     Classes.PrimaryOpaque="{TemplateBinding IsChecked}"
                                     />
-                    
+
                     <Ellipse Height="8" Width="8" HorizontalAlignment="Center" VerticalAlignment="Center" IsVisible="{TemplateBinding IsChecked}"  Fill="White"/>
                     <ContentPresenter Name="PART_ContentPresenter"
                                       Grid.Column="1"

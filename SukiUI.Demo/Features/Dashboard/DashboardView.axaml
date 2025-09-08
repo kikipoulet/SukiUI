@@ -2,6 +2,7 @@
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:dashboard="clr-namespace:SukiUI.Demo.Features.Dashboard"
              xmlns:icon="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -603,6 +604,55 @@
                         <!--  Footer Content  -->
                     </suki:SukiSideMenu.FooterContent>
                 </suki:SukiSideMenu>
+            </suki:GlassCard>
+
+            <suki:GlassCard Width="1000"
+                            Height="500"
+                            Margin="15"
+                            ClipToBounds="True">
+                <suki:GroupBox>
+                    <suki:GroupBox.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <icon:MaterialIcon Foreground="{DynamicResource SukiLowText}" Kind="People" />
+                            <TextBlock Margin="5,0,0,0" Text="Customers" />
+                        </StackPanel>
+                    </suki:GroupBox.Header>
+                    <suki:SukiSideMenu ItemsSource="{Binding Invoices}" UseCustomContent="True">
+
+                        <suki:SukiSideMenu.Content>
+                            <StackPanel Margin="20">
+                                <TextBlock Classes="h3" Text="{Binding $parent[suki:SukiSideMenu].((dashboard:InvoiceViewModel)SelectedItem).BillingName}" />
+                                <StackPanel IsVisible="{Binding $parent[suki:SukiSideMenu].((dashboard:InvoiceViewModel)SelectedItem).Paid}" Orientation="Horizontal">
+                                    <TextBlock Classes="h5" Text="Paid" />
+                                    <icon:MaterialIcon Foreground="{DynamicResource SukiSuccessColor}" Kind="Check" Margin="8,0,0,0" />
+                                </StackPanel>
+                            </StackPanel>
+                        </suki:SukiSideMenu.Content>
+
+                        <suki:SukiSideMenu.ItemTemplate>
+                            <DataTemplate>
+                                <suki:SukiSideMenuItem Header="{Binding BillingName}" Icon="{avalonia:MaterialIconExt Kind=Person}">
+                                    <suki:SukiSideMenuItem.SideDisplayTemplate>
+                                        <DataTemplate DataType="{x:Type dashboard:InvoiceViewModel}">
+                                            <Menu Height="32" Margin="0,-4" Padding="-2,0">
+                                                <Menu.Resources>
+                                                    <Color x:Key="SukiGlassCardBackground">Transparent</Color>
+                                                </Menu.Resources>
+                                                <MenuItem Height="32" Width="33">
+                                                    <MenuItem.Header>
+                                                        <icon:MaterialIcon Height="24" Kind="DotsVertical" Width="24" />
+                                                    </MenuItem.Header>
+                                                    <MenuItem Header="Send Invoice" Icon="{avalonia:MaterialIconExt Kind=Payment}" />
+                                                </MenuItem>
+                                            </Menu>
+                                        </DataTemplate>
+                                    </suki:SukiSideMenuItem.SideDisplayTemplate>
+                                </suki:SukiSideMenuItem>
+                            </DataTemplate>
+                        </suki:SukiSideMenu.ItemTemplate>
+
+                    </suki:SukiSideMenu>
+                </suki:GroupBox>
             </suki:GlassCard>
 
         </WrapPanel>
