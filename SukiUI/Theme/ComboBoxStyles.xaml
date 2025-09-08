@@ -9,12 +9,8 @@
 
     <Design.PreviewWith>
         <Border Padding="20" Background="Transparent">
-            <StackPanel Height="400"
-                        Background="AliceBlue"
-                        Orientation="Horizontal"
-                        Spacing="10">
-                <ComboBox Width="300"
-                          Height="50"
+
+                <ComboBox 
                           SelectedIndex="0">
                     <ComboBox.Styles>
                         <Style Selector="ComboBoxItem:selected /template/ PathIcon#CheckSelected">
@@ -41,7 +37,7 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-            </StackPanel>
+           
         </Border>
     </Design.PreviewWith>
 
@@ -91,7 +87,7 @@
                             </Grid.Resources>
                             <TextBlock Name="PlaceholderTextBlock"
                                        Grid.Column="0"
-                                       Margin="7,1,0,0"
+                                       Margin="12,1,0,0"
                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                        VerticalAlignment="Center"
                                        Foreground="{TemplateBinding PlaceholderForeground}"
@@ -107,7 +103,7 @@
                                 HorizontalContentAlignment="Left"
                                 Margin="7,1,0,0"
                                 VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />-->
-                            <ContentControl Margin="7,1,0,0"
+                            <ContentControl Margin="12,1,0,0"
                                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                             Content="{TemplateBinding SelectionBoxItem}"
@@ -116,20 +112,34 @@
                             <ToggleButton Name="toggle"
                                           Grid.Column="1"
                                           Margin="10,0,0,0"
-                                          Background="Transparent"
+                                           Padding="20,5,12,5"
                                           BorderThickness="0"
                                           ClickMode="Press"
                                           CornerRadius="{DynamicResource SmallCornerRadius}"
                                           Focusable="False"
                                           IsChecked="{TemplateBinding IsDropDownOpen,
                                                                       Mode=TwoWay}">
-                                <Path Width="8"
-                                      Height="4"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="Center"
-                                      Data="F1 M 301.14,-189.041L 311.57,-189.041L 306.355,-182.942L 301.14,-189.041 Z"
-                                      Fill="{DynamicResource SukiText}"
-                                      Stretch="Uniform" />
+                             
+                                <Image HorizontalAlignment="Right" Width="12" Height="12">
+                                    <Image.Source>
+                                <DrawingImage >
+                                    <DrawingImage.Drawing>
+                                        <DrawingGroup ClipGeometry="M 0,0 L 24,0 24,24 0,24 Z">
+                                            <GeometryDrawing Geometry="F1 m7 15 5 5 5-5">
+                                                <GeometryDrawing.Pen>
+                                                    <Pen Brush="{DynamicResource SukiLowText}" Thickness="2" LineCap="Round" LineJoin="Round" />
+                                                </GeometryDrawing.Pen>
+                                            </GeometryDrawing>
+                                            <GeometryDrawing Geometry="F1 m7 9 5-5 5 5">
+                                                <GeometryDrawing.Pen>
+                                                    <Pen Brush="{DynamicResource SukiLowText}" Thickness="2" LineCap="Round" LineJoin="Round" />
+                                                </GeometryDrawing.Pen>
+                                            </GeometryDrawing>
+                                        </DrawingGroup>
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                                        </Image.Source>
+                                    </Image>
                             </ToggleButton>
                             <Popup Name="PART_Popup"
                                    MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}"
