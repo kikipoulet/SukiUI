@@ -143,11 +143,11 @@ namespace SukiUI.Controls
             Grid.SetColumn(icon, 2);
             griditem.Children.Add(icon);
 
-            var circle = new Border
+            var circle = new GlassCard()
             {
                 Margin = new Thickness(0, 0, 0, 2),
-                Height = 24,
-                Width = 24,
+                Height = 24, BorderThickness = new Thickness(1.2),
+                Width = 24, Padding = new Thickness(0),
                 CornerRadius = new CornerRadius(25),
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center
@@ -157,8 +157,8 @@ namespace SukiUI.Controls
             {
                 circle[!BackgroundProperty] = new DynamicResourceExtension("SukiPrimaryColor");
 
-                circle.BorderThickness = new Thickness(0);
-                circle.Child = new TextBlock
+            
+                circle.Content = new TextBlock
                 {
                     VerticalAlignment = VerticalAlignment.Center,
                     HorizontalAlignment = HorizontalAlignment.Center,
@@ -171,8 +171,8 @@ namespace SukiUI.Controls
             {
                 circle[!BackgroundProperty] = new DynamicResourceExtension("SukiControlBorderBrush");
 
-                circle.BorderThickness = new Thickness(0);
-                circle.Child = new TextBlock
+                
+                circle.Content = new TextBlock
                 {
                     VerticalAlignment = VerticalAlignment.Center,
                     HorizontalAlignment = HorizontalAlignment.Center,

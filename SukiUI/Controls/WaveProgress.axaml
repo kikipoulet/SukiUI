@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:suki="clr-namespace:SukiUI.Controls"
              xmlns:waveProgress="clr-namespace:SukiUI.Converters.WaveProgress"
+             xmlns:converters="https://github.com/kikipoulet/SukiUI"
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
@@ -17,7 +18,7 @@
                             Height="200"
                             Margin="20"
                             Background="Transparent"
-                            BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                            
                             BorderThickness="1.2"
                             BoxShadow="{DynamicResource SukiLowShadow}"
                             ClipToBounds="False"
@@ -28,7 +29,26 @@
                             <waveProgress:WaveProgressValueColorConverter x:Key="WValueColorConverter" />
                             <waveProgress:WaveProgressGradientOffsetConverter x:Key="WGradientConverter" />
                         </Border.Resources>
+                        <Border.BorderBrush>
+                            <LinearGradientBrush >
+                                <LinearGradientBrush.StartPoint>
+                                    <MultiBinding Converter="{x:Static converters:StartPointLiquidConverter.Instance}">
+                                        <Binding Path="Bounds.Width"  RelativeSource="{RelativeSource TemplatedParent}"/>
+                                        <Binding Path="Bounds.Height" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                    </MultiBinding>
+                                </LinearGradientBrush.StartPoint>
+                                <LinearGradientBrush.EndPoint>
+                                    <MultiBinding Converter="{x:Static converters:EndPointLiquidConverter.Instance}">
+                                        <Binding Path="Bounds.Width"  RelativeSource="{RelativeSource TemplatedParent}"/>
+                                        <Binding Path="Bounds.Height" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                    </MultiBinding>
+                                </LinearGradientBrush.EndPoint>
 
+                                <GradientStop Offset="0"   Color="{DynamicResource SukiLiquid1}"/>
+                                <GradientStop Offset="0.5" Color="Transparent"/>
+                                <GradientStop Offset="1"   Color="{DynamicResource SukiLiquid2}"/>
+                            </LinearGradientBrush>
+                        </Border.BorderBrush>
                         <Border Width="200"
                                 Height="200"
                                 HorizontalAlignment="Center"

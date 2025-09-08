@@ -91,7 +91,7 @@
                                                               Data="{x:Static content:Icons.Search}"
                                                               DockPanel.Dock="Left"
                                                               Foreground="{DynamicResource SukiLowText}" />
-                                                    <TextBox Margin="0,-4,0,0"
+                                                    <TextBox Margin="0,0,0,0"
                                                              theme:TextBoxExtensions.AddDeleteButton="True"
                                                              BorderThickness="0"
                                                              Classes="NoShadow"
