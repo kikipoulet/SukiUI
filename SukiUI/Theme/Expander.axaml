@@ -33,9 +33,9 @@
                             <LayoutTransformControl Name="PART_ToggleTransform">
                                 <DockPanel>
                                     <Border Name="PART_BottomBorder"
-                                            Height="2"
+                                            Height="1"
                                             HorizontalAlignment="Stretch"
-                                            Background="{DynamicResource SukiBorderBrush}"
+                                            Background="{DynamicResource SukiControlBorderBrush}"
                                             CornerRadius="10"
                                             DockPanel.Dock="Bottom"
                                             Opacity="0.8" />

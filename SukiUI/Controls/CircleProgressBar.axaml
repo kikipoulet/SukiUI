@@ -15,8 +15,8 @@
                         <Arc Width="{TemplateBinding Width}"
                              Height="{TemplateBinding Height}"
                              StartAngle="0"
-                             Stretch="None"
-                             Stroke="{DynamicResource SukiLightBorderBrush}"
+                             Stretch="None" Opacity="{DynamicResource GlassOpacity}"
+                             Stroke="{DynamicResource SukiGlassCardBackground}"
                              StrokeThickness="{TemplateBinding StrokeWidth}"
                              SweepAngle="360" />
                         <Arc Name="PART_ArcFill"
