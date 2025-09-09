@@ -37,14 +37,14 @@
                     Name="BorderBasicStyle"
                     Padding="5,0">
                     <DockPanel>
-                        <PathIcon
+                    <!--    <PathIcon
                             Data="{x:Static icons:Icons.Check}"
                             DockPanel.Dock="Right"
                             Foreground="{DynamicResource SukiPrimaryColor}"
                             Height="12"
                             Margin="0,0,3,0"
                             Name="CheckSelected"
-                            Width="12" />
+                            Width="12" /> -->
                         <ContentPresenter
                             Content="{TemplateBinding Content}"
                             ContentTemplate="{TemplateBinding ContentTemplate}"
