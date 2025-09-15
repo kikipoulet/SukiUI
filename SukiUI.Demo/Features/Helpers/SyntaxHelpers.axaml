@@ -222,16 +222,7 @@ All the examples shown in this page use the "MyBool" and "Counter" values in a V
                             CornerRadius="15">
 
                 <Panel>
-                    <Panel Margin="-50"
-                           Background="Black"
-                           IsVisible="{DynamicResource IsDark}"
-                           Opacity="0.2" />
-                    <Panel Margin="-50"
-                           Background="White"
-                           IsVisible="{DynamicResource IsLight}"
-                           Opacity="0.5" />
-
-                    <glassMorphism:BlurBackground Margin="-100" />
+                    <glassMorphism:SukiBlurBackground IsDynamic="True" Margin="-200"></glassMorphism:SukiBlurBackground>
 
                     <StackPanel Margin="25,0">
 

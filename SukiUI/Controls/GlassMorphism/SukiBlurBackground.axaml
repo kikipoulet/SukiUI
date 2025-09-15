@@ -6,9 +6,9 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SukiUI.Controls.GlassMorphism.SukiBlurBackground">
     <Panel>
-        <glassMorphism:BlurBackground   />
+        <glassMorphism:BlurBackground Name="BB"  />
         <Panel  Background="White" IsVisible="{DynamicResource IsDark}" Opacity="0.07"></Panel>
-        <Panel  Background="White" IsVisible="{DynamicResource IsLight}" Opacity="0.4"></Panel>
+        <Panel  Background="White" IsVisible="{DynamicResource IsLight}" Opacity="0.6"></Panel>
     </Panel>
 
 </UserControl>
