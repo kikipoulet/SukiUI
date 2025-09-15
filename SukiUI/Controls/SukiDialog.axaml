@@ -37,7 +37,7 @@
                                            IsVisible="{TemplateBinding Title,Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
                                            HorizontalAlignment="Center" FontSize="22" FontWeight="DemiBold"
                                            Text="{TemplateBinding Title}" />
-                                <ContentControl Grid.Row="2" Margin="0,24,0,0"
+                                <ContentControl Grid.Row="2" Margin="0,0,0,0"
                                                 MaxWidth="{TemplateBinding Content, Converter={x:Static dialogs:DialogContentMaxWidthValueConverter.Instance}}"
                                                 Content="{TemplateBinding Content}">
                                     <ContentControl.Styles>
