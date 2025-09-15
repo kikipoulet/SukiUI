@@ -72,7 +72,11 @@ half4 main(float2 coord) {
             _blurBackgroundControl = blurcontrol;
             _bounds = bounds;
             _cachedBackground = cachedBackground;
-            IsDarkTheme = IsDark;
+
+            var themeInstance = SukiTheme.GetInstance();
+            IsDarkTheme = themeInstance.ActiveBaseTheme == ThemeVariant.Dark;
+            themeInstance.OnBaseThemeChanged += variant => IsDarkTheme = variant == ThemeVariant.Dark;
+            
             IsDynamic = blurcontrol.IsDynamic;
         }
 
