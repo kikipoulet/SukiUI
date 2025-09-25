@@ -147,31 +147,31 @@
         </Style>
 
         <Style Selector="^/template/ Image#PART_TopSelector">
-            <Setter Property="Source" Value="avares://Dock.Avalonia/Assets/DockAnchorableTop.png" />
+         <!--   <Setter Property="Source" Value="avares://Dock.Avalonia/Assets/DockAnchorableTop.png" /> -->
             <Setter Property="Width" Value="40" />
             <Setter Property="Height" Value="40" />
         </Style>
 
         <Style Selector="^/template/ Image#PART_BottomSelector">
-            <Setter Property="Source" Value="avares://Dock.Avalonia/Assets/DockAnchorableBottom.png" />
+          <!--  <Setter Property="Source" Value="avares://Dock.Avalonia/Assets/DockAnchorableBottom.png" /> -->
             <Setter Property="Width" Value="40" />
             <Setter Property="Height" Value="40" />
         </Style>
 
         <Style Selector="^/template/ Image#PART_LeftSelector">
-            <Setter Property="Source" Value="avares://Dock.Avalonia/Assets/DockAnchorableLeft.png" />
+           <!-- <Setter Property="Source" Value="avares://Dock.Avalonia/Assets/DockAnchorableLeft.png" /> -->
             <Setter Property="Width" Value="40" />
             <Setter Property="Height" Value="40" />
         </Style>
 
         <Style Selector="^/template/ Image#PART_RightSelector">
-            <Setter Property="Source" Value="avares://Dock.Avalonia/Assets/DockAnchorableRight.png" />
+           <!-- <Setter Property="Source" Value="avares://Dock.Avalonia/Assets/DockAnchorableRight.png" /> -->
             <Setter Property="Width" Value="40" />
             <Setter Property="Height" Value="40" />
         </Style>
 
         <Style Selector="^/template/ Image#PART_CenterSelector">
-            <Setter Property="Source" Value="avares://Dock.Avalonia/Assets/DockDocumentInside.png" />
+          <!--  <Setter Property="Source" Value="avares://Dock.Avalonia/Assets/DockDocumentInside.png" /> -->
             <Setter Property="Width" Value="40" />
             <Setter Property="Height" Value="40" />
         </Style>

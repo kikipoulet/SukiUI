@@ -12,7 +12,8 @@
 
     <Setter Property="Template">
       <ControlTemplate>
-        <ItemsControl ItemsSource="{TemplateBinding Items}"
+        <ItemsControl
+             
                       x:DataType="dmc:IRootDock"
                       x:CompileBindings="True">
           <ItemsControl.ItemsPanel>

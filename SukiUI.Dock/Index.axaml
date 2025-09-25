@@ -6,7 +6,8 @@
         </Border>
     </Design.PreviewWith>
 
-    <StyleInclude Source="avares://Dock.Avalonia/Themes/DockFluentTheme.axaml" />
+    <DockFluentTheme></DockFluentTheme>
+    
     <Styles.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
