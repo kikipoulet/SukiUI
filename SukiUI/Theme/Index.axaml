@@ -29,6 +29,7 @@
     <StyleInclude Source="avares://SukiUI/Theme/ScrollBarStyle.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ScrollViewerStyles.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ButtonLoadingStyles.axaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/TabItemGlassStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/GridSplitterStyles.axaml"></StyleInclude>
     
     <Styles.Resources>

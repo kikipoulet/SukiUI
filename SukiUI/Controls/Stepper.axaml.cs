@@ -134,7 +134,7 @@ namespace SukiUI.Controls
             };
 
             var icon = new PathIcon
-                { Height = 10, Width = 10, Data = Icons.ChevronRight, Margin = new Thickness(0, 0, 20, 0), Classes = { "Flippable" } };
+                { Height = 10, Width = 10, Opacity = 0.8, Data = Icons.ChevronRight, Margin = new Thickness(10, 0, 20, 0), Classes = { "Flippable" } };
             if (index == stepCount - 1)
             {
                 icon.IsVisible = false;
@@ -204,6 +204,13 @@ namespace SukiUI.Controls
             Grid.SetColumn(content, 1);
             griditem.Children.Add(content);
 
+            if (Index != index)
+            {
+                griditem.Opacity = 0.7;
+                griditem.RenderTransformOrigin = RelativePoint.Center;
+                griditem.RenderTransform = new ScaleTransform(0.8, 0.8);
+            }
+
             Grid.SetColumn(griditem, index);
 
             grid.Children.Add(griditem);
@@ -244,6 +251,8 @@ namespace SukiUI.Controls
         private void AddStepAlternate(object step, int index, Grid grid, object[] steps)
         {
             var gridItem = new Grid { ColumnDefinitions = new ColumnDefinitions { new(), new() } };
+
+          
 
             var line = new Border
             {
@@ -348,8 +357,11 @@ namespace SukiUI.Controls
                 HorizontalAlignment = HorizontalAlignment.Center, Margin = new Thickness(0, 55, 0, 0)
             });
 
+            
+
             Grid.SetColumn(gridItem, index);
             Grid.SetColumn(gridBorder, index);
+            
             grid.Children.Add(gridItem);
             grid.Children.Add(gridBorder);
         }

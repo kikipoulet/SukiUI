@@ -1,0 +1,90 @@
+﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:suki="https://github.com/kikipoulet/SukiUI">
+    <Design.PreviewWith>
+        <Border Width="400" Height="400">
+            <Panel>
+                <TabControl Margin="0,0,0,200">
+                    <TabItem Classes="Glass" Header="Arch">
+                        <Border Height="100" Background="AntiqueWhite">
+                            <TextBlock FontSize="20"
+                                       Foreground="Black"
+                                       Text="Content" />
+                        </Border>
+                    </TabItem>
+                    <TabItem Classes="Glass" Header="Leaf">
+                        <Border Height="100" Background="Green" />
+                    </TabItem>
+                    <TabItem Classes="Glass" Header="Disabled" IsEnabled="False" />
+                </TabControl>
+            </Panel>
+        </Border>
+    </Design.PreviewWith>
+
+    <Styles.Resources>
+        <Thickness x:Key="TabControlTopPlacementItemMargin">0 0 0 2</Thickness>
+    </Styles.Resources>
+
+     <!-- Glass TabItems-->
+    <Style Selector="TabItem.Glass">
+     <Setter Property="FontSize" Value="50" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="MinHeight" Value="0" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel>
+                    <suki:GlassCard Opacity="0" Padding="17" CornerRadius="12" >
+                        <suki:GlassCard.Transitions>
+                            <Transitions>
+                                <DoubleTransition Property="Opacity" Duration="0:0:0.5"></DoubleTransition>
+                            </Transitions>
+                        </suki:GlassCard.Transitions>
+                    </suki:GlassCard>
+                    <suki:GlassCard Opacity="0" Padding="17" CornerRadius="12" >
+                        <suki:GlassCard.Transitions>
+                            <Transitions>
+                                <DoubleTransition Property="Opacity" Duration="0:0:0.5"></DoubleTransition>
+                            </Transitions>
+                        </suki:GlassCard.Transitions>
+                    </suki:GlassCard>
+                    <Border Name="PART_LayoutRoot"
+                            Margin="15,0"
+                            Padding="{TemplateBinding Padding}"
+                            Background="Transparent"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}">
+                   
+                        <ContentPresenter Name="PART_HeaderPresenter"
+                                          Padding="0,0"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          HorizontalContentAlignment="Center"
+                                          Content="{TemplateBinding Header}"
+                                          ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                          TextBlock.FontFamily="{TemplateBinding FontFamily}"
+                                          TextBlock.FontSize="{TemplateBinding FontSize}"
+                                          TextBlock.FontWeight="{TemplateBinding FontWeight}">
+                            <ContentPresenter.Transitions>
+                                <Transitions>
+                                    <BrushTransition Property="Foreground" Duration="0:0:0.1" />
+                                </Transitions>
+                            </ContentPresenter.Transitions>
+                        </ContentPresenter>
+                  
+                </Border>
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+     
+     <Style Selector="TabItem.Glass:selected /template/ suki|GlassCard">
+         
+         <Setter Property="Opacity" Value="1"></Setter>
+     </Style>
+    
+    
+   
+</Styles>
