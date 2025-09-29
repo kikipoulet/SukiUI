@@ -22,7 +22,14 @@ public class BlurBackground : Control
         set => SetValue(IsDynamicProperty, value);
     }
     
+    public static readonly StyledProperty<double> IntensityFactorProperty =
+        AvaloniaProperty.Register<BlurBackground, double>(nameof(IntensityFactor), 1d);
     
+    public double IntensityFactor
+    {
+        get => GetValue(IntensityFactorProperty);
+        set => SetValue(IntensityFactorProperty, value);
+    }
     
     public override void BeginInit()
     {
@@ -65,6 +72,7 @@ half4 main(float2 coord) {
         private SKImage? _cachedBackground;
         private BlurBackground _blurBackgroundControl;
         private bool IsDynamic = false;
+        private double BlurFactor = 1;
         
         
         public BlurBehindRenderOperation(BlurBackground blurcontrol, Rect bounds, ref SKImage? cachedBackground, bool IsDark)
@@ -78,6 +86,7 @@ half4 main(float2 coord) {
             themeInstance.OnBaseThemeChanged += variant => IsDarkTheme = variant == ThemeVariant.Dark;
             
             IsDynamic = blurcontrol.IsDynamic;
+            BlurFactor = blurcontrol.IntensityFactor;
         }
 
         public void Dispose()
@@ -126,7 +135,7 @@ half4 main(float2 coord) {
                 if (sigma < 20)
                     sigma = 20;
 
-               
+               sigma = sigma *  BlurFactor;
 
                 using (var filter = SKImageFilter.CreateBlur((float)sigma, (float)sigma))
                 using (var blurPaint = new SKPaint

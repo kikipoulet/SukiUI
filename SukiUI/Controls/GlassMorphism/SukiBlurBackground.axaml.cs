@@ -19,7 +19,20 @@ namespace SukiUI.Controls.GlassMorphism
                 this.Get<BlurBackground>("BB").IsDynamic = value;  
             }
         }
+        
+        public static readonly StyledProperty<double> IntensityFactorProperty =
+            AvaloniaProperty.Register<SukiBlurBackground, double>(nameof(IntensityFactor), 1d);
 
+        public double IntensityFactor
+        {
+            get => GetValue(IntensityFactorProperty);
+            set
+            {
+                SetValue(IntensityFactorProperty, value);
+                this.Get<BlurBackground>("BB").IntensityFactor = value;  
+            }
+        }
+        
         public SukiBlurBackground()
         {
             InitializeComponent();
