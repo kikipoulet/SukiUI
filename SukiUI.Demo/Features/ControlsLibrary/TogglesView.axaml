@@ -275,6 +275,7 @@
                                 <CheckBox Content="Option One" IsChecked="True" />
                                 <CheckBox Content="Option Two" />
                                 <CheckBox Content="Option Three" IsThreeState="True" />
+                                <CheckBox Content="Disabled" IsEnabled="False"/>
                             </StackPanel>
                         </showMeTheXaml:XamlDisplay>
                     </StackPanel>
