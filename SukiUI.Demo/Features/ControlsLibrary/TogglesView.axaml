@@ -21,6 +21,7 @@
                                          IsChecked="True" />
                             <RadioButton Content="Option Two" GroupName="R1" />
                             <RadioButton Content="Option Three" GroupName="R1" />
+                            <RadioButton IsEnabled="False" Content="Disabled" GroupName="R1" />
                         </StackPanel>
                     </showMeTheXaml:XamlDisplay>
                 </suki:GroupBox>
@@ -43,6 +44,11 @@
                                          Classes="Chips"
                                          Content="Three State"
                                          GroupName="R10" />
+                            <RadioButton Height="40"
+                                         Classes="Chips"
+                                         Content="Disabled"
+                                         GroupName="R10" 
+                                         IsEnabled="False"/>
                         </StackPanel>
                     </showMeTheXaml:XamlDisplay>
                 </suki:GroupBox>
@@ -64,6 +70,11 @@
                                          Classes="GigaChips"
                                          Content="Three State"
                                          GroupName="R2" />
+                            <RadioButton Height="60"
+                                         Classes="GigaChips"
+                                         Content="Disabled"
+                                         GroupName="R2" 
+                                         IsEnabled="False"/>
                         </StackPanel>
                     </showMeTheXaml:XamlDisplay>
                 </suki:GroupBox>
