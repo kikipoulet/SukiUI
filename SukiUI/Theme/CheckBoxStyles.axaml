@@ -80,7 +80,9 @@
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
     </Style>
     
-  
+    <Style Selector="CheckBox:disabled AccessText">
+        <Setter Property="Foreground" Value="{DynamicResource SukiDisabledText}" />
+    </Style> 
     
     <Style Selector="CheckBox /template/ Path#checkMark">
         <Setter Property="Opacity" Value="0"></Setter>
