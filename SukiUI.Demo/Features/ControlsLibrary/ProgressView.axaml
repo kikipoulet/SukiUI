@@ -6,6 +6,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:showMeTheXaml="clr-namespace:ShowMeTheXaml;assembly=ShowMeTheXaml.Avalonia"
              xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             xmlns:horizontalBarMeter="clr-namespace:SukiUI.Controls.Gauges.HorizontalBarMeter;assembly=SukiUI"
              d:DesignHeight="650"
              d:DesignWidth="800"
              x:DataType="controlsLibrary:ProgressViewModel"
@@ -109,11 +110,14 @@
                                 <Setter Property="ShowProgressText" Value="{Binding IsTextVisible}" />
                             </Style>
                         </suki:GroupBox.Styles>
-                        <StackPanel Spacing="15">
+                        <StackPanel VerticalAlignment="Center" Spacing="15">
                             <showMeTheXaml:XamlDisplay UniqueId="Progress1">
                                 <ProgressBar IsIndeterminate="{Binding IsIndeterminate}" />
                             </showMeTheXaml:XamlDisplay>
-                            <showMeTheXaml:XamlDisplay UniqueId="Progress2">
+                            
+                            <Expander Header="Advanced">
+                                <StackPanel Spacing="12">
+                                     <showMeTheXaml:XamlDisplay UniqueId="Progress2">
                                 <ProgressBar Classes="Accent" IsIndeterminate="{Binding IsIndeterminate}" />
                             </showMeTheXaml:XamlDisplay>
                             <showMeTheXaml:XamlDisplay UniqueId="ProgressSuccess">
@@ -160,6 +164,10 @@
                                                  Orientation="Vertical" />
                                 </showMeTheXaml:XamlDisplay>
                             </StackPanel>
+                                </StackPanel>
+                            </Expander>
+                            
+                           
                         </StackPanel>
                     </suki:GroupBox>
                 </suki:GlassCard>
@@ -180,6 +188,25 @@
                     </suki:GroupBox>
                 </suki:GlassCard>
 
+                
+                <suki:GlassCard>
+                    <suki:GroupBox Header="HorizontalBarMeter">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="15">
+                            <showMeTheXaml:XamlDisplay UniqueId="H0">
+                                <horizontalBarMeter:HorizontalBarMeter
+                                    Height="25" Width="100"
+                                    BarCount="11"
+                                    Minimum="0" Maximum="100"
+                                    Value="{Binding ProgressValue}"  
+                                    Gap="6"/>
+                            </showMeTheXaml:XamlDisplay>
+                          
+                        </StackPanel>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                
+              
+                
                 <suki:GlassCard Width="500">
                     <suki:GroupBox Header="Stepper">
                         <StackPanel Spacing="15">
