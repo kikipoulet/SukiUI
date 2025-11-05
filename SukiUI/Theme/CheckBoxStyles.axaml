@@ -6,6 +6,7 @@
                 <CheckBox>Unchecked</CheckBox>
                 <CheckBox IsChecked="True">Checked</CheckBox>
                 <CheckBox IsChecked="{x:Null}" IsThreeState="True">Indeterminate</CheckBox>
+                <CheckBox IsEnabled="False">Disabled</CheckBox>
             </StackPanel>
         </Border>
     </Design.PreviewWith>
@@ -78,7 +79,11 @@
     <Style Selector="CheckBox TextBlock">
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
     </Style>
-
+    
+    <Style Selector="CheckBox:disabled AccessText">
+        <Setter Property="Foreground" Value="{DynamicResource SukiDisabledText}" />
+    </Style> 
+    
     <Style Selector="CheckBox /template/ Path#checkMark">
         <Setter Property="Opacity" Value="0"></Setter>
     </Style>
