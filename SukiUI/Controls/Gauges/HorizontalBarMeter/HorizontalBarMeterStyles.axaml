@@ -8,22 +8,23 @@
     </Design.PreviewWith>
 
     <Style Selector="horizontalBarMeter|HorizontalBarMeter > Border.hbm-segment">
-        <Setter Property="Background" Value="{DynamicResource SukiControlBorderBrush}"/>
         <Setter Property="CornerRadius" Value="2"/>
-                   
     </Style>
 
                
-    <Style Selector="horizontalBarMeter|HorizontalBarMeter Border.hbm-fill">
-        <Setter Property="Background" >
+    <Style Selector="horizontalBarMeter|HorizontalBarMeter">
+        <Setter Property="Height" Value="65"></Setter>
+        <Setter Property="ActiveBrush" Value="{DynamicResource SukiPrimaryColor}"></Setter>
+        <Setter Property="InactiveBrush" Value="{DynamicResource SukiControlBorderBrush}"></Setter>
+        
+        <Setter Property="Transitions">
             <Setter.Value>
-                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
-                    <GradientStop Offset="0" Color="{DynamicResource SukiPrimaryColor120}" />
-                    <GradientStop Offset="1" Color="{DynamicResource SukiPrimaryColor}" />
-                </LinearGradientBrush>
+                <Transitions>
+                    <DoubleTransition Property="Value" Duration="0:0:0.7">
+                        
+                    </DoubleTransition>
+                </Transitions>
             </Setter.Value>
         </Setter>
-                 
-
     </Style>
 </Styles>

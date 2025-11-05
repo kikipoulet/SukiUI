@@ -192,14 +192,34 @@
                 <suki:GlassCard>
                     <suki:GroupBox Header="HorizontalBarMeter">
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="15">
-                            <showMeTheXaml:XamlDisplay UniqueId="H0">
+  
+                            
+                            <showMeTheXaml:XamlDisplay UniqueId="H1">
                                 <horizontalBarMeter:HorizontalBarMeter
-                                    Height="25" Width="100"
-                                    BarCount="11"
+                                    Height="65" Width="200"
+                                    BarCount="22"
                                     Minimum="0" Maximum="100"
                                     Value="{Binding ProgressValue}"  
                                     Gap="6"/>
                             </showMeTheXaml:XamlDisplay>
+                            
+                            <showMeTheXaml:XamlDisplay UniqueId="H2">
+                                <horizontalBarMeter:HorizontalBarMeter
+                                    Height="65" Width="200"
+                                    BarCount="22"
+                                    Minimum="0" Maximum="100"
+                                    Value="{Binding ProgressValue}"   ShowValue="True" Suffix=" %"
+                                    Gap="6"/>
+                            </showMeTheXaml:XamlDisplay>
+                            <showMeTheXaml:XamlDisplay UniqueId="H0">
+                                <horizontalBarMeter:HorizontalBarMeter
+                                    Height="65" Width="200"
+                                    BarCount="22" ActiveBrush="ForestGreen"
+                                    Minimum="0" Maximum="100"
+                                    Value="{Binding ProgressValue}"   ShowValue="True" Suffix="%"
+                                    Gap="6"/>
+                            </showMeTheXaml:XamlDisplay>
+         
                           
                         </StackPanel>
                     </suki:GroupBox>

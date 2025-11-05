@@ -3,13 +3,15 @@ using System;
 using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Layout;
+using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
 
 namespace SukiUI.Controls.Gauges.HorizontalBarMeter;
 
+
 public class HorizontalBarMeter : Panel
 {
-
     public static readonly StyledProperty<int> BarCountProperty =
         AvaloniaProperty.Register<HorizontalBarMeter, int>(nameof(BarCount), 12);
 
@@ -34,6 +36,12 @@ public class HorizontalBarMeter : Panel
     public static readonly StyledProperty<IBrush?> InactiveBrushProperty =
         AvaloniaProperty.Register<HorizontalBarMeter, IBrush?>(nameof(InactiveBrush), Brushes.Gray);
     
+    public static readonly StyledProperty<bool> ShowValueProperty =
+        AvaloniaProperty.Register<HorizontalBarMeter, bool>(nameof(ShowValue), false);
+
+    public static readonly StyledProperty<string?> SuffixProperty =
+        AvaloniaProperty.Register<HorizontalBarMeter, string?>(nameof(Suffix), string.Empty);
+    
     public int BarCount { get => GetValue(BarCountProperty); set => SetValue(BarCountProperty, Math.Max(1, value)); }
     public double Value { get => GetValue(ValueProperty); set => SetValue(ValueProperty, value); }
     public double Minimum { get => GetValue(MinimumProperty); set => SetValue(MinimumProperty, value); }
@@ -43,7 +51,32 @@ public class HorizontalBarMeter : Panel
     public IBrush? ActiveBrush { get => GetValue(ActiveBrushProperty); set => SetValue(ActiveBrushProperty, value); }
     public IBrush? InactiveBrush { get => GetValue(InactiveBrushProperty); set => SetValue(InactiveBrushProperty, value); }
 
+    public bool ShowValue { get => GetValue(ShowValueProperty); set => SetValue(ShowValueProperty, value); }
+    public string? Suffix { get => GetValue(SuffixProperty); set => SetValue(SuffixProperty, value); }
+
+    /// 
+
     private readonly List<Border> _bars = new();
+    
+    private readonly Border _marker = new()
+    {
+        [!Border.BackgroundProperty] = new DynamicResourceExtension("SukiText"), Margin = new Thickness(0,25),
+        CornerRadius = new CornerRadius(6),
+        IsHitTestVisible = false,
+        Classes = { "hbm-marker" }
+    };
+
+    private readonly TextBlock _valueText = new()
+    {
+        [!TextBlock.ForegroundProperty] = new DynamicResourceExtension("SukiText"),
+        FontSize = 17,
+        FontWeight = Avalonia.Media.FontWeight.Bold,
+        TextAlignment = TextAlignment.Center,
+        IsHitTestVisible = false,
+        Classes = { "hbm-value" }
+    };
+
+    /// 
 
     static HorizontalBarMeter()
     {
@@ -55,13 +88,48 @@ public class HorizontalBarMeter : Panel
         CornerRadiusProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.UpdateBarCorners());
         ActiveBrushProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.UpdateBrushes());
         InactiveBrushProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.UpdateBrushes());
+        ShowValueProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.OnShowValueChanged());
+        SuffixProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.InvalidateArrange());
     }
 
-    public HorizontalBarMeter() => RebuildBars();
+    public HorizontalBarMeter()
+    {
+        RebuildBars();
+
+        Children.Add(_marker);
+        Children.Add(_valueText);
+        
+        _marker.IsVisible = false;
+        _valueText.IsVisible = false;
+
+        _marker.ZIndex = 1000;
+        _valueText.ZIndex = 1001;
+    }
+
+    private void OnShowValueChanged()
+    {
+        var visible = ShowValue;
+        _marker.IsVisible = visible;
+        _valueText.IsVisible = visible;
+        InvalidateArrange();
+    }
 
     private void RebuildBars()
     {
-        Children.Clear();
+        for (int i = Children.Count - 1; i >= 0; i--)
+        {
+            if (Children[i] is Border b && (b == _marker || b == _valueText.Parent)) continue;
+        }
+
+        for (int i = Children.Count - 1; i >= 0; i--)
+        {
+            if (Children[i] is Border b && (b != _marker))
+            {
+                if (!ReferenceEquals(b, _marker) && b != _valueText.Parent)
+                    Children.RemoveAt(i);
+            }
+        }
+
         _bars.Clear();
 
         var count = Math.Max(1, BarCount);
@@ -69,38 +137,32 @@ public class HorizontalBarMeter : Panel
         {
             var bar = new Border
             {
+                Background = InactiveBrush,
+                Margin = new Thickness(0,20),
                 CornerRadius = CornerRadius,
-                Classes = { "hbm-segment" }, 
+                Classes = { "hbm-segment" },
+                ClipToBounds = true
             };
-            
+
             var fill = new Border
             {
+                Background = ActiveBrush,
                 CornerRadius = CornerRadius,
-                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Left,
+                HorizontalAlignment = HorizontalAlignment.Left,
                 Width = 0,
                 Classes = { "hbm-fill" }
             };
 
             bar.Child = fill;
             _bars.Add(bar);
-            Children.Add(bar);
+            Children.Insert(i, bar);
         }
-
+        
+        UpdateBrushes();
         InvalidateMeasure();
         InvalidateArrange();
     }
-
-    private void UpdateBarCorners()
-    {
-        foreach (var b in _bars)
-        {
-            b.CornerRadius = CornerRadius;
-            if (b.Child is Border fill)
-                fill.CornerRadius = CornerRadius;
-        }
-        InvalidateArrange();
-    }
-
+    
     private void UpdateBrushes()
     {
         foreach (var b in _bars)
@@ -112,6 +174,19 @@ public class HorizontalBarMeter : Panel
         InvalidateVisual();
     }
 
+    private void UpdateBarCorners()
+    {
+        foreach (var b in _bars)
+        {
+            b.CornerRadius = CornerRadius;
+            if (b.Child is Border fill)
+                fill.CornerRadius = CornerRadius;
+        }
+        _marker.CornerRadius = new CornerRadius(Math.Max(6, CornerRadius.TopLeft + 2));
+        InvalidateArrange();
+    }
+
+    
     protected override Size MeasureOverride(Size availableSize)
     {
         var bars = Math.Max(1, BarCount);
@@ -124,6 +199,9 @@ public class HorizontalBarMeter : Panel
 
         foreach (var b in _bars)
             b.Measure(barSize);
+        
+        _marker.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+        _valueText.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
 
         return new Size(width, height);
     }
@@ -134,10 +212,10 @@ public class HorizontalBarMeter : Panel
         var totalGap = Gap * (bars - 1);
         var barW = Math.Max(0, (finalSize.Width - totalGap) / bars);
         var barH = finalSize.Height;
-        
+
         var min = Minimum;
         var max = Maximum <= min ? min + 1 : Maximum;
-        var t = SukiTheme.Clamp((Value - min) / (max - min), 0.0, 1.0);
+        var t = Clamp((Value - min) / (max - min), 0.0, 1.0);
         var filled = t * bars;
         var fullBars = (int)Math.Floor(filled);
         var partial = filled - fullBars;
@@ -153,7 +231,7 @@ public class HorizontalBarMeter : Panel
                 double w = 0;
                 if (i < fullBars) w = barW;
                 else if (i == fullBars && partial > 0) w = barW * partial;
-                
+
                 fill.CornerRadius = (w >= barW - 0.5)
                     ? CornerRadius
                     : new CornerRadius(CornerRadius.TopLeft, 0, 0, CornerRadius.BottomLeft);
@@ -164,6 +242,54 @@ public class HorizontalBarMeter : Panel
             x += barW + Gap;
         }
 
+
+        if (ShowValue && bars > 0 && (fullBars > 0 || partial > 0))
+        {
+            int lastActiveIndex = partial > 0 ? fullBars : Math.Max(0, fullBars - 1);
+            
+            double anchorX = lastActiveIndex * (barW + Gap);
+            
+            double markerW = barW * 1.15;    
+            double markerH = barH * 1.35;     
+            double markerLeft = anchorX - (markerW - barW) / 2;
+            
+            markerLeft = Math.Max(0, Math.Min(markerLeft, finalSize.Width - markerW));
+
+            double markerTop = -(markerH - barH) / 2; 
+
+            _marker.IsVisible = true;
+            _marker.Arrange(new Rect(markerLeft, markerTop, markerW, markerH));
+            
+            string text = FormatValue(Math.Round(Value)) + (string.IsNullOrEmpty(Suffix) ? "" : Suffix);
+            _valueText.Text = text;
+
+            _valueText.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            var textSize = _valueText.DesiredSize;
+
+            double centerX = markerLeft + markerW / 2;
+            double textLeft = centerX - textSize.Width / 2;
+            textLeft = Math.Max(0, Math.Min(textLeft, finalSize.Width - textSize.Width));
+
+            double textTop = markerTop + (textSize.Height ) -30; 
+
+            _valueText.IsVisible = true;
+            _valueText.Arrange(new Rect(textLeft, textTop, textSize.Width, textSize.Height));
+        }
+        else
+        {
+            _marker.IsVisible = false;
+            _valueText.IsVisible = false;
+        }
+
         return finalSize;
+    }
+
+
+    private static double Clamp(double v, double min, double max) => v < min ? min : (v > max ? max : v);
+
+
+    private static string FormatValue(double v)
+    {
+        return Math.Abs(v % 1.0) < 1e-9 ? v.ToString("0") : v.ToString("0.##");
     }
 }
