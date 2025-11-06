@@ -8,6 +8,7 @@ using Avalonia.Media;
 using Avalonia.Controls.Shapes;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml.MarkupExtensions;
+using SukiUI.Extensions;
 using Path = Avalonia.Controls.Shapes.Path;
 
 namespace SukiUI.Controls.Gauges;
@@ -210,10 +211,11 @@ public class RadialGauge : Panel
 
     
         Children.Add(_dial);
-        Children.Add(_segmentsGrid);
+        
         Children.Add(_rim); 
         _gridPath.Children.Add(_trailPath);
         Children.Add(_gridPath);
+        Children.Add(_segmentsGrid);
         Children.Add(_needle);
         Children.Add(_stackText);
 
@@ -314,7 +316,6 @@ public class RadialGauge : Panel
 
     private void OnSegmentsChanged(AvaloniaPropertyChangedEventArgs e)
     {
-        // Handle old collection
         if (e.OldValue is IList<RadialGaugeSegment> oldCollection)
         {
             if (oldCollection is INotifyCollectionChanged notifyCollection)
@@ -322,8 +323,7 @@ public class RadialGauge : Panel
                 notifyCollection.CollectionChanged -= OnSegmentsCollectionChanged;
             }
         }
-
-        // Handle new collection
+        
         if (e.NewValue is IList<RadialGaugeSegment> newCollection)
         {
             if (newCollection is INotifyCollectionChanged notifyCollection)
@@ -368,8 +368,7 @@ public class RadialGauge : Panel
 
         _rim.CornerRadius = new CornerRadius(size / 2);
         _rim.Arrange(rect);
-
-        // Arrange segments
+        
         _segmentsGrid.Arrange(rect);
         UpdateSegmentsGeometry(rect);
 
@@ -465,7 +464,9 @@ public class RadialGauge : Panel
 
         _trailPath.Data = geom;
         _trailPath.StrokeThickness = TrailThickness;
-        _trailPath.Stroke = TrailBrush;
+        
+        IBrush trailBrush = GetTrailBrush();
+        _trailPath.Stroke = trailBrush;
         _trailPath.StrokeLineCap = PenLineCap.Round;
 
         return finalSize;
@@ -482,23 +483,20 @@ public class RadialGauge : Panel
         var center = rect.Center;
         double radius = rect.Width / 2.0;
         double sweep = NormalizeSweep(StartAngle, EndAngle);
-
-        // Position segments slightly inside the rim (6-8 pixels from the edge)
+        
         double segmentRadius = radius - Math.Max(RimThickness, 2) - 6;
 
         for (int i = 0; i < Segments.Count; i++)
         {
             var segment = Segments[i];
             var path = _segmentPaths[i];
-
-            // Convert segment values to angles
+            
             double fromT = Normalize01(segment.FromValue, Minimum, Maximum);
             double toT = Normalize01(segment.ToValue, Minimum, Maximum);
             
             double fromAngle = StartAngle - fromT * sweep;
             double toAngle = StartAngle - toT * sweep;
-
-            // Calculate the angular distance for this segment
+            
             double deltaDeg = angleDistanceCW(fromAngle, toAngle);
             
             if (deltaDeg <= 0.01)
@@ -506,8 +504,7 @@ public class RadialGauge : Panel
                 path.Data = null;
                 continue;
             }
-
-            // Helper function to calculate points on the arc
+            
             Point Pt(double angDeg)
             {
                 double a = angDeg * Math.PI / 180.0;
@@ -568,5 +565,46 @@ public class RadialGauge : Panel
         double d = a - b;
         if (d < 0) d += 360;
         return d;
+    }
+
+    private IBrush GetTrailBrush()
+    {
+        if (Segments == null || Segments.Count == 0)
+            return TrailBrush ?? Brushes.Transparent;
+        
+        foreach (var segment in Segments)
+        {
+            if (Value >= segment.FromValue && Value <= segment.ToValue)
+            {
+
+                return new LinearGradientBrush()
+                {
+                    StartPoint = new RelativePoint(1, 0, RelativeUnit.Relative),
+                    EndPoint = new RelativePoint(0, 1, RelativeUnit.Relative),
+                    GradientStops = new GradientStops()
+                    {
+                        new GradientStop()
+                        {
+                            Offset = 0,
+                            Color = segment.Color.WithAlpha(0.75)
+                        },
+                 
+                        new GradientStop()
+                        {
+                            Offset = 0.7,
+                            Color = Colors.Transparent
+                        },
+                        new GradientStop()
+                        {
+                            Offset = 1,
+                            Color = Colors.Transparent
+                        },
+                    }
+                };
+              
+            }
+        }
+
+        return TrailBrush ?? Brushes.Transparent;
     }
 }

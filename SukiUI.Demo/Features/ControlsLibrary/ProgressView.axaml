@@ -288,9 +288,27 @@
                                 </gauges:RadialGauge.Transitions>
                                 <gauges:RadialGauge.Segments>
                                     <objectModel:ObservableCollection x:TypeArguments="gauges:RadialGaugeSegment">
-                                        <gauges:RadialGaugeSegment FromValue="0" ToValue="30" Color="Red" Opacity="0.65" Thickness="4" />
-                                        <gauges:RadialGaugeSegment FromValue="30" ToValue="60" Color="Orange" Opacity="1" Thickness="4" />
-                                        <gauges:RadialGaugeSegment FromValue="60" ToValue="100" Opacity="1" Color="ForestGreen" Thickness="4" />
+                                        <gauges:RadialGaugeSegment FromValue="0" ToValue="33" Color="Red" Opacity="0.65" Thickness="4" />
+                                        <gauges:RadialGaugeSegment FromValue="33" ToValue="66" Color="Orange" Opacity="1" Thickness="4" />
+                                        <gauges:RadialGaugeSegment FromValue="66" ToValue="100" Opacity="1" Color="ForestGreen" Thickness="4" />
+
+                                    </objectModel:ObservableCollection>
+                                </gauges:RadialGauge.Segments>
+                            </gauges:RadialGauge>
+                            
+                            <gauges:RadialGauge StartAngle="-150" EndAngle="-30" TickSize="2"
+                                                Minimum="0" Maximum="100" SubtitleText="Temp"
+                                                Value="{Binding ProgressValue}"      
+                            >
+                                <gauges:RadialGauge.Transitions>
+                                    <Transitions>
+                                        <DoubleTransition Property="Value" Duration="0:0:0.5"></DoubleTransition>
+                                    </Transitions>
+                                </gauges:RadialGauge.Transitions>
+                                <gauges:RadialGauge.Segments>
+                                    <objectModel:ObservableCollection x:TypeArguments="gauges:RadialGaugeSegment">
+                                        <gauges:RadialGaugeSegment FromValue="75" ToValue="100" Opacity="1" Color="ForestGreen" Thickness="6" />
+                          
                                     </objectModel:ObservableCollection>
                                 </gauges:RadialGauge.Segments>
                             </gauges:RadialGauge>
