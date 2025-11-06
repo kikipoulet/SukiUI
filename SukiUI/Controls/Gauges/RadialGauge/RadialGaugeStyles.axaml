@@ -1,0 +1,101 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:gauges="clr-namespace:SukiUI.Controls.Gauges">
+    <Design.PreviewWith>
+        <StackPanel Background="#171D28" Spacing="20" >
+               <gauges:RadialGauge
+                    Minimum="0" Maximum="100" SubtitleText="CPU"
+                    Value="62"      
+                >
+               </gauges:RadialGauge>
+            
+            <gauges:RadialGauge Classes="Primary"
+                Minimum="0" Maximum="100" 
+                Value="62"      
+            >
+            </gauges:RadialGauge>
+        </StackPanel>
+    </Design.PreviewWith>
+    
+    <Style Selector="gauges|RadialGauge">
+        <Setter Property="RimBrush">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                    <GradientStop Offset="0" Color="{DynamicResource SukiLowText}" />
+                    <GradientStop Offset="0.5" Color="{DynamicResource SukiText}" />
+                    <GradientStop Offset="1" Color="{DynamicResource SukiDisabledText}" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        
+        <Setter Property="TickBrush">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                        <GradientStop Offset="0" Color="{DynamicResource SukiLowText}" />
+                        <GradientStop Offset="1" Color="{DynamicResource SukiDisabledText}" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+        </Setter>
+        
+        <Setter Property="NeedleBrush" Value="{DynamicResource SukiText}"></Setter>
+        <Setter Property="TrailBrush" >
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="100%,0%" EndPoint="0%,100%">
+       
+                    <GradientStop Offset="0" Color="{DynamicResource SukiText}" />
+                    <GradientStop Offset="0.7" Color="Transparent" />
+                    <GradientStop Offset="1" Color="Transparent" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BackgroundBrush" Value="{DynamicResource PopupGradientBrush}" />
+        <Setter Property="RimThickness" Value="2"></Setter>
+    </Style>
+    
+    
+    <Style Selector="gauges|RadialGauge.Primary">
+        <Setter Property="RimBrush">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                    <GradientStop Offset="0" Color="{DynamicResource SukiLowText}" />
+                    <GradientStop Offset="0.5" Color="{DynamicResource SukiPrimaryColor50}" />
+                    <GradientStop Offset="1" Color="{DynamicResource SukiPrimaryColor120}" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        
+        <Setter Property="TickBrush">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                    <GradientStop Offset="0" Color="{DynamicResource SukiLowText}" />
+                    <GradientStop Offset="1" Color="{DynamicResource SukiDisabledText}" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        
+        <Setter Property="NeedleBrush" >
+            <Setter.Value>
+                <RadialGradientBrush Center="0%,0%" GradientOrigin="0%,0%" Radius="1.5">
+                    <GradientStop Offset="0" Color="{DynamicResource SukiLowText}" />
+                    <GradientStop Offset="1" Color="{DynamicResource SukiPrimaryColor120}" />
+                </RadialGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="TrailBrush" >
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="100%,0%" EndPoint="0%,100%">
+       
+                    <GradientStop Offset="0" Color="{DynamicResource SukiPrimaryColor75}" />
+                    <GradientStop Offset="0.7" Color="Transparent" />
+                    <GradientStop Offset="1" Color="Transparent" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BackgroundBrush" Value="{DynamicResource PopupGradientBrush}" />
+        <Setter Property="RimThickness" Value="2"></Setter>
+    </Style>
+
+
+
+   
+</Styles>

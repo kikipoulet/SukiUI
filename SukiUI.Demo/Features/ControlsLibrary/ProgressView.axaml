@@ -7,6 +7,7 @@
              xmlns:showMeTheXaml="clr-namespace:ShowMeTheXaml;assembly=ShowMeTheXaml.Avalonia"
              xmlns:suki="https://github.com/kikipoulet/SukiUI"
              xmlns:horizontalBarMeter="clr-namespace:SukiUI.Controls.Gauges.HorizontalBarMeter;assembly=SukiUI"
+             xmlns:gauges="clr-namespace:SukiUI.Controls.Gauges;assembly=SukiUI"
              d:DesignHeight="650"
              d:DesignWidth="800"
              x:DataType="controlsLibrary:ProgressViewModel"
@@ -224,6 +225,41 @@
                         </StackPanel>
                     </suki:GroupBox>
                 </suki:GlassCard>
+                
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Radial Gauge">
+                        <StackPanel Orientation="Horizontal" Margin="25" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="30">
+  
+                            
+                            <gauges:RadialGauge
+                                Minimum="0" Maximum="100" SubtitleText="CPU"
+                                Value="{Binding ProgressValue}"      
+             >
+                                <gauges:RadialGauge.Transitions>
+                                    <Transitions>
+                                        <DoubleTransition Property="Value" Duration="0:0:0.5"></DoubleTransition>
+                                    </Transitions>
+                                </gauges:RadialGauge.Transitions>
+                            </gauges:RadialGauge>
+         
+                            <gauges:RadialGauge Classes="Primary"
+                                Minimum="0" Maximum="100" 
+                                Value="{Binding ProgressValue}"      
+                            >
+                                <gauges:RadialGauge.Transitions>
+                                    <Transitions>
+                                        <DoubleTransition Property="Value" Duration="0:0:0.5"></DoubleTransition>
+                                    </Transitions>
+                                </gauges:RadialGauge.Transitions>
+                            </gauges:RadialGauge>
+
+                          
+                        </StackPanel>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+
+                
+                
                 
               
                 
