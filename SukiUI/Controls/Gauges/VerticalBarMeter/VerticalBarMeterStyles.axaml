@@ -1,19 +1,19 @@
-﻿<Styles xmlns="https://github.com/avaloniaui"
+<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:horizontalBarMeter="clr-namespace:SukiUI.Controls.Gauges.HorizontalBarMeter">
+        xmlns:verticalBarMeter="clr-namespace:SukiUI.Controls.Gauges.VerticalBarMeter">
     <Design.PreviewWith>
         <Border Padding="20">
             <!-- Add Controls for Previewer Here -->
         </Border>
     </Design.PreviewWith>
 
-    <Style Selector="horizontalBarMeter|HorizontalBarMeter > Border.hbm-segment">
+    <Style Selector="verticalBarMeter|VerticalBarMeter > Border.vbm-segment">
         <Setter Property="CornerRadius" Value="2"/>
     </Style>
 
                
-    <Style Selector="horizontalBarMeter|HorizontalBarMeter">
-        <Setter Property="Height" Value="65"></Setter>
+    <Style Selector="verticalBarMeter|VerticalBarMeter">
+        <Setter Property="Width" Value="65"></Setter>
         <Setter Property="ActiveBrush" Value="{DynamicResource SukiPrimaryColor}"></Setter>
         <Setter Property="InactiveBrush" Value="{DynamicResource SukiBorderBrush}"></Setter>
         

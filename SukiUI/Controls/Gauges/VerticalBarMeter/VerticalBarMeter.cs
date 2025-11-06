@@ -1,4 +1,3 @@
-﻿
 using System;
 using System.Collections.Generic;
 using Avalonia;
@@ -7,48 +6,48 @@ using Avalonia.Layout;
 using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
 
-namespace SukiUI.Controls.Gauges.HorizontalBarMeter;
+namespace SukiUI.Controls.Gauges.VerticalBarMeter;
 
 
-public class HorizontalBarMeter : Panel
+public class VerticalBarMeter : Panel
 {
     
     
     public static readonly StyledProperty<int> BarCountProperty =
-        AvaloniaProperty.Register<HorizontalBarMeter, int>(nameof(BarCount), 12);
+        AvaloniaProperty.Register<VerticalBarMeter, int>(nameof(BarCount), 12);
 
     public static readonly StyledProperty<double> ValueProperty =
-        AvaloniaProperty.Register<HorizontalBarMeter, double>(nameof(Value), 0d);
+        AvaloniaProperty.Register<VerticalBarMeter, double>(nameof(Value), 0d);
 
     public static readonly StyledProperty<double> MinimumProperty =
-        AvaloniaProperty.Register<HorizontalBarMeter, double>(nameof(Minimum), 0d);
+        AvaloniaProperty.Register<VerticalBarMeter, double>(nameof(Minimum), 0d);
 
     public static readonly StyledProperty<double> MaximumProperty =
-        AvaloniaProperty.Register<HorizontalBarMeter, double>(nameof(Maximum), 100d);
+        AvaloniaProperty.Register<VerticalBarMeter, double>(nameof(Maximum), 100d);
 
     public static readonly StyledProperty<double> GapProperty =
-        AvaloniaProperty.Register<HorizontalBarMeter, double>(nameof(Gap), 6d);
+        AvaloniaProperty.Register<VerticalBarMeter, double>(nameof(Gap), 6d);
 
     public static readonly StyledProperty<CornerRadius> CornerRadiusProperty =
-        AvaloniaProperty.Register<HorizontalBarMeter, CornerRadius>(nameof(CornerRadius), new CornerRadius(4));
+        AvaloniaProperty.Register<VerticalBarMeter, CornerRadius>(nameof(CornerRadius), new CornerRadius(4));
 
     public static readonly StyledProperty<IBrush?> ActiveBrushProperty =
-        AvaloniaProperty.Register<HorizontalBarMeter, IBrush?>(nameof(ActiveBrush), Brushes.MediumPurple);
+        AvaloniaProperty.Register<VerticalBarMeter, IBrush?>(nameof(ActiveBrush), Brushes.MediumPurple);
 
     public static readonly StyledProperty<IBrush?> InactiveBrushProperty =
-        AvaloniaProperty.Register<HorizontalBarMeter, IBrush?>(nameof(InactiveBrush), Brushes.Gray);
+        AvaloniaProperty.Register<VerticalBarMeter, IBrush?>(nameof(InactiveBrush), Brushes.Gray);
     
     public static readonly StyledProperty<bool> ShowValueProperty =
-        AvaloniaProperty.Register<HorizontalBarMeter, bool>(nameof(ShowValue), false);
+        AvaloniaProperty.Register<VerticalBarMeter, bool>(nameof(ShowValue), false);
 
     public static readonly StyledProperty<string?> SuffixProperty =
-        AvaloniaProperty.Register<HorizontalBarMeter, string?>(nameof(Suffix), string.Empty);
+        AvaloniaProperty.Register<VerticalBarMeter, string?>(nameof(Suffix), string.Empty);
 
     public static readonly StyledProperty<string?> StartTextProperty =
-        AvaloniaProperty.Register<HorizontalBarMeter, string?>(nameof(StartText), string.Empty);
+        AvaloniaProperty.Register<VerticalBarMeter, string?>(nameof(StartText), string.Empty);
 
     public static readonly StyledProperty<string?> EndTextProperty =
-        AvaloniaProperty.Register<HorizontalBarMeter, string?>(nameof(EndText), string.Empty);
+        AvaloniaProperty.Register<VerticalBarMeter, string?>(nameof(EndText), string.Empty);
     
     public int BarCount { get => GetValue(BarCountProperty); set => SetValue(BarCountProperty, Math.Max(1, value)); }
     public double Value { get => GetValue(ValueProperty); set => SetValue(ValueProperty, value); }
@@ -70,61 +69,61 @@ public class HorizontalBarMeter : Panel
     
     private readonly Border _marker = new()
     {
-        [!Border.BackgroundProperty] = new DynamicResourceExtension("SukiText"), Margin = new Thickness(0,25),
+        [!Border.BackgroundProperty] = new DynamicResourceExtension("SukiText"), Margin = new Thickness(25,0),
         CornerRadius = new CornerRadius(6),
         IsHitTestVisible = false,
-        Classes = { "hbm-marker" }
+        Classes = { "vbm-marker" }
     };
 
     private readonly TextBlock _valueText = new()
     {
         [!TextBlock.ForegroundProperty] = new DynamicResourceExtension("SukiText"),
-        FontSize = 17,
+        FontSize = 17, HorizontalAlignment = HorizontalAlignment.Right,
         FontWeight = Avalonia.Media.FontWeight.Bold,
         TextAlignment = TextAlignment.Center,
         IsHitTestVisible = false,
-        Classes = { "hbm-value" }
+        Classes = { "vbm-value" }
     };
 
     private readonly TextBlock _startText = new()
     {
         [!TextBlock.ForegroundProperty] = new DynamicResourceExtension("SukiLowText"),
-        FontSize = 15, Margin = new Thickness(0,-8), VerticalAlignment = VerticalAlignment.Bottom, FontWeight = FontWeight.DemiBold,
-        HorizontalAlignment = HorizontalAlignment.Left,
+        FontSize = 15, Margin = new Thickness(-25,-5), HorizontalAlignment = HorizontalAlignment.Left, FontWeight = FontWeight.DemiBold,
+        VerticalAlignment = VerticalAlignment.Bottom,
         TextAlignment = TextAlignment.Left,
         IsHitTestVisible = false,
-        Classes = { "hbm-start" }
+        Classes = { "vbm-start" }
     };
 
     private readonly TextBlock _endText = new()
     {
         [!TextBlock.ForegroundProperty] = new DynamicResourceExtension("SukiLowText"),
-        FontSize = 15, Margin = new Thickness(0,-8),
-        VerticalAlignment = VerticalAlignment.Bottom, HorizontalAlignment = HorizontalAlignment.Right, FontWeight = FontWeight.DemiBold,
-        TextAlignment = TextAlignment.Right,
+        FontSize = 15, Margin = new Thickness(-25,-5),
+        HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top, FontWeight = FontWeight.DemiBold,
+        TextAlignment = TextAlignment.Left,
         IsHitTestVisible = false,
-        Classes = { "hbm-end" }
+        Classes = { "vbm-end" }
     };
 
     /// 
 
-    static HorizontalBarMeter()
+    static VerticalBarMeter()
     {
-        BarCountProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.RebuildBars());
-        GapProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.InvalidateMeasure());
-        ValueProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.InvalidateArrange());
-        MinimumProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.InvalidateArrange());
-        MaximumProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.InvalidateArrange());
-        CornerRadiusProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.UpdateBarCorners());
-        ActiveBrushProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.UpdateBrushes());
-        InactiveBrushProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.UpdateBrushes());
-        ShowValueProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.OnShowValueChanged());
-        SuffixProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.InvalidateArrange());
-        StartTextProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.InvalidateArrange());
-        EndTextProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.InvalidateArrange());
+        BarCountProperty.Changed.AddClassHandler<VerticalBarMeter>((s, _) => s.RebuildBars());
+        GapProperty.Changed.AddClassHandler<VerticalBarMeter>((s, _) => s.InvalidateMeasure());
+        ValueProperty.Changed.AddClassHandler<VerticalBarMeter>((s, _) => s.InvalidateArrange());
+        MinimumProperty.Changed.AddClassHandler<VerticalBarMeter>((s, _) => s.InvalidateArrange());
+        MaximumProperty.Changed.AddClassHandler<VerticalBarMeter>((s, _) => s.InvalidateArrange());
+        CornerRadiusProperty.Changed.AddClassHandler<VerticalBarMeter>((s, _) => s.UpdateBarCorners());
+        ActiveBrushProperty.Changed.AddClassHandler<VerticalBarMeter>((s, _) => s.UpdateBrushes());
+        InactiveBrushProperty.Changed.AddClassHandler<VerticalBarMeter>((s, _) => s.UpdateBrushes());
+        ShowValueProperty.Changed.AddClassHandler<VerticalBarMeter>((s, _) => s.OnShowValueChanged());
+        SuffixProperty.Changed.AddClassHandler<VerticalBarMeter>((s, _) => s.InvalidateArrange());
+        StartTextProperty.Changed.AddClassHandler<VerticalBarMeter>((s, _) => s.InvalidateArrange());
+        EndTextProperty.Changed.AddClassHandler<VerticalBarMeter>((s, _) => s.InvalidateArrange());
     }
 
-    public HorizontalBarMeter()
+    public VerticalBarMeter()
     {
         RebuildBars();
 
@@ -172,9 +171,9 @@ public class HorizontalBarMeter : Panel
             var bar = new Border
             {
                 Background = InactiveBrush,
-                Margin = new Thickness(0,20),
+                Margin = new Thickness(20,0),
                 CornerRadius = CornerRadius,
-                Classes = { "hbm-segment" },
+                Classes = { "vbm-segment" },
                 ClipToBounds = true
             };
 
@@ -182,9 +181,9 @@ public class HorizontalBarMeter : Panel
             {
                 Background = ActiveBrush,
                 CornerRadius = CornerRadius,
-                HorizontalAlignment = HorizontalAlignment.Left,
-                Width = 0,
-                Classes = { "hbm-fill" }
+                VerticalAlignment = VerticalAlignment.Bottom,
+                Height = 0,
+                Classes = { "vbm-fill" }
             };
 
             bar.Child = fill;
@@ -225,11 +224,11 @@ public class HorizontalBarMeter : Panel
     {
         var bars = Math.Max(1, BarCount);
         var totalGap = Gap * (bars - 1);
-        var width = double.IsInfinity(availableSize.Width) ? bars * 12 + totalGap : availableSize.Width;
-        var height = double.IsInfinity(availableSize.Height) ? 24 : availableSize.Height;
+        var width = double.IsInfinity(availableSize.Width) ? 24 : availableSize.Width;
+        var height = double.IsInfinity(availableSize.Height) ? bars * 12 + totalGap : availableSize.Height;
 
-        var barW = Math.Max(0, (width - totalGap) / bars);
-        var barSize = new Size(barW, height);
+        var barH = Math.Max(0, (height - totalGap) / bars);
+        var barSize = new Size(width, barH);
 
         foreach (var b in _bars)
             b.Measure(barSize);
@@ -246,8 +245,8 @@ public class HorizontalBarMeter : Panel
     {
         var bars = Math.Max(1, BarCount);
         var totalGap = Gap * (bars - 1);
-        var barW = Math.Max(0, (finalSize.Width - totalGap) / bars);
-        var barH = finalSize.Height;
+        var barW = finalSize.Width;
+        var barH = Math.Max(0, (finalSize.Height - totalGap) / bars);
 
         var min = Minimum;
         var max = Maximum <= min ? min + 1 : Maximum;
@@ -256,42 +255,45 @@ public class HorizontalBarMeter : Panel
         var fullBars = (int)Math.Floor(filled);
         var partial = filled - fullBars;
 
-        double x = 0;
+        double y = 0;
         for (int i = 0; i < bars; i++)
         {
-            var rect = new Rect(x, 0, barW, barH);
+            var rect = new Rect(0, y, barW, barH);
             _bars[i].Arrange(rect);
 
             if (_bars[i].Child is Border fill)
             {
-                double w = 0;
-                if (i < fullBars) w = barW;
-                else if (i == fullBars && partial > 0) w = barW * partial;
+                double h = 0;
+                // Inverser la logique : les barres du bas se remplissent en premier
+                int reversedIndex = bars - 1 - i;
+                if (reversedIndex < fullBars) h = barH;
+                else if (reversedIndex == fullBars && partial > 0) h = barH * partial;
 
-                fill.CornerRadius = (w >= barW - 0.5)
+                fill.CornerRadius = (h >= barH - 0.5)
                     ? CornerRadius
-                    : new CornerRadius(CornerRadius.TopLeft, 0, 0, CornerRadius.BottomLeft);
+                    : new CornerRadius(0, 0, CornerRadius.BottomLeft, CornerRadius.BottomRight);
 
-                fill.Width = Math.Max(0, w);
+                fill.Height = Math.Max(0, h);
             }
 
-            x += barW + Gap;
+            y += barH + Gap;
         }
 
 
         if (ShowValue && bars > 0 && (fullBars > 0 || partial > 0))
         {
             int lastActiveIndex = partial > 0 ? fullBars : Math.Max(0, fullBars - 1);
+            // Inverser l'index pour le positionnement du marqueur (bas en haut)
+            int reversedIndex = bars - 1 - lastActiveIndex;
+            double anchorY = reversedIndex * (barH + Gap);
             
-            double anchorX = lastActiveIndex * (barW + Gap);
+            double markerW = barW * 1.35;    
+            double markerH = barH * 1.15;     
+            double markerTop = anchorY - (markerH - barH) / 2;
             
-            double markerW = barW * 1.15;    
-            double markerH = barH * 1.35;     
-            double markerLeft = anchorX - (markerW - barW) / 2;
-            
-            markerLeft = Math.Max(0, Math.Min(markerLeft, finalSize.Width - markerW));
+            markerTop = Math.Max(0, Math.Min(markerTop, finalSize.Height - markerH));
 
-            double markerTop = -(markerH - barH) / 2; 
+            double markerLeft = (finalSize.Width /2) - (markerW/2); // Position à droite
 
             _marker.IsVisible = true;
             _marker.Arrange(new Rect(markerLeft, markerTop, markerW, markerH));
@@ -302,14 +304,14 @@ public class HorizontalBarMeter : Panel
             _valueText.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             var textSize = _valueText.DesiredSize;
 
-            double centerX = markerLeft + markerW / 2;
-            double textLeft = centerX - textSize.Width / 2;
-            textLeft = Math.Max(0, Math.Min(textLeft, finalSize.Width - textSize.Width));
+            double centerY = markerTop + markerH / 2;
+            double textTop = centerY - textSize.Height / 2;
+            textTop = Math.Max(0, Math.Min(textTop, finalSize.Height - textSize.Height));
 
-            double textTop = markerTop + (textSize.Height ) -30; 
+            double textRight = markerLeft + (markerW *0.85);
 
             _valueText.IsVisible = true;
-            _valueText.Arrange(new Rect(textLeft, textTop, textSize.Width, textSize.Height));
+            _valueText.Arrange(new Rect(textRight, textTop, textSize.Width, textSize.Height));
         }
         else
         {
@@ -323,8 +325,9 @@ public class HorizontalBarMeter : Panel
         var startSize = _startText.DesiredSize;
         var endSize = _endText.DesiredSize;
 
-        _startText.Arrange(new Rect(0, finalSize.Height - startSize.Height, startSize.Width, startSize.Height));
-        _endText.Arrange(new Rect(finalSize.Width - endSize.Width, finalSize.Height - endSize.Height, endSize.Width, endSize.Height));
+       
+        _endText.Arrange(new Rect(0, 0, startSize.Width, startSize.Height));
+        _startText.Arrange(new Rect(0, finalSize.Height - endSize.Height, endSize.Width, endSize.Height));
 
         return finalSize;
     }
