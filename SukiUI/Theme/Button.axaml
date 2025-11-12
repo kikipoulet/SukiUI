@@ -215,6 +215,7 @@
                                           Foreground="{TemplateBinding Foreground}"
                                           IsVisible="{TemplateBinding Content,
                                                                       Converter={x:Static ObjectConverters.IsNotNull}}"
+                                          IsHitTestVisible="False"
                                           RecognizesAccessKey="True" />
                     </StackPanel>
                 </Border>
@@ -248,7 +249,7 @@
                 <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor120}" />
             </Style>
         </Style>
-        <Style Selector="^:pressed">
+        <Style Selector="^:pressed:pointerover">
             <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
             <Setter Property="RenderTransform" Value="scale(0.97)" />
             <Style Selector="^ /template/ Border">
@@ -263,7 +264,7 @@
 
         <!--  Classes  -->
         <Style Selector="^.NoPressedAnimation">
-            <Style Selector="^:pressed">
+            <Style Selector="^:pressed:pointerover">
                 <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
                 <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
                 <Setter Property="RenderTransform">
@@ -290,7 +291,7 @@
                     <Setter Property="BorderBrush" Value="{DynamicResource SukiAccentColor}" />
                 </Style>
             </Style>
-            <Style Selector="^:pressed">
+            <Style Selector="^:pressed:pointerover">
                 <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
                 <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
                 <Setter Property="RenderTransform" Value="scale(0.97)" />
@@ -321,7 +322,7 @@
                 <Setter Property="Background" Value="Transparent" />
                 <Setter Property="RenderTransform" Value="scale(1.07)" />
             </Style>
-            <Style Selector="^:pressed">
+            <Style Selector="^:pressed:pointerover">
                 <Setter Property="Background" Value="Transparent" />
             </Style>
 
@@ -356,7 +357,7 @@
             <Style Selector="^:pointerover, ^:flyout-open">
                 <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor75}" />
             </Style>
-            <Style Selector="^:pressed">
+            <Style Selector="^:pressed:pointerover">
                 <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor75}" />
             </Style>
 
@@ -366,7 +367,7 @@
                 <Style Selector="^:pointerover, ^:flyout-open">
                     <Setter Property="Background" Value="{DynamicResource SukiAccentColor75}" />
                 </Style>
-                <Style Selector="^:pressed">
+                <Style Selector="^:pressed:pointerover">
                     <Setter Property="Background" Value="{DynamicResource SukiAccentColor75}" />
                 </Style>
 
@@ -384,7 +385,7 @@
                 <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
                 <Setter Property="Foreground" Value="White" />
             </Style>
-            <Style Selector="^:pressed /template/ Border">
+            <Style Selector="^:pressed:pointerover /template/ Border">
                 <Setter Property="BorderBrush" Value="Transparent" />
             </Style>
 
@@ -396,7 +397,7 @@
                     <Setter Property="Foreground" Value="White" />
                     <Setter Property="Background" Value="{DynamicResource SukiAccentColor}" />
                 </Style>
-                <Style Selector="^:pressed">
+                <Style Selector="^:pressed:pointerover">
                     <Setter Property="Background" Value="{DynamicResource SukiAccentColor}" />
                 </Style>
 
@@ -430,7 +431,7 @@
             <Style Selector="^:pointerover, ^:flyout-open">
                 <Setter Property="Background" Value="{DynamicResource SukiInformationMediumColor}" />
             </Style>
-            <Style Selector="^:pressed">
+            <Style Selector="^:pressed:pointerover">
                 <Setter Property="Background" Value="{DynamicResource SukiInformationDarkColor}" />
             </Style>
         </Style>
@@ -446,7 +447,7 @@
             <Style Selector="^:pointerover, ^:flyout-open">
                 <Setter Property="Background" Value="{DynamicResource SukiWarningMediumColor}" />
             </Style>
-            <Style Selector="^:pressed">
+            <Style Selector="^:pressed:pointerover">
                 <Setter Property="Background" Value="{DynamicResource SukiWarningDarkColor}" />
             </Style>
         </Style>
@@ -462,7 +463,7 @@
             <Style Selector="^:pointerover, ^:flyout-open">
                 <Setter Property="Background" Value="{DynamicResource SukiDangerMediumColor}" />
             </Style>
-            <Style Selector="^:pressed">
+            <Style Selector="^:pressed:pointerover">
                 <Setter Property="Background" Value="{DynamicResource SukiDangerDarkColor}" />
             </Style>
         </Style>
@@ -494,7 +495,7 @@
             <Setter Property="Height" Value="25" />
             <Setter Property="Width" Value="25" />
             <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
-            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor0}" />
+            <Setter Property="Background" Value="Transparent" />
             <Setter Property="Padding" Value="0" />
             <Setter Property="Transitions">
                 <Transitions>
@@ -508,7 +509,7 @@
                 <Style Selector="^:pointerover, ^:flyout-open">
                     <Setter Property="Background" Value="#90D00000" />
                 </Style>
-                <Style Selector="^:pressed">
+                <Style Selector="^:pressed:pointerover">
                     <Setter Property="Background" Value="#C5D30000" />
                 </Style>
             </Style>

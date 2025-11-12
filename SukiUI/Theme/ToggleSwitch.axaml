@@ -110,9 +110,9 @@
 
                             <suki:GlassCard Grid.Row="1"
                                             Grid.Column="0"
-                                            Width="40"
-                                            Height="22"
-                                            BorderThickness="0"
+                                            Width="42"
+                                            Height="23"
+                                           Name="GC"
                                             Classes="Control"
                                             CornerRadius="{DynamicResource MediumCornerRadius}"
                                             IsAnimated="False" />
@@ -164,7 +164,7 @@
                                     Height="22"
                                     HorizontalAlignment="Left">
                                 <Border x:Name="SwitchKnob"
-                                        Canvas.Left="2"
+                                        Canvas.Left="3"
                                         Canvas.Top="2"
                                         Width="18"
                                         Height="18"
@@ -203,14 +203,15 @@
 
         <Style Selector="^:unchecked /template/ Border#SwitchKnob">
             <Setter Property="Width" Value="18" />
-            <Setter Property="Canvas.Left" Value="2" />
+            <Setter Property="Canvas.Left" Value="3" />
         </Style>
 
         <Style Selector="^:checked /template/ Border#SwitchKnob">
             <Setter Property="BoxShadow" Value="0 0 0 0 White" />
             <Setter Property="Width" Value="18" />
-            <Setter Property="Canvas.Left" Value="20" />
+            <Setter Property="Canvas.Left" Value="21" />
         </Style>
+
 
 
         <!--

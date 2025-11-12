@@ -1,4 +1,5 @@
-﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:suki="https://github.com/kikipoulet/SukiUI">
 
     <Design.PreviewWith>
         <WrapPanel HorizontalAlignment="Center"
@@ -44,5 +45,9 @@
 
     <Style Selector="Border.Hoverable:pointerover">
         <Setter Property="BoxShadow" Value="0 0 7 0 LightGray" />
+    </Style>
+    
+    <Style Selector="suki|SukiBackground">
+        <Setter Property="Margin" Value="-200"></Setter>
     </Style>
 </Styles>

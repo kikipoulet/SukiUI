@@ -28,7 +28,7 @@ namespace SukiUI.Controls
                 return attributes.First().Category;
             }
 
-            return null;
+            return "Properties";
         }
 
         private static string? GetDisplayName(PropertyInfo property)

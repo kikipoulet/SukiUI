@@ -97,8 +97,15 @@ public class GlassCard : ContentControl
                 CompositionAnimationHelper.MakeOpacityAnimated(v);
             };
 
-            var b2 = e.NameScope.Get<Border>("PART_BorderCard");
+            var b2 = e.NameScope.Get<Border>("PART_BorderCardLight");
             b2.Loaded += (sender, args) =>
+            {
+                var v = ElementComposition.GetElementVisual(b2);
+                CompositionAnimationHelper.MakeSizeAnimated(v);
+            };
+            
+            var b2d = e.NameScope.Get<Border>("PART_BorderCardDark");
+            b2d.Loaded += (sender, args) =>
             {
                 var v = ElementComposition.GetElementVisual(b2);
                 CompositionAnimationHelper.MakeSizeAnimated(v);

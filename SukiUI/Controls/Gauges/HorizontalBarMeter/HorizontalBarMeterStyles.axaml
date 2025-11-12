@@ -1,0 +1,30 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:horizontalBarMeter="clr-namespace:SukiUI.Controls.Gauges.HorizontalBarMeter">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="horizontalBarMeter|HorizontalBarMeter > Border.hbm-segment">
+        <Setter Property="CornerRadius" Value="2"/>
+    </Style>
+
+               
+    <Style Selector="horizontalBarMeter|HorizontalBarMeter">
+        <Setter Property="Height" Value="65"></Setter>
+        <Setter Property="ActiveBrush" Value="{DynamicResource SukiPrimaryColor}"></Setter>
+        <Setter Property="InactiveBrush" Value="{DynamicResource SukiBorderBrush}"></Setter>
+        
+        <Setter Property="Transitions">
+            <Setter.Value>
+                <Transitions>
+                    <DoubleTransition Property="Value" Duration="0:0:0.7">
+                        
+                    </DoubleTransition>
+                </Transitions>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</Styles>

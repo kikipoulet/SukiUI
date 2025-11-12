@@ -1,6 +1,7 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:content="clr-namespace:SukiUI.Content">
+        xmlns:content="clr-namespace:SukiUI.Content"
+        xmlns:suki="https://github.com/kikipoulet/SukiUI">
     <Design.PreviewWith>
         <Border Padding="0">
             <ListBox>
@@ -27,9 +28,9 @@
         <Setter Property="Padding" Value="4,2" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Border Name="BorderBasicStyle"
+                <suki:GlassCard Name="BorderBasicStyle"
                         Margin="0,0,0,0"
-                        Padding="8,4"
+                        Padding="8,4" BorderThickness="0" Background="Transparent"
                         CornerRadius="10">
                     <DockPanel>
                         <PathIcon Name="CheckSelected"
@@ -58,7 +59,7 @@
                                           CornerRadius="{TemplateBinding CornerRadius}" />
 
                     </DockPanel>
-                </Border>
+                </suki:GlassCard>
             </ControlTemplate>
         </Setter>
     </Style>
@@ -75,11 +76,12 @@
         <Setter Property="Background" Value="Transparent" />
     </Style>
 
-    <Style Selector="ListBoxItem:selected /template/ Border#BorderBasicStyle">
-        <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor10}" />
+    <Style Selector="ListBoxItem:selected /template/ suki|GlassCard#BorderBasicStyle">
+        <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor50}" />
+        <Setter Property="BorderThickness" Value="1.2"></Setter>
     </Style>
-    <Style Selector="ListBoxItem:pointerover /template/ Border#BorderBasicStyle">
-        <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor5}" />
+    <Style Selector="ListBoxItem:pointerover /template/ suki|GlassCard#BorderBasicStyle">
+        <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor25}" />
     </Style>
 
     <!-- <Style Selector="ListBoxItem.WithCheck">

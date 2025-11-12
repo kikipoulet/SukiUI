@@ -128,7 +128,7 @@
                         <suki:GlassCard Margin="0,45,0,0" Padding="25">
                             <StackPanel Spacing="40">
                                 <DockPanel>
-                                    <ComboBox DockPanel.Dock="Right"
+                                    <ComboBox DockPanel.Dock="Right" VerticalAlignment="Top"
                                               ItemsSource="{Binding AvailableBackgroundStyles}"
                                               SelectedItem="{Binding BackgroundStyle}" />
                                     <StackPanel HorizontalAlignment="Left">

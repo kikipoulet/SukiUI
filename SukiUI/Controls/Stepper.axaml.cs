@@ -134,7 +134,7 @@ namespace SukiUI.Controls
             };
 
             var icon = new PathIcon
-                { Height = 10, Width = 10, Data = Icons.ChevronRight, Margin = new Thickness(0, 0, 20, 0), Classes = { "Flippable" } };
+                { Height = 10, Width = 10, Opacity = 0.8, Data = Icons.ChevronRight, Margin = new Thickness(10, 0, 20, 0), Classes = { "Flippable" } };
             if (index == stepCount - 1)
             {
                 icon.IsVisible = false;
@@ -143,11 +143,11 @@ namespace SukiUI.Controls
             Grid.SetColumn(icon, 2);
             griditem.Children.Add(icon);
 
-            var circle = new Border
+            var circle = new GlassCard()
             {
                 Margin = new Thickness(0, 0, 0, 2),
-                Height = 24,
-                Width = 24,
+                Height = 24, BorderThickness = new Thickness(1.2),
+                Width = 24, Padding = new Thickness(0),
                 CornerRadius = new CornerRadius(25),
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center
@@ -157,8 +157,8 @@ namespace SukiUI.Controls
             {
                 circle[!BackgroundProperty] = new DynamicResourceExtension("SukiPrimaryColor");
 
-                circle.BorderThickness = new Thickness(0);
-                circle.Child = new TextBlock
+            
+                circle.Content = new TextBlock
                 {
                     VerticalAlignment = VerticalAlignment.Center,
                     HorizontalAlignment = HorizontalAlignment.Center,
@@ -171,8 +171,8 @@ namespace SukiUI.Controls
             {
                 circle[!BackgroundProperty] = new DynamicResourceExtension("SukiControlBorderBrush");
 
-                circle.BorderThickness = new Thickness(0);
-                circle.Child = new TextBlock
+                
+                circle.Content = new TextBlock
                 {
                     VerticalAlignment = VerticalAlignment.Center,
                     HorizontalAlignment = HorizontalAlignment.Center,
@@ -203,6 +203,13 @@ namespace SukiUI.Controls
 
             Grid.SetColumn(content, 1);
             griditem.Children.Add(content);
+
+            if (Index != index)
+            {
+                griditem.Opacity = 0.7;
+                griditem.RenderTransformOrigin = RelativePoint.Center;
+                griditem.RenderTransform = new ScaleTransform(0.8, 0.8);
+            }
 
             Grid.SetColumn(griditem, index);
 
@@ -244,6 +251,8 @@ namespace SukiUI.Controls
         private void AddStepAlternate(object step, int index, Grid grid, object[] steps)
         {
             var gridItem = new Grid { ColumnDefinitions = new ColumnDefinitions { new(), new() } };
+
+          
 
             var line = new Border
             {
@@ -348,8 +357,11 @@ namespace SukiUI.Controls
                 HorizontalAlignment = HorizontalAlignment.Center, Margin = new Thickness(0, 55, 0, 0)
             });
 
+            
+
             Grid.SetColumn(gridItem, index);
             Grid.SetColumn(gridBorder, index);
+            
             grid.Children.Add(gridItem);
             grid.Children.Add(gridBorder);
         }

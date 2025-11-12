@@ -1,10 +1,16 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="clr-namespace:SukiUI.Controls">
+                    xmlns:controls="clr-namespace:SukiUI.Controls"
+                    xmlns:system="clr-namespace:System;assembly=netstandard">
     <ControlTheme x:Key="SukiStepperStyle" TargetType="controls:Stepper">
         <Setter Property="Template">
             <ControlTemplate>
-                <Grid Name="PART_GridStepper" />
+                <Grid Name="PART_GridStepper" >
+                    <Grid.Resources>
+                        <system:Double x:Key="GlassOpacity">0.8</system:Double>
+
+                    </Grid.Resources>
+                </Grid>
             </ControlTemplate>
         </Setter>
     </ControlTheme>

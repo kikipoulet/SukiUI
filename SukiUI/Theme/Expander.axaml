@@ -33,38 +33,41 @@
                             <LayoutTransformControl Name="PART_ToggleTransform">
                                 <DockPanel>
                                     <Border Name="PART_BottomBorder"
-                                            Height="2"
+                                            Height="1"
                                             HorizontalAlignment="Stretch"
-                                            Background="{DynamicResource SukiBorderBrush}"
+                                            Background="{DynamicResource SukiControlBorderBrush}"
                                             CornerRadius="10"
                                             DockPanel.Dock="Bottom"
                                             Opacity="0.8" />
+<Panel>
+    <PathIcon Name="PART_Icon" DockPanel.Dock="Right"
+                      HorizontalAlignment="Right"                               
+              Width="10"
+              Height="10"
+              Margin="10,0,10,0"
+              Data="{x:Static content:Icons.Plus}" />
 
                                     <ToggleButton Name="PART_ToggleButton"
                                                   HorizontalAlignment="Stretch"
                                                   VerticalAlignment="Center"
                                                   HorizontalContentAlignment="Stretch"
-                                                  Background="Transparent"
+                                                  Background="Transparent" Margin="5,0"
                                                   BorderBrush="{DynamicResource SukiBorderBrush}"
                                                   BorderThickness="0"
                                                   Classes="Basic"
-                                                  DockPanel.Dock="Right"
+                                                  
                                                   IsChecked="{TemplateBinding IsExpanded,
                                                                               Mode=TwoWay}">
-                                        <Grid ColumnDefinitions="Auto,*,Auto">
-                                            <ContentPresenter Grid.Column="0"
+                                     
+                                            <ContentPresenter DockPanel.Dock="Left"
                                                               HorizontalAlignment="Left"
                                                               VerticalAlignment="Center"
                                                               Content="{TemplateBinding Header}"
                                                               FontWeight="{DynamicResource DefaultDemiBold}" />
-                                            <PathIcon Name="PART_Icon"
-                                                      Grid.Column="2"
-                                                      Width="10"
-                                                      Height="10"
-                                                      Margin="10,0,0,0"
-                                                      Data="{x:Static content:Icons.Plus}" />
-                                        </Grid>
+                                            
+                                       
                                     </ToggleButton>
+</Panel>
                                 </DockPanel>
                             </LayoutTransformControl>
                         </Panel>

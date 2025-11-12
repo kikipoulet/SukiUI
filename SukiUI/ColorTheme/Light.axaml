@@ -22,6 +22,9 @@
     <Color x:Key="SukiLowText">#555555</Color>
     <Color x:Key="SukiMuteText">#7f7f7f</Color>
     <Color x:Key="SukiDisabledText">#ABABAB</Color>
+    
+    <Color x:Key="SukiLiquid1">#bb555555</Color>
+    <Color x:Key="SukiLiquid2">#77555555</Color>
 
     <BoxShadows x:Key="SukiLowShadow">0 0 3 0 #eaeaea</BoxShadows>
     <BoxShadows x:Key="SukiSwitchShadow">0 1 5 0 #aaaaaa</BoxShadows>
