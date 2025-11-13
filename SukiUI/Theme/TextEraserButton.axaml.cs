@@ -17,9 +17,9 @@ public partial class TextEraserButton : UserControl
         AvaloniaXamlLoader.Load(this);
     }
 
-    public static readonly StyledProperty<string> TextProperty = AvaloniaProperty.Register<TextEraserButton, string>(nameof(Text), defaultValue: string.Empty);
+    public static readonly StyledProperty<TextBox> TextProperty = AvaloniaProperty.Register<TextEraserButton, TextBox>(nameof(Text));
 
-    public string Text
+    public TextBox Text
     {
         get { return GetValue(TextProperty); }
         set
@@ -30,6 +30,6 @@ public partial class TextEraserButton : UserControl
 
     private void Button_OnClick(object sender, RoutedEventArgs e)
     {
-        Text = string.Empty;
+        Text!.Text = string.Empty;
     }
 }
