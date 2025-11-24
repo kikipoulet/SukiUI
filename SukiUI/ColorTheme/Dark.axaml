@@ -67,5 +67,7 @@
     <system:Double x:Key="ControlGlassOpacity">0.3</system:Double>
     <system:Double x:Key="DiscreteControlGlassOpacity">0.17</system:Double>
     <Color x:Key="ControlSukiGlassCardBackground">#49aaaaaa</Color>
+    
+    <Color x:Key="SukiNeedleBrush">#ffffff</Color>
 
 </ResourceDictionary>

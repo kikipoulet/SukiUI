@@ -23,8 +23,7 @@
                 <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
                     <GradientStop Offset="0" Color="{DynamicResource SukiLowText}" />
                     <GradientStop Offset="0.5" Color="{DynamicResource SukiText}" />
-                    <GradientStop Offset="1" Color="{DynamicResource SukiDisabledText}" />
-                </LinearGradientBrush>
+                    <GradientStop Offset="1" Color="{DynamicResource SukiDisabledText}" />   </LinearGradientBrush>
             </Setter.Value>
         </Setter>
         
@@ -37,12 +36,12 @@
                 </Setter.Value>
         </Setter>
         
-        <Setter Property="NeedleBrush" Value="{DynamicResource SukiText}"></Setter>
+        <Setter Property="NeedleBrush" Value="{DynamicResource SukiNeedleBrush}"></Setter>
         <Setter Property="TrailBrush" >
             <Setter.Value>
                 <LinearGradientBrush StartPoint="100%,0%" EndPoint="0%,100%">
        
-                    <GradientStop Offset="0" Color="{DynamicResource SukiText}" />
+                    <GradientStop Offset="0" Color="{DynamicResource SukiNeedleBrush}" />
                     <GradientStop Offset="0.7" Color="Transparent" />
                     <GradientStop Offset="1" Color="Transparent" />
                 </LinearGradientBrush>
