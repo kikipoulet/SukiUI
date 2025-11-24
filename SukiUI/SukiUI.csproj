@@ -23,6 +23,7 @@
     <PackageReference Include="SkiaSharp" />
     <PackageReference Include="SkiaSharp.NativeAssets.Linux" />
     <PackageReference Include="Avalonia.Controls.DataGrid" />
+    <PackageReference Include="Avalonia.Controls.ColorPicker" />
     <PackageReference Include="Avalonia.Themes.Simple" />
     <PackageReference Include="System.Linq.Dynamic.Core" />
     <PackageReference Include="System.Text.Json" />
@@ -127,4 +128,6 @@
     <None Remove="Content\Shaders\Background\backgroundshadcn.sksl" />
     <EmbeddedResource Include="Content\Shaders\Background\backgroundshadcn.sksl" />
   </ItemGroup>
+
+  
 </Project>
