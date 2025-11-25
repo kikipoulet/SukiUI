@@ -6,6 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="Avalonia" Version="11.3.6" />
+    <PackageVersion Include="Avalonia.LinuxFramebuffer" Version="11.3.6" />
     <PackageVersion Include="Avalonia.Skia" Version="11.3.6" />
     <PackageVersion Include="Avalonia.Desktop" Version="11.3.6" />
     <PackageVersion Include="Avalonia.Fonts.Inter" Version="11.3.6" />

@@ -36,12 +36,13 @@
     </Design.PreviewWith>
     <ControlTheme x:Key="SukiInfoBarStyle" TargetType="suki:InfoBar">
         <Setter Property="MinWidth" Value="200" />
-        <Setter Property="VerticalContentAlignment" Value="Top" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="MessageTextAlignment" Value="Center" />
         <Setter Property="Template">
             <ControlTemplate>
                 <suki:GlassCard MinWidth="300"
                                 IsOpaque="{TemplateBinding IsOpaque}"
-                                Padding="0,0,0,15"
+                                Padding="0,0,0,15" Name="PART_Card"
                         CornerRadius="10"
                         IsVisible="{TemplateBinding IsOpen}">
                     <Grid ColumnDefinitions="Auto,*,Auto">
@@ -76,13 +77,13 @@
 
                             <Panel IsVisible="{TemplateBinding Title, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
                                    Margin="0,5,10,0">
-                                <SelectableTextBlock FontWeight="Bold"
+                                <SelectableTextBlock FontWeight="Bold" Name="PART_Title"
                                                      TextAlignment="Left"
-                                                     IsVisible="{TemplateBinding IsTextSelectable}"
+                                                     IsVisible="{TemplateBinding IsTextSelectable}" VerticalAlignment="Center"
                                                      Text="{TemplateBinding Title}" />
                                 <TextBlock FontWeight="Bold"
-                                           TextAlignment="Left"
-                                           Text="{TemplateBinding Title}"
+                                           TextAlignment="Left" Name="PART_Text" VerticalAlignment="Center"
+                                           Text="{TemplateBinding Title}" 
                                            IsVisible="{Binding !IsTextSelectable, RelativeSource={RelativeSource TemplatedParent}}"/>
                             </Panel>
 
@@ -91,10 +92,10 @@
                                    IsVisible="{TemplateBinding Message, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
                                 <SelectableTextBlock IsVisible="{TemplateBinding IsTextSelectable}"
                                                      Text="{TemplateBinding Message}"
-                                                     TextAlignment="{TemplateBinding MessageTextAlignment}"
+                                                     TextAlignment="{TemplateBinding MessageTextAlignment}" VerticalAlignment="Center"
                                                      TextWrapping="Wrap" />
                                 <TextBlock IsVisible="{Binding !IsTextSelectable, RelativeSource={RelativeSource TemplatedParent}}"
-                                           Text="{TemplateBinding Message}"
+                                           Text="{TemplateBinding Message}" VerticalAlignment="Center"
                                            TextAlignment="{TemplateBinding MessageTextAlignment}"
                                            TextWrapping="Wrap" />
                             </Panel>
@@ -108,7 +109,7 @@
                                 Margin="0,12,12,0"
                                 Padding="0"
                                 HorizontalAlignment="Right"
-                                VerticalAlignment="Top"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                 BorderThickness="0"
                                 Classes="WindowControlsButton Close"
                                 IsVisible="{TemplateBinding IsClosable}">

@@ -69,5 +69,10 @@
     <Color x:Key="ControlSukiGlassCardBackground">#49aaaaaa</Color>
     
     <Color x:Key="SukiNeedleBrush">#ffffff</Color>
+    <LinearGradientBrush x:Key="GaugeBackgroundBrush" StartPoint="0%,0%" EndPoint="100%,100%">
+        <GradientStop Offset="0" Color="{DynamicResource SukiPrimaryColor1}" />
+        <GradientStop Offset="0.9" Color="{DynamicResource SukiPrimaryColor5}" />
 
+    </LinearGradientBrush>
+ 
 </ResourceDictionary>
