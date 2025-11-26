@@ -68,7 +68,7 @@ public class ClickToEditTextControl : UserControl
 
             var dockPanel = new DockPanel
             {
-                Margin = new Thickness(15, 10)
+                Margin = new Thickness(15, 9)
             };
 
             var iconBorder = new Border

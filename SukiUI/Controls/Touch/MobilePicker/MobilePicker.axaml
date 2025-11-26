@@ -1,0 +1,37 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mobilePicker="clr-namespace:SukiUI.Controls.Touch.MobilePicker"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="SukiUI.Controls.Touch.MobilePicker.MobilePicker">
+    <UserControl.Styles>
+        <Style Selector="mobilePicker|MobilePicker">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <suki:GlassCard PointerPressed="InputElement_OnPointerPressed"
+                            BorderBrush="{TemplateBinding BorderBrush}" HorizontalAlignment="Stretch"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Padding="{TemplateBinding Padding}"
+                            VerticalAlignment="Stretch">
+                        <DockPanel Margin="40,29">
+                                    
+                            <Border Margin="10,0,40,2" Height="50" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                <ContentPresenter Content="{TemplateBinding Title}"></ContentPresenter>
+                            </Border>
+                                   
+                            <StackPanel  Spacing="12">
+                                <TextBlock FontWeight="DemiBold" Text="{TemplateBinding SelectedItem}"  FontSize="22"></TextBlock>
+                                <TextBlock FontWeight="Light" Text="{TemplateBinding SubTitle}"  Foreground="{DynamicResource SukiLowText}" FontSize="18"></TextBlock>
+                                       
+
+                            </StackPanel>
+                        </DockPanel>
+                    </suki:GlassCard>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+    </UserControl.Styles>
+</UserControl>

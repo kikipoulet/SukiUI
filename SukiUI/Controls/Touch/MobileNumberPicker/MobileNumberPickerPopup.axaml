@@ -1,0 +1,81 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="SukiUI.Controls.Touch.MobileNumberPicker.MobileNumberPickerPopup">
+    <Border ClipToBounds="True" Padding="10" CornerRadius="45" Background="{DynamicResource DialogBackground}">
+    <Border Height="460" Width="750">
+        <Grid>
+
+            <Grid
+                Background="{DynamicResource DialogBackground}"
+                Height="200"
+                HorizontalAlignment="Center"
+                Margin="20,40,20,20"
+                PointerMoved="PointerMoved"
+                PointerPressed="PointerPressed"
+                PointerReleased="PointerReleased"
+                VerticalAlignment="Top"
+                Width="300">
+                <StackPanel Margin="0,0,0,000" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                    <TextBlock
+                        FontSize="30"
+                        FontWeight="Thin" Opacity="0.2"
+                        HorizontalAlignment="Center"
+                        Name="CurrentValueTextMinus2"
+                        Text="-2"
+                        VerticalAlignment="Center" />
+                    <TextBlock Opacity="0.6"
+                        FontSize="40"
+                        HorizontalAlignment="Center"
+                        Name="CurrentValueTextMinus1"
+                        Text="-1"
+                        VerticalAlignment="Center" />
+                    <TextBlock
+                        FontSize="70"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource Accent}"
+                        HorizontalAlignment="Center"
+                        Margin="4"
+                        Name="CurrentValueText"
+                        Text="0"
+                        VerticalAlignment="Center" />
+                    <TextBlock
+                        FontSize="40" Opacity="0.6"
+                        HorizontalAlignment="Center"
+                        Name="CurrentValueTextPlus1"
+                        Text="1"
+                        VerticalAlignment="Center" />
+                    <TextBlock
+                        FontSize="30" Opacity="0.2"
+                        FontWeight="Thin"
+                        HorizontalAlignment="Center"
+                        Name="CurrentValueTextPlus2"
+                        Text="2"
+                        VerticalAlignment="Center" />
+                </StackPanel>
+                <Border Height="1" Background="{DynamicResource SukiControlBorderBrush}" Margin="00,164,0,0" Width="150" />
+                <Border Height="1" Background="{DynamicResource SukiControlBorderBrush}" Width="150" />
+            </Grid>
+
+            <Button Content="Done" Margin="0" Classes="Enormous Flat" Click="DoneClick" VerticalAlignment="Bottom"></Button>
+
+       <!--   <Button Click="plus"  Margin="0,0,0,90" HorizontalAlignment="Right" Classes="Enormous Transparent" VerticalAlignment="Center">
+                <iconPacks:PackIconLucide Margin="0,50" HorizontalAlignment="Center" VerticalAlignment="Center" Kind="{x:Static iconPacks:PackIconLucideKind.Plus}"
+                                          Width="70"  Foreground="{DynamicResource Accent}" Opacity="0.7"
+                                          Height="70" />
+            </Button>
+            
+            <Button Click="minus" Margin="0,0,0,90" HorizontalAlignment="Left" Classes="Enormous Transparent" VerticalAlignment="Center">
+                <iconPacks:PackIconLucide  HorizontalAlignment="Center" VerticalAlignment="Center" Kind="{x:Static iconPacks:PackIconLucideKind.Minus}"
+                                           Width="70" Margin="0,50"  Foreground="{DynamicResource Accent}" Opacity="0.7"
+                                           Height="70" />
+            </Button>
+-->
+       
+        </Grid>
+    </Border>
+    </Border>
+</UserControl>

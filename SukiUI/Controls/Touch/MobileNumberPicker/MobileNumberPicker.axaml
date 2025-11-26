@@ -1,0 +1,66 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mobileNumberPicker="clr-namespace:SukiUI.Controls.Touch.MobileNumberPicker"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="SukiUI.Controls.Touch.MobileNumberPicker.MobileNumberPicker">
+    <UserControl.Resources>
+        <mobileNumberPicker:IntToStringConverter x:Key="ToStringConverter" />
+    </UserControl.Resources>
+    <UserControl.Styles>
+        <Style Selector="mobileNumberPicker|MobileNumberPicker">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="CornerRadius" Value="0" />
+            <Setter Property="Padding" Value="15,10" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="Template">
+                <ControlTemplate>
+         
+                        <suki:GlassCard PointerPressed="InputElement_OnPointerPressed"
+              
+                            BorderBrush="{TemplateBinding BorderBrush}" HorizontalAlignment="Stretch"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Padding="{TemplateBinding Padding}"
+                            VerticalAlignment="Stretch">
+                            
+                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ColumnDefinitions="Auto,*">
+                                <!-- Icon/Indicator -->
+                                <Border Margin="15,0,-15,0" CornerRadius="14" Height="45" Width="45" Background="#15888888" VerticalAlignment="Center" >
+                                    <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center" StretchDirection="DownOnly">
+                                    <TextBlock FontWeight="Regular" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{DynamicResource SukiText}" FontSize="22" Text="{TemplateBinding Value}"></TextBlock>
+                                    </Viewbox>
+                                </Border>
+                                
+                                <!-- Content Presenter -->
+                                <ContentPresenter
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    IsVisible="{TemplateBinding Content,
+                                                                Converter={x:Static ObjectConverters.IsNotNull}}"
+                                    Margin="0,0,0,0"
+                                    Name="PART_ContentPresenter"
+                                    RecognizesAccessKey="True"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                
+                         
+                            </Grid>
+                        </suki:GlassCard>
+              
+                </ControlTemplate>
+            </Setter>
+        </Style>
+        
+        <!-- Hover effect -->
+        <Style Selector="mobileNumberPicker|MobileNumberPicker:pointerover /template/ Border">
+            <Setter Property="BorderBrush" Value="{DynamicResource Accent}" />
+        </Style>
+    </UserControl.Styles>
+</UserControl>

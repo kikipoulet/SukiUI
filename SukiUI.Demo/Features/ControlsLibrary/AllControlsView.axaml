@@ -13,6 +13,8 @@
              xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
              xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
              xmlns:touch="clr-namespace:SukiUI.Controls.Touch;assembly=SukiUI"
+             xmlns:mobilePicker="clr-namespace:SukiUI.Controls.Touch.MobilePicker;assembly=SukiUI"
+             xmlns:mobileNumberPicker="clr-namespace:SukiUI.Controls.Touch.MobileNumberPicker;assembly=SukiUI"
              d:DesignHeight="1080" x:DataType="controlsLibrary:AllControlsViewModel"
              d:DesignWidth="1920"
              mc:Ignorable="d">
@@ -233,8 +235,33 @@
                                 <suki:SettingsLayoutItem Header="Informations">
                                     <suki:SettingsLayoutItem.Content>
                                         <StackPanel Margin="0,20">
-                                        <touch:ClickToEditTextControl CornerRadius="25,25,25,25" Text="Super Company V3" Subtitle="Project Title" DialogManager="{Binding DialogManager}" />
+                                        <touch:ClickToEditTextControl CornerRadius="25,25,0,0" Text="Super Company V3" Subtitle="Project Title" DialogManager="{Binding DialogManager}" />
                                       
+                                        <mobilePicker:MobilePicker DialogManager="{Binding DialogManager}" Margin="0,3,0,0" CornerRadius="0,0,0,0"  Background="{DynamicResource CWhite-}" SubTitle="User Type" SelectedItem="Guest">
+                                            <mobilePicker:MobilePicker.Title>
+                                                <avalonia:MaterialIcon Height="40" Width="40" Kind="UserOutline" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                          Foreground="{DynamicResource SukiLowText}" Opacity="0.8"
+                                                />
+                                            </mobilePicker:MobilePicker.Title>
+                                            <mobilePicker:MobilePicker.Items>
+                                                <objectModel:ObservableCollection x:TypeArguments="system:String">
+                                                    <system:String>Admin</system:String>
+                                                    <system:String>User</system:String>
+                                                    <system:String>Guest</system:String>
+                                                </objectModel:ObservableCollection>
+                                            </mobilePicker:MobilePicker.Items>
+                                        </mobilePicker:MobilePicker>
+                                        
+                                        <mobileNumberPicker:MobileNumberPicker DialogManager="{Binding DialogManager}"  Padding="40,30" Value="1" Minimum="1" Maximum="100" Margin="0,3,0,0" CornerRadius="0,0,25,25">
+                                            <mobileNumberPicker:MobileNumberPicker.Content>
+                                                <StackPanel Margin="55,0,0,2" Spacing="12">
+                                                    <TextBlock FontWeight="DemiBold" Text="Number of Measurements"  FontSize="22"></TextBlock>
+                                                    <TextBlock FontWeight="Light" Text="Number of time the measurement will loop into a procedure."  Foreground="{DynamicResource SecondaryText}" FontSize="18"></TextBlock>
+                                       
+                                                </StackPanel>
+                                            </mobileNumberPicker:MobileNumberPicker.Content>
+                                        </mobileNumberPicker:MobileNumberPicker>
+                                        
                                         </StackPanel>
                                     </suki:SettingsLayoutItem.Content>
                                 </suki:SettingsLayoutItem>
@@ -249,7 +276,7 @@
                                                 </StackPanel>
                                             </Panel>
                                         </CheckBox>
-                                        <CheckBox Classes="Touch" IsChecked="True" Margin="0,3,0,0"  BorderThickness="0" CornerRadius="0,00,25,25">
+                                        <CheckBox Classes="Touch" IsChecked="True" Margin="0,3,0,0"  BorderThickness="0" CornerRadius="0,00,0,0">
                                             <Panel>
                                                 <StackPanel Margin="0,0,0,2" Spacing="12">
                                                     <TextBlock DockPanel.Dock="Top" FontWeight="DemiBold" Text="Auto-Save"  FontSize="22"></TextBlock>
@@ -257,6 +284,21 @@
                                                 </StackPanel>
                                             </Panel>
                                         </CheckBox>
+                                            <suki:GlassCard BorderThickness="0" Padding="0" Margin="0,3,0,0" CornerRadius="0,0,25,25">
+                                                <DockPanel Margin="45,29">
+                                    
+                                                    <Border CornerRadius="12" Background="#15888888" Margin="15,0,40,2" Height="45" Width="45" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                        <TextBlock FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" Text="{Binding #ValueSlider.Value}"></TextBlock>
+                                                    </Border>
+                                   
+                                                    <StackPanel  Spacing="12">
+                                                        <TextBlock FontWeight="DemiBold" Text="Value"  FontSize="22"></TextBlock>
+                                                        
+                                                        <Slider TickFrequency="1" IsSnapToTickEnabled="True" Name="ValueSlider" Minimum="0" Maximum="100" Value="40" Margin="0,10,0,0"></Slider>
+
+                                                    </StackPanel>
+                                                </DockPanel>
+                                            </suki:GlassCard>
                                         </StackPanel>
                                     </suki:SettingsLayoutItem.Content>
                                 </suki:SettingsLayoutItem>
