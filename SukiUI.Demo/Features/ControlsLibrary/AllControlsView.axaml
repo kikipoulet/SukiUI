@@ -1,0 +1,292 @@
+<UserControl x:Class="SukiUI.Demo.Features.ControlsLibrary.AllControlsView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             xmlns:horizontalBarMeter="clr-namespace:SukiUI.Controls.Gauges.HorizontalBarMeter;assembly=SukiUI"
+             xmlns:gauges="clr-namespace:SukiUI.Controls.Gauges;assembly=SukiUI"
+             xmlns:verticalBarMeter="clr-namespace:SukiUI.Controls.Gauges.VerticalBarMeter;assembly=SukiUI"
+             xmlns:generic="clr-namespace:System.Collections.Generic;assembly=System.Collections"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
+             xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
+             xmlns:touch="clr-namespace:SukiUI.Controls.Touch;assembly=SukiUI"
+             d:DesignHeight="1080" x:DataType="controlsLibrary:AllControlsViewModel"
+             d:DesignWidth="1920"
+             mc:Ignorable="d">
+    <UserControl.Styles>
+        <StyleInclude Source="avares://SukiUI/Theme/TouchStyles/TouchStyles.axaml" />
+   
+
+    </UserControl.Styles>
+    <TabControl Classes="Menu" TabStripPlacement="Left">
+        <TabItem Classes="VerticalMenu">
+            <TabItem.Header>
+                <StackPanel Spacing="7">
+                    <avalonia:MaterialIcon Kind="ViewDashboardOutline"  Height="32" Width="32"></avalonia:MaterialIcon>
+                    <TextBlock FontSize="18" FontWeight="DemiBold" Text="Controls"></TextBlock>
+                </StackPanel>
+            </TabItem.Header>
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+        <WrapPanel Classes="PageContainer" Margin="20">
+            
+            <!-- SukiUI Custom Controls -->
+            
+          
+            <suki:GlassCard>
+                <suki:GroupBox Classes="Touch" Header="BusyArea">
+                    <suki:BusyArea Margin="50" BusyText="Loading .." Width="100" Height="100" IsBusy="True" />
+                </suki:GroupBox>
+            </suki:GlassCard>
+            
+            <suki:GlassCard>
+                <suki:GroupBox Classes="Touch" Header="CircleProgressBar">
+                    <suki:CircleProgressBar Width="170" Height="170" Value="75" StrokeWidth="13">
+                        <TextBlock FontWeight="DemiBold" FontSize="34" Text="75%" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </suki:CircleProgressBar>
+                </suki:GroupBox>
+            </suki:GlassCard>
+
+            
+            <suki:GlassCard>
+                <suki:GroupBox Classes="Touch" Header="Loading">
+                    <StackPanel Orientation="Horizontal" Spacing="15">
+                        <suki:Loading LoadingStyle="Simple" />
+                        <suki:Loading LoadingStyle="Glow" />
+                        <suki:Loading LoadingStyle="Pellets" />
+                    </StackPanel>
+                </suki:GroupBox>
+            </suki:GlassCard>
+            
+            <suki:GlassCard>
+                <suki:GroupBox Classes="Touch" Header="Stepper">
+                    <suki:Stepper Index="1">
+                        <suki:Stepper.Steps>
+                            <generic:List x:TypeArguments="system:String">
+                            <x:String>Step 1</x:String>
+                            <x:String>Step 2</x:String>
+                            <x:String>Step 3</x:String>
+                                </generic:List>
+                        </suki:Stepper.Steps>
+                    </suki:Stepper>
+                </suki:GroupBox>
+            </suki:GlassCard>
+            
+            <suki:GlassCard>
+                <suki:GroupBox Classes="Touch" Header="Stepper">
+                    <suki:Stepper Width="350" AlternativeStyle="True" Index="1">
+                        <suki:Stepper.Steps>
+                            <generic:List x:TypeArguments="system:String">
+                                <x:String>Step 1</x:String>
+                                <x:String>Step 2</x:String>
+                                <x:String>Step 3</x:String>
+                            </generic:List>
+                        </suki:Stepper.Steps>
+                    </suki:Stepper>
+                </suki:GroupBox>
+            </suki:GlassCard>
+            
+            <suki:GlassCard>
+                <suki:GroupBox Classes="Touch" Header="WaveProgress">
+                    <suki:WaveProgress IsTextVisible="True" Value="50" />
+
+                </suki:GroupBox>
+            </suki:GlassCard>
+            
+            <suki:GlassCard>
+                <suki:GroupBox Classes="Touch" Header="HorizontalBarMeter">
+                    <horizontalBarMeter:HorizontalBarMeter Suffix="%" ShowValue="True"  Width="200" Height="65" Value="65" Maximum="100" BarCount="20" />
+                </suki:GroupBox>
+            </suki:GlassCard>
+            
+            <suki:GlassCard>
+                <suki:GroupBox Classes="Touch" Header="VerticalBarMeter">
+                    <verticalBarMeter:VerticalBarMeter Suffix="°C" ShowValue="True" Width="65" Height="150" Value="20" Minimum="0" Maximum="30" BarCount="15" />
+                </suki:GroupBox>
+            </suki:GlassCard>
+            
+            <suki:GlassCard>
+                <suki:GroupBox Classes="Touch" Header="RadialGauge">
+                    <gauges:RadialGauge VerticalAlignment="Center" TickSize="0" StartAngle="-150" EndAngle="-30"
+                                        Minimum="0" Maximum="100" SubtitleText="Temp"
+                                        Value="60"      
+                    >
+                        <gauges:RadialGauge.Transitions>
+                            <Transitions>
+                                <DoubleTransition Property="Value" Duration="0:0:0.5"></DoubleTransition>
+                            </Transitions>
+                        </gauges:RadialGauge.Transitions>
+                        <gauges:RadialGauge.Segments>
+                            <objectModel:ObservableCollection x:TypeArguments="gauges:RadialGaugeSegment">
+                                <gauges:RadialGaugeSegment FromValue="0" ToValue="33" Color="Red" Opacity="0.65" Thickness="4" />
+                                <gauges:RadialGaugeSegment FromValue="33" ToValue="66" Color="Orange" Opacity="1" Thickness="4" />
+                                <gauges:RadialGaugeSegment FromValue="66" ToValue="100" Opacity="1" Color="ForestGreen" Thickness="4" />
+
+                            </objectModel:ObservableCollection>
+                        </gauges:RadialGauge.Segments>
+                    </gauges:RadialGauge>
+                </suki:GroupBox>
+            </suki:GlassCard>
+            
+            <!-- Standard Avalonia Controls with SukiUI Styles -->
+            
+            <suki:GlassCard>
+                <suki:GroupBox Classes="Touch" Header="Button">
+                    <StackPanel Spacing="20">
+                    <Button HorizontalAlignment="Center" Click="Button_OnClick" VerticalAlignment="Center" Classes="Flat" Content="Click Me" />
+                    <Button HorizontalAlignment="Center" Click="Button_OnClick" VerticalAlignment="Center" Classes="Flat Large" Content="Large" />
+                    <Button HorizontalAlignment="Center" Click="Button_OnClick" VerticalAlignment="Center" Classes="Flat Enormous" Content="Enormous" />
+                    </StackPanel>
+                </suki:GroupBox>
+            </suki:GlassCard>
+            
+            <suki:GlassCard>
+                <suki:GroupBox Classes="Touch" Header="ToggleButton">
+                    <ToggleButton VerticalAlignment="Center" Content="Toggle Me" IsChecked="True" />
+                </suki:GroupBox>
+            </suki:GlassCard>
+            
+            <suki:GlassCard>
+                <suki:GroupBox Classes="Touch" Header="ToggleSwitch">
+                    <ToggleSwitch IsChecked="True" />
+                </suki:GroupBox>
+            </suki:GlassCard>
+            
+            <suki:GlassCard>
+                <suki:GroupBox Classes="Touch" Header="CheckBox">
+                    <CheckBox Content="Check me" IsChecked="True" />
+                </suki:GroupBox>
+            </suki:GlassCard>
+            
+            <suki:GlassCard>
+                <suki:GroupBox Classes="Touch" Header="RadioButton">
+                    <StackPanel Spacing="5">
+                        <RadioButton Classes="GigaChips" Content="Option 1" GroupName="Radio1" IsChecked="True" />
+                        <RadioButton Classes="GigaChips" Content="Option 2" GroupName="Radio1" />
+                    </StackPanel>
+                </suki:GroupBox>
+            </suki:GlassCard>
+            
+          
+            
+            <suki:GlassCard>
+                <suki:GroupBox Classes="Touch" Header="ProgressBar">
+                    <ProgressBar Value="65" Maximum="100" />
+                </suki:GroupBox>
+            </suki:GlassCard>
+            
+            <suki:GlassCard>
+                <suki:GroupBox Classes="Touch" Header="Slider">
+                    <Slider VerticalAlignment="Center" Value="50" Maximum="100" Width="250" />
+                </suki:GroupBox>
+            </suki:GlassCard>
+            
+
+            
+            <suki:GlassCard>
+                <suki:GroupBox Classes="Touch" Header="ListBox">
+                    <ListBox   SelectedIndex="0">
+                        <ListBoxItem Content="Item 1" />
+                        <ListBoxItem Content="Item 2" />
+                        <ListBoxItem Content="Item 3" />
+                    </ListBox>
+                </suki:GroupBox>
+            </suki:GlassCard>
+            
+            <suki:GlassCard>
+                <suki:GroupBox Classes="Touch" Header="TabControl">
+                    <TabControl Width="200" Height="120">
+                        <TabItem Header="Tab 1">
+                            <TextBlock Text="Content 1" Margin="10" />
+                        </TabItem>
+                        <TabItem Header="Tab 2">
+                            <TextBlock Text="Content 2" Margin="10" />
+                        </TabItem>
+                    </TabControl>
+                </suki:GroupBox>
+            </suki:GlassCard>
+            
+         
+
+            
+            
+
+            
+        </WrapPanel>
+    </ScrollViewer>
+        </TabItem>
+        
+ 
+            <TabItem Classes="VerticalMenu">
+                <TabItem.Header>
+                    <StackPanel Spacing="7">
+                        <avalonia:MaterialIcon Kind="SettingsOutline" Height="32" Width="32"></avalonia:MaterialIcon>
+                        <TextBlock FontSize="18" FontWeight="DemiBold" Text="Settings"></TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <StackPanel>
+                    <suki:SettingsLayout Classes="Touch">
+                        <suki:SettingsLayout.Items>
+                            <objectModel:ObservableCollection x:TypeArguments="suki:SettingsLayoutItem">
+                                <suki:SettingsLayoutItem Header="Informations">
+                                    <suki:SettingsLayoutItem.Content>
+                                        <StackPanel Margin="0,20">
+                                        <touch:ClickToEditTextControl CornerRadius="25,25,25,25" Text="Super Company V3" Subtitle="Project Title" DialogManager="{Binding DialogManager}" />
+                                      
+                                        </StackPanel>
+                                    </suki:SettingsLayoutItem.Content>
+                                </suki:SettingsLayoutItem>
+                                 <suki:SettingsLayoutItem Header="Options">
+                                    <suki:SettingsLayoutItem.Content>
+                                        <StackPanel Margin="0,20">
+                                        <CheckBox Classes="Touch" IsChecked="False" Margin="0,3,0,0"  BorderThickness="0" CornerRadius="25,25,0,0">
+                                            <Panel>
+                                                <StackPanel Margin="0,0,0,2" Spacing="12">
+                                                    <TextBlock DockPanel.Dock="Top" FontWeight="DemiBold" Text="Run as Administrator"  FontSize="22"></TextBlock>
+                                                  <!--  <TextBlock FontWeight="Light" Text="Run project as administrator"  Foreground="{DynamicResource SecondaryText}" FontSize="18"></TextBlock> -->
+                                                </StackPanel>
+                                            </Panel>
+                                        </CheckBox>
+                                        <CheckBox Classes="Touch" IsChecked="True" Margin="0,3,0,0"  BorderThickness="0" CornerRadius="0,00,25,25">
+                                            <Panel>
+                                                <StackPanel Margin="0,0,0,2" Spacing="12">
+                                                    <TextBlock DockPanel.Dock="Top" FontWeight="DemiBold" Text="Auto-Save"  FontSize="22"></TextBlock>
+                                                <!--    <TextBlock FontWeight="Light" Text="Save project every 5 minutes"  Foreground="{DynamicResource SecondaryText}" FontSize="18"></TextBlock> -->
+                                                </StackPanel>
+                                            </Panel>
+                                        </CheckBox>
+                                        </StackPanel>
+                                    </suki:SettingsLayoutItem.Content>
+                                </suki:SettingsLayoutItem>
+                            </objectModel:ObservableCollection>
+                        </suki:SettingsLayout.Items>
+                    </suki:SettingsLayout>
+                    
+                </StackPanel>
+                </TabItem>
+        <TabItem Classes="VerticalMenu">
+            <TabItem.Header>
+                <StackPanel Spacing="7">
+                    <avalonia:MaterialIcon Kind="PersonOutline" Height="32" Width="32"></avalonia:MaterialIcon>
+                    <TextBlock FontSize="18" FontWeight="DemiBold" Text="Profile"></TextBlock>
+                </StackPanel>
+            </TabItem.Header>
+        </TabItem>
+        <TabItem Classes="VerticalMenu">
+            <TabItem.Header>
+                <StackPanel Spacing="7">
+                    <avalonia:MaterialIcon Kind="ChartLine" Height="32" Width="32"></avalonia:MaterialIcon>
+                    <TextBlock FontSize="18" FontWeight="DemiBold" Text="Statistics"></TextBlock>
+                </StackPanel>
+            </TabItem.Header>
+        </TabItem>
+  
+        </TabControl>
+    
+    
+    
+    
+   
+</UserControl>

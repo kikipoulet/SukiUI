@@ -54,9 +54,9 @@ public class App : Application
         {
             var p = new Panel();
             p.Children.Add(new SukiBackground(){Style = SukiBackgroundStyle.Bubble});
-        
-            p.Children.Add(new AllControlsView());
             SingleViewDialogManager = new SukiDialogManager();
+            
+            p.Children.Add(new AllControlsView(){DataContext = new AllControlsViewModel(SingleViewDialogManager)});
             
             singleView.MainView = new SukiMainHost()
             {

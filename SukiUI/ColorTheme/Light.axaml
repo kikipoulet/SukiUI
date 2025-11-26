@@ -70,6 +70,6 @@
     
     
     <Color x:Key="SukiNeedleBrush">#999999</Color>
-    <Color x:Key="GaugeBackgroundBrush" >Transparent</Color>
+    <Color x:Key="GaugeBackgroundBrush" >#aaffffff</Color>
 
 </ResourceDictionary>

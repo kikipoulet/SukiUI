@@ -10,6 +10,10 @@
         </Border>
     </Design.PreviewWith>
 
+    <StyleInclude Source="/Theme/TouchStyles/TouchCheckBoxStyle.axaml" />
+    <StyleInclude Source="/Theme/TouchStyles/SettingsLayoutMenuChipStyles.axaml" />
+
+    
    <Style Selector="suki|BusyArea /template/ TextBlock#PART_BusyText">
        <Setter Property="Margin" Value="0,30,0,0"></Setter>
        <Setter Property="FontSize" Value="22" ></Setter>
@@ -89,6 +93,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
     <Style Selector="gauges|RadialGauge">
         <Setter Property="Margin" Value="50,50"></Setter>
         <Setter Property="RenderTransform">
@@ -223,7 +228,7 @@
                         <Panel >
                             <Border ClipToBounds="True" CornerRadius="100" Margin="40" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Panel>
-                                        <suki:GlassCard  CornerRadius="100"   Padding="2">
+                                        <suki:GlassCard  CornerRadius="100"   Padding="4">
                            
                                             <ItemsPresenter   Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
                      

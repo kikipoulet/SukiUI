@@ -8,6 +8,7 @@
     <SimpleTheme />
 
     <StyleInclude Source="avares://SukiUI/Theme/TextStyles.axaml" />
+    <StyleInclude Source="avares://SukiUI/Theme/SettingsLayoutStyles.axaml" />
 
     <StyleInclude Source="avares://SukiUI/Theme/ComboBoxStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/Colors.xaml" />
