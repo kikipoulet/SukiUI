@@ -1,0 +1,46 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="SukiUI.Controls.Touch.TouchNavigationStack">
+    <DockPanel Name="DP" Opacity="0" Margin="40,30">
+        <!-- Zone du header dynamique -->
+        <StackPanel DockPanel.Dock="Top" x:Name="HeaderPanel" Orientation="Horizontal"  Margin="0,0,0,0">
+            <Button x:Name="BackButton"
+                    
+                    Width="0" Height="54" CornerRadius="30" Padding="0" Classes="Basic"
+                    Margin="0,2,12,0"
+                    Click="BackButton_Click">
+                <suki:GlassCard IsInteractive="True" CornerRadius="34" Height="54" Width="120" Padding="0">
+                    <StackPanel Margin="5,0,5,0" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Spacing="15">
+                        <PathIcon
+                            Data="{x:Static suki:Icons.ChevronLeft}"
+                            Foreground="{DynamicResource SukiLowText}"
+                            Height="15"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Width="15" />
+                        <TextBlock VerticalAlignment="Center" FontSize="22" FontWeight="DemiBold" Text="Back" Foreground="{DynamicResource SukiLowText}"></TextBlock>
+                    </StackPanel>
+                </suki:GlassCard>
+            </Button>
+            <Panel>
+                <Border>
+                    <TextBlock x:Name="TitleTextFrom" FontSize="48" FontWeight="DemiBold" VerticalAlignment="Center" />
+                </Border>
+                    
+                <Border>
+                    <TextBlock x:Name="TitleTextTo" FontSize="48" FontWeight="DemiBold" VerticalAlignment="Center" />
+                </Border>
+            </Panel>
+                
+        </StackPanel>
+
+        <!-- Zone d'affichage du contenu (page) -->
+        <ContentControl  x:Name="ContentP">
+              
+        </ContentControl>
+    </DockPanel>
+</UserControl>

@@ -224,12 +224,14 @@
             <TabItem Classes="VerticalMenu">
                 <TabItem.Header>
                     <StackPanel Spacing="7">
-                        <avalonia:MaterialIcon Kind="SettingsOutline" Height="32" Width="32"></avalonia:MaterialIcon>
+                        <avalonia:MaterialIcon  Kind="SettingsOutline" Height="32" Width="32"></avalonia:MaterialIcon>
                         <TextBlock FontSize="18" FontWeight="DemiBold" Text="Settings"></TextBlock>
                     </StackPanel>
                 </TabItem.Header>
-                <StackPanel>
-                    <suki:SettingsLayout Classes="Touch">
+             
+                    <touch:TouchNavigationStack Margin="10,25,10,10" Title="Settings" Name="NStack">
+                        <touch:TouchNavigationStack.Content>
+                    <suki:SettingsLayout Margin="0,25,0,0"  Classes="Touch">
                         <suki:SettingsLayout.Items>
                             <objectModel:ObservableCollection x:TypeArguments="suki:SettingsLayoutItem">
                                 <suki:SettingsLayoutItem Header="Informations">
@@ -268,15 +270,9 @@
                                  <suki:SettingsLayoutItem Header="Options">
                                     <suki:SettingsLayoutItem.Content>
                                         <StackPanel Margin="0,20">
-                                        <CheckBox Classes="Touch" IsChecked="False" Margin="0,3,0,0"  BorderThickness="0" CornerRadius="25,25,0,0">
-                                            <Panel>
-                                                <StackPanel Margin="0,0,0,2" Spacing="12">
-                                                    <TextBlock DockPanel.Dock="Top" FontWeight="DemiBold" Text="Run as Administrator"  FontSize="22"></TextBlock>
-                                                  <!--  <TextBlock FontWeight="Light" Text="Run project as administrator"  Foreground="{DynamicResource SecondaryText}" FontSize="18"></TextBlock> -->
-                                                </StackPanel>
-                                            </Panel>
-                                        </CheckBox>
-                                        <CheckBox Classes="Touch" IsChecked="True" Margin="0,3,0,0"  BorderThickness="0" CornerRadius="0,00,0,0">
+                                        
+                                            
+                                        <CheckBox Classes="Touch" IsChecked="True" Margin="0,3,0,0"  BorderThickness="0" CornerRadius="25,25,0,0">
                                             <Panel>
                                                 <StackPanel Margin="0,0,0,2" Spacing="12">
                                                     <TextBlock DockPanel.Dock="Top" FontWeight="DemiBold" Text="Auto-Save"  FontSize="22"></TextBlock>
@@ -302,11 +298,33 @@
                                         </StackPanel>
                                     </suki:SettingsLayoutItem.Content>
                                 </suki:SettingsLayoutItem>
+                                <suki:SettingsLayoutItem Header="Advanced">
+                                    <suki:SettingsLayoutItem.Content>
+                                        <StackPanel Margin="0,20">
+                                <suki:GlassCard PointerPressed="GoToAdvanced" BorderThickness="0" Padding="0" Margin="0,3,0,0" CornerRadius="25,25,25,25">
+                                    <DockPanel Margin="45,37">
+                                    
+                                        <Border CornerRadius="12" Background="#15888888" Margin="15,0,40,2" Height="45" Width="45" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                            <avalonia:MaterialIcon Kind="ShieldOutline" Foreground="Orange" Opacity="0.7" Height="20" Width="20" HorizontalAlignment="Center" VerticalAlignment="Center"></avalonia:MaterialIcon>
+                                        </Border>
+                                   
+                                        <Panel>
+                                                    
+                                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="DemiBold" Text="Advanced Settings"  FontSize="22"></TextBlock>
+                                            <avalonia:MaterialIcon Kind="ChevronRight" Foreground="{DynamicResource SukiLowText}"  Height="20" Width="20" HorizontalAlignment="Right" VerticalAlignment="Center"></avalonia:MaterialIcon>
+
+                                        </Panel>
+                                    </DockPanel>
+                                </suki:GlassCard>
+                                            </StackPanel>
+                                        </suki:SettingsLayoutItem.Content>
+                                    </suki:SettingsLayoutItem>
                             </objectModel:ObservableCollection>
                         </suki:SettingsLayout.Items>
                     </suki:SettingsLayout>
-                    
-                </StackPanel>
+                            </touch:TouchNavigationStack.Content>
+                    </touch:TouchNavigationStack>
+                
                 </TabItem>
         <TabItem Classes="VerticalMenu">
             <TabItem.Header>
