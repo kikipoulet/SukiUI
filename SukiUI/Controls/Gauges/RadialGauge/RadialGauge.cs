@@ -222,10 +222,16 @@ public class RadialGauge : Panel
         RebuildTicks();
         RebuildSegments();
     }
-    
+
+    private bool IsInitialize = false;
     protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {
-        LoadControls();
+        if (!IsInitialize)
+        {
+            IsInitialize = true;
+            LoadControls();
+        }
+        
         base.OnAttachedToVisualTree(e);
     }
 

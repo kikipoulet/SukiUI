@@ -7,9 +7,7 @@
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)' != 'Debug'">
-    <PublishAot>true</PublishAot>
-  </PropertyGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Avalonia" />
@@ -19,6 +17,7 @@
     <PackageReference Include="Avalonia.Fonts.Inter" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" />
+    <PackageReference Include="Avalonia.LinuxFramebuffer" />
     <PackageReference Include="Avalonia.Themes.Fluent" />
     <PackageReference Include="AvaloniaEdit.TextMate" />
     <PackageReference Include="CommunityToolkit.Mvvm" />

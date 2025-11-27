@@ -54,7 +54,7 @@
                                    VerticalAlignment="Center"
                                    LastChildFill="True">
                             <TextBlock Margin="3"
-                                       DockPanel.Dock="Bottom"
+                                       DockPanel.Dock="Bottom" Name="PART_BusyText"
                                        FontWeight="{DynamicResource DefaultDemiBold}"
                                        IsVisible="{TemplateBinding BusyText,
                                                                    Converter={x:Static StringConverters.IsNotNullOrEmpty}}"

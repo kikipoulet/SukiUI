@@ -1,0 +1,90 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mobilePicker="clr-namespace:SukiUI.Controls.Touch.MobilePicker"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="SukiUI.Controls.Touch.MobilePicker.MobilePickerPopUp">
+ <UserControl.Styles>
+          <Style Selector="ListBoxItem">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Padding" Value="4,2" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <suki:GlassCard Name="BorderBasicStyle"
+                        Margin="0,0,0,0"
+                        Padding="25,15" BorderThickness="0" Background="Transparent"
+                        CornerRadius="20">
+                    <DockPanel>
+                        <PathIcon Name="CheckSelected"
+                                  Width="38"
+                                  Height="38"
+                                  Margin="20,0,-2,0"
+                                  Data="{x:Static suki:Icons.CircleCheck}"
+                                  DockPanel.Dock="Right"
+                                  Foreground="{DynamicResource SukiPrimaryColor}">
+                            <PathIcon.Transitions>
+                                <Transitions>
+                                    <DoubleTransition Property="Opacity" Duration="0:0:0.2" />
+                                </Transitions>
+                            </PathIcon.Transitions>
+                        </PathIcon>
+
+                        <ContentPresenter Name="PART_ContentPresenter" FontSize="23"
+                                          Margin="0,1,0,0"
+                                          Padding="{TemplateBinding Padding}"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          Background="Transparent" 
+                                          BorderBrush="Transparent"
+                                          BorderThickness="{TemplateBinding BorderThickness}"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          CornerRadius="{TemplateBinding CornerRadius}" >
+                            <ContentPresenter.Styles>
+                                <Style Selector="TextBlock">
+                                    <Setter Property="FontSize" Value="28"></Setter>
+                                </Style>
+                            </ContentPresenter.Styles>
+                        </ContentPresenter>
+
+                    </DockPanel>
+                </suki:GlassCard>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+ </UserControl.Styles>
+    <UserControl.DataContext>
+        <mobilePicker:MobilePickerPopUpVM />
+    </UserControl.DataContext>
+    <Border ClipToBounds="True" Padding="5" CornerRadius="0" >
+
+        <Border 
+            HorizontalAlignment="Center"
+            Name="rootBorder" Width="450"
+            VerticalAlignment="Center"
+        >
+        
+        
+       
+            <StackPanel>
+           
+
+                <Grid Margin="0,0,0,38" VerticalAlignment="Center">
+                    <ListBox Background="{DynamicResource CWhite-}" CornerRadius="20"
+                             ItemsSource="{Binding Items}"
+                             MaxHeight="600"
+                             MinHeight="200"
+                             SelectedItem="{Binding SelectedItem}"
+                             VerticalAlignment="Center" />
+                </Grid>
+
+                <Button  Content="Done" Margin="0" Classes="Enormous Flat" Click="DoneClick">
+                 
+                </Button>
+
+            </StackPanel>
+        
+        </Border>
+    </Border>
+</UserControl>

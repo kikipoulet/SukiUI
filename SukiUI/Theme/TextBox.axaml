@@ -237,7 +237,7 @@
         <Setter Property="ContextFlyout" Value="{StaticResource DefaultTextBoxContextFlyout}" />
         <Setter Property="Template">
             <ControlTemplate>
-                <suki:GlassCard Name="PART_GlassBorder"
+                <suki:GlassCard Name="PART_GlassBorder" 
                                 Padding="{TemplateBinding Padding}"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
@@ -353,7 +353,7 @@
                                                        Cursor="Hand"
                                                        IsVisible="{TemplateBinding suki:TextBoxExtensions.AddDeleteButton}"
                                                        Opacity="{TemplateBinding Text, Converter={StaticResource StringToDoubleC}}"
-                                                       Text="{TemplateBinding Text, Mode=TwoWay}">
+                                                       Text="{TemplateBinding , Mode=TwoWay}">
                                     <suki:TextEraserButton.Transitions>
                                         <Transitions>
                                             <DoubleTransition Property="Opacity" Duration="0:0:0.35" />

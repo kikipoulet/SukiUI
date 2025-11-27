@@ -1,0 +1,86 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:suki="https://github.com/kikipoulet/SukiUI">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <CheckBox Classes="Touch" IsChecked="True" Margin="0,2,0,0" Padding="20"  CornerRadius="20,20,0,0">
+                <Panel>
+                                    
+                    <StackPanel Margin="0,0,0,2" Spacing="12">
+                        <TextBlock DockPanel.Dock="Top" FontWeight="DemiBold" Text="Title"  FontSize="22"></TextBlock>
+                        <TextBlock FontWeight="Light" Text="Subtitle"  Foreground="{DynamicResource SecondaryText}" FontSize="18"></TextBlock>
+                    </StackPanel>
+                </Panel>
+            </CheckBox>
+        </Border>
+    </Design.PreviewWith>
+
+     <Style Selector="CheckBox.Touch">
+
+        <Setter Property="Foreground" Value="{DynamicResource Accent}" />
+        <Setter Property="Background" Value="{DynamicResource CWhite}" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="CornerRadius" Value="20" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="35" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <suki:GlassCard Padding="{TemplateBinding Padding}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding CornerRadius}" >
+               
+                    <Grid   ColumnDefinitions="Auto,*">
+                    
+                   
+                            
+                          <CheckBox IsChecked="{TemplateBinding IsChecked}" Margin="20,0,35,0">
+                              <CheckBox.RenderTransform>
+                                  <ScaleTransform ScaleX="1.1" ScaleY="1.1"></ScaleTransform>
+                              </CheckBox.RenderTransform>
+                          </CheckBox>
+
+                    <ContentPresenter
+                        Content="{TemplateBinding Content}"
+                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                        Grid.Column="1"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        IsVisible="{TemplateBinding Content,
+                                                    Converter={x:Static ObjectConverters.IsNotNull}}"
+                        Margin="5,0,0,0"
+                        Name="PART_ContentPresenter"
+                        RecognizesAccessKey="True"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                </Grid>
+                </suki:GlassCard>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <Style Selector="CheckBox:checked /template/ Border#border">
+        <Setter Property="Background" Value="{DynamicResource Accent}" />
+    </Style>
+   
+
+    <Style Selector="CheckBox:pointerover /template/ Border#border">
+        <Setter Property="BorderBrush" Value="{DynamicResource ComponentBackground}" />
+    </Style>
+
+    <Style Selector="CheckBox /template/ Path#checkMark">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="CheckBox /template/ Rectangle#indeterminateMark">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+    
+
+
+
+    
+    
+    <Style Selector="CheckBox:indeterminate /template/ Rectangle#indeterminateMark">
+        <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="CheckBox:disabled /template/ Border#border">
+        <Setter Property="Opacity" Value="1" />
+    </Style>
+</Styles>

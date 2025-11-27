@@ -69,7 +69,7 @@ public class VerticalBarMeter : Panel
     
     private readonly Border _marker = new()
     {
-        [!Border.BackgroundProperty] = new DynamicResourceExtension("SukiText"), Margin = new Thickness(25,0),
+        [!Border.BackgroundProperty] = new DynamicResourceExtension("SukiNeedleBrush"), Margin = new Thickness(25,0),
         CornerRadius = new CornerRadius(6),
         IsHitTestVisible = false,
         Classes = { "vbm-marker" }

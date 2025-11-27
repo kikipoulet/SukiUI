@@ -70,7 +70,7 @@ public class HorizontalBarMeter : Panel
     
     private readonly Border _marker = new()
     {
-        [!Border.BackgroundProperty] = new DynamicResourceExtension("SukiText"), Margin = new Thickness(0,25),
+        [!Border.BackgroundProperty] = new DynamicResourceExtension("SukiNeedleBrush"), Margin = new Thickness(0,25),
         CornerRadius = new CornerRadius(6),
         IsHitTestVisible = false,
         Classes = { "hbm-marker" }

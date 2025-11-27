@@ -124,24 +124,31 @@ public partial class SettingsLayout : UserControl
                 Source = settingsLayoutItem
             });
 
+           
+            var gb = new GroupBox()
+            {
+
+                Margin = new Thickness(10, 20),
+                Header = header,
+                Content = new Border()
+                {
+                    Margin = new Thickness(35, 12),
+                    Child = settingsLayoutItem.Content
+                }
+            };
+            
+            if(Classes.Contains("Touch"))
+                gb.Classes.Add("Touch");
+            
             var border = new Border
             {
-                Child = new GroupBox()
-                {
-                    Margin = new Thickness(10, 20),
-                    Header = header,
-                    Content = new Border()
-                    {
-                        Margin = new Thickness(35, 12),
-                        Child = settingsLayoutItem.Content
-                    }
-                }
+                Child = gb
             };
 
             borders.Add(border);
             stackItems.Children.Add(border);
 
-            var textBlock = new TextBlock { FontSize = 17 };
+            var textBlock = new TextBlock {  };
             textBlock.Bind(TextBlock.TextProperty, new Binding(nameof(SettingsLayoutItem.Header))
             {
                 Source = settingsLayoutItem

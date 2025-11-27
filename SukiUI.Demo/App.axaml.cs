@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
 using Microsoft.Extensions.DependencyInjection;
 using SukiUI.Controls;
 using SukiUI.Demo.Common;
@@ -21,12 +22,16 @@ using SukiUI.Demo.Features.Splash;
 using SukiUI.Demo.Features.Theming;
 using SukiUI.Demo.Services;
 using SukiUI.Dialogs;
+using SukiUI.Enums;
 using SukiUI.Toasts;
 
 namespace SukiUI.Demo;
 
 public class App : Application
 {
+    
+    public static SukiDialogManager SingleViewDialogManager { get; set; } 
+        
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -47,24 +52,21 @@ public class App : Application
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleView)
         {
-            var services = new ServiceCollection();
-            services.AddSingleton(singleView);
-            var views = ConfigureViews(services);
-            var provider = ConfigureServices(services);
-            DataTemplates.Add(new ViewLocator(views));
-
-
-            // Ideally, we want to create a MainView that host app content
-            // and use it for both IClassicDesktopStyleApplicationLifetime and ISingleViewApplicationLifetime
+            var p = new Panel();
+            p.Children.Add(new SukiBackground(){Style = SukiBackgroundStyle.Bubble});
+            SingleViewDialogManager = new SukiDialogManager();
+            
+            p.Children.Add(new AllControlsView(){DataContext = new AllControlsViewModel(SingleViewDialogManager)});
+            
             singleView.MainView = new SukiMainHost()
             {
                 Hosts = [
                     new SukiDialogHost
                     {
-                        Manager = new SukiDialogManager()
+                        Manager = SingleViewDialogManager
                     }
                 ],
-                Content = views.CreateView<DialogViewModel>(provider)
+                Content =  p
             };
         }
 
@@ -107,6 +109,7 @@ public class App : Application
             .AddView<HelpersView, HelpersViewModel>(services)
             .AddView<ColorsView, ColorsViewModel>(services)
             .AddView<ExperimentalView, ExperimentalViewModel>(services)
+            .AddView<AllControlsView, AllControlsViewModel>(services)
 
             // Add docks view for DockMvvvm
             .AddView<DocumentText, DocumentTextViewModel>(services)
