@@ -74,6 +74,7 @@ half4 main(float2 coord) {
         private bool IsDynamic = false;
         private double BlurFactor = 1;
         private readonly SukiTheme _themeInstance;
+        private SKRuntimeEffect? _effect;
         
         public BlurBehindRenderOperation(BlurBackground blurcontrol, Rect bounds, ref SKImage? cachedBackground, bool IsDark)
         {
@@ -94,6 +95,7 @@ half4 main(float2 coord) {
         public void Dispose()
         {
             _themeInstance.OnBaseThemeChanged -= OnBaseThemeChanged;
+            _effect?.Dispose();
             _cachedBackground?.Dispose();
         }
 
@@ -154,24 +156,27 @@ half4 main(float2 coord) {
                     
                 using (var blurSnapShader = SKShader.CreateImage(blurSnap))
                 {
-                    var effect = SKRuntimeEffect.CreateShader(clampLumaSkSL, out var error);
-                    if (effect == null)
-                        throw new Exception($"SKRuntimeEffect error: {error}");
+                    if (_effect == null)
+                    {
+                        _effect = SKRuntimeEffect.CreateShader(clampLumaSkSL, out var error);
+                        if (_effect == null)
+                            throw new Exception($"SKRuntimeEffect error: {error}");
+                    }
 
                     float minLuma = IsDarkTheme ? 0f : 0.8f;
                     float maxLuma = IsDarkTheme ? 0.12f : 1f;
 
-                    var uniforms = new SKRuntimeEffectUniforms(effect)
+                    var uniforms = new SKRuntimeEffectUniforms(_effect)
                     {
                         ["minLuma"] = minLuma,
                         ["maxLuma"] = maxLuma
                     };
 
-                    var children = new SKRuntimeEffectChildren(effect)
+                    var children = new SKRuntimeEffectChildren(_effect)
                     {
                         ["src"] = blurSnapShader
                     };
-                    using var clampShader = effect.ToShader(uniforms, children, SKMatrix.CreateIdentity());
+                    using var clampShader = _effect.ToShader(uniforms, children, SKMatrix.CreateIdentity());
 
                     using var paint = new SKPaint
                     {
