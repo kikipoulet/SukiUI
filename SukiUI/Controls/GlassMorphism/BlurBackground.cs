@@ -94,6 +94,7 @@ half4 main(float2 coord) {
         public void Dispose()
         {
             _themeInstance.OnBaseThemeChanged -= OnBaseThemeChanged;
+            _cachedBackground?.Dispose();
         }
 
         public bool HitTest(Point p) => _bounds.Contains(p);
