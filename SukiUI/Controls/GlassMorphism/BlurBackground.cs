@@ -144,14 +144,13 @@ half4 main(float2 coord) {
                sigma = sigma *  BlurFactor;
 
                 using (var filter = SKImageFilter.CreateBlur((float)sigma, (float)sigma))
-                using (var blurPaint = new SKPaint
-                       {
-                           Shader = backdropShader,
-                           ImageFilter = filter
-                       })
+                using (var blurPaint = new SKPaint())
+                {
+                    blurPaint.Shader = backdropShader;
+                    blurPaint.ImageFilter = filter;
                     blurred.Canvas.DrawRect(0, 0, (float)_bounds.Width, (float)_bounds.Height, blurPaint);
+                }
 
-  
                 using (var blurSnap = blurred.Snapshot())
                     
                 using (var blurSnapShader = SKShader.CreateImage(blurSnap))
@@ -178,11 +177,9 @@ half4 main(float2 coord) {
                     };
                     using var clampShader = _effect.ToShader(uniforms, children, SKMatrix.CreateIdentity());
 
-                    using var paint = new SKPaint
-                    {
-                        Shader = clampShader,
-                        IsAntialias = false
-                    };
+                    using var paint = new SKPaint();
+                    paint.Shader = clampShader;
+                    paint.IsAntialias = false;
 
                     canvas.DrawRect(0, 0, (float)_bounds.Width, (float)_bounds.Height, paint);
                 }
