@@ -73,7 +73,7 @@ half4 main(float2 coord) {
         private BlurBackground _blurBackgroundControl;
         private bool IsDynamic = false;
         private double BlurFactor = 1;
-        
+        private readonly SukiTheme _themeInstance;
         
         public BlurBehindRenderOperation(BlurBackground blurcontrol, Rect bounds, ref SKImage? cachedBackground, bool IsDark)
         {
@@ -81,16 +81,19 @@ half4 main(float2 coord) {
             _bounds = bounds;
             _cachedBackground = cachedBackground;
 
-            var themeInstance = SukiTheme.GetInstance();
-            IsDarkTheme = themeInstance.ActiveBaseTheme == ThemeVariant.Dark;
-            themeInstance.OnBaseThemeChanged += variant => IsDarkTheme = variant == ThemeVariant.Dark;
-            
+            _themeInstance = SukiTheme.GetInstance();
+            IsDarkTheme = _themeInstance.ActiveBaseTheme == ThemeVariant.Dark;
+            _themeInstance.OnBaseThemeChanged += OnBaseThemeChanged;
+
             IsDynamic = blurcontrol.IsDynamic;
             BlurFactor = blurcontrol.IntensityFactor;
         }
 
+        private void OnBaseThemeChanged(ThemeVariant variant) => IsDarkTheme = variant == ThemeVariant.Dark;
+
         public void Dispose()
         {
+            _themeInstance.OnBaseThemeChanged -= OnBaseThemeChanged;
         }
 
         public bool HitTest(Point p) => _bounds.Contains(p);
