@@ -73,7 +73,8 @@ half4 main(float2 coord) {
         private BlurBackground _blurBackgroundControl;
         private bool IsDynamic = false;
         private double BlurFactor = 1;
-        
+        private readonly SukiTheme _themeInstance;
+        private SKRuntimeEffect? _effect;
         
         public BlurBehindRenderOperation(BlurBackground blurcontrol, Rect bounds, ref SKImage? cachedBackground, bool IsDark)
         {
@@ -81,16 +82,21 @@ half4 main(float2 coord) {
             _bounds = bounds;
             _cachedBackground = cachedBackground;
 
-            var themeInstance = SukiTheme.GetInstance();
-            IsDarkTheme = themeInstance.ActiveBaseTheme == ThemeVariant.Dark;
-            themeInstance.OnBaseThemeChanged += variant => IsDarkTheme = variant == ThemeVariant.Dark;
-            
+            _themeInstance = SukiTheme.GetInstance();
+            IsDarkTheme = _themeInstance.ActiveBaseTheme == ThemeVariant.Dark;
+            _themeInstance.OnBaseThemeChanged += OnBaseThemeChanged;
+
             IsDynamic = blurcontrol.IsDynamic;
             BlurFactor = blurcontrol.IntensityFactor;
         }
 
+        private void OnBaseThemeChanged(ThemeVariant variant) => IsDarkTheme = variant == ThemeVariant.Dark;
+
         public void Dispose()
         {
+            _themeInstance.OnBaseThemeChanged -= OnBaseThemeChanged;
+            _effect?.Dispose();
+            _cachedBackground?.Dispose();
         }
 
         public bool HitTest(Point p) => _bounds.Contains(p);
@@ -138,42 +144,42 @@ half4 main(float2 coord) {
                sigma = sigma *  BlurFactor;
 
                 using (var filter = SKImageFilter.CreateBlur((float)sigma, (float)sigma))
-                using (var blurPaint = new SKPaint
-                       {
-                           Shader = backdropShader,
-                           ImageFilter = filter
-                       })
+                using (var blurPaint = new SKPaint())
+                {
+                    blurPaint.Shader = backdropShader;
+                    blurPaint.ImageFilter = filter;
                     blurred.Canvas.DrawRect(0, 0, (float)_bounds.Width, (float)_bounds.Height, blurPaint);
+                }
 
-  
                 using (var blurSnap = blurred.Snapshot())
                     
                 using (var blurSnapShader = SKShader.CreateImage(blurSnap))
                 {
-                    var effect = SKRuntimeEffect.CreateShader(clampLumaSkSL, out var error);
-                    if (effect == null)
-                        throw new Exception($"SKRuntimeEffect error: {error}");
+                    if (_effect == null)
+                    {
+                        _effect = SKRuntimeEffect.CreateShader(clampLumaSkSL, out var error);
+                        if (_effect == null)
+                            throw new Exception($"SKRuntimeEffect error: {error}");
+                    }
 
                     float minLuma = IsDarkTheme ? 0f : 0.8f;
                     float maxLuma = IsDarkTheme ? 0.12f : 1f;
 
-                    var uniforms = new SKRuntimeEffectUniforms(effect)
+                    var uniforms = new SKRuntimeEffectUniforms(_effect)
                     {
                         ["minLuma"] = minLuma,
                         ["maxLuma"] = maxLuma
                     };
 
-                    var children = new SKRuntimeEffectChildren(effect)
+                    var children = new SKRuntimeEffectChildren(_effect)
                     {
                         ["src"] = blurSnapShader
                     };
-                    using var clampShader = effect.ToShader(uniforms, children, SKMatrix.CreateIdentity());
+                    using var clampShader = _effect.ToShader(uniforms, children, SKMatrix.CreateIdentity());
 
-                    using var paint = new SKPaint
-                    {
-                        Shader = clampShader,
-                        IsAntialias = false
-                    };
+                    using var paint = new SKPaint();
+                    paint.Shader = clampShader;
+                    paint.IsAntialias = false;
 
                     canvas.DrawRect(0, 0, (float)_bounds.Width, (float)_bounds.Height, paint);
                 }
