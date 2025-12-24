@@ -127,13 +127,10 @@
                                     <MultiBinding Converter="{x:Static BoolConverters.Or}">
                                         <Binding Path="#PART_IconPresenter.IsVisible"
                                                  RelativeSource="{RelativeSource TemplatedParent}" />
-                                        <MultiBinding Converter="{x:Static BoolConverters.Or}">
-                                            <Binding Path="#PART_CheckBox.IsVisible"
-                                                     RelativeSource="{RelativeSource TemplatedParent}" />
-                                            <Binding Path="#PART_RadioButton.IsVisible"
-                                                     RelativeSource="{RelativeSource TemplatedParent}" />
-                                        </MultiBinding>
-
+                                        <Binding Path="#PART_CheckBox.IsVisible"
+                                                 RelativeSource="{RelativeSource TemplatedParent}" />
+                                        <Binding Path="#PART_RadioButton.IsVisible"
+                                                 RelativeSource="{RelativeSource TemplatedParent}" />
                                     </MultiBinding>
                                 </Rectangle.IsVisible>
                             </Rectangle>
