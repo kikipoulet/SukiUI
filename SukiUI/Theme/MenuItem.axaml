@@ -24,13 +24,11 @@
                                   Icon="🗙"
                                   InputGesture="Ctrl + Alt + O" />
                     </MenuItem>
-                    <MenuItem ToggleType="Radio"
-                              Header="Save"
+                    <MenuItem Header="Save"
                               Icon="💾"
                               InputGesture="Ctrl + S" />
                     <MenuItem Header="Fullscreen"
                               HotKey="F11"
-                              ToggleType="CheckBox"
                               Icon="⛶"
                               InputGesture="F11" />
                     <MenuItem Header="Close"
