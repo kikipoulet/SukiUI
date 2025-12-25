@@ -47,7 +47,7 @@
                             <RadioButton Height="40"
                                          Classes="Chips"
                                          Content="Disabled"
-                                         GroupName="R10" 
+                                         GroupName="R10"
                                          IsEnabled="False"/>
                         </StackPanel>
                     </showMeTheXaml:XamlDisplay>
@@ -73,7 +73,7 @@
                             <RadioButton Height="60"
                                          Classes="GigaChips"
                                          Content="Disabled"
-                                         GroupName="R2" 
+                                         GroupName="R2"
                                          IsEnabled="False"/>
                         </StackPanel>
                     </showMeTheXaml:XamlDisplay>
@@ -91,7 +91,7 @@
                                          Margin="7"
                                          Classes="GigaChips"
                                          IsChecked="True">
-                                <StackPanel HorizontalAlignment="Left" Spacing="0,8">
+                                <StackPanel HorizontalAlignment="Left" Spacing="0.8">
                                     <TextBlock FontSize="12"
                                                FontWeight="DemiBold"
                                                Foreground="{DynamicResource SukiLowText}"
@@ -109,7 +109,7 @@
                                          Height="138"
                                          Margin="7"
                                          Classes="GigaChips">
-                                <StackPanel HorizontalAlignment="Left" Spacing="0,8">
+                                <StackPanel HorizontalAlignment="Left" Spacing="0.8">
                                     <TextBlock FontSize="12"
                                                FontWeight="DemiBold"
                                                Foreground="{DynamicResource SukiLowText}"
@@ -127,7 +127,7 @@
                                          Height="138"
                                          Margin="7"
                                          Classes="GigaChips">
-                                <StackPanel HorizontalAlignment="Left" Spacing="0,8">
+                                <StackPanel HorizontalAlignment="Left" Spacing="0.8">
                                     <TextBlock FontSize="12"
                                                FontWeight="DemiBold"
                                                Foreground="{DynamicResource SukiLowText}"
@@ -267,6 +267,16 @@
                     <StackPanel>
                         <showMeTheXaml:XamlDisplay UniqueId="ToggleSplitButton">
                             <ToggleSplitButton Content="Toggle Me">
+                                <ToggleSplitButton.Flyout>
+                                    <MenuFlyout>
+                                        <MenuItem Header="Hello" />
+                                    </MenuFlyout>
+                                </ToggleSplitButton.Flyout>
+                            </ToggleSplitButton>
+                        </showMeTheXaml:XamlDisplay>
+
+                        <showMeTheXaml:XamlDisplay UniqueId="ToggleSplitButton2">
+                            <ToggleSplitButton Content="Toggle Me" Classes="Accent">
                                 <ToggleSplitButton.Flyout>
                                     <MenuFlyout>
                                         <MenuItem Header="Hello" />
