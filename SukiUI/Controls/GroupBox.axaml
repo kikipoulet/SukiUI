@@ -39,7 +39,7 @@
         </Border>
     </Design.PreviewWith>
 
-    <ControlTheme TargetType="suki:GroupBox" x:Key="{x:Type suki:GroupBox}">
+    <ControlTheme x:Key="{x:Type suki:GroupBox}" TargetType="suki:GroupBox">
         <Setter Property="ClipToBounds" Value="False" />
         <Setter Property="Template">
             <ControlTemplate>
