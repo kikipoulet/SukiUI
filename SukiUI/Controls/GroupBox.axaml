@@ -7,54 +7,88 @@
                 <suki:GlassCard>
                     <suki:GroupBox BorderBrush="Black"
                                    BorderThickness="5"
-                                   Header="Title"
-                                   Content="Hello world 1!"/>
+                                   Header="Title 1"
+                                   Content="Hello world 1!" />
                 </suki:GlassCard>
 
                 <suki:GlassCard>
                     <suki:GroupBox BorderBrush="Black"
                                    BorderThickness="5"
-                                   Header="Title"
-                                   Content="Hello world 2!"/>
+                                   Header="Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2"
+                                   FontWeight="10"
+                                   Content="Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! " />
+                </suki:GlassCard>
+
+                <suki:GlassCard>
+                    <suki:GroupBox BorderBrush="Black"
+                                   BorderThickness="5"
+                                   Header="Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3"
+                                   Content="Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3!"
+                                   TextBlock.TextWrapping="Wrap" />
+                </suki:GlassCard>
+
+                <suki:GlassCard>
+                    <suki:GroupBox BorderBrush="Black"
+                                   BorderThickness="2"
+                                   Background="DarkGray"
+                                   Foreground="Red"
+                                   FontWeight="Thin"
+                                   Content="Hello world 3!">
+                        <suki:GroupBox.HeaderTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Aqua"
+                                        BorderThickness="2">
+                                    <TextBlock Text="Custom Title"
+                                               FontWeight="ExtraBlack" />
+                                </Border>
+                            </DataTemplate>
+                        </suki:GroupBox.HeaderTemplate>
+                    </suki:GroupBox>
                 </suki:GlassCard>
             </StackPanel>
         </Border>
     </Design.PreviewWith>
-    <ControlTheme TargetType="suki:GroupBox" x:Key="SukiGroupBoxTheme">
+
+    <ControlTheme x:Key="{x:Type suki:GroupBox}" TargetType="suki:GroupBox">
         <Setter Property="ClipToBounds" Value="False" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Grid RowDefinitions="Auto, Auto, *">
-                    <ContentPresenter Grid.Row="0"
-                                      Name="PART_HeaderPresenter"
-                                      Margin="{TemplateBinding Padding}"
-                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                      ContentTemplate="{TemplateBinding HeaderTemplate}"
-                                      Content="{TemplateBinding Header}">
-                        <ContentPresenter.Styles>
-                            <Style Selector="TextBlock">
-                                <Setter Property="Foreground" Value="{DynamicResource SukiLowText}" />
-                            </Style>
-                            <Style Selector="PathIcon">
-                                <Setter Property="Foreground" Value="{DynamicResource SukiLowText}" />
-                            </Style>
-                        </ContentPresenter.Styles>
-                    </ContentPresenter>
+                <Border Name="PART_Root"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Background="{TemplateBinding Background}">
+                    <Grid RowDefinitions="Auto, Auto, *">
+                        <ContentPresenter Grid.Row="0"
+                                          Name="PART_HeaderPresenter"
+                                          Margin="{TemplateBinding Padding}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                          Content="{TemplateBinding Header}">
+                            <ContentPresenter.Styles>
+                                <Style Selector="TextBlock">
+                                    <Setter Property="Foreground" Value="{DynamicResource SukiLowText}" />
+                                </Style>
+                                <Style Selector="PathIcon">
+                                    <Setter Property="Foreground" Value="{DynamicResource SukiLowText}" />
+                                </Style>
+                            </ContentPresenter.Styles>
+                        </ContentPresenter>
 
-                    <Border Grid.Row="1" Height="1"
-                            Margin="0,10,0,10"
-                            Background="{DynamicResource SukiControlBorderBrush}"
-                            BorderThickness="0" />
+                        <Border Grid.Row="1" Height="1"
+                                Margin="0,10,0,10"
+                                Background="{DynamicResource SukiControlBorderBrush}"
+                                BorderThickness="0" />
 
-                    <ContentPresenter Grid.Row="2"
-                                      Name="PART_ContentPresenter"
-                                      Margin="{TemplateBinding Padding}"
-                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                      ContentTemplate="{TemplateBinding ContentTemplate}"
-                                      Content="{TemplateBinding Content}" />
-                </Grid>
+                        <ContentPresenter Grid.Row="2"
+                                          Name="PART_ContentPresenter"
+                                          Margin="{TemplateBinding Padding}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          Content="{TemplateBinding Content}" />
+                    </Grid>
+                </Border>
             </ControlTemplate>
         </Setter>
     </ControlTheme>
