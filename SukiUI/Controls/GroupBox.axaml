@@ -7,20 +7,36 @@
                 <suki:GlassCard>
                     <suki:GroupBox BorderBrush="Black"
                                    BorderThickness="5"
-                                   Header="Title"
-                                   Content="Hello world 1!"/>
+                                   Header="Title 1"
+                                   Content="Hello world 1!" />
                 </suki:GlassCard>
 
                 <suki:GlassCard>
                     <suki:GroupBox BorderBrush="Black"
                                    BorderThickness="5"
-                                   Header="Title"
-                                   Content="Hello world 2!"/>
+                                   Header="Title 2"
+                                   Content="Hello world 2!" />
+                </suki:GlassCard>
+
+                <suki:GlassCard>
+                    <suki:GroupBox BorderBrush="Black"
+                                   BorderThickness="2"
+                                   Content="Hello world 3!">
+                        <suki:GroupBox.HeaderTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Aqua"
+                                        BorderThickness="2">
+                                    <TextBlock Text="Templated Title" />
+                                </Border>
+                            </DataTemplate>
+                        </suki:GroupBox.HeaderTemplate>
+                    </suki:GroupBox>
                 </suki:GlassCard>
             </StackPanel>
         </Border>
     </Design.PreviewWith>
-    <ControlTheme TargetType="suki:GroupBox" x:Key="SukiGroupBoxTheme">
+
+    <ControlTheme TargetType="suki:GroupBox" x:Key="{x:Type suki:GroupBox}">
         <Setter Property="ClipToBounds" Value="False" />
         <Setter Property="Template">
             <ControlTemplate>
