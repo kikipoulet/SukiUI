@@ -2,29 +2,30 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:suki="https://github.com/kikipoulet/SukiUI">
     <Design.PreviewWith>
-        <Border Width="800" Height="500" Margin="20">
+        <Border Width="500" Height="300" Margin="20">
             <StackPanel Spacing="5">
                 <suki:GlassCard>
                     <suki:GroupBox BorderBrush="Black"
                                    BorderThickness="5"
-                                   Header="Title"
+                                   Header="Title 1"
                                    Content="Hello world 1!"/>
                 </suki:GlassCard>
 
                 <suki:GlassCard>
                     <suki:GroupBox BorderBrush="Black"
                                    BorderThickness="5"
-                                   Header="Title"
+                                   Header="Title 2"
                                    Content="Hello world 2!"/>
                 </suki:GlassCard>
             </StackPanel>
         </Border>
     </Design.PreviewWith>
-    <ControlTheme TargetType="suki:GroupBox" x:Key="SukiGroupBoxTheme">
+
+    <ControlTheme x:Key="SukiGroupBoxTheme" TargetType="suki:GroupBox">
         <Setter Property="ClipToBounds" Value="False" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Grid RowDefinitions="Auto, Auto, *">
+                <Grid RowDefinitions="Auto,Auto,*">
                     <ContentPresenter Grid.Row="0"
                                       Name="PART_HeaderPresenter"
                                       Margin="{TemplateBinding Padding}"
@@ -35,9 +36,11 @@
                         <ContentPresenter.Styles>
                             <Style Selector="TextBlock">
                                 <Setter Property="Foreground" Value="{DynamicResource SukiLowText}" />
+                                <Setter Property="FontWeight" Value="DemiBold" />
                             </Style>
                             <Style Selector="PathIcon">
                                 <Setter Property="Foreground" Value="{DynamicResource SukiLowText}" />
+                                <Setter Property="FontWeight" Value="DemiBold" />
                             </Style>
                         </ContentPresenter.Styles>
                     </ContentPresenter>
@@ -58,4 +61,8 @@
             </ControlTemplate>
         </Setter>
     </ControlTheme>
+
+    <ControlTheme x:Key="{x:Type suki:GroupBox}"
+                  BasedOn="{StaticResource SukiGroupBoxTheme}"
+                  TargetType="suki:GroupBox" />
 </ResourceDictionary>
