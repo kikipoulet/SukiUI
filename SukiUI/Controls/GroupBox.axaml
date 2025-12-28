@@ -14,9 +14,17 @@
                 <suki:GlassCard>
                     <suki:GroupBox BorderBrush="Black"
                                    BorderThickness="5"
-                                   Header="Title 2"
+                                   Header="Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2"
                                    FontWeight="10"
-                                   Content="Hello world 2!" />
+                                   Content="Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! " />
+                </suki:GlassCard>
+
+                <suki:GlassCard>
+                    <suki:GroupBox BorderBrush="Black"
+                                   BorderThickness="5"
+                                   Header="Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3 Title 3"
+                                   Content="Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3! Hello world 3!"
+                                   TextBlock.TextWrapping="Wrap" />
                 </suki:GlassCard>
 
                 <suki:GlassCard>
@@ -24,12 +32,14 @@
                                    BorderThickness="2"
                                    Background="DarkGray"
                                    Foreground="Red"
+                                   FontWeight="Thin"
                                    Content="Hello world 3!">
                         <suki:GroupBox.HeaderTemplate>
                             <DataTemplate>
                                 <Border BorderBrush="Aqua"
                                         BorderThickness="2">
-                                    <TextBlock Text="Custom Title" FontWeight="Black" />
+                                    <TextBlock Text="Custom Title"
+                                               FontWeight="ExtraBlack" />
                                 </Border>
                             </DataTemplate>
                         </suki:GroupBox.HeaderTemplate>
@@ -43,7 +53,8 @@
         <Setter Property="ClipToBounds" Value="False" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Border BorderBrush="{TemplateBinding BorderBrush}"
+                <Border Name="PART_Root"
+                        BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         Background="{TemplateBinding Background}">
                     <Grid RowDefinitions="Auto, Auto, *">
