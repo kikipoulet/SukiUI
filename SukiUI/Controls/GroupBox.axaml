@@ -2,10 +2,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:suki="https://github.com/kikipoulet/SukiUI">
     <Design.PreviewWith>
-        <Border Width="500" Height="300" Margin="20">
+        <Border Width="500" Height="400" Margin="20">
             <StackPanel Spacing="5">
                 <suki:GlassCard>
                     <suki:GroupBox BorderBrush="Black"
+                                   Foreground="Red"
+                                   FontWeight="ExtraBlack"
                                    BorderThickness="5"
                                    Header="Title 1"
                                    Content="Hello world 1!"/>
@@ -15,7 +17,15 @@
                     <suki:GroupBox BorderBrush="Black"
                                    BorderThickness="5"
                                    Header="Title 2"
-                                   Content="Hello world 2!"/>
+                                   Content="Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! "/>
+                </suki:GlassCard>
+
+                <suki:GlassCard>
+                    <suki:GroupBox BorderBrush="Black"
+                                   BorderThickness="5"
+                                   Header="Title 2"
+                                   Content="Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2!"
+                                   TextBlock.TextWrapping="Wrap" />
                 </suki:GlassCard>
             </StackPanel>
         </Border>
@@ -32,15 +42,15 @@
                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                       ContentTemplate="{TemplateBinding HeaderTemplate}"
-                                      Content="{TemplateBinding Header}">
+                                      Content="{TemplateBinding Header}"
+                                      TextWrapping="{TemplateBinding TextBlock.TextWrapping}"
+                                      TextTrimming="{TemplateBinding TextBlock.TextTrimming}">
                         <ContentPresenter.Styles>
                             <Style Selector="TextBlock">
                                 <Setter Property="Foreground" Value="{DynamicResource SukiLowText}" />
-                                <Setter Property="FontWeight" Value="DemiBold" />
                             </Style>
                             <Style Selector="PathIcon">
                                 <Setter Property="Foreground" Value="{DynamicResource SukiLowText}" />
-                                <Setter Property="FontWeight" Value="DemiBold" />
                             </Style>
                         </ContentPresenter.Styles>
                     </ContentPresenter>
@@ -56,7 +66,9 @@
                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                       ContentTemplate="{TemplateBinding ContentTemplate}"
-                                      Content="{TemplateBinding Content}" />
+                                      Content="{TemplateBinding Content}"
+                                      TextWrapping="{TemplateBinding TextBlock.TextWrapping}"
+                                      TextTrimming="{TemplateBinding TextBlock.TextTrimming}"/>
                 </Grid>
             </ControlTemplate>
         </Setter>
