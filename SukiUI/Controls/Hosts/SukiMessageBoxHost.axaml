@@ -2,8 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:converters="clr-namespace:Avalonia.Controls.Converters;assembly=Avalonia.Controls"
                     xmlns:suki="using:SukiUI.Controls"
-                    xmlns:icons="https://github.com/kikipoulet/SukiUI"
-                    >
+                    xmlns:icons="https://github.com/kikipoulet/SukiUI">
 
     <Design.PreviewWith>
         <StackPanel Spacing="10"
@@ -15,7 +14,7 @@
                     <Setter Property="BorderThickness" Value="2"/>
                 </Style>
             </StackPanel.Styles>
-            <StackPanel Width="500" Spacing="10">
+            <StackPanel Width="500" Spacing="5">
                 <suki:SukiMessageBoxHost IconPreset="Star" ShowHeaderContentSeparator="True">
                     <suki:SukiMessageBoxHost.FooterLeftItemsSource>
                         <Border Width="20"
@@ -37,7 +36,7 @@
                     <SelectableTextBlock Text="- Added new user authentication module.&#10;- Fixed bug with the search functionality where results were not displaying correctly.&#10;- Improved performance on mobile devices.&#10;- Updated dependencies for security patches." />
                 </suki:SukiMessageBoxHost>
 
-                <Separator Margin="20" Foreground="Black" />
+                <Separator Margin="10" Foreground="Black" />
 
                 <suki:SukiMessageBoxHost ActionButtonsPreset="YesNoCancel"
                                          Header="Alternative header style"
@@ -48,7 +47,7 @@
 
                 </suki:SukiMessageBoxHost>
 
-                <Separator Margin="20" Foreground="Black" />
+                <Separator Margin="10" Foreground="Black" />
 
                 <suki:SukiMessageBoxHost ActionButtonsPreset="YesNoCancel">
                     <suki:SukiMessageBoxHost.Icon>
@@ -61,7 +60,7 @@
 
                 </suki:SukiMessageBoxHost>
 
-                <Separator Margin="20" Foreground="Black" />
+                <Separator Margin="10" Foreground="Black" />
 
                 <suki:SukiMessageBoxHost >
                     Empty message box with long text that should wrap when the text is too long. This is a test to see how the message box handles long text and if it properly displays the wrapped text when needed. The text should be wrapped correctly and the scroll bar should only appear when necessary.
@@ -69,7 +68,7 @@
             </StackPanel>
 
             <!-- Flat styles -->
-            <StackPanel Width="500" Spacing="10">
+            <StackPanel Width="500" Spacing="5">
                 <suki:SukiMessageBoxHost IconPreset="Star"
                                          ShowHeaderContentSeparator="True"
                                          Classes="FlatCard">
@@ -93,7 +92,7 @@
                     <SelectableTextBlock Text="- Added new user authentication module.&#10;- Fixed bug with the search functionality where results were not displaying correctly.&#10;- Improved performance on mobile devices.&#10;- Updated dependencies for security patches." />
                 </suki:SukiMessageBoxHost>
 
-                <Separator Margin="20" Foreground="Black" />
+                <Separator Margin="10" Foreground="Black" />
 
                 <suki:SukiMessageBoxHost ActionButtonsPreset="YesNoCancel"
                                          Header="(FlatCard) Alternative header and footer style"
@@ -105,7 +104,7 @@
 
                 </suki:SukiMessageBoxHost>
 
-                <Separator Margin="20" Foreground="Black" />
+                <Separator Margin="10" Foreground="Black" />
 
                 <suki:SukiMessageBoxHost Header="(FlatHeader) Alternative header style"
                                          UseAlternativeHeaderStyle="True"
@@ -121,7 +120,7 @@
 
                 </suki:SukiMessageBoxHost>
 
-                <Separator Margin="20" Foreground="Black" />
+                <Separator Margin="10" Foreground="Black" />
 
                 <suki:SukiMessageBoxHost Header="(FlatFooter) Alternative footer style"
                                          IconPreset="Warning"
@@ -158,8 +157,9 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Border Name="PART_Root"
-                        BorderBrush="Black"
-                        BorderThickness="2">
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
                     <DockPanel LastChildFill="True">
                         <!-- Header -->
                         <suki:GlassCard DockPanel.Dock="Top"
@@ -191,7 +191,6 @@
                                 <ContentPresenter Name="PART_AlternativeHeader"
                                                   Grid.Row="0"
                                                   Grid.Column="1"
-                                                  TextWrapping="{TemplateBinding TextBlock.TextWrapping}"
                                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                                   Content="{TemplateBinding Header}"
                                                   ContentTemplate="{TemplateBinding HeaderTemplate}" />
@@ -277,7 +276,6 @@
                                                           Grid.Row="0"
                                                           Grid.Column="1"
                                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                          TextWrapping="{TemplateBinding TextBlock.TextWrapping}"
                                                           Content="{TemplateBinding Header}"
                                                           ContentTemplate="{TemplateBinding HeaderTemplate}" />
                                     </Grid>

@@ -114,6 +114,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary.Dialogs
                 UseAlternativeHeaderStyle = UseAlternativeHeaderStyle,
                 ShowHeaderContentSeparator = ShowHeaderContentSeparator,
                 Header = "Changelog - Version 2.5.0",
+                Classes = { "FlatCard" },
                 Content = new Markdown.Avalonia.MarkdownScrollViewer()
                 {
                     Markdown = """
