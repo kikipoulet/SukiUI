@@ -8,13 +8,17 @@ using SukiUI.MessageBox;
 
 namespace SukiUI.Controls;
 
+[TemplatePart("PART_Root", typeof(Border))]
+[TemplatePart("PART_AlternativeHeaderGlassCard", typeof(GlassCard))]
 [TemplatePart("PART_AlternativeHeaderGrid", typeof(Grid))]
 [TemplatePart("PART_AlternativeIcon", typeof(ContentPresenter))]
 [TemplatePart("PART_AlternativeHeader", typeof(ContentPresenter))]
 [TemplatePart("PART_HeaderGrid", typeof(Grid))]
 [TemplatePart("PART_Icon", typeof(ContentPresenter))]
 [TemplatePart("PART_Header", typeof(ContentPresenter))]
+[TemplatePart("PART_ContentGlassCard", typeof(GlassCard))]
 [TemplatePart("PART_Content", typeof(ScrollViewer))]
+[TemplatePart("PART_FooterGlassCard", typeof(GlassCard))]
 [TemplatePart("PART_FooterGrid", typeof(Grid))]
 [TemplatePart("PART_LeftContentItems", typeof(ItemsControl))]
 [TemplatePart("PART_ActionButtons", typeof(ItemsControl))]
