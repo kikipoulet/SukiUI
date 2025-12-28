@@ -106,6 +106,7 @@
                                          Name="PART_RadioButton"
                                          Margin="5,0,0,0"
                                          IsChecked="{TemplateBinding IsChecked, Mode=TwoWay}"
+                                         GroupName="{TemplateBinding GroupName}"
                                          IsVisible="False" />
 
                             <ContentPresenter Grid.Column="1"
