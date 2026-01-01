@@ -16,7 +16,9 @@
                                ShowButtonSpinner="False"
                                Value="120" />
                 <NumericUpDown IsEnabled="False" Value="120" />
-                <NumericUpDown AllowSpin="False" Value="120" />
+                <NumericUpDown suki:NumericUpDownExtensions.ResetText="100"
+                               AllowSpin="False"
+                               Value="120" />
                 <NumericUpDown Height="64"
                                suki:NumericUpDownExtensions.UseFloatingWatermark="True"
                                Increment="0.05"
@@ -209,7 +211,8 @@
 
                             <StackPanel Grid.Column="1"
                                         Orientation="Horizontal"
-                                        Spacing="{StaticResource SukiTextBoxElementSpacing}">
+                                        Spacing="{StaticResource SukiTextBoxElementSpacing}"
+                                        Margin="0,0,5,0">
                                 <StackPanel.IsVisible>
                                     <MultiBinding Converter="{x:Static BoolConverters.Or}">
                                         <TemplateBinding Converter="{x:Static ObjectConverters.IsNotNull}" Property="suki:NumericUpDownExtensions.ResetText" />
@@ -228,8 +231,8 @@
                                             <TemplateBinding Property="suki:NumericUpDownExtensions.ResetText" />
                                         </MultiBinding>
                                     </ToolTip.Tip>
-                                    <PathIcon Width="18"
-                                              Height="18"
+                                    <PathIcon Width="16"
+                                              Height="16"
                                               Margin="0"
                                               Data="{x:Static suki:Icons.RefreshCircle}"
                                               Foreground="{DynamicResource SukiLowText}"/>

@@ -365,8 +365,8 @@
                                             <TemplateBinding Property="suki:TextBoxExtensions.ResetText" />
                                         </MultiBinding>
                                     </ToolTip.Tip>
-                                    <PathIcon Width="18"
-                                              Height="18"
+                                    <PathIcon Width="16"
+                                              Height="16"
                                               Margin="0"
                                               Data="{x:Static suki:Icons.RefreshCircle}"
                                               Foreground="{DynamicResource SukiLowText}" />
@@ -378,8 +378,8 @@
                                                        Opacity="{TemplateBinding Text, Converter={StaticResource StringToDoubleC}}"
                                                        Text="{TemplateBinding Text, Mode=TwoWay}"
                                                        ToolTip.Tip="{DynamicResource STRING_BUTTON_CLEAR}">
-                                    <PathIcon Width="18"
-                                              Height="18"
+                                    <PathIcon Width="16"
+                                              Height="16"
                                               Margin="0"
                                               Data="{x:Static suki:Icons.CircleClose}"
                                               Foreground="{DynamicResource SukiLowText}" />
