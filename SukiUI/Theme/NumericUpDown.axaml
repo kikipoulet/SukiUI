@@ -22,7 +22,8 @@
                                Increment="0.05"
                                Watermark="Large height"
                                Value="120" />
-                <NumericUpDown suki:NumericUpDownExtensions.Unit="mm"
+                <NumericUpDown suki:NumericUpDownExtensions.Prefix="Height:"
+                               suki:NumericUpDownExtensions.Unit="mm"
                                suki:NumericUpDownExtensions.ResetText="120"
                                FormatString="F0"
                                Value="120" />
