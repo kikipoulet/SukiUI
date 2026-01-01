@@ -88,25 +88,6 @@
       <DependentUpon>ChatUI.axaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Locale\de-de.axaml.cs">
-      <DependentUpon>de-de.axaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Locale\en-US.axaml.cs">
-      <DependentUpon>en-US.axaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Locale\nl-NL.axaml.cs">
-      <DependentUpon>nl-NL.axaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Locale\pt-pt.axaml.cs">
-      <DependentUpon>pt-pt.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="Locale\zh-CN.axaml.cs">
-      <DependentUpon>zh-CN.axaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>

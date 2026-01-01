@@ -1,10 +1,10 @@
-<ResourceDictionary x:Class="SukiUI.Locale.pt_PT"
+<ResourceDictionary x:Class="SukiUI.Locale.es_ES"
                     xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <!--  DatePicker  -->
-    <x:String x:Key="STRING_DATEPICKER_DAY_TEXT">dia</x:String>
-    <x:String x:Key="STRING_DATEPICKER_MONTH_TEXT">mês</x:String>
-    <x:String x:Key="STRING_DATEPICKER_YEAR_TEXT">ano</x:String>
+    <x:String x:Key="STRING_DATEPICKER_DAY_TEXT">día</x:String>
+    <x:String x:Key="STRING_DATEPICKER_MONTH_TEXT">mes</x:String>
+    <x:String x:Key="STRING_DATEPICKER_YEAR_TEXT">año</x:String>
     <x:String x:Key="STRING_DATEPICKER_APPLY">Aplicar</x:String>
     <!--  TimePicker  -->
     <x:String x:Key="STRING_TIMEPICKER_HOUR_TEXT">hora</x:String>
@@ -14,19 +14,19 @@
     <!--  TextBox  -->
     <x:String x:Key="STRING_MENU_CUT">Cortar</x:String>
     <x:String x:Key="STRING_MENU_COPY">Copiar</x:String>
-    <x:String x:Key="STRING_MENU_PASTE">Colar</x:String>
-    <x:String x:Key="STRING_BUTTON_CLEAR">Limpar</x:String>
-    <x:String x:Key="STRING_BUTTON_DEFAULT">Predefinição</x:String>
-    <x:String x:Key="STRING_BUTTON_RESET_TO">Repor para</x:String>
+    <x:String x:Key="STRING_MENU_PASTE">Pegar</x:String>
+    <x:String x:Key="STRING_BUTTON_CLEAR">Borrar</x:String>
+    <x:String x:Key="STRING_BUTTON_DEFAULT">Por defecto</x:String>
+    <x:String x:Key="STRING_BUTTON_RESET_TO">Restablecer a</x:String>
     <!--  Prompts  -->
     <x:String x:Key="STRING_PROMPT_OK">OK</x:String>
-    <x:String x:Key="STRING_PROMPT_YES">Sim</x:String>
-    <x:String x:Key="STRING_PROMPT_NO">Não</x:String>
+    <x:String x:Key="STRING_PROMPT_YES">Sí</x:String>
+    <x:String x:Key="STRING_PROMPT_NO">No</x:String>
     <x:String x:Key="STRING_PROMPT_CANCEL">Cancelar</x:String>
     <x:String x:Key="STRING_PROMPT_APPLY">Aplicar</x:String>
     <x:String x:Key="STRING_PROMPT_IGNORE">Ignorar</x:String>
-    <x:String x:Key="STRING_PROMPT_RETRY">Tentar novamente</x:String>
+    <x:String x:Key="STRING_PROMPT_RETRY">Reintentar</x:String>
     <x:String x:Key="STRING_PROMPT_ABORT">Abortar</x:String>
     <x:String x:Key="STRING_PROMPT_CONTINUE">Continuar</x:String>
-    <x:String x:Key="STRING_PROMPT_CLOSE">Fechar</x:String>
+    <x:String x:Key="STRING_PROMPT_CLOSE">Cerrar</x:String>
 </ResourceDictionary>
