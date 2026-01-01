@@ -16,13 +16,17 @@
                                ShowButtonSpinner="False"
                                Value="120" />
                 <NumericUpDown IsEnabled="False" Value="120" />
-                <NumericUpDown AllowSpin="False" Value="120" />
+                <NumericUpDown suki:NumericUpDownExtensions.ResetText="100"
+                               AllowSpin="False"
+                               Value="120" />
                 <NumericUpDown Height="64"
                                suki:NumericUpDownExtensions.UseFloatingWatermark="True"
                                Increment="0.05"
                                Watermark="Large height"
                                Value="120" />
-                <NumericUpDown suki:NumericUpDownExtensions.Unit="mm"
+                <NumericUpDown suki:NumericUpDownExtensions.Prefix="Height:"
+                               suki:NumericUpDownExtensions.Unit="mm"
+                               suki:NumericUpDownExtensions.ResetText="120"
                                FormatString="F0"
                                Value="120" />
                 <NumericUpDown suki:NumericUpDownExtensions.Unit="mm"
@@ -49,6 +53,7 @@
                 </NumericUpDown>
                 <NumericUpDown suki:NumericUpDownExtensions.Unit="mm"
                                suki:NumericUpDownExtensions.UseFloatingWatermark="True"
+                               suki:NumericUpDownExtensions.ResetText="120"
                                FormatString="F0"
                                InnerLeftContent="[L]"
                                InnerRightContent="[R]"
@@ -200,15 +205,45 @@
                                          Text="{TemplateBinding Text}"
                                          TextWrapping="NoWrap"
                                          UseFloatingWatermark="{TemplateBinding suki:NumericUpDownExtensions.UseFloatingWatermark}"
-                                         Watermark="{TemplateBinding Watermark}" />
+                                         Watermark="{TemplateBinding Watermark}"
+                                         suki:TextBoxExtensions.Prefix="{TemplateBinding suki:NumericUpDownExtensions.Prefix}"/>
                             </DataValidationErrors>
-                            <ContentPresenter Grid.Column="1"
-                                              Margin="0,0,5,0"
-                                              VerticalAlignment="Center"
-                                              Content="{TemplateBinding suki:NumericUpDownExtensions.Unit}"
-                                              FontSize="{TemplateBinding FontSize}"
-                                              Foreground="{DynamicResource SukiLowText}"
-                                              IsVisible="{TemplateBinding suki:NumericUpDownExtensions.Unit, Converter={x:Static ObjectConverters.IsNotNull}}" />
+
+                            <StackPanel Grid.Column="1"
+                                        Orientation="Horizontal"
+                                        Spacing="{StaticResource SukiTextBoxElementSpacing}"
+                                        Margin="0,0,5,0">
+                                <StackPanel.IsVisible>
+                                    <MultiBinding Converter="{x:Static BoolConverters.Or}">
+                                        <TemplateBinding Converter="{x:Static ObjectConverters.IsNotNull}" Property="suki:NumericUpDownExtensions.ResetText" />
+                                        <TemplateBinding Converter="{x:Static ObjectConverters.IsNotNull}" Property="suki:NumericUpDownExtensions.Unit" />
+                                    </MultiBinding>
+                                </StackPanel.IsVisible>
+
+                                <suki:TextResetButton VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                      Cursor="Hand"
+                                                      IsVisible="{TemplateBinding suki:NumericUpDownExtensions.ResetText, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                                      DefaultText="{TemplateBinding suki:NumericUpDownExtensions.ResetText}"
+                                                      Text="{TemplateBinding Text, Mode=TwoWay}">
+                                    <ToolTip.Tip>
+                                        <MultiBinding StringFormat="{}{0}: {1}">
+                                            <DynamicResource ResourceKey="STRING_BUTTON_RESET_TO" />
+                                            <TemplateBinding Property="suki:NumericUpDownExtensions.ResetText" />
+                                        </MultiBinding>
+                                    </ToolTip.Tip>
+                                    <PathIcon Width="16"
+                                              Height="16"
+                                              Margin="0"
+                                              Data="{x:Static suki:Icons.RefreshCircle}"
+                                              Foreground="{DynamicResource SukiLowText}"/>
+                                </suki:TextResetButton>
+
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  Content="{TemplateBinding suki:NumericUpDownExtensions.Unit}"
+                                                  FontSize="{TemplateBinding FontSize}"
+                                                  Foreground="{DynamicResource SukiLowText}"
+                                                  IsVisible="{TemplateBinding suki:NumericUpDownExtensions.Unit, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                            </StackPanel>
                         </Grid>
 
                     </ButtonSpinner>

@@ -1,0 +1,64 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:suki="https://github.com/kikipoulet/SukiUI">
+    <Design.PreviewWith>
+        <Border Width="400" Height="400" Margin="20">
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <suki:TextResetButton DefaultText="{x:Null}"/>
+                <suki:TextResetButton Text="Hello"/>
+                <suki:TextResetButton Text="Hello">
+                    <PathIcon Width="16"
+                              Height="16"
+                              Margin="0"
+                              Data="{x:Static suki:Icons.Backspace}" />
+                </suki:TextResetButton>
+            </StackPanel>
+
+        </Border>
+    </Design.PreviewWith>
+
+    <ControlTheme x:Key="{x:Type suki:TextResetButton}"
+                  TargetType="suki:TextResetButton">
+
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Transitions">
+            <Transitions>
+                <DoubleTransition Property="Opacity" Duration="0:0:0.35" />
+            </Transitions>
+        </Setter>
+
+        <Setter Property="Content" Value="&#215;" />
+
+
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Name="PART_Root"
+                        Margin="{TemplateBinding Padding}"
+                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        BorderBrush="{TemplateBinding BorderBrush}">
+                    <Button Name="PART_Button"
+                            HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Classes="Void">
+
+                        <ContentPresenter Name="PART_ContentPresenter"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          Content="{TemplateBinding Content}" />
+                    </Button>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^[Opacity=0]">
+            <Setter Property="IsVisible" Value="False"/>
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>
+
