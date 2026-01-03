@@ -199,6 +199,25 @@ public static class SukiMessageBox
     /// <summary>
     /// Shows a message box dialog.
     /// </summary>
+    /// <param name="owner">Parent window to own this message box.</param>
+    /// <param name="messageBox">The message box.</param>
+    /// <param name="windowOptions">The window options.</param>
+    /// <returns>
+    /// <see cref="SukiMessageBoxResult"/> when a preset button was clicked.<br/>
+    /// If the window was closed without clicking a button, returns <see cref="SukiMessageBoxResult.Close"/>.
+    /// </returns>
+    /// <exception cref="InvalidOperationException">Thrown if the dialog result is not a standard SukiMessageBoxResult button, such as when a custom button is used.</exception>
+    public static async Task<SukiMessageBoxResult> ShowDialogResult(Window owner, SukiMessageBoxHost messageBox, SukiMessageBoxOptions? windowOptions = null)
+    {
+        var result = await ShowDialog(owner, messageBox, windowOptions);
+        if (result is null) return SukiMessageBoxResult.Close; // Closed without clicking a button
+        if (result is SukiMessageBoxResult mbResult) return mbResult;
+        throw new InvalidOperationException("Unknown button type or custom button was used. This method is only compatible with SukiMessageBoxResult buttons.");
+    }
+
+    /// <summary>
+    /// Shows a message box dialog.
+    /// </summary>
     /// <param name="messageBox">The message box.</param>
     /// <param name="windowOptions">The window options.</param>
     /// <returns>
