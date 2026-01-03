@@ -189,6 +189,11 @@ public class SukiMessageBoxHost : HeaderedContentControl
                 [
                     SukiMessageBoxButtonsFactory.CreateButton(SukiMessageBoxResult.OK)
                 ],
+                SukiMessageBoxButtons.OKAbort =>
+                [
+                    SukiMessageBoxButtonsFactory.CreateButton(SukiMessageBoxResult.OK),
+                    SukiMessageBoxButtonsFactory.CreateButton(SukiMessageBoxResult.Abort)
+                ],
                 SukiMessageBoxButtons.OKCancel =>
                 [
                     SukiMessageBoxButtonsFactory.CreateButton(SukiMessageBoxResult.OK),
@@ -198,6 +203,12 @@ public class SukiMessageBoxHost : HeaderedContentControl
                 [
                     SukiMessageBoxButtonsFactory.CreateButton(SukiMessageBoxResult.Yes),
                     SukiMessageBoxButtonsFactory.CreateButton(SukiMessageBoxResult.No)
+                ],
+                SukiMessageBoxButtons.YesNoAbort =>
+                [
+                    SukiMessageBoxButtonsFactory.CreateButton(SukiMessageBoxResult.Yes),
+                    SukiMessageBoxButtonsFactory.CreateButton(SukiMessageBoxResult.No),
+                    SukiMessageBoxButtonsFactory.CreateButton(SukiMessageBoxResult.Abort)
                 ],
                 SukiMessageBoxButtons.YesNoCancel =>
                 [
