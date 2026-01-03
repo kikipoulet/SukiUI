@@ -16,6 +16,11 @@ public record SukiMessageBoxOptions
     public bool UseNativeWindow { get; init; }
 
     /// <summary>
+    /// Gets if the window is topmost.
+    /// </summary>
+    public bool Topmost { get; init; }
+
+    /// <summary>
     /// Gets if the window can resize.
     /// </summary>
     public bool CanResize { get; init; }

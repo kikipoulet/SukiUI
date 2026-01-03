@@ -59,6 +59,7 @@ public static class SukiMessageBox
         }
 
         // Shared properties
+        window.Topmost = options.Topmost;
         window.CanResize = options.CanResize;
         window.Title = options.Title;
         window.ShowInTaskbar = options.ShowInTaskbar;
