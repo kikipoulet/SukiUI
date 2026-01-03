@@ -132,7 +132,12 @@ public static class SukiMessageBox
         {
             foreach (var button in actionButtons)
             {
-                button.Tag = (button.Tag, window);
+                var tag = (button.Tag as SukiMessageBoxButtonTag) ?? new SukiMessageBoxButtonTag()
+                {
+                    Tag = button.Tag
+                };
+                tag.Owner = window;
+                button.Tag = tag;
                 button.Click += ActionButtonOnClick;
             }
 
@@ -309,7 +314,7 @@ public static class SukiMessageBox
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private static void ActionButtonOnClick(object sender, RoutedEventArgs e)
+    private static async void ActionButtonOnClick(object sender, RoutedEventArgs e)
     {
         if (sender is not Button button) return;
         if (button.Tag is Window window)
@@ -317,15 +322,19 @@ public static class SukiMessageBox
             window.Close();
             return;
         }
-        if (button.Tag is not ValueTuple<object?, Window> tuple) return;
+        if (button.Tag is not SukiMessageBoxButtonTag buttonTag) return;
+        if (buttonTag.Owner is null) return;
 
-        if (tuple.Item1 is SukiMessageBoxResult result)
+        buttonTag.Owner.IsEnabled = false; // Prevent multiple clicks and interactions
+        if (buttonTag.Link is not null) await buttonTag.OpenLink();
+
+        if (buttonTag.Result.HasValue)
         {
-            tuple.Item2.Close(result);
+            buttonTag.Owner.Close(buttonTag.Result.Value);
         }
         else
         {
-            tuple.Item2.Close(sender);
+            buttonTag.Owner.Close(sender);
         }
     }
     #endregion
