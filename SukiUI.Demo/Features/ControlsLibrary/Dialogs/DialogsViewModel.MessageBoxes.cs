@@ -104,7 +104,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary.Dialogs
         private async Task OpenCustomMarkdownMessageBox()
         {
             var autoUpgradeButton = SukiMessageBoxButtonsFactory.CreateButton("Auto upgrade", SukiMessageBoxResult.Yes, "Flat Accent");
-            var manualUpgradeButton = SukiMessageBoxButtonsFactory.CreateButton("Manual upgrade");
+            var manualUpgradeButton = SukiMessageBoxButtonsFactory.CreateButton("Manual upgrade", link: "https://github.com/kikipoulet/SukiUI");
             var cancelButton = SukiMessageBoxButtonsFactory.CreateButton(SukiMessageBoxResult.Cancel);
 
             var result = await SukiMessageBox.ShowDialog(new SukiMessageBoxHost
@@ -114,6 +114,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary.Dialogs
                 UseAlternativeHeaderStyle = UseAlternativeHeaderStyle,
                 ShowHeaderContentSeparator = ShowHeaderContentSeparator,
                 Header = "Changelog - Version 2.5.0",
+                Classes = { "FlatCard" },
                 Content = new Markdown.Avalonia.MarkdownScrollViewer()
                 {
                     Markdown = """
@@ -160,11 +161,6 @@ namespace SukiUI.Demo.Features.ControlsLibrary.Dialogs
             if (result is SukiMessageBoxResult.Yes)
             {
                 // Do auto upgrade
-            }
-            else if (ReferenceEquals(result, manualUpgradeButton))
-            {
-                var launcher = TopLevel.GetTopLevel(((IClassicDesktopStyleApplicationLifetime)Application.Current?.ApplicationLifetime!).MainWindow)!.Launcher;
-                await launcher.LaunchUriAsync(new Uri("https://github.com/kikipoulet/SukiUI"));
             }
 
             var resultText = result?.ToString();

@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Platform;
+using Avalonia.Platform.Storage;
 
 namespace SukiUI.Extensions;
 
@@ -89,5 +90,42 @@ public static class WindowExtensions
                 window.MaxHeight = Math.Max(window.MinHeight, desiredMaxHeight);
             }
         }
+    }
+
+    /// <summary>
+    /// Attempts to launch the specified link as a file, directory, or URI using the associated launcher for the given
+    /// window.
+    /// </summary>
+    /// <remarks>The method determines the type of the link and attempts to launch it accordingly. If the link
+    /// does not correspond to an existing file, directory, or a valid URI, the method returns <see langword="false"/>
+    /// without performing any action.</remarks>
+    /// <param name="window">The window instance whose launcher is used to open the link.</param>
+    /// <param name="link">The path or URI to launch. Can be a file path, directory path, or a URI. If null, empty, or whitespace, the
+    /// method does nothing.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result is <see langword="true"/> if the link was
+    /// successfully launched; otherwise, <see langword="false"/>.</returns>
+    public static Task<bool> LaunchLinkAsync(this Window window, string? link)
+    {
+        if (string.IsNullOrWhiteSpace(link))
+            return Task.FromResult(false);
+
+        var launcher = window.Launcher;
+
+        if (File.Exists(link))
+        {
+            return launcher.LaunchFileInfoAsync(new FileInfo(link!));
+        }
+
+        if (Directory.Exists(link))
+        {
+            return launcher.LaunchDirectoryInfoAsync(new DirectoryInfo(link!));
+        }
+
+        if (link!.Contains("://"))
+        {
+            return launcher.LaunchUriAsync(new Uri(link));
+        }
+
+        return Task.FromResult(false);
     }
 }
