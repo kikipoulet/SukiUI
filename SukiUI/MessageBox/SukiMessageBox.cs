@@ -86,7 +86,7 @@ public static class SukiMessageBox
     /// <see cref="Button"/> when a custom button was clicked.<br/>
     /// <c>null</c> when the window was closed without clicking a button.
     /// </returns>
-    public static Task<object?> ShowDialog(Window owner, SukiMessageBoxHost messageBox, SukiMessageBoxOptions? windowOptions = null)
+    public static async Task<object?> ShowDialog(Window owner, SukiMessageBoxHost messageBox, SukiMessageBoxOptions? windowOptions = null)
     {
         windowOptions ??= new SukiMessageBoxOptions();
 
@@ -127,6 +127,7 @@ public static class SukiMessageBox
         }
 
         var actionButtons = messageBox.ActionButtonsSource;
+        // Subscribe events
         if (actionButtons is not null)
         {
             foreach (var button in actionButtons)
@@ -172,7 +173,27 @@ public static class SukiMessageBox
             window.Content = messageBox;
         }
 
-        return window.ShowDialog<object?>(owner);
+        var result = await window.ShowDialog<object?>(owner);
+
+        // Unsubscribe events
+        if (actionButtons is not null)
+        {
+            foreach (var button in actionButtons)
+            {
+                button.Click -= ActionButtonOnClick;
+            }
+
+            if (actionButtons.Count <= 1)
+            {
+                window.KeyUp -= WindowOnKeyUp;
+            }
+        }
+        else
+        {
+            window.KeyUp -= WindowOnKeyUp;
+        }
+
+        return result;
     }
 
     /// <summary>
