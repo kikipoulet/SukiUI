@@ -240,6 +240,31 @@ public static class SukiMessageBox
 
         throw new InvalidOperationException("The application is not an instance of IClassicDesktopStyleApplicationLifetime.");
     }
+
+    /// <summary>
+    /// Shows a message box dialog.
+    /// </summary>
+    /// <param name="messageBox">The message box.</param>
+    /// <param name="windowOptions">The window options.</param>
+    /// <returns>
+    /// <see cref="SukiMessageBoxResult"/> when a preset button was clicked.<br/>
+    /// If the window was closed without clicking a button, returns <see cref="SukiMessageBoxResult.Close"/>.
+    /// </returns>
+    /// <exception cref="InvalidOperationException">Thrown if the dialog result is not a standard SukiMessageBoxResult button, such as when a custom button is used.</exception>
+    public static Task<SukiMessageBoxResult> ShowDialogResult(SukiMessageBoxHost messageBox, SukiMessageBoxOptions? windowOptions = null)
+    {
+        if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        {
+            if (desktop.MainWindow is not null)
+            {
+                return ShowDialogResult(desktop.MainWindow, messageBox, windowOptions);
+            }
+
+            throw new InvalidOperationException("The application does not contain a main window.");
+        }
+
+        throw new InvalidOperationException("The application is not an instance of IClassicDesktopStyleApplicationLifetime.");
+    }
     #endregion
 
     #region Events
