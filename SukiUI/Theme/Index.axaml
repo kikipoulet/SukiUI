@@ -75,6 +75,7 @@
                 <ResourceInclude Source="avares://sukiUI/Theme/TabItem.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/Separator.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/DropDownButton.axaml" />
+                <ResourceInclude Source="avares://sukiUI/Theme/MenuScrollViewer.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/Menu.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/ContextMenu.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/MenuItem.axaml" />
