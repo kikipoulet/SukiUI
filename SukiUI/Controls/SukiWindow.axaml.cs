@@ -14,13 +14,13 @@ using SukiUI.Enums;
 using SukiUI.Extensions;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
-using Avalonia.Controls.Shapes;
 
 namespace SukiUI.Controls;
 
 [TemplatePart("PART_Root", typeof(Panel))]
 [TemplatePart("PART_TitleBar", typeof(LayoutTransformControl))]
 [TemplatePart("PART_TitleBarBackground", typeof(GlassCard))]
+[TemplatePart("PART_TitleTextBlock", typeof(TextBlock))]
 [TemplatePart("PART_Logo", typeof(ContentPresenter))]
 [TemplatePart("PART_FullScreenButton", typeof(Button))]
 [TemplatePart("PART_PinButton", typeof(Button))]
@@ -187,6 +187,21 @@ public class SukiWindow : Window, IDisposable
     {
         get => GetValue(TitleFontWeightProperty);
         set => SetValue(TitleFontWeightProperty, value);
+    }
+
+    public static readonly StyledProperty<TextWrapping> TitleTextWrappingProperty =
+        TextBlock.TextWrappingProperty.AddOwner<SukiWindow>();
+
+    /// <summary>
+    /// Gets or sets the text wrapping behavior for the title content.
+    /// </summary>
+    /// <remarks>Use this property to control how the title text is displayed when it exceeds the available
+    /// width. Setting the value to TextWrapping.Wrap will allow the title to span multiple lines, while
+    /// TextWrapping.NoWrap will keep the title on a single line and may truncate the text if it is too long.</remarks>
+    public TextWrapping TitleTextWrapping
+    {
+        get => GetValue(TitleTextWrappingProperty);
+        set => SetValue(TitleTextWrappingProperty, value);
     }
 
     public static readonly StyledProperty<ContextMenu> TitleBarContextMenuProperty =
