@@ -42,7 +42,6 @@ public static class SukiMessageBox
                 CanMaximize = options.CanMaximize,
                 CanFullScreen = false,
                 IsTitleBarVisible = options.IsTitleBarVisible,
-                LogoContent = options.LogoContent,
                 MaxWidthScreenRatio = options.MaxWidthScreenRatio,
                 MaxHeightScreenRatio = options.MaxHeightScreenRatio,
             };
@@ -54,11 +53,13 @@ public static class SukiMessageBox
             if (options.BackgroundStyle is not null) sukiWindow.BackgroundStyle = options.BackgroundStyle.Value;
             if (options.BackgroundTransitionTime is not null) sukiWindow.BackgroundTransitionTime = options.BackgroundTransitionTime.Value;
             if (options.BackgroundTransitionsEnabled is not null) sukiWindow.BackgroundTransitionsEnabled = options.BackgroundTransitionsEnabled.Value;
+            if (options.LogoContent is not null) sukiWindow.LogoContent = options.LogoContent;
 
             window = sukiWindow;
         }
 
         // Shared properties
+        if (options.Icon is not null) window.Icon = options.Icon;
         window.Topmost = options.Topmost;
         window.CanResize = options.CanResize;
         window.Title = options.Title;

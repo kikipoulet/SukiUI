@@ -16,6 +16,11 @@ public record SukiMessageBoxOptions
     public bool UseNativeWindow { get; init; }
 
     /// <summary>
+    /// Gets the icon to display for the window.
+    /// </summary>
+    public WindowIcon? Icon { get; init; }
+
+    /// <summary>
     /// Gets if the window is topmost.
     /// </summary>
     public bool Topmost { get; init; }

@@ -1,4 +1,4 @@
-using Avalonia;
+﻿using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -14,11 +14,12 @@ using SukiUI.Enums;
 using SukiUI.Extensions;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
+using Avalonia.Controls.Shapes;
 
 namespace SukiUI.Controls;
 
 [TemplatePart("PART_Root", typeof(Panel))]
-[TemplatePart("PART_LayoutTransform", typeof(LayoutTransformControl))]
+[TemplatePart("PART_TitleBar", typeof(LayoutTransformControl))]
 [TemplatePart("PART_TitleBarBackground", typeof(GlassCard))]
 [TemplatePart("PART_Logo", typeof(ContentPresenter))]
 [TemplatePart("PART_FullScreenButton", typeof(Button))]
@@ -74,6 +75,8 @@ public class SukiWindow : Window, IDisposable
     };
 
     private readonly List<Action> _disposeActions = new List<Action>();
+
+    private LayoutTransformControl? _titleBarControl;
     #endregion
 
     #region Properties
@@ -469,16 +472,17 @@ public class SukiWindow : Window, IDisposable
         _wasTitleBarVisibleBeforeFullScreen = IsTitleBarVisible;
 
         // Create handlers for buttons
-        if (e.NameScope.Find<GlassCard>("PART_TitleBarBackground") is { } titleBar)
+        _titleBarControl = e.NameScope.Find<LayoutTransformControl>("PART_TitleBar");
+        if (_titleBarControl is not null)
         {
-            titleBar.PointerPressed += OnTitleBarPointerPressed;
-            titleBar.PointerReleased += OnTitleBarPointerReleased;
-            titleBar.DoubleTapped += OnMaximizeButtonClicked;
+            _titleBarControl.PointerPressed += OnTitleBarPointerPressed;
+            _titleBarControl.PointerReleased += OnTitleBarPointerReleased;
+            _titleBarControl.DoubleTapped += OnMaximizeButtonClicked;
             _disposeActions.Add(() =>
             {
-                titleBar.PointerPressed -= OnTitleBarPointerPressed;
-                titleBar.PointerReleased -= OnTitleBarPointerReleased;
-                titleBar.DoubleTapped -= OnMaximizeButtonClicked;
+                _titleBarControl.PointerPressed -= OnTitleBarPointerPressed;
+                _titleBarControl.PointerReleased -= OnTitleBarPointerReleased;
+                _titleBarControl.DoubleTapped -= OnMaximizeButtonClicked;
             });
         }
 
@@ -533,19 +537,57 @@ public class SukiWindow : Window, IDisposable
     }
 
     /// <inheritdoc />
-    protected override void OnLoaded(RoutedEventArgs e)
+    protected override void OnInitialized()
     {
-        base.OnLoaded(e);
+        base.OnInitialized();
 
         if (Application.Current?.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop)
             return;
+
         if (desktop.MainWindow is SukiWindow window && window != this)
         {
             Icon ??= window.Icon;
+
             // This would be nice to do, but obviously LogoContent is a control and you can't attach it twice.
-            // if (LogoContent is null) LogoContent = s.LogoContent;
+            LogoContent ??= window.LogoContent switch
+            {
+                // Instead lets replicate the LogoContent control
+                Image image => new Image()
+                {
+                    MinWidth = image.MinWidth,
+                    MinHeight = image.MinHeight,
+                    MaxWidth = image.MaxWidth,
+                    MaxHeight = image.MaxHeight,
+                    Width = image.Width,
+                    Height = image.Height,
+                    Margin = image.Margin,
+                    Opacity = image.Opacity,
+                    Source = image.Source,
+                    Stretch = image.Stretch,
+                    StretchDirection = image.StretchDirection,
+                    BlendMode = image.BlendMode,
+                },
+                PathIcon pathIcon => new PathIcon()
+                {
+                    MinWidth = pathIcon.MinWidth,
+                    MinHeight = pathIcon.MinHeight,
+                    MaxWidth = pathIcon.MaxWidth,
+                    MaxHeight = pathIcon.MaxHeight,
+                    Width = pathIcon.Width,
+                    Height = pathIcon.Height,
+                    Opacity = pathIcon.Opacity,
+                    Padding = pathIcon.Padding,
+                    Background = pathIcon.Background,
+                    Foreground = pathIcon.Foreground,
+                    BorderBrush = pathIcon.BorderBrush,
+                    BorderThickness = pathIcon.BorderThickness,
+                    Data = pathIcon.Data,
+                },
+                _ => LogoContent
+            };
         }
     }
+
 
     /// <inheritdoc />
     protected override void OnClosed(EventArgs e)
@@ -573,6 +615,38 @@ public class SukiWindow : Window, IDisposable
             || change.NewValue is not WindowState newWindowState) return;
 
             OnWindowStateChanged(oldWindowState, newWindowState);
+        }
+        else if (change.Property == IsTitleBarVisibleProperty)
+        {
+            if (_titleBarControl is null || _isDisposed) return;
+            var isTitleBarVisible = change.GetNewValue<bool>();
+
+            if (TitleBarAnimationEnabled)
+            {
+                TryGetResource("MediumAnimationDuration", ActualThemeVariant, out var result);
+
+                var duration = result is TimeSpan ts ? ts : TimeSpan.FromMilliseconds(350);
+
+                if (isTitleBarVisible)
+                {
+                    _titleBarControl.Animate(ScaleTransform.ScaleYProperty, 0d, 1d, duration);
+                    _titleBarControl.IsVisible = true;
+                }
+                else
+                {
+                    _titleBarControl.AnimateAsync(ScaleTransform.ScaleYProperty, 1d, 0d, duration).ContinueWith(task =>
+                    {
+                        Dispatcher.UIThread.Post(() =>
+                        {
+                            _titleBarControl.IsVisible = false;
+                        });
+                    });
+                }
+            }
+            else
+            {
+                _titleBarControl.IsVisible = isTitleBarVisible;
+            }
         }
         else if (change.Property == TitleBarVisibilityOnFullScreenProperty)
         {
@@ -844,7 +918,6 @@ public class SukiWindow : Window, IDisposable
         {
             return false;
         }
-
         return (GetAsyncKeyState(VK_LBUTTON) & 0x8000) != 0;
     }
 
