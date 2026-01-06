@@ -84,7 +84,8 @@
                                           HorizontalAlignment="Stretch"
                                           Background="{DynamicResource SukiPrimaryColor}"
                                           BorderThickness="0"
-                                          CornerRadius="20,0,0,20" />
+                                          CornerRadius="20,0,0,20"
+                                          Focusable="False" />
                         </Track.DecreaseButton>
                         <Track.IncreaseButton>
                             <RepeatButton Name="PART_IncreaseButton" Classes="repeattrack" />
@@ -137,7 +138,8 @@
                                           HorizontalAlignment="Stretch"
                                           Background="{DynamicResource SukiPrimaryColor}"
                                           BorderThickness="0"
-                                          CornerRadius="20" />
+                                          CornerRadius="20"
+                                          Focusable="False" />
                         </Track.DecreaseButton>
                         <Track.IncreaseButton>
                             <RepeatButton Name="PART_IncreaseButton" Classes="repeattrack" />
