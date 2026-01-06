@@ -5,6 +5,7 @@
     <Design.PreviewWith>
         <suki:SukiWindow Title="SukiUI Window with long text to test the overflow of the Title, use TitleTextWrapping to define"
                          TitleTextWrapping="Wrap"
+                         TitleBarControlSize="12"
                          Width="600"
                          Height="400"
                          CanFullScreen="True"
@@ -61,8 +62,8 @@
                                                             Spacing="7">
                                                     <StackPanel.Styles>
                                                         <Style Selector="PathIcon">
-                                                            <Setter Property="Height" Value="10" />
-                                                            <Setter Property="Width" Value="10" />
+                                                            <Setter Property="Height" Value="{TemplateBinding TitleBarControlSize}" />
+                                                            <Setter Property="Width" Value="{TemplateBinding TitleBarControlSize}" />
                                                         </Style>
                                                     </StackPanel.Styles>
                                                     <ItemsControl ItemsSource="{TemplateBinding RightWindowTitleBarControls}">

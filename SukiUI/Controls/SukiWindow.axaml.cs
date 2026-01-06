@@ -168,6 +168,21 @@ public class SukiWindow : Window, IDisposable
     public static readonly StyledProperty<double> TitleFontSizeProperty =
         AvaloniaProperty.Register<SukiWindow, double>(nameof(TitleFontSize), defaultValue: 13);
 
+    public static readonly StyledProperty<double> TitleBarControlSizeProperty =
+        AvaloniaProperty.Register<SukiWindow, double>(nameof(TitleBarControlSize), 10);
+
+    /// <summary>
+    /// Gets or sets the size, of the title bar control buttons.
+    /// </summary>
+    /// <remarks>This property determines the width and height of the minimize, maximize, close and right buttons in
+    /// the window's title bar. Adjusting this value can help accommodate custom UI designs or accessibility
+    /// requirements.</remarks>
+    public double TitleBarControlSize
+    {
+        get => GetValue(TitleBarControlSizeProperty);
+        set => SetValue(TitleBarControlSizeProperty, value);
+    }
+
     /// <summary>
     /// Gets or sets the font size of the title bar.
     /// </summary>
@@ -425,6 +440,7 @@ public class SukiWindow : Window, IDisposable
         get => GetValue(RightWindowTitleBarControlsProperty);
         set => SetValue(RightWindowTitleBarControlsProperty, value);
     }
+
 
     public static readonly StyledProperty<Avalonia.Controls.Controls> HostsProperty =
         SukiMainHost.HostsProperty.AddOwner<SukiWindow>();
