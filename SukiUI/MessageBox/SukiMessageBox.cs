@@ -198,6 +198,9 @@ public static class SukiMessageBox
             window.KeyUp -= WindowOnKeyUp;
         }
 
+        // Dispose window if needed
+        if (window is IDisposable disposable) disposable.Dispose();
+
         return result;
     }
 
