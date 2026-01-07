@@ -8,13 +8,15 @@ namespace SukiUI.MessageBox;
 public enum SukiMessageBoxButtons
 {
     [Description("[OK]")] OK,
+    [Description("[OK] [Abort]")] OKAbort,
     [Description("[OK] [Cancel]")] OKCancel,
     [Description("[Yes] [No]")] YesNo,
+    [Description("[Yes] [No] [Abort]")] YesNoAbort,
     [Description("[Yes] [No] [Cancel]")] YesNoCancel,
     [Description("[Yes] [Ignore]")] YesIgnore,
     [Description("[Apply] [Cancel]")] ApplyCancel,
     [Description("[Retry] [Cancel]")] RetryCancel,
-    [Description("[Retry] [Cancel] [Abort]")] RetryIgnoreAbort,
-    [Description("[Retry] [Continue] [Abort]")] RetryContinueCancel,
-    [Description("[Close]")] Close
+    [Description("[Retry] [Ignore] [Abort]")] RetryIgnoreAbort,
+    [Description("[Retry] [Continue] [Cancel]")] RetryContinueCancel,
+    [Description("[Close]")] Close,
 }
