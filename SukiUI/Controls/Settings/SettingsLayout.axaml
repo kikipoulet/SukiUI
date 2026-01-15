@@ -10,7 +10,7 @@
              mc:Ignorable="d">
 
     <UserControl.Styles>
-      
+
 
         <Style Selector="controls|SettingsLayout">
             <Setter Property="Template">
@@ -21,7 +21,7 @@
                                     Margin="0,25,0,0"
                                     HorizontalAlignment="Left"
                                     DockPanel.Dock="Left" />
-                        <ScrollViewer Name="MyScroll" Classes="Stack">
+                        <ScrollViewer Name="MyScroll" Theme="{StaticResource SukiMenuScrollViewer}">
                             <StackPanel Name="StackItems"
                                         Margin="20,0"
                                         theme:StackPanelExtensions.AnimatedScroll="True" />

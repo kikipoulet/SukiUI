@@ -45,8 +45,7 @@
                     </Border.Resources>
                     <Panel>
                         <ListBoxItem Margin="0,0,32,0"
-                                     Content="{TemplateBinding ItemsSource,
-                                                               Converter={StaticResource BiggestListItem}}"
+                                     Content="{TemplateBinding ItemsSource, Converter={StaticResource BiggestListItem}}"
                                      Opacity="0" />
                         <ScrollViewer Name="PART_ScrollViewer"
                                       HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
@@ -86,12 +85,11 @@
                     </Border.Resources>
                     <Panel>
                         <ListBoxItem Margin="0,0,32,0"
-                                     Content="{TemplateBinding ItemsSource,
-                                                               Converter={StaticResource BiggestListItem}}"
+                                     Content="{TemplateBinding ItemsSource, Converter={StaticResource BiggestListItem}}"
                                      Opacity="0" />
                         <ScrollViewer Name="PART_ScrollViewer"
-                                      Classes="Stack"
                                       HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                                      Theme="{StaticResource SukiMenuScrollViewer}"
                                       VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
                             <ItemsPresenter Name="PART_ItemsPresenter"
                                             Margin="{TemplateBinding Padding}"

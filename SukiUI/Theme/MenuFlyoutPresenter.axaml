@@ -17,11 +17,15 @@
                             ClipToBounds="True"
                             CornerRadius="{TemplateBinding CornerRadius}">
                         <Panel Background="{DynamicResource PopupGradientBrush}">
-                            <ItemsPresenter Name="PART_ItemsPresenter"
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Center"
-                                            ItemsPanel="{TemplateBinding ItemsPanel}"
-                                            KeyboardNavigation.TabNavigation="Continue" />
+                            <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                          Theme="{StaticResource SukiMenuScrollViewer}"
+                                          VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                                <ItemsPresenter Name="PART_ItemsPresenter"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                ItemsPanel="{TemplateBinding ItemsPanel}"
+                                                KeyboardNavigation.TabNavigation="Continue" />
+                            </ScrollViewer>
                         </Panel>
                     </Border>
                 </Panel>
