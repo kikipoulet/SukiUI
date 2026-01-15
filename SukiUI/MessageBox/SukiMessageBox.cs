@@ -42,7 +42,6 @@ public static class SukiMessageBox
                 CanMaximize = options.CanMaximize,
                 CanFullScreen = false,
                 IsTitleBarVisible = options.IsTitleBarVisible,
-                LogoContent = options.LogoContent,
                 MaxWidthScreenRatio = options.MaxWidthScreenRatio,
                 MaxHeightScreenRatio = options.MaxHeightScreenRatio,
             };
@@ -54,11 +53,14 @@ public static class SukiMessageBox
             if (options.BackgroundStyle is not null) sukiWindow.BackgroundStyle = options.BackgroundStyle.Value;
             if (options.BackgroundTransitionTime is not null) sukiWindow.BackgroundTransitionTime = options.BackgroundTransitionTime.Value;
             if (options.BackgroundTransitionsEnabled is not null) sukiWindow.BackgroundTransitionsEnabled = options.BackgroundTransitionsEnabled.Value;
+            if (options.LogoContent is not null) sukiWindow.LogoContent = options.LogoContent;
 
             window = sukiWindow;
         }
 
         // Shared properties
+        if (options.Icon is not null) window.Icon = options.Icon;
+        window.Topmost = options.Topmost;
         window.CanResize = options.CanResize;
         window.Title = options.Title;
         window.ShowInTaskbar = options.ShowInTaskbar;
@@ -85,7 +87,7 @@ public static class SukiMessageBox
     /// <see cref="Button"/> when a custom button was clicked.<br/>
     /// <c>null</c> when the window was closed without clicking a button.
     /// </returns>
-    public static Task<object?> ShowDialog(Window owner, SukiMessageBoxHost messageBox, SukiMessageBoxOptions? windowOptions = null)
+    public static async Task<object?> ShowDialog(Window owner, SukiMessageBoxHost messageBox, SukiMessageBoxOptions? windowOptions = null)
     {
         windowOptions ??= new SukiMessageBoxOptions();
 
@@ -126,11 +128,17 @@ public static class SukiMessageBox
         }
 
         var actionButtons = messageBox.ActionButtonsSource;
+        // Subscribe events
         if (actionButtons is not null)
         {
             foreach (var button in actionButtons)
             {
-                button.Tag = (button.Tag, window);
+                var tag = (button.Tag as SukiMessageBoxButtonTag) ?? new SukiMessageBoxButtonTag()
+                {
+                    Tag = button.Tag
+                };
+                tag.Owner = window;
+                button.Tag = tag;
                 button.Click += ActionButtonOnClick;
             }
 
@@ -171,7 +179,49 @@ public static class SukiMessageBox
             window.Content = messageBox;
         }
 
-        return window.ShowDialog<object?>(owner);
+        var result = await window.ShowDialog<object?>(owner);
+
+        // Unsubscribe events
+        if (actionButtons is not null)
+        {
+            foreach (var button in actionButtons)
+            {
+                button.Click -= ActionButtonOnClick;
+            }
+
+            if (actionButtons.Count <= 1)
+            {
+                window.KeyUp -= WindowOnKeyUp;
+            }
+        }
+        else
+        {
+            window.KeyUp -= WindowOnKeyUp;
+        }
+
+        // Dispose window if needed
+        if (window is IDisposable disposable) disposable.Dispose();
+
+        return result;
+    }
+
+    /// <summary>
+    /// Shows a message box dialog.
+    /// </summary>
+    /// <param name="owner">Parent window to own this message box.</param>
+    /// <param name="messageBox">The message box.</param>
+    /// <param name="windowOptions">The window options.</param>
+    /// <returns>
+    /// <see cref="SukiMessageBoxResult"/> when a preset button was clicked.<br/>
+    /// If the window was closed without clicking a button, returns <see cref="SukiMessageBoxResult.Close"/>.
+    /// </returns>
+    /// <exception cref="InvalidOperationException">Thrown if the dialog result is not a standard SukiMessageBoxResult button, such as when a custom button is used.</exception>
+    public static async Task<SukiMessageBoxResult> ShowDialogResult(Window owner, SukiMessageBoxHost messageBox, SukiMessageBoxOptions? windowOptions = null)
+    {
+        var result = await ShowDialog(owner, messageBox, windowOptions);
+        if (result is null) return SukiMessageBoxResult.Close; // Closed without clicking a button
+        if (result is SukiMessageBoxResult mbResult) return mbResult;
+        throw new InvalidOperationException("Unknown button type or custom button was used. This method is only compatible with SukiMessageBoxResult buttons.");
     }
 
     /// <summary>
@@ -192,6 +242,33 @@ public static class SukiMessageBox
             if (desktop.MainWindow is not null)
             {
                 return ShowDialog(desktop.MainWindow, messageBox, windowOptions);
+            }
+
+            throw new InvalidOperationException("The application does not contain a main window.");
+        }
+
+        throw new InvalidOperationException("The application is not an instance of IClassicDesktopStyleApplicationLifetime.");
+    }
+
+    /// <summary>
+    /// Shows a message box dialog.
+    /// </summary>
+    /// <param name="messageBox">The message box.</param>
+    /// <param name="windowOptions">The window options.</param>
+    /// <returns>
+    /// <see cref="SukiMessageBoxResult"/> when a preset button was clicked.<br/>
+    /// If the window was closed without clicking a button, returns <see cref="SukiMessageBoxResult.Close"/>.
+    /// </returns>
+    /// <exception cref="InvalidOperationException">Thrown if the dialog result is not a standard SukiMessageBoxResult button, such as when a custom button is used.</exception>
+    /// <exception cref="InvalidOperationException">The application does not contain a main window.</exception>
+    /// <exception cref="InvalidOperationException">The application is not an instance of IClassicDesktopStyleApplicationLifetime.</exception>
+    public static Task<SukiMessageBoxResult> ShowDialogResult(SukiMessageBoxHost messageBox, SukiMessageBoxOptions? windowOptions = null)
+    {
+        if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        {
+            if (desktop.MainWindow is not null)
+            {
+                return ShowDialogResult(desktop.MainWindow, messageBox, windowOptions);
             }
 
             throw new InvalidOperationException("The application does not contain a main window.");
@@ -241,7 +318,7 @@ public static class SukiMessageBox
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private static void ActionButtonOnClick(object sender, RoutedEventArgs e)
+    private static async void ActionButtonOnClick(object sender, RoutedEventArgs e)
     {
         if (sender is not Button button) return;
         if (button.Tag is Window window)
@@ -249,15 +326,19 @@ public static class SukiMessageBox
             window.Close();
             return;
         }
-        if (button.Tag is not ValueTuple<object?, Window> tuple) return;
+        if (button.Tag is not SukiMessageBoxButtonTag buttonTag) return;
+        if (buttonTag.Owner is null) return;
 
-        if (tuple.Item1 is SukiMessageBoxResult result)
+        buttonTag.Owner.IsEnabled = false; // Prevent multiple clicks and interactions
+        if (buttonTag.Link is not null) await buttonTag.OpenLink();
+
+        if (buttonTag.Result.HasValue)
         {
-            tuple.Item2.Close(result);
+            buttonTag.Owner.Close(buttonTag.Result.Value);
         }
         else
         {
-            tuple.Item2.Close(sender);
+            buttonTag.Owner.Close(sender);
         }
     }
     #endregion

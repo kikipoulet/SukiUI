@@ -1,228 +1,330 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:converters="clr-namespace:Avalonia.Controls.Converters;assembly=Avalonia.Controls"
-                    xmlns:icons="https://github.com/kikipoulet/SukiUI"
-                    xmlns:suki="using:SukiUI.Controls">
+                    xmlns:suki="using:SukiUI.Controls"
+                    xmlns:icons="https://github.com/kikipoulet/SukiUI">
 
     <Design.PreviewWith>
-        <StackPanel Width="600" Spacing="10">
-            <suki:SukiMessageBoxHost IconPreset="Star" ShowHeaderContentSeparator="True">
-                <suki:SukiMessageBoxHost.FooterLeftItemsSource>
-                    <Border Width="20"
-                            Height="20"
-                            Background="DarkGreen"
-                            CornerRadius="50" />
-                </suki:SukiMessageBoxHost.FooterLeftItemsSource>
+        <StackPanel Spacing="10"
+                    Margin="5"
+                    Orientation="Horizontal">
+            <StackPanel.Styles>
+                <Style Selector="suki|GlassCard /template/ Border#PART_Root">
+                    <Setter Property="BorderBrush" Value="Black"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                </Style>
+            </StackPanel.Styles>
+            <StackPanel Width="500" Spacing="5">
+                <suki:SukiMessageBoxHost IconPreset="Star" ShowHeaderContentSeparator="True">
+                    <suki:SukiMessageBoxHost.FooterLeftItemsSource>
+                        <Border Width="20"
+                                Height="20"
+                                Background="DarkGreen"
+                                CornerRadius="50" />
+                    </suki:SukiMessageBoxHost.FooterLeftItemsSource>
 
-                <suki:SukiMessageBoxHost.Header>
-                    <SelectableTextBlock Text="Changelog version 1.0:" />
-                </suki:SukiMessageBoxHost.Header>
+                    <suki:SukiMessageBoxHost.Header>
+                        <SelectableTextBlock Text="Changelog version 1.0:" />
+                    </suki:SukiMessageBoxHost.Header>
 
-                <suki:SukiMessageBoxHost.ActionButtonsSource>
-                    <Button Classes="Flat Accent" Content="Upgrade now" />
-                    <Button Classes="Flat" Content="Manual download" />
-                    <Button Classes="Flat" Content="Cancel" />
-                </suki:SukiMessageBoxHost.ActionButtonsSource>
+                    <suki:SukiMessageBoxHost.ActionButtonsSource>
+                        <Button Classes="Flat Accent" Content="Upgrade now" />
+                        <Button Classes="Flat" Content="Manual download" />
+                        <Button Classes="Flat" Content="Cancel" />
+                    </suki:SukiMessageBoxHost.ActionButtonsSource>
 
-                <SelectableTextBlock Text="- Added new user authentication module.&#10;- Fixed bug with the search functionality where results were not displaying correctly.&#10;- Improved performance on mobile devices.&#10;- Updated dependencies for security patches." TextWrapping="Wrap" />
-            </suki:SukiMessageBoxHost>
+                    <SelectableTextBlock Text="- Added new user authentication module.&#10;- Fixed bug with the search functionality where results were not displaying correctly.&#10;- Improved performance on mobile devices.&#10;- Updated dependencies for security patches." />
+                </suki:SukiMessageBoxHost>
 
-            <Separator Margin="20" Foreground="Black" />
+                <Separator Margin="10" Foreground="Black" />
 
-            <suki:SukiMessageBoxHost ActionButtonsPreset="YesNoCancel"
-                                     Header="Alternative header style"
-                                     IconPreset="Question"
-                                     UseAlternativeHeaderStyle="True">
+                <suki:SukiMessageBoxHost ActionButtonsPreset="YesNoCancel"
+                                         Header="Alternative header style"
+                                         IconPreset="Question"
+                                         UseAlternativeHeaderStyle="True">
 
-                <SelectableTextBlock Text="Are you sure you want to process this file?" TextWrapping="Wrap" />
+                    <SelectableTextBlock Text="Are you sure you want to process this file?" />
 
-            </suki:SukiMessageBoxHost>
+                </suki:SukiMessageBoxHost>
 
-            <Separator Margin="20" Foreground="Black" />
+                <Separator Margin="10" Foreground="Black" />
 
-            <suki:SukiMessageBoxHost ActionButtonsPreset="YesNoCancel">
-                <suki:SukiMessageBoxHost.Icon>
-                    <PathIcon Width="24"
-                              Height="24"
-                              Data="{x:Static icons:Icons.FileOpen}" />
-                </suki:SukiMessageBoxHost.Icon>
+                <suki:SukiMessageBoxHost ActionButtonsPreset="YesNoCancel">
+                    <suki:SukiMessageBoxHost.Icon>
+                        <PathIcon Width="24"
+                                  Height="24"
+                                  Data="{x:Static icons:Icons.FileOpen}" />
+                    </suki:SukiMessageBoxHost.Icon>
 
-                <SelectableTextBlock Text="Are you sure you want to process this file?" TextWrapping="Wrap" />
+                    <SelectableTextBlock Text="Are you sure you want to process this file?" />
 
-            </suki:SukiMessageBoxHost>
+                </suki:SukiMessageBoxHost>
 
-            <Separator Margin="20" Foreground="Black" />
+                <Separator Margin="10" Foreground="Black" />
 
-            <suki:SukiMessageBoxHost ScrollViewer.HorizontalScrollBarVisibility="Auto">
-                Empty message box with long text that should have a scroll bar when the text is too long. This is a test to see how the message box handles long text and if it properly displays the scroll bar when needed. The text should be wrapped correctly and the scroll bar should only appear when necessary.
-            </suki:SukiMessageBoxHost>
+                <suki:SukiMessageBoxHost >
+                    Empty message box with long text that should wrap when the text is too long. This is a test to see how the message box handles long text and if it properly displays the wrapped text when needed. The text should be wrapped correctly and the scroll bar should only appear when necessary.
+                </suki:SukiMessageBoxHost>
+            </StackPanel>
+
+            <!-- Flat styles -->
+            <StackPanel Width="500" Spacing="5">
+                <suki:SukiMessageBoxHost IconPreset="Star"
+                                         ShowHeaderContentSeparator="True"
+                                         Classes="FlatCard">
+                    <suki:SukiMessageBoxHost.FooterLeftItemsSource>
+                        <Border Width="20"
+                                Height="20"
+                                Background="DarkGreen"
+                                CornerRadius="50" />
+                    </suki:SukiMessageBoxHost.FooterLeftItemsSource>
+
+                    <suki:SukiMessageBoxHost.Header>
+                        <SelectableTextBlock Text="(FlatCard) Changelog version 1.0:" />
+                    </suki:SukiMessageBoxHost.Header>
+
+                    <suki:SukiMessageBoxHost.ActionButtonsSource>
+                        <Button Classes="Flat Accent" Content="Upgrade now" />
+                        <Button Classes="Flat" Content="Manual download" />
+                        <Button Classes="Flat" Content="Cancel" />
+                    </suki:SukiMessageBoxHost.ActionButtonsSource>
+
+                    <SelectableTextBlock Text="- Added new user authentication module.&#10;- Fixed bug with the search functionality where results were not displaying correctly.&#10;- Improved performance on mobile devices.&#10;- Updated dependencies for security patches." />
+                </suki:SukiMessageBoxHost>
+
+                <Separator Margin="10" Foreground="Black" />
+
+                <suki:SukiMessageBoxHost ActionButtonsPreset="YesNoCancel"
+                                         Header="(FlatCard) Alternative header and footer style"
+                                         IconPreset="Question"
+                                         UseAlternativeHeaderStyle="True"
+                                         Classes="FlatCard">
+
+                    <SelectableTextBlock Text="Are you sure you want to process this file?" />
+
+                </suki:SukiMessageBoxHost>
+
+                <Separator Margin="10" Foreground="Black" />
+
+                <suki:SukiMessageBoxHost Header="(FlatHeader) Alternative header style"
+                                         UseAlternativeHeaderStyle="True"
+                                         ActionButtonsPreset="YesNoCancel"
+                                         Classes="FlatHeader">
+                    <suki:SukiMessageBoxHost.Icon>
+                        <PathIcon Width="24"
+                                  Height="24"
+                                  Data="{x:Static icons:Icons.FileOpen}" />
+                    </suki:SukiMessageBoxHost.Icon>
+
+                    <SelectableTextBlock Text="Are you sure you want to process this file?" />
+
+                </suki:SukiMessageBoxHost>
+
+                <Separator Margin="10" Foreground="Black" />
+
+                <suki:SukiMessageBoxHost Header="(FlatFooter) Alternative footer style"
+                                         IconPreset="Warning"
+                                         UseAlternativeHeaderStyle="True"
+                                         ActionButtonsPreset="YesNoCancel"
+                                         Classes="FlatFooter"
+                                         ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                    Empty message box with long text that should have a scroll bar when the text is too long. This is a test to see how the message box handles long text and if it properly displays the scroll bar when needed. The text should be wrapped correctly and the scroll bar should only appear when necessary.
+                </suki:SukiMessageBoxHost>
+            </StackPanel>
         </StackPanel>
     </Design.PreviewWith>
 
-    <converters:MarginMultiplierConverter x:Key="FooterBetweenMarginConverter"
+    <converters:MarginMultiplierConverter x:Key="AlternativeHeaderMarginConverter"
                                           Indent="1"
                                           Left="True"
+                                          Top="True"
                                           Right="True" />
+
+    <converters:MarginMultiplierConverter x:Key="FooterMarginConverter"
+                                          Indent="1"
+                                          Left="True"
+                                          Right="True"
+                                          Bottom="True" />
 
     <Thickness x:Key="IconTitleMargin">0,0,15,0</Thickness>
 
     <ControlTheme x:Key="{x:Type suki:SukiMessageBoxHost}" TargetType="suki:SukiMessageBoxHost">
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Padding" Value="20" />
+        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="Template">
             <ControlTemplate>
-                <DockPanel Margin="{TemplateBinding Padding}" LastChildFill="True">
-                    <Grid Name="PART_AlternativeHeaderGrid"
-                          Margin="10,0,10,15"
-                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                          ColumnDefinitions="Auto,*"
-                          DockPanel.Dock="Top"
-                          RowDefinitions="Auto">
-                        <Grid.IsVisible>
-                            <MultiBinding Converter="{x:Static BoolConverters.And}">
-                                <Binding Path="UseAlternativeHeaderStyle" RelativeSource="{RelativeSource TemplatedParent}" />
-                                <Binding Converter="{x:Static ObjectConverters.IsNotNull}"
-                                         Path="Header"
-                                         RelativeSource="{RelativeSource TemplatedParent}" />
-                            </MultiBinding>
-                        </Grid.IsVisible>
-                        <ContentPresenter Name="PART_AlternativeIcon"
-                                          Grid.Row="0"
-                                          Grid.Column="0"
-                                          Margin="{StaticResource IconTitleMargin}"
-                                          Content="{TemplateBinding Icon}"
-                                          IsVisible="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNotNull}}" />
-                        <ContentPresenter Name="PART_AlternativeHeader"
-                                          Grid.Row="0"
-                                          Grid.Column="1"
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          Content="{TemplateBinding Header}"
-                                          ContentTemplate="{TemplateBinding HeaderTemplate}" />
-                    </Grid>
-
-
-                    <Grid Name="PART_FooterGrid"
-                          Margin="0,20,0,0"
-                          ColumnDefinitions="*,Auto,Auto"
-                          DockPanel.Dock="Bottom"
-                          RowDefinitions="Auto">
-                        <Grid.IsVisible>
-                            <MultiBinding Converter="{x:Static BoolConverters.Or}">
-                                <Binding Path="!!FooterLeftItemsSource.Count" RelativeSource="{RelativeSource TemplatedParent}" />
-                                <Binding Path="!!ActionButtonsSource.Count" RelativeSource="{RelativeSource TemplatedParent}" />
-                            </MultiBinding>
-                        </Grid.IsVisible>
-                        <ItemsControl Name="PART_LeftContentItems"
-                                      Grid.Row="0"
-                                      Grid.Column="0"
-                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                      IsVisible="{Binding FooterLeftItemsSource, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNotNull}}"
-                                      ItemsSource="{TemplateBinding FooterLeftItemsSource}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal" Spacing="{Binding ItemsSpacing, RelativeSource={RelativeSource FindAncestor, AncestorType=suki:SukiMessageBoxHost}}" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                        </ItemsControl>
-
-                        <Border Grid.Row="0"
-                                Grid.Column="1"
-                                Margin="{TemplateBinding ItemsSpacing, Converter={StaticResource FooterBetweenMarginConverter}}" />
-
-                        <ItemsControl Name="PART_ActionButtons"
-                                      Grid.Row="0"
-                                      Grid.Column="2"
-                                      ItemsSource="{TemplateBinding ActionButtonsSource}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel HorizontalAlignment="Right"
-                                                Orientation="Horizontal"
-                                                Spacing="{Binding ItemsSpacing, RelativeSource={RelativeSource FindAncestor, AncestorType=suki:SukiMessageBoxHost}}" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                        </ItemsControl>
-                    </Grid>
-
-                    <suki:GlassCard>
-                        <Grid ColumnDefinitions="*" RowDefinitions="Auto,*">
-                            <Grid Name="PART_HeaderGrid"
-                                  Grid.Row="0"
-                                  Grid.Column="0"
-                                  Margin="0,0,0,15"
-                                  ColumnDefinitions="*"
-                                  RowDefinitions="Auto,Auto">
-                                <Grid.IsVisible>
-                                    <MultiBinding Converter="{x:Static BoolConverters.And}">
-                                        <Binding Path="!UseAlternativeHeaderStyle" RelativeSource="{RelativeSource TemplatedParent}" />
-                                        <Binding Converter="{x:Static ObjectConverters.IsNotNull}"
-                                                 Path="Header"
-                                                 RelativeSource="{RelativeSource TemplatedParent}" />
-                                    </MultiBinding>
-                                </Grid.IsVisible>
-                                <Grid Grid.Row="0"
-                                      Grid.Column="0"
-                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                      ColumnDefinitions="Auto,*"
-                                      RowDefinitions="Auto">
-                                    <ContentPresenter Name="PART_Icon"
-                                                      Grid.Row="0"
-                                                      Grid.Column="0"
-                                                      Margin="0,0,10,0"
-                                                      Content="{TemplateBinding Icon}"
-                                                      IsVisible="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNotNull}}" />
-                                    <ContentPresenter Name="PART_Header"
-                                                      Grid.Row="0"
-                                                      Grid.Column="1"
-                                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                      Content="{TemplateBinding Header}"
-                                                      ContentTemplate="{TemplateBinding HeaderTemplate}" />
-                                </Grid>
-
-                                <Border Grid.Row="1"
-                                        Height="1"
-                                        Margin="0,10,0,0"
-                                        Background="{DynamicResource SukiControlBorderBrush}"
+                <Border Name="PART_Root"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                    <DockPanel LastChildFill="True">
+                        <!-- Header -->
+                        <suki:GlassCard DockPanel.Dock="Top"
+                                        CornerRadius="0"
                                         BorderThickness="0"
-                                        IsVisible="{TemplateBinding ShowHeaderContentSeparator}" />
-                            </Grid>
-
-                            <Grid Grid.Row="1"
-                                  Grid.Column="0"
+                                        Margin="{TemplateBinding Padding,  Converter={StaticResource AlternativeHeaderMarginConverter}}"
+                                        Padding="0"
+                                        Name="PART_AlternativeHeaderGlassCard"
+                                        Background="{x:Null}">
+                            <suki:GlassCard.IsVisible>
+                                <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                    <Binding Path="UseAlternativeHeaderStyle" RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Converter="{x:Static ObjectConverters.IsNotNull}"
+                                             Path="Header"
+                                             RelativeSource="{RelativeSource TemplatedParent}" />
+                                </MultiBinding>
+                            </suki:GlassCard.IsVisible>
+                            <Grid Name="PART_AlternativeHeaderGrid"
                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                   ColumnDefinitions="Auto,*"
-                                  RowDefinitions="*">
-                                <ContentPresenter Grid.Row="0"
+                                  RowDefinitions="Auto">
+
+                                <ContentPresenter Name="PART_AlternativeIcon"
+                                                  Grid.Row="0"
                                                   Grid.Column="0"
                                                   Margin="{StaticResource IconTitleMargin}"
                                                   Content="{TemplateBinding Icon}"
-                                                  FontWeight="DemiBold">
-                                    <ContentPresenter.IsVisible>
+                                                  IsVisible="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                                <ContentPresenter Name="PART_AlternativeHeader"
+                                                  Grid.Row="0"
+                                                  Grid.Column="1"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  Content="{TemplateBinding Header}"
+                                                  ContentTemplate="{TemplateBinding HeaderTemplate}" />
+                            </Grid>
+                        </suki:GlassCard>
+
+                        <!-- Footer -->
+                        <suki:GlassCard DockPanel.Dock="Bottom"
+                                        Name="PART_FooterGlassCard"
+                                        CornerRadius="0"
+                                        BorderThickness="0"
+                                        Background="{x:Null}"
+                                        Margin="{TemplateBinding Padding,  Converter={StaticResource FooterMarginConverter}}"
+                                        Padding="0">
+                            <suki:GlassCard.IsVisible>
+                                <MultiBinding Converter="{x:Static BoolConverters.Or}">
+                                    <Binding Path="!!FooterLeftItemsSource.Count" RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Path="!!ActionButtonsSource.Count" RelativeSource="{RelativeSource TemplatedParent}" />
+                                </MultiBinding>
+                            </suki:GlassCard.IsVisible>
+                            <Grid Name="PART_FooterGrid"
+                                  ColumnDefinitions="*,Auto"
+                                  RowDefinitions="Auto"
+                                  ColumnSpacing="{TemplateBinding ItemsSpacing}">
+                                <ItemsControl Name="PART_LeftContentItems"
+                                              Grid.Row="0"
+                                              Grid.Column="0"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              IsVisible="{Binding FooterLeftItemsSource, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                              ItemsSource="{TemplateBinding FooterLeftItemsSource}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal" Spacing="{Binding ItemsSpacing, RelativeSource={RelativeSource FindAncestor, AncestorType=suki:SukiMessageBoxHost}}" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                </ItemsControl>
+
+                                <ItemsControl Name="PART_ActionButtons"
+                                              Grid.Row="0"
+                                              Grid.Column="1"
+                                              ItemsSource="{TemplateBinding ActionButtonsSource}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel HorizontalAlignment="Right"
+                                                        Orientation="Horizontal"
+                                                        Spacing="{Binding ItemsSpacing, RelativeSource={RelativeSource FindAncestor, AncestorType=suki:SukiMessageBoxHost}}" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                </ItemsControl>
+                            </Grid>
+                        </suki:GlassCard>
+
+                        <!-- Content -->
+                        <suki:GlassCard Name="PART_ContentGlassCard"
+                                        Margin="{TemplateBinding Padding}">
+                            <Grid ColumnDefinitions="*" RowDefinitions="Auto,*">
+                                <Grid Name="PART_HeaderGrid"
+                                      Grid.Row="0"
+                                      Grid.Column="0"
+                                      Margin="0,0,0,15"
+                                      ColumnDefinitions="*"
+                                      RowDefinitions="Auto,Auto">
+                                    <Grid.IsVisible>
                                         <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                            <Binding Path="!UseAlternativeHeaderStyle" RelativeSource="{RelativeSource TemplatedParent}" />
                                             <Binding Converter="{x:Static ObjectConverters.IsNotNull}"
-                                                     Path="Icon"
-                                                     RelativeSource="{RelativeSource TemplatedParent}" />
-                                            <Binding Converter="{x:Static ObjectConverters.IsNull}"
                                                      Path="Header"
                                                      RelativeSource="{RelativeSource TemplatedParent}" />
                                         </MultiBinding>
-                                    </ContentPresenter.IsVisible>
-                                </ContentPresenter>
+                                    </Grid.IsVisible>
+                                    <Grid Grid.Row="0"
+                                          Grid.Column="0"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          ColumnDefinitions="Auto,*"
+                                          RowDefinitions="Auto">
+                                        <ContentPresenter Name="PART_Icon"
+                                                          Grid.Row="0"
+                                                          Grid.Column="0"
+                                                          Margin="0,0,10,0"
+                                                          Content="{TemplateBinding Icon}"
+                                                          IsVisible="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                                        <ContentPresenter Name="PART_Header"
+                                                          Grid.Row="0"
+                                                          Grid.Column="1"
+                                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                          Content="{TemplateBinding Header}"
+                                                          ContentTemplate="{TemplateBinding HeaderTemplate}" />
+                                    </Grid>
 
-                                <ScrollViewer Name="PART_Content"
-                                              Grid.Row="0"
-                                              Grid.Column="1"
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                              AllowAutoHide="{TemplateBinding ScrollViewer.AllowAutoHide}"
-                                              Content="{TemplateBinding Content}"
-                                              ContentTemplate="{TemplateBinding ContentTemplate}"
-                                              HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
-                                              VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" />
+                                    <Border Grid.Row="1"
+                                            Height="1"
+                                            Margin="0,10,0,0"
+                                            Background="{DynamicResource SukiControlBorderBrush}"
+                                            BorderThickness="0"
+                                            IsVisible="{TemplateBinding ShowHeaderContentSeparator}" />
+                                </Grid>
+
+                                <Grid Grid.Row="1"
+                                      Grid.Column="0"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      ColumnDefinitions="Auto,*"
+                                      RowDefinitions="*">
+                                    <ContentPresenter Grid.Row="0"
+                                                      Grid.Column="0"
+                                                      Margin="{StaticResource IconTitleMargin}"
+                                                      Content="{TemplateBinding Icon}"
+                                                      FontWeight="DemiBold">
+                                        <ContentPresenter.IsVisible>
+                                            <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                                <Binding Converter="{x:Static ObjectConverters.IsNotNull}"
+                                                         Path="Icon"
+                                                         RelativeSource="{RelativeSource TemplatedParent}" />
+                                                <Binding Converter="{x:Static ObjectConverters.IsNull}"
+                                                         Path="Header"
+                                                         RelativeSource="{RelativeSource TemplatedParent}" />
+                                            </MultiBinding>
+                                        </ContentPresenter.IsVisible>
+                                    </ContentPresenter>
+
+                                    <ScrollViewer Name="PART_Content"
+                                                  Grid.Row="0"
+                                                  Grid.Column="1"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  AllowAutoHide="{TemplateBinding ScrollViewer.AllowAutoHide}"
+                                                  Content="{TemplateBinding Content}"
+                                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                  HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                                  VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" />
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </suki:GlassCard>
-                </DockPanel>
+                        </suki:GlassCard>
+                    </DockPanel>
+                </Border>
+
             </ControlTemplate>
         </Setter>
 
@@ -231,7 +333,43 @@
             <Setter Property="FontWeight" Value="DemiBold" />
         </Style>
 
+        <Style Selector="^.FlatCard">
+            <Style Selector="^ /template/ suki|GlassCard#PART_AlternativeHeaderGlassCard">
+                <Setter Property="CornerRadius" Value="0" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="{TemplateBinding Padding}" />
+                <Setter Property="Background" Value="{DynamicResource SukiGlassCardBackground}" />
+            </Style>
 
+            <Style Selector="^ /template/ suki|GlassCard#PART_FooterGlassCard">
+                <Setter Property="CornerRadius" Value="0" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="{TemplateBinding Padding}" />
+                <Setter Property="Background" Value="{DynamicResource SukiGlassCardBackground}" />
+            </Style>
+        </Style>
+
+        <Style Selector="^.FlatHeader">
+            <Style Selector="^ /template/ suki|GlassCard#PART_AlternativeHeaderGlassCard">
+                <Setter Property="CornerRadius" Value="0" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="{TemplateBinding Padding}" />
+                <Setter Property="Background" Value="{DynamicResource SukiGlassCardBackground}" />
+            </Style>
+        </Style>
+
+        <Style Selector="^.FlatFooter">
+            <Style Selector="^ /template/ suki|GlassCard#PART_FooterGlassCard">
+                <Setter Property="CornerRadius" Value="0" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="{TemplateBinding Padding}" />
+                <Setter Property="Background" Value="{DynamicResource SukiGlassCardBackground}" />
+            </Style>
+        </Style>
 
     </ControlTheme>
 </ResourceDictionary>
