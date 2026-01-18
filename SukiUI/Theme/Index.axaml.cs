@@ -80,7 +80,12 @@ public partial class SukiTheme : Styles
     {
         AvaloniaXamlLoader.Load(this);
         _app = Application.Current!;
-        _app.ActualThemeVariantChanged += (_, e) => OnBaseThemeChanged?.Invoke(_app.ActualThemeVariant);
+        _app.ActualThemeVariantChanged += (_, e) =>
+        {
+            OnBaseThemeChanged?.Invoke(_app.ActualThemeVariant);
+
+            SetColorThemeResourcesOnColorThemeChanged();
+        };
         foreach (var theme in DefaultColorThemes)
             AddColorTheme(theme.Value);
 
@@ -159,8 +164,6 @@ public partial class SukiTheme : Styles
     {
         if (_app.ActualThemeVariant == baseTheme) return;
         _app.RequestedThemeVariant = baseTheme;
-        
-        SetColorThemeResourcesOnColorThemeChanged();
     }
 
     /// <summary>
@@ -168,13 +171,10 @@ public partial class SukiTheme : Styles
     /// </summary>
     public void SwitchBaseTheme()
     {
-        if (Application.Current is null) return;
-        var newBase = Application.Current.ActualThemeVariant == ThemeVariant.Dark
+        var newBase = _app.ActualThemeVariant == ThemeVariant.Dark
             ? ThemeVariant.Light
             : ThemeVariant.Dark;
-        Application.Current.RequestedThemeVariant = newBase;
-        
-        SetColorThemeResourcesOnColorThemeChanged();
+        _app.RequestedThemeVariant = newBase;
     }
 
     private void UpdateFlowDirectionResources(bool rightToLeft)
