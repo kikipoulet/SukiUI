@@ -15,7 +15,7 @@
                     <suki:GroupBox BorderBrush="Black"
                                    BorderThickness="5"
                                    Header="Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2 Title 2"
-                                   FontWeight="10"
+                                   FontWeight="Bold"
                                    Content="Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! Hello world 2! " />
                 </suki:GlassCard>
 
