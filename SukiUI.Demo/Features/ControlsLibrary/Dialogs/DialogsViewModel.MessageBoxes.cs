@@ -1,6 +1,5 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Layout;
 using Avalonia.Media;
 using CommunityToolkit.Mvvm.Input;
@@ -63,12 +62,11 @@ namespace SukiUI.Demo.Features.ControlsLibrary.Dialogs
         [RelayCommand]
         private async Task OpenSimpleQuestionMessageBox()
         {
-            var result = await SukiMessageBox.ShowDialog(new SukiMessageBoxHost
-            {
-                IconPreset = SukiMessageBoxIcons.Question,
-                Content = "Are you sure you want to process this action?",
-                ActionButtonsPreset = SukiMessageBoxButtons.YesNo
-            });
+            var result = await SukiMessageBox.ShowDialogResult("Are you sure you want to process this action?",
+                SukiMessageBoxButtons.YesNo,
+                title:"Basic question dialog",
+                header: "Please confirm",
+                icon:SukiMessageBoxIcons.Question);
 
             toastManager.CreateToast()
                     .WithTitle("Dialog Option Clicked")

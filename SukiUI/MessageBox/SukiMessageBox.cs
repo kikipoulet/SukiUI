@@ -76,18 +76,25 @@ public static class SukiMessageBox
     #endregion
 
     #region ShowDialog
+
     /// <summary>
-    /// Shows a message box dialog.
+    /// Displays a modal message box dialog with the specified content and options, and returns the result
+    /// asynchronously.
     /// </summary>
-    /// <param name="owner">Parent window to own this message box.</param>
-    /// <param name="messageBox">The message box.</param>
-    /// <param name="windowOptions">The window options.</param>
-    /// <returns>
-    /// <see cref="SukiMessageBoxResult"/> when a preset button was clicked.<br/>
-    /// <see cref="Button"/> when a custom button was clicked.<br/>
-    /// <c>null</c> when the window was closed without clicking a button.
-    /// </returns>
-    public static async Task<object?> ShowDialog(Window owner, SukiMessageBoxHost messageBox, SukiMessageBoxOptions? windowOptions = null)
+    /// <remarks>If the owner window is a SukiWindow, any unspecified options in windowOptions are inherited
+    /// from the owner. The dialog is shown modally and blocks interaction with the owner window until closed. The
+    /// returned result depends on the configuration of the message box's action buttons.</remarks>
+    /// <param name="owner">The window that will act as the owner of the message box dialog. The dialog is centered relative to this window.
+    /// Cannot be null.</param>
+    /// <param name="messageBox">The message box host containing the content, header, and action buttons to display in the dialog. Cannot be
+    /// null.</param>
+    /// <param name="title">The title to display in the dialog window. If null, the title is determined by the window options or defaults to
+    /// the owner's title.</param>
+    /// <param name="windowOptions">The options used to configure the appearance and behavior of the message box window. If null, default options
+    /// are used.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains the value associated with the button
+    /// the user clicked, or null if the dialog was closed without a selection.</returns>
+    public static async Task<object?> ShowDialog(Window owner, SukiMessageBoxHost messageBox, string? title, SukiMessageBoxOptions? windowOptions = null)
     {
         windowOptions ??= new SukiMessageBoxOptions();
 
@@ -101,6 +108,8 @@ public static class SukiMessageBox
             if (windowOptions.BackgroundTransitionTime is null) windowOptions = windowOptions with { BackgroundTransitionTime = sukiWindow.BackgroundTransitionTime };
             if (windowOptions.BackgroundTransitionsEnabled is null) windowOptions = windowOptions with { BackgroundTransitionsEnabled = sukiWindow.BackgroundTransitionsEnabled };
         }
+
+        if (title is not null) windowOptions = windowOptions with { Title = title };
 
         var window = CreateMessageBoxWindow(windowOptions);
         window.Icon ??= owner.Icon;
@@ -206,75 +215,205 @@ public static class SukiMessageBox
     }
 
     /// <summary>
-    /// Shows a message box dialog.
+    /// Displays a modal dialog box with the specified message box content and options, blocking interaction with the
+    /// owner window until the dialog is closed.
     /// </summary>
-    /// <param name="owner">Parent window to own this message box.</param>
-    /// <param name="messageBox">The message box.</param>
-    /// <param name="windowOptions">The window options.</param>
-    /// <returns>
-    /// <see cref="SukiMessageBoxResult"/> when a preset button was clicked.<br/>
-    /// If the window was closed without clicking a button, returns <see cref="SukiMessageBoxResult.Close"/>.
-    /// </returns>
-    /// <exception cref="InvalidOperationException">Thrown if the dialog result is not a standard SukiMessageBoxResult button, such as when a custom button is used.</exception>
-    public static async Task<SukiMessageBoxResult> ShowDialogResult(Window owner, SukiMessageBoxHost messageBox, SukiMessageBoxOptions? windowOptions = null)
+    /// <param name="owner">The window that will own the modal dialog. The dialog will be centered relative to this window and block input
+    /// to it while open.</param>
+    /// <param name="messageBox">The message box content to display within the dialog. Specifies the message, buttons, and other UI elements.</param>
+    /// <param name="windowOptions">Optional settings that configure the appearance and behavior of the dialog window. If null, default options are
+    /// used.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains an object representing the user's
+    /// response or selection, or null if the dialog was closed without a response.</returns>
+    public static Task<object?> ShowDialog(Window owner, SukiMessageBoxHost messageBox, SukiMessageBoxOptions? windowOptions = null)
     {
-        var result = await ShowDialog(owner, messageBox, windowOptions);
+        return ShowDialog(owner, messageBox, null, windowOptions);
+    }
+
+    /// <summary>
+    /// Displays a modal dialog box using the specified message box host and returns the result asynchronously.
+    /// </summary>
+    /// <param name="messageBox">The message box host to display in the dialog. Cannot be null.</param>
+    /// <param name="title">The title to display in the dialog window. If null, a default title is used.</param>
+    /// <param name="windowOptions">Optional window options that configure the appearance and behavior of the dialog. If null, default options are
+    /// applied.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains the value returned by the dialog, or
+    /// null if the dialog was closed without a result.</returns>
+    /// <exception cref="InvalidOperationException">Thrown if the application does not have a main window or is not running with a classic desktop style application
+    /// lifetime.</exception>
+    public static Task<object?> ShowDialog(SukiMessageBoxHost messageBox, string? title, SukiMessageBoxOptions? windowOptions = null)
+    {
+        if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        {
+            if (desktop.MainWindow is not null)
+            {
+                return ShowDialog(desktop.MainWindow, messageBox, title, windowOptions);
+            }
+
+            throw new InvalidOperationException("The application does not contain a main window.");
+        }
+
+        throw new InvalidOperationException("The application is not an instance of IClassicDesktopStyleApplicationLifetime.");
+    }
+
+    /// <summary>
+    /// Displays the specified message box as a modal dialog using the application's main window.
+    /// </summary>
+    /// <param name="messageBox">The message box to display in the dialog. Cannot be null.</param>
+    /// <param name="windowOptions">Optional settings that configure the appearance and behavior of the dialog window. May be null to use default
+    /// options.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains the value returned by the dialog, or
+    /// null if the dialog was closed without a result.</returns>
+    /// <exception cref="InvalidOperationException">Thrown if the application does not have a main window, or if the application lifetime is not an instance of
+    /// IClassicDesktopStyleApplicationLifetime.</exception>
+    public static Task<object?> ShowDialog(SukiMessageBoxHost messageBox, SukiMessageBoxOptions? windowOptions = null)
+    {
+        return ShowDialog(messageBox, null, windowOptions);
+    }
+
+
+    /// <summary>
+    /// Displays a modal message box dialog and returns the result as a strongly typed value.
+    /// </summary>
+    /// <remarks>This method is only compatible with message boxes that use SukiMessageBoxResult buttons. If a
+    /// custom button type is used, an exception is thrown.</remarks>
+    /// <param name="owner">The window that will own the message box dialog. This parameter cannot be null.</param>
+    /// <param name="messageBox">The message box host that defines the content and buttons to display. This parameter cannot be null.</param>
+    /// <param name="title">The title to display in the message box window. If null, a default title is used.</param>
+    /// <param name="windowOptions">Optional settings that configure the appearance and behavior of the message box window. If null, default options
+    /// are applied.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result is a SukiMessageBoxResult value indicating
+    /// which button was pressed, or Close if the dialog was closed without a button click.</returns>
+    /// <exception cref="InvalidOperationException">Thrown if the dialog contains a button that does not correspond to a SukiMessageBoxResult value.</exception>
+    public static async Task<SukiMessageBoxResult> ShowDialogResult(Window owner, SukiMessageBoxHost messageBox, string? title, SukiMessageBoxOptions? windowOptions = null)
+    {
+        var result = await ShowDialog(owner, messageBox, title, windowOptions);
         if (result is null) return SukiMessageBoxResult.Close; // Closed without clicking a button
         if (result is SukiMessageBoxResult mbResult) return mbResult;
         throw new InvalidOperationException("Unknown button type or custom button was used. This method is only compatible with SukiMessageBoxResult buttons.");
     }
 
     /// <summary>
-    /// Shows a message box dialog.
+    /// Displays a message box dialog and asynchronously returns the user's response.
     /// </summary>
-    /// <param name="messageBox">The message box.</param>
-    /// <param name="windowOptions">The window options.</param>
-    /// <returns>
-    /// <see cref="SukiMessageBoxResult"/> when a preset button was clicked.<br/>
-    /// <see cref="Button"/> when a custom button was clicked.<br/>
-    /// <c>null</c> when the window was closed without clicking a button.
-    /// </returns>
-    /// <exception cref="InvalidOperationException">The application does not contain a main window.</exception>
-    public static Task<object?> ShowDialog(SukiMessageBoxHost messageBox, SukiMessageBoxOptions? windowOptions = null)
+    /// <param name="owner">The window that will own the message box dialog. Can be null if no owner is required.</param>
+    /// <param name="messageBox">The message box host that defines the content and behavior of the dialog to display.</param>
+    /// <param name="windowOptions">Optional settings that configure the appearance and behavior of the message box window. Can be null to use
+    /// default options.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a value indicating the user's
+    /// response to the message box.</returns>
+    public static Task<SukiMessageBoxResult> ShowDialogResult(Window owner, SukiMessageBoxHost messageBox, SukiMessageBoxOptions? windowOptions = null)
     {
-        if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-        {
-            if (desktop.MainWindow is not null)
-            {
-                return ShowDialog(desktop.MainWindow, messageBox, windowOptions);
-            }
-
-            throw new InvalidOperationException("The application does not contain a main window.");
-        }
-
-        throw new InvalidOperationException("The application is not an instance of IClassicDesktopStyleApplicationLifetime.");
+        return ShowDialogResult(messageBox, null, windowOptions);
     }
 
     /// <summary>
-    /// Shows a message box dialog.
+    /// Displays a modal message box dialog with the specified content and returns the result indicating which button
+    /// was pressed.
     /// </summary>
-    /// <param name="messageBox">The message box.</param>
-    /// <param name="windowOptions">The window options.</param>
-    /// <returns>
-    /// <see cref="SukiMessageBoxResult"/> when a preset button was clicked.<br/>
-    /// If the window was closed without clicking a button, returns <see cref="SukiMessageBoxResult.Close"/>.
-    /// </returns>
-    /// <exception cref="InvalidOperationException">Thrown if the dialog result is not a standard SukiMessageBoxResult button, such as when a custom button is used.</exception>
-    /// <exception cref="InvalidOperationException">The application does not contain a main window.</exception>
-    /// <exception cref="InvalidOperationException">The application is not an instance of IClassicDesktopStyleApplicationLifetime.</exception>
-    public static Task<SukiMessageBoxResult> ShowDialogResult(SukiMessageBoxHost messageBox, SukiMessageBoxOptions? windowOptions = null)
+    /// <remarks>If the user closes the dialog without selecting a button, the result is
+    /// SukiMessageBoxResult.Close. This method only supports standard SukiMessageBoxResult buttons; using custom
+    /// buttons will result in an exception.</remarks>
+    /// <param name="owner">The window that will own the message box dialog. Cannot be null.</param>
+    /// <param name="message">The message text to display in the dialog.</param>
+    /// <param name="buttons">The set of buttons to display in the message box. Determines which user actions are available.</param>
+    /// <param name="title">The title text to display in the dialog's title bar. If null, a default title is used.</param>
+    /// <param name="header">The header text to display above the message content. If null, no header is shown.</param>
+    /// <param name="icon">The icon to display in the dialog. If null, no icon is shown.</param>
+    /// <param name="windowOptions">Additional options for configuring the appearance and behavior of the message box window. If null, default
+    /// options are used.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result is a SukiMessageBoxResult value indicating
+    /// which button was pressed, or Close if the dialog was closed without a button press.</returns>
+    /// <exception cref="InvalidOperationException">Thrown if the dialog is configured with custom buttons or an unknown button type that is not compatible with
+    /// SukiMessageBoxResult.</exception>
+    public static async Task<SukiMessageBoxResult> ShowDialogResult(Window owner, string message, SukiMessageBoxButtons buttons, string? title = null,
+        string? header = null, SukiMessageBoxIcons? icon = null, SukiMessageBoxOptions? windowOptions = null)
     {
-        if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        var result = await ShowDialog(owner, new SukiMessageBoxHost
         {
-            if (desktop.MainWindow is not null)
-            {
-                return ShowDialogResult(desktop.MainWindow, messageBox, windowOptions);
-            }
+            Header = header,
+            IconPreset = icon,
+            Content = message,
+            ActionButtonsPreset = buttons
+        }, title, windowOptions);
+        if (result is null) return SukiMessageBoxResult.Close; // Closed without clicking a button
+        if (result is SukiMessageBoxResult mbResult) return mbResult;
+        throw new InvalidOperationException("Unknown button type or custom button was used. This method is only compatible with SukiMessageBoxResult buttons.");
+    }
 
-            throw new InvalidOperationException("The application does not contain a main window.");
+    /// <summary>
+    /// Displays a message box dialog and asynchronously returns the user's response.
+    /// </summary>
+    /// <param name="messageBox">The message box to display in the dialog. Cannot be null.</param>
+    /// <param name="title">The title to display in the dialog window. If null, a default title is used.</param>
+    /// <param name="windowOptions">Optional window options that configure the appearance and behavior of the dialog. If null, default options are
+    /// applied.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a value indicating the user's selection
+    /// in the message box.</returns>
+    /// <exception cref="InvalidOperationException">Thrown if the application is not running with a classic desktop style lifetime, or if there is no main window
+    /// available.</exception>
+    public static Task<SukiMessageBoxResult> ShowDialogResult(SukiMessageBoxHost messageBox, string? title, SukiMessageBoxOptions? windowOptions = null)
+    {
+        if (Application.Current?.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop)
+        {
+            throw new InvalidOperationException("The application is not an instance of IClassicDesktopStyleApplicationLifetime.");
         }
 
-        throw new InvalidOperationException("The application is not an instance of IClassicDesktopStyleApplicationLifetime.");
+        if (desktop.MainWindow is not null)
+        {
+            return ShowDialogResult(desktop.MainWindow, messageBox, title, windowOptions);
+        }
+
+        throw new InvalidOperationException("The application does not contain a main window.");
+    }
+
+    /// <summary>
+    /// Displays a message box dialog and asynchronously returns the user's response.
+    /// </summary>
+    /// <param name="messageBox">The message box to display in the dialog. Cannot be null.</param>
+    /// <param name="windowOptions">Optional window options that configure the appearance and behavior of the dialog. If null, default options are
+    /// applied.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a value indicating the user's selection
+    /// in the message box.</returns>
+    /// <exception cref="InvalidOperationException">Thrown if the application is not running with a classic desktop style lifetime, or if there is no main window
+    /// available.</exception>
+    public static Task<SukiMessageBoxResult> ShowDialogResult(SukiMessageBoxHost messageBox, SukiMessageBoxOptions? windowOptions = null)
+    {
+        return ShowDialogResult(messageBox, null, windowOptions);
+    }
+
+    /// <summary>
+    /// Displays a message box with the specified message, buttons, and options, and returns the user's response as an
+    /// asynchronous operation.
+    /// </summary>
+    /// <remarks>This method displays the message box using the application's main window as the owner. Use
+    /// this overload when you want to show a message box without explicitly specifying a parent window.</remarks>
+    /// <param name="message">The text to display in the body of the message box. Cannot be null.</param>
+    /// <param name="buttons">A value that specifies which buttons to display in the message box.</param>
+    /// <param name="title">The title text to display in the message box window. If null, a default title is used.</param>
+    /// <param name="header">The header text to display above the message. If null, no header is shown.</param>
+    /// <param name="icon">An optional icon to display in the message box. If null, no icon is shown.</param>
+    /// <param name="windowOptions">Optional window options that control the appearance or behavior of the message box window. If null, default
+    /// options are used.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a value indicating which button the
+    /// user clicked.</returns>
+    /// <exception cref="InvalidOperationException">Thrown if the application is not running with a classic desktop style lifetime, or if there is no main window
+    /// available.</exception>
+    public static Task<SukiMessageBoxResult> ShowDialogResult(string message, SukiMessageBoxButtons buttons, string? title = null,
+        string? header = null, SukiMessageBoxIcons? icon = null, SukiMessageBoxOptions? windowOptions = null)
+    {
+        if (Application.Current?.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop)
+        {
+            throw new InvalidOperationException("The application is not an instance of IClassicDesktopStyleApplicationLifetime.");
+        }
+
+        if (desktop.MainWindow is not null)
+        {
+            return ShowDialogResult(desktop.MainWindow, message, buttons, title, header, icon, windowOptions);
+        }
+
+        throw new InvalidOperationException("The application does not contain a main window.");
+
     }
     #endregion
 
