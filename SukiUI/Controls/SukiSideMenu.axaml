@@ -107,7 +107,7 @@
                                                       AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
                                                       Background="{TemplateBinding Background}"
                                                       BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}"
-                                                      Classes="Stack"
+                                                      Theme="{StaticResource SukiMenuScrollViewer}"
                                                       HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
                                                       HorizontalSnapPointsType="{TemplateBinding (ScrollViewer.HorizontalSnapPointsType)}"
                                                       IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"

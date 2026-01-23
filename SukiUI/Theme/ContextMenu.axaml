@@ -1,4 +1,28 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <StackPanel Width="500"
+                    Height="200"
+                    Margin="20"
+                    Spacing="15">
+            <Button Content="Right Click Me">
+                <Button.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="New _File" />
+                        <MenuItem Header="Open File" />
+                        <MenuItem Header="Save File" />
+                        <Separator/>
+                        <MenuItem Header="Rename File" />
+                        <MenuItem Header="Locate File" />
+                        <MenuItem Header="Delete File" />
+                        <Separator/>
+                        <MenuItem Header="Exit" />
+
+                    </ContextMenu>
+                </Button.ContextMenu>
+            </Button>
+        </StackPanel>
+    </Design.PreviewWith>
+
     <ControlTheme x:Key="SukiContextMenuStyle" TargetType="ContextMenu">
         <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
         <Setter Property="CornerRadius" Value="6" />
@@ -10,7 +34,7 @@
                 <LayoutTransformControl Name="PART_LayoutTransform"
                                         Margin="1,0,0,0"
                                         RenderTransformOrigin="0%, 0%">
-                    <Panel>
+                    <Panel Height="200">
                         <Border Margin="16"
                                 BoxShadow="{DynamicResource SukiPopupShadow}"
                                 CornerRadius="{TemplateBinding CornerRadius}" />
@@ -21,11 +45,14 @@
                                 ClipToBounds="True"
                                 CornerRadius="{TemplateBinding CornerRadius}">
                             <Panel Background="{DynamicResource PopupGradientBrush}">
-                                <ItemsPresenter Name="PART_ItemsPresenter"
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Center"
-                                                ItemsPanel="{TemplateBinding ItemsPanel}"
-                                                KeyboardNavigation.TabNavigation="Continue" />
+                                <ScrollViewer Theme="{StaticResource SukiMenuScrollViewer}">
+                                    <ItemsPresenter Name="PART_ItemsPresenter"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    ItemsPanel="{TemplateBinding ItemsPanel}"
+                                                    KeyboardNavigation.TabNavigation="Continue"
+                                                    Grid.IsSharedSizeScope="True"/>
+                                </ScrollViewer>
                             </Panel>
                         </Border>
                     </Panel>
