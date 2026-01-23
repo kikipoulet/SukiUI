@@ -1,0 +1,32 @@
+<ResourceDictionary x:Class="SukiUI.Locale.ru_RU"
+                    xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--  DatePicker  -->
+    <x:String x:Key="STRING_DATEPICKER_DAY_TEXT">день</x:String>
+    <x:String x:Key="STRING_DATEPICKER_MONTH_TEXT">месяц</x:String>
+    <x:String x:Key="STRING_DATEPICKER_YEAR_TEXT">год</x:String>
+    <x:String x:Key="STRING_DATEPICKER_APPLY">Применить</x:String>
+    <!--  TimePicker  -->
+    <x:String x:Key="STRING_TIMEPICKER_HOUR_TEXT">час</x:String>
+    <x:String x:Key="STRING_TIMEPICKER_MINUTE_TEXT">минута</x:String>
+    <x:String x:Key="STRING_TIMEPICKER_SECOND_TEXT">секунда</x:String>
+    <x:String x:Key="STRING_TIMEPICKER_APPLY">Применить</x:String>
+    <!--  TextBox  -->
+    <x:String x:Key="STRING_MENU_CUT">Вырезать</x:String>
+    <x:String x:Key="STRING_MENU_COPY">Копировать</x:String>
+    <x:String x:Key="STRING_MENU_PASTE">Вставить</x:String>
+    <x:String x:Key="STRING_BUTTON_CLEAR">Очистить</x:String>
+    <x:String x:Key="STRING_BUTTON_DEFAULT">По умолчанию</x:String>
+    <x:String x:Key="STRING_BUTTON_RESET_TO">Сбросить на</x:String>
+    <!--  Prompts  -->
+    <x:String x:Key="STRING_PROMPT_OK">ОК</x:String>
+    <x:String x:Key="STRING_PROMPT_YES">Да</x:String>
+    <x:String x:Key="STRING_PROMPT_NO">Нет</x:String>
+    <x:String x:Key="STRING_PROMPT_CANCEL">Отмена</x:String>
+    <x:String x:Key="STRING_PROMPT_APPLY">Применить</x:String>
+    <x:String x:Key="STRING_PROMPT_IGNORE">Игнорировать</x:String>
+    <x:String x:Key="STRING_PROMPT_RETRY">Повторить</x:String>
+    <x:String x:Key="STRING_PROMPT_ABORT">Прервать</x:String>
+    <x:String x:Key="STRING_PROMPT_CONTINUE">Продолжить</x:String>
+    <x:String x:Key="STRING_PROMPT_CLOSE">Закрыть</x:String>
+</ResourceDictionary>

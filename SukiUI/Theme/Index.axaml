@@ -83,6 +83,8 @@
                 <ResourceInclude Source="avares://sukiUI/Theme/AutoCompleteBoxStyles.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/ManagedFileChooser.axaml" />
 
+                <ResourceInclude Source="avares://sukiUI/Theme/TextResetButton.axaml" />
+
                 <ResourceInclude Source="avares://sukiUI/Theme/TimePickerStyle.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/Calendar/Calendar.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/Calendar/CalendarButton.axaml" />
