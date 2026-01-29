@@ -36,7 +36,7 @@ namespace SukiUI.Dialogs
 #if DEBUG
                 System.Diagnostics.Debugger.Break();
 #endif
-                throw new InvalidOperationException($"{nameof(SukiDialogBuilder)} is not configured corretly. Its missing a valid value for {nameof(Completion)}.");
+                throw new InvalidOperationException($"{nameof(SukiDialogBuilder)} is not configured correctly. Its missing a valid value for {nameof(Completion)}.");
             }
 
             using var _ = cancellationToken.Register(() => completion.TrySetCanceled(cancellationToken));
