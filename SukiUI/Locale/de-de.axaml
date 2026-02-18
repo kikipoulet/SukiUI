@@ -15,6 +15,9 @@
     <x:String x:Key="STRING_MENU_CUT">Ausschneiden</x:String>
     <x:String x:Key="STRING_MENU_COPY">Kopieren</x:String>
     <x:String x:Key="STRING_MENU_PASTE">Einfügen</x:String>
+    <x:String x:Key="STRING_BUTTON_CLEAR">Leeren</x:String>
+    <x:String x:Key="STRING_BUTTON_DEFAULT">Standard</x:String>
+    <x:String x:Key="STRING_BUTTON_RESET_TO">Zurücksetzen auf</x:String>
     <!--  Prompts  -->
     <x:String x:Key="STRING_PROMPT_OK">OK</x:String>
     <x:String x:Key="STRING_PROMPT_YES">Ja</x:String>

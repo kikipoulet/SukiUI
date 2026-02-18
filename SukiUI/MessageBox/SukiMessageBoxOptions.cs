@@ -103,7 +103,7 @@ public record SukiMessageBoxOptions
     /// <summary>
     /// Gets the window title to display in the title har.
     /// </summary>
-    public string Title { get; init; } = string.Empty;
+    public string? Title { get; init; }
 
 
     /// <inheritdoc cref="SukiBackground.AnimationEnabled"/>

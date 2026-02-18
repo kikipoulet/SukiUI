@@ -506,6 +506,8 @@ public class SukiWindow : Window, IDisposable
         _titleBarControl = e.NameScope.Find<LayoutTransformControl>("PART_TitleBar");
         if (_titleBarControl is not null)
         {
+            _titleBarControl.IsVisible = IsTitleBarVisible;
+
             _titleBarControl.PointerPressed += OnTitleBarPointerPressed;
             _titleBarControl.PointerReleased += OnTitleBarPointerReleased;
             _titleBarControl.DoubleTapped += OnMaximizeButtonClicked;
