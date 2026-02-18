@@ -21,11 +21,12 @@ namespace SukiUI.Dialogs
         {
             if (_activeDialog == null || _activeDialog != dialog) 
                 return false;
-            
-            OnDialogDismissed?.Invoke(this, new SukiDialogManagerEventArgs(_activeDialog));
-            _activeDialog.OnDismissed?.Invoke(_activeDialog);
+
+            var dismissedDialog = _activeDialog;
             _activeDialog = null;
-            
+            OnDialogDismissed?.Invoke(this, new SukiDialogManagerEventArgs(dismissedDialog));
+            dismissedDialog.OnDismissed?.Invoke(dismissedDialog);
+
             return true;
         }
 
@@ -33,10 +34,11 @@ namespace SukiUI.Dialogs
         {
             if (_activeDialog == null) 
                 return;
-            
-            OnDialogDismissed?.Invoke(this, new SukiDialogManagerEventArgs(_activeDialog));
-            _activeDialog.OnDismissed?.Invoke(_activeDialog);
+
+            var dismissedDialog = _activeDialog;
             _activeDialog = null;
+            OnDialogDismissed?.Invoke(this, new SukiDialogManagerEventArgs(dismissedDialog));
+            dismissedDialog.OnDismissed?.Invoke(dismissedDialog);
         }
     }
 }
