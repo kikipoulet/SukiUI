@@ -30,14 +30,7 @@ namespace SukiUI.Dialogs
         /// <exception cref="InvalidOperationException">Will throw if there was an already open dialog, or if the builder wasnt configured to support waiting for it being closed</exception>
         public async Task<bool> TryShowAsync(CancellationToken cancellationToken = default)
         {
-            var completion = Completion;
-            if (completion is null)
-            {
-#if DEBUG
-                System.Diagnostics.Debugger.Break();
-#endif
-                throw new InvalidOperationException($"{nameof(SukiDialogBuilder)} is not configured correctly. Its missing a valid value for {nameof(Completion)}.");
-            }
+            var completion = Completion ?? new TaskCompletionSource<bool>();
 
             using var _ = cancellationToken.Register(() => completion.TrySetCanceled(cancellationToken));
             Dialog.OnDismissed += DialogCancellationRequested;
