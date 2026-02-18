@@ -36,36 +36,33 @@ namespace SukiUI.Dialogs
 #if DEBUG
                 System.Diagnostics.Debugger.Break();
 #endif
-                throw new InvalidOperationException($"{nameof(SukiDialogBuilder)} is not configured corretly. Its missing a valid value for {nameof(Completion)}.");
+                throw new InvalidOperationException($"{nameof(SukiDialogBuilder)} is not configured correctly. Its missing a valid value for {nameof(Completion)}.");
             }
 
-            cancellationToken.Register(CancellationRequested);
+            using var _ = cancellationToken.Register(() => completion.TrySetCanceled(cancellationToken));
             Dialog.OnDismissed += DialogCancellationRequested;
 
-            var result = Manager.TryShowDialog(Dialog);
-            if (!result)
+            try
             {
+                var result = Manager.TryShowDialog(Dialog);
+                if (!result)
+                {
 #if DEBUG
-                System.Diagnostics.Debugger.Break();
+                    System.Diagnostics.Debugger.Break();
 #endif
 
+                    throw new InvalidOperationException("Opening a new dialog failed. Looks like there is already one open.");
+                }
+
+                return await completion.Task;
+            }
+            finally
+            {
                 Dialog.OnDismissed -= DialogCancellationRequested;
-                throw new InvalidOperationException("Opening a new dialog failed. Looks like there is already one open.");
-            }
-
-            return await completion.Task;
-
-            void CancellationRequested()
-            {
                 Manager.TryDismissDialog(Dialog);
-                completion.TrySetResult(false);
             }
 
-            void DialogCancellationRequested(ISukiDialog dialog)
-            {
-                dialog.OnDismissed -= DialogCancellationRequested;
-                completion.TrySetResult(false);
-            }
+            void DialogCancellationRequested(ISukiDialog dialog) => completion.TrySetResult(false);
         }
 
         public void SetTitle(string title)
