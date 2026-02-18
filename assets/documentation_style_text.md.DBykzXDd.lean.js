@@ -1,0 +1,1 @@
+import{_ as t,o as e,c as a}from"./chunks/framework.BHAGR5kP.js";const _=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"documentation/style/text.md","filePath":"documentation/style/text.md"}'),o={name:"documentation/style/text.md"};function n(s,c,r,d,i,m){return e(),a("div")}const l=t(o,[["render",n]]);export{_ as __pageData,l as default};
