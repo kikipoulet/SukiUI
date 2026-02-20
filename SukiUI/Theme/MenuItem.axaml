@@ -1,14 +1,13 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:content="clr-namespace:SukiUI.Content"
-                    xmlns:controls="clr-namespace:SukiUI.Controls"
                     xmlns:converters="clr-namespace:Avalonia.Controls.Converters;assembly=Avalonia.Controls"
                     xmlns:system="clr-namespace:System;assembly=netstandard">
     <converters:PlatformKeyGestureConverter x:Key="KeyGestureConverter" />
 
     <Design.PreviewWith>
-        <Border MinWidth="600"
-                MinHeight="400"
+        <Border Width="550"
+                Height="150"
                 Margin="20">
             <Menu VerticalAlignment="Top">
                 <MenuItem Header="File">
@@ -196,7 +195,7 @@
                                             ClipToBounds="True"
                                             CornerRadius="5">
                                         <Panel Background="{DynamicResource PopupGradientBrush}">
-                                            <ScrollViewer>
+                                            <ScrollViewer Theme="{StaticResource SukiMenuScrollViewer}">
                                                 <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
                                             </ScrollViewer>
                                         </Panel>

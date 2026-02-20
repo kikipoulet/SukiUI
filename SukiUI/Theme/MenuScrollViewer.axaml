@@ -1,0 +1,88 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="clr-namespace:Avalonia.Controls.Converters;assembly=Avalonia.Controls"
+                    xmlns:content="https://github.com/kikipoulet/SukiUI">
+   <Design.PreviewWith>
+    <ScrollViewer Theme="{DynamicResource SukiMenuScrollViewer}"
+                  Width="200" Height="200">
+      <StackPanel Spacing="20">
+        <TextBlock>Item 1</TextBlock>
+        <TextBlock>Item 2</TextBlock>
+        <TextBlock>Item 3</TextBlock>
+        <TextBlock>Item 4</TextBlock>
+        <TextBlock>Item 5</TextBlock>
+        <TextBlock>Item 6</TextBlock>
+        <TextBlock>Item 7</TextBlock>
+        <TextBlock>Item 8</TextBlock>
+        <TextBlock>Item 9</TextBlock>
+      </StackPanel>
+    </ScrollViewer>
+  </Design.PreviewWith>
+
+  <ControlTheme x:Key="SukiMenuScrollViewer" TargetType="ScrollViewer">
+      <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DockPanel>
+          <RepeatButton DockPanel.Dock="Top"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Center"
+                        RenderTransform="{x:Null}"
+                        Command="{Binding LineUp, RelativeSource={RelativeSource TemplatedParent}}">
+            <RepeatButton.IsVisible>
+              <MultiBinding Converter="{x:Static converters:MenuScrollingVisibilityConverter.Instance}"
+                            ConverterParameter="0">
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="VerticalScrollBarVisibility" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Offset.Y" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Extent.Height" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Viewport.Height" />
+              </MultiBinding>
+            </RepeatButton.IsVisible>
+            <Viewbox Width="16"
+                     Height="16">
+              <Path VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Data="{x:Static content:Icons.ChevronUp}"
+                    Fill="{DynamicResource SukiMuteText}"/>
+            </Viewbox>
+          </RepeatButton>
+          <RepeatButton DockPanel.Dock="Bottom"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Center"
+                        RenderTransform="{x:Null}"
+                        Command="{Binding LineDown, RelativeSource={RelativeSource TemplatedParent}}">
+            <RepeatButton.IsVisible>
+              <MultiBinding Converter="{x:Static converters:MenuScrollingVisibilityConverter.Instance}"
+                            ConverterParameter="100">
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="VerticalScrollBarVisibility" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Offset.Y" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Extent.Height" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Viewport.Height" />
+              </MultiBinding>
+            </RepeatButton.IsVisible>
+            <Viewbox Width="16"
+                     Height="16">
+              <Path VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Data="{x:Static content:Icons.ChevronDown}"
+                    Fill="{DynamicResource SukiMuteText}" />
+            </Viewbox>
+          </RepeatButton>
+          <ScrollContentPresenter Name="PART_ContentPresenter">
+            <ScrollContentPresenter.GestureRecognizers>
+              <ScrollGestureRecognizer CanHorizontallyScroll="{Binding CanHorizontallyScroll, ElementName=PART_ContentPresenter}"
+                                       CanVerticallyScroll="{Binding CanVerticallyScroll, ElementName=PART_ContentPresenter}" />
+            </ScrollContentPresenter.GestureRecognizers>
+          </ScrollContentPresenter>
+        </DockPanel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^ /template/ RepeatButton:pointerover > Viewbox > Path">
+      <Setter Property="Fill" Value="{DynamicResource SukiText}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

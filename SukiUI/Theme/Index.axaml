@@ -27,8 +27,6 @@
     <StyleInclude Source="avares://SukiUI/Theme/NotificationStyle.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/NotificationCardStyle.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/CheckBoxStyles.axaml" />
-    <StyleInclude Source="avares://SukiUI/Theme/ScrollBarStyle.axaml" />
-    <StyleInclude Source="avares://SukiUI/Theme/ScrollViewerStyles.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ButtonLoadingStyles.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/TabItemGlassStyles.xaml" />
     <StyleInclude Source="avares://SukiUI/Theme/GridSplitterStyles.axaml"/>
@@ -71,10 +69,13 @@
                 <ResourceInclude Source="avares://sukiUI/Theme/PathIcon.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/Expander.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/CalendarDatePickerStyle.axaml" />
+                <ResourceInclude Source="avares://sukiUI/Theme/ScrollBar.axaml" />
+                <ResourceInclude Source="avares://sukiUI/Theme/ScrollViewer.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/TabControl.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/TabItem.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/Separator.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/DropDownButton.axaml" />
+                <ResourceInclude Source="avares://sukiUI/Theme/MenuScrollViewer.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/Menu.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/ContextMenu.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/MenuItem.axaml" />

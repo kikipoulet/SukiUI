@@ -1,0 +1,328 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:content="https://github.com/kikipoulet/SukiUI">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <StackPanel Orientation="Vertical" Spacing="10">
+                <StackPanel Orientation="Horizontal" Spacing="20">
+                    <StackPanel Spacing="20">
+                        <ScrollBar Orientation="Horizontal" AllowAutoHide="False" VerticalAlignment="Center" Width="100"/>
+                        <ScrollBar Orientation="Horizontal" AllowAutoHide="False" VerticalAlignment="Center" Width="100" IsEnabled="False"/>
+                        <ScrollBar Orientation="Horizontal" AllowAutoHide="True" VerticalAlignment="Center" Width="100"/>
+                        <ScrollBar Orientation="Horizontal" AllowAutoHide="True" VerticalAlignment="Center" Width="100" IsEnabled="False"/>
+                    </StackPanel>
+                    <ScrollBar Orientation="Vertical" AllowAutoHide="False" HorizontalAlignment="Center" Height="100"/>
+                    <ScrollBar Orientation="Vertical" AllowAutoHide="False" HorizontalAlignment="Center" Height="100" IsEnabled="False"/>
+                    <ScrollBar Orientation="Vertical" AllowAutoHide="True" HorizontalAlignment="Center" Height="100"/>
+                    <ScrollBar Orientation="Vertical" AllowAutoHide="True" HorizontalAlignment="Center" Height="100" IsEnabled="False"/>
+                </StackPanel>
+
+                <Border Margin="20">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <ScrollViewer Width="200" Height="200"
+                                      AllowAutoHide="True"
+                                      HorizontalScrollBarVisibility="Auto">
+                            <StackPanel Spacing="20" Width="210">
+                                <TextBlock>Item 1</TextBlock>
+                                <TextBlock>Item 2</TextBlock>
+                                <TextBlock>Item 3</TextBlock>
+                                <TextBlock>Item 4</TextBlock>
+                                <TextBlock>Item 5</TextBlock>
+                                <TextBlock>Item 6</TextBlock>
+                                <TextBlock>Item 7</TextBlock>
+                                <TextBlock>Item 8</TextBlock>
+                                <TextBlock>Item 9</TextBlock>
+                            </StackPanel>
+                        </ScrollViewer>
+
+                        <ScrollViewer Width="200" Height="200"
+                                      AllowAutoHide="False"
+                                      HorizontalScrollBarVisibility="Auto">
+                            <StackPanel Spacing="20" Width="210">
+                                <TextBlock>Item 1</TextBlock>
+                                <TextBlock>Item 2</TextBlock>
+                                <TextBlock>Item 3</TextBlock>
+                                <TextBlock>Item 4</TextBlock>
+                                <TextBlock>Item 5</TextBlock>
+                                <TextBlock>Item 6</TextBlock>
+                                <TextBlock>Item 7</TextBlock>
+                                <TextBlock>Item 8</TextBlock>
+                                <TextBlock>Item 9</TextBlock>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+        </Border>
+    </Design.PreviewWith>
+
+    <!-- Thumb theme -->
+    <ControlTheme x:Key="SukiScrollBarThumb" TargetType="Thumb">
+        <Setter Property="Background" Value="{DynamicResource SukiControlBorderBrush}"/>
+        <Setter Property="CornerRadius" Value="{DynamicResource MediumCornerRadius}"/>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Background="{TemplateBinding Background}"
+                        CornerRadius="{TemplateBinding CornerRadius}"/>
+            </ControlTemplate>
+        </Setter>
+        <Setter Property="Transitions">
+            <Transitions>
+                <CornerRadiusTransition Property="CornerRadius" Duration="0:0:0.1" />
+                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.1" />
+            </Transitions>
+        </Setter>
+
+        <Style Selector="^:pointerover /template/ Border">
+            <Setter Property="Background" Value="{DynamicResource SukiControlBorderBrush}" />
+        </Style>
+        <Style Selector="^:pressed  /template/ Border">
+            <Setter Property="Background" Value="{DynamicResource SukiControlBorderBrush}" />
+        </Style>
+        <Style Selector="^:disabled  /template/ Border">
+            <Setter Property="Opacity" Value="0.5" />
+        </Style>
+    </ControlTheme>
+
+    <!-- Page buttons are the large buttons on the scrollbar track -->
+    <ControlTheme x:Key="SukiScrollBarPageButton" TargetType="RepeatButton">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="Opacity" Value="0" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Background="{TemplateBinding Background}" />
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+    <!-- Line buttons are the small buttons at the ends of the scrollbar -->
+    <ControlTheme x:Key="SukiScrollBarLineButton" TargetType="RepeatButton">
+        <Setter Property="Opacity" Value="0" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiLowText}"/>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ContentPresenter x:Name="PART_ContentPresenter"
+                                  Background="{DynamicResource ScrollBarButtonBackground}"
+                                  BorderBrush="{DynamicResource ScrollBarButtonBorderBrush}"
+                                  Content="{TemplateBinding Content}"/>
+            </ControlTemplate>
+        </Setter>
+        <Setter Property="Transitions">
+            <Transitions>
+                <DoubleTransition Property="Opacity" Duration="0:0:0.1" />
+            </Transitions>
+        </Setter>
+
+        <Style Selector="^:pointerover">
+            <Setter Property="Foreground" Value="{DynamicResource SukiText}"/>
+
+            <Style Selector="^ /template/ ContentPresenter" >
+                <Setter Property="Background" Value="{DynamicResource SukiControlBorderBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
+            </Style>
+        </Style>
+
+        <Style Selector="^:pressed">
+            <Setter Property="Foreground" Value="{DynamicResource SukiMenuBorderBrush}"/>
+
+            <Style Selector="^ /template/ ContentPresenter" >
+                <Setter Property="Background" Value="{DynamicResource ScrollBarButtonBackgroundPressed}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ScrollBarButtonBorderBrushPressed}" />
+            </Style>
+        </Style>
+
+        <Style Selector="^:disabled">
+            <Setter Property="Foreground" Value="{DynamicResource SukiDisabledText}"/>
+
+            <Style Selector="^ /template/ ContentPresenter" >
+                <Setter Property="Background" Value="{DynamicResource ScrollBarButtonBackgroundDisabled}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ScrollBarButtonBorderBrushDisabled}" />
+            </Style>
+        </Style>
+    </ControlTheme>
+
+    <!-- Main ScrollBar theme -->
+    <ControlTheme x:Key="{x:Type ScrollBar}" TargetType="ScrollBar">
+        <Setter Property="MinWidth" Value="{DynamicResource ScrollBarSize}" />
+        <Setter Property="MinHeight" Value="{DynamicResource ScrollBarSize}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
+
+        <Style Selector="^:vertical">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Grid x:Name="Root">
+                        <Border x:Name="VerticalRoot"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}">
+                            <Grid RowDefinitions="Auto,*,Auto">
+                                <Rectangle x:Name="TrackRect"
+                                           Fill="{DynamicResource ScrollBarTrackFill}"
+                                           Stroke="{DynamicResource ScrollBarTrackStroke}"
+                                           StrokeThickness="{DynamicResource ScrollBarTrackBorderThemeThickness}"
+                                           Opacity="0"
+                                           Grid.RowSpan="3">
+                                    <Rectangle.Transitions>
+                                        <Transitions>
+                                            <DoubleTransition Property="Opacity" Duration="0:0:0.1" />
+                                        </Transitions>
+                                    </Rectangle.Transitions>
+                                </Rectangle>
+
+                                <RepeatButton Name="PART_LineUpButton"
+                                              HorizontalAlignment="Center"
+                                              Theme="{StaticResource SukiScrollBarLineButton}"
+                                              Grid.Row="0"
+                                              Focusable="False"
+                                              MinWidth="{DynamicResource ScrollBarSize}"
+                                              Height="{DynamicResource ScrollBarSize}">
+                                    <PathIcon Data="{x:Static content:Icons.ChevronUp}"
+                                              Width="10"
+                                              Height="25"/>
+                                </RepeatButton>
+
+                                <Track Grid.Row="1"
+                                       Minimum="{TemplateBinding Minimum}"
+                                       Maximum="{TemplateBinding Maximum}"
+                                       Value="{TemplateBinding Value, Mode=TwoWay}"
+                                       DeferThumbDrag="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+                                       ViewportSize="{TemplateBinding ViewportSize}"
+                                       Orientation="{TemplateBinding Orientation}"
+                                       IsDirectionReversed="True">
+                                    <Track.DecreaseButton>
+                                        <RepeatButton Name="PART_PageUpButton"
+                                                      Classes="largeIncrease"
+                                                      Theme="{StaticResource SukiScrollBarPageButton}"
+                                                      Focusable="False" />
+                                    </Track.DecreaseButton>
+                                    <Track.IncreaseButton>
+                                        <RepeatButton Name="PART_PageDownButton"
+                                                      Classes="largeIncrease"
+                                                      Theme="{StaticResource SukiScrollBarPageButton}"
+                                                      Focusable="False" />
+                                    </Track.IncreaseButton>
+                                    <Thumb Theme="{StaticResource SukiScrollBarThumb}"
+                                           Width="{DynamicResource ScrollBarSize}"
+                                           MinHeight="{DynamicResource ScrollBarSize}"
+                                           RenderTransform="{DynamicResource VerticalSmallScrollThumbScaleTransform}"
+                                           RenderTransformOrigin="100%,50%" />
+                                </Track>
+
+                                <RepeatButton Name="PART_LineDownButton"
+                                              HorizontalAlignment="Center"
+                                              Theme="{StaticResource SukiScrollBarLineButton}"
+                                              Grid.Row="2"
+                                              Focusable="False"
+                                              MinWidth="{DynamicResource ScrollBarSize}"
+                                              Height="{DynamicResource ScrollBarSize}">
+                                    <PathIcon Data="{x:Static content:Icons.ChevronDown}"
+                                              Width="10"
+                                              Height="25" />
+                                </RepeatButton>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+
+        <Style Selector="^:horizontal">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Grid x:Name="Root">
+                        <Border x:Name="HorizontalRoot"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}">
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                <Rectangle x:Name="TrackRect"
+                                           Fill="{DynamicResource ScrollBarTrackFill}"
+                                           Stroke="{DynamicResource ScrollBarTrackStroke}"
+                                           StrokeThickness="{DynamicResource ScrollBarTrackBorderThemeThickness}"
+                                           Opacity="0"
+                                           Grid.ColumnSpan="3">
+                                    <Rectangle.Transitions>
+                                        <Transitions>
+                                            <DoubleTransition Property="Opacity" Duration="0:0:0.1" />
+                                        </Transitions>
+                                    </Rectangle.Transitions>
+                                </Rectangle>
+
+                                <RepeatButton Name="PART_LineUpButton"
+                                              Theme="{StaticResource SukiScrollBarLineButton}"
+                                              VerticalAlignment="Center"
+                                              Grid.Column="0"
+                                              Focusable="False"
+                                              MinHeight="{DynamicResource ScrollBarSize}"
+                                              Width="{DynamicResource ScrollBarSize}">
+                                    <PathIcon Data="{x:Static content:Icons.ChevronLeft}"
+                                              Width="25"
+                                              Height="10" />
+                                </RepeatButton>
+
+                                <Track Grid.Column="1"
+                                       Minimum="{TemplateBinding Minimum}"
+                                       Maximum="{TemplateBinding Maximum}"
+                                       Value="{TemplateBinding Value, Mode=TwoWay}"
+                                       DeferThumbDrag="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+                                       ViewportSize="{TemplateBinding ViewportSize}"
+                                       Orientation="{TemplateBinding Orientation}">
+                                    <Track.DecreaseButton>
+                                        <RepeatButton Name="PART_PageUpButton"
+                                                      Classes="largeIncrease"
+                                                      Theme="{StaticResource SukiScrollBarPageButton}"
+                                                      Focusable="False" />
+                                    </Track.DecreaseButton>
+                                    <Track.IncreaseButton>
+                                        <RepeatButton Name="PART_PageDownButton"
+                                                      Classes="largeIncrease"
+                                                      Theme="{StaticResource SukiScrollBarPageButton}"
+                                                      Focusable="False" />
+                                    </Track.IncreaseButton>
+                                    <Thumb Theme="{StaticResource SukiScrollBarThumb}"
+                                           Height="{DynamicResource ScrollBarSize}"
+                                           MinWidth="{DynamicResource ScrollBarSize}"
+                                           RenderTransform="{DynamicResource HorizontalSmallScrollThumbScaleTransform}"
+                                           RenderTransformOrigin="50%,100%" />
+                                </Track>
+
+                                <RepeatButton Name="PART_LineDownButton"
+                                              Theme="{StaticResource SukiScrollBarLineButton}"
+                                              VerticalAlignment="Center"
+                                              Grid.Column="2"
+                                              Focusable="False"
+                                              MinHeight="{DynamicResource ScrollBarSize}"
+                                              Width="{DynamicResource ScrollBarSize}">
+                                    <PathIcon Data="{x:Static content:Icons.ChevronRight}"
+                                              Width="25"
+                                              Height="10" />
+                                </RepeatButton>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+
+        <Style Selector="^[IsExpanded=true]">
+            <Style Selector="^ /template/ Grid#Root">
+                <Setter Property="Background" Value="{DynamicResource SukiControlBorderBrush}" />
+            </Style>
+            <Style Selector="^ /template/ Rectangle#TrackRect">
+                <Setter Property="Fill" Value="{DynamicResource SukiMediumBorderBrush}" />
+                <Setter Property="Stroke" Value="{DynamicResource SukiMenuBorderBrush}" />
+                <Setter Property="Opacity" Value="1" />
+            </Style>
+            <Style Selector="^ /template/ Thumb">
+                <Setter Property="Background" Value="{DynamicResource SukiControlBorderBrush}" />
+                <Setter Property="RenderTransform" Value="none" />
+            </Style>
+            <Style Selector="^ /template/ RepeatButton">
+                <Setter Property="Opacity" Value="1" />
+            </Style>
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>
