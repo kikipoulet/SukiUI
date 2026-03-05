@@ -1,9 +1,30 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:animations="clr-namespace:SukiUI.Animations"
-                    xmlns:controls="clr-namespace:SukiUI.Controls"
-                    xmlns:suki="https://github.com/kikipoulet/SukiUI"
+                    xmlns:suki="clr-namespace:SukiUI.Controls"
                     xmlns:system="clr-namespace:System;assembly=netstandard">
+    <Design.PreviewWith>
+        <Border Width="500"
+                Height="200"
+                Margin="20"
+                Background="White">
+            <Menu>
+                <MenuItem Header="File">
+                    <MenuItem Header="New _File" />
+                    <MenuItem Header="Open File" />
+                    <MenuItem Header="Save File" />
+                    <Separator/>
+                    <MenuItem Header="Rename File" />
+                    <MenuItem Header="Locate File" />
+                    <MenuItem Header="Delete File" />
+                    <Separator/>
+                    <MenuItem Header="Exit" />
+                </MenuItem>
+            </Menu>
+
+        </Border>
+    </Design.PreviewWith>
+
     <ControlTheme x:Key="SukiTopLevelMenuItem" TargetType="MenuItem">
         <Setter Property="FontWeight" Value="{DynamicResource DefaultDemiBold}" />
         <Setter Property="Background" Value="Transparent" />
@@ -17,16 +38,16 @@
                         BorderThickness="0"
                         CornerRadius="8">
                     <Panel>
-                        <controls:GlassCard Name="GlassMenuItemBackground"
-                                            Classes="Control"
-                                            CornerRadius="8"
-                                            Opacity="0">
-                            <controls:GlassCard.Transitions>
+                        <suki:GlassCard Name="GlassMenuItemBackground"
+                                        Classes="Control"
+                                        CornerRadius="8"
+                                        Opacity="0">
+                            <suki:GlassCard.Transitions>
                                 <Transitions>
                                     <DoubleTransition Property="Opacity" Duration="0:0:0.15" />
                                 </Transitions>
-                            </controls:GlassCard.Transitions>
-                        </controls:GlassCard>
+                            </suki:GlassCard.Transitions>
+                        </suki:GlassCard>
                         <ContentPresenter Name="PART_HeaderPresenter"
                                           Margin="{TemplateBinding Padding}"
                                           HorizontalContentAlignment="Left"
@@ -42,7 +63,7 @@
                                ClipToBounds="True"
                                IsLightDismissEnabled="True"
                                IsOpen="{TemplateBinding IsSubMenuOpen,
-                                                        Mode=TwoWay}"
+                               Mode=TwoWay}"
                                Opacity="0"
                                OverlayInputPassThroughElement="{Binding $parent[MenuItem]}"
                                Placement="BottomEdgeAlignedLeft">
@@ -74,7 +95,7 @@
                 </Border>
             </ControlTemplate>
         </Setter>
-        <Style Selector="^:pointerover /template/ controls|GlassCard#GlassMenuItemBackground">
+        <Style Selector="^:pointerover /template/ suki|GlassCard#GlassMenuItemBackground">
             <Setter Property="Opacity" Value="1" />
         </Style>
 
@@ -116,9 +137,11 @@
                             BorderBrush="{DynamicResource SukiBorderBrush}"
                             BorderThickness="0"
                             CornerRadius="{TemplateBinding CornerRadius}">
-                        <ItemsPresenter Name="PART_ItemsPresenter"
-                                        ItemsPanel="{TemplateBinding ItemsPanel}"
-                                        KeyboardNavigation.TabNavigation="Continue" />
+                        <ScrollViewer Theme="{StaticResource SukiMenuScrollViewer}">
+                            <ItemsPresenter Name="PART_ItemsPresenter"
+                                            ItemsPanel="{TemplateBinding ItemsPanel}"
+                                            KeyboardNavigation.TabNavigation="Continue" />
+                        </ScrollViewer>
                     </Border>
                 </LayoutTransformControl>
             </ControlTemplate>
