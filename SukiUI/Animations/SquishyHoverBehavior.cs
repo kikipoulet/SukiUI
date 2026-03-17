@@ -11,7 +11,7 @@ using Avalonia.Animation.Easings;
 
 namespace SukiUI.Animations
 {
-    public class SquishyOverExtensions
+    public class SquishyHoverBehavior
     {
        private class State
         {

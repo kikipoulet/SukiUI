@@ -120,7 +120,7 @@
                             </showMeTheXaml:XamlDisplay>
                             
                             <Expander Header="Advanced">
-                                <StackPanel Spacing="12">
+                                <StackPanel Spacing="12" >
                                      <showMeTheXaml:XamlDisplay UniqueId="Progress2">
                                 <ProgressBar Classes="Accent" IsIndeterminate="{Binding IsIndeterminate}" />
                             </showMeTheXaml:XamlDisplay>
@@ -138,7 +138,8 @@
                             </showMeTheXaml:XamlDisplay>
                             <StackPanel VerticalAlignment="Stretch"
                                         Orientation="Horizontal"
-                                        Spacing="15">
+                                        Spacing="10"
+                                        Height="150">
                                 <showMeTheXaml:XamlDisplay UniqueId="Progress3">
                                     <ProgressBar IsIndeterminate="{Binding IsIndeterminate}" Orientation="Vertical" />
                                 </showMeTheXaml:XamlDisplay>

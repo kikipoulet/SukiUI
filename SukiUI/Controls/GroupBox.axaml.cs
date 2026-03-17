@@ -1,28 +1,17 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+using Avalonia.Controls.Metadata;
+using Avalonia.Controls.Presenters;
+using Avalonia.Controls.Primitives;
 
 namespace SukiUI.Controls
 {
-    public partial class GroupBox : UserControl
+    [TemplatePart(Name = "PART_Root", Type = typeof(Border))]
+    [TemplatePart("PART_HeaderPresenter", typeof(ContentPresenter), IsRequired = true)]
+    [TemplatePart("PART_ContentPresenter", typeof(ContentPresenter), IsRequired = true)]
+    public class GroupBox : HeaderedContentControl
     {
         public GroupBox()
         {
-            InitializeComponent();
-        }
-
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
-
-        public static readonly StyledProperty<object?> HeaderProperty =
-            AvaloniaProperty.Register<GroupBox, object?>(nameof(Header), defaultValue: "Header");
-
-        public object? Header
-        {
-            get => GetValue(HeaderProperty);
-            set => SetValue(HeaderProperty, value);
         }
     }
 }

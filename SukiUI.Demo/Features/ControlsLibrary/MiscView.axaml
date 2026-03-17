@@ -58,7 +58,8 @@
                     <suki:GroupBox Header="Numeric Up/Down">
                         <StackPanel Spacing="10">
                             <showMeTheXaml:XamlDisplay UniqueId="Numeric1">
-                                <NumericUpDown Value="10" />
+                                <NumericUpDown suki:NumericUpDownExtensions.ResetText="10"
+                                               Value="10" />
                             </showMeTheXaml:XamlDisplay>
                             <showMeTheXaml:XamlDisplay UniqueId="Numeric2">
                                 <NumericUpDown suki:NumericUpDownExtensions.Unit="inch" Value="10" />
@@ -69,7 +70,8 @@
                                                Value="10" />
                             </showMeTheXaml:XamlDisplay>
                             <showMeTheXaml:XamlDisplay UniqueId="Numeric4">
-                                <NumericUpDown suki:NumericUpDownExtensions.Unit="{icon:MaterialIconExt Kind=Alarm}"
+                                <NumericUpDown suki:NumericUpDownExtensions.ResetText="8"
+                                               suki:NumericUpDownExtensions.Unit="{icon:MaterialIconExt Kind=Alarm}"
                                                Width="120"
                                                Minimum="0"
                                                Maximum="24"

@@ -30,42 +30,32 @@ namespace SukiUI.Dialogs
         /// <exception cref="InvalidOperationException">Will throw if there was an already open dialog, or if the builder wasnt configured to support waiting for it being closed</exception>
         public async Task<bool> TryShowAsync(CancellationToken cancellationToken = default)
         {
-            var completion = Completion;
-            if (completion is null)
-            {
-#if DEBUG
-                System.Diagnostics.Debugger.Break();
-#endif
-                throw new InvalidOperationException($"{nameof(SukiDialogBuilder)} is not configured corretly. Its missing a valid value for {nameof(Completion)}.");
-            }
+            var completion = Completion ?? new TaskCompletionSource<bool>();
 
-            cancellationToken.Register(CancellationRequested);
+            using var _ = cancellationToken.Register(() => completion.TrySetCanceled(cancellationToken));
             Dialog.OnDismissed += DialogCancellationRequested;
 
-            var result = Manager.TryShowDialog(Dialog);
-            if (!result)
+            try
             {
+                var result = Manager.TryShowDialog(Dialog);
+                if (!result)
+                {
 #if DEBUG
-                System.Diagnostics.Debugger.Break();
+                    System.Diagnostics.Debugger.Break();
 #endif
 
+                    throw new InvalidOperationException("Opening a new dialog failed. Looks like there is already one open.");
+                }
+
+                return await completion.Task;
+            }
+            finally
+            {
                 Dialog.OnDismissed -= DialogCancellationRequested;
-                throw new InvalidOperationException("Opening a new dialog failed. Looks like there is already one open.");
-            }
-
-            return await completion.Task;
-
-            void CancellationRequested()
-            {
                 Manager.TryDismissDialog(Dialog);
-                completion.TrySetResult(false);
             }
 
-            void DialogCancellationRequested(ISukiDialog dialog)
-            {
-                dialog.OnDismissed -= DialogCancellationRequested;
-                completion.TrySetResult(false);
-            }
+            void DialogCancellationRequested(ISukiDialog dialog) => completion.TrySetResult(false);
         }
 
         public void SetTitle(string title)

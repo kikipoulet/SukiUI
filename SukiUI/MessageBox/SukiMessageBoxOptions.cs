@@ -16,6 +16,16 @@ public record SukiMessageBoxOptions
     public bool UseNativeWindow { get; init; }
 
     /// <summary>
+    /// Gets the icon to display for the window.
+    /// </summary>
+    public WindowIcon? Icon { get; init; }
+
+    /// <summary>
+    /// Gets if the window is topmost.
+    /// </summary>
+    public bool Topmost { get; init; }
+
+    /// <summary>
     /// Gets if the window can resize.
     /// </summary>
     public bool CanResize { get; init; }
@@ -93,7 +103,7 @@ public record SukiMessageBoxOptions
     /// <summary>
     /// Gets the window title to display in the title har.
     /// </summary>
-    public string Title { get; init; } = string.Empty;
+    public string? Title { get; init; }
 
 
     /// <inheritdoc cref="SukiBackground.AnimationEnabled"/>

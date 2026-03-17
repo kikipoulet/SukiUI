@@ -31,12 +31,12 @@
     <StyleInclude Source="avares://SukiUI/Theme/ScrollViewerStyles.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/ButtonLoadingStyles.axaml" />
     <StyleInclude Source="avares://SukiUI/Theme/TabItemGlassStyles.xaml" />
-    <StyleInclude Source="avares://SukiUI/Theme/GridSplitterStyles.axaml"></StyleInclude>
-    <StyleInclude Source="avares://SukiUI/Controls/Gauges/HorizontalBarMeter/HorizontalBarMeterStyles.axaml"></StyleInclude>
-    <StyleInclude Source="avares://SukiUI/Controls/Gauges/VerticalBarMeter/VerticalBarMeterStyles.axaml"></StyleInclude>
-    <StyleInclude Source="avares://SukiUI/Controls/Gauges/RadialGauge/RadialGaugeStyles.axaml"></StyleInclude>
+    <StyleInclude Source="avares://SukiUI/Theme/GridSplitterStyles.axaml"/>
+    <StyleInclude Source="avares://SukiUI/Controls/Gauges/HorizontalBarMeter/HorizontalBarMeterStyles.axaml"/>
+    <StyleInclude Source="avares://SukiUI/Controls/Gauges/VerticalBarMeter/VerticalBarMeterStyles.axaml"/>
+    <StyleInclude Source="avares://SukiUI/Controls/Gauges/RadialGauge/RadialGaugeStyles.axaml"/>
 
-    
+
     <Styles.Resources>
         <ResourceDictionary>
 
@@ -83,6 +83,8 @@
                 <ResourceInclude Source="avares://sukiUI/Theme/AutoCompleteBoxStyles.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/ManagedFileChooser.axaml" />
 
+                <ResourceInclude Source="avares://sukiUI/Theme/TextResetButton.axaml" />
+
                 <ResourceInclude Source="avares://sukiUI/Theme/TimePickerStyle.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/Calendar/Calendar.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/Calendar/CalendarButton.axaml" />
@@ -95,6 +97,7 @@
                 <ResourceInclude Source="avares://sukiUI/Controls/Hosts/SukiToastHost.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/Hosts/SukiDialogHost.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/Hosts/SukiMessageBoxHost.axaml" />
+                <ResourceInclude Source="avares://sukiUI/Controls/GroupBox.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiDialog.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiSideMenu.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiStackPage.axaml" />

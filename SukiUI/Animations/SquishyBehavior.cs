@@ -8,7 +8,7 @@ using Avalonia.Threading;
 
 namespace SukiUI.Animations
 {
-    public class SquishyDragExtensions
+    public class SquishyBehavior
     {
         
         private class State

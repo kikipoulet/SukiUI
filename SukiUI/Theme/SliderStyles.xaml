@@ -51,7 +51,7 @@
 
 
 
-    <Style Selector="Slider:horizontal">
+   <Style Selector="Slider:horizontal">
         <Setter Property="MinWidth" Value="40" />
         <Setter Property="MinHeight" Value="20" />
         <Setter Property="Template">
@@ -67,7 +67,7 @@
                     </Grid.RowDefinitions>
                     <suki:GlassCard Name="TrackBackground"
                             Grid.Row="1" Classes="Control"
-                            Height="10"
+                            Height="7" Opacity="0"
                             Margin="8,0"
                             VerticalAlignment="Center"
                             BorderThickness="0"
@@ -79,15 +79,27 @@
                            Orientation="Horizontal">
                         <Track.DecreaseButton>
                             <RepeatButton Name="PART_DecreaseButton"
-                                          Height="10"
-                                          Margin="8,0,-20,0"
+                                          Height="7"
+                                          Margin="8,0,-3,0"
                                           HorizontalAlignment="Stretch"
-                                          Background="{DynamicResource SukiPrimaryColor}"
+                                          
                                           BorderThickness="0"
-                                          CornerRadius="20,0,0,20" />
+                                          CornerRadius="20,20,20,20"
+                                          Focusable="False" >
+                                <RepeatButton.Background>
+                                    <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                                        <GradientStop Offset="0" Color="{DynamicResource SukiPrimaryColor50}" />
+                                        <GradientStop Offset="1" Color="{DynamicResource SukiPrimaryColor75}" />
+                                    </LinearGradientBrush>
+                                </RepeatButton.Background>
+                            </RepeatButton>
                         </Track.DecreaseButton>
                         <Track.IncreaseButton>
-                            <RepeatButton Name="PART_IncreaseButton" Classes="repeattrack" />
+                            
+                            <RepeatButton Name="PART_IncreaseButton" Classes="repeattrack2" >
+                               
+                            </RepeatButton>
+                                
                         </Track.IncreaseButton>
                         <Thumb Name="thumb" Margin="3,0,0,0">
                             <Thumb.Template>
@@ -111,6 +123,24 @@
             </ControlTemplate>
         </Setter>
     </Style>
+
+        
+        <Style Selector="Slider /template/ RepeatButton.repeattrack2">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="Foreground" Value="{DynamicResource ThemeBorderLowBrush}" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <suki:GlassCard 
+                        Grid.Row="1" Classes="Control"
+                        Height="7"
+                        Margin="0,0"
+                        VerticalAlignment="Center"
+                        BorderThickness="0"
+                        CornerRadius="20" />
+                </ControlTemplate>
+            </Setter>
+        </Style>
     <Style Selector="Slider:vertical">
         <Setter Property="MinWidth" Value="20" />
         <Setter Property="MinHeight" Value="40" />

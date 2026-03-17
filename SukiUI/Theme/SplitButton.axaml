@@ -21,6 +21,7 @@
                 </Style>
             </Border.Styles>
             <StackPanel Spacing="10">
+                <TextBlock Classes="h1" Text="SplitButton"/>
                 <WrapPanel Orientation="Horizontal">
                     <SplitButton Margin="5"
                                  Content="Disabled"
@@ -68,6 +69,73 @@
                     <SplitButton Margin="5"
                                  Classes="Rounded"
                                  Content="Rounded" />
+                </WrapPanel>
+
+                <WrapPanel Orientation="Horizontal">
+                    <SplitButton Margin="5"
+                                 Classes="Large Flat"
+                                 Content="Large">
+                        <suki:SplitButtonExtensions.Icon>
+                            <PathIcon Data="{x:Static suki:Icons.Calendar}" />
+                        </suki:SplitButtonExtensions.Icon>
+                    </SplitButton>
+                    <SplitButton Margin="5"
+                                 Classes="Large Flat Rounded"
+                                 Content="Large Rounded">
+                        <suki:SplitButtonExtensions.Icon>
+                            <PathIcon Data="{x:Static suki:Icons.Search}" />
+                        </suki:SplitButtonExtensions.Icon>
+                    </SplitButton>
+                </WrapPanel>
+
+                <TextBlock Classes="h1" Text="ToggleSplitButton"/>
+                <WrapPanel Orientation="Horizontal">
+                    <ToggleSplitButton Margin="5"
+                                       Content="Disabled"
+                                       IsEnabled="False" />
+                    <ToggleSplitButton Margin="5" Content="Standard" />
+                    <ToggleSplitButton Margin="5"
+                                       Classes="Accent"
+                                       Content="Accent" />
+                    <ToggleSplitButton Margin="5"
+                                       Classes="Outlined"
+                                       Content="Outlined" />
+                    <ToggleSplitButton Margin="5"
+                                       Classes="Outlined Accent"
+                                       Content="Outlined Accent" />
+                    <ToggleSplitButton Margin="5"
+                                       Classes="Discrete"
+                                       Content="Discrete" />
+                    <ToggleSplitButton Margin="5"
+                                       Classes="Flat"
+                                       Content="Flat">
+                        <suki:SplitButtonExtensions.Icon>
+                            <PathIcon Data="{x:Static suki:Icons.Calendar}" />
+                        </suki:SplitButtonExtensions.Icon>
+                    </ToggleSplitButton>
+                    <ToggleSplitButton Margin="5"
+                                       Classes="Flat Accent"
+                                       Content="Flat Accent" />
+
+                    <ToggleSplitButton Margin="5"
+                                       Classes="Success"
+                                       Content="Success" />
+
+                    <ToggleSplitButton Margin="5"
+                                       Classes="Information"
+                                       Content="Information" />
+
+                    <ToggleSplitButton Margin="5"
+                                       Classes="Warning"
+                                       Content="Warning" />
+
+                    <ToggleSplitButton Margin="5"
+                                       Classes="Danger"
+                                       Content="Danger" />
+
+                    <ToggleSplitButton Margin="5"
+                                       Classes="Rounded"
+                                       Content="Rounded" />
                 </WrapPanel>
 
                 <WrapPanel Orientation="Horizontal">
@@ -290,7 +358,6 @@
                 <Setter Property="BorderBrush" Value="{DynamicResource SukiAccentColor}" />
                 <Style Selector="^ /template/ Button#PART_SecondaryButton">
                     <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
-                    <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
                 </Style>
             </Style>
 
@@ -472,6 +539,79 @@
             <Setter Property="FontSize" Value="18" />
             <Setter Property="Padding" Value="30,12,25,12" />
         </Style>
+
+        <!--  ToggleSplitButton Specific Styles  -->
+        <Style Selector="^:checked">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
+
+            <Style Selector="^:flyout-open">
+                <Style Selector="^ /template/ Button#PART_SecondaryButton">
+                    <Setter Property="Foreground" Value="White" />
+                </Style>
+            </Style>
+
+            <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
+            <Style Selector="^.Discrete">
+                <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
+                <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+            </Style>
+            <Style Selector="^.Accent">
+                <Setter Property="Background" Value="{DynamicResource SukiAccentColor}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource SukiAccentColor}" />
+            </Style>
+            <Style Selector="^.Success">
+                <Setter Property="Background" Value="{DynamicResource SukiSuccessMediumColor}" />
+                <Setter Property="Foreground" Value="{DynamicResource SukiSuccessForeground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource SukiSuccessDarkColor}" />
+            </Style>
+            <Style Selector="^.Information">
+                <Setter Property="Background" Value="{DynamicResource SukiInformationMediumColor}" />
+                <Setter Property="Foreground" Value="{DynamicResource SukiInformationForeground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource SukiInformationDarkColor}" />
+            </Style>
+            <Style Selector="^.Warning">
+                <Setter Property="Background" Value="{DynamicResource SukiWarningMediumColor}" />
+                <Setter Property="Foreground" Value="{DynamicResource SukiWarningForeground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource SukiWarningDarkColor}" />
+            </Style>
+            <Style Selector="^.Danger">
+                <Setter Property="Background" Value="{DynamicResource SukiDangerMediumColor}" />
+                <Setter Property="Foreground" Value="{DynamicResource SukiDangerForeground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource SukiDangerDarkColor}" />
+            </Style>
+        </Style>
+
+
+        <Style Selector="^:checked:pointerover /template/ Button:pointerover">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor75}" />
+        </Style>
+        <Style Selector="^.Discrete:checked:pointerover /template/ Button:pointerover">
+            <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+            <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
+        </Style>
+        <Style Selector="^.Accent:checked:pointerover /template/ Button:pointerover">
+            <Setter Property="Background" Value="{DynamicResource SukiAccentColor75}" />
+        </Style>
+        <Style Selector="^.Success:checked:pointerover /template/ Button:pointerover">
+            <Setter Property="Foreground" Value="{DynamicResource SukiSuccessForeground}" />
+            <Setter Property="Background" Value="{DynamicResource SukiSuccessColor}" />
+        </Style>
+        <Style Selector="^.Information:checked:pointerover /template/ Button:pointerover">
+            <Setter Property="Foreground" Value="{DynamicResource SukiInformationForeground}" />
+            <Setter Property="Background" Value="{DynamicResource SukiInformationColor}" />
+        </Style>
+        <Style Selector="^.Warning:checked:pointerover /template/ Button:pointerover">
+            <Setter Property="Foreground" Value="{DynamicResource SukiWarningForeground}" />
+            <Setter Property="Background" Value="{DynamicResource SukiWarningColor}" />
+        </Style>
+        <Style Selector="^.Danger:checked:pointerover /template/ Button:pointerover">
+            <Setter Property="Foreground" Value="{DynamicResource SukiDangerForeground}" />
+            <Setter Property="Background" Value="{DynamicResource SukiDangerColor}" />
+        </Style>
+
+
     </ControlTheme>
 
 </ResourceDictionary>

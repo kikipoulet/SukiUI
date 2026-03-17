@@ -67,7 +67,7 @@
                     </Border>
                     <Border CornerRadius="50" HorizontalAlignment="Center"
                             VerticalAlignment="Top"
-                            Margin="-15,-15,0,0" Width="100" Height="100">
+                            Margin="0,-15,0,0" Width="100" Height="100">
                         <Panel>
                             <Border Width="90" HorizontalAlignment="Center"
                                     Height="100"

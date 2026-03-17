@@ -117,10 +117,8 @@
             <ControlTemplate>
                 <Panel>
                     <suki:GlassCard Name="BigBorder" IsInteractive="True"
-
                                     Margin="4"
                                     Padding="15,15,30,15"
-
                                     ClipToBounds="True"
                                     CornerRadius="{TemplateBinding CornerRadius}">
 
@@ -148,6 +146,7 @@
                     </PathIcon>
                     <Border Name="SelectedBorder"
                             Margin="3"
+                            IsHitTestVisible="False"
                             BorderBrush="{DynamicResource SukiPrimaryColor}"
                             Background="{DynamicResource SukiPrimaryColor5}"
                             BorderThickness="1.5"

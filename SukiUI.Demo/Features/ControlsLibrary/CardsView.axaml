@@ -6,7 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
-             xmlns:helpers="clr-namespace:SukiUI.Helpers;assembly=SukiUI"
+             xmlns:animations="clr-namespace:SukiUI.Animations;assembly=SukiUI"
              d:DesignHeight="450"
              d:DesignWidth="800"
              x:DataType="controlsLibrary:CardsViewModel"
@@ -84,7 +84,7 @@
                             <ItemsControl  ItemsSource="{Binding Items}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <suki:GlassCard helpers:AnimationExtensions.FadeIn="500" Width="150" Height="60" Margin="5" IsInteractive="True">
+                                        <suki:GlassCard animations:FadeInBehavior.Enable="True" Width="150" Height="60" Margin="5" IsInteractive="True">
                                            <TextBlock Text="Item" Foreground="{DynamicResource SukiLowText}"></TextBlock>
                                         </suki:GlassCard>
                                     </DataTemplate>
@@ -103,7 +103,7 @@
                             <ItemsControl  ItemsSource="{Binding Items}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <suki:GlassCard helpers:AnimationExtensions.FadeIn="500" Width="150" Height="60" Margin="5" IsInteractive="True">
+                                        <suki:GlassCard animations:FadeInBehavior.Enable="True" Width="150" Height="60" Margin="5" IsInteractive="True">
                                             <TextBlock Text="Item" Foreground="{DynamicResource SukiLowText}"></TextBlock>
                                         </suki:GlassCard>
                                     </DataTemplate>

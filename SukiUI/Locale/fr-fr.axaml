@@ -1,0 +1,32 @@
+<ResourceDictionary x:Class="SukiUI.Locale.fr_FR"
+                    xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--  DatePicker  -->
+    <x:String x:Key="STRING_DATEPICKER_DAY_TEXT">jour</x:String>
+    <x:String x:Key="STRING_DATEPICKER_MONTH_TEXT">mois</x:String>
+    <x:String x:Key="STRING_DATEPICKER_YEAR_TEXT">année</x:String>
+    <x:String x:Key="STRING_DATEPICKER_APPLY">Appliquer</x:String>
+    <!--  TimePicker  -->
+    <x:String x:Key="STRING_TIMEPICKER_HOUR_TEXT">heure</x:String>
+    <x:String x:Key="STRING_TIMEPICKER_MINUTE_TEXT">minute</x:String>
+    <x:String x:Key="STRING_TIMEPICKER_SECOND_TEXT">seconde</x:String>
+    <x:String x:Key="STRING_TIMEPICKER_APPLY">Appliquer</x:String>
+    <!--  TextBox  -->
+    <x:String x:Key="STRING_MENU_CUT">Couper</x:String>
+    <x:String x:Key="STRING_MENU_COPY">Copier</x:String>
+    <x:String x:Key="STRING_MENU_PASTE">Coller</x:String>
+    <x:String x:Key="STRING_BUTTON_CLEAR">Effacer</x:String>
+    <x:String x:Key="STRING_BUTTON_DEFAULT">Défaut</x:String>
+    <x:String x:Key="STRING_BUTTON_RESET_TO">Réinitialiser à</x:String>
+    <!--  Prompts  -->
+    <x:String x:Key="STRING_PROMPT_OK">OK</x:String>
+    <x:String x:Key="STRING_PROMPT_YES">Oui</x:String>
+    <x:String x:Key="STRING_PROMPT_NO">Non</x:String>
+    <x:String x:Key="STRING_PROMPT_CANCEL">Annuler</x:String>
+    <x:String x:Key="STRING_PROMPT_APPLY">Appliquer</x:String>
+    <x:String x:Key="STRING_PROMPT_IGNORE">Ignorer</x:String>
+    <x:String x:Key="STRING_PROMPT_RETRY">Réessayer</x:String>
+    <x:String x:Key="STRING_PROMPT_ABORT">Abandonner</x:String>
+    <x:String x:Key="STRING_PROMPT_CONTINUE">Continuer</x:String>
+    <x:String x:Key="STRING_PROMPT_CLOSE">Fermer</x:String>
+</ResourceDictionary>

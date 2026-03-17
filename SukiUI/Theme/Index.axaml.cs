@@ -159,7 +159,7 @@ public partial class SukiTheme : Styles
     {
         if (_app.ActualThemeVariant == baseTheme) return;
         _app.RequestedThemeVariant = baseTheme;
-        
+
         SetColorThemeResourcesOnColorThemeChanged();
     }
 
@@ -173,7 +173,7 @@ public partial class SukiTheme : Styles
             ? ThemeVariant.Light
             : ThemeVariant.Dark;
         Application.Current.RequestedThemeVariant = newBase;
-        
+
         SetColorThemeResourcesOnColorThemeChanged();
     }
 
@@ -233,7 +233,7 @@ public partial class SukiTheme : Styles
             SetResource($"{baseName}150", baseColor);
         }
     }
-    
+
     public static Color Lighten(Color color, double amount)
     {
         amount = Clamp(amount, 0.0, 1.0);
@@ -313,7 +313,12 @@ public partial class SukiTheme : Styles
         { new CultureInfo("nl-NL"), new nl_NL() },
         { new CultureInfo("pt-PT"), new pt_PT() },
         { new CultureInfo("zh-CN"), new zh_CN() },
-        { new CultureInfo("de-DE"), new de_DE() }
+        { new CultureInfo("de-DE"), new de_DE() },
+        { new CultureInfo("es-ES"), new es_ES() },
+        { new CultureInfo("fr-FR"), new fr_FR() },
+        { new CultureInfo("it-IT"), new it_IT() },
+        { new CultureInfo("ru-RU"), new ru_RU() },
+        { new CultureInfo("ja-JP"), new ja_JP() }
     };
 
     private static readonly ResourceDictionary DefaultResource = new en_US();
