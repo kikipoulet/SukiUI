@@ -1,4 +1,5 @@
-﻿using Avalonia;
+﻿using System.Runtime.InteropServices;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Platform;
 using Avalonia.Platform.Storage;
@@ -7,6 +8,22 @@ namespace SukiUI.Extensions;
 
 public static class WindowExtensions
 {
+    /// <summary>
+    /// Gets a value indicating whether the current operating system is macOS Mojave (version 10.14.6) or later.
+    /// </summary>
+    private static bool IsMacOSMonjaveOrGreater { get; } = RuntimeInformation.IsOSPlatform(OSPlatform.OSX)
+                                                           && Environment.OSVersion.Version.CompareTo(new Version(10, 14, 6)) >= 0;
+
+    /// <summary>
+    /// Gets the render scaling factor for the window. On macOS Mojave or later, this method returns 1.0 to avoid issues with non-1.0 scaling factors.
+    /// </summary>
+    /// <param name="window"></param>
+    /// <returns></returns>
+    public static double GetRenderScaling(this Window window)
+    {
+        return IsMacOSMonjaveOrGreater ? 1.0 : window.RenderScaling;
+    }
+
     /// <summary>
     /// Gets the screen that contains the largest area of the window.
     /// </summary>
@@ -39,8 +56,8 @@ public static class WindowExtensions
     {
         if (screen is null || window.WindowState != WindowState.Normal) return;
 
-        window.Position = new PixelPoint((int)(screen.Bounds.X + screen.WorkingArea.Width / 2.0 - window.Bounds.Width / (2.0 / window.RenderScaling)),
-                                        (int)(screen.Bounds.Y + screen.WorkingArea.Height / 2.0 - window.Bounds.Height / (2.0 / window.RenderScaling)));
+        window.Position = new PixelPoint((int)(screen.Bounds.X + screen.WorkingArea.Width / 2.0 - window.Bounds.Width / (2.0 /  window.GetRenderScaling())),
+                                        (int)(screen.Bounds.Y + screen.WorkingArea.Height / 2.0 - window.Bounds.Height / (2.0 / window.GetRenderScaling())));
     }
 
     /// <summary>
@@ -69,7 +86,7 @@ public static class WindowExtensions
                 screen = window.GetHostScreen();
                 if (screen is null) return;
 
-                var desiredMaxWidth = screen.WorkingArea.Width / window.RenderScaling * maxWidthScreenRatio;
+                var desiredMaxWidth = screen.WorkingArea.Width / window.GetRenderScaling() * maxWidthScreenRatio;
                 window.MaxWidth = Math.Max(window.MinWidth, desiredMaxWidth);
             }
         }
@@ -86,7 +103,7 @@ public static class WindowExtensions
                 screen ??= window.GetHostScreen();
                 if (screen is null) return;
 
-                var desiredMaxHeight = screen.WorkingArea.Height / window.RenderScaling * maxHeightScreenRatio;
+                var desiredMaxHeight = screen.WorkingArea.Height / window.GetRenderScaling() * maxHeightScreenRatio;
                 window.MaxHeight = Math.Max(window.MinHeight, desiredMaxHeight);
             }
         }
