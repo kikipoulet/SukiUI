@@ -978,8 +978,8 @@ public class SukiWindow : Window, IDisposable
                                                            ? new Point(buttonSize.Width, 0)
                                                            : new Point(0, 0));
 
-                var x = (buttonLeftTop.X - point.X) / RenderScaling;
-                var y = (point.Y - buttonLeftTop.Y) / RenderScaling;
+                var x = (buttonLeftTop.X - point.X) / this.GetRenderScaling();
+                var y = (point.Y - buttonLeftTop.Y) / this.GetRenderScaling();
 
                 if (new Rect(default, buttonSize).Contains(new Point(x, y)))
                 {
