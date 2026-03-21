@@ -632,8 +632,6 @@ public class SukiWindow : Window, IDisposable
     /// <inheritdoc />
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
-        base.OnPropertyChanged(change);
-
         if (change.Property == MaxWidthScreenRatioProperty)
         {
             this.ConstrainMaxSizeToScreenRatio(MaxWidthScreenRatio, double.NaN);
@@ -644,61 +642,63 @@ public class SukiWindow : Window, IDisposable
         }
         else if (change.Property == WindowStateProperty)
         {
-            if (change.OldValue is not WindowState oldWindowState
-            || change.NewValue is not WindowState newWindowState) return;
-
-            OnWindowStateChanged(oldWindowState, newWindowState);
+            if (change.OldValue is WindowState oldWindowState
+                && change.NewValue is WindowState newWindowState)
+            {
+                OnWindowStateChanged(oldWindowState, newWindowState);
+            }
         }
         else if (change.Property == IsTitleBarVisibleProperty)
         {
-            if (_titleBarControl is null || _isDisposed) return;
-            var isTitleBarVisible = change.GetNewValue<bool>();
-
-            if (TitleBarAnimationEnabled)
+            if (_titleBarControl is not null && !_isDisposed)
             {
-                TryGetResource("MediumAnimationDuration", ActualThemeVariant, out var result);
+                var isTitleBarVisible = change.GetNewValue<bool>();
 
-                var duration = result is TimeSpan ts ? ts : TimeSpan.FromMilliseconds(350);
-
-                if (isTitleBarVisible)
+                if (TitleBarAnimationEnabled)
                 {
-                    _titleBarControl.Animate(ScaleTransform.ScaleYProperty, 0d, 1d, duration);
-                    _titleBarControl.IsVisible = true;
+                    TryGetResource("MediumAnimationDuration", ActualThemeVariant, out var result);
+
+                    var duration = result is TimeSpan ts ? ts : TimeSpan.FromMilliseconds(350);
+
+                    if (isTitleBarVisible)
+                    {
+                        _titleBarControl.Animate(ScaleTransform.ScaleYProperty, 0d, 1d, duration);
+                        _titleBarControl.IsVisible = true;
+                    }
+                    else
+                    {
+                        _titleBarControl.AnimateAsync(ScaleTransform.ScaleYProperty, 1d, 0d, duration)
+                            .ContinueWith(task =>
+                            {
+                                Dispatcher.UIThread.Post(() => { _titleBarControl.IsVisible = false; });
+                            });
+                    }
                 }
                 else
                 {
-                    _titleBarControl.AnimateAsync(ScaleTransform.ScaleYProperty, 1d, 0d, duration).ContinueWith(task =>
-                    {
-                        Dispatcher.UIThread.Post(() =>
-                        {
-                            _titleBarControl.IsVisible = false;
-                        });
-                    });
+                    _titleBarControl.IsVisible = isTitleBarVisible;
                 }
-            }
-            else
-            {
-                _titleBarControl.IsVisible = isTitleBarVisible;
             }
         }
         else if (change.Property == TitleBarVisibilityOnFullScreenProperty)
         {
             if (WindowState == WindowState.FullScreen)
             {
-                if (change.NewValue is not TitleBarVisibilityMode mode) return;
-
-                IsTitleBarVisible = mode switch
+                if (change.NewValue is TitleBarVisibilityMode mode)
                 {
-                    TitleBarVisibilityMode.Unchanged => _wasTitleBarVisibleBeforeFullScreen,
-                    TitleBarVisibilityMode.Visible => true,
-                    TitleBarVisibilityMode.Hidden or TitleBarVisibilityMode.AutoHidden => false,
-                    _ => IsTitleBarVisible
-                };
+                    IsTitleBarVisible = mode switch
+                    {
+                        TitleBarVisibilityMode.Unchanged => _wasTitleBarVisibleBeforeFullScreen,
+                        TitleBarVisibilityMode.Visible => true,
+                        TitleBarVisibilityMode.Hidden or TitleBarVisibilityMode.AutoHidden => false,
+                        _ => IsTitleBarVisible
+                    };
 
-                PointerMoved -= AutoHideTitleBarOnPointerMoved;
-                if (mode == TitleBarVisibilityMode.AutoHidden)
-                {
-                    PointerMoved += AutoHideTitleBarOnPointerMoved;
+                    PointerMoved -= AutoHideTitleBarOnPointerMoved;
+                    if (mode == TitleBarVisibilityMode.AutoHidden)
+                    {
+                        PointerMoved += AutoHideTitleBarOnPointerMoved;
+                    }
                 }
             }
         }
@@ -710,6 +710,8 @@ public class SukiWindow : Window, IDisposable
         {
             _showTitleBarTimer.Interval = TimeSpan.FromMilliseconds(TitleBarAutoShowDelay);
         }
+
+        base.OnPropertyChanged(change);
     }
     #endregion
 
