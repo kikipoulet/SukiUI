@@ -4,6 +4,7 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Animation.Easings;
 using Avalonia.Styling;
+using Avalonia.Threading;
 using Avalonia.VisualTree;
 
 namespace SukiUI.Animations;
@@ -86,9 +87,9 @@ public static class FadeInBehavior
         var duration = GetDuration(control);
         var startScale = GetScale(control);
 
-        if (startScale < 0) 
+        if (startScale < 0)
             startScale = 0;
-        if (startScale > 1) 
+        if (startScale > 1)
             startScale = 1;
 
         control.Opacity = 0;
@@ -129,10 +130,13 @@ public static class FadeInBehavior
 
         animation.RunAsync(control).ContinueWith(_ =>
         {
-            if (!control.GetValue(EnableProperty))
+            Dispatcher.UIThread.Post(() =>
             {
-                control.IsVisible = false;
-            }
+                if (!control.GetValue(EnableProperty))
+                {
+                    control.IsVisible = false;
+                }
+            });
         });
     }
 }
