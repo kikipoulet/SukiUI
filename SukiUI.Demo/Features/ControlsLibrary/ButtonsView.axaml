@@ -8,6 +8,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:showMeTheXaml="clr-namespace:ShowMeTheXaml;assembly=ShowMeTheXaml.Avalonia"
              xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             xmlns:animations="clr-namespace:SukiUI.Animations;assembly=SukiUI"
              d:DesignHeight="450"
              d:DesignWidth="800"
              x:DataType="controlsLibrary:ButtonsViewModel"
@@ -18,7 +19,7 @@
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="suki:ButtonExtensions.ShowProgress" Value="{Binding IsBusy}" />
-            <Setter Property="Command" Value="{Binding ButtonClickedCommand}" />
+         
             <Setter Property="IsEnabled" Value="{Binding IsEnabled}" />
         </Style>
         <Style Selector="Button.Icon">
@@ -41,9 +42,9 @@
             </Setter>
         </Style>
     </UserControl.Styles>
-    <Grid RowDefinitions="Auto,*">
-        <suki:GlassCard Classes="HeaderCard">
-            <suki:GroupBox Header="Buttons">
+    <Grid RowDefinitions="Auto,*" >
+        <suki:GlassCard Classes="HeaderCard" >
+            <suki:GroupBox  Header="Buttons">
                 <StackPanel Classes="HeaderContent">
                     <TextBlock>
                         SukiUI has a handful of button styles, available in both the standard primary color, but also in the theme's accent color.
@@ -66,35 +67,38 @@
         </suki:GlassCard>
         <ScrollViewer Grid.Row="1">
             <WrapPanel Classes="PageContainer">
-                <suki:GlassCard>
+                <suki:GlassCard animations:HoverBehavior.Scale="1.1" >
                     <suki:GroupBox Header="Standard Button">
                         <showMeTheXaml:XamlDisplay UniqueId="Button1">
-                            <Button />
+                            <Button Click="Button_OnClick"  animations:VisibilityBehavior.IsVisible="{Binding IsEnabled}" />
                         </showMeTheXaml:XamlDisplay>
                     </suki:GroupBox>
                 </suki:GlassCard>
-                <suki:GlassCard>
+                <suki:GlassCard animations:LoadingBehavior.IsBusy="{Binding !IsEnabled}">
                     <suki:GroupBox Header="Basic Button">
                         <showMeTheXaml:XamlDisplay UniqueId="Button2">
-                            <Button Classes="Basic" />
+                            <Button Click="Button_OnClick" Classes="Basic" />
                         </showMeTheXaml:XamlDisplay>
                     </suki:GroupBox>
                 </suki:GlassCard>
-                <suki:GlassCard>
+<suki:GlassCard animations:GlowBehavior.IsActive="{Binding !IsEnabled}"
+                              animations:GlowBehavior.Color="{DynamicResource SukiPrimaryColor}"
+                              animations:GlowBehavior.Thickness="3">
                     <suki:GroupBox Header="Discrete Button">
                         <showMeTheXaml:XamlDisplay UniqueId="ButtonDiscrete">
-                            <Button Classes="Discrete" />
+                            <Button Width="200" Click="Button_OnClick" Classes="Discrete" />
                         </showMeTheXaml:XamlDisplay>
                     </suki:GroupBox>
                 </suki:GlassCard>
-                <suki:GlassCard>
+                <suki:GlassCard animations:DisabledBehavior.Opacity="0.1" animations:DisabledBehavior.Scale="0.9" IsEnabled="{Binding IsEnabled}">
                     <suki:GroupBox Header="Flat Button">
                         <showMeTheXaml:XamlDisplay UniqueId="Button3">
                             <Button Classes="Flat" />
                         </showMeTheXaml:XamlDisplay>
                     </suki:GroupBox>
                 </suki:GlassCard>
-                <suki:GlassCard>
+                <suki:GlassCard animations:ErrorBehavior.IsActive="{Binding !IsEnabled}"
+                                animations:ErrorBehavior.ErrorMessage="This is an error ! A longer message for testing purpose !">
                     <suki:GroupBox Header="Flat Button with icon">
                         <showMeTheXaml:XamlDisplay UniqueId="Button3WithIcon">
                             <Button suki:ButtonExtensions.Icon="{avalonia:MaterialIconExt Kind=Calendar}" Classes="Flat" />
@@ -118,7 +122,7 @@
                 <suki:GlassCard>
                     <suki:GroupBox Header="Standard Accent Button">
                         <showMeTheXaml:XamlDisplay UniqueId="Button6">
-                            <Button Classes="Accent" />
+                            <Button animations:GlowBehavior.IsActive="{Binding !IsEnabled}" Classes="Accent" />
                         </showMeTheXaml:XamlDisplay>
                     </suki:GroupBox>
                 </suki:GlassCard>

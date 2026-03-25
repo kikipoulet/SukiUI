@@ -367,6 +367,27 @@
                         </StackPanel>
                     </suki:GroupBox>
                 </suki:GlassCard>
+
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Vertical Stepper">
+                        <StackPanel Spacing="15">
+                            <showMeTheXaml:XamlDisplay UniqueId="VerticalStepper">
+                                <suki:VerticalStepper Width="350" Index="{Binding StepIndex}"
+                                                      Steps="{Binding VerticalSteps}" />
+                            </showMeTheXaml:XamlDisplay>
+                            <Grid Margin="0,8,0,0" ColumnDefinitions="Auto,*,Auto">
+                                <Button Grid.Column="0"
+                                        Command="{Binding ChangeStepCommand}"
+                                        CommandParameter="{x:False}"
+                                        Content="Decrement" />
+                                <Button Grid.Column="2"
+                                        Command="{Binding ChangeStepCommand}"
+                                        CommandParameter="{x:True}"
+                                        Content="Increment" />
+                            </Grid>
+                        </StackPanel>
+                    </suki:GroupBox>
+                </suki:GlassCard>
             </WrapPanel>
         </ScrollViewer>
     </Grid>

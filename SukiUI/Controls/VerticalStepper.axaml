@@ -1,0 +1,140 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:SukiUI.Controls"
+                    xmlns:animations="clr-namespace:SukiUI.Animations">
+
+    <ControlTheme x:Key="SukiVerticalStepperItemStyle" TargetType="controls:VerticalStepperItem">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid  Name="PART_Grid"  ColumnDefinitions="Auto,*" MinHeight="55">
+                    <Grid.Transitions>
+                        <Transitions>
+                            <DoubleTransition Property="Opacity" Duration="0:0:0.5"></DoubleTransition>
+                            <ThicknessTransition Property="Margin" Duration="0:0:0.5"></ThicknessTransition>
+                        </Transitions>
+                    </Grid.Transitions>
+                    
+                    <!-- Cercle -->
+                    <Border Grid.Column="0"
+                            Width="28" Height="28"
+                            CornerRadius="14"
+                            VerticalAlignment="Center"
+                            x:Name="PART_Circle">
+                        <Panel>
+                            <!-- Numéro -->
+                            <TextBlock Text="{TemplateBinding StepIndex}"
+                                       FontWeight="SemiBold"
+                                       FontSize="14"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       x:Name="PART_Number" />
+                            <!-- Check -->
+                            <PathIcon x:Name="PART_Check"
+                                      Data="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"
+                                      Width="11" Height="11" Margin="3,2,0,0"
+                                      Foreground="White" animations:VisibilityBehavior.IsVisible="False"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                     />
+                        </Panel>
+                    </Border>
+
+                    <!-- Contenu -->
+                    <StackPanel Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Margin="12,0,0,0"
+                                Spacing="2">
+                        
+                        <TextBlock Text="{TemplateBinding Title}"
+                                   FontSize="14"
+                                   TextWrapping="Wrap"
+                                   x:Name="PART_Title" />
+
+                        <TextBlock Text="{TemplateBinding Description}"
+                                   FontSize="12"
+                                   TextWrapping="Wrap" TextAlignment="Left" HorizontalAlignment="Left"
+                                   MaxWidth="250" x:Name="PART_Description"
+                                   Foreground="{DynamicResource SukiLowText}" 
+                                   
+                                    />
+                    </StackPanel>
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+        
+        <!-- État: Pending (par défaut) -->
+        <Setter Property="Foreground" Value="{DynamicResource SukiLowText}" />
+        <Style Selector="^ /template/ Grid#PART_Grid">
+            <Setter Property="Opacity" Value="0.4" />
+        </Style>
+        <Style Selector="^ /template/ Border#PART_Circle">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
+            <Setter Property="BorderThickness" Value="1.5" />
+        </Style>
+        <Style Selector="^ /template/ TextBlock#PART_Title">
+            <Setter Property="FontWeight" Value="Normal" />
+        </Style>
+        <Style Selector="^ /template/ TextBlock#PART_Description">
+            <Setter Property="animations:VisibilityBehavior.IsVisible" Value="False" /> 
+        </Style>
+
+        <!-- État: Active -->
+        <Style Selector="^[IsActive=True] /template/ Grid#PART_Grid">
+            <Setter Property="Opacity" Value="1" />
+       
+        </Style>
+        <Style Selector="^[IsActive=True] /template/ Border#PART_Circle">
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+        <Style Selector="^[IsActive=True] /template/ TextBlock#PART_Number">
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        <Style Selector="^[IsActive=True] /template/ TextBlock#PART_Title">
+            <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+            <Setter Property="FontWeight" Value="Medium" />
+        </Style>
+        <Style Selector="^[IsActive=True] /template/ TextBlock#PART_Description">
+            <Setter Property="animations:VisibilityBehavior.IsVisible" Value="True" /> 
+        </Style>
+
+        <!-- État: Completed -->
+        <Style Selector="^[IsCompleted=True]  /template/ Grid#PART_Grid">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        <Style Selector="^[IsCompleted=True] /template/ Border#PART_Circle">
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+        <Style Selector="^[IsCompleted=True] /template/ TextBlock#PART_Title">
+            <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+            <Setter Property="FontWeight" Value="Medium" />
+        </Style>
+        <Style Selector="^[IsCompleted=True][ShowCheckMark=True] /template/ TextBlock#PART_Number">
+            <Setter Property="animations:VisibilityBehavior.IsVisible" Value="False" />
+        </Style>
+        <Style Selector="^[IsCompleted=True][ShowCheckMark=True] /template/ PathIcon#PART_Check">
+            <Setter Property="animations:VisibilityBehavior.IsVisible" Value="True" />
+        </Style>
+        <Style Selector="^[IsCompleted=True][ShowCheckMark=False] /template/ TextBlock#PART_Number">
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+    </ControlTheme>
+
+    <ControlTheme x:Key="{x:Type controls:VerticalStepperItem}"
+                  BasedOn="{StaticResource SukiVerticalStepperItemStyle}"
+                  TargetType="controls:VerticalStepperItem" />
+
+    <ControlTheme x:Key="SukiVerticalStepperStyle" TargetType="controls:VerticalStepper">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ItemsControl Name="PART_ItemsControl" />
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+    <ControlTheme x:Key="{x:Type controls:VerticalStepper}"
+                  BasedOn="{StaticResource SukiVerticalStepperStyle}"
+                  TargetType="controls:VerticalStepper" />
+</ResourceDictionary>

@@ -85,11 +85,41 @@ public static class GlowBehavior
 
         if (isActive)
         {
+            if (control.Bounds.Width <= 0)
+            {
+                control.AttachedToVisualTree += DeferShowContour;
+                control.LayoutUpdated += DeferShowContourOnLayout;
+                return;
+            }
             ShowContour(control);
         }
         else
         {
+            control.AttachedToVisualTree -= DeferShowContour;
+            control.LayoutUpdated -= DeferShowContourOnLayout;
             HideContour(control);
+        }
+    }
+
+    private static void DeferShowContour(object? sender, VisualTreeAttachmentEventArgs e)
+    {
+        if (sender is not Control control) return;
+        control.AttachedToVisualTree -= DeferShowContour;
+        if (control.Bounds.Width > 0 && GetIsActive(control))
+        {
+            control.LayoutUpdated -= DeferShowContourOnLayout;
+            ShowContour(control);
+        }
+    }
+
+    private static void DeferShowContourOnLayout(object? sender, EventArgs e)
+    {
+        if (sender is not Control control) return;
+        if (control.Bounds.Width > 0 && GetIsActive(control))
+        {
+            control.LayoutUpdated -= DeferShowContourOnLayout;
+            control.AttachedToVisualTree -= DeferShowContour;
+            ShowContour(control);
         }
     }
 
@@ -123,7 +153,7 @@ public static class GlowBehavior
         var border = new Border
         {
             Width = width,
-            Height = height,
+            Height = height, IsHitTestVisible = false,
             BorderBrush = lineGradient,
             BorderThickness = new Thickness(thickness),
             CornerRadius = new CornerRadius(cornerRadius),
@@ -133,7 +163,7 @@ public static class GlowBehavior
 
         var popup = new Popup
         {
-            PlacementTarget = control,
+            PlacementTarget = control, IsHitTestVisible = false,
             Placement = PlacementMode.Center,
             IsLightDismissEnabled = false,
             Child = border

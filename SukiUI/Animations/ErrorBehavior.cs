@@ -127,11 +127,41 @@ public static class ErrorBehavior
 
         if (isActive)
         {
+            if (control.Bounds.Width <= 0)
+            {
+                control.AttachedToVisualTree += DeferShowError;
+                control.LayoutUpdated += DeferShowErrorOnLayout;
+                return;
+            }
             ShowError(control);
         }
         else
         {
+            control.AttachedToVisualTree -= DeferShowError;
+            control.LayoutUpdated -= DeferShowErrorOnLayout;
             HideError(control);
+        }
+    }
+
+    private static void DeferShowError(object? sender, VisualTreeAttachmentEventArgs e)
+    {
+        if (sender is not Control control) return;
+        control.AttachedToVisualTree -= DeferShowError;
+        if (control.Bounds.Width > 0 && GetIsActive(control))
+        {
+            control.LayoutUpdated -= DeferShowErrorOnLayout;
+            ShowError(control);
+        }
+    }
+
+    private static void DeferShowErrorOnLayout(object? sender, EventArgs e)
+    {
+        if (sender is not Control control) return;
+        if (control.Bounds.Width > 0 && GetIsActive(control))
+        {
+            control.LayoutUpdated -= DeferShowErrorOnLayout;
+            control.AttachedToVisualTree -= DeferShowError;
+            ShowError(control);
         }
     }
 

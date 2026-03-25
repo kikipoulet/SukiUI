@@ -4,6 +4,7 @@ using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Material.Icons;
+using SukiUI.Controls;
 
 namespace SukiUI.Demo.Features.ControlsLibrary;
 
@@ -12,6 +13,14 @@ public partial class ProgressViewModel() : DemoPageBase("Progress", MaterialIcon
     public IEnumerable<string> Steps { get; } =
     [
         "First Step", "Second Step", "Third Step"
+    ];
+
+    public IEnumerable<VerticalStepItem> VerticalSteps { get; } =
+    [
+        new VerticalStepItem("Account Setup", "Create your account credentials"),
+        new VerticalStepItem("Profile Information", "Add your personal details"),
+        new VerticalStepItem("Preferences", "Configure your preferences"),
+        new VerticalStepItem("Complete", "Review and confirm")
     ];
 
     [ObservableProperty] private int _stepIndex = 1;
