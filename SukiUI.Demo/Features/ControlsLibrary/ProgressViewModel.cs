@@ -19,7 +19,7 @@ public partial class ProgressViewModel() : DemoPageBase("Progress", MaterialIcon
     [
         new VerticalStepItem("Account Setup", "Create your account credentials"),
         new VerticalStepItem("Profile Information", "Add your personal details"),
-        new VerticalStepItem("Preferences", "Configure your preferences"),
+        new VerticalStepItem("Preferences", "Configure your preferences, thi is a very long description to check how the layout behaves, lorem ipsum dolor sit amet, consectetur adipiscing elit. lorem ipsum dolor sit amet, consectetur adipiscing elit."),
         new VerticalStepItem("Complete", "Review and confirm")
     ];
 

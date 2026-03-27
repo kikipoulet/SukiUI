@@ -108,12 +108,17 @@ namespace SukiUI.Controls
 
         private void UpdateStates()
         {
-            foreach (var item in _stepItems)
+            for (var i = 0; i < _stepItems.Count; i++)
             {
-                item.IsCompleted = item.StepIndex < Index;
-                item.IsActive = item.StepIndex == Index;
-                item.IsPending = item.StepIndex > Index;
+                var item = _stepItems[i];
+                item.IsCompleted = i < Index;
+                item.IsActive = i == Index;
+                item.IsPending = i > Index;
                 item.ShowCheckMark = ShowCheckMark && item.IsCompleted;
+                
+                item.HasConnectorUp = i > 0;
+                item.HasConnectorDown = item.IsCompleted && i < _stepItems.Count - 1;
+                item.ConnectorDownToActive = item.HasConnectorDown && i + 1 == Index;
             }
         }
     }
@@ -140,6 +145,15 @@ namespace SukiUI.Controls
 
         public static readonly StyledProperty<bool> ShowCheckMarkProperty =
             AvaloniaProperty.Register<VerticalStepperItem, bool>(nameof(ShowCheckMark));
+
+        public static readonly StyledProperty<bool> HasConnectorUpProperty =
+            AvaloniaProperty.Register<VerticalStepperItem, bool>(nameof(HasConnectorUp));
+
+        public static readonly StyledProperty<bool> HasConnectorDownProperty =
+            AvaloniaProperty.Register<VerticalStepperItem, bool>(nameof(HasConnectorDown));
+
+        public static readonly StyledProperty<bool> ConnectorDownToActiveProperty =
+            AvaloniaProperty.Register<VerticalStepperItem, bool>(nameof(ConnectorDownToActive));
 
         public int StepIndex
         {
@@ -181,6 +195,24 @@ namespace SukiUI.Controls
         {
             get => GetValue(ShowCheckMarkProperty);
             set => SetValue(ShowCheckMarkProperty, value);
+        }
+
+        public bool HasConnectorUp
+        {
+            get => GetValue(HasConnectorUpProperty);
+            set => SetValue(HasConnectorUpProperty, value);
+        }
+
+        public bool HasConnectorDown
+        {
+            get => GetValue(HasConnectorDownProperty);
+            set => SetValue(HasConnectorDownProperty, value);
+        }
+
+        public bool ConnectorDownToActive
+        {
+            get => GetValue(ConnectorDownToActiveProperty);
+            set => SetValue(ConnectorDownToActiveProperty, value);
         }
     }
 

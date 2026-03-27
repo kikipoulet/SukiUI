@@ -8,7 +8,7 @@
     <ControlTheme x:Key="SukiVerticalStepperItemStyle" TargetType="controls:VerticalStepperItem">
         <Setter Property="Template">
             <ControlTemplate>
-                <Grid  Name="PART_Grid"  ColumnDefinitions="Auto,*" MinHeight="55">
+                <Grid Name="PART_Grid" ColumnDefinitions="Auto,*" RowDefinitions="*,*" MinHeight="55">
                     <Grid.Styles>
                         <Style Selector="Border.glowingBorder">
                             <Style.Animations>
@@ -22,6 +22,21 @@
                                 </Animation>
                             </Style.Animations>
                         </Style>
+                        <Style Selector="Border.connectorGlow">
+                            <Style.Animations>
+                                <Animation Duration="0:0:2.5" IterationCount="Infinite">
+                                    <KeyFrame Cue="0%">
+                                        <Setter Property="Opacity" Value="0" />
+                                    </KeyFrame>
+                                    <KeyFrame Cue="50%">
+                                        <Setter Property="Opacity" Value="0.7" />
+                                    </KeyFrame>
+                                    <KeyFrame Cue="100%">
+                                        <Setter Property="Opacity" Value="0" />
+                                    </KeyFrame>
+                                </Animation>
+                            </Style.Animations>
+                        </Style>
                     </Grid.Styles>
                     <Grid.Transitions>
                         <Transitions>
@@ -30,34 +45,53 @@
                         </Transitions>
                     </Grid.Transitions>
                     
-                    <!-- Cercle -->
-                    <Panel VerticalAlignment="Center" Grid.Column="0">
-                    <Border 
-                            Width="28" Height="28"
-                            CornerRadius="14"
-                            
-                            x:Name="PART_Circle">
-                        <Panel>
-                            <!-- Numéro -->
-                            <TextBlock Text="{TemplateBinding StepIndex, Converter={x:Static controls:VerticalStepper.IndexToDisplayConverter}}"
-                                       FontWeight="SemiBold"
-                                       FontSize="14"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       x:Name="PART_Number" />
-                            <!-- Check -->
-                            <PathIcon x:Name="PART_Check"
-                                      Data="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"
-                                      Width="11" Height="11" Margin="3,2,0,0"
-                                      Foreground="White"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="Center"
-                                     />
-                        </Panel>
+                    
+                    <Border  Grid.Column="0" x:Name="PART_ConnectorUP" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
+                    <Border  Grid.Column="0" x:Name="PART_ConnectorUPGlow" Width="2" IsVisible="False"
+                             VerticalAlignment="Stretch" HorizontalAlignment="Center"
+                             Classes="connectorGlow" 
+                            >
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                                <GradientStop Color="Transparent" Offset="0" />
+                                <GradientStop Color="White" Offset="0.5" />
+                                <GradientStop Color="White" Offset="1" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.OpacityMask>
+                            <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                                <GradientStop Color="Transparent" Offset="0" />
+                                <GradientStop Color="White" Offset="1" />
+                            </LinearGradientBrush>
+                        </Border.OpacityMask>
                     </Border>
+                    <Border Grid.Row="1"  Grid.Column="0" x:Name="PART_ConnectorDown" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
+                    
+                    <Panel Grid.RowSpan="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Border
+                                Width="28" Height="28"
+                                CornerRadius="14"
+                                x:Name="PART_Circle">
+                            <Panel>
+                                <TextBlock Text="{TemplateBinding StepIndex, Converter={x:Static controls:VerticalStepper.IndexToDisplayConverter}}"
+                                           FontWeight="SemiBold"
+                                           FontSize="14"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           x:Name="PART_Number" />
+                                <PathIcon x:Name="PART_Check"
+                                          Data="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"
+                                          Width="11" Height="11" Margin="3,2,0,0"
+                                          Foreground="White"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                         />
+                            </Panel>
+                        </Border>
                         <Border Width="28" Height="28" Name="PART_Glowing"
                                 CornerRadius="14" BorderThickness="2" Opacity="0"
                                 Classes="glowingBorder">
+                            
                             <Border.BorderBrush>
                                 <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
                                     <GradientStop Color="Transparent" Offset="0" />
@@ -71,14 +105,13 @@
                                 </Transitions>
                             </Border.Transitions>
                         </Border>
+                    </Panel>
+                    
 
-                        </Panel>
-
-                    <!-- Contenu -->
-                    <StackPanel Grid.Column="1"
+                    <StackPanel Grid.RowSpan="2" Grid.Column="1"
                                 VerticalAlignment="Center"
-                                Margin="12,0,0,0"
-                                Spacing="2">
+                                Margin="12,2,0,0"
+                                Spacing="4">
                         
                         <TextBlock Text="{TemplateBinding Title}"
                                    FontSize="14" FontWeight="SemiBold"
@@ -90,14 +123,13 @@
                                    TextWrapping="Wrap" TextAlignment="Left" HorizontalAlignment="Left"
                                    MaxWidth="250" x:Name="PART_Description"
                                    Foreground="{DynamicResource SukiLowText}" 
-                                   
                                     />
                     </StackPanel>
                 </Grid>
             </ControlTemplate>
         </Setter>
         
-        <!-- État: Pending (par défaut) -->
+        <!-- Pending -->
         <Setter Property="Foreground" Value="{DynamicResource SukiLowText}" />
         <Style Selector="^ /template/ Grid#PART_Grid">
             <Setter Property="Opacity" Value="0.4" />
@@ -115,7 +147,7 @@
             <Setter Property="animations:VisibilityBehavior.IsVisible" Value="False" /> 
         </Style>
 
-        <!-- État: Active -->
+        <!-- Active -->
         <Style Selector="^[IsActive=True] /template/ Border#PART_Glowing">
             <Setter Property="Opacity" Value="1" />
         </Style>
@@ -136,7 +168,7 @@
             <Setter Property="animations:VisibilityBehavior.IsVisible" Value="True" /> 
         </Style>
 
-        <!-- État: Completed -->
+        <!-- Completed -->
         <Style Selector="^[IsCompleted=True]  /template/ Grid#PART_Grid">
             <Setter Property="Opacity" Value="1" />
         </Style>
@@ -157,6 +189,40 @@
         <Style Selector="^[IsCompleted=True][ShowCheckMark=False] /template/ TextBlock#PART_Number">
             <Setter Property="Foreground" Value="White" />
         </Style>
+
+        
+        <Style Selector="^[HasConnectorUp=True][IsActive=True] /template/ Border#PART_ConnectorUP">
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor50}" />
+        </Style>
+      
+        <Style Selector="^[HasConnectorUp=True][IsCompleted=True] /template/ Border#PART_ConnectorUP">
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor25}" />
+        </Style>
+        <Style Selector="^[HasConnectorUp=False] /template/ Border#PART_ConnectorUP">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+
+        <Style Selector="^[HasConnectorUp=True][IsActive=True] /template/ Border#PART_ConnectorUPGlow">
+            <Setter Property="IsVisible" Value="True" />
+        </Style>
+        <Style Selector="^[HasConnectorUp=True][IsCompleted=True] /template/ Border#PART_ConnectorUPGlow">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <Style Selector="^[HasConnectorUp=False] /template/ Border#PART_ConnectorUPGlow">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+        
+        <Style Selector="^[HasConnectorDown=True][ConnectorDownToActive=True] /template/ Border#PART_ConnectorDown">
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor50}" />
+        </Style>
+        <Style Selector="^[HasConnectorDown=True][ConnectorDownToActive=False] /template/ Border#PART_ConnectorDown">
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor25}" />
+        </Style>
+        <Style Selector="^[HasConnectorDown=False] /template/ Border#PART_ConnectorDown">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+
+        
     </ControlTheme>
 
     <ControlTheme x:Key="{x:Type controls:VerticalStepperItem}"
