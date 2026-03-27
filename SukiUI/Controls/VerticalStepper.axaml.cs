@@ -2,15 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Globalization;
 using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using Avalonia.Data.Converters;
 
 namespace SukiUI.Controls
 {
     public class VerticalStepper : TemplatedControl
     {
+        public static FuncValueConverter<int, int> IndexToDisplayConverter { get; } = new(x => x + 1);
+
         public static readonly StyledProperty<int> IndexProperty =
             AvaloniaProperty.Register<VerticalStepper, int>(nameof(Index));
 
