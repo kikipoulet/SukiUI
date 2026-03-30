@@ -46,9 +46,15 @@
                     </Grid.Transitions>
                     
                     
-                    <Border  Grid.Column="0" x:Name="PART_ConnectorUP" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
+                    <Border Opacity="0"  Grid.Column="0" x:Name="PART_ConnectorUP" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Center" >
+                        <Border.Transitions>
+                            <Transitions>
+                                <DoubleTransition Property="Opacity" Duration="0:0:1.5"></DoubleTransition>
+                            </Transitions>
+                        </Border.Transitions>
+                    </Border>
                     <Border  Grid.Column="0" x:Name="PART_ConnectorUPGlow" Width="2" IsVisible="False"
-                             VerticalAlignment="Stretch" HorizontalAlignment="Center"
+                             VerticalAlignment="Stretch" HorizontalAlignment="Center" Opacity="0"
                              Classes="connectorGlow" 
                             >
                         <Border.Background>
@@ -65,7 +71,13 @@
                             </LinearGradientBrush>
                         </Border.OpacityMask>
                     </Border>
-                    <Border Grid.Row="1"  Grid.Column="0" x:Name="PART_ConnectorDown" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
+                    <Border Grid.Row="1"  Grid.Column="0" x:Name="PART_ConnectorDown" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Center" >
+                        <Border.Transitions>
+                            <Transitions>
+                                <DoubleTransition Property="Opacity" Duration="0:0:1.5"></DoubleTransition>
+                            </Transitions>
+                        </Border.Transitions>
+                    </Border>
                     
                     <Panel Grid.RowSpan="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Border
@@ -193,6 +205,7 @@
         
         <Style Selector="^[HasConnectorUp=True][IsActive=True] /template/ Border#PART_ConnectorUP">
             <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor50}" />
+            <Setter Property="Opacity" Value="1" />
         </Style>
       
         <Style Selector="^[HasConnectorUp=True][IsCompleted=True] /template/ Border#PART_ConnectorUP">
@@ -200,16 +213,20 @@
         </Style>
         <Style Selector="^[HasConnectorUp=False] /template/ Border#PART_ConnectorUP">
             <Setter Property="IsVisible" Value="False" />
+            <Setter Property="Opacity" Value="0" />
         </Style>
 
         <Style Selector="^[HasConnectorUp=True][IsActive=True] /template/ Border#PART_ConnectorUPGlow">
             <Setter Property="IsVisible" Value="True" />
+            <Setter Property="Opacity" Value="1" />
         </Style>
         <Style Selector="^[HasConnectorUp=True][IsCompleted=True] /template/ Border#PART_ConnectorUPGlow">
             <Setter Property="IsVisible" Value="False" />
+            <Setter Property="Opacity" Value="0" />
         </Style>
         <Style Selector="^[HasConnectorUp=False] /template/ Border#PART_ConnectorUPGlow">
             <Setter Property="IsVisible" Value="False" />
+            <Setter Property="Opacity" Value="0" />
         </Style>
         
         <Style Selector="^[HasConnectorDown=True][ConnectorDownToActive=True] /template/ Border#PART_ConnectorDown">
@@ -220,6 +237,7 @@
         </Style>
         <Style Selector="^[HasConnectorDown=False] /template/ Border#PART_ConnectorDown">
             <Setter Property="IsVisible" Value="False" />
+            <Setter Property="Opacity" Value="0" />
         </Style>
 
         
