@@ -164,7 +164,7 @@ public static class GlowBehavior
         var popup = new Popup
         {
             PlacementTarget = control, IsHitTestVisible = false,
-            Placement = PlacementMode.Center,
+            Placement = PlacementMode.Center, ShouldUseOverlayLayer = true,
             IsLightDismissEnabled = false,
             Child = border
         };

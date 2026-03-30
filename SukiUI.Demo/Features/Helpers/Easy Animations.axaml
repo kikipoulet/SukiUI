@@ -10,7 +10,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <StackPanel Margin="50" Spacing="20">
 
-
         <TextBlock Classes="h1" Margin="0,20,0,0">2. Easy Animations from C#</TextBlock>
 
         <Border
@@ -19,6 +18,8 @@
             Margin="0,-15,0,20" />
 
 
+        <!-- ==================== BASIC ==================== -->
+        <TextBlock Classes="h3" Margin="0,20,0,0">Basic Animation</TextBlock>
 
         <Grid>
             <suki:GlassCard Margin="0,0,10,0">
@@ -39,38 +40,16 @@
                                 Background="Red"
                                 Height="50"
                                 HorizontalAlignment="Left"
-                                Name="MyBorder"
+                                Name="BasicBorder"
                                 Width="50" />
 
                             <Button
                                 Classes="Flat"
-                                Click="MoveBorderWidth"
+                                Click="BasicAnimation"
                                 Content="Click Me !"
                                 HorizontalAlignment="Left" />
                         </StackPanel>
                     </Border>
-
-
-
-                    <Border
-                        Background="{DynamicResource SukiPopupBackground}"
-                        CornerRadius="12"
-                        Padding="0">
-                        <TextBlock
-                            FontWeight="DemiBold"
-                            Foreground="{DynamicResource SukiLowText}"
-                            HorizontalAlignment="Left"
-                            MaxLines="20"
-                            xml:space="preserve">
-            <TextBlock.Text>
-        MyBorder.Animate&lt;Double&gt;(WidthProperty, 50, 300);</TextBlock.Text>
-        </TextBlock>
-                    </Border>
-
-                    <TextBlock
-                        FontWeight="DemiBold"
-                        Margin="0,15"
-                        Text="-&gt; Alternatively, there's a fluent API available. " />
 
                     <Border
                         Background="{DynamicResource SukiPopupBackground}"
@@ -84,21 +63,576 @@
                             xml:space="preserve">
             <TextBlock.Text>
         MyBorder.Animate(WidthProperty)
-                        .From(50).To(200)
-                        .Start();</TextBlock.Text>
-        </TextBlock>
+            .From(50).To(200)
+            .Start();</TextBlock.Text>
+                        </TextBlock>
                     </Border>
 
-
-                    <TextBlock
-                        FontWeight="DemiBold"
-                        Margin="0,15,0,0"
-                        Text="-&gt; Both Methods return a CancellationToken. " />
-
                 </StackPanel>
-
-
             </suki:GlassCard>
         </Grid>
+
+
+        <!-- ==================== DURATION & EASING ==================== -->
+        <TextBlock Classes="h3" Margin="0,20,0,0">WithDuration &amp; WithEasing</TextBlock>
+
+        <Grid>
+            <suki:GlassCard Margin="0,0,10,0">
+                <StackPanel>
+
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="DemiBold"
+                        Text="Preview" />
+                    <Border
+                        BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                        BorderThickness="1.5"
+                        Margin="0,5,0,20"
+                        Padding="10">
+                        <StackPanel Spacing="20">
+
+                            <Border
+                                Background="{DynamicResource SukiPrimaryColor}"
+                                Height="50"
+                                HorizontalAlignment="Left"
+                                Name="DurationBorder"
+                                Width="50"
+                                CornerRadius="8" />
+
+                            <Button
+                                Classes="Flat"
+                                Click="DurationEasingAnimation"
+                                Content="Animate"
+                                HorizontalAlignment="Left" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border
+                        Background="{DynamicResource SukiPopupBackground}"
+                        CornerRadius="12"
+                        Padding="0">
+                        <TextBlock
+                            FontWeight="DemiBold"
+                            Foreground="{DynamicResource SukiLowText}"
+                            HorizontalAlignment="Left"
+                            MaxLines="20"
+                            xml:space="preserve">
+            <TextBlock.Text>
+        border.Animate(WidthProperty)
+            .From(50).To(300)
+            .WithDuration(TimeSpan.FromSeconds(1.2))
+            .WithEasing(new SukiEaseOutBack())
+            .Start();</TextBlock.Text>
+                        </TextBlock>
+                    </Border>
+
+                </StackPanel>
+            </suki:GlassCard>
+        </Grid>
+
+
+        <!-- ==================== DELAY ==================== -->
+        <TextBlock Classes="h3" Margin="0,20,0,0">WithDelay</TextBlock>
+
+        <Grid>
+            <suki:GlassCard Margin="0,0,10,0">
+                <StackPanel>
+
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="DemiBold"
+                        Text="Preview" />
+                    <Border
+                        BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                        BorderThickness="1.5"
+                        Margin="0,5,0,20"
+                        Padding="10">
+                        <StackPanel Spacing="20">
+
+                            <Border
+                                Background="Orange"
+                                Height="50"
+                                HorizontalAlignment="Left"
+                                Name="DelayBorder"
+                                Width="50"
+                                CornerRadius="8" />
+
+                            <Button
+                                Classes="Flat"
+                                Click="DelayAnimation"
+                                Content="Animate (0.8s delay)"
+                                HorizontalAlignment="Left" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border
+                        Background="{DynamicResource SukiPopupBackground}"
+                        CornerRadius="12"
+                        Padding="0">
+                        <TextBlock
+                            FontWeight="DemiBold"
+                            Foreground="{DynamicResource SukiLowText}"
+                            HorizontalAlignment="Left"
+                            MaxLines="20"
+                            xml:space="preserve">
+            <TextBlock.Text>
+        border.Animate(OpacityProperty)
+            .From(1).To(0)
+            .WithDelay(TimeSpan.FromSeconds(0.8))
+            .WithDuration(TimeSpan.FromSeconds(1))
+            .Start();</TextBlock.Text>
+                        </TextBlock>
+                    </Border>
+
+                </StackPanel>
+            </suki:GlassCard>
+        </Grid>
+
+
+        <!-- ==================== CONTINUE WITH ==================== -->
+        <TextBlock Classes="h3" Margin="0,20,0,0">ContinueWith (Callback)</TextBlock>
+
+        <Grid>
+            <suki:GlassCard Margin="0,0,10,0">
+                <StackPanel>
+
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="DemiBold"
+                        Text="Preview" />
+                    <Border
+                        BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                        BorderThickness="1.5"
+                        Margin="0,5,0,20"
+                        Padding="10">
+                        <StackPanel Spacing="20">
+
+                            <Border
+                                Background="DodgerBlue"
+                                Height="50"
+                                HorizontalAlignment="Left"
+                                Name="CallbackBorder"
+                                Width="50"
+                                CornerRadius="8" />
+
+                            <TextBlock
+                                Name="CallbackText"
+                                FontSize="13"
+                                Text="Waiting..." />
+
+                            <Button
+                                Classes="Flat"
+                                Click="CallbackAnimation"
+                                Content="Animate"
+                                HorizontalAlignment="Left" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border
+                        Background="{DynamicResource SukiPopupBackground}"
+                        CornerRadius="12"
+                        Padding="0">
+                        <TextBlock
+                            FontWeight="DemiBold"
+                            Foreground="{DynamicResource SukiLowText}"
+                            HorizontalAlignment="Left"
+                            MaxLines="20"
+                            xml:space="preserve">
+            <TextBlock.Text>
+        border.Animate(WidthProperty)
+            .From(50).To(300)
+            .WithDuration(TimeSpan.FromSeconds(1))
+            .ContinueWith(() =&gt; textBlock.Text = "Done!")
+            .Start();</TextBlock.Text>
+                        </TextBlock>
+                    </Border>
+
+                </StackPanel>
+            </suki:GlassCard>
+        </Grid>
+
+
+        <!-- ==================== PARALLEL (.And()) ==================== -->
+        <TextBlock Classes="h3" Margin="0,20,0,0">Parallel Animations (.And())</TextBlock>
+
+        <Grid>
+            <suki:GlassCard Margin="0,0,10,0">
+                <StackPanel>
+
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="DemiBold"
+                        Text="Preview" />
+                    <Border
+                        BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                        BorderThickness="1.5"
+                        Margin="0,5,0,20"
+                        Padding="10">
+                        <StackPanel Spacing="20">
+
+                            <Border
+                                Background="MediumSeaGreen"
+                                Height="50"
+                                HorizontalAlignment="Left"
+                                Name="ParallelBorder"
+                                Width="50"
+                                CornerRadius="8" />
+
+                            <Button
+                                Classes="Flat"
+                                Click="ParallelAnimation"
+                                Content="Animate"
+                                HorizontalAlignment="Left" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border
+                        Background="{DynamicResource SukiPopupBackground}"
+                        CornerRadius="12"
+                        Padding="0">
+                        <TextBlock
+                            FontWeight="DemiBold"
+                            Foreground="{DynamicResource SukiLowText}"
+                            HorizontalAlignment="Left"
+                            MaxLines="20"
+                            xml:space="preserve">
+            <TextBlock.Text>
+        border.Animate(WidthProperty)
+            .From(50).To(300)
+            .And()
+            .Animate(HeightProperty)
+            .From(50).To(120)
+            .And()
+            .Animate(Border.CornerRadiusProperty)
+            .From(new CornerRadius(8))
+            .To(new CornerRadius(60))
+            .Start();</TextBlock.Text>
+                        </TextBlock>
+                    </Border>
+
+                </StackPanel>
+            </suki:GlassCard>
+        </Grid>
+
+
+        <!-- ==================== SEQUENTIAL (.Then()) ==================== -->
+        <TextBlock Classes="h3" Margin="0,20,0,0">Sequential Animations (.Then())</TextBlock>
+
+        <Grid>
+            <suki:GlassCard Margin="0,0,10,0">
+                <StackPanel>
+
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="DemiBold"
+                        Text="Preview" />
+                    <Border
+                        BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                        BorderThickness="1.5"
+                        Margin="0,5,0,20"
+                        Padding="10">
+                        <StackPanel Spacing="20">
+
+                            <Border
+                                Background="MediumPurple"
+                                Height="50"
+                                HorizontalAlignment="Left"
+                                Name="SequentialBorder"
+                                Width="50"
+                                CornerRadius="8" />
+
+                            <Button
+                                Classes="Flat"
+                                Click="SequentialAnimation"
+                                Content="Animate"
+                                HorizontalAlignment="Left" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border
+                        Background="{DynamicResource SukiPopupBackground}"
+                        CornerRadius="12"
+                        Padding="0">
+                        <TextBlock
+                            FontWeight="DemiBold"
+                            Foreground="{DynamicResource SukiLowText}"
+                            HorizontalAlignment="Left"
+                            MaxLines="20"
+                            xml:space="preserve">
+            <TextBlock.Text>
+        border.Animate(WidthProperty)
+            .From(50).To(250)
+            .WithDuration(TimeSpan.FromSeconds(0.4))
+            .Then()
+            .Animate(HeightProperty)
+            .From(50).To(120)
+            .WithDuration(TimeSpan.FromSeconds(0.4))
+            .Then()
+            .Animate(OpacityProperty)
+            .From(1).To(0)
+            .WithDuration(TimeSpan.FromSeconds(0.6))
+            .Start();</TextBlock.Text>
+                        </TextBlock>
+                    </Border>
+
+                </StackPanel>
+            </suki:GlassCard>
+        </Grid>
+
+
+        <!-- ==================== REPEAT FOREVER ==================== -->
+        <TextBlock Classes="h3" Margin="0,20,0,0">RepeatForever</TextBlock>
+
+        <Grid>
+            <suki:GlassCard Margin="0,0,10,0">
+                <StackPanel>
+
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="DemiBold"
+                        Text="Preview" />
+                    <Border
+                        BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                        BorderThickness="1.5"
+                        Margin="0,5,0,20"
+                        Padding="10">
+                        <StackPanel Spacing="20">
+
+                            <Border
+                                Background="HotPink"
+                                Height="50"
+                                HorizontalAlignment="Left"
+                                Name="RepeatBorder"
+                                Width="50"
+                                CornerRadius="8" />
+
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <Button
+                                    Classes="Flat"
+                                    Click="StartRepeatAnimation"
+                                    Content="Start"
+                                    HorizontalAlignment="Left" />
+                                <Button
+                                    Classes="Flat"
+                                    Click="StopRepeatAnimation"
+                                    Content="Stop"
+                                    HorizontalAlignment="Left" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <Border
+                        Background="{DynamicResource SukiPopupBackground}"
+                        CornerRadius="12"
+                        Padding="0">
+                        <TextBlock
+                            FontWeight="DemiBold"
+                            Foreground="{DynamicResource SukiLowText}"
+                            HorizontalAlignment="Left"
+                            MaxLines="20"
+                            xml:space="preserve">
+            <TextBlock.Text>
+        // Returns a CancellationTokenSource
+        _cts = border.Animate(OpacityProperty)
+            .From(1).To(0.2)
+            .WithDuration(TimeSpan.FromSeconds(0.8))
+            .RepeatForever();
+
+        // To stop:
+        _cts.Cancel();</TextBlock.Text>
+                        </TextBlock>
+                    </Border>
+
+                </StackPanel>
+            </suki:GlassCard>
+        </Grid>
+
+
+        <!-- ==================== REPEAT N TIMES ==================== -->
+        <TextBlock Classes="h3" Margin="0,20,0,0">Repeat (N times)</TextBlock>
+
+        <Grid>
+            <suki:GlassCard Margin="0,0,10,0">
+                <StackPanel>
+
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="DemiBold"
+                        Text="Preview" />
+                    <Border
+                        BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                        BorderThickness="1.5"
+                        Margin="0,5,0,20"
+                        Padding="10">
+                        <StackPanel Spacing="20">
+
+                            <Border
+                                Background="Gold"
+                                Height="50"
+                                HorizontalAlignment="Left"
+                                Name="RepeatNBorder"
+                                Width="50"
+                                CornerRadius="8" />
+
+                            <Button
+                                Classes="Flat"
+                                Click="RepeatNAnimation"
+                                Content="Repeat 3x"
+                                HorizontalAlignment="Left" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border
+                        Background="{DynamicResource SukiPopupBackground}"
+                        CornerRadius="12"
+                        Padding="0">
+                        <TextBlock
+                            FontWeight="DemiBold"
+                            Foreground="{DynamicResource SukiLowText}"
+                            HorizontalAlignment="Left"
+                            MaxLines="20"
+                            xml:space="preserve">
+            <TextBlock.Text>
+        border.Animate(WidthProperty)
+            .From(50).To(200)
+            .WithDuration(TimeSpan.FromSeconds(0.4))
+            .Repeat(3);</TextBlock.Text>
+                        </TextBlock>
+                    </Border>
+
+                </StackPanel>
+            </suki:GlassCard>
+        </Grid>
+
+
+        <!-- ==================== RUN ASYNC ==================== -->
+        <TextBlock Classes="h3" Margin="0,20,0,0">RunAsync (Awaitable)</TextBlock>
+
+        <Grid>
+            <suki:GlassCard Margin="0,0,10,0">
+                <StackPanel>
+
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="DemiBold"
+                        Text="Preview" />
+                    <Border
+                        BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                        BorderThickness="1.5"
+                        Margin="0,5,0,20"
+                        Padding="10">
+                        <StackPanel Spacing="20">
+
+                            <Border
+                                Background="Crimson"
+                                Height="50"
+                                HorizontalAlignment="Left"
+                                Name="AsyncBorder"
+                                Width="50"
+                                CornerRadius="8" />
+
+                            <Button
+                                Classes="Flat"
+                                Click="AsyncAnimation"
+                                Content="Animate"
+                                HorizontalAlignment="Left" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border
+                        Background="{DynamicResource SukiPopupBackground}"
+                        CornerRadius="12"
+                        Padding="0">
+                        <TextBlock
+                            FontWeight="DemiBold"
+                            Foreground="{DynamicResource SukiLowText}"
+                            HorizontalAlignment="Left"
+                            MaxLines="20"
+                            xml:space="preserve">
+            <TextBlock.Text>
+        await border.Animate(WidthProperty)
+            .From(50).To(250)
+            .WithDuration(TimeSpan.FromSeconds(0.5))
+            .RunAsync();
+
+        // This line runs after the animation completes
+        border.Background = Brushes.Green;</TextBlock.Text>
+                        </TextBlock>
+                    </Border>
+
+                </StackPanel>
+            </suki:GlassCard>
+        </Grid>
+
+
+        <!-- ==================== PARALLEL + SEQUENTIAL COMBO ==================== -->
+        <TextBlock Classes="h3" Margin="0,20,0,0">Parallel + Sequential Combined</TextBlock>
+
+        <Grid>
+            <suki:GlassCard Margin="0,0,10,0">
+                <StackPanel>
+
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="DemiBold"
+                        Text="Preview" />
+                    <Border
+                        BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                        BorderThickness="1.5"
+                        Margin="0,5,0,20"
+                        Padding="10">
+                        <StackPanel Spacing="20">
+
+                            <Border
+                                Background="Teal"
+                                Height="50"
+                                HorizontalAlignment="Left"
+                                Name="ComboBorder"
+                                Width="50"
+                                CornerRadius="8" />
+
+                            <Button
+                                Classes="Flat"
+                                Click="ComboAnimation"
+                                Content="Animate"
+                                HorizontalAlignment="Left" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border
+                        Background="{DynamicResource SukiPopupBackground}"
+                        CornerRadius="12"
+                        Padding="0">
+                        <TextBlock
+                            FontWeight="DemiBold"
+                            Foreground="{DynamicResource SukiLowText}"
+                            HorizontalAlignment="Left"
+                            MaxLines="20"
+                            xml:space="preserve">
+            <TextBlock.Text>
+        // Step 1: Width + Height in parallel
+        // Step 2: CornerRadius + Opacity in parallel
+        border.Animate(WidthProperty)
+            .From(50).To(250)
+            .And()
+            .Animate(HeightProperty)
+            .From(50).To(120)
+            .Then()
+            .Animate(CornerRadiusProperty)
+            .From(new CornerRadius(8))
+            .To(new CornerRadius(60))
+            .And()
+            .Animate(OpacityProperty)
+            .From(1).To(0.3)
+            .Start();</TextBlock.Text>
+                        </TextBlock>
+                    </Border>
+
+                </StackPanel>
+            </suki:GlassCard>
+        </Grid>
+
+        <Border Height="100" />
+
     </StackPanel>
 </UserControl>

@@ -1,0 +1,574 @@
+﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="SukiUI.Demo.Features.Helpers.AnimationBehaviors"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:animations="clr-namespace:SukiUI.Animations;assembly=SukiUI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:suki="https://github.com/kikipoulet/SukiUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel Margin="50" Spacing="20">
+
+        <TextBlock Classes="h1" Margin="0,20,0,0">Animation Behaviors</TextBlock>
+
+        <Border
+            Background="{DynamicResource SukiControlBorderBrush}"
+            Height="1"
+            Margin="0,-15,0,20" />
+
+        <TextBlock Classes="h4" Text="Attached properties you can set on any Avalonia control to add animated effects — purely from XAML." />
+
+
+        <!-- ==================== HOVER EFFECTS ==================== -->
+        <TextBlock Classes="h3" Margin="0,30,0,0">Hover Effects</TextBlock>
+
+
+        <!-- HoverBehavior -->
+        <Grid>
+            <suki:GlassCard Margin="0,0,10,0">
+                <StackPanel>
+
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="DemiBold"
+                        Text="HoverBehavior" />
+                    <Border
+                        BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                        BorderThickness="1.5"
+                        Margin="0,5,0,20"
+                        Padding="10">
+                        <StackPanel Spacing="15">
+
+                            <Border
+                                Background="{DynamicResource SukiPrimaryColor}"
+                                CornerRadius="12"
+                                Height="80"
+                                Width="180"
+                                animations:HoverBehavior.Scale="{Binding #HoverScale.Value}"
+                                animations:HoverBehavior.Duration="0:0:0.5">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    Text="Hover me!"
+                                    VerticalAlignment="Center" />
+                            </Border>
+
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <TextBlock VerticalAlignment="Center" Text="Scale:" />
+                                <Slider
+                                    Name="HoverScale"
+                                    Maximum="1.5"
+                                    Minimum="1.0"
+                                    Value="1.1"
+                                    Width="150" />
+                                <TextBlock
+                                    Name="HoverScaleText"
+                                    VerticalAlignment="Center"
+                                    Width="40" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <Border
+                        Background="{DynamicResource SukiPopupBackground}"
+                        CornerRadius="12"
+                        Padding="0">
+                        <TextBlock
+                            FontWeight="DemiBold"
+                            Foreground="{DynamicResource SukiLowText}"
+                            HorizontalAlignment="Left"
+                            MaxLines="20"
+                            xml:space="preserve">
+            <TextBlock.Text>
+        &lt;Border
+            animations:HoverBehavior.Scale="1.1"
+            animations:HoverBehavior.Duration="0:0:0.5" /&gt;</TextBlock.Text>
+                        </TextBlock>
+                    </Border>
+
+                </StackPanel>
+            </suki:GlassCard>
+        </Grid>
+
+
+        <!-- SquishyHoverBehavior -->
+        <Grid>
+            <suki:GlassCard Margin="0,0,10,0">
+                <StackPanel>
+
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="DemiBold"
+                        Text="SquishyHoverBehavior" />
+                    <Border
+                        BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                        BorderThickness="1.5"
+                        Margin="0,5,0,20"
+                        Padding="10">
+                        <StackPanel Spacing="15">
+
+                            <Border
+                                Background="{DynamicResource SukiPrimaryColor}"
+                                CornerRadius="12"
+                                Height="100"
+                                Width="200"
+                                animations:SquishyHoverBehavior.Enable="True"
+                                animations:SquishyHoverBehavior.Intensity="1.5"
+                                animations:SquishyHoverBehavior.SquishDepth="1"
+                                animations:SquishyHoverBehavior.EnableTilt="True">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    Text="Hover &amp; move!"
+                                    VerticalAlignment="Center" />
+                            </Border>
+
+                            <TextBlock
+                                FontSize="12"
+                                Foreground="{DynamicResource SukiLowText}"
+                                Text="Move your pointer over the card to see the squish/tilt effect." />
+                        </StackPanel>
+                    </Border>
+
+                    <Border
+                        Background="{DynamicResource SukiPopupBackground}"
+                        CornerRadius="12"
+                        Padding="0">
+                        <TextBlock
+                            FontWeight="DemiBold"
+                            Foreground="{DynamicResource SukiLowText}"
+                            HorizontalAlignment="Left"
+                            MaxLines="20"
+                            xml:space="preserve">
+            <TextBlock.Text>
+        &lt;Border
+            animations:SquishyHoverBehavior.Enable="True"
+            animations:SquishyHoverBehavior.Intensity="1.5"
+            animations:SquishyHoverBehavior.SquishDepth="1"
+            animations:SquishyHoverBehavior.EnableTilt="True" /&gt;</TextBlock.Text>
+                        </TextBlock>
+                    </Border>
+
+                </StackPanel>
+            </suki:GlassCard>
+        </Grid>
+
+
+        <!-- ==================== PRESS &amp; DRAG ==================== -->
+        <TextBlock Classes="h3" Margin="0,30,0,0">Press &amp; Drag</TextBlock>
+
+
+        <!-- SquishyBehavior -->
+        <Grid>
+            <suki:GlassCard Margin="0,0,10,0">
+                <StackPanel>
+
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="DemiBold"
+                        Text="SquishyBehavior" />
+                    <Border
+                        BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                        BorderThickness="1.5"
+                        Margin="0,5,0,20"
+                        Padding="10">
+                        <StackPanel Spacing="15">
+
+                            <Border
+                                Background="MediumSeaGreen"
+                                CornerRadius="12"
+                                Height="100"
+                                Width="200"
+                                animations:SquishyBehavior.Enable="True"
+                                animations:SquishyBehavior.Intensity="2"
+                                animations:SquishyBehavior.EnableTilt="True"
+                                animations:SquishyBehavior.EnableX="True"
+                                animations:SquishyBehavior.EnableY="True"
+                                animations:SquishyBehavior.ScaleByXYAxis="True">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    Text="Press &amp; drag!"
+                                    VerticalAlignment="Center" />
+                            </Border>
+
+                            <TextBlock
+                                FontSize="12"
+                                Foreground="{DynamicResource SukiLowText}"
+                                Text="Press and drag on the card. It deforms with a spring release." />
+                        </StackPanel>
+                    </Border>
+
+                    <Border
+                        Background="{DynamicResource SukiPopupBackground}"
+                        CornerRadius="12"
+                        Padding="0">
+                        <TextBlock
+                            FontWeight="DemiBold"
+                            Foreground="{DynamicResource SukiLowText}"
+                            HorizontalAlignment="Left"
+                            MaxLines="20"
+                            xml:space="preserve">
+            <TextBlock.Text>
+        &lt;Border
+            animations:SquishyBehavior.Enable="True"
+            animations:SquishyBehavior.Intensity="2"
+            animations:SquishyBehavior.EnableTilt="True"
+            animations:SquishyBehavior.EnableX="True"
+            animations:SquishyBehavior.EnableY="True"
+            animations:SquishyBehavior.ScaleByXYAxis="True" /&gt;</TextBlock.Text>
+                        </TextBlock>
+                    </Border>
+
+                </StackPanel>
+            </suki:GlassCard>
+        </Grid>
+
+
+        <!-- ==================== STATE EFFECTS ==================== -->
+        <TextBlock Classes="h3" Margin="0,30,0,0">State Effects</TextBlock>
+
+
+        <!-- GlowBehavior -->
+        <Grid>
+            <suki:GlassCard
+                Margin="0,0,10,0"
+                animations:GlowBehavior.Color="#FF6B6B"
+                animations:GlowBehavior.IsActive="{Binding #GlowToggle.IsChecked}"
+                animations:GlowBehavior.Speed="2000"
+                animations:GlowBehavior.Thickness="3">
+                <StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Spacing="15">
+                        <TextBlock
+                            FontSize="13"
+                            FontWeight="DemiBold"
+                            Text="GlowBehavior" />
+                        <ToggleSwitch Name="GlowToggle" />
+                    </StackPanel>
+                    <Border
+                        BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                        BorderThickness="1.5"
+                        Margin="0,5,0,20"
+                        Padding="10">
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="{DynamicResource SukiLowText}"
+                            Text="Toggle the switch to activate the rotating glow border around this GlassCard." />
+                    </Border>
+
+                    <Border
+                        Background="{DynamicResource SukiPopupBackground}"
+                        CornerRadius="12"
+                        Padding="0">
+                        <TextBlock
+                            FontWeight="DemiBold"
+                            Foreground="{DynamicResource SukiLowText}"
+                            HorizontalAlignment="Left"
+                            MaxLines="20"
+                            xml:space="preserve">
+            <TextBlock.Text>
+        &lt;suki:GlassCard
+            animations:GlowBehavior.IsActive="{Binding IsGlowing}"
+            animations:GlowBehavior.Color="#FF6B6B"
+            animations:GlowBehavior.Thickness="3"
+            animations:GlowBehavior.Speed="2000" /&gt;</TextBlock.Text>
+                        </TextBlock>
+                    </Border>
+
+                </StackPanel>
+            </suki:GlassCard>
+        </Grid>
+
+
+        <!-- ErrorBehavior -->
+        <Grid>
+            <suki:GlassCard
+                Margin="0,0,10,0"
+                animations:ErrorBehavior.Color="#FF4444"
+                animations:ErrorBehavior.ErrorMessage="This field is required"
+                animations:ErrorBehavior.IsActive="{Binding #ErrorToggle.IsChecked}"
+                animations:ErrorBehavior.Speed="2000"
+                animations:ErrorBehavior.Thickness="2">
+                <StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Spacing="15">
+                        <TextBlock
+                            FontSize="13"
+                            FontWeight="DemiBold"
+                            Text="ErrorBehavior" />
+                        <ToggleSwitch Name="ErrorToggle" />
+                    </StackPanel>
+                    <Border
+                        BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                        BorderThickness="1.5"
+                        Margin="0,5,0,20"
+                        Padding="10">
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="{DynamicResource SukiLowText}"
+                            Text="Toggle to activate the error state: rotating glow + error icon + message overlay. The card dims." />
+                    </Border>
+
+                    <Border
+                        Background="{DynamicResource SukiPopupBackground}"
+                        CornerRadius="12"
+                        Padding="0">
+                        <TextBlock
+                            FontWeight="DemiBold"
+                            Foreground="{DynamicResource SukiLowText}"
+                            HorizontalAlignment="Left"
+                            MaxLines="20"
+                            xml:space="preserve">
+            <TextBlock.Text>
+        &lt;suki:GlassCard
+            animations:ErrorBehavior.IsActive="{Binding HasError}"
+            animations:ErrorBehavior.ErrorMessage="This field is required"
+            animations:ErrorBehavior.Color="#FF4444"
+            animations:ErrorBehavior.Thickness="2"
+            animations:ErrorBehavior.Speed="2000" /&gt;</TextBlock.Text>
+                        </TextBlock>
+                    </Border>
+
+                </StackPanel>
+            </suki:GlassCard>
+        </Grid>
+
+
+        <!-- DisabledBehavior -->
+        <Grid>
+            <suki:GlassCard Margin="0,0,10,0">
+                <StackPanel>
+
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="DemiBold"
+                        Text="DisabledBehavior" />
+                    <Border
+                        BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                        BorderThickness="1.5"
+                        Margin="0,5,0,20"
+                        Padding="10">
+                        <StackPanel Spacing="15">
+
+                            <StackPanel Orientation="Horizontal" Spacing="15">
+                                <ToggleSwitch Name="DisabledToggle" IsChecked="False" />
+                                <TextBlock VerticalAlignment="Center" Text="Toggle IsEnabled" />
+                            </StackPanel>
+
+                            <Border
+                                Background="{DynamicResource SukiPrimaryColor}"
+                                CornerRadius="10"
+                                Height="60"
+                                Padding="15"
+                                animations:DisabledBehavior.Opacity="0.35"
+                                animations:DisabledBehavior.Scale="0.95"
+                                IsEnabled="{Binding #DisabledToggle.IsChecked, Converter={x:Static BoolConverters.Not}}"
+                                Width="220">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    Text="I get disabled!"
+                                    VerticalAlignment="Center" />
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <Border
+                        Background="{DynamicResource SukiPopupBackground}"
+                        CornerRadius="12"
+                        Padding="0">
+                        <TextBlock
+                            FontWeight="DemiBold"
+                            Foreground="{DynamicResource SukiLowText}"
+                            HorizontalAlignment="Left"
+                            MaxLines="20"
+                            xml:space="preserve">
+            <TextBlock.Text>
+        &lt;Border
+            animations:DisabledBehavior.Opacity="0.35"
+            animations:DisabledBehavior.Scale="0.95"
+            IsEnabled="{Binding ...}" /&gt;</TextBlock.Text>
+                        </TextBlock>
+                    </Border>
+
+                </StackPanel>
+            </suki:GlassCard>
+        </Grid>
+
+
+        <!-- LoadingBehavior -->
+        <Grid>
+            <suki:GlassCard Margin="0,0,10,0">
+                <StackPanel>
+
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="DemiBold"
+                        Text="LoadingBehavior" />
+                    <Border
+                        BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                        BorderThickness="1.5"
+                        Margin="0,5,0,20"
+                        Padding="10">
+                        <StackPanel Spacing="15">
+
+                            <StackPanel Orientation="Horizontal" Spacing="15">
+                                <ToggleSwitch Name="LoadingToggle" IsChecked="False" />
+                                <TextBlock VerticalAlignment="Center" Text="Toggle IsBusy" />
+                            </StackPanel>
+
+                            <Border
+                                Background="{DynamicResource SukiPrimaryColor}"
+                                CornerRadius="10"
+                                Height="80"
+                                animations:LoadingBehavior.DimOpacity="0.3"
+                                animations:LoadingBehavior.IsBusy="{Binding #LoadingToggle.IsChecked}"
+                                Padding="15"
+                                Width="220">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    Text="Content here"
+                                    VerticalAlignment="Center" />
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <Border
+                        Background="{DynamicResource SukiPopupBackground}"
+                        CornerRadius="12"
+                        Padding="0">
+                        <TextBlock
+                            FontWeight="DemiBold"
+                            Foreground="{DynamicResource SukiLowText}"
+                            HorizontalAlignment="Left"
+                            MaxLines="20"
+                            xml:space="preserve">
+            <TextBlock.Text>
+        &lt;Border
+            animations:LoadingBehavior.IsBusy="{Binding IsLoading}"
+            animations:LoadingBehavior.DimOpacity="0.3" /&gt;</TextBlock.Text>
+                        </TextBlock>
+                    </Border>
+
+                </StackPanel>
+            </suki:GlassCard>
+        </Grid>
+
+
+        <!-- ==================== VISIBILITY ==================== -->
+        <TextBlock Classes="h3" Margin="0,30,0,0">Visibility</TextBlock>
+
+
+        <!-- FadeInBehavior -->
+        <Grid>
+            <suki:GlassCard Margin="0,0,10,0">
+                <StackPanel>
+
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="DemiBold"
+                        Text="FadeInBehavior" />
+                    <Border
+                        BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                        BorderThickness="1.5"
+                        Margin="0,5,0,20"
+                        Padding="10">
+                        <StackPanel Spacing="15">
+
+                            <Button
+                                Classes="Flat"
+                                Click="AddFadeInCard"
+                                Content="Add Fade-In Card"
+                                HorizontalAlignment="Left" />
+
+                            <StackPanel Name="FadeInContainer" Spacing="10" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border
+                        Background="{DynamicResource SukiPopupBackground}"
+                        CornerRadius="12"
+                        Padding="0">
+                        <TextBlock
+                            FontWeight="DemiBold"
+                            Foreground="{DynamicResource SukiLowText}"
+                            HorizontalAlignment="Left"
+                            MaxLines="20"
+                            xml:space="preserve">
+            <TextBlock.Text>
+        &lt;Border
+            animations:FadeInBehavior.Enable="True"
+            animations:FadeInBehavior.Duration="0:0:0.6"
+            animations:FadeInBehavior.Scale="0.6" /&gt;</TextBlock.Text>
+                        </TextBlock>
+                    </Border>
+
+                </StackPanel>
+            </suki:GlassCard>
+        </Grid>
+
+
+        <!-- VisibilityBehavior -->
+        <Grid>
+            <suki:GlassCard Margin="0,0,10,0">
+                <StackPanel>
+
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="DemiBold"
+                        Text="VisibilityBehavior" />
+                    <Border
+                        BorderBrush="{DynamicResource SukiControlBorderBrush}"
+                        BorderThickness="1.5"
+                        Margin="0,5,0,20"
+                        Padding="10">
+                        <StackPanel Spacing="15">
+
+                            <StackPanel Orientation="Horizontal" Spacing="15">
+                                <ToggleSwitch Name="VisToggle" IsChecked="True" />
+                                <TextBlock VerticalAlignment="Center" Text="Toggle IsVisible" />
+                            </StackPanel>
+
+                            <Border
+                                Background="MediumPurple"
+                                animations:VisibilityBehavior.AnimateDimensions="True"
+                                animations:VisibilityBehavior.HiddenScale="0.6"
+                                animations:VisibilityBehavior.IsVisible="{Binding #VisToggle.IsChecked}"
+                                CornerRadius="10"
+                                Height="80"
+                                Padding="15"
+                                Width="220">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    Text="Animated visibility!"
+                                    VerticalAlignment="Center" />
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <Border
+                        Background="{DynamicResource SukiPopupBackground}"
+                        CornerRadius="12"
+                        Padding="0">
+                        <TextBlock
+                            FontWeight="DemiBold"
+                            Foreground="{DynamicResource SukiLowText}"
+                            HorizontalAlignment="Left"
+                            MaxLines="20"
+                            xml:space="preserve">
+            <TextBlock.Text>
+        &lt;Border
+            animations:VisibilityBehavior.IsVisible="{Binding Show}"
+            animations:VisibilityBehavior.HiddenScale="0.6"
+            animations:VisibilityBehavior.AnimateDimensions="True" /&gt;</TextBlock.Text>
+                        </TextBlock>
+                    </Border>
+
+                </StackPanel>
+            </suki:GlassCard>
+        </Grid>
+
+
+        <Border Height="100" />
+
+    </StackPanel>
+</UserControl>
