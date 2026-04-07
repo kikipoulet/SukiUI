@@ -1,4 +1,17 @@
-<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:suki="https://github.com/kikipoulet/SukiUI">
+    <Design.PreviewWith>
+        <TabControl Classes="Pill">
+            <TabItem Classes="Pill" Header="Test 1"></TabItem>
+            <TabItem Classes="Pill" Header="Test 2"></TabItem>
+            <TabItem Classes="Pill" Header="Test 3"></TabItem>
+            <TabItem Classes="Pill" Header="Test 4"></TabItem>
+           
+        </TabControl>
+    </Design.PreviewWith>
+    
+
+
     <ControlTheme x:Key="SukiTabControlStyle" TargetType="TabControl">
         <Setter Property="Margin" Value="0" />
         <Setter Property="Padding" Value="{DynamicResource TabItemMargin}" />
@@ -25,6 +38,33 @@
                 </Border>
             </ControlTemplate>
         </Setter>
+        
+        <Style Selector="^.Pill">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}">
+                        <DockPanel>
+                            <LayoutTransformControl Name="PART_LayoutTransform" DockPanel.Dock="{TemplateBinding TabStripPlacement}">
+                                <suki:GlassCard CornerRadius="100" Padding="2,0">
+                                <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+                                </suki:GlassCard>
+                            </LayoutTransformControl>
+                            <ContentPresenter Name="PART_SelectedContentHost"
+                                              Margin="{TemplateBinding Padding}"
+                                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              Content="{TemplateBinding SelectedContent}"
+                                              ContentTemplate="{TemplateBinding SelectedContentTemplate}" />
+                        </DockPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
 
         <Style Selector="^[TabStripPlacement=Left] /template/ LayoutTransformControl#PART_LayoutTransform">
             <Setter Property="LayoutTransform" Value="rotate(-90deg)" />
@@ -63,4 +103,6 @@
     <ControlTheme x:Key="{x:Type TabControl}"
                   BasedOn="{StaticResource SukiTabControlStyle}"
                   TargetType="TabControl" />
+    
+ 
 </ResourceDictionary>

@@ -655,6 +655,15 @@
                 </suki:GroupBox>
             </suki:GlassCard>
 
+            <suki:GlassCard>
+                <suki:GroupBox Header="Pill Tab Control">
+                    <TabControl Classes="Pill">
+                        <TabItem Classes="Pill" Header="Tab 1"></TabItem>
+                        <TabItem Classes="Pill" Header="Tab 2"></TabItem>
+                        <TabItem Classes="Pill" Header="Tab 3"></TabItem>
+                    </TabControl>
+                </suki:GroupBox>
+            </suki:GlassCard>
         </WrapPanel>
 
     </ScrollViewer>
