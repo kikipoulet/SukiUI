@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:content="clr-namespace:SukiUI.Content"
                     xmlns:converters="https://github.com/kikipoulet/SukiUI"
+                    x:CompileBindings="False"
                     xmlns:suki="clr-namespace:SukiUI.Controls">
     <Design.PreviewWith>
         <suki:SukiSideMenu>

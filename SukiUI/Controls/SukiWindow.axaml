@@ -1,5 +1,6 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:chrome="clr-namespace:Avalonia.Controls.Chrome;assembly=Avalonia.Controls"
                     xmlns:icons="clr-namespace:SukiUI.Content"
                     xmlns:suki="clr-namespace:SukiUI.Controls">
     <Design.PreviewWith>
@@ -26,9 +27,7 @@
     <ControlTheme x:Key="SukiWindowTheme" TargetType="suki:SukiWindow">
         <Setter Property="Margin" Value="0" />
         <Setter Property="TransparencyLevelHint" Value="Transparent" />
-        <Setter Property="SystemDecorations" Value="{OnPlatform Full, Linux=None, x:TypeArguments=SystemDecorations}" />
-        <Setter Property="ExtendClientAreaChromeHints" Value="NoChrome" />
-        <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="-1" />
+        <Setter Property="WindowDecorations" Value="None" />
         <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
         <Setter Property="FlowDirection" Value="{DynamicResource FlowDirectionPrimary}" />
@@ -48,7 +47,9 @@
                         <DockPanel LastChildFill="True">
                             <Panel ContextMenu="{TemplateBinding TitleBarContextMenu}" DockPanel.Dock="Top">
                                 <StackPanel>
-                                    <LayoutTransformControl Name="PART_TitleBar" RenderTransformOrigin="0%,0%">
+                                    <LayoutTransformControl Name="PART_TitleBar"
+                                                            RenderTransformOrigin="0%,0%"
+                                                            chrome:WindowDecorationProperties.ElementRole="TitleBar">
                                         <Panel>
                                             <suki:GlassCard Name="PART_TitleBarBackground"
                                                             BorderThickness="0"
@@ -158,28 +159,6 @@
         </Style>
         <Style Selector="^[ShowTitlebarBackground=True] /template/ suki|GlassCard#AlternativeGlassMenuBackground">
             <Setter Property="IsVisible" Value="False" />
-        </Style>
-
-        <Style Selector="^[Topmost=False] /template/ PathIcon#PinIcon">
-            <Setter Property="Data" Value="{x:Static icons:Icons.WindowPin}" />
-        </Style>
-        <Style Selector="^[Topmost=True] /template/ PathIcon#PinIcon">
-            <Setter Property="Data" Value="{x:Static icons:Icons.WindowPinOff}" />
-        </Style>
-
-
-        <Style Selector="^[WindowState=Maximized] /template/ PathIcon#MaximizeIcon">
-            <Setter Property="Data" Value="{x:Static icons:Icons.WindowRestore}" />
-        </Style>
-        <Style Selector="^[WindowState=Normal] /template/ PathIcon#MaximizeIcon">
-            <Setter Property="Data" Value="{x:Static icons:Icons.WindowMaximize}" />
-        </Style>
-
-        <Style Selector="^[WindowState=FullScreen] /template/ Button#PART_MaximizeButton">
-            <Setter Property="IsVisible" Value="False" />
-        </Style>
-        <Style Selector="^[WindowState=FullScreen] /template/ PathIcon#FullScreenIcon">
-            <Setter Property="Data" Value="{x:Static icons:Icons.WindowFullScreenOff}" />
         </Style>
 
         <Style Selector="^[ShowBottomBorder=True] /template/ Border#PART_BottomBorder">

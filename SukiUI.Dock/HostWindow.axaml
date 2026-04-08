@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:chrome="clr-namespace:Avalonia.Controls.Chrome;assembly=Avalonia.Controls"
                     xmlns:core="using:Dock.Model.Core"
                     xmlns:controls="clr-namespace:Dock.Model.Controls;assembly=Dock.Model">
   <Design.PreviewWith>
@@ -13,12 +14,9 @@
     <Setter Property="(TextElement.FontSize)" Value="{DynamicResource DockFontSizeNormal}" />
     <!-- <Setter Property="FontFamily" Value="{TemplateBinding FontFamily}" /> -->
     <Setter Property="TextBlock.Foreground" Value="{DynamicResource DockThemeForegroundBrush}" />
-    <Setter Property="WindowState" Value="Normal" />
     <Setter Property="UseLayoutRounding" Value="True" />
-    <Setter Property="Title" Value="{Binding ActiveDockable.Title}" />
-    <Setter Property="Topmost" Value="{Binding Window.Topmost}" x:DataType="controls:IRootDock" />
-    <Setter Property="ExtendClientAreaChromeHints" Value="NoChrome"/>
-<Setter Property="ExtendClientAreaTitleBarHeightHint" Value="-1"></Setter>
+    <Setter Property="WindowDecorations" Value="None" />
+    <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
     <Setter Property="Template">
       <ControlTemplate>
         <Panel>
@@ -44,17 +42,18 @@
           <Border Name="PART_TransparencyFallback" IsHitTestVisible="False" />
           <Border Background="{TemplateBinding Background}" IsHitTestVisible="False" />
           <Panel Background="Transparent" Margin="{TemplateBinding WindowDecorationMargin}" />
-          <VisualLayerManager>
-            <VisualLayerManager.ChromeOverlayLayer>
-              <HostWindowTitleBar Name="PART_TitleBar" />
-            </VisualLayerManager.ChromeOverlayLayer>
+          <Grid RowDefinitions="Auto,*">
+            <HostWindowTitleBar Name="PART_TitleBar"
+                                Grid.Row="0"
+                                chrome:WindowDecorationProperties.ElementRole="TitleBar" />
             <ContentPresenter Name="PART_ContentPresenter"
+                              Grid.Row="1"
                               ContentTemplate="{TemplateBinding ContentTemplate}"
                               Content="{TemplateBinding Content}"
                               Margin="{TemplateBinding Padding}"
                               HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                               VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
-          </VisualLayerManager>
+          </Grid>
         </Panel>
       </ControlTemplate>
     </Setter>

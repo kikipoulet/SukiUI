@@ -2,6 +2,7 @@
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data;
+using Avalonia.Input.Platform;
 using Avalonia.Layout;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
@@ -75,8 +76,15 @@ public partial class CodeView : UserControl
 
         button.Click += async (sender, args) =>
         {
-            await TopLevel.GetTopLevel(((ClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime)
-                .MainWindow).Clipboard.SetTextAsync(Text);
+            var topLevel = TopLevel.GetTopLevel(((ClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime)
+                .MainWindow);
+
+            if (topLevel?.Clipboard is not { } clipboard)
+            {
+                return;
+            }
+
+            await clipboard.SetTextAsync(Text);
 
             Dispatcher.UIThread.Invoke(() =>
             {

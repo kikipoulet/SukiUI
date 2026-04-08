@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:mobilePicker="clr-namespace:SukiUI.Controls.Touch.MobilePicker"
              xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             x:CompileBindings="False"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SukiUI.Controls.Touch.MobilePicker.MobilePickerPopUp">
  <UserControl.Styles>

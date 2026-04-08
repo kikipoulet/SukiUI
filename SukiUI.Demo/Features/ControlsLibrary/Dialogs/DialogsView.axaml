@@ -163,20 +163,6 @@
                             </suki:GlassCard>
 
                             <suki:GlassCard Width="250">
-                                <suki:GroupBox Header="Custom Markdown">
-                                    <StackPanel Spacing="10">
-                                        <CheckBox Content="Use alternative header style" IsChecked="{Binding UseAlternativeHeaderStyle}" />
-                                        <CheckBox Content="Show header/content separator" IsChecked="{Binding ShowHeaderContentSeparator}" />
-                                        <CheckBox Content="Use native window" IsChecked="{Binding UseNativeWindow}" />
-                                        <Button Margin="15,10,15,0"
-                                                VerticalAlignment="Top"
-                                                Command="{Binding OpenCustomMarkdownMessageBoxCommand}"
-                                                Content="Open" />
-                                    </StackPanel>
-                                </suki:GroupBox>
-                            </suki:GlassCard>
-
-                            <suki:GlassCard Width="250">
                                 <suki:GroupBox Header="Animated Header">
                                     <Button Margin="15,10,15,0"
                                             VerticalAlignment="Top"

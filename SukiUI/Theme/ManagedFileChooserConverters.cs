@@ -72,7 +72,7 @@ namespace SukiUI.Theme
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             var w = value as Window;
-            w.SystemDecorations = SystemDecorations.BorderOnly;
+            w.WindowDecorations = WindowDecorations.BorderOnly;
             //    w.ExtendClientAreaToDecorationsHint = true;
 
 
