@@ -25,6 +25,10 @@
     <PackageReference Include="Dock.Model.Avalonia" />
     <PackageReference Include="Dock.Model.Mvvm" />
     <PackageReference Include="Dock.Serializer.SystemTextJson" />
+    <!-- Avalonia 12 upgrade notes:
+         Original demo integrations kept as comments for easier restoration.
+         <PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" />
+         <PackageReference Include="Markdown.Avalonia" /> -->
     <PackageReference Include="Material.Icons.Avalonia" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
     <PackageReference Include="ShowMeTheXaml.Avalonia" />
