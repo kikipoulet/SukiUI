@@ -5,7 +5,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Dock.Model.Controls;
 using Dock.Model.Core;
-using Dock.Serializer;
+using Dock.Serializer.SystemTextJson;
 using Material.Icons;
 using SukiUI.Demo.Common;
 using SukiUI.Demo.Features.ControlsLibrary.DockControls;

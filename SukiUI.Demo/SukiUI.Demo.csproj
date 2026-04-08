@@ -7,11 +7,9 @@
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
   </PropertyGroup>
 
-
-
   <ItemGroup>
     <PackageReference Include="Avalonia" />
-    <PackageReference Include="Avalonia.AvaloniaEdit"/>
+    <PackageReference Include="Avalonia.AvaloniaEdit" />
     <PackageReference Include="Avalonia.Controls.ColorPicker" />
     <PackageReference Include="Avalonia.Desktop" />
     <PackageReference Include="Avalonia.Fonts.Inter" />
@@ -25,8 +23,8 @@
     <PackageReference Include="Dock.Model" />
     <PackageReference Include="Dock.Model.Avalonia" />
     <PackageReference Include="Dock.Model.Mvvm" />
-    <PackageReference Include="Dock.Serializer" />
-    <PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia"/>
+    <PackageReference Include="Dock.Serializer.SystemTextJson" />
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" />
     <PackageReference Include="Material.Icons.Avalonia" />
     <PackageReference Include="Markdown.Avalonia" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
