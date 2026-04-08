@@ -17,6 +17,10 @@
         </Border>
     </Design.PreviewWith>
 
+    <Styles.Resources>
+        <theme:LeftMarginConverter x:Key="LeftMarginConverter" />
+    </Styles.Resources>
+
     <Style Selector="TreeViewItem">
         <Setter Property="Template">
             <ControlTemplate>

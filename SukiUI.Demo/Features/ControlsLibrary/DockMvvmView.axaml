@@ -9,20 +9,41 @@
              x:Class="SukiUI.Demo.Features.ControlsLibrary.DockMvvmView">
     <Grid
         Margin="15">
-        <Border ZIndex="1"
-                Padding="12,8"
-                HorizontalAlignment="Left"
+        <Grid
+            ZIndex="1"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left">
+            <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Right"
                 VerticalAlignment="Top"
-                Background="#CC1F2937"
-                CornerRadius="12">
-            <StackPanel Orientation="Horizontal" Spacing="8">
-                <avalonia:MaterialIcon Width="18"
-                                       Height="18"
-                                       Kind="InformationOutline" />
-                <TextBlock VerticalAlignment="Center"
-                           Text="Dock.Serializer has no Avalonia 12 release, so layout import/export is disabled in this demo." />
+                Spacing="5">
+                <Button
+                    ToolTip.Tip="Open Layout"
+                    Classes="Icon"
+                    Width="30"
+                    Height="30"
+                    x:Name="FileOpenLayout"
+                    Command="{Binding OpenLayoutCommand}">
+                    <avalonia:MaterialIcon
+                        Width="20"
+                        Height="20"
+                        Kind="File"/>
+                </Button>
+                <Button
+                    ToolTip.Tip="Save as"
+                    Classes="Icon"
+                    Width="30"
+                    Height="30"
+                    x:Name="FileSaveLayout"
+                    Command="{Binding SaveLayoutCommand}">
+                    <avalonia:MaterialIcon
+                        Width="20"
+                        Height="20"
+                        Kind="ContentSave"/>
+                </Button>
             </StackPanel>
-        </Border>
+        </Grid>
         <DockControl
             x:Name="DockControl"
             Layout="{Binding Layout}"

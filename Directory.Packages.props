@@ -20,6 +20,7 @@
     <PackageVersion Include="Dock.Model" Version="12.0.0" />
     <PackageVersion Include="Dock.Model.Avalonia" Version="12.0.0" />
     <PackageVersion Include="Dock.Model.Mvvm" Version="12.0.0" />
+    <PackageVersion Include="Dock.Serializer.SystemTextJson" Version="12.0.0" />
     <PackageVersion Include="Avalonia.AvaloniaEdit" Version="12.0.0" />
     <PackageVersion Include="AvaloniaEdit.TextMate" Version="12.0.0" />
     <PackageVersion Include="Material.Icons.Avalonia" Version="3.0.1" />

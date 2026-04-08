@@ -1,20 +1,26 @@
 ﻿using System.Diagnostics;
 using Avalonia.Collections;
+using Avalonia.Platform.Storage;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Dock.Model.Controls;
 using Dock.Model.Core;
+using Dock.Serializer.SystemTextJson;
 using Material.Icons;
+using SukiUI.Demo.Common;
 using SukiUI.Demo.Features.ControlsLibrary.DockControls;
 
 namespace SukiUI.Demo.Features.ControlsLibrary
 {
     public partial class DockMvvmViewModel : DemoPageBase
     {
+        private readonly IDockSerializer _serializer;
         private readonly IFactory _factory;
         [ObservableProperty] private IRootDock? _layout;
 
         public DockMvvmViewModel() : base("DockMvvm", MaterialIconKind.DockTop)
         {
+            _serializer = new DockSerializer(typeof(AvaloniaList<>));
             _factory = new DockFactory(this);
             DebugFactoryEvents(_factory);
 
@@ -32,6 +38,81 @@ namespace SukiUI.Demo.Features.ControlsLibrary
                 root.Navigate.Execute("Home");
             }
         }
+
+        [RelayCommand]
+        private async Task SaveLayout()
+        {
+            var storageProvider = StorageService.GetStorageProvider();
+
+            var file = await storageProvider!.SaveFilePickerAsync(new FilePickerSaveOptions
+            {
+                Title = "Save layout",
+                FileTypeChoices = GetOpenLayoutFileTypes(),
+                SuggestedFileName = "layout",
+                DefaultExtension = "json",
+                ShowOverwritePrompt = true
+            });
+
+            if (file is not null)
+            {
+                try
+                {
+                    await using var stream = await file.OpenWriteAsync();
+
+                    if (Layout is not null)
+                    {
+                        _serializer.Save(stream, Layout);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
+        }
+
+        [RelayCommand]
+        private async Task OpenLayout()
+        {
+            var storageProvider = StorageService.GetStorageProvider();
+
+            var result = await storageProvider!.OpenFilePickerAsync(
+                new FilePickerOpenOptions
+                {
+                    Title = "Open layout",
+                    FileTypeFilter = GetOpenLayoutFileTypes(),
+                    AllowMultiple = false
+                });
+
+            var file = result.FirstOrDefault();
+
+            if (file is not null)
+            {
+                try
+                {
+                    await using var stream = await file.OpenReadAsync();
+
+                    var layout = _serializer.Load<IRootDock?>(stream);
+
+                    if (layout is not null)
+                    {
+                        _factory.InitLayout(layout);
+                        Layout = layout;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
+        }
+
+        private static List<FilePickerFileType> GetOpenLayoutFileTypes()
+            =>
+            [
+                StorageService.Json,
+                StorageService.All
+            ];
 
         private static void DebugFactoryEvents(IFactory factory)
         {
