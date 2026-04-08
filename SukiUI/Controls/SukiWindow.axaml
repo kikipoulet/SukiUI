@@ -50,11 +50,17 @@
                                 <StackPanel>
                                     <LayoutTransformControl Name="PART_TitleBar" RenderTransformOrigin="0%,0%">
                                         <Panel>
+                                            <Border Background="Transparent"
+                                                    BorderThickness="0"
+                                                    CornerRadius="0"
+                                                    Name="DragArea" />
+
                                             <suki:GlassCard Name="PART_TitleBarBackground"
                                                             BorderThickness="0"
                                                             CornerRadius="0"
                                                             IsAnimated="False"
                                                             IsVisible="{TemplateBinding ShowTitlebarBackground}" />
+
                                             <DockPanel Margin="12,9" LastChildFill="True">
                                                 <StackPanel VerticalAlignment="Center"
                                                             DockPanel.Dock="Right"
