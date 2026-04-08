@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Avalonia;
 using Avalonia.Animation.Easings;
 using Avalonia.Controls;
@@ -61,8 +62,7 @@ public static class SizeAnimationBehavior
 
     private static void EnableAnimation(Control control)
     {
-        if (GetState(control) != null)
-            return;
+        DisableAnimation(control);
 
         var state = new SizeAnimationState();
         SetState(control, state);
@@ -73,13 +73,17 @@ public static class SizeAnimationBehavior
         }
         else
         {
+            var token = new Guid();
+            state.PendingToken = token;
+
             control.AttachedToVisualTree += handler;
 
             void handler(object? s, VisualTreeAttachmentEventArgs a)
             {
                 control.AttachedToVisualTree -= handler;
-                if (GetEnable(control))
-                    state.Attach(control);
+                var current = GetState(control);
+                if (current != null && current.PendingToken == token && GetEnable(control))
+                    current.Attach(control);
             }
         }
     }
@@ -98,24 +102,46 @@ public static class SizeAnimationBehavior
     {
         private DispatcherTimer? _timer;
         private bool _isAnimating;
-        private bool _ignoreNextBounds;
+        private int _ignoreBoundsCount;
+        private bool _originalClipToBounds;
+        private bool _savedClipToBounds;
         private const int FrameIntervalMs = 16;
         private static readonly CubicEaseInOut Easing = new();
 
+        public Guid? PendingToken { get; set; }
+
         public void Attach(Control control)
         {
+            _savedClipToBounds = control.ClipToBounds;
+            _originalClipToBounds = control.ClipToBounds;
             control.ClipToBounds = true;
             control.PropertyChanged += OnControlPropertyChanged;
         }
 
         public void Detach(Control control)
         {
+            PendingToken = null;
             control.PropertyChanged -= OnControlPropertyChanged;
             _timer?.Stop();
             _timer = null;
             _isAnimating = false;
-            _ignoreNextBounds = false;
+            _ignoreBoundsCount = 0;
             control.Clip = null;
+            control.ClipToBounds = _originalClipToBounds;
+            if (double.IsNaN(control.Width))
+            { }
+            else
+            {
+                control.Width = double.NaN;
+                control.InvalidateMeasure();
+            }
+            if (double.IsNaN(control.Height))
+            { }
+            else
+            {
+                control.Height = double.NaN;
+                control.InvalidateMeasure();
+            }
         }
 
         private void OnControlPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
@@ -123,9 +149,9 @@ public static class SizeAnimationBehavior
             if (_isAnimating)
                 return;
 
-            if (_ignoreNextBounds)
+            if (_ignoreBoundsCount > 0)
             {
-                _ignoreNextBounds = false;
+                _ignoreBoundsCount--;
                 return;
             }
 
@@ -177,7 +203,7 @@ public static class SizeAnimationBehavior
                 control.Clip = new RectangleGeometry(new Rect(0, 0, from.Width, from.Height));
 
             var durationMs = GetDuration(control).TotalMilliseconds;
-            var startTime = DateTime.Now;
+            var stopwatch = Stopwatch.StartNew();
 
             _timer = new DispatcherTimer(DispatcherPriority.Render)
             {
@@ -186,7 +212,7 @@ public static class SizeAnimationBehavior
 
             _timer.Tick += (_, _) =>
             {
-                var elapsed = (DateTime.Now - startTime).TotalMilliseconds;
+                var elapsed = stopwatch.Elapsed.TotalMilliseconds;
                 double t = Math.Min(elapsed / durationMs, 1.0);
                 double eased = Easing.Ease(t);
 
@@ -216,7 +242,7 @@ public static class SizeAnimationBehavior
                             control.Width = double.NaN;
                         if (heightShrinking)
                             control.Height = double.NaN;
-                        _ignoreNextBounds = true;
+                        _ignoreBoundsCount = 2;
                         control.InvalidateMeasure();
                     }
                     else
