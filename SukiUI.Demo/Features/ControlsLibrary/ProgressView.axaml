@@ -368,14 +368,14 @@
                     </suki:GroupBox>
                 </suki:GlassCard>
 
-                <suki:GlassCard>
+                <suki:GlassCard Height="350">
                     <suki:GroupBox Header="Vertical Stepper">
-                        <StackPanel Spacing="15">
+                        <Grid RowDefinitions="*,Auto">
                             <showMeTheXaml:XamlDisplay UniqueId="VerticalStepper">
                                 <suki:VerticalStepper Width="350" Index="{Binding StepIndex}"
                                                       Steps="{Binding VerticalSteps}" />
                             </showMeTheXaml:XamlDisplay>
-                            <Grid Margin="0,8,0,0" ColumnDefinitions="Auto,*,Auto">
+                            <Grid Grid.Row="1" Margin="0,8,0,0" ColumnDefinitions="Auto,*,Auto">
                                 <Button Grid.Column="0"
                                         Command="{Binding ChangeStepCommand}"
                                         CommandParameter="{x:False}"
@@ -385,7 +385,7 @@
                                         CommandParameter="{x:True}"
                                         Content="Increment" />
                             </Grid>
-                        </StackPanel>
+                        </Grid>
                     </suki:GroupBox>
                 </suki:GlassCard>
             </WrapPanel>
