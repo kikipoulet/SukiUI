@@ -1,7 +1,9 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:dmc="using:Dock.Model.Controls"
-                    xmlns:core="using:Dock.Model.Core">
+                    xmlns:core="using:Dock.Model.Core"
+                    x:DataType="dmc:IToolDock"
+                    x:CompileBindings="True">
   <Design.PreviewWith>
     <ToolControl Width="300" Height="400" />
   </Design.PreviewWith>
@@ -15,13 +17,11 @@
     </Setter>
 
     <Setter Property="Template">
-      <ControlTemplate>
+      <ControlTemplate> 
  
         <DockPanel x:Name="PART_DockPanel"
                    DockProperties.IsDropArea="True"
-                   DockProperties.IsDockTarget="True"
-                   x:DataType="dmc:IToolDock"
-                   x:CompileBindings="True">
+                   DockProperties.IsDockTarget="True">
           <ToolTabStrip x:Name="PART_TabStrip"
                         ItemsSource="{Binding VisibleDockables}"
                         SelectedItem="{Binding ActiveDockable, Mode=TwoWay}"
@@ -40,7 +40,7 @@
               </ContentControl>
             </DockableControl>
           </Border>
-        </DockPanel>
+        </DockPanel>       
        
       </ControlTemplate>
     </Setter>

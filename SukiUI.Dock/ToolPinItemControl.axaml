@@ -1,11 +1,13 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:core="using:Dock.Model.Core">
+                    xmlns:core="using:Dock.Model.Core"
+                    x:DataType="core:IDockable"
+                    x:CompileBindings="True">
   <Design.PreviewWith>
     <ToolPinItemControl Width="30" Height="400" />
   </Design.PreviewWith>
 
-  <ContextMenu x:Key="ToolPinItemControlContextMenu" x:DataType="core:IDockable" x:CompileBindings="True">
+  <ContextMenu x:Key="ToolPinItemControlContextMenu">
     <MenuItem Header="_Float"
               Command="{Binding Owner.Factory.FloatDockable}"
               CommandParameter="{Binding}"
@@ -25,9 +27,7 @@
     <Setter Property="Template">
       <ControlTemplate>
         
-        <DockableControl TrackingMode="Pinned"
-                         x:DataType="core:IDockable"
-                         x:CompileBindings="True">
+        <DockableControl TrackingMode="Pinned">
           <LayoutTransformControl x:Name="PART_LayoutTransformControl">
             <Button Background="Transparent"
                     BorderBrush="Transparent"
