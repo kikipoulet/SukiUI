@@ -17,6 +17,10 @@
     <PackageIcon>OIG.N5o-removebg-preview.png</PackageIcon>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <AvaloniaUseCompiledBindingsByDefault>True</AvaloniaUseCompiledBindingsByDefault>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Avalonia" />
     <PackageReference Include="Avalonia.Skia" />
@@ -28,7 +32,6 @@
     <PackageReference Include="System.Linq.Dynamic.Core" />
     <PackageReference Include="System.Text.Json" />
   </ItemGroup>
-
 
   <ItemGroup>
     <AvaloniaResource Include="**\*.xaml" />
@@ -108,7 +111,5 @@
     <EmbeddedResource Include="Content\Shaders\Background\gradientdarker.sksl" />
     <None Remove="Content\Shaders\Background\backgroundshadcn.sksl" />
     <EmbeddedResource Include="Content\Shaders\Background\backgroundshadcn.sksl" />
-  </ItemGroup>
-
-  
+  </ItemGroup>  
 </Project>

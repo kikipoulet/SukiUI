@@ -7,10 +7,11 @@
         <Setter Property="VerticalAlignment" Value="Stretch" />
         <Setter Property="DayTitleTemplate">
             <Template>
-                <TextBlock HorizontalAlignment="Stretch"
+                <TextBlock x:DataType="x:String"
+                           HorizontalAlignment="Stretch"
                            VerticalAlignment="Stretch"
                            FontSize="12"
-                           Text="{Binding}"
+                           Text="{CompiledBinding}"
                            TextAlignment="Center" />
             </Template>
         </Setter>
