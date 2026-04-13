@@ -28,6 +28,9 @@ namespace SukiUI.Controls
         public static readonly StyledProperty<bool> ShowCheckMarkProperty =
             AvaloniaProperty.Register<VerticalStepper, bool>(nameof(ShowCheckMark), true);
 
+        public static readonly StyledProperty<double> OffsetHeightProperty =
+            AvaloniaProperty.Register<VerticalStepper, double>(nameof(OffsetHeight));
+
         public int Index
         {
             get => GetValue(IndexProperty);
@@ -44,6 +47,12 @@ namespace SukiUI.Controls
         {
             get => GetValue(ShowCheckMarkProperty);
             set => SetValue(ShowCheckMarkProperty, value);
+        }
+
+        public double OffsetHeight
+        {
+            get => GetValue(OffsetHeightProperty);
+            set => SetValue(OffsetHeightProperty, value);
         }
 
         private readonly List<VerticalStepperItem> _stepItems = new();

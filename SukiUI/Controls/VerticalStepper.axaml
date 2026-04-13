@@ -258,7 +258,10 @@
                 <ScrollViewer Name="PART_ScrollViewer"
                               VerticalScrollBarVisibility="Hidden"
                               HorizontalScrollBarVisibility="Disabled">
-                    <ItemsControl Name="PART_ItemsControl" />
+                    <StackPanel>
+                        <Border Height="{TemplateBinding OffsetHeight}" />
+                        <ItemsControl Name="PART_ItemsControl" />
+                    </StackPanel>
                 </ScrollViewer>
             </ControlTemplate>
         </Setter>
