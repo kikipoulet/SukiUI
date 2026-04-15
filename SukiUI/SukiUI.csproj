@@ -60,10 +60,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="OIG.N5o-removebg-preview.png">
+    <Content Include="..\Images\OIG.N5o-removebg-preview.png" Link="OIG.N5o-removebg-preview.png">
       <Pack>True</Pack>
       <PackagePath />
-    </None>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
