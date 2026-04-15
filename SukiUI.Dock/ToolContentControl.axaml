@@ -1,5 +1,8 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="using:Dock.Model.Controls"
+                    x:DataType="controls:IToolContent"
+                    x:CompileBindings="True">
   <Design.PreviewWith>
     <ToolContentControl Width="300" Height="300" />
   </Design.PreviewWith>
