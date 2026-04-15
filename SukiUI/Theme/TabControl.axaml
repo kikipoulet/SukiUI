@@ -61,7 +61,7 @@
                             </LayoutTransformControl>
                             <ContentPresenter Name="PART_SelectedContentHost"
                                               Margin="{TemplateBinding Padding}"
-                                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              HorizontalContentAlignment="Stretch"
                                               VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                               Content="{TemplateBinding SelectedContent}"
                                               ContentTemplate="{TemplateBinding SelectedContentTemplate}" />
