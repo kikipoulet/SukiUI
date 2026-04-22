@@ -33,6 +33,5 @@
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.2"/>
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.6"/>
     <PackageVersion Include="System.Linq.Dynamic.Core" Version="1.7.2"/>
-    <PackageVersion Include="System.Text.Json" Version="10.0.6"/>
   </ItemGroup>
 </Project>

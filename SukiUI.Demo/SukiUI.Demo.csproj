@@ -30,7 +30,6 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
     <PackageReference Include="ShowMeTheXaml.Avalonia" />
     <PackageReference Include="ShowMeTheXaml.Avalonia.Generator" />
-    <PackageReference Include="System.Text.Json" />
   </ItemGroup>
 
   <ItemGroup>
