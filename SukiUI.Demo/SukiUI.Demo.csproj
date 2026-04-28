@@ -30,7 +30,6 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
     <PackageReference Include="ShowMeTheXaml.Avalonia" />
     <PackageReference Include="ShowMeTheXaml.Avalonia.Generator" />
-    <PackageReference Include="System.Text.Json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,8 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Assets\OIG.N5o-removebg-preview.png" />
-    <AvaloniaResource Include="Assets\OIG.N5o-removebg-preview.png" />
+    <AvaloniaResource Include="..\Images\OIG.N5o-removebg-preview.png" Link="Assets/OIG.N5o-removebg-preview.png" />
     <None Remove="Assets\cat.jpeg" />
     <None Remove="Assets\cat-modified.png" />
     <AvaloniaResource Include="Assets\cat-modified.png" />
@@ -63,7 +61,6 @@
     <AvaloniaResource Include="Assets\Icons\Mail\icons8-user-male-96.png" />
     <None Remove="Assets\Icons\Mail\icons8-female-user-96.png" />
     <AvaloniaResource Include="Assets\Icons\Mail\icons8-female-user-96.png" />
-
   </ItemGroup>
 
   <ItemGroup>
