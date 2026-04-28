@@ -74,7 +74,7 @@
         
         <Setter Property="NeedleBrush" >
             <Setter.Value>
-                <RadialGradientBrush Center="0%,0%" GradientOrigin="0%,0%" Radius="1.5">
+                <RadialGradientBrush Center="0%,0%" GradientOrigin="0%,0%" RadiusX="150%" RadiusY="150%">
                     <GradientStop Offset="0" Color="{DynamicResource SukiLowText}" />
                     <GradientStop Offset="1" Color="{DynamicResource SukiPrimaryColor120}" />
                 </RadialGradientBrush>

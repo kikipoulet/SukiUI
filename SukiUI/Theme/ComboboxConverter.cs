@@ -1,5 +1,4 @@
 using Avalonia.Data.Converters;
-using System;
 using System.Collections;
 using System.Globalization;
 
@@ -11,12 +10,14 @@ namespace SukiUI.Theme
 
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            double x = (double)value;
-            if (x == 0)
-                return 0;
+            if (value is double x) {
+                if (x == 0)
+                    return 0;
 
-            x += 9;
-            return x;
+                x += 9;
+                return x;
+            }
+            return 0;
         }
 
         public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
@@ -36,8 +37,7 @@ namespace SukiUI.Theme
                 return "";
 
             var s = "";
-            foreach (var o in x)
-            {
+            foreach (var o in x) {
                 if (o?.ToString()?.Length > s.ToString().Length)
                     s = o.ToString();
             }
@@ -62,8 +62,7 @@ namespace SukiUI.Theme
                 return "";
 
             var s = "";
-            foreach (var o in x)
-            {
+            foreach (var o in x) {
                 if (o?.ToString()?.Length > s.ToString().Length)
                     s = o.ToString();
             }
