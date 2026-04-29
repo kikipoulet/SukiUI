@@ -7,11 +7,9 @@
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
   </PropertyGroup>
 
-
-
   <ItemGroup>
     <PackageReference Include="Avalonia" />
-    <PackageReference Include="Avalonia.AvaloniaEdit"/>
+    <PackageReference Include="Avalonia.AvaloniaEdit" />
     <PackageReference Include="Avalonia.Controls.ColorPicker" />
     <PackageReference Include="Avalonia.Desktop" />
     <PackageReference Include="Avalonia.Fonts.Inter" />
@@ -25,15 +23,11 @@
     <PackageReference Include="Dock.Model.Avalonia" />
     <PackageReference Include="Dock.Model.Mvvm" />
     <PackageReference Include="Dock.Serializer.SystemTextJson" />
-    <!-- Avalonia 12 upgrade notes:
-         Original demo integrations kept as comments for easier restoration.
-         <PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" />
-         <PackageReference Include="Markdown.Avalonia" /> -->
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" />
     <PackageReference Include="Material.Icons.Avalonia" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
     <PackageReference Include="ShowMeTheXaml.Avalonia" />
     <PackageReference Include="ShowMeTheXaml.Avalonia.Generator" />
-    <PackageReference Include="System.Text.Json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,8 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Assets\OIG.N5o-removebg-preview.png" />
-    <AvaloniaResource Include="Assets\OIG.N5o-removebg-preview.png" />
+    <AvaloniaResource Include="..\Images\OIG.N5o-removebg-preview.png" Link="Assets/OIG.N5o-removebg-preview.png" />
     <None Remove="Assets\cat.jpeg" />
     <None Remove="Assets\cat-modified.png" />
     <AvaloniaResource Include="Assets\cat-modified.png" />
@@ -66,7 +59,6 @@
     <AvaloniaResource Include="Assets\Icons\Mail\icons8-user-male-96.png" />
     <None Remove="Assets\Icons\Mail\icons8-female-user-96.png" />
     <AvaloniaResource Include="Assets\Icons\Mail\icons8-female-user-96.png" />
-
   </ItemGroup>
 
   <ItemGroup>

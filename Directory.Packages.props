@@ -5,34 +5,31 @@
     <AvaloniaVersion>12.0.0</AvaloniaVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Avalonia" Version="12.0.0" />
-    <PackageVersion Include="Avalonia.LinuxFramebuffer" Version="12.0.0" />
-    <PackageVersion Include="Avalonia.Skia" Version="12.0.0" />
-    <PackageVersion Include="Avalonia.Desktop" Version="12.0.0" />
-    <PackageVersion Include="Avalonia.Fonts.Inter" Version="12.0.0" />
-    <PackageVersion Include="Avalonia.Themes.Simple" Version="12.0.0" />
-    <PackageVersion Include="Avalonia.Themes.Fluent" Version="12.0.0" />
+    <PackageVersion Include="Avalonia" Version="12.0.2" />
+    <PackageVersion Include="Avalonia.LinuxFramebuffer" Version="12.0.2" />
+    <PackageVersion Include="Avalonia.Skia" Version="12.0.2" />
+    <PackageVersion Include="Avalonia.Desktop" Version="12.0.2" />
+    <PackageVersion Include="Avalonia.Fonts.Inter" Version="12.0.2" />
+    <PackageVersion Include="AvaloniaUI.DiagnosticsSupport" Version="2.2.1" />
+    <PackageVersion Include="Avalonia.Themes.Simple" Version="12.0.2" />
+    <PackageVersion Include="Avalonia.Themes.Fluent" Version="12.0.2" />
     <PackageVersion Include="Avalonia.Controls.DataGrid" Version="12.0.0" />
-    <PackageVersion Include="Avalonia.Controls.ColorPicker" Version="12.0.0" />
-    <PackageVersion Include="AvaloniaUI.DiagnosticsSupport" Version="2.2.0" />
-    <PackageVersion Include="Dock.Avalonia" Version="12.0.0" />
-    <PackageVersion Include="Dock.Avalonia.Themes.Fluent" Version="12.0.0" />
-    <PackageVersion Include="Dock.Model" Version="12.0.0" />
-    <PackageVersion Include="Dock.Model.Avalonia" Version="12.0.0" />
-    <PackageVersion Include="Dock.Model.Mvvm" Version="12.0.0" />
-    <PackageVersion Include="Dock.Serializer.SystemTextJson" Version="12.0.0" />
+    <PackageVersion Include="Avalonia.Controls.ColorPicker" Version="12.0.2" />
+    <PackageVersion Include="Dock.Avalonia" Version="12.0.0.2" />
+    <PackageVersion Include="Dock.Avalonia.Themes.Fluent" Version="12.0.0.2" />
+    <PackageVersion Include="Dock.Model" Version="12.0.0.2" />
+    <PackageVersion Include="Dock.Model.Avalonia" Version="12.0.0.2" />
+    <PackageVersion Include="Dock.Model.Mvvm" Version="12.0.0.2" />
+    <PackageVersion Include="Dock.Serializer.SystemTextJson" Version="12.0.0.2" />
     <PackageVersion Include="Avalonia.AvaloniaEdit" Version="12.0.0" />
     <PackageVersion Include="AvaloniaEdit.TextMate" Version="12.0.0" />
-    <PackageVersion Include="Material.Icons.Avalonia" Version="3.0.1" />
+    <PackageVersion Include="Markdown.Avalonia" Version="11.0.2" />
+    <PackageVersion Include="Material.Icons.Avalonia" Version="3.0.2" />
+    <PackageVersion Include="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.0.2" />
     <PackageVersion Include="ShowMeTheXaml.Avalonia" Version="1.5.3" />
     <PackageVersion Include="ShowMeTheXaml.Avalonia.Generator" Version="1.5.3" />
-    <PackageVersion Include="SkiaSharp" Version="3.119.3-preview.1.1" />
-    <PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="3.119.3-preview.1.1" />
-    <PackageVersion Include="SkiaSharp.NativeAssets.macOS" Version="3.119.3-preview.1.1" />
-    <PackageVersion Include="SkiaSharp.NativeAssets.WebAssembly" Version="3.119.3-preview.1.1" />
-    <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.1" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5" />
-    <PackageVersion Include="System.Linq.Dynamic.Core" Version="1.7.1" />
-    <PackageVersion Include="System.Text.Json" Version="10.0.5" />
+    <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.7" />
+    <PackageVersion Include="System.Linq.Dynamic.Core" Version="1.7.2" />
   </ItemGroup>
 </Project>

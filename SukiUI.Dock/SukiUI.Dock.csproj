@@ -1,6 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+    <IsTrimmable>true</IsTrimmable>
     <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
@@ -12,6 +14,10 @@
     <PackageProjectUrl>https://github.com/kikipoulet/SukiUI</PackageProjectUrl>
     <PackageIcon>OIG.N5o-removebg-preview.png</PackageIcon>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <AvaloniaUseCompiledBindingsByDefault>True</AvaloniaUseCompiledBindingsByDefault>
+  </PropertyGroup>
   
   <ItemGroup>
     <ProjectReference Include="..\SukiUI\SukiUI.csproj" />
@@ -21,14 +27,12 @@
     <PackageReference Include="Dock.Avalonia" />
     <PackageReference Include="Dock.Avalonia.Themes.Fluent" />
     <PackageReference Include="Dock.Model.Avalonia" />
-    <PackageReference Include="System.Text.Json" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="OIG.N5o-removebg-preview.png">
+    <Content Include="..\Images\OIG.N5o-removebg-preview.png" Link="OIG.N5o-removebg-preview.png">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
+      <PackagePath />
+    </Content>
   </ItemGroup>
-
 </Project>

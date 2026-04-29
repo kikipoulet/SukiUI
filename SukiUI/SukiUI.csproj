@@ -1,6 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+    <IsTrimmable>true</IsTrimmable>
     <TargetFramework>net8.0</TargetFramework>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <RootNamespace>SukiUI</RootNamespace>
@@ -17,57 +19,59 @@
     <PackageIcon>OIG.N5o-removebg-preview.png</PackageIcon>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Avalonia" />
-    <PackageReference Include="Avalonia.Skia" />
-    <PackageReference Include="SkiaSharp" />
-    <PackageReference Include="SkiaSharp.NativeAssets.Linux" />
-    <PackageReference Include="Avalonia.Controls.DataGrid" />
-    <PackageReference Include="Avalonia.Controls.ColorPicker" />
-    <PackageReference Include="Avalonia.Themes.Simple" />
-    <PackageReference Include="System.Linq.Dynamic.Core" />
-    <PackageReference Include="System.Text.Json" />
-  </ItemGroup>
-
+  <PropertyGroup>
+    <AvaloniaUseCompiledBindingsByDefault>True</AvaloniaUseCompiledBindingsByDefault>
+  </PropertyGroup>
 
   <ItemGroup>
-    <AvaloniaResource Include="**\*.xaml" />
-    <AvaloniaResource Include="Content\Images\icons8-file-explorer-new-48.png" />
-    <None Remove="CustomFont\MiSans\MiSansLatin-Bold.ttf" />
-
-    <None Remove="CustomFont\MiSans\MiSansLatin-Demibold.ttf" />
-    <None Remove="CustomFont\MiSans\MiSansLatin-ExtraLight.ttf" />
-    <None Remove="CustomFont\MiSans\MiSansLatin-Heavy.ttf" />
-    <None Remove="CustomFont\MiSans\MiSansLatin-Light.ttf" />
-    <None Remove="CustomFont\MiSans\MiSansLatin-Medium.ttf" />
-    <None Remove="CustomFont\MiSans\MiSansLatin-Normal.ttf" />
-    <None Remove="CustomFont\MiSans\MiSansLatin-Regular.ttf" />
-    <None Remove="CustomFont\MiSans\MiSansLatin-Semibold.ttf" />
-    <None Remove="CustomFont\MiSans\MiSansLatin-Thin.ttf" />
+    <PackageReference Include="Avalonia"/>
+    <PackageReference Include="Avalonia.Skia"/>
+    <PackageReference Include="SkiaSharp"/>
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux"/>
+    <PackageReference Include="Avalonia.Controls.DataGrid"/>
+    <PackageReference Include="Avalonia.Controls.ColorPicker"/>
+    <PackageReference Include="Avalonia.Themes.Simple"/>
+    <PackageReference Include="System.Linq.Dynamic.Core"/>
   </ItemGroup>
 
   <ItemGroup>
-    <AvaloniaResource Include="Roboto-Regular.ttf" />
-    <AvaloniaResource Include="Roboto-Medium.ttf" />
-    <AvaloniaResource Include="CustomFont\Quicksand-Bold.ttf" />
-    <AvaloniaResource Include="CustomFont\Quicksand-Light.ttf" />
-    <AvaloniaResource Include="CustomFont\Quicksand-Medium.ttf" />
-    <AvaloniaResource Include="CustomFont\Quicksand-Regular.ttf" />
-    <AvaloniaResource Include="CustomFont\Quicksand-SemiBold.ttf" />
+    <AvaloniaResource Include="**\*.xaml"/>
+    <AvaloniaResource Include="Content\Images\icons8-file-explorer-new-48.png"/>
+    <None Remove="CustomFont\MiSans\MiSansLatin-Bold.ttf"/>
+
+    <None Remove="CustomFont\MiSans\MiSansLatin-Demibold.ttf"/>
+    <None Remove="CustomFont\MiSans\MiSansLatin-ExtraLight.ttf"/>
+    <None Remove="CustomFont\MiSans\MiSansLatin-Heavy.ttf"/>
+    <None Remove="CustomFont\MiSans\MiSansLatin-Light.ttf"/>
+    <None Remove="CustomFont\MiSans\MiSansLatin-Medium.ttf"/>
+    <None Remove="CustomFont\MiSans\MiSansLatin-Normal.ttf"/>
+    <None Remove="CustomFont\MiSans\MiSansLatin-Regular.ttf"/>
+    <None Remove="CustomFont\MiSans\MiSansLatin-Semibold.ttf"/>
+    <None Remove="CustomFont\MiSans\MiSansLatin-Thin.ttf"/>
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="OIG.N5o-removebg-preview.png">
+    <AvaloniaResource Include="Roboto-Regular.ttf"/>
+    <AvaloniaResource Include="Roboto-Medium.ttf"/>
+    <AvaloniaResource Include="CustomFont\Quicksand-Bold.ttf"/>
+    <AvaloniaResource Include="CustomFont\Quicksand-Light.ttf"/>
+    <AvaloniaResource Include="CustomFont\Quicksand-Medium.ttf"/>
+    <AvaloniaResource Include="CustomFont\Quicksand-Regular.ttf"/>
+    <AvaloniaResource Include="CustomFont\Quicksand-SemiBold.ttf"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\Images\OIG.N5o-removebg-preview.png" Link="OIG.N5o-removebg-preview.png">
       <Pack>True</Pack>
-      <PackagePath />
-    </None>
+      <PackagePath/>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
-    <UpToDateCheckInput Remove="Controls\TouchInput\TouchKeyboard\TouchKeyboard.axaml" />
-    <UpToDateCheckInput Remove="Controls\TouchInput\TouchKeyboard\TouchKeyboardPopUp.axaml" />
-    <UpToDateCheckInput Remove="Controls\TouchInput\TouchNumericPad\NumericPadPopUp.axaml" />
-    <UpToDateCheckInput Remove="Controls\TouchInput\TouchNumericPad\TouchNumericPad.axaml" />
+    <UpToDateCheckInput Remove="Controls\TouchInput\TouchKeyboard\TouchKeyboard.axaml"/>
+    <UpToDateCheckInput Remove="Controls\TouchInput\TouchKeyboard\TouchKeyboardPopUp.axaml"/>
+    <UpToDateCheckInput Remove="Controls\TouchInput\TouchNumericPad\NumericPadPopUp.axaml"/>
+    <UpToDateCheckInput Remove="Controls\TouchInput\TouchNumericPad\TouchNumericPad.axaml"/>
   </ItemGroup>
 
   <ItemGroup>
@@ -91,24 +95,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Content\Shaders\Background\bubblestrong.sksl" />
-    <EmbeddedResource Include="Content\Shaders\Background\cells.sksl" />
-    <EmbeddedResource Include="Content\Shaders\Background\flat.sksl" />
-    <EmbeddedResource Include="Content\Shaders\Background\bubble.sksl" />
-    <EmbeddedResource Include="Content\Shaders\Background\waves.sksl" />
-    <EmbeddedResource Include="Content\Shaders\Loading\glow.sksl" />
-    <EmbeddedResource Include="Content\Shaders\Loading\pellets.sksl" />
-    <None Remove="Content\Shaders\Background\gradient.sksl" />
-    <EmbeddedResource Include="Content\Shaders\Background\gradient.sksl" />
-    <None Remove="Content\Shaders\Loading\simple.sksl" />
-    <EmbeddedResource Include="Content\Shaders\Loading\simple.sksl" />
-    <None Remove="Content\Shaders\Background\gradientsoft.sksl" />
-    <EmbeddedResource Include="Content\Shaders\Background\gradientsoft.sksl" />
-    <None Remove="Content\Shaders\Background\gradientdarker.sksl" />
-    <EmbeddedResource Include="Content\Shaders\Background\gradientdarker.sksl" />
-    <None Remove="Content\Shaders\Background\backgroundshadcn.sksl" />
-    <EmbeddedResource Include="Content\Shaders\Background\backgroundshadcn.sksl" />
+    <EmbeddedResource Include="Content\Shaders\Background\bubblestrong.sksl"/>
+    <EmbeddedResource Include="Content\Shaders\Background\cells.sksl"/>
+    <EmbeddedResource Include="Content\Shaders\Background\flat.sksl"/>
+    <EmbeddedResource Include="Content\Shaders\Background\bubble.sksl"/>
+    <EmbeddedResource Include="Content\Shaders\Background\waves.sksl"/>
+    <EmbeddedResource Include="Content\Shaders\Loading\glow.sksl"/>
+    <EmbeddedResource Include="Content\Shaders\Loading\pellets.sksl"/>
+    <None Remove="Content\Shaders\Background\gradient.sksl"/>
+    <EmbeddedResource Include="Content\Shaders\Background\gradient.sksl"/>
+    <None Remove="Content\Shaders\Loading\simple.sksl"/>
+    <EmbeddedResource Include="Content\Shaders\Loading\simple.sksl"/>
+    <None Remove="Content\Shaders\Background\gradientsoft.sksl"/>
+    <EmbeddedResource Include="Content\Shaders\Background\gradientsoft.sksl"/>
+    <None Remove="Content\Shaders\Background\gradientdarker.sksl"/>
+    <EmbeddedResource Include="Content\Shaders\Background\gradientdarker.sksl"/>
+    <None Remove="Content\Shaders\Background\backgroundshadcn.sksl"/>
+    <EmbeddedResource Include="Content\Shaders\Background\backgroundshadcn.sksl"/>
   </ItemGroup>
-
-  
 </Project>
