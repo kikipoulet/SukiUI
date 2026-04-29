@@ -1,6 +1,10 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+<<<<<<< HEAD
         x:CompileBindings="False"
+=======
+        xmlns:collections="using:Avalonia.Collections"
+>>>>>>> upstream/main
         xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=netstandard">
     <Design.PreviewWith>
         <Border Padding="20" Background="White">
@@ -230,7 +234,7 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Height" Value="32" />
         <Setter Property="Template">
-            <ControlTemplate>
+            <ControlTemplate x:DataType="collections:DataGridCollectionViewGroup">
                 <DataGridFrozenGrid Name="Root"
                                     Background="{TemplateBinding Background}"
                                     ColumnDefinitions="Auto,Auto,Auto,Auto"

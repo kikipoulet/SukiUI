@@ -1,7 +1,13 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+<<<<<<< HEAD
                     x:CompileBindings="False"
                     xmlns:dmc="clr-namespace:Dock.Model.Controls;assembly=Dock.Model">
+=======
+                    xmlns:dmc="clr-namespace:Dock.Model.Controls;assembly=Dock.Model"
+                    x:DataType="dmc:IRootDock"
+                    x:CompileBindings="True">
+>>>>>>> upstream/main
   <Design.PreviewWith>
     <Border>
       <PinnedDockControl />
@@ -9,15 +15,17 @@
   </Design.PreviewWith>
 
   <ControlTheme x:Key="{x:Type PinnedDockControl}" TargetType="PinnedDockControl">
+<<<<<<< HEAD
 
     <Setter Property="PinnedDockAlignment" Value="{Binding PinnedDock.Alignment}" />
 
+=======
+    <Setter Property="PinnedDockAlignment" Value="{CompiledBinding PinnedDock.Alignment}" />
+>>>>>>> upstream/main
     <Setter Property="Template">
       <ControlTemplate>
         <Grid Name="PART_PinnedDockGrid"
-              IsVisible="{Binding !PinnedDock.IsEmpty, FallbackValue=False}"
-              x:DataType="dmc:IRootDock"
-              x:CompileBindings="True">
+              IsVisible="{Binding !PinnedDock.IsEmpty, FallbackValue=False}">
           <ContentControl Content="{Binding PinnedDock}" Name="PART_PinnedDock">
             <ContentControl.Styles>
               <Style Selector="ToolDockControl">

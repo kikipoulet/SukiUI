@@ -1,13 +1,17 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:suki="https://github.com/kikipoulet/SukiUI">
     <Design.PreviewWith>
+        <Panel Background="LightGray">
         <TabControl Classes="Pill">
-            <TabItem Classes="Pill" Header="Test 1"></TabItem>
+            <TabItem Classes="Pill" Header="Test 1">
+                <Panel Height="200" Width="600"></Panel>
+            </TabItem>
             <TabItem Classes="Pill" Header="Test 2"></TabItem>
             <TabItem Classes="Pill" Header="Test 3"></TabItem>
             <TabItem Classes="Pill" Header="Test 4"></TabItem>
            
         </TabControl>
+        </Panel>
     </Design.PreviewWith>
     
 
@@ -40,6 +44,7 @@
         </Setter>
         
         <Style Selector="^.Pill">
+            <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
             <Setter Property="Template">
                 <ControlTemplate>
                     <Border HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
@@ -50,13 +55,13 @@
                             CornerRadius="{TemplateBinding CornerRadius}">
                         <DockPanel>
                             <LayoutTransformControl Name="PART_LayoutTransform" DockPanel.Dock="{TemplateBinding TabStripPlacement}">
-                                <suki:GlassCard CornerRadius="100" Padding="2,0">
+                                <suki:GlassCard HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" CornerRadius="100" Padding="2,0">
                                 <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
                                 </suki:GlassCard>
                             </LayoutTransformControl>
                             <ContentPresenter Name="PART_SelectedContentHost"
                                               Margin="{TemplateBinding Padding}"
-                                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              HorizontalContentAlignment="Stretch"
                                               VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                               Content="{TemplateBinding SelectedContent}"
                                               ContentTemplate="{TemplateBinding SelectedContentTemplate}" />

@@ -9,28 +9,26 @@
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
-
-    <!--  TODO inject these styles, so that one can customize them  -->
-	
+    <!--  TODO inject these styles, so that one can customize them  -->	
     <UserControl.Styles>
-        <Style Selector="TextBlock.Label">
+        <Style Selector="TextBlock.Label" x:DataType="controls:IPropertyViewModel">
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="FontSize" Value="14" />
-            <Setter Property="Text" Value="{Binding DisplayName}" />
+            <Setter Property="Text" Value="{CompiledBinding DisplayName}" />
             <Setter Property="Grid.Column" Value="0" />
             <Setter Property="TextAlignment" Value="Center" />
         </Style>
 
-        <Style Selector="NumericUpDown.NumberSelector">
+        <Style Selector="NumericUpDown.NumberSelector" x:DataType="controls:IPropertyViewModel">
             <Setter Property="HorizontalAlignment" Value="Right" /> 
             <Setter Property="MinWidth" Value="120"></Setter>
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="HorizontalContentAlignment" Value="Right" />
             <Setter Property="FontSize" Value="14" />
-            <Setter Property="Value" Value="{Binding Value}" />
+            <Setter Property="Value" Value="{CompiledBinding Value}" />
             <Setter Property="Grid.Column" Value="2" />
-            <Setter Property="IsReadOnly" Value="{Binding IsReadOnly}" />
+            <Setter Property="IsReadOnly" Value="{CompiledBinding IsReadOnly}" />
             <Setter Property="Height" Value="36" />
         </Style>
 

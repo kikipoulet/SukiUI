@@ -1,5 +1,8 @@
-﻿<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="using:Avalonia.Controls.Converters"
+                    xmlns:content="clr-namespace:SukiUI.Content"
+                    xmlns:theme="clr-namespace:SukiUI.Theme">
     <Design.PreviewWith>
         <Border MinWidth="200"
                 Padding="20"
@@ -18,14 +21,19 @@
                 <TreeViewItem Header="blub" />
             </TreeView>
         </Border>
-    </Design.PreviewWith>    
-
-<<<<<<< HEAD
-    <Styles.Resources>
-        <theme:LeftMarginConverter x:Key="LeftMarginConverter" />
-    </Styles.Resources>
-
-    <Style Selector="TreeViewItem">
+    </Design.PreviewWith>   
+    
+    <converters:MarginMultiplierConverter x:Key="LeftMarginConverter"
+                                          Indent="16"
+                                          Left="True"
+                                          Right="False"
+                                          Top="False"
+                                          Bottom="False"/>
+    
+    <ControlTheme x:Key="{x:Type TreeViewItem}" TargetType="TreeViewItem">
+        <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
+        <Setter Property="Margin" Value="1" />
+        <Setter Property="Padding" Value="5" />
         <Setter Property="Template">
             <ControlTemplate>
                 <StackPanel>
@@ -37,9 +45,7 @@
                             Focusable="True"
                             TemplatedControl.IsTemplateFocusTarget="True">
                         <Grid Name="PART_Header"
-                              Margin="{TemplateBinding Level,
-                                                       Mode=OneWay,
-                                                       Converter={StaticResource LeftMarginConverter}}"
+                              Margin="{TemplateBinding Level, Mode=OneWay, Converter={StaticResource LeftMarginConverter}}"
                               ColumnDefinitions="16, *">
                             <Grid.Styles>
                                 <Style Selector="ToggleButton:checked">
@@ -53,8 +59,7 @@
                                           Classes="Basic"
                                           Focusable="False"
                                           RenderTransformOrigin="65% 50%" 
-                                          IsChecked="{TemplateBinding IsExpanded,
-                                                                      Mode=TwoWay}">
+                                          IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}">
                                 <ToggleButton.Transitions>
                                     <Transitions>
                                         <TransformOperationsTransition Property="RenderTransform" Duration="0.25" />
@@ -82,19 +87,36 @@
                 </StackPanel>
             </ControlTemplate>
         </Setter>
-    </Style>
-
-    <Style Selector="TreeViewItem">
-        <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
-        <Setter Property="Margin" Value="1" />
-    </Style>
-=======
->>>>>>> upstream/main
-    <Style Selector="TreeView">
-        <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="BorderBrush" Value="#dedede" />
-        <Setter Property="Margin" Value="0" />
-        <Setter Property="Padding" Value="0" />
-    </Style>
-</Styles>
+        
+        <!--  PointerOver state  -->
+        <Style Selector="^ /template/ Border#SelectionBorder:pointerover">
+            <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
+        </Style>
+        <Style Selector="^ /template/ Border#SelectionBorder:pointerover > ContentPresenter#PART_HeaderPresenter">
+            <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrush}" />
+        </Style>
+        
+        <!--  Selected state  -->
+        <Style Selector="^:selected /template/ Border#SelectionBorder">
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
+        </Style>
+        <Style Selector="^:selected /template/ Border#SelectionBorder > ContentPresenter#PART_HeaderPresenter">
+            <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrush}" />
+        </Style>
+        
+        <!--  Selected PointerOver state  -->
+        <Style Selector="^:selected /template/ Border#SelectionBorder:pointerover">
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
+        </Style>
+        <Style Selector="^:selected /template/ Border#SelectionBorder:pointerover > ContentPresenter#PART_HeaderPresenter">
+            <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrush}" />
+        </Style>
+        
+        <Style Selector="^:empty /template/ ToggleButton#PART_ExpandCollapseChevron">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <Style Selector="^[IsExpanded=True] /template/ ToggleButton#PART_ExpandCollapseChevron">
+            <Setter Property="RenderTransform" Value="rotate(90deg)" />
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>

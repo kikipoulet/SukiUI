@@ -6,9 +6,10 @@
              xmlns:suki="https://github.com/kikipoulet/SukiUI"
              x:CompileBindings="False"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="SukiUI.Controls.Touch.MobilePicker.MobilePickerPopUp">
+             x:Class="SukiUI.Controls.Touch.MobilePicker.MobilePickerPopUp"
+             x:DataType="mobilePicker:MobilePickerPopUpViewModel">
  <UserControl.Styles>
-          <Style Selector="ListBoxItem">
+     <Style Selector="ListBoxItem">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Padding" Value="4,2" />
         <Setter Property="Template">
@@ -56,36 +57,25 @@
     </Style>
  </UserControl.Styles>
     <UserControl.DataContext>
-        <mobilePicker:MobilePickerPopUpVM />
+        <mobilePicker:MobilePickerPopUpViewModel />
     </UserControl.DataContext>
     <Border ClipToBounds="True" Padding="5" CornerRadius="0" >
-
         <Border 
             HorizontalAlignment="Center"
             Name="rootBorder" Width="450"
-            VerticalAlignment="Center"
-        >
-        
-        
-       
+            VerticalAlignment="Center">
             <StackPanel>
-           
-
                 <Grid Margin="0,0,0,38" VerticalAlignment="Center">
                     <ListBox Background="{DynamicResource CWhite-}" CornerRadius="20"
-                             ItemsSource="{Binding Items}"
+                             ItemsSource="{CompiledBinding Items}"
                              MaxHeight="600"
                              MinHeight="200"
-                             SelectedItem="{Binding SelectedItem}"
+                             SelectedItem="{CompiledBinding SelectedItem}"
                              VerticalAlignment="Center" />
                 </Grid>
 
-                <Button  Content="Done" Margin="0" Classes="Enormous Flat" Click="DoneClick">
-                 
-                </Button>
-
-            </StackPanel>
-        
+                <Button Content="Done" Margin="0" Classes="Enormous Flat" Click="DoneClick"/>
+            </StackPanel>        
         </Border>
     </Border>
 </UserControl>

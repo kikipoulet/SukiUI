@@ -6,7 +6,7 @@ SukiUI 提供了多种样式的按钮，并支持添加主题色
 
 ### Standard
 
-<img src="https://sleekshot.app/api/download/wWleWLZYWqR6" width="200px" />
+![button-standard](/controls/inputs/button-standard.png)
 
 ```xml
 <Button Content="Button" ></Button>
@@ -14,7 +14,7 @@ SukiUI 提供了多种样式的按钮，并支持添加主题色
 
 ### Flat
 
-<img src="https://sleekshot.app/api/download/tYN4eE9SLoot" width="200px" />
+![button-flat](/controls/inputs/button-flat.png)
 
 ```xml
 <Button Content="Button" Classes="Flat" ></Button>
@@ -22,7 +22,7 @@ SukiUI 提供了多种样式的按钮，并支持添加主题色
 
 ### Rounded
 
-<img src="https://sleekshot.app/api/download/zKfpsqmZzaHV" width="200px" />
+![button-flat-rounded](/controls/inputs/button-flat-rounded.png)
 
 ```xml
 <Button Content="Button" Classes="Flat Rounded" ></Button>
@@ -30,7 +30,7 @@ SukiUI 提供了多种样式的按钮，并支持添加主题色
 
 ### Outlined
 
-<img src="https://sleekshot.app/api/download/uVA8CTxZ989L" width="200px" />
+![button-outlined](/controls/inputs/button-outlined.png)
 
 ```xml
 <Button Content="Button" Classes="Outlined" ></Button>
@@ -38,7 +38,7 @@ SukiUI 提供了多种样式的按钮，并支持添加主题色
 
 ### Basic
 
-<img src="https://sleekshot.app/api/download/KTKtsjlVKsth" width="200px" />
+![button-basic](/controls/inputs/button-basic.png)
 
 ```xml
 <Button Content="Button" Classes="Basic" ></Button>
@@ -46,7 +46,7 @@ SukiUI 提供了多种样式的按钮，并支持添加主题色
 
 ### Flat Accent
 
-<img src="https://sleekshot.app/api/download/vGFvTPZG1E8i" width="200px" />
+![button-flat-accent](/controls/inputs/button-flat-accent.png)
 
 ```xml
 <Button Content="Button" Classes="Flat Accent" ></Button>
@@ -54,7 +54,7 @@ SukiUI 提供了多种样式的按钮，并支持添加主题色
 
 ### Large
 
-<img src="https://sleekshot.app/api/download/LiWhO4edwZi3" width="200px" />
+![button-large](/controls/inputs/button-large.png)
 
 ```xml
 <Button Content="Button" Classes="Flat Large" ></Button>

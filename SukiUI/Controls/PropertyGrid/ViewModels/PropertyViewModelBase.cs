@@ -25,7 +25,30 @@ namespace SukiUI.Controls
         object? IPropertyViewModel.Value
         {
             get => Value;
-            set => Value = (T?)value;
+            set
+            {
+                switch (value)
+                {
+                    case null:
+                        Value = default;
+                        break;
+                    case T typedValue:
+                        Value = typedValue;
+                        break;
+                    default:
+                    {
+                        var targetType = Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
+                        if (!targetType.IsPrimitive)
+                        {
+                            throw new InvalidOperationException(
+                                $"Unsupported conversion from {value.GetType()} to {targetType}");
+                        }
+
+                        Value = (T?)Convert.ChangeType(value, targetType);
+                        break;
+                    }
+                }
+            }
         }
 
         public string DisplayName { get; }
