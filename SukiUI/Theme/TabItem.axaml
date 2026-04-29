@@ -2,26 +2,18 @@
     <Design.PreviewWith>
         <Border Width="400" Height="400">
             <Panel>
-                <TabControl Classes="Pill" Margin="0,0,0,200" >
-                    <TabItem Classes="Pill" Header="Arch">
+                <TabControl Margin="0,0,0,200" TabStripPlacement="Bottom">
+                    <TabItem Header="Arch">
                         <Border Height="100" Background="AntiqueWhite">
                             <TextBlock FontSize="20"
                                        Foreground="Black"
                                        Text="Content" />
                         </Border>
                     </TabItem>
-                    <TabItem Classes="Pill" Header="Leaf">
+                    <TabItem Header="Leaf">
                         <Border Height="100" Background="Green" />
                     </TabItem>
-                    <TabItem Classes="Pill" Header="Leaf">
-                        <Border Height="100" Background="Green" />
-                    </TabItem>
-                    <TabItem Classes="Pill" Header="Leaf">
-                        <Border Height="100" Background="Green" />
-                    </TabItem>
-                    <TabItem Classes="Pill" Header="Leaf">
-                        <Border Height="100" Background="Green" />
-                    </TabItem>
+                    <TabItem Header="Disabled" IsEnabled="False" />
                 </TabControl>
             </Panel>
         </Border>
@@ -75,52 +67,6 @@
                 </Border>
             </ControlTemplate>
         </Setter>
-        
-        <Style Selector="^.Pill">
-            <Setter Property="FontSize" Value="50" />
-            <Setter Property="FontWeight" Value="Bold" />
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Margin" Value="0" />
-            <Setter Property="CornerRadius" Value="100"></Setter>
-            <Setter Property="Padding" Value="8,4"></Setter>
-            <Setter Property="MinHeight" Value="{DynamicResource TabItemMinHeight}" />
-            <Setter Property="VerticalContentAlignment" Value="Center" />
-            <Setter Property="Template">
-            <ControlTemplate>
-                <Border Name="PART_LayoutRoot" 
-                        Margin="5,6,5,4" VerticalAlignment="Center"
-                        Padding="{TemplateBinding Padding}"
-                        Background="Transparent"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="100">
-                    <Border.Transitions>
-                        <Transitions>
-                            <ThicknessTransition Property="Padding" Duration="0:0:0.4" ></ThicknessTransition>
-                        </Transitions>
-                    </Border.Transitions>
-               
-                    <ContentPresenter Name="PART_HeaderPresenter"
-                                      Padding="0,5"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                      HorizontalContentAlignment="Center"
-                                      Content="{TemplateBinding Header}"
-                                      ContentTemplate="{TemplateBinding HeaderTemplate}"
-                                      TextBlock.FontFamily="{TemplateBinding FontFamily}"
-                                      TextBlock.FontSize="{TemplateBinding FontSize}"
-                                      TextBlock.FontWeight="{TemplateBinding FontWeight}">
-                            <ContentPresenter.Transitions>
-                                <Transitions>
-                                    <BrushTransition Property="Foreground" Duration="0:0:0.1" />
-                                </Transitions>
-                            </ContentPresenter.Transitions>
-                        </ContentPresenter>
-                    
-                </Border>
-            </ControlTemplate>
-        </Setter>
-        </Style>
 
         <Style Selector="^:selected /template/ Border#PART_Underline">
             <Setter Property="Opacity" Value="1" />
@@ -145,19 +91,6 @@
             </Style>
             <Style Selector="^ /template/ Border#PART_SelectedPipe">
                 <Setter Property="Opacity" Value="1" />
-            </Style>
-        </Style>
-        
-        <Style Selector="^.Pill:selected">
-            <Setter Property="Padding" Value="16,4"></Setter>
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
-            <Style Selector="^ /template/ ContentPresenter#PART_HeaderPresenter">
-                <Setter Property="TextBlock.Foreground" Value="White" />
-            </Style>
-            <Style Selector="^ /template/ Border#PART_LayoutRoot">
-                <Setter Property="Opacity" Value="1" />
-                <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}"></Setter>
             </Style>
         </Style>
 

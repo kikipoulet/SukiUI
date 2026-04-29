@@ -89,7 +89,7 @@ public partial class MobilePicker : UserControl
     {
         var control = new MobilePickerPopUp(DialogManager);
 
-        var vm = ((MobilePickerPopUpViewModel) control.DataContext);
+        var vm = ((MobilePickerPopUpVM)control.DataContext);
         vm.Items = Items;
         vm.SelectedItem = SelectedItem;
  

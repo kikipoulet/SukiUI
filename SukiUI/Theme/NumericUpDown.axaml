@@ -4,28 +4,23 @@
                     xmlns:system="clr-namespace:System;assembly=netstandard">
     <!--  Add Resources Here  -->
     <Design.PreviewWith>
-        <Border Padding="20"
-                Width="400">
+        <Border Padding="20">
             <Border.Styles>
                 <Style Selector="NumericUpDown">
                     <Setter Property="Width" Value="300" />
                 </Style>
             </Border.Styles>
             <StackPanel Orientation="Vertical" Spacing="5">
+
                 <NumericUpDown IsReadOnly="True"
                                ShowButtonSpinner="False"
-                               HorizontalAlignment="Left"
                                Value="120" />
-                <NumericUpDown IsEnabled="False"                               
-                               HorizontalAlignment="Right"
-                               Value="120" />
+                <NumericUpDown IsEnabled="False" Value="120" />
                 <NumericUpDown suki:NumericUpDownExtensions.ResetText="100"
                                AllowSpin="False"
-                               HorizontalAlignment="Center"
                                Value="120" />
                 <NumericUpDown Height="64"
                                suki:NumericUpDownExtensions.UseFloatingWatermark="True"
-                               HorizontalAlignment="Stretch"
                                Increment="0.05"
                                Watermark="Large height"
                                Value="120" />
@@ -165,7 +160,6 @@
                 <suki:GlassCard Name="PART_GlassCard"
                                 Padding="0"
                                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                                Width="{TemplateBinding Width}"
                                 VerticalAlignment="{TemplateBinding VerticalAlignment}"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
@@ -237,7 +231,6 @@
                                             <TemplateBinding Property="suki:NumericUpDownExtensions.ResetText" />
                                         </MultiBinding>
                                     </ToolTip.Tip>
-
                                     <PathIcon Width="16"
                                               Height="16"
                                               Margin="0"
@@ -252,6 +245,7 @@
                                                   IsVisible="{TemplateBinding suki:NumericUpDownExtensions.Unit, Converter={x:Static ObjectConverters.IsNotNull}}" />
                             </StackPanel>
                         </Grid>
+
                     </ButtonSpinner>
                 </suki:GlassCard>
             </ControlTemplate>
@@ -274,4 +268,5 @@
     <ControlTheme x:Key="{x:Type NumericUpDown}"
                   BasedOn="{StaticResource SukiNumericUpDown}"
                   TargetType="NumericUpDown" />
+
 </ResourceDictionary>

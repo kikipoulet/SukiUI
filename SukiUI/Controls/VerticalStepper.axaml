@@ -255,14 +255,7 @@
     <ControlTheme x:Key="SukiVerticalStepperStyle" TargetType="controls:VerticalStepper">
         <Setter Property="Template">
             <ControlTemplate>
-                <ScrollViewer Name="PART_ScrollViewer"
-                              VerticalScrollBarVisibility="Hidden"
-                              HorizontalScrollBarVisibility="Disabled">
-                    <StackPanel>
-                        <Border Height="{TemplateBinding OffsetHeight}" />
-                        <ItemsControl Name="PART_ItemsControl" />
-                    </StackPanel>
-                </ScrollViewer>
+                <ItemsControl Name="PART_ItemsControl" />
             </ControlTemplate>
         </Setter>
     </ControlTheme>

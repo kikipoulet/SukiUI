@@ -6,58 +6,58 @@ SukiUI has a handful of button styles, available in both the standard primary co
 
 ### Standard
 
-![button-standard](/controls/inputs/button-standard.png)
+<img src="https://sleekshot.app/api/download/wWleWLZYWqR6" width="200px" />
 
 ```xml
-<Button Content="Button"></Button>
+<Button Content="Button" ></Button>
 ```
 
 ### Flat
 
-![button-flat](/controls/inputs/button-flat.png)
+<img src="https://sleekshot.app/api/download/tYN4eE9SLoot" width="200px" />
 
 ```xml
-<Button Content="Button" Classes="Flat"></Button>
+<Button Content="Button" Classes="Flat" ></Button>
 ```
 
 ### Rounded
 
-![button-flat-rounded](/controls/inputs/button-flat-rounded.png)
+<img src="https://sleekshot.app/api/download/zKfpsqmZzaHV" width="200px" />
 
 ```xml
-<Button Content="Button" Classes="Flat Rounded"></Button>
+<Button Content="Button" Classes="Flat Rounded" ></Button>
 ```
 
 ### Outlined
 
-![button-outlined](/controls/inputs/button-outlined.png)
+<img src="https://sleekshot.app/api/download/uVA8CTxZ989L" width="200px" />
 
 ```xml
-<Button Content="Button" Classes="Outlined"></Button>
+<Button Content="Button" Classes="Outlined" ></Button>
 ```
 
 ### Basic
 
-![button-basic](/controls/inputs/button-basic.png)
+<img src="https://sleekshot.app/api/download/KTKtsjlVKsth" width="200px" />
 
 ```xml
-<Button Content="Button" Classes="Basic"></Button>
+<Button Content="Button" Classes="Basic" ></Button>
 ```
 
 ### Flat Accent
 
-![button-flat-accent](/controls/inputs/button-flat-accent.png)
+<img src="https://sleekshot.app/api/download/vGFvTPZG1E8i" width="200px" />
 
 ```xml
-<Button Content="Button" Classes="Flat Accent"></Button>
+<Button Content="Button" Classes="Flat Accent" ></Button>
 ```
 
 ### Large
 
-![button-large](/controls/inputs/button-large.png)
+<img src="https://sleekshot.app/api/download/LiWhO4edwZi3" width="200px" />
 
 ```xml
-<Button Content="Button" Classes="Flat Large"></Button>
+<Button Content="Button" Classes="Flat Large" ></Button>
 ```
 
 ## Busy/Loading Button

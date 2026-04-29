@@ -1,17 +1,14 @@
 ﻿<UserControl x:Class="SukiUI.Demo.Features.Helpers.SpringEasing"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:animations="clr-namespace:SukiUI.Animations;assembly=SukiUI"
-             xmlns:avalonia="clr-namespace:LiveChartsCore.SkiaSharpView.Avalonia;assembly=LiveChartsCore.SkiaSharpView.Avalonia"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:helpers="clr-namespace:SukiUI.Demo.Features.Helpers"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:skiaSharpView="clr-namespace:LiveChartsCore.SkiaSharpView;assembly=LiveChartsCore.SkiaSharpView"
              xmlns:suki="https://github.com/kikipoulet/SukiUI"
-             xmlns:system="clr-namespace:System;assembly=System.Runtime"
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
+    <!-- Avalonia 12 migration note:
+         Original LiveCharts-based implementation restored from git history and kept commented for easier recovery.
     <DockPanel Margin="50">
 
         <StackPanel Margin="0,0,25,0"
@@ -42,8 +39,6 @@
                                    FontSize="16"
                                    FontWeight="DemiBold"
                                    Text="Damping" />
-
-
                     </DockPanel>
                     <DockPanel>
                         <NumericUpDown Name="StiffnessBox"
@@ -56,8 +51,6 @@
                                    FontSize="16"
                                    FontWeight="DemiBold"
                                    Text="Stiffness" />
-
-
                     </DockPanel>
 
                     <WrapPanel Orientation="Horizontal">
@@ -68,7 +61,6 @@
                                 Click="SetSmooth"
                                 Content="Smooth" />
                     </WrapPanel>
-
                 </StackPanel>
             </suki:GlassCard>
 
@@ -82,8 +74,6 @@
         </StackPanel>
 
         <StackPanel Spacing="20">
-
-
             <suki:GlassCard>
                 <avalonia:CartesianChart Name="MyChart"
                                          Height="500"
@@ -93,7 +83,17 @@
             </suki:GlassCard>
         </StackPanel>
     </DockPanel>
+    -->
 
-
-
+    <Grid Margin="50">
+        <suki:GlassCard Padding="24">
+            <StackPanel Spacing="12">
+                <TextBlock FontSize="20"
+                           FontWeight="SemiBold"
+                           Text="Spring Easing demo unavailable" />
+                <TextBlock TextWrapping="Wrap"
+                           Text="This example depended on LiveChartsCore.SkiaSharpView.Avalonia, which does not currently provide a stable Avalonia 12-compatible package. The demo entry has been disabled as part of the Avalonia 12 upgrade." />
+            </StackPanel>
+        </suki:GlassCard>
+    </Grid>
 </UserControl>

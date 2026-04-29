@@ -92,6 +92,8 @@
                 </suki:SukiSideMenuItem.PageContent>
             </suki:SukiSideMenuItem>
 
+            <!-- Avalonia 12 migration note:
+                 Restored from git history and intentionally kept commented because LiveChartsCore.SkiaSharpView.Avalonia is still disabled.
             <suki:SukiSideMenuItem Classes="Compact" Header="Spring Easing">
                 <suki:SukiSideMenuItem.Icon>
                     <PathIcon
@@ -109,6 +111,7 @@
                     </ScrollViewer>
                 </suki:SukiSideMenuItem.PageContent>
             </suki:SukiSideMenuItem>
+            -->
 
             <!-- <suki:SukiSideMenuItem Classes="Compact" Header="Organic Move">
                 <suki:SukiSideMenuItem.Icon>

@@ -13,8 +13,7 @@
     <PackageReference Include="Avalonia.Controls.ColorPicker" />
     <PackageReference Include="Avalonia.Desktop" />
     <PackageReference Include="Avalonia.Fonts.Inter" />
-    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" />
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="AvaloniaUI.DiagnosticsSupport" />
     <PackageReference Include="Avalonia.LinuxFramebuffer" />
     <PackageReference Include="Avalonia.Themes.Fluent" />
     <PackageReference Include="AvaloniaEdit.TextMate" />
@@ -26,7 +25,6 @@
     <PackageReference Include="Dock.Serializer.SystemTextJson" />
     <PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" />
     <PackageReference Include="Material.Icons.Avalonia" />
-    <PackageReference Include="Markdown.Avalonia" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
     <PackageReference Include="ShowMeTheXaml.Avalonia" />
     <PackageReference Include="ShowMeTheXaml.Avalonia.Generator" />

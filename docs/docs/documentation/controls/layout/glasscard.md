@@ -6,11 +6,11 @@ A simple Card control that can present any control inside.
 
 ### Dark Theme
 
-![standard-dark](/controls/layout/glass-card-standard-dark.png)
+<img src="https://sleekshot.app/api/download/GfUS8bUZT6TQ"/>
 
 ### Light Theme
 
-![standard-light](/controls/layout/glass-card-standard-light.png)
+<img src="https://sleekshot.app/api/download/M1xlZe6nmF72"/>
 
 ```xml
 <GlassCard>
@@ -22,7 +22,7 @@ A simple Card control that can present any control inside.
 
 ### Primary
 
-![primary](/controls/layout/glass-card-primary.png)
+<img src="https://sleekshot.app/api/download/DC48QzG5R1XT"/>
 
 ```xml
 <GlassCard Classes="Primary">
@@ -32,7 +32,7 @@ A simple Card control that can present any control inside.
 
 ### Accent
 
-![accent](/controls/layout/glass-card-accent.png)
+<img src="https://sleekshot.app/api/download/cclRRlzglCB8"/>
 
 ```xml
 <GlassCard Classes="Accent">
@@ -42,7 +42,7 @@ A simple Card control that can present any control inside.
 
 ### Opaque
 
-![opaque](/controls/layout/glass-card-opaque.png)
+<img src="https://sleekshot.app/api/download/MW4zpqNj9FLK"/>
 
 ```xml
 <GlassCard IsOpaque="True">

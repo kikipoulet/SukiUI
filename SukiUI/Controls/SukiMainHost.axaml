@@ -35,17 +35,7 @@
                 <Border Background="Transparent"
                         ClipToBounds="True"
                         CornerRadius="{TemplateBinding CornerRadius}">
-                    <VisualLayerManager Name="PART_VisualLayerManager" IsHitTestVisible="True">
-                        <VisualLayerManager.ChromeOverlayLayer>
-                            <!-- <suki:SukiHost /> -->
-                            <ItemsControl ItemsSource="{Binding Hosts, RelativeSource={RelativeSource AncestorType={x:Type suki:SukiMainHost}}}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <Panel />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                            </ItemsControl>
-                        </VisualLayerManager.ChromeOverlayLayer>
+                    <Grid IsHitTestVisible="True">
                         <Panel Name="PART_Root">
                             <!--  Margin -100 is there to exclude the unwanted bright corners  -->
                             <suki:SukiBackground Name="PART_Background"
@@ -63,7 +53,6 @@
                                     IsVisible="{DynamicResource IsLight}"
                                     Opacity="0.1" />
 
-
                             <ContentPresenter x:Name="PART_ContentPresenter"
                                               Margin="{TemplateBinding Padding}"
                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -78,7 +67,16 @@
                                               CornerRadius="{TemplateBinding CornerRadius}"
                                               IsHitTestVisible="True" />
                         </Panel>
-                    </VisualLayerManager>
+
+                        <ItemsControl ZIndex="1"
+                                      ItemsSource="{Binding Hosts, RelativeSource={RelativeSource AncestorType={x:Type suki:SukiMainHost}}}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Panel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </Grid>
                 </Border>
             </ControlTemplate>
         </Setter>

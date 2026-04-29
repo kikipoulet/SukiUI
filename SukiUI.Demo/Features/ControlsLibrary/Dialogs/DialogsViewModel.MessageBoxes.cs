@@ -98,6 +98,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary.Dialogs
                 .Queue();
         }
 
+        /*
         [RelayCommand]
         private async Task OpenCustomMarkdownMessageBox()
         {
@@ -171,6 +172,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary.Dialogs
                 .Dismiss().After(TimeSpan.FromSeconds(3))
                 .Queue();
         }
+        */
 
         [RelayCommand]
         private async Task OpenAnimatedHeaderMessageBox()

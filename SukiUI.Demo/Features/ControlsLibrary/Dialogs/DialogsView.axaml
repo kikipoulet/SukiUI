@@ -162,6 +162,8 @@
                                 </suki:GroupBox>
                             </suki:GlassCard>
 
+                            <!-- Avalonia 12 migration note:
+                                 Restored from git history and intentionally kept commented because Markdown.Avalonia is still disabled.
                             <suki:GlassCard Width="250">
                                 <suki:GroupBox Header="Custom Markdown">
                                     <StackPanel Spacing="10">
@@ -175,6 +177,7 @@
                                     </StackPanel>
                                 </suki:GroupBox>
                             </suki:GlassCard>
+                            -->
 
                             <suki:GlassCard Width="250">
                                 <suki:GroupBox Header="Animated Header">

@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="clr-namespace:Dock.Model.Controls;assembly=Dock.Model"
-                    x:DataType="controls:IRootDock"
-                    x:CompileBindings="True">
+                    xmlns:chrome="clr-namespace:Avalonia.Controls.Chrome;assembly=Avalonia.Controls"
+                    xmlns:core="using:Dock.Model.Core"
+                    xmlns:controls="clr-namespace:Dock.Model.Controls;assembly=Dock.Model">
   <Design.PreviewWith>
     <HostWindow IsToolWindow="False" Width="300" Height="400" />
   </Design.PreviewWith>
@@ -14,12 +14,9 @@
     <Setter Property="(TextElement.FontSize)" Value="{DynamicResource DockFontSizeNormal}" />
     <!-- <Setter Property="FontFamily" Value="{TemplateBinding FontFamily}" /> -->
     <Setter Property="TextBlock.Foreground" Value="{DynamicResource DockThemeForegroundBrush}" />
-    <Setter Property="WindowState" Value="Normal" />
     <Setter Property="UseLayoutRounding" Value="True" />
-    <Setter Property="Title" Value="{Binding ActiveDockable.Title}" />
-    <Setter Property="Topmost" Value="{Binding Window.Topmost}" />
-    <Setter Property="ExtendClientAreaChromeHints" Value="NoChrome"/>
-    <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="-1"/>
+    <Setter Property="WindowDecorations" Value="None" />
+    <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
     <Setter Property="Template">
       <ControlTemplate>
         <Panel>
@@ -34,8 +31,8 @@
                 <Panel Margin="0">
                   <Panel.Background>
                     <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
-                      <GradientStop Color="{DynamicResource SukiAccentColor5}" Offset="0" />
-                      <GradientStop Color="{DynamicResource SukiPrimaryColor5}" Offset="1" />
+                      <GradientStop Color="{DynamicResource SukiAccentColor5}" Offset="0"></GradientStop>
+                      <GradientStop Color="{DynamicResource SukiPrimaryColor5}" Offset="1"></GradientStop>
                     </LinearGradientBrush>
                   </Panel.Background>
                 </Panel>
@@ -45,17 +42,18 @@
           <Border Name="PART_TransparencyFallback" IsHitTestVisible="False" />
           <Border Background="{TemplateBinding Background}" IsHitTestVisible="False" />
           <Panel Background="Transparent" Margin="{TemplateBinding WindowDecorationMargin}" />
-          <VisualLayerManager>
-            <VisualLayerManager.ChromeOverlayLayer>
-              <HostWindowTitleBar Name="PART_TitleBar" />
-            </VisualLayerManager.ChromeOverlayLayer>
+          <Grid RowDefinitions="Auto,*">
+            <HostWindowTitleBar Name="PART_TitleBar"
+                                Grid.Row="0"
+                                chrome:WindowDecorationProperties.ElementRole="TitleBar" />
             <ContentPresenter Name="PART_ContentPresenter"
+                              Grid.Row="1"
                               ContentTemplate="{TemplateBinding ContentTemplate}"
                               Content="{TemplateBinding Content}"
                               Margin="{TemplateBinding Padding}"
                               HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                               VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
-          </VisualLayerManager>
+          </Grid>
         </Panel>
       </ControlTemplate>
     </Setter>
@@ -64,7 +62,9 @@
       <Template>
         <Panel Margin="{Binding $parent[HostWindow].OffScreenMargin}">
           <Panel Margin="{Binding $parent[HostWindow].WindowDecorationMargin}">
-            <DockControl Layout="{Binding}" />
+            <DockControl Layout="{Binding}"
+                         x:DataType="core:IHostWindow"
+                         x:CompileBindings="True" />
           </Panel>
         </Panel>
       </Template>
