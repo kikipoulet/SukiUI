@@ -7,9 +7,13 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <!--  Tiny margin helps prevent mouse-over immediately  -->
-                <LayoutTransformControl Name="PART_LayoutTransform"
-                                        Margin="1,0,0,0"
-                                        RenderTransformOrigin="0%, 0%">
+                <Border Name="PART_LayoutTransform"
+                        Margin="1,0,0,0"
+                        RenderTransformOrigin="0,0">
+                    <Border.RenderTransform>
+                        <ScaleTransform ScaleX="0.92" ScaleY="0.92"/>
+                    </Border.RenderTransform>
+
                     <Panel>
                         <Border Margin="16"
                                 BoxShadow="{DynamicResource SukiPopupShadow}"
@@ -29,10 +33,10 @@
                             </Panel>
                         </Border>
                     </Panel>
-                </LayoutTransformControl>
+                </Border>
             </ControlTemplate>
         </Setter>
-        <Style Selector="^[IsOpen=True] /template/ LayoutTransformControl#PART_LayoutTransform">
+        <Style Selector="^[IsOpen=True] /template/ Border#PART_LayoutTransform">
             <Style.Animations>
                 <Animation Easing="{StaticResource MenuEasing}"
                            FillMode="Forward"
