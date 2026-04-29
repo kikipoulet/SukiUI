@@ -1,4 +1,5 @@
-﻿using Avalonia.Collections;
+﻿using System;
+using Avalonia.Collections;
 using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -22,10 +23,9 @@ public partial class ThemingViewModel : DemoPageBase
     private readonly SukiTheme _theme = SukiTheme.GetInstance();
 
     [ObservableProperty] private bool _isLightTheme;
-    [ObservableProperty] private SukiBackgroundStyle _backgroundStyle;
+    [ObservableProperty] private SukiBackgroundStyle _backgroundStyle ;
     [ObservableProperty] private bool _backgroundAnimations;
     [ObservableProperty] private bool _backgroundTransitions;
-    [ObservableProperty] private string _themingHeader = "Base Theme";
 
     private string? _customShader = null;
     
@@ -34,10 +34,10 @@ public partial class ThemingViewModel : DemoPageBase
         AvailableBackgroundStyles = new AvaloniaList<SukiBackgroundStyle>(Enum.GetValues<SukiBackgroundStyle>());
         AvailableColors = _theme.ColorThemes;
         IsLightTheme = _theme.ActiveBaseTheme == ThemeVariant.Light;
-        _theme.OnBaseThemeChanged += variant => {
+        _theme.OnBaseThemeChanged += variant =>
             IsLightTheme = variant == ThemeVariant.Light;
-        };
-        _theme.OnColorThemeChanged += theme => {
+        _theme.OnColorThemeChanged += theme =>
+        {
             // TODO: Implement a way to make this correct, might need to wrap the thing in a VM, this isn't ideal.
         };
     }

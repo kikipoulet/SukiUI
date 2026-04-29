@@ -1,4 +1,4 @@
-<ResourceDictionary xmlns="https://github.com/avaloniaui"
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:chrome="clr-namespace:Avalonia.Controls.Chrome;assembly=Avalonia.Controls"
                     xmlns:core="using:Dock.Model.Core"
@@ -17,14 +17,10 @@
     <Setter Property="UseLayoutRounding" Value="True" />
     <Setter Property="WindowDecorations" Value="None" />
     <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
-    <Setter Property="Title" Value="{Binding ActiveDockable.Title}" />
-    <Setter Property="Topmost" Value="{Binding Window.Topmost}" />
-    <Setter Property="ExtendClientAreaChromeHints" Value="NoChrome"/>
-    <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="-1"/>
     <Setter Property="Template">
       <ControlTemplate>
         <Panel>
-          <Border Name="SelectedBorder"
+          <Border Name="SelectedBorder" 
                   Margin="10,10"
                   Padding="0"
                   BoxShadow="{DynamicResource SukiPopupShadow}"
@@ -35,8 +31,8 @@
                 <Panel Margin="0">
                   <Panel.Background>
                     <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
-                      <GradientStop Color="{DynamicResource SukiAccentColor5}" Offset="0" />
-                      <GradientStop Color="{DynamicResource SukiPrimaryColor5}" Offset="1" />
+                      <GradientStop Color="{DynamicResource SukiAccentColor5}" Offset="0"></GradientStop>
+                      <GradientStop Color="{DynamicResource SukiPrimaryColor5}" Offset="1"></GradientStop>
                     </LinearGradientBrush>
                   </Panel.Background>
                 </Panel>
@@ -66,14 +62,16 @@
       <Template>
         <Panel Margin="{Binding $parent[HostWindow].OffScreenMargin}">
           <Panel Margin="{Binding $parent[HostWindow].WindowDecorationMargin}">
-            <DockControl Layout="{Binding}" />
+            <DockControl Layout="{Binding}"
+                         x:DataType="core:IHostWindow"
+                         x:CompileBindings="True" />
           </Panel>
         </Panel>
       </Template>
     </Setter>
 
-
-
+ 
+   
 
   </ControlTheme>
 

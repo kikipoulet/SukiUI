@@ -91,4 +91,4 @@ public partial class ChildFormViewModel : ObservableObject
     private DateTimeOffset _dateTimeOffset = DateTimeOffset.MinValue;
 }
 
-#pragma warning restore CS0657 // Not a valid attribute location for this declaration
+#pragma warning enable CS0657 // Not a valid attribute location for this declaration

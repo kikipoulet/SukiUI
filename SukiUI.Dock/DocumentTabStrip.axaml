@@ -1,8 +1,6 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:dmc="using:Dock.Model.Controls"
-                    x:DataType="dmc:IDocumentDock"
-                    x:CompileBindings="True">
+                    xmlns:dmc="using:Dock.Model.Controls">
   <Design.PreviewWith>
     <Border Padding="20">
       <DocumentTabStrip>
@@ -38,7 +36,9 @@
       <ControlTemplate>
   
         <DockPanel Background="Transparent"
-                   ClipToBounds="False">
+                   ClipToBounds="False"
+                   x:DataType="dmc:IDocumentDock"
+                   x:CompileBindings="True">
           <Button x:Name="PART_ButtonCreate"
                   Command="{Binding CreateDocument}"
                   Theme="{StaticResource ButtonCreateDocument}"

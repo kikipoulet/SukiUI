@@ -51,17 +51,11 @@
                                                             RenderTransformOrigin="0%,0%"
                                                             chrome:WindowDecorationProperties.ElementRole="TitleBar">
                                         <Panel>
-                                            <Border Background="Transparent"
-                                                    BorderThickness="0"
-                                                    CornerRadius="0"
-                                                    Name="DragArea" />
-
                                             <suki:GlassCard Name="PART_TitleBarBackground"
                                                             BorderThickness="0"
                                                             CornerRadius="0"
                                                             IsAnimated="False"
                                                             IsVisible="{TemplateBinding ShowTitlebarBackground}" />
-
                                             <DockPanel Margin="12,9" LastChildFill="True">
                                                 <StackPanel VerticalAlignment="Center"
                                                             DockPanel.Dock="Right"

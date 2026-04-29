@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 18
-VisualStudioVersion = 18.4.11626.88 stable
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32317.152
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SukiUI", "SukiUI\SukiUI.csproj", "{BB238D42-157C-4C76-8DE6-315155E6D048}"
 EndProject
@@ -18,11 +18,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SukiUI.Dock", "SukiUI.Dock\SukiUI.Dock.csproj", "{B82306B8-613C-4360-882B-F19FE0F3265B}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{DB7EAFB6-2460-4030-83E4-8066A50AFF4D}"
-	ProjectSection(SolutionItems) = preProject
-		Images\OIG.N5o-removebg-preview.png = Images\OIG.N5o-removebg-preview.png
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,9 +40,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{DB7EAFB6-2460-4030-83E4-8066A50AFF4D} = {28455569-AF0F-473B-912D-AE515F68FE15}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EDBDC1F1-B79F-4CBB-8C29-1CFC5947ED44}

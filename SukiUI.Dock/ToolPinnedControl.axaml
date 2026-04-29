@@ -1,9 +1,7 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:dmc="using:Dock.Model.Controls"
-                    xmlns:core="using:Dock.Model.Core"
-                    x:DataType="dmc:IRootDock"
-                    x:CompileBindings="True">
+                    xmlns:core="using:Dock.Model.Core">
   <Design.PreviewWith>
     <ToolPinnedControl Width="30" Height="400" />
   </Design.PreviewWith>
@@ -14,7 +12,10 @@
 
     <Setter Property="Template">
       <ControlTemplate>
-        <ItemsControl>
+        <ItemsControl
+             
+                      x:DataType="dmc:IRootDock"
+                      x:CompileBindings="True">
           <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
               <StackPanel Orientation="{Binding $parent[ToolPinnedControl].Orientation}"

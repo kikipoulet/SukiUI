@@ -1,28 +1,27 @@
-﻿using Avalonia.Controls;
+﻿using System.Collections.ObjectModel;
+using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using SukiUI.Dialogs;
+using SukiUI.Helpers;
 
 namespace SukiUI.Controls.Touch.MobilePicker;
 
 public partial class MobilePickerPopUp : UserControl
 {
-<<<<<<< HEAD
     private ISukiDialogManager? dialogManager;
 
     public MobilePickerPopUp()
     {
         InitializeComponent();
     }
-=======
-    private ISukiDialogManager dialogManager;
->>>>>>> upstream/main
 
     public MobilePickerPopUp(ISukiDialogManager manager)
     {
         InitializeComponent();
         dialogManager = manager;
-
+  
     }
 
     private void InitializeComponent()
@@ -32,18 +31,12 @@ public partial class MobilePickerPopUp : UserControl
 
     private void DoneClick(object sender, RoutedEventArgs e)
     {
-<<<<<<< HEAD
         dialogManager?.DismissDialog();
         var model = ((MobilePickerPopUpVM)DataContext);
-=======
-        dialogManager.DismissDialog();
-        var model = ((MobilePickerPopUpViewModel)DataContext);
->>>>>>> upstream/main
 
         model.mobilePicker.SelectedItem = model.SelectedItem;
-
+        
     }
-<<<<<<< HEAD
 }
 
 public class MobilePickerPopUpVM: SukiObservableObject
@@ -82,6 +75,3 @@ public class MobilePickerPopUpVM: SukiObservableObject
 
     public MobilePicker mobilePicker { get; set; }
 }
-=======
-}
->>>>>>> upstream/main

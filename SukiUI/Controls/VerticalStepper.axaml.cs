@@ -5,13 +5,9 @@ using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
 using Avalonia;
-using Avalonia.Animation;
-using Avalonia.Animation.Easings;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Data.Converters;
-using Avalonia.Threading;
-using Avalonia.Styling;
 
 namespace SukiUI.Controls
 {
@@ -27,9 +23,6 @@ namespace SukiUI.Controls
 
         public static readonly StyledProperty<bool> ShowCheckMarkProperty =
             AvaloniaProperty.Register<VerticalStepper, bool>(nameof(ShowCheckMark), true);
-
-        public static readonly StyledProperty<double> OffsetHeightProperty =
-            AvaloniaProperty.Register<VerticalStepper, double>(nameof(OffsetHeight));
 
         public int Index
         {
@@ -49,21 +42,12 @@ namespace SukiUI.Controls
             set => SetValue(ShowCheckMarkProperty, value);
         }
 
-        public double OffsetHeight
-        {
-            get => GetValue(OffsetHeightProperty);
-            set => SetValue(OffsetHeightProperty, value);
-        }
-
         private readonly List<VerticalStepperItem> _stepItems = new();
         private ItemsControl? _itemsControl;
-        private ScrollViewer? _scrollViewer;
-        private CancellationTokenSource? _scrollCts;
 
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
-            _scrollViewer = e.NameScope.Get<ScrollViewer>("PART_ScrollViewer");
             _itemsControl = e.NameScope.Get<ItemsControl>("PART_ItemsControl");
             RefreshSteps();
         }
@@ -73,10 +57,7 @@ namespace SukiUI.Controls
             base.OnPropertyChanged(change);
             
             if (change.Property == IndexProperty)
-            {
                 UpdateStates();
-                ScrollToActiveStep();
-            }
             else if (change.Property == StepsProperty)
                 RefreshSteps();
             else if (change.Property == ShowCheckMarkProperty)
@@ -119,6 +100,8 @@ namespace SukiUI.Controls
 
             UpdateStates();
 
+  
+
             if (Steps is INotifyCollectionChanged notify)
                 notify.CollectionChanged += (_, _) => RefreshSteps();
         }
@@ -136,90 +119,6 @@ namespace SukiUI.Controls
                 item.HasConnectorUp = i > 0;
                 item.HasConnectorDown = item.IsCompleted && i < _stepItems.Count - 1;
                 item.ConnectorDownToActive = item.HasConnectorDown && i + 1 == Index;
-            }
-        }
-
-        private async void ScrollToActiveStep()
-        {
-            if (_scrollViewer is null || Index < 0 || Index >= _stepItems.Count)
-                return;
-
-            var activeItem = _stepItems[Index];
-
-            if (!activeItem.IsInitialized)
-            {
-                activeItem.Initialized += (_, _) => ScrollToActiveStep();
-                return;
-            }
-
-            _scrollCts?.Cancel();
-            _scrollCts = new CancellationTokenSource();
-            var token = _scrollCts.Token;
-
-            try
-            {
-                await Task.Delay(700, token);
-            }
-            catch (OperationCanceledException)
-            {
-                return;
-            }
-
-            if (token.IsCancellationRequested)
-                return;
-
-            await Dispatcher.UIThread.InvokeAsync(() => { }, DispatcherPriority.Loaded);
-            if (token.IsCancellationRequested)
-                return;
-
-            var itemPosition = activeItem.TranslatePoint(new Point(0, 0), _scrollViewer);
-            if (itemPosition is null)
-            {
-                _scrollViewer.InvalidateArrange();
-                await Dispatcher.UIThread.InvokeAsync(() => { }, DispatcherPriority.Render);
-                itemPosition = activeItem.TranslatePoint(new Point(0, 0), _scrollViewer);
-                if (itemPosition is null)
-                    return;
-            }
-
-            var itemHeight = activeItem.Bounds.Height;
-            var viewportHeight = _scrollViewer.Viewport.Height;
-            var extentHeight = _scrollViewer.Extent.Height;
-            var maxOffset = Math.Max(0, extentHeight - viewportHeight);
-
-            var targetOffset = _scrollViewer.Offset.Y + itemPosition.Value.Y - (viewportHeight / 2) + (itemHeight / 2);
-            targetOffset = Math.Max(0, Math.Min(targetOffset, maxOffset));
-
-            var currentOffset = _scrollViewer.Offset.Y;
-            if (Math.Abs(currentOffset - targetOffset) < 0.5)
-                return;
-
-            try
-            {
-                var animation = new Avalonia.Animation.Animation
-                {
-                    Duration = TimeSpan.FromMilliseconds(300),
-                    Easing = new CubicEaseOut(),
-                    FillMode = FillMode.None,
-                    Children =
-                    {
-                        new KeyFrame
-                        {
-                            Setters = { new Setter { Property = ScrollViewer.OffsetProperty, Value = _scrollViewer.Offset } },
-                            KeyTime = TimeSpan.Zero
-                        },
-                        new KeyFrame
-                        {
-                            Setters = { new Setter { Property = ScrollViewer.OffsetProperty, Value = new Vector(0, targetOffset) } },
-                            Cue = new Cue(1.0)
-                        }
-                    }
-                };
-
-                await animation.RunAsync(_scrollViewer, token);
-            }
-            catch (OperationCanceledException)
-            {
             }
         }
     }

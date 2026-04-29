@@ -20,9 +20,6 @@ public partial class ProgressViewModel() : DemoPageBase("Progress", MaterialIcon
         new VerticalStepItem("Account Setup", "Create your account credentials"),
         new VerticalStepItem("Profile Information", "Add your personal details"),
         new VerticalStepItem("Preferences", "Configure your preferences, thi is a very long description to check how the layout behaves, lorem ipsum dolor sit amet, consectetur adipiscing elit. lorem ipsum dolor sit amet, consectetur adipiscing elit."),
-        new VerticalStepItem("Account Setup", "Create your account credentials"),
-        new VerticalStepItem("Profile Information", "Add your personal details"),
-        new VerticalStepItem("Preferences", "Configure your preferences, thi is a very long description to check how the layout behaves, lorem ipsum dolor sit amet, consectetur adipiscing elit. lorem ipsum dolor sit amet, consectetur adipiscing elit."),
         new VerticalStepItem("Complete", "Review and confirm")
     ];
 
@@ -36,7 +33,7 @@ public partial class ProgressViewModel() : DemoPageBase("Progress", MaterialIcon
     {
         switch (isIncrement)
         {
-            case true when StepIndex >= Steps.Count() * 3 :
+            case true when StepIndex >= Steps.Count() - 1:
             case false when StepIndex <= 0:
                 return;
             default:
