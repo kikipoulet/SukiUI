@@ -1,87 +1,94 @@
 ﻿<UserControl x:Class="SukiUI.Demo.Features.Helpers.SpringEasing"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:animations="clr-namespace:SukiUI.Animations;assembly=SukiUI"
-             xmlns:avalonia="clr-namespace:LiveChartsCore.SkiaSharpView.Avalonia;assembly=LiveChartsCore.SkiaSharpView.Avalonia"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:helpers="clr-namespace:SukiUI.Demo.Features.Helpers"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:suki="https://github.com/kikipoulet/SukiUI"
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
-    <DockPanel Margin="50">
-
-        <StackPanel Margin="0,0,25,0"
-                    DockPanel.Dock="Left"
-                    Spacing="25">
-            <suki:GlassCard Margin="0,0,0,0" Padding="25">
-                <StackPanel Spacing="25">
-                    <DockPanel>
-                        <NumericUpDown Name="MassBox"
-                                       VerticalAlignment="Top"
-                                       DockPanel.Dock="Right"
-                                       ValueChanged="ParmetersChanged"
-                                       Value="1" />
-
-                        <TextBlock VerticalAlignment="Center"
-                                   FontSize="16"
-                                   FontWeight="DemiBold"
-                                   Text="Mass" />
-                    </DockPanel>
-                    <DockPanel>
-                        <NumericUpDown Name="DampingBox"
-                                       VerticalAlignment="Top"
-                                       DockPanel.Dock="Right"
-                                       ValueChanged="ParmetersChanged"
-                                       Value="10" />
-
-                        <TextBlock VerticalAlignment="Center"
-                                   FontSize="16"
-                                   FontWeight="DemiBold"
-                                   Text="Damping" />
-                    </DockPanel>
-                    <DockPanel>
-                        <NumericUpDown Name="StiffnessBox"
-                                       VerticalAlignment="Top"
-                                       DockPanel.Dock="Right"
-                                       ValueChanged="ParmetersChanged"
-                                       Value="50" />
-
-                        <TextBlock VerticalAlignment="Center"
-                                   FontSize="16"
-                                   FontWeight="DemiBold"
-                                   Text="Stiffness" />
-                    </DockPanel>
-
-                    <WrapPanel Orientation="Horizontal">
-                        <Button Margin="0,0,15,0"
-                                Click="SetBase"
-                                Content="Base" />
-                        <Button Margin="0,0,15,0"
-                                Click="SetSmooth"
-                                Content="Smooth" />
-                    </WrapPanel>
-                </StackPanel>
-            </suki:GlassCard>
-
-            <suki:GlassCard Padding="5" HorizontalAlignment="Left">
-                <helpers:EasingDemoBoxControl Name="DemoBox" HorizontalAlignment="Left">
-                    <helpers:EasingDemoBoxControl.Ease>
-                        <animations:SukiSpringEase />
-                    </helpers:EasingDemoBoxControl.Ease>
-                </helpers:EasingDemoBoxControl>
-            </suki:GlassCard>
+    <!-- Original LiveCharts implementation retained for the Avalonia 12 migration.
+    <UserControl xmlns:animations="clr-namespace:SukiUI.Animations;assembly=SukiUI"
+                 xmlns:avalonia="clr-namespace:LiveChartsCore.SkiaSharpView.Avalonia;assembly=LiveChartsCore.SkiaSharpView.Avalonia"
+                 xmlns:helpers="clr-namespace:SukiUI.Demo.Features.Helpers">
+        <DockPanel Margin="50">
+            <StackPanel Margin="0,0,25,0"
+                        DockPanel.Dock="Left"
+                        Spacing="25">
+                <suki:GlassCard Margin="0,0,0,0" Padding="25">
+                    <StackPanel Spacing="25">
+                        <DockPanel>
+                            <NumericUpDown Name="MassBox"
+                                           VerticalAlignment="Top"
+                                           DockPanel.Dock="Right"
+                                           ValueChanged="ParmetersChanged"
+                                           Value="1" />
+                            <TextBlock VerticalAlignment="Center"
+                                       FontSize="16"
+                                       FontWeight="DemiBold"
+                                       Text="Mass" />
+                        </DockPanel>
+                        <DockPanel>
+                            <NumericUpDown Name="DampingBox"
+                                           VerticalAlignment="Top"
+                                           DockPanel.Dock="Right"
+                                           ValueChanged="ParmetersChanged"
+                                           Value="10" />
+                            <TextBlock VerticalAlignment="Center"
+                                       FontSize="16"
+                                       FontWeight="DemiBold"
+                                       Text="Damping" />
+                        </DockPanel>
+                        <DockPanel>
+                            <NumericUpDown Name="StiffnessBox"
+                                           VerticalAlignment="Top"
+                                           DockPanel.Dock="Right"
+                                           ValueChanged="ParmetersChanged"
+                                           Value="50" />
+                            <TextBlock VerticalAlignment="Center"
+                                       FontSize="16"
+                                       FontWeight="DemiBold"
+                                       Text="Stiffness" />
+                        </DockPanel>
+                        <WrapPanel Orientation="Horizontal">
+                            <Button Margin="0,0,15,0"
+                                    Click="SetBase"
+                                    Content="Base" />
+                            <Button Margin="0,0,15,0"
+                                    Click="SetSmooth"
+                                    Content="Smooth" />
+                        </WrapPanel>
+                    </StackPanel>
+                </suki:GlassCard>
+                <suki:GlassCard Padding="5" HorizontalAlignment="Left">
+                    <helpers:EasingDemoBoxControl Name="DemoBox" HorizontalAlignment="Left">
+                        <helpers:EasingDemoBoxControl.Ease>
+                            <animations:SukiSpringEase />
+                        </helpers:EasingDemoBoxControl.Ease>
+                    </helpers:EasingDemoBoxControl>
+                </suki:GlassCard>
+            </StackPanel>
+            <StackPanel Spacing="20">
+                <suki:GlassCard>
+                    <avalonia:CartesianChart Name="MyChart"
+                                             Height="500"
+                                             Margin="0,-20"
+                                             IsHitTestVisible="False"
+                                             ZoomMode="None" />
+                </suki:GlassCard>
+            </StackPanel>
+        </DockPanel>
+    </UserControl>
+    -->
+    <suki:GlassCard Margin="50"
+                    Padding="30">
+        <StackPanel Spacing="12">
+            <TextBlock FontSize="20"
+                       FontWeight="DemiBold"
+                       Text="Spring Easing is temporarily disabled" />
+            <TextBlock Classes="Secondary"
+                       TextWrapping="Wrap"
+                       Text="This helper depended on LiveCharts, which is currently disabled during the Avalonia 12 upgrade." />
         </StackPanel>
-
-        <StackPanel Spacing="20">
-            <suki:GlassCard>
-                <avalonia:CartesianChart Name="MyChart"
-                                         Height="500"
-                                         Margin="0,-20"
-                                         IsHitTestVisible="False"
-                                         ZoomMode="None" />
-            </suki:GlassCard>
-        </StackPanel>
-    </DockPanel>
+    </suki:GlassCard>
 </UserControl>

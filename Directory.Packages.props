@@ -24,7 +24,6 @@
     <PackageVersion Include="Avalonia.AvaloniaEdit" Version="12.0.0" />
     <PackageVersion Include="AvaloniaEdit.TextMate" Version="12.0.0" />
     <PackageVersion Include="Markdown.Avalonia" Version="12.0.0-a3" />
-    <PackageVersion Include="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.0.0" />
     <PackageVersion Include="Material.Icons.Avalonia" Version="3.0.1" />
     <PackageVersion Include="ShowMeTheXaml.Avalonia" Version="1.5.3" />
     <PackageVersion Include="ShowMeTheXaml.Avalonia.Generator" Version="1.5.3" />

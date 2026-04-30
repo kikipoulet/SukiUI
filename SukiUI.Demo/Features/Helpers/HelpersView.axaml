@@ -92,7 +92,7 @@
                 </suki:SukiSideMenuItem.PageContent>
             </suki:SukiSideMenuItem>
 
-            <suki:SukiSideMenuItem Classes="Compact" Header="Spring Easing">
+            <!-- <suki:SukiSideMenuItem Classes="Compact" Header="Spring Easing">
                 <suki:SukiSideMenuItem.Icon>
                     <PathIcon
                         Data="{x:Static suki:Icons.ChevronRight}"
@@ -108,7 +108,7 @@
                         <helpers:SpringEasing />
                     </ScrollViewer>
                 </suki:SukiSideMenuItem.PageContent>
-            </suki:SukiSideMenuItem>
+            </suki:SukiSideMenuItem> -->
 
             <!-- <suki:SukiSideMenuItem Classes="Compact" Header="Organic Move">
                 <suki:SukiSideMenuItem.Icon>

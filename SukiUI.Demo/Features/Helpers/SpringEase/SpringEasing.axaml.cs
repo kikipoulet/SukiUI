@@ -1,17 +1,21 @@
-﻿using System.Collections.ObjectModel;
 using Avalonia.Controls;
-using Avalonia.Interactivity;
-using LiveChartsCore;
-using LiveChartsCore.Defaults;
-using LiveChartsCore.SkiaSharpView;
-using LiveChartsCore.SkiaSharpView.Avalonia;
-using LiveChartsCore.SkiaSharpView.Painting;
-using LiveChartsCore.SkiaSharpView.Painting.Effects;
-using SkiaSharp;
-using SukiUI.Animations;
 
 namespace SukiUI.Demo.Features.Helpers
 {
+    /*
+    Original LiveCharts implementation retained for the Avalonia 12 migration:
+
+    using System.Collections.ObjectModel;
+    using Avalonia.Interactivity;
+    using LiveChartsCore;
+    using LiveChartsCore.Defaults;
+    using LiveChartsCore.SkiaSharpView;
+    using LiveChartsCore.SkiaSharpView.Avalonia;
+    using LiveChartsCore.SkiaSharpView.Painting;
+    using LiveChartsCore.SkiaSharpView.Painting.Effects;
+    using SkiaSharp;
+    using SukiUI.Animations;
+
     public partial class SpringEasing : UserControl
     {
         public ObservableCollection<ObservableValue> ObservableValues { get; set; } =
@@ -115,6 +119,15 @@ namespace SukiUI.Demo.Features.Helpers
             this.Get<NumericUpDown>("MassBox").Value = 1;
             this.Get<NumericUpDown>("DampingBox").Value = 10;
             this.Get<NumericUpDown>("StiffnessBox").Value = 30;
+        }
+    }
+    */
+
+    public partial class SpringEasing : UserControl
+    {
+        public SpringEasing()
+        {
+            InitializeComponent();
         }
     }
 }
