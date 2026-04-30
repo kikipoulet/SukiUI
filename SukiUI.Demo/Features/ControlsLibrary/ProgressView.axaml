@@ -11,6 +11,7 @@
              xmlns:verticalBarMeter="clr-namespace:SukiUI.Controls.Gauges.VerticalBarMeter;assembly=SukiUI"
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
              xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
+             xmlns:glassMorphism="clr-namespace:SukiUI.Controls.GlassMorphism;assembly=SukiUI"
              d:DesignHeight="650"
              d:DesignWidth="800"
              x:DataType="controlsLibrary:ProgressViewModel"
@@ -368,14 +369,14 @@
                     </suki:GroupBox>
                 </suki:GlassCard>
 
-                <suki:GlassCard>
+                <suki:GlassCard Height="350">
                     <suki:GroupBox Header="Vertical Stepper">
-                        <StackPanel Spacing="15">
-                            <showMeTheXaml:XamlDisplay UniqueId="VerticalStepper">
+                        <Grid RowDefinitions="*,Auto">
+                            <showMeTheXaml:XamlDisplay UniqueId="VerticalStepperHeader">
                                 <suki:VerticalStepper Width="350" Index="{Binding StepIndex}"
                                                       Steps="{Binding VerticalSteps}" />
                             </showMeTheXaml:XamlDisplay>
-                            <Grid Margin="0,8,0,0" ColumnDefinitions="Auto,*,Auto">
+                            <Grid Grid.Row="1" Margin="0,8,0,0" ColumnDefinitions="Auto,*,Auto">
                                 <Button Grid.Column="0"
                                         Command="{Binding ChangeStepCommand}"
                                         CommandParameter="{x:False}"
@@ -385,7 +386,39 @@
                                         CommandParameter="{x:True}"
                                         Content="Increment" />
                             </Grid>
-                        </StackPanel>
+                        </Grid>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+                
+                <suki:GlassCard Height="450">
+                    <suki:GroupBox Header="Vertical Stepper with Header ?">
+                        <Grid RowDefinitions="*,Auto">
+                            <showMeTheXaml:XamlDisplay UniqueId="VerticalStepper">
+                                
+                                <Panel>
+                                <suki:VerticalStepper Margin="10,0" OffsetHeight="80" Width="350" Index="{Binding StepIndex}"
+                                                      Steps="{Binding VerticalSteps}" />
+                                
+                                <suki:GlassCard  ClipToBounds="True"  VerticalAlignment="Top">
+                                    <Panel>
+                                        <glassMorphism:SukiBlurBackground IsDynamic="True" IntensityFactor="0.2" Margin="-200"></glassMorphism:SukiBlurBackground>
+
+                                    <TextBlock Text="Why not using a sticky header ? 👋" FontWeight="DemiBold"></TextBlock>
+                                        </Panel>
+                                </suki:GlassCard>
+                                </Panel>
+                            </showMeTheXaml:XamlDisplay>
+                            <Grid Grid.Row="1" Margin="0,8,0,0" ColumnDefinitions="Auto,*,Auto">
+                                <Button Grid.Column="0"
+                                        Command="{Binding ChangeStepCommand}"
+                                        CommandParameter="{x:False}"
+                                        Content="Decrement" />
+                                <Button Grid.Column="2"
+                                        Command="{Binding ChangeStepCommand}"
+                                        CommandParameter="{x:True}"
+                                        Content="Increment" />
+                            </Grid>
+                        </Grid>
                     </suki:GroupBox>
                 </suki:GlassCard>
             </WrapPanel>

@@ -1,20 +1,22 @@
 using Avalonia;
 using Avalonia.Collections;
+using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Styling;
 using SukiUI.Enums;
 using SukiUI.Extensions;
+using SukiUI.Locale;
 using SukiUI.Models;
 using System.Globalization;
-using Avalonia.Controls;
-using SukiUI.Locale;
 
 namespace SukiUI;
 
 public partial class SukiTheme : Styles
 {
+    public static readonly StyledProperty<string?> LocaleProperty = AvaloniaProperty.Register<SukiTheme, string?>(nameof(Locale));
+
     public static readonly StyledProperty<SukiColor> ThemeColorProperty =
         AvaloniaProperty.Register<SukiTheme, SukiColor>(nameof(Color), defaultBindingMode: BindingMode.OneTime,
             defaultValue: SukiColor.Blue);
@@ -26,18 +28,15 @@ public partial class SukiTheme : Styles
     /// <summary>
     /// Used to assign the ColorTheme at launch,
     /// </summary>
-    public SukiColor ThemeColor
-    {
+    public SukiColor ThemeColor {
         get => GetValue(ThemeColorProperty);
-        set
-        {
+        set {
             SetValue(ThemeColorProperty, value);
             SetColorThemeResourcesOnColorThemeChanged();
         }
     }
 
-    public bool IsRightToLeft
-    {
+    public bool IsRightToLeft {
         get => GetValue(IsRightToLeftProperty);
         set => SetValue(IsRightToLeftProperty, value);
     }
@@ -73,8 +72,8 @@ public partial class SukiTheme : Styles
 
     private readonly Application _app;
 
-    private readonly HashSet<SukiColorTheme> _colorThemeHashset = new();
-    private readonly AvaloniaList<SukiColorTheme> _allThemes = new();
+    private readonly HashSet<SukiColorTheme> _colorThemeHashset = [];
+    private readonly AvaloniaList<SukiColorTheme> _allThemes = [];
 
     public SukiTheme()
     {
@@ -89,8 +88,7 @@ public partial class SukiTheme : Styles
 
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
-        if (change.Property == IsRightToLeftProperty)
-        {
+        if (change.Property == IsRightToLeftProperty) {
             UpdateFlowDirectionResources(change.GetNewValue<bool>());
         }
 
@@ -117,8 +115,7 @@ public partial class SukiTheme : Styles
     public void SwitchColorTheme()
     {
         var index = -1;
-        for (var i = 0; i < ColorThemes.Count; i++)
-        {
+        for (var i = 0; i < ColorThemes.Count; i++) {
             if (ColorThemes[i] != ActiveColorTheme) continue;
             index = i;
             break;
@@ -222,13 +219,11 @@ public partial class SukiTheme : Styles
         SetResource($"{baseName}1", baseColor.WithAlpha(0.005));
         SetResource($"{baseName}0", baseColor.WithAlpha(0.00));
 
-        if (ActiveBaseTheme == ThemeVariant.Dark)
-        {
-            SetResource($"{baseName}120", Lighten(baseColor,0.7));
-            SetResource($"{baseName}150",  Lighten(baseColor,1));
+        if (ActiveBaseTheme == ThemeVariant.Dark) {
+            SetResource($"{baseName}120", Lighten(baseColor, 0.7));
+            SetResource($"{baseName}150", Lighten(baseColor, 1));
         }
-        else
-        {
+        else {
             SetResource($"{baseName}120", baseColor);
             SetResource($"{baseName}150", baseColor);
         }
@@ -307,65 +302,45 @@ public partial class SukiTheme : Styles
 
     // Localization
 
-    private static readonly Dictionary<CultureInfo, ResourceDictionary> LocaleToResource = new()
+    private static readonly Dictionary<string, ResourceDictionary> LocaleToResource = new()
     {
-        { new CultureInfo("en-US"), new en_US() },
-        { new CultureInfo("nl-NL"), new nl_NL() },
-        { new CultureInfo("pt-PT"), new pt_PT() },
-        { new CultureInfo("zh-CN"), new zh_CN() },
-        { new CultureInfo("de-DE"), new de_DE() },
-        { new CultureInfo("es-ES"), new es_ES() },
-        { new CultureInfo("fr-FR"), new fr_FR() },
-        { new CultureInfo("it-IT"), new it_IT() },
-        { new CultureInfo("ru-RU"), new ru_RU() },
-        { new CultureInfo("ja-JP"), new ja_JP() }
+        { "en-US", new en_US() },
+        { "nl-NL", new nl_NL() },
+        { "pt-PT", new pt_PT() },
+        { "zh-CN", new zh_CN() },
+        { "de-DE", new de_DE() },
+        { "es-ES", new es_ES() },
+        { "fr-FR", new fr_FR() },
+        { "it-IT", new it_IT() },
+        { "ru-RU", new ru_RU() },
+        { "ja-JP", new ja_JP() }
     };
 
     private static readonly ResourceDictionary DefaultResource = new en_US();
 
-    private CultureInfo? _locale;
-
-    public CultureInfo? Locale
-    {
+    private string? _locale;
+    public string? Locale {
         get => _locale;
-        set
-        {
-            try
-            {
-                if (TryGetLocaleResource(value, out var resource) && resource is not null)
-                {
+        set {
+            try {
+                if (TryGetLocaleResource(value, out var resource) && resource is not null) {
                     _locale = value;
                     foreach (var keyValue in resource) Resources[keyValue.Key] = keyValue.Value;
                 }
-                else
-                {
-                    _locale = new CultureInfo("en-US");
+                else {
+                    _locale = CultureInfo.CurrentCulture.Name;
                     foreach (var keyValue in DefaultResource) Resources[keyValue.Key] = keyValue.Value;
                 }
             }
-            catch
-            {
-                _locale = CultureInfo.InvariantCulture;
+            catch {
+                _locale = CultureInfo.InvariantCulture.Name;
             }
         }
     }
 
-    private static bool TryGetLocaleResource(CultureInfo? locale, out ResourceDictionary? resourceDictionary)
+    private static bool TryGetLocaleResource(string? locale, out ResourceDictionary? resourceDictionary)
     {
-        if (Equals(locale, CultureInfo.InvariantCulture))
-        {
-            resourceDictionary = DefaultResource;
-            return true;
-        }
-
-        if (locale is null)
-        {
-            resourceDictionary = DefaultResource;
-            return false;
-        }
-
-        if (LocaleToResource.TryGetValue(locale, out var resource))
-        {
+        if (LocaleToResource.TryGetValue(locale ?? string.Empty, out var resource)) {
             resourceDictionary = resource;
             return true;
         }
@@ -377,9 +352,8 @@ public partial class SukiTheme : Styles
     public static void OverrideLocaleResources(Application application, CultureInfo? culture)
     {
         if (culture is null) return;
-        if (!LocaleToResource.TryGetValue(culture, out var resources)) return;
-        foreach (var keyValue in resources)
-        {
+        if (!LocaleToResource.TryGetValue(culture.Name, out var resources)) return;
+        foreach (var keyValue in resources) {
             application.Resources[keyValue.Key] = keyValue.Value;
         }
     }
@@ -387,9 +361,8 @@ public partial class SukiTheme : Styles
     public static void OverrideLocaleResources(StyledElement element, CultureInfo? culture)
     {
         if (culture is null) return;
-        if (!LocaleToResource.TryGetValue(culture, out var resources)) return;
-        foreach (var keyValue in resources)
-        {
+        if (!LocaleToResource.TryGetValue(culture.Name, out var resources)) return;
+        foreach (var keyValue in resources) {
             element.Resources[keyValue.Key] = keyValue.Value;
         }
     }
