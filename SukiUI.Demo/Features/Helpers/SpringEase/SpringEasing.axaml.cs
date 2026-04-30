@@ -1,10 +1,19 @@
+﻿using System.Collections.ObjectModel;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
+using LiveChartsCore;
+using LiveChartsCore.Defaults;
+using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore.SkiaSharpView.Avalonia;
+using LiveChartsCore.SkiaSharpView.Painting;
+using LiveChartsCore.SkiaSharpView.Painting.Effects;
+using SkiaSharp;
+using SukiUI.Animations;
 
 namespace SukiUI.Demo.Features.Helpers
 {
     public partial class SpringEasing : UserControl
     {
-        /*
         public ObservableCollection<ObservableValue> ObservableValues { get; set; } =
             new ObservableCollection<ObservableValue>();
 
@@ -14,7 +23,8 @@ namespace SukiUI.Demo.Features.Helpers
 
             var chart = this.Get<CartesianChart>("MyChart");
 
-            chart.Series =  [
+            chart.Series =
+            [
                 new LineSeries<ObservableValue>(ObservableValues)
                 {
                     Fill = null,
@@ -23,29 +33,29 @@ namespace SukiUI.Demo.Features.Helpers
                 }
             ];
 
-            chart.XAxes = new List<Axis>
-            {
+            chart.XAxes =
+            [
                 new Axis
                 {
-                    Labels = new string[] { },
+                    Labels = [],
                     IsVisible = false
                 }
-            };
+            ];
 
-            chart.YAxes = new List<Axis>
-            {
+            chart.YAxes =
+            [
                 new Axis
                 {
-                    Labels = new List<string>(){"0","1"},
-                    LabelsPaint = new SolidColorPaint(SKColors.Gray,2), TextSize = 22,
-                    SeparatorsPaint =  new SolidColorPaint(SKColors.LightSlateGray)
+                    Labels = ["0", "1"],
+                    LabelsPaint = new SolidColorPaint(SKColors.Gray, 2),
+                    TextSize = 22,
+                    SeparatorsPaint = new SolidColorPaint(SKColors.LightSlateGray)
                     {
                         StrokeThickness = 1,
-                        PathEffect = new DashEffect(new float[] { 3, 3 })
+                        PathEffect = new DashEffect([3, 3])
                     }
-
                 }
-            };
+            ];
 
             UpdateChart(new SukiSpringEase());
         }
@@ -55,18 +65,18 @@ namespace SukiUI.Demo.Features.Helpers
             if (!IsInitialized)
                 return;
 
-            var neweasing = new SukiSpringEase()
+            var newEasing = new SukiSpringEase
             {
-                Damping = (double)this.Get<NumericUpDown>("DampingBox").Value,
-                Mass = (double)this.Get<NumericUpDown>("MassBox").Value,
-                Stiffness = (double)this.Get<NumericUpDown>("StiffnessBox").Value,
+                Damping = (double)this.Get<NumericUpDown>("DampingBox").Value!,
+                Mass = (double)this.Get<NumericUpDown>("MassBox").Value!,
+                Stiffness = (double)this.Get<NumericUpDown>("StiffnessBox").Value!
             };
 
-            if (neweasing.Damping == 0 || neweasing.Mass == 0 || neweasing.Stiffness == 0)
+            if (newEasing.Damping == 0 || newEasing.Mass == 0 || newEasing.Stiffness == 0)
                 return;
 
-            UpdateChart(neweasing);
-            this.Get<EasingDemoBoxControl>("DemoBox").Ease = neweasing;
+            UpdateChart(newEasing);
+            this.Get<EasingDemoBoxControl>("DemoBox").Ease = newEasing;
         }
 
         private void UpdateChart(SukiSpringEase easing)
@@ -83,12 +93,12 @@ namespace SukiUI.Demo.Features.Helpers
             else
             {
                 double start = 0;
-                int i = 0;
+                var index = 0;
                 while (start <= 1)
                 {
-                    ObservableValues[i].Value = easing.Ease(start);
+                    ObservableValues[index].Value = easing.Ease(start);
                     start += 0.01;
-                    i++;
+                    index++;
                 }
             }
         }
@@ -105,12 +115,6 @@ namespace SukiUI.Demo.Features.Helpers
             this.Get<NumericUpDown>("MassBox").Value = 1;
             this.Get<NumericUpDown>("DampingBox").Value = 10;
             this.Get<NumericUpDown>("StiffnessBox").Value = 30;
-        }
-        */
-
-        public SpringEasing()
-        {
-            InitializeComponent();
         }
     }
 }

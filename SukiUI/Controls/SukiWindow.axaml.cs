@@ -482,6 +482,7 @@ public class SukiWindow : Window, IDisposable
         RightWindowTitleBarControls = [];
         MenuItems = [];
         ScalingChanged += OnScalingChanged;
+        PositionChanged += OnWindowPositionChanged;
 
         _hideTitleBarTimer.Tick += HideTitleBarTimerOnTick;
         _showTitleBarTimer.Tick += ShowTitleBarTimerOnTick;
@@ -647,6 +648,7 @@ public class SukiWindow : Window, IDisposable
                 && change.NewValue is WindowState newWindowState)
             {
                 OnWindowStateChanged(oldWindowState, newWindowState);
+                UpdateWindowControlVisualState();
             }
         }
         else if (change.Property == IsTitleBarVisibleProperty)
@@ -733,6 +735,11 @@ public class SukiWindow : Window, IDisposable
     {
         this.ConstrainMaxSizeToScreenRatio(MaxWidthScreenRatio, MaxHeightScreenRatio);
         UpdateWindowControlVisualState();
+    }
+
+    private void OnWindowPositionChanged(object? sender, PixelPointEventArgs e)
+    {
+        this.ConstrainMaxSizeToScreenRatio(MaxWidthScreenRatio, MaxHeightScreenRatio);
     }
 
     /// <summary>
