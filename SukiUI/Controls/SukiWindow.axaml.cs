@@ -77,10 +77,6 @@ public class SukiWindow : Window, IDisposable
     private readonly List<Action> _disposeActions = new List<Action>();
 
     private LayoutTransformControl? _titleBarControl;
-    private PathIcon? _pinIcon;
-    private PathIcon? _maximizeIcon;
-    private PathIcon? _fullScreenIcon;
-    private Button? _maximizeButton;
     #endregion
 
     #region Properties
@@ -512,12 +508,20 @@ public class SukiWindow : Window, IDisposable
         if (_titleBarControl is not null)
         {
             _titleBarControl.IsVisible = IsTitleBarVisible;
-        }
 
-        _pinIcon = e.NameScope.Find<PathIcon>("PinIcon");
-        _maximizeIcon = e.NameScope.Find<PathIcon>("MaximizeIcon");
-        _fullScreenIcon = e.NameScope.Find<PathIcon>("FullScreenIcon");
-        _maximizeButton = e.NameScope.Find<Button>("PART_MaximizeButton");
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                _titleBarControl.PointerPressed += OnTitleBarPointerPressed;
+                _titleBarControl.PointerReleased += OnTitleBarPointerReleased;
+                _titleBarControl.DoubleTapped += OnMaximizeButtonClicked;
+                _disposeActions.Add(() =>
+                {
+                    _titleBarControl.PointerPressed -= OnTitleBarPointerPressed;
+                    _titleBarControl.PointerReleased -= OnTitleBarPointerReleased;
+                    _titleBarControl.DoubleTapped -= OnMaximizeButtonClicked;
+                });
+            }
+        }
 
         if (e.NameScope.Find<ContentPresenter>("PART_Logo") is { } logo)
         {
@@ -568,7 +572,6 @@ public class SukiWindow : Window, IDisposable
             }
         }
 
-        UpdateWindowControlVisualState();
     }
 
     /// <inheritdoc />
@@ -648,7 +651,6 @@ public class SukiWindow : Window, IDisposable
                 && change.NewValue is WindowState newWindowState)
             {
                 OnWindowStateChanged(oldWindowState, newWindowState);
-                UpdateWindowControlVisualState();
             }
         }
         else if (change.Property == IsTitleBarVisibleProperty)
@@ -713,12 +715,6 @@ public class SukiWindow : Window, IDisposable
         {
             _showTitleBarTimer.Interval = TimeSpan.FromMilliseconds(TitleBarAutoShowDelay);
         }
-        else if (change.Property == TopmostProperty
-                 || change.Property == CanMaximizeProperty
-                 || change.Property == CanFullScreenProperty)
-        {
-            UpdateWindowControlVisualState();
-        }
 
         base.OnPropertyChanged(change);
     }
@@ -734,7 +730,6 @@ public class SukiWindow : Window, IDisposable
     private void OnScalingChanged(object sender, EventArgs e)
     {
         this.ConstrainMaxSizeToScreenRatio(MaxWidthScreenRatio, MaxHeightScreenRatio);
-        UpdateWindowControlVisualState();
     }
 
     private void OnWindowPositionChanged(object? sender, PixelPointEventArgs e)
@@ -783,13 +778,6 @@ public class SukiWindow : Window, IDisposable
             {
                 IsTitleBarVisible = _wasTitleBarVisibleBeforeFullScreen;
             }
-        }
-
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) // only for windows platform
-        {
-            Margin = new Thickness(newState == WindowState.Maximized
-                ? 7
-                : 0);
         }
 
         this.ConstrainMaxSizeToScreenRatio(MaxWidthScreenRatio, MaxHeightScreenRatio);
@@ -890,6 +878,26 @@ public class SukiWindow : Window, IDisposable
     }
 
     /// <summary>
+    /// Occurs when the title bar is clicked.
+    /// </summary>
+    private void OnTitleBarPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        if (!CanMove || WindowState == WindowState.FullScreen)
+            return;
+        BeginMoveDrag(e);
+    }
+
+    /// <summary>
+    /// Occurs when the title bar is released.
+    /// </summary>
+    private void OnTitleBarPointerReleased(object sender, PointerReleasedEventArgs e)
+    {
+        // Ensure correct window max size if dropped on other screen/resolution while using max size ratio.
+        if (!CanMove || e.InitialPressMouseButton != MouseButton.Left) return;
+        this.ConstrainMaxSizeToScreenRatio(MaxWidthScreenRatio, MaxHeightScreenRatio);
+    }
+
+    /// <summary>
     /// Occurs when the resize grip is clicked.
     /// </summary>
     /// <param name="sender"></param>
@@ -945,35 +953,6 @@ public class SukiWindow : Window, IDisposable
             return false;
         }
         return (GetAsyncKeyState(VK_LBUTTON) & 0x8000) != 0;
-    }
-
-    private void UpdateWindowControlVisualState()
-    {
-        if (_pinIcon is not null)
-        {
-            _pinIcon.Data = Topmost
-                ? SukiUI.Content.Icons.WindowPinOff
-                : SukiUI.Content.Icons.WindowPin;
-        }
-
-        if (_maximizeIcon is not null)
-        {
-            _maximizeIcon.Data = WindowState == WindowState.Maximized
-                ? SukiUI.Content.Icons.WindowRestore
-                : SukiUI.Content.Icons.WindowMaximize;
-        }
-
-        if (_fullScreenIcon is not null)
-        {
-            _fullScreenIcon.Data = WindowState == WindowState.FullScreen
-                ? SukiUI.Content.Icons.WindowFullScreenOff
-                : SukiUI.Content.Icons.WindowFullScreen;
-        }
-
-        if (_maximizeButton is not null)
-        {
-            _maximizeButton.IsVisible = CanMaximize && WindowState != WindowState.FullScreen;
-        }
     }
 
     private void EnableWindowsSnapLayout(Button maximize)
