@@ -27,7 +27,7 @@
     <ControlTheme x:Key="SukiWindowTheme" TargetType="suki:SukiWindow">
         <Setter Property="Margin" Value="0" />
         <Setter Property="TransparencyLevelHint" Value="Transparent" />
-        <Setter Property="WindowDecorations" Value="{OnPlatform Full, Linux=None, x:TypeArguments=WindowDecorations}" />
+        <Setter Property="WindowDecorations" Value="{OnPlatform BorderOnly, Windows=Full, Linux=None, x:TypeArguments=WindowDecorations}" />
         <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
         <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="-1" />
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
@@ -218,4 +218,20 @@
     <ControlTheme x:Key="{x:Type suki:SukiWindow}"
                   BasedOn="{StaticResource SukiWindowTheme}"
                   TargetType="suki:SukiWindow" />
+
+    <ControlTheme x:Key="{x:Type chrome:WindowDrawnDecorations}"
+                  TargetType="chrome:WindowDrawnDecorations">
+        <Setter Property="DefaultTitleBarHeight" Value="32" />
+        <Setter Property="Template">
+            <WindowDrawnDecorationsTemplate>
+                <chrome:WindowDrawnDecorationsContent>
+                    <chrome:WindowDrawnDecorationsContent.Overlay>
+                        <DockPanel Height="{TemplateBinding TitleBarHeight}"
+                                   Margin="{TemplateBinding ShadowThickness}"
+                                   VerticalAlignment="Top" />
+                    </chrome:WindowDrawnDecorationsContent.Overlay>
+                </chrome:WindowDrawnDecorationsContent>
+            </WindowDrawnDecorationsTemplate>
+        </Setter>
+    </ControlTheme>
 </ResourceDictionary>
