@@ -49,7 +49,7 @@
                                        Foreground="{TemplateBinding Foreground}"
                                        Hosts="{Binding Hosts, RelativeSource={RelativeSource AncestorType={x:Type suki:SukiWindow}}}">
                         <DockPanel LastChildFill="True">
-                            <Panel ContextMenu="{TemplateBinding TitleBarContextMenu}" DockPanel.Dock="Top">
+                            <Panel DockPanel.Dock="Top">
                                 <StackPanel>
                                     <LayoutTransformControl Name="PART_TitleBar"
                                                             RenderTransformOrigin="0%,0%">
@@ -82,7 +82,13 @@
                                                             <Setter Property="Width" Value="{TemplateBinding TitleBarControlSize}" />
                                                         </Style>
                                                     </StackPanel.Styles>
-                                                    <ItemsControl ItemsSource="{TemplateBinding RightWindowTitleBarControls}">
+                                                    <ItemsControl chrome:WindowDecorationProperties.ElementRole="User"
+                                                                  ItemsSource="{TemplateBinding RightWindowTitleBarControls}">
+                                                        <ItemsControl.Styles>
+                                                            <Style Selector="Control">
+                                                                <Setter Property="chrome:WindowDecorationProperties.ElementRole" Value="User" />
+                                                            </Style>
+                                                        </ItemsControl.Styles>
                                                         <ItemsControl.ItemsPanel>
                                                             <ItemsPanelTemplate>
                                                                 <StackPanel FlowDirection="{DynamicResource FlowDirectionOpposite}" Orientation="Horizontal" />

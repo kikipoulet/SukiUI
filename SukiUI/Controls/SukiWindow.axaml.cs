@@ -521,12 +521,18 @@ public class SukiWindow : Window, IDisposable
             {
                 titleBarControl.PointerPressed += OnTitleBarPointerPressed;
                 titleBarControl.PointerReleased += OnTitleBarPointerReleased;
-                titleBarControl.DoubleTapped += OnMaximizeButtonClicked;
+                titleBarControl.DoubleTapped += OnTitleBarDoubleTapped;
+                titleBarControl.AddHandler(
+                    ContextRequestedEvent,
+                    OnTitleBarContextRequested,
+                    RoutingStrategies.Tunnel,
+                    handledEventsToo: true);
                 _disposeActions.Add(() =>
                 {
                     titleBarControl.PointerPressed -= OnTitleBarPointerPressed;
                     titleBarControl.PointerReleased -= OnTitleBarPointerReleased;
-                    titleBarControl.DoubleTapped -= OnMaximizeButtonClicked;
+                    titleBarControl.DoubleTapped -= OnTitleBarDoubleTapped;
+                    titleBarControl.RemoveHandler(ContextRequestedEvent, OnTitleBarContextRequested);
                 });
             }
             else
@@ -538,10 +544,16 @@ public class SukiWindow : Window, IDisposable
                     OnMacTitleBarPointerPressed,
                     RoutingStrategies.Tunnel,
                     handledEventsToo: true);
+                titleBarControl.AddHandler(
+                    ContextRequestedEvent,
+                    OnTitleBarContextRequested,
+                    RoutingStrategies.Tunnel,
+                    handledEventsToo: true);
                 _disposeActions.Add(() =>
                 {
                     titleBarControl.DoubleTapped -= OnMacTitleBarDoubleTapped;
                     titleBarControl.RemoveHandler(PointerPressedEvent, OnMacTitleBarPointerPressed);
+                    titleBarControl.RemoveHandler(ContextRequestedEvent, OnTitleBarContextRequested);
                 });
             }
         }
@@ -861,6 +873,11 @@ public class SukiWindow : Window, IDisposable
 
     private void OnMacTitleBarDoubleTapped(object? sender, RoutedEventArgs args)
     {
+        if (IsFromTitleBarUserElement(args.Source))
+        {
+            return;
+        }
+
         if (_suppressMacTitleBarDoubleTapped)
         {
             _suppressMacTitleBarDoubleTapped = false;
@@ -988,9 +1005,39 @@ public class SukiWindow : Window, IDisposable
     /// </summary>
     private void OnTitleBarPointerPressed(object? sender, PointerPressedEventArgs e)
     {
-        if (!CanMove || WindowState == WindowState.FullScreen)
+        if (!CanMove ||
+            WindowState == WindowState.FullScreen ||
+            !e.Properties.IsLeftButtonPressed ||
+            IsFromTitleBarUserElement(e.Source))
+        {
             return;
+        }
+
         BeginMoveDrag(e);
+    }
+
+    private void OnTitleBarDoubleTapped(object? sender, RoutedEventArgs args)
+    {
+        if (IsFromTitleBarUserElement(args.Source))
+        {
+            return;
+        }
+
+        ToggleMaximizeOrZoom();
+    }
+
+    private void OnTitleBarContextRequested(object? sender, ContextRequestedEventArgs e)
+    {
+        if (_titleBarControl is null ||
+            TitleBarContextMenu is not { } contextMenu ||
+            IsFromTitleBarUserElement(e.Source))
+        {
+            return;
+        }
+
+        contextMenu.Placement = PlacementMode.Pointer;
+        contextMenu.Open(_titleBarControl);
+        e.Handled = true;
     }
 
     /// <summary>
@@ -999,7 +1046,7 @@ public class SukiWindow : Window, IDisposable
     private void OnTitleBarPointerReleased(object sender, PointerReleasedEventArgs e)
     {
         // Ensure correct window max size if dropped on other screen/resolution while using max size ratio.
-        if (!CanMove || e.InitialPressMouseButton != MouseButton.Left) return;
+        if (!CanMove || e.InitialPressMouseButton != MouseButton.Left || IsFromTitleBarUserElement(e.Source)) return;
         this.ConstrainMaxSizeToScreenRatio(MaxWidthScreenRatio, MaxHeightScreenRatio);
     }
 
