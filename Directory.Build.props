@@ -4,6 +4,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <LangVersion>13</LangVersion>
+	
+	<!-- Set the path map and artifacts path. -->
+	<PathMap>$(MSBuildProjectDirectory)=$(MSBuildProjectName)</PathMap>
+	<ArtifactsPath>$(MSBuildThisFileDirectory)artifacts</ArtifactsPath>
   </PropertyGroup>
 
   <PropertyGroup>
