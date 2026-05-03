@@ -15,7 +15,7 @@ public class ClickToEditTextControl : UserControl
         public static readonly StyledProperty<ISukiDialogManager> DialogManagerProperty =
             AvaloniaProperty.Register<ClickToEditTextControl, ISukiDialogManager>(
                 nameof(DialogManager));
-        
+
         public static readonly StyledProperty<string> TextProperty =
             AvaloniaProperty.Register<ClickToEditTextControl, string>(
                 nameof(Text), "Click to edit …");
@@ -58,7 +58,7 @@ public class ClickToEditTextControl : UserControl
         private GlassCard rootBorder;
         public ClickToEditTextControl()
         {
-  
+
             rootBorder = new GlassCard()
             {
                 BorderThickness = new Thickness(0)
@@ -83,14 +83,14 @@ public class ClickToEditTextControl : UserControl
 
             iconBorder.Child = new PathIcon()
             {
-                Data = SukiUI.Content.Icons.Pencil, Height = 30, Width = 30, 
+                Data = SukiUI.Content.Icons.Pencil, Height = 30, Width = 30,
                 HorizontalAlignment = HorizontalAlignment.Center, Margin = new Thickness(15,0,-15,0),
-                VerticalAlignment = VerticalAlignment.Center, 
+                VerticalAlignment = VerticalAlignment.Center,
                 [!BorderBrushProperty] = new DynamicResourceExtension("SukiLowText"),
                 Opacity = 0.8
             };
 
-      
+
             var textStack = new StackPanel
             {
                 Spacing = 12
@@ -133,8 +133,8 @@ public class ClickToEditTextControl : UserControl
             }, DialogManager);
 
 
-            DialogManager.CreateDialog().WithContent(keyboard).Dismiss().ByClickingBackground().TryShow(); 
-        
+            DialogManager.CreateDialog().WithContent(keyboard).Dismiss().ByClickingBackground().TryShow();
+
         }
     }
 
@@ -152,7 +152,7 @@ public class ClickToEditTextControl : UserControl
 
             _input = new TextBox
             {
-                Watermark = "Enter Your Text", VerticalAlignment = VerticalAlignment.Center,
+                PlaceholderText = "Enter Your Text", VerticalAlignment = VerticalAlignment.Center,
                 Text = initialText ?? string.Empty, FontSize = 40, Height = 75,
                 Margin = new Thickness(12),
                 HorizontalAlignment = HorizontalAlignment.Stretch
@@ -160,7 +160,7 @@ public class ClickToEditTextControl : UserControl
 
             var root = new Border
             {
-               
+
                 Padding = new Thickness(15),
                 Child = BuildLayout()
             };
@@ -181,7 +181,7 @@ public class ClickToEditTextControl : UserControl
             var sp = new StackPanel(){Spacing = 55, Margin = new Thickness(0,0), Orientation = Orientation.Horizontal};
             sp.Children.Add(new TextBlock(){Foreground = Brushes.White, FontSize = 20, Text = "Done"});
 
-            
+
             var okbutton = new Button
             {
                 Content = sp, Margin = new Thickness(45,10,0,10), VerticalAlignment = VerticalAlignment.Center,
@@ -191,14 +191,14 @@ public class ClickToEditTextControl : UserControl
                 _onDone(_input.Text ?? string.Empty);
                 _dialogManager.DismissDialog();
             });
-            
+
             DockPanel.SetDock(okbutton, Dock.Right);
-            
+
             dock.Children.Add(okbutton);
             dock.Children.Add(_input);
-            
+
             stack.Children.Add(dock);
-            
+
             _input.CaretIndex = _input.Text.Length;
 
 
@@ -211,16 +211,16 @@ public class ClickToEditTextControl : UserControl
 
             foreach (var row in rows)
                 stack.Children.Add(MakeKeyRow(row));
-            
+
             var actions = new UniformGrid
             {
                 Rows = 1,
                 Columns = 4,
                 Margin = new Thickness(0, 50, 0, 0)
             };
-      
 
-  
+
+
 
             return stack;
         }

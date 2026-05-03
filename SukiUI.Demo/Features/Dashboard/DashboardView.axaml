@@ -43,7 +43,7 @@
                             <TextBox suki:TextBoxExtensions.Prefix="{icon:MaterialIconExt Kind=User}"
                                      Classes="clearButton"
                                      Text="{Binding Username}"
-                                     Watermark="John" />
+                                     PlaceholderText="John" />
                             <TextBlock Margin="6,18,0,3"
                                        FontWeight="DemiBold"
                                        Foreground="{DynamicResource SukiLowText}"
@@ -55,7 +55,7 @@
                                      Classes="revealPasswordButton"
                                      PasswordChar="*"
                                      Text="{Binding Password}"
-                                     Watermark="*******" />
+                                     PlaceholderText="*******" />
                         </StackPanel>
                     </suki:BusyArea>
                 </suki:GlassCard>

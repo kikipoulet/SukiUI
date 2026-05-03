@@ -129,7 +129,7 @@
             <Setter Property="Opacity" Value="{DynamicResource ThemeDisabledOpacity}" />
         </Style>
 
-        <!--  Changes foreground for watermark text when SelectedDate is null  -->
+        <!--  Changes foreground for placeholder text when SelectedDate is null  -->
         <Style Selector="^:hasnodate /template/ Button#PART_FlyoutButton TextBlock">
             <Setter Property="Foreground" Value="{DynamicResource ThemeForegroundLowBrush}" />
         </Style>

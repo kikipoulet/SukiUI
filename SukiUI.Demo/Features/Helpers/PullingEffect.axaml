@@ -147,7 +147,7 @@
                         <Button Margin="25"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                animations:HoverBehavior.Scale="1.12" 
+                                animations:HoverBehavior.Scale="1.12"
                                 Classes="Flat"
                                 Content="Hover Me !" />
 
@@ -251,7 +251,7 @@
                                 <TextBox animations:SquishyHoverBehavior.Enable="True"
                                          animations:SquishyHoverBehavior.Intensity="0.12"
                                          suki:TextBoxExtensions.Prefix=""
-                                         Watermark="John" />
+                                         PlaceholderText="John" />
                                 <TextBlock Margin="6,18,0,5"
                                            FontWeight="DemiBold"
                                            Foreground="{DynamicResource SukiLowText}"
@@ -262,7 +262,7 @@
                                          animations:SquishyHoverBehavior.Intensity="0.12"
                                          suki:TextBoxExtensions.AddDeleteButton="False"
                                          PasswordChar="*"
-                                         Watermark="*******" />
+                                         PlaceholderText="*******" />
 
                                 <StackPanel Orientation="Horizontal" Spacing="9">
                                     <TextBlock VerticalAlignment="Center"
@@ -306,7 +306,7 @@
                                            FontWeight="DemiBold"
                                            Foreground="{DynamicResource SukiLowText}"
                                            Text="Username" />
-                                <TextBox suki:TextBoxExtensions.Prefix="" Watermark="John" />
+                                <TextBox suki:TextBoxExtensions.Prefix="" PlaceholderText="John" />
                                 <TextBlock Margin="6,18,0,5"
                                            FontWeight="DemiBold"
                                            Foreground="{DynamicResource SukiLowText}"
@@ -314,7 +314,7 @@
                                 <TextBox Margin="0,0,0,15"
                                          suki:TextBoxExtensions.AddDeleteButton="False"
                                          PasswordChar="*"
-                                         Watermark="*******" />
+                                         PlaceholderText="*******" />
 
                                 <StackPanel Orientation="Horizontal" Spacing="9">
                                     <TextBlock VerticalAlignment="Center"

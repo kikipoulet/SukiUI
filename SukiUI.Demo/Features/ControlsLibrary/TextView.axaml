@@ -104,8 +104,8 @@
 
                         <TextBox suki:TextBoxExtensions.AddDeleteButton="True"
                                  Text="{Binding TextBlockValue}"
-                                 UseFloatingWatermark="True"
-                                 Watermark="TextBlock content" />
+                                 UseFloatingPlaceholder="True"
+                                 PlaceholderText="TextBlock content" />
                     </StackPanel>
                 </suki:GroupBox>
             </suki:GlassCard>
@@ -186,8 +186,8 @@
 
                         <TextBox suki:TextBoxExtensions.AddDeleteButton="True"
                                  Text="{Binding SelectableTextBlockValue}"
-                                 UseFloatingWatermark="True"
-                                 Watermark="SelectableTextBlock content" />
+                                 UseFloatingPlaceholder="True"
+                                 PlaceholderText="SelectableTextBlock content" />
                     </StackPanel>
                 </suki:GroupBox>
             </suki:GlassCard>
@@ -225,7 +225,7 @@
                         </showMeTheXaml:XamlDisplay>
 
                         <showMeTheXaml:XamlDisplay UniqueId="TextBox2">
-                            <TextBox Text="" suki:TextBoxExtensions.ResetText="" Watermark="Watermark" />
+                            <TextBox Text="" suki:TextBoxExtensions.ResetText="" PlaceholderText="PlaceholderText" />
                         </showMeTheXaml:XamlDisplay>
 
                         <showMeTheXaml:XamlDisplay UniqueId="TextBox3">
@@ -249,8 +249,8 @@
                                 <StackPanel Spacing="8">
                                     <TextBox Text="Programming"
                                              suki:TextBoxExtensions.ResetText="Programming"
-                                             UseFloatingWatermark="True"
-                                             Watermark="Hobbies" />
+                                             UseFloatingPlaceholder="True"
+                                             PlaceholderText="Hobbies" />
                                 </StackPanel>
                             </suki:GlassCard>
                         </showMeTheXaml:XamlDisplay>

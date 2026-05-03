@@ -16,7 +16,7 @@
                                ShowButtonSpinner="False"
                                HorizontalAlignment="Left"
                                Value="120" />
-                <NumericUpDown IsEnabled="False"                               
+                <NumericUpDown IsEnabled="False"
                                HorizontalAlignment="Right"
                                Value="120" />
                 <NumericUpDown suki:NumericUpDownExtensions.ResetText="100"
@@ -24,10 +24,10 @@
                                HorizontalAlignment="Center"
                                Value="120" />
                 <NumericUpDown Height="64"
-                               suki:NumericUpDownExtensions.UseFloatingWatermark="True"
+                               suki:NumericUpDownExtensions.UseFloatingPlaceholder="True"
                                HorizontalAlignment="Stretch"
                                Increment="0.05"
-                               Watermark="Large height"
+                               PlaceholderText="Large height"
                                Value="120" />
                 <NumericUpDown suki:NumericUpDownExtensions.Prefix="Height:"
                                suki:NumericUpDownExtensions.Unit="mm"
@@ -46,7 +46,7 @@
                                FormatString="F0"
                                InnerLeftContent="[L]"
                                InnerRightContent="[R]"
-                               Watermark="Validation"
+                               PlaceholderText="Validation"
                                Value="120">
                     <DataValidationErrors.Error>
                         <system:Exception>
@@ -57,12 +57,12 @@
                     </DataValidationErrors.Error>
                 </NumericUpDown>
                 <NumericUpDown suki:NumericUpDownExtensions.Unit="mm"
-                               suki:NumericUpDownExtensions.UseFloatingWatermark="True"
+                               suki:NumericUpDownExtensions.UseFloatingPlaceholder="True"
                                suki:NumericUpDownExtensions.ResetText="120"
                                FormatString="F0"
                                InnerLeftContent="[L]"
                                InnerRightContent="[R]"
-                               Watermark="Validation"
+                               PlaceholderText="Validation"
                                Value="120">
                     <DataValidationErrors.Error>
                         <system:Exception>
@@ -210,8 +210,8 @@
                                          IsReadOnly="{TemplateBinding IsReadOnly}"
                                          Text="{TemplateBinding Text}"
                                          TextWrapping="NoWrap"
-                                         UseFloatingWatermark="{TemplateBinding suki:NumericUpDownExtensions.UseFloatingWatermark}"
-                                         Watermark="{TemplateBinding Watermark}"
+                                         UseFloatingPlaceholder="{TemplateBinding suki:NumericUpDownExtensions.UseFloatingPlaceholder}"
+                                         PlaceholderText="{TemplateBinding PlaceholderText}"
                                          suki:TextBoxExtensions.Prefix="{TemplateBinding suki:NumericUpDownExtensions.Prefix}"/>
                             </DataValidationErrors>
 
