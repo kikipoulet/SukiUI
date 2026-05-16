@@ -47,7 +47,7 @@
         </Setter>
     </Style>
 
-    <Style x:CompileBindings="False" Selector="showMeTheXaml|XamlDisplay[IsEditable=True] /template/ Popup#XamlPopup">
+    <Style Selector="showMeTheXaml|XamlDisplay[IsEditable=True] /template/ Popup#XamlPopup">
         <Setter Property="Child">
             <Template>
                 <Border Classes="Card">
@@ -87,7 +87,7 @@
         </Setter>
     </Style>
 
-    <Style x:CompileBindings="False" Selector="showMeTheXaml|XamlDisplay[IsEditable=False] /template/ Popup#XamlPopup">
+    <Style Selector="showMeTheXaml|XamlDisplay[IsEditable=False] /template/ Popup#XamlPopup">
         <Setter Property="Child">
             <Template>
                 <Border Background="{Binding $parent[showMeTheXaml:XamlDisplay].Background}"
