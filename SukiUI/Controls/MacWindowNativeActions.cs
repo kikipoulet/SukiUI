@@ -44,6 +44,11 @@ internal static class MacWindowNativeActions
 
     private static IntPtr TryGetNSWindow(Window window)
     {
+        if (window is null)
+        {
+            return IntPtr.Zero;
+        }
+
         if (!OperatingSystem.IsMacOS())
         {
             return IntPtr.Zero;
