@@ -3,7 +3,7 @@
   <PropertyGroup>
     <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
     <IsTrimmable>true</IsTrimmable>
-    <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+    <TargetFrameworks>net8.0</TargetFrameworks>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <RootNamespace>SukiUI</RootNamespace>
     <UserSecretsId>712f85e4-12d3-41b0-a417-5714a113666f</UserSecretsId>
