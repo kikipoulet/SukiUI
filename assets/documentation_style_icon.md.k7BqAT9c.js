@@ -1,0 +1,1 @@
+import{c as t,Q as e,j as o}from"./chunks/framework.DPx3W8A-.js";const l=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"documentation/style/icon.md","filePath":"documentation/style/icon.md"}'),n={name:"documentation/style/icon.md"};function a(c,s,r,i,d,m){return e(),o("div")}const _=t(n,[["render",a]]);export{l as __pageData,_ as default};

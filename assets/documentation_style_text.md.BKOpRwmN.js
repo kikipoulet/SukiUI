@@ -1,0 +1,1 @@
+import{c as t,Q as e,j as a}from"./chunks/framework.DPx3W8A-.js";const l=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"documentation/style/text.md","filePath":"documentation/style/text.md"}'),o={name:"documentation/style/text.md"};function n(s,c,r,d,i,m){return e(),a("div")}const _=t(o,[["render",n]]);export{l as __pageData,_ as default};
