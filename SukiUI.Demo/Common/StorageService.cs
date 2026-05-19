@@ -1,7 +1,6 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Platform.Storage;
-using Avalonia.VisualTree;
 
 namespace SukiUI.Demo.Common
 {
@@ -32,8 +31,7 @@ namespace SukiUI.Demo.Common
                     MainView: { } mainView
                 })
             {
-                var visualRoot = mainView.GetVisualRoot();
-                if (visualRoot is TopLevel topLevel)
+                if (TopLevel.GetTopLevel(mainView) is TopLevel topLevel)
                 {
                     return topLevel.StorageProvider;
                 }

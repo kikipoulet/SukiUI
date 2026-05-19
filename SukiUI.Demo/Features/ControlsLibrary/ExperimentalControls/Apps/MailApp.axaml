@@ -22,7 +22,7 @@
                                 <TextBlock HorizontalAlignment="Left" Margin="20" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Text="Inbox"></TextBlock>
                                 <CheckBox Margin="0,0,20,0" IsChecked="True" HorizontalAlignment="Right" VerticalAlignment="Center" Content="Unread"></CheckBox>
                             </Panel>
-                            <TextBox Margin="10,-7" Watermark="Search" CornerRadius="50"></TextBox>
+                            <TextBox Margin="10,-7" PlaceholderText="Search" CornerRadius="50"></TextBox>
                             <Border Height="20"></Border>
                             <suki:GlassCard Padding="13" Margin="17,6" CornerRadius="12">
                                 <Panel>
@@ -73,7 +73,7 @@
 
 </StackPanel>
                                 <StackPanel Margin="-8,0" VerticalAlignment="Bottom">
-                                    <TextBox Padding="8,15" VerticalContentAlignment="Top" Watermark="Reply William Smith .." MinHeight="80"></TextBox>
+                                    <TextBox Padding="8,15" VerticalContentAlignment="Top" PlaceholderText="Reply William Smith .." MinHeight="80"></TextBox>
                                     <Panel Margin="0,7,0,0">
                                         <StackPanel Orientation="Horizontal" Spacing="-3">
                                             <ToggleSwitch Margin="-5,0,0,0"><ToggleSwitch.RenderTransform>

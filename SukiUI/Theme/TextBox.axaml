@@ -20,13 +20,13 @@
 
                     <TextBox IsEnabled="False"
                              Text="Disabled text"
-                             Watermark="TextBox" />
+                             PlaceholderText="TextBox" />
 
                     <TextBox suki:TextBoxExtensions.AddDeleteButton="True"
                              BorderBrush="Red"
                              BorderThickness="10"
                              Text="Thick border"
-                             UseFloatingWatermark="True" />
+                             UseFloatingPlaceholder="True" />
 
                     <TextBox suki:TextBoxExtensions.AddDeleteButton="True" Text="Error validation">
                         <DataValidationErrors.Error>
@@ -43,14 +43,14 @@
                              suki:TextBoxExtensions.ResetText="google"
                              suki:TextBoxExtensions.AddDeleteButton="True"
                              Text="test"
-                             UseFloatingWatermark="True"
-                             Watermark="Url" />
+                             UseFloatingPlaceholder="True"
+                             PlaceholderText="Url" />
 
                     <TextBox InnerLeftContent="[L]"
                              InnerRightContent="[R]"
                              Text="InnerContent" />
 
-                    <TextBox Classes="NoShadow" Watermark="NoShadow" />
+                    <TextBox Classes="NoShadow" PlaceholderText="NoShadow" />
 
                     <NumericUpDown Value="1">
                         <DataValidationErrors.Error>
@@ -174,7 +174,7 @@
 
     <system:Double x:Key="SukiTextBoxElementSpacing">5</system:Double>
     <suki:StringToDoubleConverter x:Key="StringToDoubleC" />
-    <converters:MarginMultiplierConverter x:Key="FloatingWatermarkPaddingMultiplier"
+    <converters:MarginMultiplierConverter x:Key="FloatingPlaceholderPaddingMultiplier"
                                           Bottom="True"
                                           Indent="1"
                                           Left="False"
@@ -255,14 +255,14 @@
                                LastChildFill="True"
                                VerticalSpacing="3">
 
-                        <TextBlock Name="PART_FloatingWatermark"
+                        <TextBlock Name="PART_FloatingPlaceholder"
                                    DockPanel.Dock="Top"
                                    Foreground="{DynamicResource SukiPrimaryColor120}"
-                                   Text="{TemplateBinding Watermark}">
+                                   Text="{TemplateBinding PlaceholderText}">
                             <TextBox.IsVisible>
                                 <MultiBinding Converter="{x:Static BoolConverters.And}">
-                                    <TemplateBinding Converter="{x:Static StringConverters.IsNotNullOrEmpty}" Property="Watermark" />
-                                    <TemplateBinding Property="UseFloatingWatermark" />
+                                    <TemplateBinding Converter="{x:Static StringConverters.IsNotNullOrEmpty}" Property="PlaceholderText" />
+                                    <TemplateBinding Property="UseFloatingPlaceholder" />
                                 </MultiBinding>
                             </TextBox.IsVisible>
                         </TextBlock>
@@ -301,11 +301,11 @@
                                     </Style>
                                 </ScrollViewer.Styles>
                                 <Panel>
-                                    <TextBlock Name="PART_Watermark"
+                                    <TextBlock Name="PART_Placeholder"
                                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                                Opacity="0.5"
-                                               Text="{TemplateBinding Watermark}"
+                                               Text="{TemplateBinding PlaceholderText}"
                                                TextAlignment="{TemplateBinding TextAlignment}"
                                                TextWrapping="{TemplateBinding TextWrapping}">
                                         <TextBlock.IsVisible>
@@ -314,7 +314,7 @@
                                                          ElementName="PART_TextPresenter"
                                                          Path="PreeditText" />
                                                 <TemplateBinding Converter="{x:Static StringConverters.IsNullOrEmpty}" Property="Text" />
-                                                <TemplateBinding Converter="{x:Static BoolConverters.Not}" Property="UseFloatingWatermark" />
+                                                <TemplateBinding Converter="{x:Static BoolConverters.Not}" Property="UseFloatingPlaceholder" />
                                             </MultiBinding>
                                         </TextBlock.IsVisible>
                                     </TextBlock>

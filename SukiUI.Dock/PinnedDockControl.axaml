@@ -20,8 +20,8 @@
               <Style Selector="ToolDockControl">
                 <Setter Property="Background">
                   <MultiBinding Converter="{x:Static EitherNotNullConverter.Instance}">
-                    <CompiledBinding Path="$parent[Window].Background" />
-                    <CompiledBinding Path="$parent[Window].TransparencyBackgroundFallback" />
+                    <Binding Path="$parent[Window].Background" />
+                    <Binding Path="$parent[Window].TransparencyBackgroundFallback" />
                   </MultiBinding>
                 </Setter>
               </Style>

@@ -1,5 +1,6 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:chrome="clr-namespace:Avalonia.Controls.Chrome;assembly=Avalonia.Controls"
                     xmlns:icons="clr-namespace:SukiUI.Content"
                     xmlns:suki="clr-namespace:SukiUI.Controls">
     <Design.PreviewWith>
@@ -26,15 +27,17 @@
     <ControlTheme x:Key="SukiWindowTheme" TargetType="suki:SukiWindow">
         <Setter Property="Margin" Value="0" />
         <Setter Property="TransparencyLevelHint" Value="Transparent" />
-        <Setter Property="SystemDecorations" Value="{OnPlatform Full, Linux=None, x:TypeArguments=SystemDecorations}" />
-        <Setter Property="ExtendClientAreaChromeHints" Value="NoChrome" />
-        <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="-1" />
+        <Setter Property="WindowDecorations" Value="{OnPlatform BorderOnly, Windows=Full, Linux=None, x:TypeArguments=WindowDecorations}" />
         <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
+        <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="-1" />
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
         <Setter Property="FlowDirection" Value="{DynamicResource FlowDirectionPrimary}" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Panel Name="PART_Root" Margin="{TemplateBinding Margin}">
+                    <Panel Background="Transparent"
+                           IsHitTestVisible="False"
+                           Margin="{TemplateBinding WindowDecorationMargin}" />
                     <suki:SukiMainHost BackgroundAnimationEnabled="{TemplateBinding BackgroundAnimationEnabled}"
                                        BackgroundForceSoftwareRendering="{TemplateBinding BackgroundForceSoftwareRendering}"
                                        BackgroundShaderCode="{TemplateBinding BackgroundShaderCode}"
@@ -46,22 +49,29 @@
                                        Foreground="{TemplateBinding Foreground}"
                                        Hosts="{Binding Hosts, RelativeSource={RelativeSource AncestorType={x:Type suki:SukiWindow}}}">
                         <DockPanel LastChildFill="True">
-                            <Panel ContextMenu="{TemplateBinding TitleBarContextMenu}" DockPanel.Dock="Top">
+                            <Panel DockPanel.Dock="Top">
                                 <StackPanel>
-                                    <LayoutTransformControl Name="PART_TitleBar" RenderTransformOrigin="0%,0%">
-                                        <Panel>
+                                    <LayoutTransformControl Name="PART_TitleBar"
+                                                            RenderTransformOrigin="0%,0%">
+                                        <Panel Background="Transparent"
+                                               chrome:WindowDecorationProperties.ElementRole="TitleBar">
                                             <Border Background="Transparent"
                                                     BorderThickness="0"
                                                     CornerRadius="0"
-                                                    Name="DragArea" />
+                                                    Name="DragArea"
+                                                    chrome:WindowDecorationProperties.ElementRole="TitleBar" />
 
                                             <suki:GlassCard Name="PART_TitleBarBackground"
+                                                            chrome:WindowDecorationProperties.ElementRole="TitleBar"
                                                             BorderThickness="0"
                                                             CornerRadius="0"
                                                             IsAnimated="False"
                                                             IsVisible="{TemplateBinding ShowTitlebarBackground}" />
 
-                                            <DockPanel Margin="12,9" LastChildFill="True">
+                                            <DockPanel Background="Transparent"
+                                                       Margin="12,9"
+                                                       LastChildFill="True"
+                                                       chrome:WindowDecorationProperties.ElementRole="TitleBar">
                                                 <StackPanel VerticalAlignment="Center"
                                                             DockPanel.Dock="Right"
                                                             Orientation="Horizontal"
@@ -72,7 +82,13 @@
                                                             <Setter Property="Width" Value="{TemplateBinding TitleBarControlSize}" />
                                                         </Style>
                                                     </StackPanel.Styles>
-                                                    <ItemsControl ItemsSource="{TemplateBinding RightWindowTitleBarControls}">
+                                                    <ItemsControl chrome:WindowDecorationProperties.ElementRole="User"
+                                                                  ItemsSource="{TemplateBinding RightWindowTitleBarControls}">
+                                                        <ItemsControl.Styles>
+                                                            <Style Selector="Control">
+                                                                <Setter Property="chrome:WindowDecorationProperties.ElementRole" Value="User" />
+                                                            </Style>
+                                                        </ItemsControl.Styles>
                                                         <ItemsControl.ItemsPanel>
                                                             <ItemsPanelTemplate>
                                                                 <StackPanel FlowDirection="{DynamicResource FlowDirectionOpposite}" Orientation="Horizontal" />
@@ -81,12 +97,14 @@
                                                     </ItemsControl>
                                                     <Button Name="PART_FullScreenButton"
                                                             Classes="WindowControlsButton"
+                                                            chrome:WindowDecorationProperties.ElementRole="User"
                                                             IsEnabled="{TemplateBinding CanFullScreen}"
                                                             IsVisible="{TemplateBinding CanFullScreen}">
                                                         <PathIcon x:Name="FullScreenIcon" Data="{x:Static icons:Icons.WindowFullScreen}" />
                                                     </Button>
                                                     <Button Name="PART_PinButton"
                                                             Classes="WindowControlsButton"
+                                                            chrome:WindowDecorationProperties.ElementRole="User"
                                                             IsEnabled="{TemplateBinding CanPin}"
                                                             IsVisible="{TemplateBinding CanPin}">
                                                         <PathIcon x:Name="PinIcon" Data="{x:Static icons:Icons.WindowPin}" />
@@ -94,6 +112,7 @@
                                                     <Button Name="PART_MinimizeButton"
                                                             VerticalContentAlignment="Bottom"
                                                             Classes="WindowControlsButton"
+                                                            chrome:WindowDecorationProperties.ElementRole="User"
                                                             IsVisible="{TemplateBinding CanMinimize}">
                                                         <PathIcon Margin="0,0,0,6.5"
                                                                   VerticalAlignment="Bottom"
@@ -101,21 +120,27 @@
                                                     </Button>
                                                     <Button Name="PART_MaximizeButton"
                                                             Classes="WindowControlsButton"
+                                                            chrome:WindowDecorationProperties.ElementRole="User"
                                                             IsVisible="{TemplateBinding CanMaximize}">
                                                         <PathIcon x:Name="MaximizeIcon" Data="{x:Static icons:Icons.WindowMaximize}" />
                                                     </Button>
-                                                    <Button Name="PART_CloseButton" Classes="WindowControlsButton Close">
+                                                    <Button Name="PART_CloseButton"
+                                                            Classes="WindowControlsButton Close"
+                                                            chrome:WindowDecorationProperties.ElementRole="User">
                                                         <PathIcon Data="{x:Static icons:Icons.WindowClose}" />
                                                     </Button>
                                                 </StackPanel>
 
                                                 <Grid ColumnDefinitions="Auto,*"
+                                                      Background="Transparent"
                                                       ColumnSpacing="10"
-                                                      VerticalAlignment="Center">
+                                                      VerticalAlignment="Center"
+                                                      chrome:WindowDecorationProperties.ElementRole="TitleBar">
                                                     <ContentPresenter Grid.Column="0"
                                                                       Name="PART_Logo"
                                                                       HorizontalAlignment="Left"
                                                                       Background="Transparent"
+                                                                      chrome:WindowDecorationProperties.ElementRole="User"
                                                                       Content="{TemplateBinding LogoContent}" />
                                                     <TextBlock Grid.Column="1"
                                                                Name="PART_TitleTextBlock"
@@ -173,7 +198,6 @@
             <Setter Property="Data" Value="{x:Static icons:Icons.WindowPinOff}" />
         </Style>
 
-
         <Style Selector="^[WindowState=Maximized] /template/ PathIcon#MaximizeIcon">
             <Setter Property="Data" Value="{x:Static icons:Icons.WindowRestore}" />
         </Style>
@@ -200,4 +224,20 @@
     <ControlTheme x:Key="{x:Type suki:SukiWindow}"
                   BasedOn="{StaticResource SukiWindowTheme}"
                   TargetType="suki:SukiWindow" />
+
+    <ControlTheme x:Key="{x:Type chrome:WindowDrawnDecorations}"
+                  TargetType="chrome:WindowDrawnDecorations">
+        <Setter Property="DefaultTitleBarHeight" Value="32" />
+        <Setter Property="Template">
+            <WindowDrawnDecorationsTemplate>
+                <chrome:WindowDrawnDecorationsContent>
+                    <chrome:WindowDrawnDecorationsContent.Overlay>
+                        <DockPanel Height="{TemplateBinding TitleBarHeight}"
+                                   Margin="{TemplateBinding ShadowThickness}"
+                                   VerticalAlignment="Top" />
+                    </chrome:WindowDrawnDecorationsContent.Overlay>
+                </chrome:WindowDrawnDecorationsContent>
+            </WindowDrawnDecorationsTemplate>
+        </Setter>
+    </ControlTheme>
 </ResourceDictionary>

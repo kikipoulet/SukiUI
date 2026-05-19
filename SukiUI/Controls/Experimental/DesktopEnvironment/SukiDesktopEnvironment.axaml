@@ -13,9 +13,9 @@
 
     <Panel>
       <Image  Source="{TemplateBinding DesktopBackgroundImageSource}" Stretch="UniformToFill" >
-         
+
       </Image>
-      
+
       <Panel>
           <Border BorderThickness="1" BorderBrush="#55888888" BoxShadow="{DynamicResource SukiBigPopupShadow}"   VerticalAlignment="Bottom" Margin="-2"  Height="56" >
                   <Border ClipToBounds="True">
@@ -63,9 +63,9 @@
                       </Flyout>
                   </FlyoutBase.AttachedFlyout>
               </Image>
-              
-              <TextBox Width="180" CornerRadius="50" Height="24" VerticalAlignment="Center" Watermark="Search"></TextBox>
-              
+
+              <TextBox Width="180" CornerRadius="50" Height="24" VerticalAlignment="Center" PlaceholderText="Search"/>
+
               <ItemsControl  ItemsSource="{TemplateBinding Softwares}">
                   <ItemsControl.ItemTemplate>
                       <DataTemplate x:DataType="desktopEnvironment:SDESoftware">
@@ -83,14 +83,14 @@
                       </ItemsPanelTemplate>
                   </ItemsControl.ItemsPanel>
               </ItemsControl>
-              
+
           </StackPanel>
-          
+
           <desktopEnvironment:WindowManager Margin="0,0,0,50" Name="WM"/>
-          
-          
+
+
       </Panel>
-      
+
   </Panel>
                     </ControlTemplate>
                 </Setter>

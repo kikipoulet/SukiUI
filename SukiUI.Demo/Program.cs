@@ -1,7 +1,7 @@
 ﻿using Avalonia;
+using Avalonia.Dialogs;
 using ShowMeTheXaml;
 using System;
-using Avalonia.Dialogs;
 
 namespace SukiUI.Demo;
 
@@ -40,8 +40,13 @@ internal static class Program
         var app = AppBuilder.Configure<App>()
             .UsePlatformDetect()
             .WithInterFont()
-            .LogToTrace()
-            .UseXamlDisplay();
+            .LogToTrace();
+
+#if DEBUG
+        app = app.WithDeveloperTools();
+#endif
+
+        app = app.UseXamlDisplay();
 
         if (OperatingSystem.IsWindows() || OperatingSystem.IsMacOS() || OperatingSystem.IsLinux())
         {

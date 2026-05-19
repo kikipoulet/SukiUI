@@ -27,7 +27,7 @@
                              BorderThickness="{TemplateBinding BorderThickness}"
                              CornerRadius="{TemplateBinding CornerRadius}"
                              DataValidationErrors.Errors="{TemplateBinding (DataValidationErrors.Errors)}"
-                             Watermark="{TemplateBinding Watermark}" />
+                             PlaceholderText="{TemplateBinding PlaceholderText}" />
 
                     <Popup Name="PART_Popup"
                            MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}"

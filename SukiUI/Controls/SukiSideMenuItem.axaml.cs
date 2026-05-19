@@ -4,6 +4,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
 using Avalonia.Input;
 using Avalonia.LogicalTree;
+using Avalonia.VisualTree;
 
 namespace SukiUI.Controls;
 
@@ -135,7 +136,7 @@ public class SukiSideMenuItem : TreeViewItem
             e.InitialPressMouseButton is MouseButton.Left or MouseButton.Right)
         {
             var point = e.GetCurrentPoint(this);
-            var settings = TopLevel.GetTopLevel(e.Source as Visual)?.PlatformSettings;
+            var settings = (e.Source as Visual)?.GetPlatformSettings();
             var tapSize = settings?.GetTapSize(point.Pointer.Type) ?? new Size(4, 4);
             var tapRect = new Rect(_pointerDownPoint, new Size())
                 .Inflate(new Thickness(tapSize.Width, tapSize.Height));

@@ -30,7 +30,7 @@ public static class SukiMessageBox
         {
             window = new Window
             {
-                SystemDecorations = options.IsTitleBarVisible ? SystemDecorations.Full : SystemDecorations.BorderOnly,
+                WindowDecorations = options.IsTitleBarVisible ? WindowDecorations.Full : WindowDecorations.BorderOnly,
             };
             window.ConstrainMaxSizeToScreenRatio(options.MaxWidthScreenRatio, options.MaxHeightScreenRatio);
         }

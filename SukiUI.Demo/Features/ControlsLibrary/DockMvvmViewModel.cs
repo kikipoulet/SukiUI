@@ -38,7 +38,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary
                 root.Navigate.Execute("Home");
             }
         }
-        
+
         [RelayCommand]
         private async Task SaveLayout()
         {
@@ -91,13 +91,12 @@ namespace SukiUI.Demo.Features.ControlsLibrary
                 try
                 {
                     await using var stream = await file.OpenReadAsync();
-                    using var reader = new StreamReader(stream);
 
                     var layout = _serializer.Load<IRootDock?>(stream);
 
                     if (layout is not null)
                     {
-                        _factory!.InitLayout(layout);
+                        _factory.InitLayout(layout);
                         Layout = layout;
                     }
                 }
@@ -107,7 +106,7 @@ namespace SukiUI.Demo.Features.ControlsLibrary
                 }
             }
         }
-        
+
         private static List<FilePickerFileType> GetOpenLayoutFileTypes()
             =>
             [

@@ -124,7 +124,7 @@
                 </CheckBox>-->
                                     <TextBox IsVisible="{Binding !SelectingFolder}"
                                              Text="{Binding FileName}"
-                                             Watermark="{DynamicResource StringManagedFileChooserFileNameWatermark}" />
+                                             PlaceholderText="{DynamicResource StringManagedFileChooserFileNameWatermark}" />
 
                                 </DockPanel>
 

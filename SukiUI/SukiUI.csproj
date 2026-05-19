@@ -3,7 +3,7 @@
   <PropertyGroup>
     <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
     <IsTrimmable>true</IsTrimmable>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <RootNamespace>SukiUI</RootNamespace>
     <UserSecretsId>712f85e4-12d3-41b0-a417-5714a113666f</UserSecretsId>
@@ -26,8 +26,6 @@
   <ItemGroup>
     <PackageReference Include="Avalonia"/>
     <PackageReference Include="Avalonia.Skia"/>
-    <PackageReference Include="SkiaSharp"/>
-    <PackageReference Include="SkiaSharp.NativeAssets.Linux"/>
     <PackageReference Include="Avalonia.Controls.DataGrid"/>
     <PackageReference Include="Avalonia.Controls.ColorPicker"/>
     <PackageReference Include="Avalonia.Themes.Simple"/>

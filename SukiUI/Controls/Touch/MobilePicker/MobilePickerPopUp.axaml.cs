@@ -7,7 +7,12 @@ namespace SukiUI.Controls.Touch.MobilePicker;
 
 public partial class MobilePickerPopUp : UserControl
 {
-    private ISukiDialogManager dialogManager;
+    private ISukiDialogManager? dialogManager;
+
+    public MobilePickerPopUp()
+    {
+        InitializeComponent();
+    }
 
     public MobilePickerPopUp(ISukiDialogManager manager)
     {
@@ -23,7 +28,7 @@ public partial class MobilePickerPopUp : UserControl
 
     private void DoneClick(object sender, RoutedEventArgs e)
     {
-        dialogManager.DismissDialog();
+        dialogManager?.DismissDialog();
         var model = ((MobilePickerPopUpViewModel)DataContext);
 
         model.mobilePicker.SelectedItem = model.SelectedItem;

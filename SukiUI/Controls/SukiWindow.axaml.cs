@@ -2,6 +2,7 @@
 using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Controls.Chrome;
 using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
@@ -10,6 +11,7 @@ using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Threading;
+using Avalonia.VisualTree;
 using SukiUI.Enums;
 using SukiUI.Extensions;
 using System.ComponentModel;
@@ -61,9 +63,15 @@ public class SukiWindow : Window, IDisposable
     #region Members
     private const int DefaultAutoHideDelay = 1000;
     private const int DefaultAutoShowDelay = 300;
+    private static readonly TimeSpan MacTitleBarDoubleClickInterval = TimeSpan.FromMilliseconds(500);
+    private const double MacTitleBarDoubleClickMaxDistance = 4;
 
     private bool _isDisposed;
     private bool _wasTitleBarVisibleBeforeFullScreen = true;
+    private bool _suppressMacTitleBarDoubleTapped;
+    private DateTime _lastMacTitleBarClickTime = DateTime.MinValue;
+    private Point _lastMacTitleBarClickPosition;
+    private readonly HashSet<PopupFlyoutBase> _openTitleBarFlyouts = new();
 
     private readonly DispatcherTimer _hideTitleBarTimer = new DispatcherTimer()
     {
@@ -472,12 +480,19 @@ public class SukiWindow : Window, IDisposable
     #endregion
 
     #region Constructor
+    static SukiWindow()
+    {
+        FlyoutBase.TargetProperty.Changed.AddClassHandler<PopupFlyoutBase>(OnPopupFlyoutTargetChanged);
+        FlyoutBase.IsOpenProperty.Changed.AddClassHandler<PopupFlyoutBase>(OnPopupFlyoutIsOpenChanged);
+    }
+
     public SukiWindow()
     {
         Hosts = [];
         RightWindowTitleBarControls = [];
         MenuItems = [];
         ScalingChanged += OnScalingChanged;
+        PositionChanged += OnWindowPositionChanged;
 
         _hideTitleBarTimer.Tick += HideTitleBarTimerOnTick;
         _showTitleBarTimer.Tick += ShowTitleBarTimerOnTick;
@@ -506,17 +521,62 @@ public class SukiWindow : Window, IDisposable
         _titleBarControl = e.NameScope.Find<LayoutTransformControl>("PART_TitleBar");
         if (_titleBarControl is not null)
         {
-            _titleBarControl.IsVisible = IsTitleBarVisible;
+            var titleBarControl = _titleBarControl;
+            titleBarControl.IsVisible = IsTitleBarVisible;
 
-            _titleBarControl.PointerPressed += OnTitleBarPointerPressed;
-            _titleBarControl.PointerReleased += OnTitleBarPointerReleased;
-            _titleBarControl.DoubleTapped += OnMaximizeButtonClicked;
-            _disposeActions.Add(() =>
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                _titleBarControl.PointerPressed -= OnTitleBarPointerPressed;
-                _titleBarControl.PointerReleased -= OnTitleBarPointerReleased;
-                _titleBarControl.DoubleTapped -= OnMaximizeButtonClicked;
-            });
+                titleBarControl.PointerPressed += OnTitleBarPointerPressed;
+                titleBarControl.PointerReleased += OnTitleBarPointerReleased;
+                titleBarControl.DoubleTapped += OnTitleBarDoubleTapped;
+                titleBarControl.AddHandler(
+                    ContextRequestedEvent,
+                    OnTitleBarContextRequested,
+                    RoutingStrategies.Tunnel,
+                    handledEventsToo: true);
+                AddHandler(
+                    PointerPressedEvent,
+                    OnWindowPointerPressedForTitleBarPopups,
+                    RoutingStrategies.Tunnel,
+                    handledEventsToo: true);
+                _disposeActions.Add(() =>
+                {
+                    titleBarControl.PointerPressed -= OnTitleBarPointerPressed;
+                    titleBarControl.PointerReleased -= OnTitleBarPointerReleased;
+                    titleBarControl.DoubleTapped -= OnTitleBarDoubleTapped;
+                    titleBarControl.RemoveHandler(ContextRequestedEvent, OnTitleBarContextRequested);
+                    RemoveHandler(PointerPressedEvent, OnWindowPointerPressedForTitleBarPopups);
+                    _openTitleBarFlyouts.Clear();
+                });
+            }
+            else
+            {
+                DisableNativeTitleBarRoleForMac(titleBarControl);
+                titleBarControl.DoubleTapped += OnMacTitleBarDoubleTapped;
+                titleBarControl.AddHandler(
+                    PointerPressedEvent,
+                    OnMacTitleBarPointerPressed,
+                    RoutingStrategies.Tunnel,
+                    handledEventsToo: true);
+                titleBarControl.AddHandler(
+                    ContextRequestedEvent,
+                    OnTitleBarContextRequested,
+                    RoutingStrategies.Tunnel,
+                    handledEventsToo: true);
+                AddHandler(
+                    PointerPressedEvent,
+                    OnWindowPointerPressedForTitleBarPopups,
+                    RoutingStrategies.Tunnel,
+                    handledEventsToo: true);
+                _disposeActions.Add(() =>
+                {
+                    titleBarControl.DoubleTapped -= OnMacTitleBarDoubleTapped;
+                    titleBarControl.RemoveHandler(PointerPressedEvent, OnMacTitleBarPointerPressed);
+                    titleBarControl.RemoveHandler(ContextRequestedEvent, OnTitleBarContextRequested);
+                    RemoveHandler(PointerPressedEvent, OnWindowPointerPressedForTitleBarPopups);
+                    _openTitleBarFlyouts.Clear();
+                });
+            }
         }
 
         if (e.NameScope.Find<ContentPresenter>("PART_Logo") is { } logo)
@@ -567,6 +627,7 @@ public class SukiWindow : Window, IDisposable
                 RootCornerRadius = new CornerRadius(10);
             }
         }
+
     }
 
     /// <inheritdoc />
@@ -727,6 +788,11 @@ public class SukiWindow : Window, IDisposable
         this.ConstrainMaxSizeToScreenRatio(MaxWidthScreenRatio, MaxHeightScreenRatio);
     }
 
+    private void OnWindowPositionChanged(object? sender, PixelPointEventArgs e)
+    {
+        this.ConstrainMaxSizeToScreenRatio(MaxWidthScreenRatio, MaxHeightScreenRatio);
+    }
+
     /// <summary>
     /// Occurs when the window newState changes.
     /// </summary>
@@ -768,13 +834,6 @@ public class SukiWindow : Window, IDisposable
             {
                 IsTitleBarVisible = _wasTitleBarVisibleBeforeFullScreen;
             }
-        }
-
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) // only for windows platform
-        {
-            Margin = new Thickness(newState == WindowState.Maximized
-                ? 7
-                : 0);
         }
 
         this.ConstrainMaxSizeToScreenRatio(MaxWidthScreenRatio, MaxHeightScreenRatio);
@@ -830,11 +889,199 @@ public class SukiWindow : Window, IDisposable
     /// <param name="args"></param>
     private void OnMaximizeButtonClicked(object? sender, RoutedEventArgs args)
     {
+        ToggleMaximizeOrZoom();
+    }
+
+    private void OnMacTitleBarDoubleTapped(object? sender, RoutedEventArgs args)
+    {
+        if (IsFromTitleBarUserElement(args.Source))
+        {
+            return;
+        }
+
+        if (_suppressMacTitleBarDoubleTapped)
+        {
+            _suppressMacTitleBarDoubleTapped = false;
+            return;
+        }
+
+        ToggleMaximizeOrZoom();
+    }
+
+    private void ToggleMaximizeOrZoom()
+    {
         var windowState = WindowState;
         if (!CanMaximize || windowState == WindowState.FullScreen) return;
+
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) &&
+            MacWindowNativeActions.TryToggleZoom(this, windowState == WindowState.Maximized))
+        {
+            return;
+        }
+
         WindowState = windowState == WindowState.Maximized
             ? WindowState.Normal
             : WindowState.Maximized;
+    }
+
+    private void OnMacTitleBarPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        if (!RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ||
+            !e.Properties.IsLeftButtonPressed ||
+            IsFromTitleBarUserElement(e.Source))
+        {
+            return;
+        }
+
+        var now = DateTime.UtcNow;
+        var position = e.GetPosition(this);
+        var deltaX = position.X - _lastMacTitleBarClickPosition.X;
+        var deltaY = position.Y - _lastMacTitleBarClickPosition.Y;
+        var clickDistanceSquared = deltaX * deltaX + deltaY * deltaY;
+        if (now - _lastMacTitleBarClickTime <= MacTitleBarDoubleClickInterval &&
+            clickDistanceSquared <= MacTitleBarDoubleClickMaxDistance * MacTitleBarDoubleClickMaxDistance)
+        {
+            _lastMacTitleBarClickTime = DateTime.MinValue;
+            _suppressMacTitleBarDoubleTapped = true;
+            e.Handled = true;
+            e.PreventGestureRecognition();
+            ToggleMaximizeOrZoom();
+            return;
+        }
+
+        _lastMacTitleBarClickTime = now;
+        _lastMacTitleBarClickPosition = position;
+        OnTitleBarPointerPressed(sender, e);
+    }
+
+    private bool IsFromTitleBarUserElement(object? source)
+    {
+        for (var visual = source as Visual; visual is not null && visual != _titleBarControl; visual = visual.GetVisualParent())
+        {
+            if (WindowDecorationProperties.GetElementRole(visual) == WindowDecorationsElementRole.User)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static void OnPopupFlyoutTargetChanged(PopupFlyoutBase flyout, AvaloniaPropertyChangedEventArgs e)
+    {
+        if (e.NewValue is Control target && TryGetTitleBarFlyoutOwner(target, out _))
+        {
+            flyout.OverlayDismissEventPassThrough = true;
+        }
+    }
+
+    private static void OnPopupFlyoutIsOpenChanged(PopupFlyoutBase flyout, AvaloniaPropertyChangedEventArgs e)
+    {
+        if (flyout.Target is not { } target || !TryGetTitleBarFlyoutOwner(target, out var window))
+        {
+            return;
+        }
+
+        if (e.NewValue is true)
+        {
+            window._openTitleBarFlyouts.Add(flyout);
+        }
+        else
+        {
+            window._openTitleBarFlyouts.Remove(flyout);
+        }
+    }
+
+    private static bool TryGetTitleBarFlyoutOwner(Control target, out SukiWindow window)
+    {
+        for (var visual = target as Visual; visual is not null; visual = visual.GetVisualParent())
+        {
+            if (visual is not SukiWindow candidate)
+            {
+                continue;
+            }
+
+            if (candidate._titleBarControl is not null &&
+                IsVisualWithin(target, candidate._titleBarControl) &&
+                candidate.IsFromTitleBarUserElement(target))
+            {
+                window = candidate;
+                return true;
+            }
+
+            break;
+        }
+
+        window = null!;
+        return false;
+    }
+
+    private static bool IsVisualWithin(object? source, Visual? ancestor)
+    {
+        var visual = source as Visual;
+        if (visual is null || ancestor is null)
+        {
+            return false;
+        }
+
+        while (visual is not null)
+        {
+            if (ReferenceEquals(visual, ancestor))
+            {
+                return true;
+            }
+
+            visual = visual.GetVisualParent();
+        }
+
+        return false;
+    }
+
+    private void OnWindowPointerPressedForTitleBarPopups(object? sender, PointerPressedEventArgs e)
+    {
+        CloseOpenTitleBarPopups(e.Source);
+    }
+
+    private void CloseOpenTitleBarPopups(object? source)
+    {
+        if (TitleBarContextMenu is { IsOpen: true } contextMenu && !IsVisualWithin(source, contextMenu))
+        {
+            contextMenu.Close();
+        }
+
+        foreach (var flyout in _openTitleBarFlyouts.ToArray())
+        {
+            if (!flyout.IsOpen)
+            {
+                _openTitleBarFlyouts.Remove(flyout);
+                continue;
+            }
+
+            if (IsVisualWithin(source, flyout.Target) ||
+                IsVisualWithin(source, flyout.Popup?.Child))
+            {
+                continue;
+            }
+
+            flyout.Hide();
+        }
+    }
+
+    private static void DisableNativeTitleBarRoleForMac(Visual titleBar)
+    {
+        ClearTitleBarRole(titleBar);
+        foreach (var visual in titleBar.GetVisualDescendants())
+        {
+            ClearTitleBarRole(visual);
+        }
+
+        static void ClearTitleBarRole(Visual visual)
+        {
+            if (WindowDecorationProperties.GetElementRole(visual) == WindowDecorationsElementRole.TitleBar)
+            {
+                WindowDecorationProperties.SetElementRole(visual, WindowDecorationsElementRole.None);
+            }
+        }
     }
 
     /// <summary>
@@ -877,24 +1124,56 @@ public class SukiWindow : Window, IDisposable
     /// <summary>
     /// Occurs when the title bar is clicked.
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     private void OnTitleBarPointerPressed(object? sender, PointerPressedEventArgs e)
     {
-        if (!CanMove || WindowState == WindowState.FullScreen)
+        if (!CanMove ||
+            WindowState == WindowState.FullScreen ||
+            !e.Properties.IsLeftButtonPressed ||
+            IsFromTitleBarUserElement(e.Source))
+        {
             return;
+        }
+
         BeginMoveDrag(e);
     }
 
+    private void OnTitleBarDoubleTapped(object? sender, RoutedEventArgs args)
+    {
+        if (IsFromTitleBarUserElement(args.Source))
+        {
+            return;
+        }
+
+        ToggleMaximizeOrZoom();
+    }
+
+    private void OnTitleBarContextRequested(object? sender, ContextRequestedEventArgs e)
+    {
+        if (_titleBarControl is null ||
+            TitleBarContextMenu is not { } contextMenu ||
+            IsFromTitleBarUserElement(e.Source))
+        {
+            return;
+        }
+
+        CloseOpenTitleBarPopups(e.Source);
+        if (contextMenu.IsOpen)
+        {
+            contextMenu.Close();
+        }
+
+        contextMenu.Placement = PlacementMode.Pointer;
+        contextMenu.Open(_titleBarControl);
+        e.Handled = true;
+    }
+
     /// <summary>
-    /// Occurs when the title bar is released
+    /// Occurs when the title bar is released.
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     private void OnTitleBarPointerReleased(object sender, PointerReleasedEventArgs e)
     {
-        // Ensure correct window max size if dropped on other screen/resolution while using max size ratio
-        if (!CanMove || e.InitialPressMouseButton != MouseButton.Left) return;
+        // Ensure correct window max size if dropped on other screen/resolution while using max size ratio.
+        if (!CanMove || e.InitialPressMouseButton != MouseButton.Left || IsFromTitleBarUserElement(e.Source)) return;
         this.ConstrainMaxSizeToScreenRatio(MaxWidthScreenRatio, MaxHeightScreenRatio);
     }
 
@@ -1123,6 +1402,12 @@ public class SukiWindow : Window, IDisposable
     /// </summary>
     public void ToggleFullScreen()
     {
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) &&
+            MacWindowNativeActions.TryToggleFullScreen(this))
+        {
+            return;
+        }
+
         WindowState = WindowState == WindowState.FullScreen
             ? PreviousVisibleWindowState
             : WindowState.FullScreen;

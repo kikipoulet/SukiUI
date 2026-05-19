@@ -86,7 +86,7 @@
                                          Text="{TemplateBinding Text,
                                                                 Mode=TwoWay}"
                                          TextWrapping="Wrap"
-                                         Watermark="Type your message here .." />
+                                         PlaceholderText="Type your message here .." />
                             </DockPanel>
                         </Grid>
 
