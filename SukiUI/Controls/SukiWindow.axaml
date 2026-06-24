@@ -4,22 +4,25 @@
                     xmlns:icons="clr-namespace:SukiUI.Content"
                     xmlns:suki="clr-namespace:SukiUI.Controls">
     <Design.PreviewWith>
-        <suki:SukiWindow Title="SukiUI Window with long text to test the overflow of the Title, use TitleTextWrapping to define"
-                         TitleTextWrapping="Wrap"
-                         TitleBarControlSize="12"
-                         Width="600"
-                         Height="400"
-                         CanFullScreen="True"
-                         CanPin="True">
+        <suki:SukiWindow
+            Title="SukiUI Window with long text to test the overflow of the Title, use TitleTextWrapping to define"
+            TitleTextWrapping="Wrap"
+            TitleBarControlSize="12"
+            Width="600"
+            Height="400"
+            CanFullScreen="True"
+            CanPin="True">
             <suki:SukiWindow.LogoContent>
                 <PathIcon Data="{x:Static icons:Icons.CircleInformation}"
                           Height="20"
                           Width="20"
-                          Foreground="Goldenrod"/>
+                          Foreground="Goldenrod" />
             </suki:SukiWindow.LogoContent>
             <suki:GlassCard Margin="20">
                 <suki:GroupBox Header="SukiUI">
-                    <SelectableTextBlock Text="SukiUI makes your Avalonia applications more modern. The library offers a large number of animated controls and theme switches." TextWrapping="Wrap" />
+                    <SelectableTextBlock
+                        Text="SukiUI makes your Avalonia applications more modern. The library offers a large number of animated controls and theme switches."
+                        TextWrapping="Wrap" />
                 </suki:GroupBox>
             </suki:GlassCard>
         </suki:SukiWindow>
@@ -27,7 +30,8 @@
     <ControlTheme x:Key="SukiWindowTheme" TargetType="suki:SukiWindow">
         <Setter Property="Margin" Value="0" />
         <Setter Property="TransparencyLevelHint" Value="Transparent" />
-        <Setter Property="WindowDecorations" Value="{OnPlatform BorderOnly, Windows=Full, Linux=None, x:TypeArguments=WindowDecorations}" />
+        <Setter Property="WindowDecorations"
+                Value="{OnPlatform BorderOnly, Windows=Full, Linux=None, x:TypeArguments=WindowDecorations}" />
         <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
         <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="-1" />
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
@@ -78,20 +82,26 @@
                                                             Spacing="7">
                                                     <StackPanel.Styles>
                                                         <Style Selector="PathIcon">
-                                                            <Setter Property="Height" Value="{TemplateBinding TitleBarControlSize}" />
-                                                            <Setter Property="Width" Value="{TemplateBinding TitleBarControlSize}" />
+                                                            <Setter Property="Height"
+                                                                    Value="{TemplateBinding TitleBarControlSize}" />
+                                                            <Setter Property="Width"
+                                                                    Value="{TemplateBinding TitleBarControlSize}" />
                                                         </Style>
                                                     </StackPanel.Styles>
                                                     <ItemsControl chrome:WindowDecorationProperties.ElementRole="User"
                                                                   ItemsSource="{TemplateBinding RightWindowTitleBarControls}">
                                                         <ItemsControl.Styles>
                                                             <Style Selector="Control">
-                                                                <Setter Property="chrome:WindowDecorationProperties.ElementRole" Value="User" />
+                                                                <Setter
+                                                                    Property="chrome:WindowDecorationProperties.ElementRole"
+                                                                    Value="User" />
                                                             </Style>
                                                         </ItemsControl.Styles>
                                                         <ItemsControl.ItemsPanel>
                                                             <ItemsPanelTemplate>
-                                                                <StackPanel FlowDirection="{DynamicResource FlowDirectionOpposite}" Orientation="Horizontal" />
+                                                                <StackPanel
+                                                                    FlowDirection="{DynamicResource FlowDirectionOpposite}"
+                                                                    Orientation="Horizontal" />
                                                             </ItemsPanelTemplate>
                                                         </ItemsControl.ItemsPanel>
                                                     </ItemsControl>
@@ -100,14 +110,16 @@
                                                             chrome:WindowDecorationProperties.ElementRole="User"
                                                             IsEnabled="{TemplateBinding CanFullScreen}"
                                                             IsVisible="{TemplateBinding CanFullScreen}">
-                                                        <PathIcon x:Name="FullScreenIcon" Data="{x:Static icons:Icons.WindowFullScreen}" />
+                                                        <PathIcon x:Name="FullScreenIcon"
+                                                                  Data="{x:Static icons:Icons.WindowFullScreen}" />
                                                     </Button>
                                                     <Button Name="PART_PinButton"
                                                             Classes="WindowControlsButton"
                                                             chrome:WindowDecorationProperties.ElementRole="User"
                                                             IsEnabled="{TemplateBinding CanPin}"
                                                             IsVisible="{TemplateBinding CanPin}">
-                                                        <PathIcon x:Name="PinIcon" Data="{x:Static icons:Icons.WindowPin}" />
+                                                        <PathIcon x:Name="PinIcon"
+                                                                  Data="{x:Static icons:Icons.WindowPin}" />
                                                     </Button>
                                                     <Button Name="PART_MinimizeButton"
                                                             VerticalContentAlignment="Bottom"
@@ -122,7 +134,8 @@
                                                             Classes="WindowControlsButton"
                                                             chrome:WindowDecorationProperties.ElementRole="User"
                                                             IsVisible="{TemplateBinding CanMaximize}">
-                                                        <PathIcon x:Name="MaximizeIcon" Data="{x:Static icons:Icons.WindowMaximize}" />
+                                                        <PathIcon x:Name="MaximizeIcon"
+                                                                  Data="{x:Static icons:Icons.WindowMaximize}" />
                                                     </Button>
                                                     <Button Name="PART_CloseButton"
                                                             Classes="WindowControlsButton Close"
@@ -142,6 +155,9 @@
                                                                       Background="Transparent"
                                                                       chrome:WindowDecorationProperties.ElementRole="User"
                                                                       Content="{TemplateBinding LogoContent}" />
+                                                    <Border Grid.Column="1"
+                                                            Background="Transparent"
+                                                            ContextMenu="{TemplateBinding TitleBarContextMenu}" />
                                                     <TextBlock Grid.Column="1"
                                                                Name="PART_TitleTextBlock"
                                                                VerticalAlignment="Center"
