@@ -15,6 +15,9 @@ public class CodeEditor : TextEditor
 
     protected override Type StyleKeyOverride => typeof(TextEditor);
 
+    private RegistryOptions? _options;
+    private TextMate.Installation? _installation;
+
     public string? Language
     {
         get => GetValue(LanguageProperty);
@@ -27,36 +30,44 @@ public class CodeEditor : TextEditor
         FontFamily = FontFamily.Parse("Consolas");
         FlowDirection = FlowDirection.LeftToRight;
 
-        ActualThemeVariantChanged += (_, _) => UpdateEditorTheme();
+        InitializeTextMate();
+
+        ActualThemeVariantChanged += (_, _) =>
+        {
+            InitializeTextMate();
+            UpdateGrammar();
+        };
     }
 
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
+        base.OnPropertyChanged(change);
+
         if (change.Property == LanguageProperty)
         {
-            UpdateEditorTheme();
+            UpdateGrammar();
         }
-
-        base.OnPropertyChanged(change);
     }
 
-    private void UpdateEditorTheme()
+    private void InitializeTextMate()
     {
-        var languageId = Language;
-
-        if (string.IsNullOrEmpty(languageId))
-        {
-            return;
-        }
-
         var theme = ActualThemeVariant == ThemeVariant.Light
-                    ? ThemeName.LightPlus
-                    : ThemeName.DarkPlus;
+            ? ThemeName.LightPlus
+            : ThemeName.DarkPlus;
 
-        var options = new RegistryOptions(theme);
+        _options = new RegistryOptions(theme);
 
-        var installation = this.InstallTextMate(options);
+        _installation ??= this.InstallTextMate(_options);
+    }
 
-        installation.SetGrammar(options.GetScopeByLanguageId(languageId));
+    private void UpdateGrammar()
+    {
+        if (_installation == null || _options == null)
+            return;
+
+        if (string.IsNullOrWhiteSpace(Language))
+            return;
+
+        _installation.SetGrammar(_options.GetScopeByLanguageId(Language));
     }
 }
