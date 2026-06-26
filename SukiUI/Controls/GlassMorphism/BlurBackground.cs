@@ -13,6 +13,8 @@ namespace SukiUI.Controls.GlassMorphism;
 
 public class BlurBackground : Control
 {
+    public static bool IsGpuBlurAvailable { get; set; } = true;
+
     public static readonly StyledProperty<bool> IsDynamicProperty = AvaloniaProperty.Register<BlurBackground, bool>(
         nameof(IsDynamic), defaultValue: false);
 
@@ -105,6 +107,9 @@ half4 main(float2 coord) {
         
        public void Render(ImmediateDrawingContext context)
         {
+                if(context == null)
+                    return;
+
                 var leaseFeature = context.TryGetFeature<ISkiaSharpApiLeaseFeature>();
                 using var lease = leaseFeature.Lease();
                 var canvas = lease.SkCanvas;
@@ -128,6 +133,12 @@ half4 main(float2 coord) {
 
                 if(_cachedBackground == null)
                     return;
+
+                if (lease.GrContext == null)
+                {
+                    IsGpuBlurAvailable = false;
+                    return;
+                }
             
                 using var backdropShader = SKShader.CreateImage(_cachedBackground, SKShaderTileMode.Clamp,
                     SKShaderTileMode.Clamp, currentInvertedTransform);
