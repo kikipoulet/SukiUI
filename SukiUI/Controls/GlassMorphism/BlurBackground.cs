@@ -105,11 +105,10 @@ half4 main(float2 coord) {
 
         private bool IsDarkTheme;
         
-       public void Render(ImmediateDrawingContext context)
+        public void Render(ImmediateDrawingContext context)
         {
-                if(context == null)
-                    return;
-
+            if (context is null)
+                return;
                 var leaseFeature = context.TryGetFeature<ISkiaSharpApiLeaseFeature>();
                 using var lease = leaseFeature.Lease();
                 var canvas = lease.SkCanvas;
