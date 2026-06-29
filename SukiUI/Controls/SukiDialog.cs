@@ -4,6 +4,7 @@ using Avalonia;
 using Avalonia.Controls.Primitives;
 using Avalonia.Media;
 using SukiUI.Dialogs;
+using SukiUI.Enums;
 
 namespace SukiUI.Controls
 {
@@ -55,6 +56,16 @@ namespace SukiUI.Controls
         {
             get => GetValue(ShowCardBackgroundProperty);
             set => SetValue(ShowCardBackgroundProperty, value);
+        }
+
+        public static readonly StyledProperty<SukiDialogBackgroundStyle> BackgroundStyleProperty =
+            AvaloniaProperty.Register<SukiDialog, SukiDialogBackgroundStyle>(
+                nameof(BackgroundStyle), defaultValue: SukiDialogBackgroundStyle.Blur);
+
+        public SukiDialogBackgroundStyle BackgroundStyle
+        {
+            get => GetValue(BackgroundStyleProperty);
+            set => SetValue(BackgroundStyleProperty, value);
         }
         
         public static readonly StyledProperty<IBrush?> IconColorProperty = AvaloniaProperty.Register<SukiDialog, IBrush?>(nameof(IconColor));
