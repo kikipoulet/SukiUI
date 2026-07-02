@@ -434,6 +434,30 @@ public class SukiWindow : Window, IDisposable
         set => SetValue(BackgroundForceSoftwareRenderingProperty, value);
     }
 
+    public static readonly StyledProperty<double> RenderScaleXProperty =
+        SukiMainHost.RenderScaleXProperty.AddOwner<SukiWindow>();
+
+    /// <summary>
+    /// Gets or sets the horizontal scale factor for rendering.
+    /// </summary>
+    public double RenderScaleX
+    {
+        get => GetValue(RenderScaleXProperty);
+        set => SetValue(RenderScaleXProperty, value);
+    }
+
+    public static readonly StyledProperty<double> RenderScaleYProperty =
+        SukiMainHost.RenderScaleYProperty.AddOwner<SukiWindow>();
+
+    /// <summary>
+    /// Gets or sets the vertical scale factor for rendering.
+    /// </summary>
+    public double RenderScaleY
+    {
+        get => GetValue(RenderScaleYProperty);
+        set => SetValue(RenderScaleYProperty, value);
+    }
+
     public static readonly StyledProperty<Avalonia.Controls.Controls> RightWindowTitleBarControlsProperty =
         AvaloniaProperty.Register<SukiWindow, Avalonia.Controls.Controls>(nameof(RightWindowTitleBarControls));
 

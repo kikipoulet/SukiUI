@@ -25,6 +25,8 @@
                  IsTitleBarVisible="{Binding TitleBarVisible, Mode=TwoWay}"
                  ShowBottomBorder="{Binding ShowBottomBar}"
                  ShowTitlebarBackground="{Binding ShowTitleBar}"
+                 RenderScaleX="{Binding RenderScale}"
+                 RenderScaleY="{Binding RenderScale}"
                  mc:Ignorable="d">
     <suki:SukiWindow.TitleBarContextMenu>
         <ContextMenu>
@@ -127,14 +129,42 @@
                                                        DockPanel.Dock="Top"
                                                        FontSize="15"
                                                        FontWeight="DemiBold"
-                                                       Text="Volume" />
-                                            <avalonia:MaterialIcon DockPanel.Dock="Left"
-                                                                   Foreground="{DynamicResource SukiLowText}"
-                                                                   Kind="VolumeLow" />
-                                            <avalonia:MaterialIcon DockPanel.Dock="Right"
-                                                                   Foreground="{DynamicResource SukiLowText}"
-                                                                   Kind="VolumeHigh" />
-                                            <Slider MinWidth="100" Value="50" />
+                                                       Text="{Binding Volume, StringFormat='Volume ({0:F0}%)'}" />
+
+                                            <RepeatButton Classes="Void" DockPanel.Dock="Left"
+                                                          Foreground="{DynamicResource SukiLowText}"
+                                                          Command="{Binding DecreaseVolumeCommand}"
+                                                          Content="{avalonia:MaterialIconExt Kind=VolumeLow}" />
+                                            <RepeatButton Classes="Void" DockPanel.Dock="Right"
+                                                          Foreground="{DynamicResource SukiLowText}"
+                                                          Command="{Binding IncreaseVolumeCommand}"
+                                                          Content="{avalonia:MaterialIconExt Kind=VolumeHigh}" />
+                                            <Slider MinWidth="100" Minimum="0" Maximum="100" Value="{Binding Volume}" />
+                                        </DockPanel>
+
+                                    </suki:GlassCard>
+
+                                    <suki:GlassCard Padding="15" CornerRadius="15">
+
+                                        <DockPanel>
+                                            <TextBlock Margin="0,0,0,10"
+                                                       VerticalAlignment="Center"
+                                                       DockPanel.Dock="Top"
+                                                       FontSize="15"
+                                                       FontWeight="DemiBold"
+                                                       Text="{Binding RenderScale, StringFormat='Render scale ({0:F2}x)'}" />
+
+                                            <RepeatButton Classes="Void" DockPanel.Dock="Left"
+                                                          Foreground="{DynamicResource SukiLowText}"
+                                                          Command="{Binding DecreaseRenderScaleCommand}"
+                                                          Content="{avalonia:MaterialIconExt Kind=Minus}" />
+
+                                            <RepeatButton Classes="Void" DockPanel.Dock="Right"
+                                                          Foreground="{DynamicResource SukiLowText}"
+                                                          Command="{Binding IncreaseRenderScaleCommand}"
+                                                          Content="{avalonia:MaterialIconExt Kind=Plus}" />
+                                            <Slider MinWidth="100" Minimum="0.1" Maximum="5.0"
+                                                    Value="{Binding RenderScale}" />
                                         </DockPanel>
 
                                     </suki:GlassCard>
@@ -178,7 +208,8 @@
                       Header="Title Bar"
                       ToolTip.Tip="Toggles the title bar.">
                 <MenuItem.Icon>
-                    <avalonia:MaterialIcon Kind="{Binding TitleBarVisible, Converter={x:Static converters:BoolToIconConverters.Visibility}}" />
+                    <avalonia:MaterialIcon
+                        Kind="{Binding TitleBarVisible, Converter={x:Static converters:BoolToIconConverters.Visibility}}" />
                 </MenuItem.Icon>
             </MenuItem>
             <MenuItem Command="{Binding ToggleTitleBackgroundCommand}" Header="Change TitleBar Background Visibility">
@@ -195,7 +226,6 @@
             </MenuItem>
 
 
-
             <MenuItem Header="Window Options">
                 <MenuItem.Icon>
                     <avalonia:MaterialIcon Kind="WindowRestore" />
@@ -204,7 +234,8 @@
                           Header="Window Lock"
                           ToolTip.Tip="Toggles minimizing and resizing.">
                     <MenuItem.Icon>
-                        <avalonia:MaterialIcon Kind="{Binding WindowLocked, Converter={x:Static converters:BoolToIconConverters.WindowLock}}" />
+                        <avalonia:MaterialIcon
+                            Kind="{Binding WindowLocked, Converter={x:Static converters:BoolToIconConverters.WindowLock}}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Command="{Binding $parent[suki:SukiWindow].ToggleFullScreen}"
@@ -241,7 +272,6 @@
             </MenuItem>
 
 
-
         </MenuItem>
         <MenuItem Header="Theme">
             <MenuItem Click="ThemeMenuItem_OnClick"
@@ -265,12 +295,14 @@
             <MenuItem Header="-" />
             <MenuItem Command="{Binding ToggleAnimationsCommand}" Header="Animations">
                 <MenuItem.Icon>
-                    <avalonia:MaterialIcon Kind="{Binding AnimationsEnabled, Converter={x:Static converters:BoolToIconConverters.Animation}}" />
+                    <avalonia:MaterialIcon
+                        Kind="{Binding AnimationsEnabled, Converter={x:Static converters:BoolToIconConverters.Animation}}" />
                 </MenuItem.Icon>
             </MenuItem>
             <MenuItem Command="{Binding ToggleTransitionsCommand}" Header="Transitions">
                 <MenuItem.Icon>
-                    <avalonia:MaterialIcon Kind="{Binding TransitionsEnabled, Converter={x:Static converters:BoolToIconConverters.Animation}}" />
+                    <avalonia:MaterialIcon
+                        Kind="{Binding TransitionsEnabled, Converter={x:Static converters:BoolToIconConverters.Animation}}" />
                 </MenuItem.Icon>
             </MenuItem>
         </MenuItem>
