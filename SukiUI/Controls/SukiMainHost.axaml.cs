@@ -34,6 +34,12 @@ namespace SukiUI.Controls
         public static readonly StyledProperty<bool> BackgroundForceSoftwareRenderingProperty =
             AvaloniaProperty.Register<SukiMainHost, bool>(nameof(BackgroundForceSoftwareRendering));
 
+        public static readonly StyledProperty<double> RenderScaleXProperty =
+            AvaloniaProperty.Register<SukiMainHost, double>(nameof(RenderScaleX), 1.0, coerce: CoerceRenderScale);
+
+        public static readonly StyledProperty<double> RenderScaleYProperty =
+            AvaloniaProperty.Register<SukiMainHost, double>(nameof(RenderScaleY), 1.0, coerce: CoerceRenderScale);
+
         public static readonly StyledProperty<Avalonia.Controls.Controls> HostsProperty =
             AvaloniaProperty.Register<SukiMainHost, Avalonia.Controls.Controls>(nameof(Hosts));
 
@@ -95,6 +101,24 @@ namespace SukiUI.Controls
         }
 
         /// <summary>
+        /// Gets or sets the horizontal scale factor for rendering.
+        /// </summary>
+        public double RenderScaleX
+        {
+            get => GetValue(RenderScaleXProperty);
+            set => SetValue(RenderScaleXProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the vertical scale factor for rendering.
+        /// </summary>
+        public double RenderScaleY
+        {
+            get => GetValue(RenderScaleYProperty);
+            set => SetValue(RenderScaleYProperty, value);
+        }
+
+        /// <summary>
         /// These controls are displayed above all others and fill the entire window.
         /// You can include <see cref="SukiDialogHost"/> and <see cref="SukiToastHost"/> or create your own custom implementations.
         /// </summary>
@@ -102,6 +126,16 @@ namespace SukiUI.Controls
         {
             get => GetValue(HostsProperty);
             set => SetValue(HostsProperty, value);
+        }
+
+        private static double CoerceRenderScale(AvaloniaObject property, double scaling)
+        {
+            return scaling switch
+            {
+                < 0.1 => 0.1,
+                > 5.0 => 5.0,
+                _ => scaling
+            };
         }
     }
 }
