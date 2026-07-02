@@ -139,7 +139,7 @@
                                                           Foreground="{DynamicResource SukiLowText}"
                                                           Command="{Binding IncreaseVolumeCommand}"
                                                           Content="{avalonia:MaterialIconExt Kind=VolumeHigh}" />
-                                            <Slider MinWidth="100" Value="{Binding Volume}" />
+                                            <Slider MinWidth="100" Minimum="0" Maximum="100" Value="{Binding Volume}" />
                                         </DockPanel>
 
                                     </suki:GlassCard>
