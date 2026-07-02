@@ -130,6 +130,9 @@ namespace SukiUI.Controls
 
         private static double CoerceRenderScale(AvaloniaObject property, double scaling)
         {
+            if (double.IsNaN(scaling))
+                return 1.0;
+
             return scaling switch
             {
                 < 0.1 => 0.1,
