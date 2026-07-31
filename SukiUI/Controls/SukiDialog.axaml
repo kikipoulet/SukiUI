@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:suki="https://github.com/kikipoulet/SukiUI"
                     xmlns:dialogs="clr-namespace:SukiUI.Dialogs"
+                    xmlns:converters="clr-namespace:SukiUI.Converters"
                     xmlns:glassMorphism="clr-namespace:SukiUI.Controls.GlassMorphism">
     <ControlTheme TargetType="suki:SukiDialog" x:Key="SukiDialogTheme">
         <Setter Property="ClipToBounds" Value="False" />
@@ -15,8 +16,12 @@
                             CornerRadius="25">
                         <Panel>
                             
-                            <suki:GlassCard IsVisible="{TemplateBinding ShowCardBackground}" ClipToBounds="True" CornerRadius="25">
-                                <glassMorphism:SukiBlurBackground Margin="-200"  />
+
+                            <suki:GlassCard IsVisible="{TemplateBinding ShowCardBackground}" 
+                                            ClipToBounds="True" CornerRadius="25">
+                                <glassMorphism:SukiBlurBackground Margin="-200" 
+                                    IsVisible="{Binding BackgroundStyle, RelativeSource={RelativeSource TemplatedParent}, 
+                                        Converter={x:Static converters:SukiDialogBackgroundStyleToBoolConverter.Instance}}" />
                             </suki:GlassCard>
                             
                             
