@@ -1034,8 +1034,6 @@ public class SukiWindow : Window, IDisposable
     {
         if (!CanResize || WindowState != WindowState.Normal) return;
         if (sender is not Border border || border.Tag is not string edge) return;
-        if (VisualRoot is not Window window)
-            return;
 
         var windowEdge = edge switch
         {
@@ -1050,7 +1048,15 @@ public class SukiWindow : Window, IDisposable
             _ => throw new ArgumentOutOfRangeException()
         };
 
-        window.BeginResizeDrag(windowEdge, e);
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            var isWayland = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WAYLAND_DISPLAY"));
+            if (isWayland && WindowDecorations == WindowDecorations.None)
+                WindowDecorations = WindowDecorations.BorderOnly;
+        }
+
+        // this statt VisualRoot verwenden — SukiWindow ist selbst das Window
+        BeginResizeDrag(windowEdge, e);
         e.Handled = true;
     }
 
