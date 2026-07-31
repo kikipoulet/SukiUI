@@ -51,6 +51,8 @@
                                        BackgroundTransitionsEnabled="{TemplateBinding BackgroundTransitionsEnabled}"
                                        CornerRadius="{TemplateBinding RootCornerRadius}"
                                        Foreground="{TemplateBinding Foreground}"
+                                       RenderScaleX="{TemplateBinding RenderScaleX}"
+                                       RenderScaleY="{TemplateBinding RenderScaleY}"
                                        Hosts="{Binding Hosts, RelativeSource={RelativeSource AncestorType={x:Type suki:SukiWindow}}}">
                         <DockPanel LastChildFill="True">
                             <Panel DockPanel.Dock="Top">
