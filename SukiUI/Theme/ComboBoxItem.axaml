@@ -20,7 +20,7 @@
 
     <ControlTheme x:Key="{x:Type ComboBoxItem}" TargetType="ComboBoxItem">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Padding" Value="2" />
+        <Setter Property="Padding" Value="5" />
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -35,7 +35,7 @@
                         CornerRadius="6">
                     <ContentPresenter Name="PART_ContentPresenter"
                                       Margin="1"
-                                      Padding="5"
+                                      Padding="{TemplateBinding Padding}"
                                       HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                       VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                       Content="{TemplateBinding Content}"

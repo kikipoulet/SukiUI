@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
+using Avalonia.LogicalTree;
 using SukiUI.Enums;
 using SukiUI.Helpers;
 using SukiUI.Toasts;
@@ -10,6 +11,8 @@ namespace SukiUI.Controls
 {
     public class SukiToastHost : ItemsControl
     {
+        private ISukiToastManager? _attachedManager;
+        private bool _isAttachedToLogicalTree;
         public static readonly StyledProperty<ISukiToastManager> ManagerProperty =
             AvaloniaProperty.Register<SukiToastHost, ISukiToastManager>(nameof(Manager));
 
@@ -39,6 +42,20 @@ namespace SukiUI.Controls
         {
             base.OnApplyTemplate(e);
             OnPositionChanged(Position);
+        }
+
+        protected override void OnAttachedToLogicalTree(LogicalTreeAttachmentEventArgs e)
+        {
+            base.OnAttachedToLogicalTree(e);
+            _isAttachedToLogicalTree = true;
+            AttachManagerEvents(Manager);
+        }
+
+        protected override void OnDetachedFromLogicalTree(LogicalTreeAttachmentEventArgs e)
+        {
+            _isAttachedToLogicalTree = false;
+            DetachManagerEvents();
+            base.OnDetachedFromLogicalTree(e);
         }
 
         protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
@@ -73,24 +90,32 @@ namespace SukiUI.Controls
         {
             if (sender is not SukiToastHost host)
                 throw new NullReferenceException("Dependency object is not of valid type " + nameof(SukiToastHost));
-            if (propChanged.OldValue is ISukiToastManager oldManager)
-                host.DetachManagerEvents(oldManager);
-            if (propChanged.NewValue is ISukiToastManager newManager)
-                host.AttachManagerEvents(newManager);
+            host.DetachManagerEvents();
+            if (!host._isAttachedToLogicalTree)
+                return;
+            if (propChanged.NewValue is ISukiToastManager manager)
+                host.AttachManagerEvents(manager);
         }
 
         private void AttachManagerEvents(ISukiToastManager newManager)
         {
+            if (ReferenceEquals(_attachedManager, newManager))
+                return;
+            DetachManagerEvents();
+            _attachedManager = newManager;
             newManager.OnToastQueued += ManagerOnToastQueued;
             newManager.OnToastDismissed += ManagerOnToastDismissed;
             newManager.OnAllToastsDismissed += ManagerOnAllToastsDismissed;
         }
 
-        private void DetachManagerEvents(ISukiToastManager oldManager)
+        private void DetachManagerEvents()
         {
-            oldManager.OnToastQueued -= ManagerOnToastQueued;
-            oldManager.OnToastDismissed -= ManagerOnToastDismissed;
-            oldManager.OnAllToastsDismissed -= ManagerOnAllToastsDismissed;
+            if (_attachedManager is null)
+                return;
+            _attachedManager.OnToastQueued -= ManagerOnToastQueued;
+            _attachedManager.OnToastDismissed -= ManagerOnToastDismissed;
+            _attachedManager.OnAllToastsDismissed -= ManagerOnAllToastsDismissed;
+            _attachedManager = null;
         }
 
         private void ManagerOnToastDismissed(object sender, SukiToastDismissedEventArgs args) =>
@@ -118,7 +143,8 @@ namespace SukiUI.Controls
             Task.Delay(300).ContinueWith(_ =>
             {
                 Items.Remove(toast);
-                ToastPool.Return((SukiToast)toast);
+                if (toast is SukiToast sukiToast)
+                    ToastPool.Return(sukiToast);
             }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 

@@ -34,19 +34,19 @@ public partial class MobileNumberPicker : UserControl
             nameof(DialogManager));
     
     
-    private object _content;
+    private object? _displayContent;
 
-    public object Content
+    public object? DisplayContent
     {
-        get => _content;
-        set => SetAndRaise(ContentProperty, ref _content, value);
+        get => _displayContent;
+        set => SetAndRaise(DisplayContentProperty, ref _displayContent, value);
     }
     
-    public static readonly DirectProperty<MobileNumberPicker, object> ContentProperty =
-        AvaloniaProperty.RegisterDirect<MobileNumberPicker, object>(
-            nameof(Content),
-            o => o.Content,
-            (o, v) => o.Content = v,
+    public static readonly DirectProperty<MobileNumberPicker, object?> DisplayContentProperty =
+        AvaloniaProperty.RegisterDirect<MobileNumberPicker, object?>(
+            nameof(DisplayContent),
+            o => o.DisplayContent,
+            (o, v) => o.DisplayContent = v,
             defaultBindingMode: BindingMode.OneWay,
             enableDataValidation: true);
     
@@ -55,7 +55,7 @@ public partial class MobileNumberPicker : UserControl
     public int Value
     {
         get => _value;
-        set => SetAndRaise(ValueProperty, ref _value, value );
+        set => SetAndRaise(ValueProperty, ref _value, Math.Clamp(value, Minimum, Maximum));
     }
 
     public static readonly DirectProperty<MobileNumberPicker, int> ValueProperty =
@@ -86,6 +86,8 @@ public partial class MobileNumberPicker : UserControl
     
     private void OpenPopup(object sender, RoutedEventArgs e)
     {
+        if (DialogManager is null)
+            return;
         var control = new MobileNumberPickerPopup(this, DialogManager);
 
         DialogManager.CreateDialog().WithContent(control).Dismiss().ByClickingBackground().TryShow();
@@ -94,7 +96,19 @@ public partial class MobileNumberPicker : UserControl
 
     private void InputElement_OnPointerPressed(object sender, PointerPressedEventArgs e)
     {
-        OpenPopup(null,null);
+        OpenPopup(sender, e);
+    }
+
+    protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+    {
+        base.OnPropertyChanged(change);
+        if (change.Property == MinimumProperty && Minimum > Maximum)
+            SetCurrentValue(MaximumProperty, Minimum);
+        else if (change.Property == MaximumProperty && Maximum < Minimum)
+            SetCurrentValue(MinimumProperty, Maximum);
+
+        if (change.Property == MinimumProperty || change.Property == MaximumProperty)
+            Value = Math.Clamp(Value, Minimum, Maximum);
     }
 }
 
@@ -105,7 +119,7 @@ public class IntToStringConverter : IValueConverter
 
     public object? Convert( object? value, Type targetType, object? parameter, CultureInfo culture )
     {
-        return value.ToString();
+        return value?.ToString() ?? string.Empty;
     }
 
     public object ConvertBack( object? value, Type targetType, object? parameter, CultureInfo culture )

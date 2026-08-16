@@ -39,11 +39,11 @@
                                 
                                 <!-- Content Presenter -->
                                 <ContentPresenter
-                                    Content="{TemplateBinding Content}"
+                                    Content="{TemplateBinding DisplayContent}"
                                     ContentTemplate="{TemplateBinding ContentTemplate}"
                                     Grid.Column="1"
                                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                    IsVisible="{TemplateBinding Content,
+                                    IsVisible="{TemplateBinding DisplayContent,
                                                                 Converter={x:Static ObjectConverters.IsNotNull}}"
                                     Margin="0,0,0,0"
                                     Name="PART_ContentPresenter"

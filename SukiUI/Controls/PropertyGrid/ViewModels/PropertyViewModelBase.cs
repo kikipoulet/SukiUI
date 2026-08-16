@@ -69,7 +69,7 @@ namespace SukiUI.Controls
 
         private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (_propertyName == e.PropertyName)
+            if (string.IsNullOrEmpty(e.PropertyName) || _propertyName == e.PropertyName)
             {
                 Value = ViewModelGetter();
             }

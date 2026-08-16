@@ -15,7 +15,8 @@ public class HorizontalBarMeter : Panel
     
     
     public static readonly StyledProperty<int> BarCountProperty =
-        AvaloniaProperty.Register<HorizontalBarMeter, int>(nameof(BarCount), 12);
+        AvaloniaProperty.Register<HorizontalBarMeter, int>(nameof(BarCount), 12,
+            coerce: (_, value) => Math.Max(1, value));
 
     public static readonly StyledProperty<double> ValueProperty =
         AvaloniaProperty.Register<HorizontalBarMeter, double>(nameof(Value), 0d);
@@ -27,7 +28,8 @@ public class HorizontalBarMeter : Panel
         AvaloniaProperty.Register<HorizontalBarMeter, double>(nameof(Maximum), 100d);
 
     public static readonly StyledProperty<double> GapProperty =
-        AvaloniaProperty.Register<HorizontalBarMeter, double>(nameof(Gap), 6d);
+        AvaloniaProperty.Register<HorizontalBarMeter, double>(nameof(Gap), 6d,
+            coerce: (_, value) => Math.Max(0, value));
 
     public static readonly StyledProperty<CornerRadius> CornerRadiusProperty =
         AvaloniaProperty.Register<HorizontalBarMeter, CornerRadius>(nameof(CornerRadius), new CornerRadius(4));
@@ -112,16 +114,16 @@ public class HorizontalBarMeter : Panel
     {
         BarCountProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.RebuildBars());
         GapProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.InvalidateMeasure());
-        ValueProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.InvalidateArrange());
+        ValueProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.InvalidateMeasure());
         MinimumProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.InvalidateArrange());
         MaximumProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.InvalidateArrange());
         CornerRadiusProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.UpdateBarCorners());
         ActiveBrushProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.UpdateBrushes());
         InactiveBrushProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.UpdateBrushes());
         ShowValueProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.OnShowValueChanged());
-        SuffixProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.InvalidateArrange());
-        StartTextProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.InvalidateArrange());
-        EndTextProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.InvalidateArrange());
+        SuffixProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.InvalidateMeasure());
+        StartTextProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.InvalidateMeasure());
+        EndTextProperty.Changed.AddClassHandler<HorizontalBarMeter>((s, _) => s.InvalidateMeasure());
     }
 
     public HorizontalBarMeter()
@@ -223,6 +225,9 @@ public class HorizontalBarMeter : Panel
     
     protected override Size MeasureOverride(Size availableSize)
     {
+        _valueText.Text = FormatValue(Math.Round(Value)) + (string.IsNullOrEmpty(Suffix) ? "" : Suffix);
+        _startText.Text = StartText;
+        _endText.Text = EndText;
         var bars = Math.Max(1, BarCount);
         var totalGap = Gap * (bars - 1);
         var width = double.IsInfinity(availableSize.Width) ? bars * 12 + totalGap : availableSize.Width;
@@ -296,10 +301,6 @@ public class HorizontalBarMeter : Panel
             _marker.IsVisible = true;
             _marker.Arrange(new Rect(markerLeft, markerTop, markerW, markerH));
             
-            string text = FormatValue(Math.Round(Value)) + (string.IsNullOrEmpty(Suffix) ? "" : Suffix);
-            _valueText.Text = text;
-
-            _valueText.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             var textSize = _valueText.DesiredSize;
 
             double centerX = markerLeft + markerW / 2;
@@ -316,9 +317,6 @@ public class HorizontalBarMeter : Panel
             _marker.IsVisible = false;
             _valueText.IsVisible = false;
         }
-
-        _startText.Text = StartText;
-        _endText.Text = EndText;
 
         var startSize = _startText.DesiredSize;
         var endSize = _endText.DesiredSize;

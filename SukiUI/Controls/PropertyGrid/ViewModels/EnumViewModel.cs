@@ -13,7 +13,8 @@ namespace SukiUI.Controls
             : base(viewmodel, displayName, propertyInfo)
         {
             var temp = new AvaloniaList<object>();
-            foreach (var item in Enum.GetValues(propertyInfo.PropertyType))
+            var enumType = Nullable.GetUnderlyingType(propertyInfo.PropertyType) ?? propertyInfo.PropertyType;
+            foreach (var item in Enum.GetValues(enumType))
             {
                 temp.Add(item);
             }

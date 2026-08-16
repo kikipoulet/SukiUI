@@ -12,7 +12,7 @@ namespace SukiUI.Theme
 
     public static class Scrollable
     {
-        public static void MakeScrollable(CompositionVisual compositionVisual)
+        public static void MakeScrollable(CompositionVisual? compositionVisual)
         {
             if (compositionVisual == null)
                 return;
@@ -50,9 +50,13 @@ namespace SukiUI.Theme
         
         private static void HandleAnimatedScrollChanged(StackPanel interactElem, AvaloniaPropertyChangedEventArgs args)
         {
-            if(GetAnimatedScroll(interactElem))
-                interactElem.AttachedToVisualTree += (sender, args) => Scrollable.MakeScrollable(ElementComposition.GetElementVisual(interactElem));
+            interactElem.AttachedToVisualTree -= OnAttachedToVisualTree;
+            if (GetAnimatedScroll(interactElem))
+                interactElem.AttachedToVisualTree += OnAttachedToVisualTree;
         }
+
+        private static void OnAttachedToVisualTree(object? sender, Avalonia.VisualTreeAttachmentEventArgs e) =>
+            Scrollable.MakeScrollable(ElementComposition.GetElementVisual((StackPanel)sender!));
 
         public static bool GetAnimatedScroll(StackPanel wrap)
         {
@@ -80,9 +84,13 @@ namespace SukiUI.Theme
         
         private static void HandleAnimatedScrollChanged(WrapPanel interactElem, AvaloniaPropertyChangedEventArgs args)
         {
-            if(GetAnimatedScroll(interactElem))
-                interactElem.AttachedToVisualTree += (sender, args) => Scrollable.MakeScrollable(ElementComposition.GetElementVisual(interactElem));
+            interactElem.AttachedToVisualTree -= OnAttachedToVisualTree;
+            if (GetAnimatedScroll(interactElem))
+                interactElem.AttachedToVisualTree += OnAttachedToVisualTree;
         }
+
+        private static void OnAttachedToVisualTree(object? sender, Avalonia.VisualTreeAttachmentEventArgs e) =>
+            Scrollable.MakeScrollable(ElementComposition.GetElementVisual((WrapPanel)sender!));
 
         public static bool GetAnimatedScroll(WrapPanel wrap)
         {
@@ -110,9 +118,13 @@ namespace SukiUI.Theme
         
         private static void HandleAnimatedScrollChanged(ItemsPresenter interactElem, AvaloniaPropertyChangedEventArgs args)
         {
-            if(GetAnimatedScroll(interactElem))
-                interactElem.AttachedToVisualTree += (sender, args) => Scrollable.MakeScrollable(ElementComposition.GetElementVisual(interactElem));
+            interactElem.AttachedToVisualTree -= OnAttachedToVisualTree;
+            if (GetAnimatedScroll(interactElem))
+                interactElem.AttachedToVisualTree += OnAttachedToVisualTree;
         }
+
+        private static void OnAttachedToVisualTree(object? sender, Avalonia.VisualTreeAttachmentEventArgs e) =>
+            Scrollable.MakeScrollable(ElementComposition.GetElementVisual((ItemsPresenter)sender!));
 
         public static bool GetAnimatedScroll(ItemsPresenter wrap)
         {
@@ -141,9 +153,13 @@ namespace SukiUI.Theme
         
         private static void HandleAnimatedScrollChanged(ItemsControl interactElem, AvaloniaPropertyChangedEventArgs args)
         {
-            if(GetAnimatedScroll(interactElem))
-                interactElem.AttachedToVisualTree += (sender, args) => Scrollable.MakeScrollable(ElementComposition.GetElementVisual(interactElem));
+            interactElem.AttachedToVisualTree -= OnAttachedToVisualTree;
+            if (GetAnimatedScroll(interactElem))
+                interactElem.AttachedToVisualTree += OnAttachedToVisualTree;
         }
+
+        private static void OnAttachedToVisualTree(object? sender, Avalonia.VisualTreeAttachmentEventArgs e) =>
+            Scrollable.MakeScrollable(ElementComposition.GetElementVisual((ItemsControl)sender!));
 
         public static bool GetAnimatedScroll(ItemsControl wrap)
         {

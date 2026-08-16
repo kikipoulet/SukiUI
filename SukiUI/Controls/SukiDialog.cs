@@ -104,6 +104,13 @@ namespace SukiUI.Controls
             Title = null;
             Content = null;
             IsViewModelOnly = false;
+            Icon = null;
+            IconColor = null;
+            ShowCardBackground = true;
+            BackgroundStyle = SukiDialogBackgroundStyle.Blur;
+            CanDismissWithBackgroundClick = false;
+            OnDismissed = null;
+            Manager = null;
         }
     }
 }

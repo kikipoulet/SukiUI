@@ -14,7 +14,8 @@
                            IsPaneOpen="{TemplateBinding IsMenuExpanded}"
                            OpenPaneLength="{TemplateBinding OpenPaneLength}">
                     <SplitView.Pane>
-                        <Border Margin="{Binding ShowTitlebarBackground, Converter={x:Static suki:WindowBackgroundToMarginConverter.Instance}, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type suki:SukiWindow}}}">
+                        <Border
+                            Margin="{Binding ShowTitlebarBackground, Converter={x:Static suki:WindowBackgroundToMarginConverter.Instance}, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type suki:SukiWindow}}}">
                             <Grid Background="Transparent">
                                 <Grid.Styles>
                                     <Style Selector="suki|GlassCard">
@@ -29,7 +30,7 @@
                                 <DockPanel>
                                     <Button Name="PART_SidebarToggleButton"
                                             Margin="7"
-                                            HorizontalAlignment="{TemplateBinding TogglePaneButtonPosition}"
+                                            HorizontalAlignment="Right"
                                             VerticalAlignment="Top"
                                             Classes="Basic"
                                             Cursor="Hand"
@@ -44,7 +45,8 @@
                                                       Foreground="{DynamicResource SukiText}">
                                                 <PathIcon.Transitions>
                                                     <Transitions>
-                                                        <TransformOperationsTransition Property="RenderTransform" Duration="{StaticResource MediumAnimationDuration}" />
+                                                        <TransformOperationsTransition Property="RenderTransform"
+                                                                Duration="{StaticResource MediumAnimationDuration}" />
                                                     </Transitions>
                                                 </PathIcon.Transitions>
                                             </PathIcon>
@@ -65,7 +67,8 @@
                                     <DockPanel>
                                         <StackPanel DockPanel.Dock="Top" IsVisible="{TemplateBinding IsSearchEnabled}">
                                             <StackPanel.Styles>
-                                                <Style Selector="suki|GlassCard.Search:pointerover, suki|GlassCard.Search:focus-within">
+                                                <Style
+                                                    Selector="suki|GlassCard.Search:pointerover, suki|GlassCard.Search:focus-within">
                                                     <Setter Property="Width" Value="190" />
                                                     <Setter Property="CornerRadius" Value="12" />
                                                 </Style>
@@ -80,7 +83,8 @@
                                                             IsVisible="{TemplateBinding IsMenuExpanded}">
                                                 <suki:GlassCard.Transitions>
                                                     <Transitions>
-                                                        <CornerRadiusTransition Property="CornerRadius" Duration="0:0:0.35" />
+                                                        <CornerRadiusTransition Property="CornerRadius"
+                                                                Duration="0:0:0.35" />
                                                         <DoubleTransition Property="Width" Duration="0:0:0.35" />
                                                     </Transitions>
                                                 </suki:GlassCard.Transitions>
@@ -156,6 +160,9 @@
             <Style Selector="^ /template/ Grid#PART_Spacer">
                 <Setter Property="Height" Value="0" />
             </Style>
+        </Style>
+        <Style Selector="^[TogglePaneButtonPosition=Left] /template/ Button#PART_SidebarToggleButton">
+            <Setter Property="HorizontalAlignment" Value="Left" />
         </Style>
     </ControlTheme>
     <ControlTheme x:Key="{x:Type suki:SukiSideMenu}"

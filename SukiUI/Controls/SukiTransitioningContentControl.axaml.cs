@@ -51,10 +51,8 @@ namespace SukiUI.Controls
         private static readonly Animation FadeIn;
         private static readonly Animation FadeOut;
         
-        private ContentPresenter? To => _isFirstBufferActive ? _firstBuffer : _secondBuffer;
-        private ContentPresenter? From => _isFirstBufferActive ? _secondBuffer : _firstBuffer;
-
         private object? _contentBeforeApplied;
+        private bool _hasContentBeforeApplied;
 
         static SukiTransitioningContentControl()
         {
@@ -125,7 +123,7 @@ namespace SukiUI.Controls
             FadeIn.Duration = FadeOut.Duration = TimeSpan.FromMilliseconds(250);
         }
 
-        private CancellationTokenSource _animCancellationToken = new();
+        private CancellationTokenSource? _animCancellationToken;
         
 
         protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
@@ -142,62 +140,81 @@ namespace SukiUI.Controls
                 _firstBuffer = fBuff;
             if (e.NameScope.Get<ContentPresenter>("PART_SecondBufferControl") is { } sBuff)
                 _secondBuffer = sBuff;
-            if (_contentBeforeApplied != null)
+            if (_hasContentBeforeApplied)
             {
                 PushContent(_contentBeforeApplied);
                 _contentBeforeApplied = null;
+                _hasContentBeforeApplied = false;
             }
         }
 
         private void PushContent(object? content)
         {
-            if (To is null || From is null)
+            if (_firstBuffer is null || _secondBuffer is null)
             {
                 _contentBeforeApplied = content;
+                _hasContentBeforeApplied = true;
                 return;
             }
 
+            CancelAnimation();
+            var cancellation = new CancellationTokenSource();
+            _animCancellationToken = cancellation;
 
-            // Temporary fix, need more investigation
-            try
-            {
-                _animCancellationToken.Cancel();
-                _animCancellationToken.Dispose();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            var from = _isFirstBufferActive ? _firstBuffer : _secondBuffer;
+            var to = _isFirstBufferActive ? _secondBuffer : _firstBuffer;
+            var fromIsFirstBuffer = _isFirstBufferActive;
 
-            _animCancellationToken = new CancellationTokenSource();
-            
-            if (_isFirstBufferActive) SecondBuffer = content;
-            else FirstBuffer = content;
+            if (_isFirstBufferActive)
+                SecondBuffer = content;
+            else
+                FirstBuffer = content;
             _isFirstBufferActive = !_isFirstBufferActive;
+
+            from.IsHitTestVisible = false;
+            to.IsHitTestVisible = false;
+            _ = RunTransitionAsync(from, to, fromIsFirstBuffer, cancellation);
+        }
+
+        private async Task RunTransitionAsync(ContentPresenter from, ContentPresenter to, bool fromIsFirstBuffer,
+            CancellationTokenSource cancellation)
+        {
+            // Snapshot the token as a value struct before any await so that accessing it
+            // after the CancellationTokenSource has been disposed (in CancelAnimation) is safe.
+            var token = cancellation.Token;
             try
             {
-                FadeOut.RunAsync(From, _animCancellationToken.Token).ContinueWith(_ =>
-                {
-                    Dispatcher.UIThread.Invoke(() =>
-                    {
-                        From.IsHitTestVisible = false;
-                        if (_isFirstBufferActive) SecondBuffer = null;
-                        else FirstBuffer = null;
-                    });
-                });
-                FadeIn.RunAsync(To, _animCancellationToken.Token).ContinueWith(_ => 
-                    Dispatcher.UIThread.Invoke(() => To.IsHitTestVisible = true));
+                await Task.WhenAll(
+                    FadeOut.RunAsync(from, token),
+                    FadeIn.RunAsync(to, token));
+                token.ThrowIfCancellationRequested();
+
+                if (fromIsFirstBuffer)
+                    FirstBuffer = null;
+                else
+                    SecondBuffer = null;
+                to.IsHitTestVisible = true;
             }
-            catch
+            catch (OperationCanceledException)
             {
-                // ignored
             }
+        }
+
+        private void CancelAnimation()
+        {
+            if (_animCancellationToken is null) return;
+            _animCancellationToken.Cancel();
+            _animCancellationToken.Dispose();
+            _animCancellationToken = null;
+            // Restore hit-testing on whichever buffer is now active so it remains interactive.
+            var active = _isFirstBufferActive ? _firstBuffer : _secondBuffer;
+            if (active != null) active.IsHitTestVisible = true;
         }
 
         protected override void OnUnloaded(RoutedEventArgs e)
         {
             base.OnUnloaded(e);
-            _animCancellationToken.Dispose();
+            CancelAnimation();
         }
     }
 }

@@ -20,13 +20,14 @@
                 <Border Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="{DynamicResource ControlCornerRadius}">
+                        CornerRadius="{TemplateBinding CornerRadius}">
                     <Grid MinWidth="225"
                           HorizontalAlignment="Stretch"
                           VerticalAlignment="Stretch"
                           RowDefinitions="Auto, *">
                         <Grid Name="CalendarHeader"
                               Margin="0,5"
+                              Background="{TemplateBinding HeaderBackground}"
                               ColumnDefinitions="Auto, *, Auto, Auto">
                             <Button Name="PART_HeaderButton"
                                     Grid.Column="0"

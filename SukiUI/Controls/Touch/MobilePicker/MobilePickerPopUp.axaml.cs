@@ -29,9 +29,8 @@ public partial class MobilePickerPopUp : UserControl
     private void DoneClick(object sender, RoutedEventArgs e)
     {
         dialogManager?.DismissDialog();
-        var model = ((MobilePickerPopUpViewModel)DataContext);
-
-        model.mobilePicker.SelectedItem = model.SelectedItem;
+        if (DataContext is MobilePickerPopUpViewModel { MobilePicker: { } picker } model)
+            picker.SelectedItem = model.SelectedItem;
 
     }
 }

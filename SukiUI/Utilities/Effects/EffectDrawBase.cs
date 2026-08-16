@@ -16,6 +16,10 @@ namespace SukiUI.Utilities.Effects
     {
         public static readonly object StartAnimations = new(), StopAnimations = new(), 
             EnableForceSoftwareRendering = new(), DisableForceSoftwareRendering = new();
+
+        public readonly record struct BaseThemeChangedMessage(ThemeVariant Variant);
+
+        public readonly record struct ColorThemeChangedMessage(SukiColorTheme Theme);
         
         private SukiEffect? _effect;
 
@@ -55,15 +59,14 @@ namespace SukiUI.Utilities.Effects
         
         private readonly Stopwatch _animationTick = new();
         private readonly bool _invalidateRect;
+        private bool _isDisposed;
 
         protected EffectDrawBase(bool invalidateRect = true)
         {
             _invalidateRect = invalidateRect;
-            var sTheme = SukiTheme.GetInstance();
-            sTheme.OnBaseThemeChanged += v => ActiveVariant = v;
-            ActiveVariant = sTheme.ActiveBaseTheme;
-            sTheme.OnColorThemeChanged += t => ActiveTheme = t;
-            ActiveTheme = sTheme.ActiveColorTheme!;
+            var theme = SukiTheme.GetInstance();
+            ActiveVariant = theme.ActiveBaseTheme;
+            ActiveTheme = theme.ActiveColorTheme!;
         }
 
         public override void OnRender(ImmediateDrawingContext context)
@@ -88,6 +91,26 @@ namespace SukiUI.Utilities.Effects
             else if (message == StopAnimations)
             {
                 AnimationEnabled = false;
+            }
+            else if (message == EnableForceSoftwareRendering)
+            {
+                ForceSoftwareRendering = true;
+                Invalidate();
+            }
+            else if (message == DisableForceSoftwareRendering)
+            {
+                ForceSoftwareRendering = false;
+                Invalidate();
+            }
+            else if (message is BaseThemeChangedMessage baseThemeChanged)
+            {
+                ActiveVariant = baseThemeChanged.Variant;
+                InvalidateTheme();
+            }
+            else if (message is ColorThemeChangedMessage colorThemeChanged)
+            {
+                ActiveTheme = colorThemeChanged.Theme;
+                InvalidateTheme();
             }
             else if (message is SukiEffect effect)
             {
@@ -136,7 +159,17 @@ namespace SukiUI.Utilities.Effects
         
         public virtual void Dispose()
         {
-            // no-op
+            if (_isDisposed) return;
+            _isDisposed = true;
+            AnimationEnabled = false;
+        }
+
+        private void InvalidateTheme()
+        {
+            if (_invalidateRect)
+                Invalidate(GetRenderBounds());
+            else
+                Invalidate();
         }
         
         public virtual bool Equals(ICustomDrawOperation other) => false;

@@ -69,6 +69,7 @@ public class SukiWindow : Window, IDisposable
     private bool _isDisposed;
     private bool _wasTitleBarVisibleBeforeFullScreen = true;
     private bool _suppressMacTitleBarDoubleTapped;
+    private int _titleBarAnimationVersion;
     private DateTime _lastMacTitleBarClickTime = DateTime.MinValue;
     private Point _lastMacTitleBarClickPosition;
 
@@ -136,7 +137,8 @@ public class SukiWindow : Window, IDisposable
     }
 
     public static readonly StyledProperty<int> TitleBarAutoHideDelayProperty =
-        AvaloniaProperty.Register<SukiWindow, int>(nameof(TitleBarAutoHideDelay), DefaultAutoHideDelay);
+        AvaloniaProperty.Register<SukiWindow, int>(nameof(TitleBarAutoHideDelay), DefaultAutoHideDelay,
+            coerce: (_, value) => Math.Max(0, value));
 
     /// <summary>
     /// Gets or sets the delay in milliseconds before the title bar is automatically hidden.
@@ -148,7 +150,8 @@ public class SukiWindow : Window, IDisposable
     }
 
     public static readonly StyledProperty<int> TitleBarAutoShowDelayProperty =
-        AvaloniaProperty.Register<SukiWindow, int>(nameof(TitleBarAutoShowDelay), DefaultAutoShowDelay);
+        AvaloniaProperty.Register<SukiWindow, int>(nameof(TitleBarAutoShowDelay), DefaultAutoShowDelay,
+            coerce: (_, value) => Math.Max(0, value));
 
     /// <summary>
     /// Gets or sets the delay in milliseconds before the title bar is automatically shown.
@@ -708,6 +711,7 @@ public class SukiWindow : Window, IDisposable
 
                 if (TitleBarAnimationEnabled)
                 {
+                    var animationVersion = ++_titleBarAnimationVersion;
                     TryGetResource("MediumAnimationDuration", ActualThemeVariant, out var result);
 
                     var duration = result is TimeSpan ts ? ts : TimeSpan.FromMilliseconds(350);
@@ -722,7 +726,12 @@ public class SukiWindow : Window, IDisposable
                         _titleBarControl.AnimateAsync(ScaleTransform.ScaleYProperty, 1d, 0d, duration)
                             .ContinueWith(task =>
                             {
-                                Dispatcher.UIThread.Post(() => { _titleBarControl.IsVisible = false; });
+                                Dispatcher.UIThread.Post(() =>
+                                {
+                                    if (animationVersion == _titleBarAnimationVersion && !IsTitleBarVisible &&
+                                        _titleBarControl is not null)
+                                        _titleBarControl.IsVisible = false;
+                                });
                             });
                     }
                 }
@@ -1306,6 +1315,7 @@ public class SukiWindow : Window, IDisposable
 
         // Release all events
         ScalingChanged -= OnScalingChanged;
+        PositionChanged -= OnWindowPositionChanged;
         PointerMoved -= AutoHideTitleBarOnPointerMoved;
         _hideTitleBarTimer.Tick -= HideTitleBarTimerOnTick;
         _showTitleBarTimer.Tick -= ShowTitleBarTimerOnTick;
@@ -1313,6 +1323,7 @@ public class SukiWindow : Window, IDisposable
         {
             disposeAction.Invoke();
         }
+        _disposeActions.Clear();
     }
     #endregion
 }

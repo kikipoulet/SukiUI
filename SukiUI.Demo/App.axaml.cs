@@ -29,9 +29,6 @@ namespace SukiUI.Demo;
 
 public class App : Application
 {
-    
-    public static SukiDialogManager SingleViewDialogManager { get; set; } 
-        
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -53,16 +50,16 @@ public class App : Application
         {
             var p = new Panel();
             p.Children.Add(new SukiBackground(){Style = SukiBackgroundStyle.Bubble});
-            SingleViewDialogManager = new SukiDialogManager();
+            var dialogManager = new SukiDialogManager();
             
-            p.Children.Add(new AllControlsView(){DataContext = new AllControlsViewModel(SingleViewDialogManager)});
+            p.Children.Add(new AllControlsView(){DataContext = new AllControlsViewModel(dialogManager)});
             
             singleView.MainView = new SukiMainHost()
             {
                 Hosts = [
                     new SukiDialogHost
                     {
-                        Manager = SingleViewDialogManager
+                        Manager = dialogManager
                     }
                 ],
                 Content =  p

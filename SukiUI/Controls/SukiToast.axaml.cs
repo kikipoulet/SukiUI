@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using Avalonia.Controls.Metadata;
 using Avalonia.Interactivity;
@@ -18,6 +19,7 @@ public class SukiToast : ContentControl, ISukiToast
 {
     private bool _wasDismissTimerInterrupted;
     private Border? _toastCard;
+    private bool _actionButtonsAttached;
 
     public ISukiToastManager? Manager { get; set; }
     public Action<ISukiToast, SukiToastDismissSource>? OnDismissed { get; set; }
@@ -114,8 +116,21 @@ public class SukiToast : ContentControl, ISukiToast
     public ObservableCollection<object> ActionButtons
     {
         get => _actionButtons;
-        set => SetAndRaise(ActionButtonsProperty, ref _actionButtons, value);
+        set
+        {
+            value ??= new ObservableCollection<object>();
+            if (ReferenceEquals(_actionButtons, value))
+                return;
+            DetachActionButtons();
+            _actionButtons.CollectionChanged -= OnActionButtonsCollectionChanged;
+            SetAndRaise(ActionButtonsProperty, ref _actionButtons, value);
+            _actionButtons.CollectionChanged += OnActionButtonsCollectionChanged;
+            if (IsLoaded)
+                AttachActionButtons();
+        }
     }
+
+    public SukiToast() => _actionButtons.CollectionChanged += OnActionButtonsCollectionChanged;
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
@@ -134,12 +149,7 @@ public class SukiToast : ContentControl, ISukiToast
     {
         base.OnLoaded(e);
 
-        foreach (var actionButton in ActionButtons)
-        {
-            if (actionButton is not Button button) continue;
-            if (button.Tag is not ValueTuple<Action<ISukiToast>, bool> tuple) continue;
-            button.Click += OnActionButtonClick;
-        }
+        AttachActionButtons();
 
         DismissStartTimestamp = Stopwatch.GetTimestamp() * 1000d / Stopwatch.Frequency;
     }
@@ -149,12 +159,51 @@ public class SukiToast : ContentControl, ISukiToast
         base.OnUnloaded(e);
         DismissStartTimestamp = 0;
 
-        foreach (var actionButton in ActionButtons)
-        {
-            if (actionButton is not Button button) continue;
-            if (button.Tag is not ValueTuple<Action<ISukiToast>, bool> tuple) continue;
+        DetachActionButtons();
+    }
+
+    private void OnActionButtonsCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        if (!_actionButtonsAttached)
+            return;
+        if (e.OldItems is not null)
+            foreach (var item in e.OldItems)
+                DetachActionButton(item);
+        if (e.NewItems is not null)
+            foreach (var item in e.NewItems)
+                AttachActionButton(item);
+    }
+
+    private void AttachActionButtons()
+    {
+        if (_actionButtonsAttached)
+            return;
+        _actionButtonsAttached = true;
+        foreach (var item in ActionButtons)
+            AttachActionButton(item);
+    }
+
+    private void DetachActionButtons()
+    {
+        if (!_actionButtonsAttached)
+            return;
+        foreach (var item in ActionButtons)
+            DetachActionButton(item);
+        _actionButtonsAttached = false;
+    }
+
+    private void AttachActionButton(object? item)
+    {
+        if (item is not Button { Tag: ValueTuple<Action<ISukiToast>, bool> } button)
+            return;
+        button.Click -= OnActionButtonClick;
+        button.Click += OnActionButtonClick;
+    }
+
+    private void DetachActionButton(object? item)
+    {
+        if (item is Button button)
             button.Click -= OnActionButtonClick;
-        }
     }
 
     protected override void OnPointerEntered(PointerEventArgs e)
@@ -201,7 +250,7 @@ public class SukiToast : ContentControl, ISukiToast
 
     public void Dismiss(SukiToastDismissSource dismiss = SukiToastDismissSource.Code)
     {
-        Manager.Dismiss(this, dismiss);
+        Manager?.Dismiss(this, dismiss);
     }
 
     public void AnimateShow()
@@ -235,6 +284,7 @@ public class SukiToast : ContentControl, ISukiToast
         ActionButtons.Clear();
         OnDismissed = null;
         OnClicked = null;
+        Manager = null;
         LoadingState = false;
         DockPanel.SetDock(this, Dock.Bottom);
         return this;

@@ -17,38 +17,39 @@
         <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
         <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderMidBrush}" />
         <Setter Property="BorderThickness" Value="0.5" />
+        <Setter Property="CornerRadius" Value="6" />
         <Setter Property="Padding" Value="10,1,0,0" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Grid ColumnDefinitions="Auto,*">
+                <Grid Background="Transparent" ColumnDefinitions="Auto,*">
                     <suki:GlassCard Name="border"
                                     Width="20"
                                     Height="20"
                                     VerticalAlignment="Center"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
                                     Classes="Control"
                                     Classes.PrimaryOpaque="{TemplateBinding IsChecked, Converter={x:Static suki:BoolConvert.NotFalse}}"
-                                    CornerRadius="6"
+                                    CornerRadius="{TemplateBinding CornerRadius}"
                                     IsInteractive="True">
                         <Panel>
-                            <Path Name="checkMark"
-                                  Width="9"
-                                  Height="9"
-                                  Margin="1,1,0,0"
-                                  HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"
-                                  Data="M 1145.607177734375,430 C1145.607177734375,430 1141.449951171875,435.0772705078125 1141.449951171875,435.0772705078125 1141.449951171875,435.0772705078125 1139.232177734375,433.0999755859375 1139.232177734375,433.0999755859375 1139.232177734375,433.0999755859375 1138,434.5538330078125 1138,434.5538330078125 1138,434.5538330078125 1141.482177734375,438 1141.482177734375,438 1141.482177734375,438 1141.96875,437.9375 1141.96875,437.9375 1141.96875,437.9375 1147,431.34619140625 1147,431.34619140625 1147,431.34619140625 1145.607177734375,430 1145.607177734375,430 z"
-                                  Fill="White"
-                                  FlowDirection="LeftToRight"
-                                  Stretch="Uniform">
-                                <Path.Transitions>
+                            <PathIcon Name="checkMark"
+                                      Width="12"
+                                      Height="12"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Data="{x:Static suki:Icons.Check}"
+                                      Foreground="White">
+                                <PathIcon.Transitions>
                                     <Transitions>
                                         <DoubleTransition Property="Opacity" Duration="0:0:0.2" />
                                     </Transitions>
-                                </Path.Transitions>
-                            </Path>
+                                </PathIcon.Transitions>
+                            </PathIcon>
                             <Border Name="IndetBorder"
                                     Width="8"
                                     Height="3"
@@ -74,7 +75,8 @@
                                       ContentTemplate="{TemplateBinding ContentTemplate}"
                                       FontSize="{TemplateBinding FontSize}"
                                       IsVisible="{TemplateBinding Content, Converter={x:Static ObjectConverters.IsNotNull}}"
-                                      RecognizesAccessKey="True" />
+                                      RecognizesAccessKey="True"
+                                      TextElement.Foreground="{TemplateBinding Foreground}" />
                 </Grid>
             </ControlTemplate>
         </Setter>
@@ -82,10 +84,10 @@
         <Style Selector="^:disabled">
             <Setter Property="Foreground" Value="{DynamicResource SukiDisabledText}" />
         </Style>
-        <Style Selector="^ /template/ Path#checkMark">
+        <Style Selector="^ /template/ PathIcon#checkMark">
             <Setter Property="Opacity" Value="0" />
         </Style>
-        <Style Selector="^:checked /template/ Path#checkMark">
+        <Style Selector="^:checked /template/ PathIcon#checkMark">
             <Setter Property="Opacity" Value="1" />
         </Style>
         <Style Selector="^:indeterminate /template/ Border#IndetBorder">

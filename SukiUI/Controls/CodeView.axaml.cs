@@ -1,9 +1,8 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data;
-using Avalonia.Input.Platform;
 using Avalonia.Layout;
+using Avalonia.Input.Platform;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Threading;
@@ -24,21 +23,23 @@ public partial class CodeView : UserControl
 
     private string _text = "";
     private readonly TextBlock _textBlock;
+    private readonly TextBlock _lineNumberTextBlock;
+    private readonly Grid _codeGrid;
 
     public CodeView()
     {
         InitializeComponent();
-        var grid = new Grid();
-        grid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Auto));
-        grid.ColumnDefinitions.Add(new ColumnDefinition());
+        _codeGrid = new Grid();
+        _codeGrid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Auto));
+        _codeGrid.ColumnDefinitions.Add(new ColumnDefinition());
 
-        var lineNumberTextBlock = new TextBlock()
+        _lineNumberTextBlock = new TextBlock()
         {
             VerticalAlignment = Avalonia.Layout.VerticalAlignment.Top,
             Margin = new Thickness(10, 5, 5, 0),
             Foreground = Brushes.Gray
         };
-        Grid.SetColumn(lineNumberTextBlock, 0);
+        Grid.SetColumn(_lineNumberTextBlock, 0);
 
         _textBlock = new TextBlock()
         {
@@ -48,8 +49,8 @@ public partial class CodeView : UserControl
         };
         Grid.SetColumn(_textBlock, 1);
 
-        grid.Children.Add(lineNumberTextBlock);
-        grid.Children.Add(_textBlock);
+        _codeGrid.Children.Add(_lineNumberTextBlock);
+        _codeGrid.Children.Add(_textBlock);
 
         var gridcontent = new Grid();
         gridcontent.Children.Add(
@@ -76,8 +77,7 @@ public partial class CodeView : UserControl
 
         button.Click += async (sender, args) =>
         {
-            var topLevel = TopLevel.GetTopLevel(((ClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime)
-                .MainWindow);
+            var topLevel = TopLevel.GetTopLevel(this);
 
             if (topLevel?.Clipboard is not { } clipboard)
             {
@@ -101,11 +101,10 @@ public partial class CodeView : UserControl
         };
 
         Grid.SetColumn(button, 1);
-        grid.Children.Add(button);
+        _codeGrid.Children.Add(button);
 
-        Content = grid;
-
-        this.AttachedToVisualTree += (s, e) => UpdateText();
+        Content = _codeGrid;
+        UpdateText();
     }
 
     public string Text
@@ -113,11 +112,8 @@ public partial class CodeView : UserControl
         get => _text;
         set
         {
-            if (_text != value)
-            {
-                _text = value;
+            if (SetAndRaise(TextProperty, ref _text, value ?? string.Empty))
                 UpdateText();
-            }
         }
     }
 
@@ -131,32 +127,22 @@ public partial class CodeView : UserControl
 
     private void UpdateText()
     {
-        try
+        var lines = _text.Split('\n');
+        var lineNumberText = string.Join('\n', Enumerable.Range(1, lines.Length)) + '\n';
+
+        _codeGrid.RowDefinitions.Clear();
+        for (var i = 0; i < lines.Length; i++)
         {
-            var lines = _text.Split('\n');
-            var lineNumberText = "";
-            for (int i = 1; i <= lines.Length; i++)
-            {
-                lineNumberText += $"{i}\n";
-            }
-
-            (_textBlock.Parent as Grid).RowDefinitions.Clear();
-            for (int i = 0; i < lines.Length; i++)
-            {
-                (_textBlock.Parent as Grid).RowDefinitions.Add(new RowDefinition());
-            }
-
-            (_textBlock.Parent as Grid).ColumnDefinitions[0].Width = new GridLength(0, GridUnitType.Auto);
-            (_textBlock.Parent as Grid).ColumnDefinitions[1].Width = new GridLength(1, GridUnitType.Star);
-
-            (_textBlock.Parent as Grid).Children[0].SetValue(Grid.RowSpanProperty, lines.Length);
-            (_textBlock.Parent as Grid).Children[0].SetValue(TextBlock.TextProperty, lineNumberText);
-
-            _textBlock.SetValue(Grid.ColumnProperty, 1);
-            _textBlock.SetValue(Grid.RowProperty, 0);
-            _textBlock.SetValue(Grid.RowSpanProperty, lines.Length);
-            _textBlock.Text = _text.TrimEnd();
+            _codeGrid.RowDefinitions.Add(new RowDefinition());
         }
-        catch (Exception) { }
+
+        _codeGrid.ColumnDefinitions[0].Width = new GridLength(0, GridUnitType.Auto);
+        _codeGrid.ColumnDefinitions[1].Width = new GridLength(1, GridUnitType.Star);
+        Grid.SetRowSpan(_lineNumberTextBlock, lines.Length);
+        _lineNumberTextBlock.Text = lineNumberText;
+        Grid.SetColumn(_textBlock, 1);
+        Grid.SetRow(_textBlock, 0);
+        Grid.SetRowSpan(_textBlock, lines.Length);
+        _textBlock.Text = _text.TrimEnd();
     }
 }

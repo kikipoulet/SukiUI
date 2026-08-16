@@ -55,8 +55,10 @@ namespace SukiUI.Controls
 
         protected virtual void SetItem(INotifyPropertyChanged? item)
         {
+            Instance?.Dispose();
             if (item is null)
             {
+                Instance = null;
                 return;
             }
 
@@ -68,6 +70,14 @@ namespace SukiUI.Controls
             base.OnUnloaded(e);
 
             Instance?.Dispose();
+            Instance = null;
+        }
+
+        protected override void OnLoaded(RoutedEventArgs e)
+        {
+            base.OnLoaded(e);
+            if (Item is not null && Instance is null)
+                SetItem(Item);
         }
     }
 }

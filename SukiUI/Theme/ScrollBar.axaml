@@ -74,7 +74,7 @@
 <Setter Property="AllowAutoHide" Value="False"></Setter>
         <Setter Property="Template">
             <ControlTemplate>
-                <Border Background="Transparent" UseLayoutRounding="False">
+                <Border Background="{TemplateBinding Background}" UseLayoutRounding="False">
                     <Grid RowDefinitions="Auto,*,Auto">
 
                         <Track Grid.Row="1"
@@ -82,7 +82,8 @@
                                IsDirectionReversed="True"
                                Maximum="{TemplateBinding Maximum}"
                                Minimum="{TemplateBinding Minimum}"
-                               Orientation="{TemplateBinding Orientation}"
+                                Orientation="{TemplateBinding Orientation}"
+                                DeferThumbDrag="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
                                ViewportSize="{TemplateBinding ViewportSize}"
                                Value="{TemplateBinding Value,
                                                        Mode=TwoWay}">
@@ -189,14 +190,15 @@
         <Setter Property="AllowAutoHide" Value="False"></Setter>
         <Setter Property="Template">
             <ControlTemplate>
-                <Border Background="Transparent" UseLayoutRounding="False">
+                <Border Background="{TemplateBinding Background}" UseLayoutRounding="False">
                     <Grid >
 
                         <Track
                                IsDirectionReversed="False"
                                Maximum="{TemplateBinding Maximum}"
                                Minimum="{TemplateBinding Minimum}"
-                               Orientation="{TemplateBinding Orientation}"
+                                Orientation="{TemplateBinding Orientation}"
+                                DeferThumbDrag="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
                                ViewportSize="{TemplateBinding ViewportSize}"
                                Value="{TemplateBinding Value,
                                                        Mode=TwoWay}">

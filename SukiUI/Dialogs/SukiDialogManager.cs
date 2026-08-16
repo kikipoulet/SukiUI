@@ -1,4 +1,6 @@
 using SukiUI.Helpers;
+using SukiUI.Controls;
+using Avalonia.Threading;
 
 namespace SukiUI.Dialogs
 {
@@ -26,6 +28,7 @@ namespace SukiUI.Dialogs
             _activeDialog = null;
             OnDialogDismissed?.Invoke(this, new SukiDialogManagerEventArgs(dismissedDialog));
             dismissedDialog.OnDismissed?.Invoke(dismissedDialog);
+            ReturnToPoolAfterDismissal(dismissedDialog);
 
             return true;
         }
@@ -39,6 +42,15 @@ namespace SukiUI.Dialogs
             _activeDialog = null;
             OnDialogDismissed?.Invoke(this, new SukiDialogManagerEventArgs(dismissedDialog));
             dismissedDialog.OnDismissed?.Invoke(dismissedDialog);
+            ReturnToPoolAfterDismissal(dismissedDialog);
+        }
+
+        private static void ReturnToPoolAfterDismissal(ISukiDialog dialog)
+        {
+            if (dialog is not SukiDialog)
+                return;
+
+            DispatcherTimer.RunOnce(() => DialogPool.Return(dialog), TimeSpan.FromMilliseconds(500));
         }
     }
 }

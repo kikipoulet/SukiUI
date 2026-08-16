@@ -16,6 +16,7 @@ namespace SukiUI.Controls;
 
 public class GlassCard : ContentControl
 {
+    private ContextMenu? _attachedContextMenu;
     public new static readonly StyledProperty<CornerRadius> CornerRadiusProperty =
         AvaloniaProperty.Register<GlassCard, CornerRadius>(nameof(CornerRadius), new CornerRadius(20));
 
@@ -80,8 +81,20 @@ public class GlassCard : ContentControl
     protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {
         base.OnAttachedToVisualTree(e);
-        if (ContextMenu is null) return;
-        ContextMenu.Opening += ContextMenuOnOpening;
+        AttachContextMenu(ContextMenu);
+    }
+
+    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        AttachContextMenu(null);
+        base.OnDetachedFromVisualTree(e);
+    }
+
+    protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+    {
+        base.OnPropertyChanged(change);
+        if (change.Property == ContextMenuProperty)
+            AttachContextMenu(change.NewValue as ContextMenu);
     }
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
@@ -93,33 +106,42 @@ public class GlassCard : ContentControl
             var b = e.NameScope.Get<Panel>("RootPanel");
             b.Loaded += (sender, args) =>
             {
-                var v = ElementComposition.GetElementVisual(b);
-                CompositionAnimationHelper.MakeOpacityAnimated(v);
+                if (ElementComposition.GetElementVisual(b) is { } visual)
+                    CompositionAnimationHelper.MakeOpacityAnimated(visual);
             };
 
             var b2 = e.NameScope.Get<Border>("PART_BorderCardLight");
             b2.Loaded += (sender, args) =>
             {
-                var v = ElementComposition.GetElementVisual(b2);
-                CompositionAnimationHelper.MakeSizeAnimated(v);
+                if (ElementComposition.GetElementVisual(b2) is { } visual)
+                    CompositionAnimationHelper.MakeSizeAnimated(visual);
             };
             
             var b2d = e.NameScope.Get<Border>("PART_BorderCardDark");
             b2d.Loaded += (sender, args) =>
             {
-                var v = ElementComposition.GetElementVisual(b2);
-                CompositionAnimationHelper.MakeSizeAnimated(v);
+                if (ElementComposition.GetElementVisual(b2d) is { } visual)
+                    CompositionAnimationHelper.MakeSizeAnimated(visual);
             };
 
             var b3 = e.NameScope.Get<Border>("PART_ClipBorder");
             b3.Loaded += (sender, args) =>
             {
-                var v = ElementComposition.GetElementVisual(b3);
-                CompositionAnimationHelper.MakeSizeAnimated(v);
+                if (ElementComposition.GetElementVisual(b3) is { } visual)
+                    CompositionAnimationHelper.MakeSizeAnimated(visual);
             };
 
         }
 
+    }
+
+    private void AttachContextMenu(ContextMenu? contextMenu)
+    {
+        if (_attachedContextMenu is not null)
+            _attachedContextMenu.Opening -= ContextMenuOnOpening;
+        _attachedContextMenu = contextMenu;
+        if (_attachedContextMenu is not null)
+            _attachedContextMenu.Opening += ContextMenuOnOpening;
     }
     
 

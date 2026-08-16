@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Rendering.Composition;
 using SukiUI.Enums;
+using SukiUI.Models;
 using SukiUI.Utilities.Effects;
 
 namespace SukiUI.Controls
@@ -92,6 +93,7 @@ namespace SukiUI.Controls
         }
 
         private CompositionCustomVisual? _customVisual;
+        private SukiTheme? _theme;
 
         public SukiBackground()
         {
@@ -106,9 +108,28 @@ namespace SukiUI.Controls
             var visualHandler = new EffectBackgroundDraw();
             _customVisual = comp.CreateCustomVisual(visualHandler);
             ElementComposition.SetElementChildVisual(this, _customVisual);
+            SubscribeToThemeChanges();
+            SendCurrentTheme();
             _customVisual.SendHandlerMessage(TransitionTime);
+            _customVisual.SendHandlerMessage(ForceSoftwareRendering
+                ? EffectDrawBase.EnableForceSoftwareRendering
+                : EffectDrawBase.DisableForceSoftwareRendering);
+            _customVisual.SendHandlerMessage(TransitionsEnabled
+                ? EffectBackgroundDraw.EnableTransitions
+                : EffectBackgroundDraw.DisableTransitions);
+            _customVisual.SendHandlerMessage(AnimationEnabled
+                ? EffectDrawBase.StartAnimations
+                : EffectDrawBase.StopAnimations);
             HandleBackgroundStyleChanges();
             Update();
+        }
+
+        protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+        {
+            UnsubscribeFromThemeChanges();
+            ElementComposition.SetElementChildVisual(this, null);
+            _customVisual = null;
+            base.OnDetachedFromVisualTree(e);
         }
 
         private void Update()
@@ -151,5 +172,33 @@ namespace SukiUI.Controls
                 effect = SukiEffect.FromEmbeddedResource(Style.ToString());
             _customVisual?.SendHandlerMessage(effect);
         }
+
+        private void SubscribeToThemeChanges()
+        {
+            _theme = SukiTheme.GetInstance();
+            _theme.OnBaseThemeChanged += OnBaseThemeChanged;
+            _theme.OnColorThemeChanged += OnColorThemeChanged;
+        }
+
+        private void UnsubscribeFromThemeChanges()
+        {
+            if (_theme is null) return;
+            _theme.OnBaseThemeChanged -= OnBaseThemeChanged;
+            _theme.OnColorThemeChanged -= OnColorThemeChanged;
+            _theme = null;
+        }
+
+        private void SendCurrentTheme()
+        {
+            if (_theme?.ActiveColorTheme is not { } colorTheme) return;
+            _customVisual?.SendHandlerMessage(new EffectDrawBase.BaseThemeChangedMessage(_theme.ActiveBaseTheme));
+            _customVisual?.SendHandlerMessage(new EffectDrawBase.ColorThemeChangedMessage(colorTheme));
+        }
+
+        private void OnBaseThemeChanged(Avalonia.Styling.ThemeVariant variant) =>
+            _customVisual?.SendHandlerMessage(new EffectDrawBase.BaseThemeChangedMessage(variant));
+
+        private void OnColorThemeChanged(SukiColorTheme theme) =>
+            _customVisual?.SendHandlerMessage(new EffectDrawBase.ColorThemeChangedMessage(theme));
     }
 }

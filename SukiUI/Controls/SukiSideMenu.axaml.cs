@@ -4,7 +4,6 @@ using Avalonia.Controls.Primitives;
 using System.Globalization;
 using Avalonia.Interactivity;
 using Avalonia.Layout;
-using SukiUI.Enums;
 using Avalonia.Data.Converters;
 
 namespace SukiUI.Controls;
@@ -65,35 +64,23 @@ public class SukiSideMenu : TreeView
     }
 
     public static readonly StyledProperty<int> OpenPaneLengthProperty =
-        AvaloniaProperty.Register<SukiSideMenu, int>(nameof(OpenPaneLength), defaultValue: 220);
+        AvaloniaProperty.Register<SukiSideMenu, int>(nameof(OpenPaneLength), defaultValue: 220,
+            coerce: (_, value) => Math.Max(200, value));
 
     public int OpenPaneLength
     {
         get => GetValue(OpenPaneLengthProperty);
-        set => SetValue(OpenPaneLengthProperty, value switch
-        {
-            >= 200 => value,
-            _ => throw new ArgumentOutOfRangeException($"OpenPaneLength must be greater than or equal to 200, but was {value}")
-        });
+        set => SetValue(OpenPaneLengthProperty, value);
     }
 
     public static readonly StyledProperty<HorizontalAlignment> TogglePaneButtonPositionProperty =
-        AvaloniaProperty.Register<SukiSideMenu, HorizontalAlignment>(nameof(TogglePaneButtonPosition), defaultValue: HorizontalAlignment.Right);
+        AvaloniaProperty.Register<SukiSideMenu, HorizontalAlignment>(nameof(TogglePaneButtonPosition),
+            defaultValue: HorizontalAlignment.Right);
 
-    public SideMenuTogglePaneButtonPositionOptions TogglePaneButtonPosition
+    public HorizontalAlignment TogglePaneButtonPosition
     {
-        get => GetValue(TogglePaneButtonPositionProperty) switch
-        {
-            HorizontalAlignment.Right => SideMenuTogglePaneButtonPositionOptions.Right,
-            HorizontalAlignment.Left => SideMenuTogglePaneButtonPositionOptions.Left,
-            _ => SideMenuTogglePaneButtonPositionOptions.Right
-        };
-        set => SetValue(TogglePaneButtonPositionProperty, value switch
-        {
-            SideMenuTogglePaneButtonPositionOptions.Right => HorizontalAlignment.Right,
-            SideMenuTogglePaneButtonPositionOptions.Left => HorizontalAlignment.Left,
-            _ => HorizontalAlignment.Right
-        });
+        get => GetValue(TogglePaneButtonPositionProperty);
+        set => SetValue(TogglePaneButtonPositionProperty, value);
     }
 
     public static readonly StyledProperty<bool> IsSelectedItemContentMovableProperty =
@@ -155,6 +142,7 @@ public class SukiSideMenu : TreeView
 
     private SukiTransitioningContentControl? _contentControl;
     private Grid? _spacer;
+    private Button? _toggleButton;
 
     public SukiSideMenu()
     {
@@ -170,25 +158,23 @@ public class SukiSideMenu : TreeView
 
     private void UpdateMenuItemsExpansion()
     {
-        if(_sideMenuItems.Any())
-            foreach (var item in _sideMenuItems)
-                item.IsTopMenuExpanded = IsMenuExpanded;
-
-        else if(Items.FirstOrDefault() is SukiSideMenuItem)
-            foreach (SukiSideMenuItem? item in Items)
-                item!.IsTopMenuExpanded = IsMenuExpanded;
+        foreach (var item in GetMenuItems())
+            item.IsTopMenuExpanded = IsMenuExpanded;
     }
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
 
-        if (Items.Any())
+        if (SelectedItem is null && Items.Any())
         {
             SelectedItem = Items.First();
         }
 
-        e.NameScope.Get<Button>("PART_SidebarToggleButton").Click += (_, _) => MenuExpandedClicked();
+        if (_toggleButton is not null)
+            _toggleButton.Click -= ToggleButtonOnClick;
+        _toggleButton = e.NameScope.Get<Button>("PART_SidebarToggleButton");
+        _toggleButton.Click += ToggleButtonOnClick;
         _contentControl = e.NameScope.Get<SukiTransitioningContentControl>("PART_TransitioningContentControl");
         SetContentControlContent();
         _spacer = e.NameScope.Get<Grid>("PART_Spacer");
@@ -210,28 +196,35 @@ public class SukiSideMenu : TreeView
 
         if (change.Property == SearchTextProperty)
         {
-            FilterItems(change.GetNewValue<string>());
+            FilterItems(change.GetNewValue<string?>());
         }
 
-        if (change.Property.Name == nameof(SelectedItem) && !UseCustomContent)
+        if (change.Property == SelectedItemProperty && !UseCustomContent)
             SetContentControlContent(change.NewValue);
         else if (change.Property.Name == nameof(Content) && UseCustomContent)
             SetContentControlContent(change.NewValue);
         else if (change.Property.Name == nameof(UseCustomContent))
             SetContentControlContent();
-        else if (change.Property == IsMenuExpandedProperty && _spacer != null)
-            _spacer.IsVisible = IsSpacerVisible;
+        else if (change.Property == IsMenuExpandedProperty)
+        {
+            if (_spacer != null)
+                _spacer.IsVisible = IsSpacerVisible;
+            UpdateMenuItemsExpansion();
+        }
+        else if (change.Property == IsSelectedItemContentMovableProperty)
+        {
+            foreach (var item in GetMenuItems())
+                item.IsContentMovable = IsSelectedItemContentMovable;
+        }
     }
 
-    protected virtual void FilterItems(string search)
+    protected virtual void FilterItems(string? search)
     {
-        search = search.ToLower();
+        search = search?.Trim() ?? string.Empty;
 
-        foreach (var item in _sideMenuItems)
+        foreach (var item in GetMenuItems())
         {
-            var header = item.Header?.ToLower() ?? "";
-
-            if (header.Contains(search))
+            if (item.Header?.ToString()?.Contains(search, StringComparison.CurrentCultureIgnoreCase) == true || search.Length == 0)
             {
                 item.Show();
             }
@@ -269,9 +262,22 @@ public class SukiSideMenu : TreeView
                 ? sukiMenuItem
                 : new SukiSideMenuItem();
         menuItem.IsContentMovable = IsSelectedItemContentMovable;
+        menuItem.IsTopMenuExpanded = IsMenuExpanded;
         _sideMenuItems.Add(menuItem);
         return menuItem;
     }
+
+    protected override void ClearContainerForItemOverride(Control element)
+    {
+        if (element is SukiSideMenuItem menuItem)
+            _sideMenuItems.Remove(menuItem);
+        base.ClearContainerForItemOverride(element);
+    }
+
+    private IEnumerable<SukiSideMenuItem> GetMenuItems() =>
+        _sideMenuItems.Concat(Items.OfType<SukiSideMenuItem>()).Distinct();
+
+    private void ToggleButtonOnClick(object? sender, RoutedEventArgs e) => MenuExpandedClicked();
 
     private readonly List<SukiSideMenuItem> _sideMenuItems = new();
 
@@ -325,5 +331,3 @@ public class WindowBackgroundToMarginConverter : IValueConverter
         throw new NotSupportedException();
     }
 }
-
-

@@ -14,15 +14,18 @@
 
     <ControlTheme x:Key="{x:Type ListBoxItem}" TargetType="ListBoxItem">
         <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="CornerRadius" Value="10" />
         <Setter Property="Padding" Value="4,2" />
         <Setter Property="Template">
             <ControlTemplate>
                 <suki:GlassCard Name="BorderBasicStyle"
                                 Margin="0"
-                                Padding="8,4"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                CornerRadius="10">
+                                Padding="8,5"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{TemplateBinding CornerRadius}">
                     <DockPanel>
                         <PathIcon Name="CheckSelected"
                                   Width="17"
@@ -42,6 +45,7 @@
                                           Margin="0"
                                           Padding="{TemplateBinding Padding}"
                                           HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                           Background="Transparent"
                                           BorderBrush="Transparent"
                                           BorderThickness="{TemplateBinding BorderThickness}"
@@ -98,6 +102,7 @@
                                   Margin="0"
                                   Padding="{TemplateBinding Padding}"
                                   HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                   Background="Transparent"
                                   BorderBrush="Transparent"
                                   BorderThickness="{TemplateBinding BorderThickness}"

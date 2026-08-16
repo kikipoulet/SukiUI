@@ -6,6 +6,8 @@
                   BasedOn="{StaticResource {x:Type ListBox}}"
                   TargetType="cc:CompletionListBox">
         <Setter Property="Padding" Value="0" />
+        <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
+        <Setter Property="BorderThickness" Value="0" />
         <Setter Property="ItemContainerTheme">
             <ControlTheme BasedOn="{StaticResource {x:Type ListBoxItem}}" TargetType="ListBoxItem">
                 <Setter Property="TextBlock.Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
@@ -23,27 +25,18 @@
             <ControlTemplate>
 
                 <Border Name="border"
-                        Background="{DynamicResource SukiCardBackground}"
+                        Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="0"
+                        BorderThickness="{TemplateBinding BorderThickness}"
                         ClipToBounds="{TemplateBinding ClipToBounds}"
                         CornerRadius="{TemplateBinding CornerRadius}">
-                    <Border.Resources>
-                        <suki:BiggestItemListBoxConverter x:Key="BiggestListitem" />
-                    </Border.Resources>
-                    <Grid>
-                        <ListBoxItem Margin="0,0,32,0"
-                                     Content="{TemplateBinding ItemsSource,
-                                                               Converter={StaticResource BiggestListitem}}"
-                                     Opacity="0" />
-                        <ScrollViewer Name="PART_ScrollViewer"
-                                      HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
-                                      VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
-                            <ItemsPresenter Name="PART_ItemsPresenter"
-                                            Margin="{TemplateBinding Padding}"
-                                            ItemsPanel="{TemplateBinding ItemsPanel}" />
-                        </ScrollViewer>
-                    </Grid>
+                    <ScrollViewer Name="PART_ScrollViewer"
+                                  HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                                  VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
+                        <ItemsPresenter Name="PART_ItemsPresenter"
+                                        Margin="{TemplateBinding Padding}"
+                                        ItemsPanel="{TemplateBinding ItemsPanel}" />
+                    </ScrollViewer>
                 </Border>
             </ControlTemplate>
         </Setter>

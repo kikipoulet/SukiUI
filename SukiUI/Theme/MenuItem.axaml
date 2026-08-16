@@ -79,6 +79,7 @@
                 <Border Name="root"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
                         ClipToBounds="True">
                     <Panel>
                         <Grid Margin="5,10">
@@ -141,7 +142,8 @@
                                               Margin="5,0"
                                               HorizontalAlignment="Left"
                                               VerticalAlignment="Center"
-                                              Content="{TemplateBinding Header}">
+                                              Content="{TemplateBinding Header}"
+                                              ContentTemplate="{TemplateBinding HeaderTemplate}">
                                 <ContentPresenter.DataTemplates>
                                     <DataTemplate DataType="system:String">
                                         <TextBlock FontWeight="{DynamicResource DefaultDemiBold}" Text="{Binding}" />

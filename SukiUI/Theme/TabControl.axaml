@@ -32,12 +32,19 @@
                         <LayoutTransformControl Name="PART_LayoutTransform" DockPanel.Dock="{TemplateBinding TabStripPlacement}">
                             <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
                         </LayoutTransformControl>
-                        <ContentPresenter Name="PART_SelectedContentHost"
-                                          Margin="{TemplateBinding Padding}"
-                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          Content="{TemplateBinding SelectedContent}"
-                                          ContentTemplate="{TemplateBinding SelectedContentTemplate}" />
+                        <Panel ClipToBounds="True">
+                            <ContentPresenter Name="PART_SelectedContentHost2"
+                                              Margin="{TemplateBinding Padding}"
+                                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              IsVisible="False" />
+                            <ContentPresenter Name="PART_SelectedContentHost"
+                                              Margin="{TemplateBinding Padding}"
+                                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              Content="{TemplateBinding SelectedContent}"
+                                              ContentTemplate="{TemplateBinding SelectedContentTemplate}" />
+                        </Panel>
                     </DockPanel>
                 </Border>
             </ControlTemplate>
@@ -59,12 +66,19 @@
                                 <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
                                 </suki:GlassCard>
                             </LayoutTransformControl>
-                            <ContentPresenter Name="PART_SelectedContentHost"
-                                              Margin="{TemplateBinding Padding}"
-                                              HorizontalContentAlignment="Stretch"
-                                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                              Content="{TemplateBinding SelectedContent}"
-                                              ContentTemplate="{TemplateBinding SelectedContentTemplate}" />
+                            <Panel ClipToBounds="True">
+                                <ContentPresenter Name="PART_SelectedContentHost2"
+                                                  Margin="{TemplateBinding Padding}"
+                                                  HorizontalContentAlignment="Stretch"
+                                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  IsVisible="False" />
+                                <ContentPresenter Name="PART_SelectedContentHost"
+                                                  Margin="{TemplateBinding Padding}"
+                                                  HorizontalContentAlignment="Stretch"
+                                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  Content="{TemplateBinding SelectedContent}"
+                                                  ContentTemplate="{TemplateBinding SelectedContentTemplate}" />
+                            </Panel>
                         </DockPanel>
                     </Border>
                 </ControlTemplate>

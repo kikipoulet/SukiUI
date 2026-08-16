@@ -16,7 +16,8 @@ namespace SukiUI.Theme
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            var pathes = (value as string).Split('\\');
+            var pathes = (value as string ?? string.Empty)
+                .Split(new[] { '\\', '/' }, StringSplitOptions.RemoveEmptyEntries);
             if (pathes.Length > 3)
             {
                 pathes = pathes.Skip(1).ToArray();
@@ -30,14 +31,18 @@ namespace SukiUI.Theme
 
             for (var i = 0; i < pathes.Length; i++)
             {
+                var fontWeight = FontWeight.DemiBold;
+                if (Application.Current is { } application &&
+                    application.TryGetResource("DefaultDemiBold", application.ActualThemeVariant,
+                        out var resource) && resource is FontWeight resourceFontWeight)
+                {
+                    fontWeight = resourceFontWeight;
+                }
+
                 var t = new TextBlock
                 {
                     Text = pathes[i],
-                    FontWeight =
-                        Application.Current!.TryGetResource("DefaultDemiBold", Application.Current!.ActualThemeVariant,
-                            out var fontWeight)
-                            ? (FontWeight)fontWeight!
-                            : FontWeight.DemiBold,
+                    FontWeight = fontWeight,
                     FontSize = 14, VerticalAlignment = VerticalAlignment.Center,
                     [!TextBlock.ForegroundProperty] = i == pathes.Length - 1
                         ? new DynamicResourceExtension("SukiText")
@@ -71,8 +76,8 @@ namespace SukiUI.Theme
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            var w = value as Window;
-            w.WindowDecorations = WindowDecorations.BorderOnly;
+            if (value is Window w)
+                w.WindowDecorations = WindowDecorations.BorderOnly;
             //    w.ExtendClientAreaToDecorationsHint = true;
 
 

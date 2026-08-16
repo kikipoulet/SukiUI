@@ -174,14 +174,22 @@ public class SukiMessageBoxHost : HeaderedContentControl
             ReferenceEquals(e.Property, IconPresetSizeProperty))
         {
             var preset = IconPreset;
-            if (preset is null) return;
+            if (preset is null)
+            {
+                Icon = null;
+                return;
+            }
 
             Icon = SukiMessageBoxIconsFactory.CreateIcon(preset.Value, IconPresetSize);
         }
         else if (ReferenceEquals(e.Property, ActionButtonsPresetProperty))
         {
             var preset = ActionButtonsPreset;
-            if (preset is null) return;
+            if (preset is null)
+            {
+                ActionButtonsSource?.Clear();
+                return;
+            }
 
             Button[] buttons = preset switch
             {

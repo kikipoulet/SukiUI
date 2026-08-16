@@ -216,30 +216,21 @@
                                        FontWeight="DemiBold"
                                        Text="Notify me when .." />
                             <StackPanel Margin="0,8,0,0">
-                                <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
-                                    <CheckBox IsChecked="True" />
-                                    <TextBlock Margin="8,0,0,0"
-                                               VerticalAlignment="Center"
-                                               FontSize="13"
-                                               Foreground="{DynamicResource SukiLowText}"
-                                               Text="Daily updates" />
-                                </StackPanel>
-                                <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
-                                    <CheckBox IsChecked="True" />
-                                    <TextBlock Margin="8,0,0,0"
-                                               VerticalAlignment="Center"
-                                               FontSize="13"
-                                               Foreground="{DynamicResource SukiLowText}"
-                                               Text="New event" />
-                                </StackPanel>
-                                <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
-                                    <CheckBox IsChecked="False" />
-                                    <TextBlock Margin="8,0,0,0"
-                                               VerticalAlignment="Center"
-                                               FontSize="13"
-                                               Foreground="{DynamicResource SukiLowText}"
-                                               Text="When added on new team" />
-                                </StackPanel>
+                                <CheckBox Margin="0,5,0,0"
+                                          Content="Daily updates"
+                                          FontSize="13"
+                                          Foreground="{DynamicResource SukiLowText}"
+                                          IsChecked="True" />
+                                <CheckBox Margin="0,5,0,0"
+                                          Content="New event"
+                                          FontSize="13"
+                                          Foreground="{DynamicResource SukiLowText}"
+                                          IsChecked="True" />
+                                <CheckBox Margin="0,5,0,0"
+                                          Content="When added on new team"
+                                          FontSize="13"
+                                          Foreground="{DynamicResource SukiLowText}"
+                                          IsChecked="False" />
                             </StackPanel>
                         </StackPanel>
                         <Grid Margin="0,30,0,0">

@@ -230,7 +230,7 @@
                 </TabItem.Header>
              
                     <touch:TouchNavigationStack Margin="10,25,10,10" Title="Settings" Name="NStack">
-                        <touch:TouchNavigationStack.Content>
+                        <touch:TouchNavigationStack.InitialContent>
                     <suki:SettingsLayout Margin="0,25,0,0"  Classes="Touch">
                         <suki:SettingsLayout.Items>
                             <objectModel:ObservableCollection x:TypeArguments="suki:SettingsLayoutItem">
@@ -255,13 +255,13 @@
                                         </mobilePicker:MobilePicker>
                                         
                                         <mobileNumberPicker:MobileNumberPicker DialogManager="{Binding DialogManager}"  Padding="40,30" Value="1" Minimum="1" Maximum="100" Margin="0,3,0,0" CornerRadius="0,0,25,25">
-                                            <mobileNumberPicker:MobileNumberPicker.Content>
+                                            <mobileNumberPicker:MobileNumberPicker.DisplayContent>
                                                 <StackPanel Margin="55,0,0,2" Spacing="12">
                                                     <TextBlock FontWeight="DemiBold" Text="Number of Measurements"  FontSize="22"></TextBlock>
                                                     <TextBlock FontWeight="Light" Text="Number of time the measurement will loop into a procedure."  Foreground="{DynamicResource SecondaryText}" FontSize="18"></TextBlock>
                                        
                                                 </StackPanel>
-                                            </mobileNumberPicker:MobileNumberPicker.Content>
+                                            </mobileNumberPicker:MobileNumberPicker.DisplayContent>
                                         </mobileNumberPicker:MobileNumberPicker>
                                         
                                         </StackPanel>
@@ -272,14 +272,14 @@
                                         <StackPanel Margin="0,20">
                                         
                                             
-                                        <CheckBox Classes="Touch" IsChecked="True" Margin="0,3,0,0"  BorderThickness="0" CornerRadius="25,25,0,0">
-                                            <Panel>
-                                                <StackPanel Margin="0,0,0,2" Spacing="12">
-                                                    <TextBlock DockPanel.Dock="Top" FontWeight="DemiBold" Text="Auto-Save"  FontSize="22"></TextBlock>
-                                                <!--    <TextBlock FontWeight="Light" Text="Save project every 5 minutes"  Foreground="{DynamicResource SecondaryText}" FontSize="18"></TextBlock> -->
-                                                </StackPanel>
-                                            </Panel>
-                                        </CheckBox>
+                                        <CheckBox Classes="Touch"
+                                                  Margin="0,3,0,0"
+                                                  BorderThickness="0"
+                                                  Content="Auto-Save"
+                                                  CornerRadius="25,25,0,0"
+                                                  FontSize="22"
+                                                  FontWeight="DemiBold"
+                                                  IsChecked="True" />
                                             <suki:GlassCard BorderThickness="0" Padding="0" Margin="0,3,0,0" CornerRadius="0,0,25,25">
                                                 <DockPanel Margin="45,29">
                                     
@@ -322,7 +322,7 @@
                             </objectModel:ObservableCollection>
                         </suki:SettingsLayout.Items>
                     </suki:SettingsLayout>
-                            </touch:TouchNavigationStack.Content>
+                            </touch:TouchNavigationStack.InitialContent>
                     </touch:TouchNavigationStack>
                 
                 </TabItem>

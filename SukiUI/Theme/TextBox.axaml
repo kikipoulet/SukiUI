@@ -121,7 +121,6 @@
                 </Border>
 
 
-
             </Grid>
         </Border>
     </Design.PreviewWith>
@@ -234,6 +233,8 @@
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
         <Setter Property="Background" Value="{DynamicResource SukiGlassCardBackground}" />
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+        <Setter Property="PlaceholderForeground" Value="{DynamicResource SukiLowText}" />
+        <Setter Property="CaretBrush" Value="{DynamicResource SukiLowText}" />
         <Setter Property="SelectionBrush" Value="{DynamicResource SukiPrimaryColor75}" />
         <Setter Property="MinHeight" Value="36" />
         <Setter Property="Padding" Value="10,8" />
@@ -261,7 +262,8 @@
                                    Text="{TemplateBinding PlaceholderText}">
                             <TextBox.IsVisible>
                                 <MultiBinding Converter="{x:Static BoolConverters.And}">
-                                    <TemplateBinding Converter="{x:Static StringConverters.IsNotNullOrEmpty}" Property="PlaceholderText" />
+                                    <TemplateBinding Converter="{x:Static StringConverters.IsNotNullOrEmpty}"
+                                                     Property="PlaceholderText" />
                                     <TemplateBinding Property="UseFloatingPlaceholder" />
                                 </MultiBinding>
                             </TextBox.IsVisible>
@@ -277,8 +279,10 @@
                                         Spacing="{StaticResource SukiTextBoxElementSpacing}">
                                 <StackPanel.IsVisible>
                                     <MultiBinding Converter="{x:Static BoolConverters.Or}">
-                                        <TemplateBinding Converter="{x:Static ObjectConverters.IsNotNull}" Property="InnerLeftContent" />
-                                        <TemplateBinding Converter="{x:Static ObjectConverters.IsNotNull}" Property="suki:TextBoxExtensions.Prefix" />
+                                        <TemplateBinding Converter="{x:Static ObjectConverters.IsNotNull}"
+                                                         Property="InnerLeftContent" />
+                                        <TemplateBinding Converter="{x:Static ObjectConverters.IsNotNull}"
+                                                         Property="suki:TextBoxExtensions.Prefix" />
                                     </MultiBinding>
                                 </StackPanel.IsVisible>
                                 <ContentPresenter VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -292,8 +296,12 @@
                             </StackPanel>
 
 
-                            <ScrollViewer Grid.Column="1"
+                            <ScrollViewer Name="PART_ScrollViewer"
+                                          Grid.Column="1"
+                                          AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
+                                          BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}"
                                           HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                                          IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
                                           VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
                                 <ScrollViewer.Styles>
                                     <Style Selector="ScrollContentPresenter#PART_ContentPresenter">
@@ -304,6 +312,7 @@
                                     <TextBlock Name="PART_Placeholder"
                                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                               Foreground="{TemplateBinding PlaceholderForeground}"
                                                Opacity="0.5"
                                                Text="{TemplateBinding PlaceholderText}"
                                                TextAlignment="{TemplateBinding TextAlignment}"
@@ -313,8 +322,10 @@
                                                 <Binding Converter="{x:Static StringConverters.IsNullOrEmpty}"
                                                          ElementName="PART_TextPresenter"
                                                          Path="PreeditText" />
-                                                <TemplateBinding Converter="{x:Static StringConverters.IsNullOrEmpty}" Property="Text" />
-                                                <TemplateBinding Converter="{x:Static BoolConverters.Not}" Property="UseFloatingPlaceholder" />
+                                                <TemplateBinding Converter="{x:Static StringConverters.IsNullOrEmpty}"
+                                                                 Property="Text" />
+                                                <TemplateBinding Converter="{x:Static BoolConverters.Not}"
+                                                                 Property="UseFloatingPlaceholder" />
                                             </MultiBinding>
                                         </TextBlock.IsVisible>
                                     </TextBlock>
@@ -322,7 +333,7 @@
                                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                                    CaretBlinkInterval="{TemplateBinding CaretBlinkInterval}"
-                                                   CaretBrush="{DynamicResource SukiLowText}"
+                                                   CaretBrush="{TemplateBinding CaretBrush}"
                                                    CaretIndex="{TemplateBinding CaretIndex}"
                                                    LetterSpacing="{TemplateBinding LetterSpacing}"
                                                    LineHeight="{TemplateBinding LineHeight}"
@@ -344,9 +355,12 @@
                                 <StackPanel.IsVisible>
                                     <MultiBinding Converter="{x:Static BoolConverters.Or}">
                                         <TemplateBinding Property="suki:TextBoxExtensions.AddDeleteButton" />
-                                        <TemplateBinding Converter="{x:Static ObjectConverters.IsNotNull}" Property="InnerRightContent" />
-                                        <TemplateBinding Converter="{x:Static ObjectConverters.IsNotNull}" Property="suki:TextBoxExtensions.ResetText" />
-                                        <TemplateBinding Converter="{x:Static ObjectConverters.IsNotNull}" Property="suki:TextBoxExtensions.Unit" />
+                                        <TemplateBinding Converter="{x:Static ObjectConverters.IsNotNull}"
+                                                         Property="InnerRightContent" />
+                                        <TemplateBinding Converter="{x:Static ObjectConverters.IsNotNull}"
+                                                         Property="suki:TextBoxExtensions.ResetText" />
+                                        <TemplateBinding Converter="{x:Static ObjectConverters.IsNotNull}"
+                                                         Property="suki:TextBoxExtensions.Unit" />
                                         <TemplateBinding Property="DataValidationErrors.HasErrors" />
                                     </MultiBinding>
                                 </StackPanel.IsVisible>
@@ -373,11 +387,11 @@
                                 </suki:TextResetButton>
 
                                 <suki:TextResetButton VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                       Cursor="Hand"
-                                                       IsVisible="{TemplateBinding suki:TextBoxExtensions.AddDeleteButton}"
-                                                       Opacity="{TemplateBinding Text, Converter={StaticResource StringToDoubleC}}"
-                                                       Text="{TemplateBinding Text, Mode=TwoWay}"
-                                                       ToolTip.Tip="{DynamicResource STRING_BUTTON_CLEAR}">
+                                                      Cursor="Hand"
+                                                      IsVisible="{TemplateBinding suki:TextBoxExtensions.AddDeleteButton}"
+                                                      Opacity="{TemplateBinding Text, Converter={StaticResource StringToDoubleC}}"
+                                                      Text="{TemplateBinding Text, Mode=TwoWay}"
+                                                      ToolTip.Tip="{DynamicResource STRING_BUTTON_CLEAR}">
                                     <PathIcon Width="16"
                                               Height="16"
                                               Margin="0"
@@ -402,10 +416,8 @@
         <Style Selector="^.FlatTextBox">
             <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
             <Setter Property="BorderBrush" Value="{DynamicResource SukiLightBorderBrush}" />
-            <Style Selector="^ /template/ suki|GlassCard#border">
+            <Style Selector="^ /template/ suki|GlassCard#PART_GlassBorder">
                 <Setter Property="BorderThickness" Value="0" />
-            </Style>
-            <Style Selector="^ /template/ Panel#PART_GlassBorder">
                 <Setter Property="ClipToBounds" Value="True" />
             </Style>
         </Style>
@@ -457,7 +469,8 @@
                                 <Setter Property="(ToolTip.Tip)" Value="Show Password" />
                             </Style>
                         </Border.Styles>
-                        <ToggleButton IsChecked="{Binding $parent[TextBox].RevealPassword, Mode=TwoWay}" Theme="{StaticResource SukiTextBoxToggleButton}" />
+                        <ToggleButton IsChecked="{Binding $parent[TextBox].RevealPassword, Mode=TwoWay}"
+                                      Theme="{StaticResource SukiTextBoxToggleButton}" />
                     </Border>
                 </Template>
             </Setter>

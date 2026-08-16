@@ -152,6 +152,7 @@
     <ControlTheme x:Key="SukiNumericUpDown" TargetType="NumericUpDown">
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+        <Setter Property="PlaceholderForeground" Value="{DynamicResource SukiLowText}" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
         <Setter Property="Background" Value="{DynamicResource SukiGlassCardBackground}" />
@@ -205,6 +206,8 @@
                                          FontSize="{TemplateBinding FontSize}"
                                          FontWeight="{TemplateBinding FontWeight}"
                                          Foreground="{TemplateBinding Foreground}"
+                                         PlaceholderForeground="{TemplateBinding PlaceholderForeground}"
+                                         TextAlignment="{TemplateBinding TextAlignment}"
                                          InnerLeftContent="{TemplateBinding InnerLeftContent}"
                                          InnerRightContent="{TemplateBinding InnerRightContent}"
                                          IsReadOnly="{TemplateBinding IsReadOnly}"
@@ -212,7 +215,7 @@
                                          TextWrapping="NoWrap"
                                          UseFloatingPlaceholder="{TemplateBinding suki:NumericUpDownExtensions.UseFloatingPlaceholder}"
                                          PlaceholderText="{TemplateBinding PlaceholderText}"
-                                         suki:TextBoxExtensions.Prefix="{TemplateBinding suki:NumericUpDownExtensions.Prefix}"/>
+                                         suki:TextBoxExtensions.Prefix="{TemplateBinding suki:NumericUpDownExtensions.Prefix}" />
                             </DataValidationErrors>
 
                             <StackPanel Grid.Column="1"
@@ -221,8 +224,10 @@
                                         Margin="0,0,5,0">
                                 <StackPanel.IsVisible>
                                     <MultiBinding Converter="{x:Static BoolConverters.Or}">
-                                        <TemplateBinding Converter="{x:Static ObjectConverters.IsNotNull}" Property="suki:NumericUpDownExtensions.ResetText" />
-                                        <TemplateBinding Converter="{x:Static ObjectConverters.IsNotNull}" Property="suki:NumericUpDownExtensions.Unit" />
+                                        <TemplateBinding Converter="{x:Static ObjectConverters.IsNotNull}"
+                                                         Property="suki:NumericUpDownExtensions.ResetText" />
+                                        <TemplateBinding Converter="{x:Static ObjectConverters.IsNotNull}"
+                                                         Property="suki:NumericUpDownExtensions.Unit" />
                                     </MultiBinding>
                                 </StackPanel.IsVisible>
 
@@ -242,7 +247,7 @@
                                               Height="16"
                                               Margin="0"
                                               Data="{x:Static suki:Icons.RefreshCircle}"
-                                              Foreground="{DynamicResource SukiLowText}"/>
+                                              Foreground="{DynamicResource SukiLowText}" />
                                 </suki:TextResetButton>
 
                                 <ContentPresenter VerticalAlignment="Center"

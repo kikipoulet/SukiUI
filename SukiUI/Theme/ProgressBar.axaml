@@ -109,6 +109,7 @@
 
                     <suki:GlassCard Name="PART_RootBorder"
                                     Padding="0"
+                                    Background="{TemplateBinding Background}"
                                     BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="{TemplateBinding BorderThickness}"
                                     Classes="Control"
@@ -258,14 +259,6 @@
                     </KeyFrame>
                 </Animation>
             </Style.Animations>
-        </Style>
-
-        <Style Selector="^:vertical /template/ LayoutTransformControl#PART_LayoutTransformControl">
-            <Setter Property="LayoutTransform">
-                <Setter.Value>
-                    <RotateTransform Angle="90" />
-                </Setter.Value>
-            </Setter>
         </Style>
 
         <Style Selector="^:horizontal:indeterminate /template/ Border#IndeterminateProgressBarIndicator">

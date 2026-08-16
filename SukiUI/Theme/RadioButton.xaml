@@ -21,6 +21,8 @@
                 <Grid Background="{TemplateBinding Background}" ColumnDefinitions="Auto,*">
                     <suki:GlassCard Width="20"
                                     Height="20"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
                                     Classes="Control"
                                     Classes.PrimaryOpaque="{TemplateBinding IsChecked}"
                                     CornerRadius="50" />

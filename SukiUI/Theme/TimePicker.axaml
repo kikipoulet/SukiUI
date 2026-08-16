@@ -60,6 +60,7 @@
 
     <ControlTheme x:Key="{x:Type TimePicker}" TargetType="TimePicker">
         <Setter Property="FontSize" Value="{DynamicResource FontSizeNormal}" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
         <Setter Property="BorderThickness" Value="0,0,0,0" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -187,7 +188,7 @@
         </Style>
 
         <Style Selector="^:hasnotime /template/ Button#PART_FlyoutButton TextBlock">
-            <Setter Property="Foreground" Value="{DynamicResource ThemeForegroundLowBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource SukiLowText}" />
         </Style>
     </ControlTheme>
 
