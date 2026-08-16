@@ -1,7 +1,6 @@
-﻿<Styles xmlns="https://github.com/avaloniaui"
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:animations="clr-namespace:SukiUI.Animations"
-        xmlns:glassMorphism="clr-namespace:SukiUI.Controls.GlassMorphism"
         xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=netstandard"
         xmlns:suki="https://github.com/kikipoulet/SukiUI"
         xmlns:system="clr-namespace:System;assembly=netstandard"
@@ -41,7 +40,7 @@
         </Border>
     </Design.PreviewWith>
 
-    <Style Selector="ComboBox">
+    <ControlTheme x:Key="{x:Type ComboBox}" TargetType="ComboBox">
         <Setter Property="BorderThickness" Value="1,1,1,1" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
@@ -50,8 +49,10 @@
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Padding" Value="6,6,-6,6" />
         <Setter Property="MinHeight" Value="45" />
+        <Setter Property="MaxDropDownHeight" Value="345" />
         <Setter Property="PlaceholderForeground" Value="{DynamicResource SukiLowText}" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Border Margin="0,0,0,0" Padding="5">
@@ -143,7 +144,6 @@
                             </ToggleButton>
                             <Popup Name="PART_Popup"
                                    MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}"
-                                   MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                    HorizontalOffset="-5"
                                    IsLightDismissEnabled="True"
                                    IsOpen="{TemplateBinding IsDropDownOpen,
@@ -151,20 +151,22 @@
                                    PlacementTarget="{TemplateBinding}">
                                 <LayoutTransformControl Name="PART_LayoutTransform" RenderTransformOrigin="50%, 0%">
 
-                                    <Border Name="B1" Padding="5,10,5,5">
+                                    <Border Name="B1"
+                                            MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                            Padding="5,10,5,5">
                                         <Panel>
                                             <Border Margin="10,-10,0,10"
                                                     Background="{DynamicResource SukiPopupBackground}"
-                                                    BorderBrush="{DynamicResource SukiMenuBorderBrush}"
-                                                    BorderThickness="1,1,1,1"
                                                     BoxShadow="{DynamicResource SukiSmallPopupShadow}"
+                                                    ClipToBounds="True"
                                                     CornerRadius="{DynamicResource SmallCornerRadius}">
                                                 <Panel Background="{DynamicResource PopupGradientBrush}">
                                                     <suki:GlassCard Margin="-1" CornerRadius="{DynamicResource SmallCornerRadius}" />
-                                                    <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                                                    <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                                                  VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
 
-                                                        <ItemsPresenter Name="PART_ItemsPresenter"
-                                                                        Margin="0,3,0,0"
+                                        <ItemsPresenter Name="PART_ItemsPresenter"
+                                                        Margin="0"
                                                                         ItemsPanel="{TemplateBinding ItemsPanel}" />
                                                     </ScrollViewer>
                                                 </Panel>
@@ -178,9 +180,8 @@
                 </Border>
             </ControlTemplate>
         </Setter>
-    </Style>
 
-    <Style Selector="ComboBox[IsDropDownOpen=true] /template/ LayoutTransformControl#PART_LayoutTransform">
+    <Style Selector="^[IsDropDownOpen=true] /template/ LayoutTransformControl#PART_LayoutTransform">
         <Style.Resources>
             <theme:PlusNineConverter x:Key="NineConverter" />
         </Style.Resources>
@@ -233,7 +234,7 @@
         </Style.Animations>
     </Style>
 
-    <Style Selector="ComboBox[IsDropDownOpen=false] /template/ LayoutTransformControl#PART_LayoutTransform">
+    <Style Selector="^[IsDropDownOpen=false] /template/ LayoutTransformControl#PART_LayoutTransform">
         <Style.Resources>
             <theme:PlusNineConverter x:Key="NineConverter" />
         </Style.Resources>
@@ -255,11 +256,11 @@
         </Style.Animations>
     </Style>
 
-    <Style Selector="ComboBox:pointerover /template/ suki|GlassCard#border">
+    <Style Selector="^:pointerover /template/ suki|GlassCard#border">
         <Setter Property="BorderBrush" Value="{DynamicResource SukiLightBorderBrush}" />
     </Style>
-    <Style Selector="ComboBox:disabled /template/ suki|GlassCard#border">
+    <Style Selector="^:disabled /template/ suki|GlassCard#border">
         <Setter Property="Opacity" Value="{DynamicResource ThemeDisabledOpacity}" />
     </Style>
-
-</Styles>
+    </ControlTheme>
+</ResourceDictionary>

@@ -1,5 +1,6 @@
-﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:suki="https://github.com/kikipoulet/SukiUI">
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:suki="https://github.com/kikipoulet/SukiUI">
     <Design.PreviewWith>
         <Border Padding="20" Background="White">
             <StackPanel Spacing="20">
@@ -11,12 +12,8 @@
         </Border>
     </Design.PreviewWith>
 
-    <Style Selector="CheckBox AccessText">
+    <ControlTheme x:Key="{x:Type CheckBox}" TargetType="CheckBox">
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
-    </Style>
-
-    <Style Selector="CheckBox">
-        <Setter Property="Foreground" Value="{DynamicResource ThemeForegroundBrush}" />
         <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
         <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderMidBrush}" />
         <Setter Property="BorderThickness" Value="0.5" />
@@ -27,35 +24,42 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Grid ColumnDefinitions="Auto,*">
-                    <suki:GlassCard IsInteractive="True" Classes="Control" Name="border"
-                            Width="20"
-                            Height="20"
-                            VerticalAlignment="Center"  
-                        Classes.PrimaryOpaque="{TemplateBinding IsChecked,Converter={x:Static suki:BoolConvert.NotFalse}}"
-                       
-                            CornerRadius="6">
-                        
+                    <suki:GlassCard Name="border"
+                                    Width="20"
+                                    Height="20"
+                                    VerticalAlignment="Center"
+                                    Classes="Control"
+                                    Classes.PrimaryOpaque="{TemplateBinding IsChecked, Converter={x:Static suki:BoolConvert.NotFalse}}"
+                                    CornerRadius="6"
+                                    IsInteractive="True">
                         <Panel>
                             <Path Name="checkMark"
                                   Width="9"
-                                  Height="9" Opacity="1"
+                                  Height="9"
                                   Margin="1,1,0,0"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
-								  FlowDirection="LeftToRight"
                                   Data="M 1145.607177734375,430 C1145.607177734375,430 1141.449951171875,435.0772705078125 1141.449951171875,435.0772705078125 1141.449951171875,435.0772705078125 1139.232177734375,433.0999755859375 1139.232177734375,433.0999755859375 1139.232177734375,433.0999755859375 1138,434.5538330078125 1138,434.5538330078125 1138,434.5538330078125 1141.482177734375,438 1141.482177734375,438 1141.482177734375,438 1141.96875,437.9375 1141.96875,437.9375 1141.96875,437.9375 1147,431.34619140625 1147,431.34619140625 1147,431.34619140625 1145.607177734375,430 1145.607177734375,430 z"
                                   Fill="White"
-                                  Stretch="Uniform" >
+                                  FlowDirection="LeftToRight"
+                                  Stretch="Uniform">
                                 <Path.Transitions>
                                     <Transitions>
-                                    <DoubleTransition Property="Opacity" Duration="0:0:0.2"></DoubleTransition>
-                                        </Transitions>
+                                        <DoubleTransition Property="Opacity" Duration="0:0:0.2" />
+                                    </Transitions>
                                 </Path.Transitions>
                             </Path>
-                            <Border Name="IndetBorder" Opacity="0" VerticalAlignment="Center" HorizontalAlignment="Center" Background="White" Height="3" Width="8" CornerRadius="2">
+                            <Border Name="IndetBorder"
+                                    Width="8"
+                                    Height="3"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="White"
+                                    CornerRadius="2"
+                                    Opacity="0">
                                 <Border.Transitions>
                                     <Transitions>
-                                    <DoubleTransition Property="Opacity" Duration="0:0:0.2"></DoubleTransition>
+                                        <DoubleTransition Property="Opacity" Duration="0:0:0.2" />
                                     </Transitions>
                                 </Border.Transitions>
                             </Border>
@@ -69,39 +73,26 @@
                                       Content="{TemplateBinding Content}"
                                       ContentTemplate="{TemplateBinding ContentTemplate}"
                                       FontSize="{TemplateBinding FontSize}"
-                                      IsVisible="{TemplateBinding Content,
-                                                                  Converter={x:Static ObjectConverters.IsNotNull}}"
+                                      IsVisible="{TemplateBinding Content, Converter={x:Static ObjectConverters.IsNotNull}}"
                                       RecognizesAccessKey="True" />
                 </Grid>
             </ControlTemplate>
         </Setter>
-    </Style>
-    <Style Selector="CheckBox TextBlock">
-        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
-    </Style>
-    
-    <Style Selector="CheckBox:disabled AccessText">
-        <Setter Property="Foreground" Value="{DynamicResource SukiDisabledText}" />
-    </Style> 
-    
-    <Style Selector="CheckBox /template/ Path#checkMark">
-        <Setter Property="Opacity" Value="0"></Setter>
-    </Style>
-    <Style Selector="CheckBox /template/ Rectangle#indeterminateMark">
-        <Setter Property="Opacity" Value="0"></Setter>
-    </Style>
-    <Style Selector="CheckBox:checked /template/ Path#checkMark">
-        <Setter Property="Opacity" Value="1"></Setter>
-    </Style>
-    <Style Selector="CheckBox:indeterminate /template/ Rectangle#indeterminateMark">
-        <Setter Property="Opacity" Value="0"></Setter>
-    </Style>
-    
-    <Style Selector="CheckBox:indeterminate /template/ Border#IndetBorder">
-        <Setter Property="Opacity" Value="1"></Setter>
-    </Style>
- 
-    <Style Selector="CheckBox:disabled /template/ suki|GlassCard#border">
-        <Setter Property="Opacity" Value="0.7"></Setter>
-    </Style>
-</Styles>
+
+        <Style Selector="^:disabled">
+            <Setter Property="Foreground" Value="{DynamicResource SukiDisabledText}" />
+        </Style>
+        <Style Selector="^ /template/ Path#checkMark">
+            <Setter Property="Opacity" Value="0" />
+        </Style>
+        <Style Selector="^:checked /template/ Path#checkMark">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        <Style Selector="^:indeterminate /template/ Border#IndetBorder">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        <Style Selector="^:disabled /template/ suki|GlassCard#border">
+            <Setter Property="Opacity" Value="0.7" />
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>

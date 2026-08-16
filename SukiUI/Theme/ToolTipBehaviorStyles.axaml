@@ -1,0 +1,6 @@
+<Styles xmlns="https://github.com/avaloniaui">
+    <Style Selector=":is(Control)">
+        <Setter Property="ToolTip.VerticalOffset" Value="10" />
+        <Setter Property="ToolTip.HorizontalOffset" Value="-5" />
+    </Style>
+</Styles>

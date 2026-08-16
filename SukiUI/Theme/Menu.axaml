@@ -40,6 +40,7 @@
                         </ContentPresenter>
                         <Popup Name="PART_Popup"
                                ClipToBounds="True"
+                               InheritsTransform="True"
                                IsLightDismissEnabled="True"
                                IsOpen="{TemplateBinding IsSubMenuOpen,
                                                         Mode=TwoWay}"
@@ -60,7 +61,7 @@
                                             ClipToBounds="True"
                                             CornerRadius="6">
                                         <Panel Background="{DynamicResource PopupGradientBrush}">
-                                            <ScrollViewer>
+                                            <ScrollViewer Theme="{StaticResource SukiMenuScrollViewer}">
                                                 <ItemsPresenter Name="PART_ItemsPresenter"
                                                                 Grid.IsSharedSizeScope="True"
                                                                 ItemsPanel="{TemplateBinding ItemsPanel}" />
