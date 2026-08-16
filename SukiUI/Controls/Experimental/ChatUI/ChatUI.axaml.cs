@@ -41,15 +41,18 @@ namespace SukiUI.Controls.Experimental
         }
 
         private INotifyCollectionChanged? _messagesCollection;
+        private bool _isAttachedToVisualTree;
 
         protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
         {
             base.OnAttachedToVisualTree(e);
+            _isAttachedToVisualTree = true;
             AttachMessagesCollection();
         }
 
         protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
         {
+            _isAttachedToVisualTree = false;
             DetachMessagesCollection();
             AnimationToken?.Cancel();
             AnimationToken?.Dispose();
@@ -60,7 +63,7 @@ namespace SukiUI.Controls.Experimental
         protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
         {
             base.OnPropertyChanged(change);
-            if (change.Property == MessagesProperty)
+            if (change.Property == MessagesProperty && _isAttachedToVisualTree)
                 AttachMessagesCollection();
         }
 

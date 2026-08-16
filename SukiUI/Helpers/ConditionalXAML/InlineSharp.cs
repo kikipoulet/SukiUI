@@ -38,6 +38,7 @@ namespace SukiUI.Helpers.ConditionalXAML
             private readonly AvaloniaProperty _targetProperty;
             private readonly string _expression;
             private INotifyPropertyChanged? _dataContextNotifier;
+            private bool _isAttachedToLogicalTree;
 
             public object CurrentValue { get; private set; } = AvaloniaProperty.UnsetValue;
 
@@ -55,7 +56,6 @@ namespace SukiUI.Helpers.ConditionalXAML
                     control.DataContextChanged += OnDataContextChanged;
                     control.AttachedToLogicalTree += OnAttachedToLogicalTree;
                     control.DetachedFromLogicalTree += OnDetachedFromLogicalTree;
-                    SubscribeToDataContext(control.DataContext);
                     EvaluateAndSet(control.DataContext);
                 }
             }
@@ -64,26 +64,34 @@ namespace SukiUI.Helpers.ConditionalXAML
             {
                 if (sender is Control control)
                 {
+                    _isAttachedToLogicalTree = true;
                     SubscribeToDataContext(control.DataContext);
                     EvaluateAndSet(control.DataContext);
                 }
             }
 
-            private void OnDetachedFromLogicalTree(object? sender, LogicalTreeAttachmentEventArgs e) =>
+            private void OnDetachedFromLogicalTree(object? sender, LogicalTreeAttachmentEventArgs e)
+            {
+                _isAttachedToLogicalTree = false;
                 UnsubscribeFromDataContext();
+            }
 
             private void OnDataContextChanged(object? sender, EventArgs e)
             {
                if (sender is Control control)
                 {
                     UnsubscribeFromDataContext();
-                    SubscribeToDataContext(control.DataContext);
-                    EvaluateAndSet(control.DataContext);
-                }
+                   if (_isAttachedToLogicalTree)
+                       SubscribeToDataContext(control.DataContext);
+                   EvaluateAndSet(control.DataContext);
+               }
             }
 
             private void SubscribeToDataContext(object? dataContext)
             {
+                if (ReferenceEquals(_dataContextNotifier, dataContext))
+                    return;
+                UnsubscribeFromDataContext();
                 if (dataContext is INotifyPropertyChanged notifier)
                 {
                     _dataContextNotifier = notifier;

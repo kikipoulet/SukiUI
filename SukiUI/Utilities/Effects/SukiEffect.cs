@@ -32,6 +32,8 @@ namespace SukiUI.Utilities.Effects
         };
 
         private static readonly List<SukiEffect> LoadedEffects = new();
+        private static readonly object LifecycleLock = new();
+        private static IControlledApplicationLifetime? _applicationLifetime;
 
         private readonly string _rawShaderString;
         private readonly string _shaderString;
@@ -52,8 +54,8 @@ namespace SukiUI.Utilities.Effects
 
         static SukiEffect()
         {
-            if (Application.Current?.ApplicationLifetime is IControlledApplicationLifetime controlled)
-                controlled.Exit += (_, _) => EnsureDisposed();
+            AppDomain.CurrentDomain.ProcessExit += (_, _) => EnsureDisposed();
+            EnsureExitSubscription();
         }
 
         /// <summary>
@@ -111,12 +113,28 @@ namespace SukiUI.Utilities.Effects
         /// <returns>An instance of a SukiBackgroundShader with the loaded shader</returns>
         public static SukiEffect FromString(string shaderString)
         {
+            EnsureExitSubscription();
             var sb = new StringBuilder();
             foreach (var uniform in Uniforms)
                 sb.AppendLine(uniform);
             sb.Append(shaderString);
             var withUniforms = sb.ToString();
             return new SukiEffect(withUniforms, shaderString);
+        }
+
+        private static void EnsureExitSubscription()
+        {
+            if (Application.Current?.ApplicationLifetime is not IControlledApplicationLifetime controlled)
+                return;
+
+            lock (LifecycleLock)
+            {
+                if (ReferenceEquals(_applicationLifetime, controlled))
+                    return;
+
+                _applicationLifetime = controlled;
+                controlled.Exit += (_, _) => EnsureDisposed();
+            }
         }
 
 

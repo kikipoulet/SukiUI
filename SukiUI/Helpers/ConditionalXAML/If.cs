@@ -18,16 +18,19 @@ namespace SukiUI.Helpers.ConditionalXAML
         }
 
         private INotifyPropertyChanged? _dataContextNotifier;
+        private bool _isAttachedToLogicalTree;
 
         protected override void OnAttachedToLogicalTree(LogicalTreeAttachmentEventArgs e)
         {
             base.OnAttachedToLogicalTree(e);
+            _isAttachedToLogicalTree = true;
             SubscribeToDataContext();
             UpdateVisibility();
         }
 
         protected override void OnDetachedFromLogicalTree(LogicalTreeAttachmentEventArgs e)
         {
+            _isAttachedToLogicalTree = false;
             UnsubscribeFromDataContext();
             base.OnDetachedFromLogicalTree(e);
         }
@@ -38,7 +41,8 @@ namespace SukiUI.Helpers.ConditionalXAML
 
             base.OnDataContextChanged(e);
 
-            SubscribeToDataContext();
+            if (_isAttachedToLogicalTree)
+                SubscribeToDataContext();
 
             UpdateVisibility();
         }

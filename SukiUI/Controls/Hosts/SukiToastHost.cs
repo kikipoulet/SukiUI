@@ -48,7 +48,8 @@ namespace SukiUI.Controls
         {
             base.OnAttachedToLogicalTree(e);
             _isAttachedToLogicalTree = true;
-            AttachManagerEvents(Manager);
+            if (Manager is { } manager)
+                AttachManagerEvents(manager);
         }
 
         protected override void OnDetachedFromLogicalTree(LogicalTreeAttachmentEventArgs e)

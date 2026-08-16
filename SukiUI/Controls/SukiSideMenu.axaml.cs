@@ -3,8 +3,8 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using System.Globalization;
 using Avalonia.Interactivity;
-using Avalonia.Layout;
 using Avalonia.Data.Converters;
+using SukiUI.Enums;
 
 namespace SukiUI.Controls;
 
@@ -73,11 +73,12 @@ public class SukiSideMenu : TreeView
         set => SetValue(OpenPaneLengthProperty, value);
     }
 
-    public static readonly StyledProperty<HorizontalAlignment> TogglePaneButtonPositionProperty =
-        AvaloniaProperty.Register<SukiSideMenu, HorizontalAlignment>(nameof(TogglePaneButtonPosition),
-            defaultValue: HorizontalAlignment.Right);
+    public static readonly StyledProperty<SideMenuTogglePaneButtonPositionOptions> TogglePaneButtonPositionProperty =
+        AvaloniaProperty.Register<SukiSideMenu, SideMenuTogglePaneButtonPositionOptions>(
+            nameof(TogglePaneButtonPosition),
+            defaultValue: SideMenuTogglePaneButtonPositionOptions.Right);
 
-    public HorizontalAlignment TogglePaneButtonPosition
+    public SideMenuTogglePaneButtonPositionOptions TogglePaneButtonPosition
     {
         get => GetValue(TogglePaneButtonPositionProperty);
         set => SetValue(TogglePaneButtonPositionProperty, value);
