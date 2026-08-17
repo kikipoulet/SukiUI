@@ -146,7 +146,7 @@
                                               ContentTemplate="{TemplateBinding HeaderTemplate}">
                                 <ContentPresenter.DataTemplates>
                                     <DataTemplate DataType="system:String">
-                                        <TextBlock FontWeight="{DynamicResource DefaultDemiBold}" Text="{Binding}" />
+                                        <AccessText FontWeight="{DynamicResource DefaultDemiBold}" Text="{Binding}" />
                                     </DataTemplate>
                                 </ContentPresenter.DataTemplates>
                             </ContentPresenter>

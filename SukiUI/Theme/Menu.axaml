@@ -35,7 +35,7 @@
                                           ContentTemplate="{TemplateBinding HeaderTemplate}">
                             <ContentPresenter.DataTemplates>
                                 <DataTemplate DataType="system:String">
-                                    <TextBlock FontWeight="{DynamicResource DefaultDemiBold}" Text="{CompiledBinding}" />
+                                    <AccessText FontWeight="{DynamicResource DefaultDemiBold}" Text="{CompiledBinding}" />
                                 </DataTemplate>
                             </ContentPresenter.DataTemplates>
                         </ContentPresenter>

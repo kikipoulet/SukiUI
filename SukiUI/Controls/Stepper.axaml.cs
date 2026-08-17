@@ -25,6 +25,7 @@ namespace SukiUI.Controls
 
         private Grid? _grid;
         private INotifyCollectionChanged? _stepsCollection;
+        private readonly List<ContentControl> _wrappedStepContents = new();
 
         public bool AlternativeStyle
         {
@@ -84,10 +85,24 @@ namespace SukiUI.Controls
         {
             var steps = Steps?.Cast<object>().ToArray() ?? [];
 
+            // Detach previously wrapped step content before rebuilding, otherwise a
+            // reused (non-string) step object would still have a logical parent from
+            // its old ContentControl and throw when it's re-parented below.
+            foreach (var contentControl in _wrappedStepContents)
+                contentControl.Content = null;
+            _wrappedStepContents.Clear();
+
             if (AlternativeStyle)
                 UpdateAlternate(steps);
             else
                 Update(steps);
+        }
+
+        private Control WrapStepContent(object step)
+        {
+            var contentControl = new ContentControl { Content = step };
+            _wrappedStepContents.Add(contentControl);
+            return contentControl;
         }
 
         private void AttachStepsCollection()
@@ -219,7 +234,7 @@ namespace SukiUI.Controls
                     VerticalAlignment = VerticalAlignment.Center,
                     HorizontalAlignment = HorizontalAlignment.Left, TextWrapping = TextWrapping.Wrap
                 },
-                _ => new ContentControl { Content = step }
+                _ => WrapStepContent(step)
             };
 
             Grid.SetColumn(content, 1);
