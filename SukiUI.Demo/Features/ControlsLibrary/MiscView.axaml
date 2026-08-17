@@ -124,6 +124,68 @@
                         <!-- </StackPanel> -->
                     </suki:GroupBox>
                 </suki:GlassCard>
+
+                <suki:GlassCard Width="400" Height="400">
+                    <suki:GroupBox Header="ScrollViewer">
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                            <Border Background="Chocolate" Height="4000" Width="4000">
+                                <TextBox FontWeight="Bold" Text="You found me!" VerticalAlignment="Center"
+                                         HorizontalAlignment="Center" />
+                            </Border>
+                        </ScrollViewer>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+
+                <suki:GlassCard Width="400" Height="400">
+                    <suki:GroupBox Header="ScrollBars">
+                        <Grid Name="ScrollMainGrid"
+                              RowDefinitions="*,Auto" ColumnDefinitions="*,Auto">
+
+                            <Border Grid.Row="0" Grid.Column="0"
+                                    Name="ScrollBarsContent"
+                                    Background="Chocolate">
+                                <TextBox FontWeight="Bold" Text="You found me!" VerticalAlignment="Center"
+                                         HorizontalAlignment="Center" />
+                            </Border>
+
+
+                            <ScrollBar Name="VerticalScrollBar"
+                                       Grid.Row="0" Grid.Column="1"
+                                       Orientation="Vertical"
+                                       ViewportSize="400"
+                                       Minimum="0"
+                                       Maximum="3600"
+                                       LargeChange="400"
+                                       SmallChange="50"
+                                       Visibility="Auto"
+                                       AllowAutoHide="True" />
+
+                            <ScrollBar Name="HorizontalScrollBar"
+                                       Grid.Row="1" Grid.Column="0"
+                                       Orientation="Horizontal"
+                                       ViewportSize="400"
+                                       Minimum="0"
+                                       Maximum="3600"
+                                       LargeChange="400"
+                                       SmallChange="50"
+                                       Visibility="Auto"
+                                       AllowAutoHide="False" />
+
+                            <Panel x:Name="ScrollBarsSeparator"
+                                   Grid.Row="1"
+                                   Grid.Column="1"
+                                   Background="Transparent"
+                                   Opacity="0">
+                                <Panel.Transitions>
+                                    <Transitions>
+                                        <DoubleTransition Property="Opacity" Duration="0:0:0.1" />
+                                    </Transitions>
+                                </Panel.Transitions>
+                            </Panel>
+
+                        </Grid>
+                    </suki:GroupBox>
+                </suki:GlassCard>
             </WrapPanel>
         </ScrollViewer>
     </Grid>

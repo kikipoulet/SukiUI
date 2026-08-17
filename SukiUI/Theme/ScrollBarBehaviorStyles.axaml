@@ -1,17 +1,29 @@
 <Styles xmlns="https://github.com/avaloniaui">
-    <Style Selector="ScrollViewer.suki-scrollbar-expanded /template/ ScrollBar">
-        <Setter Property="AllowAutoHide" Value="True" />
+    <!--
+        ScrollBar.IsExpanded is maintained by Avalonia itself: it goes true after ShowDelay while the
+        pointer is over the bar or its thumb is being dragged, and back to false after HideDelay.
+        ScrollViewer.IsExpanded is the logical OR of its two bars, so grabbing one bar also thickens
+        the other. AllowAutoHide=False pins IsExpanded to true, but is matched explicitly as well so
+        the thick state applies even before the first state update runs.
+
+        Expansion is driven by the bar only, as in Avalonia's own themes: hovering the scrolled
+        content does not thicken the bars.
+    -->
+    <Style Selector="ScrollBar[AllowAutoHide=False] /template/ Thumb /template/ Border#ThumbBarVertical,
+                     ScrollBar[IsExpanded=True] /template/ Thumb /template/ Border#ThumbBarVertical,
+                     ScrollBar:pointerover /template/ Thumb /template/ Border#ThumbBarVertical,
+                     ScrollBar /template/ Thumb:pressed /template/ Border#ThumbBarVertical,
+                     ScrollViewer[IsExpanded=True] /template/ ScrollBar /template/ Thumb /template/ Border#ThumbBarVertical">
+        <Setter Property="Background" Value="{DynamicResource SukiControlBorderBrush}" />
+        <Setter Property="Width" Value="{DynamicResource ScrollBarThumbThickness}" />
     </Style>
 
-    <Style Selector="ScrollBar[AllowAutoHide=True] Border#ThumbBarVertical,
-                     ScrollBar /template/ Thumb:pressed /template/ Border#ThumbBarVertical">
+    <Style Selector="ScrollBar[AllowAutoHide=False] /template/ Thumb /template/ Border#ThumbBarHorizontal,
+                     ScrollBar[IsExpanded=True] /template/ Thumb /template/ Border#ThumbBarHorizontal,
+                     ScrollBar:pointerover /template/ Thumb /template/ Border#ThumbBarHorizontal,
+                     ScrollBar /template/ Thumb:pressed /template/ Border#ThumbBarHorizontal,
+                     ScrollViewer[IsExpanded=True] /template/ ScrollBar /template/ Thumb /template/ Border#ThumbBarHorizontal">
         <Setter Property="Background" Value="{DynamicResource SukiControlBorderBrush}" />
-        <Setter Property="Width" Value="8" />
-    </Style>
-
-    <Style Selector="ScrollBar[AllowAutoHide=True] Border#ThumbBarHorizontal,
-                     ScrollBar /template/ Thumb:pressed /template/ Border#ThumbBarHorizontal">
-        <Setter Property="Background" Value="{DynamicResource SukiControlBorderBrush}" />
-        <Setter Property="Height" Value="8" />
+        <Setter Property="Height" Value="{DynamicResource ScrollBarThumbThickness}" />
     </Style>
 </Styles>

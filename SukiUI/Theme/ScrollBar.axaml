@@ -1,9 +1,9 @@
-﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:content="clr-namespace:SukiUI.Content"
                     xmlns:converters="clr-namespace:SukiUI.Converters">
     <Design.PreviewWith>
-        <StackPanel Width="200">
+        <StackPanel Width="240" Spacing="10">
             <Border Padding="20">
                 <ScrollViewer Width="200"
                               Height="100">
@@ -66,24 +66,79 @@
                            Background="Gray" />
                 </StackPanel>
             </ScrollViewer>
+
+            <!--  Stand-alone bars: the thumb must stay grabbable even for a huge extent.  -->
+            <ScrollBar Height="80"
+                       AllowAutoHide="False"
+                       LargeChange="100"
+                       Maximum="100000"
+                       Minimum="0"
+                       Orientation="Vertical"
+                       SmallChange="10"
+                       ViewportSize="100" />
+            <ScrollBar Width="200"
+                       AllowAutoHide="True"
+                       LargeChange="100"
+                       Maximum="100000"
+                       Minimum="0"
+                       Orientation="Horizontal"
+                       SmallChange="10"
+                       ViewportSize="100" />
         </StackPanel>
     </Design.PreviewWith>
 
     <ControlTheme x:Key="{x:Type ScrollBar}" TargetType="ScrollBar">
-    <Style Selector="^:vertical">
-<Setter Property="AllowAutoHide" Value="False"></Setter>
-        <Setter Property="Template">
-            <ControlTemplate>
-                <Border Background="{TemplateBinding Background}" UseLayoutRounding="False">
-                    <Grid RowDefinitions="Auto,*,Auto">
+        <!--
+            AllowAutoHide is deliberately NOT set here: its default is already True, and any value set
+            at this level would make ScrollBar.AttachToScrollViewer() skip binding it to the owning
+            ScrollViewer (it only binds properties that are still unset), so ScrollViewer.AllowAutoHide
+            would silently stop working.
+        -->
+        <Setter Property="Background" Value="Transparent" />
 
-                        <Track Grid.Row="1"
-                               Grid.Column="1"
-                               IsDirectionReversed="True"
+        <!--
+            Avalonia's built-in expand/collapse defaults (0.5s in, 2s out) feel sluggish for a bar this
+            thin; expand as soon as the pointer arrives and collapse shortly after it leaves.
+        -->
+        <Setter Property="ShowDelay" Value="0:0:0" />
+        <Setter Property="HideDelay" Value="0:0:0.35" />
+
+        <Style Selector="^ /template/ RepeatButton.repeattrack">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="RenderTransform" Value="none" />
+            <Setter Property="Transitions" Value="{x:Null}" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Background="{TemplateBinding Background}" />
+                </ControlTemplate>
+            </Setter>
+        </Style>
+
+        <Style Selector="^ /template/ RepeatButton.repeattrack:pointerover,
+                         ^ /template/ RepeatButton.repeattrack:pressed">
+            <Setter Property="RenderTransform" Value="none" />
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+
+        <Style Selector="^:disabled">
+            <Setter Property="Opacity" Value="{DynamicResource ThemeDisabledOpacity}" />
+        </Style>
+
+        <Style Selector="^:vertical">
+            <Setter Property="MinWidth" Value="10" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Background="{TemplateBinding Background}" UseLayoutRounding="False">
+                        <Track IsDirectionReversed="True"
                                Maximum="{TemplateBinding Maximum}"
                                Minimum="{TemplateBinding Minimum}"
-                                Orientation="{TemplateBinding Orientation}"
-                                DeferThumbDrag="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+                               Orientation="{TemplateBinding Orientation}"
+                               DeferThumbDrag="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
                                ViewportSize="{TemplateBinding ViewportSize}"
                                Value="{TemplateBinding Value,
                                                        Mode=TwoWay}">
@@ -101,20 +156,28 @@
                                               Classes="repeattrack"
                                               Focusable="False" />
                             </Track.IncreaseButton>
-                            <Thumb Name="thumb">
+                            <!--
+                                MinHeight caps how small Track lets the thumb become; without it a very
+                                large extent shrinks the thumb to Track's 10px fallback and it becomes
+                                near-impossible to grab.
+                            -->
+                            <Thumb Name="thumb" MinHeight="24">
 
                                 <Thumb.Template>
                                     <ControlTemplate>
-                                        <Panel>
+                                        <Panel Background="Transparent">
 
-                                            <Border  Name="ThumbBarVertical" Margin="0,3" Width="3"
-                                                     Background="{DynamicResource SukiMediumBorderBrush}"
-                                                     CornerRadius="{DynamicResource MediumCornerRadius}" >
+                                            <Border Name="ThumbBarVertical" Margin="0,3" Width="3"
+                                                    HorizontalAlignment="Center"
+                                                    Background="{DynamicResource SukiMediumBorderBrush}"
+                                                    CornerRadius="{DynamicResource MediumCornerRadius}">
 
                                                 <Border.Transitions>
                                                     <Transitions>
-                                                        <BrushTransition Property="Background" Duration="0:0:0.15" />
-                                                        <DoubleTransition Property="Width" Duration="0:0:0.1" />
+                                                        <BrushTransition Property="Background"
+                                                                         Duration="0:0:0.15" />
+                                                        <DoubleTransition Property="Width"
+                                                                          Duration="0:0:0.1" />
                                                     </Transitions>
                                                 </Border.Transitions>
                                             </Border>
@@ -123,82 +186,78 @@
                                 </Thumb.Template>
                             </Thumb>
                         </Track>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
 
+
+
+        <Style Selector="^.Stack:vertical">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="Width" Value="NaN" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Grid HorizontalAlignment="Stretch" RowDefinitions="Auto,*,Auto">
+                        <RepeatButton Name="PART_PageUpButton"
+                                      Height="60"
+                                      HorizontalAlignment="Stretch"
+                                      Background="Transparent"
+                                      BorderThickness="0"
+                                      Focusable="False">
+                            <RepeatButton.IsVisible>
+                                <MultiBinding Converter="{x:Static converters:SideMenuScrollerToVisibilityBool.Up}">
+                                    <Binding Path="Value" RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Path="Minimum" RelativeSource="{RelativeSource TemplatedParent}" />
+                                </MultiBinding>
+                            </RepeatButton.IsVisible>
+                            <PathIcon Width="10"
+                                      Height="25"
+                                      Data="{x:Static content:Icons.ChevronUp}"
+                                      Foreground="{DynamicResource SukiText}">
+                                <PathIcon.RenderTransform>
+                                    <ScaleTransform ScaleX="1" />
+                                </PathIcon.RenderTransform>
+                            </PathIcon>
+                        </RepeatButton>
+                        <RepeatButton Name="PART_PageDownButton"
+                                      Grid.Row="2"
+                                      Height="60"
+                                      HorizontalAlignment="Stretch"
+                                      Background="Transparent"
+                                      BorderThickness="0"
+                                      Focusable="False">
+                            <RepeatButton.IsVisible>
+                                <MultiBinding Converter="{x:Static converters:SideMenuScrollerToVisibilityBool.Down}">
+                                    <Binding Path="Value" RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Path="Maximum" RelativeSource="{RelativeSource TemplatedParent}" />
+                                </MultiBinding>
+                            </RepeatButton.IsVisible>
+                            <PathIcon Width="10"
+                                      Height="25"
+                                      Data="{x:Static content:Icons.ChevronDown}"
+                                      Foreground="{DynamicResource SukiText}">
+                                <PathIcon.RenderTransform>
+                                    <ScaleTransform ScaleX="1" />
+                                </PathIcon.RenderTransform>
+                            </PathIcon>
+                        </RepeatButton>
                     </Grid>
-                </Border>
-            </ControlTemplate>
-        </Setter>
-    </Style>
+                </ControlTemplate>
+            </Setter>
+        </Style>
 
-
-
-    <Style Selector="^.Stack:vertical">
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="Width" Value="NaN" />
-        <Setter Property="Template">
-            <ControlTemplate>
-                <Grid HorizontalAlignment="Stretch" RowDefinitions="Auto,*,Auto">
-                    <RepeatButton Name="PART_PageUpButton"
-                                  Height="60"
-                                  HorizontalAlignment="Stretch"
-                                  Background="Transparent"
-                                  BorderThickness="0"
-                                  Focusable="False">
-                        <RepeatButton.IsVisible>
-                            <MultiBinding Converter="{x:Static converters:SideMenuScrollerToVisibilityBool.Up}">
-                                <Binding Path="Value" RelativeSource="{RelativeSource TemplatedParent}" />
-                                <Binding Path="Minimum" RelativeSource="{RelativeSource TemplatedParent}" />
-                            </MultiBinding>
-                        </RepeatButton.IsVisible>
-                        <PathIcon Width="10"
-                                  Height="25"
-                                  Data="{x:Static content:Icons.ChevronUp}"
-                                  Foreground="{DynamicResource SukiText}">
-                            <PathIcon.RenderTransform>
-                                <ScaleTransform ScaleX="1" />
-                            </PathIcon.RenderTransform>
-                        </PathIcon>
-                    </RepeatButton>
-                    <RepeatButton Name="PART_PageDownButton"
-                                  Grid.Row="2"
-                                  Height="60"
-                                  HorizontalAlignment="Stretch"
-                                  Background="Transparent"
-                                  BorderThickness="0"
-                                  Focusable="False">
-                        <RepeatButton.IsVisible>
-                            <MultiBinding Converter="{x:Static converters:SideMenuScrollerToVisibilityBool.Down}">
-                                <Binding Path="Value" RelativeSource="{RelativeSource TemplatedParent}" />
-                                <Binding Path="Maximum" RelativeSource="{RelativeSource TemplatedParent}" />
-                            </MultiBinding>
-                        </RepeatButton.IsVisible>
-                        <PathIcon Width="10"
-                                  Height="25"
-                                  Data="{x:Static content:Icons.ChevronDown}"
-                                  Foreground="{DynamicResource SukiText}">
-                            <PathIcon.RenderTransform>
-                                <ScaleTransform ScaleX="1" />
-                            </PathIcon.RenderTransform>
-                        </PathIcon>
-                    </RepeatButton>
-                </Grid>
-            </ControlTemplate>
-        </Setter>
-    </Style>
-
-    <Style Selector="^:horizontal">
-        <Setter Property="AllowAutoHide" Value="False"></Setter>
-        <Setter Property="Template">
-            <ControlTemplate>
-                <Border Background="{TemplateBinding Background}" UseLayoutRounding="False">
-                    <Grid >
-
-                        <Track
-                               IsDirectionReversed="False"
+        <Style Selector="^:horizontal">
+            <Setter Property="MinHeight" Value="10" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Background="{TemplateBinding Background}" UseLayoutRounding="False">
+                        <Track IsDirectionReversed="False"
                                Maximum="{TemplateBinding Maximum}"
                                Minimum="{TemplateBinding Minimum}"
-                                Orientation="{TemplateBinding Orientation}"
-                                DeferThumbDrag="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+                               Orientation="{TemplateBinding Orientation}"
+                               DeferThumbDrag="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
                                ViewportSize="{TemplateBinding ViewportSize}"
                                Value="{TemplateBinding Value,
                                                        Mode=TwoWay}">
@@ -216,18 +275,21 @@
                                               Classes="repeattrack"
                                               Focusable="False" />
                             </Track.IncreaseButton>
-                            <Thumb Name="thumb">
+                            <Thumb Name="thumb" MinWidth="24">
                                 <Thumb.Template>
                                     <ControlTemplate>
-                                        <Panel>
+                                        <Panel Background="Transparent">
                                             <Border Height="3" Name="ThumbBarHorizontal"
                                                     Margin="3,0"
+                                                    VerticalAlignment="Center"
                                                     Background="{DynamicResource SukiMediumBorderBrush}"
-                                                    CornerRadius="10" >
-                                                    <Border.Transitions>
+                                                    CornerRadius="{DynamicResource MediumCornerRadius}">
+                                                <Border.Transitions>
                                                     <Transitions>
-                                                        <BrushTransition Property="Background" Duration="0:0:0.15" />
-                                                        <DoubleTransition Property="Height" Duration="0:0:0.1" />
+                                                        <BrushTransition Property="Background"
+                                                                         Duration="0:0:0.15" />
+                                                        <DoubleTransition Property="Height"
+                                                                          Duration="0:0:0.1" />
                                                     </Transitions>
                                                 </Border.Transitions>
                                             </Border>
@@ -236,11 +298,10 @@
                                 </Thumb.Template>
                             </Thumb>
                         </Track>
-                    </Grid>
-                </Border>
-            </ControlTemplate>
-        </Setter>
-    </Style>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
 
 
     </ControlTheme>

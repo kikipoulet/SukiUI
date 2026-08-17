@@ -32,6 +32,7 @@
                                   Background="Transparent"
                                   BorderThickness="0"
                                   Command="{Binding LineUp, RelativeSource={RelativeSource TemplatedParent}}"
+                                  Focusable="False"
                                   RenderTransform="{x:Null}">
                         <RepeatButton.IsVisible>
                             <MultiBinding Converter="{x:Static converters:MenuScrollingVisibilityConverter.Instance}"
@@ -56,6 +57,7 @@
                                   Background="Transparent"
                                   BorderThickness="0"
                                   Command="{Binding LineDown, RelativeSource={RelativeSource TemplatedParent}}"
+                                  Focusable="False"
                                   RenderTransform="{x:Null}">
                         <RepeatButton.IsVisible>
                             <MultiBinding Converter="{x:Static converters:MenuScrollingVisibilityConverter.Instance}"
@@ -74,10 +76,26 @@
                         </Viewbox>
                     </RepeatButton>
 
-                    <ScrollContentPresenter Name="PART_ContentPresenter">
+                    <ScrollContentPresenter Name="PART_ContentPresenter"
+                                            Padding="{TemplateBinding Padding}"
+                                            Background="{TemplateBinding Background}"
+                                            HorizontalSnapPointsAlignment="{TemplateBinding HorizontalSnapPointsAlignment}"
+                                            HorizontalSnapPointsType="{TemplateBinding HorizontalSnapPointsType}"
+                                            ScrollViewer.IsScrollInertiaEnabled="{TemplateBinding IsScrollInertiaEnabled}"
+                                            VerticalSnapPointsAlignment="{TemplateBinding VerticalSnapPointsAlignment}"
+                                            VerticalSnapPointsType="{TemplateBinding VerticalSnapPointsType}">
                         <ScrollContentPresenter.GestureRecognizers>
+                            <!--
+                                Offset/Viewport/Extent let the recognizer notice the content is already at
+                                an edge and hand the gesture back to the parent scrollable; without them a
+                                touch drag inside the menu is swallowed even when the menu cannot scroll.
+                            -->
                             <ScrollGestureRecognizer CanHorizontallyScroll="{Binding CanHorizontallyScroll, ElementName=PART_ContentPresenter}"
-                                                     CanVerticallyScroll="{Binding CanVerticallyScroll, ElementName=PART_ContentPresenter}" />
+                                                     CanVerticallyScroll="{Binding CanVerticallyScroll, ElementName=PART_ContentPresenter}"
+                                                     IsScrollInertiaEnabled="{Binding (ScrollViewer.IsScrollInertiaEnabled), ElementName=PART_ContentPresenter}"
+                                                     Offset="{Binding Offset, ElementName=PART_ContentPresenter}"
+                                                     Viewport="{Binding Viewport, ElementName=PART_ContentPresenter}"
+                                                     Extent="{Binding Extent, ElementName=PART_ContentPresenter}" />
                         </ScrollContentPresenter.GestureRecognizers>
                     </ScrollContentPresenter>
                 </DockPanel>

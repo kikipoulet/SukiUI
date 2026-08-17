@@ -176,11 +176,17 @@
                                                 <Panel Background="{DynamicResource PopupGradientBrush}">
                                                     <suki:GlassCard Margin="-1"
                                                                     CornerRadius="{DynamicResource SmallCornerRadius}" />
+                                                    <!--
+                                                        AllowAutoHide is off here on purpose: the drop-down is
+                                                        transient, so the thin collapsed thumb would give no hint
+                                                        that the list continues below the fold.
+                                                    -->
                                                     <ScrollViewer
-                                                        HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                                        AllowAutoHide="False"
+                                                        HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
                                                         IsDeferredScrollingEnabled="{TemplateBinding (ScrollViewer.IsDeferredScrollingEnabled)}"
                                                         IsScrollChainingEnabled="False"
-                                                        VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                                                        VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
 
                                                         <ItemsPresenter Name="PART_ItemsPresenter"
                                                                         Margin="0"
