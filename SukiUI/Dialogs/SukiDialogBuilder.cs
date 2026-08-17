@@ -15,6 +15,7 @@ namespace SukiUI.Dialogs
 
         public SukiDialogBuilder(ISukiDialogManager manager)
         {
+            ArgumentNullException.ThrowIfNull(manager);
             Manager = manager;
             Dialog = DialogPool.Get();
             Dialog.Manager = Manager;

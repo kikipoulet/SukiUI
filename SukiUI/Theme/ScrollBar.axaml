@@ -1,14 +1,12 @@
-﻿<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:content="clr-namespace:SukiUI.Content"
-        xmlns:converters="clr-namespace:SukiUI.Converters"
-        xmlns:theme="clr-namespace:SukiUI.Theme">
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:content="clr-namespace:SukiUI.Content"
+                    xmlns:converters="clr-namespace:SukiUI.Converters">
     <Design.PreviewWith>
         <StackPanel Width="200">
             <Border Padding="20">
                 <ScrollViewer Width="200"
-                              Height="100"
-                              >
+                              Height="100">
                     <StackPanel>
                         <ListBoxItem>isse</ListBoxItem>
                         <ListBoxItem>isse</ListBoxItem>
@@ -71,11 +69,12 @@
         </StackPanel>
     </Design.PreviewWith>
 
-    <Style Selector="ScrollBar:vertical">
+    <ControlTheme x:Key="{x:Type ScrollBar}" TargetType="ScrollBar">
+    <Style Selector="^:vertical">
 <Setter Property="AllowAutoHide" Value="False"></Setter>
         <Setter Property="Template">
             <ControlTemplate>
-                <Border Background="Transparent" UseLayoutRounding="False">
+                <Border Background="{TemplateBinding Background}" UseLayoutRounding="False">
                     <Grid RowDefinitions="Auto,*,Auto">
 
                         <Track Grid.Row="1"
@@ -83,36 +82,39 @@
                                IsDirectionReversed="True"
                                Maximum="{TemplateBinding Maximum}"
                                Minimum="{TemplateBinding Minimum}"
-                               Orientation="{TemplateBinding Orientation}"
+                                Orientation="{TemplateBinding Orientation}"
+                                DeferThumbDrag="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
                                ViewportSize="{TemplateBinding ViewportSize}"
                                Value="{TemplateBinding Value,
                                                        Mode=TwoWay}">
                             <Track.DecreaseButton>
                                 <RepeatButton Name="PART_PageUpButton"
                                               Background="Transparent"
+                                              BorderThickness="0"
                                               Classes="repeattrack"
                                               Focusable="False" />
                             </Track.DecreaseButton>
                             <Track.IncreaseButton>
                                 <RepeatButton Name="PART_PageDownButton"
                                               Background="Transparent"
+                                              BorderThickness="0"
                                               Classes="repeattrack"
                                               Focusable="False" />
                             </Track.IncreaseButton>
                             <Thumb Name="thumb">
-                               
+
                                 <Thumb.Template>
                                     <ControlTemplate>
                                         <Panel>
-                                           
+
                                             <Border  Name="ThumbBarVertical" Margin="0,3" Width="3"
                                                      Background="{DynamicResource SukiMediumBorderBrush}"
                                                      CornerRadius="{DynamicResource MediumCornerRadius}" >
-                                       
+
                                                 <Border.Transitions>
                                                     <Transitions>
-                                                        <BrushTransition Property="Background" Duration="0:0:0.15"></BrushTransition>
-                                                        <DoubleTransition Property="Width" Duration="0:0:0.1"></DoubleTransition>
+                                                        <BrushTransition Property="Background" Duration="0:0:0.15" />
+                                                        <DoubleTransition Property="Width" Duration="0:0:0.1" />
                                                     </Transitions>
                                                 </Border.Transitions>
                                             </Border>
@@ -127,10 +129,10 @@
             </ControlTemplate>
         </Setter>
     </Style>
-    
-   
 
-    <Style Selector="ScrollBar.Stack:vertical">
+
+
+    <Style Selector="^.Stack:vertical">
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="Width" Value="NaN" />
         <Setter Property="Template">
@@ -184,30 +186,33 @@
         </Setter>
     </Style>
 
-    <Style Selector="ScrollBar:horizontal">
+    <Style Selector="^:horizontal">
         <Setter Property="AllowAutoHide" Value="False"></Setter>
         <Setter Property="Template">
             <ControlTemplate>
-                <Border Background="Transparent" UseLayoutRounding="False">
+                <Border Background="{TemplateBinding Background}" UseLayoutRounding="False">
                     <Grid >
 
-                        <Track 
+                        <Track
                                IsDirectionReversed="False"
                                Maximum="{TemplateBinding Maximum}"
                                Minimum="{TemplateBinding Minimum}"
-                               Orientation="{TemplateBinding Orientation}"
+                                Orientation="{TemplateBinding Orientation}"
+                                DeferThumbDrag="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
                                ViewportSize="{TemplateBinding ViewportSize}"
                                Value="{TemplateBinding Value,
                                                        Mode=TwoWay}">
                             <Track.DecreaseButton>
                                 <RepeatButton Name="PART_PageUpButton"
                                               Background="Transparent"
+                                              BorderThickness="0"
                                               Classes="repeattrack"
                                               Focusable="False" />
                             </Track.DecreaseButton>
                             <Track.IncreaseButton>
                                 <RepeatButton Name="PART_PageDownButton"
                                               Background="Transparent"
+                                              BorderThickness="0"
                                               Classes="repeattrack"
                                               Focusable="False" />
                             </Track.IncreaseButton>
@@ -221,8 +226,8 @@
                                                     CornerRadius="10" >
                                                     <Border.Transitions>
                                                     <Transitions>
-                                                        <BrushTransition Property="Background" Duration="0:0:0.15"></BrushTransition>
-                                                        <DoubleTransition Property="Height" Duration="0:0:0.1"></DoubleTransition>
+                                                        <BrushTransition Property="Background" Duration="0:0:0.15" />
+                                                        <DoubleTransition Property="Height" Duration="0:0:0.1" />
                                                     </Transitions>
                                                 </Border.Transitions>
                                             </Border>
@@ -236,21 +241,7 @@
             </ControlTemplate>
         </Setter>
     </Style>
-    
-    
-    <Style Selector="ScrollViewer:pointerover /template/ ScrollBar">
-        <Setter Property="AllowAutoHide" Value="True"></Setter>
-    </Style>
-    
-    <Style Selector="ScrollBar[AllowAutoHide=True] Border#ThumbBarVertical">
-        <Setter Property="Background" Value="{DynamicResource SukiControlBorderBrush}"></Setter>
-        <Setter Property="Width" Value="8"></Setter>
-    </Style>
 
-    
-    <Style Selector="ScrollBar[AllowAutoHide=True] Border#ThumbBarHorizontal">
-        <Setter Property="Background" Value="{DynamicResource SukiControlBorderBrush}"></Setter>
-        <Setter Property="Height" Value="8"></Setter>
-    </Style>
-   
-</Styles>
+
+    </ControlTheme>
+</ResourceDictionary>

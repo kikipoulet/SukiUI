@@ -1,0 +1,115 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:content="clr-namespace:SukiUI.Content"
+                    xmlns:suki="https://github.com/kikipoulet/SukiUI">
+    <Design.PreviewWith>
+        <Border Padding="0">
+            <ListBox>
+                <ListBoxItem IsEnabled="False">Disabled</ListBoxItem>
+                <ListBoxItem IsSelected="True">Selected</ListBoxItem>
+                <ListBoxItem>Standard</ListBoxItem>
+            </ListBox>
+        </Border>
+    </Design.PreviewWith>
+
+    <ControlTheme x:Key="{x:Type ListBoxItem}" TargetType="ListBoxItem">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="Padding" Value="4,2" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <suki:GlassCard Name="BorderBasicStyle"
+                                Margin="0"
+                                Padding="8,5"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{TemplateBinding CornerRadius}">
+                    <DockPanel>
+                        <PathIcon Name="CheckSelected"
+                                  Width="17"
+                                  Height="17"
+                                  Margin="8,0,0,0"
+                                  Data="{x:Static content:Icons.CircleCheck}"
+                                  DockPanel.Dock="Right"
+                                  Foreground="{DynamicResource SukiPrimaryColor}">
+                            <PathIcon.Transitions>
+                                <Transitions>
+                                    <DoubleTransition Property="Opacity" Duration="0:0:0.2" />
+                                </Transitions>
+                            </PathIcon.Transitions>
+                        </PathIcon>
+
+                        <ContentPresenter Name="PART_ContentPresenter"
+                                          Margin="0"
+                                          Padding="{TemplateBinding Padding}"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Background="Transparent"
+                                          BorderBrush="Transparent"
+                                          BorderThickness="{TemplateBinding BorderThickness}"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          CornerRadius="{TemplateBinding CornerRadius}" />
+                    </DockPanel>
+                </suki:GlassCard>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^ /template/ PathIcon#CheckSelected">
+            <Setter Property="Opacity" Value="0" />
+        </Style>
+        <Style Selector="^:selected /template/ PathIcon#CheckSelected">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        <Style Selector="^:selected /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <Style Selector="^:selected">
+            <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor120}" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+        <Style Selector="^:selected /template/ suki|GlassCard#BorderBasicStyle">
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor50}" />
+            <Setter Property="BorderThickness" Value="1.2" />
+        </Style>
+        <Style Selector="^:pointerover /template/ suki|GlassCard#BorderBasicStyle">
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor25}" />
+        </Style>
+
+    </ControlTheme>
+
+    <ControlTheme x:Key="SukiListBoxItemWithoutCheck"
+                  TargetType="ListBoxItem"
+                  BasedOn="{StaticResource {x:Type ListBoxItem}}">
+        <Style Selector="^ /template/ PathIcon#CheckSelected">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+    </ControlTheme>
+
+    <ControlTheme x:Key="SukiVoidListBoxItem"
+                  TargetType="ListBoxItem"
+                  BasedOn="{StaticResource {x:Type ListBoxItem}}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Padding" Value="4,2" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ContentPresenter Name="PART_ContentPresenter"
+                                  Margin="0"
+                                  Padding="{TemplateBinding Padding}"
+                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  Background="Transparent"
+                                  BorderBrush="Transparent"
+                                  BorderThickness="{TemplateBinding BorderThickness}"
+                                  Content="{TemplateBinding Content}"
+                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                  CornerRadius="{TemplateBinding CornerRadius}" />
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>

@@ -7,12 +7,13 @@ using System.Linq.Dynamic.Core;
 using System.Linq.Dynamic.Core.CustomTypeProviders;
 using System.Reflection;
 using Avalonia.Media;
+using Avalonia.LogicalTree;
 
 namespace SukiUI.Helpers.ConditionalXAML
 {
      public class InlineSharp : MarkupExtension
     {
-        public string Expression { get; set; }
+        public string? Expression { get; set; }
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
@@ -36,7 +37,8 @@ namespace SukiUI.Helpers.ConditionalXAML
             private readonly AvaloniaObject _targetObject;
             private readonly AvaloniaProperty _targetProperty;
             private readonly string _expression;
-            private INotifyPropertyChanged _dataContextNotifier;
+            private INotifyPropertyChanged? _dataContextNotifier;
+            private bool _isAttachedToLogicalTree;
 
             public object CurrentValue { get; private set; } = AvaloniaProperty.UnsetValue;
 
@@ -52,23 +54,44 @@ namespace SukiUI.Helpers.ConditionalXAML
                 if (_targetObject is Control control)
                 {
                     control.DataContextChanged += OnDataContextChanged;
+                    control.AttachedToLogicalTree += OnAttachedToLogicalTree;
+                    control.DetachedFromLogicalTree += OnDetachedFromLogicalTree;
+                    EvaluateAndSet(control.DataContext);
+                }
+            }
+
+            private void OnAttachedToLogicalTree(object? sender, LogicalTreeAttachmentEventArgs e)
+            {
+                if (sender is Control control)
+                {
+                    _isAttachedToLogicalTree = true;
                     SubscribeToDataContext(control.DataContext);
                     EvaluateAndSet(control.DataContext);
                 }
             }
 
-            private void OnDataContextChanged(object sender, EventArgs e)
+            private void OnDetachedFromLogicalTree(object? sender, LogicalTreeAttachmentEventArgs e)
+            {
+                _isAttachedToLogicalTree = false;
+                UnsubscribeFromDataContext();
+            }
+
+            private void OnDataContextChanged(object? sender, EventArgs e)
             {
                if (sender is Control control)
                 {
                     UnsubscribeFromDataContext();
-                    SubscribeToDataContext(control.DataContext);
-                    EvaluateAndSet(control.DataContext);
-                }
+                   if (_isAttachedToLogicalTree)
+                       SubscribeToDataContext(control.DataContext);
+                   EvaluateAndSet(control.DataContext);
+               }
             }
 
-            private void SubscribeToDataContext(object dataContext)
+            private void SubscribeToDataContext(object? dataContext)
             {
+                if (ReferenceEquals(_dataContextNotifier, dataContext))
+                    return;
+                UnsubscribeFromDataContext();
                 if (dataContext is INotifyPropertyChanged notifier)
                 {
                     _dataContextNotifier = notifier;
@@ -85,12 +108,12 @@ namespace SukiUI.Helpers.ConditionalXAML
                 }
             }
 
-            private void DataContext_PropertyChanged(object sender, PropertyChangedEventArgs e)
+            private void DataContext_PropertyChanged(object? sender, PropertyChangedEventArgs e)
             {
                 EvaluateAndSet(sender);
             }
 
-            private void EvaluateAndSet(object dataContext)
+            private void EvaluateAndSet(object? dataContext)
             {
                 if (dataContext == null)
                 {

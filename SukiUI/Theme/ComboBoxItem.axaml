@@ -1,0 +1,79 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <StackPanel Spacing="10">
+                <ComboBox Width="200" PlaceholderText="Select an item">
+                    <ComboBoxItem>Item 1</ComboBoxItem>
+                    <ComboBoxItem>Item 2</ComboBoxItem>
+                </ComboBox>
+                <ComboBox Width="200"
+                          HorizontalContentAlignment="Center"
+                          IsEnabled="False"
+                          SelectedIndex="1">
+                    <ComboBoxItem>Item 1</ComboBoxItem>
+                    <ComboBoxItem>Item 2</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <ControlTheme x:Key="{x:Type ComboBoxItem}" TargetType="ComboBoxItem">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Name="BorderBasicStyle"
+                        Margin="3,0,3,3"
+                        Padding="5,0"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="6">
+                    <ContentPresenter Name="PART_ContentPresenter"
+                                      Margin="1"
+                                      Padding="{TemplateBinding Padding}"
+                                      HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      CornerRadius="{DynamicResource SmallCornerRadius}" />
+                </Border>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <Style Selector="^:selected /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <Style Selector="^:selected:focus /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <Style Selector="^:selected:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <Style Selector="^:selected:focus:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <Style Selector="^:pointerover /template/ Border#BorderBasicStyle">
+            <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
+        </Style>
+        <Style Selector="^:selected /template/ Border#BorderBasicStyle">
+            <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
+        </Style>
+        <Style Selector="^:selected:focus /template/ Border#BorderBasicStyle">
+            <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
+        </Style>
+        <Style Selector="^:selected:pointerover /template/ Border#BorderBasicStyle">
+            <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
+        </Style>
+        <Style Selector="^:selected:focus:pointerover /template/ Border#BorderBasicStyle">
+            <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>

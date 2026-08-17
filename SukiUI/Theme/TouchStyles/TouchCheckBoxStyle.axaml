@@ -1,25 +1,21 @@
-﻿<Styles xmlns="https://github.com/avaloniaui"
+<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:suki="https://github.com/kikipoulet/SukiUI">
     <Design.PreviewWith>
         <Border Padding="20">
-            <CheckBox Classes="Touch" IsChecked="True" Margin="0,2,0,0" Padding="20"  CornerRadius="20,20,0,0">
-                <Panel>
-                                    
-                    <StackPanel Margin="0,0,0,2" Spacing="12">
-                        <TextBlock DockPanel.Dock="Top" FontWeight="DemiBold" Text="Title"  FontSize="22"></TextBlock>
-                        <TextBlock FontWeight="Light" Text="Subtitle"  Foreground="{DynamicResource SecondaryText}" FontSize="18"></TextBlock>
-                    </StackPanel>
-                </Panel>
+            <CheckBox Margin="0,2,0,0" Padding="20" Classes="Touch" CornerRadius="20" IsChecked="True">
+                <StackPanel Spacing="12">
+                    <TextBlock FontSize="22" FontWeight="DemiBold" Text="Title" />
+                    <TextBlock FontSize="18" FontWeight="Light" Foreground="{DynamicResource SukiLowText}" Text="Subtitle" />
+                </StackPanel>
             </CheckBox>
         </Border>
     </Design.PreviewWith>
 
-     <Style Selector="CheckBox.Touch">
-
-        <Setter Property="Foreground" Value="{DynamicResource Accent}" />
-        <Setter Property="Background" Value="{DynamicResource CWhite}" />
-        <Setter Property="BorderBrush" Value="Transparent" />
+    <Style Selector="CheckBox.Touch">
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+        <Setter Property="Background" Value="{DynamicResource SukiGlassCardBackground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
         <Setter Property="CornerRadius" Value="20" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Padding" Value="35" />
@@ -27,60 +23,74 @@
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="Template">
             <ControlTemplate>
-                <suki:GlassCard Padding="{TemplateBinding Padding}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding CornerRadius}" >
-               
-                    <Grid   ColumnDefinitions="Auto,*">
-                    
-                   
-                            
-                          <CheckBox IsChecked="{TemplateBinding IsChecked}" Margin="20,0,35,0">
-                              <CheckBox.RenderTransform>
-                                  <ScaleTransform ScaleX="1.1" ScaleY="1.1"></ScaleTransform>
-                              </CheckBox.RenderTransform>
-                          </CheckBox>
-
-                    <ContentPresenter
-                        Content="{TemplateBinding Content}"
-                        ContentTemplate="{TemplateBinding ContentTemplate}"
-                        Grid.Column="1"
-                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                        IsVisible="{TemplateBinding Content,
-                                                    Converter={x:Static ObjectConverters.IsNotNull}}"
-                        Margin="5,0,0,0"
-                        Name="PART_ContentPresenter"
-                        RecognizesAccessKey="True"
-                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-                </Grid>
+                <suki:GlassCard Padding="{TemplateBinding Padding}"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{TemplateBinding CornerRadius}">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Border Name="TouchCheckBorder"
+                                Width="28"
+                                Height="28"
+                                Margin="20,0,35,0"
+                                Background="{DynamicResource SukiControlTouchBackground}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="6">
+                            <Panel>
+                                <Canvas Name="TouchCheckMark"
+                                        Width="16"
+                                        Height="16"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FlowDirection="LeftToRight"
+                                        Opacity="0">
+                                    <Path Data="M2,8 L6,12 L14,4"
+                                          Stroke="White"
+                                          StrokeLineCap="Round"
+                                          StrokeJoin="Round"
+                                          StrokeThickness="2" />
+                                </Canvas>
+                                <Border Name="TouchIndeterminateMark"
+                                        Width="10"
+                                        Height="3"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Background="White"
+                                        CornerRadius="2"
+                                        Opacity="0" />
+                            </Panel>
+                        </Border>
+                        <ContentPresenter Name="PART_ContentPresenter"
+                                          Grid.Column="1"
+                                          Margin="5,0,0,0"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          FontSize="{TemplateBinding FontSize}"
+                                          IsVisible="{TemplateBinding Content, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                          RecognizesAccessKey="True"
+                                          TextElement.Foreground="{TemplateBinding Foreground}" />
+                    </Grid>
                 </suki:GlassCard>
             </ControlTemplate>
         </Setter>
     </Style>
 
-    <Style Selector="CheckBox:checked /template/ Border#border">
-        <Setter Property="Background" Value="{DynamicResource Accent}" />
+    <Style Selector="CheckBox.Touch:checked /template/ Border#TouchCheckBorder">
+        <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
     </Style>
-   
-
-    <Style Selector="CheckBox:pointerover /template/ Border#border">
-        <Setter Property="BorderBrush" Value="{DynamicResource ComponentBackground}" />
+    <Style Selector="CheckBox.Touch:pointerover /template/ Border#TouchCheckBorder">
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
     </Style>
-
-    <Style Selector="CheckBox /template/ Path#checkMark">
-        <Setter Property="IsVisible" Value="False" />
-    </Style>
-    <Style Selector="CheckBox /template/ Rectangle#indeterminateMark">
-        <Setter Property="IsVisible" Value="False" />
-    </Style>
-    
-
-
-
-    
-    
-    <Style Selector="CheckBox:indeterminate /template/ Rectangle#indeterminateMark">
-        <Setter Property="IsVisible" Value="True" />
-    </Style>
-    <Style Selector="CheckBox:disabled /template/ Border#border">
+    <Style Selector="CheckBox.Touch:checked /template/ Canvas#TouchCheckMark">
         <Setter Property="Opacity" Value="1" />
+    </Style>
+    <Style Selector="CheckBox.Touch:indeterminate /template/ Border#TouchIndeterminateMark">
+        <Setter Property="Opacity" Value="1" />
+    </Style>
+    <Style Selector="CheckBox.Touch:disabled /template/ Border#TouchCheckBorder">
+        <Setter Property="Opacity" Value="0.7" />
     </Style>
 </Styles>

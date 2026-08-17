@@ -1,0 +1,37 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <GridSplitter Width="200" Height="8" ResizeDirection="Rows" />
+        </Border>
+    </Design.PreviewWith>
+
+    <ControlTheme x:Key="{x:Type GridSplitter}" TargetType="GridSplitter">
+        <Setter Property="Background" Value="{DynamicResource SukiControlBorderBrush}" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Background="Transparent"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                    <Border Name="ShowedBorder"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Background="{TemplateBinding Background}" />
+                </Border>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^[ResizeDirection=Rows] /template/ Border#ShowedBorder">
+            <Setter Property="Width" Value="300" />
+            <Setter Property="MaxWidth" Value="300" />
+            <Setter Property="Height" Value="1" />
+        </Style>
+        <Style Selector="^[ResizeDirection=Columns] /template/ Border#ShowedBorder">
+            <Setter Property="Width" Value="1" />
+            <Setter Property="Height" Value="300" />
+            <Setter Property="MaxHeight" Value="300" />
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>

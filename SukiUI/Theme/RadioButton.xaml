@@ -1,0 +1,51 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:suki="https://github.com/kikipoulet/SukiUI">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <StackPanel Spacing="12">
+                <RadioButton Content="Standard" />
+                <RadioButton Content="Selected" IsChecked="True" />
+                <RadioButton Content="Disabled" IsEnabled="False" />
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <ControlTheme x:Key="{x:Type RadioButton}" TargetType="RadioButton">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1.2" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid Background="{TemplateBinding Background}" ColumnDefinitions="Auto,*">
+                    <suki:GlassCard Width="20"
+                                    Height="20"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    Classes="Control"
+                                    Classes.PrimaryOpaque="{TemplateBinding IsChecked}"
+                                    CornerRadius="50" />
+                    <Ellipse Width="8"
+                             Height="8"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Fill="White"
+                             IsVisible="{TemplateBinding IsChecked}" />
+                    <ContentPresenter Name="PART_ContentPresenter"
+                                      Grid.Column="1"
+                                      Margin="10,0,0,0"
+                                      VerticalAlignment="Center"
+                                      Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      FontSize="{TemplateBinding FontSize}"
+                                      RecognizesAccessKey="True" />
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^:disabled">
+            <Setter Property="Foreground" Value="{DynamicResource SukiDisabledText}" />
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>

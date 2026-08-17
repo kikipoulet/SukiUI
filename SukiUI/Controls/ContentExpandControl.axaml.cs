@@ -40,10 +40,7 @@ namespace SukiUI.Controls
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            var result = base.ArrangeOverride(finalSize);
-            // A very gross way to actually get the bloody thing to draw...
-            if (Parent is Control c) c.Margin = new Thickness(1);
-            return result;
+            return base.ArrangeOverride(finalSize);
         }
 
         protected override Size MeasureOverride(Size availableSize)
@@ -66,8 +63,6 @@ namespace SukiUI.Controls
                     throw new ArgumentOutOfRangeException();
             }
 
-            // A very gross way to actually get the bloody thing to draw...
-            if (Parent is Control c) c.Margin = new Thickness(0);
             return new Size(w, h);
         }
     }

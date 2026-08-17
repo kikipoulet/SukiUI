@@ -12,17 +12,18 @@ namespace SukiUI.Controls
 {
     public class SukiStackPage : TemplatedControl
     {
-        public static readonly StyledProperty<object> ContentProperty =
-            AvaloniaProperty.Register<SukiStackPage, object>(nameof(Content));
+        public static readonly StyledProperty<object?> ContentProperty =
+            AvaloniaProperty.Register<SukiStackPage, object?>(nameof(Content));
 
-        public object Content
+        public object? Content
         {
             get => GetValue(ContentProperty);
             set => SetValue(ContentProperty, value);
         }
 
         public static readonly StyledProperty<int> LimitProperty =
-            AvaloniaProperty.Register<SukiStackPage, int>(nameof(Limit), defaultValue: 5);
+            AvaloniaProperty.Register<SukiStackPage, int>(nameof(Limit), defaultValue: 5,
+                coerce: (_, value) => Math.Max(2, value));
 
         public int Limit
         {
@@ -42,7 +43,7 @@ namespace SukiUI.Controls
 
         private static readonly DynamicResourceExtension ColorResource = new("SukiLowText");
 
-        private StackPageModel?[]? _stackPages;
+        private StackPageModel?[] _stackPages;
         private int _index = -1;
 
         private StackPanel? _stackHeaders;
@@ -71,7 +72,10 @@ namespace SukiUI.Controls
         {
             base.OnApplyTemplate(e);
             if (e.NameScope.Get<StackPanel>("StackHeader") is { } stackHeaders)
+            {
                 _stackHeaders = stackHeaders;
+                UpdateHeaders();
+            }
         }
 
         protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
@@ -80,15 +84,7 @@ namespace SukiUI.Controls
             if (change.Property == ContentProperty)
                 UpdateContentChanged(change.NewValue);
             else if (change.Property == LimitProperty && change.NewValue is int newLimit)
-            {
-                if (newLimit < 2)
-                {
-                    Limit = 2;
-                    return;
-                }
-
                 UpdateStackArray(newLimit);
-            }
         }
 
         private void UpdateStackArray(int newLimit)
@@ -96,15 +92,15 @@ namespace SukiUI.Controls
             var newArr = new StackPageModel?[newLimit];
             Array.Copy(_stackPages!, 0, newArr, 0, Math.Min(newArr.Length, _stackPages!.Length));
             _stackPages = newArr;
-            var indexOfLastNotNull = Array.FindIndex(_stackPages, x => x is null) - 1;
-            _index = indexOfLastNotNull > -1 ? indexOfLastNotNull : _stackPages.Length - 1;
-            Content = _stackPages[_index]!.Content;
+            _index = Array.FindLastIndex(_stackPages, page => page is not null);
+            if (_index >= 0 && !ReferenceEquals(Content, _stackPages[_index]!.Content))
+                SetCurrentValue(ContentProperty, _stackPages[_index]!.Content);
+            UpdateHeaders();
         }
 
         private void UpdateContentChanged(object? newVal)
         {
             if (newVal is null) return;
-            if (_stackPages is null) return;
             var indexOfExists = Array.FindIndex(_stackPages, x => x is not null && x.Content == newVal);
             if (indexOfExists >= 0)
             {
@@ -120,13 +116,7 @@ namespace SukiUI.Controls
             }
             else if (newVal is Control c)
             {
-                if (c.Name is not null)
-                    model = new StackPageModel(c.Name, newVal);
-                else
-                {
-                    model = new StackPageModel(c.Name, newVal);
-                    c.AttachedToVisualTree += (sender, args) => model.Title = c.Name;
-                }
+                model = new StackPageModel(c.Name ?? c.GetType().Name, newVal);
             }
             else
                 model = new StackPageModel(newVal.GetType().Name, newVal);
@@ -139,7 +129,7 @@ namespace SukiUI.Controls
 
         private void UnwindToIndex(int index)
         {
-            Array.Copy(_stackPages, 0, _stackPages, 0, index + 1);
+            Array.Clear(_stackPages, index + 1, _stackPages.Length - index - 1);
             _index = index;
         }
 
@@ -152,8 +142,10 @@ namespace SukiUI.Controls
         private void UpdateHeaders()
         {
             if (_stackHeaders is null) return;
+            while (_disposables.Count > 0)
+                _disposables.Pop().Dispose();
             _stackHeaders.Children.Clear();
-            if (_index == -1 || _stackPages?[0] == null) return;
+            if (_index == -1 || _stackPages[0] == null) return;
             for (var i = 0; i < _index; i++)
             {
                 AddLowHeader(_stackPages[i]!);
@@ -192,7 +184,7 @@ namespace SukiUI.Controls
             button.PointerReleased += (_, _) =>
             {
                 if(AlwaysGoBackToFirstPage)
-                    Content = _stackPages[0].Content;
+                    Content = _stackPages[0]!.Content;
                 else
                     Content = model.Content;
             };

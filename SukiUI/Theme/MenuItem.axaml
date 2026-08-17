@@ -79,6 +79,7 @@
                 <Border Name="root"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
                         ClipToBounds="True">
                     <Panel>
                         <Grid Margin="5,10">
@@ -141,10 +142,11 @@
                                               Margin="5,0"
                                               HorizontalAlignment="Left"
                                               VerticalAlignment="Center"
-                                              Content="{TemplateBinding Header}">
+                                              Content="{TemplateBinding Header}"
+                                              ContentTemplate="{TemplateBinding HeaderTemplate}">
                                 <ContentPresenter.DataTemplates>
                                     <DataTemplate DataType="system:String">
-                                        <TextBlock FontWeight="{DynamicResource DefaultDemiBold}" Text="{Binding}" />
+                                        <AccessText FontWeight="{DynamicResource DefaultDemiBold}" Text="{Binding}" />
                                     </DataTemplate>
                                 </ContentPresenter.DataTemplates>
                             </ContentPresenter>
@@ -175,6 +177,7 @@
                         <Popup Name="PART_Popup"
                                ClipToBounds="True"
                                HorizontalOffset="-25"
+                               InheritsTransform="True"
                                IsLightDismissEnabled="False"
                                IsOpen="{TemplateBinding IsSubMenuOpen, Mode=TwoWay}"
                                Opacity="0"
@@ -196,7 +199,7 @@
                                             ClipToBounds="True"
                                             CornerRadius="5">
                                         <Panel Background="{DynamicResource PopupGradientBrush}">
-                                            <ScrollViewer>
+                                            <ScrollViewer Theme="{StaticResource SukiMenuScrollViewer}">
                                                 <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
                                             </ScrollViewer>
                                         </Panel>

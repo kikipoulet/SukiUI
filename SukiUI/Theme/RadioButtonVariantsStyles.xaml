@@ -74,14 +74,6 @@
         </Setter>
     </Style>
 
-    <Style Selector="RadioButton:disabled TextBlock">
-        <Setter Property="Foreground" Value="{DynamicResource SukiDisabledText}" />
-    </Style>
-    
-    <Style Selector="RadioButton:disabled AccessText">
-        <Setter Property="Foreground" Value="{DynamicResource SukiDisabledText}" />
-    </Style>
-    
     <Style Selector="RadioButton.Chips TextBlock">
         <Setter Property="Foreground" Value="{DynamicResource SukiLowText}" />
     </Style>
@@ -220,33 +212,6 @@
         </Setter>
     </Style>
 
-    <Style Selector="RadioButton">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
-        <Setter Property="BorderThickness" Value="1.2" />
-        <Setter Property="FontSize" Value="14" />
-        <Setter Property="Template">
-            <ControlTemplate>
-                <Grid Background="{TemplateBinding Background}" ColumnDefinitions="Auto,*">
-                    <suki:GlassCard Width="20" Height="20" CornerRadius="50" Classes="Control"
-                                    Classes.PrimaryOpaque="{TemplateBinding IsChecked}" />
-
-                    <Ellipse Height="8" Width="8" HorizontalAlignment="Center" VerticalAlignment="Center"
-                             IsVisible="{TemplateBinding IsChecked}" Fill="White" />
-                    <ContentPresenter Name="PART_ContentPresenter"
-                                      Grid.Column="1"
-                                      Margin="10,0,0,0"
-                                      VerticalAlignment="Center"
-                                      Content="{TemplateBinding Content}"
-                                      ContentTemplate="{TemplateBinding ContentTemplate}"
-                                      FontSize="{TemplateBinding FontSize}"
-                                      RecognizesAccessKey="True" />
-                </Grid>
-            </ControlTemplate>
-        </Setter>
-    </Style>
-
-
     <Style Selector="RadioButton.MenuItem:checked">
         <Setter Property="TextBlock.FontWeight" Value="{DynamicResource DefaultDemiBold}" />
         <Setter Property="BorderThickness" Value="0,0,0,0" />
@@ -330,38 +295,5 @@
         </Setter>
         <!-- <Setter Property="Padding" Value="-52,0,0,0" /> -->
         <Setter Property="Opacity" Value="0" />
-    </Style>
-
-
-    <Style Selector="RadioButton:pointerover /template/ Ellipse#border">
-        <Setter Property="Stroke" Value="{DynamicResource SukiBorderBrush}" />
-    </Style>
-    <Style Selector="RadioButton /template/ Ellipse#checkMark">
-        <Setter Property="Fill" Value="{DynamicResource SukiCardBackground}" />
-        <Setter Property="Width" Value="12" />
-        <Setter Property="Height" Value="12" />
-        <Setter Property="IsVisible" Value="True" />
-    </Style>
-
-    <Style Selector="RadioButton /template/ Ellipse#border">
-        <Setter Property="Fill" Value="{DynamicResource SukiPrimaryColor}" />
-    </Style>
-    <Style Selector="RadioButton:checked /template/ Ellipse#checkMark">
-        <Setter Property="Fill" Value="White" />
-        <Setter Property="Width" Value="7" />
-        <Setter Property="Height" Value="7" />
-
-    </Style>
-
-    <Style Selector="RadioButton /template/ Ellipse#indeterminateMark">
-        <Setter Property="IsVisible" Value="False" />
-    </Style>
-
-    <Style Selector="RadioButton:indeterminate /template/ Ellipse#indeterminateMark">
-        <Setter Property="IsVisible" Value="True" />
-    </Style>
-    
-    <Style Selector="RadioButton:disabled /template/ Ellipse#border">
-        <Setter Property="Opacity" Value="{DynamicResource ThemeDisabledOpacity}" />
     </Style>
 </Styles>

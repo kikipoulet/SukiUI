@@ -46,6 +46,7 @@ public class InfoBadge : HeaderedContentControl
             badge.UpdateAppearance((NotificationType)e.NewValue!);
         });
         HeaderProperty.Changed.AddClassHandler<InfoBadge>((badge, _) => badge.UpdateBadgePosition());
+        CornerPositionProperty.Changed.AddClassHandler<InfoBadge>((badge, _) => badge.UpdateBadgePosition());
     }
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)

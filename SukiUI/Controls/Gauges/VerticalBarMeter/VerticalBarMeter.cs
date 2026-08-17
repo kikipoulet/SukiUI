@@ -14,7 +14,8 @@ public class VerticalBarMeter : Panel
     
     
     public static readonly StyledProperty<int> BarCountProperty =
-        AvaloniaProperty.Register<VerticalBarMeter, int>(nameof(BarCount), 12);
+        AvaloniaProperty.Register<VerticalBarMeter, int>(nameof(BarCount), 12,
+            coerce: (_, value) => Math.Max(1, value));
 
     public static readonly StyledProperty<double> ValueProperty =
         AvaloniaProperty.Register<VerticalBarMeter, double>(nameof(Value), 0d);
@@ -26,7 +27,8 @@ public class VerticalBarMeter : Panel
         AvaloniaProperty.Register<VerticalBarMeter, double>(nameof(Maximum), 100d);
 
     public static readonly StyledProperty<double> GapProperty =
-        AvaloniaProperty.Register<VerticalBarMeter, double>(nameof(Gap), 6d);
+        AvaloniaProperty.Register<VerticalBarMeter, double>(nameof(Gap), 6d,
+            coerce: (_, value) => Math.Max(0, value));
 
     public static readonly StyledProperty<CornerRadius> CornerRadiusProperty =
         AvaloniaProperty.Register<VerticalBarMeter, CornerRadius>(nameof(CornerRadius), new CornerRadius(4));
@@ -111,16 +113,16 @@ public class VerticalBarMeter : Panel
     {
         BarCountProperty.Changed.AddClassHandler<VerticalBarMeter>((s, _) => s.RebuildBars());
         GapProperty.Changed.AddClassHandler<VerticalBarMeter>((s, _) => s.InvalidateMeasure());
-        ValueProperty.Changed.AddClassHandler<VerticalBarMeter>((s, _) => s.InvalidateArrange());
+        ValueProperty.Changed.AddClassHandler<VerticalBarMeter>((s, _) => s.InvalidateMeasure());
         MinimumProperty.Changed.AddClassHandler<VerticalBarMeter>((s, _) => s.InvalidateArrange());
         MaximumProperty.Changed.AddClassHandler<VerticalBarMeter>((s, _) => s.InvalidateArrange());
         CornerRadiusProperty.Changed.AddClassHandler<VerticalBarMeter>((s, _) => s.UpdateBarCorners());
         ActiveBrushProperty.Changed.AddClassHandler<VerticalBarMeter>((s, _) => s.UpdateBrushes());
         InactiveBrushProperty.Changed.AddClassHandler<VerticalBarMeter>((s, _) => s.UpdateBrushes());
         ShowValueProperty.Changed.AddClassHandler<VerticalBarMeter>((s, _) => s.OnShowValueChanged());
-        SuffixProperty.Changed.AddClassHandler<VerticalBarMeter>((s, _) => s.InvalidateArrange());
-        StartTextProperty.Changed.AddClassHandler<VerticalBarMeter>((s, _) => s.InvalidateArrange());
-        EndTextProperty.Changed.AddClassHandler<VerticalBarMeter>((s, _) => s.InvalidateArrange());
+        SuffixProperty.Changed.AddClassHandler<VerticalBarMeter>((s, _) => s.InvalidateMeasure());
+        StartTextProperty.Changed.AddClassHandler<VerticalBarMeter>((s, _) => s.InvalidateMeasure());
+        EndTextProperty.Changed.AddClassHandler<VerticalBarMeter>((s, _) => s.InvalidateMeasure());
     }
 
     public VerticalBarMeter()
@@ -222,6 +224,9 @@ public class VerticalBarMeter : Panel
     
     protected override Size MeasureOverride(Size availableSize)
     {
+        _valueText.Text = FormatValue(Math.Round(Value)) + (string.IsNullOrEmpty(Suffix) ? "" : Suffix);
+        _startText.Text = StartText;
+        _endText.Text = EndText;
         var bars = Math.Max(1, BarCount);
         var totalGap = Gap * (bars - 1);
         var width = double.IsInfinity(availableSize.Width) ? 24 : availableSize.Width;
@@ -298,10 +303,6 @@ public class VerticalBarMeter : Panel
             _marker.IsVisible = true;
             _marker.Arrange(new Rect(markerLeft, markerTop, markerW, markerH));
             
-            string text = FormatValue(Math.Round(Value)) + (string.IsNullOrEmpty(Suffix) ? "" : Suffix);
-            _valueText.Text = text;
-
-            _valueText.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             var textSize = _valueText.DesiredSize;
 
             double centerY = markerTop + markerH / 2;
@@ -319,15 +320,11 @@ public class VerticalBarMeter : Panel
             _valueText.IsVisible = false;
         }
 
-        _startText.Text = StartText;
-        _endText.Text = EndText;
-
         var startSize = _startText.DesiredSize;
         var endSize = _endText.DesiredSize;
 
-       
-        _endText.Arrange(new Rect(0, 0, startSize.Width, startSize.Height));
-        _startText.Arrange(new Rect(0, finalSize.Height - endSize.Height, endSize.Width, endSize.Height));
+        _endText.Arrange(new Rect(0, 0, endSize.Width, endSize.Height));
+        _startText.Arrange(new Rect(0, finalSize.Height - startSize.Height, startSize.Width, startSize.Height));
 
         return finalSize;
     }

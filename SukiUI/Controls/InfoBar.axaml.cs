@@ -4,6 +4,7 @@ using Avalonia.Controls.Notifications;
 using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
 using Avalonia.Media;
+using Avalonia.Interactivity;
 using SukiUI.ColorTheme;
 using SukiUI.Content;
 
@@ -11,6 +12,14 @@ namespace SukiUI.Controls;
 
 public class InfoBar : ContentControl
 {
+    private Button? _closeButton;
+
+    static InfoBar()
+    {
+        SeverityProperty.Changed.AddClassHandler<InfoBar>((infoBar, change) =>
+            infoBar.UpdateSeverity(change.GetNewValue<NotificationType>()));
+    }
+
     public static readonly StyledProperty<NotificationType> SeverityProperty =
         AvaloniaProperty.Register<InfoBar, NotificationType>(nameof(Severity), NotificationType.Information);
 
@@ -19,24 +28,6 @@ public class InfoBar : ContentControl
         get => GetValue(SeverityProperty);
         set
         {
-            Icon = value switch
-            {
-                NotificationType.Information => Icons.InformationOutline,
-                NotificationType.Success => Icons.Check,
-                NotificationType.Warning => Icons.AlertOutline,
-                NotificationType.Error => Icons.AlertOutline,
-                _ => Icons.InformationOutline
-            };
-
-            IconForeground = value switch
-            {
-                NotificationType.Information => NotificationColor.InfoIconForeground,
-                NotificationType.Success => NotificationColor.SuccessIconForeground,
-                NotificationType.Warning => NotificationColor.WarningIconForeground,
-                NotificationType.Error => NotificationColor.ErrorIconForeground,
-                _ => NotificationColor.InfoIconForeground
-            };
-
             SetValue(SeverityProperty, value);
         }
     }
@@ -150,13 +141,36 @@ public class InfoBar : ContentControl
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
-
-        e.NameScope.Get<Button>("PART_CloseButton").Click += (_, _) => { IsOpen = false;};
+        if (_closeButton is not null)
+            _closeButton.Click -= CloseButtonOnClick;
+        _closeButton = e.NameScope.Get<Button>("PART_CloseButton");
+        _closeButton.Click += CloseButtonOnClick;
     }
 
     protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {
         base.OnAttachedToVisualTree(e);
         if (ContextMenu is null) return;
+    }
+
+    private void CloseButtonOnClick(object? sender, RoutedEventArgs e) => IsOpen = false;
+
+    private void UpdateSeverity(NotificationType severity)
+    {
+        SetCurrentValue(IconProperty, severity switch
+        {
+            NotificationType.Information => Icons.InformationOutline,
+            NotificationType.Success => Icons.Check,
+            NotificationType.Warning or NotificationType.Error => Icons.AlertOutline,
+            _ => Icons.InformationOutline
+        });
+        SetCurrentValue(IconForegroundProperty, severity switch
+        {
+            NotificationType.Information => NotificationColor.InfoIconForeground,
+            NotificationType.Success => NotificationColor.SuccessIconForeground,
+            NotificationType.Warning => NotificationColor.WarningIconForeground,
+            NotificationType.Error => NotificationColor.ErrorIconForeground,
+            _ => NotificationColor.InfoIconForeground
+        });
     }
 }

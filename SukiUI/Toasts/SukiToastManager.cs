@@ -113,7 +113,6 @@ public class SukiToastManager : ISukiToastManager, IDisposable
             {
                 toast.DismissProgressValue = 0;
                 Dismiss(i, SukiToastDismissSource.Timeout);
-                toast.OnDismissed?.Invoke(toast, SukiToastDismissSource.Timeout);
             }
             else
             {

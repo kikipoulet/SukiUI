@@ -98,7 +98,8 @@ namespace SukiUI.Controls
                     {
                         propertyViewModel = new BoolViewModel(viewModel, displayname, Property);
                     }
-                    else if (Property.PropertyType.IsEnum)
+                    else if (Property.PropertyType.IsEnum ||
+                             Nullable.GetUnderlyingType(Property.PropertyType)?.IsEnum == true)
                     {
                         propertyViewModel = new EnumViewModel(viewModel, displayname, Property);
                     }

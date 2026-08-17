@@ -4,6 +4,7 @@ using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 using Avalonia;
 using System.ComponentModel;
+using Avalonia.LogicalTree;
 
 namespace SukiUI.Helpers.ConditionalXAML
 {
@@ -16,23 +17,32 @@ namespace SukiUI.Helpers.ConditionalXAML
             set => SetValue(ConditionProperty, value);
         }
 
-        private INotifyPropertyChanged _dataContextNotifier;
+        private INotifyPropertyChanged? _dataContextNotifier;
+        private bool _isAttachedToLogicalTree;
+
+        protected override void OnAttachedToLogicalTree(LogicalTreeAttachmentEventArgs e)
+        {
+            base.OnAttachedToLogicalTree(e);
+            _isAttachedToLogicalTree = true;
+            SubscribeToDataContext();
+            UpdateVisibility();
+        }
+
+        protected override void OnDetachedFromLogicalTree(LogicalTreeAttachmentEventArgs e)
+        {
+            _isAttachedToLogicalTree = false;
+            UnsubscribeFromDataContext();
+            base.OnDetachedFromLogicalTree(e);
+        }
 
         protected override void OnDataContextChanged(EventArgs e)
         {
-            if (_dataContextNotifier != null)
-            {
-                _dataContextNotifier.PropertyChanged -= DataContext_PropertyChanged;
-                _dataContextNotifier = null;
-            }
+            UnsubscribeFromDataContext();
 
             base.OnDataContextChanged(e);
 
-            if (DataContext is INotifyPropertyChanged notifier)
-            {
-                _dataContextNotifier = notifier;
-                _dataContextNotifier.PropertyChanged += DataContext_PropertyChanged;
-            }
+            if (_isAttachedToLogicalTree)
+                SubscribeToDataContext();
 
             UpdateVisibility();
         }
@@ -47,7 +57,23 @@ namespace SukiUI.Helpers.ConditionalXAML
             }
         }
 
-        private void DataContext_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void SubscribeToDataContext()
+        {
+            if (_dataContextNotifier is not null || DataContext is not INotifyPropertyChanged notifier)
+                return;
+            _dataContextNotifier = notifier;
+            notifier.PropertyChanged += DataContext_PropertyChanged;
+        }
+
+        private void UnsubscribeFromDataContext()
+        {
+            if (_dataContextNotifier is null)
+                return;
+            _dataContextNotifier.PropertyChanged -= DataContext_PropertyChanged;
+            _dataContextNotifier = null;
+        }
+
+        private void DataContext_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             UpdateVisibility();
         }

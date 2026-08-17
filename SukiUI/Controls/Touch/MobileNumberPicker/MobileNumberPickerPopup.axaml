@@ -13,9 +13,10 @@
                 Height="200"
                 HorizontalAlignment="Center"
                 Margin="20,40,20,20"
-                PointerMoved="PointerMoved"
-                PointerPressed="PointerPressed"
-                PointerReleased="PointerReleased"
+                PointerMoved="OnPickerPointerMoved"
+                PointerPressed="OnPickerPointerPressed"
+                PointerReleased="OnPickerPointerReleased"
+                PointerCaptureLost="OnPointerCaptureLost"
                 VerticalAlignment="Top"
                 Width="300">
                 <StackPanel Margin="0,0,0,000" HorizontalAlignment="Center" VerticalAlignment="Center">

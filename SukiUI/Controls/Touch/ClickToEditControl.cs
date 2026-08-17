@@ -6,14 +6,13 @@ using Avalonia.Layout;
 using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
 using SukiUI.Dialogs;
-using SukiUI.MessageBox;
 
-namespace SukiUI.Controls.Touch;
-
-public class ClickToEditTextControl : UserControl
+namespace SukiUI.Controls.Touch
+{
+    public class ClickToEditTextControl : UserControl
     {
-        public static readonly StyledProperty<ISukiDialogManager> DialogManagerProperty =
-            AvaloniaProperty.Register<ClickToEditTextControl, ISukiDialogManager>(
+        public static readonly StyledProperty<ISukiDialogManager?> DialogManagerProperty =
+            AvaloniaProperty.Register<ClickToEditTextControl, ISukiDialogManager?>(
                 nameof(DialogManager));
 
         public static readonly StyledProperty<string> TextProperty =
@@ -24,47 +23,20 @@ public class ClickToEditTextControl : UserControl
             AvaloniaProperty.Register<ClickToEditTextControl, string>(
                 nameof(Subtitle), "Subtitle");
 
-        public static readonly StyledProperty<CornerRadius> CornerRadiusProperty =
-            AvaloniaProperty.Register<ClickToEditTextControl, CornerRadius>(
-                nameof(CornerRadius), new CornerRadius(15));
-
-        public ISukiDialogManager DialogManager
-        {
-            get => GetValue(DialogManagerProperty);
-            set => SetValue(DialogManagerProperty, value);
-        }
-        public string Text
-        {
-            get => GetValue(TextProperty);
-            set => SetValue(TextProperty, value);
-        }
-
-        public string Subtitle
-        {
-            get => GetValue(SubtitleProperty);
-            set => SetValue(SubtitleProperty, value);
-        }
-
-        public CornerRadius CornerRadius
-        {
-            get => GetValue(CornerRadiusProperty);
-            set
-            {
-                SetValue(CornerRadiusProperty, value);
-                rootBorder.CornerRadius = value;
-            }
-        }
+        public new static readonly StyledProperty<CornerRadius> CornerRadiusProperty =
+            TemplatedControl.CornerRadiusProperty.AddOwner<ClickToEditTextControl>(
+                new StyledPropertyMetadata<CornerRadius>(new CornerRadius(15)));
 
         private GlassCard rootBorder;
+
         public ClickToEditTextControl()
         {
-
-            rootBorder = new GlassCard()
+            rootBorder = new GlassCard
             {
                 BorderThickness = new Thickness(0)
             };
 
-           // rootBorder.Bind(Border.CornerRadiusProperty, this.GetObservable(CornerRadiusProperty));
+            rootBorder.Bind(GlassCard.CornerRadiusProperty, this.GetObservable(CornerRadiusProperty));
 
             var dockPanel = new DockPanel
             {
@@ -81,10 +53,10 @@ public class ClickToEditTextControl : UserControl
             };
 
 
-            iconBorder.Child = new PathIcon()
+            iconBorder.Child = new PathIcon
             {
                 Data = SukiUI.Content.Icons.Pencil, Height = 30, Width = 30,
-                HorizontalAlignment = HorizontalAlignment.Center, Margin = new Thickness(15,0,-15,0),
+                HorizontalAlignment = HorizontalAlignment.Center, Margin = new Thickness(15, 0, -15, 0),
                 VerticalAlignment = VerticalAlignment.Center,
                 [!BorderBrushProperty] = new DynamicResourceExtension("SukiLowText"),
                 Opacity = 0.8
@@ -106,7 +78,7 @@ public class ClickToEditTextControl : UserControl
             {
                 FontWeight = FontWeight.Light,
                 FontSize = 18,
-                [!ForegroundProperty] = new DynamicResourceExtension("SukiLowText"),
+                [!ForegroundProperty] = new DynamicResourceExtension("SukiLowText")
             };
             subtitleTextBlock.Bind(TextBlock.TextProperty, this.GetObservable(SubtitleProperty));
 
@@ -124,17 +96,39 @@ public class ClickToEditTextControl : UserControl
             rootBorder.PointerPressed += (_, __) => OpenKeyboard();
         }
 
+        public ISukiDialogManager? DialogManager
+        {
+            get => GetValue(DialogManagerProperty);
+            set => SetValue(DialogManagerProperty, value);
+        }
+
+        public string Text
+        {
+            get => GetValue(TextProperty);
+            set => SetValue(TextProperty, value);
+        }
+
+        public string Subtitle
+        {
+            get => GetValue(SubtitleProperty);
+            set => SetValue(SubtitleProperty, value);
+        }
+
+        public new CornerRadius CornerRadius
+        {
+            get => GetValue(CornerRadiusProperty);
+            set => SetValue(CornerRadiusProperty, value);
+        }
+
         private void OpenKeyboard()
         {
-            var keyboard = new OnScreenKeyboard(Text, onDone: newText =>
-            {
+            if (DialogManager is not { } dialogManager)
+                return;
 
-                SetCurrentValue(TextProperty, newText);
-            }, DialogManager);
+            var keyboard = new OnScreenKeyboard(Text, newText => { SetCurrentValue(TextProperty, newText); },
+                dialogManager);
 
-
-            DialogManager.CreateDialog().WithContent(keyboard).Dismiss().ByClickingBackground().TryShow();
-
+            dialogManager.CreateDialog().WithContent(keyboard).Dismiss().ByClickingBackground().TryShow();
         }
     }
 
@@ -160,7 +154,6 @@ public class ClickToEditTextControl : UserControl
 
             var root = new Border
             {
-
                 Padding = new Thickness(15),
                 Child = BuildLayout()
             };
@@ -175,16 +168,17 @@ public class ClickToEditTextControl : UserControl
                 Spacing = 8
             };
 
-            var dock = new DockPanel(){Margin = new Thickness(0,0,0,30)};
+            var dock = new DockPanel { Margin = new Thickness(0, 0, 0, 30) };
 
 
-            var sp = new StackPanel(){Spacing = 55, Margin = new Thickness(0,0), Orientation = Orientation.Horizontal};
-            sp.Children.Add(new TextBlock(){Foreground = Brushes.White, FontSize = 20, Text = "Done"});
+            var sp = new StackPanel
+                { Spacing = 55, Margin = new Thickness(0, 0), Orientation = Orientation.Horizontal };
+            sp.Children.Add(new TextBlock { Foreground = Brushes.White, FontSize = 20, Text = "Done" });
 
 
             var okbutton = new Button
             {
-                Content = sp, Margin = new Thickness(45,10,0,10), VerticalAlignment = VerticalAlignment.Center,
+                Content = sp, Margin = new Thickness(45, 10, 0, 10), VerticalAlignment = VerticalAlignment.Center,
                 MinWidth = 126, Height = 75, Classes = { "Flat" }, CornerRadius = new CornerRadius(12)
             }.Also(b => b.Click += (_, __) =>
             {
@@ -205,8 +199,8 @@ public class ClickToEditTextControl : UserControl
             var rows = new[]
             {
                 "QWERTYUIOP",
-                 "ASDFGHJKL",
-                  "ZXCVBNM"
+                "ASDFGHJKL",
+                "ZXCVBNM"
             };
 
             foreach (var row in rows)
@@ -218,8 +212,6 @@ public class ClickToEditTextControl : UserControl
                 Columns = 4,
                 Margin = new Thickness(0, 50, 0, 0)
             };
-
-
 
 
             return stack;
@@ -239,6 +231,7 @@ public class ClickToEditTextControl : UserControl
             {
                 panel.Children.Add(MakeKeyButton(ch.ToString()));
             }
+
             return panel;
         }
 
@@ -246,7 +239,8 @@ public class ClickToEditTextControl : UserControl
         {
             var btn = new Button
             {
-                Content = new TextBlock(){Text = label, FontWeight = FontWeight.DemiBold, FontSize = 27}, Background = new SolidColorBrush(Color.FromArgb(20,50,50,50)),
+                Content = new TextBlock { Text = label, FontWeight = FontWeight.DemiBold, FontSize = 27 },
+                Background = new SolidColorBrush(Color.FromArgb(20, 50, 50, 50)),
                 Margin = new Thickness(5),
                 MinWidth = 120, CornerRadius = new CornerRadius(12),
                 MinHeight = 120
@@ -318,3 +312,4 @@ public class ClickToEditTextControl : UserControl
             return obj;
         }
     }
+}

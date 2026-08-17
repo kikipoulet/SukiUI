@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
+using Avalonia.Media.Immutable;
 using Avalonia.Controls.Shapes;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml.MarkupExtensions;
@@ -15,6 +17,17 @@ namespace SukiUI.Controls.Gauges;
 
 public class RadialGauge : Panel
 {
+    private static readonly IBrush DefaultTrailBrush = new ImmutableLinearGradientBrush(new LinearGradientBrush
+    {
+        EndPoint = new RelativePoint(0, 1, RelativeUnit.Relative),
+        StartPoint = new RelativePoint(1, 0, RelativeUnit.Relative),
+        GradientStops =
+        {
+            new GradientStop(Colors.White, 0),
+            new GradientStop(Colors.Transparent, 0.7),
+            new GradientStop(Colors.Transparent, 1)
+        }
+    });
     
     public static readonly StyledProperty<string> SubtitleTextProperty =
         AvaloniaProperty.Register<RadialGauge, string>(nameof(SubtitleText), "");
@@ -35,13 +48,16 @@ public class RadialGauge : Panel
         AvaloniaProperty.Register<RadialGauge, double>(nameof(EndAngle), -40d); 
 
     public static readonly StyledProperty<int> TickCountProperty =
-        AvaloniaProperty.Register<RadialGauge, int>(nameof(TickCount), 10);
+        AvaloniaProperty.Register<RadialGauge, int>(nameof(TickCount), 10,
+            coerce: (_, value) => Math.Max(0, value));
 
     public static readonly StyledProperty<double> TickSizeProperty =
-        AvaloniaProperty.Register<RadialGauge, double>(nameof(TickSize), 4d);
+        AvaloniaProperty.Register<RadialGauge, double>(nameof(TickSize), 4d,
+            coerce: (_, value) => Math.Max(0, value));
 
     public static readonly StyledProperty<double> RimThicknessProperty =
-        AvaloniaProperty.Register<RadialGauge, double>(nameof(RimThickness), 2d);
+        AvaloniaProperty.Register<RadialGauge, double>(nameof(RimThickness), 2d,
+            coerce: (_, value) => Math.Max(0, value));
 
     public static readonly StyledProperty<IBrush?> RimBrushProperty =
         AvaloniaProperty.Register<RadialGauge, IBrush?>(nameof(RimBrush), Brushes.White);
@@ -53,30 +69,22 @@ public class RadialGauge : Panel
         AvaloniaProperty.Register<RadialGauge, IBrush?>(nameof(NeedleBrush), Brushes.White);
 
     public static readonly StyledProperty<double> NeedleThicknessProperty =
-        AvaloniaProperty.Register<RadialGauge, double>(nameof(NeedleThickness), 3d);
+        AvaloniaProperty.Register<RadialGauge, double>(nameof(NeedleThickness), 3d,
+            coerce: (_, value) => Math.Max(1, value));
 
     public static readonly StyledProperty<double> NeedleLengthRatioProperty =
-        AvaloniaProperty.Register<RadialGauge, double>(nameof(NeedleLengthRatio), 0.68d);
+        AvaloniaProperty.Register<RadialGauge, double>(nameof(NeedleLengthRatio), 0.68d,
+            coerce: (_, value) => SukiTheme.Clamp(value, 0.2, 0.95));
 
     public static readonly StyledProperty<IBrush?> BackgroundBrushProperty =
         AvaloniaProperty.Register<RadialGauge, IBrush?>(nameof(BackgroundBrush), Brushes.Transparent);
     
     public static readonly StyledProperty<IBrush?> TrailBrushProperty =
-        AvaloniaProperty.Register<RadialGauge, IBrush?>(nameof(TrailBrush), new LinearGradientBrush()
-        {
-            EndPoint = new RelativePoint(0, 1, RelativeUnit.Relative),
-            StartPoint = new RelativePoint(1, 0, RelativeUnit.Relative),
-            GradientStops = new GradientStops()
-            {
-                new() { Color = Colors.White, Offset = 0 },
-                new() { Color = Colors.Transparent, Offset = 0.7 },
-                new() { Color = Colors.Transparent, Offset = 1 },
-             
-            }
-        });
+        AvaloniaProperty.Register<RadialGauge, IBrush?>(nameof(TrailBrush), DefaultTrailBrush);
 
     public static readonly StyledProperty<double> TrailThicknessProperty =
-        AvaloniaProperty.Register<RadialGauge, double>(nameof(TrailThickness), 40d);
+        AvaloniaProperty.Register<RadialGauge, double>(nameof(TrailThickness), 40d,
+            coerce: (_, value) => Math.Max(1, value));
 
     public static readonly StyledProperty<IList<RadialGaugeSegment>?> SegmentsProperty =
         AvaloniaProperty.Register<RadialGauge, IList<RadialGaugeSegment>?>(nameof(Segments));
@@ -102,17 +110,19 @@ public class RadialGauge : Panel
     public IList<RadialGaugeSegment>? Segments { get => GetValue(SegmentsProperty); set => SetValue(SegmentsProperty, value); }
 
 
-    private Border _rim;          
-    private Border _dial;         
+    private Border _rim = null!;
+    private Border _dial = null!;
     private List<Border> _ticks = new();
-    private Grid _gridPath ;
-    private Path   _trailPath;     
-    private Border _needle;       
-    private TextBlock _valueText;        
-    private TextBlock _subtitleText;        
-    private StackPanel _stackText;        
+    private Grid _gridPath = null!;
+    private Path _trailPath = null!;
+    private Border _needle = null!;
+    private TextBlock _valueText = null!;
+    private TextBlock _subtitleText = null!;
+    private StackPanel _stackText = null!;
     private List<Path> _segmentPaths = new();
-    private Grid _segmentsGrid;
+    private Grid _segmentsGrid = null!;
+    private readonly HashSet<RadialGaugeSegment> _subscribedSegments = new();
+    private bool _isAttached;
           
 
     static RadialGauge()
@@ -130,6 +140,8 @@ public class RadialGauge : Panel
         BackgroundBrushProperty.Changed.AddClassHandler<RadialGauge>((s, _) => s.UpdateColors());
         TrailBrushProperty.Changed.AddClassHandler<RadialGauge>((s, _) => s.UpdateColors());
         SegmentsProperty.Changed.AddClassHandler<RadialGauge>((s, e) => s.OnSegmentsChanged(e));
+        SubtitleTextProperty.Changed.AddClassHandler<RadialGauge>((s, _) => s.UpdateSubtitle());
+        RimThicknessProperty.Changed.AddClassHandler<RadialGauge>((s, _) => s.UpdateRimThickness());
     }
 
     public RadialGauge()
@@ -226,13 +238,22 @@ public class RadialGauge : Panel
     private bool IsInitialize = false;
     protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {
+        base.OnAttachedToVisualTree(e);
+        _isAttached = true;
+        AttachSegments(Segments);
         if (!IsInitialize)
         {
             IsInitialize = true;
             LoadControls();
         }
         
-        base.OnAttachedToVisualTree(e);
+    }
+
+    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        _isAttached = false;
+        DetachSegments(Segments);
+        base.OnDetachedFromVisualTree(e);
     }
 
     private void UpdateColors()
@@ -248,6 +269,24 @@ public class RadialGauge : Panel
 
         foreach (var t in _ticks) t.Background = TickBrush;
         InvalidateVisual();
+    }
+
+    private void UpdateSubtitle()
+    {
+        if (!IsInitialize) return;
+        var hasSubtitle = !string.IsNullOrEmpty(SubtitleText);
+        _subtitleText.Text = SubtitleText;
+        _subtitleText.IsVisible = hasSubtitle;
+        _valueText.FontSize = hasSubtitle ? 28 : 32;
+        _valueText.Margin = new Thickness(0, 0, 0, hasSubtitle ? 0 : 5);
+        InvalidateMeasure();
+    }
+
+    private void UpdateRimThickness()
+    {
+        if (!IsInitialize) return;
+        _rim.BorderThickness = new Thickness(Math.Max(0, RimThickness));
+        InvalidateArrange();
     }
 
     private void RebuildTicks()
@@ -323,26 +362,72 @@ public class RadialGauge : Panel
     private void OnSegmentsChanged(AvaloniaPropertyChangedEventArgs e)
     {
         if (e.OldValue is IList<RadialGaugeSegment> oldCollection)
-        {
-            if (oldCollection is INotifyCollectionChanged notifyCollection)
-            {
-                notifyCollection.CollectionChanged -= OnSegmentsCollectionChanged;
-            }
-        }
-        
-        if (e.NewValue is IList<RadialGaugeSegment> newCollection)
-        {
-            if (newCollection is INotifyCollectionChanged notifyCollection)
-            {
-                notifyCollection.CollectionChanged += OnSegmentsCollectionChanged;
-            }
-        }
+            DetachSegments(oldCollection);
+        if (_isAttached && e.NewValue is IList<RadialGaugeSegment> newCollection)
+            AttachSegments(newCollection);
 
-        RebuildSegments();
+        if (IsInitialize)
+            RebuildSegments();
+    }
+
+    private void AttachSegments(IList<RadialGaugeSegment>? segments)
+    {
+        if (segments is null)
+            return;
+        if (segments is INotifyCollectionChanged notifyCollection)
+        {
+            notifyCollection.CollectionChanged -= OnSegmentsCollectionChanged;
+            notifyCollection.CollectionChanged += OnSegmentsCollectionChanged;
+        }
+        foreach (var segment in segments)
+            AttachSegment(segment);
+    }
+
+    private void DetachSegments(IList<RadialGaugeSegment>? segments)
+    {
+        if (segments is INotifyCollectionChanged notifyCollection)
+            notifyCollection.CollectionChanged -= OnSegmentsCollectionChanged;
+        foreach (var segment in _subscribedSegments)
+            segment.PropertyChanged -= OnSegmentPropertyChanged;
+        _subscribedSegments.Clear();
+    }
+
+    private void AttachSegment(RadialGaugeSegment segment)
+    {
+        if (!_subscribedSegments.Add(segment))
+            return;
+        segment.PropertyChanged += OnSegmentPropertyChanged;
+    }
+
+    private void OnSegmentPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        UpdateSegments();
+        InvalidateArrange();
     }
 
     private void OnSegmentsCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
+        if (e.Action == NotifyCollectionChangedAction.Reset)
+        {
+            foreach (var segment in _subscribedSegments)
+                segment.PropertyChanged -= OnSegmentPropertyChanged;
+            _subscribedSegments.Clear();
+            if (Segments is not null)
+                foreach (var segment in Segments)
+                    AttachSegment(segment);
+        }
+        else
+        {
+            if (e.OldItems is not null)
+                foreach (RadialGaugeSegment segment in e.OldItems)
+                {
+                    segment.PropertyChanged -= OnSegmentPropertyChanged;
+                    _subscribedSegments.Remove(segment);
+                }
+            if (e.NewItems is not null)
+                foreach (RadialGaugeSegment segment in e.NewItems)
+                    AttachSegment(segment);
+        }
         RebuildSegments();
     }
 
@@ -396,7 +481,8 @@ public class RadialGauge : Panel
             double u = _ticks.Count <= 1 ? 0 : (double)i / (_ticks.Count - 1);
             double ang = Deg2Rad(StartAngle - u * sweep); 
             
-            ((RotateTransform)_ticks[i].RenderTransform).Angle = -(StartAngle - (u * sweep)) -90 ;
+            if (_ticks[i].RenderTransform is RotateTransform rotateTransform)
+                rotateTransform.Angle = -(StartAngle - (u * sweep)) - 90;
 
             double cos = Math.Cos(ang);
             double sin = Math.Sin(ang);
@@ -454,16 +540,18 @@ public class RadialGauge : Panel
         {
             StartPoint = startPt,
             IsClosed = false,
-            IsFilled = false
+            IsFilled = false,
+            Segments = new PathSegments
+            {
+                new ArcSegment
+                {
+                    Point = endPt,
+                    Size = new Size(trailRadius, trailRadius),
+                    IsLargeArc = isLarge,
+                    SweepDirection = SweepDirection.Clockwise
+                }
+            }
         };
-
-        fig.Segments.Add(new ArcSegment
-        {
-            Point = endPt,
-            Size = new Size(trailRadius, trailRadius),
-            IsLargeArc = isLarge,
-            SweepDirection = SweepDirection.Clockwise
-        });
 
         var geom = new PathGeometry();
         geom.Figures = new PathFigures { fig };
@@ -528,16 +616,18 @@ public class RadialGauge : Panel
             {
                 StartPoint = startPt,
                 IsClosed = false,
-                IsFilled = false
+                IsFilled = false,
+                Segments = new PathSegments
+                {
+                    new ArcSegment
+                    {
+                        Point = endPt,
+                        Size = new Size(segmentRadius, segmentRadius),
+                        IsLargeArc = isLarge,
+                        SweepDirection = SweepDirection.Clockwise
+                    }
+                }
             };
-
-            fig.Segments.Add(new ArcSegment
-            {
-                Point = endPt,
-                Size = new Size(segmentRadius, segmentRadius),
-                IsLargeArc = isLarge,
-                SweepDirection = SweepDirection.Clockwise
-            });
 
             var geom = new PathGeometry();
             geom.Figures = new PathFigures { fig };

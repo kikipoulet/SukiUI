@@ -37,7 +37,7 @@
 
     <ControlTheme x:Key="{x:Type DatePicker}" TargetType="DatePicker">
         <Setter Property="FontSize" Value="{DynamicResource FontSizeNormal}" />
-        <Setter Property="Foreground" Value="{DynamicResource ThemeForegroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
         <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource ThemeControlHighlightMidBrush}" />
         <Setter Property="BorderThickness" Value="1" />
@@ -56,8 +56,12 @@
                                 CornerRadius="0" Padding="0"
                                 IsEnabled="{TemplateBinding IsEnabled}"
                                 TemplatedControl.IsTemplateFocusTarget="True">
-                            <suki:GlassCard CornerRadius="{DynamicResource SmallCornerRadius}" Height="{TemplateBinding Height}" 
-                                            BorderThickness="{TemplateBinding BorderThickness}" Classes="Discrete" >
+                            <suki:GlassCard CornerRadius="{DynamicResource SmallCornerRadius}"
+                                            Height="{TemplateBinding Height}"
+                                            Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            Classes="Discrete">
                             <Grid Margin="14,0"  ColumnDefinitions="Auto,Auto">
                                 <Grid Name="PART_ButtonContentGrid"
                                       Grid.Column="0"
@@ -70,14 +74,14 @@
                                                FontFamily="{TemplateBinding FontFamily}"
                                                FontSize="{TemplateBinding FontSize}"
                                                FontWeight="{TemplateBinding FontWeight}"
-                                               Foreground="{DynamicResource SukiText}"
+                                               Foreground="{TemplateBinding Foreground}"
                                                Text="{DynamicResource STRING_DATEPICKER_DAY_TEXT}" />
                                     <TextBlock Name="PART_MonthTextBlock"
                                                Padding="5,0,0,0"
                                                FontFamily="{TemplateBinding FontFamily}"
                                                FontSize="{TemplateBinding FontSize}"
                                                FontWeight="{TemplateBinding FontWeight}"
-                                               Foreground="{DynamicResource SukiText}"
+                                               Foreground="{TemplateBinding Foreground}"
                                                Text="{DynamicResource STRING_DATEPICKER_MONTH_TEXT}"
                                                TextAlignment="Left" />
                                     <TextBlock Name="PART_YearTextBlock"
@@ -87,7 +91,7 @@
                                                FontFamily="{TemplateBinding FontFamily}"
                                                FontSize="{TemplateBinding FontSize}"
                                                FontWeight="{TemplateBinding FontWeight}"
-                                               Foreground="{DynamicResource SukiText}"
+                                               Foreground="{TemplateBinding Foreground}"
                                                Text="{DynamicResource STRING_DATEPICKER_YEAR_TEXT}" />
                                     <Rectangle x:Name="PART_FirstSpacer"
                                                Grid.Column="1"
@@ -131,7 +135,7 @@
 
         <!--  Changes foreground for placeholder text when SelectedDate is null  -->
         <Style Selector="^:hasnodate /template/ Button#PART_FlyoutButton TextBlock">
-            <Setter Property="Foreground" Value="{DynamicResource ThemeForegroundLowBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource SukiLowText}" />
         </Style>
     </ControlTheme>
 
@@ -205,7 +209,10 @@
                                                          PanelType="Month"
                                                          ShouldLoop="True" />
                                 </ScrollViewer>
-
+                                <RepeatButton Name="PART_MonthUpButton"
+                                              Theme="{StaticResource SimpleDateTimePickerUpButton}" />
+                                <RepeatButton Name="PART_MonthDownButton"
+                                              Theme="{StaticResource SimpleDateTimePickerDownButton}" />
                             </Panel>
                             <Panel Name="PART_DayHost">
                                 <ScrollViewer Margin="5,0"
@@ -216,6 +223,10 @@
                                                          PanelType="Day"
                                                          ShouldLoop="True" />
                                 </ScrollViewer>
+                                <RepeatButton Name="PART_DayUpButton"
+                                              Theme="{StaticResource SimpleDateTimePickerUpButton}" />
+                                <RepeatButton Name="PART_DayDownButton"
+                                              Theme="{StaticResource SimpleDateTimePickerDownButton}" />
                             </Panel>
                             <Panel Name="PART_YearHost">
                                 <ScrollViewer Margin="5,0"
@@ -226,6 +237,10 @@
                                                          PanelType="Year"
                                                          ShouldLoop="False" />
                                 </ScrollViewer>
+                                <RepeatButton Name="PART_YearUpButton"
+                                              Theme="{StaticResource SimpleDateTimePickerUpButton}" />
+                                <RepeatButton Name="PART_YearDownButton"
+                                              Theme="{StaticResource SimpleDateTimePickerDownButton}" />
                             </Panel>
                             <Border Grid.Column="0"
                                     Grid.ColumnSpan="5"
@@ -269,6 +284,23 @@
                                                FontWeight="{DynamicResource DefaultDemiBold}"
                                                Foreground="{DynamicResource SukiPrimaryColor}"
                                                Text="{DynamicResource STRING_DATEPICKER_APPLY}" />
+                                </StackPanel>
+                            </Button>
+
+                            <Button Name="PART_DismissButton"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Bottom"
+                                    Classes="Basic">
+                                <StackPanel Margin="20,0" Orientation="Horizontal">
+                                    <PathIcon Width="12"
+                                              Height="12"
+                                              Data="{x:Static icons:Icons.WindowClose}"
+                                              Foreground="{DynamicResource SukiLowText}" />
+                                    <TextBlock Margin="10,0,0,0"
+                                               FontSize="16"
+                                               FontWeight="{DynamicResource DefaultDemiBold}"
+                                               Foreground="{DynamicResource SukiLowText}"
+                                               Text="{DynamicResource STRING_PROMPT_CANCEL}" />
                                 </StackPanel>
                             </Button>
 

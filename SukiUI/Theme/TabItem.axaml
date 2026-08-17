@@ -143,9 +143,6 @@
             <Style Selector="^ /template/ ContentPresenter#PART_HeaderPresenter">
                 <Setter Property="TextBlock.Foreground" Value="{DynamicResource SukiPrimaryColor120}" />
             </Style>
-            <Style Selector="^ /template/ Border#PART_SelectedPipe">
-                <Setter Property="Opacity" Value="1" />
-            </Style>
         </Style>
         
         <Style Selector="^.Pill:selected">
@@ -170,7 +167,7 @@
                 <Setter Property="DockPanel.Dock" Value="Bottom" />
                 <Setter Property="Margin" Value="0,0,0,0" />
             </Style>
-            <Style Selector="^ Border#PART_Underline">
+            <Style Selector="^ /template/ Border#PART_Underline">
                 <Setter Property="Margin" Value="10,0,10,0" />
             </Style>
         </Style>

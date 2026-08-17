@@ -1,24 +1,19 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Globalization;
-using System.Linq;
 using Avalonia;
 using Avalonia.Animation;
 using Avalonia.Animation.Easings;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Data.Converters;
-using Avalonia.Threading;
+using Avalonia.LogicalTree;
 using Avalonia.Styling;
+using Avalonia.Threading;
 
 namespace SukiUI.Controls
 {
     public class VerticalStepper : TemplatedControl
     {
-        public static FuncValueConverter<int, int> IndexToDisplayConverter { get; } = new(x => x + 1);
-
         public static readonly StyledProperty<int> IndexProperty =
             AvaloniaProperty.Register<VerticalStepper, int>(nameof(Index));
 
@@ -30,6 +25,13 @@ namespace SukiUI.Controls
 
         public static readonly StyledProperty<double> OffsetHeightProperty =
             AvaloniaProperty.Register<VerticalStepper, double>(nameof(OffsetHeight));
+
+        private readonly List<VerticalStepperItem> _stepItems = new();
+        private ItemsControl? _itemsControl;
+        private CancellationTokenSource? _scrollCts;
+        private ScrollViewer? _scrollViewer;
+        private INotifyCollectionChanged? _stepsCollection;
+        public static FuncValueConverter<int, int> IndexToDisplayConverter { get; } = new(x => x + 1);
 
         public int Index
         {
@@ -55,30 +57,29 @@ namespace SukiUI.Controls
             set => SetValue(OffsetHeightProperty, value);
         }
 
-        private readonly List<VerticalStepperItem> _stepItems = new();
-        private ItemsControl? _itemsControl;
-        private ScrollViewer? _scrollViewer;
-        private CancellationTokenSource? _scrollCts;
-
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
             _scrollViewer = e.NameScope.Get<ScrollViewer>("PART_ScrollViewer");
             _itemsControl = e.NameScope.Get<ItemsControl>("PART_ItemsControl");
+            AttachStepsCollection();
             RefreshSteps();
         }
 
         protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
         {
             base.OnPropertyChanged(change);
-            
+
             if (change.Property == IndexProperty)
             {
                 UpdateStates();
                 ScrollToActiveStep();
             }
             else if (change.Property == StepsProperty)
+            {
+                AttachStepsCollection();
                 RefreshSteps();
+            }
             else if (change.Property == ShowCheckMarkProperty)
                 UpdateStates();
         }
@@ -109,18 +110,51 @@ namespace SukiUI.Controls
                     Description = step is VerticalStepItem vStep ? vStep.Description : null,
                     ShowCheckMark = ShowCheckMark && index < Index
                 };
-                
+
                 _stepItems.Add(item);
                 index++;
             }
-            
+
             if (_itemsControl is not null)
                 _itemsControl.ItemsSource = _stepItems;
 
             UpdateStates();
+        }
 
-            if (Steps is INotifyCollectionChanged notify)
-                notify.CollectionChanged += (_, _) => RefreshSteps();
+        protected override void OnAttachedToLogicalTree(LogicalTreeAttachmentEventArgs e)
+        {
+            base.OnAttachedToLogicalTree(e);
+            AttachStepsCollection();
+            RefreshSteps();
+        }
+
+        protected override void OnDetachedFromLogicalTree(LogicalTreeAttachmentEventArgs e)
+        {
+            DetachStepsCollection();
+            _scrollCts?.Cancel();
+            _scrollCts?.Dispose();
+            _scrollCts = null;
+            base.OnDetachedFromLogicalTree(e);
+        }
+
+        private void AttachStepsCollection()
+        {
+            DetachStepsCollection();
+            _stepsCollection = Steps as INotifyCollectionChanged;
+            if (_stepsCollection is not null)
+                _stepsCollection.CollectionChanged += OnStepsCollectionChanged;
+        }
+
+        private void DetachStepsCollection()
+        {
+            if (_stepsCollection is not null)
+                _stepsCollection.CollectionChanged -= OnStepsCollectionChanged;
+            _stepsCollection = null;
+        }
+
+        private void OnStepsCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            RefreshSteps();
         }
 
         private void UpdateStates()
@@ -132,7 +166,7 @@ namespace SukiUI.Controls
                 item.IsActive = i == Index;
                 item.IsPending = i > Index;
                 item.ShowCheckMark = ShowCheckMark && item.IsCompleted;
-                
+
                 item.HasConnectorUp = i > 0;
                 item.HasConnectorDown = item.IsCompleted && i < _stepItems.Count - 1;
                 item.ConnectorDownToActive = item.HasConnectorDown && i + 1 == Index;
@@ -148,11 +182,13 @@ namespace SukiUI.Controls
 
             if (!activeItem.IsInitialized)
             {
-                activeItem.Initialized += (_, _) => ScrollToActiveStep();
+                activeItem.Initialized -= ActiveItemOnInitialized;
+                activeItem.Initialized += ActiveItemOnInitialized;
                 return;
             }
 
             _scrollCts?.Cancel();
+            _scrollCts?.Dispose();
             _scrollCts = new CancellationTokenSource();
             var token = _scrollCts.Token;
 
@@ -187,7 +223,7 @@ namespace SukiUI.Controls
             var extentHeight = _scrollViewer.Extent.Height;
             var maxOffset = Math.Max(0, extentHeight - viewportHeight);
 
-            var targetOffset = _scrollViewer.Offset.Y + itemPosition.Value.Y - (viewportHeight / 2) + (itemHeight / 2);
+            var targetOffset = _scrollViewer.Offset.Y + itemPosition.Value.Y - viewportHeight / 2 + itemHeight / 2;
             targetOffset = Math.Max(0, Math.Min(targetOffset, maxOffset));
 
             var currentOffset = _scrollViewer.Offset.Y;
@@ -196,7 +232,7 @@ namespace SukiUI.Controls
 
             try
             {
-                var animation = new Avalonia.Animation.Animation
+                var animation = new Animation
                 {
                     Duration = TimeSpan.FromMilliseconds(300),
                     Easing = new CubicEaseOut(),
@@ -205,12 +241,21 @@ namespace SukiUI.Controls
                     {
                         new KeyFrame
                         {
-                            Setters = { new Setter { Property = ScrollViewer.OffsetProperty, Value = _scrollViewer.Offset } },
+                            Setters =
+                            {
+                                new Setter { Property = ScrollViewer.OffsetProperty, Value = _scrollViewer.Offset }
+                            },
                             KeyTime = TimeSpan.Zero
                         },
                         new KeyFrame
                         {
-                            Setters = { new Setter { Property = ScrollViewer.OffsetProperty, Value = new Vector(0, targetOffset) } },
+                            Setters =
+                            {
+                                new Setter
+                                {
+                                    Property = ScrollViewer.OffsetProperty, Value = new Vector(0, targetOffset)
+                                }
+                            },
                             Cue = new Cue(1.0)
                         }
                     }
@@ -221,6 +266,13 @@ namespace SukiUI.Controls
             catch (OperationCanceledException)
             {
             }
+        }
+
+        private void ActiveItemOnInitialized(object? sender, EventArgs e)
+        {
+            if (sender is Control control)
+                control.Initialized -= ActiveItemOnInitialized;
+            ScrollToActiveStep();
         }
     }
 
@@ -319,15 +371,17 @@ namespace SukiUI.Controls
 
     public class VerticalStepItem
     {
-        public string? Title { get; set; }
-        public string? Description { get; set; }
-
-        public VerticalStepItem() { }
+        public VerticalStepItem()
+        {
+        }
 
         public VerticalStepItem(string title, string? description = null)
         {
             Title = title;
             Description = description;
         }
+
+        public string? Title { get; set; }
+        public string? Description { get; set; }
     }
 }

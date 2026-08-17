@@ -27,7 +27,7 @@
                              StrokeJoin="Round"
                              StrokeLineCap="Round"
                              StrokeThickness="{TemplateBinding StrokeWidth}"
-                             SweepAngle="{TemplateBinding Value}">
+                             SweepAngle="{TemplateBinding SweepAngle}">
 
                             <Arc.Transitions>
                                 <Transitions>

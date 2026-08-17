@@ -14,6 +14,8 @@
         <Setter Property="BorderThickness" Value="0,0,0,1" />
         <Setter Property="MinWidth" Value="100" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+        <Setter Property="PlaceholderForeground" Value="{DynamicResource SukiLowText}" />
         <Setter Property="CornerRadius" Value="0" />
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
         <Setter Property="Padding" Value="4" />
@@ -21,12 +23,20 @@
             <ControlTemplate>
                 <Panel>
                     <TextBox Name="PART_TextBox"
+                             Width="{TemplateBinding Width}"
                              Padding="{TemplateBinding Padding}"
+                             Foreground="{TemplateBinding Foreground}"
                              Background="{TemplateBinding Background}"
                              BorderBrush="{TemplateBinding BorderBrush}"
                              BorderThickness="{TemplateBinding BorderThickness}"
                              CornerRadius="{TemplateBinding CornerRadius}"
                              DataValidationErrors.Errors="{TemplateBinding (DataValidationErrors.Errors)}"
+                             CaretIndex="{TemplateBinding CaretIndex, Mode=TwoWay}"
+                             ClearSelectionOnLostFocus="{TemplateBinding ClearSelectionOnLostFocus}"
+                             InnerLeftContent="{TemplateBinding InnerLeftContent}"
+                             InnerRightContent="{TemplateBinding InnerRightContent}"
+                             MaxLength="{TemplateBinding MaxLength}"
+                             PlaceholderForeground="{TemplateBinding PlaceholderForeground}"
                              PlaceholderText="{TemplateBinding PlaceholderText}" />
 
                     <Popup Name="PART_Popup"
@@ -43,13 +53,14 @@
                                         BoxShadow="{DynamicResource SukiPopupShadow}"
                                         CornerRadius="{DynamicResource SmallCornerRadius}">
                                     <Panel Background="{DynamicResource PopupGradientBrush}">
-                                    <ListBox Name="PART_SelectingItemsControl"
-                                             Background="{TemplateBinding Background}"
-                                             BorderThickness="0"
-                                             Foreground="{TemplateBinding Foreground}"
-                                             ItemTemplate="{TemplateBinding ItemTemplate}"
-                                             ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                                             ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                                        <ListBox Name="PART_SelectingItemsControl"
+                                                 Background="{TemplateBinding Background}"
+                                                 BorderThickness="0"
+                                                 Foreground="{TemplateBinding Foreground}"
+                                                 ItemTemplate="{TemplateBinding ItemTemplate}"
+                                                 ScrollViewer.IsScrollChainingEnabled="False"
+                                                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                                 ScrollViewer.VerticalScrollBarVisibility="Auto" />
                                     </Panel>
                                 </Border>
                             </Panel>

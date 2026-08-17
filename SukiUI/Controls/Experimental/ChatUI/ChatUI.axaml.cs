@@ -18,31 +18,67 @@ namespace SukiUI.Controls.Experimental
     {
         public ChatUI()
         {
+            SetCurrentValue(MessagesProperty, new ObservableCollection<ChatMessage>());
             InitializeComponent();
         }
 
-        private ScrollViewer ChatScroll;
+        private ScrollViewer? ChatScroll;
         
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
 
-            Messages.CollectionChanged += ValueOnCollectionChanged;
             ChatScroll =  e.NameScope.Get<ScrollViewer>("ChatScrollViewer");
         }
 
         public static readonly StyledProperty<ObservableCollection<ChatMessage>> MessagesProperty =
-            AvaloniaProperty.Register<ChatUI, ObservableCollection<ChatMessage>>(nameof(Messages), 
-                defaultValue: new ObservableCollection<ChatMessage>());
+            AvaloniaProperty.Register<ChatUI, ObservableCollection<ChatMessage>>(nameof(Messages));
 
         public ObservableCollection<ChatMessage> Messages
         {
-            get { return GetValue(MessagesProperty); }
-            set {
-            {
-                SetValue(MessagesProperty, value);
-                value.CollectionChanged += ValueOnCollectionChanged;
-            } }
+            get => GetValue(MessagesProperty)!;
+            set => SetValue(MessagesProperty, value);
+        }
+
+        private INotifyCollectionChanged? _messagesCollection;
+        private bool _isAttachedToVisualTree;
+
+        protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+        {
+            base.OnAttachedToVisualTree(e);
+            _isAttachedToVisualTree = true;
+            AttachMessagesCollection();
+        }
+
+        protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+        {
+            _isAttachedToVisualTree = false;
+            DetachMessagesCollection();
+            AnimationToken?.Cancel();
+            AnimationToken?.Dispose();
+            AnimationToken = null;
+            base.OnDetachedFromVisualTree(e);
+        }
+
+        protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+        {
+            base.OnPropertyChanged(change);
+            if (change.Property == MessagesProperty && _isAttachedToVisualTree)
+                AttachMessagesCollection();
+        }
+
+        private void AttachMessagesCollection()
+        {
+            DetachMessagesCollection();
+            _messagesCollection = Messages;
+            _messagesCollection.CollectionChanged += ValueOnCollectionChanged;
+        }
+
+        private void DetachMessagesCollection()
+        {
+            if (_messagesCollection is not null)
+                _messagesCollection.CollectionChanged -= ValueOnCollectionChanged;
+            _messagesCollection = null;
         }
 
       
@@ -87,13 +123,15 @@ namespace SukiUI.Controls.Experimental
            
         }
 
-        private CancellationTokenSource AnimationToken;
+        private CancellationTokenSource? AnimationToken;
         
         private void ValueOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            if (ChatScroll is null) return;
             AnimationToken?.Cancel();
+            AnimationToken?.Dispose();
             AnimationToken = new CancellationTokenSource();
-             new Animation
+            _ = new Animation
             {
                 Duration = TimeSpan.FromMilliseconds(800),
                 FillMode = FillMode.Forward,

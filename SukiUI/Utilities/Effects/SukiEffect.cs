@@ -32,6 +32,8 @@ namespace SukiUI.Utilities.Effects
         };
 
         private static readonly List<SukiEffect> LoadedEffects = new();
+        private static readonly object LifecycleLock = new();
+        private static IControlledApplicationLifetime? _applicationLifetime;
 
         private readonly string _rawShaderString;
         private readonly string _shaderString;
@@ -47,12 +49,13 @@ namespace SukiUI.Utilities.Effects
             _rawShaderString = rawShaderString;
             var compiledEffect = SKRuntimeEffect.CreateShader(_shaderString, out var errors);
             Effect = compiledEffect ?? throw new ShaderCompilationException(errors);
+            LoadedEffects.Add(this);
         }
 
         static SukiEffect()
         {
-            if (Application.Current.ApplicationLifetime is IControlledApplicationLifetime controlled)
-                controlled.Exit += (_, _) => EnsureDisposed();
+            AppDomain.CurrentDomain.ProcessExit += (_, _) => EnsureDisposed();
+            EnsureExitSubscription();
         }
 
         /// <summary>
@@ -93,7 +96,11 @@ namespace SukiUI.Utilities.Effects
                 throw new FileNotFoundException(
                     $"Unable to find a file with the name \"{shaderName}\" anywhere in the assembly.");
 
-            using var tr = new StreamReader(assembly.GetManifestResourceStream(resName)!);
+            var resourceAssembly = assembly ?? typeof(SukiEffect).Assembly;
+            using var stream = resourceAssembly.GetManifestResourceStream(resName)
+                               ?? throw new FileNotFoundException(
+                                   $"Unable to open the embedded shader resource \"{resName}\".");
+            using var tr = new StreamReader(stream);
             return FromString(tr.ReadToEnd());
         }
 
@@ -106,12 +113,28 @@ namespace SukiUI.Utilities.Effects
         /// <returns>An instance of a SukiBackgroundShader with the loaded shader</returns>
         public static SukiEffect FromString(string shaderString)
         {
+            EnsureExitSubscription();
             var sb = new StringBuilder();
             foreach (var uniform in Uniforms)
                 sb.AppendLine(uniform);
             sb.Append(shaderString);
             var withUniforms = sb.ToString();
             return new SukiEffect(withUniforms, shaderString);
+        }
+
+        private static void EnsureExitSubscription()
+        {
+            if (Application.Current?.ApplicationLifetime is not IControlledApplicationLifetime controlled)
+                return;
+
+            lock (LifecycleLock)
+            {
+                if (ReferenceEquals(_applicationLifetime, controlled))
+                    return;
+
+                _applicationLifetime = controlled;
+                controlled.Exit += (_, _) => EnsureDisposed();
+            }
         }
 
 
@@ -123,19 +146,20 @@ namespace SukiUI.Utilities.Effects
         internal static void EnsureDisposed()
         {
             if (_disposed)
-                throw new InvalidOperationException(
-                    "SukiEffects should only be disposed once at the app lifecycle end.");
+                return;
             _disposed = true;
             foreach (var loaded in LoadedEffects)
                 loaded.Effect.Dispose();
             LoadedEffects.Clear();
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is not SukiEffect effect) return false;
             return effect._shaderString == _shaderString;
         }
+
+        public override int GetHashCode() => StringComparer.Ordinal.GetHashCode(_shaderString);
 
         private static readonly float[] White = { 0.95f, 0.95f, 0.95f };
         private readonly float[] _backgroundAlloc = new float[3];

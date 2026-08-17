@@ -20,6 +20,7 @@ namespace SukiUI.Controls.Experimental.DesktopEnvironment
         }
         public SukiDesktopEnvironment()
         {
+            SetCurrentValue(SoftwaresProperty, new ObservableCollection<SDESoftware>());
             InitializeComponent();
         }
         
@@ -48,12 +49,11 @@ namespace SukiUI.Controls.Experimental.DesktopEnvironment
         }
         
         public static readonly StyledProperty<ObservableCollection<SDESoftware>> SoftwaresProperty =
-            AvaloniaProperty.Register<ChatUI, ObservableCollection<SDESoftware>>(nameof(Softwares), 
-                defaultValue: new ObservableCollection<SDESoftware>());
+            AvaloniaProperty.Register<SukiDesktopEnvironment, ObservableCollection<SDESoftware>>(nameof(Softwares));
 
         public ObservableCollection<SDESoftware> Softwares
         {
-            get { return GetValue(SoftwaresProperty); }
+            get { return GetValue(SoftwaresProperty)!; }
             set { SetValue(SoftwaresProperty, value); }
         }
 

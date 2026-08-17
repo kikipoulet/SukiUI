@@ -3,6 +3,8 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="HeaderBackground" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+        <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Panel Name="PART_Root" ClipToBounds="True">
@@ -10,6 +12,8 @@
                                   Background="{TemplateBinding Background}"
                                   BorderBrush="{TemplateBinding BorderBrush}"
                                   BorderThickness="{TemplateBinding BorderThickness}"
+                                  CornerRadius="{TemplateBinding CornerRadius}"
+                                  Foreground="{TemplateBinding Foreground}"
                                   HeaderBackground="{TemplateBinding HeaderBackground}" />
                 </Panel>
             </ControlTemplate>

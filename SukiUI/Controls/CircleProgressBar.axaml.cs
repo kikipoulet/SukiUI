@@ -23,23 +23,34 @@ namespace SukiUI.Controls
             AvaloniaXamlLoader.Load(this);
         }
 
-        private double _value = 50;
-
         public double Value
         {
-            get => _value;
-            set
-            {
-                _value = (int)(value * 3.6);
-                SetValue(ValueProperty, _value);
-            }
+            get => GetValue(ValueProperty);
+            set => SetValue(ValueProperty, value);
         }
 
         /// <summary>
         /// Defines the <see cref="Value"/> property.
         /// </summary>
         public static readonly StyledProperty<double> ValueProperty =
-            AvaloniaProperty.Register<CircleProgressBar, double>(nameof(Value), defaultValue: 50, coerce: (o, d) => d * 3.6);
+            AvaloniaProperty.Register<CircleProgressBar, double>(nameof(Value), defaultValue: 50,
+                coerce: (_, value) => Math.Clamp(value, 0, 100));
+
+        internal static readonly StyledProperty<double> SweepAngleProperty =
+            AvaloniaProperty.Register<CircleProgressBar, double>(nameof(SweepAngle), defaultValue: 180);
+
+        internal double SweepAngle
+        {
+            get => GetValue(SweepAngleProperty);
+            private set => SetValue(SweepAngleProperty, value);
+        }
+
+        protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+        {
+            base.OnPropertyChanged(change);
+            if (change.Property == ValueProperty)
+                SweepAngle = change.GetNewValue<double>() * 3.6;
+        }
 
         public static readonly StyledProperty<double> StrokeWidthProperty =
             AvaloniaProperty.Register<CircleProgressBar, double>(nameof(StrokeWidth), defaultValue: 10);

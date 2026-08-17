@@ -1,0 +1,17 @@
+<Styles xmlns="https://github.com/avaloniaui">
+    <Style Selector="ScrollViewer.suki-scrollbar-expanded /template/ ScrollBar">
+        <Setter Property="AllowAutoHide" Value="True" />
+    </Style>
+
+    <Style Selector="ScrollBar[AllowAutoHide=True] Border#ThumbBarVertical,
+                     ScrollBar /template/ Thumb:pressed /template/ Border#ThumbBarVertical">
+        <Setter Property="Background" Value="{DynamicResource SukiControlBorderBrush}" />
+        <Setter Property="Width" Value="8" />
+    </Style>
+
+    <Style Selector="ScrollBar[AllowAutoHide=True] Border#ThumbBarHorizontal,
+                     ScrollBar /template/ Thumb:pressed /template/ Border#ThumbBarHorizontal">
+        <Setter Property="Background" Value="{DynamicResource SukiControlBorderBrush}" />
+        <Setter Property="Height" Value="8" />
+    </Style>
+</Styles>

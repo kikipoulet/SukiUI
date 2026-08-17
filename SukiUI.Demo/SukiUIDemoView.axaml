@@ -197,7 +197,7 @@
     </suki:SukiWindow.RightWindowTitleBarControls>
 
     <suki:SukiWindow.MenuItems>
-        <MenuItem Header="Toggles">
+        <MenuItem Header="_Toggles">
             <MenuItem Command="{Binding ToggleBaseThemeCommand}" Header="{Binding BaseTheme}">
                 <MenuItem.Icon>
                     <avalonia:MaterialIcon Kind="Lightbulb" />
@@ -205,7 +205,7 @@
             </MenuItem>
 
             <MenuItem Command="{Binding ToggleTitleBarCommand}"
-                      Header="Title Bar"
+                      Header="_Title Bar"
                       ToolTip.Tip="Toggles the title bar.">
                 <MenuItem.Icon>
                     <avalonia:MaterialIcon
@@ -218,7 +218,7 @@
                 </MenuItem.Icon>
             </MenuItem>
             <MenuItem Command="{Binding ToggleRightToLeftCommand}"
-                      Header="Right To Left"
+                      Header="_Right To Left"
                       ToolTip.Tip="Toggles the right to left.">
                 <MenuItem.Icon>
                     <avalonia:MaterialIcon Kind="SwapHorizontal" />
@@ -226,12 +226,12 @@
             </MenuItem>
 
 
-            <MenuItem Header="Window Options">
+            <MenuItem Header="_Window Options">
                 <MenuItem.Icon>
                     <avalonia:MaterialIcon Kind="WindowRestore" />
                 </MenuItem.Icon>
                 <MenuItem Command="{Binding ToggleWindowLockCommand}"
-                          Header="Window Lock"
+                          Header="Window _Lock"
                           ToolTip.Tip="Toggles minimizing and resizing.">
                     <MenuItem.Icon>
                         <avalonia:MaterialIcon
@@ -239,7 +239,7 @@
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Command="{Binding $parent[suki:SukiWindow].ToggleFullScreen}"
-                          Header="Fullscreen"
+                          Header="_Fullscreen"
                           ToolTip.Tip="Makes the app fullscreen.">
                     <MenuItem.Icon>
                         <avalonia:MaterialIcon Kind="Fullscreen" />
@@ -275,7 +275,7 @@
         </MenuItem>
         <MenuItem Header="Theme">
             <MenuItem Click="ThemeMenuItem_OnClick"
-                      Header="Switch To..."
+                      Header="_Switch To..."
                       ItemsSource="{Binding Themes}">
                 <MenuItem.DataTemplates>
                     <DataTemplate DataType="{x:Type suki:SukiColorTheme}">
@@ -288,9 +288,9 @@
             <MenuItem Header="-" />
             <MenuItem Command="{Binding ShadCnModeCommand}" Header="Shadcn Mode" />
         </MenuItem>
-        <MenuItem Header="Background">
+        <MenuItem Header="_Background">
             <MenuItem Click="BackgroundMenuItem_OnClick"
-                      Header="Switch To..."
+                      Header="_Switch To..."
                       ItemsSource="{Binding BackgroundStyles}" />
             <MenuItem Header="-" />
             <MenuItem Command="{Binding ToggleAnimationsCommand}" Header="Animations">
@@ -305,6 +305,63 @@
                         Kind="{Binding TransitionsEnabled, Converter={x:Static converters:BoolToIconConverters.Animation}}" />
                 </MenuItem.Icon>
             </MenuItem>
+        </MenuItem>
+        <MenuItem Header="_Long Menu">
+            <MenuItem Header="Item 1" />
+            <MenuItem Header="Item 2" />
+            <MenuItem Header="Item 3" />
+            <MenuItem Header="Item 4" />
+            <MenuItem Header="Item 5" />
+            <MenuItem Header="Item 6" />
+            <MenuItem Header="Item 7" />
+            <MenuItem Header="Item 8" />
+            <MenuItem Header="Item 9" />
+            <MenuItem Header="Item 10" />
+            <MenuItem Header="Item 11" />
+            <MenuItem Header="Item 12" />
+            <MenuItem Header="Item 13" />
+            <MenuItem Header="Item 14" />
+            <MenuItem Header="Item 15" />
+            <MenuItem Header="Item 16" />
+            <MenuItem Header="Item 17" />
+            <MenuItem Header="Item 18" />
+            <MenuItem Header="Item 19" />
+            <MenuItem Header="Item 20" />
+            <MenuItem Header="Item 21" />
+            <MenuItem Header="Item 22" />
+            <MenuItem Header="Item 23" />
+            <MenuItem Header="Item 24" />
+            <MenuItem Header="Item 25" />
+            <MenuItem Header="Item 26" />
+            <MenuItem Header="Item 27" />
+            <MenuItem Header="Item 28" />
+            <MenuItem Header="Item 29" />
+            <MenuItem Header="Item 30" />
+            <MenuItem Header="Item 31" />
+            <MenuItem Header="Item 32" />
+            <MenuItem Header="Item 33" />
+            <MenuItem Header="Item 34" />
+            <MenuItem Header="Item 35" />
+            <MenuItem Header="Item 36" />
+            <MenuItem Header="Item 37" />
+            <MenuItem Header="Item 38" />
+            <MenuItem Header="Item 39" />
+            <MenuItem Header="Item 40" />
+            <MenuItem Header="Item 41" />
+            <MenuItem Header="Item 42" />
+            <MenuItem Header="Item 43" />
+            <MenuItem Header="Item 44" />
+            <MenuItem Header="Item 45" />
+            <MenuItem Header="Item 46" />
+            <MenuItem Header="Item 47" />
+            <MenuItem Header="Item 48" />
+            <MenuItem Header="Item 49" />
+            <MenuItem Header="Item 50" />
+            <MenuItem Header="Item 51" />
+            <MenuItem Header="Item 52" />
+            <MenuItem Header="Item 53" />
+            <MenuItem Header="Item 54" />
+            <MenuItem Header="Item 55" />
         </MenuItem>
     </suki:SukiWindow.MenuItems>
     <suki:SukiSideMenu IsSearchEnabled="True"

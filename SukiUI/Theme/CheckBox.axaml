@@ -1,0 +1,100 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:suki="https://github.com/kikipoulet/SukiUI">
+    <Design.PreviewWith>
+        <Border Padding="20" Background="White">
+            <StackPanel Spacing="20">
+                <CheckBox>Unchecked</CheckBox>
+                <CheckBox IsChecked="True">Checked</CheckBox>
+                <CheckBox IsChecked="{x:Null}" IsThreeState="True">Indeterminate</CheckBox>
+                <CheckBox IsEnabled="False">Disabled</CheckBox>
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <ControlTheme x:Key="{x:Type CheckBox}" TargetType="CheckBox">
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+        <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderMidBrush}" />
+        <Setter Property="BorderThickness" Value="0.5" />
+        <Setter Property="CornerRadius" Value="6" />
+        <Setter Property="Padding" Value="10,1,0,0" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid Background="Transparent" ColumnDefinitions="Auto,*">
+                    <suki:GlassCard Name="border"
+                                    Width="20"
+                                    Height="20"
+                                    VerticalAlignment="Center"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    Classes="Control"
+                                    Classes.PrimaryOpaque="{TemplateBinding IsChecked, Converter={x:Static suki:BoolConvert.NotFalse}}"
+                                    CornerRadius="{TemplateBinding CornerRadius}"
+                                    IsInteractive="True">
+                        <Panel>
+                            <PathIcon Name="checkMark"
+                                      Width="12"
+                                      Height="12"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Data="{x:Static suki:Icons.Check}"
+                                      Foreground="White">
+                                <PathIcon.Transitions>
+                                    <Transitions>
+                                        <DoubleTransition Property="Opacity" Duration="0:0:0.2" />
+                                    </Transitions>
+                                </PathIcon.Transitions>
+                            </PathIcon>
+                            <Border Name="IndetBorder"
+                                    Width="8"
+                                    Height="3"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="White"
+                                    CornerRadius="2"
+                                    Opacity="0">
+                                <Border.Transitions>
+                                    <Transitions>
+                                        <DoubleTransition Property="Opacity" Duration="0:0:0.2" />
+                                    </Transitions>
+                                </Border.Transitions>
+                            </Border>
+                        </Panel>
+                    </suki:GlassCard>
+                    <ContentPresenter Name="PART_ContentPresenter"
+                                      Grid.Column="1"
+                                      Margin="{TemplateBinding Padding}"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      FontSize="{TemplateBinding FontSize}"
+                                      IsVisible="{TemplateBinding Content, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                      RecognizesAccessKey="True"
+                                      TextElement.Foreground="{TemplateBinding Foreground}" />
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^:disabled">
+            <Setter Property="Foreground" Value="{DynamicResource SukiDisabledText}" />
+        </Style>
+        <Style Selector="^ /template/ PathIcon#checkMark">
+            <Setter Property="Opacity" Value="0" />
+        </Style>
+        <Style Selector="^:checked /template/ PathIcon#checkMark">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        <Style Selector="^:indeterminate /template/ Border#IndetBorder">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        <Style Selector="^:disabled /template/ suki|GlassCard#border">
+            <Setter Property="Opacity" Value="0.7" />
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>

@@ -1,4 +1,4 @@
-﻿namespace SukiUI.Enums;
+namespace SukiUI.Enums;
 
 public enum SideMenuTogglePaneButtonPositionOptions
 {

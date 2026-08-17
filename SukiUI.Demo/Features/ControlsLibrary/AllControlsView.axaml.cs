@@ -16,7 +16,15 @@ public partial class AllControlsView : UserControl
 
     private void Button_OnClick(object? sender, RoutedEventArgs e)
     {
-        App.SingleViewDialogManager.CreateDialog().WithContent(new Border(){Height = 400, Width = 400}).Dismiss().ByClickingBackground().TryShow();
+        if (DataContext is not AllControlsViewModel viewModel)
+            return;
+
+        viewModel.DialogManager
+            .CreateDialog()
+            .WithContent(new Border { Height = 400, Width = 400 })
+            .Dismiss()
+            .ByClickingBackground()
+            .TryShow();
     }
 
     private void GoToAdvanced(object? sender, PointerPressedEventArgs e)
