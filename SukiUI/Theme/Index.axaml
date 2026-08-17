@@ -20,6 +20,7 @@
         <StyleInclude Source="avares://SukiUI/Theme/SliderStyles.xaml" />
         <StyleInclude Source="avares://SukiUI/Theme/DataGridStyles.axaml" />
         <StyleInclude Source="avares://SukiUI/Theme/ScrollBarBehaviorStyles.axaml" />
+        <StyleInclude Source="avares://SukiUI/Theme/PopupBehaviorStyles.axaml" />
         <StyleInclude Source="avares://SukiUI/Theme/ButtonLoadingStyles.axaml" />
         <StyleInclude Source="avares://SukiUI/Theme/TabItemGlassStyles.xaml" />
         <StyleInclude Source="avares://SukiUI/Controls/Gauges/HorizontalBarMeter/HorizontalBarMeterStyles.axaml"/>

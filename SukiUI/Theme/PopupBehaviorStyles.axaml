@@ -1,0 +1,27 @@
+<Styles xmlns="https://github.com/avaloniaui">
+    <!--
+        Popups render in their own host (a PopupRoot top-level on desktop), so they are not visual
+        descendants of the content SukiMainHost scales through its LayoutTransformControl. Avalonia
+        only propagates that scale when Popup.InheritsTransform is true, and it defaults to false:
+        Popup.UpdateHostSizing() then assigns `popupHost.Transform = null` and the popup renders at
+        1:1 while the window content around it is scaled.
+
+        ContextMenu, MenuFlyout/Flyout and ToolTip build their Popup in code (ContextMenu.Open,
+        PopupFlyoutBase.CreatePopup, ToolTip) with a private field and no virtual factory, so there
+        is no XAML surface to set the flag on. A style reaches them because those popups are given a
+        logical parent (SetPopupParent), which is what style resolution walks.
+
+        ShouldUseOverlayLayer=False is required, not cosmetic: OverlayLayer resolves to the nearest
+        VisualLayerManager, and SukiMainHost nests PART_VisualLayerManager *inside* its
+        LayoutTransformControl. An overlay-hosted popup is therefore already a descendant of the
+        scale, and handing it a Transform as well would square it.
+
+        Caveat: this does not cover platform-forced overlay hosting (OverlayPopupHost.CreatePopupHost
+        also falls back to the overlay layer when the platform has no popup implementation), so on
+        such targets popups still take the scale twice. Fixing that properly belongs upstream, where
+        Popup can see which host it actually got.
+    -->
+    <Style Selector="Popup[ShouldUseOverlayLayer=False]">
+        <Setter Property="InheritsTransform" Value="True" />
+    </Style>
+</Styles>

@@ -3,9 +3,9 @@
         xmlns:collections="using:Avalonia.Collections"
         xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=netstandard">
     <Design.PreviewWith>
-        <Border Padding="20" Background="White">
-            <DataGrid Height="200"
-                      AutoGenerateColumns="True"
+        <Border Margin="30" Background="White"
+                Width="300" Height="300">
+            <DataGrid AutoGenerateColumns="True"
                       CanUserResizeColumns="True"
                       GridLinesVisibility="All">
                 <DataGrid.ItemsSource>
@@ -321,18 +321,9 @@
             </Template>
         </Setter>
         <Setter Property="Template">
-            <ControlTemplate>
+            <ControlTemplate TargetType="DataGrid">
                 <Border Background="Transparent" BorderThickness="0">
                     <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,*,Auto,Auto">
-                        <Grid.Styles>
-                            <Style Selector="DataGrid /template/ Border > Grid:pointerover ScrollBar#PART_VerticalScrollbar">
-                                <Setter Property="AllowAutoHide" Value="True" />
-                            </Style>
-                            <Style Selector="DataGrid /template/ Border > Grid:pointerover ScrollBar#PART_HorizontalScrollbar">
-                                <Setter Property="AllowAutoHide" Value="True" />
-                            </Style>
-                        </Grid.Styles>
-
                         <DataGridColumnHeader Name="PART_TopLeftCornerHeader"
                                               Grid.Row="0"
                                               Grid.Column="0"
@@ -356,16 +347,26 @@
                                                Grid.Row="1"
                                                Grid.Column="0"
                                                Grid.ColumnSpan="3"
-                                               ClipToBounds="True">
+                                               ClipToBounds="True"
+                                               ScrollViewer.IsScrollInertiaEnabled="{TemplateBinding IsScrollInertiaEnabled}">
                             <DataGridRowsPresenter.GestureRecognizers>
-                                <ScrollGestureRecognizer CanHorizontallyScroll="True" CanVerticallyScroll="True" />
+                                <ScrollGestureRecognizer CanHorizontallyScroll="True"
+                                                         CanVerticallyScroll="True"
+                                                         IsScrollInertiaEnabled="{Binding (ScrollViewer.IsScrollInertiaEnabled), ElementName=PART_RowsPresenter}" />
                             </DataGridRowsPresenter.GestureRecognizers>
                         </DataGridRowsPresenter>
 
+                        <!--
+                            These bars are not inside a ScrollViewer, so ScrollBar.AttachToScrollViewer()
+                            never runs for them and nothing propagates the owner's setting; the binding is
+                            what makes DataGrid's ScrollViewer.AllowAutoHide reach them. Everything else
+                            (expand on hover, collapse after HideDelay) comes from the ScrollBar theme.
+                        -->
                         <ScrollBar Name="PART_VerticalScrollbar"
                                    Grid.Row="1"
                                    Grid.Column="2"
                                    HorizontalAlignment="Right"
+                                   AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
                                    Orientation="Vertical" />
 
                         <Grid Grid.Row="2"
@@ -375,6 +376,7 @@
                             <Rectangle Name="PART_FrozenColumnScrollBarSpacer" />
                             <ScrollBar Name="PART_HorizontalScrollbar"
                                        Grid.Column="1"
+                                       AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
                                        Orientation="Horizontal" />
                         </Grid>
                     </Grid>
