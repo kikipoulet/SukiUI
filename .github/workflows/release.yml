@@ -2,45 +2,171 @@ name: Release
 
 on:
   push:
-    tags: 
+    tags:
       - "*.*.*"
+  workflow_dispatch: # Allow re-running a release manually
+    inputs:
+      tag:
+        description: 'Existing tag to release. Leave empty to use the ref selected above, which must itself be a version tag (a branch fails validation).'
+        type: string
+        required: false
+      dry-run:
+        description: 'Build and pack, but do not push or create a release'
+        type: boolean
+        default: false
+
+concurrency:
+  group: release-${{ inputs.tag || github.ref }}
+  cancel-in-progress: false # Never cancel a run that may already be pushing packages
+
+permissions:
+  contents: write # Needed to create the GitHub release
 
 env:
-  VERSION: ${{ github.ref_name }}
+  DOTNET_VERSION: 10.0.x
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  NUGET_OUTPUT: ${{ github.workspace }}/nupkgs
+  PROJECTS: SukiUI/SukiUI.csproj SukiUI.Dock/SukiUI.Dock.csproj
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    env:
+      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag || github.ref }}
+
+      - name: Resolve version
+        id: version
+        env:
+          VERSION: ${{ inputs.tag || github.ref_name }}
+        run: |
+          set -euo pipefail
+
+          # Reject anything that is not a release tag before building or pushing.
+          # An empty 'tag' input falls back to the dispatched ref, which is a
+          # branch name unless a tag was selected.
+          if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
+            echo "::error::'$VERSION' is not a valid semantic version tag. Dispatch from a tag ref or pass the 'tag' input."
+            exit 1
+          fi
+
+          # A pre-release identifier (1.2.3-rc.1) must not be marked as latest.
+          case "$VERSION" in
+            *-*) PRERELEASE=true ;;
+            *)   PRERELEASE=false ;;
+          esac
+
+          echo "VERSION=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "PRERELEASE=${PRERELEASE}" >> "$GITHUB_OUTPUT"
+          echo "Releasing version: ${VERSION} (prerelease: ${PRERELEASE})"
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 9.0.x
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/Directory.Packages.props', '**/*.csproj') }}
+          restore-keys: ${{ runner.os }}-nuget-
+
+      - name: Restore
+        run: |
+          set -euo pipefail
+          for project in $PROJECTS; do
+            dotnet restore "$project"
+          done
 
       - name: Build
+        env:
+          VERSION: ${{ steps.version.outputs.VERSION }}
         run: |
-          dotnet build -c Release SukiUI/SukiUI.csproj -p:Version=${{ env.VERSION }}
-          dotnet build -c Release SukiUI.Dock/SukiUI.Dock.csproj -p:Version=${{ env.VERSION }}
+          set -euo pipefail
+          for project in $PROJECTS; do
+            dotnet build "$project" -c Release --no-restore \
+              -p:Version="$VERSION" \
+              -p:ContinuousIntegrationBuild=true \
+              -p:GeneratePackageOnBuild=false
+          done
 
       - name: Pack
+        env:
+          VERSION: ${{ steps.version.outputs.VERSION }}
         run: |
-          dotnet pack -c Release -o . SukiUI/SukiUI.csproj -p:Version=${{ env.VERSION }}
-          dotnet pack -c Release -o . SukiUI.Dock/SukiUI.Dock.csproj -p:Version=${{ env.VERSION }}
-          ls
+          set -euo pipefail
+          for project in $PROJECTS; do
+            dotnet pack "$project" -c Release --no-build -o "$NUGET_OUTPUT" \
+              -p:Version="$VERSION" \
+              -p:ContinuousIntegrationBuild=true \
+              --include-symbols -p:SymbolPackageFormat=snupkg
+          done
+          ls -l "$NUGET_OUTPUT"
 
-      - name: Publish NuGet Package
-        run: dotnet nuget push *.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+      - name: Upload packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: packages-${{ steps.version.outputs.VERSION }}
+          path: ${{ env.NUGET_OUTPUT }}/*
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Publish to NuGet.org
+        if: ${{ inputs.dry-run != true && env.NUGET_API_KEY != '' }}
+        run: |
+          set -euo pipefail
+          for package in "$NUGET_OUTPUT"/*.nupkg; do
+            dotnet nuget push "$package" \
+              --api-key "$NUGET_API_KEY" \
+              --source https://api.nuget.org/v3/index.json \
+              --skip-duplicate
+          done
 
       - name: Create GitHub Release
+        if: ${{ inputs.dry-run != true }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: >
-          gh release create ${{ env.VERSION }}
-          --repo ${{ github.event.repository.full_name }}
-          --title ${{ env.VERSION }}
-          --verify-tag
-          --generate-notes
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          VERSION: ${{ steps.version.outputs.VERSION }}
+          PRERELEASE: ${{ steps.version.outputs.PRERELEASE }}
+        run: |
+          set -euo pipefail
+
+          # Re-runs must not fail on an already published release.
+          if gh release view "$VERSION" >/dev/null 2>&1; then
+            echo "Release $VERSION already exists, uploading packages to it"
+            gh release upload "$VERSION" "$NUGET_OUTPUT"/* --clobber
+            exit 0
+          fi
+
+          gh release create "$VERSION" "$NUGET_OUTPUT"/* \
+            --title "$VERSION" \
+            --verify-tag \
+            --generate-notes \
+            --prerelease="$PRERELEASE"
+
+      - name: Summary
+        if: always()
+        env:
+          VERSION: ${{ steps.version.outputs.VERSION }}
+        run: |
+          {
+            echo "### Release \`${VERSION}\`"
+            if [ "${{ inputs.dry-run }}" = "true" ]; then
+              echo "- Dry run: packages built but not pushed, no release created."
+            elif [ -z "$NUGET_API_KEY" ]; then
+              echo "- \`NUGET_API_KEY\` not set: packages built but not pushed to NuGet."
+            else
+              echo "- Pushed to [NuGet.org](https://www.nuget.org/packages/SukiUI)."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
