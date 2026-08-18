@@ -3,7 +3,8 @@
                     xmlns:animations="clr-namespace:SukiUI.Animations"
                     xmlns:controls="clr-namespace:SukiUI.Controls"
                     xmlns:suki="https://github.com/kikipoulet/SukiUI"
-                    xmlns:system="clr-namespace:System;assembly=netstandard">
+                    xmlns:system="clr-namespace:System;assembly=netstandard"
+                    xmlns:theme="clr-namespace:SukiUI.Theme">
     <ControlTheme x:Key="SukiTopLevelMenuItem" TargetType="MenuItem">
         <Setter Property="FontWeight" Value="{DynamicResource DefaultDemiBold}" />
         <Setter Property="Background" Value="Transparent" />
@@ -62,7 +63,8 @@
                                             ClipToBounds="True"
                                             CornerRadius="6">
                                         <Panel Background="{DynamicResource PopupGradientBrush}">
-                                            <ScrollViewer Theme="{StaticResource SukiMenuScrollViewer}">
+                                            <ScrollViewer theme:MenuPopupSizing.ConstrainToScreen="True"
+                                                          Theme="{StaticResource SukiMenuScrollViewer}">
                                                 <ItemsPresenter Name="PART_ItemsPresenter"
                                                                 Grid.IsSharedSizeScope="True"
                                                                 ItemsPanel="{TemplateBinding ItemsPanel}" />

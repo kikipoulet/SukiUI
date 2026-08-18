@@ -1,4 +1,5 @@
-<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:theme="clr-namespace:SukiUI.Theme">
     <ControlTheme x:Key="SukiMenuFlyoutPresenterStyle" TargetType="MenuFlyoutPresenter">
         <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
         <Setter Property="CornerRadius" Value="6" />
@@ -17,7 +18,8 @@
                             ClipToBounds="True"
                             CornerRadius="{TemplateBinding CornerRadius}">
                         <Panel Background="{DynamicResource PopupGradientBrush}">
-                            <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                            <ScrollViewer theme:MenuPopupSizing.ConstrainToScreen="True"
+                                          HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
                                           Theme="{StaticResource SukiMenuScrollViewer}"
                                           VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
                                 <ItemsPresenter Name="PART_ItemsPresenter"
