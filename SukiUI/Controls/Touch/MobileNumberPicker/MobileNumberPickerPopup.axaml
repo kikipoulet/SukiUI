@@ -4,12 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SukiUI.Controls.Touch.MobileNumberPicker.MobileNumberPickerPopup">
-    <Border ClipToBounds="True" Padding="10" CornerRadius="45" Background="{DynamicResource DialogBackground}">
+    <Border ClipToBounds="True" Padding="10" CornerRadius="45" Background="{DynamicResource SukiCardBackground}">
     <Border Height="460" Width="750">
         <Grid>
 
             <Grid
-                Background="{DynamicResource DialogBackground}"
+                Background="{DynamicResource SukiControlTouchBackground}"
                 Height="200"
                 HorizontalAlignment="Center"
                 Margin="20,40,20,20"
@@ -19,7 +19,7 @@
                 PointerCaptureLost="OnPointerCaptureLost"
                 VerticalAlignment="Top"
                 Width="300">
-                <StackPanel Margin="0,0,0,000" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
 
                     <TextBlock
                         FontSize="30"
@@ -57,7 +57,7 @@
                         Text="2"
                         VerticalAlignment="Center" />
                 </StackPanel>
-                <Border Height="1" Background="{DynamicResource SukiControlBorderBrush}" Margin="00,164,0,0" Width="150" />
+                <Border Height="1" Background="{DynamicResource SukiControlBorderBrush}" Margin="0,164,0,0" Width="150" />
                 <Border Height="1" Background="{DynamicResource SukiControlBorderBrush}" Width="150" />
             </Grid>
 
@@ -68,14 +68,14 @@
                                           Width="70"  Foreground="{DynamicResource Accent}" Opacity="0.7"
                                           Height="70" />
             </Button>
-            
+
             <Button Click="minus" Margin="0,0,0,90" HorizontalAlignment="Left" Classes="Enormous Transparent" VerticalAlignment="Center">
                 <iconPacks:PackIconLucide  HorizontalAlignment="Center" VerticalAlignment="Center" Kind="{x:Static iconPacks:PackIconLucideKind.Minus}"
                                            Width="70" Margin="0,50"  Foreground="{DynamicResource Accent}" Opacity="0.7"
                                            Height="70" />
             </Button>
 -->
-       
+
         </Grid>
     </Border>
     </Border>

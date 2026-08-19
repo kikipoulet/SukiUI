@@ -2,18 +2,18 @@
     <ControlTheme x:Key="SukiFlyoutPresenterStyle" TargetType="FlyoutPresenter">
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
-        <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderMidBrush}" />
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="Padding" Value="4" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="0" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
-        <Setter Property="TextElement.Foreground" Value="{DynamicResource SukiText}"/>
-        <Setter Property="Cursor" Value="Arrow"/>
-   <!--     <Setter Property="FlowDirection" Value="{TemplateBinding FlowDirection}"/> -->
+        <Setter Property="TextElement.Foreground" Value="{DynamicResource SukiText}" />
+        <Setter Property="Cursor" Value="Arrow" />
+        <!--     <Setter Property="FlowDirection" Value="{TemplateBinding FlowDirection}"/> -->
         <Setter Property="Template">
             <ControlTemplate>
-                <Border Name="LayoutRoot" 
+                <Border Name="LayoutRoot"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
@@ -23,7 +23,9 @@
                             <DoubleTransition Property="Opacity" Duration="0:0:0.3" />
                         </Transitions>
                     </Border.Transitions>
-                    <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                    <ScrollViewer
+                        HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                        VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
                         <ContentPresenter Name="PART_ContentPresenter"
                                           Margin="{TemplateBinding Padding}"
                                           HorizontalAlignment="Stretch"

@@ -72,4 +72,26 @@
     <Color x:Key="SukiNeedleBrush">#999999</Color>
     <Color x:Key="GaugeBackgroundBrush" >#aaffffff</Color>
 
+    <!--  SimpleTheme palette. Consumed by the Avalonia control themes SukiUI does not
+          re-template, and by SukiUI's DatePicker, TimePicker, Slider, SplitView and
+          CalendarDatePicker themes via the Theme*Brush resources in Theme/ColorsStyles.xaml.  -->
+    <Color x:Key="MediumGray">#F4F4F4</Color>
+    <Color x:Key="BackgroundGray">#fafafa</Color>
+    <Color x:Key="BorderGray">#ebebeb</Color>
+    <Color x:Key="ThemeCardColor">#FFFFFF</Color>
+    <Color x:Key="ThemeBackgroundColor">#FFECECEC</Color>
+    <Color x:Key="ThemeBorderLowColor">#FFF3F3F3</Color>
+    <Color x:Key="ThemeBorderMidColor">#FFECECEC</Color>
+    <Color x:Key="ThemeBorderHighColor">#FFAAAAAA</Color>
+    <Color x:Key="ThemeControlLowColor">#FF868999</Color>
+    <Color x:Key="ThemeControlMidColor">#FFF5F5F5</Color>
+    <Color x:Key="ThemeControlMidHighColor">#FFC2C3C9</Color>
+    <Color x:Key="ThemeControlHighColor">#FF686868</Color>
+    <Color x:Key="ThemeControlVeryHighColor">#FF5B5B5B</Color>
+    <Color x:Key="ThemeControlHighlightLowColor">#FFF0F0F0</Color>
+    <Color x:Key="ThemeControlHighlightMidColor">#FFD0D0D0</Color>
+    <Color x:Key="ThemeControlHighlightHighColor">#FF808080</Color>
+    <Color x:Key="ThemeForegroundColor">#FF000000</Color>
+    <Color x:Key="ThemeForegroundLowColor">#FF808080</Color>
+
 </ResourceDictionary>
