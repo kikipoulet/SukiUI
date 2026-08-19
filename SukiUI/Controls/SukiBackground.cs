@@ -127,6 +127,7 @@ namespace SukiUI.Controls
         protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
         {
             UnsubscribeFromThemeChanges();
+            _customVisual?.SendHandlerMessage(EffectDrawBase.DisposeHandler);
             ElementComposition.SetElementChildVisual(this, null);
             _customVisual = null;
             base.OnDetachedFromVisualTree(e);

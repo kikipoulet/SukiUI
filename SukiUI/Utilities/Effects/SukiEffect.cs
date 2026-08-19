@@ -32,6 +32,7 @@ namespace SukiUI.Utilities.Effects
         };
 
         private static readonly List<SukiEffect> LoadedEffects = new();
+        private static readonly Dictionary<string, SukiEffect> EffectCache = new(StringComparer.Ordinal);
         private static readonly object LifecycleLock = new();
         private static IControlledApplicationLifetime? _applicationLifetime;
 
@@ -49,7 +50,8 @@ namespace SukiUI.Utilities.Effects
             _rawShaderString = rawShaderString;
             var compiledEffect = SKRuntimeEffect.CreateShader(_shaderString, out var errors);
             Effect = compiledEffect ?? throw new ShaderCompilationException(errors);
-            LoadedEffects.Add(this);
+            lock (LifecycleLock)
+                LoadedEffects.Add(this);
         }
 
         static SukiEffect()
@@ -114,12 +116,20 @@ namespace SukiUI.Utilities.Effects
         public static SukiEffect FromString(string shaderString)
         {
             EnsureExitSubscription();
-            var sb = new StringBuilder();
-            foreach (var uniform in Uniforms)
-                sb.AppendLine(uniform);
-            sb.Append(shaderString);
-            var withUniforms = sb.ToString();
-            return new SukiEffect(withUniforms, shaderString);
+
+            lock (LifecycleLock)
+            {
+                if (EffectCache.TryGetValue(shaderString, out var cached))
+                    return cached;
+
+                var sb = new StringBuilder();
+                foreach (var uniform in Uniforms)
+                    sb.AppendLine(uniform);
+                sb.Append(shaderString);
+                var effect = new SukiEffect(sb.ToString(), shaderString);
+                EffectCache.Add(shaderString, effect);
+                return effect;
+            }
         }
 
         private static void EnsureExitSubscription()
@@ -145,12 +155,16 @@ namespace SukiUI.Utilities.Effects
         /// </summary>
         internal static void EnsureDisposed()
         {
-            if (_disposed)
-                return;
-            _disposed = true;
-            foreach (var loaded in LoadedEffects)
-                loaded.Effect.Dispose();
-            LoadedEffects.Clear();
+            lock (LifecycleLock)
+            {
+                if (_disposed)
+                    return;
+                _disposed = true;
+                foreach (var loaded in LoadedEffects)
+                    loaded.Effect.Dispose();
+                LoadedEffects.Clear();
+                EffectCache.Clear();
+            }
         }
 
         public override bool Equals(object? obj)
@@ -204,7 +218,7 @@ namespace SukiUI.Utilities.Effects
             float animationScale, float alpha = 1f)
         {
             var uniforms = uniformFactory(Effect);
-            uniforms.Add("iResolution", new[] { (float)bounds.Width, (float)bounds.Height, 0f });
+            uniforms.Add("iResolution", new SKPoint3((float)bounds.Width, (float)bounds.Height, 0f));
             uniforms.Add("iTime", timeSeconds * animationScale);
             uniforms.Add("iAlpha", alpha);
             return Effect.ToShader(uniforms);

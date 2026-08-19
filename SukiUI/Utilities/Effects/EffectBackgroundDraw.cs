@@ -19,6 +19,11 @@ namespace SukiUI.Utilities.Effects
         private SukiEffect? _oldEffect;
         private float _transitionStartTime;
         private float _transitionEndTime;
+        private readonly SKPaint _effectPaint = new();
+        private readonly SKPaint _oldEffectPaint = new()
+        {
+            BlendMode = SKBlendMode.Darken
+        };
 
         public EffectBackgroundDraw() : base(false)
         {
@@ -46,30 +51,33 @@ namespace SukiUI.Utilities.Effects
         {
             if (Effect is not null)
             {
-                using var paint = new SKPaint();
-                using var shader = EffectWithUniforms();
-                paint.Shader = shader;
-                canvas.DrawRect(rect, paint);
+                var shader = EffectWithUniforms();
+                _effectPaint.Shader = shader;
+                canvas.DrawRect(rect, _effectPaint);
             }
             if (_oldEffect is not null)
             {
-                using var paint = new SKPaint();
                 // TODO: Investigate how to blend the shaders better - currently the only problem with this system.
                 // Blend modes effect the transition quite heavily, only these 3 seem to work in any reasonable way.
                 // paint.BlendMode = SKBlendMode.ColorBurn; // - Okay
                 // paint.BlendMode = SKBlendMode.Overlay; // - Not Great
-                paint.BlendMode = SKBlendMode.Darken; // - Best
                 var lerped = InverseLerp(_transitionStartTime, _transitionEndTime, TransitionSeconds);
-                using var shader = EffectWithUniforms(_oldEffect, (float)(1 - lerped));
-                paint.Shader = shader;
+                var shader = EffectWithUniforms(_oldEffect, (float)(1 - lerped));
+                _oldEffectPaint.Shader = shader;
                 if (lerped < 1)
                 {
-                    canvas.DrawRect(rect, paint);
+                    canvas.DrawRect(rect, _oldEffectPaint);
                     if(!AnimationEnabled) Invalidate();
                 }
                 else
+                {
+                    InvalidateShaderCache(_oldEffect);
                     _oldEffect = null;
+                }
             }
+
+            _effectPaint.Shader = null;
+            _oldEffectPaint.Shader = null;
         }
 
         protected override void RenderSoftware(SKCanvas canvas, SKRect rect)
@@ -81,6 +89,14 @@ namespace SukiUI.Utilities.Effects
         }
 
         private static double InverseLerp(double start, double end, double value) =>
-            Math.Max(0, Math.Min(1, (value - start) / (end - start)));
+            end <= start ? 1 : Math.Max(0, Math.Min(1, (value - start) / (end - start)));
+
+        public override void Dispose()
+        {
+            _oldEffect = null;
+            _effectPaint.Dispose();
+            _oldEffectPaint.Dispose();
+            base.Dispose();
+        }
     }
 }
