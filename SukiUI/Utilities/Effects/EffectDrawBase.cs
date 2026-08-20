@@ -19,7 +19,7 @@ namespace SukiUI.Utilities.Effects
             EnableForceSoftwareRendering = new(), DisableForceSoftwareRendering = new(),
             DisposeHandler = new();
 
-        private const int AnimatedShaderFramesPerSecond = 30;
+        private const int DefaultAnimatedShaderFramesPerSecond = 30;
 
         public readonly record struct BaseThemeChangedMessage(ThemeVariant Variant);
 
@@ -27,7 +27,24 @@ namespace SukiUI.Utilities.Effects
         
         private SukiEffect? _effect;
         private readonly Dictionary<ShaderCacheKey, SKShader> _shaderCache = new();
-        private long _lastAnimatedShaderFrame = long.MinValue;
+        private int _animatedShaderFramesPerSecond = DefaultAnimatedShaderFramesPerSecond;
+
+        /// <summary>
+        /// How often animated shader uniforms are regenerated. Shaders are cached per time bucket, so a
+        /// lower rate compiles less and a higher rate animates more smoothly; at the default of 30 motion
+        /// steps in ~33ms increments regardless of display refresh rate. Clamped to at least 1.
+        /// </summary>
+        protected int AnimatedShaderFramesPerSecond
+        {
+            get => _animatedShaderFramesPerSecond;
+            set
+            {
+                var clamped = Math.Max(1, value);
+                if (_animatedShaderFramesPerSecond == clamped) return;
+                _animatedShaderFramesPerSecond = clamped;
+                InvalidateShaderCache();
+            }
+        }
 
         public SukiEffect? Effect
         {
@@ -80,6 +97,10 @@ namespace SukiUI.Utilities.Effects
 
         public override void OnRender(ImmediateDrawingContext context)
         {
+            // DisposeHandler frees the derived SKPaint and every cached shader, but it arrives as a
+            // separate compositor commit from the visual removal, so a render can still be scheduled
+            // after it.
+            if (_isDisposed) return;
             var leaseFeature = context.TryGetFeature<ISkiaSharpApiLeaseFeature>();
             if (leaseFeature is null) throw new InvalidOperationException("Unable to lease Skia API");
             using var lease = leaseFeature.Lease();
@@ -172,7 +193,7 @@ namespace SukiUI.Utilities.Effects
             var key = CreateShaderCacheKey(effect, bounds, alpha, timeBucket, false);
             if (TryGetCachedShader(key, out var cached))
                 return cached;
-            PrepareAnimatedCache(timeBucket);
+            PruneShaderCache(timeBucket, (float)bounds.Width, (float)bounds.Height);
             return AddCachedShader(key,
                 effect.ToShaderWithUniforms(shaderTime, ActiveVariant, bounds, AnimationSpeedScale, alpha));
         }
@@ -196,7 +217,7 @@ namespace SukiUI.Utilities.Effects
             var key = CreateShaderCacheKey(effect, bounds, alpha, timeBucket, true);
             if (TryGetCachedShader(key, out var cached))
                 return cached;
-            PrepareAnimatedCache(timeBucket);
+            PruneShaderCache(timeBucket, (float)bounds.Width, (float)bounds.Height);
             return AddCachedShader(key,
                 effect.ToShaderWithCustomUniforms(uniformFactory, shaderTime, bounds, AnimationSpeedScale, alpha));
         }
@@ -210,11 +231,15 @@ namespace SukiUI.Utilities.Effects
             foreach (var shader in _shaderCache.Values)
                 shader.Dispose();
             _shaderCache.Clear();
-            _lastAnimatedShaderFrame = long.MinValue;
         }
 
         protected void InvalidateShaderCache(SukiEffect effect)
         {
+            // SukiEffect equality is by shader source and FromString hands out shared instances, so the
+            // outgoing effect can be the very same object as the live one. Dropping its entries would
+            // discard shaders the current effect is still hitting.
+            if (Equals(_effect, effect)) return;
+
             var matchingKeys = new List<ShaderCacheKey>();
             foreach (var pair in _shaderCache)
             {
@@ -259,30 +284,30 @@ namespace SukiUI.Utilities.Effects
         private bool TryGetCachedShader(ShaderCacheKey key, out SKShader shader) =>
             _shaderCache.TryGetValue(key, out shader!);
 
-        private SKShader AddCachedShader(ShaderCacheKey key, SKShader shader)
+        private SKShader? AddCachedShader(ShaderCacheKey key, SKShader? shader)
         {
+            // ToShader returns null when the uniforms do not satisfy the compiled effect. Caching that
+            // would read back as a hit forever, and would throw on Dispose during invalidation.
+            if (shader is null) return null;
             _shaderCache.Add(key, shader);
             return shader;
         }
 
-        private void PrepareAnimatedCache(long timeBucket)
-        {
-            if (AnimationEnabled && _lastAnimatedShaderFrame != timeBucket)
-            {
-                RemoveStaleAnimatedShaders(timeBucket);
-                _lastAnimatedShaderFrame = timeBucket;
-            }
-        }
-
-        private void RemoveStaleAnimatedShaders(long currentTimeBucket)
+        private void PruneShaderCache(long currentTimeBucket, float width, float height)
         {
             if (_shaderCache.Count == 0) return;
 
             var staleKeys = new List<ShaderCacheKey>();
             foreach (var pair in _shaderCache)
             {
-                if (pair.Key.Animated && pair.Key.TimeBucket != currentTimeBucket)
-                    staleKeys.Add(pair.Key);
+                var key = pair.Key;
+                // Entries for a size we no longer render can never be hit again. Without this, a handler
+                // with AnimationEnabled == false (the SukiBackground default) retains one compiled shader
+                // for every intermediate size a window passes through while being resized.
+                var staleSize = key.Width != width || key.Height != height;
+                var staleFrame = key.Animated && key.TimeBucket != currentTimeBucket;
+                if (staleSize || staleFrame)
+                    staleKeys.Add(key);
             }
 
             foreach (var key in staleKeys)

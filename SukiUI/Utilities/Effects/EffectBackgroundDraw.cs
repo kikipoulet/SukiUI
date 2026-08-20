@@ -62,10 +62,11 @@ namespace SukiUI.Utilities.Effects
                 // paint.BlendMode = SKBlendMode.ColorBurn; // - Okay
                 // paint.BlendMode = SKBlendMode.Overlay; // - Not Great
                 var lerped = InverseLerp(_transitionStartTime, _transitionEndTime, TransitionSeconds);
-                var shader = EffectWithUniforms(_oldEffect, (float)(1 - lerped));
-                _oldEffectPaint.Shader = shader;
                 if (lerped < 1)
                 {
+                    // Built inside the branch: on the frame that ends the transition the shader would be
+                    // compiled, cached under a fresh alpha key, then dropped again without ever drawing.
+                    _oldEffectPaint.Shader = EffectWithUniforms(_oldEffect, (float)(1 - lerped));
                     canvas.DrawRect(rect, _oldEffectPaint);
                     if(!AnimationEnabled) Invalidate();
                 }
