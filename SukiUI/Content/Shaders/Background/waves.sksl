@@ -2,6 +2,11 @@ const int POINTS = 5; // Point rows are determined like N / 10, from bottom to u
 const float WAVE_OFFSET = 5000.0;
 const float SPEED = 0.05;
 
+float sukiMod(float x, float y) {
+    return x - y * floor(x / y);
+}
+
+
 vec3 blendOverlay(vec3 base, vec3 blend) {
     return vec3(
         base.r < 0.5 ? (2.0 * base.r * blend.r) : (1.0 - 2.0 * (1.0 - base.r) * (1.0 - blend.r)),
@@ -19,7 +24,7 @@ void voronoi(vec2 uv, inout vec3 col)
     for (int i = 0; i < POINTS; i++)
     {
         float fi = float(i);
-        vec2 p = vec2(mod(fi, 1.0) * 0.1 + sin(fi),
+        vec2 p = vec2(sukiMod(fi, 1.0) * 0.1 + sin(fi),
                       -0.05 + 0.15 * float(i / 10) + cos(fi + time * cos(uv.x * 0.025)));
         float d = distance(uv, p);
         if (d < bestDistance)

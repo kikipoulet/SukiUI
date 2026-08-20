@@ -151,12 +151,16 @@ namespace SukiUI.Animations
                 };
 
                 control.RenderTransform = transformGroup;
+
+                control.PointerPressed += OnPointerPressed;
+                control.PointerMoved += OnPointerMoved;
+                control.PointerReleased += OnPointerReleased;
             }
             else
             {
-                control.RemoveHandler(InputElement.PointerPressedEvent, OnPointerPressed);
-                control.RemoveHandler(InputElement.PointerMovedEvent, OnPointerMoved);
-                control.RemoveHandler(InputElement.PointerReleasedEvent, OnPointerReleased);
+                control.PointerPressed -= OnPointerPressed;
+                control.PointerMoved -= OnPointerMoved;
+                control.PointerReleased -= OnPointerReleased;
             }
         }
         

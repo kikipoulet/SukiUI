@@ -5,7 +5,6 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Microsoft.Extensions.DependencyInjection;
 using SukiUI.Controls;
-using SukiUI.Demo.Controls;
 using SukiUI.Demo.Common;
 using SukiUI.Demo.Features.ControlsLibrary;
 using SukiUI.Demo.Features.ControlsLibrary.Colors;
@@ -37,7 +36,6 @@ public class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
-        _ = Task.Run(CodeEditor.WarmupRegistryOptions);
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {

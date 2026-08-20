@@ -57,7 +57,7 @@ public sealed class DemoInteractionPerformanceTests(Xunit.Abstractions.ITestOutp
     }
 
     [Fact]
-    public async Task Side_menu_releases_previous_page_during_navigation()
+    public async Task Side_menu_keeps_previous_page_during_transition()
     {
         await using var session = HeadlessUnitTestSession.StartNew(typeof(App));
         await session.Dispatch(() =>
@@ -81,7 +81,7 @@ public sealed class DemoInteractionPerformanceTests(Xunit.Abstractions.ITestOutp
                     .Where(content => ReferenceEquals(content, firstPage) || ReferenceEquals(content, secondPage))
                     .ToArray();
 
-                Assert.DoesNotContain(firstPage, presentedPages);
+                Assert.Contains(firstPage, presentedPages);
                 Assert.Contains(secondPage, presentedPages);
             }
             finally

@@ -65,12 +65,9 @@ namespace SukiUI.Utilities.Effects
                 var lerped = InverseLerp(_transitionStartTime, _transitionEndTime, TransitionSeconds);
                 if (lerped < 1)
                 {
-                    // Transition opacity belongs to paint state. Keeping the old effect at a fixed alpha
-                    // reuses its cached shader and avoids allocating a runtime shader for every transition frame.
-                    var oldShader = EffectWithUniforms(_oldEffect);
+                    var oldShader = EffectWithUniforms(_oldEffect, (float)(1 - lerped));
                     if (oldShader is not null)
                     {
-                        _oldEffectPaint.ColorF = new SKColorF(1f, 1f, 1f, 1f - (float)lerped);
                         _oldEffectPaint.Shader = oldShader;
                         canvas.DrawRect(rect, _oldEffectPaint);
                         _oldEffectPaint.Shader = null;

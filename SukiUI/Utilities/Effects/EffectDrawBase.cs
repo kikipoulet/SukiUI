@@ -19,34 +19,12 @@ namespace SukiUI.Utilities.Effects
             EnableForceSoftwareRendering = new(), DisableForceSoftwareRendering = new(),
             DisposeHandler = new();
 
-        private const int DefaultAnimatedShaderFramesPerSecond = 30;
-
         public readonly record struct BaseThemeChangedMessage(ThemeVariant Variant);
 
         public readonly record struct ColorThemeChangedMessage(SukiColorTheme Theme);
         
         private SukiEffect? _effect;
         private readonly Dictionary<ShaderCacheKey, SKShader> _shaderCache = new();
-        private int _animatedShaderFramesPerSecond = DefaultAnimatedShaderFramesPerSecond;
-        private long _lastInvalidatedTimeBucket = long.MinValue;
-
-        /// <summary>
-        /// How often animated shader uniforms are regenerated. Shaders are cached per time bucket, so a
-        /// lower rate compiles less and a higher rate animates more smoothly; at the default of 30 motion
-        /// steps in ~33ms increments regardless of display refresh rate. Clamped to at least 1.
-        /// </summary>
-        protected int AnimatedShaderFramesPerSecond
-        {
-            get => _animatedShaderFramesPerSecond;
-            set
-            {
-                var clamped = Math.Max(1, value);
-                if (_animatedShaderFramesPerSecond == clamped) return;
-                _animatedShaderFramesPerSecond = clamped;
-                _lastInvalidatedTimeBucket = long.MinValue;
-                InvalidateShaderCache();
-            }
-        }
 
         public SukiEffect? Effect
         {
@@ -71,7 +49,6 @@ namespace SukiUI.Utilities.Effects
                 if (value) _animationTick.Start();
                 else _animationTick.Stop();
                 _animationEnabled = value;
-                _lastInvalidatedTimeBucket = long.MinValue;
                 InvalidateShaderCache();
             }
         }
@@ -160,20 +137,10 @@ namespace SukiUI.Utilities.Effects
         public override void OnAnimationFrameUpdate()
         {
             if (!AnimationEnabled) return;
-
-            // Shader time is quantized to the configured rate. Invalidating at the display rate would
-            // redraw an identical shader between buckets, so only schedule a render when its uniforms
-            // advance. We still request every compositor callback to observe the next bucket promptly.
-            var (timeBucket, _) = GetShaderTime();
-            if (_lastInvalidatedTimeBucket != timeBucket)
-            {
-                _lastInvalidatedTimeBucket = timeBucket;
-                if (_invalidateRect)
-                    Invalidate(GetRenderBounds());
-                else
-                    Invalidate();
-            }
-
+            if(_invalidateRect)
+                Invalidate(GetRenderBounds());
+            else
+                Invalidate();
             RegisterForNextAnimationFrameUpdate();
         }
 
@@ -202,13 +169,15 @@ namespace SukiUI.Utilities.Effects
         protected SKShader? EffectWithUniforms(SukiEffect? effect, Rect bounds, float alpha = 1f)
         {
             if (effect is null) return null;
-            var (timeBucket, shaderTime) = GetShaderTime();
-            var key = CreateShaderCacheKey(effect, bounds, alpha, timeBucket, false);
+            if (AnimationEnabled)
+                return effect.ToShaderWithUniforms(AnimationSeconds, ActiveVariant, bounds, AnimationSpeedScale, alpha);
+
+            var key = CreateShaderCacheKey(effect, bounds, alpha);
             if (TryGetCachedShader(key, out var cached))
                 return cached;
-            PruneShaderCache(timeBucket, (float)bounds.Width, (float)bounds.Height);
+            PruneShaderCache((float)bounds.Width, (float)bounds.Height);
             return AddCachedShader(key,
-                effect.ToShaderWithUniforms(shaderTime, ActiveVariant, bounds, AnimationSpeedScale, alpha));
+                effect.ToShaderWithUniforms(AnimationSeconds, ActiveVariant, bounds, AnimationSpeedScale, alpha));
         }
 
         protected SKShader? EffectWithCustomUniforms(Func<SKRuntimeEffect,SKRuntimeEffectUniforms> uniformFactory, float alpha = 1f) =>
@@ -225,14 +194,7 @@ namespace SukiUI.Utilities.Effects
         protected SKShader? EffectWithCustomUniforms(SukiEffect? effect,
             Func<SKRuntimeEffect, SKRuntimeEffectUniforms> uniformFactory, Rect bounds, float alpha = 1f)
         {
-            if (effect is null) return null;
-            var (timeBucket, shaderTime) = GetShaderTime();
-            var key = CreateShaderCacheKey(effect, bounds, alpha, timeBucket, true);
-            if (TryGetCachedShader(key, out var cached))
-                return cached;
-            PruneShaderCache(timeBucket, (float)bounds.Width, (float)bounds.Height);
-            return AddCachedShader(key,
-                effect.ToShaderWithCustomUniforms(uniformFactory, shaderTime, bounds, AnimationSpeedScale, alpha));
+            return effect?.ToShaderWithCustomUniforms(uniformFactory, AnimationSeconds, bounds, AnimationSpeedScale, alpha);
         }
 
         /// <summary>
@@ -281,18 +243,8 @@ namespace SukiUI.Utilities.Effects
             InvalidateShaderCache();
         }
 
-        private (long TimeBucket, float ShaderTime) GetShaderTime()
-        {
-            if (!AnimationEnabled)
-                return (0, AnimationSeconds);
-
-            var timeBucket = (long)Math.Floor(AnimationSeconds * AnimatedShaderFramesPerSecond);
-            return (timeBucket, timeBucket / (float)AnimatedShaderFramesPerSecond);
-        }
-
-        private ShaderCacheKey CreateShaderCacheKey(SukiEffect effect, Rect bounds, float alpha, long timeBucket,
-            bool customUniforms) => new(effect, (float)bounds.Width, (float)bounds.Height, alpha,
-            AnimationEnabled, timeBucket, customUniforms);
+        private ShaderCacheKey CreateShaderCacheKey(SukiEffect effect, Rect bounds, float alpha) =>
+            new(effect, (float)bounds.Width, (float)bounds.Height, alpha);
 
         private bool TryGetCachedShader(ShaderCacheKey key, out SKShader shader) =>
             _shaderCache.TryGetValue(key, out shader!);
@@ -306,7 +258,7 @@ namespace SukiUI.Utilities.Effects
             return shader;
         }
 
-        private void PruneShaderCache(long currentTimeBucket, float width, float height)
+        private void PruneShaderCache(float width, float height)
         {
             if (_shaderCache.Count == 0) return;
 
@@ -318,8 +270,7 @@ namespace SukiUI.Utilities.Effects
                 // with AnimationEnabled == false (the SukiBackground default) retains one compiled shader
                 // for every intermediate size a window passes through while being resized.
                 var staleSize = key.Width != width || key.Height != height;
-                var staleFrame = key.Animated && key.TimeBucket != currentTimeBucket;
-                if (staleSize || staleFrame)
+                if (staleSize)
                     staleKeys.Add(key);
             }
 
@@ -330,8 +281,7 @@ namespace SukiUI.Utilities.Effects
             }
         }
 
-        private readonly record struct ShaderCacheKey(SukiEffect Effect, float Width, float Height, float Alpha,
-            bool Animated, long TimeBucket, bool CustomUniforms);
+        private readonly record struct ShaderCacheKey(SukiEffect Effect, float Width, float Height, float Alpha);
 
         private void InvalidateTheme()
         {

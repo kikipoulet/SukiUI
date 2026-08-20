@@ -134,8 +134,7 @@
                             Background="{DynamicResource SukiBackground}"
                             BorderBrush="{DynamicResource SukiBorderBrush}"
                             BorderThickness="0,0,0,0" IsVisible="{TemplateBinding IsContentVisible}">
-                        <suki:SukiTransitioningContentControl Name="PART_TransitioningContentControl"
-                                                              KeepPreviousContentDuringTransition="False" />
+                        <suki:SukiTransitioningContentControl Name="PART_TransitioningContentControl" />
                     </Border>
                 </SplitView>
             </ControlTemplate>

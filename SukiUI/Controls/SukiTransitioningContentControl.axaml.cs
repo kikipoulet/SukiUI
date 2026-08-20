@@ -43,23 +43,6 @@ namespace SukiUI.Controls
             set => SetValue(ContentProperty, value);
         }
 
-        /// <summary>
-        /// Gets or sets whether the previous content remains composed while the next content fades in.
-        /// </summary>
-        public static readonly StyledProperty<bool> KeepPreviousContentDuringTransitionProperty =
-            AvaloniaProperty.Register<SukiTransitioningContentControl, bool>(
-                nameof(KeepPreviousContentDuringTransition), defaultValue: true);
-
-        /// <summary>
-        /// When <see langword="false"/>, releases the previous content before animating the next content.
-        /// This avoids rendering two expensive visual trees during navigation.
-        /// </summary>
-        public bool KeepPreviousContentDuringTransition
-        {
-            get => GetValue(KeepPreviousContentDuringTransitionProperty);
-            set => SetValue(KeepPreviousContentDuringTransitionProperty, value);
-        }
-
         private bool _isFirstBufferActive;
 
         private ContentPresenter? _firstBuffer = null;
@@ -188,46 +171,28 @@ namespace SukiUI.Controls
                 FirstBuffer = content;
             _isFirstBufferActive = !_isFirstBufferActive;
 
-            if (!KeepPreviousContentDuringTransition)
-            {
-                if (fromIsFirstBuffer)
-                    FirstBuffer = null;
-                else
-                    SecondBuffer = null;
-            }
-
             from.IsHitTestVisible = false;
             to.IsHitTestVisible = false;
-            _ = RunTransitionAsync(from, to, fromIsFirstBuffer, KeepPreviousContentDuringTransition, cancellation);
+            _ = RunTransitionAsync(from, to, fromIsFirstBuffer, cancellation);
         }
 
         private async Task RunTransitionAsync(ContentPresenter from, ContentPresenter to, bool fromIsFirstBuffer,
-            bool keepPreviousContent, CancellationTokenSource cancellation)
+            CancellationTokenSource cancellation)
         {
             // Snapshot the token as a value struct before any await so that accessing it
             // after the CancellationTokenSource has been disposed (in CancelAnimation) is safe.
             var token = cancellation.Token;
             try
             {
-                if (keepPreviousContent)
-                {
-                    await Task.WhenAll(
-                        FadeOut.RunAsync(from, token),
-                        FadeIn.RunAsync(to, token));
-                }
-                else
-                {
-                    await FadeIn.RunAsync(to, token);
-                }
+                await Task.WhenAll(
+                    FadeOut.RunAsync(from, token),
+                    FadeIn.RunAsync(to, token));
                 token.ThrowIfCancellationRequested();
 
-                if (keepPreviousContent)
-                {
-                    if (fromIsFirstBuffer)
-                        FirstBuffer = null;
-                    else
-                        SecondBuffer = null;
-                }
+                if (fromIsFirstBuffer)
+                    FirstBuffer = null;
+                else
+                    SecondBuffer = null;
                 to.IsHitTestVisible = true;
             }
             catch (OperationCanceledException)
