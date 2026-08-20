@@ -1,4 +1,4 @@
-<Styles xmlns="https://github.com/avaloniaui"
+﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:collections="using:Avalonia.Collections"
         xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=netstandard">
@@ -357,6 +357,13 @@
                         </DataGridRowsPresenter>
 
                         <!--
+                            Width/Height are required, not cosmetic: DataGrid.ComputeScrollBarVisibility
+                            reads ScrollBar.Width and ScrollBar.Height directly, and an unset value is NaN,
+                            which makes every MathUtilities comparison false and suppresses both bars
+                            permanently. Fluent avoids it by spanning the presenters so the bars overlay the
+                            cells (IsVerticalScrollBarOverCells); SukiUI reserves a gutter instead, so it has
+                            to supply the number.
+
                             These bars are not inside a ScrollViewer, so ScrollBar.AttachToScrollViewer()
                             never runs for them and nothing propagates the owner's setting; the binding is
                             what makes DataGrid's ScrollViewer.AllowAutoHide reach them. Everything else
@@ -365,6 +372,7 @@
                         <ScrollBar Name="PART_VerticalScrollbar"
                                    Grid.Row="1"
                                    Grid.Column="2"
+                                   Width="{DynamicResource ScrollBarThickness}"
                                    HorizontalAlignment="Right"
                                    AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
                                    Orientation="Vertical" />
@@ -376,6 +384,7 @@
                             <Rectangle Name="PART_FrozenColumnScrollBarSpacer" />
                             <ScrollBar Name="PART_HorizontalScrollbar"
                                        Grid.Column="1"
+                                       Height="{DynamicResource ScrollBarThickness}"
                                        AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
                                        Orientation="Horizontal" />
                         </Grid>
