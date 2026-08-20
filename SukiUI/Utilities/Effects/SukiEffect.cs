@@ -38,6 +38,7 @@ namespace SukiUI.Utilities.Effects
 
         private readonly string _rawShaderString;
         private readonly string _shaderString;
+        private readonly int _hashCode;
 
         /// <summary>
         /// The compiled <see cref="SKRuntimeEffect"/> that will actually be used in draw calls. 
@@ -48,6 +49,7 @@ namespace SukiUI.Utilities.Effects
         {
             _shaderString = shaderString;
             _rawShaderString = rawShaderString;
+            _hashCode = StringComparer.Ordinal.GetHashCode(_shaderString);
             var compiledEffect = SKRuntimeEffect.CreateShader(_shaderString, out var errors);
             Effect = compiledEffect ?? throw new ShaderCompilationException(errors);
             lock (LifecycleLock)
@@ -173,7 +175,7 @@ namespace SukiUI.Utilities.Effects
             return effect._shaderString == _shaderString;
         }
 
-        public override int GetHashCode() => StringComparer.Ordinal.GetHashCode(_shaderString);
+        public override int GetHashCode() => _hashCode;
 
         private static readonly float[] White = { 0.95f, 0.95f, 0.95f };
         private readonly float[] _backgroundAlloc = new float[3];
