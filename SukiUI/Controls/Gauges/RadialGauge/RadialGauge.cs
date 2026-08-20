@@ -122,6 +122,12 @@ public class RadialGauge : Panel
     private List<Path> _segmentPaths = new();
     private Grid _segmentsGrid = null!;
     private readonly RotateTransform _needleTransform = new(0, 0, 0);
+    private readonly ArcSegment _trailArc = new() { SweepDirection = SweepDirection.Clockwise };
+    private readonly PathFigure _trailFigure;
+    private readonly PathGeometry _trailGeometry;
+    private LinearGradientBrush? _segmentTrailBrush;
+    private Color _segmentTrailBrushColor;
+    private double? _lastDisplayValue;
     private readonly HashSet<RadialGaugeSegment> _subscribedSegments = new();
     private bool _segmentsGeometryDirty = true;
     private Rect? _segmentsGeometryBounds;
@@ -153,7 +159,13 @@ public class RadialGauge : Panel
 
     public RadialGauge()
     {
-      
+        _trailFigure = new PathFigure
+        {
+            IsClosed = false,
+            IsFilled = false,
+            Segments = new PathSegments { _trailArc }
+        };
+        _trailGeometry = new PathGeometry { Figures = new PathFigures { _trailFigure } };
     }
 
     private void LoadControls()
@@ -445,7 +457,7 @@ public class RadialGauge : Panel
         var rect = new Rect((finalSize.Width - size) / 2, (finalSize.Height - size) / 2, size, size);
 
         _stackText.Arrange(rect);
-        _valueText.Text = Value.ToString("F0");
+        UpdateValueText();
 
         
         
@@ -532,27 +544,12 @@ public class RadialGauge : Panel
 
         bool isLarge = deltaDeg >= 180.0;
 
-        var fig = new PathFigure
-        {
-            StartPoint = startPt,
-            IsClosed = false,
-            IsFilled = false,
-            Segments = new PathSegments
-            {
-                new ArcSegment
-                {
-                    Point = endPt,
-                    Size = new Size(trailRadius, trailRadius),
-                    IsLargeArc = isLarge,
-                    SweepDirection = SweepDirection.Clockwise
-                }
-            }
-        };
+        _trailFigure.StartPoint = startPt;
+        _trailArc.Point = endPt;
+        _trailArc.Size = new Size(trailRadius, trailRadius);
+        _trailArc.IsLargeArc = isLarge;
 
-        var geom = new PathGeometry();
-        geom.Figures = new PathFigures { fig };
-
-        _trailPath.Data = geom;
+        _trailPath.Data = _trailGeometry;
         _trailPath.StrokeThickness = TrailThickness;
         
         IBrush trailBrush = GetTrailBrush();
@@ -649,6 +646,16 @@ public class RadialGauge : Panel
 
     private void InvalidateSegmentGeometry() => _segmentsGeometryDirty = true;
 
+    private void UpdateValueText()
+    {
+        var displayValue = Math.Round(Value, MidpointRounding.AwayFromZero);
+        if (_lastDisplayValue is { } last && last.Equals(displayValue))
+            return;
+
+        _lastDisplayValue = displayValue;
+        _valueText.Text = displayValue.ToString("F0");
+    }
+
     private static double Normalize01(double v, double min, double max)
     {
         if (max <= min) max = min + 1;
@@ -681,32 +688,37 @@ public class RadialGauge : Panel
         {
             if (Value >= segment.FromValue && Value <= segment.ToValue)
             {
-
-                return new LinearGradientBrush()
+                var color = segment.Color.WithAlpha(0.75);
+                if (_segmentTrailBrush is null || _segmentTrailBrushColor != color)
                 {
-                    StartPoint = new RelativePoint(1, 0, RelativeUnit.Relative),
-                    EndPoint = new RelativePoint(0, 1, RelativeUnit.Relative),
-                    GradientStops = new GradientStops()
+                    _segmentTrailBrushColor = color;
+                    _segmentTrailBrush = new LinearGradientBrush()
                     {
-                        new GradientStop()
+                        StartPoint = new RelativePoint(1, 0, RelativeUnit.Relative),
+                        EndPoint = new RelativePoint(0, 1, RelativeUnit.Relative),
+                        GradientStops = new GradientStops()
                         {
-                            Offset = 0,
-                            Color = segment.Color.WithAlpha(0.75)
-                        },
-                 
-                        new GradientStop()
-                        {
-                            Offset = 0.7,
-                            Color = Colors.Transparent
-                        },
-                        new GradientStop()
-                        {
-                            Offset = 1,
-                            Color = Colors.Transparent
-                        },
-                    }
-                };
-              
+                            new GradientStop()
+                            {
+                                Offset = 0,
+                                Color = color
+                            },
+
+                            new GradientStop()
+                            {
+                                Offset = 0.7,
+                                Color = Colors.Transparent
+                            },
+                            new GradientStop()
+                            {
+                                Offset = 1,
+                                Color = Colors.Transparent
+                            },
+                        }
+                    };
+                }
+
+                return _segmentTrailBrush;
             }
         }
 
