@@ -1,4 +1,4 @@
-<ResourceDictionary xmlns="https://github.com/avaloniaui"
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:content="clr-namespace:SukiUI.Content"
                     xmlns:converters="clr-namespace:SukiUI.Converters">
@@ -97,10 +97,10 @@
         <Setter Property="Background" Value="Transparent" />
 
         <!--
-            Avalonia's built-in expand/collapse defaults (0.5s in, 2s out) feel sluggish for a bar this
-            thin; expand as soon as the pointer arrives and collapse shortly after it leaves.
+            Both shortened from Avalonia's stock timings (0.5s in, 2s out). A bar this thin wants to
+            respond quickly on approach and get out of the way soon after the pointer leaves.
         -->
-        <Setter Property="ShowDelay" Value="0:0:0" />
+        <Setter Property="ShowDelay" Value="0:0:0.25" />
         <Setter Property="HideDelay" Value="0:0:0.35" />
 
         <Style Selector="^ /template/ RepeatButton.repeattrack">
@@ -129,7 +129,7 @@
         </Style>
 
         <Style Selector="^:vertical">
-            <Setter Property="MinWidth" Value="10" />
+            <Setter Property="MinWidth" Value="{DynamicResource ScrollBarThickness}" />
             <Setter Property="HorizontalAlignment" Value="Right" />
             <Setter Property="Template">
                 <ControlTemplate>
@@ -248,7 +248,7 @@
         </Style>
 
         <Style Selector="^:horizontal">
-            <Setter Property="MinHeight" Value="10" />
+            <Setter Property="MinHeight" Value="{DynamicResource ScrollBarThickness}" />
             <Setter Property="VerticalAlignment" Value="Bottom" />
             <Setter Property="Template">
                 <ControlTemplate>
