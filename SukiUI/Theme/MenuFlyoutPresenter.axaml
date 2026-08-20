@@ -1,6 +1,8 @@
-<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:theme="clr-namespace:SukiUI.Theme">
     <ControlTheme x:Key="SukiMenuFlyoutPresenterStyle" TargetType="MenuFlyoutPresenter">
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
         <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
         <Setter Property="CornerRadius" Value="6" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiMenuBorderBrush}" />
