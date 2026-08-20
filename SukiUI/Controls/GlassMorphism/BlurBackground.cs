@@ -34,10 +34,15 @@ public class BlurBackground : Control
     static BlurBackground()
     {
         AffectsRender<BlurBackground>(IsDynamicProperty, IntensityFactorProperty);
+        AppDomain.CurrentDomain.ProcessExit += (_, _) =>
+        {
+            if (ClampLumaEffect.IsValueCreated)
+                ClampLumaEffect.Value.Dispose();
+        };
     }
 
 
-    private static string clampLumaSkSL = @"
+    private static readonly string ClampLumaSkSL = @"
 uniform shader src;
 uniform float maxLuma;
 uniform float minLuma;
@@ -58,6 +63,12 @@ half4 main(float2 coord) {
 }
 ";
 
+    private static readonly Lazy<SKRuntimeEffect> ClampLumaEffect = new(() =>
+    {
+        var effect = SKRuntimeEffect.CreateShader(ClampLumaSkSL, out var error);
+        return effect ?? throw new InvalidOperationException($"SKRuntimeEffect error: {error}");
+    });
+
     private class BlurBehindRenderOperation : ICustomDrawOperation
     {
 
@@ -66,7 +77,6 @@ half4 main(float2 coord) {
         private readonly bool _isDynamic;
         private readonly double _blurFactor;
         private readonly bool _isDarkTheme;
-        private SKRuntimeEffect? _effect;
 
         public BlurBehindRenderOperation(Rect bounds, bool isDynamic, double blurFactor, bool isDarkTheme)
         {
@@ -78,7 +88,6 @@ half4 main(float2 coord) {
 
         public void Dispose()
         {
-            _effect?.Dispose();
             _cachedBackground?.Dispose();
         }
 
@@ -161,27 +170,20 @@ half4 main(float2 coord) {
 
                 using (var blurSnapShader = SKShader.CreateImage(blurSnap))
                 {
-                    if (_effect == null)
-                    {
-                        _effect = SKRuntimeEffect.CreateShader(clampLumaSkSL, out var error);
-                        if (_effect == null)
-                            throw new Exception($"SKRuntimeEffect error: {error}");
-                    }
-
                     float minLuma = _isDarkTheme ? 0f : 0.8f;
                     float maxLuma = _isDarkTheme ? 0.12f : 1f;
 
-                    using var uniforms = new SKRuntimeEffectUniforms(_effect)
+                    using var uniforms = new SKRuntimeEffectUniforms(ClampLumaEffect.Value)
                     {
                         ["minLuma"] = minLuma,
                         ["maxLuma"] = maxLuma
                     };
 
-                    using var children = new SKRuntimeEffectChildren(_effect)
+                    using var children = new SKRuntimeEffectChildren(ClampLumaEffect.Value)
                     {
                         ["src"] = blurSnapShader
                     };
-                    using var clampShader = _effect.ToShader(uniforms, children, SKMatrix.CreateIdentity());
+                    using var clampShader = ClampLumaEffect.Value.ToShader(uniforms, children, SKMatrix.CreateIdentity());
 
                     using var paint = new SKPaint();
                     paint.Shader = clampShader;
