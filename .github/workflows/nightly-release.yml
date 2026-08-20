@@ -141,10 +141,12 @@ jobs:
 
           DATE=$(date -u +'%Y%m%d')
           SHORT_SHA=$(git rev-parse --short=7 HEAD)
-          NIGHTLY_VERSION="${NEW_VERSION}-nightly.${DATE}.${SHORT_SHA}"
+          BUILD_NUMBER="${GITHUB_RUN_NUMBER:-0}"
+          NIGHTLY_VERSION="${NEW_VERSION}-nightly${DATE}.${BUILD_NUMBER}"
 
           echo "NIGHTLY_VERSION=${NIGHTLY_VERSION}" >> "$GITHUB_OUTPUT"
-          echo "Using version: ${NIGHTLY_VERSION}"
+          echo "SHORT_SHA=${SHORT_SHA}" >> "$GITHUB_OUTPUT"
+          echo "Using version: ${NIGHTLY_VERSION} (commit ${SHORT_SHA})"
 
       - name: Restore
         run: |
@@ -201,9 +203,10 @@ jobs:
         if: always()
         env:
           NIGHTLY_VERSION: ${{ steps.version.outputs.NIGHTLY_VERSION }}
+          SHORT_SHA: ${{ steps.version.outputs.SHORT_SHA }}
         run: |
           {
-            echo "### Nightly \`${NIGHTLY_VERSION}\`"
+            echo "### Nightly \`${NIGHTLY_VERSION}\` (commit \`${SHORT_SHA}\`)"
             if [ "${{ inputs.dry-run }}" = "true" ]; then
               echo "- Dry run: packages built but not pushed."
             elif [ -z "$NUGET_API_KEY" ]; then

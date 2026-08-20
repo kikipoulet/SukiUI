@@ -36,8 +36,10 @@
                                   RenderTransform="{x:Null}">
                         <RepeatButton.IsVisible>
                             <MultiBinding Converter="{x:Static converters:MenuScrollingVisibilityConverter.Instance}"
-                                          ConverterParameter="0">
-                                <Binding Path="VerticalScrollBarVisibility" RelativeSource="{RelativeSource TemplatedParent}" />
+                                          ConverterParameter="0"
+                                          FallbackValue="False">
+                                <Binding Path="VerticalScrollBarVisibility"
+                                         RelativeSource="{RelativeSource TemplatedParent}" />
                                 <Binding Path="Offset.Y" RelativeSource="{RelativeSource TemplatedParent}" />
                                 <Binding Path="Extent.Height" RelativeSource="{RelativeSource TemplatedParent}" />
                                 <Binding Path="Viewport.Height" RelativeSource="{RelativeSource TemplatedParent}" />
@@ -61,8 +63,10 @@
                                   RenderTransform="{x:Null}">
                         <RepeatButton.IsVisible>
                             <MultiBinding Converter="{x:Static converters:MenuScrollingVisibilityConverter.Instance}"
-                                          ConverterParameter="100">
-                                <Binding Path="VerticalScrollBarVisibility" RelativeSource="{RelativeSource TemplatedParent}" />
+                                          ConverterParameter="100"
+                                          FallbackValue="False">
+                                <Binding Path="VerticalScrollBarVisibility"
+                                         RelativeSource="{RelativeSource TemplatedParent}" />
                                 <Binding Path="Offset.Y" RelativeSource="{RelativeSource TemplatedParent}" />
                                 <Binding Path="Extent.Height" RelativeSource="{RelativeSource TemplatedParent}" />
                                 <Binding Path="Viewport.Height" RelativeSource="{RelativeSource TemplatedParent}" />
@@ -77,7 +81,6 @@
                     </RepeatButton>
 
                     <ScrollContentPresenter Name="PART_ContentPresenter"
-                                            Padding="{TemplateBinding Padding}"
                                             Background="{TemplateBinding Background}"
                                             HorizontalSnapPointsAlignment="{TemplateBinding HorizontalSnapPointsAlignment}"
                                             HorizontalSnapPointsType="{TemplateBinding HorizontalSnapPointsType}"
@@ -90,12 +93,13 @@
                                 an edge and hand the gesture back to the parent scrollable; without them a
                                 touch drag inside the menu is swallowed even when the menu cannot scroll.
                             -->
-                            <ScrollGestureRecognizer CanHorizontallyScroll="{Binding CanHorizontallyScroll, ElementName=PART_ContentPresenter}"
-                                                     CanVerticallyScroll="{Binding CanVerticallyScroll, ElementName=PART_ContentPresenter}"
-                                                     IsScrollInertiaEnabled="{Binding (ScrollViewer.IsScrollInertiaEnabled), ElementName=PART_ContentPresenter}"
-                                                     Offset="{Binding Offset, ElementName=PART_ContentPresenter}"
-                                                     Viewport="{Binding Viewport, ElementName=PART_ContentPresenter}"
-                                                     Extent="{Binding Extent, ElementName=PART_ContentPresenter}" />
+                            <ScrollGestureRecognizer
+                                CanHorizontallyScroll="{Binding CanHorizontallyScroll, ElementName=PART_ContentPresenter}"
+                                CanVerticallyScroll="{Binding CanVerticallyScroll, ElementName=PART_ContentPresenter}"
+                                IsScrollInertiaEnabled="{Binding (ScrollViewer.IsScrollInertiaEnabled), ElementName=PART_ContentPresenter}"
+                                Offset="{Binding Offset, ElementName=PART_ContentPresenter}"
+                                Viewport="{Binding Viewport, ElementName=PART_ContentPresenter}"
+                                Extent="{Binding Extent, ElementName=PART_ContentPresenter}" />
                         </ScrollContentPresenter.GestureRecognizers>
                     </ScrollContentPresenter>
                 </DockPanel>
@@ -103,7 +107,8 @@
         </Setter>
 
         <Style Selector="^ /template/ RepeatButton">
-            <Setter Property="Height" Value="20" />
+            <Setter Property="Height" Value="24" />
+            <Setter Property="Margin" Value="0,2" />
             <Setter Property="MinHeight" Value="0" />
             <Setter Property="MinWidth" Value="0" />
             <Setter Property="Padding" Value="0" />
