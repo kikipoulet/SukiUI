@@ -121,7 +121,10 @@ public class RadialGauge : Panel
     private StackPanel _stackText = null!;
     private List<Path> _segmentPaths = new();
     private Grid _segmentsGrid = null!;
+    private readonly RotateTransform _needleTransform = new(0, 0, 0);
     private readonly HashSet<RadialGaugeSegment> _subscribedSegments = new();
+    private bool _segmentsGeometryDirty = true;
+    private Rect? _segmentsGeometryBounds;
     private bool _isAttached;
           
 
@@ -142,6 +145,10 @@ public class RadialGauge : Panel
         SegmentsProperty.Changed.AddClassHandler<RadialGauge>((s, e) => s.OnSegmentsChanged(e));
         SubtitleTextProperty.Changed.AddClassHandler<RadialGauge>((s, _) => s.UpdateSubtitle());
         RimThicknessProperty.Changed.AddClassHandler<RadialGauge>((s, _) => s.UpdateRimThickness());
+        MinimumProperty.Changed.AddClassHandler<RadialGauge>((s, _) => s.InvalidateSegmentGeometry());
+        MaximumProperty.Changed.AddClassHandler<RadialGauge>((s, _) => s.InvalidateSegmentGeometry());
+        StartAngleProperty.Changed.AddClassHandler<RadialGauge>((s, _) => s.InvalidateSegmentGeometry());
+        EndAngleProperty.Changed.AddClassHandler<RadialGauge>((s, _) => s.InvalidateSegmentGeometry());
     }
 
     public RadialGauge()
@@ -189,6 +196,7 @@ public class RadialGauge : Panel
             Background = NeedleBrush,
             CornerRadius = new CornerRadius(32),
             RenderTransformOrigin = new RelativePoint(0, 0.5, RelativeUnit.Relative), 
+            RenderTransform = _needleTransform,
             IsHitTestVisible = false,
             Classes = { "rg-needle" }
         };
@@ -286,6 +294,7 @@ public class RadialGauge : Panel
     {
         if (!IsInitialize) return;
         _rim.BorderThickness = new Thickness(Math.Max(0, RimThickness));
+        InvalidateSegmentGeometry();
         InvalidateArrange();
     }
 
@@ -319,7 +328,13 @@ public class RadialGauge : Panel
         foreach (var path in _segmentPaths) _segmentsGrid.Children.Remove(path);
         _segmentPaths.Clear();
 
-        if (Segments == null) return;
+        if (Segments == null)
+        {
+            _segmentsGeometryDirty = false;
+            return;
+        }
+
+        InvalidateSegmentGeometry();
 
         for (int i = 0; i < Segments.Count; i++)
         {
@@ -401,6 +416,7 @@ public class RadialGauge : Panel
 
     private void OnSegmentPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
+        InvalidateSegmentGeometry();
         UpdateSegments();
         InvalidateArrange();
     }
@@ -504,7 +520,7 @@ public class RadialGauge : Panel
         var needleRect = new Rect(center.X, center.Y - needleTh / 2, needleLen, needleTh);
         _needle.CornerRadius = new CornerRadius(needleTh / 2);
         _needle.Arrange(needleRect);
-        _needle.RenderTransform = new RotateTransform(-angle, 0, 0);
+        _needleTransform.Angle = -angle;
 
 
         
@@ -568,6 +584,15 @@ public class RadialGauge : Panel
 
     private void UpdateSegmentsGeometry(Rect rect)
     {
+        if (_segmentsGeometryBounds != rect)
+        {
+            _segmentsGeometryBounds = rect;
+            _segmentsGeometryDirty = true;
+        }
+
+        if (!_segmentsGeometryDirty)
+            return;
+
         if (Segments == null || _segmentPaths.Count != Segments.Count)
         {
             RebuildSegments();
@@ -638,7 +663,11 @@ public class RadialGauge : Panel
             path.Opacity = segment.Opacity;
             path.StrokeLineCap = PenLineCap.Round;
         }
+
+        _segmentsGeometryDirty = false;
     }
+
+    private void InvalidateSegmentGeometry() => _segmentsGeometryDirty = true;
 
     private static double Normalize01(double v, double min, double max)
     {
