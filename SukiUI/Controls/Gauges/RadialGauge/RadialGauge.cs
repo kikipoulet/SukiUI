@@ -355,25 +355,6 @@ public class RadialGauge : Panel
         InvalidateArrange();
     }
 
-    private void UpdateSegments()
-    {
-        if (Segments == null || _segmentPaths.Count != Segments.Count)
-        {
-            RebuildSegments();
-            return;
-        }
-
-        for (int i = 0; i < Segments.Count; i++)
-        {
-            var segment = Segments[i];
-            var path = _segmentPaths[i];
-            path.Stroke = new SolidColorBrush(segment.Color);
-            path.StrokeThickness = segment.Thickness;
-        }
-
-        InvalidateVisual();
-    }
-
     private void OnSegmentsChanged(AvaloniaPropertyChangedEventArgs e)
     {
         if (e.OldValue is IList<RadialGaugeSegment> oldCollection)
@@ -417,7 +398,6 @@ public class RadialGauge : Panel
     private void OnSegmentPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         InvalidateSegmentGeometry();
-        UpdateSegments();
         InvalidateArrange();
     }
 
@@ -590,14 +570,14 @@ public class RadialGauge : Panel
             _segmentsGeometryDirty = true;
         }
 
-        if (!_segmentsGeometryDirty)
-            return;
-
-        if (Segments == null || _segmentPaths.Count != Segments.Count)
+        if (_segmentPaths.Count != (Segments?.Count ?? 0))
         {
             RebuildSegments();
             return;
         }
+
+        if (Segments == null || !_segmentsGeometryDirty)
+            return;
 
         var center = rect.Center;
         double radius = rect.Width / 2.0;
