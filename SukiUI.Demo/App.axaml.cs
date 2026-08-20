@@ -5,6 +5,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Microsoft.Extensions.DependencyInjection;
 using SukiUI.Controls;
+using SukiUI.Demo.Controls;
 using SukiUI.Demo.Common;
 using SukiUI.Demo.Features.ControlsLibrary;
 using SukiUI.Demo.Features.ControlsLibrary.Colors;
@@ -36,15 +37,30 @@ public class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        _ = Task.Run(CodeEditor.WarmupRegistryOptions);
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
+            if (PerformanceScenario.IsRequested && !PerformanceScenario.IsFullDemoRequested)
+            {
+                desktop.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+                desktop.MainWindow = PerformanceScenario.CreateWindow(desktop);
+                base.OnFrameworkInitializationCompleted();
+                return;
+            }
+
             var services = new ServiceCollection();
             services.AddSingleton(desktop);
             var views = ConfigureViews(services);
             var provider = ConfigureServices(services);
             DataTemplates.Add(new ViewLocator(views));
             desktop.MainWindow = views.CreateView<SukiUIDemoViewModel>(provider) as Window;
+
+            if (PerformanceScenario.IsFullDemoRequested && desktop.MainWindow is SukiUIDemoView demoWindow)
+            {
+                desktop.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+                PerformanceScenario.StartFullDemoScenario(desktop, demoWindow);
+            }
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleView)
         {

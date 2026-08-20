@@ -10,6 +10,12 @@ namespace SukiUI.Demo.Controls;
 
 public class CodeEditor : TextEditor
 {
+    private static readonly Lazy<RegistryOptions> s_lightOptions =
+        new(() => new RegistryOptions(ThemeName.LightPlus));
+
+    private static readonly Lazy<RegistryOptions> s_darkOptions =
+        new(() => new RegistryOptions(ThemeName.DarkPlus));
+
     public static readonly StyledProperty<string?> LanguageProperty =
         AvaloniaProperty.Register<CodeEditor, string?>(nameof(Language));
 
@@ -39,6 +45,15 @@ public class CodeEditor : TextEditor
         };
     }
 
+    /// <summary>
+    /// Preloads the immutable TextMate grammar registries without blocking the UI thread.
+    /// </summary>
+    internal static void WarmupRegistryOptions()
+    {
+        _ = s_lightOptions.Value;
+        _ = s_darkOptions.Value;
+    }
+
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
         base.OnPropertyChanged(change);
@@ -51,13 +66,21 @@ public class CodeEditor : TextEditor
 
     private void InitializeTextMate()
     {
-        var theme = ActualThemeVariant == ThemeVariant.Light
-            ? ThemeName.LightPlus
-            : ThemeName.DarkPlus;
+        var options = ActualThemeVariant == ThemeVariant.Light
+            ? s_lightOptions.Value
+            : s_darkOptions.Value;
 
-        _options = new RegistryOptions(theme);
+        if (ReferenceEquals(_options, options))
+            return;
 
-        _installation ??= this.InstallTextMate(_options);
+        _options = options;
+        if (_installation is null)
+        {
+            _installation = this.InstallTextMate(options);
+            return;
+        }
+
+        _installation.SetTheme(options.GetDefaultTheme());
     }
 
     private void UpdateGrammar()

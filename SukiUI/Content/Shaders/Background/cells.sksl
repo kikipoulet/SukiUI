@@ -14,36 +14,37 @@ vec2 hash22(vec2 value) {
 
 vec2 pointForCell(vec2 id) {
     vec2 random = hash22(id);
-    return sin(iTime * 0.5 * (random - 0.5) + random.yx * 8.0) * 0.5;
+    vec2 phase = fract(random.yx + iTime * vec2(0.037, 0.061));
+    vec2 triangularMotion = abs(phase * 2.0 - 1.0) - 0.5;
+    return vec2(0.5) + triangularMotion * 0.34;
 }
 
 vec4 main(vec2 fragCoord)
 {
     float size = 10.;
-    vec2 uv = (fragCoord - .5 * iResolution.xy) / iResolution.x;
-    vec2 offset = iTime / vec2(200., 120.);
-    uv += offset;
-    uv *= size;
+    vec2 uv = (fragCoord - .5 * iResolution.xy) / iResolution.x * size;
 
-    vec2 gv = fract(uv) - .5;
+    vec2 gv = fract(uv);
     vec2 id = floor(uv);
+    vec2 neighborDirection = mix(vec2(-1.0), vec2(1.0), step(vec2(0.5), gv));
 
     float minimumDistanceSquared = 1e9;
-    vec2 voronoiPoint = vec2(0);
-    for (float i = -1.;i <= 1.; i++) {
-        for (float j = -1.;j <= 1.; j++) {
-            vec2 cellOffset = vec2(i, j);
+    vec2 nearestCellId = id;
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            vec2 cellOffset = vec2(float(i) * neighborDirection.x, float(j) * neighborDirection.y);
             vec2 cellPoint = pointForCell(id + cellOffset);
-            vec2 delta = gv + cellPoint - cellOffset;
+            vec2 delta = gv - (cellOffset + cellPoint);
             float distanceSquared = dot(delta, delta);
             if (distanceSquared < minimumDistanceSquared) {
                 minimumDistanceSquared = distanceSquared;
-                voronoiPoint = (id + cellPoint + cellOffset) / size - offset;
+                nearestCellId = id + cellOffset;
             }
         }
     }
 
-    vec3 col = mix(iPrimary, iAccent, clamp(voronoiPoint.x * 2.2 + voronoiPoint.y, -1., 1.) * 0.5 + 0.5);
+    vec2 cellColor = hash22(nearestCellId);
+    vec3 col = mix(iPrimary, iAccent, cellColor.x * 0.7 + cellColor.y * 0.3);
     vec3 comp = blendOverlay(iBase, col);
     return vec4(comp, iAlpha);
 }

@@ -110,9 +110,6 @@ namespace SukiUI.Animations
                     control.RenderTransform = transformGroup;
                     control.RenderTransformOrigin = new RelativePoint(0.5, 0.5, RelativeUnit.Relative); 
 
-                    control.PointerExited += OnPointerExited;
-                    control.PointerEntered += OnPointerEntered;
-                    
                     control.AddHandler(InputElement.PointerEnteredEvent, OnPointerEntered, RoutingStrategies.Bubble);
                     control.AddHandler(InputElement.PointerMovedEvent, OnPointerMoved, RoutingStrategies.Bubble);
                     control.AddHandler(InputElement.PointerExitedEvent, OnPointerExited, RoutingStrategies.Bubble);

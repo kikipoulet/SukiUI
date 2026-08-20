@@ -10,6 +10,7 @@
     <PackageVersion Include="Avalonia.Skia" Version="12.1.1"/>
     <PackageVersion Include="Avalonia.Desktop" Version="12.1.1"/>
     <PackageVersion Include="Avalonia.Fonts.Inter" Version="12.1.1"/>
+    <PackageVersion Include="Avalonia.Headless" Version="12.1.1"/>
     <PackageVersion Include="Avalonia.Themes.Simple" Version="12.1.1"/>
     <PackageVersion Include="Avalonia.Themes.Fluent" Version="12.1.1"/>
     <PackageVersion Include="Avalonia.Controls.DataGrid" Version="12.1.2"/>
@@ -31,5 +32,8 @@
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.11"/>
     <PackageVersion Include="System.Linq.Dynamic.Core" Version="1.7.3"/>
     <PackageVersion Include="System.Text.Json" Version="10.0.5"/>
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.12.0"/>
+    <PackageVersion Include="xunit" Version="2.8.0"/>
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.0"/>
   </ItemGroup>
 </Project>
