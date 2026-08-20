@@ -8,9 +8,9 @@ public static class EnumExtensions
     /// <typeparam name="T"></typeparam>
     /// <param name="orderByName">True to order by enum name, otherwise it will order was defined on enum.</param>
     /// <returns></returns>
-    public static IEnumerable<T> GetValues<T>(bool orderByName = false) where T : Enum
+    public static IEnumerable<T> GetValues<T>(bool orderByName = false) where T : struct, Enum
     {
-        var values = (T[])Enum.GetValues(typeof(T));
+        T[] values = Enum.GetValues<T>();
         return orderByName
             ? values.OrderBy(e => e.ToString(), StringComparer.Ordinal)
             : values;
@@ -25,15 +25,13 @@ public static class EnumExtensions
     /// <remarks>For enums with <see cref="FlagsAttribute"/>.<br/>
     /// If you have an enum value set to 0 it will always return. (Filter it before or after calling this function)<br/>
     /// If you have negative value it can return all flags as undesired effect.</remarks>
-    public static IEnumerable<T> GetSetFlags<T>(this T flags) where T : Enum
+    public static IEnumerable<T> GetSetFlags<T>(this T flags) where T : struct, Enum
     {
-        var flagsInt64 = Convert.ToInt64(flags);
+        long flagsInt64 = Convert.ToInt64(flags);
 
-        foreach (T flag in Enum.GetValues(typeof(T)))
-        {
-            var flagInt64 = Convert.ToInt64(flag);
-            if ((flagsInt64 & flagInt64) == flagInt64)
-            {
+        foreach (T flag in Enum.GetValues<T>()) {
+            long flagInt64 = Convert.ToInt64(flag);
+            if ((flagsInt64 & flagInt64) == flagInt64) {
                 yield return flag;
             }
         }
@@ -49,18 +47,16 @@ public static class EnumExtensions
     /// <remarks>For enums with <see cref="FlagsAttribute"/>.<br/>
     /// If you have an enum value set to 0 it will always return. (Filter it before or after calling this function)<br/>
     /// If you have negative value it can return all flags as undesired effect.</remarks>
-    public static IEnumerable<T> GetSetFlagsIgnoring<T>(this T flags, T ignoreFlag) where T : Enum
+    public static IEnumerable<T> GetSetFlagsIgnoring<T>(this T flags, T ignoreFlag) where T : struct, Enum
     {
-        var flagsInt64 = Convert.ToInt64(flags);
-        var ignoreFlagInt64 = Convert.ToInt64(ignoreFlag);
+        long flagsInt64 = Convert.ToInt64(flags);
+        long ignoreFlagInt64 = Convert.ToInt64(ignoreFlag);
 
         flagsInt64 &= ~ignoreFlagInt64;
 
-        foreach (T flag in Enum.GetValues(typeof(T)))
-        {
-            var flagInt64 = Convert.ToInt64(flag);
-            if ((flagsInt64 & flagInt64) == flagInt64)
-            {
+        foreach (T flag in Enum.GetValues<T>()) {
+            long flagInt64 = Convert.ToInt64(flag);
+            if ((flagsInt64 & flagInt64) == flagInt64) {
                 yield return flag;
             }
         }
@@ -76,21 +72,18 @@ public static class EnumExtensions
     /// <remarks>For enums with <see cref="FlagsAttribute"/>.<br/>
     /// If you have an enum value set to 0 it will always return. (Filter it before or after calling this function)<br/>
     /// If you have negative value it can return all flags as undesired effect.</remarks>
-    public static IEnumerable<T> GetSetFlagsIgnoring<T>(this T flags, params IEnumerable<T> ignoreFlags) where T : Enum
+    public static IEnumerable<T> GetSetFlagsIgnoring<T>(this T flags, params IEnumerable<T> ignoreFlags) where T : struct, Enum
     {
-        var flagsInt64 = Convert.ToInt64(flags);
+        long flagsInt64 = Convert.ToInt64(flags);
 
-        foreach (var ignoreFlag in ignoreFlags)
-        {
-            var ignoreFlagInt64 = Convert.ToInt64(ignoreFlag);
+        foreach (T ignoreFlag in ignoreFlags) {
+            long ignoreFlagInt64 = Convert.ToInt64(ignoreFlag);
             flagsInt64 &= ~ignoreFlagInt64;
         }
 
-        foreach (T flag in Enum.GetValues(typeof(T)))
-        {
-            var flagInt64 = Convert.ToInt64(flag);
-            if ((flagsInt64 & flagInt64) == flagInt64)
-            {
+        foreach (T flag in Enum.GetValues<T>()) {
+            long flagInt64 = Convert.ToInt64(flag);
+            if ((flagsInt64 & flagInt64) == flagInt64) {
                 yield return flag;
             }
         }
