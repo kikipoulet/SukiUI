@@ -119,7 +119,7 @@ public class RadialGauge : Panel
     private TextBlock _valueText = null!;
     private TextBlock _subtitleText = null!;
     private StackPanel _stackText = null!;
-    private List<Path> _segmentPaths = new();
+    private readonly List<SegmentVisual> _segmentVisuals = new();
     private Grid _segmentsGrid = null!;
     private readonly RotateTransform _needleTransform = new(0, 0, 0);
     private readonly ArcSegment _trailArc = new() { SweepDirection = SweepDirection.Clockwise };
@@ -337,8 +337,8 @@ public class RadialGauge : Panel
 
     private void RebuildSegments()
     {
-        foreach (var path in _segmentPaths) _segmentsGrid.Children.Remove(path);
-        _segmentPaths.Clear();
+        foreach (var visual in _segmentVisuals) _segmentsGrid.Children.Remove(visual.Path);
+        _segmentVisuals.Clear();
 
         if (Segments == null)
         {
@@ -351,16 +351,10 @@ public class RadialGauge : Panel
         for (int i = 0; i < Segments.Count; i++)
         {
             var segment = Segments[i];
-            var path = new Path
-            {
-                Stroke = new SolidColorBrush(segment.Color),
-                StrokeThickness = segment.Thickness,
-                StrokeLineCap = PenLineCap.Round,
-                IsHitTestVisible = false
-            };
-            _segmentPaths.Add(path);
+            var visual = new SegmentVisual(segment);
+            _segmentVisuals.Add(visual);
 
-            _segmentsGrid?.Children.Add(path);
+            _segmentsGrid?.Children.Add(visual.Path);
         }
 
         InvalidateMeasure();
@@ -567,7 +561,7 @@ public class RadialGauge : Panel
             _segmentsGeometryDirty = true;
         }
 
-        if (_segmentPaths.Count != (Segments?.Count ?? 0))
+        if (_segmentVisuals.Count != (Segments?.Count ?? 0))
         {
             RebuildSegments();
             return;
@@ -585,7 +579,8 @@ public class RadialGauge : Panel
         for (int i = 0; i < Segments.Count; i++)
         {
             var segment = Segments[i];
-            var path = _segmentPaths[i];
+            var visual = _segmentVisuals[i];
+            var path = visual.Path;
             
             double fromT = Normalize01(segment.FromValue, Minimum, Maximum);
             double toT = Normalize01(segment.ToValue, Minimum, Maximum);
@@ -614,29 +609,14 @@ public class RadialGauge : Panel
 
             bool isLarge = deltaDeg >= 180.0;
 
-            var fig = new PathFigure
-            {
-                StartPoint = startPt,
-                IsClosed = false,
-                IsFilled = false,
-                Segments = new PathSegments
-                {
-                    new ArcSegment
-                    {
-                        Point = endPt,
-                        Size = new Size(segmentRadius, segmentRadius),
-                        IsLargeArc = isLarge,
-                        SweepDirection = SweepDirection.Clockwise
-                    }
-                }
-            };
+            visual.Figure.StartPoint = startPt;
+            visual.Arc.Point = endPt;
+            visual.Arc.Size = new Size(segmentRadius, segmentRadius);
+            visual.Arc.IsLargeArc = isLarge;
 
-            var geom = new PathGeometry();
-            geom.Figures = new PathFigures { fig };
-
-            path.Data = geom;
+            path.Data = visual.Geometry;
             path.StrokeThickness = segment.Thickness;
-            path.Stroke = new SolidColorBrush(segment.Color);
+            visual.Brush.Color = segment.Color;
             path.Opacity = segment.Opacity;
             path.StrokeLineCap = PenLineCap.Round;
         }
@@ -645,6 +625,39 @@ public class RadialGauge : Panel
     }
 
     private void InvalidateSegmentGeometry() => _segmentsGeometryDirty = true;
+
+    /// <summary>
+    /// Holds the visuals backing one segment so a geometry refresh can mutate them
+    /// in place instead of allocating a new path, figure, arc and brush per pass.
+    /// </summary>
+    private sealed class SegmentVisual
+    {
+        public SegmentVisual(RadialGaugeSegment segment)
+        {
+            Arc = new ArcSegment { SweepDirection = SweepDirection.Clockwise };
+            Figure = new PathFigure
+            {
+                IsClosed = false,
+                IsFilled = false,
+                Segments = new PathSegments { Arc }
+            };
+            Geometry = new PathGeometry { Figures = new PathFigures { Figure } };
+            Brush = new SolidColorBrush(segment.Color);
+            Path = new Path
+            {
+                Stroke = Brush,
+                StrokeThickness = segment.Thickness,
+                StrokeLineCap = PenLineCap.Round,
+                IsHitTestVisible = false
+            };
+        }
+
+        public Path Path { get; }
+        public PathGeometry Geometry { get; }
+        public PathFigure Figure { get; }
+        public ArcSegment Arc { get; }
+        public SolidColorBrush Brush { get; }
+    }
 
     private void UpdateValueText()
     {
