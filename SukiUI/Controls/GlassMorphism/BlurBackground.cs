@@ -171,13 +171,13 @@ half4 main(float2 coord) {
                     float minLuma = _isDarkTheme ? 0f : 0.8f;
                     float maxLuma = _isDarkTheme ? 0.12f : 1f;
 
-                    var uniforms = new SKRuntimeEffectUniforms(_effect)
+                    using var uniforms = new SKRuntimeEffectUniforms(_effect)
                     {
                         ["minLuma"] = minLuma,
                         ["maxLuma"] = maxLuma
                     };
 
-                    var children = new SKRuntimeEffectChildren(_effect)
+                    using var children = new SKRuntimeEffectChildren(_effect)
                     {
                         ["src"] = blurSnapShader
                     };

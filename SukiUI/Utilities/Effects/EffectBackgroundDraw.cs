@@ -10,6 +10,15 @@ namespace SukiUI.Utilities.Effects
     internal class EffectBackgroundDraw : EffectDrawBase
     {
         public static readonly object EnableTransitions = new(), DisableTransitions = new();
+
+        private const string TransitionOpacitySkSL = @"
+            uniform shader src;
+            uniform shader opacity;
+
+            half4 main(float2 coord) {
+                half4 color = src.eval(coord);
+                return half4(color.rgb, color.a * opacity.eval(coord).a);
+            }";
         
         internal bool TransitionsEnabled { get; set; }
         internal double TransitionTime { get; set; }
@@ -19,10 +28,13 @@ namespace SukiUI.Utilities.Effects
         private SukiEffect? _oldEffect;
         private float _transitionStartTime;
         private float _transitionEndTime;
+        private SKRuntimeEffect? _transitionOpacityEffect;
+        private SKColorSpace? _transitionOpacityColorSpace;
         private readonly SKPaint _effectPaint = new();
         private readonly SKPaint _oldEffectPaint = new()
         {
-            BlendMode = SKBlendMode.Darken
+            BlendMode = SKBlendMode.Darken,
+            Color = SKColors.White
         };
 
         public EffectBackgroundDraw() : base(false)
@@ -64,10 +76,29 @@ namespace SukiUI.Utilities.Effects
                 var lerped = InverseLerp(_transitionStartTime, _transitionEndTime, TransitionSeconds);
                 if (lerped < 1)
                 {
-                    // Built inside the branch: on the frame that ends the transition the shader would be
-                    // compiled, cached under a fresh alpha key, then dropped again without ever drawing.
-                    _oldEffectPaint.Shader = EffectWithUniforms(_oldEffect, (float)(1 - lerped));
-                    canvas.DrawRect(rect, _oldEffectPaint);
+                    // Keep the old effect at a fixed alpha so it stays cached. A tiny, lazily compiled
+                    // wrapper scales only its output alpha; applying paint alpha changes Darken blending.
+                    var oldShader = EffectWithUniforms(_oldEffect);
+                    if (oldShader is not null)
+                    {
+                        var opacityEffect = TransitionOpacityEffect;
+                        using var opacityShader = SKShader.CreateColor(
+                            new SKColorF(1f, 1f, 1f, 1f - (float)lerped), TransitionOpacityColorSpace);
+                        using var uniforms = new SKRuntimeEffectUniforms(opacityEffect);
+                        using var children = new SKRuntimeEffectChildren(opacityEffect)
+                        {
+                            ["src"] = oldShader,
+                            ["opacity"] = opacityShader
+                        };
+                        using var transitionShader = opacityEffect.ToShader(uniforms, children,
+                            SKMatrix.CreateIdentity());
+                        if (transitionShader is not null)
+                        {
+                            _oldEffectPaint.Shader = transitionShader;
+                            canvas.DrawRect(rect, _oldEffectPaint);
+                            _oldEffectPaint.Shader = null;
+                        }
+                    }
                     if(!AnimationEnabled) Invalidate();
                 }
                 else
@@ -79,6 +110,7 @@ namespace SukiUI.Utilities.Effects
 
             _effectPaint.Shader = null;
             _oldEffectPaint.Shader = null;
+            _oldEffectPaint.Color = SKColors.White;
         }
 
         protected override void RenderSoftware(SKCanvas canvas, SKRect rect)
@@ -92,9 +124,17 @@ namespace SukiUI.Utilities.Effects
         private static double InverseLerp(double start, double end, double value) =>
             end <= start ? 1 : Math.Max(0, Math.Min(1, (value - start) / (end - start)));
 
+        private SKRuntimeEffect TransitionOpacityEffect => _transitionOpacityEffect ??=
+            SKRuntimeEffect.CreateShader(TransitionOpacitySkSL, out var errors)
+            ?? throw new InvalidOperationException($"SKRuntimeEffect error: {errors}");
+
+        private SKColorSpace TransitionOpacityColorSpace => _transitionOpacityColorSpace ??= SKColorSpace.CreateSrgb();
+
         public override void Dispose()
         {
             _oldEffect = null;
+            _transitionOpacityEffect?.Dispose();
+            _transitionOpacityColorSpace?.Dispose();
             _effectPaint.Dispose();
             _oldEffectPaint.Dispose();
             base.Dispose();

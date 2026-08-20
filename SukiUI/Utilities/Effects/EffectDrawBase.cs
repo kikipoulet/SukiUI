@@ -28,6 +28,7 @@ namespace SukiUI.Utilities.Effects
         private SukiEffect? _effect;
         private readonly Dictionary<ShaderCacheKey, SKShader> _shaderCache = new();
         private int _animatedShaderFramesPerSecond = DefaultAnimatedShaderFramesPerSecond;
+        private long _lastInvalidatedTimeBucket = long.MinValue;
 
         /// <summary>
         /// How often animated shader uniforms are regenerated. Shaders are cached per time bucket, so a
@@ -42,6 +43,7 @@ namespace SukiUI.Utilities.Effects
                 var clamped = Math.Max(1, value);
                 if (_animatedShaderFramesPerSecond == clamped) return;
                 _animatedShaderFramesPerSecond = clamped;
+                _lastInvalidatedTimeBucket = long.MinValue;
                 InvalidateShaderCache();
             }
         }
@@ -69,6 +71,7 @@ namespace SukiUI.Utilities.Effects
                 if (value) _animationTick.Start();
                 else _animationTick.Stop();
                 _animationEnabled = value;
+                _lastInvalidatedTimeBucket = long.MinValue;
                 InvalidateShaderCache();
             }
         }
@@ -157,10 +160,20 @@ namespace SukiUI.Utilities.Effects
         public override void OnAnimationFrameUpdate()
         {
             if (!AnimationEnabled) return;
-            if(_invalidateRect)
-                Invalidate(GetRenderBounds());
-            else
-                Invalidate();
+
+            // Shader time is quantized to the configured rate. Invalidating at the display rate would
+            // redraw an identical shader between buckets, so only schedule a render when its uniforms
+            // advance. We still request every compositor callback to observe the next bucket promptly.
+            var (timeBucket, _) = GetShaderTime();
+            if (_lastInvalidatedTimeBucket != timeBucket)
+            {
+                _lastInvalidatedTimeBucket = timeBucket;
+                if (_invalidateRect)
+                    Invalidate(GetRenderBounds());
+                else
+                    Invalidate();
+            }
+
             RegisterForNextAnimationFrameUpdate();
         }
 

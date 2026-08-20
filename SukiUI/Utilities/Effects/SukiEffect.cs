@@ -197,7 +197,7 @@ namespace SukiUI.Utilities.Effects
             _boundsAlloc[0] = (float)bounds.Width;
             _boundsAlloc[1] = (float)bounds.Height;
             
-            var inputs = new SKRuntimeEffectUniforms(Effect)
+            using var inputs = new SKRuntimeEffectUniforms(Effect)
             {
                 { "iResolution", _boundsAlloc },
                 { "iTime", timeSeconds * animationScale },
@@ -219,7 +219,7 @@ namespace SukiUI.Utilities.Effects
         internal SKShader ToShaderWithCustomUniforms(Func<SKRuntimeEffect,SKRuntimeEffectUniforms> uniformFactory, float timeSeconds, Rect bounds,
             float animationScale, float alpha = 1f)
         {
-            var uniforms = uniformFactory(Effect);
+            using var uniforms = uniformFactory(Effect);
             uniforms.Add("iResolution", new SKPoint3((float)bounds.Width, (float)bounds.Height, 0f));
             uniforms.Add("iTime", timeSeconds * animationScale);
             uniforms.Add("iAlpha", alpha);
