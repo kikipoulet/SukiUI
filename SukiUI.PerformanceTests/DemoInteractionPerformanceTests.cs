@@ -10,6 +10,7 @@ using Avalonia.VisualTree;
 using SukiUI.Animations;
 using SukiUI.Controls.GlassMorphism;
 using SukiUI.Demo;
+using SukiUI.Demo.Controls;
 using SukiUI.Demo.Features.ControlsLibrary.DockControls;
 using SukiUI.Demo.Features.Helpers;
 using SukiUI.Controls;
@@ -37,6 +38,16 @@ public sealed class DemoInteractionPerformanceTests(Xunit.Abstractions.ITestOutp
         var result = await session.Dispatch(MeasurePullingEffectDrag, CancellationToken.None);
 
         WriteSummary("pulling-effect-drag", result.Samples, result.Offset);
+    }
+
+    [Fact]
+    public async Task Reattaches_a_code_editor_and_records_frame_costs()
+    {
+        await using var session = HeadlessUnitTestSession.StartNew(typeof(App));
+        var result = await session.Dispatch(MeasureCodeEditorReattachment, CancellationToken.None);
+
+        Assert.Equal("<Grid />", result.EditorText);
+        WriteSummary("code-editor-reattach", result.Samples, 0);
     }
 
     [Fact]
@@ -195,6 +206,35 @@ public sealed class DemoInteractionPerformanceTests(Xunit.Abstractions.ITestOutp
         }
     }
 
+    private static CodeEditorScenarioResult MeasureCodeEditorReattachment()
+    {
+        var editor = new CodeEditor
+        {
+            Language = "xml",
+            Text = "<Grid />"
+        };
+        var alternateContent = new Border();
+        var window = CreateWindow(editor);
+        try
+        {
+            const int warmupFrames = 12;
+            const int measuredFrames = 40;
+
+            for (var index = 0; index < warmupFrames; index++)
+                DriveFrame(window, () => window.Content = index % 2 == 0 ? alternateContent : editor);
+
+            var samples = Enumerable.Range(0, measuredFrames)
+                .Select(index => DriveFrame(window, () => window.Content = index % 2 == 0 ? alternateContent : editor))
+                .ToArray();
+
+            return new CodeEditorScenarioResult(samples, editor.Text);
+        }
+        finally
+        {
+            window.Close();
+        }
+    }
+
     private static Window CreateWindow(Control content)
     {
         var window = new Window
@@ -252,6 +292,8 @@ public sealed class DemoInteractionPerformanceTests(Xunit.Abstractions.ITestOutp
     private sealed record FrameSample(double Milliseconds, long AllocatedBytes);
 
     private sealed record ScenarioResult(IReadOnlyList<FrameSample> Samples, double Offset);
+
+    private sealed record CodeEditorScenarioResult(IReadOnlyList<FrameSample> Samples, string? EditorText);
 
     private sealed record DynamicBlurScene(Grid Root, ScrollViewer ScrollViewer);
 }

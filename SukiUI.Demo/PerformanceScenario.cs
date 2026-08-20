@@ -167,6 +167,7 @@ internal static class PerformanceScenario
             var page = pages[pageIndex % pages.Length];
             pageIndex++;
             var activationStartedAt = Stopwatch.GetTimestamp();
+            var allocatedBeforeActivation = GC.GetAllocatedBytesForCurrentThread();
             Console.WriteLine(
                 $"full-demo-navigation-sweep: selecting {pageIndex}/{selectionCount} {page.DisplayName} " +
                 $"at={Stopwatch.GetElapsedTime(startedAt).TotalMilliseconds:F1}ms");
@@ -174,7 +175,8 @@ internal static class PerformanceScenario
             window.InvalidateVisual();
             Console.WriteLine(
                 $"full-demo-navigation-sweep: selected {page.DisplayName} " +
-                $"in={Stopwatch.GetElapsedTime(activationStartedAt).TotalMilliseconds:F1}ms");
+                $"in={Stopwatch.GetElapsedTime(activationStartedAt).TotalMilliseconds:F1}ms " +
+                $"alloc-bytes={GC.GetAllocatedBytesForCurrentThread() - allocatedBeforeActivation}");
         };
         frameTimer.Tick += (_, _) =>
         {

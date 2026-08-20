@@ -17,6 +17,8 @@ public class CodeEditor : TextEditor
 
     private RegistryOptions? _options;
     private TextMate.Installation? _installation;
+    private static readonly Lazy<RegistryOptions> DarkRegistryOptions = new(() => new RegistryOptions(ThemeName.DarkPlus));
+    private static readonly Lazy<RegistryOptions> LightRegistryOptions = new(() => new RegistryOptions(ThemeName.LightPlus));
 
     public string? Language
     {
@@ -32,11 +34,7 @@ public class CodeEditor : TextEditor
 
         InitializeTextMate();
 
-        ActualThemeVariantChanged += (_, _) =>
-        {
-            InitializeTextMate();
-            UpdateGrammar();
-        };
+        ActualThemeVariantChanged += (_, _) => UpdateGrammar();
     }
 
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
@@ -51,14 +49,22 @@ public class CodeEditor : TextEditor
 
     private void InitializeTextMate()
     {
+        if (_installation is not null)
+            return;
+
         var theme = ActualThemeVariant == ThemeVariant.Light
             ? ThemeName.LightPlus
             : ThemeName.DarkPlus;
-
-        _options = new RegistryOptions(theme);
+        _options = GetRegistryOptions(theme);
 
         _installation ??= this.InstallTextMate(_options);
     }
+
+    private static RegistryOptions GetRegistryOptions(ThemeName theme) => theme switch
+    {
+        ThemeName.LightPlus => LightRegistryOptions.Value,
+        _ => DarkRegistryOptions.Value
+    };
 
     private void UpdateGrammar()
     {
