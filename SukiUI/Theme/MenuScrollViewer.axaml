@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:content="clr-namespace:SukiUI.Content"
-                    xmlns:converters="clr-namespace:Avalonia.Controls.Converters;assembly=Avalonia.Controls">
+                    xmlns:converters="clr-namespace:SukiUI.Converters">
     <Design.PreviewWith>
         <ScrollViewer Width="200"
                       Height="200"
@@ -35,8 +35,7 @@
                                   Focusable="False"
                                   RenderTransform="{x:Null}">
                         <RepeatButton.IsVisible>
-                            <MultiBinding Converter="{x:Static converters:MenuScrollingVisibilityConverter.Instance}"
-                                          ConverterParameter="0"
+                            <MultiBinding Converter="{x:Static converters:MenuScrollArrowVisibilityConverter.Up}"
                                           FallbackValue="False">
                                 <Binding Path="VerticalScrollBarVisibility"
                                          RelativeSource="{RelativeSource TemplatedParent}" />
@@ -62,8 +61,7 @@
                                   Focusable="False"
                                   RenderTransform="{x:Null}">
                         <RepeatButton.IsVisible>
-                            <MultiBinding Converter="{x:Static converters:MenuScrollingVisibilityConverter.Instance}"
-                                          ConverterParameter="100"
+                            <MultiBinding Converter="{x:Static converters:MenuScrollArrowVisibilityConverter.Down}"
                                           FallbackValue="False">
                                 <Binding Path="VerticalScrollBarVisibility"
                                          RelativeSource="{RelativeSource TemplatedParent}" />
