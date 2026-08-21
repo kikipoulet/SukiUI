@@ -9,50 +9,201 @@
              d:DesignWidth="800"
              x:DataType="controlsLibrary:ContextMenusViewModel"
              mc:Ignorable="d">
-    <suki:GlassCard HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    IsInteractive="True">
-        <suki:GlassCard.ContextMenu>
-            <ContextMenu>
-                <!--  Ignore your IDE, x:False is a valid intrinsic  -->
-                <MenuItem Command="{Binding OptionClickedCommand}"
-                          CommandParameter="{x:False}"
-                          Header="Option" />
-                <MenuItem Header="Disabled Option" IsEnabled="False" />
-                <!--  Ignore your IDE, x:True is a valid intrinsic  -->
-                <MenuItem Command="{Binding OptionClickedCommand}"
-                          CommandParameter="{x:True}"
-                          Header="Option With Icon">
-                    <MenuItem.Icon>
-                        <PathIcon Width="15"
-                                  Height="15"
-                                  Data="{x:Static suki:Icons.Star}" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Disabled With Icon" IsEnabled="False">
-                    <MenuItem.Icon>
-                        <PathIcon Width="13"
-                                  Height="13"
-                                  Data="{x:Static suki:Icons.Cross}" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Separator Next" />
-                <Separator/>
-                <MenuItem Header="Submenu">
-                    <MenuItem Header="Sub-Submenu">
-                        <MenuItem Command="{Binding NestedOptionClickedCommand}" Header="Nested Option" />
-                        <MenuItem Header="-" />
-                        <MenuItem Header="Disabled Nested Option" IsEnabled="False" />
-                    </MenuItem>
-                </MenuItem>
-            </ContextMenu>
-        </suki:GlassCard.ContextMenu>
-        <suki:GroupBox Header="Context Menu Demo">
-            <TextBlock HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Classes="h3">
-                Right click anywhere in this card to open a context menu.
-            </TextBlock>
-        </suki:GroupBox>
-    </suki:GlassCard>
+    <ScrollViewer>
+        <WrapPanel Classes="PageContainer">
+            <suki:GlassCard IsInteractive="True">
+                <suki:GlassCard.ContextMenu>
+                    <ContextMenu>
+                        <!--  Ignore your IDE, x:False is a valid intrinsic  -->
+                        <MenuItem Command="{Binding OptionClickedCommand}"
+                                  CommandParameter="{x:False}"
+                                  Header="Option" />
+                        <MenuItem Header="Disabled Option" IsEnabled="False" />
+                        <!--  Ignore your IDE, x:True is a valid intrinsic  -->
+                        <MenuItem Command="{Binding OptionClickedCommand}"
+                                  CommandParameter="{x:True}"
+                                  Header="Option With Icon">
+                            <MenuItem.Icon>
+                                <PathIcon Width="15"
+                                          Height="15"
+                                          Data="{x:Static suki:Icons.Star}" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Disabled With Icon" IsEnabled="False">
+                            <MenuItem.Icon>
+                                <PathIcon Width="13"
+                                          Height="13"
+                                          Data="{x:Static suki:Icons.Cross}" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Separator Next" />
+                        <Separator/>
+                        <MenuItem Header="Submenu">
+                            <MenuItem Header="Sub-Submenu">
+                                <MenuItem Command="{Binding NestedOptionClickedCommand}" Header="Nested Option" />
+                                <MenuItem Header="-" />
+                                <MenuItem Header="Disabled Nested Option" IsEnabled="False" />
+                            </MenuItem>
+                            <!--  Overflows its popup, so the submenu shows the scroll arrows.  -->
+                            <MenuItem Header="Scrolling Sub-Submenu" ItemsSource="{Binding LongMenuItems}" />
+                        </MenuItem>
+                    </ContextMenu>
+                </suki:GlassCard.ContextMenu>
+                <suki:GroupBox Header="Context Menu Demo">
+                    <TextBlock Width="220"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Classes="h3"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap">
+                        Right click anywhere in this card to open a context menu.
+                    </TextBlock>
+                </suki:GroupBox>
+            </suki:GlassCard>
+
+            <suki:GlassCard IsInteractive="True">
+                <!--  More items than fit on screen, so the menu scrolls and the up/down arrows appear.  -->
+                <suki:GlassCard.ContextMenu>
+                    <ContextMenu ItemsSource="{Binding LongMenuItems}" />
+                </suki:GlassCard.ContextMenu>
+                <suki:GroupBox Header="Scrolling Menu Demo">
+                    <StackPanel Width="220"
+                                VerticalAlignment="Center"
+                                Spacing="15">
+                        <TextBlock Classes="h3"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap">
+                            Right click for a menu too long to fit on screen.
+                        </TextBlock>
+                        <Button HorizontalAlignment="Center" Content="Or open a long flyout">
+                            <Button.Flyout>
+                                <MenuFlyout ItemsSource="{Binding LongMenuItems}" />
+                            </Button.Flyout>
+                        </Button>
+                    </StackPanel>
+                </suki:GroupBox>
+            </suki:GlassCard>
+
+            <suki:GlassCard>
+                <suki:GroupBox Header="Button Menus">
+                    <StackPanel Width="220"
+                                VerticalAlignment="Center"
+                                Spacing="15">
+                        <!--  Few enough items to fit, so these stay arrow-free.  -->
+                        <TextBlock Classes="h3"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap">
+                            Short menus with icons, attached to buttons.
+                        </TextBlock>
+
+                        <Button HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Center"
+                                Content="Right click me">
+                            <Button.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding MenuActionClickedCommand}"
+                                              CommandParameter="New"
+                                              Header="New">
+                                        <MenuItem.Icon>
+                                            <PathIcon Width="15"
+                                                      Height="15"
+                                                      Data="{x:Static suki:Icons.Plus}" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem Command="{Binding MenuActionClickedCommand}"
+                                              CommandParameter="Open"
+                                              Header="Open">
+                                        <MenuItem.Icon>
+                                            <PathIcon Width="15"
+                                                      Height="15"
+                                                      Data="{x:Static suki:Icons.FileOpen}" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem Command="{Binding MenuActionClickedCommand}"
+                                              CommandParameter="Rename"
+                                              Header="Rename">
+                                        <MenuItem.Icon>
+                                            <PathIcon Width="15"
+                                                      Height="15"
+                                                      Data="{x:Static suki:Icons.Pencil}" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <Separator />
+                                    <MenuItem Command="{Binding MenuActionClickedCommand}"
+                                              CommandParameter="Delete"
+                                              Header="Delete">
+                                        <MenuItem.Icon>
+                                            <PathIcon Width="15"
+                                                      Height="15"
+                                                      Data="{x:Static suki:Icons.Backspace}" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </ContextMenu>
+                            </Button.ContextMenu>
+                        </Button>
+
+                        <Button HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Center"
+                                Content="Left click for a flyout">
+                            <Button.Flyout>
+                                <MenuFlyout>
+                                    <MenuItem Command="{Binding MenuActionClickedCommand}"
+                                              CommandParameter="Refresh"
+                                              Header="Refresh">
+                                        <MenuItem.Icon>
+                                            <PathIcon Width="15"
+                                                      Height="15"
+                                                      Data="{x:Static suki:Icons.Refresh}" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem Command="{Binding MenuActionClickedCommand}"
+                                              CommandParameter="Find"
+                                              Header="Find">
+                                        <MenuItem.Icon>
+                                            <PathIcon Width="15"
+                                                      Height="15"
+                                                      Data="{x:Static suki:Icons.Search}" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <Separator />
+                                    <MenuItem Header="Sort By">
+                                        <MenuItem.Icon>
+                                            <PathIcon Width="15"
+                                                      Height="15"
+                                                      Data="{x:Static suki:Icons.Star}" />
+                                        </MenuItem.Icon>
+                                        <MenuItem Command="{Binding MenuActionClickedCommand}"
+                                                  CommandParameter="Sort by name"
+                                                  Header="Name">
+                                            <MenuItem.Icon>
+                                                <PathIcon Width="15"
+                                                          Height="15"
+                                                          Data="{x:Static suki:Icons.Check}" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Command="{Binding MenuActionClickedCommand}"
+                                                  CommandParameter="Sort by date"
+                                                  Header="Date">
+                                            <MenuItem.Icon>
+                                                <PathIcon Width="15"
+                                                          Height="15"
+                                                          Data="{x:Static suki:Icons.Calendar}" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                    </MenuItem>
+                                    <MenuItem Header="Unavailable" IsEnabled="False">
+                                        <MenuItem.Icon>
+                                            <PathIcon Width="15"
+                                                      Height="15"
+                                                      Data="{x:Static suki:Icons.Cancel}" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </MenuFlyout>
+                            </Button.Flyout>
+                        </Button>
+                    </StackPanel>
+                </suki:GroupBox>
+            </suki:GlassCard>
+        </WrapPanel>
+    </ScrollViewer>
 </UserControl>
