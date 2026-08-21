@@ -26,7 +26,8 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <DockPanel>
-                    <RepeatButton DockPanel.Dock="Top"
+                    <RepeatButton Name="PART_ScrollUpButton"
+                                  DockPanel.Dock="Top"
                                   HorizontalAlignment="Stretch"
                                   HorizontalContentAlignment="Center"
                                   Background="Transparent"
@@ -52,7 +53,8 @@
                         </Viewbox>
                     </RepeatButton>
 
-                    <RepeatButton DockPanel.Dock="Bottom"
+                    <RepeatButton Name="PART_ScrollDownButton"
+                                  DockPanel.Dock="Bottom"
                                   HorizontalAlignment="Stretch"
                                   HorizontalContentAlignment="Center"
                                   Background="Transparent"
@@ -106,12 +108,24 @@
 
         <Style Selector="^ /template/ RepeatButton">
             <Setter Property="Height" Value="24" />
-            <Setter Property="Margin" Value="0,2" />
             <Setter Property="MinHeight" Value="0" />
             <Setter Property="MinWidth" Value="0" />
             <Setter Property="Padding" Value="0" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="CornerRadius" Value="0" />
+        </Style>
+
+        <!--
+            Margins are split per arrow rather than shared: the outer edge needs more
+            clearance from the menu border than the inner edge needs from the items,
+            and a shared symmetric margin leaves the bottom arrow looking flush.
+        -->
+        <Style Selector="^ /template/ RepeatButton#PART_ScrollUpButton">
+            <Setter Property="Margin" Value="0,3,0,7" />
+        </Style>
+
+        <Style Selector="^ /template/ RepeatButton#PART_ScrollDownButton">
+            <Setter Property="Margin" Value="0,2,0,10" />
         </Style>
 
         <Style Selector="^ /template/ RepeatButton:pointerover > Viewbox > Path">
