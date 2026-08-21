@@ -3,8 +3,7 @@
                     xmlns:animations="clr-namespace:SukiUI.Animations"
                     xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=netstandard"
                     xmlns:suki="https://github.com/kikipoulet/SukiUI"
-                    xmlns:system="clr-namespace:System;assembly=netstandard"
-                    xmlns:theme="clr-namespace:SukiUI.Theme">
+                    xmlns:system="clr-namespace:System;assembly=netstandard">
 
     <Design.PreviewWith>
         <Border Padding="20" Background="Transparent">
@@ -47,7 +46,7 @@
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Padding" Value="6,6,-6,6" />
+        <Setter Property="Padding" Value="18,6,0,6" />
         <Setter Property="MinHeight" Value="45" />
         <Setter Property="MaxDropDownHeight" Value="345" />
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
@@ -56,22 +55,9 @@
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Border Margin="0,0,0,0" Padding="5">
-                    <Border.Styles>
-
-
-                        <Style Selector="ContentControl.ghost TextBlock">
-                            <Setter Property="Foreground" Value="Transparent" />
-                        </Style>
-                        <Style Selector="ToggleButton:pointerover">
-                            <Setter Property="Background" Value="Transparent" />
-                        </Style>
-                        <Style Selector="ToggleButton:checked">
-                            <Setter Property="Background" Value="Transparent" />
-                        </Style>
-                    </Border.Styles>
+                <!--  Padding leaves room for the GlassCard shadow; PART_Popup HorizontalOffset cancels it.  -->
+                <Border Padding="5">
                     <suki:GlassCard Name="border"
-                                    Padding="{TemplateBinding Padding}"
                                     Background="{TemplateBinding Background}"
                                     BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="{TemplateBinding BorderThickness}"
@@ -82,10 +68,13 @@
                                 <BrushTransition Property="BorderBrush" Duration="0:0:0.2" />
                             </Transitions>
                         </suki:GlassCard.Transitions>
+                        <!--  Padding insets the content only. The arrow is chrome and stays pinned to the right edge.  -->
                         <Grid ColumnDefinitions="*,Auto">
                             <TextBlock Name="PlaceholderTextBlock"
                                        Grid.Column="0"
-                                       Margin="12,1,0,0"
+                                       Margin="{TemplateBinding Padding}"
+                                       ClipToBounds="True"
+                                       TextTrimming="CharacterEllipsis"
                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                        VerticalAlignment="Center"
                                        Foreground="{TemplateBinding PlaceholderForeground}"
@@ -101,7 +90,10 @@
                                     </MultiBinding>
                                 </TextBlock.IsVisible>
                             </TextBlock>
-                            <ContentControl Margin="12,1,0,0"
+                            <ContentControl Name="SelectionBox"
+                                            Grid.Column="0"
+                                            Margin="{TemplateBinding Padding}"
+                                            ClipToBounds="True"
                                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                             Content="{TemplateBinding SelectionBoxItem}"
@@ -111,7 +103,7 @@
                             <TextBox Name="PART_EditableTextBox"
                                      Grid.Column="0"
                                      MinHeight="0"
-                                     Margin="12,1,0,0"
+                                     Margin="{TemplateBinding Padding}"
                                      Padding="0"
                                      HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                      VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -121,41 +113,39 @@
                                      IsVisible="{TemplateBinding IsEditable}"
                                      PlaceholderText="{TemplateBinding PlaceholderText}"
                                      Text="{TemplateBinding Text, Mode=TwoWay}" />
+                            <!--
+                                IsHitTestVisible is off and IsChecked is one-way on purpose. ComboBox
+                                itself toggles IsDropDownOpen on pointer release, so a toggle that also
+                                wrote the property gave it two owners and two competing click paths.
+                                This keeps the button purely as the arrow's visual state.
+                            -->
                             <ToggleButton Name="toggle"
                                           Grid.Column="1"
-                                          Margin="10,0,0,0"
-                                          Padding="20,5,12,5"
+                                          Padding="12,5"
                                           BorderThickness="0"
-                                          ClickMode="Press"
                                           CornerRadius="{DynamicResource SmallCornerRadius}"
                                           Focusable="False"
-                                          IsChecked="{TemplateBinding IsDropDownOpen,
-                                                                      Mode=TwoWay}">
-
-                                <Image HorizontalAlignment="Right" Width="12" Height="12">
-                                    <Image.Source>
-                                        <DrawingImage>
-                                            <DrawingImage.Drawing>
-                                                <DrawingGroup ClipGeometry="M 0,0 L 24,0 24,24 0,24 Z">
-                                                    <GeometryDrawing Geometry="F1 m7 15 5 5 5-5">
-                                                        <GeometryDrawing.Pen>
-                                                            <Pen Brush="{DynamicResource SukiLowText}" Thickness="2"
-                                                                 LineCap="Round" LineJoin="Round" />
-                                                        </GeometryDrawing.Pen>
-                                                    </GeometryDrawing>
-                                                    <GeometryDrawing Geometry="F1 m7 9 5-5 5 5">
-                                                        <GeometryDrawing.Pen>
-                                                            <Pen Brush="{DynamicResource SukiLowText}" Thickness="2"
-                                                                 LineCap="Round" LineJoin="Round" />
-                                                        </GeometryDrawing.Pen>
-                                                    </GeometryDrawing>
-                                                </DrawingGroup>
-                                            </DrawingImage.Drawing>
-                                        </DrawingImage>
-                                    </Image.Source>
-                                </Image>
+                                          IsHitTestVisible="False"
+                                          IsChecked="{TemplateBinding IsDropDownOpen}">
+                                <!--
+                                    Drawn as a Path rather than a DrawingImage: Drawing objects sit
+                                    outside the logical tree, so DynamicResource has no resource host
+                                    to resolve or re-resolve against when the theme variant changes.
+                                    The 24-unit grid and 2px stroke are the original values; the
+                                    Viewbox reproduces the old 24 -> 12 scale.
+                                -->
+                                <Viewbox Width="12" Height="12">
+                                    <Panel Width="24" Height="24">
+                                        <Path Data="M7,15 L12,20 L17,15 M7,9 L12,4 L17,9"
+                                              Stroke="{DynamicResource SukiLowText}"
+                                              StrokeThickness="2"
+                                              StrokeLineCap="Round"
+                                              StrokeJoin="Round" />
+                                    </Panel>
+                                </Viewbox>
                             </ToggleButton>
                             <Popup Name="PART_Popup"
+                                   Grid.Column="0"
                                    MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}"
                                    HorizontalOffset="-5"
                                    IsLightDismissEnabled="True"
@@ -189,7 +179,6 @@
                                                         VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
 
                                                         <ItemsPresenter Name="PART_ItemsPresenter"
-                                                                        Margin="0"
                                                                         ItemsPanel="{TemplateBinding ItemsPanel}" />
                                                     </ScrollViewer>
                                                 </Panel>
@@ -205,9 +194,6 @@
         </Setter>
 
         <Style Selector="^[IsDropDownOpen=true] /template/ LayoutTransformControl#PART_LayoutTransform">
-            <Style.Resources>
-                <theme:PlusNineConverter x:Key="NineConverter" />
-            </Style.Resources>
 
             <Style.Animations>
                 <Animation FillMode="Forward" Duration="0:0:0.4">
@@ -258,9 +244,6 @@
         </Style>
 
         <Style Selector="^[IsDropDownOpen=false] /template/ LayoutTransformControl#PART_LayoutTransform">
-            <Style.Resources>
-                <theme:PlusNineConverter x:Key="NineConverter" />
-            </Style.Resources>
             <Style.Animations>
                 <Animation Easing="CircularEaseOut"
                            FillMode="Forward"
@@ -282,6 +265,24 @@
         <Style Selector="^[IsEditable=true]">
             <Setter Property="IsTabStop" Value="False" />
             <Setter Property="KeyboardNavigation.TabNavigation" Value="Local" />
+        </Style>
+
+        <!--
+            Trimming applies because the selection box is clipped to its grid column:
+            text can never paint over the arrow, and the boundary reads as an ellipsis
+            rather than a glyph sliced in half.
+        -->
+        <Style Selector="^ /template/ ContentControl#SelectionBox TextBlock">
+            <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        </Style>
+
+        <!--
+            The toggle never paints its own chrome; the GlassCard behind it already draws
+            the background, border and corner radius. Only :checked is needed, since the
+            button is not hit-testable and so can never enter :pointerover.
+        -->
+        <Style Selector="^ /template/ ToggleButton#toggle:checked">
+            <Setter Property="Background" Value="Transparent" />
         </Style>
 
         <Style Selector="^:pointerover /template/ suki|GlassCard#border">

@@ -38,11 +38,52 @@
                 </suki:GlassCard>
                 <suki:GlassCard>
                     <suki:GroupBox Header="ComboBox">
-                        <showMeTheXaml:XamlDisplay UniqueId="ComboBox">
-                            <ComboBox VerticalAlignment="Top"
+
+                        <StackPanel>
+                            <showMeTheXaml:XamlDisplay UniqueId="ComboBox">
+                                <ComboBox VerticalAlignment="Top"
+                                          ItemsSource="{Binding SimpleContent}"
+                                          SelectedItem="{Binding SelectedSimpleContent}" />
+                            </showMeTheXaml:XamlDisplay>
+
+                            <TextBlock FontSize="12"
+                                       Opacity="0.6"
+                                       Text="Padding = 20" />
+                            <ComboBox Width="150"
+                                      Padding="20"
                                       ItemsSource="{Binding SimpleContent}"
-                                      SelectedItem="{Binding SelectedSimpleContent}" />
-                        </showMeTheXaml:XamlDisplay>
+                                      SelectedItem="{Binding SelectedSimpleContent}"
+                                      SelectedIndex="0" />
+
+                            <TextBlock FontSize="12"
+                                       Opacity="0.6"
+                                       Text="Padding = 40,6,40,6" />
+                            <ComboBox Width="150"
+                                      Padding="40,6,40,6"
+                                      ItemsSource="{Binding SimpleContent}"
+                                      SelectedItem="{Binding SelectedSimpleContent}"
+                                      SelectedIndex="0" />
+
+                            <TextBlock FontSize="12"
+                                       Opacity="0.6"
+                                       Text="HorizontalContentAlignment=Center" />
+                            <ComboBox Width="150"
+                                      HorizontalContentAlignment="Center"
+                                      ItemsSource="{Binding SimpleContent}"
+                                      SelectedItem="{Binding SelectedSimpleContent}"
+                                      SelectedIndex="0" />
+
+                            <TextBlock FontSize="12"
+                                       Opacity="0.6"
+                                       Text="Editable" />
+                            <ComboBox Width="150"
+                                      IsEditable="True"
+                                      ItemsSource="{Binding SimpleContent}"
+                                      SelectedItem="{Binding SelectedSimpleContent}"
+                                      SelectedIndex="0" />
+                        </StackPanel>
+
+
                     </suki:GroupBox>
                 </suki:GlassCard>
 
