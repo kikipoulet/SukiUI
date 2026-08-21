@@ -35,7 +35,6 @@
                                     <ItemsPresenter Name="PART_ItemsPresenter"
                                                     Grid.IsSharedSizeScope="True"
                                                     HorizontalAlignment="Left"
-                                                    VerticalAlignment="Center"
                                                     ItemsPanel="{TemplateBinding ItemsPanel}"
                                                     KeyboardNavigation.TabNavigation="Continue" />
                                 </ScrollViewer>

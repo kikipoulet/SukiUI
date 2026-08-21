@@ -26,7 +26,6 @@
                                           VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
                                 <ItemsPresenter Name="PART_ItemsPresenter"
                                                 HorizontalAlignment="Left"
-                                                VerticalAlignment="Center"
                                                 ItemsPanel="{TemplateBinding ItemsPanel}"
                                                 KeyboardNavigation.TabNavigation="Continue" />
                             </ScrollViewer>
