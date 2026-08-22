@@ -68,7 +68,7 @@ namespace SukiUI.Controls
 
         protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
         {
-            _customVisual?.SendHandlerMessage(EffectDrawBase.StopAnimations);
+            _customVisual?.SendHandlerMessage(EffectDrawBase.DisposeHandler);
             ElementComposition.SetElementChildVisual(this, null);
             _customVisual = null;
             base.OnDetachedFromVisualTree(e);
@@ -97,6 +97,7 @@ namespace SukiUI.Controls
         public class LoadingEffectDraw : EffectDrawBase
         {
             private float[] _color = { 1.0f, 0f, 0f };
+            private readonly SKPaint _paint = new();
 
             public LoadingEffectDraw()
             {
@@ -105,17 +106,17 @@ namespace SukiUI.Controls
 
             protected override void Render(SKCanvas canvas, SKRect rect)
             {
-                using var mainShaderPaint = new SKPaint();
-
                 if (Effect is not null)
                 {
-                    using var shader = EffectWithCustomUniforms(effect => new SKRuntimeEffectUniforms(effect)
+                    var shader = EffectWithCustomUniforms(effect => new SKRuntimeEffectUniforms(effect)
                     {
                         { "iForeground", _color }
                     });
-                    mainShaderPaint.Shader = shader;
-                    canvas.DrawRect(rect, mainShaderPaint);
+                    _paint.Style = SKPaintStyle.Fill;
+                    _paint.Shader = shader;
+                    canvas.DrawRect(rect, _paint);
                 }
+                _paint.Shader = null;
             }
 
             // I'm not really sure how to render this properly in software fallback scenarios.
@@ -128,25 +129,32 @@ namespace SukiUI.Controls
                 var oval = new SKRect(rect.Left + inset, rect.Top + inset, rect.Right - inset, rect.Bottom - inset);
                 var startAngle = AnimationSeconds * 360f;
 
-                using var paint = new SKPaint
-                {
-                    IsAntialias = true,
-                    Color = new SKColor(
-                        (byte)(Math.Clamp(_color[0], 0f, 1f) * byte.MaxValue),
-                        (byte)(Math.Clamp(_color[1], 0f, 1f) * byte.MaxValue),
-                        (byte)(Math.Clamp(_color[2], 0f, 1f) * byte.MaxValue)),
-                    Style = SKPaintStyle.Stroke,
-                    StrokeCap = SKStrokeCap.Round,
-                    StrokeWidth = strokeWidth
-                };
-                canvas.DrawArc(oval, startAngle, 270f, false, paint);
+                _paint.IsAntialias = true;
+                _paint.Color = new SKColor(
+                    (byte)(Math.Clamp(_color[0], 0f, 1f) * byte.MaxValue),
+                    (byte)(Math.Clamp(_color[1], 0f, 1f) * byte.MaxValue),
+                    (byte)(Math.Clamp(_color[2], 0f, 1f) * byte.MaxValue));
+                _paint.Style = SKPaintStyle.Stroke;
+                _paint.StrokeCap = SKStrokeCap.Round;
+                _paint.StrokeWidth = strokeWidth;
+                _paint.Shader = null;
+                canvas.DrawArc(oval, startAngle, 270f, false, _paint);
             }
 
             public override void OnMessage(object message)
             {
                 base.OnMessage(message);
                 if (message is float[] color)
+                {
                     _color = (float[])color.Clone();
+                    InvalidateShaderCache();
+                }
+            }
+
+            public override void Dispose()
+            {
+                _paint.Dispose();
+                base.Dispose();
             }
         }
     }

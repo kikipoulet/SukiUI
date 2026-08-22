@@ -8,78 +8,47 @@ using Avalonia.Markup.Xaml;
 
 namespace SukiUI.Demo.Features.ControlsLibrary.DockControls;
 
-    public partial class SolutionExplore : UserControl
+public partial class SolutionExplore : UserControl
+{
+    public SolutionExplore()
     {
-        public SolutionExplore()
-        {
-            InitializeComponent();
-            FolderContents = new ObservableCollection<FolderItem>();
-            LoadFolderContents("../");
-            this.FindControl<TreeView>("TV").ItemsSource = FolderContents;
-        }
-    
-        public ObservableCollection<FolderItem> FolderContents { get; set; }
-
-    
-
-        private void LoadFolderContents(string path)
-        {
-            var dirInfo = new DirectoryInfo(path);
-            var files = dirInfo.GetFiles();
-            var directories = dirInfo.GetDirectories();
-
-            foreach (var file in files)
-            {
-                FolderContents.Add(new FolderItem(file.Name, false));
-            }
-
-            foreach (var directory in directories)
-            {
-                var folderItem = new FolderItem(directory.Name, true);
-                LoadFolderContents(directory.FullName);
-                folderItem.Children = new ObservableCollection<FolderItem>(GetFolderItems(directory.FullName));
-                FolderContents.Add(folderItem);
-            }
-        
-            FolderContents = new ObservableCollection<FolderItem>(FolderContents.OrderBy(item => !item.IsDirectory).ThenBy(item => item.Name));
-        }
-
-        private IEnumerable<FolderItem> GetFolderItems(string path)
-        {
-            var result = new List<FolderItem>();
-            var dirInfo = new DirectoryInfo(path);
-            var files = dirInfo.GetFiles();
-            var directories = dirInfo.GetDirectories();
-
-            foreach (var file in files)
-            {
-                result.Add(new FolderItem(file.Name, false));
-            }
-
-            foreach (var directory in directories)
-            {
-                result.Add(new FolderItem(directory.Name, true));
-            }
-
-            return result;
-        }
+        InitializeComponent();
+        FolderContents = CreateDemoTree();
+        this.FindControl<TreeView>("TV").ItemsSource = FolderContents;
     }
 
+    public ObservableCollection<FolderItem> FolderContents { get; }
 
-    public class FolderItem
+    private static ObservableCollection<FolderItem> CreateDemoTree() =>
+    [
+        Directory("SukiUI", File("App.axaml"), File("App.axaml.cs"), Directory("Controls", File("SukiWindow.cs"))),
+        Directory("SukiUI.Demo", File("Program.cs"), File("SukiUIDemoView.axaml"), Directory("Features", File("DockView.axaml"))),
+        Directory("tests", File("SukiUI.Tests.csproj")),
+        File("SukiUI.sln"),
+        File("Directory.Packages.props")
+    ];
+
+    private static FolderItem File(string name) => new(name, false);
+
+    private static FolderItem Directory(string name, params FolderItem[] children) => new(name, true)
     {
-        public string Name { get; set; }
-        public bool IsDirectory { get; set; }
-        public ObservableCollection<FolderItem> Children { get; set; }
+        Children = new ObservableCollection<FolderItem>(children)
+    };
+}
 
-        public FolderItem(string name, bool isDirectory)
-        {
-            Name = name;
-            IsDirectory = isDirectory;
-            Children = new ObservableCollection<FolderItem>();
-        }
+public class FolderItem
+{
+    public FolderItem(string name, bool isDirectory)
+    {
+        Name = name;
+        IsDirectory = isDirectory;
+        Children = new ObservableCollection<FolderItem>();
     }
 
+    public string Name { get; }
+    public bool IsDirectory { get; }
+    public ObservableCollection<FolderItem> Children { get; init; }
+}
 
 
 

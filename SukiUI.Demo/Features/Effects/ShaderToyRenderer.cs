@@ -37,6 +37,14 @@ namespace SukiUI.Demo.Features.Effects
             _customVisual?.SendHandlerMessage(effect);
         }
 
+        protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+        {
+            _customVisual?.SendHandlerMessage(EffectDrawBase.DisposeHandler);
+            ElementComposition.SetElementChildVisual(this, null);
+            _customVisual = null;
+            base.OnDetachedFromVisualTree(e);
+        }
+
         protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
         {
             base.OnPropertyChanged(change);
@@ -46,6 +54,8 @@ namespace SukiUI.Demo.Features.Effects
 
         private class ShaderToyDraw : EffectDrawBase
         {
+            private readonly SKPaint _paint = new();
+
             public ShaderToyDraw()
             {
                 AnimationEnabled = true;
@@ -54,19 +64,25 @@ namespace SukiUI.Demo.Features.Effects
 
             protected override void Render(SKCanvas canvas, SKRect rect)
             {
-                using var mainShaderPaint = new SKPaint();
-            
                 if (Effect is not null)
                 {
-                    using var shader = EffectWithUniforms();
-                    mainShaderPaint.Shader = shader;
-                    canvas.DrawRect(rect, mainShaderPaint);
+                    var shader = EffectWithUniforms();
+                    _paint.Style = SKPaintStyle.Fill;
+                    _paint.Shader = shader;
+                    canvas.DrawRect(rect, _paint);
                 }
+                _paint.Shader = null;
             }
 
             protected override void RenderSoftware(SKCanvas canvas, SKRect rect)
             {
                 throw new System.NotImplementedException();
+            }
+
+            public override void Dispose()
+            {
+                _paint.Dispose();
+                base.Dispose();
             }
         }
     }

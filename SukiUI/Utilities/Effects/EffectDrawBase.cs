@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Avalonia;
 using Avalonia.Media;
@@ -15,13 +16,15 @@ namespace SukiUI.Utilities.Effects
     public abstract class EffectDrawBase : CompositionCustomVisualHandler
     {
         public static readonly object StartAnimations = new(), StopAnimations = new(), 
-            EnableForceSoftwareRendering = new(), DisableForceSoftwareRendering = new();
+            EnableForceSoftwareRendering = new(), DisableForceSoftwareRendering = new(),
+            DisposeHandler = new();
 
         public readonly record struct BaseThemeChangedMessage(ThemeVariant Variant);
 
         public readonly record struct ColorThemeChangedMessage(SukiColorTheme Theme);
         
         private SukiEffect? _effect;
+        private readonly Dictionary<ShaderCacheKey, SKShader> _shaderCache = new();
 
         public SukiEffect? Effect
         {
@@ -31,6 +34,7 @@ namespace SukiUI.Utilities.Effects
                 var old = _effect;
                 if (Equals(old, value)) return;
                 _effect = value;
+                InvalidateShaderCache();
                 EffectChanged(old, _effect);
             }
         }
@@ -41,9 +45,11 @@ namespace SukiUI.Utilities.Effects
             get => _animationEnabled;
             set
             {
+                if (_animationEnabled == value) return;
                 if (value) _animationTick.Start();
                 else _animationTick.Stop();
                 _animationEnabled = value;
+                InvalidateShaderCache();
             }
         }
         
@@ -71,6 +77,10 @@ namespace SukiUI.Utilities.Effects
 
         public override void OnRender(ImmediateDrawingContext context)
         {
+            // DisposeHandler frees the derived SKPaint and every cached shader, but it arrives as a
+            // separate compositor commit from the visual removal, so a render can still be scheduled
+            // after it.
+            if (_isDisposed) return;
             var leaseFeature = context.TryGetFeature<ISkiaSharpApiLeaseFeature>();
             if (leaseFeature is null) throw new InvalidOperationException("Unable to lease Skia API");
             using var lease = leaseFeature.Lease();
@@ -102,14 +112,20 @@ namespace SukiUI.Utilities.Effects
                 ForceSoftwareRendering = false;
                 Invalidate();
             }
+            else if (message == DisposeHandler)
+            {
+                Dispose();
+            }
             else if (message is BaseThemeChangedMessage baseThemeChanged)
             {
                 ActiveVariant = baseThemeChanged.Variant;
+                InvalidateShaderCache();
                 InvalidateTheme();
             }
             else if (message is ColorThemeChangedMessage colorThemeChanged)
             {
                 ActiveTheme = colorThemeChanged.Theme;
+                InvalidateShaderCache();
                 InvalidateTheme();
             }
             else if (message is SukiEffect effect)
@@ -143,14 +159,75 @@ namespace SukiUI.Utilities.Effects
         protected SKShader? EffectWithUniforms(float alpha = 1f) => 
             EffectWithUniforms(Effect, alpha);
 
-        protected SKShader? EffectWithUniforms(SukiEffect? effect, float alpha = 1f) => 
-            effect?.ToShaderWithUniforms(AnimationSeconds, ActiveVariant, GetRenderBounds(), AnimationSpeedScale, alpha);
+        protected SKShader? EffectWithUniforms(SukiEffect? effect, float alpha = 1f)
+        {
+            if (effect is null) return null;
+            var bounds = GetRenderBounds();
+            return EffectWithUniforms(effect, bounds, alpha);
+        }
+
+        protected SKShader? EffectWithUniforms(SukiEffect? effect, Rect bounds, float alpha = 1f)
+        {
+            if (effect is null) return null;
+            if (AnimationEnabled)
+                return effect.ToShaderWithUniforms(AnimationSeconds, ActiveVariant, bounds, AnimationSpeedScale, alpha);
+
+            var key = CreateShaderCacheKey(effect, bounds, alpha);
+            if (TryGetCachedShader(key, out var cached))
+                return cached;
+            PruneShaderCache((float)bounds.Width, (float)bounds.Height);
+            return AddCachedShader(key,
+                effect.ToShaderWithUniforms(AnimationSeconds, ActiveVariant, bounds, AnimationSpeedScale, alpha));
+        }
 
         protected SKShader? EffectWithCustomUniforms(Func<SKRuntimeEffect,SKRuntimeEffectUniforms> uniformFactory, float alpha = 1f) =>
             EffectWithCustomUniforms(Effect, uniformFactory, alpha);
         
-        protected SKShader? EffectWithCustomUniforms(SukiEffect? effect, Func<SKRuntimeEffect,SKRuntimeEffectUniforms> uniformFactory, float alpha = 1f) =>
-            effect?.ToShaderWithCustomUniforms(uniformFactory, AnimationSeconds, GetRenderBounds(), AnimationSpeedScale, alpha);
+        protected SKShader? EffectWithCustomUniforms(SukiEffect? effect,
+            Func<SKRuntimeEffect, SKRuntimeEffectUniforms> uniformFactory, float alpha = 1f)
+        {
+            if (effect is null) return null;
+            var bounds = GetRenderBounds();
+            return EffectWithCustomUniforms(effect, uniformFactory, bounds, alpha);
+        }
+
+        protected SKShader? EffectWithCustomUniforms(SukiEffect? effect,
+            Func<SKRuntimeEffect, SKRuntimeEffectUniforms> uniformFactory, Rect bounds, float alpha = 1f)
+        {
+            return effect?.ToShaderWithCustomUniforms(uniformFactory, AnimationSeconds, bounds, AnimationSpeedScale, alpha);
+        }
+
+        /// <summary>
+        /// Invalidates all cached shaders. Custom-uniform renderers should call this after changing
+        /// values captured by their uniform factory.
+        /// </summary>
+        protected void InvalidateShaderCache()
+        {
+            foreach (var shader in _shaderCache.Values)
+                shader.Dispose();
+            _shaderCache.Clear();
+        }
+
+        protected void InvalidateShaderCache(SukiEffect effect)
+        {
+            // SukiEffect equality is by shader source and FromString hands out shared instances, so the
+            // outgoing effect can be the very same object as the live one. Dropping its entries would
+            // discard shaders the current effect is still hitting.
+            if (Equals(_effect, effect)) return;
+
+            var matchingKeys = new List<ShaderCacheKey>();
+            foreach (var pair in _shaderCache)
+            {
+                if (Equals(pair.Key.Effect, effect))
+                    matchingKeys.Add(pair.Key);
+            }
+
+            foreach (var key in matchingKeys)
+            {
+                _shaderCache[key].Dispose();
+                _shaderCache.Remove(key);
+            }
+        }
 
         protected virtual void EffectChanged(SukiEffect? oldValue, SukiEffect? newValue)
         {
@@ -162,7 +239,49 @@ namespace SukiUI.Utilities.Effects
             if (_isDisposed) return;
             _isDisposed = true;
             AnimationEnabled = false;
+            _animationTick.Stop();
+            InvalidateShaderCache();
         }
+
+        private ShaderCacheKey CreateShaderCacheKey(SukiEffect effect, Rect bounds, float alpha) =>
+            new(effect, (float)bounds.Width, (float)bounds.Height, alpha);
+
+        private bool TryGetCachedShader(ShaderCacheKey key, out SKShader shader) =>
+            _shaderCache.TryGetValue(key, out shader!);
+
+        private SKShader? AddCachedShader(ShaderCacheKey key, SKShader? shader)
+        {
+            // ToShader returns null when the uniforms do not satisfy the compiled effect. Caching that
+            // would read back as a hit forever, and would throw on Dispose during invalidation.
+            if (shader is null) return null;
+            _shaderCache.Add(key, shader);
+            return shader;
+        }
+
+        private void PruneShaderCache(float width, float height)
+        {
+            if (_shaderCache.Count == 0) return;
+
+            var staleKeys = new List<ShaderCacheKey>();
+            foreach (var pair in _shaderCache)
+            {
+                var key = pair.Key;
+                // Entries for a size we no longer render can never be hit again. Without this, a handler
+                // with AnimationEnabled == false (the SukiBackground default) retains one compiled shader
+                // for every intermediate size a window passes through while being resized.
+                var staleSize = key.Width != width || key.Height != height;
+                if (staleSize)
+                    staleKeys.Add(key);
+            }
+
+            foreach (var key in staleKeys)
+            {
+                _shaderCache[key].Dispose();
+                _shaderCache.Remove(key);
+            }
+        }
+
+        private readonly record struct ShaderCacheKey(SukiEffect Effect, float Width, float Height, float Alpha);
 
         private void InvalidateTheme()
         {

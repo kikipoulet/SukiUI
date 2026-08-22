@@ -32,11 +32,13 @@ namespace SukiUI.Utilities.Effects
         };
 
         private static readonly List<SukiEffect> LoadedEffects = new();
+        private static readonly Dictionary<string, SukiEffect> EffectCache = new(StringComparer.Ordinal);
         private static readonly object LifecycleLock = new();
         private static IControlledApplicationLifetime? _applicationLifetime;
 
         private readonly string _rawShaderString;
         private readonly string _shaderString;
+        private readonly int _hashCode;
 
         /// <summary>
         /// The compiled <see cref="SKRuntimeEffect"/> that will actually be used in draw calls. 
@@ -47,9 +49,11 @@ namespace SukiUI.Utilities.Effects
         {
             _shaderString = shaderString;
             _rawShaderString = rawShaderString;
+            _hashCode = StringComparer.Ordinal.GetHashCode(_shaderString);
             var compiledEffect = SKRuntimeEffect.CreateShader(_shaderString, out var errors);
             Effect = compiledEffect ?? throw new ShaderCompilationException(errors);
-            LoadedEffects.Add(this);
+            lock (LifecycleLock)
+                LoadedEffects.Add(this);
         }
 
         static SukiEffect()
@@ -114,12 +118,20 @@ namespace SukiUI.Utilities.Effects
         public static SukiEffect FromString(string shaderString)
         {
             EnsureExitSubscription();
-            var sb = new StringBuilder();
-            foreach (var uniform in Uniforms)
-                sb.AppendLine(uniform);
-            sb.Append(shaderString);
-            var withUniforms = sb.ToString();
-            return new SukiEffect(withUniforms, shaderString);
+
+            lock (LifecycleLock)
+            {
+                if (EffectCache.TryGetValue(shaderString, out var cached))
+                    return cached;
+
+                var sb = new StringBuilder();
+                foreach (var uniform in Uniforms)
+                    sb.AppendLine(uniform);
+                sb.Append(shaderString);
+                var effect = new SukiEffect(sb.ToString(), shaderString);
+                EffectCache.Add(shaderString, effect);
+                return effect;
+            }
         }
 
         private static void EnsureExitSubscription()
@@ -145,12 +157,16 @@ namespace SukiUI.Utilities.Effects
         /// </summary>
         internal static void EnsureDisposed()
         {
-            if (_disposed)
-                return;
-            _disposed = true;
-            foreach (var loaded in LoadedEffects)
-                loaded.Effect.Dispose();
-            LoadedEffects.Clear();
+            lock (LifecycleLock)
+            {
+                if (_disposed)
+                    return;
+                _disposed = true;
+                foreach (var loaded in LoadedEffects)
+                    loaded.Effect.Dispose();
+                LoadedEffects.Clear();
+                EffectCache.Clear();
+            }
         }
 
         public override bool Equals(object? obj)
@@ -159,7 +175,7 @@ namespace SukiUI.Utilities.Effects
             return effect._shaderString == _shaderString;
         }
 
-        public override int GetHashCode() => StringComparer.Ordinal.GetHashCode(_shaderString);
+        public override int GetHashCode() => _hashCode;
 
         private static readonly float[] White = { 0.95f, 0.95f, 0.95f };
         private readonly float[] _backgroundAlloc = new float[3];
@@ -181,7 +197,7 @@ namespace SukiUI.Utilities.Effects
             _boundsAlloc[0] = (float)bounds.Width;
             _boundsAlloc[1] = (float)bounds.Height;
             
-            var inputs = new SKRuntimeEffectUniforms(Effect)
+            using var inputs = new SKRuntimeEffectUniforms(Effect)
             {
                 { "iResolution", _boundsAlloc },
                 { "iTime", timeSeconds * animationScale },
@@ -203,8 +219,8 @@ namespace SukiUI.Utilities.Effects
         internal SKShader ToShaderWithCustomUniforms(Func<SKRuntimeEffect,SKRuntimeEffectUniforms> uniformFactory, float timeSeconds, Rect bounds,
             float animationScale, float alpha = 1f)
         {
-            var uniforms = uniformFactory(Effect);
-            uniforms.Add("iResolution", new[] { (float)bounds.Width, (float)bounds.Height, 0f });
+            using var uniforms = uniformFactory(Effect);
+            uniforms.Add("iResolution", new SKPoint3((float)bounds.Width, (float)bounds.Height, 0f));
             uniforms.Add("iTime", timeSeconds * animationScale);
             uniforms.Add("iAlpha", alpha);
             return Effect.ToShader(uniforms);

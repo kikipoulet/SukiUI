@@ -20,24 +20,29 @@ public class BlurBackground : Control
         get => GetValue(IsDynamicProperty);
         set => SetValue(IsDynamicProperty, value);
     }
-    
+
     public static readonly StyledProperty<double> IntensityFactorProperty =
         AvaloniaProperty.Register<BlurBackground, double>(nameof(IntensityFactor), 1d,
             coerce: (_, value) => Math.Max(0, value));
-    
+
     public double IntensityFactor
     {
         get => GetValue(IntensityFactorProperty);
         set => SetValue(IntensityFactorProperty, value);
     }
-    
+
     static BlurBackground()
     {
         AffectsRender<BlurBackground>(IsDynamicProperty, IntensityFactorProperty);
+        AppDomain.CurrentDomain.ProcessExit += (_, _) =>
+        {
+            if (ClampLumaEffect.IsValueCreated)
+                ClampLumaEffect.Value.Dispose();
+        };
     }
-    
-    
-    private static string clampLumaSkSL = @"
+
+
+    private static readonly string ClampLumaSkSL = @"
 uniform shader src;
 uniform float maxLuma;
 uniform float minLuma;
@@ -51,23 +56,28 @@ half4 main(float2 coord) {
     } else if (lum < minLuma && lum > 0.0) {
         scale = minLuma / lum;
     }
-    
+
     if (lum == 0.0) scale = 1.0;
     c.rgb *= scale;
     return c;
 }
 ";
 
+    private static readonly Lazy<SKRuntimeEffect> ClampLumaEffect = new(() =>
+    {
+        var effect = SKRuntimeEffect.CreateShader(ClampLumaSkSL, out var error);
+        return effect ?? throw new InvalidOperationException($"SKRuntimeEffect error: {error}");
+    });
+
     private class BlurBehindRenderOperation : ICustomDrawOperation
     {
-  
+
         private readonly Rect _bounds;
         private SKImage? _cachedBackground;
         private readonly bool _isDynamic;
         private readonly double _blurFactor;
         private readonly bool _isDarkTheme;
-        private SKRuntimeEffect? _effect;
-        
+
         public BlurBehindRenderOperation(Rect bounds, bool isDynamic, double blurFactor, bool isDarkTheme)
         {
             _bounds = bounds;
@@ -78,7 +88,6 @@ half4 main(float2 coord) {
 
         public void Dispose()
         {
-            _effect?.Dispose();
             _cachedBackground?.Dispose();
         }
 
@@ -117,7 +126,7 @@ half4 main(float2 coord) {
                     if (_cachedBackground == null)
                         _cachedBackground = surface.Snapshot();
                 }
-                
+
 
 
                 if(_cachedBackground == null)
@@ -129,7 +138,7 @@ half4 main(float2 coord) {
                     IsGpuBlurAvailable = false;
                     return;
                 }
-            
+
                 using var backdropShader = SKShader.CreateImage(_cachedBackground, SKShaderTileMode.Clamp,
                     SKShaderTileMode.Clamp, currentInvertedTransform);
 
@@ -158,30 +167,23 @@ half4 main(float2 coord) {
                 }
 
                 using (var blurSnap = blurred.Snapshot())
-                    
+
                 using (var blurSnapShader = SKShader.CreateImage(blurSnap))
                 {
-                    if (_effect == null)
-                    {
-                        _effect = SKRuntimeEffect.CreateShader(clampLumaSkSL, out var error);
-                        if (_effect == null)
-                            throw new Exception($"SKRuntimeEffect error: {error}");
-                    }
-
                     float minLuma = _isDarkTheme ? 0f : 0.8f;
                     float maxLuma = _isDarkTheme ? 0.12f : 1f;
 
-                    var uniforms = new SKRuntimeEffectUniforms(_effect)
+                    using var uniforms = new SKRuntimeEffectUniforms(ClampLumaEffect.Value)
                     {
                         ["minLuma"] = minLuma,
                         ["maxLuma"] = maxLuma
                     };
 
-                    var children = new SKRuntimeEffectChildren(_effect)
+                    using var children = new SKRuntimeEffectChildren(ClampLumaEffect.Value)
                     {
                         ["src"] = blurSnapShader
                     };
-                    using var clampShader = _effect.ToShader(uniforms, children, SKMatrix.CreateIdentity());
+                    using var clampShader = ClampLumaEffect.Value.ToShader(uniforms, children, SKMatrix.CreateIdentity());
 
                     using var paint = new SKPaint();
                     paint.Shader = clampShader;
@@ -189,9 +191,9 @@ half4 main(float2 coord) {
 
                     canvas.DrawRect(0, 0, (float)_bounds.Width, (float)_bounds.Height, paint);
                 }
-         
+
         }
-       
+
         public Rect Bounds => _bounds.Inflate(4);
 
         public bool Equals(ICustomDrawOperation? other)
@@ -204,7 +206,7 @@ half4 main(float2 coord) {
 
     public override void Render(DrawingContext context)
     {
-       
+
         if (Bounds.Width <= 0 || Bounds.Height <= 0)
             return;
         context.Custom(new BlurBehindRenderOperation(new Rect(default, Bounds.Size), IsDynamic, IntensityFactor,

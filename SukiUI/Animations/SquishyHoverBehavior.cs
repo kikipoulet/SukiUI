@@ -22,7 +22,7 @@ namespace SukiUI.Animations
             public double Intensity = 1;
             public double SquishDepth = 1;
             public bool EnableTilt = true;
-            
+
             public DispatcherTimer? ResetTimer;
             public SquishTransformOperation Target = new SquishTransformOperation();
         }
@@ -39,9 +39,9 @@ namespace SukiUI.Animations
 
         private static readonly AttachedProperty<State> StateProperty = AvaloniaProperty.RegisterAttached<Control, State>(
             "State",
-            typeof(Control) 
+            typeof(Control)
         );
-        
+
         public static readonly AttachedProperty<bool> EnableTiltProperty =
             AvaloniaProperty.RegisterAttached<Control, bool>(
                 "EnableTilt", typeof(Control), true);
@@ -88,7 +88,7 @@ namespace SukiUI.Animations
 
             if (value)
             {
-                if (existingState == null) 
+                if (existingState == null)
                 {
                     var state = new State
                     {
@@ -97,7 +97,7 @@ namespace SukiUI.Animations
                         EnableTilt = GetEnableTilt(control)
                     };
                     control.SetValue(StateProperty, state);
-                    
+
                     var transformGroup = new TransformGroup
                     {
                         Children = new Transforms
@@ -108,11 +108,11 @@ namespace SukiUI.Animations
                         }
                     };
                     control.RenderTransform = transformGroup;
-                    control.RenderTransformOrigin = new RelativePoint(0.5, 0.5, RelativeUnit.Relative); 
+                    control.RenderTransformOrigin = new RelativePoint(0.5, 0.5, RelativeUnit.Relative);
 
                     control.PointerExited += OnPointerExited;
                     control.PointerEntered += OnPointerEntered;
-                    
+
                     control.AddHandler(InputElement.PointerEnteredEvent, OnPointerEntered, RoutingStrategies.Bubble);
                     control.AddHandler(InputElement.PointerMovedEvent, OnPointerMoved, RoutingStrategies.Bubble);
                     control.AddHandler(InputElement.PointerExitedEvent, OnPointerExited, RoutingStrategies.Bubble);
@@ -125,10 +125,10 @@ namespace SukiUI.Animations
                     control.RemoveHandler(InputElement.PointerEnteredEvent, OnPointerEntered);
                     control.RemoveHandler(InputElement.PointerMovedEvent, OnPointerMoved);
                     control.RemoveHandler(InputElement.PointerExitedEvent, OnPointerExited);
-                    
+
                     existingState.ResetTimer?.Stop();
-                    
-                    control.RenderTransform = null; 
+
+                    control.RenderTransform = null;
                     control.ClearValue(StateProperty);
                 }
             }
@@ -136,24 +136,24 @@ namespace SukiUI.Animations
 
         private static void OnPointerEntered(object? sender, PointerEventArgs e)
         {
-            
+
             if (sender is not Control control) return;
             var state = control.GetValue(StateProperty);
             if (state == null) return;
-            
+
             state.ResetTimer?.Stop();
             state.ResetTimer = null;
-            
+
             state.Target = GetTransformations(control, state, e.GetPosition(control));
-            
-            LaunchAnimation(state,700, new SukiSpringEase() 
+
+            LaunchAnimation(state,700, new SukiSpringEase()
             {
                 Mass = 1,
-                Damping = 9, 
+                Damping = 9,
                 Stiffness = 50
             });
         }
-        
+
         private static double Lerp(double from, double to, double t)
         {
             return from + (to - from) * t;
@@ -161,14 +161,14 @@ namespace SukiUI.Animations
 
         private static void LaunchAnimation(State state, double duration, Easing sukiSpringEase)
         {
-            double durationMs = duration; 
+            double durationMs = duration;
             var startTime = DateTime.Now;
 
-            var timer = new DispatcherTimer(DispatcherPriority.Render) 
+            var timer = new DispatcherTimer(DispatcherPriority.Render)
             {
-                Interval = TimeSpan.FromMilliseconds(16) 
+                Interval = TimeSpan.FromMilliseconds(16)
             };
-            
+
             double BaseTranslateX = state.Translate.X;
             double BaseTranslateY = state.Translate.Y;
             double BaseScaleX = state.Scale.ScaleX;
@@ -180,15 +180,15 @@ namespace SukiUI.Animations
             {
                 var elapsed = (DateTime.Now - startTime).TotalMilliseconds;
                 double t = Math.Min(elapsed / durationMs, 1.0);
-                double ease =sukiSpringEase.Ease(t); 
-                
+                double ease =sukiSpringEase.Ease(t);
+
                 state.Skew.AngleX = Lerp(BaseAngleX, state.Target.AngleX , ease);
                 state.Skew.AngleY = Lerp(BaseAngleY, state.Target.AngleY , ease);
                 state.Translate.X = Lerp(BaseTranslateX, state.Target.TranslateX , ease);
                 state.Translate.Y = Lerp(BaseTranslateY, state.Target.TranslateY , ease);
                 state.Scale.ScaleX = Lerp(BaseScaleX, state.Target.ScaleX , ease);
                 state.Scale.ScaleY = Lerp(BaseScaleY, state.Target.ScaleY , ease);
-                
+
                 if (t >= 1.0)
                 {
                     timer.Stop();
@@ -196,7 +196,7 @@ namespace SukiUI.Animations
                 }
             };
 
-            state.ResetTimer = timer; 
+            state.ResetTimer = timer;
             timer.Start();
         }
 
@@ -204,8 +204,8 @@ namespace SukiUI.Animations
         {
             if (sender is not Control control) return;
             var state = control.GetValue(StateProperty);
-            if (state == null) return; 
-            
+            if (state == null) return;
+
             var operations = GetTransformations(control, state, e.GetPosition(control));
 
             if (state.ResetTimer == null)
@@ -222,28 +222,28 @@ namespace SukiUI.Animations
                 state.Target = operations;
             }
         }
-        
+
 
         private static SquishTransformOperation GetTransformations(Control control, State state, Point currentPosition)
         {
             SquishTransformOperation operation = new();
-            
-             if (control.Bounds.Width <= 0 || control.Bounds.Height <= 0) 
+
+             if (control.Bounds.Width <= 0 || control.Bounds.Height <= 0)
                  return operation;
 
 
             var center = new Point(control.Bounds.Width / 2, control.Bounds.Height / 2);
-            
+
             var dx = currentPosition.X - center.X;
             var dy = currentPosition.Y - center.Y;
-            
+
             var normalizedDx = (control.Bounds.Width > 0) ? dx / (control.Bounds.Width / 2) : 0;
             var normalizedDy = (control.Bounds.Height > 0) ? dy / (control.Bounds.Height / 2) : 0;
 
-            double baseIntensity = 10 * state.Intensity; 
-            double skewFactor = 0.005 * baseIntensity;     
+            double baseIntensity = 10 * state.Intensity;
+            double skewFactor = 0.005 * baseIntensity;
             double translateFactor = 0.025 * baseIntensity;
-            double scaleFactor = 0.0001 * baseIntensity;   
+            double scaleFactor = 0.0001 * baseIntensity;
 
 
             operation.TranslateX= normalizedDx * (control.Bounds.Width / 2) * translateFactor;
@@ -251,7 +251,7 @@ namespace SukiUI.Animations
 
             operation.ScaleX = 1 - Math.Abs(dx) * scaleFactor;
             operation.ScaleY = 1 - Math.Abs(dy) * scaleFactor;
-            
+
             if (state.EnableTilt)
             {
                 var Xangle = dx * skewFactor;
@@ -283,27 +283,27 @@ namespace SukiUI.Animations
         {
             if (sender is not Control control) return;
             var state = control.GetValue(StateProperty);
-            if (state == null) return; 
+            if (state == null) return;
 
             state.ResetTimer?.Stop();
-            
+
             state.Target.TranslateY = 0;
             state.Target.TranslateX = 0;
             state.Target.AngleX = 0;
             state.Target.AngleY = 0;
             state.Target.ScaleX = 1;
             state.Target.ScaleY = 1;
-            
-            
-            LaunchAnimation(state,700, new SukiSpringEase() 
+
+
+            LaunchAnimation(state,700, new SukiSpringEase()
             {
                 Mass = 1,
-                Damping = 7, 
+                Damping = 7,
                 Stiffness = 50
             });
-            
+
         }
 
-       
-    }  
+
+    }
 }
