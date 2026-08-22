@@ -18,7 +18,7 @@
     <Thickness x:Key="DataGridCellPadding">12,0</Thickness>
     <Thickness x:Key="DataGridColumnHeaderPadding">12,0</Thickness>
     <x:Double x:Key="DataGridRowMinHeight">36</x:Double>
-    <!-- 44 and 16 keep the header band and the group caption at the size they were before the rework. -->
+    <x:Double x:Key="DataGridFontSize">14</x:Double>
     <x:Double x:Key="DataGridColumnHeaderMinHeight">44</x:Double>
     <x:Double x:Key="DataGridRowGroupHeaderFontSize">16</x:Double>
 
@@ -145,16 +145,16 @@
             <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
         </Style>
         <Style Selector="^.SuccessForeground">
-            <Setter Property="Foreground" Value="{DynamicResource SukiSuccessColor}" />
+            <Setter Property="Foreground" Value="{DynamicResource SukiSuccessMediumColor}" />
         </Style>
         <Style Selector="^.InformationForeground">
-            <Setter Property="Foreground" Value="{DynamicResource SukiInformationColor}" />
+            <Setter Property="Foreground" Value="{DynamicResource SukiInformationMediumColor}" />
         </Style>
         <Style Selector="^.WarningForeground">
-            <Setter Property="Foreground" Value="{DynamicResource SukiWarningColor}" />
+            <Setter Property="Foreground" Value="{DynamicResource SukiWarningMediumColor}" />
         </Style>
         <Style Selector="^.DangerForeground">
-            <Setter Property="Foreground" Value="{DynamicResource SukiDangerColor}" />
+            <Setter Property="Foreground" Value="{DynamicResource SukiDangerMediumColor}" />
         </Style>
 
 
@@ -166,19 +166,19 @@
         </Style>
         <Style Selector="^.Success">
             <Setter Property="Foreground" Value="{DynamicResource SukiSuccessForeground}" />
-            <Setter Property="Background" Value="{DynamicResource SukiSuccessColor}" />
+            <Setter Property="Background" Value="{DynamicResource SukiSuccessMediumColor}" />
         </Style>
         <Style Selector="^.Information">
             <Setter Property="Foreground" Value="{DynamicResource SukiInformationForeground}" />
-            <Setter Property="Background" Value="{DynamicResource SukiInformationColor}" />
+            <Setter Property="Background" Value="{DynamicResource SukiInformationMediumColor}" />
         </Style>
         <Style Selector="^.Warning">
             <Setter Property="Foreground" Value="{DynamicResource SukiWarningForeground}" />
-            <Setter Property="Background" Value="{DynamicResource SukiWarningColor}" />
+            <Setter Property="Background" Value="{DynamicResource SukiWarningMediumColor}" />
         </Style>
         <Style Selector="^.Danger">
             <Setter Property="Foreground" Value="{DynamicResource SukiDangerForeground}" />
-            <Setter Property="Background" Value="{DynamicResource SukiDangerColor}" />
+            <Setter Property="Background" Value="{DynamicResource SukiDangerMediumColor}" />
         </Style>
     </ControlTheme>
 
@@ -301,15 +301,17 @@
         <Setter Property="SeparatorBrush" Value="{DynamicResource SukiBorderBrush}" />
         <Setter Property="AreSeparatorsVisible" Value="False" />
         <Setter Property="Focusable" Value="False" />
+        <Setter Property="Padding" Value="10,0" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Grid Name="PART_Root"
                       ColumnDefinitions="Auto,*"
                       RowDefinitions="*,*,Auto">
-                    <Border Grid.RowSpan="3"
+                    <Border Name="RowHeaderBorder"
+                            Grid.RowSpan="3"
                             Grid.ColumnSpan="2"
                             BorderBrush="{TemplateBinding SeparatorBrush}"
-                            BorderThickness="0,0,1,0">
+                            BorderThickness="0">
                         <Grid Background="{TemplateBinding Background}">
                             <Rectangle Name="RowInvalidVisualElement"
                                        Fill="{DynamicResource SukiDangerColor}"
@@ -325,13 +327,13 @@
                                Grid.Row="2"
                                Grid.ColumnSpan="2"
                                Height="1"
-                               Margin="1,0"
                                HorizontalAlignment="Stretch"
                                Fill="{TemplateBinding SeparatorBrush}"
                                IsVisible="{TemplateBinding AreSeparatorsVisible}" />
 
                     <ContentPresenter Grid.RowSpan="2"
                                       Grid.Column="1"
+                                      Margin="{TemplateBinding Padding}"
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center"
                                       Content="{TemplateBinding Content}" />
@@ -535,8 +537,21 @@
                                    Stroke="{DynamicResource SukiPrimaryColor50}"
                                    StrokeThickness="1" />
 
+                        <!--
+                            Width is explicit rather than left to auto-measure. DataGridRowHeader
+                            only grows to match DataGrid.ActualRowHeaderWidth when its Owner is a
+                            DataGridRow - DataGridRowHeader.MeasureOverride bails out early whenever
+                            Owner is a DataGridRowGroupHeader instead, before it ever reads
+                            ActualRowHeaderWidth. Without this, a grouped grid with numbered rows gets
+                            two different row-header widths: the numbered column under the data rows,
+                            and a narrower blank one under each group header, which reads as a second,
+                            empty bordered column. Binding Width here only takes effect once
+                            DataGrid.RowHeaderWidth is set to a fixed value - RowHeaderWidth stays NaN
+                            (auto) by default, so ungrouped grids are unaffected.
+                        -->
                         <DataGridRowHeader Name="PART_RowHeader"
                                            Grid.RowSpan="2"
+                                           Width="{Binding $parent[DataGrid].RowHeaderWidth}"
                                            DataGridFrozenGrid.IsFrozen="True" />
 
                         <Rectangle Name="PART_BottomGridLine"
@@ -563,6 +578,7 @@
     <ControlTheme x:Key="{x:Type DataGrid}" TargetType="DataGrid">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+        <Setter Property="FontSize" Value="{DynamicResource DataGridFontSize}" />
         <Setter Property="RowBackground" Value="Transparent" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiBorderBrush}" />
         <Setter Property="BorderThickness" Value="0" />

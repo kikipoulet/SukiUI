@@ -33,7 +33,8 @@ public partial class DataGridViewModel : DemoPageBase
         Enum.GetValues<ScrollBarVisibility>();
 
     [ObservableProperty] private DataGridGridLinesVisibility _gridLinesVisibility = DataGridGridLinesVisibility.Horizontal;
-    [ObservableProperty] private DataGridHeadersVisibility _headersVisibility = DataGridHeadersVisibility.Column;
+    // All rather than Column so the row header, and the row numbers pushed into it, are visible up front.
+    [ObservableProperty] private DataGridHeadersVisibility _headersVisibility = DataGridHeadersVisibility.All;
     [ObservableProperty] private DataGridSelectionMode _selectionMode = DataGridSelectionMode.Extended;
     [ObservableProperty] private DataGridRowDetailsVisibilityMode _rowDetailsVisibilityMode = DataGridRowDetailsVisibilityMode.VisibleWhenSelected;
     [ObservableProperty] private bool _canUserResizeColumns = true;
@@ -41,6 +42,8 @@ public partial class DataGridViewModel : DemoPageBase
     [ObservableProperty] private bool _canUserSortColumns = true;
     [ObservableProperty] private bool _isReadOnly;
     [ObservableProperty] private bool _isGridEnabled = true;
+    [ObservableProperty] private bool _useFlat;
+    [ObservableProperty] private bool _useAccent;
     [ObservableProperty] private int _frozenColumnCount;
     [ObservableProperty] private ScrollBarVisibility _horizontalScrollBarVisibility = ScrollBarVisibility.Auto;
     [ObservableProperty] private ScrollBarVisibility _verticalScrollBarVisibility = ScrollBarVisibility.Auto;
