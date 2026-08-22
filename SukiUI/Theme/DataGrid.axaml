@@ -1,0 +1,704 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:collections="using:Avalonia.Collections">
+    <Design.PreviewWith>
+        <Border Width="520"
+                Height="300"
+                Padding="20">
+            <DataGrid AutoGenerateColumns="True" GridLinesVisibility="All" />
+        </Border>
+    </Design.PreviewWith>
+
+    <!--
+        Layout metrics. DataGrid resolves ColumnHeaderHeight/RowHeight to NaN by default, so the
+        templates never hardcode Height - MinHeight is used instead and the control-level properties
+        keep working.
+    -->
+    <x:Double x:Key="DataGridSortIconMinWidth">24</x:Double>
+    <Thickness x:Key="DataGridCellPadding">12,0</Thickness>
+    <Thickness x:Key="DataGridColumnHeaderPadding">12,0</Thickness>
+    <x:Double x:Key="DataGridRowMinHeight">36</x:Double>
+    <!-- 44 and 16 keep the header band and the group caption at the size they were before the rework. -->
+    <x:Double x:Key="DataGridColumnHeaderMinHeight">44</x:Double>
+    <x:Double x:Key="DataGridRowGroupHeaderFontSize">16</x:Double>
+
+    <StreamGeometry x:Key="DataGridSortIconAscendingPath">M1965 947l-941 -941l-941 941l90 90l787 -787v1798h128v-1798l787 787z</StreamGeometry>
+    <StreamGeometry x:Key="DataGridSortIconDescendingPath">M1875 1011l-787 787v-1798h-128v1798l-787 -787l-90 90l941 941l941 -941z</StreamGeometry>
+    <StreamGeometry x:Key="DataGridRowGroupHeaderChevronPath">M515 93l930 931l-930 931l90 90l1022 -1021l-1022 -1021z</StreamGeometry>
+
+    <!--
+        DataGridTextColumn looks these two up by key (DataGridTextColumn.GenerateElement /
+        GenerateEditingElement). Without them the generated TextBlock keeps the global TextBlock
+        theme, which hardcodes FontSize and ignores the cell padding.
+    -->
+    <ControlTheme x:Key="DataGridCellTextBlockTheme" TargetType="TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+    </ControlTheme>
+
+    <ControlTheme x:Key="DataGridCellTextBoxTheme"
+                  BasedOn="{StaticResource {x:Type TextBox}}"
+                  TargetType="TextBox">
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="MinHeight" Value="0" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="CornerRadius" Value="0" />
+    </ControlTheme>
+
+    <ControlTheme x:Key="{x:Type DataGridCell}" TargetType="DataGridCell">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="{DynamicResource DataGridCellPadding}" />
+        <Setter Property="MinHeight" Value="{DynamicResource DataGridRowMinHeight}" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Name="CellBorder"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                    <Grid Name="PART_CellRoot" ColumnDefinitions="*,Auto">
+                        <Rectangle Name="CurrencyVisual"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Stretch"
+                                   Fill="Transparent"
+                                   IsHitTestVisible="False"
+                                   IsVisible="False"
+                                   Stroke="{DynamicResource SukiPrimaryColor50}"
+                                   StrokeThickness="1" />
+
+                        <Grid Grid.Column="0" Name="FocusVisual"
+                              IsHitTestVisible="False"
+                              IsVisible="False">
+                            <Rectangle HorizontalAlignment="Stretch"
+                                       VerticalAlignment="Stretch"
+                                       Fill="Transparent"
+                                       IsHitTestVisible="False"
+                                       Stroke="{DynamicResource SukiPrimaryColor}"
+                                       StrokeThickness="1.5" />
+                        </Grid>
+
+                        <ContentPresenter Grid.Column="0" Name="PART_ContentPresenter"
+                                          Margin="{TemplateBinding Padding}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          Foreground="{TemplateBinding Foreground}" />
+
+                        <Rectangle Grid.Column="0" Name="InvalidVisualElement"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Stretch"
+                                   IsHitTestVisible="False"
+                                   IsVisible="False"
+                                   Stroke="{DynamicResource SukiDangerColor}"
+                                   StrokeThickness="1" />
+
+                        <!--
+                            Fill and IsVisible are owned by DataGridCell.EnsureGridLine, which pushes
+                            DataGrid.VerticalGridLinesBrush into Fill (not Stroke) and toggles the line
+                            for GridLinesVisibility Vertical/All. Only the width belongs here.
+                        -->
+                        <Rectangle Name="PART_RightGridLine"
+                                   Grid.Column="1"
+                                   Width="1"
+                                   VerticalAlignment="Stretch"
+                                   IsVisible="False" />
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^:current /template/ Rectangle#CurrencyVisual">
+            <Setter Property="IsVisible" Value="True" />
+        </Style>
+        <Style Selector="^:focus /template/ Grid#FocusVisual">
+            <Setter Property="IsVisible" Value="True" />
+        </Style>
+        <Style Selector="^:invalid /template/ Rectangle#InvalidVisualElement">
+            <Setter Property="IsVisible" Value="True" />
+        </Style>
+
+        <Style Selector="^.LeftAlign">
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+        </Style>
+        <Style Selector="^.CenterAlign">
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+        </Style>
+        <Style Selector="^.RightAlign">
+            <Setter Property="HorizontalContentAlignment" Value="Right" />
+        </Style>
+
+
+        <Style Selector="^.FlatForeground">
+            <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+        </Style>
+        <Style Selector="^.AccentForeground">
+            <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
+        </Style>
+        <Style Selector="^.SuccessForeground">
+            <Setter Property="Foreground" Value="{DynamicResource SukiSuccessColor}" />
+        </Style>
+        <Style Selector="^.InformationForeground">
+            <Setter Property="Foreground" Value="{DynamicResource SukiInformationColor}" />
+        </Style>
+        <Style Selector="^.WarningForeground">
+            <Setter Property="Foreground" Value="{DynamicResource SukiWarningColor}" />
+        </Style>
+        <Style Selector="^.DangerForeground">
+            <Setter Property="Foreground" Value="{DynamicResource SukiDangerColor}" />
+        </Style>
+
+
+        <Style Selector="^.Flat">
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
+        </Style>
+        <Style Selector="^.Accent">
+            <Setter Property="Background" Value="{DynamicResource SukiAccentColor}" />
+        </Style>
+        <Style Selector="^.Success">
+            <Setter Property="Foreground" Value="{DynamicResource SukiSuccessForeground}" />
+            <Setter Property="Background" Value="{DynamicResource SukiSuccessColor}" />
+        </Style>
+        <Style Selector="^.Information">
+            <Setter Property="Foreground" Value="{DynamicResource SukiInformationForeground}" />
+            <Setter Property="Background" Value="{DynamicResource SukiInformationColor}" />
+        </Style>
+        <Style Selector="^.Warning">
+            <Setter Property="Foreground" Value="{DynamicResource SukiWarningForeground}" />
+            <Setter Property="Background" Value="{DynamicResource SukiWarningColor}" />
+        </Style>
+        <Style Selector="^.Danger">
+            <Setter Property="Foreground" Value="{DynamicResource SukiDangerForeground}" />
+            <Setter Property="Background" Value="{DynamicResource SukiDangerColor}" />
+        </Style>
+    </ControlTheme>
+
+    <ControlTheme x:Key="{x:Type DataGridColumnHeader}" TargetType="DataGridColumnHeader">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
+        <Setter Property="BorderThickness" Value="0,0,0,1.5" />
+        <Setter Property="SeparatorBrush" Value="{DynamicResource SukiBorderBrush}" />
+        <Setter Property="FontWeight" Value="{DynamicResource DefaultDemiBold}" />
+        <Setter Property="Padding" Value="{DynamicResource DataGridColumnHeaderPadding}" />
+        <Setter Property="MinHeight" Value="{DynamicResource DataGridColumnHeaderMinHeight}" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Name="HeaderBorder"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                    <Grid Name="PART_ColumnHeaderRoot"
+                          Background="Transparent"
+                          ColumnDefinitions="*,Auto">
+                        <Grid Margin="{TemplateBinding Padding}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" MinWidth="{DynamicResource DataGridSortIconMinWidth}" />
+                            </Grid.ColumnDefinitions>
+
+                            <ContentPresenter Name="PART_ContentPresenter"
+                                              VerticalAlignment="Center"
+                                              Content="{TemplateBinding Content}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              Foreground="{TemplateBinding Foreground}" />
+
+                            <Path Name="SortIcon"
+                                  Grid.Column="1"
+                                  Height="9"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Data="{StaticResource DataGridSortIconAscendingPath}"
+                                  Fill="{TemplateBinding Foreground}"
+                                  IsVisible="False"
+                                  Stretch="Uniform" />
+                        </Grid>
+
+                        <Rectangle Name="VerticalSeparator"
+                                   Grid.Column="1"
+                                   Width="1"
+                                   VerticalAlignment="Stretch"
+                                   Fill="{TemplateBinding SeparatorBrush}"
+                                   IsVisible="{TemplateBinding AreSeparatorsVisible}" />
+
+                        <Rectangle Name="FocusVisual"
+                                   Grid.ColumnSpan="2"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Stretch"
+                                   Fill="Transparent"
+                                   IsHitTestVisible="False"
+                                   IsVisible="False"
+                                   Stroke="{DynamicResource SukiPrimaryColor}"
+                                   StrokeThickness="1.5" />
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^:focus-visible /template/ Rectangle#FocusVisual">
+            <Setter Property="IsVisible" Value="True" />
+        </Style>
+
+        <Style Selector="^:pointerover /template/ Grid#PART_ColumnHeaderRoot">
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor7}" />
+        </Style>
+
+        <Style Selector="^:pressed /template/ Grid#PART_ColumnHeaderRoot">
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor15}" />
+        </Style>
+
+        <Style Selector="^:dragIndicator">
+            <Setter Property="Opacity" Value="0.6" />
+            <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
+        </Style>
+
+        <Style Selector="^:sortascending /template/ Path#SortIcon">
+            <Setter Property="IsVisible" Value="True" />
+            <Setter Property="Data" Value="{StaticResource DataGridSortIconAscendingPath}" />
+        </Style>
+
+        <Style Selector="^:sortdescending /template/ Path#SortIcon">
+            <Setter Property="IsVisible" Value="True" />
+            <Setter Property="Data" Value="{StaticResource DataGridSortIconDescendingPath}" />
+        </Style>
+        <!--
+            No alignment classes here on purpose: DataGridColumn exposes CellStyleClasses but has no
+            header equivalent, so nothing can attach a class to a header. Align headers with a Style
+            on DataGridColumnHeader or with DataGrid.ColumnHeaderTheme instead.
+        -->
+    </ControlTheme>
+
+    <!-- Corners around the header row - they only carry the header's bottom rule, never content. -->
+    <ControlTheme x:Key="SukiDataGridCornerColumnHeader"
+                  BasedOn="{StaticResource {x:Type DataGridColumnHeader}}"
+                  TargetType="DataGridColumnHeader">
+        <Setter Property="MinWidth" Value="0" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}" />
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+    <ControlTheme x:Key="{x:Type DataGridRowHeader}" TargetType="DataGridRowHeader">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="SeparatorBrush" Value="{DynamicResource SukiBorderBrush}" />
+        <Setter Property="AreSeparatorsVisible" Value="False" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid Name="PART_Root"
+                      ColumnDefinitions="Auto,*"
+                      RowDefinitions="*,*,Auto">
+                    <Border Grid.RowSpan="3"
+                            Grid.ColumnSpan="2"
+                            BorderBrush="{TemplateBinding SeparatorBrush}"
+                            BorderThickness="0,0,1,0">
+                        <Grid Background="{TemplateBinding Background}">
+                            <Rectangle Name="RowInvalidVisualElement"
+                                       Fill="{DynamicResource SukiDangerColor}"
+                                       Opacity="0"
+                                       Stretch="Fill" />
+                            <Rectangle Name="BackgroundRectangle"
+                                       Fill="Transparent"
+                                       Stretch="Fill" />
+                        </Grid>
+                    </Border>
+
+                    <Rectangle Name="HorizontalSeparator"
+                               Grid.Row="2"
+                               Grid.ColumnSpan="2"
+                               Height="1"
+                               Margin="1,0"
+                               HorizontalAlignment="Stretch"
+                               Fill="{TemplateBinding SeparatorBrush}"
+                               IsVisible="{TemplateBinding AreSeparatorsVisible}" />
+
+                    <ContentPresenter Grid.RowSpan="2"
+                                      Grid.Column="1"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Content="{TemplateBinding Content}" />
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^:invalid /template/ Rectangle#RowInvalidVisualElement">
+            <Setter Property="Opacity" Value="0.4" />
+        </Style>
+        <Style Selector="^:current /template/ Rectangle#BackgroundRectangle">
+            <Setter Property="Fill" Value="{DynamicResource SukiPrimaryColor10}" />
+        </Style>
+        <Style Selector="^:selected /template/ Rectangle#BackgroundRectangle">
+            <Setter Property="Fill" Value="{DynamicResource SukiPrimaryColor15}" />
+        </Style>
+    </ControlTheme>
+
+    <ControlTheme x:Key="{x:Type DataGridRow}" TargetType="DataGridRow">
+        <!--
+            Issue #404: the row background has to survive both a local assignment
+            (LoadingRow / e.Row.Background) and a user ControlTheme handed to DataGrid.RowTheme.
+            That only works while RowBorder keeps its TemplateBinding untouched, so the hover and
+            selection tints live on a separate translucent overlay (BackgroundRectangle) and every
+            style that writes to it carries a pseudo-class activator. A plain
+            "DataGridRow /template/ ..." setter applies at Style priority - below the
+            TemplateBinding - so it silently loses except where an activator-bearing selector such as
+            :nth-child(even) raises it, which is exactly the odd/even behaviour reported there.
+        -->
+        <Setter Property="Background" Value="{Binding $parent[DataGrid].RowBackground}" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="MinHeight" Value="{DynamicResource DataGridRowMinHeight}" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Name="RowBorder"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                    <DataGridFrozenGrid Name="PART_Root"
+                                        ColumnDefinitions="Auto,*"
+                                        RowDefinitions="*,Auto,Auto">
+
+                        <Rectangle Name="BackgroundRectangle"
+                                   Grid.RowSpan="2"
+                                   Grid.ColumnSpan="2"
+                                   Fill="Transparent"
+                                   IsHitTestVisible="False" />
+                        <Rectangle Name="InvalidVisualElement"
+                                   Grid.RowSpan="2"
+                                   Grid.ColumnSpan="2"
+                                   Fill="{DynamicResource SukiDangerColor}"
+                                   IsHitTestVisible="False"
+                                   Opacity="0" />
+
+                        <DataGridRowHeader Name="PART_RowHeader"
+                                           Grid.RowSpan="3"
+                                           DataGridFrozenGrid.IsFrozen="True" />
+                        <DataGridCellsPresenter Name="PART_CellsPresenter"
+                                                Grid.Column="1"
+                                                DataGridFrozenGrid.IsFrozen="True" />
+                        <DataGridDetailsPresenter Name="PART_DetailsPresenter"
+                                                  Grid.Row="1"
+                                                  Grid.Column="1"
+                                                  Background="{DynamicResource SukiLightBackground}" />
+
+                        <!-- Fill/IsVisible are driven by DataGridRow.EnsureGridLines. -->
+                        <Rectangle Name="PART_BottomGridLine"
+                                   Grid.Row="2"
+                                   Grid.Column="1"
+                                   Height="1"
+                                   HorizontalAlignment="Stretch"
+                                   IsVisible="False" />
+                    </DataGridFrozenGrid>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^:invalid /template/ Rectangle#InvalidVisualElement">
+            <Setter Property="Opacity" Value="0.35" />
+        </Style>
+
+        <Style Selector="^:pointerover /template/ Rectangle#BackgroundRectangle">
+            <Setter Property="Fill" Value="{DynamicResource SukiPrimaryColor10}" />
+        </Style>
+
+        <Style Selector="^:selected">
+            <Style Selector="^ /template/ Rectangle#BackgroundRectangle">
+                <Setter Property="Fill" Value="{DynamicResource SukiPrimaryColor15}" />
+            </Style>
+            <Style Selector="^:pointerover /template/ Rectangle#BackgroundRectangle">
+                <Setter Property="Fill" Value="{DynamicResource SukiPrimaryColor20}" />
+            </Style>
+        </Style>
+    </ControlTheme>
+
+    <ControlTheme x:Key="SukiDataGridRowGroupExpanderButtonTheme" TargetType="ToggleButton">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Width="20"
+                        Height="20"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        CornerRadius="4">
+                    <Path Name="Chevron"
+                          Width="8"
+                          Height="8"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          Data="{StaticResource DataGridRowGroupHeaderChevronPath}"
+                          Fill="{TemplateBinding Foreground}"
+                          RenderTransform="rotate(0deg)"
+                          RenderTransformOrigin="50%,50%"
+                          Stretch="Uniform">
+                        <Path.Transitions>
+                            <Transitions>
+                                <TransformOperationsTransition Property="RenderTransform"
+                                                               Duration="{StaticResource ShortAnimationDuration}" />
+                            </Transitions>
+                        </Path.Transitions>
+                    </Path>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^:checked /template/ Path#Chevron">
+            <Setter Property="RenderTransform" Value="rotate(90deg)" />
+        </Style>
+        <Style Selector="^:pointerover /template/ Path#Chevron">
+            <Setter Property="Fill" Value="{DynamicResource SukiPrimaryColor}" />
+        </Style>
+    </ControlTheme>
+
+    <ControlTheme x:Key="{x:Type DataGridRowGroupHeader}" TargetType="DataGridRowGroupHeader">
+        <Setter Property="Background" Value="{DynamicResource SukiLightBackground}" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiBorderBrush}" />
+        <Setter Property="BorderThickness" Value="0,0,0,1" />
+        <Setter Property="MinHeight" Value="{DynamicResource DataGridRowMinHeight}" />
+        <Setter Property="Template">
+            <ControlTemplate x:DataType="collections:DataGridCollectionViewGroup">
+                <Border Name="GroupHeaderBorder"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                    <DataGridFrozenGrid Name="PART_Root"
+                                        MinHeight="{TemplateBinding MinHeight}"
+                                        ColumnDefinitions="Auto,Auto,Auto,Auto,*"
+                                        RowDefinitions="*,Auto">
+
+                        <Rectangle Name="HoverRectangle"
+                                   Grid.RowSpan="2"
+                                   Grid.ColumnSpan="5"
+                                   Fill="Transparent"
+                                   IsHitTestVisible="False" />
+
+                        <!-- Width is assigned by DataGridRowGroupHeader from the group nesting level. -->
+                        <Rectangle Name="PART_IndentSpacer" Grid.Column="1" />
+
+                        <ToggleButton Name="PART_ExpanderButton"
+                                      Grid.Column="2"
+                                      Margin="8,0,0,0"
+                                      Foreground="{TemplateBinding Foreground}"
+                                      IsTabStop="False"
+                                      Theme="{StaticResource SukiDataGridRowGroupExpanderButtonTheme}" />
+
+                        <StackPanel Grid.Column="3"
+                                    Margin="4,0,12,0"
+                                    VerticalAlignment="Center"
+                                    Orientation="Horizontal"
+                                    Spacing="4">
+                            <TextBlock Name="PART_PropertyNameElement"
+                                       VerticalAlignment="Center"
+                                       FontWeight="{DynamicResource DefaultDemiBold}"
+                                       Foreground="{TemplateBinding Foreground}"
+                                       IsVisible="{TemplateBinding IsPropertyNameVisible}" />
+                            <TextBlock VerticalAlignment="Center"
+                                       FontSize="{DynamicResource DataGridRowGroupHeaderFontSize}"
+                                       FontWeight="{DynamicResource DefaultDemiBold}"
+                                       Foreground="{TemplateBinding Foreground}"
+                                       Text="{Binding Key}" />
+                            <TextBlock Name="PART_ItemCountElement"
+                                       VerticalAlignment="Center"
+                                       FontWeight="{DynamicResource DefaultDemiBold}"
+                                       Foreground="{DynamicResource SukiLowText}"
+                                       IsVisible="{TemplateBinding IsItemCountVisible}" />
+                        </StackPanel>
+
+                        <Rectangle Name="CurrencyVisual"
+                                   Grid.ColumnSpan="5"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Stretch"
+                                   Fill="Transparent"
+                                   IsHitTestVisible="False"
+                                   IsVisible="False"
+                                   Stroke="{DynamicResource SukiPrimaryColor50}"
+                                   StrokeThickness="1" />
+
+                        <DataGridRowHeader Name="PART_RowHeader"
+                                           Grid.RowSpan="2"
+                                           DataGridFrozenGrid.IsFrozen="True" />
+
+                        <Rectangle Name="PART_BottomGridLine"
+                                   Grid.Row="1"
+                                   Grid.ColumnSpan="5"
+                                   Height="1"
+                                   IsVisible="False" />
+                    </DataGridFrozenGrid>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^:pointerover /template/ Rectangle#HoverRectangle">
+            <Setter Property="Fill" Value="{DynamicResource SukiPrimaryColor7}" />
+        </Style>
+        <Style Selector="^:pressed /template/ Rectangle#HoverRectangle">
+            <Setter Property="Fill" Value="{DynamicResource SukiPrimaryColor15}" />
+        </Style>
+        <Style Selector="^:current /template/ Rectangle#CurrencyVisual">
+            <Setter Property="IsVisible" Value="True" />
+        </Style>
+    </ControlTheme>
+
+    <ControlTheme x:Key="{x:Type DataGrid}" TargetType="DataGrid">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+        <Setter Property="RowBackground" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiBorderBrush}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="HeadersVisibility" Value="Column" />
+        <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="SelectionMode" Value="Extended" />
+        <!--
+            Issue #363: the row separator is drawn by the horizontal grid line instead of a border
+            baked into the row template, so GridLinesVisibility Vertical/All picks up brushes that
+            match the header rule rather than the untouched default.
+        -->
+        <Setter Property="GridLinesVisibility" Value="Horizontal" />
+        <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource SukiBorderBrush}" />
+        <Setter Property="VerticalGridLinesBrush" Value="{DynamicResource SukiBorderBrush}" />
+        <Setter Property="FocusAdorner" Value="{x:Null}" />
+        <Setter Property="DropLocationIndicatorTemplate">
+            <Template>
+                <Rectangle Width="2" Fill="{DynamicResource SukiPrimaryColor}" />
+            </Template>
+        </Setter>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Name="DataGridBorder"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                    <Grid ClipToBounds="True"
+                          ColumnDefinitions="Auto,*,Auto"
+                          RowDefinitions="Auto,*,Auto">
+                        <DataGridColumnHeader Name="PART_TopLeftCornerHeader"
+                                              Grid.Row="0"
+                                              Grid.Column="0"
+                                              Theme="{StaticResource SukiDataGridCornerColumnHeader}" />
+                        <DataGridColumnHeadersPresenter Name="PART_ColumnHeadersPresenter"
+                                                        Grid.Row="0"
+                                                        Grid.Column="1" />
+                        <DataGridColumnHeader Name="PART_TopRightCornerHeader"
+                                              Grid.Row="0"
+                                              Grid.Column="2"
+                                              Theme="{StaticResource SukiDataGridCornerColumnHeader}" />
+                        <Rectangle Name="PART_ColumnHeadersAndRowsSeparator"
+                                   Grid.Row="0"
+                                   Grid.Column="0"
+                                   Grid.ColumnSpan="3"
+                                   Height="1"
+                                   VerticalAlignment="Bottom"
+                                   Fill="Transparent" />
+
+                        <!--
+                            RowsPresenter stays inside the scroll bar gutter: DataGrid reads
+                            Grid.RowSpan == 2 as "the vertical scroll bar overlays the cells", so the
+                            span must stay 1 while the bar owns its own column.
+                        -->
+                        <DataGridRowsPresenter Name="PART_RowsPresenter"
+                                               Grid.Row="1"
+                                               Grid.Column="0"
+                                               Grid.ColumnSpan="2"
+                                               ClipToBounds="True"
+                                               ScrollViewer.IsScrollInertiaEnabled="{TemplateBinding IsScrollInertiaEnabled}">
+                            <DataGridRowsPresenter.GestureRecognizers>
+                                <ScrollGestureRecognizer CanHorizontallyScroll="True"
+                                                         CanVerticallyScroll="True"
+                                                         IsScrollInertiaEnabled="{Binding (ScrollViewer.IsScrollInertiaEnabled), ElementName=PART_RowsPresenter}" />
+                            </DataGridRowsPresenter.GestureRecognizers>
+                        </DataGridRowsPresenter>
+
+                        <!--
+                            Width/Height are required, not cosmetic: DataGrid.ComputeScrollBarVisibility
+                            reads ScrollBar.Width and ScrollBar.Height directly, and an unset value is NaN,
+                            which makes every MathUtilities comparison false and suppresses both bars
+                            permanently. Fluent avoids it by spanning the presenters so the bars overlay the
+                            cells (IsVerticalScrollBarOverCells); SukiUI reserves a gutter instead, so it has
+                            to supply the number.
+
+                            These bars are not inside a ScrollViewer, so ScrollBar.AttachToScrollViewer()
+                            never runs for them and nothing propagates the owner's setting; the binding is
+                            what makes DataGrid's ScrollViewer.AllowAutoHide reach them. Everything else
+                            (expand on hover, collapse after HideDelay) comes from the ScrollBar theme.
+                        -->
+                        <ScrollBar Name="PART_VerticalScrollbar"
+                                   Grid.Row="1"
+                                   Grid.Column="2"
+                                   Width="{DynamicResource ScrollBarThickness}"
+                                   HorizontalAlignment="Right"
+                                   AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
+                                   Orientation="Vertical" />
+
+                        <Grid Grid.Row="2"
+                              Grid.Column="0"
+                              Grid.ColumnSpan="2"
+                              ColumnDefinitions="Auto,*">
+                            <Rectangle Name="PART_FrozenColumnScrollBarSpacer" />
+                            <ScrollBar Name="PART_HorizontalScrollbar"
+                                       Grid.Column="1"
+                                       Height="{DynamicResource ScrollBarThickness}"
+                                       AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
+                                       Orientation="Horizontal" />
+                        </Grid>
+
+                        <Rectangle Name="PART_BottomRightCorner"
+                                   Grid.Row="2"
+                                   Grid.Column="2"
+                                   Fill="Transparent" />
+
+                        <Border Name="PART_DisabledVisualElement"
+                                Grid.Row="0"
+                                Grid.RowSpan="3"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="3"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Background="{DynamicResource SukiBackground}"
+                                CornerRadius="{TemplateBinding CornerRadius}"
+                                IsHitTestVisible="False"
+                                IsVisible="{Binding !$parent[DataGrid].IsEnabled}"
+                                Opacity="0.5" />
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^:empty-columns">
+            <Style Selector="^ /template/ DataGridColumnHeader#PART_TopLeftCornerHeader">
+                <Setter Property="IsVisible" Value="False" />
+            </Style>
+            <Style Selector="^ /template/ DataGridColumnHeader#PART_TopRightCornerHeader">
+                <Setter Property="IsVisible" Value="False" />
+            </Style>
+            <Style Selector="^ /template/ DataGridColumnHeadersPresenter#PART_ColumnHeadersPresenter">
+                <Setter Property="IsVisible" Value="False" />
+            </Style>
+            <Style Selector="^ /template/ Rectangle#PART_ColumnHeadersAndRowsSeparator">
+                <Setter Property="IsVisible" Value="False" />
+            </Style>
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>
