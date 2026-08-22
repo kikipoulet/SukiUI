@@ -90,6 +90,12 @@
                                 </StackPanel>
                             </WrapPanel>
 
+                            <TextBlock Opacity="0.7" TextWrapping="Wrap">
+                                Row numbers come from the row header, filled in from LoadingRow - DataGrid
+                                has no built-in numbering. Set HeadersVisibility to Row or All to show them,
+                                and note the row header's vertical rule follows GridLinesVisibility.
+                            </TextBlock>
+
                             <WrapPanel ItemSpacing="20" LineSpacing="10">
                                 <CheckBox Content="Resizable columns" IsChecked="{Binding CanUserResizeColumns}" />
                                 <CheckBox Content="Reorderable columns" IsChecked="{Binding CanUserReorderColumns}" />
@@ -109,6 +115,7 @@
                                       IsEnabled="{Binding IsGridEnabled}"
                                       IsReadOnly="{Binding IsReadOnly}"
                                       ItemsSource="{Binding Items}"
+                                      LoadingRow="OnRowNumberLoading"
                                       MinColumnWidth="{Binding MinColumnWidth}"
                                       RowDetailsVisibilityMode="{Binding RowDetailsVisibilityMode}"
                                       SelectionMode="{Binding SelectionMode}"
@@ -164,6 +171,41 @@
                 </suki:GlassCard>
 
                 <suki:GlassCard>
+                    <suki:GroupBox Header="Flat and Accent classes">
+                        <StackPanel Spacing="15">
+                            <TextBlock Opacity="0.7" TextWrapping="Wrap">
+                                Flat fills the header band the way Button.Flat fills a button; Accent swaps
+                                the primary tints used for hover and selection for the accent ones. They
+                                compose, so Classes="Flat Accent" gives an accent coloured header band.
+                            </TextBlock>
+                            <WrapPanel ItemSpacing="20" LineSpacing="10">
+                                <CheckBox Content="Flat" IsChecked="{Binding UseFlat}" />
+                                <CheckBox Content="Accent" IsChecked="{Binding UseAccent}" />
+                            </WrapPanel>
+                            <DataGrid Height="240"
+                                      Classes.Accent="{Binding UseAccent}"
+                                      Classes.Flat="{Binding UseFlat}"
+                                      HeadersVisibility="All"
+                                      ItemsSource="{Binding Items}"
+                                      LoadingRow="OnRowNumberLoading">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Width="*"
+                                                        Binding="{Binding Name, DataType=controlsLibrary:DataGridDemoItem}"
+                                                        Header="Name" />
+                                    <DataGridTextColumn Width="140"
+                                                        Binding="{Binding Category, DataType=controlsLibrary:DataGridDemoItem}"
+                                                        Header="Category" />
+                                    <DataGridTextColumn Width="110"
+                                                        Binding="{Binding Quantity, DataType=controlsLibrary:DataGridDemoItem}"
+                                                        CellStyleClasses="RightAlign"
+                                                        Header="Quantity" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+
+                <suki:GlassCard>
                     <suki:GroupBox Header="Cell severity classes">
                         <StackPanel Spacing="15">
                             <TextBlock Opacity="0.7" TextWrapping="Wrap">
@@ -172,7 +214,10 @@
                                 selection states still show through. The four columns below hold the same
                                 value, each carrying a different class.
                             </TextBlock>
-                            <DataGrid Height="220" ItemsSource="{Binding Items}">
+                            <DataGrid Height="220"
+                                      HeadersVisibility="All"
+                                      ItemsSource="{Binding Items}"
+                                      LoadingRow="OnRowNumberLoading">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Width="*"
                                                         Binding="{Binding Name, DataType=controlsLibrary:DataGridDemoItem}"
@@ -216,7 +261,10 @@
                                 have to colour every matching row, not every other one.
                             </TextBlock>
                             <Grid ColumnDefinitions="*,20,*">
-                                <DataGrid Height="260" ItemsSource="{Binding Items}">
+                                <DataGrid Height="260"
+                                          HeadersVisibility="All"
+                                          ItemsSource="{Binding Items}"
+                                          LoadingRow="OnRowNumberLoading">
                                     <DataGrid.RowTheme>
                                         <ControlTheme x:DataType="controlsLibrary:DataGridDemoItem"
                                                       BasedOn="{StaticResource {x:Type DataGridRow}}"
@@ -238,6 +286,7 @@
                                 <DataGrid Name="LoadingRowGrid"
                                           Grid.Column="2"
                                           Height="260"
+                                          HeadersVisibility="All"
                                           ItemsSource="{Binding Items}"
                                           LoadingRow="OnLoadingRow">
                                     <DataGrid.Columns>
@@ -261,11 +310,17 @@
                             <TextBlock Opacity="0.7" TextWrapping="Wrap">
                                 A DataGridCollectionView grouped by Category, drawn with
                                 GridLinesVisibility=All so the vertical rules use the same brush as the header.
+                                RowHeaderWidth is fixed rather than Auto: group headers can't auto-size their
+                                own row header to match the numbered rows, so a fixed width is what keeps
+                                both aligned.
                             </TextBlock>
                             <DataGrid Height="320"
                                       AreRowGroupHeadersFrozen="True"
                                       GridLinesVisibility="All"
-                                      ItemsSource="{Binding GroupedItems}">
+                                      HeadersVisibility="All"
+                                      ItemsSource="{Binding GroupedItems}"
+                                      LoadingRow="OnRowNumberLoading"
+                                      RowHeaderWidth="36">
                                 <DataGrid.Styles>
                                     <Style Selector="DataGridRowGroupHeader">
                                         <Setter Property="IsItemCountVisible" Value="True" />
