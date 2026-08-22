@@ -88,6 +88,8 @@
                 <ResourceInclude Source="avares://sukiUI/Theme/ManagedFileChooser.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/TextResetButton.axaml" />
                 <ResourceInclude Source="avares://SukiUI/Theme/TreeViewItem.axaml" />
+                <!-- Must stay after TextBox.axaml: DataGridCellTextBoxTheme is BasedOn the TextBox theme. -->
+                <ResourceInclude Source="avares://SukiUI/Theme/DataGrid.axaml" />
 
                 <ResourceInclude Source="avares://sukiUI/Theme/TimePicker.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/Calendar/Calendar.axaml" />

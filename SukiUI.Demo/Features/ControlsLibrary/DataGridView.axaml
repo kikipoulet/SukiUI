@@ -1,0 +1,304 @@
+<UserControl x:Class="SukiUI.Demo.Features.ControlsLibrary.DataGridView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controlsLibrary="clr-namespace:SukiUI.Demo.Features.ControlsLibrary"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             d:DesignHeight="650"
+             d:DesignWidth="900"
+             x:DataType="controlsLibrary:DataGridViewModel"
+             mc:Ignorable="d">
+    <Grid RowDefinitions="Auto,*">
+        <suki:GlassCard Classes="HeaderCard">
+            <suki:GroupBox Header="DataGrid">
+                <StackPanel Classes="HeaderContent">
+                    <TextBlock TextWrapping="Wrap">
+                        Every DataGrid part is themed with a ControlTheme, so DataGrid.RowTheme, CellTheme,
+                        ColumnHeaderTheme and RowGroupTheme can all be based on the SukiUI defaults.
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap">
+                        Cells align left by default; apply the LeftAlign, CenterAlign or RightAlign classes
+                        through a column's CellStyleClasses property to change that.
+                    </TextBlock>
+                </StackPanel>
+            </suki:GroupBox>
+        </suki:GlassCard>
+
+        <ScrollViewer Grid.Row="1">
+            <!--
+                WrapPanel.PageContainer is the shared page style, but it only targets WrapPanel and
+                these cards are stacked full width instead. The margin reproduces the gutter a
+                PageContainer child ends up with (15 panel + 15 card) against the HeaderCard's 30.
+            -->
+            <StackPanel Margin="30,15,30,30" Spacing="20">
+
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Feature playground">
+                        <StackPanel Spacing="15">
+                            <WrapPanel ItemSpacing="20" LineSpacing="10">
+                                <StackPanel Width="180">
+                                    <TextBlock Classes="Caption" Text="GridLinesVisibility" />
+                                    <ComboBox HorizontalAlignment="Stretch"
+                                              ItemsSource="{Binding GridLinesOptions}"
+                                              SelectedItem="{Binding GridLinesVisibility}" />
+                                </StackPanel>
+                                <StackPanel Width="180">
+                                    <TextBlock Classes="Caption" Text="HeadersVisibility" />
+                                    <ComboBox HorizontalAlignment="Stretch"
+                                              ItemsSource="{Binding HeadersOptions}"
+                                              SelectedItem="{Binding HeadersVisibility}" />
+                                </StackPanel>
+                                <StackPanel Width="180">
+                                    <TextBlock Classes="Caption" Text="SelectionMode" />
+                                    <ComboBox HorizontalAlignment="Stretch"
+                                              ItemsSource="{Binding SelectionModes}"
+                                              SelectedItem="{Binding SelectionMode}" />
+                                </StackPanel>
+                                <StackPanel Width="220">
+                                    <TextBlock Classes="Caption" Text="RowDetailsVisibilityMode" />
+                                    <ComboBox HorizontalAlignment="Stretch"
+                                              ItemsSource="{Binding RowDetailsModes}"
+                                              SelectedItem="{Binding RowDetailsVisibilityMode}" />
+                                </StackPanel>
+                                <StackPanel Width="160">
+                                    <TextBlock Classes="Caption" Text="FrozenColumnCount" />
+                                    <NumericUpDown Increment="1"
+                                                   Maximum="3"
+                                                   Minimum="0"
+                                                   Value="{Binding FrozenColumnCount}" />
+                                </StackPanel>
+                                <StackPanel Width="200">
+                                    <TextBlock Classes="Caption" Text="HorizontalScrollBarVisibility" />
+                                    <ComboBox HorizontalAlignment="Stretch"
+                                              ItemsSource="{Binding ScrollBarVisibilities}"
+                                              SelectedItem="{Binding HorizontalScrollBarVisibility}" />
+                                </StackPanel>
+                                <StackPanel Width="200">
+                                    <TextBlock Classes="Caption" Text="VerticalScrollBarVisibility" />
+                                    <ComboBox HorizontalAlignment="Stretch"
+                                              ItemsSource="{Binding ScrollBarVisibilities}"
+                                              SelectedItem="{Binding VerticalScrollBarVisibility}" />
+                                </StackPanel>
+                                <StackPanel Width="240">
+                                    <TextBlock Classes="Caption"
+                                               Text="{Binding MinColumnWidth, StringFormat='MinColumnWidth: {0:F0} (raise to force horizontal scroll)'}" />
+                                    <Slider Maximum="400"
+                                            Minimum="20"
+                                            TickFrequency="20"
+                                            Value="{Binding MinColumnWidth}" />
+                                </StackPanel>
+                            </WrapPanel>
+
+                            <WrapPanel ItemSpacing="20" LineSpacing="10">
+                                <CheckBox Content="Resizable columns" IsChecked="{Binding CanUserResizeColumns}" />
+                                <CheckBox Content="Reorderable columns" IsChecked="{Binding CanUserReorderColumns}" />
+                                <CheckBox Content="Sortable columns" IsChecked="{Binding CanUserSortColumns}" />
+                                <CheckBox Content="Read only" IsChecked="{Binding IsReadOnly}" />
+                                <CheckBox Content="Enabled" IsChecked="{Binding IsGridEnabled}" />
+                            </WrapPanel>
+
+                            <DataGrid Height="320"
+                                      CanUserReorderColumns="{Binding CanUserReorderColumns}"
+                                      CanUserResizeColumns="{Binding CanUserResizeColumns}"
+                                      CanUserSortColumns="{Binding CanUserSortColumns}"
+                                      FrozenColumnCount="{Binding FrozenColumnCount}"
+                                      GridLinesVisibility="{Binding GridLinesVisibility}"
+                                      HeadersVisibility="{Binding HeadersVisibility}"
+                                      HorizontalScrollBarVisibility="{Binding HorizontalScrollBarVisibility}"
+                                      IsEnabled="{Binding IsGridEnabled}"
+                                      IsReadOnly="{Binding IsReadOnly}"
+                                      ItemsSource="{Binding Items}"
+                                      MinColumnWidth="{Binding MinColumnWidth}"
+                                      RowDetailsVisibilityMode="{Binding RowDetailsVisibilityMode}"
+                                      SelectionMode="{Binding SelectionMode}"
+                                      VerticalScrollBarVisibility="{Binding VerticalScrollBarVisibility}">
+                                <DataGrid.RowDetailsTemplate>
+                                    <DataTemplate x:DataType="controlsLibrary:DataGridDemoItem">
+                                        <Border Padding="12,8" Background="Transparent">
+                                            <TextBlock Text="{Binding Notes}" TextWrapping="Wrap" />
+                                        </Border>
+                                    </DataTemplate>
+                                </DataGrid.RowDetailsTemplate>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Width="70"
+                                                        Binding="{Binding Id, DataType=controlsLibrary:DataGridDemoItem}"
+                                                        CellStyleClasses="RightAlign"
+                                                        Header="Id" />
+                                    <DataGridTextColumn Width="*"
+                                                        Binding="{Binding Name, DataType=controlsLibrary:DataGridDemoItem}"
+                                                        Header="Name" />
+                                    <DataGridTemplateColumn Width="170"
+                                                            Header="Category"
+                                                            SortMemberPath="Category">
+                                        <DataTemplate x:DataType="controlsLibrary:DataGridDemoItem">
+                                            <ComboBox HorizontalAlignment="Stretch"
+                                                      ItemsSource="{x:Static controlsLibrary:DataGridDemoItem.Categories}"
+                                                      SelectedItem="{Binding Category}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Width="160"
+                                                            Header="Quantity"
+                                                            SortMemberPath="Quantity">
+                                        <DataTemplate x:DataType="controlsLibrary:DataGridDemoItem">
+                                            <NumericUpDown FormatString="F0"
+                                                           Increment="1"
+                                                           Minimum="0"
+                                                           Value="{Binding Quantity}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridCheckBoxColumn Width="90"
+                                                            Binding="{Binding IsActive, DataType=controlsLibrary:DataGridDemoItem}"
+                                                            Header="Active" />
+                                    <DataGridTemplateColumn Width="170"
+                                                            Header="Updated"
+                                                            SortMemberPath="Updated">
+                                        <DataTemplate x:DataType="controlsLibrary:DataGridDemoItem">
+                                            <CalendarDatePicker SelectedDate="{Binding Updated}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Cell severity classes">
+                        <StackPanel Spacing="15">
+                            <TextBlock Opacity="0.7" TextWrapping="Wrap">
+                                Flat, Accent, Success, Information, Warning and Danger are cell classes, applied through a
+                                column's CellStyleClasses. They tint the foreground so the row's hover and
+                                selection states still show through. The four columns below hold the same
+                                value, each carrying a different class.
+                            </TextBlock>
+                            <DataGrid Height="220" ItemsSource="{Binding Items}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Width="*"
+                                                        Binding="{Binding Name, DataType=controlsLibrary:DataGridDemoItem}"
+                                                        CellStyleClasses="Flat"
+                                                        Header="Flat" />
+                                    <DataGridTextColumn Width="*"
+                                                        Binding="{Binding Name, DataType=controlsLibrary:DataGridDemoItem}"
+                                                        CellStyleClasses="Accent"
+                                                        Header="Accent" />
+                                    <DataGridTextColumn Width="*"
+                                                        Binding="{Binding Name, DataType=controlsLibrary:DataGridDemoItem}"
+                                                        CellStyleClasses="Success"
+                                                        Header="Success" />
+                                    <DataGridTextColumn Width="*"
+                                                        Binding="{Binding Name, DataType=controlsLibrary:DataGridDemoItem}"
+                                                        CellStyleClasses="Information"
+                                                        Header="Information" />
+                                    <DataGridTextColumn Width="*"
+                                                        Binding="{Binding Name, DataType=controlsLibrary:DataGridDemoItem}"
+                                                        CellStyleClasses="Warning"
+                                                        Header="Warning" />
+                                    <DataGridTextColumn Width="*"
+                                                        Binding="{Binding Name, DataType=controlsLibrary:DataGridDemoItem}"
+                                                        CellStyleClasses="Danger"
+                                                        Header="Danger" />
+                                    <DataGridTextColumn Width="*"
+                                                        Binding="{Binding Name, DataType=controlsLibrary:DataGridDemoItem}"
+                                                        Header="Default" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Per row background (issue #404)">
+                        <StackPanel Spacing="15">
+                            <TextBlock Opacity="0.7" TextWrapping="Wrap">
+                                The left grid drives DataGridRow.Background from a ControlTheme handed to
+                                DataGrid.RowTheme; the right grid assigns it from the LoadingRow event. Both
+                                have to colour every matching row, not every other one.
+                            </TextBlock>
+                            <Grid ColumnDefinitions="*,20,*">
+                                <DataGrid Height="260" ItemsSource="{Binding Items}">
+                                    <DataGrid.RowTheme>
+                                        <ControlTheme x:DataType="controlsLibrary:DataGridDemoItem"
+                                                      BasedOn="{StaticResource {x:Type DataGridRow}}"
+                                                      TargetType="DataGridRow">
+                                            <Setter Property="Background" Value="{Binding StatusBrush}" />
+                                        </ControlTheme>
+                                    </DataGrid.RowTheme>
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Width="*"
+                                                            Binding="{Binding Name, DataType=controlsLibrary:DataGridDemoItem}"
+                                                            Header="Name" />
+                                        <DataGridTextColumn Width="110"
+                                                            Binding="{Binding Quantity, DataType=controlsLibrary:DataGridDemoItem}"
+                                                            CellStyleClasses="RightAlign"
+                                                            Header="Quantity" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+
+                                <DataGrid Name="LoadingRowGrid"
+                                          Grid.Column="2"
+                                          Height="260"
+                                          ItemsSource="{Binding Items}"
+                                          LoadingRow="OnLoadingRow">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Width="*"
+                                                            Binding="{Binding Name, DataType=controlsLibrary:DataGridDemoItem}"
+                                                            Header="Name" />
+                                        <DataGridTextColumn Width="110"
+                                                            Binding="{Binding Quantity, DataType=controlsLibrary:DataGridDemoItem}"
+                                                            CellStyleClasses="RightAlign"
+                                                            Header="Quantity" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+                        </StackPanel>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+
+                <suki:GlassCard>
+                    <suki:GroupBox Header="Grouping and grid lines (issue #363)">
+                        <StackPanel Spacing="15">
+                            <TextBlock Opacity="0.7" TextWrapping="Wrap">
+                                A DataGridCollectionView grouped by Category, drawn with
+                                GridLinesVisibility=All so the vertical rules use the same brush as the header.
+                            </TextBlock>
+                            <DataGrid Height="320"
+                                      AreRowGroupHeadersFrozen="True"
+                                      GridLinesVisibility="All"
+                                      ItemsSource="{Binding GroupedItems}">
+                                <DataGrid.Styles>
+                                    <Style Selector="DataGridRowGroupHeader">
+                                        <Setter Property="IsItemCountVisible" Value="True" />
+                                    </Style>
+                                </DataGrid.Styles>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Width="80"
+                                                        Binding="{Binding Id, DataType=controlsLibrary:DataGridDemoItem}"
+                                                        CellStyleClasses="CenterAlign"
+                                                        Header="Id" />
+                                    <DataGridTextColumn Width="*"
+                                                        Binding="{Binding Name, DataType=controlsLibrary:DataGridDemoItem}"
+                                                        Header="Name" />
+                                    <DataGridTemplateColumn Width="170"
+                                                            Header="Category"
+                                                            SortMemberPath="Category">
+                                        <DataTemplate x:DataType="controlsLibrary:DataGridDemoItem">
+                                            <ComboBox HorizontalAlignment="Stretch"
+                                                      ItemsSource="{x:Static controlsLibrary:DataGridDemoItem.Categories}"
+                                                      SelectedItem="{Binding Category}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Width="110"
+                                                        Binding="{Binding Quantity, DataType=controlsLibrary:DataGridDemoItem}"
+                                                        CellStyleClasses="RightAlign"
+                                                        Header="Quantity" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </suki:GroupBox>
+                </suki:GlassCard>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

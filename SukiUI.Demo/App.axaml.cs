@@ -51,9 +51,9 @@ public class App : Application
             var p = new Panel();
             p.Children.Add(new SukiBackground(){Style = SukiBackgroundStyle.Bubble});
             var dialogManager = new SukiDialogManager();
-            
+
             p.Children.Add(new AllControlsView(){DataContext = new AllControlsViewModel(dialogManager)});
-            
+
             singleView.MainView = new SukiMainHost()
             {
                 Hosts = [
@@ -67,8 +67,6 @@ public class App : Application
         }
 
         base.OnFrameworkInitializationCompleted();
-
-    //    Shadcn.Configure(Application.Current, ThemeVariant.Dark);
     }
 
     private static SukiViews ConfigureViews(ServiceCollection services)
@@ -87,6 +85,7 @@ public class App : Application
             .AddView<ButtonsView, ButtonsViewModel>(services)
             .AddView<CardsView, CardsViewModel>(services)
             .AddView<CollectionsView, CollectionsViewModel>(services)
+            .AddView<DataGridView, DataGridViewModel>(services)
             .AddView<ContextMenusView, ContextMenusViewModel>(services)
             .AddView<DockView, DockViewModel>(services)
             .AddView<DockMvvmView, DockMvvmViewModel>(services)

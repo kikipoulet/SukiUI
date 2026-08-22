@@ -405,3 +405,6 @@ FodyWeavers.xsd
 
 # Docs generation
 package-lock.json
+
+# AI
+.serena/
