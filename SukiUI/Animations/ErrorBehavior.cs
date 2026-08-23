@@ -18,8 +18,6 @@ public static class ErrorBehavior
     private const double ErrorOpacityTarget = 0.1;
 
     private static readonly Dictionary<Control, PopupData> _popups = new();
-    private static readonly Dictionary<Control, double> _originalOpacities = new();
-
     public static readonly AttachedProperty<bool> IsActiveProperty =
         AvaloniaProperty.RegisterAttached<Control, bool>(
             "IsActive",
@@ -127,54 +125,49 @@ public static class ErrorBehavior
 
         if (isActive)
         {
-            if (control.Bounds.Width <= 0)
-            {
-                control.AttachedToVisualTree += DeferShowError;
-                control.LayoutUpdated += DeferShowErrorOnLayout;
-                return;
-            }
-            ShowError(control);
+            SubscribeToLifecycle(control);
+            TryShowError(control);
         }
         else
         {
-            control.AttachedToVisualTree -= DeferShowError;
             control.LayoutUpdated -= DeferShowErrorOnLayout;
             HideError(control);
         }
     }
 
-    private static void DeferShowError(object? sender, VisualTreeAttachmentEventArgs e)
+    private static void TryShowError(Control control)
     {
-        if (sender is not Control control) return;
-        control.AttachedToVisualTree -= DeferShowError;
-        if (control.Bounds.Width > 0 && GetIsActive(control))
+        if (!GetIsActive(control) || !control.IsAttachedToVisualTree())
+            return;
+
+        if (control.Bounds.Width <= 0 || control.Bounds.Height <= 0)
         {
             control.LayoutUpdated -= DeferShowErrorOnLayout;
-            ShowError(control);
+            control.LayoutUpdated += DeferShowErrorOnLayout;
+            return;
         }
+
+        control.LayoutUpdated -= DeferShowErrorOnLayout;
+        ShowError(control);
     }
 
     private static void DeferShowErrorOnLayout(object? sender, EventArgs e)
     {
         if (sender is not Control control) return;
-        if (control.Bounds.Width > 0 && GetIsActive(control))
-        {
-            control.LayoutUpdated -= DeferShowErrorOnLayout;
-            control.AttachedToVisualTree -= DeferShowError;
-            ShowError(control);
-        }
+        TryShowError(control);
     }
 
     private static void ShowError(Control control)
     {
-        ((Visual)control).Animate(Visual.OpacityProperty)
-            .From(control.Opacity)
-            .To(ErrorOpacityTarget)
-            .WithDuration(TimeSpan.FromMilliseconds(AnimationDurationMs))
-            .WithEasing(new CubicEaseInOut())
-            .Start();
+        if (_popups.TryGetValue(control, out var existingPopup))
+        {
+            if (!existingPopup.IsHiding)
+                return;
 
-        _originalOpacities[control] = control.Opacity;
+            ReleasePopup(control, existingPopup, restoreOpacity: true);
+        }
+
+        var originalOpacity = control.Opacity;
 
         var width = control.Bounds.Width + 3;
         var height = control.Bounds.Height + 3;
@@ -278,9 +271,13 @@ public static class ErrorBehavior
         var currentAngle = 0.0;
         var angleStep = 360.0 / (speed / 16.0);
 
+        var scrollViewer = control.FindAncestorOfType<ScrollViewer>();
+        var popupData = new PopupData(popup, timer, scrollViewer, originalOpacity);
+
         timer.Tick += (_, _) =>
         {
-            if (!_popups.ContainsKey(control) || !popup.IsOpen)
+            if (!_popups.TryGetValue(control, out var current) ||
+                !ReferenceEquals(current, popupData) || !popup.IsOpen)
             {
                 timer.Stop();
                 return;
@@ -295,27 +292,25 @@ public static class ErrorBehavior
 
         popup.Opened += (_, _) =>
         {
+            if (!_popups.TryGetValue(control, out var current) ||
+                !ReferenceEquals(current, popupData) || !popup.IsOpen)
+                return;
+
             popupContent.Measure(new Avalonia.Size(double.PositiveInfinity, double.PositiveInfinity));
 
-            outerBorder.Animate(Visual.OpacityProperty)
-                .From(0)
-                .To(1)
-                .WithDuration(TimeSpan.FromMilliseconds(AnimationDurationMs))
-                .Start();
+            _ = AnimateOpacityAsync(outerBorder, 0, 1, popupData.AnimationToken);
 
             timer.Start();
         };
 
-        var scrollViewer = control.FindAncestorOfType<ScrollViewer>();
         if (scrollViewer != null)
         {
             scrollViewer.ScrollChanged += OnScrollChanged;
         }
 
-        _popups[control] = new PopupData(popup, timer, scrollViewer);
+        _popups[control] = popupData;
 
-        control.AttachedToVisualTree += OnControlAttachedToVisualTree;
-        control.DetachedFromVisualTree += OnControlDetachedFromVisualTree;
+        _ = AnimateOpacityAsync(control, originalOpacity, ErrorOpacityTarget, popupData.AnimationToken);
 
         popup.IsOpen = true;
     }
@@ -323,57 +318,38 @@ public static class ErrorBehavior
     private static async void HideError(Control control)
     {
         if (!_popups.TryGetValue(control, out var popupData))
+        {
+            UnsubscribeFromLifecycle(control);
+            return;
+        }
+
+        popupData.IsHiding = true;
+        popupData.Timer.Stop();
+        var cancellationToken = popupData.BeginAnimation();
+
+        if (popupData.Popup.Child is Grid popupGrid && popupGrid.Children[0] is Border outerBorder)
+        {
+            await AnimateOpacityAsync(outerBorder, outerBorder.Opacity, 0, cancellationToken);
+        }
+
+        if (!IsCurrentInactivePopup(control, popupData))
             return;
 
-        var popup = popupData.Popup;
-        var timer = popupData.Timer;
+        popupData.Popup.IsOpen = false;
+        await AnimateOpacityAsync(control, control.Opacity, popupData.OriginalOpacity, cancellationToken);
 
-        timer?.Stop();
+        if (!IsCurrentInactivePopup(control, popupData))
+            return;
 
-        if (popup.Child is Grid popupGrid && popupGrid.Children[0] is Border outerBorder)
-        {
-            await outerBorder.Animate(Visual.OpacityProperty)
-                .From(1)
-                .To(0)
-                .WithDuration(TimeSpan.FromMilliseconds(AnimationDurationMs))
-                .RunAsync();
-
-            popup.IsOpen = false;
-            popup.Child = null;
-            ((ISetLogicalParent)popup).SetParent(null);
-            _popups.Remove(control);
-        }
-
-        if (popupData.ScrollViewer != null)
-        {
-            popupData.ScrollViewer.ScrollChanged -= OnScrollChanged;
-        }
-
-        if (_originalOpacities.TryGetValue(control, out var originalOpacity))
-        {
-            ((Visual)control).Animate(Visual.OpacityProperty)
-                .From(control.Opacity)
-                .To(originalOpacity)
-                .WithDuration(TimeSpan.FromMilliseconds(AnimationDurationMs))
-                .WithEasing(new CubicEaseInOut())
-                .Start();
-
-            _originalOpacities.Remove(control);
-        }
-
-        control.AttachedToVisualTree -= OnControlAttachedToVisualTree;
-        control.DetachedFromVisualTree -= OnControlDetachedFromVisualTree;
+        control.Opacity = popupData.OriginalOpacity;
+        ReleasePopup(control, popupData, restoreOpacity: false);
+        UnsubscribeFromLifecycle(control);
     }
 
     private static void OnControlAttachedToVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
     {
-        if (sender is not Control control) return;
-        if (!GetIsActive(control)) return;
-
-        if (_popups.TryGetValue(control, out var popupData) && !popupData.Popup.IsOpen)
-        {
-            popupData.Popup.IsOpen = true;
-        }
+        if (sender is Control control)
+            TryShowError(control);
     }
 
     private static void OnControlDetachedFromVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
@@ -382,8 +358,66 @@ public static class ErrorBehavior
 
         if (_popups.TryGetValue(control, out var popupData))
         {
-            popupData.Popup.IsOpen = false;
-            popupData.Timer?.Stop();
+            ReleasePopup(control, popupData, restoreOpacity: true);
+        }
+
+        control.LayoutUpdated -= DeferShowErrorOnLayout;
+        if (!GetIsActive(control))
+            UnsubscribeFromLifecycle(control);
+    }
+
+    private static bool IsCurrentInactivePopup(Control control, PopupData popupData) =>
+        !GetIsActive(control) && _popups.TryGetValue(control, out var current) &&
+        ReferenceEquals(current, popupData);
+
+    private static void SubscribeToLifecycle(Control control)
+    {
+        control.AttachedToVisualTree -= OnControlAttachedToVisualTree;
+        control.DetachedFromVisualTree -= OnControlDetachedFromVisualTree;
+        control.AttachedToVisualTree += OnControlAttachedToVisualTree;
+        control.DetachedFromVisualTree += OnControlDetachedFromVisualTree;
+    }
+
+    private static void UnsubscribeFromLifecycle(Control control)
+    {
+        control.AttachedToVisualTree -= OnControlAttachedToVisualTree;
+        control.DetachedFromVisualTree -= OnControlDetachedFromVisualTree;
+    }
+
+    private static void ReleasePopup(Control control, PopupData popupData, bool restoreOpacity)
+    {
+        popupData.CancelAnimations();
+        popupData.Timer.Stop();
+        popupData.Popup.IsOpen = false;
+        popupData.Popup.Child = null;
+        ((ISetLogicalParent)popupData.Popup).SetParent(null);
+
+        if (popupData.ScrollViewer != null)
+            popupData.ScrollViewer.ScrollChanged -= OnScrollChanged;
+
+        if (restoreOpacity)
+            control.Opacity = popupData.OriginalOpacity;
+
+        if (_popups.TryGetValue(control, out var current) && ReferenceEquals(current, popupData))
+            _popups.Remove(control);
+    }
+
+    private static async Task AnimateOpacityAsync(Visual visual, double from, double to,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            await visual.Animate(Visual.OpacityProperty)
+                .From(from)
+                .To(to)
+                .WithDuration(TimeSpan.FromMilliseconds(AnimationDurationMs))
+                .WithEasing(new CubicEaseInOut())
+                .WithCancellationToken(cancellationToken)
+                .RunAsync();
+        }
+        catch (OperationCanceledException)
+        {
+            // A detach or fast reactivation superseded this animation.
         }
     }
 
@@ -403,5 +437,29 @@ public static class ErrorBehavior
         }
     }
 
-    private record PopupData(Popup Popup, DispatcherTimer Timer, ScrollViewer? ScrollViewer);
+    private sealed class PopupData(Popup popup, DispatcherTimer timer, ScrollViewer? scrollViewer,
+        double originalOpacity)
+    {
+        private CancellationTokenSource _animationCancellation = new();
+
+        public Popup Popup { get; } = popup;
+        public DispatcherTimer Timer { get; } = timer;
+        public ScrollViewer? ScrollViewer { get; } = scrollViewer;
+        public double OriginalOpacity { get; } = originalOpacity;
+        public bool IsHiding { get; set; }
+        public CancellationToken AnimationToken => _animationCancellation.Token;
+
+        public CancellationToken BeginAnimation()
+        {
+            CancelAnimations();
+            _animationCancellation = new CancellationTokenSource();
+            return _animationCancellation.Token;
+        }
+
+        public void CancelAnimations()
+        {
+            _animationCancellation.Cancel();
+            _animationCancellation.Dispose();
+        }
+    }
 }
