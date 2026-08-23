@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Windows.Input;
 using Avalonia;
@@ -8,6 +8,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.LogicalTree;
+using Avalonia.Media;
 using Avalonia.Rendering.Composition;
 using Avalonia.Rendering.Composition.Animations;
 using SukiUI.Helpers;
@@ -17,6 +18,12 @@ namespace SukiUI.Controls;
 public class GlassCard : ContentControl
 {
     private ContextMenu? _attachedContextMenu;
+    private Panel? _rootPanel;
+    private Border? _cardBorder;
+    private Border? _legacyCardBorder;
+    private Border? _clipBorder;
+    private bool _animateAppliedTemplate;
+
     public new static readonly StyledProperty<CornerRadius> CornerRadiusProperty =
         AvaloniaProperty.Register<GlassCard, CornerRadius>(nameof(CornerRadius), new CornerRadius(20));
 
@@ -101,38 +108,46 @@ public class GlassCard : ContentControl
     {
         base.OnApplyTemplate(e);
 
-        if (IsAnimated)
-        {
-            var b = e.NameScope.Get<Panel>("RootPanel");
-            b.Loaded += (sender, args) =>
-            {
-                if (ElementComposition.GetElementVisual(b) is { } visual)
-                    CompositionAnimationHelper.MakeOpacityAnimated(visual);
-            };
+        _rootPanel = e.NameScope.Find<Panel>("RootPanel");
+        _cardBorder = e.NameScope.Find<Border>("PART_BorderCard") ??
+                      e.NameScope.Find<Border>("PART_BorderCardLight");
+        _legacyCardBorder = e.NameScope.Find<Border>("PART_BorderCardDark");
+        if (ReferenceEquals(_legacyCardBorder, _cardBorder))
+            _legacyCardBorder = null;
+        _clipBorder = e.NameScope.Find<Border>("PART_ClipBorder");
+        _animateAppliedTemplate = IsAnimated;
 
-            var b2 = e.NameScope.Get<Border>("PART_BorderCardLight");
-            b2.Loaded += (sender, args) =>
-            {
-                if (ElementComposition.GetElementVisual(b2) is { } visual)
-                    CompositionAnimationHelper.MakeSizeAnimated(visual);
-            };
-            
-            var b2d = e.NameScope.Get<Border>("PART_BorderCardDark");
-            b2d.Loaded += (sender, args) =>
-            {
-                if (ElementComposition.GetElementVisual(b2d) is { } visual)
-                    CompositionAnimationHelper.MakeSizeAnimated(visual);
-            };
+        if (IsLoaded)
+            ConfigureAnimations();
+    }
 
-            var b3 = e.NameScope.Get<Border>("PART_ClipBorder");
-            b3.Loaded += (sender, args) =>
-            {
-                if (ElementComposition.GetElementVisual(b3) is { } visual)
-                    CompositionAnimationHelper.MakeSizeAnimated(visual);
-            };
+    protected override void OnLoaded(RoutedEventArgs e)
+    {
+        base.OnLoaded(e);
+        ConfigureAnimations();
+    }
 
-        }
+    private void ConfigureAnimations()
+    {
+        if (!_animateAppliedTemplate)
+            return;
 
+        MakeOpacityAnimated(_rootPanel);
+        MakeSizeAnimated(_cardBorder);
+        MakeSizeAnimated(_legacyCardBorder);
+        MakeSizeAnimated(_clipBorder);
+    }
+
+    private static void MakeOpacityAnimated(Control? control)
+    {
+        if (control is not null && ElementComposition.GetElementVisual(control) is { } visual)
+            CompositionAnimationHelper.MakeOpacityAnimated(visual);
+    }
+
+    private static void MakeSizeAnimated(Control? control)
+    {
+        if (control is not null && ElementComposition.GetElementVisual(control) is { } visual)
+            CompositionAnimationHelper.MakeSizeAnimated(visual);
     }
 
     private void AttachContextMenu(ContextMenu? contextMenu)
@@ -164,5 +179,151 @@ public class GlassCard : ContentControl
     {
         base.OnPointerReleased(e);
         PseudoClasses.Set(":pointerdown", false);
+    }
+}
+
+internal sealed class GlassCardBorder : Border
+{
+    public static readonly StyledProperty<IBrush?> LightBorderBrushProperty =
+        AvaloniaProperty.Register<GlassCardBorder, IBrush?>(nameof(LightBorderBrush));
+
+    public static readonly StyledProperty<bool> UseDarkBorderProperty =
+        AvaloniaProperty.Register<GlassCardBorder, bool>(nameof(UseDarkBorder));
+
+    public static readonly StyledProperty<Color> DarkBorderStartColorProperty =
+        AvaloniaProperty.Register<GlassCardBorder, Color>(nameof(DarkBorderStartColor));
+
+    public static readonly StyledProperty<Color> DarkBorderEndColorProperty =
+        AvaloniaProperty.Register<GlassCardBorder, Color>(nameof(DarkBorderEndColor));
+
+    private LinearGradientBrush? _darkBorderBrush;
+    private GradientStop? _darkBorderStart;
+    private GradientStop? _darkBorderEnd;
+    private Size _gradientSize = new(double.NaN, double.NaN);
+
+    protected override Type StyleKeyOverride => typeof(Border);
+
+    public IBrush? LightBorderBrush
+    {
+        get => GetValue(LightBorderBrushProperty);
+        set => SetValue(LightBorderBrushProperty, value);
+    }
+
+    public bool UseDarkBorder
+    {
+        get => GetValue(UseDarkBorderProperty);
+        set => SetValue(UseDarkBorderProperty, value);
+    }
+
+    public Color DarkBorderStartColor
+    {
+        get => GetValue(DarkBorderStartColorProperty);
+        set => SetValue(DarkBorderStartColorProperty, value);
+    }
+
+    public Color DarkBorderEndColor
+    {
+        get => GetValue(DarkBorderEndColorProperty);
+        set => SetValue(DarkBorderEndColorProperty, value);
+    }
+
+    protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+    {
+        base.OnPropertyChanged(change);
+
+        if (change.Property == UseDarkBorderProperty)
+        {
+            UpdateBorderBrush(suppressTransition: true);
+        }
+        else if (change.Property == LightBorderBrushProperty && !UseDarkBorder)
+        {
+            UpdateBorderBrush(suppressTransition: false);
+        }
+        else if (change.Property == DarkBorderStartColorProperty)
+        {
+            if (_darkBorderStart is not null)
+                _darkBorderStart.Color = DarkBorderStartColor;
+        }
+        else if (change.Property == DarkBorderEndColorProperty && _darkBorderEnd is not null)
+        {
+            _darkBorderEnd.Color = DarkBorderEndColor;
+        }
+    }
+
+    protected override Size ArrangeOverride(Size finalSize)
+    {
+        if (UseDarkBorder)
+            UpdateGradientGeometry(finalSize);
+        return base.ArrangeOverride(finalSize);
+    }
+
+    private void UpdateBorderBrush(bool suppressTransition)
+    {
+        var suspendTransitions = suppressTransition && IsLoaded && Transitions is not null;
+        var transitions = suspendTransitions ? Transitions : null;
+        if (suspendTransitions)
+            Transitions = null;
+
+        try
+        {
+            if (UseDarkBorder)
+            {
+                SetCurrentValue(BorderBrushProperty, GetDarkBorderBrush());
+                UpdateGradientGeometry(Bounds.Size);
+            }
+            else
+            {
+                SetCurrentValue(BorderBrushProperty, LightBorderBrush);
+            }
+        }
+        finally
+        {
+            if (suspendTransitions)
+                Transitions = transitions;
+        }
+    }
+
+    private LinearGradientBrush GetDarkBorderBrush()
+    {
+        if (_darkBorderBrush is not null)
+            return _darkBorderBrush;
+
+        _darkBorderStart = new GradientStop
+        {
+            Offset = 0,
+            Color = DarkBorderStartColor
+        };
+        _darkBorderEnd = new GradientStop
+        {
+            Offset = 1,
+            Color = DarkBorderEndColor
+        };
+        _darkBorderBrush = new LinearGradientBrush
+        {
+            GradientStops =
+            [
+                _darkBorderStart,
+                new GradientStop { Offset = 0.5, Color = Colors.Transparent },
+                _darkBorderEnd
+            ]
+        };
+        return _darkBorderBrush;
+    }
+
+    private void UpdateGradientGeometry(Size size)
+    {
+        if (_darkBorderBrush is null || size == _gradientSize)
+            return;
+
+        _gradientSize = size;
+        var min = Math.Min(size.Width, size.Height);
+        var max = Math.Max(size.Width, size.Height);
+        if (!double.IsFinite(min) || !double.IsFinite(max) || min <= 0 || max <= 0)
+            return;
+
+        var factor = Math.Abs(min / max);
+        var y = 1 / (1.75 * factor);
+        _darkBorderBrush.StartPoint = new RelativePoint(0.2, -y, RelativeUnit.Relative);
+        _darkBorderBrush.EndPoint = new RelativePoint(0.8, 1 + y, RelativeUnit.Relative);
     }
 }
