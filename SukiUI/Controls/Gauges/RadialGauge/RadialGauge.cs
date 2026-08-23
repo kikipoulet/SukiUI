@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Globalization;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
@@ -119,9 +120,18 @@ public class RadialGauge : Panel
     private TextBlock _valueText = null!;
     private TextBlock _subtitleText = null!;
     private StackPanel _stackText = null!;
-    private List<Path> _segmentPaths = new();
+    private readonly List<SegmentVisual> _segmentVisuals = new();
     private Grid _segmentsGrid = null!;
+    private readonly RotateTransform _needleTransform = new(0, 0, 0);
+    private readonly ArcSegment _trailArc = new() { SweepDirection = SweepDirection.Clockwise };
+    private readonly PathFigure _trailFigure;
+    private readonly PathGeometry _trailGeometry;
+    private LinearGradientBrush? _segmentTrailBrush;
+    private Color _segmentTrailBrushColor;
+    private string? _lastDisplayText;
     private readonly HashSet<RadialGaugeSegment> _subscribedSegments = new();
+    private bool _segmentsGeometryDirty = true;
+    private Rect? _segmentsGeometryBounds;
     private bool _isAttached;
           
 
@@ -142,11 +152,21 @@ public class RadialGauge : Panel
         SegmentsProperty.Changed.AddClassHandler<RadialGauge>((s, e) => s.OnSegmentsChanged(e));
         SubtitleTextProperty.Changed.AddClassHandler<RadialGauge>((s, _) => s.UpdateSubtitle());
         RimThicknessProperty.Changed.AddClassHandler<RadialGauge>((s, _) => s.UpdateRimThickness());
+        MinimumProperty.Changed.AddClassHandler<RadialGauge>((s, _) => s.InvalidateSegmentGeometry());
+        MaximumProperty.Changed.AddClassHandler<RadialGauge>((s, _) => s.InvalidateSegmentGeometry());
+        StartAngleProperty.Changed.AddClassHandler<RadialGauge>((s, _) => s.InvalidateSegmentGeometry());
+        EndAngleProperty.Changed.AddClassHandler<RadialGauge>((s, _) => s.InvalidateSegmentGeometry());
     }
 
     public RadialGauge()
     {
-      
+        _trailFigure = new PathFigure
+        {
+            IsClosed = false,
+            IsFilled = false,
+            Segments = new PathSegments { _trailArc }
+        };
+        _trailGeometry = new PathGeometry { Figures = new PathFigures { _trailFigure } };
     }
 
     private void LoadControls()
@@ -189,6 +209,7 @@ public class RadialGauge : Panel
             Background = NeedleBrush,
             CornerRadius = new CornerRadius(32),
             RenderTransformOrigin = new RelativePoint(0, 0.5, RelativeUnit.Relative), 
+            RenderTransform = _needleTransform,
             IsHitTestVisible = false,
             Classes = { "rg-needle" }
         };
@@ -286,6 +307,7 @@ public class RadialGauge : Panel
     {
         if (!IsInitialize) return;
         _rim.BorderThickness = new Thickness(Math.Max(0, RimThickness));
+        InvalidateSegmentGeometry();
         InvalidateArrange();
     }
 
@@ -316,47 +338,28 @@ public class RadialGauge : Panel
 
     private void RebuildSegments()
     {
-        foreach (var path in _segmentPaths) _segmentsGrid.Children.Remove(path);
-        _segmentPaths.Clear();
+        foreach (var visual in _segmentVisuals) _segmentsGrid.Children.Remove(visual.Path);
+        _segmentVisuals.Clear();
 
-        if (Segments == null) return;
+        if (Segments == null)
+        {
+            _segmentsGeometryDirty = false;
+            return;
+        }
+
+        InvalidateSegmentGeometry();
 
         for (int i = 0; i < Segments.Count; i++)
         {
             var segment = Segments[i];
-            var path = new Path
-            {
-                Stroke = new SolidColorBrush(segment.Color),
-                StrokeThickness = segment.Thickness,
-                StrokeLineCap = PenLineCap.Round,
-                IsHitTestVisible = false
-            };
-            _segmentPaths.Add(path);
+            var visual = new SegmentVisual(segment);
+            _segmentVisuals.Add(visual);
 
-            _segmentsGrid?.Children.Add(path);
+            _segmentsGrid?.Children.Add(visual.Path);
         }
 
         InvalidateMeasure();
         InvalidateArrange();
-    }
-
-    private void UpdateSegments()
-    {
-        if (Segments == null || _segmentPaths.Count != Segments.Count)
-        {
-            RebuildSegments();
-            return;
-        }
-
-        for (int i = 0; i < Segments.Count; i++)
-        {
-            var segment = Segments[i];
-            var path = _segmentPaths[i];
-            path.Stroke = new SolidColorBrush(segment.Color);
-            path.StrokeThickness = segment.Thickness;
-        }
-
-        InvalidateVisual();
     }
 
     private void OnSegmentsChanged(AvaloniaPropertyChangedEventArgs e)
@@ -401,7 +404,7 @@ public class RadialGauge : Panel
 
     private void OnSegmentPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        UpdateSegments();
+        InvalidateSegmentGeometry();
         InvalidateArrange();
     }
 
@@ -449,7 +452,7 @@ public class RadialGauge : Panel
         var rect = new Rect((finalSize.Width - size) / 2, (finalSize.Height - size) / 2, size, size);
 
         _stackText.Arrange(rect);
-        _valueText.Text = Value.ToString("F0");
+        UpdateValueText();
 
         
         
@@ -504,7 +507,7 @@ public class RadialGauge : Panel
         var needleRect = new Rect(center.X, center.Y - needleTh / 2, needleLen, needleTh);
         _needle.CornerRadius = new CornerRadius(needleTh / 2);
         _needle.Arrange(needleRect);
-        _needle.RenderTransform = new RotateTransform(-angle, 0, 0);
+        _needleTransform.Angle = -angle;
 
 
         
@@ -536,27 +539,12 @@ public class RadialGauge : Panel
 
         bool isLarge = deltaDeg >= 180.0;
 
-        var fig = new PathFigure
-        {
-            StartPoint = startPt,
-            IsClosed = false,
-            IsFilled = false,
-            Segments = new PathSegments
-            {
-                new ArcSegment
-                {
-                    Point = endPt,
-                    Size = new Size(trailRadius, trailRadius),
-                    IsLargeArc = isLarge,
-                    SweepDirection = SweepDirection.Clockwise
-                }
-            }
-        };
+        _trailFigure.StartPoint = startPt;
+        _trailArc.Point = endPt;
+        _trailArc.Size = new Size(trailRadius, trailRadius);
+        _trailArc.IsLargeArc = isLarge;
 
-        var geom = new PathGeometry();
-        geom.Figures = new PathFigures { fig };
-
-        _trailPath.Data = geom;
+        _trailPath.Data = _trailGeometry;
         _trailPath.StrokeThickness = TrailThickness;
         
         IBrush trailBrush = GetTrailBrush();
@@ -568,11 +556,20 @@ public class RadialGauge : Panel
 
     private void UpdateSegmentsGeometry(Rect rect)
     {
-        if (Segments == null || _segmentPaths.Count != Segments.Count)
+        if (_segmentsGeometryBounds != rect)
+        {
+            _segmentsGeometryBounds = rect;
+            _segmentsGeometryDirty = true;
+        }
+
+        if (_segmentVisuals.Count != (Segments?.Count ?? 0))
         {
             RebuildSegments();
             return;
         }
+
+        if (Segments == null || !_segmentsGeometryDirty)
+            return;
 
         var center = rect.Center;
         double radius = rect.Width / 2.0;
@@ -583,7 +580,8 @@ public class RadialGauge : Panel
         for (int i = 0; i < Segments.Count; i++)
         {
             var segment = Segments[i];
-            var path = _segmentPaths[i];
+            var visual = _segmentVisuals[i];
+            var path = visual.Path;
             
             double fromT = Normalize01(segment.FromValue, Minimum, Maximum);
             double toT = Normalize01(segment.ToValue, Minimum, Maximum);
@@ -612,32 +610,77 @@ public class RadialGauge : Panel
 
             bool isLarge = deltaDeg >= 180.0;
 
-            var fig = new PathFigure
-            {
-                StartPoint = startPt,
-                IsClosed = false,
-                IsFilled = false,
-                Segments = new PathSegments
-                {
-                    new ArcSegment
-                    {
-                        Point = endPt,
-                        Size = new Size(segmentRadius, segmentRadius),
-                        IsLargeArc = isLarge,
-                        SweepDirection = SweepDirection.Clockwise
-                    }
-                }
-            };
+            visual.Figure.StartPoint = startPt;
+            visual.Arc.Point = endPt;
+            visual.Arc.Size = new Size(segmentRadius, segmentRadius);
+            visual.Arc.IsLargeArc = isLarge;
 
-            var geom = new PathGeometry();
-            geom.Figures = new PathFigures { fig };
-
-            path.Data = geom;
+            path.Data = visual.Geometry;
             path.StrokeThickness = segment.Thickness;
-            path.Stroke = new SolidColorBrush(segment.Color);
+            visual.Brush.Color = segment.Color;
             path.Opacity = segment.Opacity;
             path.StrokeLineCap = PenLineCap.Round;
         }
+
+        _segmentsGeometryDirty = false;
+    }
+
+    private void InvalidateSegmentGeometry() => _segmentsGeometryDirty = true;
+
+    /// <summary>
+    /// Holds the visuals backing one segment so a geometry refresh can mutate them
+    /// in place instead of allocating a new path, figure, arc and brush per pass.
+    /// </summary>
+    private sealed class SegmentVisual
+    {
+        public SegmentVisual(RadialGaugeSegment segment)
+        {
+            Arc = new ArcSegment { SweepDirection = SweepDirection.Clockwise };
+            Figure = new PathFigure
+            {
+                IsClosed = false,
+                IsFilled = false,
+                Segments = new PathSegments { Arc }
+            };
+            Geometry = new PathGeometry { Figures = new PathFigures { Figure } };
+            Brush = new SolidColorBrush(segment.Color);
+            Path = new Path
+            {
+                Stroke = Brush,
+                StrokeThickness = segment.Thickness,
+                StrokeLineCap = PenLineCap.Round,
+                IsHitTestVisible = false
+            };
+        }
+
+        public Path Path { get; }
+        public PathGeometry Geometry { get; }
+        public PathFigure Figure { get; }
+        public ArcSegment Arc { get; }
+        public SolidColorBrush Brush { get; }
+    }
+
+    private void UpdateValueText()
+    {
+        Span<char> displayText = stackalloc char[64];
+        if (!Value.TryFormat(displayText, out var charactersWritten, "F0", CultureInfo.CurrentCulture))
+        {
+            // Preserve the formatting contract even for an unusually long custom number format.
+            var formattedValue = Value.ToString("F0", CultureInfo.CurrentCulture);
+            if (formattedValue == _lastDisplayText)
+                return;
+
+            _lastDisplayText = formattedValue;
+            _valueText.Text = formattedValue;
+            return;
+        }
+
+        var formattedText = displayText[..charactersWritten];
+        if (_lastDisplayText is { } last && formattedText.SequenceEqual(last.AsSpan()))
+            return;
+
+        _lastDisplayText = new string(formattedText);
+        _valueText.Text = _lastDisplayText;
     }
 
     private static double Normalize01(double v, double min, double max)
@@ -672,32 +715,37 @@ public class RadialGauge : Panel
         {
             if (Value >= segment.FromValue && Value <= segment.ToValue)
             {
-
-                return new LinearGradientBrush()
+                var color = segment.Color.WithAlpha(0.75);
+                if (_segmentTrailBrush is null || _segmentTrailBrushColor != color)
                 {
-                    StartPoint = new RelativePoint(1, 0, RelativeUnit.Relative),
-                    EndPoint = new RelativePoint(0, 1, RelativeUnit.Relative),
-                    GradientStops = new GradientStops()
+                    _segmentTrailBrushColor = color;
+                    _segmentTrailBrush = new LinearGradientBrush()
                     {
-                        new GradientStop()
+                        StartPoint = new RelativePoint(1, 0, RelativeUnit.Relative),
+                        EndPoint = new RelativePoint(0, 1, RelativeUnit.Relative),
+                        GradientStops = new GradientStops()
                         {
-                            Offset = 0,
-                            Color = segment.Color.WithAlpha(0.75)
-                        },
-                 
-                        new GradientStop()
-                        {
-                            Offset = 0.7,
-                            Color = Colors.Transparent
-                        },
-                        new GradientStop()
-                        {
-                            Offset = 1,
-                            Color = Colors.Transparent
-                        },
-                    }
-                };
-              
+                            new GradientStop()
+                            {
+                                Offset = 0,
+                                Color = color
+                            },
+
+                            new GradientStop()
+                            {
+                                Offset = 0.7,
+                                Color = Colors.Transparent
+                            },
+                            new GradientStop()
+                            {
+                                Offset = 1,
+                                Color = Colors.Transparent
+                            },
+                        }
+                    };
+                }
+
+                return _segmentTrailBrush;
             }
         }
 
