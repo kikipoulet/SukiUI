@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Globalization;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
@@ -127,7 +128,7 @@ public class RadialGauge : Panel
     private readonly PathGeometry _trailGeometry;
     private LinearGradientBrush? _segmentTrailBrush;
     private Color _segmentTrailBrushColor;
-    private double? _lastDisplayValue;
+    private string? _lastDisplayText;
     private readonly HashSet<RadialGaugeSegment> _subscribedSegments = new();
     private bool _segmentsGeometryDirty = true;
     private Rect? _segmentsGeometryBounds;
@@ -661,12 +662,25 @@ public class RadialGauge : Panel
 
     private void UpdateValueText()
     {
-        var displayValue = Math.Round(Value, MidpointRounding.AwayFromZero);
-        if (_lastDisplayValue is { } last && last.Equals(displayValue))
+        Span<char> displayText = stackalloc char[512];
+        if (!Value.TryFormat(displayText, out var charactersWritten, "F0", CultureInfo.CurrentCulture))
+        {
+            // Preserve the formatting contract even for an unusually long custom number format.
+            var formattedValue = Value.ToString("F0", CultureInfo.CurrentCulture);
+            if (formattedValue == _lastDisplayText)
+                return;
+
+            _lastDisplayText = formattedValue;
+            _valueText.Text = formattedValue;
+            return;
+        }
+
+        var formattedText = displayText[..charactersWritten];
+        if (_lastDisplayText is { } last && formattedText.SequenceEqual(last.AsSpan()))
             return;
 
-        _lastDisplayValue = displayValue;
-        _valueText.Text = displayValue.ToString("F0");
+        _lastDisplayText = new string(formattedText);
+        _valueText.Text = _lastDisplayText;
     }
 
     private static double Normalize01(double v, double min, double max)
