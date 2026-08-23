@@ -662,7 +662,7 @@ public class RadialGauge : Panel
 
     private void UpdateValueText()
     {
-        Span<char> displayText = stackalloc char[512];
+        Span<char> displayText = stackalloc char[64];
         if (!Value.TryFormat(displayText, out var charactersWritten, "F0", CultureInfo.CurrentCulture))
         {
             // Preserve the formatting contract even for an unusually long custom number format.
