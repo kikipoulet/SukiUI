@@ -22,7 +22,7 @@ public class GlassCard : ContentControl
     private Border? _cardBorder;
     private Border? _legacyCardBorder;
     private Border? _clipBorder;
-    private bool _animateAppliedTemplate;
+    private bool _animationsEnabled;
 
     public new static readonly StyledProperty<CornerRadius> CornerRadiusProperty =
         AvaloniaProperty.Register<GlassCard, CornerRadius>(nameof(CornerRadius), new CornerRadius(20));
@@ -115,7 +115,7 @@ public class GlassCard : ContentControl
         if (ReferenceEquals(_legacyCardBorder, _cardBorder))
             _legacyCardBorder = null;
         _clipBorder = e.NameScope.Find<Border>("PART_ClipBorder");
-        _animateAppliedTemplate = IsAnimated;
+        _animationsEnabled = IsAnimated;
 
         if (IsLoaded)
             ConfigureAnimations();
@@ -129,7 +129,7 @@ public class GlassCard : ContentControl
 
     private void ConfigureAnimations()
     {
-        if (!_animateAppliedTemplate)
+        if (!_animationsEnabled)
             return;
 
         MakeOpacityAnimated(_rootPanel);
@@ -162,7 +162,7 @@ public class GlassCard : ContentControl
 
 
 
-    private void ContextMenuOnOpening(object sender, CancelEventArgs e)
+    private void ContextMenuOnOpening(object? sender, CancelEventArgs e)
     {
         PseudoClasses.Set(":pointerdown", false);
     }
@@ -182,7 +182,12 @@ public class GlassCard : ContentControl
     }
 }
 
-internal sealed class GlassCardBorder : Border
+/// <summary>
+/// Border used by the <see cref="GlassCard"/> template. Renders either <see cref="LightBorderBrush"/>
+/// or a lazily built liquid gradient (<see cref="DarkBorderStartColor"/>/<see cref="DarkBorderEndColor"/>)
+/// depending on <see cref="UseDarkBorder"/>, so a single border serves both theme variants.
+/// </summary>
+public sealed class GlassCardBorder : Border
 {
     public static readonly StyledProperty<IBrush?> LightBorderBrushProperty =
         AvaloniaProperty.Register<GlassCardBorder, IBrush?>(nameof(LightBorderBrush));
@@ -201,6 +206,9 @@ internal sealed class GlassCardBorder : Border
     private GradientStop? _darkBorderEnd;
     private Size _gradientSize = new(double.NaN, double.NaN);
 
+    // Selectors match on StyleKey, so this keeps the "/template/ Border.GlassCardBorderPartCard"
+    // styles in GlassCard.axaml (.Accent, .Primary, IsOpaque, ...) matching this control.
+    // Removing it silently disables all of them.
     protected override Type StyleKeyOverride => typeof(Border);
 
     public IBrush? LightBorderBrush
@@ -239,10 +247,9 @@ internal sealed class GlassCardBorder : Border
         {
             UpdateBorderBrush(suppressTransition: false);
         }
-        else if (change.Property == DarkBorderStartColorProperty)
+        else if (change.Property == DarkBorderStartColorProperty && _darkBorderStart is not null)
         {
-            if (_darkBorderStart is not null)
-                _darkBorderStart.Color = DarkBorderStartColor;
+            _darkBorderStart.Color = DarkBorderStartColor;
         }
         else if (change.Property == DarkBorderEndColorProperty && _darkBorderEnd is not null)
         {
@@ -315,12 +322,12 @@ internal sealed class GlassCardBorder : Border
         if (_darkBorderBrush is null || size == _gradientSize)
             return;
 
-        _gradientSize = size;
         var min = Math.Min(size.Width, size.Height);
         var max = Math.Max(size.Width, size.Height);
         if (!double.IsFinite(min) || !double.IsFinite(max) || min <= 0 || max <= 0)
             return;
 
+        _gradientSize = size;
         var factor = Math.Abs(min / max);
         var y = 1 / (1.75 * factor);
         _darkBorderBrush.StartPoint = new RelativePoint(0.2, -y, RelativeUnit.Relative);
