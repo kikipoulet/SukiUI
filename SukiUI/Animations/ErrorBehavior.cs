@@ -18,6 +18,13 @@ public static class ErrorBehavior
     private const double ErrorOpacityTarget = 0.1;
 
     private static readonly Dictionary<Control, PopupData> _popups = new();
+
+    /// <summary>
+    /// Popups grouped by the <see cref="ScrollViewer"/> they scroll with, so a scroll event only
+    /// touches the popups that need repositioning and only subscribes once per host.
+    /// </summary>
+    private static readonly Dictionary<ScrollViewer, List<PopupData>> _scrollHosts = new();
+
     public static readonly AttachedProperty<bool> IsActiveProperty =
         AvaloniaProperty.RegisterAttached<Control, bool>(
             "IsActive",
@@ -303,10 +310,7 @@ public static class ErrorBehavior
             timer.Start();
         };
 
-        if (scrollViewer != null)
-        {
-            scrollViewer.ScrollChanged += OnScrollChanged;
-        }
+        RegisterScrollHost(popupData);
 
         _popups[control] = popupData;
 
@@ -325,23 +329,32 @@ public static class ErrorBehavior
 
         popupData.IsHiding = true;
         popupData.Timer.Stop();
+
+        // Read the live opacities before cancelling: cancelling an in-flight fade reverts the
+        // animated value to its pre-animation base, which would make these fades no-ops.
+        var outerBorder = popupData.Popup.Child is Grid popupGrid
+            ? popupGrid.Children[0] as Border
+            : null;
+        var borderFadeFrom = outerBorder?.Opacity ?? 0;
+        var controlFadeFrom = control.Opacity;
+
         var cancellationToken = popupData.BeginAnimation();
 
-        if (popupData.Popup.Child is Grid popupGrid && popupGrid.Children[0] is Border outerBorder)
+        if (outerBorder != null)
         {
-            await AnimateOpacityAsync(outerBorder, outerBorder.Opacity, 0, cancellationToken);
+            await AnimateOpacityAsync(outerBorder, borderFadeFrom, 0, cancellationToken);
         }
 
         if (!IsCurrentInactivePopup(control, popupData))
             return;
 
         popupData.Popup.IsOpen = false;
-        await AnimateOpacityAsync(control, control.Opacity, popupData.OriginalOpacity, cancellationToken);
+        await AnimateOpacityAsync(control, controlFadeFrom, popupData.OriginalOpacity, cancellationToken);
 
         if (!IsCurrentInactivePopup(control, popupData))
             return;
 
-        control.Opacity = popupData.OriginalOpacity;
+        control.SetCurrentValue(Visual.OpacityProperty, popupData.OriginalOpacity);
         ReleasePopup(control, popupData, restoreOpacity: false);
         UnsubscribeFromLifecycle(control);
     }
@@ -392,14 +405,40 @@ public static class ErrorBehavior
         popupData.Popup.Child = null;
         ((ISetLogicalParent)popupData.Popup).SetParent(null);
 
-        if (popupData.ScrollViewer != null)
-            popupData.ScrollViewer.ScrollChanged -= OnScrollChanged;
+        UnregisterScrollHost(popupData);
 
         if (restoreOpacity)
-            control.Opacity = popupData.OriginalOpacity;
+            control.SetCurrentValue(Visual.OpacityProperty, popupData.OriginalOpacity);
 
         if (_popups.TryGetValue(control, out var current) && ReferenceEquals(current, popupData))
             _popups.Remove(control);
+    }
+
+    private static void RegisterScrollHost(PopupData popupData)
+    {
+        if (popupData.ScrollViewer is not { } scrollViewer) return;
+
+        if (!_scrollHosts.TryGetValue(scrollViewer, out var hosted))
+        {
+            hosted = new List<PopupData>();
+            _scrollHosts[scrollViewer] = hosted;
+            scrollViewer.ScrollChanged += OnScrollChanged;
+        }
+
+        hosted.Add(popupData);
+    }
+
+    private static void UnregisterScrollHost(PopupData popupData)
+    {
+        if (popupData.ScrollViewer is not { } scrollViewer) return;
+        if (!_scrollHosts.TryGetValue(scrollViewer, out var hosted)) return;
+
+        hosted.Remove(popupData);
+
+        if (hosted.Count != 0) return;
+
+        _scrollHosts.Remove(scrollViewer);
+        scrollViewer.ScrollChanged -= OnScrollChanged;
     }
 
     private static async Task AnimateOpacityAsync(Visual visual, double from, double to,
@@ -417,37 +456,47 @@ public static class ErrorBehavior
         }
         catch (OperationCanceledException)
         {
-            // A detach or fast reactivation superseded this animation.
+            // Defensive: Avalonia signals cancellation by completing the task rather than
+            // throwing, so a detach or fast reactivation normally just returns early here.
         }
     }
 
     private static void OnScrollChanged(object? sender, ScrollChangedEventArgs e)
     {
         if (sender is not ScrollViewer scrollViewer) return;
+        if (!_scrollHosts.TryGetValue(scrollViewer, out var hosted)) return;
 
-        foreach (var kvp in _popups)
+        // Reverse index walk: re-placing a popup can close it, which unregisters it from this list.
+        for (var i = hosted.Count - 1; i >= 0; i--)
         {
-            if (kvp.Value.ScrollViewer == scrollViewer && kvp.Value.Popup.IsOpen)
-            {
-                var popup = kvp.Value.Popup;
-                var placement = popup.Placement;
-                popup.Placement = PlacementMode.AnchorAndGravity;
-                popup.Placement = placement;
-            }
+            if (i >= hosted.Count) continue;
+
+            var popup = hosted[i].Popup;
+            if (!popup.IsOpen) continue;
+
+            var placement = popup.Placement;
+            popup.Placement = PlacementMode.AnchorAndGravity;
+            popup.Placement = placement;
         }
     }
 
     private sealed class PopupData(Popup popup, DispatcherTimer timer, ScrollViewer? scrollViewer,
         double originalOpacity)
     {
-        private CancellationTokenSource _animationCancellation = new();
+        private CancellationTokenSource? _animationCancellation = new();
 
         public Popup Popup { get; } = popup;
         public DispatcherTimer Timer { get; } = timer;
         public ScrollViewer? ScrollViewer { get; } = scrollViewer;
         public double OriginalOpacity { get; } = originalOpacity;
         public bool IsHiding { get; set; }
-        public CancellationToken AnimationToken => _animationCancellation.Token;
+
+        /// <summary>
+        /// Token for the current animation batch, or an already-cancelled token once released.
+        /// Never touches a disposed source, so callers cannot trip an <see cref="ObjectDisposedException"/>.
+        /// </summary>
+        public CancellationToken AnimationToken =>
+            _animationCancellation?.Token ?? new CancellationToken(true);
 
         public CancellationToken BeginAnimation()
         {
@@ -458,8 +507,11 @@ public static class ErrorBehavior
 
         public void CancelAnimations()
         {
-            _animationCancellation.Cancel();
-            _animationCancellation.Dispose();
+            var cancellation = Interlocked.Exchange(ref _animationCancellation, null);
+            if (cancellation is null) return;
+
+            cancellation.Cancel();
+            cancellation.Dispose();
         }
     }
 }

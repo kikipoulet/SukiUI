@@ -94,11 +94,32 @@ public static class VisibilityBehavior
             }
         }
 
-        control.DetachedFromVisualTree += (_, _) =>
-        {
-            _originalDimensions.Remove(control);
-            _lastDimensions.Remove(control);
-        };
+        TrackLifecycle(control);
+    }
+
+    /// <summary>
+    /// Subscribes a shared static handler so the dimension caches are released when the control
+    /// detaches. Idempotent: a closure per call would accumulate handlers and keep the control alive.
+    /// </summary>
+    private static void TrackLifecycle(Control control)
+    {
+        control.DetachedFromVisualTree -= OnControlDetachedFromVisualTree;
+        control.DetachedFromVisualTree += OnControlDetachedFromVisualTree;
+    }
+
+    private static void OnControlDetachedFromVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
+    {
+        if (sender is not Control control) return;
+
+        control.DetachedFromVisualTree -= OnControlDetachedFromVisualTree;
+        _originalDimensions.Remove(control);
+        _lastDimensions.Remove(control);
+    }
+
+    private static void SetLastDimensions(Control control, double width, double height)
+    {
+        _lastDimensions[control] = (width, height);
+        TrackLifecycle(control);
     }
 
     private static void AnimateShow(Control control, double hiddenScale, bool animateDims)
@@ -126,7 +147,7 @@ public static class VisibilityBehavior
                 else
                 {
                     if (control.Bounds.Width > 0 && control.Bounds.Height > 0)
-                        _lastDimensions[control] = (control.Bounds.Width, control.Bounds.Height);
+                        SetLastDimensions(control, control.Bounds.Width, control.Bounds.Height);
                     control.Width = double.NaN;
                     control.Height = double.NaN;
                 }
@@ -150,7 +171,7 @@ public static class VisibilityBehavior
             SaveOriginalDimensions(control);
             currentWidth = control.Bounds.Width;
             currentHeight = control.Bounds.Height;
-            _lastDimensions[control] = (currentWidth, currentHeight);
+            SetLastDimensions(control, currentWidth, currentHeight);
         }
 
         RunAnimation(control, 1, 0, 1.0, hiddenScale, animateDims, currentWidth, currentHeight,
@@ -213,7 +234,7 @@ public static class VisibilityBehavior
 
         if (w > 0 && h > 0)
         {
-            _lastDimensions[control] = (w, h);
+            SetLastDimensions(control, w, h);
             return (w, h);
         }
 
@@ -224,6 +245,8 @@ public static class VisibilityBehavior
     {
         if (!_originalDimensions.ContainsKey(control))
             _originalDimensions[control] = (control.Width, control.Height);
+
+        TrackLifecycle(control);
     }
 
     private static void SetScale(Control control, double scale)
