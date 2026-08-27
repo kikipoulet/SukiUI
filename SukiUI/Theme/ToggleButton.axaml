@@ -225,9 +225,6 @@
                                         BoxShadow="{DynamicResource SukiSwitchShadow}"
                                         CornerRadius="{DynamicResource MediumCornerRadius}">
                                     <Border />
-                                    <Border.Transitions>
-                                        <Transitions />
-                                    </Border.Transitions>
                                 </Border>
 
 

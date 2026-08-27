@@ -162,10 +162,7 @@ namespace SukiUI.Controls
                 }
 
                 var header = new TextBlock();
-                header.Bind(TextBlock.TextProperty, new Binding(nameof(SettingsLayoutItem.Header))
-                {
-                    Source = settingsLayoutItem
-                });
+                header.Bind(TextBlock.TextProperty, settingsLayoutItem.GetObservable(SettingsLayoutItem.HeaderProperty));
 
 
                 var contentHost = new Border
@@ -194,10 +191,7 @@ namespace SukiUI.Controls
                 _stackItems.Children.Add(border);
 
                 var textBlock = new TextBlock { };
-                textBlock.Bind(TextBlock.TextProperty, new Binding(nameof(SettingsLayoutItem.Header))
-                {
-                    Source = settingsLayoutItem
-                });
+                textBlock.Bind(TextBlock.TextProperty, settingsLayoutItem.GetObservable(SettingsLayoutItem.HeaderProperty));
 
                 var summaryButton = new RadioButton
                 {
