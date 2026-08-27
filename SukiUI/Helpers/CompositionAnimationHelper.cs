@@ -6,7 +6,7 @@ using Avalonia.Rendering.Composition.Animations;
 
 namespace SukiUI.Helpers
 {
-    public class CompositionAnimationHelper
+    public static class CompositionAnimationHelper
     {
         private enum AnimationKind
         {
@@ -22,16 +22,16 @@ namespace SukiUI.Helpers
         /// </summary>
         private static readonly ConditionalWeakTable<Compositor, Dictionary<(AnimationKind, double), ImplicitAnimationCollection>> Cache = new();
 
-        public static void MakeScrollable(CompositionVisual compositionVisual, double millis = 250) =>
+        public static void MakeScrollable(CompositionVisual? compositionVisual, double millis = 250) =>
             Apply(compositionVisual, AnimationKind.Scrollable, millis);
 
-        public static void MakeOpacityAnimated(CompositionVisual compositionVisual, double millis = 700) =>
+        public static void MakeOpacityAnimated(CompositionVisual? compositionVisual, double millis = 700) =>
             Apply(compositionVisual, AnimationKind.Opacity, millis);
 
-        public static void MakeSizeAnimated(CompositionVisual compositionVisual, double millis = 450) =>
+        public static void MakeSizeAnimated(CompositionVisual? compositionVisual, double millis = 450) =>
             Apply(compositionVisual, AnimationKind.Size, millis);
 
-        public static void MakeSizeOpacityAnimated(CompositionVisual compositionVisual, double millis = 450) =>
+        public static void MakeSizeOpacityAnimated(CompositionVisual? compositionVisual, double millis = 450) =>
             Apply(compositionVisual, AnimationKind.SizeOpacity, millis);
 
         private static void Apply(CompositionVisual? compositionVisual, AnimationKind kind, double millis)
