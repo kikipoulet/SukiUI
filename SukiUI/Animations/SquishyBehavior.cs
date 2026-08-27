@@ -1,4 +1,5 @@
-﻿using Avalonia;
+using System.Diagnostics;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -10,13 +11,14 @@ namespace SukiUI.Animations
 {
     public class SquishyBehavior
     {
-        
         private class State
         {
             public Point? StartPoint;
             public ScaleTransform Scale = new(1, 1);
             public SkewTransform Skew = new(0, 0);
             public TranslateTransform Translate = new(0, 0);
+            public DispatcherTimer? ResetTimer;
+            public ITransform? PreviousTransform;
 
             public double Intensity = 1;
             public double SquishDepth = 1;
@@ -25,122 +27,126 @@ namespace SukiUI.Animations
             public bool EnableY = true;
             public bool ScaleByXY = true;
         }
-        
-        private static readonly AttachedProperty<State> StateProperty = AvaloniaProperty.RegisterAttached<Control, State>(
-            "State",
-            typeof(Control)
-        );
-        
-        
-        
-        public static readonly AttachedProperty<bool> EnableXProperty = AvaloniaProperty.RegisterAttached<Control, bool>("EnableX", typeof(Control), true);               
 
+        private static readonly AttachedProperty<State?> StateProperty =
+            AvaloniaProperty.RegisterAttached<Control, State?>("State", typeof(Control));
 
-        public static bool GetEnableX(Control control)
+        /// <summary>
+        /// Applies <paramref name="update"/> to the running <see cref="State"/> if the behavior is enabled.
+        /// When it is not, the value is only stored on the attached property and picked up by
+        /// <see cref="SetEnable"/> when the behavior is turned on, so XAML property order does not matter.
+        /// </summary>
+        private static void UpdateState(Control control, Action<State> update)
         {
-            return control.GetValue(EnableXProperty);
+            if (control.GetValue(StateProperty) is { } state)
+                update(state);
         }
+
+
+        public static readonly AttachedProperty<bool> EnableXProperty =
+            AvaloniaProperty.RegisterAttached<Control, bool>("EnableX", typeof(Control), true);
+
+        public static bool GetEnableX(Control control) => control.GetValue(EnableXProperty);
 
         public static void SetEnableX(Control control, bool value)
         {
             control.SetValue(EnableXProperty, value);
-            control.GetValue(StateProperty).EnableX = value;
+            UpdateState(control, s => s.EnableX = value);
         }
-        
-        public static readonly AttachedProperty<bool> EnableYProperty = AvaloniaProperty.RegisterAttached<Control, bool>("EnableY", typeof(Control), true);                    
 
 
-        public static bool GetEnableY(Control control)
-        {
-            return control.GetValue(EnableYProperty);
-        }
+        public static readonly AttachedProperty<bool> EnableYProperty =
+            AvaloniaProperty.RegisterAttached<Control, bool>("EnableY", typeof(Control), true);
+
+        public static bool GetEnableY(Control control) => control.GetValue(EnableYProperty);
 
         public static void SetEnableY(Control control, bool value)
         {
             control.SetValue(EnableYProperty, value);
-            control.GetValue(StateProperty).EnableY = value;
+            UpdateState(control, s => s.EnableY = value);
         }
-        
-        public static readonly AttachedProperty<bool> EnableTiltProperty =
-            AvaloniaProperty.RegisterAttached<Control, bool>(
-                "EnableTilt", typeof(Control), true);
 
-        public static bool GetEnableTilt(Control control)
-        {
-            return control.GetValue(EnableTiltProperty);
-        }
+
+        public static readonly AttachedProperty<bool> EnableTiltProperty =
+            AvaloniaProperty.RegisterAttached<Control, bool>("EnableTilt", typeof(Control), true);
+
+        public static bool GetEnableTilt(Control control) => control.GetValue(EnableTiltProperty);
 
         public static void SetEnableTilt(Control control, bool value)
         {
             control.SetValue(EnableTiltProperty, value);
-            control.GetValue(StateProperty).EnableTilt = value;
+            UpdateState(control, s => s.EnableTilt = value);
         }
-        
-        
-        public static readonly AttachedProperty<bool> ScaleByXYAxisProperty = AvaloniaProperty.RegisterAttached<Control, bool>("ScaleByXYAxis", typeof(Control), false);
 
-        public static bool GetScaleByXYAxis(Control control)
-        {
-            return control.GetValue(ScaleByXYAxisProperty);
-        }
+
+        public static readonly AttachedProperty<bool> ScaleByXYAxisProperty =
+            AvaloniaProperty.RegisterAttached<Control, bool>("ScaleByXYAxis", typeof(Control), true);
+
+        public static bool GetScaleByXYAxis(Control control) => control.GetValue(ScaleByXYAxisProperty);
 
         public static void SetScaleByXYAxis(Control control, bool value)
         {
             control.SetValue(ScaleByXYAxisProperty, value);
-            control.GetValue(StateProperty).ScaleByXY = value;
+            UpdateState(control, s => s.ScaleByXY = value);
         }
-        
-        public static readonly AttachedProperty<double> IntensityProperty = AvaloniaProperty.RegisterAttached<Control, double>("Intensity", typeof(Control), 1.0);
 
-        public static readonly AttachedProperty<double> SquishDepthProperty = AvaloniaProperty.RegisterAttached<Control, double>("SquishDepth", typeof(Control), 1.0);
 
-        public static double GetIntensity(Control control)
-        {
-            return control.GetValue(IntensityProperty);
-        }
+        public static readonly AttachedProperty<double> IntensityProperty =
+            AvaloniaProperty.RegisterAttached<Control, double>("Intensity", typeof(Control), 1.0);
+
+        public static double GetIntensity(Control control) => control.GetValue(IntensityProperty);
 
         public static void SetIntensity(Control control, double value)
         {
             control.SetValue(IntensityProperty, value);
-            control.GetValue(StateProperty).Intensity = value;
+            UpdateState(control, s => s.Intensity = value);
         }
 
-        public static double GetSquishDepth(Control control)
-        {
-            return control.GetValue(SquishDepthProperty);
-        }
+
+        public static readonly AttachedProperty<double> SquishDepthProperty =
+            AvaloniaProperty.RegisterAttached<Control, double>("SquishDepth", typeof(Control), 1.0);
+
+        public static double GetSquishDepth(Control control) => control.GetValue(SquishDepthProperty);
 
         public static void SetSquishDepth(Control control, double value)
         {
             control.SetValue(SquishDepthProperty, value);
-            control.GetValue(StateProperty).SquishDepth = value;
+            UpdateState(control, s => s.SquishDepth = value);
         }
-        
-        
-        
-        
-        public static readonly AttachedProperty<bool> EnableProperty = AvaloniaProperty.RegisterAttached<Control, bool>("Enable", typeof(Control), defaultValue: false);    
- 
 
-        public static bool GetEnable(Control control)
-        {
-            return control.GetValue(EnableProperty);
-        }
+
+        public static readonly AttachedProperty<bool> EnableProperty =
+            AvaloniaProperty.RegisterAttached<Control, bool>("Enable", typeof(Control), defaultValue: false);
+
+        public static bool GetEnable(Control control) => control.GetValue(EnableProperty);
 
         public static void SetEnable(Control control, bool value)
         {
+            if (GetEnable(control) == value)
+                return;
+
             control.SetValue(EnableProperty, value);
 
             if (value)
             {
-                var state = new State();
+                var state = new State
+                {
+                    EnableX = GetEnableX(control),
+                    EnableY = GetEnableY(control),
+                    EnableTilt = GetEnableTilt(control),
+                    ScaleByXY = GetScaleByXYAxis(control),
+                    Intensity = GetIntensity(control),
+                    SquishDepth = GetSquishDepth(control),
+                    PreviousTransform = control.RenderTransform
+                };
                 control.SetValue(StateProperty, state);
-                
+
                 control.AddHandler(InputElement.PointerPressedEvent, OnPointerPressed, RoutingStrategies.Bubble, handledEventsToo: true);
-                control.AddHandler(InputElement.PointerMovedEvent, OnPointerMoved, RoutingStrategies.Bubble , handledEventsToo: true);
-                control.AddHandler(InputElement.PointerReleasedEvent, OnPointerReleased, RoutingStrategies.Bubble , handledEventsToo: true);
-                
-                var transformGroup = new TransformGroup
+                control.AddHandler(InputElement.PointerMovedEvent, OnPointerMoved, RoutingStrategies.Bubble, handledEventsToo: true);
+                control.AddHandler(InputElement.PointerReleasedEvent, OnPointerReleased, RoutingStrategies.Bubble, handledEventsToo: true);
+                control.DetachedFromVisualTree += OnDetachedFromVisualTree;
+
+                control.RenderTransform = new TransformGroup
                 {
                     Children = new Transforms
                     {
@@ -149,33 +155,41 @@ namespace SukiUI.Animations
                         state.Translate
                     }
                 };
-
-                control.RenderTransform = transformGroup;
-
-                control.PointerPressed += OnPointerPressed;
-                control.PointerMoved += OnPointerMoved;
-                control.PointerReleased += OnPointerReleased;
             }
             else
             {
-                control.PointerPressed -= OnPointerPressed;
-                control.PointerMoved -= OnPointerMoved;
-                control.PointerReleased -= OnPointerReleased;
+                control.RemoveHandler(InputElement.PointerPressedEvent, OnPointerPressed);
+                control.RemoveHandler(InputElement.PointerMovedEvent, OnPointerMoved);
+                control.RemoveHandler(InputElement.PointerReleasedEvent, OnPointerReleased);
+                control.DetachedFromVisualTree -= OnDetachedFromVisualTree;
+
+                var previous = control.RenderTransform;
+                if (control.GetValue(StateProperty) is { } state)
+                {
+                    StopResetAnimation(state);
+                    ResetState(state);
+                    previous = state.PreviousTransform;
+                }
+
+                control.RenderTransform = previous;
+                control.ClearValue(StateProperty);
             }
         }
-        
-        
-       private static void OnPointerPressed(object? sender, PointerPressedEventArgs e)
+
+
+        private static void OnPointerPressed(object? sender, PointerPressedEventArgs e)
         {
             if (sender is not Control control) return;
-            var state = control.GetValue(StateProperty);
+            if (control.GetValue(StateProperty) is not { } state) return;
+
+            StopResetAnimation(state);
             state.StartPoint = e.GetPosition(control);
         }
 
         private static void OnPointerMoved(object? sender, PointerEventArgs e)
         {
             if (sender is not Control control) return;
-            var state = control.GetValue(StateProperty);
+            if (control.GetValue(StateProperty) is not { } state) return;
             if (state.StartPoint is null) return;
 
             var current = e.GetPosition(control);
@@ -204,16 +218,16 @@ namespace SukiUI.Animations
                 state.Skew.AngleY = (Xangle < 0 ? Yangle : -Yangle) * Math.Abs(Xangle) * 0.3;
             }
 
-            if(state.EnableX)
+            if (state.EnableX)
                 state.Translate.X = dx * translateFactor;
-            if(state.EnableY)
+            if (state.EnableY)
                 state.Translate.Y = dy * translateFactor;
 
             if (state.ScaleByXY)
             {
-                if(state.EnableX)
-                    state.Scale.ScaleX = 1 - dx * (scaleFactor *1.5);
-                if(state.EnableY)
+                if (state.EnableX)
+                    state.Scale.ScaleX = 1 - dx * (scaleFactor * 1.5);
+                if (state.EnableY)
                     state.Scale.ScaleY = 1 - dy * (scaleFactor * 1.5);
             }
             else
@@ -228,9 +242,10 @@ namespace SukiUI.Animations
         private static void OnPointerReleased(object? sender, PointerReleasedEventArgs e)
         {
             if (sender is not Control control) return;
-            var state = control.GetValue(StateProperty);
+            if (control.GetValue(StateProperty) is not { } state) return;
 
             state.StartPoint = null;
+            StopResetAnimation(state);
 
             double startSkewX = state.Skew.AngleX;
             double startSkewY = state.Skew.AngleY;
@@ -247,7 +262,7 @@ namespace SukiUI.Animations
             };
 
             const int durationMs = 700;
-            var startTime = DateTime.Now;
+            var startTime = Stopwatch.GetTimestamp();
 
             var timer = new DispatcherTimer
             {
@@ -256,7 +271,7 @@ namespace SukiUI.Animations
 
             timer.Tick += (_, _) =>
             {
-                var elapsed = (DateTime.Now - startTime).TotalMilliseconds;
+                var elapsed = Stopwatch.GetElapsedTime(startTime).TotalMilliseconds;
                 double t = Math.Min(elapsed / durationMs, 1.0);
                 double ease = easing.Ease(t);
 
@@ -269,18 +284,42 @@ namespace SukiUI.Animations
 
                 if (t >= 1.0)
                 {
-                    state.Skew.AngleX = 0;
-                    state.Skew.AngleY = 0;
-                    state.Translate.X = 0;
-                    state.Translate.Y = 0;
-                    state.Scale.ScaleX = 1;
-                    state.Scale.ScaleY = 1;
+                    ResetState(state);
                     timer.Stop();
+                    if (ReferenceEquals(state.ResetTimer, timer))
+                        state.ResetTimer = null;
                 }
             };
 
+            state.ResetTimer = timer;
             timer.Start();
         }
 
+        private static void OnDetachedFromVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
+        {
+            if (sender is not Control control) return;
+            if (control.GetValue(StateProperty) is not { } state) return;
+
+            // The control left the tree mid-spring: kill the timer so it stops mutating a dead visual.
+            StopResetAnimation(state);
+            ResetState(state);
+        }
+
+        private static void StopResetAnimation(State state)
+        {
+            state.ResetTimer?.Stop();
+            state.ResetTimer = null;
+        }
+
+        private static void ResetState(State state)
+        {
+            state.StartPoint = null;
+            state.Skew.AngleX = 0;
+            state.Skew.AngleY = 0;
+            state.Translate.X = 0;
+            state.Translate.Y = 0;
+            state.Scale.ScaleX = 1;
+            state.Scale.ScaleY = 1;
+        }
     }
 }
