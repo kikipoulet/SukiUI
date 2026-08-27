@@ -17,7 +17,7 @@
                         <Panel>
                             
 
-                            <suki:GlassCard IsVisible="{TemplateBinding ShowCardBackground}" 
+                            <suki:GlassCard IsVisible="{TemplateBinding ShowCardBackground}"   IsAnimated="False"
                                             ClipToBounds="True" CornerRadius="25">
                                 <glassMorphism:SukiBlurBackground Margin="-200" 
                                     IsVisible="{Binding BackgroundStyle, RelativeSource={RelativeSource TemplatedParent}, 

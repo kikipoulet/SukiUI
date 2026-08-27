@@ -1,7 +1,14 @@
-﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:suki="clr-namespace:SukiUI.Controls"
-                    xmlns:converters="https://github.com/kikipoulet/SukiUI">
+                    xmlns:suki="clr-namespace:SukiUI.Controls">
+    <Transitions x:Key="SukiGlassCardBorderTransitions">
+        <BrushTransition Property="{x:Static Border.BorderBrushProperty}" Duration="0:0:0.15" />
+        <DoubleTransition Property="{x:Static Visual.OpacityProperty}" Duration="0:0:0.15" />
+    </Transitions>
+    <Transitions x:Key="SukiGlassCardClipBorderTransitions">
+        <BrushTransition Property="{x:Static Border.BorderBrushProperty}" Duration="0:0:0.15" />
+    </Transitions>
+
     <ControlTheme x:Key="SukiGlassCardStyle" TargetType="suki:GlassCard">
         <Setter Property="BorderBrush" Value="{DynamicResource GlassBorderBrush}" />
         <Setter Property="Background" Value="{DynamicResource SukiGlassCardBackground}" />
@@ -9,107 +16,41 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Panel Name="RootPanel" Opacity="0">
-                    
-                    
-                    <Border Name="PART_BorderCardLight" IsVisible="{DynamicResource IsLight}" Classes="GlassCardBorderPartCard" RenderTransformOrigin="50%,50%"
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            ClipToBounds="{TemplateBinding ClipToBounds}"
-                            CornerRadius="{TemplateBinding CornerRadius}"
-                            Opacity="{DynamicResource GlassOpacity}">
-                        <Border.Transitions>
-                            <Transitions>
-                                <DoubleTransition Property="Width"
-                                                  Duration="0:0:0.5"
-                                                  Easing="QuadraticEaseOut" />
-                                <DoubleTransition Property="Height"
-                                                  Duration="0:0:0.5"
-                                                  Easing="QuadraticEaseOut" />
-                            </Transitions>
-                        </Border.Transitions>
-                        <Border.Transitions>
-                            <Transitions>
-                                <!-- <BrushTransition Property="Background" Duration="0:0:0.15" /> -->
-                                <BrushTransition Property="BorderBrush" Duration="0:0:0.15" />
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.15" />
-                            </Transitions>
-                        </Border.Transitions>
-                    </Border>
-                    
-                    <Border Name="PART_BorderCardDark" IsVisible="{DynamicResource IsDark}" Classes="GlassCardBorderPartCard" RenderTransformOrigin="50%,50%"
-                            Background="{TemplateBinding Background}"
-                           
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            ClipToBounds="{TemplateBinding ClipToBounds}"
-                            CornerRadius="{TemplateBinding CornerRadius}"
-                            Opacity="{DynamicResource GlassOpacity}">
-                        <Border.BorderBrush>
-                            <LinearGradientBrush >
-                                <LinearGradientBrush.StartPoint>
-                                    <MultiBinding Converter="{x:Static converters:StartPointLiquidConverter.Instance}">
-                                        <Binding Path="Bounds.Width"  RelativeSource="{RelativeSource TemplatedParent}"/>
-                                        <Binding Path="Bounds.Height" RelativeSource="{RelativeSource TemplatedParent}"/>
-                                    </MultiBinding>
-                                </LinearGradientBrush.StartPoint>
-                                <LinearGradientBrush.EndPoint>
-                                    <MultiBinding Converter="{x:Static converters:EndPointLiquidConverter.Instance}">
-                                        <Binding Path="Bounds.Width"  RelativeSource="{RelativeSource TemplatedParent}"/>
-                                        <Binding Path="Bounds.Height" RelativeSource="{RelativeSource TemplatedParent}"/>
-                                    </MultiBinding>
-                                </LinearGradientBrush.EndPoint>
+                    <suki:GlassCardBorder Name="PART_BorderCard"
+                                          Classes="GlassCardBorderPartCard"
+                                          RenderTransformOrigin="50%,50%"
+                                          Transitions="{StaticResource SukiGlassCardBorderTransitions}"
+                                          Background="{TemplateBinding Background}"
+                                          LightBorderBrush="{TemplateBinding BorderBrush}"
+                                          UseDarkBorder="{DynamicResource IsDark}"
+                                          DarkBorderStartColor="{DynamicResource SukiLiquid1}"
+                                          DarkBorderEndColor="{DynamicResource SukiLiquid2}"
+                                          BorderThickness="{TemplateBinding BorderThickness}"
+                                          ClipToBounds="{TemplateBinding ClipToBounds}"
+                                          CornerRadius="{TemplateBinding CornerRadius}"
+                                          Opacity="{DynamicResource GlassOpacity}" />
 
-                                <GradientStop Offset="0"   Color="{DynamicResource SukiLiquid1}"/>
-                                <GradientStop Offset="0.5" Color="Transparent"/>
-                                <GradientStop Offset="1"   Color="{DynamicResource SukiLiquid2}"/>
-                            </LinearGradientBrush>
-                        </Border.BorderBrush>
-                        <Border.Transitions>
-                            <Transitions>
-                                <DoubleTransition Property="Width"
-                                                  Duration="0:0:0.5"
-                                                  Easing="QuadraticEaseOut" />
-                                <DoubleTransition Property="Height"
-                                                  Duration="0:0:0.5"
-                                                  Easing="QuadraticEaseOut" />
-                            </Transitions>
-                        </Border.Transitions>
-                        <Border.Transitions>
-                            <Transitions>
-                                <!-- <BrushTransition Property="Background" Duration="0:0:0.15" /> -->
-                                <BrushTransition Property="BorderBrush" Duration="0:0:0.15" />
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.15" />
-                            </Transitions>
-                        </Border.Transitions>
-                    </Border>
-                    
-                  
-                    
-                    
                     <Border Name="PART_ClipBorder"
+                            Transitions="{StaticResource SukiGlassCardClipBorderTransitions}"
                             Background="{DynamicResource SukiPrimaryColor0}"
                             BorderBrush="{DynamicResource SukiPrimaryColor0}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             ClipToBounds="{TemplateBinding ClipToBounds}"
                             CornerRadius="{TemplateBinding CornerRadius}">
-                        <Border.Transitions>
-                            <Transitions>
-                                <BrushTransition Property="BorderBrush" Duration="0:0:0.15" />
-                            </Transitions>
-                        </Border.Transitions>
-                        <ContentPresenter Name="PART_CP" Margin="{TemplateBinding Padding}"
+                        <ContentPresenter Name="PART_CP"
+                                          Margin="{TemplateBinding Padding}"
                                           Content="{TemplateBinding Content}" />
                     </Border>
                 </Panel>
             </ControlTemplate>
         </Setter>
         <Style Selector="^.Control">
-            <Setter Property="IsAnimated" Value="False"></Setter>
-            <Setter Property="Padding" Value="0"></Setter>
+            <Setter Property="IsAnimated" Value="False" />
+            <Setter Property="Padding" Value="0" />
         </Style>
         <Style Selector="^.Discrete">
             <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
-            <Setter Property="Padding" Value="0"></Setter>
+            <Setter Property="Padding" Value="0" />
         </Style>
         <Style Selector="^.Control /template/ Border.GlassCardBorderPartCard">
             <Setter Property="Background" Value="{DynamicResource ControlSukiGlassCardBackground}" />
