@@ -18,6 +18,12 @@ public static class LoadingBehavior
     private static readonly Dictionary<Control, PopupData> _popups = new();
     private static readonly Dictionary<Control, double> _originalOpacities = new();
 
+    /// <summary>
+    /// Popups grouped by the <see cref="ScrollViewer"/> they scroll with, so a scroll event only
+    /// touches the popups that need repositioning and only subscribes once per host.
+    /// </summary>
+    private static readonly Dictionary<ScrollViewer, List<PopupData>> _scrollHosts = new();
+
     public static readonly AttachedProperty<bool> IsBusyProperty =
         AvaloniaProperty.RegisterAttached<Control, bool>(
             "IsBusy",
@@ -55,6 +61,9 @@ public static class LoadingBehavior
         {
             if (isBusy)
             {
+                // Track lifecycle so the dictionary entry is released if this control is ever
+                // attached and then detached again.
+                SubscribeToLifecycle(control);
                 _originalOpacities[control] = control.Opacity;
                 control.Animate(Visual.OpacityProperty)
                     .From(control.Opacity)
@@ -86,6 +95,11 @@ public static class LoadingBehavior
 
     private static void ShowBusy(Control control)
     {
+        if (_popups.ContainsKey(control))
+            return;
+
+        SubscribeToLifecycle(control);
+
         var originalOpacity = control.Opacity;
         var dimOpacity = GetDimOpacity(control);
 
@@ -128,15 +142,11 @@ public static class LoadingBehavior
         };
 
         var scrollViewer = control.FindAncestorOfType<ScrollViewer>();
-        if (scrollViewer != null)
-        {
-            scrollViewer.ScrollChanged += OnScrollChanged;
-        }
+        var popupData = new PopupData(popup, scrollViewer);
 
-        _popups[control] = new PopupData(popup, scrollViewer);
+        RegisterScrollHost(popupData);
 
-        control.AttachedToVisualTree += OnControlAttachedToVisualTree;
-        control.DetachedFromVisualTree += OnControlDetachedFromVisualTree;
+        _popups[control] = popupData;
 
         popup.IsOpen = true;
     }
@@ -144,9 +154,14 @@ public static class LoadingBehavior
     private static async void HideBusy(Control control)
     {
         if (!_originalOpacities.TryGetValue(control, out var originalOpacity))
+        {
+            // Nothing to unwind: a detach already released this control's overlay.
+            UnsubscribeFromLifecycle(control);
             return;
+        }
 
         var dimOpacity = GetDimOpacity(control);
+        _popups.TryGetValue(control, out var popupData);
 
         await control.Animate(Visual.OpacityProperty)
             .From(dimOpacity)
@@ -154,11 +169,15 @@ public static class LoadingBehavior
             .WithDuration(TimeSpan.FromMilliseconds(AnimationDurationMs))
             .RunAsync();
 
-        control.Opacity = originalOpacity;
+        // A detach during the fade already released everything; do not resurrect it.
+        if (popupData != null && !IsCurrentPopup(control, popupData))
+            return;
+
+        control.SetCurrentValue(Visual.OpacityProperty, originalOpacity);
         _originalOpacities.Remove(control);
         control.IsHitTestVisible = true;
 
-        if (_popups.TryGetValue(control, out var popupData) && popupData.Popup.Child is Loading loading)
+        if (popupData?.Popup.Child is Loading loading)
         {
             await loading.Animate(Visual.OpacityProperty)
                 .From(1)
@@ -166,31 +185,26 @@ public static class LoadingBehavior
                 .WithDuration(TimeSpan.FromMilliseconds(AnimationDurationMs))
                 .RunAsync();
 
-            popupData.Popup.IsOpen = false;
-            popupData.Popup.Child = null;
-            ((ISetLogicalParent)popupData.Popup).SetParent(null);
+            if (!IsCurrentPopup(control, popupData))
+                return;
 
-            if (popupData.ScrollViewer != null)
-            {
-                popupData.ScrollViewer.ScrollChanged -= OnScrollChanged;
-            }
-
-            _popups.Remove(control);
+            ReleasePopup(control, popupData, restoreOpacity: false);
         }
 
-        control.AttachedToVisualTree -= OnControlAttachedToVisualTree;
-        control.DetachedFromVisualTree -= OnControlDetachedFromVisualTree;
+        if (!GetIsBusy(control))
+            UnsubscribeFromLifecycle(control);
     }
+
+    private static bool IsCurrentPopup(Control control, PopupData popupData) =>
+        _popups.TryGetValue(control, out var current) && ReferenceEquals(current, popupData);
 
     private static void OnControlAttachedToVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
     {
         if (sender is not Control control) return;
         if (!GetIsBusy(control)) return;
 
-        if (_popups.TryGetValue(control, out var popupData) && !popupData.Popup.IsOpen)
-        {
-            popupData.Popup.IsOpen = true;
-        }
+        // The overlay is fully released on detach, so reattaching rebuilds it.
+        ShowBusy(control);
     }
 
     private static void OnControlDetachedFromVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
@@ -198,26 +212,94 @@ public static class LoadingBehavior
         if (sender is not Control control) return;
 
         if (_popups.TryGetValue(control, out var popupData))
+            ReleasePopup(control, popupData, restoreOpacity: true);
+
+        if (!GetIsBusy(control))
+            UnsubscribeFromLifecycle(control);
+    }
+
+    private static void SubscribeToLifecycle(Control control)
+    {
+        control.AttachedToVisualTree -= OnControlAttachedToVisualTree;
+        control.DetachedFromVisualTree -= OnControlDetachedFromVisualTree;
+        control.AttachedToVisualTree += OnControlAttachedToVisualTree;
+        control.DetachedFromVisualTree += OnControlDetachedFromVisualTree;
+    }
+
+    private static void UnsubscribeFromLifecycle(Control control)
+    {
+        control.AttachedToVisualTree -= OnControlAttachedToVisualTree;
+        control.DetachedFromVisualTree -= OnControlDetachedFromVisualTree;
+    }
+
+    private static void ReleasePopup(Control control, PopupData popupData, bool restoreOpacity)
+    {
+        popupData.Popup.IsOpen = false;
+        popupData.Popup.Child = null;
+        ((ISetLogicalParent)popupData.Popup).SetParent(null);
+
+        UnregisterScrollHost(popupData);
+
+        if (restoreOpacity && _originalOpacities.TryGetValue(control, out var originalOpacity))
         {
-            popupData.Popup.IsOpen = false;
+            control.SetCurrentValue(Visual.OpacityProperty, originalOpacity);
+            _originalOpacities.Remove(control);
+            control.IsHitTestVisible = true;
         }
+
+        if (_popups.TryGetValue(control, out var current) && ReferenceEquals(current, popupData))
+            _popups.Remove(control);
+    }
+
+    private static void RegisterScrollHost(PopupData popupData)
+    {
+        if (popupData.ScrollViewer is not { } scrollViewer) return;
+
+        if (!_scrollHosts.TryGetValue(scrollViewer, out var hosted))
+        {
+            hosted = new List<PopupData>();
+            _scrollHosts[scrollViewer] = hosted;
+            scrollViewer.ScrollChanged += OnScrollChanged;
+        }
+
+        hosted.Add(popupData);
+    }
+
+    private static void UnregisterScrollHost(PopupData popupData)
+    {
+        if (popupData.ScrollViewer is not { } scrollViewer) return;
+        if (!_scrollHosts.TryGetValue(scrollViewer, out var hosted)) return;
+
+        hosted.Remove(popupData);
+
+        if (hosted.Count != 0) return;
+
+        _scrollHosts.Remove(scrollViewer);
+        scrollViewer.ScrollChanged -= OnScrollChanged;
     }
 
     private static void OnScrollChanged(object? sender, ScrollChangedEventArgs e)
     {
         if (sender is not ScrollViewer scrollViewer) return;
+        if (!_scrollHosts.TryGetValue(scrollViewer, out var hosted)) return;
 
-        foreach (var kvp in _popups)
+        // Reverse index walk: re-placing a popup can close it, which unregisters it from this list.
+        for (var i = hosted.Count - 1; i >= 0; i--)
         {
-            if (kvp.Value.ScrollViewer == scrollViewer && kvp.Value.Popup.IsOpen)
-            {
-                var popup = kvp.Value.Popup;
-                var placement = popup.Placement;
-                popup.Placement = PlacementMode.Center;
-                popup.Placement = placement;
-            }
+            if (i >= hosted.Count) continue;
+
+            var popup = hosted[i].Popup;
+            if (!popup.IsOpen) continue;
+
+            var placement = popup.Placement;
+            popup.Placement = PlacementMode.Center;
+            popup.Placement = placement;
         }
     }
 
-    private record PopupData(Popup Popup, ScrollViewer? ScrollViewer);
+    private sealed class PopupData(Popup popup, ScrollViewer? scrollViewer)
+    {
+        public Popup Popup { get; } = popup;
+        public ScrollViewer? ScrollViewer { get; } = scrollViewer;
+    }
 }

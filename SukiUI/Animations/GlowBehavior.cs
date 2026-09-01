@@ -14,6 +14,12 @@ public static class GlowBehavior
 
     private static readonly Dictionary<Control, PopupData> _popups = new();
 
+    /// <summary>
+    /// Popups grouped by the <see cref="ScrollViewer"/> they scroll with, so a scroll event only
+    /// touches the popups that need repositioning and only subscribes once per host.
+    /// </summary>
+    private static readonly Dictionary<ScrollViewer, List<PopupData>> _scrollHosts = new();
+
     public static readonly AttachedProperty<bool> IsActiveProperty =
         AvaloniaProperty.RegisterAttached<Control, bool>(
             "IsActive",
@@ -85,46 +91,48 @@ public static class GlowBehavior
 
         if (isActive)
         {
-            if (control.Bounds.Width <= 0)
-            {
-                control.AttachedToVisualTree += DeferShowContour;
-                control.LayoutUpdated += DeferShowContourOnLayout;
-                return;
-            }
-            ShowContour(control);
+            SubscribeToLifecycle(control);
+            TryShowContour(control);
         }
         else
         {
-            control.AttachedToVisualTree -= DeferShowContour;
             control.LayoutUpdated -= DeferShowContourOnLayout;
             HideContour(control);
         }
     }
 
-    private static void DeferShowContour(object? sender, VisualTreeAttachmentEventArgs e)
+    private static void TryShowContour(Control control)
     {
-        if (sender is not Control control) return;
-        control.AttachedToVisualTree -= DeferShowContour;
-        if (control.Bounds.Width > 0 && GetIsActive(control))
+        if (!GetIsActive(control) || !control.IsAttachedToVisualTree())
+            return;
+
+        if (control.Bounds.Width <= 0 || control.Bounds.Height <= 0)
         {
             control.LayoutUpdated -= DeferShowContourOnLayout;
-            ShowContour(control);
+            control.LayoutUpdated += DeferShowContourOnLayout;
+            return;
         }
+
+        control.LayoutUpdated -= DeferShowContourOnLayout;
+        ShowContour(control);
     }
 
     private static void DeferShowContourOnLayout(object? sender, EventArgs e)
     {
         if (sender is not Control control) return;
-        if (control.Bounds.Width > 0 && GetIsActive(control))
-        {
-            control.LayoutUpdated -= DeferShowContourOnLayout;
-            control.AttachedToVisualTree -= DeferShowContour;
-            ShowContour(control);
-        }
+        TryShowContour(control);
     }
 
     private static void ShowContour(Control control)
     {
+        if (_popups.TryGetValue(control, out var existingPopup))
+        {
+            if (!existingPopup.IsHiding)
+                return;
+
+            ReleasePopup(control, existingPopup);
+        }
+
         var width = control.Bounds.Width + 3;
         var height = control.Bounds.Height + 3;
         var color = GetColor(control);
@@ -178,9 +186,13 @@ public static class GlowBehavior
         var currentAngle = 0.0;
         var angleStep = 360.0 / (speed / 16.0);
 
+        var scrollViewer = control.FindAncestorOfType<ScrollViewer>();
+        var popupData = new PopupData(popup, timer, scrollViewer);
+
         timer.Tick += (_, _) =>
         {
-            if (!_popups.ContainsKey(control) || !popup.IsOpen)
+            if (!_popups.TryGetValue(control, out var current) ||
+                !ReferenceEquals(current, popupData) || !popup.IsOpen)
             {
                 timer.Stop();
                 return;
@@ -195,27 +207,20 @@ public static class GlowBehavior
 
         popup.Opened += (_, _) =>
         {
+            if (!_popups.TryGetValue(control, out var current) ||
+                !ReferenceEquals(current, popupData) || !popup.IsOpen)
+                return;
+
             border.Measure(new Avalonia.Size(double.PositiveInfinity, double.PositiveInfinity));
-            
-            border.Animate(Visual.OpacityProperty)
-                .From(0)
-                .To(1)
-                .WithDuration(TimeSpan.FromMilliseconds(AnimationDurationMs))
-                .Start();
+
+            _ = AnimateOpacityAsync(border, 0, 1, popupData.AnimationToken);
 
             timer.Start();
         };
 
-        var scrollViewer = control.FindAncestorOfType<ScrollViewer>();
-        if (scrollViewer != null)
-        {
-            scrollViewer.ScrollChanged += OnScrollChanged;
-        }
+        RegisterScrollHost(popupData);
 
-        _popups[control] = new PopupData(popup, timer, scrollViewer);
-
-        control.AttachedToVisualTree += OnControlAttachedToVisualTree;
-        control.DetachedFromVisualTree += OnControlDetachedFromVisualTree;
+        _popups[control] = popupData;
 
         popup.IsOpen = true;
     }
@@ -223,46 +228,38 @@ public static class GlowBehavior
     private static async void HideContour(Control control)
     {
         if (!_popups.TryGetValue(control, out var popupData))
-            return;
-
-        var popup = popupData.Popup;
-        var timer = popupData.Timer;
-
-        timer?.Stop();
-
-        if (popup.Child is Border border)
         {
-            await border.Animate(Visual.OpacityProperty)
-                .From(1)
-                .To(0)
-                .WithDuration(TimeSpan.FromMilliseconds(AnimationDurationMs))
-                .RunAsync();
-
-            popup.IsOpen = false;
-            popup.Child = null;
-            ((ISetLogicalParent)popup).SetParent(null);
-
-            if (popupData.ScrollViewer != null)
-            {
-                popupData.ScrollViewer.ScrollChanged -= OnScrollChanged;
-            }
-
-            _popups.Remove(control);
+            UnsubscribeFromLifecycle(control);
+            return;
         }
 
-        control.AttachedToVisualTree -= OnControlAttachedToVisualTree;
-        control.DetachedFromVisualTree -= OnControlDetachedFromVisualTree;
+        popupData.IsHiding = true;
+        popupData.Timer.Stop();
+
+        // Read the live opacity before cancelling: cancelling an in-flight fade reverts the
+        // animated value to its pre-animation base, which would make the fade-out a no-op.
+        var border = popupData.Popup.Child as Border;
+        var fadeFrom = border?.Opacity ?? 0;
+
+        var cancellationToken = popupData.BeginAnimation();
+
+        if (border != null)
+        {
+            await AnimateOpacityAsync(border, fadeFrom, 0, cancellationToken);
+        }
+
+        if (!_popups.TryGetValue(control, out var current) ||
+            !ReferenceEquals(current, popupData) || GetIsActive(control))
+            return;
+
+        ReleasePopup(control, popupData);
+        UnsubscribeFromLifecycle(control);
     }
 
     private static void OnControlAttachedToVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
     {
-        if (sender is not Control control) return;
-        if (!GetIsActive(control)) return;
-
-        if (_popups.TryGetValue(control, out var popupData) && !popupData.Popup.IsOpen)
-        {
-            popupData.Popup.IsOpen = true;
-        }
+        if (sender is Control control)
+            TryShowContour(control);
     }
 
     private static void OnControlDetachedFromVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
@@ -271,26 +268,137 @@ public static class GlowBehavior
 
         if (_popups.TryGetValue(control, out var popupData))
         {
-            popupData.Popup.IsOpen = false;
-            popupData.Timer?.Stop();
+            ReleasePopup(control, popupData);
+        }
+
+        control.LayoutUpdated -= DeferShowContourOnLayout;
+        if (!GetIsActive(control))
+            UnsubscribeFromLifecycle(control);
+    }
+
+    private static void SubscribeToLifecycle(Control control)
+    {
+        control.AttachedToVisualTree -= OnControlAttachedToVisualTree;
+        control.DetachedFromVisualTree -= OnControlDetachedFromVisualTree;
+        control.AttachedToVisualTree += OnControlAttachedToVisualTree;
+        control.DetachedFromVisualTree += OnControlDetachedFromVisualTree;
+    }
+
+    private static void UnsubscribeFromLifecycle(Control control)
+    {
+        control.AttachedToVisualTree -= OnControlAttachedToVisualTree;
+        control.DetachedFromVisualTree -= OnControlDetachedFromVisualTree;
+    }
+
+    private static void ReleasePopup(Control control, PopupData popupData)
+    {
+        popupData.CancelAnimations();
+        popupData.Timer.Stop();
+        popupData.Popup.IsOpen = false;
+        popupData.Popup.Child = null;
+        ((ISetLogicalParent)popupData.Popup).SetParent(null);
+
+        UnregisterScrollHost(popupData);
+
+        if (_popups.TryGetValue(control, out var current) && ReferenceEquals(current, popupData))
+            _popups.Remove(control);
+    }
+
+    private static void RegisterScrollHost(PopupData popupData)
+    {
+        if (popupData.ScrollViewer is not { } scrollViewer) return;
+
+        if (!_scrollHosts.TryGetValue(scrollViewer, out var hosted))
+        {
+            hosted = new List<PopupData>();
+            _scrollHosts[scrollViewer] = hosted;
+            scrollViewer.ScrollChanged += OnScrollChanged;
+        }
+
+        hosted.Add(popupData);
+    }
+
+    private static void UnregisterScrollHost(PopupData popupData)
+    {
+        if (popupData.ScrollViewer is not { } scrollViewer) return;
+        if (!_scrollHosts.TryGetValue(scrollViewer, out var hosted)) return;
+
+        hosted.Remove(popupData);
+
+        if (hosted.Count != 0) return;
+
+        _scrollHosts.Remove(scrollViewer);
+        scrollViewer.ScrollChanged -= OnScrollChanged;
+    }
+
+    private static async Task AnimateOpacityAsync(Visual visual, double from, double to,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            await visual.Animate(Visual.OpacityProperty)
+                .From(from)
+                .To(to)
+                .WithDuration(TimeSpan.FromMilliseconds(AnimationDurationMs))
+                .WithCancellationToken(cancellationToken)
+                .RunAsync();
+        }
+        catch (OperationCanceledException)
+        {
+            // Defensive: Avalonia signals cancellation by completing the task rather than
+            // throwing, so a detach or fast reactivation normally just returns early here.
         }
     }
 
     private static void OnScrollChanged(object? sender, ScrollChangedEventArgs e)
     {
         if (sender is not ScrollViewer scrollViewer) return;
+        if (!_scrollHosts.TryGetValue(scrollViewer, out var hosted)) return;
 
-        foreach (var kvp in _popups)
+        // Reverse index walk: re-placing a popup can close it, which unregisters it from this list.
+        for (var i = hosted.Count - 1; i >= 0; i--)
         {
-            if (kvp.Value.ScrollViewer == scrollViewer && kvp.Value.Popup.IsOpen)
-            {
-                var popup = kvp.Value.Popup;
-                var placement = popup.Placement;
-                popup.Placement = PlacementMode.AnchorAndGravity;
-                popup.Placement = placement;
-            }
+            if (i >= hosted.Count) continue;
+
+            var popup = hosted[i].Popup;
+            if (!popup.IsOpen) continue;
+
+            var placement = popup.Placement;
+            popup.Placement = PlacementMode.AnchorAndGravity;
+            popup.Placement = placement;
         }
     }
 
-    private record PopupData(Popup Popup, DispatcherTimer Timer, ScrollViewer? ScrollViewer);
+    private sealed class PopupData(Popup popup, DispatcherTimer timer, ScrollViewer? scrollViewer)
+    {
+        private CancellationTokenSource? _animationCancellation = new();
+
+        public Popup Popup { get; } = popup;
+        public DispatcherTimer Timer { get; } = timer;
+        public ScrollViewer? ScrollViewer { get; } = scrollViewer;
+        public bool IsHiding { get; set; }
+
+        /// <summary>
+        /// Token for the current animation batch, or an already-cancelled token once released.
+        /// Never touches a disposed source, so callers cannot trip an <see cref="ObjectDisposedException"/>.
+        /// </summary>
+        public CancellationToken AnimationToken =>
+            _animationCancellation?.Token ?? new CancellationToken(true);
+
+        public CancellationToken BeginAnimation()
+        {
+            CancelAnimations();
+            _animationCancellation = new CancellationTokenSource();
+            return _animationCancellation.Token;
+        }
+
+        public void CancelAnimations()
+        {
+            var cancellation = Interlocked.Exchange(ref _animationCancellation, null);
+            if (cancellation is null) return;
+
+            cancellation.Cancel();
+            cancellation.Dispose();
+        }
+    }
 }
