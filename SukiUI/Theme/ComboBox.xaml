@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:animations="clr-namespace:SukiUI.Animations"
                     xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=netstandard"
@@ -53,9 +53,14 @@
         <Setter Property="PlaceholderForeground" Value="{DynamicResource SukiLowText}" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+       
+        <Setter Property="RenderTransformOrigin" Value="50%, 50%" />
+        <Setter Property="animations:SukiComboBoxPress.Enable" Value="True" />
+     
+        <Setter Property="animations:SukiComboBoxPopup.Enable" Value="True" />
         <Setter Property="Template">
             <ControlTemplate>
-                <!--  Padding leaves room for the GlassCard shadow; PART_Popup HorizontalOffset cancels it.  -->
+                <!--  Padding leaves room for the GlassCard shadow; the popup's HorizontalOffset cancels it.  -->
                 <Border Padding="5">
                     <suki:GlassCard Name="border"
                                     Background="{TemplateBinding Background}"
@@ -144,15 +149,20 @@
                                     </Panel>
                                 </Viewbox>
                             </ToggleButton>
-                            <Popup Name="PART_Popup"
+                            <!--  Dummy required template part: content-less, never renders anything.  -->
+                            <Popup Name="PART_Popup" />
+                            <!--  The real drop-down: IsOpen is owned by SukiComboBoxPopup only (no
+                                  binding, no light dismiss — outside presses are detected by the
+                                  behavior itself, so the popup is never closed behind its back).  -->
+                            <Popup Name="PART_SukiPopup"
                                    Grid.Column="0"
                                    MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}"
                                    HorizontalOffset="-5"
-                                   IsLightDismissEnabled="True"
-                                   IsOpen="{TemplateBinding IsDropDownOpen,
-                                                            Mode=TwoWay}"
                                    PlacementTarget="{TemplateBinding}">
-                                <LayoutTransformControl Name="PART_LayoutTransform" RenderTransformOrigin="50%, 0%">
+                                <!--  Plain Border: RenderTransform is render-only (no relayout per
+                                      frame) and safe for direct writes, unlike LayoutTransformControl
+                                      which rebuilds its own RenderTransform on arrange.  -->
+                                <Border Name="PART_LayoutTransform" RenderTransformOrigin="50%, 0%">
 
                                     <Border Name="B1"
                                             MaxHeight="{TemplateBinding MaxDropDownHeight}"
@@ -185,7 +195,7 @@
                                             </Border>
                                         </Panel>
                                     </Border>
-                                </LayoutTransformControl>
+                                </Border>
                             </Popup>
                         </Grid>
                     </suki:GlassCard>
@@ -193,74 +203,11 @@
             </ControlTemplate>
         </Setter>
 
-        <Style Selector="^[IsDropDownOpen=true] /template/ LayoutTransformControl#PART_LayoutTransform">
-
-            <Style.Animations>
-                <Animation FillMode="Forward" Duration="0:0:0.4">
-                    <Animation.Easing>
-                        <animations:SukiEaseOutBack />
-                    </Animation.Easing>
-
-                    <KeyFrame Cue="0%">
-                        <Setter Property="ScaleTransform.ScaleY" Value="0.72" />
-
-                    </KeyFrame>
-
-                    <KeyFrame Cue="100%">
-                        <Setter Property="ScaleTransform.ScaleY" Value="1" />
-
-
-                    </KeyFrame>
-                </Animation>
-                <Animation FillMode="Forward" Duration="0:0:0.4">
-                    <Animation.Easing>
-                        <animations:SukiEaseOutBack BounceIntensity="Soft" />
-                    </Animation.Easing>
-
-                    <KeyFrame Cue="0%">
-
-                        <Setter Property="ScaleTransform.ScaleX" Value="0.92" />
-                    </KeyFrame>
-
-                    <KeyFrame Cue="100%">
-
-                        <Setter Property="ScaleTransform.ScaleX" Value="1" />
-
-                    </KeyFrame>
-                </Animation>
-
-                <Animation FillMode="Forward" Duration="0:0:0.35">
-
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Opacity" Value="0" />
-                    </KeyFrame>
-
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Opacity" Value="1" />
-                    </KeyFrame>
-                </Animation>
-
-            </Style.Animations>
-        </Style>
-
-        <Style Selector="^[IsDropDownOpen=false] /template/ LayoutTransformControl#PART_LayoutTransform">
-            <Style.Animations>
-                <Animation Easing="CircularEaseOut"
-                           FillMode="Forward"
-                           Duration="0:0:0.3">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="ScaleTransform.ScaleY" Value="1" />
-                        <Setter Property="ScaleTransform.ScaleX" Value="1" />
-                        <Setter Property="Opacity" Value="1" />
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="ScaleTransform.ScaleY" Value="0.9" />
-                        <Setter Property="ScaleTransform.ScaleX" Value="0.9" />
-                        <Setter Property="Opacity" Value="0" />
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
+        <!--
+            Open/close animations live in SukiComboBoxPopup (springs with SukiButtonPress's
+            constants, velocity-driven motion blur, staggered item cascade). Selector-triggered
+            keyframe animations cannot survive an IsDropDownOpen flip, so they were removed.
+        -->
 
         <Style Selector="^[IsEditable=true]">
             <Setter Property="IsTabStop" Value="False" />
