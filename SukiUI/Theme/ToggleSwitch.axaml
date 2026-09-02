@@ -21,9 +21,19 @@
 
     <ControlTheme x:Key="SukiToggleSwitch" TargetType="ToggleSwitch">
         <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
-        <Setter Property="RenderTransform">
-            <ScaleTransform ScaleX="1.1" ScaleY="1.1" />
+         <Setter Property="RenderTransform" Value="scale(1.1)" />
+        <Setter Property="Transitions">
+            <Transitions>
+                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.15">
+                    <TransformOperationsTransition.Easing>
+                        <CubicEaseOut />
+                    </TransformOperationsTransition.Easing>
+                </TransformOperationsTransition>
+            </Transitions>
         </Setter>
+        <Style Selector="^:pointerover">
+            <Setter Property="RenderTransform" Value="scale(1.122)" />
+        </Style>
         <Setter Property="OnContent" Value="" />
         <Setter Property="OffContent" Value="" />
         <Setter Property="HorizontalAlignment" Value="Left" />

@@ -1,5 +1,6 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:animations="clr-namespace:SukiUI.Animations"
                     xmlns:suki="https://github.com/kikipoulet/SukiUI"
                     xmlns:theme="clr-namespace:SukiUI.Theme">
     <Design.PreviewWith>
@@ -227,13 +228,13 @@
     <ControlTheme x:Key="SukiButtonStyle"
                   BasedOn="{StaticResource SukiBaseButtonStyle}"
                   TargetType="Button">
+         <Setter Property="animations:SukiButtonPress.Enable" Value="True" />
         <Setter Property="Transitions">
             <Transitions>
                 <BrushTransition Property="Background" Duration="0:0:0.1" />
                 <BrushTransition Property="Foreground" Duration="0:0:0.1" />
                 <BrushTransition Property="BorderBrush" Duration="0:0:0.20" />
                 <DoubleTransition Property="Opacity" Duration="0:0:0.35" />
-                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.1" />
             </Transitions>
         </Setter>
 
@@ -251,27 +252,20 @@
         </Style>
         <Style Selector="^:pressed:pointerover">
             <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
-            <Setter Property="RenderTransform" Value="scale(0.97)" />
             <Style Selector="^ /template/ Border">
                 <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
             </Style>
             <Style Selector="^.Icon /template/ Border">
-                <!--  <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" /> -->
                 <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
-                <Setter Property="RenderTransform" Value="scale(0.95)" />
             </Style>
         </Style>
 
         <!--  Classes  -->
         <Style Selector="^.NoPressedAnimation">
+            <Setter Property="animations:SukiButtonPress.Enable" Value="False" />
             <Style Selector="^:pressed:pointerover">
                 <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
                 <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
-                <Setter Property="RenderTransform">
-                    <Setter.Value>
-                        <ScaleTransform ScaleX="1" ScaleY="1" />
-                    </Setter.Value>
-                </Setter>
                 <Style Selector="^ /template/ Border">
                     <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
                 </Style>
@@ -294,14 +288,12 @@
             <Style Selector="^:pressed:pointerover">
                 <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
                 <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
-                <Setter Property="RenderTransform" Value="scale(0.97)" />
                 <Style Selector="^ /template/ Border">
                     <Setter Property="BorderBrush" Value="{DynamicResource SukiAccentColor}" />
                 </Style>
                 <Style Selector="^.Icon /template/ Border">
                     <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
                     <Setter Property="BorderBrush" Value="{DynamicResource SukiAccentColor}" />
-                    <Setter Property="RenderTransform" Value="scale(0.95)" />
                 </Style>
             </Style>
         </Style>
@@ -316,11 +308,9 @@
             <!--  Events  -->
             <Style Selector="^:pointerover, ^:flyout-open">
                 <Setter Property="Background" Value="Transparent" />
-                <Setter Property="RenderTransform" Value="scale(1.03)" />
             </Style>
             <Style Selector="^.Icon:pointerover, ^.Icon:flyout-open">
                 <Setter Property="Background" Value="Transparent" />
-                <Setter Property="RenderTransform" Value="scale(1.07)" />
             </Style>
             <Style Selector="^:pressed:pointerover">
                 <Setter Property="Background" Value="Transparent" />
@@ -339,10 +329,6 @@
             <Setter Property="CornerRadius" Value="5" />
             <Setter Property="Margin" Value="0" />
             <Setter Property="Background" Value="Transparent" />
-            <!--  Events  -->
-            <Style Selector="^:pointerover, ^:flyout-open">
-                <Setter Property="RenderTransform" Value="scale(1.03)" />
-            </Style>
         </Style>
 
         <Style Selector="^.Flat">
@@ -482,6 +468,7 @@
         </Style>
 
         <Style Selector="^.Icon">
+            <Setter Property="animations:SukiButtonPress.PressDepth" Value="0.95" />
             <Setter Property="CornerRadius" Value="100" />
             <Setter Property="Width" Value="40" />
             <Setter Property="Height" Value="40" />
