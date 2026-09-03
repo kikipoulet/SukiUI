@@ -1,4 +1,4 @@
-﻿using Avalonia;
+using Avalonia;
 using Avalonia.Controls;
 
 namespace SukiUI.Controls.GlassMorphism
@@ -23,7 +23,20 @@ namespace SukiUI.Controls.GlassMorphism
             get => GetValue(IntensityFactorProperty);
             set => SetValue(IntensityFactorProperty, value);
         }
-        
+
+        // Pass-through for BlurBackground.OverlayOpacity: dialogs set it to 0 in their
+        // template so the glass never flashes at its default full strength during the
+        // frames before the host takes control of the fade.
+        public static readonly StyledProperty<double> OverlayOpacityProperty =
+            AvaloniaProperty.Register<SukiBlurBackground, double>(nameof(OverlayOpacity), 1d,
+                coerce: (_, value) => Math.Clamp(value, 0d, 1d));
+
+        public double OverlayOpacity
+        {
+            get => GetValue(OverlayOpacityProperty);
+            set => SetValue(OverlayOpacityProperty, value);
+        }
+
         public SukiBlurBackground()
         {
             InitializeComponent();
@@ -33,7 +46,8 @@ namespace SukiUI.Controls.GlassMorphism
         protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
         {
             base.OnPropertyChanged(change);
-            if (change.Property == IsDynamicProperty || change.Property == IntensityFactorProperty)
+            if (change.Property == IsDynamicProperty || change.Property == IntensityFactorProperty ||
+                change.Property == OverlayOpacityProperty)
                 UpdateBlurProperties();
         }
 
@@ -43,6 +57,7 @@ namespace SukiUI.Controls.GlassMorphism
                 return;
             blur.IsDynamic = IsDynamic;
             blur.IntensityFactor = IntensityFactor;
+            blur.OverlayOpacity = OverlayOpacity;
         }
     }
 }

@@ -1,5 +1,6 @@
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Animation;
@@ -12,7 +13,9 @@ using Avalonia.LogicalTree;
 using Avalonia.Media;
 using Avalonia.Media.Transformation;
 using Avalonia.Threading;
+using Avalonia.VisualTree;
 using SukiUI.Animations;
+using SukiUI.Controls.GlassMorphism;
 using SukiUI.Dialogs;
 using SukiUI.Helpers;
 
@@ -40,6 +43,7 @@ namespace SukiUI.Controls
 
         private Border? _dialogBackground;
         private ContentControl? _dialogContent;
+        private Border? _dialogSurface;
         private ISukiDialogManager? _attachedManager;
         private bool _isAttachedToLogicalTree;
         private CancellationTokenSource? _dismissCts;
@@ -53,6 +57,12 @@ namespace SukiUI.Controls
         // Open/close transitions built per opening, kept so a shake can detach and restore
         // them around its direct writes (single writer on the RenderTransform at a time).
         private Transitions? _openTransitions;
+
+        // The glass overlay fades on its own fast clock (a DoubleTransition on
+        // BlurBackground.OverlayOpacity), decoupled from the content's choreography:
+        // melting the frost together with the content's fade read as the dialog
+        // blackening, and the frost must be fully in before the content's opening
+        // blur has finished collapsing.
         private DispatcherTimer? _shakeTimer;
         private double _shakeY, _shakeV, _shakeScale;
         private DateTime _shakeLastTick;
@@ -97,7 +107,6 @@ namespace SukiUI.Controls
                 // lands instantly and invisibly).
                 dialogContent.RenderTransform = TransformOperations.Parse("translate(0px, 0px) scale(0.72)");
                 dialogContent.Opacity = 0.0;
-                dialogContent.Effect = new BlurEffect { Radius = 40 };
             }
         }
 
@@ -185,6 +194,7 @@ namespace SukiUI.Controls
             _dialogBackground.Loaded -= DialogBackgroundOnLoaded;
             _dialogBackground = null;
             _dialogContent = null;
+            _dialogSurface = null;
         }
 
         private void BackgroundRequestClose()
@@ -272,6 +282,7 @@ namespace SukiUI.Controls
         {
             if (_dialogContent is not { } content)
                 return;
+            EnsureDialogSurface(content);
 
             double width = content.Bounds.Width > 0 ? content.Bounds.Width : content.DesiredSize.Width;
             double height = content.Bounds.Height > 0 ? content.Bounds.Height : content.DesiredSize.Height;
@@ -280,7 +291,7 @@ namespace SukiUI.Controls
 
             // Small dialogs replay the button's release spring — same real-time frequency
             // (omega / duration = 16 rad/s, the button's own value, which needs the full
-            // 750ms window to deploy) but more damped than the button itself (zeta 0.53,
+            // 650ms window to deploy) but more damped than the button itself (zeta 0.53,
             // i.e. a 14% rebound: the dialog is a bigger object, the full yo-yo would be
             // too much). The damping ramp is curved (sizeT^1.6): mid-size dialogs keep
             // noticeably more bounce than a linear ramp would leave them, and only truly
@@ -298,6 +309,7 @@ namespace SukiUI.Controls
             // emerged-from-the-click one.
             content.Transitions = null;
             SetDialogPose(content, EmergenceOffset(), fromScale, 0.0, 40.0);
+            FadeGlass(content, 1.0);
             _openTransitions = BuildTransitions(spring, transformDuration);
             content.Transitions = _openTransitions;
             SetDialogPose(content, (0.0, 0.0), 1.0, 1.0, 0.0);
@@ -315,7 +327,42 @@ namespace SukiUI.Controls
             // runs): restore them so the close actually animates instead of snapping.
             StopShake();
             content.Transitions ??= _openTransitions;
+            FadeGlass(content, 0.0);
             SetDialogPose(content, (0.0, EmergenceVertical), 0.8, 0.0, 40.0);
+        }
+
+        /// <summary>
+        /// The glass fades on its own clock at both ends of the dialog's life (the
+        /// content's choreography stays out of it: melting the frost together with
+        /// the content's fade read as the dialog blackening, and the frost must be
+        /// fully in before the content's opening blur has finished collapsing).
+        /// The transition is attached ONCE per glass lifetime — replacing a live
+        /// Transitions collection and writing the target in the same frame makes
+        /// the write land before the transition is armed and the value snaps.
+        /// </summary>
+        private const int GlassFadeMilliseconds = 220;
+
+        private static void FadeGlass(ContentControl content, double to)
+        {
+            if (FindGlassOverlay(content) is not { } glass)
+                return;
+            if (glass.Transitions is null)
+            {
+                glass.Transitions = new Transitions
+                {
+                    new DoubleTransition
+                    {
+                        Property = BlurBackground.OverlayOpacityProperty,
+                        Duration = TimeSpan.FromMilliseconds(GlassFadeMilliseconds)
+                    }
+                };
+                // Same-frame attach + write snaps; give the transition one frame to arm.
+                Dispatcher.UIThread.Post(() => glass.OverlayOpacity = to, DispatcherPriority.Loaded);
+            }
+            else
+            {
+                glass.OverlayOpacity = to;
+            }
         }
 
         /// <summary>
@@ -405,14 +452,55 @@ namespace SukiUI.Controls
             return topLevel.TranslatePoint(position, this);
         }
 
-        private static void SetDialogPose(
+        /// <summary>
+        /// The dialog's depth-of-field surface (PART_DialogSurface, in the SukiDialog's
+        /// ControlTheme — NOT this host's template, hence the visual-tree walk). The
+        /// DoF blur lives there, never on the content control itself: the glass overlay
+        /// renders through a custom draw op, and under an ancestor Effect it lands in
+        /// the effect buffer (transparent backdrop) — its opaque restore pass then
+        /// smears into black. Value first, transition attached after, so the initial
+        /// pose lands instantly and every later write animates (same-frame attach+write
+        /// snaps). Re-checked on every open: a re-applied template brings a fresh,
+        /// uninitialized surface.
+        /// </summary>
+        private void EnsureDialogSurface(ContentControl content)
+        {
+            var surface = content.GetVisualDescendants()
+                .OfType<Border>()
+                .FirstOrDefault(b => b.Name == "PART_DialogSurface");
+            if (surface is null || ReferenceEquals(surface, _dialogSurface))
+                return;
+            _dialogSurface = surface;
+            surface.Effect = new BlurEffect { Radius = 40 };
+            surface.Transitions = new Transitions
+            {
+                new EffectTransition { Property = Visual.EffectProperty, Duration = TimeSpan.FromMilliseconds(250) }
+            };
+        }
+
+        private void SetDialogPose(
             ContentControl content, (double Dx, double Dy) offset, double scale, double opacity, double blur)
         {
             content.RenderTransform = TransformOperations.Parse(FormattableString.Invariant(
                 $"translate({offset.Dx:0.##}px, {offset.Dy:0.##}px) scale({scale:0.###})"));
             content.Opacity = opacity;
-            content.Effect = new BlurEffect { Radius = blur };
+            // Depth of field goes to the content surface, never the content control
+            // itself: an Effect on the glass's ancestor pulls the custom op into the
+            // effect buffer and breaks the overlay (see OnApplyTemplate).
+            if (_dialogSurface is { } surface)
+                surface.Effect = new BlurEffect { Radius = blur };
         }
+
+        /// <summary>
+        /// The dialog's glass overlay, if its template carries one (SukiDialog does).
+        /// Found lazily per opening since the dialog content changes with each show.
+        /// </summary>
+        // Visual-tree walk, not logical: the glass lives inside the SukiDialog's
+        // ControlTemplate, and template children are not logical descendants — the
+        // logical lookup silently returned null here (glass stuck at its template
+        // opacity, never driven).
+        private static BlurBackground? FindGlassOverlay(ContentControl content) =>
+            content.GetVisualDescendants().OfType<BlurBackground>().FirstOrDefault();
 
         private static Transitions BuildTransitions(Easing spring, TimeSpan transformDuration) => new()
         {
@@ -422,8 +510,7 @@ namespace SukiUI.Controls
                 Property = Visual.RenderTransformProperty,
                 Duration = transformDuration,
                 Easing = spring
-            },
-            new EffectTransition { Property = Visual.EffectProperty, Duration = TimeSpan.FromMilliseconds(250) }
+            }
         };
 
         private static double Lerp(double from, double to, double t) => from + (to - from) * t;
