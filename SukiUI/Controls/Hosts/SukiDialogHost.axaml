@@ -21,22 +21,13 @@
                                                           HorizontalAlignment="Center"
                                                           Name="PART_DialogContent"
                                                           VerticalAlignment="Center">
-                        <ContentControl.Transitions>
-                            <Transitions>
-                                <ThicknessTransition Duration="0:0:0.40" Property="Margin">
-                                    <ThicknessTransition.Easing>
-                                        <CircularEaseOut /> 
-                                    </ThicknessTransition.Easing>
-                                </ThicknessTransition>
-                                <DoubleTransition Duration="0:0:0.30" Property="Opacity" />
-                                <TransformOperationsTransition Duration="0:0:0.40" Property="RenderTransform">
-                                    <TransformOperationsTransition.Easing>
-                                         <CircularEaseOut /> 
-                                    </TransformOperationsTransition.Easing>
-                                </TransformOperationsTransition>
-                                <EffectTransition Duration="0:0:0.25" Property="Effect"></EffectTransition>
-                            </Transitions>
-                        </ContentControl.Transitions>
+                            <!--
+                                The open/close poses (transform, opacity, blur) are owned by
+                                SukiDialogHost itself: the opening emerges from the invoking
+                                click's position and its spring is calibrated against the
+                                dialog's measured size. The transitions that animate between
+                                those poses are also built in code, per opening.
+                            -->
                     </ContentControl>
                 
                     <Panel.Styles>
@@ -47,11 +38,8 @@
                                 <Setter Property="IsHitTestVisible" Value="True" />
                             </Style>
                             <Style Selector="^ ContentControl#PART_DialogContent">
-                                <Setter Property="Margin" Value="0" />
                                 <Setter Property="IsVisible" Value="True" />
                                 <Setter Property="IsHitTestVisible" Value="True" />
-                                <Setter Property="RenderTransform" Value="scale(1)" />
-                                <Setter Property="Effect" Value="blur(0)" />
                             </Style>
                         </Style>
                         <Style Selector="suki|SukiDialogHost[IsDialogOpen=False]">
@@ -66,11 +54,7 @@
 
                             </Style>
                             <Style Selector="^ ContentControl#PART_DialogContent">
-                                <Setter Property="Opacity" Value="0" />
-                                <Setter Property="Effect" Value="blur(40)" />
                                 <Setter Property="IsHitTestVisible" Value="False" />
-                                <Setter Property="RenderTransform" Value="scale(0.7)" />
-                                <Setter Property="Margin" Value="0,125,0,0" />
                             </Style>
                         </Style>
                     </Panel.Styles>
