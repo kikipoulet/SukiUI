@@ -1,6 +1,6 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:animations="clr-namespace:SukiUI.Animations"
+                    xmlns:animations="clr-namespace:SukiUI.ControlsAnimation"
                     xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=netstandard"
                     xmlns:suki="https://github.com/kikipoulet/SukiUI"
                     xmlns:system="clr-namespace:System;assembly=netstandard">
@@ -55,9 +55,10 @@
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
        
         <Setter Property="RenderTransformOrigin" Value="50%, 50%" />
-        <Setter Property="animations:SukiComboBoxPress.Enable" Value="True" />
+        <Setter Property="animations:SukiPress.Enable" Value="True" />
+        <Setter Property="animations:SukiPress.Preset" Value="ComboBox" />
      
-        <Setter Property="animations:SukiComboBoxPopup.Enable" Value="True" />
+        <Setter Property="animations:SukiPopupAnimation.Enable" Value="True" />
         <Setter Property="Template">
             <ControlTemplate>
                 <!--  Padding leaves room for the GlassCard shadow; the popup's HorizontalOffset cancels it.  -->
@@ -151,7 +152,7 @@
                             </ToggleButton>
                             <!--  Dummy required template part: content-less, never renders anything.  -->
                             <Popup Name="PART_Popup" />
-                            <!--  The real drop-down: IsOpen is owned by SukiComboBoxPopup only (no
+                            <!--  The real drop-down: IsOpen is owned by SukiPopupAnimation only (no
                                   binding, no light dismiss — outside presses are detected by the
                                   behavior itself, so the popup is never closed behind its back).  -->
                             <Popup Name="PART_SukiPopup"
@@ -204,7 +205,7 @@
         </Setter>
 
         <!--
-            Open/close animations live in SukiComboBoxPopup (springs with SukiButtonPress's
+            Open/close animations live in SukiPopupAnimation (springs with SukiPress's
             constants, velocity-driven motion blur, staggered item cascade). Selector-triggered
             keyframe animations cannot survive an IsDropDownOpen flip, so they were removed.
         -->

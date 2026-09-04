@@ -5,7 +5,7 @@ namespace SukiUI.Animations
 {
     /// <summary>
     /// A physically-derived ease-out: the exact closed-form solution of the damped spring
-    /// used across the library (SukiButtonPress, SukiComboBoxPopup, SukiComboBoxPress —
+    /// used across the library (SukiPress, SukiPopupAnimation —
     /// <c>x'' = -omega^2·(x - target) - decay·x'</c>), normalized so the motion starts at 0
     /// and settles at 1 within t ∈ [0, 1] regardless of the transition duration it drives:
     /// the whole spring stretches or compresses with the Duration it is attached to.

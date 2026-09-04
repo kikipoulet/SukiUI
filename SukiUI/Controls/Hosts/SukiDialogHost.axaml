@@ -1,6 +1,6 @@
 <ResourceDictionary
     xmlns="https://github.com/avaloniaui"
-    xmlns:animations="clr-namespace:SukiUI.Animations"
+    xmlns:animations="clr-namespace:SukiUI.ControlsAnimation"
     xmlns:suki="https://github.com/kikipoulet/SukiUI"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ControlTheme TargetType="suki:SukiDialogHost" x:Key="SukiDialogHostTheme">

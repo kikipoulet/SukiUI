@@ -16,6 +16,7 @@ using Avalonia.Threading;
 using Avalonia.VisualTree;
 using SukiUI.Animations;
 using SukiUI.Controls.GlassMorphism;
+using SukiUI.ControlsAnimation;
 using SukiUI.Dialogs;
 using SukiUI.Helpers;
 
@@ -63,9 +64,9 @@ namespace SukiUI.Controls
         // melting the frost together with the content's fade read as the dialog
         // blackening, and the frost must be fully in before the content's opening
         // blur has finished collapsing.
-        private DispatcherTimer? _shakeTimer;
+        private IDisposable? _shakeTicker;
         private double _shakeY, _shakeV, _shakeScale;
-        private DateTime _shakeLastTick;
+        private long _shakeLastTick;
         public static readonly StyledProperty<ISukiDialogManager> ManagerProperty = AvaloniaProperty.Register<SukiDialogHost, ISukiDialogManager>(nameof(Manager));
 
         public ISukiDialogManager Manager
@@ -380,22 +381,21 @@ namespace SukiUI.Controls
             _shakeY = ty;
             _shakeV = initialVelocity;
             _shakeScale = scale;
-            _shakeLastTick = DateTime.Now;
+            _shakeLastTick = SukiTicker.Timestamp;
             content.Transitions = null;
 
-            var timer = new DispatcherTimer(DispatcherPriority.Render)
-            {
-                Interval = TimeSpan.FromMilliseconds(16)
-            };
-            timer.Tick += (_, _) => ShakeTick(content);
-            _shakeTimer = timer;
-            timer.Start();
+            // The shared SukiTicker loop drives the shake (one frame callback for the whole
+            // subsystem) — no private DispatcherTimer, and pacing follows the display's
+            // real frame rate. One synchronous tick primes the very first transform write,
+            // which schedules the frame the rest of the shake rides on.
+            _shakeTicker = SukiTicker.Subscribe(content, _ => ShakeTick(content));
+            ShakeTick(content);
         }
 
         private void ShakeTick(ContentControl content)
         {
-            double dt = Math.Min((DateTime.Now - _shakeLastTick).TotalSeconds, 0.05);
-            _shakeLastTick = DateTime.Now;
+            double dt = Math.Min(SukiTicker.ElapsedSeconds(_shakeLastTick), 0.05);
+            _shakeLastTick = SukiTicker.Timestamp;
 
             int steps = Math.Max(1, (int)Math.Ceiling(dt / 0.008));
             double h = dt / steps;
@@ -423,8 +423,8 @@ namespace SukiUI.Controls
 
         private void StopShake()
         {
-            _shakeTimer?.Stop();
-            _shakeTimer = null;
+            _shakeTicker?.Dispose();
+            _shakeTicker = null;
         }
 
         private static (double Ty, double Scale) ReadCurrentTransform(ContentControl content)

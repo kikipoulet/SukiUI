@@ -1,0 +1,80 @@
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="900"
+    mc:Ignorable="d"
+    x:Class="SukiUI.Demo.Features.Helpers.PressStressPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/exchange/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Styles>
+
+        <!--  XAML baseline: a :checked pseudo class drives a plain scale transition —
+              the native engine doing the same visual gesture as the physics system.  -->
+        <Style Selector="ToggleButton.bench">
+            <Setter Property="MinWidth" Value="72" />
+            <Setter Property="Height" Value="34" />
+            <Setter Property="Margin" Value="3" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="IsHitTestVisible" Value="False" />
+            <Setter Property="RenderTransformOrigin" Value="50%, 50%" />
+            <Setter Property="RenderTransform" Value="scale(1)" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.15" />
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="ToggleButton.bench:checked">
+            <Setter Property="RenderTransform" Value="scale(0.96)" />
+        </Style>
+
+        <Style Selector="Button.stressBtn">
+            <Setter Property="MinWidth" Value="72" />
+            <Setter Property="Height" Value="34" />
+            <Setter Property="Margin" Value="3" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+    </UserControl.Styles>
+
+    <ScrollViewer>
+        <StackPanel Margin="16,16,16,32" Spacing="12">
+
+            <TextBlock FontSize="18" FontWeight="SemiBold" Text="Press animation benchmark (60s per run)" />
+            <TextBlock x:Name="ModeDesc" TextWrapping="Wrap" Opacity="0.75" />
+
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <ToggleButton x:Name="ModeToggle" Click="OnModeToggled" />
+                <ComboBox x:Name="CountSelector" MinWidth="80" SelectedIndex="1">
+                    <ComboBoxItem>10</ComboBoxItem>
+                    <ComboBoxItem>50</ComboBoxItem>
+                    <ComboBoxItem>100</ComboBoxItem>
+                    <ComboBoxItem>200</ComboBoxItem>
+                </ComboBox>
+                <Button x:Name="GenerateButton" Click="OnGenerate" Content="Generate" />
+                <Button x:Name="StartStopButton" Click="OnStartStop" Content="Start run (60s)" />
+            </StackPanel>
+
+            <Border Background="{DynamicResource SukiCardBackground}" CornerRadius="8" Padding="12">
+                <TextBlock x:Name="LiveText" FontFamily="Consolas,Menlo,monospace" FontSize="13" TextWrapping="Wrap" Text="ready — pick a mode, generate, start." />
+            </Border>
+
+            <TextBlock FontWeight="SemiBold" Text="Run history (last 8) — note the numbers to compare:" />
+            <Border Background="{DynamicResource SukiCardBackground}" CornerRadius="8" Padding="12">
+                <TextBlock x:Name="HistoryText" FontFamily="Consolas,Menlo,monospace" FontSize="12" Text="—" TextWrapping="Wrap" />
+            </Border>
+
+            <TextBlock
+                FontSize="11"
+                Opacity="0.6"
+                Text="fps = rendered frames/s · jit = std-dev of frame intervals (ms) · eng = ms/frame spent inside the shared ticker's subscriber callbacks (suki mode only — the native XAML engine runs inside Avalonia's own clock and is not observable) · cpu = % of one core (ui = the thread both engines run on; proc = whole process incl. compositor, a cost common to both modes) · disp = avg/max delay of a Background-priority heartbeat — dispatcher congestion (100ms nominal) · MB = UI-thread allocations during the run · GC = Gen0/Gen1/Gen2 collections · clicks = gestures played. Same button count for both modes, identical click cycle (120ms press every 800ms, staggered). Gestures are code-driven in both modes; the comparison targets each animation engine's per-frame cost."
+                TextWrapping="Wrap" />
+
+            <WrapPanel x:Name="GridButtons" />
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

@@ -1,4 +1,4 @@
-﻿<UserControl
+<UserControl
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d"
@@ -142,6 +142,22 @@
                     <ScrollViewer>
                         <helpers:PullingEffect />
                     </ScrollViewer>
+                </suki:SukiSideMenuItem.PageContent>
+            </suki:SukiSideMenuItem>
+
+            <suki:SukiSideMenuItem Classes="Compact" Header="Press Stress Lab">
+                <suki:SukiSideMenuItem.Icon>
+                    <PathIcon
+                        Data="{x:Static suki:Icons.ChevronRight}"
+                        Foreground="{DynamicResource SukiLowText}"
+                        Height="13"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Width="13" />
+
+                </suki:SukiSideMenuItem.Icon>
+                <suki:SukiSideMenuItem.PageContent>
+                    <helpers:PressStressPage />
                 </suki:SukiSideMenuItem.PageContent>
             </suki:SukiSideMenuItem>
 

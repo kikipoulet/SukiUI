@@ -1,6 +1,6 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:animations="clr-namespace:SukiUI.Animations"
+                    xmlns:animations="clr-namespace:SukiUI.ControlsAnimation"
                     xmlns:suki="https://github.com/kikipoulet/SukiUI"
                     xmlns:theme="clr-namespace:SukiUI.Theme">
     <Design.PreviewWith>
@@ -228,7 +228,7 @@
     <ControlTheme x:Key="SukiButtonStyle"
                   BasedOn="{StaticResource SukiBaseButtonStyle}"
                   TargetType="Button">
-         <Setter Property="animations:SukiButtonPress.Enable" Value="True" />
+         <Setter Property="animations:SukiPress.Enable" Value="True" />
         <Setter Property="Transitions">
             <Transitions>
                 <BrushTransition Property="Background" Duration="0:0:0.1" />
@@ -262,7 +262,7 @@
 
         <!--  Classes  -->
         <Style Selector="^.NoPressedAnimation">
-            <Setter Property="animations:SukiButtonPress.Enable" Value="False" />
+            <Setter Property="animations:SukiPress.Enable" Value="False" />
             <Style Selector="^:pressed:pointerover">
                 <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
                 <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
@@ -468,7 +468,7 @@
         </Style>
 
         <Style Selector="^.Icon">
-            <Setter Property="animations:SukiButtonPress.PressDepth" Value="0.95" />
+            <Setter Property="animations:SukiPress.PressDepth" Value="0.95" />
             <Setter Property="CornerRadius" Value="100" />
             <Setter Property="Width" Value="40" />
             <Setter Property="Height" Value="40" />
