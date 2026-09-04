@@ -80,7 +80,12 @@ namespace SukiUI.ControlsAnimation
             }
         }
 
-        private static SukiPressPhysics EnsurePhysics(InputElement element)
+        /// <summary>
+        /// Gets (or lazily creates) the press engine attached to a control. Exposed so
+        /// hosts like the demo's benchmark page can drive the REAL press state machine
+        /// programmatically — no pointer input can be synthesized in Avalonia.
+        /// </summary>
+        public static SukiPressPhysics EnsurePhysics(InputElement element)
         {
             var physics = element.GetValue(PhysicsProperty);
             if (physics is null)
@@ -96,12 +101,6 @@ namespace SukiUI.ControlsAnimation
             }
             return physics;
         }
-
-        /// <summary>
-        /// Internal — used by the demo's benchmark page to drive the REAL press state
-        /// machine programmatically (no pointer input can be synthesized in Avalonia).
-        /// </summary>
-        internal static SukiPressPhysics EnsurePhysicsInternal(InputElement element) => EnsurePhysics(element);
 
         private static void OnDetachedFromVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
         {

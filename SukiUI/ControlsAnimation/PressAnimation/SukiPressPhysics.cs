@@ -23,7 +23,7 @@ namespace SukiUI.ControlsAnimation
     /// One instance per control (created lazily on the first gesture, then reused), writing
     /// directly to the control's RenderTransform (render-only, no layout).
     /// </summary>
-    internal sealed class SukiPressPhysics : IDisposable
+    public sealed class SukiPressPhysics : IDisposable
     {
         private static readonly Easing PressEase = new SukiEaseElasticIn { Damping = 2.5, Frequency = 3 };
         private static readonly Easing DeepEase = new LinearEasing();
@@ -49,6 +49,8 @@ namespace SukiUI.ControlsAnimation
         private double _springX = 1.0, _springV, _springTarget = 1.0;
         private TimeSpan _springLast;
 
+        /// <summary>Creates the engine for one control. Press depth is read lazily so a
+        /// <c>SukiPress.PressDepth</c> override is honored from the first frame.</summary>
         public SukiPressPhysics(InputElement element, SukiPressProfile preset, Func<double> getPressDepth)
         {
             _element = element;

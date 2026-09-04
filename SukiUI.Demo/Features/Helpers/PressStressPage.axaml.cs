@@ -147,7 +147,7 @@ namespace SukiUI.Demo.Features.Helpers
                     bench.PhysicsButton.Classes.Add("stressBtn");
                     GridButtons.Children.Add(bench.PhysicsButton);
                     // The very instance the style's Enable wiring would use — no duplicate.
-                    bench.Engine = SukiPress.EnsurePhysicsInternal(bench.PhysicsButton);
+                    bench.Engine = SukiPress.EnsurePhysics(bench.PhysicsButton);
                 }
                 _buttons.Add(bench);
             }
