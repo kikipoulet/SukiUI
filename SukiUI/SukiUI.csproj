@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
@@ -30,6 +30,10 @@
     <PackageReference Include="Avalonia.Controls.ColorPicker"/>
     <PackageReference Include="Avalonia.Themes.Simple"/>
     <PackageReference Include="System.Linq.Dynamic.Core"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SukiUI.Motion\SukiUI.Motion.csproj" />
   </ItemGroup>
 
   <ItemGroup>

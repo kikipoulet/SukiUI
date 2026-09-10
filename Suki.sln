@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{DB7EAF
 		Images\OIG.N5o-removebg-preview.png = Images\OIG.N5o-removebg-preview.png
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SukiUI.Motion", "SukiUI.Motion\SukiUI.Motion.csproj", "{CAD04F62-24C9-42B7-B462-12114FA77C8B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +44,10 @@ Global
 		{B82306B8-613C-4360-882B-F19FE0F3265B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B82306B8-613C-4360-882B-F19FE0F3265B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B82306B8-613C-4360-882B-F19FE0F3265B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAD04F62-24C9-42B7-B462-12114FA77C8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAD04F62-24C9-42B7-B462-12114FA77C8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAD04F62-24C9-42B7-B462-12114FA77C8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAD04F62-24C9-42B7-B462-12114FA77C8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

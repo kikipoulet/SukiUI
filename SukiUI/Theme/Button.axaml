@@ -228,7 +228,7 @@
     <ControlTheme x:Key="SukiButtonStyle"
                   BasedOn="{StaticResource SukiBaseButtonStyle}"
                   TargetType="Button">
-         <Setter Property="animations:SukiPress.Enable" Value="True" />
+         <Setter Property="animations:SukiPressMotion.Enable" Value="True" />
         <Setter Property="Transitions">
             <Transitions>
                 <BrushTransition Property="Background" Duration="0:0:0.1" />
@@ -262,7 +262,7 @@
 
         <!--  Classes  -->
         <Style Selector="^.NoPressedAnimation">
-            <Setter Property="animations:SukiPress.Enable" Value="False" />
+            <Setter Property="animations:SukiPressMotion.Enable" Value="False" />
             <Style Selector="^:pressed:pointerover">
                 <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
                 <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
@@ -468,7 +468,7 @@
         </Style>
 
         <Style Selector="^.Icon">
-            <Setter Property="animations:SukiPress.PressDepth" Value="0.95" />
+            <Setter Property="animations:SukiPressMotion.PressDepth" Value="0.95" />
             <Setter Property="CornerRadius" Value="100" />
             <Setter Property="Width" Value="40" />
             <Setter Property="Height" Value="40" />
