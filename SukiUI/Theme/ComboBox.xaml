@@ -175,7 +175,7 @@
                                                     ClipToBounds="True"
                                                     CornerRadius="{DynamicResource SmallCornerRadius}">
                                                 <Panel Background="{DynamicResource PopupGradientBrush}">
-                                                    <suki:GlassCard Margin="-1"
+                                                    <suki:GlassCard IsAnimated="False"
                                                                     CornerRadius="{DynamicResource SmallCornerRadius}" />
                                                     <!--
                                                         AllowAutoHide is off here on purpose: the drop-down is
