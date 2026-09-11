@@ -7,16 +7,22 @@ namespace SukiUI.Motion
     /// <summary>
     /// Anything runnable on a channel. A program object is a REUSABLE DESCRIPTION: its
     /// runtime state is (re)initialized by <see cref="Start"/> every time it wins the
-    /// channel, so the same object may run many times (one per gesture).
+    /// channel, so the same object may run many times (one per gesture). <see cref="Done"/>
+    /// is part of that runtime state — set by <see cref="Advance"/> when the program
+    /// finishes, readable by the members observing it (derived writes) and by the
+    /// choreography that steps it.
     /// </summary>
     internal abstract class Program
     {
         /// <summary>
         /// The channel this program writes, bound at construction — the strong typing of the
         /// layer: channels are compiled properties of a <see cref="MotionContext"/>, so a
-        /// program simply cannot point at the wrong property.
+        /// program simply cannot point at the wrong property. Channel-less programs (the
+        /// item cascade) leave it null.
         /// </summary>
-        internal Channel Channel = null!;
+        internal Channel? Channel;
+
+        internal bool Done;
 
         /// <summary>Capture the start pose (clamped where the behavior requires it), resolve
         /// lazy arguments (per-gesture snapshot semantics), reset runtime state.</summary>
@@ -24,6 +30,28 @@ namespace SukiUI.Motion
 
         /// <summary>Advance to <paramref name="now"/> and write the pose; false when finished.</summary>
         internal abstract bool Advance(TimeSpan now);
+
+        /// <summary>
+        /// Starts the program on its channel at choreography start: forced preemption with
+        /// spring velocity carry through <see cref="Channel.Run(Program)"/>; channel-less
+        /// programs (the cascade) simply start.
+        /// </summary>
+        internal void Run()
+        {
+            if (Channel is { } channel)
+                channel.Run(this);
+            else
+                Start();
+        }
+
+        /// <summary>
+        /// The plan's From rule: a From PRE-POSES its channel when at rest — written before
+        /// the choreography's preamble makes the popup visible (no flash) — and is ignored
+        /// while a program is in flight (a reopen mid-collapse resumes pose + velocity).
+        /// Called by the choreography before its preamble; only trajectory programs carry
+        /// one, the default is a no-op.
+        /// </summary>
+        internal virtual void PrePose() { }
     }
 
     /// <summary>
@@ -40,7 +68,11 @@ namespace SukiUI.Motion
             _value = value;
         }
 
-        internal override void Start() => Channel.Write(_value);
+        internal override void Start()
+        {
+            Done = true;
+            Channel!.Write(_value);
+        }
 
         internal override bool Advance(TimeSpan now) => false;
     }
@@ -50,14 +82,16 @@ namespace SukiUI.Motion
     /// Usable standalone (hover ramps) or as a <see cref="Chain"/> step. Lazy arguments are
     /// resolved once, at <see cref="Start"/> — the "per gesture" snapshot semantics of the
     /// proven engine: a live profile switch applies to the NEXT gesture, never mid-flight.
+    /// Starts from the channel's current pose; an explicit <see cref="From(double)"/> is a
+    /// PRE-POSE, not a start override (see <see cref="PrePose"/>).
     /// </summary>
     internal sealed class TimedTrajectory : Program
     {
-        private readonly Func<double> _to;
-        private readonly bool _lazyTarget; // lazy targets back retargetable springs
+        private Func<double> _to;
+        private bool _lazyTarget; // lazy targets back retargetable springs
+        private Func<double?>? _from; // the plan's From rule (pre-pose when idle)
         private Func<TimeSpan> _duration = static () => TimeSpan.FromMilliseconds(150);
         private Easing _easing = new LinearEasing();
-        private double? _fromConst;
 
         // Runtime (resolved at Start).
         private double _fromValue, _toValue;
@@ -70,12 +104,37 @@ namespace SukiUI.Motion
             _lazyTarget = lazyTarget;
         }
 
-        /// <summary>Explicit start pose (pre-poses the channel when it is at rest; ignored
-        /// when a program is in flight — the popup reopen rule of the plan).</summary>
+        /// <summary>Sets the constant target of a trajectory begun with the channel's From.</summary>
+        internal TimedTrajectory To(double to)
+        {
+            _to = () => to;
+            _lazyTarget = false;
+            Channel!.Track(to);
+            return this;
+        }
+
+        /// <summary>Sets a lazy target (resolved at each Start) on a trajectory begun with
+        /// the channel's From — and makes the paired spring retargetable mid-flight.</summary>
+        internal TimedTrajectory To(Func<double> to)
+        {
+            _to = to;
+            _lazyTarget = true;
+            return this;
+        }
+
+        /// <summary>Explicit start pose — the plan's From rule: PRE-POSED on an idle channel
+        /// by the hosting choreography (before the popup shows), ignored while a program is
+        /// in flight. Propagates to the spring derived from this trajectory.</summary>
         internal TimedTrajectory From(double from)
         {
-            _fromConst = from;
-            Channel.Track(from);
+            _from = () => from;
+            return this;
+        }
+
+        /// <summary>From resolved per gesture (profile-driven during the port).</summary>
+        internal TimedTrajectory From(Func<double> from)
+        {
+            _from = () => from();
             return this;
         }
 
@@ -106,30 +165,36 @@ namespace SukiUI.Motion
         internal Chain MustFinish() => new(this, mustFinishFirst: true);
 
         /// <summary>Spring-driven trajectory toward this trajectory's (lazy) target —
-        /// the release physics.</summary>
-        internal SpringTrajectory Spring(Spring spring)
-        {
-            Spring captured = spring;
-            return new SpringTrajectory(Channel, () => captured, _to, _lazyTarget);
-        }
+        /// the release physics. Carries the From rule of this trajectory.</summary>
+        internal SpringTrajectory Spring(Spring spring) => new(Channel!, () => spring, _to, _lazyTarget, _from);
 
         /// <summary>Spring parameters resolved per gesture (profile-driven during the port).</summary>
-        internal SpringTrajectory Spring(Func<Spring> spring) => new(Channel, spring, _to, _lazyTarget);
+        internal SpringTrajectory Spring(Func<Spring> spring) => new(Channel!, spring, _to, _lazyTarget, _from);
+
+        internal override void PrePose()
+        {
+            if (_from?.Invoke() is { } value && Channel is { } channel)
+                channel.PrePoseIfIdle(value);
+        }
 
         internal override void Start()
         {
-            _fromValue = _fromConst ?? Channel.Value;
+            _fromValue = Channel!.Value; // a From already pre-posed the idle channel; in flight, the pose is live
             _toValue = _to();
             Channel.Track(_toValue);
             _durationValue = _duration();
             _start = SukiTicker.Now;
+            Done = false;
         }
 
         internal override bool Advance(TimeSpan now)
         {
             double t = Progress(now);
-            Channel.Write(Integrator.Lerp(_fromValue, _toValue, _easing.Ease(t)));
-            return t < 1.0;
+            Channel!.Write(Integrator.Lerp(_fromValue, _toValue, _easing.Ease(t)));
+            if (t < 1.0)
+                return true;
+            Done = true;
+            return false;
         }
 
         private double Progress(TimeSpan now) =>
@@ -141,32 +206,39 @@ namespace SukiUI.Motion
         internal Func<double> ToFactory => _to;
         internal Func<TimeSpan> DurationFactory => _duration;
         internal Easing EasingValue => _easing;
-        internal double? FromConst => _fromConst;
     }
 
     /// <summary>
     /// A real damped-spring integration toward a (possibly lazy) target. Starts from the
-    /// channel pose — clamped to the channel window, from rest: timed phases carry no
-    /// velocity, exactly like the proven release spring (<c>_springV = 0</c>). Settles at
-    /// 0.0005/0.02 with an exact snap onto the resting point. A lazy target can be
-    /// re-resolved mid-flight without touching pose or velocity: the mid-bounce retarget
-    /// where "the target moves without a snap".
+    /// channel pose — clamped to the channel window — from rest (timed phases carry no
+    /// velocity, exactly like the proven release spring) unless a choreography seeded the
+    /// live velocity of the spring it displaced (<see cref="SeedVelocity"/> — the popup's
+    /// mid-collapse reopen). Settles at 0.0005/0.02 with an exact snap onto the resting
+    /// point. A lazy target can be re-resolved mid-flight without touching pose or velocity:
+    /// the mid-bounce retarget where "the target moves without a snap".
     /// </summary>
     internal sealed class SpringTrajectory : Program
     {
         private readonly Func<Spring> _spring;
         private readonly Func<double> _target;
         private readonly bool _retargetable;
+        private readonly Func<double?>? _from; // the plan's From rule (pre-pose when idle)
         private Spring _springValue;
-        private double _x, _v, _targetValue;
+        private double _x, _v, _targetValue, _seedV;
         private TimeSpan _last;
 
-        internal SpringTrajectory(Channel channel, Func<Spring> spring, Func<double> target, bool retargetable)
+        internal SpringTrajectory(
+            Channel channel,
+            Func<Spring> spring,
+            Func<double> target,
+            bool retargetable,
+            Func<double?>? from = null)
         {
             Channel = channel;
             _spring = spring;
             _target = target;
             _retargetable = retargetable;
+            _from = from;
         }
 
         /// <summary>Live velocity of the spring (0 before Start / after settle).</summary>
@@ -174,14 +246,26 @@ namespace SukiUI.Motion
 
         internal bool CanRetarget => _retargetable;
 
+        /// <summary>Carries the velocity of the spring this one displaces (choreography
+        /// preemption); consumed — and reset to "from rest" — by the next Start.</summary>
+        internal void SeedVelocity(double v) => _seedV = v;
+
+        internal override void PrePose()
+        {
+            if (_from?.Invoke() is { } value && Channel is { } channel)
+                channel.PrePoseIfIdle(value);
+        }
+
         internal override void Start()
         {
             _springValue = _spring();
-            _x = Channel.ClampPose(Channel.Value);
-            _v = 0.0; // released from rest
+            _x = Channel!.ClampPose(Channel.Value);
+            _v = _seedV;
+            _seedV = 0.0;
             _targetValue = _target();
             Channel.Track(_targetValue);
             _last = SukiTicker.Now;
+            Done = false;
         }
 
         internal override bool Advance(TimeSpan now)
@@ -189,13 +273,14 @@ namespace SukiUI.Motion
             double dt = Math.Min((now - _last).TotalSeconds, 0.05);
             _last = now;
             Integrator.Step(ref _x, ref _v, _targetValue, dt, _springValue);
-            Channel.Write(_x);
+            Channel!.Write(_x);
 
             if (Math.Abs(_x - _targetValue) < Integrator.SettlePosition &&
                 Math.Abs(_v) < Integrator.SettleVelocity)
             {
                 _x = _targetValue; // settled: snap exactly onto the resting point
                 Channel.Write(_x);
+                Done = true;
                 return false;
             }
 
@@ -208,7 +293,7 @@ namespace SukiUI.Motion
             if (!_retargetable)
                 return;
             _targetValue = _target();
-            Channel.Track(_targetValue);
+            Channel!.Track(_targetValue);
         }
     }
 
@@ -250,7 +335,8 @@ namespace SukiUI.Motion
         {
             _parked = null; // a re-armed chain purges the memorized release
             _index = 0;
-            BeginStep(SukiTicker.Now, from: _steps[0].FromConst ?? Channel.ClampPose(Channel.Value));
+            Done = false;
+            BeginStep(SukiTicker.Now, from: Channel!.ClampPose(Channel.Value));
         }
 
         internal override bool Advance(TimeSpan now)
@@ -258,7 +344,7 @@ namespace SukiUI.Motion
             double t = _duration <= TimeSpan.Zero
                 ? 1.0
                 : Math.Min((now - _stepStart).TotalMilliseconds / _duration.TotalMilliseconds, 1.0);
-            Channel.Write(Integrator.Lerp(_from, _to, _steps[_index].EasingValue.Ease(t)));
+            Channel!.Write(Integrator.Lerp(_from, _to, _steps[_index].EasingValue.Ease(t)));
             if (t < 1.0)
                 return true;
 
@@ -266,6 +352,7 @@ namespace SukiUI.Motion
             {
                 // The descent played to the end: the release memorized meanwhile fires now,
                 // from the pose just reached — the old completion tick.
+                Done = true;
                 Channel.Handoff(release);
                 return false;
             }
@@ -277,7 +364,8 @@ namespace SukiUI.Motion
                 return true;
             }
 
-            return false; // hold at the bottom
+            Done = true; // hold at the bottom
+            return false;
         }
 
         /// <summary>Called by the channel when a spring is offered while this chain runs.</summary>
@@ -286,7 +374,7 @@ namespace SukiUI.Motion
             if (_mustFinishFirst && _index == 0)
                 _parked = release; // memorized: the guaranteed descent keeps the channel
             else
-                Channel.Replace(this, release); // deep stretch: the release takes over now
+                Channel!.Replace(this, release); // deep stretch: the release takes over now
         }
 
         private void BeginStep(TimeSpan now, double from)
@@ -294,7 +382,7 @@ namespace SukiUI.Motion
             var step = _steps[_index];
             _from = from;
             _to = step.ToFactory();
-            Channel.Track(_to);
+            Channel!.Track(_to);
             _duration = step.DurationFactory();
             _stepStart = now;
         }

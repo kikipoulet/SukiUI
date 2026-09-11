@@ -55,10 +55,10 @@
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
        
         <Setter Property="RenderTransformOrigin" Value="50%, 50%" />
-        <Setter Property="animations:SukiPress.Enable" Value="True" />
-        <Setter Property="animations:SukiPress.Preset" Value="ComboBox" />
-     
-        <Setter Property="animations:SukiPopupAnimation.Enable" Value="True" />
+        <Setter Property="animations:SukiPressMotion.Enable" Value="True" />
+        <Setter Property="animations:SukiPressMotion.Preset" Value="ComboBox" />
+
+        <Setter Property="animations:SukiPopupMotion.Enable" Value="True" />
         <Setter Property="Template">
             <ControlTemplate>
                 <!--  Padding leaves room for the GlassCard shadow; the popup's HorizontalOffset cancels it.  -->
@@ -152,7 +152,7 @@
                             </ToggleButton>
                             <!--  Dummy required template part: content-less, never renders anything.  -->
                             <Popup Name="PART_Popup" />
-                            <!--  The real drop-down: IsOpen is owned by SukiPopupAnimation only (no
+                            <!--  The real drop-down: IsOpen is owned by SukiPopupMotion only (no
                                   binding, no light dismiss — outside presses are detected by the
                                   behavior itself, so the popup is never closed behind its back).  -->
                             <Popup Name="PART_SukiPopup"
@@ -205,9 +205,9 @@
         </Setter>
 
         <!--
-            Open/close animations live in SukiPopupAnimation (springs with SukiPress's
-            constants, velocity-driven motion blur, staggered item cascade). Selector-triggered
-            keyframe animations cannot survive an IsDropDownOpen flip, so they were removed.
+            Open/close animations live in SukiPopupMotion (springs, velocity-driven motion
+            blur, staggered item cascade). Selector-triggered keyframe animations cannot
+            survive an IsDropDownOpen flip, so they were removed.
         -->
 
         <Style Selector="^[IsEditable=true]">

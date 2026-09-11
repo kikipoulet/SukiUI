@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Avalonia;
 using Avalonia.Animation.Easings;
 using Avalonia.Input;
@@ -16,14 +17,14 @@ namespace SukiUI.ControlsAnimation
     /// The button/combobox press behavior described declaratively over the SukiUI.Motion
     /// engine (see SukiUI.Motion/Plan.md): channels → named trajectories → trigger wiring.
     /// Same XAML surface and same semantics as <see cref="SukiPress"/> — Enable (from
-    /// <see cref="SukiMotion{TSelf,TTarget}"/>)/Preset/PressDepth attached properties,
+    /// <see cref="SukiMotion{TSelf}"/>)/Preset/PressDepth attached properties,
     /// profile resolved per gesture through <see cref="SukiAnimationTheme"/> so a live
     /// switch applies to the NEXT gesture — with every line of ticker/integration/transform
     /// plumbing living in the engine instead of an imperative physics class. This is the
     /// drop-in candidate for <see cref="SukiPress"/>; both coexist until the port is
     /// validated.
     /// </summary>
-    public class SukiPressMotion : SukiMotion<SukiPressMotion, InputElement>
+    public class SukiPressMotion : SukiMotion<SukiPressMotion>
     {
         public static readonly AttachedProperty<SukiPressPreset> PresetProperty =
             AvaloniaProperty.RegisterAttached<SukiPressMotion, InputElement, SukiPressPreset>(
@@ -48,9 +49,16 @@ namespace SukiUI.ControlsAnimation
         /// whose resting point re-resolves live when the pointer enters/leaves mid-bounce.
         /// All values are read from the active profile when each program starts.
         /// </summary>
-        internal override Mover? Attach(InputElement element)
+        internal override Mover? Attach(AvaloniaObject owner)
         {
+            if (owner is not InputElement element)
+            {
+                Debug.WriteLine($"SukiPressMotion: '{owner.GetType().Name}' is not an InputElement — Enable ignored.");
+                return null;
+            }
+
             var scale = Motion.For(element).Scale;
+            
 
             // Per-gesture profile snapshot (resolved when each program starts — a live
             // SukiAnimationTheme switch applies to the NEXT gesture, never mid-animation).
@@ -65,34 +73,36 @@ namespace SukiUI.ControlsAnimation
             var pressEase = new SukiEaseElasticIn { Damping = 2.5, Frequency = 3 };
             var deepEase = new LinearEasing();
 
+            var hoverIn = scale
+                .To(() => P().HoverScale)
+                .Over(() => P().HoverDuration).Ease(hoverEase);
+            var hoverOut = scale
+                .To(1.0)
+                .Over(() => P().HoverDuration).Ease(hoverEase);
+
             // Release equilibrium, re-resolved at pointer entries/exits: mid-bounce, the
             // target moves without a snap — from pose + velocity.
             var relax = scale
                 .To(() => element.IsPointerOver ? P().HoverScale : 1.0)
                 .Spring(() => new Spring(P().SpringOmega, P().SpringDecay));
 
+            // MustFinish means that this animation will be played to the end even if pressed state is interrupted by release
+            // We wants that because if we aimed a 'compression' state of 95% and use a translation, the click release will interrupt the compression animation before we even reach it. if we increase the animation speed to match the click duration, it looks worse
+            // So we need to configure a "mandatory" animation to our depth that mustfinish and will trigger the released animation once we reach the compression we wanted, while permitting to do a long click that will compress the button a little more, while the release will adapt to the compression position
+            // Immersivity is the goal here, we wants animations that adapt to user click, and could adapt to more (button weight, ..)
+            var pressChain = scale
+                .To(Depth)
+                .Over(() => P().PressDuration).Ease(pressEase).MustFinish()
+                .Then(scale.To(() => Depth() - P().ExtraDeepRange) // This part can be interrupted
+                    .Over(() => P().DeepDuration).Ease(deepEase));
+
             return new Mover(element)
-
-                .OnPointerEntered(scale
-                    .To(() => P().HoverScale)
-                    .Over(() => P().HoverDuration).Ease(hoverEase))
-
-                .OnPointerExited(scale
-                    .To(1.0)
-                    .Over(() => P().HoverDuration).Ease(hoverEase))
-
-
-                .OnPointerPressed(scale
-                    .To(Depth)
-                    .Over(() => P().PressDuration).Ease(pressEase).MustFinish() // MustFinish means that this animation will be played to the end even if pressed state is interrupted by release
-                    // We wants that because if we aimed a 'compression' state of 95% and use a translation, the click release will interrupt the compression animation before we even reach it. if we increase the animation speed to match the click duration, it looks worse
-                    // So we need to configure a "mandatory" animation to our depth that mustfinish and will trigger the released animation once we reach the compression we wanted, while permitting to do a long click that will compress the button a little more, while the release will adapt to the compression position
-                    // Immersivity is the goal here, we wants animations that adapt to user click, and could adapt to more (button weight, ..)
-                    .Then(scale.To(() => Depth() - P().ExtraDeepRange) // This part can be interrupted
-                        .Over(() => P().DeepDuration).Ease(deepEase)))
-
-                .OnPointerReleased(relax)
-                .OnPointerCaptureLost(relax)
+                .OnEvent(InputElement.PointerEnteredEvent, hoverIn)
+                .OnEvent(InputElement.PointerExitedEvent, hoverOut)
+                // Buttons and combo boxes mark these handled in their class handlers.
+                .OnEvent(InputElement.PointerPressedEvent, pressChain, handledEventsToo: true)
+                .OnEvent(InputElement.PointerReleasedEvent, relax, handledEventsToo: true)
+                .OnEvent(InputElement.PointerCaptureLostEvent, relax)
                 .OnDetachedFromVisualTree(scale.Pose(1.0));
         }
     }
