@@ -12,24 +12,27 @@ namespace SukiUI.Motion
     /// finishes, readable by the members observing it (derived writes) and by the
     /// choreography that steps it.
     /// </summary>
-    internal abstract class Program
+    public abstract class Program
     {
         /// <summary>
-        /// The channel this program writes, bound at construction — the strong typing of the
-        /// layer: channels are compiled properties of a <see cref="MotionContext"/>, so a
+        /// The channel this program writes, bound at construction — the strong typing of
+        /// the layer: channels are compiled properties of a <see cref="Surface"/>, so a
         /// program simply cannot point at the wrong property. Channel-less programs (the
-        /// item cascade) leave it null.
+        /// item cascade) leave it null. Public setter: custom program types bind themselves.
         /// </summary>
-        internal Channel? Channel;
+        public Channel? Channel { get; set; }
 
-        internal bool Done;
+        /// <summary>Finished flag — set by <c>Advance</c> when the program completes,
+        /// readable by the members observing it and by the choreography stepping it.
+        /// Public setter for custom program types.</summary>
+        public bool Done { get; set; }
 
         /// <summary>Capture the start pose (clamped where the behavior requires it), resolve
         /// lazy arguments (per-gesture snapshot semantics), reset runtime state.</summary>
-        internal abstract void Start();
+        public abstract void Start();
 
         /// <summary>Advance to <paramref name="now"/> and write the pose; false when finished.</summary>
-        internal abstract bool Advance(TimeSpan now);
+        public abstract bool Advance(TimeSpan now);
 
         /// <summary>
         /// Starts the program on its channel at choreography start: forced preemption with
@@ -51,30 +54,30 @@ namespace SukiUI.Motion
         /// Called by the choreography before its preamble; only trajectory programs carry
         /// one, the default is a no-op.
         /// </summary>
-        internal virtual void PrePose() { }
+        public virtual void PrePose() { }
     }
 
     /// <summary>
     /// An instantaneous pose write. A pose wins over everything: whatever was running stops,
     /// the pose lands, the channel rests (detach/disable lifecycle).
     /// </summary>
-    internal sealed class PoseProgram : Program
+    public sealed class PoseProgram : Program
     {
         private readonly double _value;
 
-        internal PoseProgram(Channel channel, double value)
+        public PoseProgram(Channel channel, double value)
         {
             Channel = channel;
             _value = value;
         }
 
-        internal override void Start()
+        public override void Start()
         {
             Done = true;
             Channel!.Write(_value);
         }
 
-        internal override bool Advance(TimeSpan now) => false;
+        public override bool Advance(TimeSpan now) => false;
     }
 
     /// <summary>
@@ -85,7 +88,7 @@ namespace SukiUI.Motion
     /// Starts from the channel's current pose; an explicit <see cref="From(double)"/> is a
     /// PRE-POSE, not a start override (see <see cref="PrePose"/>).
     /// </summary>
-    internal sealed class TimedTrajectory : Program
+    public sealed class TimedTrajectory : Program
     {
         private static readonly Easing DefaultEase = new LinearEasing(); // stateless, shared
 
@@ -108,7 +111,7 @@ namespace SukiUI.Motion
         }
 
         /// <summary>Sets the constant target of a trajectory begun with the channel's From.</summary>
-        internal TimedTrajectory To(double to)
+        public TimedTrajectory To(double to)
         {
             _to = () => to;
             _lazyTarget = false;
@@ -118,7 +121,7 @@ namespace SukiUI.Motion
 
         /// <summary>Sets a lazy target (resolved at each Start) on a trajectory begun with
         /// the channel's From — and makes the paired spring retargetable mid-flight.</summary>
-        internal TimedTrajectory To(Func<double> to)
+        public TimedTrajectory To(Func<double> to)
         {
             _to = to;
             _lazyTarget = true;
@@ -128,38 +131,38 @@ namespace SukiUI.Motion
         /// <summary>Explicit start pose — the plan's From rule: PRE-POSED on an idle channel
         /// by the hosting choreography (before the popup shows), ignored while a program is
         /// in flight. Propagates to the spring derived from this trajectory.</summary>
-        internal TimedTrajectory From(double from)
+        public TimedTrajectory From(double from)
         {
             _from = () => from;
             return this;
         }
 
         /// <summary>From resolved per gesture (profile-driven during the port).</summary>
-        internal TimedTrajectory From(Func<double> from)
+        public TimedTrajectory From(Func<double> from)
         {
             _from = () => from();
             return this;
         }
 
-        internal TimedTrajectory Over(TimeSpan duration)
+        public TimedTrajectory Over(TimeSpan duration)
         {
             _duration = () => duration;
             return this;
         }
 
         /// <summary>Duration resolved per gesture (profile-driven during the port).</summary>
-        internal TimedTrajectory Over(Func<TimeSpan> duration)
+        public TimedTrajectory Over(Func<TimeSpan> duration)
         {
             _duration = duration;
             return this;
         }
 
-        internal TimedTrajectory Ease(Easing easing) => Ease(() => easing);
+        public TimedTrajectory Ease(Easing easing) => Ease(() => easing);
 
         /// <summary>Easing resolved per gesture (size- or profile-driven during the port) —
         /// the recipe form of <see cref="Ease(Easing)"/>, mirroring
         /// <see cref="Over(TimeSpan)"/>/<see cref="Over(Func{TimeSpan})"/>.</summary>
-        internal TimedTrajectory Ease(Func<Easing> easing)
+        public TimedTrajectory Ease(Func<Easing> easing)
         {
             _easing = easing;
             return this;
@@ -170,22 +173,22 @@ namespace SukiUI.Motion
         /// gesture — the returned chain owns the channel until that step completes (see
         /// <see cref="Chain"/>).
         /// </summary>
-        internal Chain MustFinish() => new(this, mustFinishFirst: true);
+        public Chain MustFinish() => new(this, mustFinishFirst: true);
 
         /// <summary>Spring-driven trajectory toward this trajectory's (lazy) target —
         /// the release physics. Carries the From rule of this trajectory.</summary>
-        internal SpringTrajectory Spring(Spring spring) => new(Channel!, () => spring, _to, _lazyTarget, _from);
+        public SpringTrajectory Spring(Spring spring) => new(Channel!, () => spring, _to, _lazyTarget, _from);
 
         /// <summary>Spring parameters resolved per gesture (profile-driven during the port).</summary>
-        internal SpringTrajectory Spring(Func<Spring> spring) => new(Channel!, spring, _to, _lazyTarget, _from);
+        public SpringTrajectory Spring(Func<Spring> spring) => new(Channel!, spring, _to, _lazyTarget, _from);
 
-        internal override void PrePose()
+        public override void PrePose()
         {
             if (_from?.Invoke() is { } value && Channel is { } channel)
                 channel.PrePoseIfIdle(value);
         }
 
-        internal override void Start()
+        public override void Start()
         {
             _fromValue = Channel!.Value; // a From already pre-posed the idle channel; in flight, the pose is live
             _toValue = _to();
@@ -196,7 +199,7 @@ namespace SukiUI.Motion
             Done = false;
         }
 
-        internal override bool Advance(TimeSpan now)
+        public override bool Advance(TimeSpan now)
         {
             double t = Progress(now);
             Channel!.Write(Integrator.Lerp(_fromValue, _toValue, _easingValue.Ease(t)));
@@ -228,7 +231,7 @@ namespace SukiUI.Motion
     /// point. A lazy target can be re-resolved mid-flight without touching pose or velocity:
     /// the mid-bounce retarget where "the target moves without a snap".
     /// </summary>
-    internal sealed class SpringTrajectory : Program
+    public sealed class SpringTrajectory : Program
     {
         private readonly Func<Spring> _spring;
         private readonly Func<double> _target;
@@ -261,19 +264,19 @@ namespace SukiUI.Motion
         /// <summary>Arms an initial velocity — a scripted kick (the dialog shake impulse)
         /// or the carried velocity of a displaced spring (the popup reopen). Consumed by
         /// the next Start; null = released from rest.</summary>
-        internal void SeedVelocity(double v) => _seedV = v;
+        public void SeedVelocity(double v) => _seedV = v;
 
         /// <summary>True when an explicit kick is armed — the ambient-velocity carry of
         /// <see cref="Channel.Run(Program)"/> must not overwrite it.</summary>
-        internal bool HasKick => _seedV.HasValue;
+        public bool HasKick => _seedV.HasValue;
 
-        internal override void PrePose()
+        public override void PrePose()
         {
             if (_from?.Invoke() is { } value && Channel is { } channel)
                 channel.PrePoseIfIdle(value);
         }
 
-        internal override void Start()
+        public override void Start()
         {
             _springValue = _spring();
             _x = Channel!.ClampPose(Channel.Value);
@@ -285,7 +288,7 @@ namespace SukiUI.Motion
             Done = false;
         }
 
-        internal override bool Advance(TimeSpan now)
+        public override bool Advance(TimeSpan now)
         {
             double dt = Math.Min((now - _last).TotalSeconds, 0.05);
             _last = now;
@@ -305,7 +308,7 @@ namespace SukiUI.Motion
         }
 
         /// <summary>The resting point moves without a snap — pose and velocity are kept.</summary>
-        internal void Retarget()
+        public void Retarget()
         {
             if (!_retargetable)
                 return;
@@ -324,7 +327,7 @@ namespace SukiUI.Motion
     /// stretch) an offered spring interrupts immediately. The last step finishing leaves the
     /// channel resting wherever it is (hold at the bottom).
     /// </summary>
-    internal sealed class Chain : Program
+    public sealed class Chain : Program
     {
         private readonly List<TimedTrajectory> _steps;
         private readonly bool _mustFinishFirst;
@@ -342,13 +345,13 @@ namespace SukiUI.Motion
 
         /// <summary>Appends the next step; it only begins if the intention still holds at the
         /// previous step's completion (no memorized release is waiting).</summary>
-        internal Chain Then(TimedTrajectory next)
+        public Chain Then(TimedTrajectory next)
         {
             _steps.Add(next);
             return this;
         }
 
-        internal override void Start()
+        public override void Start()
         {
             _parked = null; // a re-armed chain purges the memorized release
             _index = 0;
@@ -356,7 +359,7 @@ namespace SukiUI.Motion
             BeginStep(SukiTicker.Now, from: Channel!.ClampPose(Channel.Value));
         }
 
-        internal override bool Advance(TimeSpan now)
+        public override bool Advance(TimeSpan now)
         {
             double t = _duration <= TimeSpan.Zero
                 ? 1.0

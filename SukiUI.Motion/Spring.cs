@@ -4,11 +4,11 @@ namespace SukiUI.Motion
 {
     /// <summary>
     /// The damped-spring parameters of a trajectory: <c>x'' = -omega²(x - target) - decay·x'</c>.
-    /// The low-level truth of the engine — the exact pixels of the proven ControlsAnimation
-    /// physics. SwiftUI-style sugar (<c>Spring(duration:, bounce:)</c>) is deliberately absent
-    /// for now: it is a spelling convenience on top of these two numbers, phase 2.
+    /// The low-level truth of the engine — the exact pixels of the integrated physics.
+    /// SwiftUI-style sugar (<c>Spring(duration:, bounce:)</c>) is deliberately absent
+    /// for now: it is a spelling convenience on top of these two numbers.
     /// </summary>
-    internal readonly record struct Spring(double Omega, double Decay);
+    public readonly record struct Spring(double Omega, double Decay);
 
     /// <summary>
     /// The shared integrator: semi-implicit Euler with substeps capped at 8 ms — the exact

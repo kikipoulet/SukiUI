@@ -4,7 +4,6 @@ using Avalonia;
 using Avalonia.Animation.Easings;
 using Avalonia.Controls;
 using Avalonia.VisualTree;
-using SukiUI.Animations;   // SukiSpringEaseOut — the easings stay in Animations/
 using SukiUI.Controls.GlassMorphism;
 using SukiUI.Motion;
 

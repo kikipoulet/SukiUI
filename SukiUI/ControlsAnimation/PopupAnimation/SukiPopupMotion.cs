@@ -14,17 +14,14 @@ namespace SukiUI.ControlsAnimation
     using Motion = SukiUI.Motion.Motion;
 
     /// <summary>
-    /// The ComboBox drop-down behavior described declaratively over the SukiUI.Motion engine
-    /// (see SukiUI.Motion/Plan.md) — SukiPopupPhysics retold as two choreographies: open =
-    /// springs to full scale + opacity fade + velocity-driven motion blur + staggered item
-    /// cascade; close = partial collapse springs + dissolve blur, the real IsOpen=false
-    /// flipping only at settle. Same XAML surface and same semantics as
-    /// <see cref="SukiPopupAnimation"/> — Enable (from <see cref="SukiMotion{TSelf}"/>)
-    /// and Preset attached properties, profile resolved per open/close through
-    /// <see cref="SukiAnimationTheme"/> so a live switch applies to the NEXT transition.
-    /// Template contract unchanged: PART_SukiPopup / PART_LayoutTransform / PART_ItemsPresenter.
-    /// This is the drop-in candidate for SukiPopupAnimation; both coexist until the port is
-    /// validated.
+    /// The ComboBox drop-down behavior described declaratively over the SukiUI.Motion
+    /// engine (see SukiUI.Motion/Plan.md): open = springs to full scale + opacity fade +
+    /// velocity-driven motion blur + staggered item cascade; close = partial collapse
+    /// springs + dissolve blur, the real IsOpen=false flipping only at settle. Enable
+    /// (from <see cref="SukiMotion{TSelf}"/>) and Preset attached properties, profile
+    /// resolved per open/close through <see cref="SukiAnimationTheme"/> so a live switch
+    /// applies to the NEXT transition. Template contract: PART_SukiPopup /
+    /// PART_LayoutTransform / PART_ItemsPresenter.
     /// </summary>
     public class SukiPopupMotion : SukiMotion<SukiPopupMotion>
     {

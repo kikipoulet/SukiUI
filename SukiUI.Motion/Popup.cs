@@ -18,7 +18,7 @@ namespace SukiUI.Motion
     /// runs ONE choreography at a time (open preempts close and back). The channels it
     /// exposes write through the CURRENT root — a re-applied template simply repoints them.
     /// </summary>
-    internal sealed class PopupHandle
+    public sealed class PopupHandle
     {
         private readonly TemplatedControl _host;
         private readonly string _popupPart;
@@ -57,26 +57,26 @@ namespace SukiUI.Motion
         /// <summary>The popup's animated root — the single surface vocabulary.</summary>
         internal Surface Root { get; }
 
-        internal bool IsOpen => _popup?.IsOpen ?? false;
+        public bool IsOpen => _popup?.IsOpen ?? false;
 
         /// <summary>Re-opened behind the engine's back while the host wants open and nothing
         /// runs: the behavior plays its open choreography here (the Opened safety net).</summary>
-        internal Action? SafetyReopen { get; set; }
+        public Action? SafetyReopen { get; set; }
 
         /// <summary>The real popup closed abnormally (window teardown and the like) while the
         /// host still wants open: the behavior syncs the host state here.</summary>
-        internal event Action? AbnormalClose;
+        public event Action? AbnormalClose;
 
         /// <summary>Every non-settle termination of the running choreography (template
         /// re-apply, detach, abnormal close, disable): the behavior resets its cascade.</summary>
-        internal event Action? Stopped;
+        public event Action? Stopped;
 
         // ---- choreography arena --------------------------------------------------------
 
         /// <summary>One choreography at a time — the single-state-machine rule of the old
         /// engine: starting one stops the running one frozen at its current pose (its
         /// channels stay active: the displacing members read pose + velocity).</summary>
-        internal void Play(Choreography choreography)
+        public void Play(Choreography choreography)
         {
             // Fail-safe of the old engine, re-run at every open-property change: the
             // template walk at TemplateApplied time can still see nothing (the template
@@ -89,7 +89,7 @@ namespace SukiUI.Motion
             choreography.Start(TickOwner);
         }
 
-        internal void StopCurrent()
+        public void StopCurrent()
         {
             _current?.Stop();
             _current = null;
@@ -102,7 +102,7 @@ namespace SukiUI.Motion
         /// preamble runs (no one-frame flash); in flight, the Froms are skipped and the
         /// members resume pose + velocity.
         /// </summary>
-        internal Choreography Show() => new(() =>
+        public Choreography Show() => new(() =>
         {
             if (_popup is { } popup)
                 popup.IsOpen = true;
@@ -111,7 +111,7 @@ namespace SukiUI.Motion
         /// <summary>Close settle: drop the blur and flip the real popup closed — the engine's
         /// only legitimate close. The collapsed pose itself is not written (the popup is
         /// already invisible; the next fresh open pre-poses it again).</summary>
-        internal void Hide()
+        public void Hide()
         {
             Root.Blur.Write(0.0);
             if (_popup is { IsOpen: true } popup)
@@ -122,7 +122,7 @@ namespace SukiUI.Motion
         /// close the real popup — no animation, no settle actions. The channels are RESTED
         /// (not just stopped): the next fresh open's Froms pre-pose them whatever frozen
         /// state this close left them in.</summary>
-        internal void InstantClose() => StopAndRest(() =>
+        public void InstantClose() => StopAndRest(() =>
         {
             if (_popup is { IsOpen: true } popup)
                 popup.IsOpen = false;
@@ -148,7 +148,7 @@ namespace SukiUI.Motion
             _root is { } root && TopLevel.GetTopLevel(root) is not null ? root : _host;
 
         /// <summary>The items of the cascade: every child of the items panel.</summary>
-        internal Control[] CollectItems()
+        public Control[] CollectItems()
         {
             if (_itemsPresenter is not { } presenter || presenter.Panel is not Panel panel)
                 return Array.Empty<Control>();
@@ -228,7 +228,7 @@ namespace SukiUI.Motion
 
         /// <summary>Disable (Enable=false): unwire everything and leave the popup functional
         /// without animation — the real popup follows the host state.</summary>
-        internal void Dispose() =>
+        public void Dispose() =>
             StopAndRest(() =>
             {
                 _host.TemplateApplied -= OnTemplateApplied;

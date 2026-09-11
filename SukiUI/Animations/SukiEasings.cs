@@ -116,33 +116,6 @@ namespace SukiUI.Animations
     }
 
     /// <summary>
-    /// True spring-physics easing for the press (tension) phase.
-    /// Uses a damped harmonic oscillator: 1 - e^(-damping·t) · cos(frequency·t).
-    /// Higher damping = less oscillation (snappy), higher frequency = faster response.
-    /// </summary>
-    public class SukiEaseElasticIn : Easing
-    {
-        public double Damping { get; set; } = 10.0;
-        public double Frequency { get; set; } = 25.0;
-
-        public override double Ease(double progress)
-        {
-            if (progress <= 0) return 0;
-            if (progress >= 1) return 1;
-
-            // EaseIn = 1 - EaseOut(1 - t)
-            double t = 1.0 - progress;
-            double raw = 1.0 - Math.Exp(-Damping * t) * Math.Cos(Frequency * t);
-            double rawAt1 = 1.0 - Math.Exp(-Damping) * Math.Cos(Frequency);
-
-            if (Math.Abs(rawAt1) < 1e-10)
-                return progress;
-
-            return 1.0 - raw / rawAt1;
-        }
-    }
-
-    /// <summary>
     /// True spring-physics easing for the release phase.
     /// Uses a damped harmonic oscillator: 1 - e^(-damping·t) · cos(frequency·t).
     /// Lower damping = more visible bounces, lower frequency = smoother oscillation.

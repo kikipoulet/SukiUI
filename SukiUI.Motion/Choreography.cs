@@ -21,7 +21,7 @@ namespace SukiUI.Motion
     /// or the property change that triggered the choreography — already scheduled the frame
     /// the first member advance rides on.
     /// </remarks>
-    internal sealed class Choreography
+    public sealed class Choreography
     {
         private readonly List<Program> _members = new();
         private readonly Action? _preamble;
@@ -30,9 +30,9 @@ namespace SukiUI.Motion
 
         /// <param name="preamble">Runs after the From pre-poses and before the members
         /// start — the real popup Show() (see <see cref="PopupHandle.Show"/>).</param>
-        internal Choreography(Action? preamble = null) => _preamble = preamble;
+        public Choreography(Action? preamble = null) => _preamble = preamble;
 
-        internal Choreography And(Program member)
+        public Choreography And(Program member)
         {
             _members.Add(member);
             return this;
@@ -40,15 +40,15 @@ namespace SukiUI.Motion
 
         /// <summary>Runs when the choreography settles (every member done) — the popup's
         /// only legitimate Hide(). Never runs on <see cref="Stop"/>.</summary>
-        internal Choreography Then(Action onSettle)
+        public Choreography Then(Action onSettle)
         {
             _settle = onSettle;
             return this;
         }
 
-        internal bool Running => _subscription is not null;
+        public bool Running => _subscription is not null;
 
-        internal void Start(Visual owner)
+        public void Start(Visual owner)
         {
             foreach (var member in _members)
                 member.PrePose();    // the Froms: pre-posed only on idle channels
@@ -61,7 +61,7 @@ namespace SukiUI.Motion
         /// <summary>External termination (preemption by a new choreography, template
         /// re-apply, detach, disable): members freeze at their current pose; the settle
         /// action does NOT run.</summary>
-        internal void Stop()
+        public void Stop()
         {
             _subscription?.Dispose();
             _subscription = null;
@@ -91,9 +91,9 @@ namespace SukiUI.Motion
 
     /// <summary>Seeds a choreography from its first member — the close spelling of the
     /// plan: <c>x.To(...).Spring(...).And(...).Then(popup.Hide())</c>.</summary>
-    internal static class ChoreographyExtensions
+    public static class ChoreographyExtensions
     {
-        internal static Choreography And(this Program first, Program next) =>
+        public static Choreography And(this Program first, Program next) =>
             new Choreography().And(first).And(next);
     }
 
@@ -103,21 +103,21 @@ namespace SukiUI.Motion
     /// evaluated every frame, AFTER the members it observes have advanced; it is done when
     /// they are done. Register it after its sources.
     /// </summary>
-    internal sealed class DerivedTrajectory : Program
+    public sealed class DerivedTrajectory : Program
     {
         private readonly Func<double> _value;
         private readonly Func<bool> _done;
 
-        internal DerivedTrajectory(Channel channel, Func<double> value, Func<bool> done)
+        public DerivedTrajectory(Channel channel, Func<double> value, Func<bool> done)
         {
             Channel = channel;
             _value = value;
             _done = done;
         }
 
-        internal override void Start() => Done = false;
+        public override void Start() => Done = false;
 
-        internal override bool Advance(TimeSpan now)
+        public override bool Advance(TimeSpan now)
         {
             Channel!.Write(_value());
             if (_done())
@@ -137,7 +137,7 @@ namespace SukiUI.Motion
     /// <see cref="Reset"/> rests the items at their normal pose — the close start and every
     /// non-settle termination of the popup handle call it.
     /// </summary>
-    internal sealed class CascadeProgram : Program
+    public sealed class CascadeProgram : Program
     {
         private readonly Func<Control[]> _collect;
         private readonly Func<TimeSpan> _duration;
@@ -164,7 +164,7 @@ namespace SukiUI.Motion
             _skipAbove = skipAbove;
         }
 
-        internal override void Start()
+        public override void Start()
         {
             // Collected on the first advance: the popup content attaches only once IsOpen=true.
             _pending = true;
@@ -173,7 +173,7 @@ namespace SukiUI.Motion
 
         /// <summary>Items stop cascading and rest at their normal pose (close start,
         /// abnormal close, template re-apply, detach, disable).</summary>
-        internal void Reset()
+        public void Reset()
         {
             foreach (var item in _items)
                 item.Opacity = 1.0;
@@ -181,7 +181,7 @@ namespace SukiUI.Motion
             _pending = false;
         }
 
-        internal override bool Advance(TimeSpan now)
+        public override bool Advance(TimeSpan now)
         {
             if (_pending)
             {

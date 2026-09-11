@@ -1,40 +1,41 @@
 using Avalonia;
+using Avalonia.Interactivity;
 
 namespace SukiUI.Motion
 {
     /// <summary>
-    /// The shared Enable/lifecycle plumbing of every Suki motion (press today, popup and
-    /// dialog with the Motion port tomorrow): flipping the attached Enable property attaches
-    /// and disposes the Mover returned by <see cref="Attach"/>, exactly once per element
-    /// (style re-application included). Each closed generic owns its own XAML-visible
-    /// Enable, so motions never interfere: SukiPressMotion.Enable only ever drives presses.
-    /// TTarget is the motion's natural host type (InputElement for pointer gestures,
-    /// TemplatedControl for popup/dialog hosts). The class lives in the engine assembly —
-    /// it is motions' base vocabulary; Attach stays engine-internal like the Mover it hands.
+    /// The shared Enable/lifecycle plumbing of every motion: flipping the attached
+    /// Enable property attaches and disposes the <see cref="Mover"/> returned by
+    /// <see cref="Attach"/>, exactly once per element (style re-application included).
+    /// Each closed generic owns its own XAML-visible Enable, so motions never interfere:
+    /// <c>MyMotion.Enable</c> only ever drives <c>MyMotion</c>. Behaviors declare their
+    /// host contract themselves in <see cref="Attach"/> — an unsupported element type is
+    /// a logged no-op. This base and <see cref="Simulate"/> are part of the framework's
+    /// public surface: the XAML and programmatic entry points; the description
+    /// vocabulary itself stays internal where it can.
     /// </summary>
-    public abstract class SukiMotion<TSelf, TTarget>
-        where TSelf : SukiMotion<TSelf, TTarget>, new()
-        where TTarget : AvaloniaObject
+    public abstract class SukiMotion<TSelf>
+        where TSelf : SukiMotion<TSelf>, new()
     {
         // One stateless description instance per closed motion — the handler is static,
         // Attach is the motion's (instance) declaration.
         private static readonly TSelf Instance = new();
 
         public static readonly AttachedProperty<bool> EnableProperty =
-            AvaloniaProperty.RegisterAttached<TSelf, TTarget, bool>("Enable");
+            AvaloniaProperty.RegisterAttached<TSelf, AvaloniaObject, bool>("Enable");
 
         private static readonly AttachedProperty<Mover?> MoverProperty =
-            AvaloniaProperty.RegisterAttached<TSelf, TTarget, Mover?>("Mover");
+            AvaloniaProperty.RegisterAttached<TSelf, AvaloniaObject, Mover?>("Mover");
 
         static SukiMotion()
         {
-            EnableProperty.Changed.AddClassHandler<TTarget>(OnEnableChanged);
+            EnableProperty.Changed.AddClassHandler<AvaloniaObject>(OnEnableChanged);
         }
 
-        public static bool GetEnable(TTarget element) => element.GetValue(EnableProperty);
-        public static void SetEnable(TTarget element, bool value) => element.SetValue(EnableProperty, value);
+        public static bool GetEnable(AvaloniaObject element) => element.GetValue(EnableProperty);
+        public static void SetEnable(AvaloniaObject element, bool value) => element.SetValue(EnableProperty, value);
 
-        private static void OnEnableChanged(TTarget element, AvaloniaPropertyChangedEventArgs e)
+        private static void OnEnableChanged(AvaloniaObject element, AvaloniaPropertyChangedEventArgs e)
         {
             if (e.NewValue is true)
             {
@@ -50,8 +51,27 @@ namespace SukiUI.Motion
         }
 
         /// <summary>Runs the motion's declaration on the element and returns its Mover — the
-        /// single handle disposed on disable. Null = Enable is a logged no-op on this
-        /// element. Internal like Mover: the declaration seam lives in the host library.</summary>
-        internal abstract Mover? Attach(TTarget element);
+        /// single handle disposed on disable (the Mover owns the whole gesture lifecycle).
+        /// Null = Enable is a logged no-op on this element (an unsupported host type).</summary>
+        internal abstract Mover? Attach(AvaloniaObject element);
+
+        /// <summary>Gets (or lazily attaches) the element's Mover — the exact instance the
+        /// Enable wiring uses, no duplicate.</summary>
+        internal static Mover? EnsureMover(AvaloniaObject element)
+        {
+            if (element.GetValue(MoverProperty) is { } mover)
+                return mover;
+            var attached = Instance.Attach(element);
+            element.SetValue(MoverProperty, attached);
+            return attached;
+        }
+
+        /// <summary>Fires every trigger registered for <paramref name="event"/> as if the
+        /// event had been raised — the programmatic drive (no pointer input can be
+        /// synthesized in Avalonia; benchmark pages drive real descriptions this way).
+        /// Real events keep working alongside. Reads as
+        /// <c>MyMotion.Simulate(button, InputElement.PointerPressedEvent)</c>.</summary>
+        public static void Simulate(AvaloniaObject element, RoutedEvent @event) =>
+            EnsureMover(element)?.Simulate(@event);
     }
 }

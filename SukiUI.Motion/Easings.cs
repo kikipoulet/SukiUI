@@ -1,21 +1,21 @@
 using System;
 using Avalonia.Animation.Easings;
 
-namespace SukiUI.Animations
+namespace SukiUI.Motion
 {
     /// <summary>
     /// A physically-derived ease-out: the exact closed-form solution of the damped spring
-    /// used across the library (SukiPress, SukiPopupAnimation —
-    /// <c>x'' = -omega^2·(x - target) - decay·x'</c>), normalized so the motion starts at 0
-    /// and settles at 1 within t ∈ [0, 1] regardless of the transition duration it drives:
-    /// the whole spring stretches or compresses with the Duration it is attached to.
+    /// the engine integrates (<c>x'' = -omega^2·(x - target) - decay·x'</c>), normalized so
+    /// the motion starts at 0 and settles at 1 within t ∈ [0, 1] regardless of the
+    /// transition duration it drives: the whole spring stretches or compresses with the
+    /// Duration it is attached to.
     ///
     /// Unlike a generic ease-out, the initial acceleration is real (force pulls toward the
     /// target from rest), the arrival decelerates on genuine stored momentum, and there is
     /// exactly one gentle overshoot before settling — no artificial curve shape.
     ///
-    /// Defaults are calibrated for the SukiDialog host: zeta = 0.7 (a single ~4.6%
-    /// overshoot) with the envelope under ~1.2% by t = 1, so the transition can end on the
+    /// Defaults are calibrated for dialog-sized surfaces: zeta = 0.7 (a single ~4.6%
+    /// overshoot) with the envelope under ~1.2% by t = 1, so the trajectory can end on the
     /// target without a visible snap.
     /// </summary>
     public class SukiSpringEaseOut : Easing
@@ -37,7 +37,7 @@ namespace SukiUI.Animations
             if (t >= 1.0)
                 return 1.0;
             // Renormalized against the value at t = 1 so the curve lands EXACTLY on 1:
-            // a truncated spring otherwise ends mid-decay, and the transition's final
+            // a truncated spring otherwise ends mid-decay, and the trajectory's final
             // write to the target value reads as a snap. Both endpoints stay anchored
             // (x(0) = 0) and the shape is preserved to within the residual envelope.
             double end = Spring(1.0);
@@ -54,6 +54,34 @@ namespace SukiUI.Animations
             // For zeta >= 1 the sine term degenerates to zeta*omega*t (critical damping) —
             // monotonic approach, no overshoot at all.
             return 1.0 - envelope * (Math.Cos(omegaD * t) + zetaOmega / omegaD * Math.Sin(omegaD * t));
+        }
+    }
+
+    /// <summary>
+    /// True spring-physics easing for a tension (press-in) phase: a damped harmonic
+    /// oscillator, <c>1 - e^(-damping·t) · cos(frequency·t)</c>. Higher damping = less
+    /// oscillation (snappy), higher frequency = faster response.
+    /// </summary>
+    public class SukiEaseElasticIn : Easing
+    {
+        public double Damping { get; set; } = 10.0;
+
+        public double Frequency { get; set; } = 25.0;
+
+        public override double Ease(double progress)
+        {
+            if (progress <= 0) return 0;
+            if (progress >= 1) return 1;
+
+            // EaseIn = 1 - EaseOut(1 - t)
+            double t = 1.0 - progress;
+            double raw = 1.0 - Math.Exp(-Damping * t) * Math.Cos(Frequency * t);
+            double rawAt1 = 1.0 - Math.Exp(-Damping) * Math.Cos(Frequency);
+
+            if (Math.Abs(rawAt1) < 1e-10)
+                return progress;
+
+            return 1.0 - raw / rawAt1;
         }
     }
 }

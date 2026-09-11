@@ -19,13 +19,13 @@ namespace SukiUI.Motion
     /// lifecycle). Surfaces differ only by how their target resolves, never by the
     /// channels they expose.
     /// </summary>
-    internal static class Motion
+    public static class Motion
     {
         private static readonly ConditionalWeakTable<Visual, Surface> Surfaces = new();
 
         /// <summary>The single entry point: one surface per element (a single arbitration
         /// state per animated property).</summary>
-        internal static Surface For(Visual visual) =>
+        public static Surface For(Visual visual) =>
             Surfaces.GetValue(visual, v => new Surface(v, () => v));
     }
 
@@ -39,7 +39,7 @@ namespace SukiUI.Motion
     /// through one shared block per target (see <see cref="Transforms"/>); blur manages
     /// the BlurEffect lifecycle.
     /// </summary>
-    internal sealed class Surface
+    public sealed class Surface
     {
         private static readonly ConditionalWeakTable<TemplatedControl, Dictionary<string, Surface>> Parts = new();
 
@@ -49,7 +49,7 @@ namespace SukiUI.Motion
         private Channel? _scale, _scaleX, _scaleY, _blur, _translateX, _translateY, _rotate;
         private Dictionary<StyledProperty<double>, Channel>? _properties;
 
-        internal Surface(Visual owner, Func<Visual?> target)
+        public Surface(Visual owner, Func<Visual?> target)
         {
             _owner = owner;
             _target = target;
@@ -58,38 +58,38 @@ namespace SukiUI.Motion
         /// <summary>Uniform render scale (transform block, X+Y, render-only — no layout).
         /// The first write attaches the block and schedules the frame the animation rides
         /// on.</summary>
-        internal Channel Scale => _scale ??= Channel.ForScale(_owner, _target);
+        public Channel Scale => _scale ??= Channel.ForScale(_owner, _target);
 
         /// <summary>Horizontal render scale — through the shared transform block.</summary>
-        internal Channel ScaleX => _scaleX ??= Channel.ForScaleX(_owner, _target);
+        public Channel ScaleX => _scaleX ??= Channel.ForScaleX(_owner, _target);
 
         /// <summary>Vertical render scale — through the shared transform block.</summary>
-        internal Channel ScaleY => _scaleY ??= Channel.ForScaleY(_owner, _target);
+        public Channel ScaleY => _scaleY ??= Channel.ForScaleY(_owner, _target);
 
         /// <summary>Horizontal translation in parent coordinates — through the shared
         /// transform block (composes with scale and rotate instead of fighting over
         /// RenderTransform).</summary>
-        internal Channel TranslateX => _translateX ??= Channel.ForTranslateX(_owner, _target);
+        public Channel TranslateX => _translateX ??= Channel.ForTranslateX(_owner, _target);
 
         /// <summary>Vertical translation in parent coordinates — through the shared
         /// transform block.</summary>
-        internal Channel TranslateY => _translateY ??= Channel.ForTranslateY(_owner, _target);
+        public Channel TranslateY => _translateY ??= Channel.ForTranslateY(_owner, _target);
 
         /// <summary>Rotation in degrees around the target's RenderTransformOrigin —
         /// through the shared transform block.</summary>
-        internal Channel Rotate => _rotate ??= Channel.ForRotate(_owner, _target);
+        public Channel Rotate => _rotate ??= Channel.ForRotate(_owner, _target);
 
         /// <summary>Target opacity — the generic property channel over <see cref="Visual.OpacityProperty"/>.</summary>
-        internal Channel Opacity => Property(Visual.OpacityProperty);
+        public Channel Opacity => Property(Visual.OpacityProperty);
 
         /// <summary>One live BlurEffect while blurring, dropped entirely below the 0.5
         /// threshold — no shader pass is paid once the blur has dissipated.</summary>
-        internal Channel Blur => _blur ??= Channel.ForBlur(_owner, _target);
+        public Channel Blur => _blur ??= Channel.ForBlur(_owner, _target);
 
         /// <summary>Any double styled property — the generic channel: reading and writing
         /// the property IS the whole semantics. The same property always yields the same
         /// channel (one arbitration state per animated property).</summary>
-        internal Channel Property(StyledProperty<double> property)
+        public Channel Property(StyledProperty<double> property)
         {
             _properties ??= new Dictionary<StyledProperty<double>, Channel>();
             if (!_properties.TryGetValue(property, out var channel))
@@ -104,7 +104,7 @@ namespace SukiUI.Motion
         /// proven popup-root rule); while the part does not resolve (template not applied
         /// yet, or the name does not exist) the channels no-op silently — the popup
         /// precedent — with a discrete trace.</summary>
-        internal Surface Part(string name)
+        public Surface Part(string name)
         {
             if (_owner is not TemplatedControl host)
                 throw new InvalidOperationException(
@@ -136,7 +136,7 @@ namespace SukiUI.Motion
         /// <summary>The template popup of this element — a popup root surface plus the
         /// IsOpen lifecycle (see <see cref="PopupHandle"/>). Not cached: one handle per
         /// Attach, disposed with its Mover — a second call would observe a disposed handle.</summary>
-        internal PopupHandle Popup(
+        public PopupHandle Popup(
             string popupPart,
             string rootPart,
             string itemsPart,
@@ -165,7 +165,7 @@ namespace SukiUI.Motion
     /// (forced preemption, spring velocity carry) and <see cref="PrePoseIfIdle"/> (the From
     /// rule), and own their ticker subscription themselves.
     /// </summary>
-    internal sealed class Channel
+    public sealed class Channel
     {
         // A trajectory begun with From but never given a To fails loudly at Start.
         private static readonly Func<double> MissingTo =
@@ -283,15 +283,15 @@ namespace SukiUI.Motion
             });
 
         /// <summary>Current on-screen pose of the channel.</summary>
-        internal double Value => _read();
+        public double Value => _read();
 
         /// <summary>Live velocity of the running spring (0 for timed trajectories).</summary>
-        internal double Velocity => _active is SpringTrajectory s ? s.Velocity : 0.0;
+        public double Velocity => _active is SpringTrajectory s ? s.Velocity : 0.0;
 
         // ---- description surface -----------------------------------------------------
 
         /// <summary>A timed trajectory toward a constant target.</summary>
-        internal TimedTrajectory To(double to)
+        public TimedTrajectory To(double to)
         {
             Track(to);
             return new TimedTrajectory(this, () => to, lazyTarget: false);
@@ -299,7 +299,7 @@ namespace SukiUI.Motion
 
         /// <summary>A timed trajectory whose target resolves at each Start (per-gesture
         /// snapshot semantics) — and whose paired spring is retargetable mid-flight.</summary>
-        internal TimedTrajectory To(Func<double> to) => new(this, to, lazyTarget: true);
+        public TimedTrajectory To(Func<double> to) => new(this, to, lazyTarget: true);
 
         /// <summary>
         /// Begins a trajectory with an explicit start pose — the plan's From rule: the pose
@@ -308,13 +308,13 @@ namespace SukiUI.Motion
         /// pose + velocity instead). Complete it with the trajectory's To. Reads as
         /// <c>x.From(0.92).To(1.0).Spring(...)</c>.
         /// </summary>
-        internal TimedTrajectory From(double from) => new TimedTrajectory(this, MissingTo, lazyTarget: true).From(from);
+        public TimedTrajectory From(double from) => new TimedTrajectory(this, MissingTo, lazyTarget: true).From(from);
 
         /// <summary>From resolved per gesture (profile-driven during the port).</summary>
-        internal TimedTrajectory From(Func<double> from) => new TimedTrajectory(this, MissingTo, lazyTarget: true).From(from);
+        public TimedTrajectory From(Func<double> from) => new TimedTrajectory(this, MissingTo, lazyTarget: true).From(from);
 
         /// <summary>An instantaneous pose write (lifecycle: detach/disable).</summary>
-        internal PoseProgram Pose(double value)
+        public PoseProgram Pose(double value)
         {
             Track(value);
             return new PoseProgram(this, value);
@@ -326,7 +326,7 @@ namespace SukiUI.Motion
         /// Offers an incoming program to the channel: the single place where the
         /// "who owns the channel" rules apply (the press rules).
         /// </summary>
-        internal void Offer(Program incoming)
+        public void Offer(Program incoming)
         {
             if (incoming is PoseProgram)
             {
@@ -391,7 +391,7 @@ namespace SukiUI.Motion
         /// state. The channel does not subscribe here: the choreography owns the single
         /// ticker subscription and advances the program itself.
         /// </summary>
-        internal void Run(Program incoming)
+        public void Run(Program incoming)
         {
             if (incoming is SpringTrajectory spring && !spring.HasKick)
                 spring.SeedVelocity(Velocity);
@@ -405,7 +405,7 @@ namespace SukiUI.Motion
         /// channel in flight keeps its live pose (the reopen mid-collapse resumes pose +
         /// velocity instead).
         /// </summary>
-        internal void PrePoseIfIdle(double value)
+        public void PrePoseIfIdle(double value)
         {
             if (_active is not null)
                 return;
@@ -416,7 +416,7 @@ namespace SukiUI.Motion
         /// <summary>Releases the channel once its choreography member completed (settle):
         /// idle again, a later From pre-poses it. Never called on preemption — the displacing
         /// spring reads the live velocity through the active program first.</summary>
-        internal void Release(Program program)
+        public void Release(Program program)
         {
             if (ReferenceEquals(_active, program))
                 _active = null;
@@ -425,7 +425,7 @@ namespace SukiUI.Motion
         /// <summary>Forgets any program on the channel (instant/abnormal close, template
         /// re-apply, detach, disable) — the next From pre-poses it whatever frozen state it
         /// was left in.</summary>
-        internal void Rest() => _active = null;
+        public void Rest() => _active = null;
 
         private void StartProgram(Program program)
         {
@@ -490,23 +490,15 @@ namespace SukiUI.Motion
 
         // ---- engine: plumbing ----------------------------------------------------------
 
-        internal void Write(double value) => _write(value);
-
-        /// <summary>An instantaneous pose write that also feeds the defensive clamp window —
-        /// pose writes win, nothing runs afterwards.</summary>
-        internal void SetPose(double value)
-        {
-            Track(value);
-            Write(value);
-        }
+        public void Write(double value) => _write(value);
 
         /// <summary>Clamps a program start pose into the channel window (defensive, mirrors
         /// the old <c>Math.Clamp(pose, DeepFloor, HoverScale)</c> on press/spring starts).</summary>
-        internal double ClampPose(double pose) =>
+        public double ClampPose(double pose) =>
             _seenMin <= _seenMax ? Math.Clamp(pose, _seenMin, _seenMax) : pose;
 
         /// <summary>Feeds the defensive pose-clamp window with a resolved target/from.</summary>
-        internal void Track(double value)
+        public void Track(double value)
         {
             if (value < _seenMin) _seenMin = value;
             if (value > _seenMax) _seenMax = value;

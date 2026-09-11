@@ -34,7 +34,7 @@ namespace SukiUI.Motion
     /// Everything here runs on the UI thread (the same guarantee a DispatcherTimer gave).
     /// </para>
     /// </remarks>
-    internal static class SukiTicker
+    public static class SukiTicker
     {
         // Safety switch: set to false to drive every TopLevel with one shared
         // 16ms DispatcherTimer instead of RequestAnimationFrame. (static readonly, not

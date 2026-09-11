@@ -23,7 +23,7 @@ namespace SukiUI.ControlsAnimation
         double SpringOmega,
         // damping of the release spring (higher = less bounce)
         double SpringDecay,
-        // press scale used when SukiPress.PressDepth is not set
+        // press scale used when SukiPressMotion.PressDepth is not set
         double DefaultPressDepth)
     {
         #region Normal

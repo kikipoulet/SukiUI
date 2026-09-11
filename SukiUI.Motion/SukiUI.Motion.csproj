@@ -11,7 +11,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <!-- Internal layer: visible to the host library only, never a public API. -->
+      <!-- The description vocabulary stays internal where it can (hygiene): the public
+           surface is the Enable lifecycle, the programmatic drive and the instrumentation. -->
       <InternalsVisibleTo Include="SukiUI" />
     </ItemGroup>
 

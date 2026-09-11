@@ -5,23 +5,26 @@ using System.Runtime.InteropServices;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using SukiUI.ControlsAnimation;
+using SukiUI.Motion;
 
 namespace SukiUI.Demo.Features.Helpers
 {
     /// <summary>
-    /// Benchmark harness comparing the Suki press physics system (shared SukiTicker loop,
-    /// real SukiPressPhysics state machines driven programmatically) against plain XAML
-    /// transitions (:checked -&gt; scale(0.96) on a ToggleButton, native
+    /// Benchmark harness comparing the Suki press motion (shared ticker loop, the real
+    /// SukiPressMotion description driven programmatically through
+    /// <see cref="SukiMotion{TSelf}.Simulate(AvaloniaObject, Avalonia.Interactivity.RoutedEvent)"/>)
+    /// against plain XAML transitions (:checked -&gt; scale(0.96) on a ToggleButton, native
     /// TransformOperationsTransition). One grid of buttons; every button is "clicked"
     /// constantly (120ms press every 800ms, uniformly staggered so gestures flow
     /// continuously); each run lasts 60 seconds and ends with a results line that is kept
     /// in a history so both systems can be compared run by run.
-    /// The frame monitor uses its OWN RequestAnimationFrame loop (not SukiTicker), so the
-    /// measurement is identical whichever engine is under test.
+    /// The frame monitor uses its OWN RequestAnimationFrame loop (not the motion ticker),
+    /// so the measurement is identical whichever engine is under test.
     /// CPU is probed at 1 Hz (whole process + UI thread, the thread both engines run on)
     /// and dispatcher pressure by the delay of a Background-priority heartbeat (100ms
     /// nominal); probes run at the lowest priority so they never compete with the
@@ -35,8 +38,7 @@ namespace SukiUI.Demo.Features.Helpers
 
         private sealed class BenchButton
         {
-            public Button? PhysicsButton;
-            public SukiPressPhysics? Engine;  // real press state machine (Suki mode)
+            public Button? PhysicsButton;     // real press motion carrier (Suki mode)
             public ToggleButton? XamlButton;  // native transition carrier (XAML mode)
             public TimeSpan Origin;           // cycle origin (staggered per button)
             public bool Engaged;
@@ -58,7 +60,7 @@ namespace SukiUI.Demo.Features.Helpers
         private int _gc0, _gc1, _gc2;
         private long _clicks;
 
-        // Engine cost (suki mode): deltas of SukiTicker's instrumentation around the run.
+        // Engine cost (suki mode): deltas of the motion ticker's instrumentation around the run.
         private double _engMsBase;
 
         // CPU probes: 1 Hz samples of process-wide and UI-thread TotalProcessorTime.
@@ -118,7 +120,7 @@ namespace SukiUI.Demo.Features.Helpers
             ModeToggle.Content = _xamlMode ? "Mode: XAML transition" : "Mode: SUKI physics";
             ModeDesc.Text = _xamlMode
                 ? "Every click toggles a :checked ToggleButton → scale(0.96), animated by a native XAML TransformOperationsTransition (150 ms). The animation engine is Avalonia's own style engine."
-                : "Every click drives the real SukiPressPhysics state machine (elastic press + release spring), advanced by the shared SukiTicker loop — exactly what a real click triggers.";
+                : "Every click drives the real SukiPressMotion description (elastic press + release spring), advanced by the shared motion ticker — exactly what a real click triggers.";
         }
 
         private void GenerateGrid()
@@ -146,8 +148,8 @@ namespace SukiUI.Demo.Features.Helpers
                     bench.PhysicsButton = new Button { Content = $"B{i}" };
                     bench.PhysicsButton.Classes.Add("stressBtn");
                     GridButtons.Children.Add(bench.PhysicsButton);
-                    // The very instance the style's Enable wiring would use — no duplicate.
-                    bench.Engine = SukiPress.EnsurePhysics(bench.PhysicsButton);
+                    // The press motion attaches through the style's Enable wiring;
+                    // Simulate resolves the very same Mover — no duplicate.
                 }
                 _buttons.Add(bench);
             }
@@ -168,7 +170,7 @@ namespace SukiUI.Demo.Features.Helpers
             CountSelector.IsEnabled = false;
             GenerateButton.IsEnabled = false;
 
-            _runStart = SukiTicker.Now;
+            _runStart = SukiMotionStats.Now;
             _lastFrame = _runStart;
             _lastUiRefresh = _runStart;
             _frames = 0;
@@ -180,7 +182,7 @@ namespace SukiUI.Demo.Features.Helpers
             _gc0 = GC.CollectionCount(0);
             _gc1 = GC.CollectionCount(1);
             _gc2 = GC.CollectionCount(2);
-            _engMsBase = SukiTicker.TotalDispatchMs;
+            _engMsBase = SukiMotionStats.TotalDispatchMs;
 
             // Uniform stagger: with N buttons, a click starts every CycleMs/N ms.
             double stride = CycleMs / _buttons.Count;
@@ -191,7 +193,7 @@ namespace SukiUI.Demo.Features.Helpers
 
             // Kick-start: engaging the first buttons invalidates the scene, which
             // schedules the frame the RAF monitor (and the animation) will ride on.
-            Drive(SukiTicker.Now);
+            Drive(SukiMotionStats.Now);
             LiveText.Text = "run in progress…";
 
             _rafLoop = true;
@@ -215,7 +217,7 @@ namespace SukiUI.Demo.Features.Helpers
                 _process.Refresh();
                 _lastProcCpu = _process.TotalProcessorTime;
                 _lastUiCpu = ReadUiThreadCpu() ?? default;
-                _lastCpuSampleAt = SukiTicker.Now;
+                _lastCpuSampleAt = SukiMotionStats.Now;
 
                 _cpuSampler = new DispatcherTimer(DispatcherPriority.Background)
                 {
@@ -230,14 +232,14 @@ namespace SukiUI.Demo.Features.Helpers
                 _cpuSampler = null;
             }
 
-            _hbLast = SukiTicker.Now;
+            _hbLast = SukiMotionStats.Now;
             _hb = new DispatcherTimer(DispatcherPriority.Background)
             {
                 Interval = TimeSpan.FromMilliseconds(100)
             };
             _hb.Tick += (_, _) =>
             {
-                var t = SukiTicker.Now;
+                var t = SukiMotionStats.Now;
                 double lag = Math.Max((t - _hbLast).TotalMilliseconds - 100.0, 0.0);
                 _hbLagSum += lag;
                 if (lag > _hbLagMax) _hbLagMax = lag;
@@ -254,7 +256,7 @@ namespace SukiUI.Demo.Features.Helpers
             try
             {
                 _process.Refresh();
-                var now = SukiTicker.Now;
+                var now = SukiMotionStats.Now;
                 double elapsedMs = (now - _lastCpuSampleAt).TotalMilliseconds;
                 if (elapsedMs <= 0)
                     return;
@@ -309,7 +311,7 @@ namespace SukiUI.Demo.Features.Helpers
         {
             if (!_rafLoop)
                 return;
-            var now = SukiTicker.Now;
+            var now = SukiMotionStats.Now;
 
             // Frame-pacing stats (impartial loop — same measurement for both engines).
             double dMs = (now - _lastFrame).TotalMilliseconds;
@@ -350,16 +352,16 @@ namespace SukiUI.Demo.Features.Helpers
                 {
                     bench.Engaged = true;
                     _clicks++;
-                    if (bench.Engine is { } engine)
-                        engine.Press();
+                    if (bench.PhysicsButton is { } button)
+                        SukiPressMotion.Simulate(button, InputElement.PointerPressedEvent);
                     else if (bench.XamlButton is { } xaml)
                         xaml.IsChecked = true;
                 }
                 else if (!pressNow && bench.Engaged)
                 {
                     bench.Engaged = false;
-                    if (bench.Engine is { } engine)
-                        engine.Release();
+                    if (bench.PhysicsButton is { } button)
+                        SukiPressMotion.Simulate(button, InputElement.PointerReleasedEvent);
                     else if (bench.XamlButton is { } xaml)
                         xaml.IsChecked = false;
                 }
@@ -373,7 +375,8 @@ namespace SukiUI.Demo.Features.Helpers
                 if (!bench.Engaged)
                     continue;
                 bench.Engaged = false;
-                bench.Engine?.Release();
+                if (bench.PhysicsButton is { } button)
+                    SukiPressMotion.Simulate(button, InputElement.PointerReleasedEvent);
                 if (bench.XamlButton is { } xaml)
                     xaml.IsChecked = false;
             }
@@ -434,7 +437,7 @@ namespace SukiUI.Demo.Features.Helpers
             // Engine cost per rendered frame — only observable in suki mode (the native
             // XAML engine runs inside Avalonia's own clock).
             string engine = !_xamlMode && _frames > 1
-                ? $"eng {(SukiTicker.TotalDispatchMs - _engMsBase) / _frames,4:0.00}ms/f"
+                ? $"eng {(SukiMotionStats.TotalDispatchMs - _engMsBase) / _frames,4:0.00}ms/f"
                 : "eng  —";
 
             double uiPct = _uiCpuSamples > 0 ? _uiCpuSumPct / _uiCpuSamples : double.NaN;

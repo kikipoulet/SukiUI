@@ -26,7 +26,7 @@ namespace SukiUI.Motion
     /// channel; Dispose unwires everything and runs the hooks — the control stays
     /// functional, just unanimated.
     /// </summary>
-    internal sealed class Mover : IDisposable
+    public sealed class Mover : IDisposable
     {
         private readonly InputElement _element;
         private readonly List<Trigger> _triggers = new();
@@ -34,7 +34,7 @@ namespace SukiUI.Motion
         private PoseProgram? _detached;
         private bool _baseWired;
 
-        internal Mover(InputElement element) => _element = element;
+        public Mover(InputElement element) => _element = element;
 
         // ---- the three primitives -------------------------------------------------------
 
@@ -43,7 +43,7 @@ namespace SukiUI.Motion
         /// alike; pass <paramref name="handledEventsToo"/> for events the host controls
         /// mark handled in their class handlers (pointer pressed/released on buttons and
         /// combo boxes).</summary>
-        internal Mover OnEvent<TArgs>(
+        public Mover OnEvent<TArgs>(
             RoutedEvent<TArgs> ev,
             Action fire,
             RoutingStrategies strategy = RoutingStrategies.Direct | RoutingStrategies.Bubble,
@@ -51,7 +51,7 @@ namespace SukiUI.Motion
             Func<AvaloniaObject?>? source = null)
             where TArgs : RoutedEventArgs
         {
-            return Add(new Trigger(
+            var trigger = new Trigger(
                 src =>
                 {
                     if (src is not Interactive interactive)
@@ -60,10 +60,15 @@ namespace SukiUI.Motion
                     interactive.AddHandler(ev, Handler, strategy, handledEventsToo);
                     return Unwire.On(() => interactive.RemoveHandler(ev, Handler));
                 },
-                source));
+                source)
+            {
+                Event = ev,
+                Fire = fire,
+            };
+            return Add(trigger);
         }
 
-        internal Mover OnEvent<TArgs>(
+        public Mover OnEvent<TArgs>(
             RoutedEvent<TArgs> ev,
             Program program,
             RoutingStrategies strategy = RoutingStrategies.Direct | RoutingStrategies.Bubble,
@@ -74,7 +79,7 @@ namespace SukiUI.Motion
 
         /// <summary>Any property change on the element;
         /// <paramref name="when"/> fires only for that value (any type, equality).</summary>
-        internal Mover OnPropertyChanged(AvaloniaProperty property, Action fire, object? when = null)
+        public Mover OnPropertyChanged(AvaloniaProperty property, Action fire, object? when = null)
         {
             return Add(new Trigger(
                 src =>
@@ -95,14 +100,14 @@ namespace SukiUI.Motion
                 Source: null));
         }
 
-        internal Mover OnPropertyChanged(AvaloniaProperty property, Program program, object? when = null)
+        public Mover OnPropertyChanged(AvaloniaProperty property, Program program, object? when = null)
             => OnPropertyChanged(property, Fire(program), when);
 
         /// <summary>The escape hatch for plain CLR events: the closure receives the
         /// resolved source and the fire action, and owns the whole subscription. Returning
         /// null = not applicable (e.g. the ambient source did not resolve — retried at the
         /// next attach).</summary>
-        internal Mover OnSignal(
+        public Mover OnSignal(
             Func<AvaloniaObject?, Action, IDisposable?> subscribe,
             Action fire,
             Func<AvaloniaObject?>? source = null)
@@ -110,12 +115,24 @@ namespace SukiUI.Motion
 
         /// <summary>Resolves the current TopLevel of one element — the ambient source for
         /// window-level triggers; null while detached, re-wired on attach.</summary>
-        internal static Func<AvaloniaObject?> TopLevelOf(InputElement element)
+        public static Func<AvaloniaObject?> TopLevelOf(InputElement element)
             => () => TopLevel.GetTopLevel(element);
+
+        /// <summary>Fires every trigger registered for <paramref name="ev"/> as if the
+        /// event had been raised — the programmatic drive behind
+        /// <see cref="SukiMotion{TSelf}.Simulate(AvaloniaObject, Avalonia.Interactivity.RoutedEvent)"/>
+        /// (no pointer input can be synthesized in Avalonia). Real events keep working
+        /// alongside.</summary>
+        internal void Simulate(RoutedEvent ev)
+        {
+            foreach (var trigger in _triggers)
+                if (trigger.Event == ev)
+                    trigger.Fire?.Invoke();
+        }
 
         /// <summary>Fires when the hosting window is deactivated (Alt-tab, focus another
         /// app). A no-op on non-Window hosts and while detached.</summary>
-        internal Mover OnWindowDeactivated(Action fire) => OnSignal(
+        public Mover OnWindowDeactivated(Action fire) => OnSignal(
             (source, act) =>
             {
                 if (source is not Window window)
@@ -129,7 +146,7 @@ namespace SukiUI.Motion
 
         // ---- lifecycle (contractual, not event routing) --------------------------------
 
-        internal Mover OnDetachedFromVisualTree(PoseProgram pose)
+        public Mover OnDetachedFromVisualTree(PoseProgram pose)
         {
             _detached = pose;
             EnsureBaseWiring();
@@ -138,7 +155,7 @@ namespace SukiUI.Motion
 
         /// <summary>Runs on <see cref="Dispose"/> — the behavior releases engine-owned
         /// lifetimes (the popup handle) here.</summary>
-        internal Mover OnDispose(Action hook)
+        public Mover OnDispose(Action hook)
         {
             _disposeHooks.Add(hook);
             return this;
@@ -217,6 +234,8 @@ namespace SukiUI.Motion
             Func<AvaloniaObject?, IDisposable?> Subscribe,
             Func<AvaloniaObject?>? Source)
         {
+            public RoutedEvent? Event; // set by OnEvent — the simulated-drive key
+            public Action? Fire;       // the payload, re-invokable by Simulate
             public IDisposable? Subscription { get; set; }
         }
     }

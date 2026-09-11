@@ -2,7 +2,6 @@ using System.Diagnostics;
 using Avalonia;
 using Avalonia.Animation.Easings;
 using Avalonia.Input;
-using SukiUI.Animations;   // SukiEaseElasticIn — the easings stay in Animations/
 using SukiUI.Motion;
 
 namespace SukiUI.ControlsAnimation
@@ -16,13 +15,10 @@ namespace SukiUI.ControlsAnimation
     /// <summary>
     /// The button/combobox press behavior described declaratively over the SukiUI.Motion
     /// engine (see SukiUI.Motion/Plan.md): channels → named trajectories → trigger wiring.
-    /// Same XAML surface and same semantics as <see cref="SukiPress"/> — Enable (from
-    /// <see cref="SukiMotion{TSelf}"/>)/Preset/PressDepth attached properties,
+    /// Enable (from <see cref="SukiMotion{TSelf}"/>)/Preset/PressDepth attached properties,
     /// profile resolved per gesture through <see cref="SukiAnimationTheme"/> so a live
     /// switch applies to the NEXT gesture — with every line of ticker/integration/transform
-    /// plumbing living in the engine instead of an imperative physics class. This is the
-    /// drop-in candidate for <see cref="SukiPress"/>; both coexist until the port is
-    /// validated.
+    /// plumbing living in the engine instead of an imperative physics class.
     /// </summary>
     public class SukiPressMotion : SukiMotion<SukiPressMotion>
     {
