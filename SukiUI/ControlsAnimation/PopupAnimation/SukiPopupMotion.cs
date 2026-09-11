@@ -190,7 +190,9 @@ namespace SukiUI.ControlsAnimation
                 duration: () => TimeSpan.FromMilliseconds(profile().CascadeDurationMs),
                 initialDelayMs: () => profile().CascadeInitialDelayMs,
                 staggerMs: count => profile().CascadeStaggerMs(count),
-                skipAbove: () => profile().CascadeMaxItems);
+                skipAbove: () => profile().CascadeMaxItems,
+                itemBlur: () => profile().CascadeItemBlur,
+                itemOffsetY: () => profile().CascadeItemOffsetY);
 
             var open = popup.Show()
                 .And(openX)

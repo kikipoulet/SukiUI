@@ -38,8 +38,13 @@ namespace SukiUI.ControlsAnimation
         double CloseBlurRadius,
         // cascade: delay before the first item starts fading in (ms)
         double CascadeInitialDelayMs,
-        // cascade: total time the staggered fade is spread over (ms)
+        // cascade: per-item appearance duration — the opacity 0→1 of EACH item (ms)
         double CascadeDurationMs,
+        // cascade: blur radius each item materializes from, reaching 0 at 70% of the
+        // appearance duration (0 = plain opacity fade)
+        double CascadeItemBlur,
+        // cascade: vertical distance each item travels up to its resting pose (0 = none)
+        double CascadeItemOffsetY,
         // cascade: above this many items the cascade is skipped
         int CascadeMaxItems,
         // cascade: per-item fade-in stagger as a function of the item count (ms)
@@ -63,7 +68,9 @@ namespace SukiUI.ControlsAnimation
             MaxBlurRadius: 12.0,
             CloseBlurRadius: 20.0,
             CascadeInitialDelayMs: 150,
-            CascadeDurationMs: 180,
+            CascadeDurationMs: 140,
+            CascadeItemBlur: 20.0,
+            CascadeItemOffsetY: 8.0,
             CascadeMaxItems: 20,
             CascadeStaggerMs: count => count switch
             {
@@ -103,6 +110,8 @@ namespace SukiUI.ControlsAnimation
             MaxBlurRadius = 0.0,
             CloseBlurRadius = 0.0,
             CascadeInitialDelayMs = 0.0,
+            CascadeItemBlur = 0.0,
+            CascadeItemOffsetY = 0.0,
             CascadeMaxItems = 0,
         };
 
