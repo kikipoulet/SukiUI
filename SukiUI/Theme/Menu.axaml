@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:animations="clr-namespace:SukiUI.Animations"
                     xmlns:controls="clr-namespace:SukiUI.Controls"
+                    xmlns:motion="clr-namespace:SukiUI.ControlsAnimation"
                     xmlns:suki="https://github.com/kikipoulet/SukiUI"
                     xmlns:system="clr-namespace:System;assembly=netstandard"
                     xmlns:theme="clr-namespace:SukiUI.Theme">
@@ -9,6 +10,17 @@
         <Setter Property="FontWeight" Value="{DynamicResource DefaultDemiBold}" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Padding" Value="10 0" />
+
+        <!--  Same recipe as submenu items (SukiPopupMotion, Menu preset): engine owns
+              PART_Popup.IsOpen, Avalonia's interaction logic flips IsSubMenuOpen.  -->
+        <Style Selector="^:not(:empty)">
+            <Setter Property="motion:SukiPopupMotion.PopupPart" Value="PART_Popup" />
+            <Setter Property="motion:SukiPopupMotion.OpenProperty" Value="{x:Static MenuItem.IsSubMenuOpenProperty}" />
+            <Setter Property="motion:SukiPopupMotion.CloseOnOutsidePress" Value="False" />
+            <Setter Property="motion:SukiPopupMotion.Preset" Value="Menu" />
+            <Setter Property="motion:SukiPopupMotion.Enable" Value="True" />
+        </Style>
+
         <Setter Property="Template">
             <ControlTemplate>
                 <Border Name="root"
@@ -41,14 +53,11 @@
                             </ContentPresenter.DataTemplates>
                         </ContentPresenter>
                         <Popup Name="PART_Popup"
-                               ClipToBounds="True"
-                               InheritsTransform="True"
-                               IsLightDismissEnabled="True"
-                               IsOpen="{TemplateBinding IsSubMenuOpen,
-                                                        Mode=TwoWay}"
-                               Opacity="0"
-                               OverlayInputPassThroughElement="{Binding $parent[MenuItem]}"
-                               Placement="BottomEdgeAlignedLeft">
+                                ClipToBounds="True"
+                                InheritsTransform="True"
+                                IsLightDismissEnabled="False"
+                                OverlayInputPassThroughElement="{Binding $parent[MenuItem]}"
+                                Placement="BottomEdgeAlignedLeft">
                             <LayoutTransformControl Name="PART_LayoutTransform" RenderTransformOrigin="50%, 0%">
                                 <Grid Margin="-12,0,0,0">
                                     <Border Margin="16,8,8,8"
@@ -80,32 +89,6 @@
         </Setter>
         <Style Selector="^:pointerover /template/ controls|GlassCard#GlassMenuItemBackground">
             <Setter Property="Opacity" Value="1" />
-        </Style>
-
-        <Style Selector="^:open /template/ LayoutTransformControl#PART_LayoutTransform">
-            <Style.Animations>
-                <Animation Easing="{StaticResource MenuEasing}"
-                           FillMode="Forward"
-                           Duration="0:0:0.3">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="ScaleTransform.ScaleY" Value="0.88" />
-                        <Setter Property="ScaleTransform.ScaleX" Value="0.88" />
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="ScaleTransform.ScaleY" Value="1" />
-                        <Setter Property="ScaleTransform.ScaleX" Value="1" />
-                    </KeyFrame>
-                </Animation>
-
-                <Animation FillMode="Forward" Duration="0:0:0.25">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Opacity" Value="0" />
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Opacity" Value="1" />
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
         </Style>
     </ControlTheme>
 

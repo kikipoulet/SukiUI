@@ -58,6 +58,7 @@
         <Setter Property="animations:SukiPressMotion.Enable" Value="True" />
         <Setter Property="animations:SukiPressMotion.Preset" Value="ComboBox" />
 
+        <Setter Property="animations:SukiPopupMotion.OpenProperty" Value="{x:Static ComboBox.IsDropDownOpenProperty}" />
         <Setter Property="animations:SukiPopupMotion.Enable" Value="True" />
         <Setter Property="Template">
             <ControlTemplate>

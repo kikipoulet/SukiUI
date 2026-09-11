@@ -14,14 +14,17 @@ namespace SukiUI.ControlsAnimation
     using Motion = SukiUI.Motion.Motion;
 
     /// <summary>
-    /// The ComboBox drop-down behavior described declaratively over the SukiUI.Motion
-    /// engine (see SukiUI.Motion/Plan.md): open = springs to full scale + opacity fade +
+    /// The template-popup behavior described declaratively over the SukiUI.Motion engine
+    /// (see SukiUI.Motion/Plan.md): open = springs to full scale + opacity fade +
     /// velocity-driven motion blur + staggered item cascade; close = partial collapse
-    /// springs + dissolve blur, the real IsOpen=false flipping only at settle. Enable
-    /// (from <see cref="SukiMotion{TSelf}"/>) and Preset attached properties, profile
-    /// resolved per open/close through <see cref="SukiAnimationTheme"/> so a live switch
-    /// applies to the NEXT transition. Template contract: PART_SukiPopup /
-    /// PART_LayoutTransform / PART_ItemsPresenter.
+    /// springs + dissolve blur, the real IsOpen=false flipping only at settle. Fully
+    /// configured from XAML through attached properties — Enable (from
+    /// <see cref="SukiMotion{TSelf}"/>), Preset, PopupPart, and the host's OpenProperty —
+    /// profile resolved per open/close through <see cref="SukiAnimationTheme"/> so a live
+    /// switch applies to the NEXT transition. Contract: a settable bool-typed open
+    /// property on the host and a named template Popup the motion owns (no binding on its
+    /// IsOpen); root and items parts follow the PART_LayoutTransform /
+    /// PART_ItemsPresenter convention.
     /// </summary>
     public class SukiPopupMotion : SukiMotion<SukiPopupMotion>
     {
@@ -32,16 +35,56 @@ namespace SukiUI.ControlsAnimation
         public static SukiPopupPreset GetPreset(TemplatedControl element) => element.GetValue(PresetProperty);
         public static void SetPreset(TemplatedControl element, SukiPopupPreset value) => element.SetValue(PresetProperty, value);
 
+        /// <summary>The name of the template Popup part the motion owns — the engine
+        /// becomes the sole writer of its IsOpen (remove any template binding on it).
+        /// Defaults to PART_SukiPopup.</summary>
+        public static readonly AttachedProperty<string> PopupPartProperty =
+            AvaloniaProperty.RegisterAttached<SukiPopupMotion, TemplatedControl, string>(
+                "PopupPart", "PART_SukiPopup");
+
+        public static string GetPopupPart(TemplatedControl element) => element.GetValue(PopupPartProperty);
+        public static void SetPopupPart(TemplatedControl element, string value) => element.SetValue(PopupPartProperty, value);
+
+        /// <summary>The host's open/close property — watched AND written (outside-press,
+        /// deactivation, abnormal-close sync). A settable bool-typed AvaloniaProperty,
+        /// referenced from XAML as {x:Static MenuItem.IsSubMenuOpenProperty}. Replaces
+        /// the old per-type adapter registry: new hosts are pure XAML configuration.</summary>
+        public static readonly AttachedProperty<AvaloniaProperty> OpenPropertyProperty =
+            AvaloniaProperty.RegisterAttached<SukiPopupMotion, TemplatedControl, AvaloniaProperty>(
+                "OpenProperty");
+
+        public static AvaloniaProperty GetOpenProperty(TemplatedControl element) => element.GetValue(OpenPropertyProperty);
+        public static void SetOpenProperty(TemplatedControl element, AvaloniaProperty value) => element.SetValue(OpenPropertyProperty, value);
+
+        /// <summary>Any press inside the host's window closes the popup — the ComboBox
+        /// drop-down rule (the drop-down opens on release, so its own press is never seen
+        /// open by this guard). Hosts whose interaction logic ALREADY dismisses on outside
+        /// press must opt out: menus open on PointerPressed and Avalonia's menu handler
+        /// owns the outside dismissal — this guard would see the just-opened host within
+        /// the same event and instantly close it (no popup ever visible).</summary>
+        public static readonly AttachedProperty<bool> CloseOnOutsidePressProperty =
+            AvaloniaProperty.RegisterAttached<SukiPopupMotion, TemplatedControl, bool>(
+                "CloseOnOutsidePress", true);
+
+        public static bool GetCloseOnOutsidePress(TemplatedControl element) => element.GetValue(CloseOnOutsidePressProperty);
+        public static void SetCloseOnOutsidePress(TemplatedControl element, bool value) => element.SetValue(CloseOnOutsidePressProperty, value);
+
         /// <summary>
-        /// The popup behavior description. Null (Enable = logged no-op) on hosts without an
-        /// adapter in <see cref="SukiPopupHosts"/>.
+        /// The popup behavior description. Null (Enable = logged no-op) on hosts without a
+        /// settable bool OpenProperty.
         /// </summary>
         internal override Mover? Attach(AvaloniaObject owner)
         {
-            if (owner is not TemplatedControl element ||
-                SukiPopupHosts.Resolve(element) is not { } hostAdapter)
+            if (owner is not TemplatedControl element)
             {
-                Debug.WriteLine($"SukiPopupMotion: no host adapter for '{owner.GetType().Name}' — Enable ignored.");
+                Debug.WriteLine($"SukiPopupMotion: '{owner.GetType().Name}' is not a TemplatedControl — Enable ignored.");
+                return null;
+            }
+
+            var openProperty = GetOpenProperty(element);
+            if (openProperty is null || openProperty.PropertyType != typeof(bool))
+            {
+                Debug.WriteLine($"SukiPopupMotion: '{element.GetType().Name}' needs a settable bool OpenProperty — Enable ignored.");
                 return null;
             }
 
@@ -49,10 +92,11 @@ namespace SukiUI.ControlsAnimation
             // starts, so a live SukiAnimationTheme switch applies to the NEXT transition,
             // never mid-flight (the derived blur values resolve per frame — cosmetic).
             SukiPopupProfile P() => SukiAnimationTheme.Current.Popup[GetPreset(element)];
-            bool HostIsOpen() => hostAdapter.IsOpen(element);
+            bool HostIsOpen() => (bool)element.GetValue(openProperty);
+            void SetOpen(bool open) => element.SetValue(openProperty, open);
 
             var popup = Motion.For(element).Popup(
-                popupPart: "PART_SukiPopup",
+                popupPart: GetPopupPart(element),
                 rootPart: "PART_LayoutTransform",
                 itemsPart: "PART_ItemsPresenter",
                 isHostOpen: HostIsOpen);
@@ -61,7 +105,7 @@ namespace SukiUI.ControlsAnimation
 
             // Popup lifecycle guards owned by the engine, decisions owned here.
             popup.SafetyReopen = () => popup.Play(open);
-            popup.AbnormalClose += () => hostAdapter.SetOpen(element, false);
+            popup.AbnormalClose += () => SetOpen(false);
             popup.Stopped += cascade.Reset;
 
             void Close()
@@ -77,26 +121,33 @@ namespace SukiUI.ControlsAnimation
                 // InstantClose and the abnormal paths have already rested everything.
             }
 
-            return new Mover(element)
-                .OnPropertyChanged(hostAdapter.OpenProperty, () => popup.Play(open), when: true)
-                .OnPropertyChanged(hostAdapter.OpenProperty, Close, when: false)
-                // Any press inside the main window closes the drop-down (presses inside
-                // the popup never bubble there — it is its own top level).
-                .OnEvent(InputElement.PointerPressedEvent,
+            var mover = new Mover(element)
+                .OnPropertyChanged(openProperty, () => popup.Play(open), when: true)
+                .OnPropertyChanged(openProperty, Close, when: false);
+
+            // Any press inside the main window closes the drop-down (presses inside
+            // the popup never bubble there — it is its own top level). Opt-out for hosts
+            // whose interaction logic already dismisses on outside press (menus).
+            if (GetCloseOnOutsidePress(element))
+            {
+                mover.OnEvent(InputElement.PointerPressedEvent,
                     () =>
                     {
                         if (HostIsOpen())
-                            hostAdapter.SetOpen(element, false); // animated close via the property change
+                            SetOpen(false); // animated close via the property change
                     },
                     handledEventsToo: true,
-                    source: Mover.TopLevelOf(element))
-                // Alt-tab / focus another app: the popup must not linger over a deactivated
-                // window, and animating there would be wrong — close instantly.
+                    source: Mover.TopLevelOf(element));
+            }
+
+            // Alt-tab / focus another app: the popup must not linger over a deactivated
+            // window, and animating there would be wrong — close instantly.
+            return mover
                 .OnWindowDeactivated(() =>
                 {
                     popup.InstantClose();
                     if (HostIsOpen())
-                        hostAdapter.SetOpen(element, false);
+                        SetOpen(false);
                 })
                 .OnDispose(popup.Dispose);
         }

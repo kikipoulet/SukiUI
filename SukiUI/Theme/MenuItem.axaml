@@ -1,5 +1,6 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:animations="clr-namespace:SukiUI.ControlsAnimation"
                     xmlns:content="clr-namespace:SukiUI.Content"
                     xmlns:controls="clr-namespace:SukiUI.Controls"
                     xmlns:converters="clr-namespace:Avalonia.Controls.Converters;assembly=Avalonia.Controls"
@@ -75,6 +76,18 @@
         <Setter Property="FontSize" Value="14" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+
+        <!--  Open/close animation lives in SukiPopupMotion (Menu preset): the engine owns
+              PART_Popup.IsOpen — no template binding on it. Avalonia's menu interaction
+              logic flips IsSubMenuOpen and the behavior animates both directions.  -->
+        <Style Selector="^:not(:empty)">
+            <Setter Property="animations:SukiPopupMotion.PopupPart" Value="PART_Popup" />
+            <Setter Property="animations:SukiPopupMotion.OpenProperty" Value="{x:Static MenuItem.IsSubMenuOpenProperty}" />
+            <Setter Property="animations:SukiPopupMotion.CloseOnOutsidePress" Value="False" />
+            <Setter Property="animations:SukiPopupMotion.Preset" Value="Menu" />
+            <Setter Property="animations:SukiPopupMotion.Enable" Value="True" />
+        </Style>
+
         <Setter Property="Template">
             <ControlTemplate>
                 <Border Name="root"
@@ -176,15 +189,13 @@
                         </Grid>
 
                         <Popup Name="PART_Popup"
-                               ClipToBounds="True"
-                               HorizontalOffset="-25"
-                               InheritsTransform="True"
-                               IsLightDismissEnabled="False"
-                               IsOpen="{TemplateBinding IsSubMenuOpen, Mode=TwoWay}"
-                               Opacity="0"
-                               OverlayInputPassThroughElement="{Binding $parent[MenuItem]}"
-                               Placement="RightEdgeAlignedTop"
-                               VerticalOffset="-1">
+                                ClipToBounds="True"
+                                HorizontalOffset="-25"
+                                InheritsTransform="True"
+                                IsLightDismissEnabled="False"
+                                OverlayInputPassThroughElement="{Binding $parent[MenuItem]}"
+                                Placement="RightEdgeAlignedTop"
+                                VerticalOffset="-1">
                             <LayoutTransformControl Name="PART_LayoutTransform" RenderTransformOrigin="0%, 0%">
                                 <Panel Margin="0,-8,0,0">
                                     <Border Margin="16,8,8,8"
@@ -216,33 +227,6 @@
 
         <Style Selector="^:pointerover">
             <Setter Property="Background" Value="{DynamicResource SukiLightBorderBrush}" />
-        </Style>
-
-        <Style Selector="^:open /template/ LayoutTransformControl#PART_LayoutTransform">
-            <Style.Animations>
-                <Animation Easing="{StaticResource MenuEasing}"
-                           FillMode="Forward"
-                           Duration="0:0:0.3">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="ScaleTransform.ScaleY" Value="0.92" />
-                        <Setter Property="ScaleTransform.ScaleX" Value="0.92" />
-
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="ScaleTransform.ScaleY" Value="1" />
-                        <Setter Property="ScaleTransform.ScaleX" Value="1" />
-                    </KeyFrame>
-                </Animation>
-                <Animation FillMode="Forward" Duration="0:0:0.25">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Opacity" Value="0" />
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Opacity" Value="1" />
-                    </KeyFrame>
-                </Animation>
-
-            </Style.Animations>
         </Style>
 
         <Style Selector="^:selected /template/ Border#root">
