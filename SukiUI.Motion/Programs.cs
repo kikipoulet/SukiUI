@@ -87,15 +87,18 @@ namespace SukiUI.Motion
     /// </summary>
     internal sealed class TimedTrajectory : Program
     {
+        private static readonly Easing DefaultEase = new LinearEasing(); // stateless, shared
+
         private Func<double> _to;
         private bool _lazyTarget; // lazy targets back retargetable springs
         private Func<double?>? _from; // the plan's From rule (pre-pose when idle)
         private Func<TimeSpan> _duration = static () => TimeSpan.FromMilliseconds(150);
-        private Easing _easing = new LinearEasing();
+        private Func<Easing> _easing = static () => DefaultEase;
 
         // Runtime (resolved at Start).
         private double _fromValue, _toValue;
         private TimeSpan _durationValue, _start;
+        private Easing _easingValue = DefaultEase;
 
         internal TimedTrajectory(Channel channel, Func<double> to, bool lazyTarget)
         {
@@ -151,7 +154,12 @@ namespace SukiUI.Motion
             return this;
         }
 
-        internal TimedTrajectory Ease(Easing easing)
+        internal TimedTrajectory Ease(Easing easing) => Ease(() => easing);
+
+        /// <summary>Easing resolved per gesture (size- or profile-driven during the port) —
+        /// the recipe form of <see cref="Ease(Easing)"/>, mirroring
+        /// <see cref="Over(TimeSpan)"/>/<see cref="Over(Func{TimeSpan})"/>.</summary>
+        internal TimedTrajectory Ease(Func<Easing> easing)
         {
             _easing = easing;
             return this;
@@ -183,6 +191,7 @@ namespace SukiUI.Motion
             _toValue = _to();
             Channel.Track(_toValue);
             _durationValue = _duration();
+            _easingValue = _easing();
             _start = SukiTicker.Now;
             Done = false;
         }
@@ -190,7 +199,7 @@ namespace SukiUI.Motion
         internal override bool Advance(TimeSpan now)
         {
             double t = Progress(now);
-            Channel!.Write(Integrator.Lerp(_fromValue, _toValue, _easing.Ease(t)));
+            Channel!.Write(Integrator.Lerp(_fromValue, _toValue, _easingValue.Ease(t)));
             if (t < 1.0)
                 return true;
             Done = true;
@@ -205,7 +214,9 @@ namespace SukiUI.Motion
 
         internal Func<double> ToFactory => _to;
         internal Func<TimeSpan> DurationFactory => _duration;
-        internal Easing EasingValue => _easing;
+        // Chain steps bypass Start: the factory resolves on access. Wrapping a fixed
+        // instance (the press) makes this a constant — no allocation, no drift.
+        internal Easing EasingValue => _easing();
     }
 
     /// <summary>
@@ -224,7 +235,8 @@ namespace SukiUI.Motion
         private readonly bool _retargetable;
         private readonly Func<double?>? _from; // the plan's From rule (pre-pose when idle)
         private Spring _springValue;
-        private double _x, _v, _targetValue, _seedV;
+        private double _x, _v, _targetValue;
+        private double? _seedV; // an armed kick (dialog shake) or a carried velocity (popup reopen)
         private TimeSpan _last;
 
         internal SpringTrajectory(
@@ -246,9 +258,14 @@ namespace SukiUI.Motion
 
         internal bool CanRetarget => _retargetable;
 
-        /// <summary>Carries the velocity of the spring this one displaces (choreography
-        /// preemption); consumed — and reset to "from rest" — by the next Start.</summary>
+        /// <summary>Arms an initial velocity — a scripted kick (the dialog shake impulse)
+        /// or the carried velocity of a displaced spring (the popup reopen). Consumed by
+        /// the next Start; null = released from rest.</summary>
         internal void SeedVelocity(double v) => _seedV = v;
+
+        /// <summary>True when an explicit kick is armed — the ambient-velocity carry of
+        /// <see cref="Channel.Run(Program)"/> must not overwrite it.</summary>
+        internal bool HasKick => _seedV.HasValue;
 
         internal override void PrePose()
         {
@@ -260,8 +277,8 @@ namespace SukiUI.Motion
         {
             _springValue = _spring();
             _x = Channel!.ClampPose(Channel.Value);
-            _v = _seedV;
-            _seedV = 0.0;
+            _v = _seedV ?? 0.0;
+            _seedV = null;
             _targetValue = _target();
             Channel.Track(_targetValue);
             _last = SukiTicker.Now;

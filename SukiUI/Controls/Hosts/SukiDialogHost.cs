@@ -21,16 +21,16 @@ namespace SukiUI.Controls
     /// Host presenting the current <see cref="ISukiDialog"/> from a
     /// <see cref="ISukiDialogManager"/>: owns the backdrop, pointer tracking (so a dialog
     /// can emerge from the invoking click) and the dismiss/pool timings. All choreography
-    /// (open / close / pinned-shake) lives in <see cref="SukiDialogPhysics"/>, under
-    /// <c>ControlsAnimation/DialogAnimation</c>, alongside the press and popup engines.
+    /// (open / close / pinned-shake) lives in <see cref="SukiDialogMotion"/>, under
+    /// <c>ControlsAnimation/DialogAnimation</c>, alongside the press and popup motions.
     /// </summary>
     public class SukiDialogHost : TemplatedControl
     {
         private Border? _dialogBackground;
         private ContentControl? _dialogContent;
 
-        // All animation state, transitions and the shake spring live over there.
-        private readonly SukiDialogPhysics _anim = new(() => SukiAnimationTheme.Current.Dialog[SukiDialogPreset.Default]);
+        // All animation state, trajectories and the shake spring live over there.
+        private readonly SukiDialogMotion _anim = new(() => SukiAnimationTheme.Current.Dialog[SukiDialogPreset.Default]);
 
         private ISukiDialogManager? _attachedManager;
         private bool _isAttachedToLogicalTree;

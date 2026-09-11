@@ -386,12 +386,14 @@ namespace SukiUI.Motion
         /// incoming program ALWAYS wins — the on-screen pose is captured and, for a spring,
         /// the live velocity of the spring it displaces is carried over (the mid-collapse
         /// reopen: pose + velocity kept, spring constants swapped mid-flight — the old
-        /// engine's in-place retarget). The channel does not subscribe here: the choreography
-        /// owns the single ticker subscription and advances the program itself.
+        /// engine's in-place retarget). The carry is a DEFAULT: an explicitly armed kick
+        /// (see <see cref="SpringTrajectory.SeedVelocity"/>) always wins over ambient
+        /// state. The channel does not subscribe here: the choreography owns the single
+        /// ticker subscription and advances the program itself.
         /// </summary>
         internal void Run(Program incoming)
         {
-            if (incoming is SpringTrajectory spring)
+            if (incoming is SpringTrajectory spring && !spring.HasKick)
                 spring.SeedVelocity(Velocity);
             _active = incoming;
             incoming.Start();
