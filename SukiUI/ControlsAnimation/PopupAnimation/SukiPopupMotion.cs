@@ -57,52 +57,7 @@ namespace SukiUI.ControlsAnimation
                 itemsPart: "PART_ItemsPresenter",
                 isHostOpen: HostIsOpen);
 
-            var (x, y, o, blur) = (popup.Root.ScaleX, popup.Root.ScaleY, popup.Root.Opacity, popup.Root.Blur);
-
-            // Show = vrai Popup.IsOpen=true ; les From du bloc sont écrits AVANT (pas de
-            // flash) et ignorés si le canal est en vol (reopen mid-collapse = reprise
-            // pose + vélocité).
-            var openX = x.From(() => P().ClosedScaleX).To(1.0)
-                .Spring(() => new Spring(P().OpenSpringOmega, P().OpenSpringDecay));
-            var openY = y.From(() => P().ClosedScaleY).To(1.0)
-                .Spring(() => new Spring(P().OpenSpringOmega, P().OpenSpringDecay));
-            var openOpacity = o.From(0.0).To(1.0).Over(() => P().OpenOpacityDuration);
-
-            // Canaux dérivés : rééchantillonnés chaque frame, meurent avec le programme.
-            var motionBlur = new DerivedTrajectory(blur,
-                () => Math.Min(
-                    (Math.Abs(openX.Velocity) + Math.Abs(openY.Velocity)) * P().BlurFactor,
-                    P().MaxBlurRadius),
-                () => openX.Done && openY.Done);
-
-            var cascade = new CascadeProgram(
-                collect: popup.CollectItems,
-                duration: () => TimeSpan.FromMilliseconds(P().CascadeDurationMs),
-                initialDelayMs: () => P().CascadeInitialDelayMs,
-                staggerMs: count => P().CascadeStaggerMs(count),
-                skipAbove: () => P().CascadeMaxItems);
-
-            var open = popup.Show()
-                .And(openX)
-                .And(openY)
-                .And(openOpacity)
-                .And(motionBlur)
-                .And(cascade);
-
-            var closeX = x.To(() => P().CloseScaleX)
-                .Spring(() => new Spring(P().CloseSpringOmega, P().CloseSpringDecay));
-            var closeY = y.To(() => P().CloseScaleY)
-                .Spring(() => new Spring(P().CloseSpringOmega, P().CloseSpringDecay));
-            var closeOpacity = o.To(0.0).Over(() => P().CloseOpacityDuration);
-            var dissolveBlur = new DerivedTrajectory(blur,
-                () => (1.0 - o.Value) * P().CloseBlurRadius,
-                () => closeOpacity.Done);
-
-            var close = closeX
-                .And(closeY)
-                .And(closeOpacity)
-                .And(dissolveBlur)
-                .Then(popup.Hide); // IsOpen=false seulement au settle
+            var (open, close, cascade) = SukiPopupChoreographies.Build(popup, P, popup.Hide);
 
             // Popup lifecycle guards owned by the engine, decisions owned here.
             popup.SafetyReopen = () => popup.Play(open);
@@ -144,6 +99,71 @@ namespace SukiUI.ControlsAnimation
                         hostAdapter.SetOpen(element, false);
                 })
                 .OnDispose(popup.Dispose);
+        }
+    }
+
+    /// <summary>
+    /// The popup feel — the open/close choreographies shared by every popup motion flavor
+    /// (SukiPopupMotion, SukiContextMenuMotion): open = springs to full scale + opacity
+    /// fade + velocity-driven motion blur + staggered item cascade; close = partial
+    /// collapse springs + dissolve blur, the settle action (the real popup close) owned by
+    /// each flavor's lifecycle. The profile accessor resolves per transition, so a live
+    /// SukiAnimationTheme switch applies to the NEXT transition, never mid-flight (the
+    /// derived blur values resolve per frame — cosmetic).
+    /// </summary>
+    internal static class SukiPopupChoreographies
+    {
+        internal static (Choreography Open, Choreography Close, CascadeProgram Cascade) Build(
+            PopupHandle popup, Func<SukiPopupProfile> profile, Action onSettle)
+        {
+            var (x, y, o, blur) = (popup.Root.ScaleX, popup.Root.ScaleY, popup.Root.Opacity, popup.Root.Blur);
+
+            // Show = vrai Popup.IsOpen=true ; les From du bloc sont écrits AVANT (pas de
+            // flash) et ignorés si le canal est en vol (reopen mid-collapse = reprise
+            // pose + vélocité).
+            var openX = x.From(() => profile().ClosedScaleX).To(1.0)
+                .Spring(() => new Spring(profile().OpenSpringOmega, profile().OpenSpringDecay));
+            var openY = y.From(() => profile().ClosedScaleY).To(1.0)
+                .Spring(() => new Spring(profile().OpenSpringOmega, profile().OpenSpringDecay));
+            var openOpacity = o.From(0.0).To(1.0).Over(() => profile().OpenOpacityDuration);
+
+            // Canaux dérivés : rééchantillonnés chaque frame, meurent avec le programme.
+            var motionBlur = new DerivedTrajectory(blur,
+                () => Math.Min(
+                    (Math.Abs(openX.Velocity) + Math.Abs(openY.Velocity)) * profile().BlurFactor,
+                    profile().MaxBlurRadius),
+                () => openX.Done && openY.Done);
+
+            var cascade = new CascadeProgram(
+                collect: popup.CollectItems,
+                duration: () => TimeSpan.FromMilliseconds(profile().CascadeDurationMs),
+                initialDelayMs: () => profile().CascadeInitialDelayMs,
+                staggerMs: count => profile().CascadeStaggerMs(count),
+                skipAbove: () => profile().CascadeMaxItems);
+
+            var open = popup.Show()
+                .And(openX)
+                .And(openY)
+                .And(openOpacity)
+                .And(motionBlur)
+                .And(cascade);
+
+            var closeX = x.To(() => profile().CloseScaleX)
+                .Spring(() => new Spring(profile().CloseSpringOmega, profile().CloseSpringDecay));
+            var closeY = y.To(() => profile().CloseScaleY)
+                .Spring(() => new Spring(profile().CloseSpringOmega, profile().CloseSpringDecay));
+            var closeOpacity = o.To(0.0).Over(() => profile().CloseOpacityDuration);
+            var dissolveBlur = new DerivedTrajectory(blur,
+                () => (1.0 - o.Value) * profile().CloseBlurRadius,
+                () => closeOpacity.Done);
+
+            var close = closeX
+                .And(closeY)
+                .And(closeOpacity)
+                .And(dissolveBlur)
+                .Then(onSettle); // IsOpen=false seulement au settle
+
+            return (open, close, cascade);
         }
     }
 }

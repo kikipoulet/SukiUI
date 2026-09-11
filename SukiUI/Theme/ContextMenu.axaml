@@ -1,6 +1,11 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:animations="clr-namespace:SukiUI.ControlsAnimation"
                     xmlns:theme="clr-namespace:SukiUI.Theme">
     <ControlTheme x:Key="SukiContextMenuStyle" TargetType="ContextMenu">
+        <!--  Same motion as the ComboBox drop-down, ContextMenu flavor: Avalonia owns
+              this popup (light-dismiss), so the behavior holds it open through the
+              collapse by cancelling ContextMenu.Closing.  -->
+        <Setter Property="animations:SukiContextMenuMotion.Enable" Value="True" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
         <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
@@ -13,10 +18,6 @@
                 <Border Name="PART_LayoutTransform"
                         Margin="1,0,0,0"
                         RenderTransformOrigin="0,0">
-                    <Border.RenderTransform>
-                        <ScaleTransform ScaleX="0.92" ScaleY="0.92"/>
-                    </Border.RenderTransform>
-
                     <Panel>
                         <Border Margin="16"
                                 BoxShadow="{DynamicResource SukiPopupShadow}"
@@ -44,30 +45,12 @@
                 </Border>
             </ControlTemplate>
         </Setter>
-        <Style Selector="^[IsOpen=True] /template/ Border#PART_LayoutTransform">
-            <Style.Animations>
-                <Animation Easing="{StaticResource MenuEasing}"
-                           FillMode="Forward"
-                           Duration="0:0:0.3">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="ScaleTransform.ScaleY" Value="0.92" />
-                        <Setter Property="ScaleTransform.ScaleX" Value="0.92" />
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="ScaleTransform.ScaleY" Value="1" />
-                        <Setter Property="ScaleTransform.ScaleX" Value="1" />
-                    </KeyFrame>
-                </Animation>
-                <Animation FillMode="Forward" Duration="0:0:0.25">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="Opacity" Value="0" />
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="Opacity" Value="1" />
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
+        <!--
+            Open/close animations live in SukiContextMenuMotion (springs, velocity-driven
+            motion blur, staggered item cascade). Avalonia owns this popup's IsOpen
+            (code-built, light-dismiss), so selector keyframes cannot cover the close —
+            the behavior holds the popup open by cancelling ContextMenu.Closing instead.
+        -->
     </ControlTheme>
     <ControlTheme x:Key="{x:Type ContextMenu}"
                   BasedOn="{StaticResource SukiContextMenuStyle}"

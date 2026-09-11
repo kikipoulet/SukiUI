@@ -11,37 +11,42 @@ namespace SukiUI.Motion
 {
     /// <summary>
     /// The popup lifecycle owner of the layer — the proven wiring of the old popup engine
-    /// moved in as-is: resolves the template parts (convention: the <c>Popup</c> named
-    /// popupPart whose content root is named rootPart, with an optional items presenter
-    /// inside it), re-wires at every TemplateApplied, detects abnormal closes of the real
-    /// popup (the engine is the only legitimate closer), keeps the Opened safety net, and
-    /// runs ONE choreography at a time (open preempts close and back). The channels it
-    /// exposes write through the CURRENT root — a re-applied template simply repoints them.
+    /// moved in as-is: resolves its parts through host-flavored resolvers (the template-part
+    /// convention — the <c>Popup</c> named popupPart whose content root is named rootPart,
+    /// with an optional items presenter inside it — or the caller's own rule for code-built
+    /// popups), re-wires at every TemplateApplied and logical attach, parks a choreography
+    /// played before the stage resolves (a code-built popup's content only gets its
+    /// template once hosted), detects abnormal closes of the real popup (the engine is the
+    /// only legitimate closer), keeps the Opened safety net, and runs ONE choreography at a
+    /// time (open preempts close and back). The channels it exposes write through the
+    /// CURRENT root — a re-applied template simply repoints them.
     /// </summary>
     public sealed class PopupHandle
     {
         private readonly TemplatedControl _host;
-        private readonly string _popupPart;
-        private readonly string _rootPart;
-        private readonly string _itemsPart;
+        private readonly Func<Popup?> _resolvePopup;
+        private readonly Func<Popup?, Control?> _resolveRoot;
+        private readonly Func<Control?, ItemsPresenter?> _resolveItems;
         private readonly Func<bool> _isHostOpen;
 
         private Popup? _popup;
         private Control? _root;
         private ItemsPresenter? _itemsPresenter;
         private Choreography? _current;
+        private Choreography? _pending;   // parked while the stage does not resolve yet
+        private bool _selfClosing;        // our own settle flip — not an abnormal close
 
         internal PopupHandle(
             TemplatedControl host,
-            string popupPart,
-            string rootPart,
-            string itemsPart,
+            Func<Popup?> resolvePopup,
+            Func<Popup?, Control?> resolveRoot,
+            Func<Control?, ItemsPresenter?> resolveItems,
             Func<bool> isHostOpen)
         {
             _host = host;
-            _popupPart = popupPart;
-            _rootPart = rootPart;
-            _itemsPart = itemsPart;
+            _resolvePopup = resolvePopup;
+            _resolveRoot = resolveRoot;
+            _resolveItems = resolveItems;
             _isHostOpen = isHostOpen;
 
             // The root resolves through the popup's content (the template walk does not
@@ -50,9 +55,31 @@ namespace SukiUI.Motion
             Root = new Surface(host, () => _root);
 
             _host.TemplateApplied += OnTemplateApplied;
+            _host.AttachedToLogicalTree += OnHostAttachedToLogicalTree;
             _host.DetachedFromVisualTree += OnHostDetached;
             ResolveParts(); // fail-safe: the template may already have been applied
         }
+
+        /// <summary>The template-part flavor (ComboBox): the popup is a named part of the
+        /// host's template, its content root a named child, the items a named presenter
+        /// inside that root.</summary>
+        internal PopupHandle(
+            TemplatedControl host,
+            string popupPart,
+            string rootPart,
+            string itemsPart,
+            Func<bool> isHostOpen)
+            : this(
+                host,
+                () => host.GetTemplateDescendants()
+                    .OfType<Popup>()
+                    .FirstOrDefault(p => p.Name == popupPart),
+                popup => popup?.Child is { } content && content.Name == rootPart ? content : null,
+                root => root?.GetLogicalDescendants()
+                    .OfType<ItemsPresenter>()
+                    .FirstOrDefault(i => i.Name == itemsPart),
+                isHostOpen)
+        { }
 
         /// <summary>The popup's animated root — the single surface vocabulary.</summary>
         internal Surface Root { get; }
@@ -84,6 +111,16 @@ namespace SukiUI.Motion
             // re-resolved here, where the tree is guaranteed ready.
             if (_popup is null || _root is null)
                 ResolveParts();
+            if (_root is null)
+            {
+                // The stage does not resolve yet — a code-built popup whose content only
+                // gets its template once hosted (ContextMenu): park the choreography. It
+                // starts at the TemplateApplied / logical attach that resolves the stage,
+                // still before the first render of the open popup.
+                StopCurrent();
+                _pending = choreography;
+                return;
+            }
             StopCurrent();
             _current = choreography;
             choreography.Start(TickOwner);
@@ -115,7 +152,14 @@ namespace SukiUI.Motion
         {
             Root.Blur.Write(0.0);
             if (_popup is { IsOpen: true } popup)
-                popup.IsOpen = false;
+            {
+                // Our own settle flip — the host syncs through its own closed path;
+                // OnPopupPropertyChanged must not read it as an abnormal close (a
+                // ContextMenu keeps IsOpen=true until its PopupClosed runs).
+                _selfClosing = true;
+                try { popup.IsOpen = false; }
+                finally { _selfClosing = false; }
+            }
         }
 
         /// <summary>Instant close (window deactivated): stop everything, rest the items,
@@ -162,24 +206,20 @@ namespace SukiUI.Motion
             UnwirePopup();
             _root = null;
             _itemsPresenter = null;
-            _popup = _host.GetTemplateDescendants()
-                .OfType<Popup>()
-                .FirstOrDefault(p => p.Name == _popupPart);
+            _popup = _resolvePopup();
 
             if (_popup is { } popup)
             {
                 popup.PropertyChanged += OnPopupPropertyChanged;
                 popup.Opened += OnPopupOpened;
 
-                // The template walk does not reach INSIDE the popup: the animated root and
-                // the items presenter live in the popup's content, so walk it directly. The
-                // logical tree is intact even while the popup is closed.
-                if (popup.Child is { } content && content.Name == _rootPart)
+                // The root and items resolve through the host flavor's own rule (inside
+                // the popup's content for template popups, in the host's own template for
+                // code-built ones). The logical tree is intact even while closed.
+                if (_resolveRoot(popup) is { } root)
                 {
-                    _root = content;
-                    _itemsPresenter = content.GetLogicalDescendants()
-                        .OfType<ItemsPresenter>()
-                        .FirstOrDefault(i => i.Name == _itemsPart);
+                    _root = root;
+                    _itemsPresenter = _resolveItems(root);
                 }
             }
         }
@@ -196,8 +236,26 @@ namespace SukiUI.Motion
 
         private void OnTemplateApplied(object? sender, TemplateAppliedEventArgs e) =>
             // A re-applied template aborts any running choreography over now-dead parts;
-            // the fresh root rests until the next open's Froms pose it.
-            StopAndRest(ResolveParts);
+            // the fresh root rests until the next open's Froms pose it — or, for a parked
+            // choreography, becomes the stage that starts it.
+            StopAndRest(() => { ResolveParts(); StartPending(); });
+
+        private void OnHostAttachedToLogicalTree(object? sender, LogicalTreeAttachmentEventArgs e)
+        {
+            // A code-built popup (ContextMenu) parents its host in only at first Open —
+            // re-resolve there, and release any choreography parked on the missing stage.
+            ResolveParts();
+            StartPending();
+        }
+
+        private void StartPending()
+        {
+            if (_root is null || _pending is not { } choreography)
+                return;
+            _pending = null;
+            _current = choreography;
+            choreography.Start(TickOwner);
+        }
 
         private void OnHostDetached(object? sender, VisualTreeAttachmentEventArgs e) =>
             StopAndRest(() =>
@@ -210,6 +268,8 @@ namespace SukiUI.Motion
         {
             if (e.Property != Popup.IsOpenProperty || e.NewValue is not false)
                 return;
+            if (_selfClosing)
+                return; // our own settle flip: the host's closed path syncs the state
             // The engine is the only legitimate closer, so reaching here with the host still
             // open means an abnormal close (window teardown and the like): sync instantly.
             if (_isHostOpen())
@@ -232,7 +292,9 @@ namespace SukiUI.Motion
             StopAndRest(() =>
             {
                 _host.TemplateApplied -= OnTemplateApplied;
+                _host.AttachedToLogicalTree -= OnHostAttachedToLogicalTree;
                 _host.DetachedFromVisualTree -= OnHostDetached;
+                _pending = null;
                 UnwirePopup();
                 if (_popup is { } popup)
                     popup.IsOpen = _isHostOpen();

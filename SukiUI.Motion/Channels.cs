@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
 using Avalonia.Media;
@@ -35,9 +36,10 @@ namespace SukiUI.Motion
     /// resolver; the channel vocabulary is identical everywhere. Channels are lazily
     /// created, one instance per property per surface, all writing through the resolver.
     /// The semantic factories carry the write protocols that cannot be derived from a
-    /// property reference: the transform channels (scale, translate, rotate) compose
-    /// through one shared block per target (see <see cref="Transforms"/>); blur manages
-    /// the BlurEffect lifecycle.
+    /// property reference: the transform channels (scale, translate, rotate, skew)
+    /// compose through one shared block per target (see <see cref="Transforms"/>); blur
+    /// and shadow manage the single <see cref="Visual.Effect"/> slot's lifecycle (last
+    /// writer owns it).
     /// </summary>
     public sealed class Surface
     {
@@ -47,6 +49,8 @@ namespace SukiUI.Motion
         private readonly Func<Visual?> _target;
 
         private Channel? _scale, _scaleX, _scaleY, _blur, _translateX, _translateY, _rotate;
+        private Channel? _skewX, _skewY;
+        private Channel? _shadowBlur, _shadowOffsetX, _shadowOffsetY, _shadowOpacity;
         private Dictionary<StyledProperty<double>, Channel>? _properties;
 
         public Surface(Visual owner, Func<Visual?> target)
@@ -79,12 +83,41 @@ namespace SukiUI.Motion
         /// through the shared transform block.</summary>
         public Channel Rotate => _rotate ??= Channel.ForRotate(_owner, _target);
 
+        /// <summary>Horizontal skew in degrees — through the shared transform block.
+        /// Composition order is translate · skew · rotate · scale: the skew shears in the
+        /// PARENT frame (applied after rotation in point order), so a leaning target that
+        /// also rotates keeps a predictable screen-space shear.</summary>
+        public Channel SkewX => _skewX ??= Channel.ForSkewX(_owner, _target);
+
+        /// <summary>Vertical skew in degrees — through the shared transform block.</summary>
+        public Channel SkewY => _skewY ??= Channel.ForSkewY(_owner, _target);
+
         /// <summary>Target opacity — the generic property channel over <see cref="Visual.OpacityProperty"/>.</summary>
         public Channel Opacity => Property(Visual.OpacityProperty);
 
         /// <summary>One live BlurEffect while blurring, dropped entirely below the 0.5
-        /// threshold — no shader pass is paid once the blur has dissipated.</summary>
+        /// threshold — no shader pass is paid once the blur has dissipated. The Effect
+        /// slot is single: a shadow-channel write replaces it, and back.</summary>
         public Channel Blur => _blur ??= Channel.ForBlur(_owner, _target);
+
+        /// <summary>Drop-shadow opacity (0..1) — the shadow's PRESENCE channel over the
+        /// single <see cref="Visual.Effect"/> slot: first write attaches the owned
+        /// DropShadowEffect, writes below the 0.02 threshold drop it entirely (no shader
+        /// pass at rest). Reads any DropShadowEffect holding the slot (pose continuity
+        /// with a template-placed one), replaces anything else — the Blur precedent.
+        /// Mutually exclusive with <see cref="Blur"/> on one target: one slot, last
+        /// writer owns it.</summary>
+        public Channel ShadowOpacity => _shadowOpacity ??= Channel.ForShadowOpacity(_owner, _target);
+
+        /// <summary>Drop-shadow blur radius in DIPs — over the single Effect slot (see
+        /// <see cref="ShadowOpacity"/> for the slot rules).</summary>
+        public Channel ShadowBlur => _shadowBlur ??= Channel.ForShadowBlur(_owner, _target);
+
+        /// <summary>Drop-shadow horizontal offset — over the single Effect slot.</summary>
+        public Channel ShadowOffsetX => _shadowOffsetX ??= Channel.ForShadowOffsetX(_owner, _target);
+
+        /// <summary>Drop-shadow vertical offset — over the single Effect slot.</summary>
+        public Channel ShadowOffsetY => _shadowOffsetY ??= Channel.ForShadowOffsetY(_owner, _target);
 
         /// <summary>Any double styled property — the generic channel: reading and writing
         /// the property IS the whole semantics. The same property always yields the same
@@ -146,6 +179,23 @@ namespace SukiUI.Motion
                 throw new InvalidOperationException(
                     $"Motion: popups require a TemplatedControl host, got {_owner.GetType().Name}.");
             return new PopupHandle(host, popupPart, rootPart, itemsPart, isHostOpen);
+        }
+
+        /// <summary>A popup whose real Popup is NOT a template part — resolved by the
+        /// caller's rule (a code-built popup, e.g. the one ContextMenu.Open() parents the
+        /// host into). Root and items resolve relative to that popup per the caller's rule;
+        /// resolution re-runs at TemplateApplied AND at logical attach, so late-hosted
+        /// flavors work.</summary>
+        public PopupHandle Popup(
+            Func<Popup?> resolvePopup,
+            Func<Popup?, Control?> resolveRoot,
+            Func<Control?, ItemsPresenter?> resolveItems,
+            Func<bool> isHostOpen)
+        {
+            if (_owner is not TemplatedControl host)
+                throw new InvalidOperationException(
+                    $"Motion: popups require a TemplatedControl host, got {_owner.GetType().Name}.");
+            return new PopupHandle(host, resolvePopup, resolveRoot, resolveItems, isHostOpen);
         }
     }
 
@@ -245,6 +295,60 @@ namespace SukiUI.Motion
             {
                 if (target() is { } t)
                     Transforms.WriteRotate(t, v);
+            });
+
+        internal static Channel ForSkewX(Visual owner, Func<Visual?> target) => new(
+            owner,
+            () => Transforms.ReadSkewX(target()),
+            v =>
+            {
+                if (target() is { } t)
+                    Transforms.WriteSkewX(t, v);
+            });
+
+        internal static Channel ForSkewY(Visual owner, Func<Visual?> target) => new(
+            owner,
+            () => Transforms.ReadSkewY(target()),
+            v =>
+            {
+                if (target() is { } t)
+                    Transforms.WriteSkewY(t, v);
+            });
+
+        internal static Channel ForShadowOpacity(Visual owner, Func<Visual?> target) => new(
+            owner,
+            () => target()?.Effect is DropShadowEffect s ? s.Opacity : 0.0,
+            v =>
+            {
+                if (target() is { } t)
+                    ShadowEffects.WriteOpacity(t, v);
+            });
+
+        internal static Channel ForShadowBlur(Visual owner, Func<Visual?> target) => new(
+            owner,
+            () => target()?.Effect is DropShadowEffect s ? s.BlurRadius : 0.0,
+            v =>
+            {
+                if (target() is { } t)
+                    ShadowEffects.WriteBlur(t, v);
+            });
+
+        internal static Channel ForShadowOffsetX(Visual owner, Func<Visual?> target) => new(
+            owner,
+            () => target()?.Effect is DropShadowEffect s ? s.OffsetX : 0.0,
+            v =>
+            {
+                if (target() is { } t)
+                    ShadowEffects.WriteOffsetX(t, v);
+            });
+
+        internal static Channel ForShadowOffsetY(Visual owner, Func<Visual?> target) => new(
+            owner,
+            () => target()?.Effect is DropShadowEffect s ? s.OffsetY : 0.0,
+            v =>
+            {
+                if (target() is { } t)
+                    ShadowEffects.WriteOffsetY(t, v);
             });
 
         /// <summary>Any double styled property of one target — the generic channel: reading
@@ -509,26 +613,28 @@ namespace SukiUI.Motion
     /// The shared render-transform block of one target: ONE <c>TransformGroup</c> lazily
     /// attached on the first transform-channel write (the proven attach-once rule — that
     /// write is what schedules the frame the animation rides on), its children created
-    /// lazily per channel kind, all transform channels (scale, translate, rotate) writing
-    /// through the same group so they COMPOSE instead of fighting over RenderTransform.
-    /// Keyed on the rendered visual (two surfaces over the same target share the block; a
-    /// re-resolved template part gets a fresh one for free). Fixed composition order —
-    /// translate · rotate · scale around the target's RenderTransformOrigin (the proven
-    /// dialog order when rotate is absent); children are inserted at their canonical rank
-    /// whatever their creation order. A pre-existing bare ScaleTransform is adopted on
-    /// first attach (pose continuity); any other RenderTransform value is replaced by the
-    /// first write.
+    /// lazily per channel kind, all transform channels (scale, translate, rotate, skew)
+    /// writing through the same group so they COMPOSE instead of fighting over
+    /// RenderTransform. Keyed on the rendered visual (two surfaces over the same target
+    /// share the block; a re-resolved template part gets a fresh one for free). Fixed
+    /// composition order — translate · skew · rotate · scale around the target's
+    /// RenderTransformOrigin (the proven dialog order when rotate/skew are absent; the
+    /// skew shears in the parent frame, after rotation in point order); children are
+    /// inserted at their canonical rank whatever their creation order. A pre-existing
+    /// bare ScaleTransform is adopted on first attach (pose continuity); any other
+    /// RenderTransform value is replaced by the first write.
     /// </summary>
     internal static class Transforms
     {
         private static readonly ConditionalWeakTable<Visual, Block> Blocks = new();
 
-        private const int TranslateRank = 0, RotateRank = 1, ScaleRank = 2;
+        private const int TranslateRank = 0, SkewRank = 1, RotateRank = 2, ScaleRank = 3;
 
         private sealed class Block
         {
             public TransformGroup? Group;
             public TranslateTransform? Translate;
+            public SkewTransform? Skew;
             public RotateTransform? Rotate;
             public ScaleTransform? Scale;
         }
@@ -561,6 +667,12 @@ namespace SukiUI.Motion
 
         internal static double ReadRotate(Visual? t) =>
             t is not null && Blocks.TryGetValue(t, out var b) && b.Rotate is { } r ? r.Angle : 0.0;
+
+        internal static double ReadSkewX(Visual? t) =>
+            t is not null && Blocks.TryGetValue(t, out var b) && b.Skew is { } sk ? sk.AngleX : 0.0;
+
+        internal static double ReadSkewY(Visual? t) =>
+            t is not null && Blocks.TryGetValue(t, out var b) && b.Skew is { } sk ? sk.AngleY : 0.0;
 
         // ---- writes (attach the block once, then mutate children in place) ----------------
 
@@ -597,6 +709,22 @@ namespace SukiUI.Motion
             EnsureGroup(t, b);
             b.Rotate ??= AddChild(b.Group!, new RotateTransform(), RotateRank);
             b.Rotate.Angle = v;
+        }
+
+        internal static void WriteSkewX(Visual t, double v)
+        {
+            var b = BlockOf(t);
+            EnsureGroup(t, b);
+            b.Skew ??= AddChild(b.Group!, new SkewTransform(), SkewRank);
+            b.Skew.AngleX = v;
+        }
+
+        internal static void WriteSkewY(Visual t, double v)
+        {
+            var b = BlockOf(t);
+            EnsureGroup(t, b);
+            b.Skew ??= AddChild(b.Group!, new SkewTransform(), SkewRank);
+            b.Skew.AngleY = v;
         }
 
         // ---- the block --------------------------------------------------------------------
@@ -645,8 +773,50 @@ namespace SukiUI.Motion
         private static int Rank(Transform t) => t switch
         {
             TranslateTransform => TranslateRank,
+            SkewTransform => SkewRank,
             RotateTransform => RotateRank,
             _ => ScaleRank,
         };
+    }
+
+    /// <summary>
+    /// The drop-shadow half of the single <see cref="Visual.Effect"/> slot: shadow
+    /// channels mutate in place the DropShadowEffect holding the slot (adopting a
+    /// template-placed one, replacing any other kind — the Blur precedent). Opacity is
+    /// the presence channel: below the 0.02 threshold the effect leaves the slot
+    /// entirely — no shader pass once the shadow has faded. The slot is single: blur and
+    /// shadow are mutually exclusive on one target, the last writer owning it.
+    /// </summary>
+    internal static class ShadowEffects
+    {
+        private const double DetachBelow = 0.02;
+
+        internal static void WriteBlur(Visual t, double v) => Effect(t).BlurRadius = v;
+
+        internal static void WriteOffsetX(Visual t, double v) => Effect(t).OffsetX = v;
+
+        internal static void WriteOffsetY(Visual t, double v) => Effect(t).OffsetY = v;
+
+        internal static void WriteOpacity(Visual t, double v)
+        {
+            if (v < DetachBelow)
+            {
+                // Only a DropShadow leaves the slot — a foreign effect kind is never
+                // detached by the shadow channels.
+                if (t.Effect is DropShadowEffect)
+                    t.Effect = null;
+                return;
+            }
+            Effect(t).Opacity = v;
+        }
+
+        private static DropShadowEffect Effect(Visual t)
+        {
+            if (t.Effect is DropShadowEffect existing)
+                return existing;
+            var effect = new DropShadowEffect();
+            t.Effect = effect; // the attach-once write that schedules the frame
+            return effect;
+        }
     }
 }

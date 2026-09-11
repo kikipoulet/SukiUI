@@ -4,7 +4,8 @@ namespace SukiUI.ControlsAnimation
 {
     public enum SukiPopupPreset
     {
-        ComboBox
+        ComboBox,
+        ContextMenu
     }
 
     public sealed record SukiPopupProfile(
@@ -70,8 +71,13 @@ namespace SukiUI.ControlsAnimation
                 _ => 40.0 - (count - 4) * (40.0 - 20.0) / (10.0 - 4.0)
             });
 
+        // First pass: the ComboBox calibrations unchanged — the ContextMenu template keeps
+        // origin 0,0 (the menu grows from the click point instead of dropping from a
+        // control). Split into its own values when the menu needs a different feel.
+        public static readonly SukiPopupProfile ContextMenu = ComboBox;
+
         public static readonly SukiPresetTable<SukiPopupPreset, SukiPopupProfile> Normal =
-            new((SukiPopupPreset.ComboBox, ComboBox));
+            new((SukiPopupPreset.ComboBox, ComboBox), (SukiPopupPreset.ContextMenu, ContextMenu));
 
         #endregion
 
@@ -98,7 +104,7 @@ namespace SukiUI.ControlsAnimation
         };
 
         public static readonly SukiPresetTable<SukiPopupPreset, SukiPopupProfile> Lite =
-            new((SukiPopupPreset.ComboBox, ComboBoxLite));
+            new((SukiPopupPreset.ComboBox, ComboBoxLite), (SukiPopupPreset.ContextMenu, ComboBoxLite));
 
         #endregion
     }
