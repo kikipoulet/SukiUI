@@ -70,7 +70,7 @@ namespace SukiUI.ControlsAnimation
             CascadeInitialDelayMs: 150,
             CascadeDurationMs: 140,
             CascadeItemBlur: 20.0,
-            CascadeItemOffsetY: 8.0,
+            CascadeItemOffsetY: 7.0,
             CascadeMaxItems: 20,
             CascadeStaggerMs: count => count switch
             {

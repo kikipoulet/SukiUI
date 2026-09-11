@@ -1,5 +1,6 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:animations="clr-namespace:SukiUI.ControlsAnimation"
                     xmlns:suki="https://github.com/kikipoulet/SukiUI"
                     xmlns:system="clr-namespace:System;assembly=netstandard">
     <!--  Add Resources Here  -->
@@ -41,6 +42,11 @@
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
+
+        <!--  The knob's snap lives in SukiToggleSwitchMotion (spring + velocity-driven
+              smear blur + squash & stretch); the template keeps the knob's positioning
+              and resting BoxShadow.  -->
+        <Setter Property="animations:SukiToggleSwitchMotion.Enable" Value="True" />
         <Setter Property="Template">
             <ControlTemplate>
                 <DockPanel Name="DP">
@@ -173,30 +179,15 @@
                                     Width="22"
                                     Height="22"
                                     HorizontalAlignment="Left">
-                                <Border x:Name="SwitchKnob"
+                                <Border x:Name="PART_Knob"
                                         Canvas.Left="3"
                                         Canvas.Top="2"
                                         Width="18"
                                         Height="18"
                                         Margin="0,0,0,0"
                                         BoxShadow="{DynamicResource SukiSwitchShadow}"
-                                        CornerRadius="{DynamicResource MediumCornerRadius}">
-                                    <Border.Transitions>
-                                        <Transitions>
-
-                                            <DoubleTransition Property="Width" Duration="0:0:0.15">
-                                                <DoubleTransition.Easing>
-                                                    <QuadraticEaseOut />
-                                                </DoubleTransition.Easing>
-                                            </DoubleTransition>
-                                            <DoubleTransition Property="Canvas.Left" Duration="0:0:0.45">
-                                                <DoubleTransition.Easing>
-                                                    <QuarticEaseOut />
-                                                </DoubleTransition.Easing>
-                                            </DoubleTransition>
-                                        </Transitions>
-                                    </Border.Transitions>
-                                </Border>
+                                        CornerRadius="{DynamicResource MediumCornerRadius}"
+                                        RenderTransformOrigin="50%,50%" />
 
                                 <Grid x:Name="PART_MovingKnobs" />
                                 <!--  dont remove this  -->
@@ -207,19 +198,12 @@
             </ControlTemplate>
         </Setter>
 
-        <Style Selector="^ /template/ Border#SwitchKnob">
+        <Style Selector="^ /template/ Border#PART_Knob">
             <Setter Property="Background" Value="#fcfcfc" />
         </Style>
 
-        <Style Selector="^:unchecked /template/ Border#SwitchKnob">
-            <Setter Property="Width" Value="18" />
-            <Setter Property="Canvas.Left" Value="3" />
-        </Style>
-
-        <Style Selector="^:checked /template/ Border#SwitchKnob">
+        <Style Selector="^:checked /template/ Border#PART_Knob">
             <Setter Property="BoxShadow" Value="0 0 0 0 White" />
-            <Setter Property="Width" Value="18" />
-            <Setter Property="Canvas.Left" Value="21" />
         </Style>
 
 
