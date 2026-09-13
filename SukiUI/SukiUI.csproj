@@ -16,6 +16,7 @@
     <PackageDescription></PackageDescription>
     <PackageTags>avalonia;avaloniaui;ui;theme;sukiui</PackageTags>
     <PackageProjectUrl>https://github.com/kikipoulet/SukiUI</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>OIG.N5o-removebg-preview.png</PackageIcon>
   </PropertyGroup>
 
