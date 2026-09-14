@@ -57,10 +57,33 @@ public class BlurBackground : Control
     private SKImage? _underlayer;
     private volatile bool _underlayerDirty = true;
 
+    // The blur-result cache: with CONSTANT sigma the blurred image is a pure function
+    // of (backdrop, sigma, bounds, canvas transform) — recomputed only when one of
+    // them changes. A fade frame that only flips the paint alpha reuses the cached
+    // pass. IsDynamic glass stays live by construction: its per-frame snapshot is a
+    // NEW source image, which fails the reference check and recomputes every frame.
+    // NOTE: SKSurface.Snapshot() shares the surface's GPU texture — the snapshot is
+    // valid only while the SURFACE lives, so the cache owns both.
+    private SKSurface? _cachedBlurSurface;
+    private SKImage? _cachedBlur;
+    private SKImage? _cachedBlurSource; // a reference, never disposed here
+    private double _cachedBlurSigma;
+    private int _cachedBlurW, _cachedBlurH;
+    private SKMatrix _cachedBlurMatrix; // animating transforms (the dialog springs) invalidate
+
+    // Hoisted off the render operation: the op is recreated at every invalidation,
+    // and SkSL compilation is not a per-frame cost.
+    private static SKRuntimeEffect? _clampEffect;
+
     protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
     {
         _underlayerDirty = true;
-        _underlayer = null; 
+        _underlayer = null;
+        _cachedBlur?.Dispose();
+        _cachedBlur = null;
+        _cachedBlurSurface?.Dispose();
+        _cachedBlurSurface = null;
+        _cachedBlurSource = null;
         base.OnDetachedFromVisualTree(e);
     }
     
@@ -83,12 +106,10 @@ half4 main(float2 coord) {
 
     if (lum == 0.0) scale = 1.0;
     half3 clamped = c.rgb * scale;
-    // Materialize, don't alpha-fade: the paint stays opaque and its CONTENT slides
-    // from the raw source (whose blur strength tracks the same opacity) to the
-    // fully tinted frost. Alpha-fading instead mixed a sharp base with a blurred
-    // frost, which damped the blur progression until it read as a binary step.
-    // At opacity 0 this equals the unblurred source â€” a visual no-op; at 1 it is
-    // exactly the stock tint.
+    // The frost is applied at full strength inside the layer (opacity = 1);
+    // the LAYER itself fades in over the content beneath through the paint's
+    // alpha (a constant-sigma blur — the blur never animates, only its pixels'
+    // visibility does).
     c.rgb = mix(c.rgb, clamped, opacity);
     return c;
 }
@@ -104,7 +125,6 @@ half4 main(float2 coord) {
         private readonly bool _isDarkTheme;
         private readonly double _opacity;
         private readonly BlurBackground _owner;
-        private SKRuntimeEffect? _effect;
 
         public BlurBehindRenderOperation(Rect bounds, bool isDynamic, double blurFactor, bool isDarkTheme,
             double opacity, BlurBackground owner)
@@ -119,9 +139,9 @@ half4 main(float2 coord) {
 
         public void Dispose()
         {
-            _effect?.Dispose();
             // The underlayer belongs to the owner control (shared across ops); only a
-            // dynamic per-frame snapshot is owned by this op instance.
+            // dynamic per-frame snapshot is owned by this op instance. (The cached blur
+            // result and the compiled SkSL effect are owner/static.)
             if (!ReferenceEquals(_cachedBackground, _owner._underlayer))
                 _cachedBackground?.Dispose();
         }
@@ -187,64 +207,100 @@ half4 main(float2 coord) {
                 if (sigma < 20)
                     sigma = 20;
                 sigma *= _blurFactor;
-                sigma *= _opacity;
+                // CONSTANT sigma — OverlayOpacity fades the blurred pixels' alpha (the
+                // paint below), never the blur strength.
 
                 var mi = (int)Math.Round(Math.Min(3.0 * sigma + 2.0, 160.0));
                 var iw = (int)Math.Ceiling(_bounds.Width);
                 var ih = (int)Math.Ceiling(_bounds.Height);
 
-                using var blurred = SKSurface.Create(grContext, false,
-                    new SKImageInfo(iw + 2 * mi, ih + 2 * mi,
-                        SKImageInfo.PlatformColorType, SKAlphaType.Premul));
-                if (blurred is null)
+                // The blur pass runs only when (backdrop, sigma, bounds, transform)
+                // changed — a fade frame reuses the cached result and only flips the
+                // paint alpha. The _isDynamic term is redundant with the reference
+                // check but keeps the live-glass contract explicit.
+                SKImage blurSnap;
+                if (_isDynamic
+                    || _owner._cachedBlur is null
+                    || !ReferenceEquals(_owner._cachedBlurSource, _cachedBackground)
+                    || !_owner._cachedBlurSigma.Equals(sigma)
+                    || _owner._cachedBlurW != iw || _owner._cachedBlurH != ih
+                    || !_owner._cachedBlurMatrix.Equals(canvas.TotalMatrix))
                 {
-                    IsGpuBlurAvailable = false;
-                    return;
-                }
+                    // Invalidate the previous pair first — they die together.
+                    _owner._cachedBlur?.Dispose();
+                    _owner._cachedBlurSurface?.Dispose();
+                    _owner._cachedBlur = null;
+                    _owner._cachedBlurSurface = null;
 
-                var off = blurred.Canvas;
-                off.Save();
-                off.Translate(mi, mi);
-                using (var filter = SKImageFilter.CreateBlur((float)sigma, (float)sigma))
-                using (var blurPaint = new SKPaint())
+                    var blurred = SKSurface.Create(grContext, false,
+                        new SKImageInfo(iw + 2 * mi, ih + 2 * mi,
+                            SKImageInfo.PlatformColorType, SKAlphaType.Premul));
+                    if (blurred is null)
+                    {
+                        IsGpuBlurAvailable = false;
+                        return;
+                    }
+                    _owner._cachedBlurSurface = blurred; // ownership transferred — the snapshot's backing
+
+                    var off = blurred.Canvas;
+                    off.Save();
+                    off.Translate(mi, mi);
+                    using (var filter = SKImageFilter.CreateBlur((float)sigma, (float)sigma))
+                    using (var blurPaint = new SKPaint())
+                    {
+                        blurPaint.Shader = backdropShader;
+                        blurPaint.ImageFilter = filter;
+                        off.DrawRect(-mi, -mi, iw + 2 * mi, ih + 2 * mi, blurPaint);
+                    }
+                    off.Restore();
+
+                    blurSnap = mi > 0 && iw > 0 && ih > 0
+                        ? blurred.Snapshot(SKRectI.Create(mi, mi, iw, ih))
+                        : blurred.Snapshot();
+
+                    _owner._cachedBlur = blurSnap;
+                    _owner._cachedBlurSource = _cachedBackground;
+                    _owner._cachedBlurSigma = sigma;
+                    _owner._cachedBlurW = iw;
+                    _owner._cachedBlurH = ih;
+                    _owner._cachedBlurMatrix = canvas.TotalMatrix;
+                }
+                else
                 {
-                    blurPaint.Shader = backdropShader;
-                    blurPaint.ImageFilter = filter;
-                    off.DrawRect(-mi, -mi, iw + 2 * mi, ih + 2 * mi, blurPaint);
+                    blurSnap = _owner._cachedBlur; // the fade pays no blur
                 }
-                off.Restore();
-
-                using var blurSnap = mi > 0 && iw > 0 && ih > 0
-                    ? blurred.Snapshot(SKRectI.Create(mi, mi, iw, ih))
-                    : blurred.Snapshot();
 
                 using var blurSnapShader = SKShader.CreateImage(blurSnap);
                 {
-                    if (_effect == null)
+                    if (_clampEffect == null)
                     {
-                        _effect = SKRuntimeEffect.CreateShader(clampLumaSkSL, out var error);
-                        if (_effect == null)
+                        _clampEffect = SKRuntimeEffect.CreateShader(clampLumaSkSL, out var error);
+                        if (_clampEffect == null)
                             throw new Exception($"SKRuntimeEffect error: {error}");
                     }
 
                     float minLuma = _isDarkTheme ? 0f : 0.8f;
                     float maxLuma = _isDarkTheme ? 0.12f : 1f;
 
-                    var uniforms = new SKRuntimeEffectUniforms(_effect)
+                    var uniforms = new SKRuntimeEffectUniforms(_clampEffect)
                     {
                         ["minLuma"] = minLuma,
                         ["maxLuma"] = maxLuma,
-                        ["opacity"] = (float)Math.Pow(_opacity, 2.5)
+                        // The frost is at full strength INSIDE the layer — the layer
+                        // itself fades (paint alpha below).
+                        ["opacity"] = 1f
                     };
 
-                    var children = new SKRuntimeEffectChildren(_effect)
+                    var children = new SKRuntimeEffectChildren(_clampEffect)
                     {
                         ["src"] = blurSnapShader
                     };
-                    using var clampShader = _effect.ToShader(uniforms, children, SKMatrix.CreateIdentity());
+                    using var clampShader = _clampEffect.ToShader(uniforms, children, SKMatrix.CreateIdentity());
 
                     using var paint = new SKPaint();
                     paint.Shader = clampShader;
+                    // OverlayOpacity = the alpha of the blurred pixels.
+                    paint.Color = SKColors.White.WithAlpha((byte)Math.Round(255 * _opacity));
                     paint.IsAntialias = false;
 
                   

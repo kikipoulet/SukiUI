@@ -76,7 +76,7 @@ namespace SukiUI.ControlsAnimation
             CloseScale: 0.8,
             BlurredRadius: 40.0,
             SurfaceTransitionDurationMs: 250,
-            GlassFadeMilliseconds: 220,
+            GlassFadeMilliseconds: 300,
             ShakeOmega: 15.0,
             ShakeDecay: 9.0,
             ShakeImpulse: 320.0,
