@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 
 namespace SukiUI.ControlsAnimation
 {
@@ -9,21 +10,21 @@ namespace SukiUI.ControlsAnimation
     }
 
     public sealed record SukiPressProfile(
-        // scale the control eases toward while the pointer hovers it
+        [property: Description("scale the control eases toward while the pointer hovers it")]
         double HoverScale,
-        // how far a held press sinks past the press depth (deep floor = DefaultPressDepth - ExtraDeepRange)
+        [property: Description("how far a held press sinks past the press depth (deep floor = DefaultPressDepth - ExtraDeepRange)")]
         double ExtraDeepRange,
-        // duration of the initial press-down
+        [property: Description("duration of the initial press-down")]
         TimeSpan PressDuration,
-        // duration of the long-press stretch down to the deep floor
+        [property: Description("duration of the long-press stretch down to the deep floor")]
         TimeSpan DeepDuration,
-        // duration of the hover settle ramp
+        [property: Description("duration of the hover settle ramp")]
         TimeSpan HoverDuration,
-        // angular frequency of the release spring (how quick the rebound is)
+        [property: Description("angular frequency of the release spring (how quick the rebound is)")]
         double SpringOmega,
-        // damping of the release spring (higher = less bounce)
+        [property: Description("damping of the release spring (higher = less bounce)")]
         double SpringDecay,
-        // press scale used when SukiPressMotion.PressDepth is not set
+        [property: Description("press scale used when SukiPressMotion.PressDepth is not set")]
         double DefaultPressDepth)
     {
         #region Normal

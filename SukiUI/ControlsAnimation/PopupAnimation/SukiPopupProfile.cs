@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 
 namespace SukiUI.ControlsAnimation
 {
@@ -10,44 +11,43 @@ namespace SukiUI.ControlsAnimation
     }
 
     public sealed record SukiPopupProfile(
-        // scale the popup is collapsed to on X just before opening
+        [property: Description("scale the popup is collapsed to on X just before opening")]
         double ClosedScaleX,
-        // scale the popup is collapsed to on Y just before opening
+        [property: Description("scale the popup is collapsed to on Y just before opening")]
         double ClosedScaleY,
-        // scale the popup collapses toward on X at the end of the close
+        [property: Description("scale the popup collapses toward on X at the end of the close")]
         double CloseScaleX,
-        // scale the popup collapses toward on Y at the end of the close
+        [property: Description("scale the popup collapses toward on Y at the end of the close")]
         double CloseScaleY,
-        // angular frequency of the open spring
+        [property: Description("angular frequency of the open spring")]
         double OpenSpringOmega,
-        // damping of the open spring
+        [property: Description("damping of the open spring")]
         double OpenSpringDecay,
-        // angular frequency of the close spring
+        [property: Description("angular frequency of the close spring")]
         double CloseSpringOmega,
-        // damping of the close spring
+        [property: Description("damping of the close spring")]
         double CloseSpringDecay,
-        // opacity fade-in duration on open
+        [property: Description("opacity fade-in duration on open")]
         TimeSpan OpenOpacityDuration,
-        // opacity fade-out duration on close
+        [property: Description("opacity fade-out duration on close")]
         TimeSpan CloseOpacityDuration,
-        // motion blur: multiplier applied to the popup's own expansion speed
+        [property: Description("motion blur: multiplier applied to the popup's own expansion speed")]
         double BlurFactor,
-        // motion blur: cap on the open blur radius
+        [property: Description("motion blur: cap on the open blur radius")]
         double MaxBlurRadius,
-        // motion blur: fixed radius held while the popup dissolves on close
+        [property: Description("motion blur: fixed radius held while the popup dissolves on close")]
         double CloseBlurRadius,
-        // cascade: delay before the first item starts fading in (ms)
+        [property: Description("cascade: delay before the first item starts fading in (ms)")]
         double CascadeInitialDelayMs,
-        // cascade: per-item appearance duration — the opacity 0→1 of EACH item (ms)
+        [property: Description("cascade: per-item appearance duration — the opacity 0→1 of EACH item (ms)")]
         double CascadeDurationMs,
-        // cascade: blur radius each item materializes from, reaching 0 at 70% of the
-        // appearance duration (0 = plain opacity fade)
+        [property: Description("cascade: blur radius each item materializes from, reaching 0 at 70% of the appearance duration (0 = plain opacity fade)")]
         double CascadeItemBlur,
-        // cascade: vertical distance each item travels up to its resting pose (0 = none)
+        [property: Description("cascade: vertical distance each item travels up to its resting pose (0 = none)")]
         double CascadeItemOffsetY,
-        // cascade: above this many items the cascade is skipped
+        [property: Description("cascade: above this many items the cascade is skipped")]
         int CascadeMaxItems,
-        // cascade: per-item fade-in stagger as a function of the item count (ms)
+        [property: Description("cascade: per-item fade-in stagger as a function of the item count (ms)")]
         Func<int, double> CascadeStaggerMs)
     {
         #region Normal

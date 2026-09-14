@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 namespace SukiUI.ControlsAnimation
 {
     public enum SukiDialogPreset
@@ -6,51 +8,51 @@ namespace SukiUI.ControlsAnimation
     }
 
     public sealed record SukiDialogProfile(
-        // dialog area at or below which the responsive spring opens on its fastest, snappiest calibration
+        [property: Description("dialog area at or below which the responsive spring opens on its fastest, snappiest calibration")]
         double SmallDialogArea,
-        // dialog area at or above which it opens on its slowest, most damped calibration
+        [property: Description("dialog area at or above which it opens on its slowest, most damped calibration")]
         double LargeDialogArea,
-        // exponent curving the size -> damping ramp (higher keeps mid-size dialogs bouncier)
+        [property: Description("exponent curving the size -> damping ramp (higher keeps mid-size dialogs bouncier)")]
         double DampingCurveExponent,
-        // how far below its rest place the dialog rises from on open (and sinks back to on close)
+        [property: Description("how far below its rest place the dialog rises from on open (and sinks back to on close)")]
         double EmergenceVertical,
-        // how far toward the summoning click the emerge can pull the open horizontally
+        [property: Description("how far toward the summoning click the emerge can pull the open horizontally")]
         double EmergenceHorizontalMax,
-        // open transform duration for a small dialog (ms)
+        [property: Description("open transform duration for a small dialog (ms)")]
         double OpenTransformDurationSmallMs,
-        // open transform duration for a large dialog (ms)
+        [property: Description("open transform duration for a large dialog (ms)")]
         double OpenTransformDurationLargeMs,
-        // open spring omega for a small dialog
+        [property: Description("open spring omega for a small dialog")]
         double OpenOmegaSmall,
-        // open spring omega for a large dialog
+        [property: Description("open spring omega for a large dialog")]
         double OpenOmegaLarge,
-        // damping ratio for a small dialog at the open (below 1 lets it bounce, 1 is critically damped)
+        [property: Description("damping ratio for a small dialog at the open (below 1 lets it bounce, 1 is critically damped)")]
         double OpenZetaSmall,
-        // damping ratio for a large dialog at the open (above 1 settles it with no rebound)
+        [property: Description("damping ratio for a large dialog at the open (above 1 settles it with no rebound)")]
         double OpenZetaLarge,
-        // scale the small dialog opens from
+        [property: Description("scale the small dialog opens from")]
         double OpenFromScaleSmall,
-        // scale the large dialog opens from
+        [property: Description("scale the large dialog opens from")]
         double OpenFromScaleLarge,
-        // opacity fade-in duration on open (ms)
+        [property: Description("opacity fade-in duration on open (ms)")]
         int OpenOpacityDurationMs,
-        // scale the dialog closes toward (sinks back below the rest pose)
+        [property: Description("scale the dialog closes toward (sinks back below the rest pose)")]
         double CloseScale,
-        // depth-of-field blur radius at the blurred start/end of life (0 = no blur)
+        [property: Description("depth-of-field blur radius at the blurred start/end of life (0 = no blur)")]
         double BlurredRadius,
-        // blur transition duration on the dialog surface (ms)
+        [property: Description("blur transition duration on the dialog surface (ms)")]
         int SurfaceTransitionDurationMs,
-        // backdrop glass fade duration (ms)
+        [property: Description("backdrop glass fade duration (ms)")]
         int GlassFadeMilliseconds,
-        // angular frequency of the pinned-dialog shake spring
+        [property: Description("angular frequency of the pinned-dialog shake spring")]
         double ShakeOmega,
-        // damping of the pinned-dialog shake spring (higher = fewer swings)
+        [property: Description("damping of the pinned-dialog shake spring (higher = fewer swings)")]
         double ShakeDecay,
-        // initial velocity kicked into a pinned-dialog shake
+        [property: Description("initial velocity kicked into a pinned-dialog shake")]
         double ShakeImpulse,
-        // distance from rest below which a shake stops (px)
+        [property: Description("distance from rest below which a shake stops (px)")]
         double ShakeSettleDelta,
-        // speed below which a shake stops (px per second)
+        [property: Description("speed below which a shake stops (px per second)")]
         double ShakeSettleVelocity)
     {
         #region Normal

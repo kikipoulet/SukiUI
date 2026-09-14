@@ -1,0 +1,107 @@
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="900"
+    mc:Ignorable="d"
+    x:Class="SukiUI.Demo.Features.Helpers.AnimationProfileLab"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="clr-namespace:SukiUI.Demo.Features.Helpers"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:suki="https://github.com/kikipoulet/SukiUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <DataTemplate x:Key="FieldRow" x:DataType="helpers:AnimationProfileLab+ProfileField">
+            <Grid ColumnDefinitions="220, 12, 170" Margin="0,16,0,0">
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock FontSize="16" FontWeight="SemiBold" Text="{Binding Label}" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding Label}" />
+                    <TextBlock
+                        FontSize="11"
+                        Foreground="{DynamicResource SukiLowText}"
+                        IsVisible="{Binding Description, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                        Text="{Binding Description}"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+                <NumericUpDown
+                    Grid.Column="2"
+                    Increment="{Binding Increment}"
+                    Value="{Binding Value}" />
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <suki:SukiMainHost>
+        <suki:SukiMainHost.Hosts>
+            <suki:SukiDialogHost x:Name="DialogHost" />
+        </suki:SukiMainHost.Hosts>
+
+        <Grid ColumnDefinitions="1.2*, 420" Margin="16">
+            <TabControl x:Name="FamilyTabs" SelectionChanged="OnFamilyChanged">
+                <TabItem Classes="Pill" Header="Press">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="120" Margin="8,16,8,8" Spacing="12">
+                        <TextBlock Opacity="0.7" Text="Click, hold (deep press), release — the spring fires on release." TextWrapping="Wrap" />
+                        <Button Classes="Flat" Content="Press me" />
+                        <ComboBox MinWidth="220" SelectedIndex="0">
+                            <ComboBoxItem>Item 1</ComboBoxItem>
+                            <ComboBoxItem>Item 2</ComboBoxItem>
+                            <ComboBoxItem>Item 3</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Classes="Pill" Header="Popup">
+                    <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="120"  Margin="8,16,8,8" Spacing="12">
+                        <ComboBox MinWidth="220" SelectedIndex="0">
+                            <ComboBoxItem>ComboBox preset</ComboBoxItem>
+                            <ComboBoxItem>Item 2</ComboBoxItem>
+                            <ComboBoxItem>Item 3</ComboBoxItem>
+                        </ComboBox>
+                        <Menu>
+                            <MenuItem Header="Menu preset">
+                                <MenuItem Header="Sub 1" />
+                                <MenuItem Header="Sub 2" />
+                                <MenuItem Header="Sub 3" />
+                            </MenuItem>
+                        </Menu>
+                        <Border BorderBrush="{DynamicResource SukiBorder}" BorderThickness="1" CornerRadius="8" Padding="24,16">
+                            <TextBlock Text="Right-click here — ContextMenu preset" />
+                            <Border.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Cut" />
+                                    <MenuItem Header="Copy" />
+                                    <MenuItem Header="Paste" />
+                                </ContextMenu>
+                            </Border.ContextMenu>
+                        </Border>
+                    </StackPanel>
+                </TabItem>
+                <TabItem  HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="120" Classes="Pill" Header="Dialog">
+                    <StackPanel Margin="8,16,8,8" Spacing="12">
+                        <TextBlock Opacity="0.7" Text="Open, then click the backdrop to close." TextWrapping="Wrap" />
+                        <Button Click="OnOpenDialog" Content="Open dialog" />
+                    </StackPanel>
+                </TabItem>
+                <TabItem  HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="120" Classes="Pill" Header="Toggle">
+                    <StackPanel Margin="8,16,8,8" Spacing="12">
+                        <TextBlock Opacity="0.7" Text="Flip the switches — knob travel, spring, smear and squash follow the Toggle profile." TextWrapping="Wrap" />
+                        <ToggleSwitch />
+                        <ToggleSwitch />
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
+
+            <suki:GlassCard Grid.Column="1"
+                    Margin="20">
+                <StackPanel Spacing="8">
+                    <Grid ColumnDefinitions="*, Auto">
+                        <TextBlock x:Name="PresetTitle" FontWeight="SemiBold" VerticalAlignment="Center" />
+                        <Button Grid.Column="1" Click="OnReset" Content="Reset" />
+                    </Grid>
+                    <ComboBox x:Name="PresetBox" SelectionChanged="OnPresetChanged" />
+                    <ScrollViewer MaxHeight="520">
+                        <ItemsControl x:Name="FieldsList" ItemTemplate="{StaticResource FieldRow}" />
+                    </ScrollViewer>
+                    <TextBlock FontSize="11" Opacity="0.6" Text="Edits apply on the NEXT gesture — motions read the profile at gesture start. Reset restores the Normal table for this family." TextWrapping="Wrap" />
+                </StackPanel>
+            </suki:GlassCard>
+        </Grid>
+    </suki:SukiMainHost>
+</UserControl>

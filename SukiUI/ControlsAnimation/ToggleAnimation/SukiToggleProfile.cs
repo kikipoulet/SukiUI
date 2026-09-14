@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 
 namespace SukiUI.ControlsAnimation
 {
@@ -8,19 +9,19 @@ namespace SukiUI.ControlsAnimation
     }
 
     public sealed record SukiToggleProfile(
-        // distance in DIPs between the knob's rest poses (the template's knob travel)
+        [property: Description("distance in DIPs between the knob's rest poses (the template's knob travel)")]
         double Travel,
-        // angular frequency of the toggle spring (the snap)
+        [property: Description("angular frequency of the toggle spring (the snap)")]
         double SpringOmega,
-        // damping of the toggle spring (higher = less overshoot)
+        [property: Description("damping of the toggle spring (higher = less overshoot)")]
         double SpringDecay,
-        // motion blur: multiplier applied to the knob's |velocity| in DIP/s
+        [property: Description("motion blur: multiplier applied to the knob's |velocity| in DIP/s")]
         double BlurFactor,
-        // motion blur: cap on the smear radius
+        [property: Description("motion blur: cap on the smear radius")]
         double MaxBlur,
-        // squash & stretch: scale delta per DIP/s of the knob's |velocity|
+        [property: Description("squash & stretch: scale delta per DIP/s of the knob's |velocity|")]
         double SquashFactor,
-        // squash & stretch: cap on the stretch (and squeeze) delta
+        [property: Description("squash & stretch: cap on the stretch (and squeeze) delta")]
         double MaxSquash)
     {
         #region Normal
