@@ -253,19 +253,6 @@ public class SukiToast : ContentControl, ISukiToast
         Manager?.Dismiss(this, dismiss);
     }
 
-    public void AnimateShow()
-    {
-        this.Animate(OpacityProperty, 0d, 1d, TimeSpan.FromMilliseconds(500));
-        this.Animate<double>(MaxHeightProperty, 0, 500, TimeSpan.FromMilliseconds(500));
-        this.Animate(MarginProperty, new Thickness(0, 10, 0, -10), new Thickness(), TimeSpan.FromMilliseconds(500));
-    }
-
-    public void AnimateDismiss()
-    {
-        this.Animate(OpacityProperty, 1d, 0d, TimeSpan.FromMilliseconds(300));
-        this.Animate(MarginProperty, new Thickness(), new Thickness(0, 0, 0, 10), TimeSpan.FromMilliseconds(300));
-    }
-
     public ISukiToast ResetToDefault()
     {
         _wasDismissTimerInterrupted = false;

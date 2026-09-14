@@ -20,8 +20,6 @@ public interface ISukiToast
     Action<ISukiToast, SukiToastDismissSource>? OnDismissed { get; set; }
     Action<ISukiToast>? OnClicked { get; set; }
     ObservableCollection<object> ActionButtons { get; }
-    void AnimateShow();
-    void AnimateDismiss();
     ISukiToast ResetToDefault();
 
 }

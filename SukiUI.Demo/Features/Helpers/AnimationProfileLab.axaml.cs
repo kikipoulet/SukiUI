@@ -7,6 +7,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using SukiUI.ControlsAnimation;
 using SukiUI.Dialogs;
+using SukiUI.Toasts;
 
 namespace SukiUI.Demo.Features.Helpers;
 
@@ -37,6 +38,10 @@ public partial class AnimationProfileLab : UserControl
             p => SukiAnimationTheme.Current.Toggle[(SukiTogglePreset)(object)p],
             (p, c) => SukiAnimationTheme.Current with { Toggle = SukiAnimationTheme.Current.Toggle.With((SukiTogglePreset)(object)p, (SukiToggleProfile)c) },
             f => f with { Toggle = SukiAnimationProfile.Normal.Toggle }),
+        new("Toast", Enum.GetValues<SukiToastPreset>(),
+            p => SukiAnimationTheme.Current.Toast[(SukiToastPreset)(object)p],
+            (p, c) => SukiAnimationTheme.Current with { Toast = SukiAnimationTheme.Current.Toast.With((SukiToastPreset)(object)p, (SukiToastProfile)c) },
+            f => f with { Toast = SukiAnimationProfile.Normal.Toast }),
     };
 
     public sealed class ProfileField(string label, double value, double increment, Action<double> onChanged)
@@ -58,6 +63,7 @@ public partial class AnimationProfileLab : UserControl
     }
 
     private readonly SukiDialogManager _dialogs = new();
+    private readonly SukiToastManager _toasts = new();
     private FamilyDef _family = Families[0];
     private Enum _preset = SukiPressPreset.Button;
     private ConstructorInfo _ctor = null!;
@@ -67,6 +73,7 @@ public partial class AnimationProfileLab : UserControl
     {
         InitializeComponent();
         DialogHost.Manager = _dialogs;
+        ToastHost.Manager = _toasts;
         PresetTitle.Text = _family.Name;
         PresetBox.ItemsSource = _family.Presets;
         PresetBox.SelectedIndex = 0;
@@ -146,6 +153,13 @@ public partial class AnimationProfileLab : UserControl
             .WithContent("Open, close, shake — driven by the Dialog profile.")
             .Dismiss().ByClickingBackground()
             .TryShow();
+
+    private void OnShowToast(object? sender, RoutedEventArgs e)
+        => _toasts.CreateToast()
+            .WithTitle("Toast")
+            .WithContent("Show, dismiss, pile — driven by the Toast profile.")
+            .Dismiss().After(TimeSpan.FromSeconds(4))
+            .Queue();
 
     private static double Inc(double v) => Math.Abs(v) switch { < 1 => 0.01, < 10 => 0.1, < 1000 => 1.0, _ => 10 };
 }

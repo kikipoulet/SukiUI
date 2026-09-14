@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
 using Avalonia.LogicalTree;
+using SukiUI.ControlsAnimation;
 using SukiUI.Enums;
 using SukiUI.Helpers;
 using SukiUI.Toasts;
@@ -13,6 +14,9 @@ namespace SukiUI.Controls
     {
         private ISukiToastManager? _attachedManager;
         private bool _isAttachedToLogicalTree;
+        private readonly SukiToastMotion _toastMotion;
+
+        public SukiToastHost() => _toastMotion = new SukiToastMotion(this);
         public static readonly StyledProperty<ISukiToastManager> ManagerProperty =
             AvaloniaProperty.Register<SukiToastHost, ISukiToastManager>(nameof(Manager));
 
@@ -131,22 +135,27 @@ namespace SukiUI.Controls
         private void ManagerOnToastQueued(object sender, SukiToastQueuedEventArgs args)
         {
             if (MaxToasts <= 0) return;
-            var toast = args.Toast;
             Items.Add(args.Toast);
             Manager.EnsureMaximum(MaxToasts);
-            toast.AnimateShow();
+            if (args.Toast is SukiToast toast)
+                _toastMotion.PlayShow(toast);
         }
 
         private void ClearToast(ISukiToast toast)
         {
             if (Manager.IsDismissed(toast)) return;
-            toast.AnimateDismiss();
-            Task.Delay(300).ContinueWith(_ =>
+            if (toast is SukiToast suki)
             {
-                Items.Remove(toast);
-                if (toast is SukiToast sukiToast)
-                    ToastPool.Return(sukiToast);
-            }, TaskScheduler.FromCurrentSynchronizationContext());
+                _toastMotion.PlayDismiss(suki, () =>
+                {
+                    Items.Remove(toast);
+                    ToastPool.Return(suki);
+                });
+            }
+            else
+            {
+                Items.Remove(toast); // a custom ISukiToast: no motion, removed immediately
+            }
         }
 
         static SukiToastHost()

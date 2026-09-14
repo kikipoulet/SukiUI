@@ -1,5 +1,6 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:animations="clr-namespace:SukiUI.ControlsAnimation"
                     xmlns:converters="clr-namespace:Avalonia.Controls.Converters;assembly=Avalonia.Controls"
                     xmlns:suki="https://github.com/kikipoulet/SukiUI"
                     xmlns:system="clr-namespace:System;assembly=netstandard">
@@ -239,8 +240,10 @@
         <Setter Property="MinHeight" Value="36" />
         <Setter Property="Padding" Value="10,8" />
         <Setter Property="ContextFlyout" Value="{StaticResource DefaultTextBoxContextFlyout}" />
+        <Setter Property="animations:SukiTypingMotion.Enable" Value="True" />
         <Setter Property="Template">
             <ControlTemplate>
+                <Grid>
                 <suki:GlassCard Name="PART_GlassBorder"
                                 Padding="{TemplateBinding Padding}"
                                 Background="{TemplateBinding Background}"
@@ -410,6 +413,13 @@
                         </Grid>
                     </DockPanel>
                 </suki:GlassCard>
+                <Border Name="PART_TypingGlow"
+                        IsHitTestVisible="False"
+                        BorderBrush="{DynamicResource SukiPrimaryColor}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        Opacity="{TemplateBinding suki:TextBoxExtensions.TypingIntensity}" />
+                </Grid>
             </ControlTemplate>
         </Setter>
 
@@ -420,6 +430,9 @@
                 <Setter Property="BorderThickness" Value="0" />
                 <Setter Property="ClipToBounds" Value="True" />
             </Style>
+            <Style Selector="^ /template/ Border#PART_TypingGlow">
+                <Setter Property="BorderThickness" Value="0" />
+            </Style>
         </Style>
 
         <Style Selector="^.BottomBar">
@@ -428,10 +441,6 @@
 
         <Style Selector="^:disabled">
             <Setter Property="Opacity" Value="{DynamicResource ThemeDisabledOpacity}" />
-        </Style>
-
-        <Style Selector="^:pointerover, ^:focus">
-            <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
         </Style>
 
         <Style Selector="^:error">

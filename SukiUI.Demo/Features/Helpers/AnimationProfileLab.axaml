@@ -32,6 +32,7 @@
     <suki:SukiMainHost>
         <suki:SukiMainHost.Hosts>
             <suki:SukiDialogHost x:Name="DialogHost" />
+            <suki:SukiToastHost x:Name="ToastHost" />
         </suki:SukiMainHost.Hosts>
 
         <Grid ColumnDefinitions="1.2*, 420" Margin="16">
@@ -81,9 +82,15 @@
                 </TabItem>
                 <TabItem  HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="120" Classes="Pill" Header="Toggle">
                     <StackPanel Margin="8,16,8,8" Spacing="12">
-                        <TextBlock Opacity="0.7" Text="Flip the switches — knob travel, spring, smear and squash follow the Toggle profile." TextWrapping="Wrap" />
+                        <TextBlock Opacity="0.7" Text="Flip the switches — knob travel, spring, smear and squash follow the Toggle profile."  />
                         <ToggleSwitch />
                         <ToggleSwitch />
+                    </StackPanel>
+                </TabItem>
+                <TabItem  HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="120" Classes="Pill" Header="Toast">
+                    <StackPanel Margin="8,16,8,8" Spacing="12">
+                        <TextBlock Opacity="0.7" Text="Queue a few — show, dismiss and the pile's rise follow the Toast profile."  />
+                        <Button Click="OnShowToast" Content="Show toast" />
                     </StackPanel>
                 </TabItem>
             </TabControl>

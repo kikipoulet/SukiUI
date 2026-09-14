@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
 using Avalonia.Threading;
+using System;
 using System.Globalization;
 
 namespace SukiUI.Theme;
@@ -86,6 +87,20 @@ public static class TextBoxExtensions
     {
         control.SetValue(AddDeleteButtonProperty, value);
     }
+
+    /// <summary>
+    /// Identifies the TypingIntensity attached property: the 0..1 opacity of the primary
+    /// border overlay while the TextBox is focused or hovered. Animated by
+    /// SukiTypingMotion (a struck spring resting at 0.5, kicked brighter by keystrokes)
+    /// and template-bound to the overlay border's Opacity. Written by the motion engine.
+    /// </summary>
+    public static readonly AttachedProperty<double> TypingIntensityProperty =
+        AvaloniaProperty.RegisterAttached<TextBox, double>("TypingIntensity", typeof(TextBoxExtensions),
+            coerce: (_, v) => Math.Clamp(v, 0.0, 1.0));
+
+    public static double GetTypingIntensity(TextBox control) => control.GetValue(TypingIntensityProperty);
+
+    public static void SetTypingIntensity(TextBox control, double value) => control.SetValue(TypingIntensityProperty, value);
 
     public static void Error(this TextBox control, string message)
     {

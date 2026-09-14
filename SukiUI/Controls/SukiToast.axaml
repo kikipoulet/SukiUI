@@ -12,6 +12,7 @@
                             MinWidth="300"
                             MaxWidth="400"
                             Margin="40,5,30,10"
+                            VerticalAlignment="Bottom"
                             Padding="0"
                             Background="{DynamicResource SukiCardBackground}"
                             BorderBrush="{DynamicResource SukiBorderBrush}"
