@@ -29,8 +29,8 @@ namespace SukiUI.ControlsAnimation
         // overshoot, smearing and stretching while fast, crisp and round at rest.
         public static readonly SukiToggleProfile ToggleSwitch = new(
             Travel: 18.0,
-            SpringOmega: 24.0,
-            SpringDecay: 33.0,
+            SpringOmega: 18.0,
+            SpringDecay: 22.0,
             BlurFactor: 0.015,
             MaxBlur: 6.0,
             SquashFactor: 0.0004,
@@ -46,7 +46,8 @@ namespace SukiUI.ControlsAnimation
         // Sober snap: critically damped, no smear, no squash.
         public static readonly SukiToggleProfile ToggleSwitchLite = ToggleSwitch with
         {
-            SpringDecay = 48.0,
+            SpringOmega= 25.0,
+            SpringDecay= 50.0,
             BlurFactor = 0.0,
             SquashFactor = 0.0,
         };
