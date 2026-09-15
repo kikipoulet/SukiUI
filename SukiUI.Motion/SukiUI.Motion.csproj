@@ -1,19 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <Title>SukiUI.Motion</Title>
+    <Description>Declarative motion, spring physics, and interaction animation engine for SukiUI controls in Avalonia.</Description>
+  </PropertyGroup>
 
-    <ItemGroup>
-      <PackageReference Include="Avalonia" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+  </ItemGroup>
 
-    <ItemGroup>
-      <!-- The description vocabulary stays internal where it can (hygiene): the public
-           surface is the Enable lifecycle, the programmatic drive and the instrumentation. -->
-      <InternalsVisibleTo Include="SukiUI" />
-    </ItemGroup>
+  <ItemGroup>
+    <!-- The description vocabulary stays internal where it can (hygiene): the public
+         surface is the Enable lifecycle, the programmatic drive and the instrumentation. -->
+    <InternalsVisibleTo Include="SukiUI" />
+  </ItemGroup>
 
 </Project>

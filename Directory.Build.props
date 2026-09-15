@@ -1,21 +1,36 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project>
   <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>13</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <LangVersion>13</LangVersion>
-	
-	<!-- Set the path map and artifacts path. -->
-	<PathMap>$(MSBuildProjectDirectory)=$(MSBuildProjectName)</PathMap>
-	<ArtifactsPath>$(MSBuildThisFileDirectory)artifacts</ArtifactsPath>
+    <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+    <IsTrimmable>true</IsTrimmable>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+
+    <!-- Source mapping and artifacts output -->
+    <PathMap>$(MSBuildProjectDirectory)=$(MSBuildProjectName)</PathMap>
+    <ArtifactsPath>$(MSBuildThisFileDirectory)artifacts</ArtifactsPath>
+
+    <!-- Package metadata -->
+    <Authors>kikipoulet</Authors>
+    <Company>kikipoulet</Company>
+    <Product>SukiUI</Product>
+    <Copyright>Copyright © kikipoulet</Copyright>
+    <Description>A modern and elegant desktop UI theme and controls library for Avalonia UI applications.</Description>
+    <RepositoryUrl>https://github.com/kikipoulet/SukiUI</RepositoryUrl>
+    <PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
+    <PackageReleaseNotes>https://github.com/kikipoulet/SukiUI/releases</PackageReleaseNotes>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>OIG.N5o-removebg-preview.png</PackageIcon>
+    <PackageReadmeFile Condition="Exists('$(MSBuildThisFileDirectory)README.md')">README.md</PackageReadmeFile>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <Authors></Authors>
-    <Copyright></Copyright>
-    <Owners></Owners>
-    <Description>https://github.com/kikipoulet/SukiUI</Description>
-    <RepositoryUrl>https://github.com/kikipoulet/SukiUI</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-  </PropertyGroup>
+  <!-- Shared package assets (Icon & README) for packable projects -->
+  <ItemGroup Condition="'$(IsPackable)' != 'false'">
+    <None Include="$(MSBuildThisFileDirectory)Images\OIG.N5o-removebg-preview.png" Pack="true" PackagePath="" Visible="false" />
+    <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath="" Visible="false" Condition="Exists('$(MSBuildThisFileDirectory)README.md')" />
+  </ItemGroup>
 </Project>
