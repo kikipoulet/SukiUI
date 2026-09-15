@@ -78,6 +78,7 @@ namespace SukiUI.Controls
                 _dialogBackground = dialogBackground;
                 dialogBackground.PointerPressed += DialogBackgroundOnPointerPressed;
                 dialogBackground.Loaded += DialogBackgroundOnLoaded;
+                UpdateDialogVisualState();
             }
             if (e.NameScope.Find<ContentControl>("PART_DialogContent") is { } dialogContent)
             {
@@ -228,6 +229,7 @@ namespace SukiUI.Controls
             _dismissCts = null;
             Dialog = args.Dialog;
             IsDialogOpen = true;
+            UpdateDialogVisualState();
             WirePointerTracking(); // last-chance, idempotent: needed for the emergence offset
             // One dispatcher pass later the content has been laid out: its measured size
             // calibrates the spring, and the pointer is still at the invoking click.
@@ -237,6 +239,7 @@ namespace SukiUI.Controls
         private void ManagerOnDialogDismissed(object sender, SukiDialogManagerEventArgs args)
         {
             IsDialogOpen = false;
+            UpdateDialogVisualState();
             if (_dialogContent is { } content)
                 _anim.PlayClose(content);
             _dismissCts?.Cancel();
@@ -251,6 +254,17 @@ namespace SukiUI.Controls
                 _dismissCts?.Dispose();
                 _dismissCts = null;
             }, TaskScheduler.FromCurrentSynchronizationContext());
+        }
+
+        private void UpdateDialogVisualState()
+        {
+            if (_dialogBackground is { } background)
+            {
+                var isOpen = IsDialogOpen;
+                background.Opacity = isOpen ? 0.4 : 0;
+                background.IsVisible = isOpen;
+                background.IsHitTestVisible = isOpen;
+            }
         }
 
         private void PlayOpenAnimation()
