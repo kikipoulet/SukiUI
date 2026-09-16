@@ -1,10 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
     <TargetFramework>net10.0</TargetFramework>
+    <OutputType>WinExe</OutputType>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <IsPackable>false</IsPackable>
+    <Title>SukiUI Demo</Title>
+    <Description>Interactive demonstration and showcase application for the SukiUI library suite.</Description>
   </PropertyGroup>
 
   <ItemGroup>
@@ -36,54 +39,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <AvaloniaResource Include="..\Images\OIG.N5o-removebg-preview.png" Link="Assets/OIG.N5o-removebg-preview.png" />
-    <None Remove="Assets\cat.jpeg" />
-    <None Remove="Assets\cat-modified.png" />
-    <AvaloniaResource Include="Assets\cat-modified.png" />
-    <None Remove="Assets\desktopbackground.jpg" />
-    <AvaloniaResource Include="Assets\desktopbackground.jpg" />
-    <None Remove="Assets\Icons\icons8-note-48 (1).png" />
-    <None Remove="Assets\Icons\mail.png" />
-    <AvaloniaResource Include="Assets\Icons\mail.png" />
-    <None Remove="Assets\Icons\notes.png" />
-    <AvaloniaResource Include="Assets\Icons\notes.png" />
-    <None Remove="Assets\Icons\Mail\icons8-trash-96.png" />
-    <AvaloniaResource Include="Assets\Icons\Mail\icons8-trash-96.png" />
-    <None Remove="Assets\Icons\Mail\icons8-mailbox-96.png" />
-    <AvaloniaResource Include="Assets\Icons\Mail\icons8-mailbox-96.png" />
-    <None Remove="Assets\Icons\Mail\icons8-folder-96.png" />
-    <AvaloniaResource Include="Assets\Icons\Mail\icons8-folder-96.png" />
-    <None Remove="Assets\Icons\Mail\icons8-draft-96.png" />
-    <AvaloniaResource Include="Assets\Icons\Mail\icons8-draft-96.png" />
-    <None Remove="Assets\Icons\Mail\icons8-user-male-96.png" />
-    <AvaloniaResource Include="Assets\Icons\Mail\icons8-user-male-96.png" />
-    <None Remove="Assets\Icons\Mail\icons8-female-user-96.png" />
-    <AvaloniaResource Include="Assets\Icons\Mail\icons8-female-user-96.png" />
+    <AvaloniaResource Include="..\Images\OIG.N5o-removebg-preview.png" Link="Assets\OIG.N5o-removebg-preview.png" />
+    <AvaloniaResource Include="Assets\**\*.png" />
+    <AvaloniaResource Include="Assets\**\*.jpg" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Assets\space.sksl" />
-    <EmbeddedResource Include="Assets\clouds.sksl" />
-    <EmbeddedResource Include="Assets\weird.sksl" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Features\ControlsLibrary\Effects\EffectsView.axaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Features\Effects\shaderart.sksl" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Features\ControlsLibrary\ExperimentalControls\ExperimentalView.axaml.cs">
-      <DependentUpon>ExperimentalView.axaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Features\Helpers\SpringEase\SpringEasing.axaml.cs">
-      <DependentUpon>SpringEasing.axaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
+    <EmbeddedResource Include="**\*.sksl" />
   </ItemGroup>
 
 </Project>
