@@ -192,7 +192,8 @@ namespace SukiUI.ControlsAnimation
                 staggerMs: count => profile().CascadeStaggerMs(count),
                 skipAbove: () => profile().CascadeMaxItems,
                 itemBlur: () => profile().CascadeItemBlur,
-                itemOffsetY: () => profile().CascadeItemOffsetY);
+                itemOffsetY: () => profile().CascadeItemOffsetY,
+                itemScale: () => profile().CascadeItemScale);
 
             var open = popup.Show()
                 .And(openX)

@@ -45,6 +45,8 @@ namespace SukiUI.ControlsAnimation
         double CascadeItemBlur,
         [property: Description("cascade: vertical distance each item travels up to its resting pose (0 = none)")]
         double CascadeItemOffsetY,
+        [property: Description("cascade: scale each item materializes from, reaching 1 at rest (1 = no scale)")]
+        double CascadeItemScale,
         [property: Description("cascade: above this many items the cascade is skipped")]
         int CascadeMaxItems,
         [property: Description("cascade: per-item fade-in stagger as a function of the item count (ms)")]
@@ -67,10 +69,11 @@ namespace SukiUI.ControlsAnimation
             BlurFactor: 4.0,
             MaxBlurRadius: 12.0,
             CloseBlurRadius: 20.0,
-            CascadeInitialDelayMs: 150,
-            CascadeDurationMs: 140,
+            CascadeInitialDelayMs: 120,
+            CascadeDurationMs: 120,
             CascadeItemBlur: 20.0,
-            CascadeItemOffsetY: 7.0,
+            CascadeItemOffsetY: 0.0,
+            CascadeItemScale: 0.95,
             CascadeMaxItems: 20,
             CascadeStaggerMs: count => count switch
             {
@@ -112,6 +115,7 @@ namespace SukiUI.ControlsAnimation
             CascadeInitialDelayMs = 0.0,
             CascadeItemBlur = 0.0,
             CascadeItemOffsetY = 0.0,
+            CascadeItemScale = 1.0,
             CascadeMaxItems = 0,
         };
 

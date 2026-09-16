@@ -134,8 +134,8 @@ namespace SukiUI.Motion
     /// The staggered item cascade of an open popup — N item opacities, one program. Items
     /// are collected on the FIRST advance (the popup content only attaches once IsOpen=true),
     /// each item fading 0 → 1 with a per-index delay while emerging from a blur that lands
-    /// (radius 0) at 70% of the appearance duration and rising to its resting pose; the
-    /// per-item stagger is a function of the item count, and too many items skip the
+    /// (radius 0) at 70% of the appearance duration, rising and scaling up to its resting
+    /// pose; the per-item stagger is a function of the item count, and too many items skip the
     /// cascade entirely (shown immediately).
     /// <see cref="Reset"/> rests the items at their normal pose — the close start and every
     /// non-settle termination of the popup handle call it.
@@ -153,12 +153,13 @@ namespace SukiUI.Motion
         private readonly Func<int> _skipAbove;
         private readonly Func<double> _itemBlur;
         private readonly Func<double> _itemOffsetY;
+        private readonly Func<double> _itemScale;
 
         private Control[] _items = Array.Empty<Control>();
         private bool _pending;
         private long _start;
         private double _durationMs, _delayMs, _stagger;
-        private double _blurMax, _offsetY;
+        private double _blurMax, _offsetY, _scale;
 
         internal CascadeProgram(
             Func<Control[]> collect,
@@ -167,7 +168,8 @@ namespace SukiUI.Motion
             Func<int, double> staggerMs,
             Func<int> skipAbove,
             Func<double> itemBlur,
-            Func<double> itemOffsetY)
+            Func<double> itemOffsetY,
+            Func<double> itemScale)
         {
             _collect = collect;
             _duration = duration;
@@ -176,6 +178,7 @@ namespace SukiUI.Motion
             _skipAbove = skipAbove;
             _itemBlur = itemBlur;
             _itemOffsetY = itemOffsetY;
+            _itemScale = itemScale;
         }
 
         public override void Start()
@@ -194,8 +197,8 @@ namespace SukiUI.Motion
                 item.Opacity = 1.0;
                 if (item.Effect is BlurEffect)
                     item.Effect = null;
-                if (item.RenderTransform is TranslateTransform)
-                    item.RenderTransform = null;
+                Transforms.WriteTranslateY(item, 0.0);
+                Transforms.WriteScale(item, 1.0);
             }
             _items = Array.Empty<Control>();
             _pending = false;
@@ -222,6 +225,7 @@ namespace SukiUI.Motion
                 _stagger = _staggerMs(_items.Length);
                 _blurMax = _itemBlur();
                 _offsetY = _itemOffsetY();
+                _scale = _itemScale();
             }
 
             if (_items.Length == 0)
@@ -238,7 +242,10 @@ namespace SukiUI.Motion
                 double t = Math.Min(Math.Max((elapsed - i * _stagger) / _durationMs, 0.0), 1.0);
                 _items[i].Opacity = t;
                 BlurItem(_items[i], _blurMax * (1.0 - Math.Min(t / BlurSettleRatio, 1.0)));
-                RiseItem(_items[i], _offsetY * (1.0 - t));
+                if (_offsetY != 0.0)
+                    Transforms.WriteTranslateY(_items[i], _offsetY * (1.0 - t));
+                if (_scale != 1.0)
+                    Transforms.WriteScale(_items[i], 1.0 + (_scale - 1.0) * (1.0 - t));
                 if (t < 1.0)
                     anyActive = true;
             }
@@ -268,22 +275,5 @@ namespace SukiUI.Motion
                 item.Effect = null;
         }
 
-        /// <summary>The rise: a TranslateTransform over the item's RenderTransform slot,
-        /// same adopt-or-replace, dropped-below-threshold lifecycle as the blur — the slot
-        /// is left null at rest.</summary>
-        private static void RiseItem(Control item, double offsetY)
-        {
-            if (offsetY >= 0.5)
-            {
-                if (item.RenderTransform is not TranslateTransform translate)
-                {
-                    translate = new TranslateTransform();
-                    item.RenderTransform = translate;
-                }
-                translate.Y = offsetY;
-            }
-            else if (item.RenderTransform is TranslateTransform)
-                item.RenderTransform = null;
-        }
     }
 }

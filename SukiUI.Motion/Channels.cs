@@ -533,6 +533,9 @@ namespace SukiUI.Motion
 
         private void StartProgram(Program program)
         {
+            if (TopLevel.GetTopLevel(_owner) is null)
+                return;
+            
             _active = program;
             program.Start();
             EnsureSubscribed();
