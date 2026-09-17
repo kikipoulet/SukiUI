@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <RootNamespace>SukiUI.DataGrid</RootNamespace>
     <IsPackable>true</IsPackable>
     <Title>SukiUI.DataGrid</Title>
     <Description>SukiUI DataGrid theme resources for Avalonia UI applications.</Description>
