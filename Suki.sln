@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		LICENSE = LICENSE
 		nuget.config = nuget.config
 		Settings.XamlStyler = Settings.XamlStyler
+		.gitignore = .gitignore
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SukiUI.Dock", "SukiUI.Dock\SukiUI.Dock.csproj", "{B82306B8-613C-4360-882B-F19FE0F3265B}"
