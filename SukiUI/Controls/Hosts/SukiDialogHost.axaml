@@ -1,6 +1,5 @@
 <ResourceDictionary
     xmlns="https://github.com/avaloniaui"
-    xmlns:animations="clr-namespace:SukiUI.ControlsAnimation"
     xmlns:suki="https://github.com/kikipoulet/SukiUI"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ControlTheme TargetType="suki:SukiDialogHost" x:Key="SukiDialogHostTheme">
@@ -10,57 +9,47 @@
                     <Border
                         Background="{DynamicResource SukiDialogBackground}"
                         HorizontalAlignment="Stretch"
-                        IsVisible="False"
                         Name="PART_DialogBackground"
-                        Opacity="0"
                         VerticalAlignment="Stretch" />
-                    
-                        <ContentControl
-                                                          ClipToBounds="False"
-                                                          Content="{TemplateBinding Dialog}"
-                                                          HorizontalAlignment="Center"
-                                                          Name="PART_DialogContent"
-                                                          VerticalAlignment="Center">
-                            <!--
-                                The open/close poses (transform, opacity, blur) are owned by
-                                SukiDialogHost itself: the opening emerges from the invoking
-                                click's position and its spring is calibrated against the
-                                dialog's measured size. The transitions that animate between
-                                those poses are also built in code, per opening.
-                            -->
+
+                    <ContentControl
+                        ClipToBounds="False"
+                        Content="{TemplateBinding Dialog}"
+                        HorizontalAlignment="Center"
+                        Name="PART_DialogContent"
+                        VerticalAlignment="Center">
+                        <!--
+                            The open/close poses (transform, opacity, blur) are owned by
+                            SukiDialogHost itself: the opening emerges from the invoking
+                            click's position and its spring is calibrated against the
+                            dialog's measured size. The transitions that animate between
+                            those poses are also built in code, per opening.
+                        -->
                     </ContentControl>
-                
-                    <Panel.Styles>
-                        <Style Selector="suki|SukiDialogHost[IsDialogOpen=True]">
-                            <Style Selector="^ Border#PART_DialogBackground">
-                                <Setter Property="Opacity" Value="0.4" />
-                                <Setter Property="IsVisible" Value="True" />
-                                <Setter Property="IsHitTestVisible" Value="True" />
-                            </Style>
-                            <Style Selector="^ ContentControl#PART_DialogContent">
-                                <Setter Property="IsVisible" Value="True" />
-                                <Setter Property="IsHitTestVisible" Value="True" />
-                            </Style>
-                        </Style>
-                        <Style Selector="suki|SukiDialogHost[IsDialogOpen=False]">
-                            <Style Selector="^ Border#PART_DialogBackground">
-                                <Setter Property="Opacity" Value="0" />
-                                <Setter Property="IsHitTestVisible" Value="False" />
-
-
-                                <!--  need to make isvisible to false to make tooltips work !  -->
-                                <Setter Property="IsVisible" Value="False" />
-
-
-                            </Style>
-                            <Style Selector="^ ContentControl#PART_DialogContent">
-                                <Setter Property="IsHitTestVisible" Value="False" />
-                            </Style>
-                        </Style>
-                    </Panel.Styles>
                 </Panel>
             </ControlTemplate>
         </Setter>
+
+        <Style Selector="^[IsDialogOpen=True]">
+            <Style Selector="^ /template/ Border#PART_DialogBackground">
+                <Setter Property="Opacity" Value="0.4" />
+                <Setter Property="IsHitTestVisible" Value="True" />
+            </Style>
+            <Style Selector="^ /template/ ContentControl#PART_DialogContent">
+                <Setter Property="IsVisible" Value="True" />
+                <Setter Property="IsHitTestVisible" Value="True" />
+            </Style>
+        </Style>
+
+        <Style Selector="^[IsDialogOpen=False]">
+            <Style Selector="^ /template/ Border#PART_DialogBackground">
+                <Setter Property="Opacity" Value="0" />
+                <Setter Property="IsHitTestVisible" Value="False" />
+            </Style>
+            <Style Selector="^ /template/ ContentControl#PART_DialogContent">
+                <Setter Property="IsHitTestVisible" Value="False" />
+            </Style>
+        </Style>
     </ControlTheme>
     <ControlTheme
         BasedOn="{StaticResource SukiDialogHostTheme}"

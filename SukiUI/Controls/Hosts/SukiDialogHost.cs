@@ -78,14 +78,24 @@ namespace SukiUI.Controls
                 _dialogBackground = dialogBackground;
                 dialogBackground.PointerPressed += DialogBackgroundOnPointerPressed;
                 dialogBackground.Loaded += DialogBackgroundOnLoaded;
+                dialogBackground.IsVisible = IsDialogOpen;
             }
             if (e.NameScope.Find<ContentControl>("PART_DialogContent") is { } dialogContent)
             {
                 _dialogContent = dialogContent;
-                // Rest pose before any open (no transitions on a fresh template, so this
-                // lands instantly and invisibly).
-                dialogContent.RenderTransform = TransformOperations.Parse("translate(0px, 0px) scale(0.72)");
-                dialogContent.Opacity = 0.0;
+                if (!IsDialogOpen)
+                {
+                    // Rest pose before any open (no transitions on a fresh template, so this
+                    // lands instantly and invisibly).
+                    dialogContent.RenderTransform = TransformOperations.Parse("translate(0px, 0px) scale(0.72)");
+                    dialogContent.Opacity = 0.0;
+                }
+                else
+                {
+                    // If a template is reapplied while open (e.g. theme switch), keep the open pose.
+                    dialogContent.RenderTransform = TransformOperations.Parse("translate(0px, 0px) scale(1.0)");
+                    dialogContent.Opacity = 1.0;
+                }
             }
         }
 
@@ -226,6 +236,8 @@ namespace SukiUI.Controls
             _dismissCts?.Cancel();
             _dismissCts?.Dispose();
             _dismissCts = null;
+            if (_dialogBackground is { } background)
+                background.IsVisible = true;
             Dialog = args.Dialog;
             IsDialogOpen = true;
             WirePointerTracking(); // last-chance, idempotent: needed for the emergence offset
@@ -248,6 +260,8 @@ namespace SukiUI.Controls
                 if (t.IsCanceled) return;
                 if (Dialog != args.Dialog) return;
                 Dialog = null;
+                if (_dialogBackground is { } background)
+                    background.IsVisible = false;
                 _dismissCts?.Dispose();
                 _dismissCts = null;
             }, TaskScheduler.FromCurrentSynchronizationContext());
