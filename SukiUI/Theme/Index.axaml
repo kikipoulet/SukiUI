@@ -18,7 +18,6 @@
         <StyleInclude Source="avares://SukiUI/Theme/ToolTipBehaviorStyles.axaml" />
         <StyleInclude Source="avares://SukiUI/Theme/RadioButtonVariantsStyles.xaml" />
         <StyleInclude Source="avares://SukiUI/Theme/SliderStyles.xaml" />
-        <StyleInclude Source="avares://SukiUI/Theme/DataGridStyles.axaml" />
         <StyleInclude Source="avares://SukiUI/Theme/ScrollBarBehaviorStyles.axaml" />
         <StyleInclude Source="avares://SukiUI/Theme/PopupBehaviorStyles.axaml" />
         <StyleInclude Source="avares://SukiUI/Theme/ButtonLoadingStyles.axaml" />
@@ -88,9 +87,6 @@
                 <ResourceInclude Source="avares://sukiUI/Theme/ManagedFileChooser.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/TextResetButton.axaml" />
                 <ResourceInclude Source="avares://SukiUI/Theme/TreeViewItem.axaml" />
-                <!-- Must stay after TextBox.axaml: DataGridCellTextBoxTheme is BasedOn the TextBox theme. -->
-                <ResourceInclude Source="avares://SukiUI/Theme/DataGrid.axaml" />
-
                 <ResourceInclude Source="avares://sukiUI/Theme/TimePicker.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/Calendar/Calendar.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/Calendar/CalendarButton.axaml" />
