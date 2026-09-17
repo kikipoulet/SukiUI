@@ -26,6 +26,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{DB7EAF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SukiUI.Motion", "SukiUI.Motion\SukiUI.Motion.csproj", "{CAD04F62-24C9-42B7-B462-12114FA77C8B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SukiUI.DataGrid", "SukiUI.DataGrid\SukiUI.DataGrid.csproj", "{A56D39AB-0D6B-4A28-8B73-6D3B6A5F7E71}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,10 @@ Global
 		{CAD04F62-24C9-42B7-B462-12114FA77C8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAD04F62-24C9-42B7-B462-12114FA77C8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAD04F62-24C9-42B7-B462-12114FA77C8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A56D39AB-0D6B-4A28-8B73-6D3B6A5F7E71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A56D39AB-0D6B-4A28-8B73-6D3B6A5F7E71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A56D39AB-0D6B-4A28-8B73-6D3B6A5F7E71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A56D39AB-0D6B-4A28-8B73-6D3B6A5F7E71}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

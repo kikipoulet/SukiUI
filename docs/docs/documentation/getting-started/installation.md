@@ -34,6 +34,24 @@ You're done !
 
 ::: tip
 Visit [SukiUI on Nuget](https://www.nuget.org/packages/SukiUI) for more information
+
+### Optional DataGrid support
+
+SukiUI's core package does not include the deprecated `Avalonia.Controls.DataGrid` package.
+If your application uses `DataGrid` and the SukiUI DataGrid theme, install the optional package:
+
+```bash
+dotnet add package SukiUI.DataGrid
+```
+
+Then include its styles after `SukiTheme` in `App.axaml`:
+
+```xml
+<Application.Styles>
+    <suki:SukiTheme />
+    <StyleInclude Source="avares://SukiUI.DataGrid/Theme/Index.axaml" />
+</Application.Styles>
+```
 :::
 
 ### Via Github Action
