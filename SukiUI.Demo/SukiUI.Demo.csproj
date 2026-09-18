@@ -13,7 +13,6 @@
   <ItemGroup>
     <PackageReference Include="Avalonia" />
     <PackageReference Include="Avalonia.AvaloniaEdit" />
-    <PackageReference Include="Avalonia.Controls.ColorPicker" />
     <PackageReference Include="Avalonia.Desktop" />
     <PackageReference Include="Avalonia.Fonts.Inter" />
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="AvaloniaUI.DiagnosticsSupport" />
@@ -34,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SukiUI.ColorPicker\SukiUI.ColorPicker.csproj" />
     <ProjectReference Include="..\SukiUI.DataGrid\SukiUI.DataGrid.csproj" />
     <ProjectReference Include="..\SukiUI.Dock\SukiUI.Dock.csproj" />
     <ProjectReference Include="..\SukiUI\SukiUI.csproj" />
