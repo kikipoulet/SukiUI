@@ -12,6 +12,8 @@ namespace SukiUI.Demo.Features.Helpers
 {
     public partial class HelpersView : UserControl
     {
+        private bool _animationProfileLabCreated;
+
         public HelpersView()
         {
             InitializeComponent();
@@ -27,9 +29,17 @@ namespace SukiUI.Demo.Features.Helpers
                 };
         }
 
-      
+        private void OnMenuSelectionChanged(object? sender, SelectionChangedEventArgs e)
+        {
+            if (_animationProfileLabCreated ||
+                !e.AddedItems.Contains(AnimationProfileItem))
+            {
+                return;
+            }
 
-
+            AnimationProfileItem.PageContent = new AnimationProfileLab();
+            _animationProfileLabCreated = true;
+        }
 
         private CancellationTokenSource token;
 

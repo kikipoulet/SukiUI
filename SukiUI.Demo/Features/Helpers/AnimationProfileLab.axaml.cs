@@ -8,6 +8,7 @@ using Avalonia.Interactivity;
 using SukiUI.ControlsAnimation;
 using SukiUI.Dialogs;
 using SukiUI.Toasts;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SukiUI.Demo.Features.Helpers;
 
@@ -69,6 +70,11 @@ public partial class AnimationProfileLab : UserControl
     private ConstructorInfo _ctor = null!;
     private object?[] _args = [];
 
+    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicProperties, typeof(SukiPressProfile))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicProperties, typeof(SukiPopupProfile))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicProperties, typeof(SukiDialogProfile))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicProperties, typeof(SukiToggleProfile))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicProperties, typeof(SukiToastProfile))]
     public AnimationProfileLab()
     {
         InitializeComponent();
