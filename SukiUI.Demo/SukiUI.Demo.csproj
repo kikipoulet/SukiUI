@@ -33,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SukiUI.ConditionalXAML\SukiUI.ConditionalXAML.csproj" />
     <ProjectReference Include="..\SukiUI.ColorPicker\SukiUI.ColorPicker.csproj" />
     <ProjectReference Include="..\SukiUI.DataGrid\SukiUI.DataGrid.csproj" />
     <ProjectReference Include="..\SukiUI.Dock\SukiUI.Dock.csproj" />
