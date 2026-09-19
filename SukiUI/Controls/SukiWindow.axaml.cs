@@ -37,15 +37,23 @@ public class SukiWindow : Window, IDisposable
 {
     #region Enums
     /// <summary>
-    /// Specifies the visibility mode of the title bar.
+    /// Specifies the style of the title bar window controls.
     /// </summary>
     public enum WindowChromeStyle
     {
+        [Description("Auto: The controls follow the platform the application is running on.")]
         Auto,
+
+        [Description("Windows: The controls are placed on the right in the Windows style.")]
         Windows,
+
+        [Description("MacOS: The controls are placed on the left as macOS traffic lights.")]
         MacOS
     }
 
+    /// <summary>
+    /// Specifies the visibility mode of the title bar.
+    /// </summary>
     public enum TitleBarVisibilityMode
     {
         [Description("Unchanged: The title bar visibility will be kept unchanged during diferent states.")]
