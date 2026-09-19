@@ -668,51 +668,82 @@ public class SukiWindow : Window, IDisposable
 
     private void ConfigureWindowChrome(StackPanel? controls, ItemsControl? customControls, ContentControl? macControlsHost)
     {
-        if (controls is null) return;
+        if (controls is null)
+            return;
 
         var isMacOS = WindowChromeMode == WindowChromeStyle.MacOS ||
                       (WindowChromeMode == WindowChromeStyle.Auto && OperatingSystem.IsMacOS());
-        DockPanel.SetDock(controls, isMacOS ? Dock.Left : Dock.Right);
-        controls.Margin = isMacOS ? new Thickness(4, 0, 0, 0) : new Thickness(0);
-        controls.Spacing = isMacOS ? 9 : 7;
+        ConfigureWindowControlLayout(controls, isMacOS);
 
         if (isMacOS)
         {
-            // The green traffic light is the full screen control on macOS; the zoom box only appears with Option held.
-            if (CanMaximize)
-            {
-                CanFullScreen = true;
-            }
-
-            if (controls.Children.OfType<Button>().FirstOrDefault(button => button.Name == MaximizeButtonName) is { } maximize)
-            {
-                maximize.IsVisible = false;
-            }
-
-            _macFullScreenIcon = controls.Children
-                .OfType<Button>()
-                .FirstOrDefault(button => button.Name == FullScreenButtonName) is { } fullscreen
-                    ? fullscreen.Content as PathIcon ?? fullscreen.GetVisualDescendants().OfType<PathIcon>().FirstOrDefault()
-                    : null;
-            SetMacFullScreenIcon();
-            Dispatcher.UIThread.Post(SetMacFullScreenIcon, DispatcherPriority.Loaded);
+            ConfigureMacOSWindowControls(controls);
         }
 
-        if (customControls is not null && macControlsHost is not null)
-        {
-            if (isMacOS)
-            {
-                controls.Children.Remove(customControls);
-                macControlsHost.Content = customControls;
-                macControlsHost.IsVisible = true;
-            }
-            else
-            {
-                macControlsHost.IsVisible = false;
-            }
-        }
+        ConfigureCustomWindowControls(controls, customControls, macControlsHost, isMacOS);
 
         var buttons = controls.Children.OfType<Button>().ToList();
+        ConfigureWindowButtons(buttons, isMacOS);
+
+        if (isMacOS)
+        {
+            ConfigureMacOSWindowControlHover(controls, buttons);
+            ReorderMacOSWindowControls(controls, buttons);
+        }
+    }
+
+    private static void ConfigureWindowControlLayout(StackPanel controls, bool isMacOS)
+    {
+        DockPanel.SetDock(controls, isMacOS ? Dock.Left : Dock.Right);
+        controls.Margin = isMacOS ? new Thickness(4, 0, 0, 0) : new Thickness(0);
+        controls.Spacing = isMacOS ? 9 : 7;
+    }
+
+    private void ConfigureMacOSWindowControls(StackPanel controls)
+    {
+        // The green traffic light is the full screen control on macOS; the zoom box only appears with Option held.
+        if (CanMaximize)
+        {
+            CanFullScreen = true;
+        }
+
+        if (controls.Children.OfType<Button>().FirstOrDefault(button => button.Name == MaximizeButtonName) is { } maximize)
+        {
+            maximize.IsVisible = false;
+        }
+
+        _macFullScreenIcon = controls.Children
+            .OfType<Button>()
+            .FirstOrDefault(button => button.Name == FullScreenButtonName) is { } fullscreen
+                ? fullscreen.Content as PathIcon ?? fullscreen.GetVisualDescendants().OfType<PathIcon>().FirstOrDefault()
+                : null;
+        SetMacFullScreenIcon();
+        Dispatcher.UIThread.Post(SetMacFullScreenIcon, DispatcherPriority.Loaded);
+    }
+
+    private static void ConfigureCustomWindowControls(
+        StackPanel controls,
+        ItemsControl? customControls,
+        ContentControl? macControlsHost,
+        bool isMacOS)
+    {
+        if (customControls is null || macControlsHost is null)
+            return;
+
+        if (isMacOS)
+        {
+            controls.Children.Remove(customControls);
+            macControlsHost.Content = customControls;
+            macControlsHost.IsVisible = true;
+        }
+        else
+        {
+            macControlsHost.IsVisible = false;
+        }
+    }
+
+    private void ConfigureWindowButtons(IReadOnlyList<Button> buttons, bool isMacOS)
+    {
         foreach (var button in buttons)
         {
             button.Classes.Set("MacOSWindowControl", isMacOS);
@@ -744,38 +775,40 @@ public class SukiWindow : Window, IDisposable
                 }
             }
         }
+    }
 
-        if (isMacOS)
+    private void ConfigureMacOSWindowControlHover(StackPanel controls, IReadOnlyList<Button> buttons)
+    {
+        void OnPointerEntered(object? sender, PointerEventArgs e)
         {
-            EventHandler<PointerEventArgs> onPointerEntered = (_, _) =>
-            {
-                foreach (var button in buttons) button.Classes.Set("MacOSWindowControlsHover", true);
-                SetMacControlIconVisibility(buttons, true);
-            };
-            EventHandler<PointerEventArgs> onPointerExited = (_, _) =>
-            {
-                foreach (var button in buttons) button.Classes.Set("MacOSWindowControlsHover", false);
-                SetMacControlIconVisibility(buttons, false);
-            };
-            controls.PointerEntered += onPointerEntered;
-            controls.PointerExited += onPointerExited;
-            _disposeActions.Add(() =>
-            {
-                controls.PointerEntered -= onPointerEntered;
-                controls.PointerExited -= onPointerExited;
-            });
+            foreach (var button in buttons) button.Classes.Set("MacOSWindowControlsHover", true);
+            SetMacControlIconVisibility(buttons, true);
         }
 
-        if (isMacOS)
+        void OnPointerExited(object? sender, PointerEventArgs e)
         {
-            foreach (var buttonName in new[] { CloseButtonName, MinimizeButtonName, FullScreenButtonName, PinButtonName })
+            foreach (var button in buttons) button.Classes.Set("MacOSWindowControlsHover", false);
+            SetMacControlIconVisibility(buttons, false);
+        }
+
+        controls.PointerEntered += OnPointerEntered;
+        controls.PointerExited += OnPointerExited;
+        _disposeActions.Add(() =>
+        {
+            controls.PointerEntered -= OnPointerEntered;
+            controls.PointerExited -= OnPointerExited;
+        });
+    }
+
+    private static void ReorderMacOSWindowControls(StackPanel controls, IReadOnlyList<Button> buttons)
+    {
+        foreach (var buttonName in new[] { CloseButtonName, MinimizeButtonName, FullScreenButtonName, PinButtonName })
+        {
+            var button = buttons.FirstOrDefault(candidate => candidate.Name == buttonName);
+            if (button is not null)
             {
-                var button = buttons.FirstOrDefault(candidate => candidate.Name == buttonName);
-                if (button is not null)
-                {
-                    controls.Children.Remove(button);
-                    controls.Children.Add(button);
-                }
+                controls.Children.Remove(button);
+                controls.Children.Add(button);
             }
         }
     }
