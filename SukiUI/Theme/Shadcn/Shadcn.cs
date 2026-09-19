@@ -28,6 +28,11 @@ namespace SukiUI.Theme.Shadcn
             {
                 Source = new Uri("avares://SukiUI/Theme/Shadcn/ShadDarkStyles.axaml")
             };
+            var buttonStyles = new StyleInclude(new Uri("avares://SukiUI/Theme/Shadcn/ShadButtonStyles.axaml"))
+            {
+                Source = new Uri("avares://SukiUI/Theme/Shadcn/ShadButtonStyles.axaml")
+            };
+            application.Styles.Add(buttonStyles);
 
         
             SukiTheme.GetInstance().OnBaseThemeChanged += variant =>
@@ -43,6 +48,7 @@ namespace SukiUI.Theme.Shadcn
                     SukiTheme.GetInstance().ChangeColorTheme(blackTheme);
                     application.Styles.Remove(BlackStyles);
                 }
+
             };
 
             try

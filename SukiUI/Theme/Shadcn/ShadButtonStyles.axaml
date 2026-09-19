@@ -1,0 +1,13 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:suki="https://github.com/kikipoulet/SukiUI"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style Selector="Button.Flat /template/ TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource SukiFlatButtonForeground}" />
+    </Style>
+    <Style Selector="Button.Flat /template/ suki|Loading">
+        <Setter Property="Foreground" Value="{DynamicResource SukiFlatButtonForeground}" />
+    </Style>
+    <Style Selector="Button.Flat /template/ ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource SukiFlatButtonForeground}" />
+    </Style>
+</Styles>
