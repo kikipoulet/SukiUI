@@ -12,6 +12,7 @@ using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
+using SukiUI.Content;
 using SukiUI.Enums;
 using SukiUI.Extensions;
 using System.ComponentModel;
@@ -35,6 +36,21 @@ namespace SukiUI.Controls;
 public class SukiWindow : Window, IDisposable
 {
     #region Enums
+    /// <summary>
+    /// Specifies the style of the title bar window controls.
+    /// </summary>
+    public enum WindowChromeStyle
+    {
+        [Description("Auto: The controls follow the platform the application is running on.")]
+        Auto,
+
+        [Description("Windows: The controls are placed on the right in the Windows style.")]
+        Windows,
+
+        [Description("MacOS: The controls are placed on the left as macOS traffic lights.")]
+        MacOS
+    }
+
     /// <summary>
     /// Specifies the visibility mode of the title bar.
     /// </summary>
@@ -65,11 +81,15 @@ public class SukiWindow : Window, IDisposable
     private const int DefaultAutoShowDelay = 300;
     private static readonly TimeSpan MacTitleBarDoubleClickInterval = TimeSpan.FromMilliseconds(500);
     private const double MacTitleBarDoubleClickMaxDistance = 4;
+    private const string CloseButtonName = "PART_CloseButton";
+    private const string MinimizeButtonName = "PART_MinimizeButton";
+    private const string MaximizeButtonName = "PART_MaximizeButton";
+    private const string FullScreenButtonName = "PART_FullScreenButton";
+    private const string PinButtonName = "PART_PinButton";
 
     private bool _isDisposed;
     private bool _wasTitleBarVisibleBeforeFullScreen = true;
     private bool _suppressMacTitleBarDoubleTapped;
-    private int _titleBarAnimationVersion;
     private DateTime _lastMacTitleBarClickTime = DateTime.MinValue;
     private Point _lastMacTitleBarClickPosition;
 
@@ -85,6 +105,11 @@ public class SukiWindow : Window, IDisposable
     private readonly List<Action> _disposeActions = new List<Action>();
 
     private LayoutTransformControl? _titleBarControl;
+    private PathIcon? _macFullScreenIcon;
+    private Size? _preFullScreenSize;
+    private PixelPoint? _preFullScreenPosition;
+    private bool _isRestoringFromFullScreen;
+    private CancellationTokenSource? _titleBarAnimationCancellation;
     #endregion
 
     #region Properties
@@ -122,6 +147,18 @@ public class SukiWindow : Window, IDisposable
     {
         get => GetValue(IsTitleBarVisibleProperty);
         set => SetValue(IsTitleBarVisibleProperty, value);
+    }
+
+    public static readonly StyledProperty<WindowChromeStyle> WindowChromeModeProperty =
+        AvaloniaProperty.Register<SukiWindow, WindowChromeStyle>(nameof(WindowChromeMode), WindowChromeStyle.Auto);
+
+    /// <summary>
+    /// Gets or sets the title-bar control style. Auto selects the macOS style on macOS and the Windows style elsewhere.
+    /// </summary>
+    public WindowChromeStyle WindowChromeMode
+    {
+        get => GetValue(WindowChromeModeProperty);
+        set => SetValue(WindowChromeModeProperty, value);
     }
 
     public static readonly StyledProperty<TitleBarVisibilityMode> TitleBarVisibilityOnFullScreenProperty =
@@ -610,6 +647,11 @@ public class SukiWindow : Window, IDisposable
             _disposeActions.Add(() => close.Click -= OnCloseButtonClicked);
         }
 
+        ConfigureWindowChrome(
+            e.NameScope.Find<StackPanel>("PART_WindowControls"),
+            e.NameScope.Find<ItemsControl>("PART_CustomWindowTitleBarControls"),
+            e.NameScope.Find<ContentControl>("PART_MacWindowTitleBarControlsHost"));
+
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
             if (e.NameScope.Find<Panel>("PART_Root") is { } rootPanel)
@@ -622,6 +664,192 @@ public class SukiWindow : Window, IDisposable
             }
         }
 
+    }
+
+    private void ConfigureWindowChrome(StackPanel? controls, ItemsControl? customControls, ContentControl? macControlsHost)
+    {
+        if (controls is null)
+            return;
+
+        var isMacOS = WindowChromeMode == WindowChromeStyle.MacOS ||
+                      (WindowChromeMode == WindowChromeStyle.Auto && OperatingSystem.IsMacOS());
+        ConfigureWindowControlLayout(controls, isMacOS);
+
+        if (isMacOS)
+        {
+            ConfigureMacOSWindowControls(controls);
+        }
+
+        ConfigureCustomWindowControls(controls, customControls, macControlsHost, isMacOS);
+
+        var buttons = controls.Children.OfType<Button>().ToList();
+        ConfigureWindowButtons(buttons, isMacOS);
+
+        if (isMacOS)
+        {
+            ConfigureMacOSWindowControlHover(controls, buttons);
+            ReorderMacOSWindowControls(controls, buttons);
+        }
+    }
+
+    private static void ConfigureWindowControlLayout(StackPanel controls, bool isMacOS)
+    {
+        DockPanel.SetDock(controls, isMacOS ? Dock.Left : Dock.Right);
+        controls.Margin = isMacOS ? new Thickness(4, 0, 0, 0) : new Thickness(0);
+        controls.Spacing = isMacOS ? 9 : 7;
+    }
+
+    private void ConfigureMacOSWindowControls(StackPanel controls)
+    {
+        // On macOS, the green traffic light controls full screen.
+        if (CanMaximize)
+        {
+            CanFullScreen = true;
+        }
+
+        if (controls.Children.OfType<Button>().FirstOrDefault(button => button.Name == MaximizeButtonName) is { } maximize)
+        {
+            maximize.IsVisible = false;
+        }
+
+        _macFullScreenIcon = controls.Children
+            .OfType<Button>()
+            .FirstOrDefault(button => button.Name == FullScreenButtonName) is { } fullscreen
+                ? fullscreen.Content as PathIcon ?? fullscreen.GetVisualDescendants().OfType<PathIcon>().FirstOrDefault()
+                : null;
+        SetMacFullScreenIcon();
+        Dispatcher.UIThread.Post(SetMacFullScreenIcon, DispatcherPriority.Loaded);
+    }
+
+    private static void ConfigureCustomWindowControls(
+        StackPanel controls,
+        ItemsControl? customControls,
+        ContentControl? macControlsHost,
+        bool isMacOS)
+    {
+        if (customControls is null || macControlsHost is null)
+            return;
+
+        if (isMacOS)
+        {
+            controls.Children.Remove(customControls);
+            macControlsHost.Content = customControls;
+            macControlsHost.IsVisible = true;
+        }
+        else
+        {
+            macControlsHost.IsVisible = false;
+        }
+    }
+
+    private void ConfigureWindowButtons(IReadOnlyList<Button> buttons, bool isMacOS)
+    {
+        foreach (var button in buttons)
+        {
+            button.Classes.Set("MacOSWindowControl", isMacOS);
+            button.Classes.Set("MacOSClose", isMacOS && button.Name == CloseButtonName);
+            button.Classes.Set("MacOSMinimize", isMacOS && button.Name == MinimizeButtonName);
+            button.Classes.Set("MacOSFullScreen", isMacOS && button.Name == FullScreenButtonName);
+            button.Classes.Set("MacOSWindowControlsHover", false);
+            if (isMacOS)
+            {
+                button.HorizontalContentAlignment = HorizontalAlignment.Center;
+                button.VerticalContentAlignment = VerticalAlignment.Center;
+                if (button.Content is PathIcon icon)
+                {
+                    icon.Width = 8;
+                    icon.Height = 8;
+                    icon.Margin = new Thickness(0);
+                    icon.HorizontalAlignment = HorizontalAlignment.Center;
+                    icon.VerticalAlignment = VerticalAlignment.Center;
+                    icon.Opacity = 0;
+                    icon.Data = button.Name switch
+                    {
+                        CloseButtonName => Icons.MacOSClose,
+                        MinimizeButtonName => Icons.MacOSMinimize,
+                        FullScreenButtonName => WindowState == WindowState.FullScreen
+                            ? Icons.MacOSFullScreenOff
+                            : Icons.MacOSFullScreen,
+                        _ => icon.Data
+                    };
+                }
+            }
+        }
+    }
+
+    private void ConfigureMacOSWindowControlHover(StackPanel controls, IReadOnlyList<Button> buttons)
+    {
+        void OnPointerEntered(object? sender, PointerEventArgs e)
+        {
+            foreach (var button in buttons) button.Classes.Set("MacOSWindowControlsHover", true);
+            SetMacControlIconVisibility(buttons, true);
+        }
+
+        void OnPointerExited(object? sender, PointerEventArgs e)
+        {
+            foreach (var button in buttons) button.Classes.Set("MacOSWindowControlsHover", false);
+            SetMacControlIconVisibility(buttons, false);
+        }
+
+        controls.PointerEntered += OnPointerEntered;
+        controls.PointerExited += OnPointerExited;
+        _disposeActions.Add(() =>
+        {
+            controls.PointerEntered -= OnPointerEntered;
+            controls.PointerExited -= OnPointerExited;
+        });
+    }
+
+    private static void ReorderMacOSWindowControls(StackPanel controls, IReadOnlyList<Button> buttons)
+    {
+        foreach (var buttonName in new[] { CloseButtonName, MinimizeButtonName, FullScreenButtonName, PinButtonName })
+        {
+            var button = buttons.FirstOrDefault(candidate => candidate.Name == buttonName);
+            if (button is not null)
+            {
+                controls.Children.Remove(button);
+                controls.Children.Add(button);
+            }
+        }
+    }
+
+    private static void SetMacControlIconVisibility(IEnumerable<Button> buttons, bool isVisible)
+    {
+        foreach (var button in buttons)
+        {
+            if (button.Content is PathIcon icon)
+                icon.Opacity = isVisible ? 1 : 0;
+        }
+    }
+
+    private void RestorePreFullScreenBounds()
+    {
+        if (_preFullScreenSize is not { } size) return;
+
+        var position = _preFullScreenPosition;
+        Dispatcher.UIThread.Post(() =>
+        {
+            if (_isDisposed || WindowState != WindowState.Normal) return;
+
+            Width = size.Width;
+            Height = size.Height;
+            if (position is { } restoredPosition)
+            {
+                Position = restoredPosition;
+            }
+        }, DispatcherPriority.Background);
+    }
+
+    private void SetMacFullScreenIcon()
+    {
+        if (_macFullScreenIcon is not null)
+        {
+            _macFullScreenIcon.SetValue(PathIcon.DataProperty, WindowState == WindowState.FullScreen
+                ? Icons.MacOSFullScreenOff
+                : Icons.MacOSFullScreen);
+            _macFullScreenIcon.Width = 8;
+            _macFullScreenIcon.Height = 8;
+        }
     }
 
     /// <inheritdoc />
@@ -711,24 +939,29 @@ public class SukiWindow : Window, IDisposable
 
                 if (TitleBarAnimationEnabled)
                 {
-                    var animationVersion = ++_titleBarAnimationVersion;
+                    // Animations use FillMode.Forward, so an in-flight one must be cancelled or it pins the final value when it lands.
+                    _titleBarAnimationCancellation?.Cancel();
+                    _titleBarAnimationCancellation?.Dispose();
+                    _titleBarAnimationCancellation = new CancellationTokenSource();
+                    var cancellationToken = _titleBarAnimationCancellation.Token;
+
                     TryGetResource("MediumAnimationDuration", ActualThemeVariant, out var result);
 
                     var duration = result is TimeSpan ts ? ts : TimeSpan.FromMilliseconds(350);
 
                     if (isTitleBarVisible)
                     {
-                        _titleBarControl.Animate(ScaleTransform.ScaleYProperty, 0d, 1d, duration);
                         _titleBarControl.IsVisible = true;
+                        _ = _titleBarControl.AnimateAsync(ScaleTransform.ScaleYProperty, 0d, 1d, duration, cancellationToken);
                     }
                     else
                     {
-                        _titleBarControl.AnimateAsync(ScaleTransform.ScaleYProperty, 1d, 0d, duration)
+                        _titleBarControl.AnimateAsync(ScaleTransform.ScaleYProperty, 1d, 0d, duration, cancellationToken)
                             .ContinueWith(task =>
                             {
                                 Dispatcher.UIThread.Post(() =>
                                 {
-                                    if (animationVersion == _titleBarAnimationVersion && !IsTitleBarVisible &&
+                                    if (!cancellationToken.IsCancellationRequested && !IsTitleBarVisible &&
                                         _titleBarControl is not null)
                                         _titleBarControl.IsVisible = false;
                                 });
@@ -809,6 +1042,29 @@ public class SukiWindow : Window, IDisposable
             PreviousVisibleWindowState = oldState;
         }
 
+        if (_macFullScreenIcon is not null &&
+            (WindowChromeMode == WindowChromeStyle.MacOS ||
+             (WindowChromeMode == WindowChromeStyle.Auto && OperatingSystem.IsMacOS())))
+        {
+            SetMacFullScreenIcon();
+        }
+
+        // macOS reports leaving full screen as FullScreen -> Minimized -> Normal, and the window comes back sized to the full screen.
+        if (oldState == WindowState.FullScreen)
+        {
+            _isRestoringFromFullScreen = true;
+        }
+
+        if (_isRestoringFromFullScreen && newState is WindowState.Normal or WindowState.Maximized)
+        {
+            _isRestoringFromFullScreen = false;
+            RestorePreFullScreenBounds();
+            if (TitleBarVisibilityOnFullScreen != TitleBarVisibilityMode.Unchanged)
+            {
+                IsTitleBarVisible = _wasTitleBarVisibleBeforeFullScreen;
+            }
+        }
+
         if (newState == WindowState.Minimized) return;
         if (newState == WindowState.FullScreen)
         {
@@ -825,14 +1081,6 @@ public class SukiWindow : Window, IDisposable
                     if (IsTitleBarVisible) _hideTitleBarTimer.Start();
                     PointerMoved += AutoHideTitleBarOnPointerMoved;
                     break;
-            }
-        }
-        else if (oldState == WindowState.FullScreen)
-        {
-            // Restore window control capabilities from a state before the fullscreen
-            if (TitleBarVisibilityOnFullScreen != TitleBarVisibilityMode.Unchanged)
-            {
-                IsTitleBarVisible = _wasTitleBarVisibleBeforeFullScreen;
             }
         }
 
@@ -1288,6 +1536,12 @@ public class SukiWindow : Window, IDisposable
     /// </summary>
     public void ToggleFullScreen()
     {
+        if (WindowState != WindowState.FullScreen)
+        {
+            _preFullScreenSize = new Size(Bounds.Width, Bounds.Height);
+            _preFullScreenPosition = Position;
+        }
+
         if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) &&
             MacWindowNativeActions.TryToggleFullScreen(this))
         {
@@ -1317,6 +1571,9 @@ public class SukiWindow : Window, IDisposable
         ScalingChanged -= OnScalingChanged;
         PositionChanged -= OnWindowPositionChanged;
         PointerMoved -= AutoHideTitleBarOnPointerMoved;
+        _titleBarAnimationCancellation?.Cancel();
+        _titleBarAnimationCancellation?.Dispose();
+        _titleBarAnimationCancellation = null;
         _hideTitleBarTimer.Tick -= HideTitleBarTimerOnTick;
         _showTitleBarTimer.Tick -= ShowTitleBarTimerOnTick;
         foreach (var disposeAction in _disposeActions)
