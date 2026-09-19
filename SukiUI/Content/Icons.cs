@@ -15,6 +15,16 @@ public static class Icons
     // Material Icons
     public static readonly StreamGeometry WindowFullScreen = Parse("M5,5H10V7H7V10H5V5M14,5H19V10H17V7H14V5M17,14H19V19H14V17H17V14M10,17V19H5V14H7V17H10Z");
 
+    public static readonly StreamGeometry MacOSFullScreen = Parse("M3 3H13L3 13Z M21 21H11L21 11Z");
+
+    public static readonly StreamGeometry MacOSFullScreenOff = Parse("M11 11H3L11 3Z M13 13H21L13 21Z");
+
+    public static readonly StreamGeometry MacOSClose = Parse("M5 3L12 10L19 3L21 5L14 12L21 19L19 21L12 14L5 21L3 19L10 12L3 5Z");
+
+    public static readonly StreamGeometry MacOSMinimize = Parse("M3 10H21V14H3Z");
+
+    public static readonly StreamGeometry MacOSZoom = Parse("M5 3H19C20.1 3 21 3.9 21 5V19C21 20.1 20.1 21 19 21H5C3.9 21 3 20.1 3 19V5C3 3.9 3.9 3 5 3M7 7V17H17V7Z");
+
     // Material Icons
     public static readonly StreamGeometry WindowFullScreenOff = Parse("M14,14H19V16H16V19H14V14M5,14H10V19H8V16H5V14M8,5H10V10H5V8H8V5M19,8V10H14V5H16V8H19Z");
 
