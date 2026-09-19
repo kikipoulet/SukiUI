@@ -47,7 +47,6 @@
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="avares://sukiUI/Theme/TextBlock.axaml" />
-                <ResourceInclude Source="avares://sukiUI/Theme/ColorPicker.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/TextBox.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/NumericUpDown.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Theme/Button.axaml" />

@@ -1,7 +1,7 @@
 ﻿<UserControl x:Class="SukiUI.Demo.Features.Helpers.SyntaxHelpers"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:X="clr-namespace:SukiUI.Helpers.ConditionalXAML;assembly=SukiUI"
+             xmlns:X="clr-namespace:SukiUI.Helpers.ConditionalXAML;assembly=SukiUI.ConditionalXAML"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:glassMorphism="clr-namespace:SukiUI.Controls.GlassMorphism;assembly=SukiUI"
              xmlns:helpers="clr-namespace:SukiUI.Demo.Features.Helpers"

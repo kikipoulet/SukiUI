@@ -43,6 +43,7 @@
         <StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />
         <StyleInclude Source="avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml" />
         <suki:SukiTheme Locale="en-US" ThemeColor="Blue" />
+        <StyleInclude Source="avares://SukiUI.ColorPicker/Theme/Index.axaml" />
         <StyleInclude Source="avares://SukiUI.DataGrid/Theme/Index.axaml" />
         <StyleInclude Source="avares://SukiUI.Demo/Styles/ShowMeTheXamlStyles.axaml" />
         <StyleInclude Source="avares://SukiUI.Demo/Styles/WrapPanelStyles.axaml" />
