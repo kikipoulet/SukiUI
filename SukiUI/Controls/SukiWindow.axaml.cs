@@ -701,7 +701,7 @@ public class SukiWindow : Window, IDisposable
 
     private void ConfigureMacOSWindowControls(StackPanel controls)
     {
-        // The green traffic light is the full screen control on macOS; the zoom box only appears with Option held.
+        // On macOS, the green traffic light controls full screen.
         if (CanMaximize)
         {
             CanFullScreen = true;
