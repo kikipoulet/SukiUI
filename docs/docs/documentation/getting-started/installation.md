@@ -35,6 +35,40 @@ You're done !
 ::: tip
 Visit [SukiUI on Nuget](https://www.nuget.org/packages/SukiUI) for more information
 
+### Optional ConditionalXAML helpers
+
+SukiUI's core package does not include the `ConditionalXAML` helpers or their `System.Linq.Dynamic.Core` dependency.
+If your application uses `If` or `InlineSharp`, install the optional package:
+
+```bash
+dotnet add package SukiUI.ConditionalXAML
+```
+
+Then add a project or package reference to `SukiUI.ConditionalXAML`. The helper namespace remains unchanged:
+
+```xml
+xmlns:X="clr-namespace:SukiUI.Helpers.ConditionalXAML;assembly=SukiUI.ConditionalXAML"
+```
+
+### Optional ColorPicker support
+
+SukiUI's core package does not include the `Avalonia.Controls.ColorPicker` package.
+If your application uses `ColorPicker` and the SukiUI ColorPicker theme, install the optional package:
+
+```bash
+dotnet add package SukiUI.ColorPicker
+```
+
+Then include the Avalonia Fluent ColorPicker styles and SukiUI ColorPicker styles after `SukiTheme` in `App.axaml`:
+
+```xml
+<Application.Styles>
+    <StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />
+    <suki:SukiTheme />
+    <StyleInclude Source="avares://SukiUI.ColorPicker/Theme/Index.axaml" />
+</Application.Styles>
+```
+
 ### Optional DataGrid support
 
 SukiUI's core package does not include the deprecated `Avalonia.Controls.DataGrid` package.

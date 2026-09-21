@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <Title>SukiUI.ColorPicker</Title>
+    <Description>SukiUI ColorPicker theme resources for Avalonia UI applications.</Description>
+    <PackageTags>avalonia;avaloniaui;ui;theme;colorpicker;controls;styling;sukiui</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SukiUI\SukiUI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Controls.ColorPicker" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="**\*.axaml" />
+  </ItemGroup>
+
+</Project>

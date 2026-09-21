@@ -28,7 +28,7 @@ env:
   DOTNET_CLI_TELEMETRY_OPTOUT: true
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
   NUGET_OUTPUT: ${{ github.workspace }}/nupkgs
-  PROJECTS: SukiUI/SukiUI.csproj SukiUI.DataGrid/SukiUI.DataGrid.csproj SukiUI.Dock/SukiUI.Dock.csproj SukiUI.Motion/SukiUI.Motion.csproj
+  PROJECTS: SukiUI/SukiUI.csproj SukiUI.ColorPicker/SukiUI.ColorPicker.csproj SukiUI.ConditionalXAML/SukiUI.ConditionalXAML.csproj SukiUI.DataGrid/SukiUI.DataGrid.csproj SukiUI.Dock/SukiUI.Dock.csproj SukiUI.Motion/SukiUI.Motion.csproj
 
 jobs:
   publish:
