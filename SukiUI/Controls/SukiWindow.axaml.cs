@@ -704,7 +704,7 @@ public class SukiWindow : Window, IDisposable
         // On macOS, the green traffic light controls full screen.
         if (CanMaximize && !IsSet(CanFullScreenProperty))
         {
-            CanFullScreen = true;
+            SetCurrentValue(CanFullScreenProperty, true);
         }
 
         if (controls.Children.OfType<Button>().FirstOrDefault(button => button.Name == MaximizeButtonName) is { } maximize)
@@ -1074,10 +1074,10 @@ public class SukiWindow : Window, IDisposable
             switch (TitleBarVisibilityOnFullScreen)
             {
                 case TitleBarVisibilityMode.Visible:
-                    IsTitleBarVisible = true;
+                    SetCurrentValue(IsTitleBarVisibleProperty, true);
                     break;
                 case TitleBarVisibilityMode.Hidden:
-                    IsTitleBarVisible = false;
+                    SetCurrentValue(IsTitleBarVisibleProperty, false);
                     break;
                 case TitleBarVisibilityMode.AutoHidden:
                     if (IsTitleBarVisible) _hideTitleBarTimer.Start();
@@ -1346,13 +1346,13 @@ public class SukiWindow : Window, IDisposable
     private void HideTitleBarTimerOnTick(object sender, EventArgs e)
     {
         _hideTitleBarTimer.Stop();
-        IsTitleBarVisible = false;
+        SetCurrentValue(IsTitleBarVisibleProperty, false);
     }
 
     private void ShowTitleBarTimerOnTick(object sender, EventArgs e)
     {
         _showTitleBarTimer.Stop();
-        IsTitleBarVisible = true;
+        SetCurrentValue(IsTitleBarVisibleProperty, true);
     }
     #endregion
 
