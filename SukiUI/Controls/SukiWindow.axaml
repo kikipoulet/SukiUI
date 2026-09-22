@@ -145,7 +145,7 @@
                                                     </Button>
                                                 </StackPanel>
 
-                                                <Grid ColumnDefinitions="Auto,Auto,Auto,*"
+                                                <Grid ColumnDefinitions="Auto,*,Auto"
                                                       Background="Transparent"
                                                       ColumnSpacing="10"
                                                       VerticalAlignment="Center"
@@ -167,7 +167,7 @@
                                                                TextWrapping="{TemplateBinding TitleTextWrapping}"
                                                                IsHitTestVisible="False"
                                                                Text="{TemplateBinding Title}" />
-                                                    <ContentControl Grid.Column="3"
+                                                    <ContentControl Grid.Column="2"
                                                                     Name="PART_MacWindowTitleBarControlsHost"
                                                                     HorizontalAlignment="Right"
                                                                     IsVisible="False"

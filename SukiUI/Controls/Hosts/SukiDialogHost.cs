@@ -32,9 +32,13 @@ namespace SukiUI.Controls
         // All animation state, trajectories and the shake spring live over there.
         private readonly SukiDialogMotion _anim = new(() => SukiAnimationTheme.Current.Dialog[SukiDialogPreset.Default]);
 
+        // How long the backdrop stays up after a dismissal so its opacity transition can play out.
+        private const int BackdropFadeOutMilliseconds = 500;
+
         private ISukiDialogManager? _attachedManager;
         private bool _isAttachedToLogicalTree;
         private CancellationTokenSource? _dismissCts;
+        private CancellationTokenSource? _backdropHideCts;
 
         // Last known pointer position (top-level coords), tracked so a dialog opening can
         // emerge from where the invoking click happened.
@@ -67,6 +71,45 @@ namespace SukiUI.Controls
         {
             get => GetValue(IsDialogOpenProperty);
             set => SetValue(IsDialogOpenProperty, value);
+        }
+
+        protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+        {
+            base.OnPropertyChanged(change);
+            if (change.Property == IsDialogOpenProperty)
+                UpdateBackdropVisibility(change.GetNewValue<bool>());
+        }
+
+        // A backdrop left in the tree at zero opacity still swallows tooltips, so visibility is
+        // driven off IsDialogOpen rather than the dismissal path alone: whoever flips the property
+        // gets the same teardown. The hide waits out the opacity transition.
+        private void UpdateBackdropVisibility(bool isDialogOpen)
+        {
+            _backdropHideCts?.Cancel();
+            _backdropHideCts?.Dispose();
+            _backdropHideCts = null;
+
+            if (_dialogBackground is not { } background)
+                return;
+
+            if (isDialogOpen)
+            {
+                background.IsVisible = true;
+                return;
+            }
+
+            var cts = new CancellationTokenSource();
+            _backdropHideCts = cts;
+            Task.Delay(BackdropFadeOutMilliseconds, cts.Token).ContinueWith(task =>
+            {
+                if (task.IsCanceled || IsDialogOpen) return;
+                background.IsVisible = false;
+                if (ReferenceEquals(_backdropHideCts, cts))
+                {
+                    _backdropHideCts.Dispose();
+                    _backdropHideCts = null;
+                }
+            }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
@@ -227,6 +270,11 @@ namespace SukiUI.Controls
             _dismissCts?.Cancel();
             _dismissCts?.Dispose();
             _dismissCts = null;
+            // Teardown, so drop the backdrop now instead of waiting out the fade.
+            IsDialogOpen = false;
+            _backdropHideCts?.Cancel();
+            _backdropHideCts?.Dispose();
+            _backdropHideCts = null;
             if (_dialogBackground is { } background)
                 background.IsVisible = false;
         }
@@ -238,8 +286,6 @@ namespace SukiUI.Controls
             _dismissCts?.Cancel();
             _dismissCts?.Dispose();
             _dismissCts = null;
-            if (_dialogBackground is { } background)
-                background.IsVisible = true;
             Dialog = args.Dialog;
             IsDialogOpen = true;
             WirePointerTracking(); // last-chance, idempotent: needed for the emergence offset
@@ -257,13 +303,11 @@ namespace SukiUI.Controls
             _dismissCts?.Dispose();
             var cts = new CancellationTokenSource();
             _dismissCts = cts;
-            Task.Delay(500, cts.Token).ContinueWith(t =>
+            Task.Delay(BackdropFadeOutMilliseconds, cts.Token).ContinueWith(t =>
             {
                 if (t.IsCanceled) return;
                 if (Dialog != args.Dialog) return;
                 Dialog = null;
-                if (_dialogBackground is { } background)
-                    background.IsVisible = false;
                 _dismissCts?.Dispose();
                 _dismissCts = null;
             }, TaskScheduler.FromCurrentSynchronizationContext());
