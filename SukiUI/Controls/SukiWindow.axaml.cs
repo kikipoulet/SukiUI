@@ -702,7 +702,7 @@ public class SukiWindow : Window, IDisposable
     private void ConfigureMacOSWindowControls(StackPanel controls)
     {
         // On macOS, the green traffic light controls full screen.
-        if (CanMaximize)
+        if (CanMaximize && !IsSet(CanFullScreenProperty))
         {
             CanFullScreen = true;
         }
@@ -1050,7 +1050,9 @@ public class SukiWindow : Window, IDisposable
         }
 
         // macOS reports leaving full screen as FullScreen -> Minimized -> Normal, and the window comes back sized to the full screen.
-        if (oldState == WindowState.FullScreen)
+        if (oldState == WindowState.FullScreen &&
+            (WindowChromeMode == WindowChromeStyle.MacOS ||
+             (WindowChromeMode == WindowChromeStyle.Auto && OperatingSystem.IsMacOS())))
         {
             _isRestoringFromFullScreen = true;
         }

@@ -227,6 +227,8 @@ namespace SukiUI.Controls
             _dismissCts?.Cancel();
             _dismissCts?.Dispose();
             _dismissCts = null;
+            if (_dialogBackground is { } background)
+                background.IsVisible = false;
         }
 
         private void ManagerOnDialogShown(object sender, SukiDialogManagerEventArgs args)
