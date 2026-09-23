@@ -498,6 +498,33 @@
             </Style>
         </Style>
 
+        <Style Selector="^.MacOSWindowControl">
+            <Setter Property="Width" Value="14" />
+            <Setter Property="Height" Value="14" />
+            <Setter Property="CornerRadius" Value="7" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Foreground" Value="#3C3C3C" />
+            <Setter Property="Background" Value="#8E8E93" />
+            <Style Selector="^ PathIcon">
+                <Setter Property="Width" Value="8" />
+                <Setter Property="Height" Value="8" />
+            </Style>
+            <Style Selector="^.MacOSClose">
+                <Setter Property="Background" Value="#FF5F57" />
+            </Style>
+            <Style Selector="^.MacOSMinimize">
+                <Setter Property="Background" Value="#FEBC2E" />
+            </Style>
+            <Style Selector="^.MacOSFullScreen">
+                <Setter Property="Background" Value="#28C840" />
+            </Style>
+            <Style Selector="^:pointerover">
+                <Setter Property="BorderBrush" Value="#00000030" />
+                <Setter Property="BorderThickness" Value="0.5" />
+            </Style>
+        </Style>
+
         <Style Selector="^.Card">
             <Setter Property="Padding" Value="20" />
             <Setter Property="CornerRadius" Value="{DynamicResource MediumCornerRadius}" />

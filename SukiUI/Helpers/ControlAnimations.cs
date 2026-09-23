@@ -5,6 +5,7 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Styling;
 using System;
+using System.Threading;
 using SukiUI.Animations;
 using SukiUI.Converters;
 using SukiUI.Helpers;
@@ -163,7 +164,7 @@ public static class ControlAnimationHelper
         return tokensource;
     }
  
-    public static Task AnimateAsync<T>(this Animatable control, AvaloniaProperty property, T from, T to, TimeSpan? duration = null)
+    public static Task AnimateAsync<T>(this Animatable control, AvaloniaProperty property, T from, T to, TimeSpan? duration = null, CancellationToken cancellationToken = default)
     {
         var animation = new Avalonia.Animation.Animation
         {
@@ -187,8 +188,7 @@ public static class ControlAnimationHelper
             }
         };
 
-        var tokenSource = new CancellationTokenSource();
-        return animation.RunAsync(control, tokenSource.Token);
+        return animation.RunAsync(control, cancellationToken);
     }
  
 

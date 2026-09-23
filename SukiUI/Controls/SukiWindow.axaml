@@ -78,7 +78,8 @@
                                                        Margin="12,9"
                                                        LastChildFill="True"
                                                        chrome:WindowDecorationProperties.ElementRole="TitleBar">
-                                                <StackPanel VerticalAlignment="Center"
+                                                <StackPanel Name="PART_WindowControls"
+                                                            VerticalAlignment="Center"
                                                             DockPanel.Dock="Right"
                                                             Orientation="Horizontal"
                                                             Spacing="7">
@@ -90,7 +91,8 @@
                                                                     Value="{TemplateBinding TitleBarControlSize}" />
                                                         </Style>
                                                     </StackPanel.Styles>
-                                                    <ItemsControl chrome:WindowDecorationProperties.ElementRole="User"
+                                                    <ItemsControl Name="PART_CustomWindowTitleBarControls"
+                                                                  chrome:WindowDecorationProperties.ElementRole="User"
                                                                   ItemsSource="{TemplateBinding RightWindowTitleBarControls}">
                                                         <ItemsControl.Styles>
                                                             <Style Selector="Control">
@@ -124,13 +126,10 @@
                                                                   Data="{x:Static icons:Icons.WindowPin}" />
                                                     </Button>
                                                     <Button Name="PART_MinimizeButton"
-                                                            VerticalContentAlignment="Bottom"
                                                             Classes="WindowControlsButton"
                                                             chrome:WindowDecorationProperties.ElementRole="User"
                                                             IsVisible="{TemplateBinding CanMinimize}">
-                                                        <PathIcon Margin="0,0,0,6.5"
-                                                                  VerticalAlignment="Bottom"
-                                                                  Data="{x:Static icons:Icons.WindowMinimize}" />
+                                                        <PathIcon Data="{x:Static icons:Icons.WindowMinimize}" />
                                                     </Button>
                                                     <Button Name="PART_MaximizeButton"
                                                             Classes="WindowControlsButton"
@@ -146,7 +145,7 @@
                                                     </Button>
                                                 </StackPanel>
 
-                                                <Grid ColumnDefinitions="Auto,*"
+                                                <Grid ColumnDefinitions="Auto,*,Auto"
                                                       Background="Transparent"
                                                       ColumnSpacing="10"
                                                       VerticalAlignment="Center"
@@ -168,6 +167,11 @@
                                                                TextWrapping="{TemplateBinding TitleTextWrapping}"
                                                                IsHitTestVisible="False"
                                                                Text="{TemplateBinding Title}" />
+                                                    <ContentControl Grid.Column="2"
+                                                                    Name="PART_MacWindowTitleBarControlsHost"
+                                                                    HorizontalAlignment="Right"
+                                                                    IsVisible="False"
+                                                                    VerticalContentAlignment="Center" />
                                                 </Grid>
                                             </DockPanel>
                                         </Panel>
