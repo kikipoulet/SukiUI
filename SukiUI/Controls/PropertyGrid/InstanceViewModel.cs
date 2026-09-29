@@ -9,7 +9,7 @@ namespace SukiUI.Controls
 {
     public class InstanceViewModel : SukiObservableObject, IDisposable
     {
-        private static readonly ConcurrentDictionary<Type, PropertyMetadata[]> MetadataCache = new();
+        private static readonly ConcurrentDictionary<Type, TypeMetadata> MetadataCache = new();
 
         public INotifyPropertyChanged ViewModel { get; }
         
@@ -23,22 +23,34 @@ namespace SukiUI.Controls
             Categories = GenerateCategories(viewModel);
         }
 
-        private sealed class PropertyMetadata(PropertyInfo property)
+        /// <summary>
+        /// Cached, per ViewModel type, description of everything the PropertyGrid needs to build its editors.
+        /// Building this once removes property reflection and attribute lookups from the per-instance path.
+        /// </summary>
+        private sealed class TypeMetadata
         {
-            public PropertyInfo Property { get; } = property;
-            public string? Category { get; } = property.GetCustomAttribute<CategoryAttribute>()?.Category ?? "Properties";
-            public string? DisplayName { get; } = property.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName;
-            public PropertyGridComboAttribute? ComboValues { get; } = property.GetCustomAttribute<PropertyGridComboAttribute>();
+            public sealed class PropertyMetadata(PropertyInfo property)
+            {
+                public PropertyInfo Property { get; } = property;
+                public string? Category { get; } = property.GetCustomAttribute<CategoryAttribute>()?.Category ?? "Properties";
+                public string? DisplayName { get; } = property.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName;
+            }
+
+            public TypeMetadata([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] Type type)
+            {
+                Properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                    .Where(property => property.CanRead && property.GetCustomAttribute<PropertyGridIgnoreAttribute>() is null)
+                    .Select(property => new PropertyMetadata(property))
+                    .ToArray();
+            }
+
+            public PropertyMetadata[] Properties { get; }
         }
 
-        private static PropertyMetadata[] GetMetadata(Type viewModelType)
+        private static TypeMetadata GetMetadata(Type viewModelType)
         {
-            return MetadataCache.GetOrAdd(viewModelType, 
-                ([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] type) =>
-                    type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                        .Where(property => property.CanRead && property.GetCustomAttribute<PropertyGridIgnoreAttribute>() is null)
-                        .Select(property => new PropertyMetadata(property))
-                        .ToArray());
+            return MetadataCache.GetOrAdd(viewModelType,
+                ([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] type) => new TypeMetadata(type));
         }
 
         /// <summary>
@@ -48,18 +60,10 @@ namespace SukiUI.Controls
         /// <returns>CategoryViewModels holding representations for each public non-static property</returns>
         public virtual IAvaloniaReadOnlyList<CategoryViewModel> GenerateCategories(INotifyPropertyChanged viewModel)
         {
-            var properties = GetMetadata(viewModel.GetType());
-            
-            var ignoredNames = properties
-                .Select(p => p.ComboValues)
-                .OfType<PropertyGridComboAttribute>()
-                .Select(a => a.ItemsSourcePropertyName)
-                .ToHashSet();
+            var typeMetadata = GetMetadata(viewModel.GetType());
+            var optionSource = viewModel as IPropertyGridOptionSource;
 
-            var categories = properties
-                .Where(p => !ignoredNames.Contains(p.Property.Name))
-                .Distinct()
-                .GroupBy(p => p.Category);
+            var categories = typeMetadata.Properties.GroupBy(p => p.Category);
 
             var categoryViewModels = new AvaloniaList<CategoryViewModel>();
             foreach (var grouping in categories)
@@ -70,10 +74,10 @@ namespace SukiUI.Controls
                     var propertyViewModel = default(IPropertyViewModel?);
                     var property = metadata.Property;
                     var displayName = metadata.DisplayName ?? property.Name;
-                    
-                    if (metadata.ComboValues is { } comboAttribute)
+
+                    if (optionSource?.GetOptions(property.Name) != null)
                     {
-                        propertyViewModel = new ComboViewModel(viewModel, displayName, property, comboAttribute);
+                        propertyViewModel = new ComboViewModel(viewModel, displayName, property, optionSource);
                     }
                     else if (property.PropertyType == typeof(string))
                     {
@@ -128,6 +132,13 @@ namespace SukiUI.Controls
                     {
                         propertyViewModels.Add(propertyViewModel);
                     }
+                }
+
+                // Properties with no matching editor (commands, unsupported types) would otherwise
+                // leave a category behind with nothing in it.
+                if (propertyViewModels.Count == 0)
+                {
+                    continue;
                 }
 
                 var categoryViewModel = new CategoryViewModel(grouping.Key!, propertyViewModels);

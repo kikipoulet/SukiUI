@@ -6,53 +6,54 @@ namespace SukiUI.Controls
 {
     public sealed class ComboViewModel : PropertyViewModelBase<object?>
     {
-        private readonly PropertyInfo _itemsSourceProperty;
+        private readonly IPropertyGridOptionSource _optionSource;
 
-        public IEnumerable? Items => _itemsSourceProperty.GetValue(Viewmodel) as IEnumerable;
+        private IEnumerable? _items;
+        private bool _itemsResolved;
+
+        /// <summary>
+        /// The values offered by the editor. Resolved once and reused until the ViewModel reports a
+        /// change, so binding does not query the option source on every read.
+        /// </summary>
+        public IEnumerable? Items
+        {
+            get
+            {
+                if (!_itemsResolved)
+                {
+                    _items = _optionSource.GetOptions(PropertyInfo.Name);
+                    _itemsResolved = true;
+                }
+
+                return _items;
+            }
+        }
 
         public ComboViewModel(
             INotifyPropertyChanged viewmodel,
             string displayName,
             PropertyInfo propertyInfo,
-            PropertyGridComboAttribute attribute)
+            IPropertyGridOptionSource optionSource)
             : base(viewmodel, displayName, propertyInfo)
         {
-            _itemsSourceProperty = GetItemsSourceProperty(attribute);
-            Viewmodel.PropertyChanged += OnItemsSourcePropertyChanged;
+            _optionSource = optionSource;
         }
 
-        private PropertyInfo GetItemsSourceProperty(PropertyGridComboAttribute attribute)
+        protected override void OnViewModelPropertyChanged(string? propertyName)
         {
-            var property = Viewmodel.GetType()
-                .GetProperty(attribute.ItemsSourcePropertyName, BindingFlags.Public | BindingFlags.Instance);
+            var items = _optionSource.GetOptions(PropertyInfo.Name);
+            var wasResolved = _itemsResolved;
+            _itemsResolved = true;
 
-            if (property is null)
+            // Only notify when the source actually swapped the collection. In-place edits to an
+            // observable collection already reach the editor on their own.
+            if (wasResolved && ReferenceEquals(items, _items))
             {
-                throw new InvalidOperationException(
-                    $"Property '{attribute.ItemsSourcePropertyName}' was not found on {Viewmodel.GetType().Name}.");
+                return;
             }
 
-            if (!typeof(IEnumerable).IsAssignableFrom(property.PropertyType))
-            {
-                throw new InvalidOperationException(
-                    $"Property '{property.Name}' must implement {nameof(IEnumerable)}.");
-            }
-
-            return property;
-        }
-
-        private void OnItemsSourcePropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == _itemsSourceProperty.Name)
-            {
-                OnPropertyChanged(nameof(Items));
-            }
-        }
-
-        public override void Dispose()
-        {
-            Viewmodel.PropertyChanged -= OnItemsSourcePropertyChanged;
-            base.Dispose();
+            _items = items;
+            OnPropertyChanged(nameof(Items));
         }
     }
 }
