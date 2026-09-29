@@ -1,7 +1,9 @@
 ﻿using Avalonia.Layout;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using SukiUI.Controls;
 #pragma warning disable CS0657 // Not a valid attribute location for this declaration
 
 namespace SukiUI.Demo.Features.ControlsLibrary;
@@ -68,6 +70,13 @@ public partial class FormViewModel : ObservableObject
 
     [ObservableProperty] [property: Category("Category 2"), DisplayName("Orientation")]
     private Orientation _orientation;
+
+    [ObservableProperty] [property: Category("Category 2"), DisplayName("List of Values"), PropertyGridCombo(nameof(StatusOptions))]
+    private string _status = "Draft";
+
+    [ObservableProperty] [property: PropertyGridIgnore]
+    private ObservableCollection<string> _statusOptions =
+        ["Draft", "In progress", "Complete"];
 }
 
 public partial class ChildFormViewModel : ObservableObject

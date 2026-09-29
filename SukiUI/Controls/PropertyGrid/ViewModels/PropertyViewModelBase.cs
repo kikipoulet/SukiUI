@@ -88,7 +88,7 @@ namespace SukiUI.Controls
             }
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             Viewmodel.PropertyChanged -= OnPropertyChanged;
         }
