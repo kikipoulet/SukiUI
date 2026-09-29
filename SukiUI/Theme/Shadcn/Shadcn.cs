@@ -39,7 +39,8 @@ namespace SukiUI.Theme.Shadcn
             {
                 if (variant == ThemeVariant.Dark)
                 {
-                    application.Styles.Add(BlackStyles);
+                    if (!application.Styles.Contains(BlackStyles))
+                        application.Styles.Add(BlackStyles);
                     SukiTheme.GetInstance().ChangeColorTheme(whiteTheme);
                 
                 }
