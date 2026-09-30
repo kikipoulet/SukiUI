@@ -1,15 +1,12 @@
 ﻿using Avalonia.Collections;
 using SukiUI.Helpers;
-using System.Collections.Concurrent;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace SukiUI.Controls
 {
     public class InstanceViewModel : SukiObservableObject, IDisposable
     {
-        private static readonly ConcurrentDictionary<Type, TypeMetadata> MetadataCache = new();
 
         public INotifyPropertyChanged ViewModel { get; }
         
@@ -24,58 +21,38 @@ namespace SukiUI.Controls
         }
 
         /// <summary>
-        /// Cached, per ViewModel type, description of everything the PropertyGrid needs to build its editors.
-        /// Building this once removes property reflection and attribute lookups from the per-instance path.
-        /// </summary>
-        private sealed class TypeMetadata
-        {
-            public sealed class PropertyMetadata(PropertyInfo property)
-            {
-                public PropertyInfo Property { get; } = property;
-                public string? Category { get; } = property.GetCustomAttribute<CategoryAttribute>()?.Category ?? "Properties";
-                public string? DisplayName { get; } = property.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName;
-            }
-
-            public TypeMetadata([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] Type type)
-            {
-                Properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                    .Where(property => property.CanRead && property.GetCustomAttribute<PropertyGridIgnoreAttribute>() is null)
-                    .Select(property => new PropertyMetadata(property))
-                    .ToArray();
-            }
-
-            public PropertyMetadata[] Properties { get; }
-        }
-
-        private static TypeMetadata GetMetadata(Type viewModelType)
-        {
-            return MetadataCache.GetOrAdd(viewModelType,
-                ([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] type) => new TypeMetadata(type));
-        }
-
-        /// <summary>
         /// Factory creating all the categories for a given instance of a ViewModel implementing <see cref="INotifyPropertyChanged"/>.
+        /// <para>
+        /// Property reflection and attribute lookups come from <see cref="PropertyGridMetadata"/>,
+        /// which resolves metadata per view model <see cref="Type"/>. That lookup is a cheap
+        /// dictionary hit when <see cref="PropertyGridMetadata.IsCachingEnabled"/> is enabled, and a
+        /// full rebuild otherwise — the default. Either way properties marked
+        /// <see cref="PropertyGridIgnoreAttribute"/> are filtered out at the metadata level and never
+        /// reach this method.
+        /// </para>
         /// </summary>
         /// <param name="viewModel">the ViewModel instance, to generate/show controls/categories for</param>
-        /// <returns>CategoryViewModels holding representations for each public non-static property</returns>
+        /// <returns><see cref="IAvaloniaReadOnlyList{CategoryViewModel}"/> holding representations for each public non-static property</returns>
         public virtual IAvaloniaReadOnlyList<CategoryViewModel> GenerateCategories(INotifyPropertyChanged viewModel)
         {
-            var typeMetadata = GetMetadata(viewModel.GetType());
-            var optionSource = viewModel as IPropertyGridOptionSource;
+            var typeMetadata = PropertyGridMetadata.Get(viewModel.GetType());
 
             var categories = typeMetadata.Properties.GroupBy(p => p.Category);
 
             var categoryViewModels = new AvaloniaList<CategoryViewModel>();
+            
             foreach (var grouping in categories)
             {
                 var propertyViewModels = new AvaloniaList<IPropertyViewModel>();
+                
                 foreach (var metadata in grouping)
                 {
                     var propertyViewModel = default(IPropertyViewModel?);
                     var property = metadata.Property;
                     var displayName = metadata.DisplayName ?? property.Name;
 
-                    if (optionSource?.GetOptions(property.Name) != null)
+                    if (viewModel is IPropertyGridOptionSource optionSource 
+                        && optionSource.GetOptions(property.Name) is not null)
                     {
                         propertyViewModel = new ComboViewModel(viewModel, displayName, property, optionSource);
                     }
