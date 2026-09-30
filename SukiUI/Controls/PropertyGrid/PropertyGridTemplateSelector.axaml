@@ -186,4 +186,23 @@
                       SelectedItem="{Binding Value}" />
         </Grid>
     </DataTemplate>
+
+    <DataTemplate x:Key="ComboViewModel" DataType="controls:ComboViewModel">
+        <Grid Classes="Row">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="PropertyGridDisplyColumn" />
+                <ColumnDefinition Width="4" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Classes="Label" />
+            <ComboBox Grid.Column="2"
+                      HorizontalAlignment="Right" MinWidth="120"
+                      VerticalAlignment="Stretch"
+                      HorizontalContentAlignment="Center"
+                      IsEnabled="{Binding !IsReadOnly}"
+                      ItemsSource="{Binding Items}"
+                      SelectedItem="{Binding Value}" />
+        </Grid>
+    </DataTemplate>
 </ResourceDictionary>

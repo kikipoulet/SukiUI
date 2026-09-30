@@ -1,122 +1,107 @@
 ﻿using Avalonia.Collections;
 using SukiUI.Helpers;
-using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Reflection;
 
 namespace SukiUI.Controls
 {
     public class InstanceViewModel : SukiObservableObject, IDisposable
     {
-        public INotifyPropertyChanged ViewModel { get; }
 
+        public INotifyPropertyChanged ViewModel { get; }
+        
         public IAvaloniaReadOnlyList<CategoryViewModel> Categories { get; }
 
         public InstanceViewModel(INotifyPropertyChanged viewModel)
         {
-            ViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
-
+            ArgumentNullException.ThrowIfNull(viewModel);
+            
+            ViewModel = viewModel;
             Categories = GenerateCategories(viewModel);
-        }
-
-        private static string? GetCategory(PropertyInfo property)
-        {
-            var attributes = property.GetCustomAttributes<CategoryAttribute>(false);
-            if (attributes.Any())
-            {
-                return attributes.First().Category;
-            }
-
-            return "Properties";
-        }
-
-        private static string? GetDisplayName(PropertyInfo property)
-        {
-            var attributes = property.GetCustomAttributes<DisplayNameAttribute>(false);
-            if (attributes.Any())
-            {
-                return attributes.First().DisplayName;
-            }
-
-            return null;
         }
 
         /// <summary>
         /// Factory creating all the categories for a given instance of a ViewModel implementing <see cref="INotifyPropertyChanged"/>.
+        /// <para>
+        /// Property reflection and attribute lookups come from <see cref="PropertyGridMetadata"/>,
+        /// which resolves metadata per view model <see cref="Type"/>. That lookup is a cheap
+        /// dictionary hit when <see cref="PropertyGridMetadata.IsCachingEnabled"/> is enabled, and a
+        /// full rebuild otherwise — the default. Either way properties marked
+        /// <see cref="PropertyGridIgnoreAttribute"/> are filtered out at the metadata level and never
+        /// reach this method.
+        /// </para>
         /// </summary>
         /// <param name="viewModel">the ViewModel instance, to generate/show controls/categories for</param>
-        /// <returns>CategoryViewModels holding representations for each public non static property</returns>
+        /// <returns><see cref="IAvaloniaReadOnlyList{CategoryViewModel}"/> holding representations for each public non-static property</returns>
         public virtual IAvaloniaReadOnlyList<CategoryViewModel> GenerateCategories(INotifyPropertyChanged viewModel)
         {
-            var properties = viewModel
-                .GetType()
-                .GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                .Where(p => p.CanRead)
-                .ToList();
+            var typeMetadata = PropertyGridMetadata.Get(viewModel.GetType());
 
-            var categories = properties
-                .Select(prop => (Property: prop, Category: GetCategory(prop), DisplayName: GetDisplayName(prop)))
-                .Where(p => p.Category is not null)
-                .Distinct()
-                .GroupBy(p => p.Category);
+            var categories = typeMetadata.Properties.GroupBy(p => p.Category);
 
             var categoryViewModels = new AvaloniaList<CategoryViewModel>();
+            
             foreach (var grouping in categories)
             {
                 var propertyViewModels = new AvaloniaList<IPropertyViewModel>();
-                foreach (var (Property, Category, DisplayName) in grouping)
+                
+                foreach (var metadata in grouping)
                 {
                     var propertyViewModel = default(IPropertyViewModel?);
-                    var displayname = DisplayName ?? Property.Name;
+                    var property = metadata.Property;
+                    var displayName = metadata.DisplayName ?? property.Name;
 
-                    if (Property.PropertyType == typeof(string))
+                    if (viewModel is IPropertyGridOptionSource optionSource 
+                        && optionSource.GetOptions(property.Name) is not null)
                     {
-                        propertyViewModel = new StringViewModel(viewModel, displayname, Property);
+                        propertyViewModel = new ComboViewModel(viewModel, displayName, property, optionSource);
                     }
-                    else if (Property.PropertyType == typeof(int) || Property.PropertyType == typeof(int?))
+                    else if (property.PropertyType == typeof(string))
                     {
-                        propertyViewModel = new IntegerViewModel(viewModel, displayname, Property);
+                        propertyViewModel = new StringViewModel(viewModel, displayName, property);
                     }
-                    else if (Property.PropertyType == typeof(long) || Property.PropertyType == typeof(long?))
+                    else if (property.PropertyType == typeof(int) || property.PropertyType == typeof(int?))
                     {
-                        propertyViewModel = new LongViewModel(viewModel, displayname, Property);
+                        propertyViewModel = new IntegerViewModel(viewModel, displayName, property);
                     }
-                    else if (Property.PropertyType == typeof(double) || Property.PropertyType == typeof(double?))
+                    else if (property.PropertyType == typeof(long) || property.PropertyType == typeof(long?))
                     {
-                        propertyViewModel = new DoubleViewModel(viewModel, displayname, Property);
+                        propertyViewModel = new LongViewModel(viewModel, displayName, property);
                     }
-                    else if (Property.PropertyType == typeof(float) || Property.PropertyType == typeof(float?))
+                    else if (property.PropertyType == typeof(double) || property.PropertyType == typeof(double?))
                     {
-                        propertyViewModel = new FloatViewModel(viewModel, displayname, Property);
+                        propertyViewModel = new DoubleViewModel(viewModel, displayName, property);
                     }
-                    else if (Property.PropertyType == typeof(decimal) || Property.PropertyType == typeof(decimal?))
+                    else if (property.PropertyType == typeof(float) || property.PropertyType == typeof(float?))
                     {
-                        propertyViewModel = new DecimalViewModel(viewModel, displayname, Property);
+                        propertyViewModel = new FloatViewModel(viewModel, displayName, property);
                     }
-                    else if (Property.PropertyType == typeof(bool) || Property.PropertyType == typeof(bool?))
+                    else if (property.PropertyType == typeof(decimal) || property.PropertyType == typeof(decimal?))
                     {
-                        propertyViewModel = new BoolViewModel(viewModel, displayname, Property);
+                        propertyViewModel = new DecimalViewModel(viewModel, displayName, property);
                     }
-                    else if (Property.PropertyType.IsEnum ||
-                             Nullable.GetUnderlyingType(Property.PropertyType)?.IsEnum == true)
+                    else if (property.PropertyType == typeof(bool) || property.PropertyType == typeof(bool?))
                     {
-                        propertyViewModel = new EnumViewModel(viewModel, displayname, Property);
+                        propertyViewModel = new BoolViewModel(viewModel, displayName, property);
                     }
-                    else if (Property.PropertyType == typeof(DateTime) || Property.PropertyType == typeof(DateTime?))
+                    else if (property.PropertyType.IsEnum ||
+                             Nullable.GetUnderlyingType(property.PropertyType)?.IsEnum == true)
                     {
-                        propertyViewModel = new DateTimeViewModel(viewModel, displayname, Property);
+                        propertyViewModel = new EnumViewModel(viewModel, displayName, property);
                     }
-                    else if (Property.PropertyType == typeof(DateTimeOffset) || Property.PropertyType == typeof(DateTimeOffset?))
+                    else if (property.PropertyType == typeof(DateTime) || property.PropertyType == typeof(DateTime?))
                     {
-                        propertyViewModel = new DateTimeOffsetViewModel(viewModel, displayname, Property);
+                        propertyViewModel = new DateTimeViewModel(viewModel, displayName, property);
+                    }
+                    else if (property.PropertyType == typeof(DateTimeOffset) || property.PropertyType == typeof(DateTimeOffset?))
+                    {
+                        propertyViewModel = new DateTimeOffsetViewModel(viewModel, displayName, property);
                     }
                     else
                     {
-                        var propertyValue = Property.GetValue(viewModel) as INotifyPropertyChanged;
-                        if (propertyValue is INotifyPropertyChanged childViewModel)
+                        if (property.GetValue(viewModel) is INotifyPropertyChanged)
                         {
-                            propertyViewModel = new ComplexTypeViewModel(viewModel, displayname, Property);
+                            propertyViewModel = new ComplexTypeViewModel(viewModel, displayName, property);
                         }
                     }
 
@@ -124,6 +109,13 @@ namespace SukiUI.Controls
                     {
                         propertyViewModels.Add(propertyViewModel);
                     }
+                }
+
+                // Properties with no matching editor (commands, unsupported types) would otherwise
+                // leave a category behind with nothing in it.
+                if (propertyViewModels.Count == 0)
+                {
+                    continue;
                 }
 
                 var categoryViewModel = new CategoryViewModel(grouping.Key!, propertyViewModels);
