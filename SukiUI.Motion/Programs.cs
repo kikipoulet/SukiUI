@@ -229,9 +229,7 @@ namespace SukiUI.Motion
 
         internal Func<double> ToFactory => _to;
         internal Func<TimeSpan> DurationFactory => _duration;
-        // Chain steps bypass Start: the factory resolves on access. Wrapping a fixed
-        // instance (the press) makes this a constant — no allocation, no drift.
-        internal Easing EasingValue => _easing();
+        internal Func<Easing> EasingFactory => _easing;
     }
 
     /// <summary>
@@ -354,6 +352,7 @@ namespace SukiUI.Motion
         private SpringTrajectory? _parked;
         private double _from, _to;
         private TimeSpan _duration, _stepStart;
+        private Easing? _easing; // the current step's easing, resolved at its start
         private int _index;
 
         internal Chain(TimedTrajectory first, bool mustFinishFirst)
@@ -384,7 +383,7 @@ namespace SukiUI.Motion
             double t = _duration <= TimeSpan.Zero
                 ? 1.0
                 : Math.Min((now - _stepStart).TotalMilliseconds / _duration.TotalMilliseconds, 1.0);
-            Channel!.Write(Integrator.Lerp(_from, _to, _steps[_index].EasingValue.Ease(t)));
+            Channel!.Write(Integrator.Lerp(_from, _to, _easing!.Ease(t)));
             if (t < 1.0)
                 return true;
 
@@ -439,6 +438,9 @@ namespace SukiUI.Motion
             _to = step.ToFactory();
             Channel!.Track(_to);
             _duration = step.DurationFactory();
+            // Per-step snapshot, like TimedTrajectory.Start: an easing recipe runs once per
+            // step — never per frame (no allocation, no curve change mid-flight).
+            _easing = step.EasingFactory();
             _stepStart = now;
         }
     }
