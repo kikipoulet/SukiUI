@@ -49,8 +49,12 @@ namespace SukiUI.Motion
 
         public bool Running => _subscription is not null;
 
+        /// <summary>Starts (or restarts) the choreography. Restarting a running one
+        /// preempts it in place: its subscription is released first, then members resume
+        /// from their live pose (and spring velocity) — never two subscriptions at once.</summary>
         public void Start(Visual owner)
         {
+            Stop();
             foreach (var member in _members)
                 member.PrePose();    // the Froms: pre-posed only on idle channels
             _preamble?.Invoke();     // the real Show(): the poses are already written
