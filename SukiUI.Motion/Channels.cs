@@ -206,8 +206,10 @@ namespace SukiUI.Motion
     /// interrupting captures the on-screen pose (velocity only survives inside a spring);
     /// a MustFinish() chain owns the channel to completion (a spring offered meanwhile is
     /// memorized, a re-offered chain re-arms from the pose, hover is dropped); a spring in
-    /// flight is preempted ONLY by a press chain — an incoming hover never preempts it, it
-    /// re-resolves its lazy target (retarget without snap, pose and velocity kept); a plain
+    /// flight is preempted by a press chain or by a DIFFERENT spring (which takes over the
+    /// live pose and velocity); an incoming hover never preempts it, it re-resolves its lazy
+    /// target (retarget without snap, pose and velocity kept), as does the same spring
+    /// re-offered; a plain
     /// timed trajectory is preemptable; a pose write wins over everything; settle is
     /// |Δtarget| &lt; 0.0005 and |v| &lt; 0.02 with an exact snap; an idle channel costs zero
     /// frame callbacks.
@@ -473,7 +475,26 @@ namespace SukiUI.Motion
                         return;
                     }
 
-                    return; // only a press preempts a spring (a release re-offered is a no-op)
+                    if (ReferenceEquals(incoming, running))
+                    {
+                        // The same spring re-offered (release then capture-lost): never a
+                        // restart — at most its lazy resting point re-resolves.
+                        running.Retarget();
+                        return;
+                    }
+
+                    if (incoming is SpringTrajectory takeover)
+                    {
+                        // A different spring takes over from the live pose AND velocity
+                        // (hover in → out mid-flight): no drop, no kink. An explicitly armed
+                        // kick wins over the carried velocity (the Run rule).
+                        if (!takeover.HasKick)
+                            takeover.SeedVelocity(running.Velocity);
+                        StartProgram(incoming);
+                        return;
+                    }
+
+                    return; // a non-retargetable timed trajectory never preempts a spring
 
                 case TimedTrajectory:
                     StartProgram(incoming); // plain timed trajectories are preemptable
