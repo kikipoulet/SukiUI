@@ -235,6 +235,7 @@ namespace SukiUI.Motion
         // the transform was written by something else.
         private double _seenMin = double.PositiveInfinity;
         private double _seenMax = double.NegativeInfinity;
+        private bool _startPoseTracked;
 
         private Channel(Visual owner, Func<double> read, Action<double> write)
         {
@@ -622,8 +623,18 @@ namespace SukiUI.Motion
 
         /// <summary>Clamps a program start pose into the channel window (defensive, mirrors
         /// the old <c>Math.Clamp(pose, DeepFloor, HoverScale)</c> on press/spring starts).</summary>
-        public double ClampPose(double pose) =>
-            _seenMin <= _seenMax ? Math.Clamp(pose, _seenMin, _seenMax) : pose;
+        public double ClampPose(double pose)
+        {
+            // The window always contains the pose the channel first started from: grown
+            // from targets alone, a lone target collapses it onto itself and the very first
+            // program would start AT its target (no animation at all).
+            if (!_startPoseTracked)
+            {
+                _startPoseTracked = true;
+                Track(pose);
+            }
+            return _seenMin <= _seenMax ? Math.Clamp(pose, _seenMin, _seenMax) : pose;
+        }
 
         /// <summary>Feeds the defensive pose-clamp window with a resolved target/from.</summary>
         public void Track(double value)
