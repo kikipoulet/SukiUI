@@ -34,6 +34,12 @@ namespace SukiUI.Motion
         /// <summary>Advance to <paramref name="now"/> and write the pose; false when finished.</summary>
         public abstract bool Advance(TimeSpan now);
 
+        /// <summary>Jumps to the end state after <see cref="Start"/>: writes the final pose
+        /// and sets <see cref="Done"/> — used when no frame can ever run (a choreography
+        /// started on a detached element). Custom program types override it to write their
+        /// final pose; the default only marks the program done.</summary>
+        public virtual void Complete() => Done = true;
+
         /// <summary>
         /// Starts the program on its channel at choreography start: forced preemption with
         /// spring velocity carry through <see cref="Channel.Run(Program)"/>; channel-less
@@ -209,6 +215,12 @@ namespace SukiUI.Motion
             return false;
         }
 
+        public override void Complete()
+        {
+            Channel!.Write(_toValue);
+            Done = true;
+        }
+
         private double Progress(TimeSpan now) =>
             _durationValue <= TimeSpan.Zero ? 1.0
             : Math.Min((now - _start).TotalMilliseconds / _durationValue.TotalMilliseconds, 1.0);
@@ -307,6 +319,14 @@ namespace SukiUI.Motion
             return true;
         }
 
+        public override void Complete()
+        {
+            _x = _targetValue;
+            _v = 0.0;
+            Channel!.Write(_x);
+            Done = true;
+        }
+
         /// <summary>The resting point moves without a snap — pose and velocity are kept.</summary>
         public void Retarget()
         {
@@ -386,6 +406,21 @@ namespace SukiUI.Motion
 
             Done = true; // hold at the bottom
             return false;
+        }
+
+        public override void Complete()
+        {
+            if (_parked is { } release)
+            {
+                // The memorized release is where the gesture ends.
+                release.Start();
+                release.Complete();
+            }
+            else
+            {
+                Channel!.Write(_steps[^1].ToFactory()); // hold at the bottom
+            }
+            Done = true;
         }
 
         /// <summary>Called by the channel when a spring is offered while this chain runs.</summary>

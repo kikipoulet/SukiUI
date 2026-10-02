@@ -60,6 +60,19 @@ namespace SukiUI.Motion
             _preamble?.Invoke();     // the real Show(): the poses are already written
             foreach (var member in _members)
                 member.Run();        // forced preemption, spring velocity carry, pose capture
+
+            if (TopLevel.GetTopLevel(owner) is null)
+            {
+                // Detached: no frame will ever run. Land every member on its final pose and
+                // settle now — skipping the settle would leak whatever it releases (a toast
+                // never removed, a popup never hidden). Members complete in order, so
+                // derived writes still observe their finished sources.
+                foreach (var member in _members)
+                    member.Complete();
+                Settle();
+                return;
+            }
+
             _subscription = SukiTicker.Subscribe(owner, OnFrame);
         }
 
@@ -87,6 +100,11 @@ namespace SukiUI.Motion
                 return;
 
             Stop();
+            Settle();
+        }
+
+        private void Settle()
+        {
             // Settled: release every channel — idle again, a later From pre-poses it.
             foreach (var member in _members)
                 member.Channel?.Release(member);
@@ -121,6 +139,12 @@ namespace SukiUI.Motion
         }
 
         public override void Start() => Done = false;
+
+        public override void Complete()
+        {
+            Channel!.Write(_value()); // sources completed first: their final derived value
+            Done = true;
+        }
 
         public override bool Advance(TimeSpan now)
         {
@@ -206,6 +230,13 @@ namespace SukiUI.Motion
             }
             _items = Array.Empty<Control>();
             _pending = false;
+        }
+
+        /// <summary>The cascade's end state is the items at their normal pose.</summary>
+        public override void Complete()
+        {
+            Reset();
+            Done = true;
         }
 
         public override bool Advance(TimeSpan now)
