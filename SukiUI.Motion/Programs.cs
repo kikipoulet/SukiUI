@@ -289,6 +289,9 @@ namespace SukiUI.Motion
         public override void Start()
         {
             _springValue = _spring();
+            if (!_springValue.IsValid)
+                throw new InvalidOperationException(
+                    "SpringTrajectory: default(Spring) has no stiffness or damping and would never settle — build it with new Spring(omega, decay).");
             _x = Channel!.ClampPose(Channel.Value);
             _v = _seedV ?? 0.0;
             _seedV = null;
