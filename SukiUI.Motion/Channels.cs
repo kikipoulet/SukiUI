@@ -379,18 +379,9 @@ namespace SukiUI.Motion
                 if (target() is not { } t)
                     return;
                 if (v >= 0.5)
-                {
-                    if (t.Effect is not BlurEffect blur)
-                    {
-                        blur = new BlurEffect();
-                        t.Effect = blur;
-                    }
-                    blur.Radius = v;
-                }
+                    OwnedEffects.Blur(t).Radius = v;
                 else if (t.Effect is BlurEffect)
-                {
                     t.Effect = null;
-                }
             });
 
         /// <summary>Current on-screen pose of the channel.</summary>
@@ -889,11 +880,50 @@ namespace SukiUI.Motion
             Effect(t).Opacity = v;
         }
 
-        private static DropShadowEffect Effect(Visual t)
+        private static DropShadowEffect Effect(Visual t) => OwnedEffects.DropShadow(t);
+    }
+
+    /// <summary>
+    /// The effects the engine may mutate in place: only instances it created itself. A
+    /// foreign effect in the slot — typically a style setter value, ONE instance shared by
+    /// every control the style matches — is never mutated: the first write copies it into
+    /// an engine-owned instance (pose continuity) and takes the slot with that copy.
+    /// </summary>
+    internal static class OwnedEffects
+    {
+        private static readonly ConditionalWeakTable<Visual, IEffect> Owned = new();
+
+        internal static BlurEffect Blur(Visual t)
         {
-            if (t.Effect is DropShadowEffect existing)
+            if (t.Effect is BlurEffect existing && IsOwned(t, existing))
                 return existing;
-            var effect = new DropShadowEffect();
+            var own = new BlurEffect { Radius = (t.Effect as BlurEffect)?.Radius ?? 0.0 };
+            return Take(t, own);
+        }
+
+        internal static DropShadowEffect DropShadow(Visual t)
+        {
+            if (t.Effect is DropShadowEffect existing && IsOwned(t, existing))
+                return existing;
+            var own = t.Effect is DropShadowEffect foreign
+                ? new DropShadowEffect
+                {
+                    BlurRadius = foreign.BlurRadius,
+                    Color = foreign.Color,
+                    Opacity = foreign.Opacity,
+                    OffsetX = foreign.OffsetX,
+                    OffsetY = foreign.OffsetY,
+                }
+                : new DropShadowEffect();
+            return Take(t, own);
+        }
+
+        private static bool IsOwned(Visual t, IEffect effect) =>
+            Owned.TryGetValue(t, out var owned) && ReferenceEquals(owned, effect);
+
+        private static T Take<T>(Visual t, T effect) where T : class, IEffect
+        {
+            Owned.AddOrUpdate(t, effect);
             t.Effect = effect; // the attach-once write that schedules the frame
             return effect;
         }

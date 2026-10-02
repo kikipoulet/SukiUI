@@ -308,14 +308,7 @@ namespace SukiUI.Motion
         private static void BlurItem(Control item, double radius)
         {
             if (radius >= 0.5)
-            {
-                if (item.Effect is not BlurEffect blur)
-                {
-                    blur = new BlurEffect();
-                    item.Effect = blur;
-                }
-                blur.Radius = radius;
-            }
+                OwnedEffects.Blur(item).Radius = radius;
             else if (item.Effect is BlurEffect)
                 item.Effect = null;
         }
