@@ -47,13 +47,30 @@ namespace SukiUI.Motion
 
         private double Spring(double t)
         {
-            double zetaOmega = Decay / 2.0;
-            double omegaD = Math.Sqrt(Math.Max(Omega * Omega - zetaOmega * zetaOmega, 1e-12));
-            double envelope = Math.Exp(-zetaOmega * t);
-            // x(t) = 1 - e^(-zeta*omega*t) * (cos(omega_d*t) + zeta*omega/omega_d * sin(omega_d*t))
-            // For zeta >= 1 the sine term degenerates to zeta*omega*t (critical damping) —
-            // monotonic approach, no overshoot at all.
-            return 1.0 - envelope * (Math.Cos(omegaD * t) + zetaOmega / omegaD * Math.Sin(omegaD * t));
+            // Step response from rest of x'' = -omega²(x - 1) - decay·x', all three regimes.
+            double a = Decay / 2.0; // zeta·omega
+            double disc = Omega * Omega - a * a;
+            double scale = Omega * Omega;
+
+            if (Math.Abs(disc) <= 1e-9 * scale)
+            {
+                // Critically damped: monotonic, the fastest approach without overshoot.
+                return 1.0 - Math.Exp(-a * t) * (1.0 + a * t);
+            }
+
+            if (disc > 0)
+            {
+                // Underdamped: x(t) = 1 - e^(-a·t) (cos(wd·t) + a/wd · sin(wd·t)).
+                double wd = Math.Sqrt(disc);
+                return 1.0 - Math.Exp(-a * t) * (Math.Cos(wd * t) + a / wd * Math.Sin(wd * t));
+            }
+
+            // Overdamped: two real decaying modes r1,2 = -a ± wo. Written with plain
+            // exponentials of negative rates (never cosh/sinh of large arguments), so it
+            // cannot overflow for stiff springs: x(t) = 1 + (r2·e^(r1·t) - r1·e^(r2·t)) / (r1 - r2).
+            double wo = Math.Sqrt(-disc);
+            double r1 = -a + wo, r2 = -a - wo;
+            return 1.0 + (r2 * Math.Exp(r1 * t) - r1 * Math.Exp(r2 * t)) / (r1 - r2);
         }
     }
 

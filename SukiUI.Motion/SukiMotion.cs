@@ -55,23 +55,14 @@ namespace SukiUI.Motion
         /// Null = Enable is a logged no-op on this element (an unsupported host type).</summary>
         internal abstract Mover? Attach(AvaloniaObject element);
 
-        /// <summary>Gets (or lazily attaches) the element's Mover — the exact instance the
-        /// Enable wiring uses, no duplicate.</summary>
-        internal static Mover? EnsureMover(AvaloniaObject element)
-        {
-            if (element.GetValue(MoverProperty) is { } mover)
-                return mover;
-            var attached = Instance.Attach(element);
-            element.SetValue(MoverProperty, attached);
-            return attached;
-        }
-
         /// <summary>Fires every trigger registered for <paramref name="event"/> as if the
         /// event had been raised — the programmatic drive (no pointer input can be
         /// synthesized in Avalonia; benchmark pages drive real descriptions this way).
-        /// Real events keep working alongside. Reads as
+        /// Drives the exact Mover the Enable wiring attached; a no-op where the motion is
+        /// not enabled (it never wires a behavior the author did not enable). Real events
+        /// keep working alongside. Reads as
         /// <c>MyMotion.Simulate(button, InputElement.PointerPressedEvent)</c>.</summary>
         public static void Simulate(AvaloniaObject element, RoutedEvent @event) =>
-            EnsureMover(element)?.Simulate(@event);
+            element.GetValue(MoverProperty)?.Simulate(@event);
     }
 }

@@ -206,8 +206,10 @@ namespace SukiUI.Motion
     /// interrupting captures the on-screen pose (velocity only survives inside a spring);
     /// a MustFinish() chain owns the channel to completion (a spring offered meanwhile is
     /// memorized, a re-offered chain re-arms from the pose, hover is dropped); a spring in
-    /// flight is preempted ONLY by a press chain — an incoming hover never preempts it, it
-    /// re-resolves its lazy target (retarget without snap, pose and velocity kept); a plain
+    /// flight is preempted by a press chain or by a DIFFERENT spring (which takes over the
+    /// live pose and velocity); an incoming hover never preempts it, it re-resolves its lazy
+    /// target (retarget without snap, pose and velocity kept), as does the same spring
+    /// re-offered; a plain
     /// timed trajectory is preemptable; a pose write wins over everything; settle is
     /// |Δtarget| &lt; 0.0005 and |v| &lt; 0.02 with an exact snap; an idle channel costs zero
     /// frame callbacks.
@@ -225,6 +227,10 @@ namespace SukiUI.Motion
         private readonly Func<double> _read;
         private readonly Action<double> _write;
         private Program? _active;
+        // The active program belongs to a stopped choreography: nobody advances it any more.
+        // It still answers Velocity (the displacing spring carries it) and still counts as
+        // in flight for the From rule, but Offer treats the channel as free.
+        private bool _frozen;
         private IDisposable? _subscription;
 
         // Defensive pose-clamp window (the old engines clamped starts to
@@ -233,6 +239,7 @@ namespace SukiUI.Motion
         // the transform was written by something else.
         private double _seenMin = double.PositiveInfinity;
         private double _seenMax = double.NegativeInfinity;
+        private bool _startPoseTracked;
 
         private Channel(Visual owner, Func<double> read, Action<double> write)
         {
@@ -372,18 +379,9 @@ namespace SukiUI.Motion
                 if (target() is not { } t)
                     return;
                 if (v >= 0.5)
-                {
-                    if (t.Effect is not BlurEffect blur)
-                    {
-                        blur = new BlurEffect();
-                        t.Effect = blur;
-                    }
-                    blur.Radius = v;
-                }
+                    OwnedEffects.Blur(t).Radius = v;
                 else if (t.Effect is BlurEffect)
-                {
                     t.Effect = null;
-                }
             });
 
         /// <summary>Current on-screen pose of the channel.</summary>
@@ -435,9 +433,18 @@ namespace SukiUI.Motion
             if (incoming is PoseProgram)
             {
                 // A pose write wins over everything: stop, rest, nothing runs afterwards.
-                _active = null;
+                SetActive(null);
                 Stop();
                 incoming.Start();
+                return;
+            }
+
+            if (_frozen)
+            {
+                // Left behind by a stopped choreography: free, but keep the momentum.
+                if (incoming is SpringTrajectory resumed && !resumed.HasKick)
+                    resumed.SeedVelocity(Velocity);
+                StartProgram(incoming);
                 return;
             }
 
@@ -473,7 +480,26 @@ namespace SukiUI.Motion
                         return;
                     }
 
-                    return; // only a press preempts a spring (a release re-offered is a no-op)
+                    if (ReferenceEquals(incoming, running))
+                    {
+                        // The same spring re-offered (release then capture-lost): never a
+                        // restart — at most its lazy resting point re-resolves.
+                        running.Retarget();
+                        return;
+                    }
+
+                    if (incoming is SpringTrajectory takeover)
+                    {
+                        // A different spring takes over from the live pose AND velocity
+                        // (hover in → out mid-flight): no drop, no kink. An explicitly armed
+                        // kick wins over the carried velocity (the Run rule).
+                        if (!takeover.HasKick)
+                            takeover.SeedVelocity(running.Velocity);
+                        StartProgram(incoming);
+                        return;
+                    }
+
+                    return; // a non-retargetable timed trajectory never preempts a spring
 
                 case TimedTrajectory:
                     StartProgram(incoming); // plain timed trajectories are preemptable
@@ -492,15 +518,29 @@ namespace SukiUI.Motion
         /// reopen: pose + velocity kept, spring constants swapped mid-flight — the old
         /// engine's in-place retarget). The carry is a DEFAULT: an explicitly armed kick
         /// (see <see cref="SpringTrajectory.SeedVelocity"/>) always wins over ambient
-        /// state. The channel does not subscribe here: the choreography owns the single
-        /// ticker subscription and advances the program itself.
+        /// state. The choreography owns the single ticker subscription and advances the
+        /// program itself: the channel drops its own subscription, if an Offer-started
+        /// program had one — never two drivers on one channel.
         /// </summary>
         public void Run(Program incoming)
         {
             if (incoming is SpringTrajectory spring && !spring.HasKick)
                 spring.SeedVelocity(Velocity);
-            _active = incoming;
+            Stop();
+            SetActive(incoming);
             incoming.Start();
+        }
+
+        /// <summary>True while <paramref name="program"/> owns this channel — a choreography
+        /// stops advancing a member whose channel was taken over.</summary>
+        internal bool Owns(Program program) => ReferenceEquals(_active, program) && !_frozen;
+
+        /// <summary>Marks the member of a stopped choreography as frozen: it keeps its pose
+        /// and velocity for a displacing program, but no longer blocks an Offer.</summary>
+        internal void Freeze(Program program)
+        {
+            if (ReferenceEquals(_active, program))
+                _frozen = true;
         }
 
         /// <summary>
@@ -523,20 +563,26 @@ namespace SukiUI.Motion
         public void Release(Program program)
         {
             if (ReferenceEquals(_active, program))
-                _active = null;
+                SetActive(null);
         }
 
         /// <summary>Forgets any program on the channel (instant/abnormal close, template
         /// re-apply, detach, disable) — the next From pre-poses it whatever frozen state it
         /// was left in.</summary>
-        public void Rest() => _active = null;
+        public void Rest() => SetActive(null);
+
+        private void SetActive(Program? program)
+        {
+            _active = program;
+            _frozen = false;
+        }
 
         private void StartProgram(Program program)
         {
             if (TopLevel.GetTopLevel(_owner) is null)
                 return;
             
-            _active = program;
+            SetActive(program);
             program.Start();
             EnsureSubscribed();
         }
@@ -548,7 +594,7 @@ namespace SukiUI.Motion
         /// </summary>
         internal void Handoff(Program program)
         {
-            _active = program;
+            SetActive(program);
             program.Start();
         }
 
@@ -584,7 +630,7 @@ namespace SukiUI.Motion
             {
                 // Settled (or played out — the exact snap is already written): an idle
                 // channel costs zero callbacks. (A Handoff replaced _active — keep rolling.)
-                _active = null;
+                SetActive(null);
                 Stop();
             }
         }
@@ -601,8 +647,18 @@ namespace SukiUI.Motion
 
         /// <summary>Clamps a program start pose into the channel window (defensive, mirrors
         /// the old <c>Math.Clamp(pose, DeepFloor, HoverScale)</c> on press/spring starts).</summary>
-        public double ClampPose(double pose) =>
-            _seenMin <= _seenMax ? Math.Clamp(pose, _seenMin, _seenMax) : pose;
+        public double ClampPose(double pose)
+        {
+            // The window always contains the pose the channel first started from: grown
+            // from targets alone, a lone target collapses it onto itself and the very first
+            // program would start AT its target (no animation at all).
+            if (!_startPoseTracked)
+            {
+                _startPoseTracked = true;
+                Track(pose);
+            }
+            return _seenMin <= _seenMax ? Math.Clamp(pose, _seenMin, _seenMax) : pose;
+        }
 
         /// <summary>Feeds the defensive pose-clamp window with a resolved target/from.</summary>
         public void Track(double value)
@@ -748,14 +804,25 @@ namespace SukiUI.Motion
         {
             if (b.Group is { } g && ReferenceEquals(t.RenderTransform, g))
                 return;
+            // (Re-)attach. The previous group, if any, was displaced by an external
+            // RenderTransform write: release its children so they can move over.
+            b.Group?.Children.Clear();
             var group = new TransformGroup();
             b.Group = group;
             // Adopt a pre-existing bare scale on first attach (pose continuity with the old
             // engines' read rule); anything else is replaced by the first write.
             if (b.Scale is null && t.RenderTransform is ScaleTransform existing)
                 b.Scale = new ScaleTransform(existing.ScaleX, existing.ScaleY);
-            if (b.Scale is { } adopted)
-                AddChild(group, adopted, ScaleRank);
+            // Every child the block already owns moves to the new group with its pose — a
+            // re-attach must never orphan translate/rotate/skew (their writes would vanish).
+            if (b.Translate is { } translate)
+                AddChild(group, translate, TranslateRank);
+            if (b.Skew is { } skew)
+                AddChild(group, skew, SkewRank);
+            if (b.Rotate is { } rotate)
+                AddChild(group, rotate, RotateRank);
+            if (b.Scale is { } scale)
+                AddChild(group, scale, ScaleRank);
             t.RenderTransform = group; // the attach-once write that schedules the frame
         }
 
@@ -813,11 +880,50 @@ namespace SukiUI.Motion
             Effect(t).Opacity = v;
         }
 
-        private static DropShadowEffect Effect(Visual t)
+        private static DropShadowEffect Effect(Visual t) => OwnedEffects.DropShadow(t);
+    }
+
+    /// <summary>
+    /// The effects the engine may mutate in place: only instances it created itself. A
+    /// foreign effect in the slot — typically a style setter value, ONE instance shared by
+    /// every control the style matches — is never mutated: the first write copies it into
+    /// an engine-owned instance (pose continuity) and takes the slot with that copy.
+    /// </summary>
+    internal static class OwnedEffects
+    {
+        private static readonly ConditionalWeakTable<Visual, IEffect> Owned = new();
+
+        internal static BlurEffect Blur(Visual t)
         {
-            if (t.Effect is DropShadowEffect existing)
+            if (t.Effect is BlurEffect existing && IsOwned(t, existing))
                 return existing;
-            var effect = new DropShadowEffect();
+            var own = new BlurEffect { Radius = (t.Effect as BlurEffect)?.Radius ?? 0.0 };
+            return Take(t, own);
+        }
+
+        internal static DropShadowEffect DropShadow(Visual t)
+        {
+            if (t.Effect is DropShadowEffect existing && IsOwned(t, existing))
+                return existing;
+            var own = t.Effect is DropShadowEffect foreign
+                ? new DropShadowEffect
+                {
+                    BlurRadius = foreign.BlurRadius,
+                    Color = foreign.Color,
+                    Opacity = foreign.Opacity,
+                    OffsetX = foreign.OffsetX,
+                    OffsetY = foreign.OffsetY,
+                }
+                : new DropShadowEffect();
+            return Take(t, own);
+        }
+
+        private static bool IsOwned(Visual t, IEffect effect) =>
+            Owned.TryGetValue(t, out var owned) && ReferenceEquals(owned, effect);
+
+        private static T Take<T>(Visual t, T effect) where T : class, IEffect
+        {
+            Owned.AddOrUpdate(t, effect);
             t.Effect = effect; // the attach-once write that schedules the frame
             return effect;
         }
