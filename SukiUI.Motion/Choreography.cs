@@ -81,8 +81,14 @@ namespace SukiUI.Motion
         /// action does NOT run.</summary>
         public void Stop()
         {
-            _subscription?.Dispose();
+            if (_subscription is null)
+                return;
+            _subscription.Dispose();
             _subscription = null;
+            // Frozen, not released: the next program on each channel may carry pose and
+            // velocity, but nothing blocks it any more (nobody advances these members).
+            foreach (var member in _members)
+                member.Channel?.Freeze(member);
         }
 
         private void OnFrame(TimeSpan now)
@@ -91,6 +97,10 @@ namespace SukiUI.Motion
             foreach (var member in _members)
             {
                 if (member.Done)
+                    continue;
+                // Taken over by another program on the same channel: finished as far as
+                // this choreography is concerned — the new owner is its only writer.
+                if (member.Channel is { } channel && !channel.Owns(member))
                     continue;
                 member.Advance(now);
                 if (!member.Done)

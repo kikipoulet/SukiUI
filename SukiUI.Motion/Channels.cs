@@ -227,6 +227,10 @@ namespace SukiUI.Motion
         private readonly Func<double> _read;
         private readonly Action<double> _write;
         private Program? _active;
+        // The active program belongs to a stopped choreography: nobody advances it any more.
+        // It still answers Velocity (the displacing spring carries it) and still counts as
+        // in flight for the From rule, but Offer treats the channel as free.
+        private bool _frozen;
         private IDisposable? _subscription;
 
         // Defensive pose-clamp window (the old engines clamped starts to
@@ -438,9 +442,18 @@ namespace SukiUI.Motion
             if (incoming is PoseProgram)
             {
                 // A pose write wins over everything: stop, rest, nothing runs afterwards.
-                _active = null;
+                SetActive(null);
                 Stop();
                 incoming.Start();
+                return;
+            }
+
+            if (_frozen)
+            {
+                // Left behind by a stopped choreography: free, but keep the momentum.
+                if (incoming is SpringTrajectory resumed && !resumed.HasKick)
+                    resumed.SeedVelocity(Velocity);
+                StartProgram(incoming);
                 return;
             }
 
@@ -514,15 +527,29 @@ namespace SukiUI.Motion
         /// reopen: pose + velocity kept, spring constants swapped mid-flight — the old
         /// engine's in-place retarget). The carry is a DEFAULT: an explicitly armed kick
         /// (see <see cref="SpringTrajectory.SeedVelocity"/>) always wins over ambient
-        /// state. The channel does not subscribe here: the choreography owns the single
-        /// ticker subscription and advances the program itself.
+        /// state. The choreography owns the single ticker subscription and advances the
+        /// program itself: the channel drops its own subscription, if an Offer-started
+        /// program had one — never two drivers on one channel.
         /// </summary>
         public void Run(Program incoming)
         {
             if (incoming is SpringTrajectory spring && !spring.HasKick)
                 spring.SeedVelocity(Velocity);
-            _active = incoming;
+            Stop();
+            SetActive(incoming);
             incoming.Start();
+        }
+
+        /// <summary>True while <paramref name="program"/> owns this channel — a choreography
+        /// stops advancing a member whose channel was taken over.</summary>
+        internal bool Owns(Program program) => ReferenceEquals(_active, program) && !_frozen;
+
+        /// <summary>Marks the member of a stopped choreography as frozen: it keeps its pose
+        /// and velocity for a displacing program, but no longer blocks an Offer.</summary>
+        internal void Freeze(Program program)
+        {
+            if (ReferenceEquals(_active, program))
+                _frozen = true;
         }
 
         /// <summary>
@@ -545,20 +572,26 @@ namespace SukiUI.Motion
         public void Release(Program program)
         {
             if (ReferenceEquals(_active, program))
-                _active = null;
+                SetActive(null);
         }
 
         /// <summary>Forgets any program on the channel (instant/abnormal close, template
         /// re-apply, detach, disable) — the next From pre-poses it whatever frozen state it
         /// was left in.</summary>
-        public void Rest() => _active = null;
+        public void Rest() => SetActive(null);
+
+        private void SetActive(Program? program)
+        {
+            _active = program;
+            _frozen = false;
+        }
 
         private void StartProgram(Program program)
         {
             if (TopLevel.GetTopLevel(_owner) is null)
                 return;
             
-            _active = program;
+            SetActive(program);
             program.Start();
             EnsureSubscribed();
         }
@@ -570,7 +603,7 @@ namespace SukiUI.Motion
         /// </summary>
         internal void Handoff(Program program)
         {
-            _active = program;
+            SetActive(program);
             program.Start();
         }
 
@@ -606,7 +639,7 @@ namespace SukiUI.Motion
             {
                 // Settled (or played out — the exact snap is already written): an idle
                 // channel costs zero callbacks. (A Handoff replaced _active — keep rolling.)
-                _active = null;
+                SetActive(null);
                 Stop();
             }
         }
