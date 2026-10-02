@@ -748,14 +748,25 @@ namespace SukiUI.Motion
         {
             if (b.Group is { } g && ReferenceEquals(t.RenderTransform, g))
                 return;
+            // (Re-)attach. The previous group, if any, was displaced by an external
+            // RenderTransform write: release its children so they can move over.
+            b.Group?.Children.Clear();
             var group = new TransformGroup();
             b.Group = group;
             // Adopt a pre-existing bare scale on first attach (pose continuity with the old
             // engines' read rule); anything else is replaced by the first write.
             if (b.Scale is null && t.RenderTransform is ScaleTransform existing)
                 b.Scale = new ScaleTransform(existing.ScaleX, existing.ScaleY);
-            if (b.Scale is { } adopted)
-                AddChild(group, adopted, ScaleRank);
+            // Every child the block already owns moves to the new group with its pose — a
+            // re-attach must never orphan translate/rotate/skew (their writes would vanish).
+            if (b.Translate is { } translate)
+                AddChild(group, translate, TranslateRank);
+            if (b.Skew is { } skew)
+                AddChild(group, skew, SkewRank);
+            if (b.Rotate is { } rotate)
+                AddChild(group, rotate, RotateRank);
+            if (b.Scale is { } scale)
+                AddChild(group, scale, ScaleRank);
             t.RenderTransform = group; // the attach-once write that schedules the frame
         }
 
