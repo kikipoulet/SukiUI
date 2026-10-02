@@ -14,6 +14,7 @@
     <!-- The description vocabulary stays internal where it can (hygiene): the public
          surface is the Enable lifecycle, the programmatic drive and the instrumentation. -->
     <InternalsVisibleTo Include="SukiUI" />
+    <InternalsVisibleTo Include="SukiUI.Motion.Tests" />
   </ItemGroup>
 
 </Project>
