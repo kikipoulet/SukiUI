@@ -148,10 +148,10 @@ namespace SukiUI.Controls
                 Properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
                     .Where(property => property.CanRead && property.GetCustomAttribute<PropertyGridIgnoreAttribute>() is null)
                     .Select(property => new PropertyMetadata(property))
-                    .ToArray();
+                    .ToList();
             }
 
-            public PropertyMetadata[] Properties { get; }
+            public IReadOnlyList<PropertyMetadata> Properties { get; }
         }
     }
 }
