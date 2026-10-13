@@ -28,7 +28,7 @@ namespace SukiUI.Controls
     /// </summary>
     public static class PropertyGridMetadata
     {
-        private static readonly ConcurrentDictionary<Type, Lazy<TypeMetadata>> Entries = new();
+        private static readonly ConcurrentDictionary<Type, Lazy<TypeMetadata>> _entries = new();
 
         private static volatile bool _isCachingEnabled;
 
@@ -70,13 +70,13 @@ namespace SukiUI.Controls
         /// The number of view model types currently cached. Useful for checking that
         /// <see cref="ClearCache"/> had the effect you expected.
         /// </summary>
-        public static int CachedTypeCount => Entries.Count;
+        public static int CachedTypeCount => _entries.Count;
 
         /// <summary>
         /// Drops every cached entry, releasing the reflected types. The next
         /// <see cref="PropertyGrid"/> for a given type rebuilds its metadata from scratch.
         /// </summary>
-        public static void ClearCache() => Entries.Clear();
+        public static void ClearCache() => _entries.Clear();
 
         /// <summary>
         /// Drops the cached entry for a single view model type, so the next
@@ -88,7 +88,7 @@ namespace SukiUI.Controls
         {
             ArgumentNullException.ThrowIfNull(viewModelType);
 
-            return Entries.TryRemove(viewModelType, out _);
+            return _entries.TryRemove(viewModelType, out _);
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace SukiUI.Controls
             // its own does not: when several threads miss on the same key they each invoke the
             // factory, and every result but one is thrown away. Here the racing factory calls only
             // allocate a cheap Lazy; the metadata is built by the single instance that gets published.
-            return Entries.GetOrAdd(
+            return _entries.GetOrAdd(
                 viewModelType,
                 static ([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] type) => new Lazy<TypeMetadata>(
                     () => new TypeMetadata(type), LazyThreadSafetyMode.ExecutionAndPublication)).Value;
@@ -126,11 +126,21 @@ namespace SukiUI.Controls
         /// </summary>
         internal sealed class TypeMetadata
         {
-            internal sealed class PropertyMetadata(PropertyInfo property)
+            internal sealed class PropertyMetadata
             {
-                public PropertyInfo Property { get; } = property;
-                public string? Category { get; } = property.GetCustomAttribute<CategoryAttribute>()?.Category ?? "Properties";
-                public string? DisplayName { get; } = property.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName;
+                public PropertyInfo Property { get; }
+                public string? Category { get; }
+                public string? DisplayName { get; }
+
+                public PropertyMetadata(PropertyInfo property)
+                {
+                    var categoryAttribute = property.GetCustomAttribute<CategoryAttribute>();
+                    var displayNameAttribute = property.GetCustomAttribute<DisplayNameAttribute>();
+
+                    Property = property;
+                    Category = categoryAttribute?.Category ?? "Properties";
+                    DisplayName = displayNameAttribute?.DisplayName;
+                }
             }
 
             public TypeMetadata([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] Type type)

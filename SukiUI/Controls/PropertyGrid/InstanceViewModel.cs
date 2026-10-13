@@ -1,7 +1,6 @@
 ﻿using Avalonia.Collections;
 using SukiUI.Helpers;
 using System.ComponentModel;
-using System.Reflection;
 
 namespace SukiUI.Controls
 {
