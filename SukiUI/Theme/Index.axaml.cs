@@ -270,38 +270,57 @@ namespace SukiUI
 
         private void SetColorTheme(SukiColorTheme colorTheme)
         {
-            SetColorWithOpacities("SukiPrimaryColor", colorTheme.Primary);
-            SetResource("SukiPrimaryDarkColor", colorTheme.PrimaryDark);
-            SetColorWithOpacities("SukiAccentColor", colorTheme.Accent);
-            SetResource("SukiAccentDarkColor", colorTheme.AccentDark);
+            var resources = GetColorThemeResources(colorTheme);
+            if (_app.Resources.GetType() == typeof(ResourceDictionary))
+            {
+                // Materialize before notifying so observers see the complete palette.
+                ((ResourceDictionary)_app.Resources).SetItems(resources.ToArray());
+            }
+            else
+            {
+                // Preserve interface dispatch and incremental evaluation for custom dictionaries.
+                foreach (var resource in resources)
+                    _app.Resources[resource.Key] = resource.Value;
+            }
+
             ActiveColorTheme = colorTheme;
             OnColorThemeChanged?.Invoke(ActiveColorTheme);
         }
 
-        private void SetColorWithOpacities(string baseName, Color baseColor)
+        private IEnumerable<KeyValuePair<object, object?>> GetColorThemeResources(SukiColorTheme colorTheme)
         {
-            SetResource(baseName, baseColor);
-            SetResource($"{baseName}75", baseColor.WithAlpha(0.75));
-            SetResource($"{baseName}50", baseColor.WithAlpha(0.50));
-            SetResource($"{baseName}25", baseColor.WithAlpha(0.25));
-            SetResource($"{baseName}20", baseColor.WithAlpha(0.2));
-            SetResource($"{baseName}15", baseColor.WithAlpha(0.15));
-            SetResource($"{baseName}10", baseColor.WithAlpha(0.10));
-            SetResource($"{baseName}7", baseColor.WithAlpha(0.07));
-            SetResource($"{baseName}5", baseColor.WithAlpha(0.05));
-            SetResource($"{baseName}3", baseColor.WithAlpha(0.03));
-            SetResource($"{baseName}1", baseColor.WithAlpha(0.005));
-            SetResource($"{baseName}0", baseColor.WithAlpha(0.00));
+            foreach (var resource in GetColorWithOpacities("SukiPrimaryColor", colorTheme.Primary))
+                yield return resource;
+            yield return new("SukiPrimaryDarkColor", colorTheme.PrimaryDark);
+            foreach (var resource in GetColorWithOpacities("SukiAccentColor", colorTheme.Accent))
+                yield return resource;
+            yield return new("SukiAccentDarkColor", colorTheme.AccentDark);
+        }
+
+        private IEnumerable<KeyValuePair<object, object?>> GetColorWithOpacities(string baseName, Color baseColor)
+        {
+            yield return new(baseName, baseColor);
+            yield return new($"{baseName}75", baseColor.WithAlpha(0.75));
+            yield return new($"{baseName}50", baseColor.WithAlpha(0.50));
+            yield return new($"{baseName}25", baseColor.WithAlpha(0.25));
+            yield return new($"{baseName}20", baseColor.WithAlpha(0.2));
+            yield return new($"{baseName}15", baseColor.WithAlpha(0.15));
+            yield return new($"{baseName}10", baseColor.WithAlpha(0.10));
+            yield return new($"{baseName}7", baseColor.WithAlpha(0.07));
+            yield return new($"{baseName}5", baseColor.WithAlpha(0.05));
+            yield return new($"{baseName}3", baseColor.WithAlpha(0.03));
+            yield return new($"{baseName}1", baseColor.WithAlpha(0.005));
+            yield return new($"{baseName}0", baseColor.WithAlpha(0.00));
 
             if (ActiveBaseTheme == ThemeVariant.Dark)
             {
-                SetResource($"{baseName}120", Lighten(baseColor, 0.7));
-                SetResource($"{baseName}150", Lighten(baseColor, 1));
+                yield return new($"{baseName}120", Lighten(baseColor, 0.7));
+                yield return new($"{baseName}150", Lighten(baseColor, 1));
             }
             else
             {
-                SetResource($"{baseName}120", baseColor);
-                SetResource($"{baseName}150", baseColor);
+                yield return new($"{baseName}120", baseColor);
+                yield return new($"{baseName}150", baseColor);
             }
         }
 
@@ -331,11 +350,6 @@ namespace SukiUI
         private static int Clamp(int value, int min, int max)
         {
             return value < min ? min : value > max ? max : value;
-        }
-
-        private void SetResource(string name, Color color)
-        {
-            _app.Resources[name] = color;
         }
 
         /// <summary>

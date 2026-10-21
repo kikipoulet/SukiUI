@@ -7,20 +7,6 @@
         </Border>
     </Design.PreviewWith>
 
-    
-       
-            <Style Selector="Button.Flat /template/ TextBlock">
-                <Setter Property="Foreground" Value="Black" />
-            </Style>
-
-            <Style Selector="Button.Flat /template/ suki|Loading">
-                <Setter Property="Foreground" Value="Black" />
-            </Style>
-            <Style Selector="Button.Flat /template/ ContentPresenter">
-                <Setter Property="Foreground" Value="Black" />
-            </Style>
-    
-    
     <Style Selector="ToggleSwitch /template/ Border">
        <Setter Property="Background" Value="#111111" />
        <Setter Property="BorderBrush" Value="#111111" />

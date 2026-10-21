@@ -54,6 +54,20 @@ public partial class DialogsViewModel(ISukiDialogManager dialogManager, ISukiToa
         => new DialogWindowDemo(_dialogManager).Show();
 
     [RelayCommand]
+    private void OpenMacOSChromeWindowDemo()
+        => new DialogWindowDemo(_dialogManager)
+        {
+            WindowChromeMode = SukiWindow.WindowChromeStyle.MacOS
+        }.Show();
+
+    [RelayCommand]
+    private void OpenWindowsChromeWindowDemo()
+        => new DialogWindowDemo(_dialogManager)
+        {
+            WindowChromeMode = SukiWindow.WindowChromeStyle.Windows
+        }.Show();
+
+    [RelayCommand]
     private void OpenDialogNativeWindowDemo()
     {
         var dialogHost = new SukiDialogHost

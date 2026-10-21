@@ -99,12 +99,8 @@
                                      Width="{TemplateBinding suki:ButtonExtensions.ShowProgress,
                                                              Converter={StaticResource WidthConverter}}"
                                      Height="24"
-                                     Margin="0,-5,-10,-5">
-                                <Viewbox.Styles>
-                                    <Style Selector="Viewbox#PART_ExtShowProgressViewBox[Width=0]">
-                                        <Setter Property="IsVisible" Value="False" />
-                                    </Style>
-                                </Viewbox.Styles>
+                                     Margin="0,-5,-10,-5"
+                                     IsVisible="{TemplateBinding suki:ButtonExtensions.ShowProgress}">
                                 <Viewbox.Transitions>
                                     <Transitions>
                                         <DoubleTransition Property="Width" Duration="0:0:0.3" />

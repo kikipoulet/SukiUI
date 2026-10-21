@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <Title>SukiUI.ConditionalXAML</Title>
+    <Description>SukiUI conditional XAML helpers for Avalonia UI applications.</Description>
+    <PackageTags>avalonia;avaloniaui;ui;xaml;helpers;conditional;dynamic;sukiui</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SukiUI\SukiUI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Linq.Dynamic.Core" />
+  </ItemGroup>
+
+</Project>

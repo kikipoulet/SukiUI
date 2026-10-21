@@ -259,6 +259,24 @@
                             </suki:GlassCard>
 
                             <suki:GlassCard>
+                                <suki:GroupBox Width="250" Header="MacOS Chrome">
+                                    <Button Margin="15,10,15,0"
+                                            VerticalAlignment="Top"
+                                            Command="{Binding OpenMacOSChromeWindowDemoCommand}"
+                                            Content="Open" />
+                                </suki:GroupBox>
+                            </suki:GlassCard>
+
+                            <suki:GlassCard>
+                                <suki:GroupBox Width="250" Header="Windows Chrome">
+                                    <Button Margin="15,10,15,0"
+                                            VerticalAlignment="Top"
+                                            Command="{Binding OpenWindowsChromeWindowDemoCommand}"
+                                            Content="Open" />
+                                </suki:GroupBox>
+                            </suki:GlassCard>
+
+                            <suki:GlassCard>
                                 <suki:GroupBox Width="250" Header="Tool Window">
                                     <Button Margin="15,10,15,0"
                                             VerticalAlignment="Top"
