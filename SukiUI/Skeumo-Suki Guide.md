@@ -1,214 +1,214 @@
 ---
 name: skeumo-suki
-description: Concevoir des contrôles "Skeumo-Suki" pour Avalonia + SukiUI, c'est-à-dire des objets physiques (vannes, leviers, réservoirs, appareils, boutons d'arrêt) dessinés en skeuomorphisme mais parfaitement intégrés au glassmorphism de SukiUI. À utiliser quand une interface SukiUI doit rendre un appareil ou un geste réel immersif et intuitif sans jurer avec le reste de l'application.
+description: Design "Skeumo-Suki" controls for Avalonia + SukiUI, that is, physical objects (valves, levers, tanks, devices, emergency stop buttons) drawn in skeuomorphism but perfectly integrated into SukiUI's glassmorphism. Use it when a SukiUI interface must render a real device or gesture in an immersive and intuitive way without clashing with the rest of the application.
 ---
 
 # Skeumo-Suki
 
-> Des objets physiques dessinés avec la grammaire du verre Suki : **matière neutre teintée par le thème, une seule lumière douce, l'accent comme seule énergie, et un réalisme porté par le comportement plutôt que par la texture.**
+> Physical objects drawn with the grammar of Suki glass: **neutral material tinted by the theme, a single soft light, the accent as the only energy, and a realism carried by behavior rather than by texture.**
 
-SukiUI repose sur le glassmorphism : des cartes translucides, des bords lumineux fins, une couleur d'accent et beaucoup d'air. C'est élégant et clair, mais abstrait. Parfois, on veut qu'un écran donne l'impression de **manipuler la chose elle-même** : pousser un piston, tourner une vanne, basculer un levier, voir la lumière d'un appareil changer quand on règle un paramètre.
+SukiUI is built on glassmorphism: translucent cards, thin luminous edges, an accent color and plenty of air. It is elegant and clear, but abstract. Sometimes you want a screen to give the impression of **handling the thing itself**: pushing a piston, turning a valve, flipping a lever, watching the light of a device change when a parameter is adjusted.
 
-Le skeuomorphisme classique (cuir, bois, métal en bitmap, ombres portées lourdes) jure immédiatement avec SukiUI. Le Skeumo-Suki résout ce conflit. Il emprunte au skeuomorphisme sa **forme** et sa **physique**, mais garde la **surface**, la **lumière** et la **palette** de SukiUI.
+Classic skeuomorphism (leather, wood, bitmap metal, heavy drop shadows) immediately clashes with SukiUI. Skeumo-Suki resolves that conflict. It borrows the **shape** and the **physics** of skeuomorphism, but keeps the **surface**, the **light** and the **palette** of SukiUI.
 
-**Pourquoi on fait du Skeumo-Suki.** Dans la pratique, c'est presque toujours pour la même raison : faire construire par une IA un contrôle très complexe (dessin, lumière, physique, thèmes) qu'un programmeur n'aurait jamais dessiné lui-même, puis l'utiliser comme n'importe quel contrôle ordinaire. Le programmeur ne voit qu'une API simple. Il lie des propriétés, écoute un événement, et son code logique reste clair. Toute la complexité reste enfermée dans le composant. C'est pour cela que l'organisation du code (§6.5) compte autant que le rendu : un contrôle superbe dont l'API n'est pas séparée de la mécanique visuelle a manqué son objectif.
+**Why we do Skeumo-Suki.** In practice it is almost always for the same reason: to have an AI build a very complex control (drawing, light, physics, themes) that a programmer would never have drawn alone, and then use it like any ordinary control. The programmer only sees a simple API. They bind properties, listen to an event, and their logic code stays clear. All the complexity stays locked inside the component. That is why the organization of the code (§6.5) matters as much as the rendering: a superb control whose API is not separated from the visual mechanics has missed its purpose.
 
-**Comment lire ce guide.** Il transmet des **raisons**, pas des designs. Les chiffres, les couleurs et les exemples qu'il contient décrivent des cas rencontrés : ils montrent comment un principe s'est traduit à un moment donné, pas ce que doit devenir le prochain contrôle. Face à un nouvel appareil, on applique la raison (reconnaissance, lisibilité, discrétion, cohérence avec Suki), puis on règle les valeurs à l'écran. Quand une valeur du guide et la raison qui la porte divergent, la raison gagne.
+**How to read this guide.** It conveys **reasons**, not designs. The numbers, colors and examples it contains describe cases that were encountered: they show how a principle translated at a given moment, not what the next control should become. Facing a new device, apply the reason (recognition, legibility, discretion, consistency with Suki), then tune the values on screen. When a value in the guide and the reason behind it diverge, the reason wins.
 
 ---
 
-## Sommaire
+## Table of contents
 
-1. [Quand l'utiliser (et quand ne pas l'utiliser)](#1-quand-lutiliser-et-quand-ne-pas-lutiliser)
-2. [Les dix lois](#2-les-dix-lois)
-3. [Système de tokens](#3-système-de-tokens)
-4. [Modèle de lumière](#4-modèle-de-lumière)
-5. [Recettes de matériaux](#5-recettes-de-matériaux)
-6. [Anatomie et composition d'une carte](#6-anatomie-et-composition-dune-carte)
-7. [Choisir le bon contrôle](#7-choisir-le-bon-contrôle)
-8. [Comportement et physique](#8-comportement-et-physique)
-9. [Thèmes clair et sombre, couleur d'accent](#9-thèmes-clair-et-sombre-couleur-daccent)
-10. [Pièges techniques Avalonia](#10-pièges-techniques-avalonia)
-11. [Méthode de travail](#11-méthode-de-travail)
+1. [When to use it (and when not to)](#1-when-to-use-it-and-when-not-to)
+2. [The ten laws](#2-the-ten-laws)
+3. [Token system](#3-token-system)
+4. [Light model](#4-light-model)
+5. [Material recipes](#5-material-recipes)
+6. [Anatomy and composition of a card](#6-anatomy-and-composition-of-a-card)
+7. [Choosing the right control](#7-choosing-the-right-control)
+8. [Behavior and physics](#8-behavior-and-physics)
+9. [Light and dark themes, accent color](#9-light-and-dark-themes-accent-color)
+10. [Avalonia technical pitfalls](#10-avalonia-technical-pitfalls)
+11. [Working method](#11-working-method)
 12. [Anti-patterns](#12-anti-patterns)
-13. [Checklist de validation](#13-checklist-de-validation)
-14. [Exemple complet : cuve et levier de remplissage / vidange](#14-exemple-complet--cuve-et-levier-de-remplissage--vidange)
+13. [Validation checklist](#13-validation-checklist)
+14. [Complete example: tank and fill / drain lever](#14-complete-example-tank-and-fill--drain-lever)
 
 ---
 
-## 1. Quand l'utiliser (et quand ne pas l'utiliser)
+## 1. When to use it (and when not to)
 
-**Utilisez le Skeumo-Suki quand :**
+**Use Skeumo-Suki when:**
 
-- l'utilisateur pilote un **appareil physique réel** (pompe, moteur, caméra, vanne, actionneur) et doit le reconnaître ;
-- le réglage est **continu, analogique ou gestuel** : une course, un angle, une vitesse, un niveau ;
-- l'effet d'un paramètre est **difficile à comprendre en chiffres** et facile à comprendre en le voyant (plus de lumière, plus de bruit, plus de débit) ;
-- l'état de l'appareil doit se lire **d'un coup d'œil** : vanne ouverte ou fermée, liquide en mouvement, moteur en marche.
+- the user drives a **real physical device** (pump, motor, camera, valve, actuator) and must recognize it;
+- the setting is **continuous, analog or gestural**: a stroke, an angle, a speed, a level;
+- the effect of a parameter is **hard to understand in numbers** and easy to understand by seeing it (more light, more noise, more flow);
+- the state of the device must be readable **at a glance**: valve open or closed, liquid moving, motor running.
 
-**Ne l'utilisez pas quand :**
+**Do not use it when:**
 
-- l'écran sert à saisir des données, à configurer ou à naviguer : restez en SukiUI pur ;
-- la valeur doit être **exacte** : un champ numérique Suki sera toujours meilleur qu'un bouton rotatif ;
-- l'objet n'a pas d'équivalent physique crédible. N'inventez pas de métaphore décorative.
+- the screen is used to enter data, configure or navigate: stay in pure SukiUI;
+- the value must be **exact**: a Suki numeric field will always beat a rotary knob;
+- the object has no credible physical equivalent. Do not invent a decorative metaphor.
 
-
----
-
-## 2. Les dix lois
-
-### Loi 1 : Réutiliser GlassCard si on a besoin d'un conteneur
-Le conteneur est toujours une `GlassCard` (titre, padding, coins, badges en verre). L'objet skeuo flotte à l'intérieur, **sans sol, sans scène décorative, sans cadre**. Les pièces qui appartiennent vraiment à l'appareil restent bienvenues : les pieds d'une cuve, la platine vissée d'un levier. Ce qui est interdit, c'est le décor : un sol, une ombre portée au sol, un plateau sur lequel on poserait l'objet. Si l'objet a des entrées ou des sorties (tuyau, câble), elles ne s'arrêtent pas net au bord : elles **se fondent dans le verre** par un fondu long (§5.8).
-
-### Loi 2 : Le métal est teinté par le thème
-Aucun gris neutre, aucune couleur chaude. Toutes les matières dures (aluminium, acier, plastique technique) utilisent la **rampe bleu-ardoise froide** qui correspond aux fonds de SukiUI (voir §3). L'objet a l'air « anodisé dans le thème ».
-
-### Loi 3 : La matière est neutre, l'énergie est l'accent
-C'est la loi centrale. Tout ce qui est **vivant, actif, porteur d'état** est dessiné en `SukiPrimaryColor` et `SukiPrimaryColor75` : un liquide, une lumière, un perçage ouvert, un indicateur, le remplissage d'un rail, une lueur. Tout le reste est inerte. Conséquence : changer la couleur du thème Suki recolore le liquide. **L'accent devient une matière physique.**
-
-**Quand le réel impose sa couleur.** La loi sert la reconnaissance, elle ne l'emporte pas sur elle. Certaines choses ont une couleur que tout le monde connaît : une lumière a une teinte, l'électricité a la sienne, un niveau de charge se lit avec des couleurs d'alerte, un gaz n'est pas coloré comme un liquide. Là, imposer l'accent trahit l'objet et se lit comme une paresse : on l'a constaté en voyant des indicateurs, une lampe et un souffle d'air rejetés tant qu'ils étaient en accent. Le test est une question : *de quelle couleur est la vraie chose ?* Si elle en a une, on la suit (§3.5). L'accent reste pour ce qui n'a pas de couleur propre : un remplissage générique, la course d'un rail, l'arc d'un bouton, un liquide quelconque. 
-
-### Loi 4 : Une seule lumière, la même que celle du verre
-La source vient d'en haut à gauche, partout et toujours. Chaque pièce porte un **filet spéculaire blanc fin (1,5 à 2,5 px) en haut**, comme le bord lumineux d'une GlassCard. Les ombres sont courtes et douces, comme les élévations Suki.
-
-### Loi 5 : Le verre de l'interface devient le verre de l'objet
-Là où la réalité contient du verre (réservoir, tube, hublot, lentille, chambre), on utilise la transparence, un double liseré et un reflet. Le glassmorphism ne décore plus : il justifie l'objet.
-
-### Loi 6 : Vectoriel, géométrique, peu détaillé
-Pas de bitmap, pas de bruit, pas de texture. Le « métal brossé » n'est qu'un dégradé à 4 ou 5 arrêts. Les formes sont des primitives avec de **grands rayons d'angle**, comme les cartes Suki. Les détails sont **rares et justes** (vis, moletage, ouïes, gravure, voyant), chacun tracé en 1 px avec de l'alpha. On suggère, on ne rend pas.
-
-### Loi 7 : Ressembler au vrai matériel
-Dessinez **l'appareil que l'utilisateur a réellement devant lui**, avec ses pièces caractéristiques (type de monture, type de connecteur, forme du boîtier, inscriptions techniques). La reconnaissance fait l'immersion.
-
-La **silhouette** passe avant tout. Un tube étroit et haut se lit comme une seringue ou une éprouvette, pas comme une cuve. Une cuve, c'est un corps large aux épaules très arrondies, une bride en haut par où entre l'alimentation, une sortie en bas, et des pieds. Si l'objet ne se reconnaît pas en aplat, aucun dégradé ne le sauvera (§11).
-
-**Chaque objet parle son propre langage.** On ne prête pas à un appareil la métaphore d'un autre : un accumulateur qui se remplit comme un réservoir de liquide se lit comme un réservoir, pas comme un accumulateur. De même, un gaz ne se lit pas avec les codes d'un liquide (surface, gouttes, particules discrètes) : sa matière est diffuse, sans bord net, et ce sont ces qualités qui le distinguent. Avant de dessiner, on se demande quel est l'idiome visuel *propre* de ce que l'on représente.
-
-**Le corps est skeuomorphe, l'affichage est du design.** Un indicateur intégré à un appareil (niveau, charge, état) est de l'information avant d'être un objet : si on lui rend la même matérialité que le boîtier (capuchons, ombrages de cylindre, bords métalliques par segment), il se lit comme du décor et perd en lisibilité. On garde le réalisme pour ce qu'on manipule et ce qui contient, et on traite ce qui *se lit* avec la sobriété d'un graphisme d'interface.
-
-### Loi 8 : Deux thèmes, toujours
-Chaque matière existe en version **sombre** et **claire**. En clair, le métal devient argent pâle et les ombres sont teintées bleu nuit au lieu du noir. Le skeuo classique ne vit que dans un seul éclairage. Ici, l'objet se ré-anodise avec le thème.
-
-### Loi 9 : Le réalisme est dans le comportement
-Ressorts, crans, inertie, enfoncement, écoulement, bulles, reflets qui avancent. L'objet n'est pas une illustration, c'est un **afficheur de conséquences** : quand on règle un paramètre, la matière montre ce qu'il fait.
-
-### Loi 10 : La précision reste du Suki standard
-Le skeuo sert aux gestes. Dès qu'il faut une **valeur exacte**, on revient aux composants Suki : champ de saisie avec unité fixe, `NumericUpDown`, bouton `Flat`, `ToggleSwitch`. Les deux mondes cohabitent dans la même carte.
-
-Mais n'ajoutez un champ exact **que si l'utilisateur en a réellement besoin**. Un levier de jog n'a pas de valeur à saisir : lui accoler un champ « niveau cible » par principe alourdit la carte sans rien apporter. Le geste se suffit quand l'intention est « plus » ou « moins » ; le champ exact s'impose quand l'intention est « exactement tant ».
 
 ---
 
-## 3. Système de tokens
+## 2. The ten laws
 
-Déclarez les matières comme **ressources nommées par rôle**, dans des `ThemeDictionaries`. Préfixez-les par un code court propre au composant (`Vx`, `Pm`…) pour éviter les collisions entre cartes.
+### Law 1: Reuse GlassCard when you need a container
+The container is always a `GlassCard` (title, padding, corners, glass badges). The skeuo object floats inside, **with no floor, no decorative scene, no frame**. Parts that truly belong to the device remain welcome: the feet of a tank, the screwed base plate of a lever. What is forbidden is decor: a floor, a drop shadow on the ground, a tray on which the object would sit. If the object has inputs or outputs (pipe, cable), they do not stop dead at the edge: they **melt into the glass** through a long fade (§5.8).
 
-### 3.1 Rampe métal (rôle par rôle)
+### Law 2: Metal is tinted by the theme
+No neutral gray, no warm color. All hard materials (aluminum, steel, technical plastic) use the **cold blue-slate ramp** that matches SukiUI's backgrounds (see §3). The object looks "anodized in the theme".
 
-| Rôle | Sombre | Clair | Usage |
+### Law 3: Matter is neutral, energy is the accent
+This is the central law. Everything that is **alive, active, carrying a state** is drawn in `SukiPrimaryColor` and `SukiPrimaryColor75`: a liquid, a light, an open bore, an indicator, the fill of a rail, a glow. Everything else is inert. Consequence: changing the Suki theme color recolors the liquid. **The accent becomes a physical material.**
+
+**When reality imposes its color.** The law serves recognition, it does not override it. Some things have a color everyone knows: a light has a tint, electricity has its own, a charge level is read with warning colors, a gas is not colored like a liquid. There, imposing the accent betrays the object and reads as laziness: we saw indicators, a lamp and a puff of air rejected as long as they were in accent. The test is a question: *what color is the real thing?* If it has one, follow it (§3.5). The accent remains for what has no color of its own: a generic fill, the travel of a rail, the arc of a knob, any liquid.
+
+### Law 4: One light, the same as the glass
+The source comes from the top left, everywhere and always. Each part carries a **thin white specular line (1.5 to 2.5 px) at the top**, like the luminous edge of a GlassCard. Shadows are short and soft, like Suki elevations.
+
+### Law 5: The interface's glass becomes the object's glass
+Where reality contains glass (tank, tube, porthole, lens, chamber), use transparency, a double rim and a reflection. Glassmorphism no longer decorates: it justifies the object.
+
+### Law 6: Vector, geometric, little detail
+No bitmap, no noise, no texture. "Brushed metal" is only a gradient with 4 or 5 stops. Shapes are primitives with **large corner radii**, like Suki cards. Details are **rare and right** (screws, knurling, vents, engraving, indicator light), each drawn at 1 px with alpha. We suggest, we do not render.
+
+### Law 7: Look like the real hardware
+Draw **the device the user actually has in front of them**, with its characteristic parts (mount type, connector type, housing shape, technical markings). Recognition makes the immersion.
+
+The **silhouette** comes before everything. A narrow, tall tube reads as a syringe or a test tube, not as a tank. A tank is a wide body with very rounded shoulders, a flange on top where the supply enters, an outlet at the bottom, and feet. If the object cannot be recognized as a flat silhouette, no gradient will save it (§11).
+
+**Each object speaks its own language.** You do not lend a device the metaphor of another: an accumulator that fills like a liquid tank reads as a tank, not as an accumulator. Likewise, a gas is not read with the codes of a liquid (surface, drops, discrete particles): its matter is diffuse, with no sharp edge, and those qualities are what distinguish it. Before drawing, ask what the *own* visual idiom of the thing being represented is.
+
+**The body is skeuomorphic, the display is design.** An indicator built into a device (level, charge, state) is information before it is an object: if it is given the same materiality as the housing (caps, cylinder shading, metal edges per segment), it reads as decor and loses legibility. Keep realism for what is handled and what contains, and treat what is *read* with the restraint of interface graphics.
+
+### Law 8: Two themes, always
+Each material exists in a **dark** and a **light** version. In light, the metal becomes pale silver and shadows are tinted midnight blue instead of black. Classic skeuo lives in a single lighting. Here, the object is re-anodized with the theme.
+
+### Law 9: Realism is in the behavior
+Springs, detents, inertia, press-in, flow, bubbles, reflections that move. The object is not an illustration, it is a **display of consequences**: when a parameter is adjusted, the matter shows what it does.
+
+### Law 10: Precision stays standard Suki
+Skeuo serves gestures. As soon as an **exact value** is needed, go back to Suki components: input field with fixed unit, `NumericUpDown`, `Flat` button, `ToggleSwitch`. The two worlds coexist in the same card.
+
+But add an exact field **only if the user really needs it**. A jog lever has no value to enter: adding a "target level" field by principle weighs the card down for nothing. The gesture is enough when the intent is "more" or "less"; the exact field is required when the intent is "exactly this much".
+
+---
+
+## 3. Token system
+
+Declare materials as **resources named by role**, in `ThemeDictionaries`. Prefix them with a short code specific to the component (`Vx`, `Pm`…) to avoid collisions between cards.
+
+### 3.1 Metal ramp (role by role)
+
+| Role | Dark | Light | Usage |
 |---|---|---|---|
-| Spéculaire | `#E3E9F4` | `#FFFFFF` | Sommet des dégradés métal, reflets |
-| Clair | `#8D99B1` | `#E3E9F4` | Face éclairée |
-| Moyen | `#586278` | `#D9E0EC` | Haut d'un boîtier |
-| Corps | `#3B4558` | `#CBD3E0` | Ton principal d'une pièce |
-| Profond | `#2A3242` | `#B0BBCE` | Bas d'une pièce |
-| Ombre | `#171C25` | `#98A4B9` | Fond du dégradé, ombres internes |
-| Arête (`Edge`) | `#667289` | `#A3AEC1` | Contour 0,6 à 1,2 px de toute pièce |
-| Creux (`Recess`) | `#C705080D` | `#FF5E6A84` | Perçages, alésages, fonds de cavité |
-| Fente / vis | `#0B0F15` | `#3A465C` | Fente de vis, ouïes |
+| Specular | `#E3E9F4` | `#FFFFFF` | Top of metal gradients, reflections |
+| Light | `#8D99B1` | `#E3E9F4` | Lit face |
+| Mid | `#586278` | `#D9E0EC` | Top of a housing |
+| Body | `#3B4558` | `#CBD3E0` | Main tone of a part |
+| Deep | `#2A3242` | `#B0BBCE` | Bottom of a part |
+| Shadow | `#171C25` | `#98A4B9` | Bottom of the gradient, inner shadows |
+| Edge (`Edge`) | `#667289` | `#A3AEC1` | 0.6 to 1.2 px outline of every part |
+| Recess (`Recess`) | `#C705080D` | `#FF5E6A84` | Bores, holes, cavity bottoms |
+| Slot / screw | `#0B0F15` | `#3A465C` | Screw slot, vents |
 
-### 3.2 Verre
+### 3.2 Glass
 
-| Rôle | Sombre | Clair |
+| Role | Dark | Light |
 |---|---|---|
-| Fond du verre (`GlassBack`) | `#B305080D → #591A2233 → #4D1A2233 → #BF05080D` (horizontal) | `#4D6F7F9E → #14FFFFFF → #10FFFFFF → #4D6F7F9E` |
-| Liseré extérieur (`GlassRim`) | `#47FFFFFF` | `#73607090` |
-| Liseré intérieur (`GlassInner`) | `#59000000` | `#40405070` |
-| Bord de tube (`TubeRim`) | `#57FFFFFF` | `#FF98A4B9` |
-| Corps de tube (`TubeBg`) | `#B805080D` | `#FFD3DBE8` |
-| Cœur de tube (`TubeCore`) | `#00FFFFFF` (inutile en sombre) | `#FFF4F7FB` |
+| Glass back (`GlassBack`) | `#B305080D → #591A2233 → #4D1A2233 → #BF05080D` (horizontal) | `#4D6F7F9E → #14FFFFFF → #10FFFFFF → #4D6F7F9E` |
+| Outer rim (`GlassRim`) | `#47FFFFFF` | `#73607090` |
+| Inner rim (`GlassInner`) | `#59000000` | `#40405070` |
+| Tube rim (`TubeRim`) | `#57FFFFFF` | `#FF98A4B9` |
+| Tube body (`TubeBg`) | `#B805080D` | `#FFD3DBE8` |
+| Tube core (`TubeCore`) | `#00FFFFFF` (useless in dark) | `#FFF4F7FB` |
 
-Le verre est plus sombre sur les bords qu'au centre (effet d'épaisseur vue de face) : c'est ce que fait le dégradé horizontal de `GlassBack`, et c'est ce que font les trois couches d'un tube (bord → corps → cœur, du plus large au plus étroit).
+Glass is darker at the edges than in the center (thickness effect seen from the front): that is what the horizontal gradient of `GlassBack` does, and what the three layers of a tube do (rim → body → core, from widest to narrowest).
 
-**Pourquoi le corps de tube est opaque en clair.** Un tube coudé se dessine en traits superposés (§5.8) : le corps est posé **par-dessus** le bord. Si le corps est presque transparent, comme le fond d'un réservoir, on voit le bord à travers sur toute la largeur et le tube devient un boudin gris-bleu foncé et uni. En sombre, le corps est déjà presque opaque, donc le problème n'apparaît pas. En clair, le corps doit être opaque et clair, et le cœur encore plus clair.
+**Why the tube body is opaque in light.** A bent tube is drawn as stacked strokes (§5.8): the body is laid **on top of** the rim. If the body is almost transparent, like the back of a tank, the rim shows through over the whole width and the tube becomes a dark, flat blue-gray sausage. In dark, the body is already almost opaque, so the problem does not appear. In light, the body must be opaque and light, and the core even lighter.
 
-### 3.3 Ombres
+### 3.3 Shadows
 
-| Rôle | Sombre | Clair |
+| Role | Dark | Light |
 |---|---|---|
-| Élévation pièce (`Shadow`) | `0 3 6 0 #80000000` | `0 3 6 0 #3D283250` |
-| Bouton relief (`RaisedShadow`) | `0 4 10 0 #66000000, inset 0 1 0 0 #66FFFFFF` | `0 3 8 0 #33283250, inset 0 1 0 0 #99FFFFFF` |
-| Petit dôme (`DomeShadow`) | `0 2 5 0 #99000000` | `0 2 4 0 #4D283250` |
-| Fenêtre creusée (`Inset`) | `inset 0 2 8 0 #CC000000` | `inset 0 1 4 0 #33283250` |
-| Rail creusé | `inset 0 1 3 0 #AA000000` | `inset 0 1 2 0 #33000000` |
+| Part elevation (`Shadow`) | `0 3 6 0 #80000000` | `0 3 6 0 #3D283250` |
+| Raised button (`RaisedShadow`) | `0 4 10 0 #66000000, inset 0 1 0 0 #66FFFFFF` | `0 3 8 0 #33283250, inset 0 1 0 0 #99FFFFFF` |
+| Small dome (`DomeShadow`) | `0 2 5 0 #99000000` | `0 2 4 0 #4D283250` |
+| Dug window (`Inset`) | `inset 0 2 8 0 #CC000000` | `inset 0 1 4 0 #33283250` |
+| Dug rail | `inset 0 1 3 0 #AA000000` | `inset 0 1 2 0 #33000000` |
 
-En clair, **jamais de noir pur dans les ombres** : utilisez `#283250` avec de l'alpha.
+In light, **never pure black in shadows**: use `#283250` with alpha.
 
-### 3.4 Énergie (accent)
+### 3.4 Energy (accent)
 
-| Rôle | Ressource |
+| Role | Resource |
 |---|---|
-| Liquide, remplissage, lumière active | `SukiPrimaryColor` |
-| Bords d'un liquide, fin de dégradé | `SukiPrimaryColor75` |
-| Arrêt, danger, alarme | `SukiDangerColor` |
-| Texte actif sur l'objet | `SukiText` |
-| Texte inactif, graduations, légendes | `SukiLowText` |
-| Séparateurs, bords neutres | `SukiBorderBrush` |
+| Liquid, fill, active light | `SukiPrimaryColor` |
+| Liquid edges, end of gradient | `SukiPrimaryColor75` |
+| Stop, danger, alarm | `SukiDangerColor` |
+| Active text on the object | `SukiText` |
+| Inactive text, graduations, legends | `SukiLowText` |
+| Separators, neutral edges | `SukiBorderBrush` |
 
-Note : `SukiPrimaryColor` et `SukiText` sont des **`Color`**, pas des pinceaux. Dans un `GradientStop`, utilisez `Color="{DynamicResource SukiPrimaryColor}"`. Dans un `Background` ou un `Foreground`, `{DynamicResource SukiPrimaryColor}` fonctionne aussi. En code, voir §9.3.
+Note: `SukiPrimaryColor` and `SukiText` are **`Color`s**, not brushes. In a `GradientStop`, use `Color="{DynamicResource SukiPrimaryColor}"`. In a `Background` or a `Foreground`, `{DynamicResource SukiPrimaryColor}` also works. In code, see §9.3.
 
-### 3.5 Couleurs « réelles »
+### 3.5 "Real" colors
 
-**La règle.** Quand l'objet représenté a une couleur conventionnelle forte, on la prend, au lieu de l'accent (Loi 3). **Pourquoi :** la reconnaissance fait l'immersion (Loi 7), et une couleur contraire à la convention oblige l'utilisateur à traduire.
+**The rule.** When the represented object has a strong conventional color, take it instead of the accent (Law 3). **Why:** recognition makes the immersion (Law 7), and a color that contradicts the convention forces the user to translate.
 
-**Ce qui la borne :**
-- la couleur réelle est réservée à ce qui porte la convention (la lumière, l'indicateur de niveau, la matière dont on parle). Le corps de l'objet reste en rampe métal ;
-- elle existe en version sombre et claire comme toute matière (Loi 8) et reste dans la saturation du reste de l'objet : un indicateur ne doit pas être le point le plus criard de la carte ;
-- une même couleur n'a qu'un sens dans toute la carte (le rouge d'alerte n'est pas aussi la couleur d'un fil) ;
-- le rouge d'arrêt et de danger vient toujours de `SukiDangerColor`.
+**What bounds it:**
+- the real color is reserved for what carries the convention (the light, the level indicator, the matter being talked about). The body of the object stays in the metal ramp;
+- it exists in a dark and a light version like any material (Law 8) and stays within the saturation of the rest of the object: an indicator must not be the loudest point of the card;
+- a given color has only one meaning across the card (the warning red is not also the color of a wire);
+- the red of stop and danger always comes from `SukiDangerColor`.
 
-**Cas rencontrés** (illustrations, pas modèles) : un voyant d'état, un indicateur de niveau gradué par seuils, la lumière d'une ampoule, le dôme d'un arrêt d'urgence.
+**Cases encountered** (illustrations, not models): a status light, a level indicator graded by thresholds, the light of a bulb, the dome of an emergency stop.
 
 ---
 
-## 4. Modèle de lumière
+## 4. Light model
 
 ```
-        ☀  source : haut-gauche (≈ 35 %, 30 %)
+        ☀  source: top-left (≈ 35 %, 30 %)
          ╲
-          ╲   ┌──────────────────────┐ ← filet spéculaire blanc 1,5–2,5 px
-           ╲  │░░░░  reflet net ░░   │ ← reflet diagonal à bord franc
+          ╲   ┌──────────────────────┐ ← thin white specular line 1.5–2.5 px
+           ╲  │░░░░  sharp glint ░░  │ ← diagonal reflection with a hard edge
               │                      │
-              │       corps          │ ← dégradé vertical clair → sombre
+              │         body         │ ← vertical gradient light → dark
               │                      │
               └──────────────────────┘
-                 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓      ← ombre courte et douce (0 3 6)
+                 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓      ← short, soft shadow (0 3 6)
 ```
 
-1. **Dégradés directionnels.**
-   - Boîtiers : vertical, du clair (haut) au sombre (bas).
-   - Pièces cylindriques horizontales (tige, poignée, tube métal) : vertical, avec le point le plus clair vers 28-35 %.
-   - Pièces cylindriques verticales : même chose à l'horizontale.
-2. **Pièces rondes** (pommeau, bouton, axe, lentille) : `RadialGradientBrush GradientOrigin="35%,30%"`.
-3. **Filet spéculaire** : un `Border` de 1,5 à 2,5 px de haut, coins arrondis, `#2E–#99FFFFFF`, placé 1 à 2 px sous le bord supérieur et légèrement plus étroit que la pièce.
-4. **Reflet de verre** : un dégradé diagonal avec une **coupure nette**, signature du glassmorphism :
+1. **Directional gradients.**
+   - Housings: vertical, from light (top) to dark (bottom).
+   - Horizontal cylindrical parts (rod, handle, metal tube): vertical, with the brightest point around 28-35 %.
+   - Vertical cylindrical parts: the same, horizontally.
+2. **Round parts** (knob, button, axle, lens): `RadialGradientBrush GradientOrigin="35%,30%"`.
+3. **Specular line**: a `Border` 1.5 to 2.5 px high, rounded corners, `#2E–#99FFFFFF`, placed 1 to 2 px below the top edge and slightly narrower than the part.
+4. **Glass reflection**: a diagonal gradient with a **hard cut**, the signature of glassmorphism:
    ```xml
    <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
        <GradientStop Offset="0"    Color="#38FFFFFF" />
        <GradientStop Offset="0.35" Color="#0AFFFFFF" />
-       <GradientStop Offset="0.36" Color="#00FFFFFF" />  <!-- bord franc -->
+       <GradientStop Offset="0.36" Color="#00FFFFFF" />  <!-- hard edge -->
        <GradientStop Offset="1"    Color="#00FFFFFF" />
    </LinearGradientBrush>
    ```
-5. **Biseau** (bord d'une plaque) : un calque par-dessus avec un dégradé vertical `#B3FFFFFF` (0) → transparent (0.1) → transparent (0.9) → `#4D000000` (1).
-6. **Lumière émise** : toujours en accent, sous forme de `BoxShadow` coloré flou (voir §5.11). La lumière émise est la seule chose « néon » de l'objet.
+5. **Bevel** (edge of a plate): a layer on top with a vertical gradient `#B3FFFFFF` (0) → transparent (0.1) → transparent (0.9) → `#4D000000` (1).
+6. **Emitted light**: always in accent, as a blurred colored `BoxShadow` (see §5.11). Emitted light is the only "neon" thing about the object.
 
 ---
 
-## 5. Recettes de matériaux
+## 5. Material recipes
 
-Toutes les recettes sont en Avalonia XAML. Les clés `Xx…` sont à renommer avec le préfixe de votre composant.
+All recipes are in Avalonia XAML. The `Xx…` keys are to be renamed with your component's prefix.
 
-### 5.1 Boîtier métal (corps d'un appareil)
+### 5.1 Metal housing (body of a device)
 
 ```xml
 <!-- Dark -->
@@ -232,21 +232,21 @@ Toutes les recettes sont en Avalonia XAML. Les clés `Xx…` sont à renommer av
         Background="{DynamicResource XxBody}"
         BorderBrush="{DynamicResource XxEdge}" BorderThickness="1.2"
         BoxShadow="{DynamicResource XxShadow}" />
-<!-- reflet diagonal par-dessus -->
+<!-- diagonal reflection on top -->
 <Border Width="80" Height="86" CornerRadius="12" Background="{StaticResource XxSheen}" IsHitTestVisible="False" />
-<!-- filet spéculaire -->
+<!-- specular line -->
 <Border Width="72" Height="2.5" CornerRadius="1.2" Background="#2EFFFFFF" Margin="0,2,0,0" VerticalAlignment="Top" />
 ```
 
-### 5.2 Métal usiné / chromé (tige, poignée, collerette)
+### 5.2 Machined / chrome metal (rod, handle, collar)
 
-Pour une pièce **horizontale**, dégradé vertical (et l'inverse pour une pièce verticale) :
+For a **horizontal** part, a vertical gradient (and the reverse for a vertical part):
 
 ```xml
 <!-- Dark -->
 <LinearGradientBrush x:Key="XxRod" StartPoint="0%,0%" EndPoint="0%,100%">
     <GradientStop Offset="0"    Color="#FF3B4558" />
-    <GradientStop Offset="0.28" Color="#FFE3E9F4" />  <!-- ligne de lumière -->
+    <GradientStop Offset="0.28" Color="#FFE3E9F4" />  <!-- line of light -->
     <GradientStop Offset="0.62" Color="#FF8590A6" />
     <GradientStop Offset="1"    Color="#FF262D3A" />
 </LinearGradientBrush>
@@ -259,11 +259,11 @@ Pour une pièce **horizontale**, dégradé vertical (et l'inverse pour une pièc
 </LinearGradientBrush>
 ```
 
-C'est la même matière que la rampe du §3.1 : le chrome est simplement la rampe complète resserrée sur une petite hauteur.
+It is the same material as the ramp of §3.1: chrome is simply the full ramp squeezed onto a small height.
 
-### 5.3 Aluminium brossé (plaque, support)
+### 5.3 Brushed aluminum (plate, support)
 
-Dégradé diagonal à 5 arrêts **non monotone**. Les alternances clair/sombre suffisent à suggérer le brossage :
+A diagonal gradient with 5 **non-monotonic** stops. The light/dark alternations are enough to suggest brushing:
 
 ```xml
 <LinearGradientBrush x:Key="XxAlu" StartPoint="0%,0%" EndPoint="100%,100%">
@@ -275,19 +275,19 @@ Dégradé diagonal à 5 arrêts **non monotone**. Les alternances clair/sombre s
 </LinearGradientBrush>
 ```
 
-Ajoutez par-dessus le calque de biseau du §4.5.
+Add the bevel layer of §4.5 on top.
 
-### 5.4 Pommeau, bouton, axe
+### 5.4 Knob, button, axle
 
 ```xml
-<!-- Dark : pommeau sombre -->
+<!-- Dark: dark knob -->
 <RadialGradientBrush x:Key="XxKnob" GradientOrigin="35%,30%">
     <GradientStop Offset="0"   Color="#FF7C88A3" />
     <GradientStop Offset="0.4" Color="#FF3B4558" />
     <GradientStop Offset="0.8" Color="#FF222A38" />
     <GradientStop Offset="1"   Color="#FF141922" />
 </RadialGradientBrush>
-<!-- Dark : axe métal clair -->
+<!-- Dark: light metal axle -->
 <RadialGradientBrush x:Key="XxAxle" GradientOrigin="35%,30%">
     <GradientStop Offset="0"    Color="#FFE3E9F4" />
     <GradientStop Offset="0.4"  Color="#FF8D99B1" />
@@ -301,12 +301,12 @@ Ajoutez par-dessus le calque de biseau du §4.5.
     <Border CornerRadius="15" Background="{DynamicResource XxKnob}"
             BorderBrush="{DynamicResource XxEdge}" BorderThickness="1"
             BoxShadow="0 3 6 0 #66000000" />
-    <!-- point de brillance -->
+    <!-- highlight dot -->
     <Ellipse Width="9" Height="4" Margin="5,3,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Fill="#80FFFFFF" />
 </Grid>
 ```
 
-**Pouce de curseur « perle »** (charnière entre Suki et skeuo) : une sphère claire avec un point d'accent lumineux au centre.
+**"Pearl" slider thumb** (hinge between Suki and skeuo): a light sphere with a luminous accent dot at the center.
 
 ```xml
 <RadialGradientBrush x:Key="XxThumb" GradientOrigin="35%,28%">
@@ -320,7 +320,7 @@ Ajoutez par-dessus le calque de biseau du §4.5.
 </Border>
 ```
 
-### 5.5 Caoutchouc (joint, butée)
+### 5.5 Rubber (gasket, stop)
 
 ```xml
 <LinearGradientBrush x:Key="XxRubber" StartPoint="0%,0%" EndPoint="0%,100%">
@@ -330,23 +330,23 @@ Ajoutez par-dessus le calque de biseau du §4.5.
 </LinearGradientBrush>
 ```
 
-Ajoutez une ou deux nervures horizontales de 1 px (`#8C667289`) et, si la pièce est en contact avec un liquide, une bande d'accent à 25 % d'opacité du côté du liquide.
+Add one or two horizontal 1 px ribs (`#8C667289`) and, if the part is in contact with a liquid, an accent band at 25 % opacity on the liquid side.
 
-### 5.6 Verre (réservoir, barillet, hublot)
+### 5.6 Glass (tank, barrel, porthole)
 
-Le verre se construit **en couches**, du fond vers l'avant :
+Glass is built **in layers**, from the back to the front:
 
 ```xml
-<!-- 1. fond du verre -->
+<!-- 1. glass back -->
 <Border Width="60" Height="200" CornerRadius="14,14,4,4" Background="{DynamicResource XxGlassBack}" IsHitTestVisible="False" />
-<!-- 2. contenu (liquide, voir 5.7) -->
-<!-- 3. liseré extérieur -->
+<!-- 2. content (liquid, see 5.7) -->
+<!-- 3. outer rim -->
 <Border Width="60" Height="200" CornerRadius="14,14,4,4"
         BorderBrush="{DynamicResource XxGlassRim}" BorderThickness="1.6" IsHitTestVisible="False" />
-<!-- 4. liseré intérieur, 2 px en retrait -->
+<!-- 4. inner rim, inset by 2 px -->
 <Border Margin="2" Width="56" Height="196" CornerRadius="12,12,3,3"
         BorderBrush="{DynamicResource XxGlassInner}" BorderThickness="1" IsHitTestVisible="False" />
-<!-- 5. reflet vertical principal (côté lumière) -->
+<!-- 5. main vertical reflection (light side) -->
 <Border Width="6" Height="168" CornerRadius="3" Opacity="0.7" IsHitTestVisible="False">
     <Border.Background>
         <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
@@ -356,17 +356,17 @@ Le verre se construit **en couches**, du fond vers l'avant :
         </LinearGradientBrush>
     </Border.Background>
 </Border>
-<!-- 6. reflet secondaire fin (côté opposé) -->
+<!-- 6. thin secondary reflection (opposite side) -->
 <Border Width="2" Height="150" CornerRadius="1" Background="#29FFFFFF" IsHitTestVisible="False" />
-<!-- 7. ellipse de bord supérieur (ouverture vue en perspective) -->
+<!-- 7. top-edge ellipse (opening seen in perspective) -->
 <Ellipse Width="40" Height="7" Fill="#24FFFFFF" IsHitTestVisible="False" />
 ```
 
-Pour un **hublot rond**, même logique : disque `RadialGradientBrush` sombre (`#1B2538 → #0C121C → #05080D`, origine 38 %,30 %), deux ellipses de liseré, et un arc blanc épais (`StrokeThickness="3"`, `#80FFFFFF`) en haut à gauche.
+For a **round porthole**, the same logic: a dark `RadialGradientBrush` disc (`#1B2538 → #0C121C → #05080D`, origin 38 %,30 %), two rim ellipses, and a thick white arc (`StrokeThickness="3"`, `#80FFFFFF`) at the top left.
 
-### 5.7 Liquide (énergie)
+### 5.7 Liquid (energy)
 
-Le liquide **est** l'accent. Dégradé horizontal `75 → 100 → 75` pour suggérer le volume cylindrique, puis trois calques :
+The liquid **is** the accent. A horizontal gradient `75 → 100 → 75` to suggest cylindrical volume, then three layers:
 
 ```xml
 <Border Name="Liquid" CornerRadius="12,12,0,0" Opacity="0.95" BoxShadow="inset 0 0 12 0 #40FFFFFF">
@@ -378,7 +378,7 @@ Le liquide **est** l'accent. Dégradé horizontal `75 → 100 → 75` pour sugg�
         </LinearGradientBrush>
     </Border.Background>
     <Grid>
-        <!-- coeur lumineux -->
+        <!-- luminous core -->
         <Border Width="26" HorizontalAlignment="Center" IsHitTestVisible="False">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
@@ -388,9 +388,9 @@ Le liquide **est** l'accent. Dégradé horizontal `75 → 100 → 75` pour sugg�
                 </LinearGradientBrush>
             </Border.Background>
         </Border>
-        <!-- éclairage vertical : surface claire, fond sombre (ressource par thème) -->
+        <!-- vertical lighting: light surface, dark bottom (resource per theme) -->
         <Border Background="{DynamicResource XxLiquidShade}" IsHitTestVisible="False" />
-        <!-- caustique au contact d'une paroi ou d'un joint -->
+        <!-- caustic where it touches a wall or a gasket -->
         <Border Height="10" VerticalAlignment="Bottom" IsHitTestVisible="False">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
@@ -399,69 +399,69 @@ Le liquide **est** l'accent. Dégradé horizontal `75 → 100 → 75` pour sugg�
                 </LinearGradientBrush>
             </Border.Background>
         </Border>
-        <!-- particules ou bulles en suspension, pilotées par le code -->
+        <!-- suspended particles or bubbles, driven by code -->
         <Canvas Name="LiquidParticles" IsHitTestVisible="False" />
     </Grid>
 </Border>
 ```
 
-`XxLiquidShade` (sombre) : `#38FFFFFF` (0) → `#00FFFFFF` (0.12) → `#00000000` (0.8) → `#47000000` (1). En clair, remplacez le noir du bas par `#26405070`.
+`XxLiquidShade` (dark): `#38FFFFFF` (0) → `#00FFFFFF` (0.12) → `#00000000` (0.8) → `#47000000` (1). In light, replace the black at the bottom with `#26405070`.
 
-**Découper le contenu à la forme du récipient.** Dès que le récipient a des épaules ou un fond arrondis, ne donnez pas de `CornerRadius` au liquide : placez le liquide, le filet qui tombe et les particules dans un `Border` intérieur avec `ClipToBounds="True"` et le rayon du verre intérieur. Le liquide est alors un simple rectangle ancré en bas, et c'est la découpe qui épouse la forme de la cuve, quel que soit le niveau :
+**Cut the content to the shape of the container.** As soon as the container has rounded shoulders or bottom, do not give a `CornerRadius` to the liquid: place the liquid, the falling stream and the particles in an inner `Border` with `ClipToBounds="True"` and the radius of the inner glass. The liquid is then a plain rectangle anchored at the bottom, and it is the clip that follows the shape of the tank, whatever the level:
 
 ```xml
 <Border Canvas.Left="36" Canvas.Top="36" Width="96" Height="126" CornerRadius="32,32,14,14" ClipToBounds="True">
     <Canvas Width="96" Height="126">
-        <Line Name="FallStream" ... />            <!-- filet qui tombe de l'entrée au remplissage -->
-        <Border Name="Liquid" Width="96" Height="0" Canvas.Top="126" ... />  <!-- hauteur pilotée en code -->
-        <Canvas Name="TankParticles" />           <!-- matière en suspension -->
+        <Line Name="FallStream" ... />            <!-- stream falling from the inlet to the fill -->
+        <Border Name="Liquid" Width="96" Height="0" Canvas.Top="126" ... />  <!-- height driven in code -->
+        <Canvas Name="TankParticles" />           <!-- suspended matter -->
     </Canvas>
 </Border>
 ```
 
-Gardez une **réserve d'air** sous le dôme : le niveau 100 % ne remplit pas tout l'intérieur (par exemple 112 px utiles sur 126).
+Keep an **air reserve** under the dome: the 100 % level does not fill the whole interior (for instance 112 useful px out of 126).
 
-### 5.8 Tube ou canalisation qui se fond dans la carte
+### 5.8 Tube or pipe that melts into the card
 
-Une vraie canalisation est **coudée** : elle sort d'une bride, descend, tourne et part vers le bord de la carte. On la dessine donc avec un même `Path` (lignes + courbe `Q` pour le coude) tracé plusieurs fois, du plus épais au plus fin :
+A real pipe is **bent**: it leaves a flange, goes down, turns and heads toward the edge of the card. So it is drawn with a single `Path` (lines + a `Q` curve for the bend) stroked several times, from the thickest to the thinnest:
 
 ```xml
 <Canvas Width="288" Height="200" IsHitTestVisible="False">
     <Canvas.OpacityMask>
-        <!-- fondu long et doux vers la droite (voir la règle plus bas) -->
+        <!-- long, soft fade to the right (see the rules below) -->
         <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
             <GradientStop Offset="0.55" Color="#FFFFFFFF" />
             <GradientStop Offset="0.98" Color="#00FFFFFF" />
         </LinearGradientBrush>
     </Canvas.OpacityMask>
-    <!-- 1. bord  2. corps  3. cœur : même géométrie, épaisseur décroissante -->
+    <!-- 1. rim  2. body  3. core: same geometry, decreasing thickness -->
     <Path Data="M 96,160 L 96,180 Q 96,192 108,192 L 288,192" Stroke="{DynamicResource XxTubeRim}"
           StrokeThickness="12" StrokeLineCap="Round" StrokeJoin="Round" />
     <Path Data="M 96,160 L 96,180 Q 96,192 108,192 L 288,192" Stroke="{DynamicResource XxTubeBg}"
           StrokeThickness="9.6" StrokeLineCap="Round" StrokeJoin="Round" />
     <Path Data="M 96,160 L 96,180 Q 96,192 108,192 L 288,192" Stroke="{DynamicResource XxTubeCore}"
           StrokeThickness="4.5" StrokeLineCap="Round" StrokeJoin="Round" />
-    <!-- 4. énergie : opacité pilotée par le débit -->
+    <!-- 4. energy: opacity driven by the flow -->
     <Path Name="OutletFlow" Data="M 96,160 L 96,180 Q 96,192 108,192 L 288,192"
           Stroke="{DynamicResource SukiPrimaryColor}" StrokeThickness="6"
           StrokeLineCap="Round" StrokeJoin="Round" Opacity="0" />
-    <!-- 5. filet spéculaire sur la partie droite, 2,8 px au-dessus de l'axe -->
+    <!-- 5. specular line on the right part, 2.8 px above the axis -->
     <Path Data="M 110,189.2 L 284,189.2" Stroke="#40FFFFFF" StrokeThickness="1.4" StrokeLineCap="Round" />
-    <!-- 6. particules en suspension (§8.3), créées en code -->
+    <!-- 6. suspended particles (§8.3), created in code -->
     <Canvas Name="OutletParticles" />
 </Canvas>
 ```
 
-Trois règles :
+Some rules:
 
-- **Le fondu est long.** Il s'étale sur toute la longueur droite du tuyau, avec un arrêt intermédiaire pour une courbe douce, et non sur quelques pixels. En dessous d'environ 50 à 60 px, l'œil lit une coupure nette et non un fondu. Pour une entrée à gauche : `0.02 → #00`, `0.12 → #59`, `0.24 → #FF`.
-- **Le fondu atteint zéro là où l'objet rencontre le bord de la carte.** Un fondu qui se termine avant le bord laisse un tuyau qui semble s'arrêter dans le vide ; un fondu confiné à l'intérieur du padding se lit comme une coupure. La scène doit donc s'étendre jusqu'au bord du verre (marges négatives du `Panel` si besoin), et la longueur du fondu se juge en pixels à l'écran, pas dans le code.
-- **Tout ce que le tuyau contient suit la même courbe** (particules, reflets), sinon le contenu dépasse du fondu et révèle la coupure.
-- **Vérifiez le fondu à l'écran.** Une technique qui devrait fonctionner (un masque d'opacité sur la couche) n'a pas produit l'effet attendu dans un cas : un dégradé porté directement par les pinceaux du tuyau en est une alternative. C'est le résultat visible qui décide, pas la technique.
-- **Les extrémités se cachent.** Un `StrokeLineCap="Round"` dépasse du point final de la **moitié de l'épaisseur**. Un tube qui entre dans une bride doit s'arrêter assez tôt pour que son embout rond reste caché sous la bride (pour une épaisseur de 12, arrêtez-le au moins 6 px avant le bas de la bride).
-- **Le tuyau passe derrière ou sous les pièces qu'il croise.** Une sortie qui passe près d'un pied descend plus bas que le pied et passe dessous. Un tuyau qui passe sous un autre contrôle est simplement dessiné avant lui.
+- **The fade is long.** It spreads over the whole straight length of the pipe, with an intermediate stop for a soft curve, and not over a few pixels. Below about 50 to 60 px, the eye reads a sharp cut rather than a fade. For an inlet on the left: `0.02 → #00`, `0.12 → #59`, `0.24 → #FF`.
+- **The fade reaches zero where the object meets the edge of the card.** A fade that ends before the edge leaves a pipe that seems to stop in the void; a fade confined inside the padding reads as a cut. The scene must therefore extend to the edge of the glass (negative margins on the `Panel` if needed), and the length of the fade is judged in pixels on screen, not in the code.
+- **Everything the pipe contains follows the same curve** (particles, reflections), otherwise the content sticks out of the fade and reveals the cut.
+- **Check the fade on screen.** A technique that should work (an opacity mask on the layer) did not produce the expected effect in one case: a gradient carried directly by the pipe's brushes is an alternative. It is the visible result that decides, not the technique.
+- **The ends are hidden.** A `StrokeLineCap="Round"` sticks out past the end point by **half the thickness**. A tube that enters a flange must stop early enough for its round end to stay hidden under the flange (for a thickness of 12, stop it at least 6 px before the bottom of the flange).
+- **The pipe passes behind or under the parts it crosses.** An outlet that passes near a foot goes lower than the foot and passes under it. A pipe that passes under another control is simply drawn before it.
 
-Pour un tuyau droit très simple, une variante en `Border` suffit :
+For a very simple straight pipe, a `Border` variant is enough:
 
 ```xml
 <Canvas Width="300" Height="60" IsHitTestVisible="False">
@@ -473,10 +473,10 @@ Pour un tuyau droit très simple, une variante en `Border` suffit :
             <GradientStop Offset="0.95" Color="#00FFFFFF" />
         </LinearGradientBrush>
     </Canvas.OpacityMask>
-    <!-- gaine de verre -->
+    <!-- glass sheath -->
     <Border Canvas.Top="15" Width="300" Height="14" CornerRadius="7"
             Background="{DynamicResource XxTubeBg}" BorderBrush="{DynamicResource XxTubeRim}" BorderThickness="1.2" />
-    <!-- canal d'accent : opacité 0.7 si la voie est active, 0.1 sinon -->
+    <!-- accent channel: opacity 0.7 if the path is active, 0.1 otherwise -->
     <Border Name="ChannelA" Canvas.Left="4" Canvas.Top="18.5" Width="146" Height="7" CornerRadius="3.5" Opacity="0.7">
         <Border.Background>
             <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
@@ -486,41 +486,41 @@ Pour un tuyau droit très simple, une variante en `Border` suffit :
             </LinearGradientBrush>
         </Border.Background>
     </Border>
-    <!-- filet spéculaire du tube -->
+    <!-- specular line of the tube -->
     <Border Canvas.Left="10" Canvas.Top="16.6" Width="280" Height="2" CornerRadius="1" Background="#59FFFFFF" />
 </Canvas>
 ```
 
-Le masque est ce qui donne l'impression que l'objet **sort de l'interface**. Sans lui, le tube paraît coupé au cutter. Le masque est relatif aux limites du `Canvas` qui le porte : donnez à ce `Canvas` la taille de la scène pour que le fondu se termine exactement au bord du contrôle.
+The mask is what gives the impression that the object **comes out of the interface**. Without it, the tube looks cut with a knife. The mask is relative to the bounds of the `Canvas` that carries it: give that `Canvas` the size of the scene so that the fade ends exactly at the edge of the control.
 
-N'utilisez pas de `StrokeDashArray` pour faire « avancer » le liquide : des pointillés réguliers forment une file prévisible et mécanique. Le mouvement passe par des particules (§8.3).
+Do not use `StrokeDashArray` to make the liquid "move": regular dashes form a predictable, mechanical queue. Movement goes through particles (§8.3).
 
-### 5.9 Petits détails (à doser)
+### 5.9 Small details (to be dosed)
 
-| Détail | Recette |
+| Detail | Recipe |
 |---|---|
-| Vis | `Ellipse` 3,6 à 4 px, remplissage `XxScrew` ou dégradé chrome, contour `XxEdge` 0,5 px. Avec fente : `Border` 6×1,5 px en `XxSlot`, tourné de 20 à 30° (jamais aligné à 0°). |
-| Moletage | 3 à 5 lignes parallèles de 1 px en `XxGroove` (`#B30B0F15` sombre, `#554A5670` clair). |
-| Ouïes, fentes | `Path` de petits rectangles en dégradé `#05070A → #232B38` (clair : `#8F9BB0 → #C3CCDB`), contour `XxEdge` 0,6 px. |
-| Voyant LED | Deux ellipses superposées : halo 10 px à 20-25 % d'alpha, puis point 4,4 px plein. Éteint : point `#3A4558`. |
-| Gravure | `TextBlock` 4,5 à 6 px, `LetterSpacing` 0,6 à 1,2, couleur `XxEngrave` (`#8FA4CC` / `#5A6580`), `Tag="NoTranslate"` si l'app traduit automatiquement. |
-| Plaque signalétique | `Border` sombre `CornerRadius="7"`, liseré `SukiPrimaryColor` 0,8 px, nom en 8,5 px SemiBold `LetterSpacing="1.2"`, sous-titre en accent 5,5 px. |
-| Connecteur | Petit bloc métal `XxMetal` + creux noir `#06080C` à l'intérieur. |
-| Câble | `Path` épais (8 px, `StrokeLineCap="Round"`) en `XxCable`, doublé d'un filet clair de 1,5 px décalé de -2 px en Y. |
+| Screw | `Ellipse` 3.6 to 4 px, fill `XxScrew` or a chrome gradient, outline `XxEdge` 0.5 px. With a slot: `Border` 6×1.5 px in `XxSlot`, rotated by 20 to 30° (never aligned at 0°). |
+| Knurling | 3 to 5 parallel 1 px lines in `XxGroove` (`#B30B0F15` dark, `#554A5670` light). |
+| Vents, slots | `Path` of small rectangles with a `#05070A → #232B38` gradient (light: `#8F9BB0 → #C3CCDB`), outline `XxEdge` 0.6 px. |
+| LED indicator | Two stacked ellipses: a 10 px halo at 20-25 % alpha, then a solid 4.4 px dot. Off: `#3A4558` dot. |
+| Engraving | `TextBlock` 4.5 to 6 px, `LetterSpacing` 0.6 to 1.2, color `XxEngrave` (`#8FA4CC` / `#5A6580`), `Tag="NoTranslate"` if the app auto-translates. |
+| Nameplate | Dark `Border` `CornerRadius="7"`, `SukiPrimaryColor` rim 0.8 px, name in 8.5 px SemiBold `LetterSpacing="1.2"`, subtitle in accent 5.5 px. |
+| Connector | Small `XxMetal` metal block + a `#06080C` black recess inside. |
+| Cable | Thick `Path` (8 px, `StrokeLineCap="Round"`) in `XxCable`, doubled by a 1.5 px light line offset by -2 px in Y. |
 
-Règle : **3 à 6 détails par objet**. Chaque détail doit dire quelque chose de vrai sur l'appareil (il est vissé, il ventile, il est connecté, il est sous tension). Ne vissez pas tout : des vis sur la bride et sur la platine d'un levier se justifient, des vis sur chaque patte de pied ajoutent du bruit. De même, des cerclages épais en travers d'un réservoir en verre cachent ce qui compte (le liquide) : préférez de fines graduations.
+Rule: **3 to 6 details per object**. Each detail must say something true about the device (it is screwed, it ventilates, it is connected, it is powered). Do not screw everything: screws on the flange and on the base plate of a lever are justified, screws on every foot bracket add noise. Likewise, thick hoops across a glass tank hide what matters (the liquid): prefer thin graduations.
 
-### 5.10 Fenêtre creusée (variante légère)
+### 5.10 Dug window (light variant)
 
-Quand l'objet est un **écran** (courbe, image, flux), on ne dessine pas d'appareil : on creuse le verre.
+When the object is a **screen** (curve, image, stream), you do not draw a device: you dig into the glass.
 
 ```xml
 <Border Width="268" Height="112" CornerRadius="14" ClipToBounds="True"
         Background="{DynamicResource XxWindowBg}"
         BorderBrush="{DynamicResource SukiBorderBrush}" BorderThickness="1">
     <Grid>
-        <!-- contenu -->
-        <!-- reflet de vitre très léger -->
+        <!-- content -->
+        <!-- very light window-glass reflection -->
         <Border IsHitTestVisible="False">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
@@ -529,17 +529,17 @@ Quand l'objet est un **écran** (courbe, image, flux), on ne dessine pas d'appar
                 </LinearGradientBrush>
             </Border.Background>
         </Border>
-        <!-- profondeur : ombre intérieure, en DERNIER pour passer au-dessus du contenu -->
+        <!-- depth: inner shadow, LAST so that it goes over the content -->
         <Border CornerRadius="14" BoxShadow="{DynamicResource XxInset}" IsHitTestVisible="False" />
     </Grid>
 </Border>
 ```
 
-`XxWindowBg` : `#0A0E14` en sombre, `#EEF2F8` en clair. Des repères de visée en accent à 35 % d'opacité dans les coins complètent bien l'effet.
+`XxWindowBg`: `#0A0E14` in dark, `#EEF2F8` in light. Aiming marks in accent at 35 % opacity in the corners complete the effect well.
 
-### 5.11 Lumière d'accent (glow)
+### 5.11 Accent light (glow)
 
-Une lumière émise est un `BoxShadow` coloré à l'accent, **posé en code**, car un `BoxShadow` ne peut pas référencer une `DynamicResource` (voir §10) :
+An emitted light is a `BoxShadow` colored with the accent, **set in code**, because a `BoxShadow` cannot reference a `DynamicResource` (see §10):
 
 ```csharp
 private void ApplyAccentGlows()
@@ -548,20 +548,20 @@ private void ApplyAccentGlows()
     BoxShadows Glow(double blur, byte alpha, double spread = 0) =>
         new(new BoxShadow { Blur = blur, Spread = spread, Color = Color.FromArgb(alpha, accent.R, accent.G, accent.B) });
 
-    this.Get<Border>("ThumbDot").BoxShadow = Glow(6, 0xFF);   // point lumineux
-    this.Get<Border>("RailFill").BoxShadow = Glow(8, 0x66);   // remplissage de rail
-    // halo à deux couches autour d'un liquide
+    this.Get<Border>("ThumbDot").BoxShadow = Glow(6, 0xFF);   // luminous dot
+    this.Get<Border>("RailFill").BoxShadow = Glow(8, 0x66);   // rail fill
+    // two-layer halo around a liquid
     this.Get<Border>("LiquidAura").BoxShadow = new BoxShadows(
         new BoxShadow { Blur = 18, Spread = 4,  Color = Color.FromArgb(0xB0, accent.R, accent.G, accent.B) },
         new[] { new BoxShadow { Blur = 42, Spread = 10, Color = Color.FromArgb(0x55, accent.R, accent.G, accent.B) } });
 }
 ```
 
-Placez le halo **sous** l'objet (z-order) et dans un parent `ClipToBounds="False"`. Sinon la lueur est coupée net.
+Place the halo **under** the object (z-order) and in a parent with `ClipToBounds="False"`. Otherwise the glow is cut dead.
 
-### 5.12 Bouton d'arrêt d'urgence
+### 5.12 Emergency stop button
 
-Collerette métal fixe et dôme de verre rouge rétro-éclairé. La lueur est **hors** de la collerette pour ne pas être clippée.
+A fixed metal collar and a backlit red glass dome. The glow is **outside** the collar so as not to be clipped.
 
 ```xml
 <Button Classes="Void" Padding="0" ClipToBounds="False" ToolTip.Tip="Stop">
@@ -570,7 +570,7 @@ Collerette métal fixe et dôme de verre rouge rétro-éclairé. La lueur est **
         <Border Width="56" Height="56" CornerRadius="28"
                 Background="{DynamicResource XxBase}" BorderBrush="{DynamicResource XxEdge}" BorderThickness="1"
                 BoxShadow="{DynamicResource XxRaisedShadow}">
-            <Grid Name="StopDome"> <!-- seule cette partie bouge à l'appui -->
+            <Grid Name="StopDome"> <!-- only this part moves when pressed -->
                 <Border Width="44" Height="44" CornerRadius="22" BoxShadow="{DynamicResource XxDomeShadow}">
                     <Border.Background>
                         <RadialGradientBrush GradientOrigin="38%,30%">
@@ -596,24 +596,24 @@ Collerette métal fixe et dôme de verre rouge rétro-éclairé. La lueur est **
 </Button>
 ```
 
-### 5.13 Socle de levier
+### 5.13 Lever base
 
-Un levier ne sort jamais d'un simple rond posé dans le vide. Il repose sur une **base solide et horizontale** : une platine métal vissée, sur laquelle est posé un **bossage** demi-cylindrique d'où sort la tige. L'axe chromé reste visible au centre du bossage.
+A lever never comes out of a plain circle placed in the void. It rests on a **solid, horizontal base**: a screwed metal base plate, on which sits a half-cylindrical **boss** from which the rod emerges. The chrome axle remains visible at the center of the boss.
 
 ```xml
-<!-- la tige du levier est dessinée AVANT : elle sort du bossage -->
-<!-- bossage : demi-cylindre posé sur la platine -->
+<!-- the lever rod is drawn BEFORE: it emerges from the boss -->
+<!-- boss: half-cylinder resting on the plate -->
 <Border Canvas.Left="40" Canvas.Top="66" Width="30" Height="22" CornerRadius="15,15,3,3"
         Background="{DynamicResource XxBase}" BorderBrush="{DynamicResource XxEdge}" BorderThickness="0.8"
         BoxShadow="{DynamicResource XxShadow}" />
 <Border Canvas.Left="45" Canvas.Top="67.5" Width="20" Height="1.6" CornerRadius="0.8" Background="#59FFFFFF" />
 <Ellipse Canvas.Left="50.5" Canvas.Top="73.5" Width="9" Height="9" Fill="{DynamicResource XxAxle}"
          Stroke="{DynamicResource XxEdge}" StrokeThickness="0.6" />
-<!-- platine : bloc horizontal, biseau, filet spéculaire, deux vis -->
+<!-- plate: horizontal block, bevel, specular line, two screws -->
 <Border Canvas.Left="17" Canvas.Top="86" Width="76" Height="16" CornerRadius="6"
         Background="{DynamicResource XxBase}" BorderBrush="{DynamicResource XxEdge}" BorderThickness="1"
         BoxShadow="{DynamicResource XxShadow}" />
-<Border Canvas.Left="17" Canvas.Top="86" Width="76" Height="16" CornerRadius="6">   <!-- biseau §4.5 -->
+<Border Canvas.Left="17" Canvas.Top="86" Width="76" Height="16" CornerRadius="6">   <!-- bevel §4.5 -->
     <Border.Background>
         <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
             <GradientStop Offset="0" Color="#66FFFFFF" />
@@ -627,51 +627,51 @@ Un levier ne sort jamais d'un simple rond posé dans le vide. Il repose sur une 
 <Ellipse Canvas.Left="23" Canvas.Top="92" Width="4.4" Height="4.4" Fill="{DynamicResource XxAxle}"
          Stroke="{DynamicResource XxEdge}" StrokeThickness="0.5" />
 <Border Canvas.Left="22.4" Canvas.Top="93.5" Width="5.6" Height="1.2" Background="{DynamicResource XxSlot}"
-        RenderTransform="rotate(25deg)" />   <!-- fentes jamais alignées, angles différents d'une vis à l'autre -->
+        RenderTransform="rotate(25deg)" />   <!-- slots never aligned, different angles from one screw to the next -->
 ```
 
-### 5.14 Pieds de cuve
+### 5.14 Tank feet
 
-Des **jambes inclinées** (trapèzes en `Path`), plus larges en haut qu'en bas. Elles sont fixées sur la paroi par une **patte** métal et posées sur un **patin** plat. Les jambes sont dessinées derrière le verre, et les pattes devant.
+**Slanted legs** (trapezoid `Path`s), wider at the top than at the bottom. They are fixed to the wall by a metal **bracket** and rest on a flat **pad**. The legs are drawn behind the glass, and the brackets in front.
 
 ```xml
-<!-- jambe : trapèze avec dégradé métal horizontal + filet de lumière sur l'arête gauche -->
+<!-- leg: trapezoid with a horizontal metal gradient + a line of light on the left edge -->
 <Path Data="M 47,146 L 57,146 L 50,177 L 40,177 Z" Fill="{DynamicResource XxLeg}"
       Stroke="{DynamicResource XxEdge}" StrokeThickness="0.6" StrokeJoin="Round" />
 <Path Data="M 49,150 L 46.5,161" Stroke="#4DFFFFFF" StrokeThickness="1.2" StrokeLineCap="Round" />
-<!-- patin -->
+<!-- pad -->
 <Border Canvas.Left="33" Canvas.Top="175" Width="24" Height="6" CornerRadius="3"
         Background="{DynamicResource XxBase}" BorderBrush="{DynamicResource XxEdge}" BorderThickness="0.8"
         BoxShadow="{DynamicResource XxShadow}" />
 <Border Canvas.Left="36" Canvas.Top="175.8" Width="18" Height="1.2" CornerRadius="0.6" Background="#59FFFFFF" />
-<!-- patte, devant le verre, sans vis -->
+<!-- bracket, in front of the glass, without a screw -->
 <Border Canvas.Left="42" Canvas.Top="141" Width="20" Height="9" CornerRadius="3"
         Background="{DynamicResource XxBase}" BorderBrush="{DynamicResource XxEdge}" BorderThickness="0.8"
         BoxShadow="{DynamicResource XxShadow}" />
 ```
 
-`XxLeg` : dégradé horizontal `#2A3242 → #8D99B1 (0.3) → #3B4558 (0.6) → #171C25` en sombre, `#B0BBCE → #FFFFFF (0.3) → #CBD3E0 (0.6) → #98A4B9` en clair.
+`XxLeg`: a horizontal gradient `#2A3242 → #8D99B1 (0.3) → #3B4558 (0.6) → #171C25` in dark, `#B0BBCE → #FFFFFF (0.3) → #CBD3E0 (0.6) → #98A4B9` in light.
 
 ---
 
-## 6. Anatomie et composition d'une carte
+## 6. Anatomy and composition of a card
 
-### 6.1 Structure type
+### 6.1 Typical structure
 
 ```
 GlassCard (Classes="Card", Padding=16)
-├── En-tête         : titre 17 DemiBold  +  badge d'état en GlassCard (point d'accent + texte 11)
-├── Scène skeuo     : un ou plusieurs contrôles skeuo composés dans un Panel (la « maquette »)
-├── Commandes       : contrôles Suki (valeur exacte, action), seulement s'il y en a besoin (Loi 10)
-└── Aide contextuelle (optionnelle) : conseil qui n'apparaît que dans une situation à risque
+├── Header          : title 17 DemiBold  +  state badge in a GlassCard (accent dot + 11 text)
+├── Skeuo scene     : one or more skeuo controls composed in a Panel (the "mockup")
+├── Commands        : Suki controls (exact value, action), only if needed (Law 10)
+└── Contextual help (optional): advice that only appears in a risky situation
 ```
 
-- Hiérarchie : **titre → objet → commandes**. L'objet occupe le centre visuel.
-- Largeur de carte typique : 300 à 320 px. Scène : environ 220 à 290 px de large.
-- Espacements généreux entre la scène et les commandes (20 à 35 px) : l'objet a besoin d'air pour flotter.
-- **Une carte = une scène = un appareil.** Une scène peut assembler plusieurs contrôles quand ils forment ensemble un seul appareil réel : une cuve et le levier qui commande ses vannes, une caméra et son bouton d'arrêt. Ce qui est interdit, c'est de juxtaposer dans une carte deux objets sans rapport.
-- Dans une scène composée, **laissez de l'air entre les pièces** : un levier collé contre la cuve paraît posé dessus. Poussez l'actionneur vers le bord opposé et élargissez la carte si besoin (par exemple de 300 à 320 px).
-- Les contrôles d'une scène composée sont **superposés dans un `Panel`** plutôt que juxtaposés dans une grille. Ainsi, un tuyau de la cuve peut passer sous le socle du levier et se fondre au bord de la carte :
+- Hierarchy: **title → object → commands**. The object takes the visual center.
+- Typical card width: 300 to 320 px. Scene: about 220 to 290 px wide.
+- Generous spacing between the scene and the commands (20 to 35 px): the object needs air to float.
+- **One card = one scene = one device.** A scene may assemble several controls when together they form a single real device: a tank and the lever that commands its valves, a camera and its stop button. What is forbidden is to juxtapose two unrelated objects in one card.
+- In a composed scene, **leave air between the parts**: a lever stuck against the tank looks as if it were placed on it. Push the actuator toward the opposite edge and widen the card if needed (for example from 300 to 320 px).
+- The controls of a composed scene are **stacked in a `Panel`** rather than juxtaposed in a grid. That way, a pipe of the tank can pass under the base of the lever and melt into the edge of the card:
 
 ```xml
 <Panel Width="288" Height="200">
@@ -682,133 +682,133 @@ GlassCard (Classes="Card", Padding=16)
 </Panel>
 ```
 
-### 6.2 La scène : un repère de maquette fixe
+### 6.2 The scene: a fixed mockup frame
 
-Dessinez dans un `Canvas` de taille fixe (par exemple 332×112) qui reprend **exactement les coordonnées de votre maquette SVG**, et mettez-le à l'échelle avec un `Viewbox` :
+Draw in a fixed-size `Canvas` (for example 332×112) that takes **exactly the coordinates of your SVG mockup**, and scale it with a `Viewbox`:
 
 ```xml
 <Viewbox Width="268" Height="93" Stretch="Uniform" HorizontalAlignment="Center">
     <Canvas Width="332" Height="112">
-        <!-- coordonnées identiques à la maquette -->
+        <!-- coordinates identical to the mockup -->
     </Canvas>
 </Viewbox>
 ```
 
-Chaque contrôle a **son propre repère**, aussi petit que possible autour de sa pièce : la cuve dans 288×200, le levier dans 110×104 avec son pivot en (55,82). On ne dessine pas un levier dans le repère de la cuve. C'est la page qui place les contrôles l'un par rapport à l'autre (§6.1).
+Each control has **its own frame**, as small as possible around its part: the tank in 288×200, the lever in 110×104 with its pivot at (55,82). You do not draw a lever in the tank's frame. It is the page that places the controls relative to each other (§6.1).
 
-Attention : sous un `Viewbox`, les coordonnées de pointeur doivent être lues **dans le repère du Canvas** (`e.GetPosition(canvas)`), sinon l'interaction se décale.
+Warning: under a `Viewbox`, pointer coordinates must be read **in the Canvas frame** (`e.GetPosition(canvas)`), otherwise the interaction is shifted.
 
-### 6.3 Ordre des couches (z-order)
+### 6.3 Layer order (z-order)
 
-Du fond vers l'avant :
+From the back to the front:
 
-1. **Lueurs et halos** (sous tout, non cliquables)
-2. **Pièces cachées** (tige derrière le verre, mécanisme interne)
-3. **Fond du verre**
-4. **Contenu** : liquide, particules, image
-5. **Parois du verre** : liserés, reflets
-6. **Pièces métal fixes** : têtes, collerettes, socle, vis
-7. **Pièce manipulable** (joint, pommeau, curseur) : **toujours au premier plan**. C'est elle que la main attrape.
-8. **Textes et labels** sur l'objet
+1. **Glows and halos** (under everything, not clickable)
+2. **Hidden parts** (rod behind the glass, internal mechanism)
+3. **Glass back**
+4. **Content**: liquid, particles, image
+5. **Glass walls**: rims, reflections
+6. **Fixed metal parts**: heads, collars, base, screws
+7. **Manipulable part** (gasket, knob, slider): **always in the foreground**. It is what the hand grabs.
+8. **Texts and labels** on the object
 
-Tout ce qui est purement décoratif reçoit `IsHitTestVisible="False"`. L'interaction est gérée par un seul `Canvas` parent avec `Background="Transparent"` (indispensable pour recevoir les clics) et des **zones de saisie larges** testées en code : plus large que la pièce visible, c'est plus confortable.
+Everything that is purely decorative gets `IsHitTestVisible="False"`. Interaction is handled by a single parent `Canvas` with `Background="Transparent"` (essential to receive clicks) and **wide hit zones** tested in code: wider than the visible part is more comfortable.
 
-### 6.4 Texte sur l'objet
+### 6.4 Text on the object
 
-- Labels d'état (« In » / « Out », « Fill » / « Drain ») : 11 à 14 px Medium/DemiBold. **Actif = `SukiText`, inactif = `SukiLowText`.** C'est le texte qui indique l'état, pas une couleur ajoutée. Basculez une classe (`Classes.Set("Active", …)`) et laissez un style faire le reste. N'assignez pas de pinceau en code : il ne suivrait plus le thème.
+- State labels ("In" / "Out", "Fill" / "Drain"): 11 to 14 px Medium/DemiBold. **Active = `SukiText`, inactive = `SukiLowText`.** It is the text that indicates the state, not an added color. Toggle a class (`Classes.Set("Active", …)`) and let a style do the rest. Do not assign a brush in code: it would no longer follow the theme.
 
   ```xml
   <Style Selector="TextBlock.EndLabel"><Setter Property="Foreground" Value="{DynamicResource SukiLowText}" /></Style>
   <Style Selector="TextBlock.EndLabel.Active"><Setter Property="Foreground" Value="{DynamicResource SukiText}" /></Style>
   ```
-- Les labels des extrémités d'une course se placent **au-dessus des extrémités** (centrés sur le bout du rail), pas sur les côtés où ils élargissent inutilement la scène.
-- Valeurs numériques : police à chasse fixe (`Consolas`), SemiBold.
-- Gravures et plaques : voir §5.9.
+- The labels at the ends of a travel are placed **above the ends** (centered on the end of the rail), not on the sides where they needlessly widen the scene.
+- Numeric values: monospaced font (`Consolas`), SemiBold.
+- Engravings and plates: see §5.9.
 
-### 6.5 Organisation du code : la boîte noire
+### 6.5 Code organization: the black box
 
-C'est la raison d'être du style (voir l'introduction) : le livrable n'est pas un dessin, c'est **un composant complexe derrière une API simple**. Un contrôle skeuo produit beaucoup de code de dessin et d'animation (dégradés, reflets, particules, timers, lueurs recalculées au changement de thème). Ce code n'aide pas à comprendre la fonctionnalité. On l'isole donc, et seule l'interface avec la logique doit rester lisible.
+This is the reason for the style to exist (see the introduction): the deliverable is not a drawing, it is **a complex component behind a simple API**. A skeuo control produces a lot of drawing and animation code (gradients, reflections, particles, timers, glows recomputed on theme change). This code does not help to understand the functionality. So it is isolated, and only the interface with the logic must remain readable.
 
-**Un contrôle = une seule responsabilité.** On ne fabrique pas un « TankCard » qui contient à la fois la cuve et le levier. Un appareil qui affiche un état (cuve, moteur, caméra) et un actionneur qui capte un geste (levier, vanne, bouton d'arrêt) sont **deux contrôles distincts**. Chacun a une API universelle qui ne décrit que sa propre responsabilité. C'est la page, avec son ViewModel, qui les relie :
+**One control = one responsibility.** You do not build a "TankCard" that contains both the tank and the lever. A device that displays a state (tank, motor, camera) and an actuator that captures a gesture (lever, valve, stop button) are **two distinct controls**. Each has a universal API that describes only its own responsibility. It is the page, with its ViewModel, that links them:
 
-| Contrôle | Rôle | API |
+| Control | Role | API |
 |---|---|---|
-| `Tank` | **Afficheur** : montre ce que l'appareil rapporte | `Level` (0..1), `Inflow` (0..1), `Outflow` (0..1) |
-| `SpringLever` | **Actionneur** : rapporte l'intention de l'utilisateur | `Value` (-1..1, TwoWay), `LeftLabel`, `RightLabel`, événement `Released` |
-| Page + ViewModel | **Logique** : traduit l'intention en commandes, simule ou pilote l'appareil | `LeverValue` → courbe → `Inflow` / `Outflow`, `CloseValves()` au relâchement |
+| `Tank` | **Display**: shows what the device reports | `Level` (0..1), `Inflow` (0..1), `Outflow` (0..1) |
+| `SpringLever` | **Actuator**: reports the user's intent | `Value` (-1..1, TwoWay), `LeftLabel`, `RightLabel`, `Released` event |
+| Page + ViewModel | **Logic**: translates intent into commands, simulates or drives the device | `LeverValue` → curve → `Inflow` / `Outflow`, `CloseValves()` on release |
 
-Le test d'universalité : le levier ne sait pas qu'il pilote une cuve. Il ne parle que de position et de relâchement, et pourrait aussi bien piloter un moteur en jog. La cuve ne sait pas qu'un levier existe. Elle ne parle que de niveau et de débits, et pourrait être remplie par une pompe automatique. Si un nom de l'API trahit l'autre contrôle (`FlowRequested` sur une cuve, `Target` sur un levier), le découpage est faux.
+The universality test: the lever does not know it drives a tank. It only speaks of position and release, and could just as well drive a motor in jog. The tank does not know a lever exists. It only speaks of level and flows, and could be filled by an automatic pump. If a name in the API betrays the other control (`FlowRequested` on a tank, `Target` on a lever), the split is wrong.
 
-Les débits affichés par la cuve sont ceux **rapportés par l'appareil**, et non ceux demandés par le levier. Quand l'appareil coupe la vanne parce que la cuve est vide, l'écoulement s'arrête à l'écran, même si l'utilisateur pousse encore le levier.
+The flows displayed by the tank are those **reported by the device**, not those requested by the lever. When the device closes the valve because the tank is empty, the flow stops on screen, even if the user is still pushing the lever.
 
-Chaque contrôle a son propre sous-dossier et trois fichiers :
+Each control has its own subfolder and three files:
 
-- `X.axaml` : le dessin fixe et les thèmes Dark/Light.
-- `X.axaml.cs` : uniquement l'API publique, courte et documentée (propriétés bindables, événements d'intention si besoin). C'est le contrat.
-- `X.Rendering.cs` : classe partielle du même contrôle, avec toute la mécanique visuelle (tweens, timers, particules, glows).
+- `X.axaml`: the fixed drawing and the Dark/Light themes.
+- `X.axaml.cs`: only the public API, short and documented (bindable properties, intent events if needed). It is the contract.
+- `X.Rendering.cs`: partial class of the same control, with all the visual mechanics (tweens, timers, particles, glows).
 
-Arborescence type :
+Typical tree:
 
 ```
 Skeumorphism/
 ├── Controls/
 │   ├── Tank/          Tank.axaml · Tank.axaml.cs · Tank.Rendering.cs
 │   ├── SpringLever/   SpringLever.axaml · SpringLever.axaml.cs · SpringLever.Rendering.cs
-│   ├── Wire/          la liaison entre un actionneur et son appareil (§6.6)
-│   └── Shared/        ce que plusieurs contrôles réutilisent : matières (tokens), mouvement (tweens, courbes), saisies communes
-├── SkeumorphismPage.axaml(.cs)   compose la scène, relaie Released
-└── SkeumorphismViewModel.cs      toute la logique
+│   ├── Wire/          the link between an actuator and its device (§6.6)
+│   └── Shared/        what several controls reuse: materials (tokens), motion (tweens, curves), common input handling
+├── SkeumorphismPage.axaml(.cs)   composes the scene, relays Released
+└── SkeumorphismViewModel.cs      all the logic
 ```
 
-Ce qui est commun à plusieurs contrôles (jeu de matières, primitives de mouvement, logique de saisie d'un geste) vit dans `Shared/` et non dans un contrôle : chaque contrôle reste ainsi lisible en trois fichiers, et un défaut corrigé une fois l'est partout.
+What is common to several controls (material set, motion primitives, gesture input logic) lives in `Shared/` and not in a control: each control thus stays readable in three files, and a defect fixed once is fixed everywhere.
 
-Le contrôle ne connaît aucun objet métier : il reçoit des valeurs et les met en scène, et c'est lui qui lisse son animation à partir des variations de ces valeurs (par exemple, le flux apparaît en fondu quand `Outflow` passe de 0 à 0,6). Le ViewModel porte toute la logique et ignore qu'une animation existe.
+The control knows no business object: it receives values and stages them, and it is the control that smooths its animation from the variations of those values (for example, the flow fades in when `Outflow` goes from 0 to 0.6). The ViewModel carries all the logic and ignores that an animation exists.
 
-Seule limite à la boîte noire : **elle décide comment ça se voit, jamais quoi envoyer au matériel ni quand.** Arrêt au relâchement, courbe de réponse, anti-spam ou refus d'une commande impossible restent dans le ViewModel. Le contrôle se contente d'émettre l'intention de l'utilisateur, par exemple une position normalisée ou `Released`. La zone morte fait exception : elle appartient au geste, donc au levier, qui émet déjà 0 au centre.
+The only limit to the black box: **it decides how it looks, never what to send to the hardware nor when.** Stop on release, response curve, anti-spam or refusal of an impossible command stay in the ViewModel. The control just emits the user's intent, for example a normalized position or `Released`. The dead zone is an exception: it belongs to the gesture, hence to the lever, which already emits 0 at the center.
 
-La revue de code porte sur le ViewModel, le branchement de la page et les contrats. Le rendu se valide à l'œil.
+Code review covers the ViewModel, the wiring of the page and the contracts. The rendering is validated by eye.
 
-Test simple : **un programmeur doit pouvoir utiliser chaque contrôle en lisant uniquement son `X.axaml.cs`**, par exemple :
+Simple test: **a programmer must be able to use each control by reading only its `X.axaml.cs`**, for example:
 
 ```xml
 <ss:SpringLever Value="{Binding Speed}" Released="OnLeverReleased" />
 <ss:Tank Level="{Binding Level}" Inflow="{Binding Inflow}" Outflow="{Binding Outflow}" />
 ```
 
-### 6.6 Relier les pièces
+### 6.6 Linking the parts
 
-**Pourquoi.** Séparer l'actionneur de l'appareil (§6.5) est une décision de code ; à l'écran, ils doivent se lire comme **un seul système**. Sans lien visible, l'utilisateur doit deviner qui commande quoi. Pour chaque actionneur de la page, on se pose donc deux questions : *quel est son appareil, et comment lui parle-t-il ?* Un actionneur sans lien est incomplet.
+**Why.** Separating the actuator from the device (§6.5) is a code decision; on screen, they must read as **a single system**. Without a visible link, the user has to guess what commands what. For each actuator on the page, we therefore ask two questions: *what is its device, and how does it talk to it?* An actuator without a link is incomplete.
 
-**La nature du lien dit la nature de l'information.** De la puissance ou une commande passent par un câble ; de la matière, par un tuyau ; une simple mesure par un lien plus discret que les deux. On choisit la représentation que ferait l'objet réel, parce que c'est elle qui rend le rôle de la pièce lisible : un tuyau pour dire « ceci mesure cela » fait croire à un passage de matière.
+**The nature of the link says the nature of the information.** Power or a command goes through a cable; matter, through a pipe; a simple measurement through a link more discreet than either. We choose the representation the real object would use, because it is what makes the role of the part readable: a pipe to say "this measures that" suggests a passage of matter.
 
-**Le lien est un contrôle à part.** Il est purement afficheur (même découpage que le reste) : une géométrie exprimée dans le repère du panneau hôte, une matière, et deux entrées d'information **distinctes** (§8.3) : l'état continu de ce qui circule et l'événement qui vient de se produire. Il ne sait rien des pièces qu'il relie.
+**The link is a separate control.** It is purely a display (same split as the rest): a geometry expressed in the frame of the host panel, a material, and two **distinct** information inputs (§8.3): the continuous state of what flows and the event that has just occurred. It knows nothing of the parts it links.
 
-**Les points d'ancrage sont documentés.** La page trace le lien, donc chaque contrôle indique, dans le commentaire de son repère, où s'attache la liaison (comme il indique ses dimensions). Un lien démarre et finit **sous une pièce** (cosse, presse-étoupe, collerette), pas dans le vide.
+**Anchor points are documented.** The page draws the link, so each control states, in the comment of its frame, where the link attaches (as it states its dimensions). A link starts and ends **under a part** (terminal, cable gland, collar), not in the void.
 
-**Le lien passe derrière les pièces qu'il rejoint.** Il sort de dessous la plaque d'un actionneur au lieu de la traverser ; sinon il paraît collé dessus (même raison que pour un tuyau sous un socle, §6.1).
+**The link passes behind the parts it joins.** It comes out from under the plate of an actuator instead of crossing it; otherwise it looks stuck on top (same reason as for a pipe under a base, §6.1).
 
-**Un lien qui vient de l'extérieur de la scène** obéit à la Loi 1 : il se fond dans le verre au lieu de s'arrêter au bord.
+**A link that comes from outside the scene** obeys Law 1: it melts into the glass instead of stopping at the edge.
 
-**L'information voyage de la source vers la destination.** Un lien de pure mesure n'a pas de sens de circulation et ne devrait pas en afficher.
+**Information travels from the source to the destination.** A pure measurement link has no direction of circulation and should not display one.
 
 ---
 
-## 7. Choisir le bon contrôle
+## 7. Choosing the right control
 
-| Intention de l'utilisateur | Contrôle Skeumo-Suki | Contrôle Suki |
+| User intent | Skeumo-Suki control | Suki control |
 |---|---|---|
-| Déplacer quelque chose sur une course | Glisser directement la pièce (piston, chariot) | Champ position + unité |
-| Piloter une vitesse ou un débit en continu (jog), dans un ou deux sens | **Levier à ressort** avec zone morte (gauche/droite = deux actions opposées : remplir/vider, reculer/avancer) | - |
-| Choisir parmi 2 ou 3 positions physiques | **Interrupteur à crans** ou vanne rotative (clic = bascule) | `ToggleSwitch` / segmenté |
-| Régler un paramètre avec effet visible | Curseur charnière (rail Suki + pouce perle) **et** objet qui réagit | Champ exact + unité fixe |
-| Lancer une action | - | Bouton `Flat` pleine largeur |
-| Arrêter immédiatement | **Bouton d'arrêt** (dôme rouge) | - |
-| Nombre exact (répétitions…) | - | `NumericUpDown` |
-| Activer une option | - | `ToggleSwitch` + titre + description |
+| Move something along a travel | Drag the part directly (piston, carriage) | Position field + unit |
+| Drive a speed or a flow continuously (jog), in one or two directions | **Spring lever** with a dead zone (left/right = two opposite actions: fill/drain, reverse/advance) | - |
+| Choose among 2 or 3 physical positions | **Detent switch** or rotary valve (click = toggle) | `ToggleSwitch` / segmented |
+| Adjust a parameter with a visible effect | Hinge slider (Suki rail + pearl thumb) **and** a reacting object | Exact field + fixed unit |
+| Launch an action | - | Full-width `Flat` button |
+| Stop immediately | **Stop button** (red dome) | - |
+| Exact number (repetitions…) | - | `NumericUpDown` |
+| Enable an option | - | `ToggleSwitch` + title + description |
 
-### 7.1 Le champ exact avec unité fixe
+### 7.1 The exact field with a fixed unit
 
-C'est le partenaire naturel d'un curseur de **réglage** (un paramètre qui garde sa valeur, comme une durée ou un gain). Il n'accompagne pas un actionneur de jog, qui n'a pas de valeur à retenir (Loi 10). La valeur est à droite, l'unité dans un segment séparé, **sans boutons +/-** :
+It is the natural partner of a **setting** slider (a parameter that keeps its value, like a duration or a gain). It does not accompany a jog actuator, which has no value to retain (Law 10). The value is on the right, the unit in a separate segment, **without +/- buttons**:
 
 ```xml
 <controls:GlassCard CornerRadius="8" Padding="0">
@@ -823,17 +823,17 @@ C'est le partenaire naturel d'un curseur de **réglage** (un paramètre qui gard
 </controls:GlassCard>
 ```
 
-Le `TextBox` est restylé : fond transparent, sans bordure, `Consolas` 14 SemiBold, aligné à droite. Son template se réduit à un `TextPresenter` dans un `Border` transparent.
+The `TextBox` is restyled: transparent background, no border, `Consolas` 14 SemiBold, right-aligned. Its template is reduced to a `TextPresenter` in a transparent `Border`.
 
-### 7.2 Le curseur charnière
+### 7.2 The hinge slider
 
 ```xml
 <Grid Name="Track" Height="28" Background="Transparent" Focusable="True" Cursor="Hand">
-    <Canvas Name="Ticks" IsHitTestVisible="False" />                       <!-- crans générés en code -->
+    <Canvas Name="Ticks" IsHitTestVisible="False" />                       <!-- detents generated in code -->
     <Border Name="Rail" Height="7" VerticalAlignment="Center" CornerRadius="4"
-            Background="{DynamicResource XxRail}" IsHitTestVisible="False" />  <!-- rail creusé : ombre inset en code -->
+            Background="{DynamicResource XxRail}" IsHitTestVisible="False" />  <!-- dug rail: inset shadow in code -->
     <Border Name="Fill" Height="7" HorizontalAlignment="Left" VerticalAlignment="Center" CornerRadius="4"
-            IsHitTestVisible="False">                                        <!-- remplissage accent + glow en code -->
+            IsHitTestVisible="False">                                        <!-- accent fill + glow in code -->
         <Border.Background>
             <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
                 <GradientStop Offset="0" Color="{DynamicResource SukiPrimaryColor75}" />
@@ -841,44 +841,44 @@ Le `TextBox` est restylé : fond transparent, sans bordure, `Consolas` 14 SemiBo
             </LinearGradientBrush>
         </Border.Background>
     </Border>
-    <!-- pouce perle (§5.4), positionné par Margin.Left = x - 11 -->
+    <!-- pearl thumb (§5.4), positioned by Margin.Left = x - 11 -->
 </Grid>
 <Grid ColumnDefinitions="*,Auto">
-    <TextBlock FontSize="11" Foreground="{DynamicResource SukiLowText}" Text="Plus sombre · mouvement net" />
-    <TextBlock Grid.Column="1" FontSize="11" Foreground="{DynamicResource SukiLowText}" Text="Plus lumineux" />
+    <TextBlock FontSize="11" Foreground="{DynamicResource SukiLowText}" Text="Darker · sharp motion" />
+    <TextBlock Grid.Column="1" FontSize="11" Foreground="{DynamicResource SukiLowText}" Text="Brighter" />
 </Grid>
 ```
 
-Les **légendes aux deux extrémités** décrivent la conséquence (« plus lumineux », « plus de bruit »), pas l'unité. Pour un paramètre logarithmique, positionnez le pouce sur une échelle de crans (tiers ou demi-pas), pas sur une échelle linéaire.
+The **legends at both ends** describe the consequence ("brighter", "more noise"), not the unit. For a logarithmic parameter, position the thumb on a scale of detents (thirds or half-steps), not on a linear scale.
 
-### 7.3 Clavier et accessibilité
+### 7.3 Keyboard and accessibility
 
-- Les rails et les leviers sont `Focusable="True"` : flèches pour un cran, Page Up/Down pour un grand pas.
-- Chaque `TextBox` reçoit `AutomationProperties.Name` avec l'unité (« Durée (ms) »).
-- La molette de la souris sur un interrupteur à crans change de cran.
-- Toute action skeuo a un équivalent exact dans les commandes Suki ou au clavier.
+- Rails and levers are `Focusable="True"`: arrows for one detent, Page Up/Down for a big step.
+- Each `TextBox` gets an `AutomationProperties.Name` with the unit ("Duration (ms)").
+- The mouse wheel on a detent switch changes the detent.
+- Every skeuo action has an exact equivalent in the Suki commands or on the keyboard.
 
-### 7.4 Choisir la forme d'un actionneur
+### 7.4 Choosing the form of an actuator
 
-- **Discret ou continu.** Un nombre fini d'états nommés demande un organe à **crans** : l'état se lit sans interpréter. Un organe à course ou rotatif continu est pour une grandeur qui varie ; l'imposer à quelques états forcerait l'utilisateur à deviner où sont les positions.
-- **Proportion.** L'actionneur est subordonné à l'appareil : s'il l'écrase, la carte se lit comme « un gros bouton avec un petit appareil ». Mais il doit rester attrapable : le compromis se tranche par la **zone de saisie**, qui peut être plus large que la pièce visible, et par une taille de poignée réellement confortable, pas en rétrécissant jusqu'à l'inconfort.
-- **Emplacement.** On le place près de l'endroit où l'effet se produit, au niveau du raccordement, car la position raconte le lien (§6.6).
-- **Repères.** Un organe à course montre où il commence et où il finit (butées, graduation, étiquette) : on doit savoir ce que signifie la position de repos sans l'essayer.
+- **Discrete or continuous.** A finite number of named states calls for a **detent** organ: the state is read without interpretation. A travel or continuous rotary organ is for a quantity that varies; imposing it on a few states would force the user to guess where the positions are.
+- **Proportion.** The actuator is subordinate to the device: if it crushes it, the card reads as "a big button with a small device". But it must remain graspable: the compromise is settled by the **hit zone**, which can be wider than the visible part, and by a really comfortable handle size, not by shrinking down to discomfort.
+- **Placement.** Place it near where the effect occurs, at the level of the connection, because position tells the link (§6.6).
+- **Marks.** A travel organ shows where it begins and where it ends (stops, graduation, label): one must know what the rest position means without trying it.
 
 ---
 
-## 8. Comportement et physique
+## 8. Behavior and physics
 
-Le Skeumo-Suki se juge **en mouvement**. Une capture d'écran ne montre que la moitié du style.
+Skeumo-Suki is judged **in motion**. A screenshot shows only half of the style.
 
-### 8.1 Primitive : tween à minuteur
+### 8.1 Primitive: timer tween
 
-Simple, fiable, et ça fonctionne sur n'importe quelle propriété, y compris dans un `RenderTransform` :
+Simple, reliable, and it works on any property, including in a `RenderTransform`:
 
 ```csharp
 private static void Tween(double from, double to, int ms, Action<double> set, Func<double, double>? ease = null)
 {
-    ease ??= t => 1 - Math.Pow(1 - t, 3);                       // ease-out cubique par défaut
+    ease ??= t => 1 - Math.Pow(1 - t, 3);                       // cubic ease-out by default
     var start = DateTime.UtcNow;
     DispatcherTimer? timer = null;
     timer = new DispatcherTimer(TimeSpan.FromMilliseconds(16), DispatcherPriority.Render, (_, _) =>
@@ -891,28 +891,28 @@ private static void Tween(double from, double to, int ms, Action<double> set, Fu
 }
 ```
 
-### 8.2 Bibliothèque de courbes
+### 8.2 Curve library
 
-| Courbe | Formule | Usage | Durée |
+| Curve | Formula | Usage | Duration |
 |---|---|---|---|
-| Ease-out cubique | `1 - (1-t)³` | Crans, bascules, rotations de vanne | 200-300 ms |
-| Ressort amorti | `2^(-10t) · sin((10t - 0.75) · 2π/3) + 1` | Retour au centre d'un levier lâché | 600-800 ms |
-| Pression | keyframes 0 → 25 % enfoncé → 100 % relâché, `CubicEaseOut` | Bouton physique | 400-500 ms |
-| Flash | opacité 0 → 1 (15 %) → 0 | Confirmation d'arrêt, alerte | 600-800 ms |
+| Cubic ease-out | `1 - (1-t)³` | Detents, toggles, valve rotations | 200-300 ms |
+| Damped spring | `2^(-10t) · sin((10t - 0.75) · 2π/3) + 1` | Return to center of a released lever | 600-800 ms |
+| Press | keyframes 0 → 25 % pressed → 100 % released, `CubicEaseOut` | Physical button | 400-500 ms |
+| Flash | opacity 0 → 1 (15 %) → 0 | Stop confirmation, alert | 600-800 ms |
 
-### 8.3 Catalogue de comportements
+### 8.3 Catalog of behaviors
 
-**Levier à ressort (jog)** : le geste le plus riche du style.
-- *Deux sens* : si l'appareil a deux actions opposées (remplir/vider, avancer/reculer), le levier va des deux côtés (±35°), avec un label au-dessus de chaque extrémité. Un levier qui ne va que d'un côté alors que l'objet suggère les deux paraît cassé.
-- *Ancrage relatif et cumul* : le levier tourne **du même delta** que la main autour de l'axe, et ne saute jamais vers le pointeur. L'angle du pointeur est **périodique** : mesuré par rapport au clic, il saute dès que la main passe de l'autre côté de l'axe (au-delà de 180° du départ). On cumule donc les variations **par petits pas** (chaque variation ramenée entre -180° et 180°), on borne à chaque pas, et on ignore le pointeur quand il est trop près de l'axe, où l'angle est instable. Cette règle vaut pour tout organe rotatif (levier, bouton, vanne) : on la factorise dans `Shared/` pour qu'elle soit identique partout.
-- *Zone morte* au centre (quelques degrés) : le levier émet 0.
-- *Réponse quadratique* (dans le ViewModel) : `v = vMax · n · |n|`, avec `n` l'angle normalisé hors zone morte. On a du réglage fin au centre et la pleine vitesse aux bornes.
-- *Anti-spam* (dans le ViewModel) : n'envoyez la commande que si la vitesse change d'au moins quelques %.
-- *Relâchement* : `Value` repasse à 0 **avant** l'animation, puis `Released` est levé, puis le levier revient au centre par ressort amorti. Le tween de retour est purement visuel.
-- *Reprise pendant le retour* : chaque tween porte un identifiant. Reprendre le levier incrémente l'identifiant, ce qui neutralise le tween en cours. Un simple test `if (!_engaged)` ne suffit pas : après une reprise suivie d'un second relâchement, deux tweens se disputeraient l'angle.
-- *Sécurité* : traitez `PointerCaptureLost` (alt-tab, popup) **exactement** comme un relâchement, ainsi que le détachement du contrôle de l'arbre visuel.
-- *Feedback* : lueur d'accent sous le pommeau, d'intensité proportionnelle à la poussée, arc de rail rempli du centre jusqu'à l'angle courant (dans le bon sens de balayage), et label du côté poussé en `SukiText`.
-- *Clavier* : flèches gauche/bas et droite/haut pour pousser d'un cran, relâchement de la touche = relâchement du levier.
+**Spring lever (jog)**: the richest gesture of the style.
+- *Two directions*: if the device has two opposite actions (fill/drain, advance/reverse), the lever goes both ways (±35°), with a label above each end. A lever that only goes one way when the object suggests both looks broken.
+- *Relative anchoring and accumulation*: the lever turns by **the same delta** as the hand around the axis, and never jumps to the pointer. The pointer angle is **periodic**: measured relative to the click, it jumps as soon as the hand passes to the other side of the axis (beyond 180° from the start). So we accumulate the variations **in small steps** (each variation brought back between -180° and 180°), clamp at each step, and ignore the pointer when it is too close to the axis, where the angle is unstable. This rule holds for any rotary organ (lever, knob, valve): factor it into `Shared/` so that it is identical everywhere.
+- *Dead zone* at the center (a few degrees): the lever emits 0.
+- *Quadratic response* (in the ViewModel): `v = vMax · n · |n|`, with `n` the normalized angle outside the dead zone. You get fine adjustment at the center and full speed at the ends.
+- *Anti-spam* (in the ViewModel): only send the command if the speed changes by at least a few %.
+- *Release*: `Value` goes back to 0 **before** the animation, then `Released` is raised, then the lever returns to the center by a damped spring. The return tween is purely visual.
+- *Grabbing during the return*: each tween carries an identifier. Grabbing the lever again increments the identifier, which neutralizes the running tween. A simple `if (!_engaged)` test is not enough: after a re-grab followed by a second release, two tweens would fight over the angle.
+- *Safety*: treat `PointerCaptureLost` (alt-tab, popup) **exactly** like a release, as well as the detachment of the control from the visual tree.
+- *Feedback*: accent glow under the knob, with an intensity proportional to the push, a rail arc filled from the center to the current angle (in the right sweep direction), and the label of the pushed side in `SukiText`.
+- *Keyboard*: left/down and right/up arrows to push by one step, key release = lever release.
 
 ```csharp
 private void Scene_OnPressed(object? s, PointerPressedEventArgs e)
@@ -920,7 +920,7 @@ private void Scene_OnPressed(object? s, PointerPressedEventArgs e)
     var c = (Canvas)s!;
     c.Focus();
     Engage();
-    _lastPointerDeg = PointerAngle(e.GetPosition(c));        // ancrage relatif : on cumule des pas
+    _lastPointerDeg = PointerAngle(e.GetPosition(c));        // relative anchoring: we accumulate steps
     e.Pointer.Capture(c);
     e.Handled = true;
 }
@@ -930,7 +930,7 @@ private void Scene_OnMoved(object? s, PointerEventArgs e)
     if (!_engaged) return;
     var pointer = PointerAngle(e.GetPosition((Canvas)s!));
     var d = pointer - _lastPointerDeg;
-    if (d > 180) d -= 360; else if (d < -180) d += 360;      // un pas, jamais le total depuis le clic
+    if (d > 180) d -= 360; else if (d < -180) d += 360;      // one step, never the total since the click
     _lastPointerDeg = pointer;
     SetAngle(Math.Clamp(_angle + d, -MaxDeg, MaxDeg));
 }
@@ -938,14 +938,14 @@ private void Scene_OnMoved(object? s, PointerEventArgs e)
 private void Engage()
 {
     _engaged = true;
-    _tweenId++;                                              // neutralise un retour en cours
+    _tweenId++;                                              // neutralizes a return in progress
 }
 
 private void Release()
 {
     if (!_engaged) return;
     _engaged = false;
-    SetCurrentValue(ValueProperty, 0d);                      // arrêt d'abord, sans casser le binding
+    SetCurrentValue(ValueProperty, 0d);                      // stop first, without breaking the binding
     Released?.Invoke(this, EventArgs.Empty);
     var id = ++_tweenId;
     Tween(_angle, 0, 700, a => { if (id == _tweenId) SetAngle(a, drive: false); }, ElasticOut);
@@ -957,7 +957,7 @@ private void SetAngle(double deg, bool drive = true)
     _rot.Angle = deg;
     var abs = Math.Abs(deg);
     var n = abs <= DeadDeg ? 0 : Math.Sign(deg) * (abs - DeadDeg) / (MaxDeg - DeadDeg);
-    // ... lueur, arc, labels ...
+    // ... glow, arc, labels ...
     if (drive) SetCurrentValue(ValueProperty, n);
 }
 
@@ -965,23 +965,23 @@ private static double PointerAngle(Point p) => Math.Atan2(p.X - PivotX, PivotY -
 private static double ElasticOut(double t) => Math.Pow(2, -10 * t) * Math.Sin((t * 10 - 0.75) * (2 * Math.PI / 3)) + 1;
 ```
 
-**Interrupteur à crans** : 2 ou 3 positions, glissement ease-out cubique de 250 ms, le remplissage du rail suit le bouton pendant le mouvement, le label du cran actif passe en `SukiText`, la molette change de cran.
+**Detent switch**: 2 or 3 positions, 250 ms cubic ease-out slide, the rail fill follows the knob during the movement, the label of the active detent goes to `SukiText`, the mouse wheel changes the detent.
 
-**Pièce glissée directement** (piston, chariot) : la pièce suit le pointeur **pendant** le glissé (aperçu), la commande matérielle part **au relâchement**. Si l'appareil est occupé, la pièce revient à la dernière position confirmée.
+**Directly dragged part** (piston, carriage): the part follows the pointer **during** the drag (preview), the hardware command is sent **on release**. If the device is busy, the part returns to the last confirmed position.
 
-**Vanne rotative** : un clic sur la zone de la vanne bascule. Le rotor tourne (0° ↔ -90°) et son perçage d'accent s'oriente vers la voie active. Le canal actif passe à 0,7 d'opacité, l'autre à 0,1, et les labels changent de couleur.
+**Rotary valve**: a click on the valve area toggles. The rotor turns (0° ↔ -90°) and its accent bore orients toward the active path. The active channel goes to 0.7 opacity, the other to 0.1, and the labels change color.
 
-**Bouton physique** : seul le dôme s'enfonce (marge haute +6 px), la collerette reste fixe. Il peut déclencher un flash sur la pièce concernée.
+**Physical button**: only the dome is pressed in (top margin +6 px), the collar stays fixed. It can trigger a flash on the relevant part.
 
-**Écoulement** : quand le liquide circule, le tuyau se remplit d'accent (opacité proportionnelle au débit), et des **particules en suspension** sont emportées par le flux. Pas de pointillés qui défilent : une file régulière se lit comme une animation, pas comme un liquide. Pour que le flux reste imprévisible, chaque particule a sa propre vie :
+**Flow**: when the liquid circulates, the pipe fills with accent (opacity proportional to the flow), and **suspended particles** are carried by the stream. No scrolling dashes: a regular queue reads as an animation, not as a liquid. To keep the flow unpredictable, each particle has its own life:
 
-- *naissance aléatoire* : à chaque image, on tire au sort le nombre de particules à créer (en moyenne `0,9 × débit`), et non une particule à intervalle fixe ;
-- *vitesse propre* : facteur tiré entre 0,55 et 1,45, multiplié par le débit courant ;
-- *position propre dans la largeur du tuyau* : décalage latéral initial aléatoire (±2,4 px), plus une **dérive brownienne** à chaque image, bornée à la largeur du tube ;
-- *ondulation propre* : `sin(s / λ + phase)`, avec une longueur d'onde `λ` tirée au hasard ;
-- *mélange* : environ 80 % de points clairs et 20 % de points sombres, tailles de 1,2 à 2,8 px, alphas variés.
+- *random birth*: at each frame, we draw at random the number of particles to create (on average `0.9 × flow`), and not one particle at a fixed interval;
+- *own speed*: a factor drawn between 0.55 and 1.45, multiplied by the current flow;
+- *own position across the width of the pipe*: a random initial lateral offset (±2.4 px), plus a **Brownian drift** at each frame, bounded to the width of the tube;
+- *own undulation*: `sin(s / λ + phase)`, with a wavelength `λ` drawn at random;
+- *mix*: about 80 % light dots and 20 % dark dots, sizes from 1.2 to 2.8 px, varied alphas.
 
-Les particules suivent la **ligne médiane du tuyau, coude compris** : on aplatit le `Path` (lignes + courbe `Q` échantillonnée) en une polyligne parcourue par distance, qui donne pour chaque `s` une position et une normale. Le décalage latéral s'applique le long de cette normale.
+Particles follow the **center line of the pipe, bend included**: the `Path` (lines + sampled `Q` curve) is flattened into a polyline traversed by distance, which gives for each `s` a position and a normal. The lateral offset is applied along that normal.
 
 ```csharp
 var (pos, normal) = route.At(p.S);
@@ -990,46 +990,46 @@ Canvas.SetLeft(p.E, pos.X + normal.X * lateral - p.E.Width / 2);
 Canvas.SetTop(p.E, pos.Y + normal.Y * lateral - p.E.Height / 2);
 ```
 
-Le flux apparaît et disparaît en **fondu**, jamais d'un coup : le débit affiché rejoint le débit reçu par lissage exponentiel (`shown += (target - shown) · 0.12` à chaque image). Quand le débit tombe à zéro, les particules encore dans le tuyau s'effacent sur place au lieu de disparaître ou de continuer à filer. Au remplissage, les particules qui atteignent le bout du tuyau d'entrée **tombent** dans la cuve (gravité) le long d'un filet d'accent, jusqu'à la surface.
+The flow appears and disappears with a **fade**, never all at once: the displayed flow reaches the received flow by exponential smoothing (`shown += (target - shown) · 0.12` at each frame). When the flow falls to zero, the particles still in the pipe fade out in place instead of vanishing or continuing to rush. When filling, the particles that reach the end of the inlet pipe **fall** into the tank (gravity) along an accent stream, down to the surface.
 
-**Matière vivante** : particules en suspension qui dérivent lentement (`x += vx + 0.05 · sin(tick·0.02 + phase)`), rebondissent sur les parois et restent **toujours sous la surface**. Une particule qui remonte trop haut est repoussée vers le bas, et son opacité s'efface sur les 8 px sous la surface, pour qu'elle ne « touche » jamais l'air. Quand le liquide circule, le brassage s'accélère (`× (1 + 3 · débit)`) et la matière dérive vers la sortie. Un mélange de points clairs (bulles) et de quelques points sombres (impuretés) donne du réalisme.
+**Living matter**: suspended particles that drift slowly (`x += vx + 0.05 · sin(tick·0.02 + phase)`), bounce off the walls and stay **always under the surface**. A particle that rises too high is pushed back down, and its opacity fades over the 8 px under the surface, so that it never "touches" the air. When the liquid circulates, the stirring accelerates (`× (1 + 3 · flow)`) and the matter drifts toward the outlet. A mix of light dots (bubbles) and a few dark dots (impurities) gives realism.
 
-**Signal** : ce par quoi un lien (§6.6) montre qu'une information passe. Il en existe deux sortes, qui ne se signalent pas pareil :
+**Signal**: what a link (§6.6) uses to show that information is passing. There are two kinds, which are not signaled the same way:
 
-- *Un événement* (l'utilisateur vient de changer un réglage) se signale **une seule fois, au moment où il se produit**, pour accuser réception : « ton geste est pris en compte ». **Pourquoi :** un signal qui se répète sans cause est un mensonge (il suggère une activité qui n'existe pas) et il distrait. On le lie donc à la variation de la consigne, jamais à une horloge.
-- *Un état continu* (quelque chose circule réellement) se montre en continu, d'après l'état **rapporté par l'appareil** et non d'après le geste, et reste **en arrière-plan**.
+- *An event* (the user has just changed a setting) is signaled **once, at the moment it occurs**, to acknowledge receipt: "your gesture has been taken into account". **Why:** a signal that repeats without cause is a lie (it suggests an activity that does not exist) and it distracts. So it is tied to the variation of the setpoint, never to a clock.
+- *A continuous state* (something is really flowing) is shown continuously, from the state **reported by the device** and not from the gesture, and stays **in the background**.
 
-**L'intensité est proportionnée au rôle.** L'accusé de réception doit se remarquer sans surprendre ; le signal continu ne doit jamais concurrencer l'objet. Dans la pratique, le premier réglage est presque toujours trop brillant, trop rapide, trop marqué : on part bas et on monte, plutôt que l'inverse.
+**Intensity is proportioned to the role.** The acknowledgement must be noticed without surprising; the continuous signal must never compete with the object. In practice, the first setting is almost always too bright, too fast, too marked: start low and go up, rather than the opposite.
 
-**Le rendu évoque la nature de ce qui circule** (une charge électrique ne ressemble pas à un fluide ni à un gaz), pour que le signal *dise* quelque chose. Une forme abstraite sans référence (un point, un trait) ne signifie rien et se lit comme un défaut.
+**The rendering evokes the nature of what flows** (an electric charge does not look like a fluid or a gas), so that the signal *says* something. An abstract form with no reference (a dot, a line) means nothing and reads as a defect.
 
-### 8.4 L'objet comme afficheur de conséquences
+### 8.4 The object as a display of consequences
 
-Pour chaque paramètre, posez-vous la question : *qu'est-ce qui change physiquement quand on le règle ?* Puis faites-le changer **sur l'objet**, d'après des formules continues :
+For each parameter, ask yourself: *what changes physically when it is adjusted?* Then make it change **on the object**, from continuous formulas:
 
-| Paramètre | Conséquence visible |
+| Parameter | Visible consequence |
 |---|---|
-| Durée d'exposition, puissance lumineuse | Largeur et opacité d'un faisceau, éclairement d'une chambre, lueur d'une lentille |
-| Gain, amplification | Les éléments s'éclaircissent **et** se pixellisent (rendu en basse résolution agrandi sans lissage) |
-| Vitesse, débit | Opacité du flux dans le tuyau, densité et vitesse des particules emportées, brassage dans la cuve |
-| Niveau, volume | Hauteur du liquide, halo proportionnel |
-| Cadence | Rythme des impulsions sur le câble |
-| Direction | Sens de l'écoulement, voie allumée |
-| Vitesse d'un organe tournant | Au-delà de ce que l'œil suit, il se **floute** : une rotation restée nette à grande vitesse se lit comme un objet figé ou saccadé |
+| Exposure time, light power | Width and opacity of a beam, illumination of a chamber, glow of a lens |
+| Gain, amplification | Elements brighten **and** pixelate (low-resolution rendering enlarged without smoothing) |
+| Speed, flow | Opacity of the flow in the pipe, density and speed of the carried particles, stirring in the tank |
+| Level, volume | Height of the liquid, proportional halo |
+| Rate | Rhythm of the pulses on the cable |
+| Direction | Direction of the flow, lit path |
+| Speed of a rotating organ | Beyond what the eye follows, it **blurs**: a rotation left sharp at high speed reads as a frozen or jerky object |
 
-Ajoutez un **conseil contextuel** (encadré ambre, icône ampoule, une phrase) qui n'apparaît que lorsque la combinaison de réglages est mauvaise. Exemple : « Augmentez l'exposition avant le gain pour garder une image propre. »
+Add a **contextual tip** (amber box, light-bulb icon, one sentence) that only appears when the combination of settings is bad. Example: "Increase the exposure before the gain to keep a clean image."
 
-### 8.5 Honnêteté de l'état
+### 8.5 State honesty
 
-- Si l'appareil ne renvoie pas sa position, **estimez** la progression (elle tend vers 97 % tant que l'étape suivante n'a pas commencé) au lieu d'afficher une fausse certitude.
-- Pas de nouvelle commande pendant un mouvement : l'objet le refuse et revient à l'état confirmé.
-- Une commande impossible est refusée par le ViewModel (vider une cuve vide, remplir une cuve pleine), et l'appareil coupe de lui-même aux limites. Comme l'afficheur montre les débits **rapportés**, l'écoulement s'arrête à l'écran même si l'utilisateur pousse encore le levier.
-- Pendant une opération automatique, la commande manuelle passe en grisé (opacité 0,4) et le bouton d'action devient « Annuler ».
-- Les événements « modifié par l'utilisateur » ne sont levés **que** par une action de l'utilisateur, jamais quand le code applique une valeur venue d'ailleurs.
+- If the device does not return its position, **estimate** the progress (it tends toward 97 % until the next step has begun) instead of displaying a false certainty.
+- No new command during a movement: the object refuses it and returns to the confirmed state.
+- An impossible command is refused by the ViewModel (emptying an empty tank, filling a full tank), and the device cuts off by itself at the limits. Since the display shows the **reported** flows, the flow stops on screen even if the user is still pushing the lever.
+- During an automatic operation, the manual control is grayed out (opacity 0.4) and the action button becomes "Cancel".
+- "Modified by the user" events are raised **only** by a user action, never when the code applies a value coming from elsewhere.
 
 ---
 
-## 9. Thèmes clair et sombre, couleur d'accent
+## 9. Light and dark themes, accent color
 
 ### 9.1 ThemeDictionaries
 
@@ -1038,193 +1038,193 @@ Ajoutez un **conseil contextuel** (encadré ambre, icône ampoule, une phrase) q
     <ResourceDictionary>
         <ResourceDictionary.ThemeDictionaries>
             <ResourceDictionary x:Key="Dark">
-                <!-- toutes les matières, version sombre -->
+                <!-- all the materials, dark version -->
             </ResourceDictionary>
             <ResourceDictionary x:Key="Light">
-                <!-- mêmes clés, version claire -->
+                <!-- same keys, light version -->
             </ResourceDictionary>
         </ResourceDictionary.ThemeDictionaries>
-        <!-- matières identiques dans les deux thèmes (reflets blancs, chrome fixe…) -->
-        <!-- pinceaux construits sur l'accent -->
+        <!-- materials identical in both themes (white reflections, fixed chrome…) -->
+        <!-- brushes built on the accent -->
     </ResourceDictionary>
 </UserControl.Resources>
 ```
 
-Ces ressources s'utilisent avec `{DynamicResource …}`. Les pinceaux indépendants du thème peuvent rester en `{StaticResource …}`.
+These resources are used with `{DynamicResource …}`. Theme-independent brushes can stay as `{StaticResource …}`.
 
-### 9.2 Transposer une matière du sombre vers le clair
+### 9.2 Transposing a material from dark to light
 
-- Décalez toute la rampe de **2 crans vers le clair** (le corps `#3B4558` devient `#CBD3E0`).
-- Les ombres passent de `#000000` à `#283250` et perdent environ la moitié de leur alpha.
-- Le fond du verre devient presque transparent, teinté `#6F7F9E`.
-- Les liserés blancs du verre deviennent des liserés bleu-gris (`#607090`).
-- Les inscriptions claires sur plaque sombre restent lisibles : en clair, la plaque devient `#5E6A84` et le texte reste blanc.
-- Un rendu dessiné en code (`Render`) doit lui aussi s'inverser : fond clair, éléments sombres.
+- Shift the whole ramp by **2 steps toward the light** (the body `#3B4558` becomes `#CBD3E0`).
+- Shadows go from `#000000` to `#283250` and lose about half of their alpha.
+- The glass back becomes almost transparent, tinted `#6F7F9E`.
+- The white glass rims become blue-gray rims (`#607090`).
+- Light engravings on a dark plate stay readable: in light, the plate becomes `#5E6A84` and the text stays white.
+- A rendering drawn in code (`Render`) must also invert: light background, dark elements.
 
-### 9.3 Réagir aux changements de thème et d'accent
+### 9.3 Reacting to theme and accent changes
 
 ```csharp
 public MyCard()
 {
     InitializeComponent();
     AttachedToVisualTree   += (_, _) => { ApplyAccentGlows(); _timer.Start(); };
-    DetachedFromVisualTree += (_, _) => _timer.Stop();                     // pas d'animation hors écran
+    DetachedFromVisualTree += (_, _) => _timer.Stop();                     // no animation off screen
     ActualThemeVariantChanged += (_, _) => { ApplyAccentGlows(); RebuildTicks(); };
 }
 
-/// Ressource Suki du thème courant, qu'elle soit un pinceau ou une couleur.
+/// Suki resource of the current theme, whether it is a brush or a color.
 private IBrush ThemeBrush(string key, IBrush fallback) =>
     this.TryFindResource(key, ActualThemeVariant, out var res)
         ? res switch { IBrush b => b, Color c => new SolidColorBrush(c), _ => fallback }
         : fallback;
 ```
 
-Tout ce qui est **créé en code** (graduations, segments, bulles, glows) doit être recoloré à chaque changement de thème.
+Everything that is **created in code** (graduations, segments, bubbles, glows) must be recolored at each theme change.
 
 ---
 
-## 10. Pièges techniques Avalonia
+## 10. Avalonia technical pitfalls
 
-| Piège | Solution |
+| Pitfall | Solution |
 |---|---|
-| `BoxShadow` ne peut pas référencer une couleur dynamique | Construisez les `BoxShadows` d'accent en code (§5.11). Les ombres neutres peuvent être des ressources `BoxShadows` dans les ThemeDictionaries. |
-| `SukiPrimaryColor` / `SukiText` sont des `Color` | Dans un `GradientStop`, `Color="{DynamicResource …}"`. En code, convertissez avec `ThemeBrush`. |
-| Animer un `RenderTransform` avec `Animation` ne marche pas toujours selon la version | Tween manuel par `DispatcherTimer` (§8.1) qui écrit directement `RotateTransform.Angle` ou `TranslateTransform.Y`. |
-| Une lueur est coupée net | Parents en `ClipToBounds="False"`, lueur placée hors du conteneur clippé. |
-| Le `Canvas` ne reçoit pas les clics | `Background="Transparent"` (un fond `null` n'est pas testable). |
-| Une décoration vole les clics | `IsHitTestVisible="False"` sur tout ce qui n'est pas interactif. |
-| `StrokeDashArray` / `StrokeDashOffset` semblent faux | Ils sont exprimés en **multiples de l'épaisseur du trait**. |
-| Les coordonnées de pointeur sont décalées sous un `Viewbox` | `e.GetPosition(canvasDeLaScene)`. |
-| Le glissé se bloque après un alt-tab | Gérez `PointerCaptureLost` comme un relâchement. |
-| Les commandes matérielles bloquent l'interface | `Task.Run` pour la commande, `Dispatcher.UIThread.Post` pour revenir à l'interface. |
-| Des timers tournent sur un contrôle invisible | Start/Stop sur `AttachedToVisualTree` / `DetachedFromVisualTree`. |
-| Un mélange `RenderTargetBitmap` + `DrawImage` est flou | Pour une pixellisation volontaire, rendez en basse résolution puis agrandissez sans lissage. |
-| Un traducteur automatique traduit des gravures | Marquez-les (par exemple `Tag="NoTranslate"`) selon la convention de votre app. |
-| `CS0102 : le type contient déjà une définition pour 'Flow'` | Le générateur de noms d'Avalonia crée un champ pour chaque `Name`. Un élément nommé comme une propriété du contrôle entre en collision avec elle : nommez les éléments par leur rôle visuel (`OutletFlow`, `FlowLine`), jamais comme une propriété de l'API. |
-| `CS0104 : 'Path' est une référence ambiguë` | Avec les usings implicites, `System.IO.Path` est en conflit avec `Avalonia.Controls.Shapes.Path`. Ajoutez `using Path = Avalonia.Controls.Shapes.Path;`. |
-| Le binding TwoWay d'une valeur émise par le contrôle se casse | Le contrôle écrit sa propre valeur avec `SetCurrentValue(ValueProperty, v)`, jamais avec `SetValue` ou le setter : sinon la valeur locale remplace le binding. Déclarez la propriété avec `defaultBindingMode: BindingMode.TwoWay`. |
-| Un geste rotatif « part n'importe où » au-delà de 180° | L'angle du pointeur est périodique : cumulez des pas bornés au lieu de comparer au clic de départ (§8.3). |
-| Une lueur ou un halo est tronqué par le repère du contrôle | Le repère contient tout ce qui rayonne : dimensionnez-le pour le halo (et non pour la seule pièce), et n'enfermez pas la lueur dans un parent qui rogne (`ClipToBounds`). |
-| Un label recoloré en code ne suit plus le thème | Basculez une classe et laissez un style avec `{DynamicResource …}` porter la couleur (§6.4). |
-| Un liquide « carré » dépasse des épaules arrondies du récipient | Découpez le contenu avec un `Border` intérieur `ClipToBounds="True"` et `CornerRadius` (§5.7), au lieu d'arrondir le liquide. |
-| Le bout d'un tube dépasse d'une bride ou d'un collier | `StrokeLineCap="Round"` prolonge le trait de la moitié de son épaisseur : arrêtez le tracé plus tôt (§5.8). |
-| Un tube coudé est foncé et uni en thème clair | Le corps du tube, posé sur le bord, est trop transparent : rendez-le opaque et clair, et ajoutez un cœur plus clair (§3.2). |
+| `BoxShadow` cannot reference a dynamic color | Build the accent `BoxShadows` in code (§5.11). Neutral shadows can be `BoxShadows` resources in the ThemeDictionaries. |
+| `SukiPrimaryColor` / `SukiText` are `Color`s | In a `GradientStop`, `Color="{DynamicResource …}"`. In code, convert with `ThemeBrush`. |
+| Animating a `RenderTransform` with `Animation` does not always work depending on the version | Manual tween by `DispatcherTimer` (§8.1) that writes `RotateTransform.Angle` or `TranslateTransform.Y` directly. |
+| A glow is cut dead | Parents with `ClipToBounds="False"`, glow placed outside the clipped container. |
+| The `Canvas` does not receive clicks | `Background="Transparent"` (a `null` background is not hit-testable). |
+| A decoration steals clicks | `IsHitTestVisible="False"` on everything that is not interactive. |
+| `StrokeDashArray` / `StrokeDashOffset` seem wrong | They are expressed in **multiples of the stroke thickness**. |
+| Pointer coordinates are shifted under a `Viewbox` | `e.GetPosition(sceneCanvas)`. |
+| The drag gets stuck after an alt-tab | Handle `PointerCaptureLost` as a release. |
+| Hardware commands block the interface | `Task.Run` for the command, `Dispatcher.UIThread.Post` to return to the interface. |
+| Timers run on an invisible control | Start/Stop on `AttachedToVisualTree` / `DetachedFromVisualTree`. |
+| A `RenderTargetBitmap` + `DrawImage` mix is blurry | For a deliberate pixelation, render at low resolution then enlarge without smoothing. |
+| An automatic translator translates engravings | Mark them (for example `Tag="NoTranslate"`) according to your app's convention. |
+| `CS0102: the type already contains a definition for 'Flow'` | Avalonia's name generator creates a field for each `Name`. An element named like a property of the control collides with it: name elements by their visual role (`OutletFlow`, `FlowLine`), never like a property of the API. |
+| `CS0104: 'Path' is an ambiguous reference` | With implicit usings, `System.IO.Path` conflicts with `Avalonia.Controls.Shapes.Path`. Add `using Path = Avalonia.Controls.Shapes.Path;`. |
+| The TwoWay binding of a value emitted by the control breaks | The control writes its own value with `SetCurrentValue(ValueProperty, v)`, never with `SetValue` or the setter: otherwise the local value replaces the binding. Declare the property with `defaultBindingMode: BindingMode.TwoWay`. |
+| A rotary gesture "goes anywhere" beyond 180° | The pointer angle is periodic: accumulate bounded steps instead of comparing to the starting click (§8.3). |
+| A glow or halo is truncated by the control's frame | The frame contains everything that radiates: size it for the halo (and not for the part alone), and do not enclose the glow in a parent that crops (`ClipToBounds`). |
+| A label recolored in code no longer follows the theme | Toggle a class and let a style with `{DynamicResource …}` carry the color (§6.4). |
+| A "square" liquid sticks out of the rounded shoulders of the container | Clip the content with an inner `Border` with `ClipToBounds="True"` and `CornerRadius` (§5.7), instead of rounding the liquid. |
+| The end of a tube sticks out of a flange or a collar | `StrokeLineCap="Round"` extends the stroke by half its thickness: stop the path earlier (§5.8). |
+| A bent tube is dark and flat in the light theme | The tube body, laid on the rim, is too transparent: make it opaque and light, and add a lighter core (§3.2). |
 
 ---
 
-## 11. Méthode de travail
+## 11. Working method
 
-1. **Observer le vrai appareil.** Notez 3 à 6 détails caractéristiques et les pièces qui bougent.
-2. **Lister les gestes et les conséquences.** Pour chaque réglage : quel geste, quelle valeur exacte, quel changement visible ?
-3. **Maquetter en SVG interactif** avant d'écrire du XAML. Gardez le même repère (la maquette devient le `Canvas`). Itérer en SVG est dix fois plus rapide.
-4. **Valider la silhouette** en aplats, sans dégradés : si on ne reconnaît pas l'objet, aucun dégradé ne le sauvera.
-5. **Appliquer la rampe métal, puis la lumière, puis le verre, puis l'accent**, dans cet ordre.
-6. **Itérer une seule valeur à la fois** (une couleur, un alpha, un rayon) et comparer. Ce style se règle au détail près.
-7. **Découper en contrôles** : un afficheur, un actionneur, chacun avec son API universelle et son propre repère (§6.5). Écrivez les contrats `X.axaml.cs` avant le dessin.
-8. **Porter en XAML** avec les tokens par rôle et les ThemeDictionaries.
-9. **Ajouter le comportement** (§8), puis tester la physique à la main : ressort, crans, relâchement brutal, alt-tab.
-9bis. **Relier les pièces** (§6.6) : pour chaque actionneur, son appareil et le lien qui les unit.
-10. **Regarder tourner l'application réelle**, pas seulement compiler : les défauts qui comptent ne se voient pas dans le code (coupures, longueur d'un fondu, proportions, brillance d'un signal, halos tronqués). Une revue d'écran dans les deux thèmes avant de présenter évite des allers-retours entiers.
-11. **Tester les trois variations** : thème sombre, thème clair, et **une autre couleur d'accent**. Si le changement d'accent ne recolore pas l'énergie de l'objet, une couleur est codée en dur.
+1. **Observe the real device.** Note 3 to 6 characteristic details and the moving parts.
+2. **List the gestures and the consequences.** For each setting: which gesture, which exact value, which visible change?
+3. **Mock up in interactive SVG** before writing XAML. Keep the same frame (the mockup becomes the `Canvas`). Iterating in SVG is ten times faster.
+4. **Validate the silhouette** in flat fills, without gradients: if the object cannot be recognized, no gradient will save it.
+5. **Apply the metal ramp, then the light, then the glass, then the accent**, in that order.
+6. **Iterate one value at a time** (a color, an alpha, a radius) and compare. This style is tuned down to the detail.
+7. **Split into controls**: a display, an actuator, each with its universal API and its own frame (§6.5). Write the `X.axaml.cs` contracts before the drawing.
+8. **Port to XAML** with the role-based tokens and the ThemeDictionaries.
+9. **Add the behavior** (§8), then test the physics by hand: spring, detents, abrupt release, alt-tab.
+9bis. **Link the parts** (§6.6): for each actuator, its device and the link that unites them.
+10. **Watch the real application run**, not just compile: the defects that matter cannot be seen in the code (cuts, the length of a fade, proportions, the brightness of a signal, truncated halos). A screen review in both themes before presenting avoids whole rounds of back and forth.
+11. **Test the three variations**: dark theme, light theme, and **another accent color**. If changing the accent does not recolor the energy of the object, a color is hard-coded.
 
 ---
 
 ## 12. Anti-patterns
 
-- ❌ Textures bitmap, bruit, grain, photo du vrai appareil.
-- ❌ Gris neutres (`#808080`), métaux chauds, bois, cuir.
-- ❌ Plusieurs sources de lumière, ou une lumière qui vient d'en bas.
-- ❌ Ombres portées longues et dures, noir pur dans le thème clair.
-- ❌ Un sol, un plateau ou un décor sous l'objet (les pieds et platines de l'appareil lui-même sont permis).
-- ❌ Une pièce mobile qui sort d'un simple rond posé dans le vide : un levier repose sur une platine (§5.13).
-- ❌ Un tube ou un câble coupé net au bord de la carte, un fondu trop court, un embout qui dépasse d'une bride.
-- ❌ Des pointillés qui défilent pour simuler un écoulement : une file prévisible n'est pas un liquide.
-- ❌ L'énergie générique (liquide quelconque, remplissage, rail) dans une couleur fixe au lieu de l'accent.
-- ❌ L'accent imposé à ce qui a une couleur conventionnelle forte (lumière, niveau de charge, gaz) : on perd la reconnaissance (§3.5).
-- ❌ Une métaphore empruntée à un autre objet (un accumulateur qui se remplit comme un réservoir, un gaz dessiné comme un liquide).
-- ❌ Un indicateur surchargé de matérialité (capuchons, ombrages) au lieu d'un affichage sobre.
-- ❌ Un actionneur sans lien visible avec son appareil, ou un lien qui n'a pas la nature de ce qu'il transporte.
-- ❌ Un signal qui se répète sans cause, ou un signal continu qui concurrence l'objet.
-- ❌ Un geste rotatif mesuré depuis le clic de départ (il saute au-delà de 180°).
-- ❌ Un halo ou une lueur tronqué par le repère du contrôle.
-- ❌ Un bouton rotatif pour saisir une valeur exacte. Des boutons +/- à côté d'un champ.
-- ❌ Un champ exact ajouté par principe à un actionneur qui n'a pas de valeur à retenir.
-- ❌ Un objet qui ne réagit pas aux réglages : c'est de la décoration, pas du Skeumo-Suki.
-- ❌ Une silhouette qui évoque un autre objet (une cuve qui ressemble à une seringue).
-- ❌ Un levier qui saute vers le pointeur au lieu de tourner avec la main, ou qui ne va que d'un côté quand l'appareil a deux actions opposées.
-- ❌ Un relâchement qui laisse l'appareil tourner pendant l'animation de retour.
-- ❌ Un seul contrôle qui fusionne l'afficheur et l'actionneur, ou une API qui trahit l'autre contrôle.
-- ❌ Deux appareils sans rapport dans la même carte, ou du skeuo sur la navigation et les formulaires.
-- ❌ Des pièces collées les unes aux autres dans une scène composée.
-- ❌ Une seule version de thème.
-- ❌ Des détails sans signification (rivets décoratifs partout, vis sur chaque pied, cerclages qui masquent le liquide).
+- ❌ Bitmap textures, noise, grain, a photo of the real device.
+- ❌ Neutral grays (`#808080`), warm metals, wood, leather.
+- ❌ Several light sources, or a light that comes from below.
+- ❌ Long, hard drop shadows, pure black in the light theme.
+- ❌ A floor, a tray or a decor under the object (the feet and base plates of the device itself are allowed).
+- ❌ A moving part that comes out of a plain circle placed in the void: a lever rests on a base plate (§5.13).
+- ❌ A tube or a cable cut dead at the edge of the card, a fade that is too short, an end that sticks out of a flange.
+- ❌ Scrolling dashes to simulate a flow: a predictable queue is not a liquid.
+- ❌ Generic energy (any liquid, fill, rail) in a fixed color instead of the accent.
+- ❌ The accent imposed on what has a strong conventional color (light, charge level, gas): recognition is lost (§3.5).
+- ❌ A metaphor borrowed from another object (an accumulator that fills like a tank, a gas drawn like a liquid).
+- ❌ An indicator overloaded with materiality (caps, shading) instead of a sober display.
+- ❌ An actuator with no visible link to its device, or a link that does not have the nature of what it carries.
+- ❌ A signal that repeats without cause, or a continuous signal that competes with the object.
+- ❌ A rotary gesture measured from the starting click (it jumps beyond 180°).
+- ❌ A halo or glow truncated by the control's frame.
+- ❌ A rotary knob to enter an exact value. +/- buttons next to a field.
+- ❌ An exact field added by principle to an actuator that has no value to retain.
+- ❌ An object that does not react to the settings: it is decoration, not Skeumo-Suki.
+- ❌ A silhouette that evokes another object (a tank that looks like a syringe).
+- ❌ A lever that jumps to the pointer instead of turning with the hand, or that only goes one way when the device has two opposite actions.
+- ❌ A release that leaves the device running during the return animation.
+- ❌ A single control that merges the display and the actuator, or an API that betrays the other control.
+- ❌ Two unrelated devices in the same card, or skeuo on navigation and forms.
+- ❌ Parts stuck to each other in a composed scene.
+- ❌ A single theme version.
+- ❌ Meaningless details (decorative rivets everywhere, screws on every foot, hoops that hide the liquid).
 
 ---
 
-## 13. Checklist de validation
+## 13. Validation checklist
 
-**Intégration Suki**
-- [ ] La carte est une `GlassCard` standard (titre, padding, badges en verre).
-- [ ] L'objet flotte, sans sol ni cadre. Les entrées et sorties se fondent dans le verre, par un fondu long.
-- [ ] Les valeurs exactes et les actions utilisent des composants Suki, et seulement quand elles sont utiles.
+**Suki integration**
+- [ ] The card is a standard `GlassCard` (title, padding, glass badges).
+- [ ] The object floats, with no floor or frame. Inputs and outputs melt into the glass, through a long fade.
+- [ ] Exact values and actions use Suki components, and only when they are useful.
 
-**Organisation**
-- [ ] Un contrôle par responsabilité : afficheur d'un côté, actionneur de l'autre, reliés par la page et son ViewModel.
-- [ ] Chaque API est universelle : aucun nom ne trahit l'autre contrôle.
-- [ ] Chaque contrôle tient en trois fichiers : `.axaml`, `.axaml.cs` (contrat seul), `.Rendering.cs`.
-- [ ] L'afficheur montre l'état rapporté par l'appareil, pas la demande de l'utilisateur.
+**Organization**
+- [ ] One control per responsibility: display on one side, actuator on the other, linked by the page and its ViewModel.
+- [ ] Each API is universal: no name betrays the other control.
+- [ ] Each control fits in three files: `.axaml`, `.axaml.cs` (contract only), `.Rendering.cs`.
+- [ ] The display shows the state reported by the device, not the user's request.
 
-**Forme**
-- [ ] La silhouette se reconnaît en aplat (une cuve est large, avec épaules, bride, sortie et pieds).
-- [ ] Les pièces mobiles reposent sur une base solide. Les pièces d'une scène composée ont de l'air entre elles.
-- [ ] Les tuyaux passent derrière ou sous ce qu'ils croisent, et leurs embouts sont cachés.
+**Form**
+- [ ] The silhouette is recognizable as a flat shape (a tank is wide, with shoulders, flange, outlet and feet).
+- [ ] Moving parts rest on a solid base. The parts of a composed scene have air between them.
+- [ ] Pipes pass behind or under what they cross, and their ends are hidden.
 
-**Liaisons**
-- [ ] Chaque actionneur est relié à son appareil, et la nature du lien correspond à ce qu'il transporte.
-- [ ] Le lien démarre et finit sous une pièce, et passe derrière les pièces qu'il rejoint.
-- [ ] Événement et état continu sont distingués : l'événement est signalé une fois, le continu reste discret.
-- [ ] Les fondus atteignent zéro au bord de la carte et ont été **vus** à l'écran.
+**Links**
+- [ ] Each actuator is linked to its device, and the nature of the link matches what it carries.
+- [ ] The link starts and ends under a part, and passes behind the parts it joins.
+- [ ] Event and continuous state are distinguished: the event is signaled once, the continuous one stays discreet.
+- [ ] Fades reach zero at the edge of the card and have been **seen** on screen.
 
-**Matière et lumière**
-- [ ] Toutes les matières dures utilisent la rampe bleu-ardoise.
-- [ ] Une seule source de lumière en haut à gauche, un filet spéculaire par pièce.
-- [ ] Les ombres sont courtes et douces, teintées `#283250` en clair.
-- [ ] Aucun bitmap. Grands rayons d'angle. 3 à 6 détails, tous significatifs.
+**Material and light**
+- [ ] All hard materials use the blue-slate ramp.
+- [ ] A single light source at the top left, one specular line per part.
+- [ ] Shadows are short and soft, tinted `#283250` in light.
+- [ ] No bitmap. Large corner radii. 3 to 6 details, all meaningful.
 
-**Énergie**
-- [ ] L'énergie sans couleur conventionnelle (liquide quelconque, remplissage, perçage actif) est en `SukiPrimaryColor` / `75` ; ce qui a une couleur conventionnelle suit le réel (§3.5).
-- [ ] Changer la couleur d'accent recolore l'énergie de l'objet.
-- [ ] Le rouge est réservé à l'arrêt et vient de `SukiDangerColor`.
+**Energy**
+- [ ] Energy with no conventional color (any liquid, fill, active bore) is in `SukiPrimaryColor` / `75`; what has a conventional color follows reality (§3.5).
+- [ ] Changing the accent color recolors the energy of the object.
+- [ ] Red is reserved for stop and comes from `SukiDangerColor`.
 
-**Thèmes**
-- [ ] Chaque matière existe en `Dark` et en `Light`, et la version claire a été regardée pour de vrai (tubes notamment).
-- [ ] Les éléments créés en code se recolorent au changement de thème.
-- [ ] Les glows d'accent sont reconstruits au changement de thème.
+**Themes**
+- [ ] Each material exists in `Dark` and `Light`, and the light version has really been looked at (tubes in particular).
+- [ ] Elements created in code are recolored on theme change.
+- [ ] Accent glows are rebuilt on theme change.
 
-**Comportement**
-- [ ] Chaque réglage a une conséquence visible sur l'objet.
-- [ ] Les mouvements sont amortis (ease-out, ressort, crans), jamais instantanés. Les flux apparaissent et disparaissent en fondu.
-- [ ] Les particules (en suspension, emportées par un flux) n'ont ni rythme ni trajectoire prévisibles.
-- [ ] Le levier va dans les deux sens si l'appareil a deux actions opposées.
-- [ ] Un geste rotatif reste juste au-delà de 180° depuis le départ.
-- [ ] Une vitesse qui dépasse ce que l'œil suit est rendue par du flou.
-- [ ] Rien n'est tronqué : halos, lueurs et reflets tiennent dans le repère du contrôle.
-- [ ] Relâchement et perte de capture = arrêt matériel immédiat.
-- [ ] Pas de commande pendant un mouvement. L'état affiché est honnête.
-- [ ] Les timers s'arrêtent quand le contrôle quitte l'écran.
+**Behavior**
+- [ ] Each setting has a visible consequence on the object.
+- [ ] Movements are damped (ease-out, spring, detents), never instantaneous. Flows appear and disappear with a fade.
+- [ ] Particles (suspended, carried by a flow) have no predictable rhythm or trajectory.
+- [ ] The lever goes both ways if the device has two opposite actions.
+- [ ] A rotary gesture stays correct beyond 180° from the start.
+- [ ] A speed that exceeds what the eye follows is rendered with blur.
+- [ ] Nothing is truncated: halos, glows and reflections fit in the control's frame.
+- [ ] Release and capture loss = immediate hardware stop.
+- [ ] No command during a movement. The displayed state is honest.
+- [ ] Timers stop when the control leaves the screen.
 
-**Accessibilité**
-- [ ] Les contrôles gestuels sont focusables et utilisables au clavier.
-- [ ] Les champs ont un nom d'automatisation avec l'unité.
-- [ ] L'état se lit aussi par le texte (`SukiText` / `SukiLowText`), pas seulement par la couleur.
+**Accessibility**
+- [ ] Gestural controls are focusable and usable with the keyboard.
+- [ ] Fields have an automation name with the unit.
+- [ ] The state is also read through text (`SukiText` / `SukiLowText`), not only through color.
 
 ---
 
-## 14. Exemple complet : cuve et levier de remplissage / vidange
+## 14. Complete example: tank and fill / drain lever
 
-Une carte qui montre une cuve en verre (le niveau est l'accent) et un levier à ressort : poussé à gauche, il remplit par l'entrée du haut ; poussé à droite, il vide par la sortie du bas. Plus on pousse, plus le débit est fort. Au relâchement, les vannes se ferment immédiatement et le levier revient au centre.
+A card that shows a glass tank (the level is the accent) and a spring-loaded lever: pushed left, it fills through the top inlet; pushed right, it drains through the bottom outlet. The more you push, the stronger the flow. On release, the valves close immediately and the lever returns to the center.
 
-L'exemple applique le découpage du §6.5 : **deux contrôles indépendants** et une page qui les relie. Les sources complètes sont dans la démo : `SukiUI.Demo/Features/Helpers/Skeumorphism/` (menu Helpers → Skeumorphism). Ci-dessous figurent les contrats, la page et le ViewModel en entier, ainsi que la structure commentée du rendu.
+The example applies the split of §6.5: **two independent controls** and a page that links them. The complete sources are in the demo: `SukiUI.Demo/Features/Helpers/Skeumorphism/` (Helpers → Skeumorphism menu). Below are the contracts, the page and the ViewModel in full, as well as the commented structure of the rendering.
 
 ```
 Features/Helpers/Skeumorphism/
@@ -1235,9 +1235,9 @@ Features/Helpers/Skeumorphism/
 └── SkeumorphismViewModel.cs
 ```
 
-### 14.1 Contrat de la cuve : `Tank.axaml.cs`
+### 14.1 Tank contract: `Tank.axaml.cs`
 
-Afficheur pur. La cuve ne sait pas qui la remplit.
+A pure display. The tank does not know who fills it.
 
 ```csharp
 /// <summary>
@@ -1270,9 +1270,9 @@ public partial class Tank : UserControl
 }
 ```
 
-### 14.2 Contrat du levier : `SpringLever.axaml.cs`
+### 14.2 Lever contract: `SpringLever.axaml.cs`
 
-Actionneur pur. Le levier ne sait pas ce qu'il pilote.
+A pure actuator. The lever does not know what it drives.
 
 ```csharp
 /// <summary>
@@ -1312,14 +1312,14 @@ public partial class SpringLever : UserControl
 }
 ```
 
-### 14.3 La page qui relie les deux : `SkeumorphismPage.axaml`
+### 14.3 The page that links the two: `SkeumorphismPage.axaml`
 
-La carte compose la scène. Le levier est superposé à droite de la cuve, avec de l'air entre les deux, et la sortie de la cuve passe sous sa platine.
+The card composes the scene. The lever is stacked to the right of the tank, with air between the two, and the outlet of the tank passes under its base plate.
 
 ```xml
 <suki:GlassCard Width="320" Padding="16" TextElement.Foreground="{DynamicResource SukiText}">
     <StackPanel>
-        <!-- En-tête : titre + badge de niveau -->
+        <!-- Header: title + level badge -->
         <Grid ColumnDefinitions="*,Auto">
             <TextBlock VerticalAlignment="Center" FontSize="17" FontWeight="DemiBold" Text="Tank" />
             <suki:GlassCard Grid.Column="1" Padding="10,3" CornerRadius="10">
@@ -1331,7 +1331,7 @@ La carte compose la scène. Le levier est superposé à droite de la cuve, avec 
             </suki:GlassCard>
         </Grid>
 
-        <!-- Scène : la sortie de la cuve passe sous le levier -->
+        <!-- Scene: the outlet of the tank passes under the lever -->
         <Panel Width="288" Height="200" Margin="0,16,0,0">
             <controls:Tank Level="{Binding Level}"
                            Inflow="{Binding Inflow}"
@@ -1359,9 +1359,9 @@ public partial class SkeumorphismPage : UserControl
 }
 ```
 
-Il n'y a pas de champ exact : un levier de jog n'a pas de valeur à retenir (Loi 10).
+There is no exact field: a jog lever has no value to retain (Law 10).
 
-### 14.4 Toute la logique : `SkeumorphismViewModel.cs`
+### 14.4 All the logic: `SkeumorphismViewModel.cs`
 
 ```csharp
 /// <summary>
@@ -1433,24 +1433,24 @@ public partial class SkeumorphismViewModel : ObservableObject
 }
 ```
 
-Avec un vrai appareil, `SimulateDevice` disparaît : `Level`, `Inflow` et `Outflow` sont alimentés par l'appareil, et `OnLeverValueChanged` / `CloseValves` envoient les commandes (`Task.Run` pour la commande, `Dispatcher.UIThread.Post` pour revenir à l'interface).
+With a real device, `SimulateDevice` disappears: `Level`, `Inflow` and `Outflow` are fed by the device, and `OnLeverValueChanged` / `CloseValves` send the commands (`Task.Run` for the command, `Dispatcher.UIThread.Post` to return to the interface).
 
-### 14.5 Le dessin de la cuve : `Tank.axaml`
+### 14.5 The tank drawing: `Tank.axaml`
 
-Repère 288 × 200. Les couches suivent le §6.3 :
+288 × 200 frame. The layers follow §6.3:
 
-| Couche | Contenu | Recette |
+| Layer | Content | Recipe |
 |---|---|---|
-| 1. Lueur | `Aura`, `BoxShadow` d'accent posé en code, hauteur = niveau | §5.11 |
-| 2. Pièces cachées | entrée (gauche → bride, fondu `0.02 → 0.24`), sortie (fond → coude → sous le pied droit à y = 192 → fondu vers la droite), jambes inclinées et patins | §5.8, §5.14 |
-| 3. Fond du verre | corps 100 × 130, `CornerRadius="34,34,16,16"` : large, épaules rondes | §5.6 |
-| 4. Contenu | `Border` intérieur `ClipToBounds`, avec le filet qui tombe, le liquide ancré en bas et les particules | §5.7 |
-| 5. Parois | liserés extérieur et intérieur, reflet vertical, reflet de dôme, graduations 25/50/75 % | §5.6 |
-| 6. Métal fixe | bride vissée en haut (sous laquelle se cache l'embout de l'entrée), raccord de sortie, pattes des jambes sans vis | §5.2, §5.14 |
+| 1. Glow | `Aura`, accent `BoxShadow` set in code, height = level | §5.11 |
+| 2. Hidden parts | inlet (left → flange, fade `0.02 → 0.24`), outlet (bottom → bend → under the right foot at y = 192 → fade to the right), slanted legs and pads | §5.8, §5.14 |
+| 3. Glass back | body 100 × 130, `CornerRadius="34,34,16,16"`: wide, round shoulders | §5.6 |
+| 4. Content | inner `ClipToBounds` `Border`, with the falling stream, the liquid anchored at the bottom and the particles | §5.7 |
+| 5. Walls | outer and inner rims, vertical reflection, dome reflection, 25/50/75 % graduations | §5.6 |
+| 6. Fixed metal | screwed flange on top (under which the end of the inlet hides), outlet fitting, leg brackets without screws | §5.2, §5.14 |
 
-Pas de cerclages sur le verre : ils cachaient le liquide. Les tokens sont préfixés `Tk` et déclarés dans les deux `ThemeDictionaries`. Les tubes utilisent `TkTubeRim`, `TkTubeBg` et `TkTubeCore` (§3.2).
+No hoops on the glass: they hid the liquid. The tokens are prefixed `Tk` and declared in both `ThemeDictionaries`. The tubes use `TkTubeRim`, `TkTubeBg` and `TkTubeCore` (§3.2).
 
-### 14.6 La mécanique de la cuve : `Tank.Rendering.cs`
+### 14.6 The tank mechanics: `Tank.Rendering.cs`
 
 ```csharp
 private void Tick()
@@ -1512,31 +1512,31 @@ private void UpdatePipe(List<PipeSpeck> specks, Canvas canvas, Route route, doub
 }
 ```
 
-`Route` aplatit la géométrie des `Path` du XAML (lignes et courbe `Q` échantillonnée en 12 segments) et donne, pour une distance `s`, une position et une normale. Elle est déclarée avec **exactement** les mêmes points que le XAML :
+`Route` flattens the geometry of the XAML `Path`s (lines and a `Q` curve sampled in 12 segments) and gives, for a distance `s`, a position and a normal. It is declared with **exactly** the same points as the XAML:
 
 ```csharp
 private static readonly Route OutletRoute = new Route(new Point(96, 160))
     .LineTo(new Point(96, 180)).QuadTo(new Point(96, 192), new Point(108, 192)).LineTo(new Point(288, 192));
 ```
 
-Les particules créées en code sont recolorées dans `ApplyTheme()` à chaque changement de thème, et le timer s'arrête quand la cuve quitte l'arbre visuel.
+Particles created in code are recolored in `ApplyTheme()` at each theme change, and the timer stops when the tank leaves the visual tree.
 
-### 14.7 Le levier : `SpringLever.axaml` et `SpringLever.Rendering.cs`
+### 14.7 The lever: `SpringLever.axaml` and `SpringLever.Rendering.cs`
 
-Repère 110 × 104, pivot en (55,82), rayon 60, course ±35°, zone morte 4°. Du fond vers l'avant : rail d'arc et repère central, arc rempli d'accent, lueur sous le pommeau, levier (tige et pommeau, `RenderTransformOrigin="50%,100%"`), bossage avec axe chromé, puis platine vissée (§5.13) et labels d'extrémité au-dessus de chaque bout du rail (§6.4). La mécanique est celle du §8.3.
+110 × 104 frame, pivot at (55,82), radius 60, travel ±35°, dead zone 4°. From the back to the front: arc rail and center mark, accent-filled arc, glow under the knob, lever (rod and knob, `RenderTransformOrigin="50%,100%"`), boss with chrome axle, then screwed base plate (§5.13) and end labels above each end of the rail (§6.4). The mechanics are those of §8.3.
 
-### 14.8 Ce que cet exemple démontre
+### 14.8 What this example demonstrates
 
-| Loi / règle | Où |
+| Law / rule | Where |
 |---|---|
-| 1. Carte Suki, objet exposé | `GlassCard`, badge de niveau en verre, entrée et sortie fondues dans la carte, pieds et platine qui appartiennent aux appareils |
-| 2. Métal teinté | rampe bleu-ardoise sur la bride, les jambes, les patins, le bossage et la platine |
-| 3. L'énergie est l'accent | liquide, halo, flux dans les tuyaux, filet de remplissage, arc et lueur du levier |
-| 4. Une seule lumière | origines radiales à 35 %/30 %, filets spéculaires, ombres `0 3 6` |
-| 5. Le verre devient objet | cuve en couches, tubes de verre à trois épaisseurs |
-| 6. Vectoriel et sobre | aucun bitmap, grands rayons, détails comptés (bride vissée, platine vissée, graduations) |
-| 7. Ressembler au vrai matériel | silhouette de cuve : large, épaules, bride, sortie basse, pieds |
-| 8. Deux thèmes | mêmes clés dans `Dark` et `Light`, tubes clairs opaques en thème clair |
-| 9. Comportement | ancrage relatif, deux sens, zone morte, réponse quadratique, ressort, particules imprévisibles, fondus |
-| 10. Précision Suki | aucun champ exact, car il n'y a pas de valeur à retenir |
-| §6.5 Boîte noire | deux contrôles à une responsabilité chacun, API universelles, logique dans le ViewModel |
+| 1. Suki card, exposed object | `GlassCard`, glass level badge, inlet and outlet melted into the card, feet and base plate that belong to the devices |
+| 2. Tinted metal | blue-slate ramp on the flange, the legs, the pads, the boss and the base plate |
+| 3. Energy is the accent | liquid, halo, flow in the pipes, filling stream, arc and glow of the lever |
+| 4. A single light | radial origins at 35 %/30 %, specular lines, `0 3 6` shadows |
+| 5. Glass becomes object | layered tank, three-thickness glass tubes |
+| 6. Vector and sober | no bitmap, large radii, counted details (screwed flange, screwed base plate, graduations) |
+| 7. Look like the real hardware | tank silhouette: wide, shoulders, flange, low outlet, feet |
+| 8. Two themes | same keys in `Dark` and `Light`, opaque light tubes in the light theme |
+| 9. Behavior | relative anchoring, two directions, dead zone, quadratic response, spring, unpredictable particles, fades |
+| 10. Suki precision | no exact field, since there is no value to retain |
+| §6.5 Black box | two controls with one responsibility each, universal APIs, logic in the ViewModel |
