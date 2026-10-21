@@ -1,0 +1,259 @@
+<UserControl x:Class="SukiUI.Demo.Features.Helpers.Skeumorphism.Controls.Tank"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Dark">
+                    <LinearGradientBrush x:Key="TkBase" StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Offset="0" Color="#FF586278" />
+                        <GradientStop Offset="0.45" Color="#FF3B4558" />
+                        <GradientStop Offset="1" Color="#FF171C25" />
+                    </LinearGradientBrush>
+                    <LinearGradientBrush x:Key="TkRodV" StartPoint="0%,0%" EndPoint="100%,0%">
+                        <GradientStop Offset="0" Color="#FF3B4558" />
+                        <GradientStop Offset="0.35" Color="#FFE3E9F4" />
+                        <GradientStop Offset="0.6" Color="#FF8590A6" />
+                        <GradientStop Offset="1" Color="#FF2A3242" />
+                    </LinearGradientBrush>
+                    <LinearGradientBrush x:Key="TkRodH" StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Offset="0" Color="#FF3B4558" />
+                        <GradientStop Offset="0.28" Color="#FFE3E9F4" />
+                        <GradientStop Offset="0.62" Color="#FF8590A6" />
+                        <GradientStop Offset="1" Color="#FF262D3A" />
+                    </LinearGradientBrush>
+                    <LinearGradientBrush x:Key="TkLeg" StartPoint="0%,0%" EndPoint="100%,0%">
+                        <GradientStop Offset="0" Color="#FF2A3242" />
+                        <GradientStop Offset="0.3" Color="#FF8D99B1" />
+                        <GradientStop Offset="0.6" Color="#FF3B4558" />
+                        <GradientStop Offset="1" Color="#FF171C25" />
+                    </LinearGradientBrush>
+                    <RadialGradientBrush x:Key="TkScrew" GradientOrigin="35%,30%">
+                        <GradientStop Offset="0" Color="#FFE3E9F4" />
+                        <GradientStop Offset="0.4" Color="#FF8D99B1" />
+                        <GradientStop Offset="0.75" Color="#FF586278" />
+                        <GradientStop Offset="1" Color="#FF2A3242" />
+                    </RadialGradientBrush>
+                    <LinearGradientBrush x:Key="TkGlassBack" StartPoint="0%,0%" EndPoint="100%,0%">
+                        <GradientStop Offset="0" Color="#B305080D" />
+                        <GradientStop Offset="0.3" Color="#591A2233" />
+                        <GradientStop Offset="0.7" Color="#4D1A2233" />
+                        <GradientStop Offset="1" Color="#BF05080D" />
+                    </LinearGradientBrush>
+                    <LinearGradientBrush x:Key="TkLiquidShade" StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Offset="0" Color="#38FFFFFF" />
+                        <GradientStop Offset="0.12" Color="#00FFFFFF" />
+                        <GradientStop Offset="0.8" Color="#00000000" />
+                        <GradientStop Offset="1" Color="#47000000" />
+                    </LinearGradientBrush>
+                    <SolidColorBrush x:Key="TkEdge" Color="#FF667289" />
+                    <SolidColorBrush x:Key="TkGlassRim" Color="#47FFFFFF" />
+                    <SolidColorBrush x:Key="TkGlassInner" Color="#59000000" />
+                    <SolidColorBrush x:Key="TkTubeBg" Color="#B805080D" />
+                    <SolidColorBrush x:Key="TkTubeRim" Color="#57FFFFFF" />
+                    <SolidColorBrush x:Key="TkTubeCore" Color="#00FFFFFF" />
+                    <BoxShadows x:Key="TkShadow">0 3 6 0 #80000000</BoxShadows>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Light">
+                    <LinearGradientBrush x:Key="TkBase" StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Offset="0" Color="#FFFFFFFF" />
+                        <GradientStop Offset="0.45" Color="#FFD9E0EC" />
+                        <GradientStop Offset="1" Color="#FFB0BBCE" />
+                    </LinearGradientBrush>
+                    <LinearGradientBrush x:Key="TkRodV" StartPoint="0%,0%" EndPoint="100%,0%">
+                        <GradientStop Offset="0" Color="#FF98A4B9" />
+                        <GradientStop Offset="0.35" Color="#FFFFFFFF" />
+                        <GradientStop Offset="0.6" Color="#FFCBD3E0" />
+                        <GradientStop Offset="1" Color="#FF8D99B1" />
+                    </LinearGradientBrush>
+                    <LinearGradientBrush x:Key="TkRodH" StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Offset="0" Color="#FF98A4B9" />
+                        <GradientStop Offset="0.28" Color="#FFFFFFFF" />
+                        <GradientStop Offset="0.62" Color="#FFCBD3E0" />
+                        <GradientStop Offset="1" Color="#FF8D99B1" />
+                    </LinearGradientBrush>
+                    <LinearGradientBrush x:Key="TkLeg" StartPoint="0%,0%" EndPoint="100%,0%">
+                        <GradientStop Offset="0" Color="#FFB0BBCE" />
+                        <GradientStop Offset="0.3" Color="#FFFFFFFF" />
+                        <GradientStop Offset="0.6" Color="#FFCBD3E0" />
+                        <GradientStop Offset="1" Color="#FF98A4B9" />
+                    </LinearGradientBrush>
+                    <RadialGradientBrush x:Key="TkScrew" GradientOrigin="35%,30%">
+                        <GradientStop Offset="0" Color="#FFFFFFFF" />
+                        <GradientStop Offset="0.4" Color="#FFE3E9F4" />
+                        <GradientStop Offset="0.75" Color="#FFB0BBCE" />
+                        <GradientStop Offset="1" Color="#FF8D99B1" />
+                    </RadialGradientBrush>
+                    <LinearGradientBrush x:Key="TkGlassBack" StartPoint="0%,0%" EndPoint="100%,0%">
+                        <GradientStop Offset="0" Color="#4D6F7F9E" />
+                        <GradientStop Offset="0.3" Color="#14FFFFFF" />
+                        <GradientStop Offset="0.7" Color="#10FFFFFF" />
+                        <GradientStop Offset="1" Color="#4D6F7F9E" />
+                    </LinearGradientBrush>
+                    <LinearGradientBrush x:Key="TkLiquidShade" StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Offset="0" Color="#4DFFFFFF" />
+                        <GradientStop Offset="0.12" Color="#00FFFFFF" />
+                        <GradientStop Offset="0.8" Color="#00FFFFFF" />
+                        <GradientStop Offset="1" Color="#26405070" />
+                    </LinearGradientBrush>
+                    <SolidColorBrush x:Key="TkEdge" Color="#FFA3AEC1" />
+                    <SolidColorBrush x:Key="TkGlassRim" Color="#73607090" />
+                    <SolidColorBrush x:Key="TkGlassInner" Color="#40405070" />
+                    <SolidColorBrush x:Key="TkTubeBg" Color="#FFD3DBE8" />
+                    <SolidColorBrush x:Key="TkTubeRim" Color="#FF98A4B9" />
+                    <SolidColorBrush x:Key="TkTubeCore" Color="#FFF4F7FB" />
+                    <BoxShadows x:Key="TkShadow">0 3 6 0 #3D283250</BoxShadows>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <!-- Scene: mockup frame 288 x 200. The pipes melt into the parent card on both sides. -->
+    <Canvas Width="288" Height="200" IsHitTestVisible="False">
+
+        <!-- 1. Glow of the liquid (accent BoxShadow set in code) -->
+        <Border Name="Aura" Canvas.Left="38" Canvas.Top="60" Width="92" Height="100" CornerRadius="14" Opacity="0" />
+
+        <!-- 2. Hidden parts: pipes behind the vessel -->
+
+        <!-- Inlet: comes out of the card on the left, enters through the top flange -->
+        <Canvas Width="288" Height="200">
+            <Canvas.OpacityMask>
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
+                    <GradientStop Offset="0.02" Color="#00FFFFFF" />
+                    <GradientStop Offset="0.12" Color="#59FFFFFF" />
+                    <GradientStop Offset="0.24" Color="#FFFFFFFF" />
+                </LinearGradientBrush>
+            </Canvas.OpacityMask>
+            <Path Data="M 0,16 L 72,16 Q 84,16 84,28 L 84,30" Stroke="{DynamicResource TkTubeRim}"
+                  StrokeThickness="12" StrokeLineCap="Round" StrokeJoin="Round" />
+            <Path Data="M 0,16 L 72,16 Q 84,16 84,28 L 84,30" Stroke="{DynamicResource TkTubeBg}"
+                  StrokeThickness="9.6" StrokeLineCap="Round" StrokeJoin="Round" />
+            <Path Data="M 0,16 L 72,16 Q 84,16 84,28 L 84,30" Stroke="{DynamicResource TkTubeCore}"
+                  StrokeThickness="4.5" StrokeLineCap="Round" StrokeJoin="Round" />
+            <Path Name="InletFlow" Data="M 0,16 L 72,16 Q 84,16 84,28 L 84,30"
+                  Stroke="{DynamicResource SukiPrimaryColor}" StrokeThickness="6"
+                  StrokeLineCap="Round" StrokeJoin="Round" Opacity="0" />
+            <Path Data="M 4,13.2 L 70,13.2" Stroke="#40FFFFFF" StrokeThickness="1.4" StrokeLineCap="Round" />
+            <Canvas Name="InletParticles" />
+        </Canvas>
+
+        <!-- Outlet: leaves the bottom of the vessel, runs under the feet and melts into the card on the right -->
+        <Canvas Width="288" Height="200">
+            <Canvas.OpacityMask>
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
+                    <GradientStop Offset="0.55" Color="#FFFFFFFF" />
+                    <GradientStop Offset="0.98" Color="#00FFFFFF" />
+                </LinearGradientBrush>
+            </Canvas.OpacityMask>
+            <Path Data="M 96,160 L 96,180 Q 96,192 108,192 L 288,192" Stroke="{DynamicResource TkTubeRim}"
+                  StrokeThickness="12" StrokeLineCap="Round" StrokeJoin="Round" />
+            <Path Data="M 96,160 L 96,180 Q 96,192 108,192 L 288,192" Stroke="{DynamicResource TkTubeBg}"
+                  StrokeThickness="9.6" StrokeLineCap="Round" StrokeJoin="Round" />
+            <Path Data="M 96,160 L 96,180 Q 96,192 108,192 L 288,192" Stroke="{DynamicResource TkTubeCore}"
+                  StrokeThickness="4.5" StrokeLineCap="Round" StrokeJoin="Round" />
+            <Path Name="OutletFlow" Data="M 96,160 L 96,180 Q 96,192 108,192 L 288,192"
+                  Stroke="{DynamicResource SukiPrimaryColor}" StrokeThickness="6"
+                  StrokeLineCap="Round" StrokeJoin="Round" Opacity="0" />
+            <Path Data="M 110,189.2 L 284,189.2" Stroke="#40FFFFFF" StrokeThickness="1.4" StrokeLineCap="Round" />
+            <Canvas Name="OutletParticles" />
+        </Canvas>
+
+        <!-- Legs: slanted struts, behind the glass -->
+        <Path Data="M 47,146 L 57,146 L 50,177 L 40,177 Z" Fill="{DynamicResource TkLeg}"
+              Stroke="{DynamicResource TkEdge}" StrokeThickness="0.6" StrokeJoin="Round" />
+        <Path Data="M 111,146 L 121,146 L 128,177 L 118,177 Z" Fill="{DynamicResource TkLeg}"
+              Stroke="{DynamicResource TkEdge}" StrokeThickness="0.6" StrokeJoin="Round" />
+        <Path Data="M 49,150 L 46.5,161" Stroke="#4DFFFFFF" StrokeThickness="1.2" StrokeLineCap="Round" />
+        <Path Data="M 113,150 L 115.5,161" Stroke="#4DFFFFFF" StrokeThickness="1.2" StrokeLineCap="Round" />
+        <!-- feet pads -->
+        <Border Canvas.Left="33" Canvas.Top="175" Width="24" Height="6" CornerRadius="3"
+                Background="{DynamicResource TkBase}" BorderBrush="{DynamicResource TkEdge}" BorderThickness="0.8"
+                BoxShadow="{DynamicResource TkShadow}" />
+        <Border Canvas.Left="111" Canvas.Top="175" Width="24" Height="6" CornerRadius="3"
+                Background="{DynamicResource TkBase}" BorderBrush="{DynamicResource TkEdge}" BorderThickness="0.8"
+                BoxShadow="{DynamicResource TkShadow}" />
+        <Border Canvas.Left="36" Canvas.Top="175.8" Width="18" Height="1.2" CornerRadius="0.6" Background="#59FFFFFF" />
+        <Border Canvas.Left="114" Canvas.Top="175.8" Width="18" Height="1.2" CornerRadius="0.6" Background="#59FFFFFF" />
+
+        <!-- 3. Glass: back -->
+        <Border Canvas.Left="34" Canvas.Top="34" Width="100" Height="130" CornerRadius="34,34,16,16"
+                Background="{DynamicResource TkGlassBack}" />
+
+        <!-- 4. Content: liquid, falling stream and particles, clipped to the vessel shape -->
+        <Border Canvas.Left="36" Canvas.Top="36" Width="96" Height="126" CornerRadius="32,32,14,14" ClipToBounds="True">
+            <Canvas Width="96" Height="126">
+                <Line Name="FallStream" StartPoint="48,0" EndPoint="48,126" StrokeThickness="4"
+                      StrokeLineCap="Round" Stroke="{DynamicResource SukiPrimaryColor}" Opacity="0" />
+                <Border Name="Liquid" Width="96" Height="0" Canvas.Top="126" Opacity="0.95"
+                        BoxShadow="inset 0 0 12 0 #40FFFFFF">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
+                            <GradientStop Offset="0" Color="{DynamicResource SukiPrimaryColor75}" />
+                            <GradientStop Offset="0.5" Color="{DynamicResource SukiPrimaryColor}" />
+                            <GradientStop Offset="1" Color="{DynamicResource SukiPrimaryColor75}" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Grid>
+                        <Border Width="40" HorizontalAlignment="Center">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
+                                    <GradientStop Offset="0" Color="#00FFFFFF" />
+                                    <GradientStop Offset="0.5" Color="#47FFFFFF" />
+                                    <GradientStop Offset="1" Color="#00FFFFFF" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+                        <Border Background="{DynamicResource TkLiquidShade}" />
+                        <!-- surface: bright line on top -->
+                        <Border Height="1.5" VerticalAlignment="Top" Background="#80FFFFFF" />
+                    </Grid>
+                </Border>
+                <Canvas Name="TankParticles" />
+            </Canvas>
+        </Border>
+
+        <!-- 5. Glass: walls, reflections, level marks -->
+        <Border Canvas.Left="34" Canvas.Top="34" Width="100" Height="130" CornerRadius="34,34,16,16"
+                BorderBrush="{DynamicResource TkGlassRim}" BorderThickness="1.6" />
+        <Border Canvas.Left="36" Canvas.Top="36" Width="96" Height="126" CornerRadius="32,32,14,14"
+                BorderBrush="{DynamicResource TkGlassInner}" BorderThickness="1" />
+        <Border Canvas.Left="44" Canvas.Top="52" Width="6" Height="96" CornerRadius="3" Opacity="0.7">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                    <GradientStop Offset="0" Color="#8CFFFFFF" />
+                    <GradientStop Offset="0.6" Color="#26FFFFFF" />
+                    <GradientStop Offset="1" Color="#00FFFFFF" />
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+        <Border Canvas.Left="122" Canvas.Top="56" Width="2" Height="86" CornerRadius="1" Background="#29FFFFFF" />
+        <!-- dome reflection -->
+        <Path Data="M 48,52 Q 54,40 72,38" Stroke="#59FFFFFF" StrokeThickness="2.5" StrokeLineCap="Round" />
+        <!-- level marks 25 / 50 / 75 % -->
+        <Border Canvas.Left="112" Canvas.Top="133" Width="8" Height="1" Background="#59FFFFFF" />
+        <Border Canvas.Left="114" Canvas.Top="105" Width="6" Height="1" Background="#40FFFFFF" />
+        <Border Canvas.Left="112" Canvas.Top="77" Width="8" Height="1" Background="#59FFFFFF" />
+
+        <!-- 6. Fixed metal parts: top flange, outlet nipple, leg brackets -->
+        <Border Canvas.Left="64" Canvas.Top="28" Width="40" Height="10" CornerRadius="5"
+                Background="{DynamicResource TkRodH}" BorderBrush="{DynamicResource TkEdge}" BorderThickness="0.8"
+                BoxShadow="{DynamicResource TkShadow}" />
+        <Border Canvas.Left="67" Canvas.Top="29.4" Width="34" Height="1.5" CornerRadius="0.8" Background="#73FFFFFF" />
+        <Ellipse Canvas.Left="67" Canvas.Top="31" Width="4" Height="4" Fill="{DynamicResource TkScrew}"
+                 Stroke="{DynamicResource TkEdge}" StrokeThickness="0.5" />
+        <Ellipse Canvas.Left="97" Canvas.Top="31" Width="4" Height="4" Fill="{DynamicResource TkScrew}"
+                 Stroke="{DynamicResource TkEdge}" StrokeThickness="0.5" />
+        <Border Canvas.Left="90" Canvas.Top="160" Width="12" Height="8" CornerRadius="2"
+                Background="{DynamicResource TkRodV}" BorderBrush="{DynamicResource TkEdge}" BorderThickness="0.6" />
+
+        <Border Canvas.Left="42" Canvas.Top="141" Width="20" Height="9" CornerRadius="3"
+                Background="{DynamicResource TkBase}" BorderBrush="{DynamicResource TkEdge}" BorderThickness="0.8"
+                BoxShadow="{DynamicResource TkShadow}" />
+        <Border Canvas.Left="106" Canvas.Top="141" Width="20" Height="9" CornerRadius="3"
+                Background="{DynamicResource TkBase}" BorderBrush="{DynamicResource TkEdge}" BorderThickness="0.8"
+                BoxShadow="{DynamicResource TkShadow}" />
+        <Border Canvas.Left="44" Canvas.Top="142" Width="16" Height="1.2" CornerRadius="0.6" Background="#59FFFFFF" />
+        <Border Canvas.Left="108" Canvas.Top="142" Width="16" Height="1.2" CornerRadius="0.6" Background="#59FFFFFF" />
+    </Canvas>
+</UserControl>

@@ -9,6 +9,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:glassMorphism="clr-namespace:SukiUI.Controls.GlassMorphism;assembly=SukiUI"
     xmlns:helpers="clr-namespace:SukiUI.Demo.Features.Helpers"
+    xmlns:skeumorphism="clr-namespace:SukiUI.Demo.Features.Helpers.Skeumorphism"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:suki="https://github.com/kikipoulet/SukiUI"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
@@ -173,6 +174,23 @@
                 </suki:SukiSideMenuItem.Icon>
                 <suki:SukiSideMenuItem.PageContent>
                     <helpers:AnimationProfileLab />
+                </suki:SukiSideMenuItem.PageContent>
+            </suki:SukiSideMenuItem>
+
+            <suki:SukiSideMenuItem Classes="Compact" Header="Skeumorphism">
+                <suki:SukiSideMenuItem.Icon>
+                    <PathIcon
+                        Data="{x:Static suki:Icons.ChevronRight}"
+                        Foreground="{DynamicResource SukiLowText}"
+                        Height="13"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Width="13" />
+                </suki:SukiSideMenuItem.Icon>
+                <suki:SukiSideMenuItem.PageContent>
+                    <ScrollViewer>
+                        <skeumorphism:SkeumorphismPage />
+                    </ScrollViewer>
                 </suki:SukiSideMenuItem.PageContent>
             </suki:SukiSideMenuItem>
 

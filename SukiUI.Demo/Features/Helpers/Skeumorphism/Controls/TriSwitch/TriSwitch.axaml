@@ -1,0 +1,76 @@
+<UserControl x:Class="SukiUI.Demo.Features.Helpers.Skeumorphism.Controls.TriSwitch"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:SukiUI.Demo.Features.Helpers.Skeumorphism.Controls"
+             x:DataType="controls:TriSwitch">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://SukiUI.Demo/Features/Helpers/Skeumorphism/Controls/Shared/SkeumoMaterials.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <UserControl.Styles>
+        <Style Selector="TextBlock.PositionLabel">
+            <Setter Property="Foreground" Value="{DynamicResource SukiLowText}" />
+            <Setter Property="FontSize" Value="8" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="LetterSpacing" Value="0.5" />
+            <Setter Property="Width" Value="30" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="IsHitTestVisible" Value="False" />
+        </Style>
+        <Style Selector="TextBlock.PositionLabel.Active">
+            <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+        </Style>
+    </UserControl.Styles>
+
+    <!-- Frame 96 x 48: plate, slot with three detents (x 20 / 48 / 76), labels, wire terminal at (84,46) -->
+    <Canvas Name="Scene" Width="96" Height="48" Background="Transparent" Focusable="True" Cursor="Hand"
+            PointerPressed="Scene_OnPressed" PointerMoved="Scene_OnMoved"
+            PointerReleased="Scene_OnReleased" PointerCaptureLost="Scene_OnCaptureLost"
+            PointerWheelChanged="Scene_OnWheel" KeyDown="Scene_OnKeyDown">
+        <!-- Wire terminal under the plate -->
+        <Border Canvas.Left="79" Canvas.Top="34" Width="10" Height="12" CornerRadius="2,2,3,3"
+                Background="{DynamicResource SkRodV}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.7" IsHitTestVisible="False" />
+
+        <!-- Plate -->
+        <Border Canvas.Left="2" Canvas.Top="2" Width="92" Height="40" CornerRadius="9"
+                Background="{DynamicResource SkBody}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="1"
+                BoxShadow="{DynamicResource SkShadow}" IsHitTestVisible="False" />
+        <Border Canvas.Left="2" Canvas.Top="2" Width="92" Height="40" CornerRadius="9" Background="{StaticResource SkSheen}" IsHitTestVisible="False" />
+        <Border Canvas.Left="8" Canvas.Top="3.5" Width="80" Height="1.6" CornerRadius="0.8" Background="#2EFFFFFF" IsHitTestVisible="False" />
+
+        <!-- Slot dug into the plate, accent fill from OFF to the knob -->
+        <Border Canvas.Left="12" Canvas.Top="9" Width="72" Height="8" CornerRadius="4"
+                Background="{DynamicResource SkRecess}" BoxShadow="{DynamicResource SkRailInset}" IsHitTestVisible="False" />
+        <Border Name="Fill" Canvas.Left="14" Canvas.Top="11" Width="0" Height="4" CornerRadius="2" IsHitTestVisible="False">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
+                    <GradientStop Offset="0" Color="{DynamicResource SukiPrimaryColor75}" />
+                    <GradientStop Offset="1" Color="{DynamicResource SukiPrimaryColor}" />
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+
+        <!-- Labels under each detent -->
+        <TextBlock Name="LeftPositionText" Classes="PositionLabel" Canvas.Left="5" Canvas.Top="26"
+                   Text="{Binding LeftLabel, RelativeSource={RelativeSource AncestorType=controls:TriSwitch}}" />
+        <TextBlock Name="MiddlePositionText" Classes="PositionLabel" Canvas.Left="33" Canvas.Top="26"
+                   Text="{Binding MiddleLabel, RelativeSource={RelativeSource AncestorType=controls:TriSwitch}}" />
+        <TextBlock Name="RightPositionText" Classes="PositionLabel" Canvas.Left="61" Canvas.Top="26"
+                   Text="{Binding RightLabel, RelativeSource={RelativeSource AncestorType=controls:TriSwitch}}" />
+
+        <!-- Knob: small grooved slider cap with an accent index line -->
+        <Border Name="Knob" Canvas.Left="9" Canvas.Top="4" Width="22" Height="18" CornerRadius="5"
+                Background="{DynamicResource SkRodH}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.8"
+                BoxShadow="{DynamicResource SkRaisedShadow}" IsHitTestVisible="False">
+            <Grid>
+                <Border Width="1" Margin="4,4" HorizontalAlignment="Left" Background="{DynamicResource SkGroove}" />
+                <Border Width="1" Margin="4,4" HorizontalAlignment="Right" Background="{DynamicResource SkGroove}" />
+                <Border Name="KnobIndex" Width="2" Margin="0,2" HorizontalAlignment="Center" CornerRadius="1"
+                        Background="{DynamicResource SukiPrimaryColor}" />
+            </Grid>
+        </Border>
+    </Canvas>
+</UserControl>

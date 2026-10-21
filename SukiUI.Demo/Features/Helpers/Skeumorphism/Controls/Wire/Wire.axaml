@@ -1,0 +1,39 @@
+<UserControl x:Class="SukiUI.Demo.Features.Helpers.Skeumorphism.Controls.Wire"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             IsHitTestVisible="False">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://SukiUI.Demo/Features/Helpers/Skeumorphism/Controls/Shared/SkeumoMaterials.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="WrNeutral" Color="#FF262D3A" />
+                    <SolidColorBrush x:Key="WrBlack" Color="#FF14171D" />
+                    <SolidColorBrush x:Key="WrRed" Color="#FFB8352E" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="WrNeutral" Color="#FF8D99B1" />
+                    <SolidColorBrush x:Key="WrBlack" Color="#FF3A3F4A" />
+                    <SolidColorBrush x:Key="WrRed" Color="#FFC9433A" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <!-- The wire is drawn in the coordinates of the host panel: give the control the size of that panel -->
+    <Canvas Name="Root">
+        <!-- Insulation, glossy highlight, then the current pulses (created in code) -->
+        <Path Name="Shadow" Stroke="#40000000" StrokeThickness="6" StrokeLineCap="Round" StrokeJoin="Round">
+            <Path.RenderTransform><TranslateTransform Y="2" /></Path.RenderTransform>
+        </Path>
+        <Path Name="Jacket" StrokeThickness="5" StrokeLineCap="Round" StrokeJoin="Round" />
+        <Path Name="Gloss" Stroke="#4DFFFFFF" StrokeThickness="1.4" StrokeLineCap="Round" StrokeJoin="Round">
+            <Path.RenderTransform><TranslateTransform Y="-1.1" /></Path.RenderTransform>
+        </Path>
+        <!-- Discreet flow: a faint, slowly drifting highlight while current runs -->
+        <Path Name="Flow" Stroke="#FFFFF0C0" StrokeThickness="2.2" StrokeDashArray="2.5,6" StrokeLineCap="Round" StrokeJoin="Round" Opacity="0" />
+        <Canvas Name="Pulses" />
+    </Canvas>
+</UserControl>
