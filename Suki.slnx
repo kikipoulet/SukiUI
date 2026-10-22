@@ -11,13 +11,13 @@
   <Folder Name="/Solution Items/Images/">
     <File Path="Images/OIG.N5o-removebg-preview.png" />
   </Folder>
-  <Project Path="SukiUI.ColorPicker/SukiUI.ColorPicker.csproj" />
-  <Project Path="SukiUI.ConditionalXAML.Tests/SukiUI.ConditionalXAML.Tests.csproj" />
+  <Project Path="SukiUI/SukiUI.csproj" />
+  <Project Path="SukiUI.Motion/SukiUI.Motion.csproj" />
   <Project Path="SukiUI.ConditionalXAML/SukiUI.ConditionalXAML.csproj" />
   <Project Path="SukiUI.DataGrid/SukiUI.DataGrid.csproj" />
-  <Project Path="SukiUI.Demo/SukiUI.Demo.csproj" />
+  <Project Path="SukiUI.ColorPicker/SukiUI.ColorPicker.csproj" />
   <Project Path="SukiUI.Dock/SukiUI.Dock.csproj" />
+  <Project Path="SukiUI.Demo/SukiUI.Demo.csproj" />
   <Project Path="SukiUI.Motion.Tests/SukiUI.Motion.Tests.csproj" />
-  <Project Path="SukiUI.Motion/SukiUI.Motion.csproj" />
-  <Project Path="SukiUI/SukiUI.csproj" />
+  <Project Path="SukiUI.ConditionalXAML.Tests/SukiUI.ConditionalXAML.Tests.csproj" />
 </Solution>
