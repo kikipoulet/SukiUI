@@ -155,6 +155,9 @@ jobs:
             dotnet restore "$project"
           done
 
+      - name: Test ConditionalXAML
+        run: dotnet test SukiUI.ConditionalXAML.Tests -c Release -p:GeneratePackageOnBuild=false
+
       - name: Build
         run: |
           set -euo pipefail

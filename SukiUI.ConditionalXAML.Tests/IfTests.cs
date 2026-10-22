@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.Linq.Dynamic.Core.CustomTypeProviders;
 using Avalonia.Controls;
 using Avalonia.Headless.XUnit;
+using Avalonia.Threading;
 using SukiUI.Helpers.ConditionalXAML;
 using Xunit;
 
@@ -197,6 +198,16 @@ public class IfTests
         Assert.True(view.Control.IsVisible);
         model.Child = new OtherModel { Flag = false };
         model.Notify(null);
+        Assert.False(view.Control.IsVisible);
+    }
+
+    [AvaloniaFact]
+    public void Background_thread_notifications_update_on_the_ui_thread()
+    {
+        var model = new Model { Flag = true };
+        using var view = new AttachedIf(model);
+        Task.Run(() => model.Flag = false).GetAwaiter().GetResult();
+        Dispatcher.UIThread.RunJobs();
         Assert.False(view.Control.IsVisible);
     }
 
