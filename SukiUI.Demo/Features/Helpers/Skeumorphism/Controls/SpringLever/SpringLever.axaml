@@ -1,0 +1,165 @@
+<UserControl x:Class="SukiUI.Demo.Features.Helpers.Skeumorphism.Controls.SpringLever"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:SukiUI.Demo.Features.Helpers.Skeumorphism.Controls"
+             x:DataType="controls:SpringLever">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Dark">
+                    <LinearGradientBrush x:Key="LvBase" StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Offset="0" Color="#FF586278" />
+                        <GradientStop Offset="0.45" Color="#FF3B4558" />
+                        <GradientStop Offset="1" Color="#FF171C25" />
+                    </LinearGradientBrush>
+                    <LinearGradientBrush x:Key="LvRod" StartPoint="0%,0%" EndPoint="100%,0%">
+                        <GradientStop Offset="0" Color="#FF3B4558" />
+                        <GradientStop Offset="0.35" Color="#FFE3E9F4" />
+                        <GradientStop Offset="0.6" Color="#FF8590A6" />
+                        <GradientStop Offset="1" Color="#FF2A3242" />
+                    </LinearGradientBrush>
+                    <RadialGradientBrush x:Key="LvKnob" GradientOrigin="35%,30%">
+                        <GradientStop Offset="0" Color="#FF7C88A3" />
+                        <GradientStop Offset="0.4" Color="#FF3B4558" />
+                        <GradientStop Offset="0.8" Color="#FF222A38" />
+                        <GradientStop Offset="1" Color="#FF141922" />
+                    </RadialGradientBrush>
+                    <RadialGradientBrush x:Key="LvAxle" GradientOrigin="35%,30%">
+                        <GradientStop Offset="0" Color="#FFE3E9F4" />
+                        <GradientStop Offset="0.4" Color="#FF8D99B1" />
+                        <GradientStop Offset="0.75" Color="#FF586278" />
+                        <GradientStop Offset="1" Color="#FF2A3242" />
+                    </RadialGradientBrush>
+                    <SolidColorBrush x:Key="LvEdge" Color="#FF667289" />
+                    <SolidColorBrush x:Key="LvSlot" Color="#FF0B0F15" />
+                    <SolidColorBrush x:Key="LvTrack" Color="#80000000" />
+                    <BoxShadows x:Key="LvShadow">0 3 6 0 #80000000</BoxShadows>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Light">
+                    <LinearGradientBrush x:Key="LvBase" StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Offset="0" Color="#FFFFFFFF" />
+                        <GradientStop Offset="0.45" Color="#FFD9E0EC" />
+                        <GradientStop Offset="1" Color="#FFB0BBCE" />
+                    </LinearGradientBrush>
+                    <LinearGradientBrush x:Key="LvRod" StartPoint="0%,0%" EndPoint="100%,0%">
+                        <GradientStop Offset="0" Color="#FF98A4B9" />
+                        <GradientStop Offset="0.35" Color="#FFFFFFFF" />
+                        <GradientStop Offset="0.6" Color="#FFCBD3E0" />
+                        <GradientStop Offset="1" Color="#FF8D99B1" />
+                    </LinearGradientBrush>
+                    <RadialGradientBrush x:Key="LvKnob" GradientOrigin="35%,30%">
+                        <GradientStop Offset="0" Color="#FFDDE4F0" />
+                        <GradientStop Offset="0.35" Color="#FFB5C0D3" />
+                        <GradientStop Offset="0.8" Color="#FF8793AB" />
+                        <GradientStop Offset="1" Color="#FF65718A" />
+                    </RadialGradientBrush>
+                    <RadialGradientBrush x:Key="LvAxle" GradientOrigin="35%,30%">
+                        <GradientStop Offset="0" Color="#FFFFFFFF" />
+                        <GradientStop Offset="0.4" Color="#FFE3E9F4" />
+                        <GradientStop Offset="0.75" Color="#FFB0BBCE" />
+                        <GradientStop Offset="1" Color="#FF8D99B1" />
+                    </RadialGradientBrush>
+                    <SolidColorBrush x:Key="LvEdge" Color="#FFA3AEC1" />
+                    <SolidColorBrush x:Key="LvSlot" Color="#FF3A465C" />
+                    <SolidColorBrush x:Key="LvTrack" Color="#26405070" />
+                    <BoxShadows x:Key="LvShadow">0 3 6 0 #3D283250</BoxShadows>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <UserControl.Styles>
+        <!-- End labels: inactive = SukiLowText, active = SukiText -->
+        <Style Selector="TextBlock.EndLabel">
+            <Setter Property="Foreground" Value="{DynamicResource SukiLowText}" />
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="FontWeight" Value="DemiBold" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="IsHitTestVisible" Value="False" />
+        </Style>
+        <Style Selector="TextBlock.EndLabel.Active">
+            <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+        </Style>
+    </UserControl.Styles>
+
+    <!-- Scene: mockup frame 110 x 104. Pivot (55,82), arc radius 60, ±35° -->
+    <Canvas Name="Scene" Width="110" Height="104" Background="Transparent" Focusable="True" Cursor="Hand"
+            PointerPressed="Scene_OnPressed" PointerMoved="Scene_OnMoved"
+            PointerReleased="Scene_OnReleased" PointerCaptureLost="Scene_OnCaptureLost"
+            KeyDown="Scene_OnKeyDown" KeyUp="Scene_OnKeyUp">
+
+        <!-- arc track + center notch -->
+        <Path Data="M 20.59,32.85 A 60,60 0 0 1 89.41,32.85" Stroke="{DynamicResource LvTrack}"
+              StrokeThickness="6" StrokeLineCap="Round" IsHitTestVisible="False" />
+        <Border Canvas.Left="54" Canvas.Top="18" Width="2" Height="8" CornerRadius="1"
+                Background="{DynamicResource LvEdge}" IsHitTestVisible="False" />
+        <Path Name="ArcFill" Stroke="{DynamicResource SukiPrimaryColor}" StrokeThickness="3"
+              StrokeLineCap="Round" IsVisible="False" IsHitTestVisible="False" />
+
+        <!-- glow under the knob, proportional to the push -->
+        <Ellipse Name="KnobGlow" Width="50" Height="50" IsVisible="False" IsHitTestVisible="False">
+            <Ellipse.Fill>
+                <RadialGradientBrush>
+                    <GradientStop Offset="0" Color="{DynamicResource SukiPrimaryColor75}" />
+                    <GradientStop Offset="1" Color="Transparent" />
+                </RadialGradientBrush>
+            </Ellipse.Fill>
+        </Ellipse>
+
+        <!-- lever: rod + knob, rotates around the pivot -->
+        <Grid Name="Lever" Canvas.Left="42" Canvas.Top="12" Width="26" Height="70"
+              RenderTransformOrigin="50%,100%" IsHitTestVisible="False">
+            <Grid.RenderTransform>
+                <RotateTransform Angle="0" />
+            </Grid.RenderTransform>
+            <Border Width="8" Height="58" Margin="0,0,0,8" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                    CornerRadius="4" Background="{DynamicResource LvRod}" BorderBrush="{DynamicResource LvEdge}"
+                    BorderThickness="0.6" />
+            <Grid Width="26" Height="26" VerticalAlignment="Top">
+                <Border CornerRadius="13" Background="{DynamicResource LvKnob}" BorderBrush="{DynamicResource LvEdge}"
+                        BorderThickness="1" BoxShadow="0 3 6 0 #66000000" />
+                <Ellipse Width="8" Height="3.5" Margin="4,3,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"
+                         Fill="#80FFFFFF" />
+            </Grid>
+        </Grid>
+
+        <!-- pivot boss: half-cylinder the rod comes out of -->
+        <Border Canvas.Left="40" Canvas.Top="66" Width="30" Height="22" CornerRadius="15,15,3,3"
+                Background="{DynamicResource LvBase}" BorderBrush="{DynamicResource LvEdge}" BorderThickness="0.8"
+                BoxShadow="{DynamicResource LvShadow}" IsHitTestVisible="False" />
+        <Border Canvas.Left="45" Canvas.Top="67.5" Width="20" Height="1.6" CornerRadius="0.8"
+                Background="#59FFFFFF" IsHitTestVisible="False" />
+        <Ellipse Canvas.Left="50.5" Canvas.Top="73.5" Width="9" Height="9" Fill="{DynamicResource LvAxle}"
+                 Stroke="{DynamicResource LvEdge}" StrokeThickness="0.6" IsHitTestVisible="False" />
+
+        <!-- base plate: solid horizontal block, screwed -->
+        <Border Canvas.Left="17" Canvas.Top="86" Width="76" Height="16" CornerRadius="6"
+                Background="{DynamicResource LvBase}" BorderBrush="{DynamicResource LvEdge}" BorderThickness="1"
+                BoxShadow="{DynamicResource LvShadow}" IsHitTestVisible="False" />
+        <Border Canvas.Left="17" Canvas.Top="86" Width="76" Height="16" CornerRadius="6" IsHitTestVisible="False">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                    <GradientStop Offset="0" Color="#66FFFFFF" />
+                    <GradientStop Offset="0.12" Color="#00FFFFFF" />
+                    <GradientStop Offset="0.85" Color="#00000000" />
+                    <GradientStop Offset="1" Color="#33000000" />
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+        <Border Canvas.Left="22" Canvas.Top="87.5" Width="66" Height="1.6" CornerRadius="0.8"
+                Background="#59FFFFFF" IsHitTestVisible="False" />
+        <Ellipse Canvas.Left="23" Canvas.Top="92" Width="4.4" Height="4.4" Fill="{DynamicResource LvAxle}"
+                 Stroke="{DynamicResource LvEdge}" StrokeThickness="0.5" IsHitTestVisible="False" />
+        <Border Canvas.Left="22.4" Canvas.Top="93.5" Width="5.6" Height="1.2" Background="{DynamicResource LvSlot}"
+                RenderTransform="rotate(25deg)" IsHitTestVisible="False" />
+        <Ellipse Canvas.Left="82.6" Canvas.Top="92" Width="4.4" Height="4.4" Fill="{DynamicResource LvAxle}"
+                 Stroke="{DynamicResource LvEdge}" StrokeThickness="0.5" IsHitTestVisible="False" />
+        <Border Canvas.Left="82" Canvas.Top="93.5" Width="5.6" Height="1.2" Background="{DynamicResource LvSlot}"
+                RenderTransform="rotate(-20deg)" IsHitTestVisible="False" />
+
+        <!-- labels above the arc ends -->
+        <TextBlock Name="LeftEndLabel" Classes="EndLabel" Canvas.Left="0" Canvas.Top="4" Width="41"
+                   Text="{Binding LeftLabel, RelativeSource={RelativeSource AncestorType=controls:SpringLever}}" />
+        <TextBlock Name="RightEndLabel" Classes="EndLabel" Canvas.Left="69" Canvas.Top="4" Width="41"
+                   Text="{Binding RightLabel, RelativeSource={RelativeSource AncestorType=controls:SpringLever}}" />
+    </Canvas>
+</UserControl>

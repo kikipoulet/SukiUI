@@ -1,0 +1,78 @@
+<UserControl x:Class="SukiUI.Demo.Features.Helpers.Skeumorphism.Controls.Lamp"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://SukiUI.Demo/Features/Helpers/Skeumorphism/Controls/Shared/SkeumoMaterials.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <!-- Frame 190 x 220: bulb (center 95,85) on a screw socket and a holder. Everything, the light spread included,
+         stays inside the frame, so nothing is ever clipped. Wire terminal: right end of the foot (136,210) -->
+    <Canvas Width="190" Height="220" IsHitTestVisible="False">
+      <Canvas Width="150" Height="200">
+        <Canvas.RenderTransform><TranslateTransform X="20" Y="21" /></Canvas.RenderTransform>
+        <!-- 1. Light spread on the card: real incandescent light, centered on the bulb and fully faded
+             before the edge of the card (so it is never clipped) -->
+        <Ellipse Name="Spread" Canvas.Left="-10" Canvas.Top="-21" Width="170" Height="170" Opacity="0">
+            <Ellipse.Fill>
+                <RadialGradientBrush>
+                    <GradientStop Offset="0" Color="#FFFFE7B8" />
+                    <GradientStop Offset="0.25" Color="#B3FFC877" />
+                    <GradientStop Offset="0.55" Color="#40FFB050" />
+                    <GradientStop Offset="1" Color="#00FFB050" />
+                </RadialGradientBrush>
+            </Ellipse.Fill>
+        </Ellipse>
+
+        <!-- Holder: stem and foot -->
+        <Border Canvas.Left="70" Canvas.Top="150" Width="10" Height="34"
+                Background="{DynamicResource SkRodV}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.5,0" />
+        <Border Canvas.Left="32" Canvas.Top="182" Width="86" Height="14" CornerRadius="7"
+                Background="{DynamicResource SkBody}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="1"
+                BoxShadow="{DynamicResource SkShadow}" />
+        <Border Canvas.Left="38" Canvas.Top="183.4" Width="74" Height="1.6" CornerRadius="0.8" Background="#59FFFFFF" />
+
+        <!-- 3. Bulb glass: back + inner glow (heat) -->
+        <Path Name="BulbBack" Data="M 57,114 C 57,100 35,92 35,64 A 40,40 0 1 1 115,64 C 115,92 93,100 93,114 Z"
+              Fill="{DynamicResource SkGlassBack}" />
+        <Path Name="BulbGlow" Data="M 57,114 C 57,100 35,92 35,64 A 40,40 0 1 1 115,64 C 115,92 93,100 93,114 Z" Opacity="0">
+            <Path.Fill>
+                <RadialGradientBrush Center="50%,45%" GradientOrigin="50%,45%">
+                    <GradientStop Offset="0" Color="#FFFFFBEF" />
+                    <GradientStop Offset="0.3" Color="#FFFFE2A6" />
+                    <GradientStop Offset="1" Color="#D9FFB35C" />
+                </RadialGradientBrush>
+            </Path.Fill>
+        </Path>
+
+        <!-- 4. Filament: support wires, cold wire, orange heat, white-hot core -->
+        <Path Data="M 64,114 L 64,90 L 62,70 M 86,114 L 86,90 L 88,70 M 75,114 L 75,86"
+              Stroke="{DynamicResource SkEdge}" StrokeThickness="1.1" StrokeLineCap="Round" />
+        <Path Name="FilamentCold" Data="M 62,70 L 65,63 L 68,70 L 71,63 L 74,70 L 77,63 L 80,70 L 83,63 L 86,70 L 88,70"
+              Stroke="{DynamicResource SkTick}" StrokeThickness="1.3" StrokeJoin="Round" StrokeLineCap="Round" />
+        <Path Name="FilamentHeat" Data="M 62,70 L 65,63 L 68,70 L 71,63 L 74,70 L 77,63 L 80,70 L 83,63 L 86,70 L 88,70"
+              Stroke="#FFFF8C3A" StrokeThickness="1.8" StrokeJoin="Round" StrokeLineCap="Round" Opacity="0" />
+        <Path Name="FilamentCore" Data="M 62,70 L 65,63 L 68,70 L 71,63 L 74,70 L 77,63 L 80,70 L 83,63 L 86,70 L 88,70"
+              Stroke="#FFFFF6DE" StrokeThickness="0.9" StrokeJoin="Round" StrokeLineCap="Round" Opacity="0" />
+
+        <!-- 5. Glass walls and reflections -->
+        <Path Data="M 57,114 C 57,100 35,92 35,64 A 40,40 0 1 1 115,64 C 115,92 93,100 93,114 Z"
+              Stroke="{DynamicResource SkGlassRim}" StrokeThickness="1.6" />
+        <Path Data="M 46,58 A 30,30 0 0 1 70,33" Stroke="#66FFFFFF" StrokeThickness="3" StrokeLineCap="Round" />
+        <Path Data="M 104,72 A 30,30 0 0 1 98,86" Stroke="#29FFFFFF" StrokeThickness="2" StrokeLineCap="Round" />
+
+        <!-- 6. Screw socket: threads, insulator, contact -->
+        <Border Canvas.Left="55" Canvas.Top="112" Width="40" Height="30" CornerRadius="3,3,6,6"
+                Background="{DynamicResource SkRodV}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.8"
+                BoxShadow="{DynamicResource SkShadow}" />
+        <Path Data="M 56,118 L 94,115 M 56,124 L 94,121 M 56,130 L 94,127 M 56,136 L 94,133"
+              Stroke="{DynamicResource SkGroove}" StrokeThickness="1.2" />
+        <Border Canvas.Left="62" Canvas.Top="141" Width="26" Height="6" CornerRadius="0,0,4,4" Background="{DynamicResource SkRecess}" />
+        <Border Canvas.Left="70" Canvas.Top="146" Width="10" Height="5" CornerRadius="0,0,3,3"
+                Background="{DynamicResource SkAxle}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.5" />
+      </Canvas>
+    </Canvas>
+</UserControl>

@@ -49,13 +49,30 @@ namespace SukiUI.Motion
 
         public bool Running => _subscription is not null;
 
+        /// <summary>Starts (or restarts) the choreography. Restarting a running one
+        /// preempts it in place: its subscription is released first, then members resume
+        /// from their live pose (and spring velocity) — never two subscriptions at once.</summary>
         public void Start(Visual owner)
         {
+            Stop();
             foreach (var member in _members)
                 member.PrePose();    // the Froms: pre-posed only on idle channels
             _preamble?.Invoke();     // the real Show(): the poses are already written
             foreach (var member in _members)
                 member.Run();        // forced preemption, spring velocity carry, pose capture
+
+            if (TopLevel.GetTopLevel(owner) is null)
+            {
+                // Detached: no frame will ever run. Land every member on its final pose and
+                // settle now — skipping the settle would leak whatever it releases (a toast
+                // never removed, a popup never hidden). Members complete in order, so
+                // derived writes still observe their finished sources.
+                foreach (var member in _members)
+                    member.Complete();
+                Settle();
+                return;
+            }
+
             _subscription = SukiTicker.Subscribe(owner, OnFrame);
         }
 
@@ -64,8 +81,14 @@ namespace SukiUI.Motion
         /// action does NOT run.</summary>
         public void Stop()
         {
-            _subscription?.Dispose();
+            if (_subscription is null)
+                return;
+            _subscription.Dispose();
             _subscription = null;
+            // Frozen, not released: the next program on each channel may carry pose and
+            // velocity, but nothing blocks it any more (nobody advances these members).
+            foreach (var member in _members)
+                member.Channel?.Freeze(member);
         }
 
         private void OnFrame(TimeSpan now)
@@ -75,6 +98,10 @@ namespace SukiUI.Motion
             {
                 if (member.Done)
                     continue;
+                // Taken over by another program on the same channel: finished as far as
+                // this choreography is concerned — the new owner is its only writer.
+                if (member.Channel is { } channel && !channel.Owns(member))
+                    continue;
                 member.Advance(now);
                 if (!member.Done)
                     all = false;
@@ -83,6 +110,11 @@ namespace SukiUI.Motion
                 return;
 
             Stop();
+            Settle();
+        }
+
+        private void Settle()
+        {
             // Settled: release every channel — idle again, a later From pre-poses it.
             foreach (var member in _members)
                 member.Channel?.Release(member);
@@ -117,6 +149,12 @@ namespace SukiUI.Motion
         }
 
         public override void Start() => Done = false;
+
+        public override void Complete()
+        {
+            Channel!.Write(_value()); // sources completed first: their final derived value
+            Done = true;
+        }
 
         public override bool Advance(TimeSpan now)
         {
@@ -204,6 +242,13 @@ namespace SukiUI.Motion
             _pending = false;
         }
 
+        /// <summary>The cascade's end state is the items at their normal pose.</summary>
+        public override void Complete()
+        {
+            Reset();
+            Done = true;
+        }
+
         public override bool Advance(TimeSpan now)
         {
             if (_pending)
@@ -263,14 +308,7 @@ namespace SukiUI.Motion
         private static void BlurItem(Control item, double radius)
         {
             if (radius >= 0.5)
-            {
-                if (item.Effect is not BlurEffect blur)
-                {
-                    blur = new BlurEffect();
-                    item.Effect = blur;
-                }
-                blur.Radius = radius;
-            }
+                OwnedEffects.Blur(item).Radius = radius;
             else if (item.Effect is BlurEffect)
                 item.Effect = null;
         }

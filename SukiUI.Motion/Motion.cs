@@ -33,6 +33,7 @@ namespace SukiUI.Motion
         private readonly List<Action> _disposeHooks = new();
         private PoseProgram? _detached;
         private bool _baseWired;
+        private bool _disposed;
 
         public Mover(InputElement element) => _element = element;
 
@@ -162,9 +163,12 @@ namespace SukiUI.Motion
         }
 
         /// <summary>Unwires everything, runs the dispose hooks and rests the channel at its
-        /// detach pose — the control stays functional, just unanimated.</summary>
+        /// detach pose — the control stays functional, just unanimated. Idempotent.</summary>
         public void Dispose()
         {
+            if (_disposed)
+                return;
+            _disposed = true;
             foreach (var trigger in _triggers)
                 trigger.Subscription?.Dispose();
             _triggers.Clear();

@@ -34,6 +34,7 @@ namespace SukiUI.Motion
         private ItemsPresenter? _itemsPresenter;
         private Choreography? _current;
         private Choreography? _pending;   // parked while the stage does not resolve yet
+        private bool _pendingHostOpen;    // the host intent the parked choreography was played for
         private bool _selfClosing;        // our own settle flip — not an abnormal close
 
         internal PopupHandle(
@@ -119,9 +120,11 @@ namespace SukiUI.Motion
                 // still before the first render of the open popup.
                 StopCurrent();
                 _pending = choreography;
+                _pendingHostOpen = _isHostOpen();
                 return;
             }
             StopCurrent();
+            _pending = null; // superseded: a parked one must never replay later
             _current = choreography;
             choreography.Start(TickOwner);
         }
@@ -253,6 +256,11 @@ namespace SukiUI.Motion
             if (_root is null || _pending is not { } choreography)
                 return;
             _pending = null;
+            // The host changed its mind while the stage was missing (open then closed
+            // before the template resolved): the parked transition is obsolete.
+            if (_isHostOpen() != _pendingHostOpen)
+                return;
+            StopCurrent();
             _current = choreography;
             choreography.Start(TickOwner);
         }

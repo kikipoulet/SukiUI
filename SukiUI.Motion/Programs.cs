@@ -34,6 +34,12 @@ namespace SukiUI.Motion
         /// <summary>Advance to <paramref name="now"/> and write the pose; false when finished.</summary>
         public abstract bool Advance(TimeSpan now);
 
+        /// <summary>Jumps to the end state after <see cref="Start"/>: writes the final pose
+        /// and sets <see cref="Done"/> — used when no frame can ever run (a choreography
+        /// started on a detached element). Custom program types override it to write their
+        /// final pose; the default only marks the program done.</summary>
+        public virtual void Complete() => Done = true;
+
         /// <summary>
         /// Starts the program on its channel at choreography start: forced preemption with
         /// spring velocity carry through <see cref="Channel.Run(Program)"/>; channel-less
@@ -209,6 +215,12 @@ namespace SukiUI.Motion
             return false;
         }
 
+        public override void Complete()
+        {
+            Channel!.Write(_toValue);
+            Done = true;
+        }
+
         private double Progress(TimeSpan now) =>
             _durationValue <= TimeSpan.Zero ? 1.0
             : Math.Min((now - _start).TotalMilliseconds / _durationValue.TotalMilliseconds, 1.0);
@@ -217,9 +229,7 @@ namespace SukiUI.Motion
 
         internal Func<double> ToFactory => _to;
         internal Func<TimeSpan> DurationFactory => _duration;
-        // Chain steps bypass Start: the factory resolves on access. Wrapping a fixed
-        // instance (the press) makes this a constant — no allocation, no drift.
-        internal Easing EasingValue => _easing();
+        internal Func<Easing> EasingFactory => _easing;
     }
 
     /// <summary>
@@ -279,6 +289,9 @@ namespace SukiUI.Motion
         public override void Start()
         {
             _springValue = _spring();
+            if (!_springValue.IsValid)
+                throw new InvalidOperationException(
+                    "SpringTrajectory: default(Spring) has no stiffness or damping and would never settle — build it with new Spring(omega, decay).");
             _x = Channel!.ClampPose(Channel.Value);
             _v = _seedV ?? 0.0;
             _seedV = null;
@@ -305,6 +318,14 @@ namespace SukiUI.Motion
             }
 
             return true;
+        }
+
+        public override void Complete()
+        {
+            _x = _targetValue;
+            _v = 0.0;
+            Channel!.Write(_x);
+            Done = true;
         }
 
         /// <summary>The resting point moves without a snap — pose and velocity are kept.</summary>
@@ -334,6 +355,7 @@ namespace SukiUI.Motion
         private SpringTrajectory? _parked;
         private double _from, _to;
         private TimeSpan _duration, _stepStart;
+        private Easing? _easing; // the current step's easing, resolved at its start
         private int _index;
 
         internal Chain(TimedTrajectory first, bool mustFinishFirst)
@@ -364,7 +386,7 @@ namespace SukiUI.Motion
             double t = _duration <= TimeSpan.Zero
                 ? 1.0
                 : Math.Min((now - _stepStart).TotalMilliseconds / _duration.TotalMilliseconds, 1.0);
-            Channel!.Write(Integrator.Lerp(_from, _to, _steps[_index].EasingValue.Ease(t)));
+            Channel!.Write(Integrator.Lerp(_from, _to, _easing!.Ease(t)));
             if (t < 1.0)
                 return true;
 
@@ -388,6 +410,21 @@ namespace SukiUI.Motion
             return false;
         }
 
+        public override void Complete()
+        {
+            if (_parked is { } release)
+            {
+                // The memorized release is where the gesture ends.
+                release.Start();
+                release.Complete();
+            }
+            else
+            {
+                Channel!.Write(_steps[^1].ToFactory()); // hold at the bottom
+            }
+            Done = true;
+        }
+
         /// <summary>Called by the channel when a spring is offered while this chain runs.</summary>
         internal void Park(SpringTrajectory release)
         {
@@ -404,6 +441,9 @@ namespace SukiUI.Motion
             _to = step.ToFactory();
             Channel!.Track(_to);
             _duration = step.DurationFactory();
+            // Per-step snapshot, like TimedTrajectory.Start: an easing recipe runs once per
+            // step — never per frame (no allocation, no curve change mid-flight).
+            _easing = step.EasingFactory();
             _stepStart = now;
         }
     }
