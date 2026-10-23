@@ -32,47 +32,60 @@
                 </ScrollViewer>
             </suki:GlassCard>
         
-       
-        <StackPanel Spacing="0">
-            <suki:GlassCard Width="400" Padding="17" Margin="0,15,0,17"  DockPanel.Dock="Top" HorizontalAlignment="Right">
-                <Panel >
-                    <StackPanel Spacing="18" Margin="8,0,0,5" >
-                        <TextBlock VerticalAlignment="Center" FontSize="16" Margin="0,8,0,0" FontWeight="DemiBold" Text="Child Dialog"></TextBlock>
-                        <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Foreground="{DynamicResource SukiLowText}" Text="Show children objects in a SukiUI dialog instead of a new window. Useful for applications running in a window-less environment."></TextBlock>
+       <ScrollViewer>
+            <StackPanel Spacing="0">
+                <suki:GlassCard Width="400" Padding="17" Margin="0,15,0,17" HorizontalAlignment="Right">
+                    <StackPanel Spacing="18" Margin="8,0,0,5">
+                        <TextBlock FontSize="16" Margin="0,8,0,0" FontWeight="DemiBold" Text="Combo Values"></TextBlock>
+                        <TextBlock TextWrapping="Wrap" Foreground="{DynamicResource SukiLowText}" Text="The &quot;List of Values&quot; options come from the ViewModel through IPropertyGridOptionSource. Shuffle reorders the existing collection in place; Replace swaps in a brand new one."></TextBlock>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Button Classes="Flat" Content="Shuffle list" Command="{Binding Form.ShuffleStatusOptionsCommand}" />
+                            <Button Content="Replace list" Command="{Binding Form.ReplaceStatusOptionsCommand}" />
+                        </StackPanel>
+                    </StackPanel>
+                </suki:GlassCard>
 
-                    </StackPanel>
-                    <ToggleSwitch HorizontalAlignment="Right" VerticalAlignment="Top"
-                                  IsChecked="True"
-                                  IsCheckedChanged="ToggleButton_OnIsCheckedChanged" />
-                </Panel>
+                <suki:GlassCard Width="400" Padding="17" Margin="0,0,0,17" DockPanel.Dock="Top" HorizontalAlignment="Right">
+                    <Panel >
+                        <StackPanel Spacing="18" Margin="8,0,0,5" >
+                            <TextBlock VerticalAlignment="Center" FontSize="16" Margin="0,8,0,0" FontWeight="DemiBold" Text="Child Dialog"></TextBlock>
+                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Foreground="{DynamicResource SukiLowText}" Text="Show children objects in a SukiUI dialog instead of a new window. Useful for applications running in a window-less environment."></TextBlock>
+
+                        </StackPanel>
+                        <ToggleSwitch HorizontalAlignment="Right" VerticalAlignment="Top"
+                                      IsChecked="True"
+                                      IsCheckedChanged="ToggleButton_OnIsCheckedChanged" />
+                    </Panel>
+                </suki:GlassCard>
+            <suki:GlassCard Width="400">
+                <suki:GroupBox Header="Form Output">
+                    <ScrollViewer>
+                        <ScrollViewer.Styles>
+                            <Style Selector="TextBox">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </Style>
+                        </ScrollViewer.Styles>
+                        <StackPanel DataContext="{Binding Form}" Orientation="Vertical">
+                            <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="NullableName:  " Text="{Binding NullableName}" />
+                            <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="NullableDescription:  " Text="{Binding NullableDescription}" />
+                            <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="NullableBoolean:  " Text="{Binding NullableBoolean}" />
+                            <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="NullableDateTime:  " Text="{Binding NullableDateTime}" />
+                            <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="NullableInteger:  " Text="{Binding NullableInteger}" />
+                            <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="NullableLong:  " Text="{Binding NullableLong}" />
+                            <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="NullableDecimal:  " Text="{Binding NullableDecimal}" />
+                            <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="NullableFloat:  " Text="{Binding NullableFloat}" />
+                            <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="NullableDouble:  " Text="{Binding NullableDouble}" />
+                            <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="Name:  " Text="{Binding Name}" />
+                            <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="Integer:  " Text="{Binding Integer}" />
+                            <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="Decimal:  " Text="{Binding Decimal}" />
+                            <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="Boolean:  " Text="{Binding Boolean}" />
+                            <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="DateTime:  " Text="{Binding DateTime}" />
+                            <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="Status:  " Text="{Binding Status}" />
+                        </StackPanel>
+                    </ScrollViewer>
+                </suki:GroupBox>
             </suki:GlassCard>
-        <suki:GlassCard Width="400">
-            <suki:GroupBox Header="Form Output">
-                <ScrollViewer>
-                    <ScrollViewer.Styles>
-                        <Style Selector="TextBox">
-                            <Setter Property="IsEnabled" Value="False" />
-                        </Style>
-                    </ScrollViewer.Styles>
-                    <StackPanel DataContext="{Binding Form}" Orientation="Vertical">
-                        <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="NullableName:  " Text="{Binding NullableName}" />
-                        <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="NullableDescription:  " Text="{Binding NullableDescription}" />
-                        <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="NullableBoolean:  " Text="{Binding NullableBoolean}" />
-                        <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="NullableDateTime:  " Text="{Binding NullableDateTime}" />
-                        <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="NullableInteger:  " Text="{Binding NullableInteger}" />
-                        <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="NullableLong:  " Text="{Binding NullableLong}" />
-                        <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="NullableDecimal:  " Text="{Binding NullableDecimal}" />
-                        <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="NullableFloat:  " Text="{Binding NullableFloat}" />
-                        <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="NullableDouble:  " Text="{Binding NullableDouble}" />
-                        <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="Name:  " Text="{Binding Name}" />
-                        <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="Integer:  " Text="{Binding Integer}" />
-                        <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="Decimal:  " Text="{Binding Decimal}" />
-                        <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="Boolean:  " Text="{Binding Boolean}" />
-                        <TextBox Classes="NoShadow" suki:TextBoxExtensions.Prefix="DateTime:  " Text="{Binding DateTime}" />
-                    </StackPanel>
-                </ScrollViewer>
-            </suki:GroupBox>
-        </suki:GlassCard>
-            </StackPanel>
+                </StackPanel>
+         </ScrollViewer>
     </WrapPanel>
 </UserControl>

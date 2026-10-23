@@ -64,15 +64,25 @@ namespace SukiUI.Controls
             IsReadOnly = !propertyInfo.CanWrite;
             _propertyName = propertyInfo.Name;
             _value = ViewModelGetter();
-            Viewmodel.PropertyChanged += OnPropertyChanged;
+            Viewmodel.PropertyChanged += ViewModelPropertyChanged;
         }
 
-        private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        private void ViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (string.IsNullOrEmpty(e.PropertyName) || _propertyName == e.PropertyName)
             {
                 Value = ViewModelGetter();
             }
+
+            OnViewModelPropertyChanged(e.PropertyName);
+        }
+
+        /// <summary>
+        /// Called for every <see cref="INotifyPropertyChanged.PropertyChanged"/> notification raised by the ViewModel,
+        /// so derived editors can react to additional properties without adding their own event handler.
+        /// </summary>
+        protected virtual void OnViewModelPropertyChanged(string? propertyName)
+        {
         }
 
         protected T? ViewModelGetter()
@@ -88,9 +98,9 @@ namespace SukiUI.Controls
             }
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
-            Viewmodel.PropertyChanged -= OnPropertyChanged;
+            Viewmodel.PropertyChanged -= ViewModelPropertyChanged;
         }
     }
 }
