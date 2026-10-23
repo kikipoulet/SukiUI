@@ -13,6 +13,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Test ConditionalXAML
+        run: dotnet test SukiUI.ConditionalXAML.Tests -c Release
+
       - name: Build Native
         run: dotnet publish SukiUI.Demo/SukiUI.Demo.csproj -c Release -r win-x64 -o bin/
 
