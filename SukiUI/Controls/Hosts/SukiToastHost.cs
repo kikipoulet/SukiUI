@@ -146,16 +146,21 @@ namespace SukiUI.Controls
             if (Manager.IsDismissed(toast)) return;
             if (toast is SukiToast suki)
             {
-                _toastMotion.PlayDismiss(suki, () =>
-                {
-                    Items.Remove(toast);
-                    ToastPool.Return(suki);
-                });
+                Dismiss(suki);
             }
             else
             {
                 Items.Remove(toast); // a custom ISukiToast: no motion, removed immediately
             }
+        }
+
+        // Removed only once the departure went to the end — never before.
+        private async void Dismiss(SukiToast toast)
+        {
+            if (!await _toastMotion.PlayDismiss(toast))
+                return;
+            Items.Remove(toast);
+            ToastPool.Return(toast);
         }
 
         static SukiToastHost()

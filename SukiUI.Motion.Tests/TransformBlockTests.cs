@@ -4,7 +4,7 @@ using Avalonia.Media;
 
 namespace SukiUI.Motion.Tests;
 
-/// <summary>The shared render-transform block (Channels.cs, <c>Transforms</c>).</summary>
+/// <summary>The shared render-transform block (Rendering.cs, <c>Transforms</c>).</summary>
 public class TransformBlockTests
 {
     // An external RenderTransform replacement (style, theme, user code) makes the
@@ -17,19 +17,19 @@ public class TransformBlockTests
     [InlineData("SkewX")]
     [InlineData("SkewY")]
     [InlineData("Scale")]
-    public void Channel_keeps_working_after_RenderTransform_is_replaced_externally(string channelName)
+    public void Transform_property_keeps_working_after_RenderTransform_is_replaced_externally(string channelName)
     {
         var border = new Border { Width = 100, Height = 100 };
         using var h = new MotionHarness(border);
-        var channel = ChannelByName(Motion.For(border), channelName);
+        var property = PropertyByName(channelName);
 
-        channel.Write(10);
+        property.Write(border, 10);
         var before = border.RenderTransform!.Value;
 
         border.RenderTransform = new ScaleTransform(1, 1); // someone else takes the slot
-        channel.Write(10);
+        property.Write(border, 10);
 
-        Assert.Equal(10, channel.Value);
+        Assert.Equal(10, property.Read(border));
         Assert.Equal(before, border.RenderTransform!.Value);
     }
 
@@ -39,27 +39,25 @@ public class TransformBlockTests
     {
         var border = new Border { Width = 100, Height = 100 };
         using var h = new MotionHarness(border);
-        var s = Motion.For(border);
-
-        s.TranslateX.Write(15);
-        s.Rotate.Write(30);
-        s.Scale.Write(1.2);
+        SukiMotion.TranslateXProperty.Write(border, 15);
+        SukiMotion.RotateProperty.Write(border, 30);
+        SukiMotion.ScaleProperty.Write(border, 1.2);
         var before = border.RenderTransform!.Value;
 
         border.RenderTransform = null;
-        s.Scale.Write(1.2); // any channel write re-attaches the block
+        SukiMotion.ScaleProperty.Write(border, 1.2); // any transform write re-attaches the block
 
         Assert.Equal(before, border.RenderTransform!.Value);
     }
 
-    private static Channel ChannelByName(Surface s, string name) => name switch
+    private static MotionProperty<double> PropertyByName(string name) => name switch
     {
-        "TranslateX" => s.TranslateX,
-        "TranslateY" => s.TranslateY,
-        "Rotate" => s.Rotate,
-        "SkewX" => s.SkewX,
-        "SkewY" => s.SkewY,
-        "Scale" => s.Scale,
+        "TranslateX" => SukiMotion.TranslateXProperty,
+        "TranslateY" => SukiMotion.TranslateYProperty,
+        "Rotate" => SukiMotion.RotateProperty,
+        "SkewX" => SukiMotion.SkewXProperty,
+        "SkewY" => SukiMotion.SkewYProperty,
+        "Scale" => SukiMotion.ScaleProperty,
         _ => throw new ArgumentOutOfRangeException(nameof(name)),
     };
 }

@@ -6,10 +6,10 @@ using Avalonia.Styling;
 
 namespace SukiUI.Motion.Tests;
 
-/// <summary>The single Visual.Effect slot shared by the blur and shadow channels.</summary>
+/// <summary>The single Visual.Effect slot shared by the blur and shadow properties.</summary>
 public class EffectSlotTests
 {
-    // The blur and shadow channels ADOPT the effect already in the slot and mutate it
+    // The blur and shadow properties ADOPT the effect already in the slot and mutate it
     // in place. An effect coming from a style setter is one instance shared by every control
     // the style matches, so animating one control's shadow changes them all.
     [AvaloniaFact]
@@ -19,8 +19,8 @@ public class EffectSlotTests
         using var _ = h;
         Assert.Same(first.Effect, second.Effect); // precondition: the setter value is shared
 
-        Motion.For(first).ShadowOpacity.Write(0.9);
-        Motion.For(first).ShadowBlur.Write(30);
+        SukiMotion.ShadowOpacityProperty.Write(first, 0.9);
+        SukiMotion.ShadowBlurProperty.Write(first, 30);
 
         var other = Assert.IsType<DropShadowEffect>(second.Effect);
         Assert.Equal(0.5, other.Opacity);
@@ -34,7 +34,7 @@ public class EffectSlotTests
         using var _ = h;
         Assert.Same(first.Effect, second.Effect); // precondition: the setter value is shared
 
-        Motion.For(first).Blur.Write(12);
+        SukiMotion.BlurProperty.Write(first, 12);
 
         Assert.Equal(4, Assert.IsType<BlurEffect>(second.Effect).Radius);
     }

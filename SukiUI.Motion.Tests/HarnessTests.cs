@@ -9,7 +9,7 @@ public class HarnessTests
     // A subscriber must write a visual property to keep RAF on the compositor cadence:
     // Avalonia 12 re-arms a RAF requested from inside a frame either on composition-batch
     // completion (something changed) or on a real-time 16 ms DispatcherTimer (nothing
-    // changed) — the latter does not follow the virtual clock. Every engine channel writes.
+    // changed) — the latter does not follow the virtual clock. Every animation writes.
     [AvaloniaFact]
     public void Ticker_runs_one_callback_per_pumped_frame_on_virtual_time()
     {
@@ -33,14 +33,14 @@ public class HarnessTests
     {
         var border = new Border();
         using var h = new MotionHarness(border);
-        var scale = Motion.For(border).Scale;
-
-        scale.Offer(scale.To(2.0).Over(TimeSpan.FromMilliseconds(160)));
+        _ = Motion.Of(border)
+            .Animate(SukiMotion.ScaleProperty).To(2.0).Over(TimeSpan.FromMilliseconds(160))
+            .PlayAsync();
         h.Frames(5);
-        Assert.InRange(scale.Value, 1.3, 1.7); // halfway, linear easing
+        Assert.InRange(SukiMotion.ScaleProperty.Read(border), 1.3, 1.7); // halfway, linear easing
 
         h.Frames(10);
-        Assert.Equal(2.0, scale.Value);
+        Assert.Equal(2.0, SukiMotion.ScaleProperty.Read(border));
     }
 }
 
@@ -58,7 +58,6 @@ public class HarnessRealTimeTests
     {
         var border = new Border();
         using var h = new MotionHarness(border);
-        var scale = Motion.For(border).Scale;
         bool stalled = false;
         using var stall = SukiTicker.Subscribe(border, _ =>
         {
@@ -68,9 +67,11 @@ public class HarnessRealTimeTests
             Thread.Sleep(40); // > 1/60 s of real time: the render timer is due inside this frame
         });
 
-        scale.Offer(scale.To(2.0).Over(TimeSpan.FromMilliseconds(160)));
+        _ = Motion.Of(border)
+            .Animate(SukiMotion.ScaleProperty).To(2.0).Over(TimeSpan.FromMilliseconds(160))
+            .PlayAsync();
         h.Frames(20);
 
-        Assert.Equal(2.0, scale.Value);
+        Assert.Equal(2.0, SukiMotion.ScaleProperty.Read(border));
     }
 }

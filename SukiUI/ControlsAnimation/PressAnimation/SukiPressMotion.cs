@@ -1,4 +1,4 @@
-using System.Diagnostics;
+using System;
 using Avalonia;
 using Avalonia.Animation.Easings;
 using Avalonia.Input;
@@ -6,27 +6,25 @@ using SukiUI.Motion;
 
 namespace SukiUI.ControlsAnimation
 {
-    // Inside this namespace, the simple name "Motion" would bind to the SIBLING NAMESPACE
-    // SukiUI.Motion (a member of SukiUI) before any outer using is consulted — this alias,
-    // declared in the namespace body, restores the class binding so descriptions read
-    // Motion.For(...) exactly as written in Plan.md.
-    using Motion = SukiUI.Motion.Motion;
-
     /// <summary>
-    /// The button/combobox press behavior described declaratively over the SukiUI.Motion
-    /// engine (see SukiUI.Motion/Plan.md): channels → named trajectories → trigger wiring.
-    /// Enable (from <see cref="SukiMotion{TSelf}"/>)/Preset/PressDepth attached properties,
-    /// profile resolved per gesture through <see cref="SukiAnimationTheme"/> so a live
-    /// switch applies to the NEXT gesture — with every line of ticker/integration/transform
-    /// plumbing living in the engine instead of an imperative physics class.
+    /// The press feel of buttons and combo boxes: the control grows slightly under the
+    /// pointer, sinks when pressed — the descent always plays to the end, then keeps sinking
+    /// slowly while held — and springs back on release. Enable/Preset/PressDepth attached
+    /// properties; the profile is read from <see cref="SukiAnimationTheme"/> at each gesture.
     /// </summary>
-    public class SukiPressMotion : SukiMotion<SukiPressMotion>
+    public sealed class SukiPressMotion : MotionBehavior<InputElement, SukiPressProfile>
     {
+        public static readonly AttachedProperty<bool> EnableProperty =
+            RegisterEnable<SukiPressMotion, InputElement>();
+
+        public static bool GetEnable(InputElement element) => element.GetValue(EnableProperty);
+        public static void SetEnable(InputElement element, bool value) => element.SetValue(EnableProperty, value);
+
         public static readonly AttachedProperty<SukiPressPreset> PresetProperty =
             AvaloniaProperty.RegisterAttached<SukiPressMotion, InputElement, SukiPressPreset>(
                 "Preset", SukiPressPreset.Button);
 
-        // NaN sentinel = "follow the preset's DefaultPressDepth" (Button 0.96, ComboBox 0.982).
+        // NaN = follow the preset's DefaultPressDepth (Button 0.96, ComboBox 0.982).
         public static readonly AttachedProperty<double> PressDepthProperty =
             AvaloniaProperty.RegisterAttached<SukiPressMotion, InputElement, double>(
                 "PressDepth", double.NaN);
@@ -37,69 +35,69 @@ namespace SukiUI.ControlsAnimation
         public static double GetPressDepth(InputElement element) => element.GetValue(PressDepthProperty);
         public static void SetPressDepth(InputElement element, double value) => element.SetValue(PressDepthProperty, value);
 
-        /// <summary>
-        /// The press behavior description — SukiPressPhysics retold in ~25 lines. Hover eases
-        /// up; the elastic descent is guaranteed to play to the end (a release meanwhile is
-        /// memorized, a re-press purges and re-arms from the current pose); the deep stretch
-        /// tensions down to the floor while the press holds; the release is a real spring
-        /// whose resting point re-resolves live when the pointer enters/leaves mid-bounce.
-        /// All values are read from the active profile when each program starts.
-        /// </summary>
-        internal override Mover? Attach(AvaloniaObject owner)
+        private static readonly Easing HoverEasing = new CubicEaseOut();
+        private static readonly Easing PressEasing = new SukiEaseElasticIn { Damping = 2.5, Frequency = 3 };
+
+        protected override SukiPressProfile GetProfile(InputElement control) =>
+            SukiAnimationTheme.Current.Press[GetPreset(control)];
+
+        protected override void Configure(MotionBuilder<InputElement, SukiPressProfile> motion)
         {
-            if (owner is not InputElement element)
-            {
-                Debug.WriteLine($"SukiPressMotion: '{owner.GetType().Name}' is not an InputElement — Enable ignored.");
-                return null;
-            }
+            // Hover: the control grows slightly — not while it is held down. If the release
+            // spring is still bouncing, only its target moves: the bounce is never cut short.
+            motion.On(InputElement.PointerEnteredEvent)
+                  .Where(ctx => !ctx.Args.Properties.IsLeftButtonPressed)
+                  .Animate(SukiMotion.ScaleProperty)
+                      .To(ctx => ctx.Profile.HoverScale)
+                      .Over(ctx => ctx.Profile.HoverDuration)
+                      .WithEasing(HoverEasing)
+                      .RetargetIfMoving();
 
-            var scale = Motion.For(element).Scale;
-            
+            motion.On(InputElement.PointerExitedEvent)
+                  .Where(ctx => !ctx.Args.Properties.IsLeftButtonPressed)
+                  .Animate(SukiMotion.ScaleProperty)
+                      .To(1.0)
+                      .Over(ctx => ctx.Profile.HoverDuration)
+                      .WithEasing(HoverEasing)
+                      .RetargetIfMoving();
 
-            // Per-gesture profile snapshot (resolved when each program starts — a live
-            // SukiAnimationTheme switch applies to the NEXT gesture, never mid-animation).
-            SukiPressProfile P() => SukiAnimationTheme.Current.Press[GetPreset(element)];
-            double Depth()
-            {
-                double depth = GetPressDepth(element);
-                return double.IsNaN(depth) ? P().DefaultPressDepth : depth;
-            }
+            // Press: the descent always plays to the end — a release during it waits, so even
+            // the shortest click shows the full press — then the control keeps sinking slowly
+            // while held (a release there takes over at once). Buttons and combo boxes handle
+            // the pointer events themselves.
+            motion.On(InputElement.PointerPressedEvent)
+                  .IncludingHandled()
+                  .Animate(SukiMotion.ScaleProperty)
+                      .To(ctx => Depth(ctx))
+                      .Over(ctx => ctx.Profile.PressDuration)
+                      .WithEasing(PressEasing)
+                      .MustFinish()
+                  .Then()
+                  .Animate(SukiMotion.ScaleProperty)
+                      .To(ctx => Depth(ctx) - ctx.Profile.ExtraDeepRange)
+                      .Over(ctx => ctx.Profile.DeepDuration);
 
-            var hoverEase = new CubicEaseOut();
-            var pressEase = new SukiEaseElasticIn { Damping = 2.5, Frequency = 3 };
-            var deepEase = new LinearEasing();
+            // Release: a spring back to rest — or to the hover size if the pointer is still over.
+            motion.On(InputElement.PointerReleasedEvent)
+                  .IncludingHandled()
+                  .Or(InputElement.PointerCaptureLostEvent)
+                  .Animate(SukiMotion.ScaleProperty)
+                      .To(ctx => ctx.Control.IsPointerOver ? ctx.Profile.HoverScale : 1.0)
+                      .WithSpring(ctx => ctx.Profile.ReleaseSpring);
 
-            var hoverIn = scale
-                .To(() => P().HoverScale)
-                .Over(() => P().HoverDuration).Ease(hoverEase);
-            var hoverOut = scale
-                .To(1.0)
-                .Over(() => P().HoverDuration).Ease(hoverEase);
+            // Detached or disabled: the control goes back to its normal size.
+            motion.OnDetachedFromVisualTree()
+                  .Set(SukiMotion.ScaleProperty).To(1.0);
 
-            // Release equilibrium, re-resolved at pointer entries/exits: mid-bounce, the
-            // target moves without a snap — from pose + velocity.
-            var relax = scale
-                .To(() => element.IsPointerOver ? P().HoverScale : 1.0)
-                .Spring(() => new Spring(P().SpringOmega, P().SpringDecay));
+            motion.OnDisabled()
+                  .Set(SukiMotion.ScaleProperty).To(1.0);
+        }
 
-            // MustFinish means that this animation will be played to the end even if pressed state is interrupted by release
-            // We wants that because if we aimed a 'compression' state of 95% and use a translation, the click release will interrupt the compression animation before we even reach it. if we increase the animation speed to match the click duration, it looks worse
-            // So we need to configure a "mandatory" animation to our depth that mustfinish and will trigger the released animation once we reach the compression we wanted, while permitting to do a long click that will compress the button a little more, while the release will adapt to the compression position
-            // Immersivity is the goal here, we wants animations that adapt to user click, and could adapt to more (button weight, ..)
-            var pressChain = scale
-                .To(Depth)
-                .Over(() => P().PressDuration).Ease(pressEase).MustFinish()
-                .Then(scale.To(() => Depth() - P().ExtraDeepRange) // This part can be interrupted
-                    .Over(() => P().DeepDuration).Ease(deepEase));
-
-            return new Mover(element)
-                .OnEvent(InputElement.PointerEnteredEvent, hoverIn)
-                .OnEvent(InputElement.PointerExitedEvent, hoverOut)
-                // Buttons and combo boxes mark these handled in their class handlers.
-                .OnEvent(InputElement.PointerPressedEvent, pressChain, handledEventsToo: true)
-                .OnEvent(InputElement.PointerReleasedEvent, relax, handledEventsToo: true)
-                .OnEvent(InputElement.PointerCaptureLostEvent, relax)
-                .OnDetachedFromVisualTree(scale.Pose(1.0));
+        private static double Depth<TArgs>(MotionContext<InputElement, SukiPressProfile, TArgs> ctx)
+            where TArgs : EventArgs
+        {
+            double depth = GetPressDepth(ctx.Control);
+            return double.IsNaN(depth) ? ctx.Profile.DefaultPressDepth : depth;
         }
     }
 }

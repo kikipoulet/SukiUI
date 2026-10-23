@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using SukiUI.Motion;
 
 namespace SukiUI.ControlsAnimation
 {
@@ -15,6 +16,9 @@ namespace SukiUI.ControlsAnimation
         [property: Description("damping of the typing-intensity spring (higher = less overshoot)")]
         double SpringDecay)
     {
+        /// <summary>The settle spring (SpringOmega, SpringDecay).</summary>
+        public Spring Spring => new(SpringOmega, SpringDecay);
+
         #region Normal
 
         // The border is an OVERDAMPED struck spring (zeta = Decay / (2·Omega) > 1): a

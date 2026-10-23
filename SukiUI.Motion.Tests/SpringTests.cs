@@ -15,12 +15,12 @@ public class SpringTests
     {
         var border = new Border();
         using var h = new MotionHarness(border);
-        var scale = Motion.For(border).Scale;
-
-        scale.Offer(scale.To(1.1).Spring(new Spring(omega, decay)));
+        _ = Motion.Of(border)
+            .Animate(SukiMotion.ScaleProperty).To(1.1).WithSpring(new Spring(omega, decay))
+            .PlayAsync();
         h.Run(TimeSpan.FromSeconds(3));
 
-        Assert.Equal(1.1, scale.Value, precision: 3);
+        Assert.Equal(1.1, SukiMotion.ScaleProperty.Read(border), precision: 3);
     }
 
     // Nothing rejects parameters for which a spring can never settle — zero or

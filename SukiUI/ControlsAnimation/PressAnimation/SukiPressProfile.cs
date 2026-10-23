@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using SukiUI.Motion;
 
 namespace SukiUI.ControlsAnimation
 {
@@ -27,6 +28,9 @@ namespace SukiUI.ControlsAnimation
         [property: Description("press scale used when SukiPressMotion.PressDepth is not set")]
         double DefaultPressDepth)
     {
+        /// <summary>The release spring (SpringOmega, SpringDecay).</summary>
+        public Spring ReleaseSpring => new(SpringOmega, SpringDecay);
+
         #region Normal
 
         // Lively deep press down to 0.87, springs back with a full yo-yo overshoot.

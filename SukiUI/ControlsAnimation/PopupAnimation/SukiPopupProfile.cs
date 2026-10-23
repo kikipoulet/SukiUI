@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using SukiUI.Motion;
 
 namespace SukiUI.ControlsAnimation
 {
@@ -52,6 +53,12 @@ namespace SukiUI.ControlsAnimation
         [property: Description("cascade: per-item fade-in stagger as a function of the item count (ms)")]
         Func<int, double> CascadeStaggerMs)
     {
+        /// <summary>The opening spring (OpenSpringOmega, OpenSpringDecay).</summary>
+        public Spring OpenSpring => new(OpenSpringOmega, OpenSpringDecay);
+
+        /// <summary>The closing spring (CloseSpringOmega, CloseSpringDecay).</summary>
+        public Spring CloseSpring => new(CloseSpringOmega, CloseSpringDecay);
+
         #region Normal
 
         // Softly bouncy open with a subtle overshoot, quicker partial collapse on close, motion blur on the spring speed, and a staggered item cascade.

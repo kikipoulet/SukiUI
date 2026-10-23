@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using SukiUI.Motion;
 
 namespace SukiUI.ControlsAnimation
 {
@@ -24,6 +25,9 @@ namespace SukiUI.ControlsAnimation
         [property: Description("squash & stretch: cap on the stretch (and squeeze) delta")]
         double MaxSquash)
     {
+        /// <summary>The snap spring (SpringOmega, SpringDecay).</summary>
+        public Spring Spring => new(SpringOmega, SpringDecay);
+
         #region Normal
 
         // The knob is a physical puck: it snaps between its rest poses with a slight

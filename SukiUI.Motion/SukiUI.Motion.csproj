@@ -3,7 +3,7 @@
   <PropertyGroup>
     <IsPackable>true</IsPackable>
     <Title>SukiUI.Motion</Title>
-    <Description>Declarative motion, spring physics, and interaction animation engine for SukiUI controls in Avalonia.</Description>
+    <Description>Declarative motion for Avalonia: a fluent API over typed Avalonia events, spring physics, and interruptions that resume from the live pose and velocity.</Description>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,9 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- The description vocabulary stays internal where it can (hygiene): the public
-         surface is the Enable lifecycle, the programmatic drive and the instrumentation. -->
-    <InternalsVisibleTo Include="SukiUI" />
     <InternalsVisibleTo Include="SukiUI.Motion.Tests" />
   </ItemGroup>
 

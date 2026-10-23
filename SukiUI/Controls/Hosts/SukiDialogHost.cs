@@ -7,7 +7,6 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.LogicalTree;
-using Avalonia.Media.Transformation;
 using Avalonia.Rendering.Composition;
 using Avalonia.Threading;
 using SukiUI.Animations;
@@ -126,19 +125,9 @@ namespace SukiUI.Controls
             if (e.NameScope.Find<ContentControl>("PART_DialogContent") is { } dialogContent)
             {
                 _dialogContent = dialogContent;
-                if (!IsDialogOpen)
-                {
-                    // Rest pose before any open (no transitions on a fresh template, so this
-                    // lands instantly and invisibly).
-                    dialogContent.RenderTransform = TransformOperations.Parse("translate(0px, 0px) scale(0.72)");
-                    dialogContent.Opacity = 0.0;
-                }
-                else
-                {
-                    // If a template is reapplied while open (e.g. theme switch), keep the open pose.
-                    dialogContent.RenderTransform = TransformOperations.Parse("translate(0px, 0px) scale(1.0)");
-                    dialogContent.Opacity = 1.0;
-                }
+                // A fresh template rests closed — or keeps the open pose when it is re-applied
+                // while open (e.g. a theme switch).
+                SukiDialogMotion.Pose(dialogContent, IsDialogOpen);
             }
         }
 

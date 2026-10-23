@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using SukiUI.Motion;
 
 namespace SukiUI.ControlsAnimation
 {
@@ -55,6 +56,9 @@ namespace SukiUI.ControlsAnimation
         [property: Description("speed below which a shake stops (px per second)")]
         double ShakeSettleVelocity)
     {
+        /// <summary>The pinned-shake spring (ShakeOmega, ShakeDecay).</summary>
+        public Spring ShakeSpring => new(ShakeOmega, ShakeDecay);
+
         #region Normal
 
         // Small dialogs bounce lively (~14% overshoot), large ones land heavy with no rebound; a pinned shake swings ~4 visible times.

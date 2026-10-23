@@ -36,6 +36,21 @@ namespace SukiUI.Motion
                 : throw new ArgumentOutOfRangeException(nameof(Decay), value, "Spring damping (decay) must be finite and > 0 — an undamped spring never settles.");
         }
 
+        // ---- presets (decay = 2·zeta·omega) -------------------------------------------------
+
+        /// <summary>No bounce, settles in about half a second (critically damped). The default
+        /// curve of an animation that names none.</summary>
+        public static Spring Smooth { get; } = new(14.0, 28.0);
+
+        /// <summary>Quick, with a barely visible overshoot.</summary>
+        public static Spring Snappy { get; } = new(24.0, 40.8);
+
+        /// <summary>Lively, with a clear rebound.</summary>
+        public static Spring Bouncy { get; } = new(14.0, 8.4);
+
+        /// <summary>Slow and soft, no bounce.</summary>
+        public static Spring Gentle { get; } = new(8.0, 16.0);
+
         /// <summary>True for a spring built through the constructor; false for <c>default(Spring)</c>.</summary>
         internal bool IsValid => _omega > 0 && _decay > 0;
 

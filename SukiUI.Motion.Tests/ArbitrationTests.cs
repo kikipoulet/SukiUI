@@ -1,131 +1,204 @@
 using Avalonia.Controls;
 using Avalonia.Headless.XUnit;
+using Avalonia.Input;
 
 namespace SukiUI.Motion.Tests;
 
-/// <summary>Channel.Offer — the "who owns the channel" rules.</summary>
+/// <summary>The three rules that decide which motion owns a property.</summary>
 public class ArbitrationTests
 {
-    private static readonly Spring Hover = new(Omega: 20, Decay: 28); // zeta = 0.7
+    private static readonly MotionProperty<double> X = SukiMotion.TranslateXProperty;
+    private static readonly MotionProperty<double> Scale = SukiMotion.ScaleProperty;
 
-    // A spring offered while another spring runs was silently dropped, so a
-    // spring-driven hover that is left mid-flight stayed at the hover pose forever.
+    // ---- rule 1: the latest motion wins, from the live pose (and velocity) -------------
+
     [AvaloniaFact]
-    public void Spring_offered_during_a_running_spring_takes_over()
+    public void A_new_spring_takes_over_with_the_live_velocity()
     {
         var border = new Border();
         using var h = new MotionHarness(border);
-        var scale = Motion.For(border).Scale;
-        var enter = scale.To(1.1).Spring(Hover);
-        var exit = scale.To(1.0).Spring(Hover);
+        var slow = new Spring(10, 4);
 
-        scale.Offer(enter);
-        h.Frames(3);           // pointer enters, spring in flight
-        scale.Offer(exit);     // pointer leaves mid-flight
+        var first = Motion.Of(border).Animate(X).To(100.0).WithSpring(slow).PlayAsync();
+        h.Frames(6);
+        double before = X.Read(border);
+
+        var second = Motion.Of(border).Animate(X).To(0.0).WithSpring(slow).PlayAsync();
+        h.Frame();
+
+        Assert.True(X.Read(border) > before); // the momentum carries on before turning around
+        h.Run(TimeSpan.FromSeconds(6));
+        Assert.False(first.Outcome());
+        Assert.True(second.Outcome());
+        Assert.Equal(0.0, X.Read(border), precision: 3);
+    }
+
+    [AvaloniaFact]
+    public void A_new_tween_starts_from_the_pose_on_screen()
+    {
+        var border = new Border();
+        using var h = new MotionHarness(border);
+
+        _ = Motion.Of(border).Animate(X).To(100.0).Over(TimeSpan.FromMilliseconds(200)).PlayAsync();
+        h.Frames(5);
+        double pose = X.Read(border);
+
+        _ = Motion.Of(border).Animate(X).To(0.0).Over(TimeSpan.FromMilliseconds(200)).PlayAsync();
+        h.Frame();
+
+        Assert.InRange(X.Read(border), pose * 0.8, pose); // no jump back to 100, no jump to 0
+    }
+
+    [AvaloniaFact]
+    public void An_interrupted_motion_stops_as_a_whole()
+    {
+        var border = new Border();
+        using var h = new MotionHarness(border);
+        var duration = TimeSpan.FromMilliseconds(200);
+
+        var both = Motion.Of(border)
+            .Animate(X).To(100.0).Over(duration)
+            .And()
+            .Animate(Scale).To(2.0).Over(duration)
+            .PlayAsync();
+        h.Frames(3);
+        _ = Motion.Of(border).Animate(X).To(0.0).Over(duration).PlayAsync();
+        double scale = Scale.Read(border);
+        h.Frames(20);
+
+        Assert.False(both.Outcome());
+        Assert.Equal(scale, Scale.Read(border)); // the scale stopped where it was
+    }
+
+    // ---- rule 2: MustFinish ---------------------------------------------------------------
+
+    [AvaloniaFact]
+    public void Another_motion_waits_for_a_MustFinish_step_and_takes_over_from_the_pose_reached()
+    {
+        var border = new Border();
+        using var h = new MotionHarness(border);
+
+        var press = Motion.Of(border)
+            .Animate(Scale).To(0.9).Over(TimeSpan.FromMilliseconds(160)).MustFinish()
+            .Then()
+            .Animate(Scale).To(0.8).Over(TimeSpan.FromSeconds(2))
+            .PlayAsync();
+        h.Frames(2);
+        var release = Motion.Of(border).Animate(Scale).To(1.0).WithSpring(Spring.Snappy).PlayAsync();
+
+        double lowest = 1.0;
+        for (int i = 0; i < 80; i++)
+        {
+            h.Frame();
+            lowest = Math.Min(lowest, Scale.Read(border));
+        }
+
+        Assert.Equal(0.9, lowest, precision: 2); // the descent played to the end, the deep step never ran
+        Assert.False(press.Outcome());
+        Assert.True(release.Outcome());
+        Assert.Equal(1.0, Scale.Read(border), precision: 3);
+    }
+
+    [AvaloniaFact]
+    public void Only_the_latest_waiting_motion_is_kept()
+    {
+        var border = new Border();
+        using var h = new MotionHarness(border);
+
+        _ = Motion.Of(border).Animate(Scale).To(0.9).Over(TimeSpan.FromMilliseconds(160)).MustFinish().PlayAsync();
+        var first = Motion.Of(border).Animate(Scale).To(1.2).PlayAsync();
+        var second = Motion.Of(border).Animate(Scale).To(1.0).PlayAsync();
         h.Run(TimeSpan.FromSeconds(2));
 
-        Assert.Equal(1.0, scale.Value, precision: 3);
+        Assert.False(first.Outcome());
+        Assert.True(second.Outcome());
+        Assert.Equal(1.0, Scale.Read(border), precision: 3);
     }
 
-    // The takeover keeps the live velocity: no kink in the trajectory at the switch.
     [AvaloniaFact]
-    public void Spring_takeover_carries_the_live_velocity()
+    public void The_same_reaction_triggered_again_restarts_instead_of_waiting()
     {
         var border = new Border();
         using var h = new MotionHarness(border);
-        var scale = Motion.For(border).Scale;
-        var enter = scale.To(1.1).Spring(Hover);
-        var exit = scale.To(1.0).Spring(Hover);
+        int completed = 0;
+        using var _ = Motion.Configure(border, motion =>
+            motion.On(InputElement.PointerPressedEvent)
+                .Animate(Scale).To(0.5).Over(TimeSpan.FromMilliseconds(160)).MustFinish()
+                .Then()
+                .Do(() => completed++));
 
-        scale.Offer(enter);
+        Motion.Simulate(border, InputElement.PointerPressedEvent);
+        h.Frames(5); // 80 ms
+        Motion.Simulate(border, InputElement.PointerPressedEvent);
+        h.Frames(11); // 256 ms: a restart has finished (240 ms), a wait would not have (320 ms)
+
+        Assert.Equal(1, completed);
+    }
+
+    [AvaloniaFact]
+    public void A_Set_wins_even_over_a_MustFinish_step()
+    {
+        var border = new Border();
+        using var h = new MotionHarness(border);
+
+        var press = Motion.Of(border).Animate(Scale).To(0.5).Over(TimeSpan.FromMilliseconds(160)).MustFinish().PlayAsync();
+        h.Frames(2);
+        _ = Motion.Of(border).Set(Scale).To(1.0).PlayAsync();
+        h.Frames(15);
+
+        Assert.False(press.Outcome());
+        Assert.Equal(1.0, Scale.Read(border));
+    }
+
+    // ---- rule 3: RetargetIfMoving -------------------------------------------------------
+
+    [AvaloniaFact]
+    public void A_redirect_moves_the_target_of_a_moving_spring_without_restarting_it()
+    {
+        var border = new Border();
+        using var h = new MotionHarness(border);
+
+        var spring = Motion.Of(border).Animate(X).To(100.0).WithSpring(new Spring(10, 4)).PlayAsync();
+        h.Frames(6);
+        double velocityBefore = Track.Get(border, X).Velocity[0];
+
+        var redirect = Motion.Of(border).Animate(X).To(50.0).Over(TimeSpan.FromMilliseconds(150)).RetargetIfMoving().PlayAsync();
+
+        Assert.True(redirect.IsCompleted && redirect.Result); // consumed at once
+        Assert.Equal(velocityBefore, Track.Get(border, X).Velocity[0]);
+        h.Run(TimeSpan.FromSeconds(6));
+        Assert.True(spring.Outcome()); // never interrupted
+        Assert.Equal(50.0, X.Read(border), precision: 3);
+    }
+
+    [AvaloniaFact]
+    public void A_redirect_reaches_the_spring_waiting_behind_a_MustFinish_step()
+    {
+        var border = new Border();
+        using var h = new MotionHarness(border);
+
+        _ = Motion.Of(border).Animate(Scale).To(0.9).Over(TimeSpan.FromMilliseconds(160)).MustFinish().PlayAsync();
+        var release = Motion.Of(border).Animate(Scale).To(1.0).WithSpring(Spring.Snappy).PlayAsync();
+        var hover = Motion.Of(border).Animate(Scale).To(1.2).Over(TimeSpan.FromMilliseconds(150)).RetargetIfMoving().PlayAsync();
+        h.Run(TimeSpan.FromSeconds(2));
+
+        Assert.True(hover.Outcome());
+        Assert.True(release.Outcome());
+        Assert.Equal(1.2, Scale.Read(border), precision: 3);
+    }
+
+    [AvaloniaFact]
+    public void A_redirect_plays_normally_when_nothing_moves()
+    {
+        var border = new Border();
+        using var h = new MotionHarness(border);
+
+        var hover = Motion.Of(border).Animate(Scale).To(1.2).Over(TimeSpan.FromMilliseconds(150)).RetargetIfMoving().PlayAsync();
         h.Frames(3);
-        double velocityBefore = scale.Velocity;
-        scale.Offer(exit);
+        Assert.InRange(Scale.Read(border), 1.01, 1.19);
+        h.Frames(10);
 
-        Assert.True(velocityBefore > 0);
-        Assert.Equal(velocityBefore, scale.Velocity, precision: 6);
-    }
-
-    // Run (choreographies) and Offer (triggers) share the channel's active program.
-    // A choreography stopped mid-flight leaves its frozen spring as the channel's active
-    // program — nobody advances it any more — and a plain timed trajectory offered later
-    // is dropped by the "only a press preempts a spring" rule: the channel is stuck.
-    [AvaloniaFact]
-    public void Offer_after_a_stopped_choreography_is_not_dropped()
-    {
-        var border = new Border();
-        using var h = new MotionHarness(border);
-        var scale = Motion.For(border).Scale;
-
-        var choreography = new Choreography().And(scale.To(1.5).Spring(Hover));
-        choreography.Start(border);
-        h.Frames(3);
-        choreography.Stop(); // preempted / abandoned mid-flight
-
-        scale.Offer(scale.To(1.0).Over(TimeSpan.FromMilliseconds(100)));
-        h.Run(TimeSpan.FromMilliseconds(300));
-
-        Assert.Equal(1.0, scale.Value);
-    }
-
-    // The other way round: a channel animated by Offer, then claimed by a
-    // choreography (SukiTypingMotion: hover probe via Offer, kick via a choreography).
-    // Both drivers must not advance the same channel — the choreography owns it.
-    [AvaloniaFact]
-    public void Choreography_claiming_an_offered_channel_is_its_only_driver()
-    {
-        var border = new Border();
-        using var h = new MotionHarness(border);
-        var scale = Motion.For(border).Scale;
-        int advances = 0;
-        var counted = new CountingProgram(scale, () => advances++);
-
-        scale.Offer(scale.To(2.0).Over(TimeSpan.FromSeconds(1))); // channel subscribes itself
-        h.Frame();
-        new Choreography().And(counted).Start(border);
-        h.Frames(5);
-
-        Assert.Equal(5, advances); // one advance per frame — not two
-    }
-
-    /// <summary>Records every Advance; never finishes on its own.</summary>
-    private sealed class CountingProgram : Program
-    {
-        private readonly Action _onAdvance;
-
-        public CountingProgram(Channel channel, Action onAdvance)
-        {
-            Channel = channel;
-            _onAdvance = onAdvance;
-        }
-
-        public override void Start() => Done = false;
-
-        public override bool Advance(TimeSpan now)
-        {
-            _onAdvance();
-            Channel!.Write(1.0 + Random.Shared.NextDouble() * 0.01); // keep frames coming
-            return true;
-        }
-    }
-
-    // Guard for the press behavior: release and capture-lost both offer the SAME relax
-    // spring — the second offer must not restart it from rest.
-    [AvaloniaFact]
-    public void Same_spring_reoffered_is_not_restarted()
-    {
-        var border = new Border();
-        using var h = new MotionHarness(border);
-        var scale = Motion.For(border).Scale;
-        var relax = scale.To(1.1).Spring(Hover);
-        scale.Track(1.0); // the rest pose in the clamp window, as the press behavior has
-
-        scale.Offer(relax);
-        h.Frames(3);
-        double velocity = scale.Velocity;
-        scale.Offer(relax);
-
-        Assert.True(velocity > 0);
-        Assert.Equal(velocity, scale.Velocity, precision: 9);
+        Assert.True(hover.Outcome());
+        Assert.Equal(1.2, Scale.Read(border));
     }
 }
