@@ -12,6 +12,7 @@ using Avalonia.Controls.Templates;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.LogicalTree;
+using Avalonia.VisualTree;
 
 namespace SukiUI.Motion
 {
@@ -91,11 +92,29 @@ namespace SukiUI.Motion
             return this;
         }
 
-        /// <summary>Any press in the host's window closes the popup (presses inside the popup
-        /// never reach the window: it is its own top level).</summary>
+        /// <summary>Any press in the host's window outside the popup closes it.</summary>
         public PopupSection<TControl, TProfile> CloseOnPointerPressedOutside(Func<TControl, bool>? when = null)
         {
             Def.CloseOnOutsidePress = when is null ? static _ => true : host => when((TControl)host);
+            return this;
+        }
+
+        /// <summary>Presses inside the popup stop at the popup and never reach the host. For a
+        /// host that only knows a stand-in popup (the ComboBox keeps an empty PART_Popup for
+        /// its own logic): it would take a press on the real drop-down for an outside press,
+        /// and close on it.</summary>
+        public PopupSection<TControl, TProfile> KeepPressesInside(Func<TControl, bool>? when = null)
+        {
+            Def.KeepPressesInside = when is null ? static _ => true : host => when((TControl)host);
+            return this;
+        }
+
+        /// <summary>A click that selects one of the host's items closes the host (animated). For
+        /// an items host whose own close-after-selection targets a stand-in popup and so does
+        /// nothing (the ComboBox closes its PART_Popup).</summary>
+        public PopupSection<TControl, TProfile> CloseWhenItemClicked(Func<TControl, bool>? when = null)
+        {
+            Def.CloseWhenItemClicked = when is null ? static _ => true : host => when((TControl)host);
             return this;
         }
 
@@ -145,6 +164,8 @@ namespace SukiUI.Motion
         public Func<TemplatedControl, AvaloniaProperty?>? OpenProperty;
         public Action<TemplatedControl>? CloseHost;
         public Func<TemplatedControl, bool>? CloseOnOutsidePress;
+        public Func<TemplatedControl, bool>? KeepPressesInside;
+        public Func<TemplatedControl, bool>? CloseWhenItemClicked;
         public bool CloseOnDeactivated;
         public bool HoldClosing;
         public readonly ReactionDef Open = new();
@@ -340,6 +361,9 @@ namespace SukiUI.Motion
                 return;
             popup.PropertyChanged += OnPopupPropertyChanged;
             popup.Opened += OnPopupOpened;
+            // On the Popup itself: events from its content bubble through it to the host.
+            popup.AddHandler(InputElement.PointerPressedEvent, OnPopupPointerPressed);
+            popup.AddHandler(InputElement.PointerReleasedEvent, OnPopupPointerReleased, handledEventsToo: true);
             if (FindRoot(popup) is { } root)
             {
                 _root = root;
@@ -364,6 +388,8 @@ namespace SukiUI.Motion
             {
                 popup.PropertyChanged -= OnPopupPropertyChanged;
                 popup.Opened -= OnPopupOpened;
+                popup.RemoveHandler(InputElement.PointerPressedEvent, OnPopupPointerPressed);
+                popup.RemoveHandler(InputElement.PointerReleasedEvent, OnPopupPointerReleased);
             }
             _popup = null;
         }
@@ -436,6 +462,27 @@ namespace SukiUI.Motion
                 Play(_def.Open);
         }
 
+        private void OnPopupPointerPressed(object? sender, PointerPressedEventArgs e)
+        {
+            if (_def.KeepPressesInside?.Invoke(_host) == true)
+                e.Handled = true;
+        }
+
+        private void OnPopupPointerReleased(object? sender, PointerReleasedEventArgs e)
+        {
+            // The item decides the selection before the release reaches the popup, and marks
+            // the event handled when it selected: a handled release over a selected container
+            // of the host was a selecting click.
+            if (!e.Handled || _def.CloseWhenItemClicked?.Invoke(_host) != true || !HostIsOpen())
+                return;
+            if (_host is not ItemsControl items || e.Source is not Visual source)
+                return;
+            var container = source.GetSelfAndVisualAncestors().OfType<Control>()
+                .FirstOrDefault(c => items.IndexFromContainer(c) >= 0);
+            if (container is ISelectable { IsSelected: true })
+                CloseHost(); // the animated close follows through the property change
+        }
+
         private void OnMenuClosing(object? sender, CancelEventArgs e)
         {
             // Hold the popup open through the collapse — unless the closing motion itself is
@@ -478,6 +525,10 @@ namespace SukiUI.Motion
 
         private void OnWindowPointerPressed(object? sender, PointerPressedEventArgs e)
         {
+            // Presses inside the popup bubble up to the window too (through the popup's
+            // logical parent): only a press outside it is an outside press.
+            if (e.Source is Visual source && _popup?.IsInsidePopup(source) == true)
+                return;
             if (_def.CloseOnOutsidePress?.Invoke(_host) == true && HostIsOpen())
                 CloseHost(); // the animated close follows through the property change
         }

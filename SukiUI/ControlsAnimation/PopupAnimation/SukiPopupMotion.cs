@@ -1,5 +1,6 @@
 using System;
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using SukiUI.Motion;
 
@@ -67,6 +68,10 @@ namespace SukiUI.ControlsAnimation
                 .ItemsPresenterPart("PART_ItemsPresenter")
                 .OpenWhen(host => GetOpenProperty(host))
                 .CloseOnPointerPressedOutside(host => GetCloseOnOutsidePress(host))
+                // The ComboBox only knows its empty PART_Popup: it would close on any press in
+                // the real drop-down, and its close-after-selection would close nothing.
+                .KeepPressesInside(host => host is ComboBox)
+                .CloseWhenItemClicked(host => host is ComboBox)
                 .CloseInstantlyWhenWindowDeactivated();
 
             SukiPopupFeel.Apply(popup);

@@ -13,5 +13,5 @@
   <ItemGroup>
     <InternalsVisibleTo Include="SukiUI.Motion.Tests" />
   </ItemGroup>
-
+  
 </Project>
