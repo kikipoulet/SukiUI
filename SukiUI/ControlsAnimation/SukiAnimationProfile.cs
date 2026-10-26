@@ -11,6 +11,7 @@ namespace SukiUI.ControlsAnimation
         public required SukiPresetTable<SukiPopupPreset, SukiPopupProfile> Popup { get; init; }
         public required SukiPresetTable<SukiDialogPreset, SukiDialogProfile> Dialog { get; init; }
         public required SukiPresetTable<SukiTogglePreset, SukiToggleProfile> Toggle { get; init; }
+        public required SukiPresetTable<SukiCheckPreset, SukiCheckProfile> Check { get; init; }
         public required SukiPresetTable<SukiTypingPreset, SukiTypingProfile> Typing { get; init; }
         public required SukiPresetTable<SukiToastPreset, SukiToastProfile> Toast { get; init; }
 
@@ -21,6 +22,7 @@ namespace SukiUI.ControlsAnimation
             Popup = SukiPopupProfile.Normal,
             Dialog = SukiDialogProfile.Normal,
             Toggle = SukiToggleProfile.Normal,
+            Check = SukiCheckProfile.Normal,
             Typing = SukiTypingProfile.Normal,
             Toast = SukiToastProfile.Normal,
         };
@@ -32,6 +34,7 @@ namespace SukiUI.ControlsAnimation
             Popup = SukiPopupProfile.Lite,
             Dialog = SukiDialogProfile.Lite,
             Toggle = SukiToggleProfile.Lite,
+            Check = SukiCheckProfile.Lite,
             Typing = SukiTypingProfile.Lite,
             Toast = SukiToastProfile.Lite,
         };
