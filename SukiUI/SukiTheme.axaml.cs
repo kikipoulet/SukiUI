@@ -7,6 +7,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Styling;
 using Avalonia.Threading;
+using SukiUI.CompactnessTheme;
 using SukiUI.Enums;
 using SukiUI.Extensions;
 using SukiUI.Locale;
@@ -18,6 +19,9 @@ namespace SukiUI
     {
         public static readonly StyledProperty<string?> LocaleProperty =
             AvaloniaProperty.Register<SukiTheme, string?>(nameof(Locale));
+
+        public static readonly StyledProperty<SukiCompactness> CompactnessProperty =
+            AvaloniaProperty.Register<SukiTheme, SukiCompactness>(nameof(Compactness), SukiCompactness.Normal);
 
         public static readonly StyledProperty<SukiColor> ThemeColorProperty =
             AvaloniaProperty.Register<SukiTheme, SukiColor>(nameof(ThemeColor), defaultBindingMode: BindingMode.OneTime,
@@ -92,6 +96,7 @@ namespace SukiUI
             UpdateFlowDirectionResources(IsRightToLeft);
             SetColorThemeResourcesOnColorThemeChanged();
             ApplyLocale(Locale);
+            ApplyCompactness(Compactness);
         }
 
         /// <summary>
@@ -144,6 +149,21 @@ namespace SukiUI
             set => SetValue(LocaleProperty, value);
         }
 
+        /// <summary>
+        /// How tight the UI is (paddings, margins, fonts, fixed sizes). Each control declares its values per level
+        /// in a <c>*.Compactness.axaml</c> file next to its template; <see cref="SukiCompactness.Normal"/> is the historical look.
+        /// </summary>
+        public SukiCompactness Compactness
+        {
+            get => GetValue(CompactnessProperty);
+            set => SetValue(CompactnessProperty, value);
+        }
+
+        /// <summary>
+        /// Called whenever <see cref="Compactness"/> changes. Useful where controls cannot use "DynamicResource".
+        /// </summary>
+        public Action<SukiCompactness>? OnCompactnessChanged { get; set; }
+
         protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
         {
             if (change.Property == IsRightToLeftProperty)
@@ -157,6 +177,12 @@ namespace SukiUI
             else if (change.Property == LocaleProperty)
             {
                 ApplyLocale(change.GetNewValue<string?>());
+            }
+            else if (change.Property == CompactnessProperty)
+            {
+                var compactness = change.GetNewValue<SukiCompactness>();
+                ApplyCompactness(compactness);
+                OnCompactnessChanged?.Invoke(compactness);
             }
 
             base.OnPropertyChanged(change);
@@ -443,6 +469,19 @@ namespace SukiUI
         {
             return GetInstance(Application.Current!);
         }
+
+        /// <summary>
+        /// Changes the UI compactness.
+        /// </summary>
+        /// <remarks>When called off the UI thread, the change is posted to the UI thread.</remarks>
+        public void ChangeCompactness(SukiCompactness compactness)
+        {
+            if (PostToUIThreadIfNeeded(() => ChangeCompactness(compactness))) return;
+            Compactness = compactness;
+        }
+
+        private void ApplyCompactness(SukiCompactness compactness) =>
+            SetResources(Resources, SukiCompactnessResources.Build(compactness));
 
         private void ApplyLocale(string? locale)
         {

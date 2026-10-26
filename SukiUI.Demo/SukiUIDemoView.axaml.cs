@@ -44,6 +44,14 @@ public partial class SukiUIDemoView : SukiWindow
         vm.UseAnimationProfile(choice);
     }
 
+    private void CompactnessMenuItem_OnClick(object? sender, RoutedEventArgs e)
+    {
+        if (DataContext is not SukiUIDemoViewModel vm) return;
+        if (e.Source is not MenuItem mItem) return;
+        if (mItem.DataContext is not CompactnessChoice choice) return;
+        vm.UseCompactness(choice);
+    }
+
     private void InputElement_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
         IsMenuVisible = !IsMenuVisible;

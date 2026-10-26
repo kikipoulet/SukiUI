@@ -22,6 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <InternalsVisibleTo Include="SukiUI.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
     <AvaloniaResource Include="**\*.xaml" />
     <AvaloniaResource Include="Content\Images\*.png" />
     <AvaloniaResource Include="Roboto-*.ttf" />
