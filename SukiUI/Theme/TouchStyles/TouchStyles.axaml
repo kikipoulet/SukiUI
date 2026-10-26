@@ -10,7 +10,7 @@
         </Border>
     </Design.PreviewWith>
 
-    <StyleInclude Source="/Theme/TouchStyles/TouchCheckBoxStyle.axaml" />
+    <StyleInclude Source="/Controls/Standard/CheckBox/CheckBox.Touch.axaml" />
     <StyleInclude Source="/Theme/TouchStyles/SettingsLayoutMenuChipStyles.axaml" />
 
 

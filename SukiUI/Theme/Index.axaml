@@ -69,7 +69,7 @@
                 <ResourceInclude Source="avares://SukiUI/Theme/ComboBoxItem.axaml" />
                 <ResourceInclude Source="avares://SukiUI/Theme/ComboBox.xaml" />
                 <ResourceInclude Source="avares://SukiUI/Theme/GridSplitter.axaml" />
-                <ResourceInclude Source="avares://SukiUI/Theme/CheckBox.axaml" />
+                <ResourceInclude Source="avares://SukiUI/Controls/Standard/CheckBox/CheckBox.axaml" />
                 <ResourceInclude Source="avares://SukiUI/Theme/ToolTip.axaml" />
                 <ResourceInclude Source="avares://SukiUI/Theme/RadioButton.xaml" />
                 <ResourceInclude Source="avares://SukiUI/Theme/ScrollBar.axaml" />
