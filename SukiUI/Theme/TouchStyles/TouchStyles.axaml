@@ -10,7 +10,7 @@
         </Border>
     </Design.PreviewWith>
 
-    <StyleInclude Source="/Controls/Standard/CheckBox/CheckBox.Touch.axaml" />
+    <StyleInclude Source="/Controls/Standard/Selection/CheckBox/CheckBox.Touch.axaml" />
     <StyleInclude Source="/Controls/Suki/Containers/SettingsLayout/SettingsLayoutMenuChipStyles.axaml" />
 
 
