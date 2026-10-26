@@ -11,7 +11,7 @@
     </Design.PreviewWith>
 
     <StyleInclude Source="/Controls/Standard/CheckBox/CheckBox.Touch.axaml" />
-    <StyleInclude Source="/Theme/TouchStyles/SettingsLayoutMenuChipStyles.axaml" />
+    <StyleInclude Source="/Controls/Suki/Containers/SettingsLayout/SettingsLayoutMenuChipStyles.axaml" />
 
 
    <Style Selector="suki|BusyArea /template/ TextBlock#PART_BusyText">

@@ -7,7 +7,7 @@
     <SimpleTheme />
 
         <StyleInclude Source="avares://SukiUI/Theme/TextStyles.axaml" />
-        <StyleInclude Source="avares://SukiUI/Theme/SettingsLayoutStyles.axaml" />
+        <StyleInclude Source="avares://SukiUI/Controls/Suki/Containers/SettingsLayout/SettingsLayoutStyles.axaml" />
 
         <StyleInclude Source="avares://SukiUI/Theme/ColorsStyles.xaml" />
 
@@ -22,9 +22,9 @@
         <StyleInclude Source="avares://SukiUI/Theme/PopupBehaviorStyles.axaml" />
         <StyleInclude Source="avares://SukiUI/Theme/ButtonLoadingStyles.axaml" />
         <StyleInclude Source="avares://SukiUI/Theme/TabItemGlassStyles.xaml" />
-        <StyleInclude Source="avares://SukiUI/Controls/Gauges/HorizontalBarMeter/HorizontalBarMeterStyles.axaml"/>
-        <StyleInclude Source="avares://SukiUI/Controls/Gauges/VerticalBarMeter/VerticalBarMeterStyles.axaml"/>
-        <StyleInclude Source="avares://SukiUI/Controls/Gauges/RadialGauge/RadialGaugeStyles.axaml"/>
+        <StyleInclude Source="avares://SukiUI/Controls/Suki/DataDisplay/Gauges/HorizontalBarMeter/HorizontalBarMeterStyles.axaml"/>
+        <StyleInclude Source="avares://SukiUI/Controls/Suki/DataDisplay/Gauges/VerticalBarMeter/VerticalBarMeterStyles.axaml"/>
+        <StyleInclude Source="avares://SukiUI/Controls/Suki/DataDisplay/Gauges/RadialGauge/RadialGaugeStyles.axaml"/>
 
 
     <Styles.Resources>
@@ -98,7 +98,7 @@
                 <ResourceInclude Source="avares://sukiUI/Controls/Hosts/SukiToastHost.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/Hosts/SukiDialogHost.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/Hosts/SukiMessageBoxHost.axaml" />
-                <ResourceInclude Source="avares://sukiUI/Controls/GroupBox.axaml" />
+                <ResourceInclude Source="avares://sukiUI/Controls/Suki/Containers/GroupBox/GroupBox.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiDialog.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiSideMenu.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiStackPage.axaml" />
@@ -108,8 +108,8 @@
                 <ResourceInclude Source="avares://sukiUI/Controls/Suki/Feedback/VerticalStepper/VerticalStepper.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/Suki/Feedback/InfoBadge/InfoBadge.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/Suki/Feedback/InfoBar/InfoBar.axaml" />
-                <ResourceInclude Source="avares://sukiUI/Controls/GlassMorphism/GlassCard.axaml" />
-                <ResourceInclude Source="avares://sukiUI/Controls/ContentExpandControl.axaml" />
+                <ResourceInclude Source="avares://sukiUI/Controls/Suki/Containers/GlassCard/GlassCard.axaml" />
+                <ResourceInclude Source="avares://sukiUI/Controls/Suki/Containers/ContentExpandControl/ContentExpandControl.axaml" />
 
                 <ResourceInclude Source="avares://SukiUI/Locale/en-US.axaml" />
             </ResourceDictionary.MergedDictionaries>
