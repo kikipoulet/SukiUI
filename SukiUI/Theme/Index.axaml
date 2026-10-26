@@ -104,10 +104,10 @@
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiStackPage.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiSideMenuItem.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/SukiTransitioningContentControl.axaml" />
-                <ResourceInclude Source="avares://sukiUI/Controls/Stepper.axaml" />
-                <ResourceInclude Source="avares://sukiUI/Controls/VerticalStepper.axaml" />
-                <ResourceInclude Source="avares://sukiUI/Controls/InfoBadge.axaml" />
-                <ResourceInclude Source="avares://sukiUI/Controls/InfoBar.axaml" />
+                <ResourceInclude Source="avares://sukiUI/Controls/Suki/Feedback/Stepper/Stepper.axaml" />
+                <ResourceInclude Source="avares://sukiUI/Controls/Suki/Feedback/VerticalStepper/VerticalStepper.axaml" />
+                <ResourceInclude Source="avares://sukiUI/Controls/Suki/Feedback/InfoBadge/InfoBadge.axaml" />
+                <ResourceInclude Source="avares://sukiUI/Controls/Suki/Feedback/InfoBar/InfoBar.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/GlassMorphism/GlassCard.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/ContentExpandControl.axaml" />
 
