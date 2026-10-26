@@ -6,12 +6,12 @@
 
     <SimpleTheme />
 
-        <StyleInclude Source="avares://SukiUI/Theme/TextStyles.axaml" />
+        <StyleInclude Source="avares://SukiUI/Controls/Standard/TextInput/TextBlock/TextStyles.axaml" />
         <StyleInclude Source="avares://SukiUI/Controls/Suki/Containers/SettingsLayout/SettingsLayoutStyles.axaml" />
 
-        <StyleInclude Source="avares://SukiUI/Theme/ColorsStyles.xaml" />
+        <StyleInclude Source="avares://SukiUI/ColorTheme/ColorsStyles.xaml" />
 
-        <StyleInclude Source="avares://SukiUI/Theme/BorderStyles.xaml" />
+        <StyleInclude Source="avares://SukiUI/Controls/Standard/Misc/Border/BorderStyles.xaml" />
 
         <StyleInclude Source="avares://SukiUI/Controls/Standard/Collections/TreeView/TreeViewStyles.xaml" />
 
@@ -19,7 +19,7 @@
         <StyleInclude Source="avares://SukiUI/Controls/Standard/Selection/RadioButton/RadioButtonVariantsStyles.xaml" />
         <StyleInclude Source="avares://SukiUI/Controls/Standard/Selection/Slider/SliderStyles.xaml" />
         <StyleInclude Source="avares://SukiUI/Controls/Standard/Layout/ScrollBar/ScrollBarBehaviorStyles.axaml" />
-        <StyleInclude Source="avares://SukiUI/Theme/PopupBehaviorStyles.axaml" />
+        <StyleInclude Source="avares://SukiUI/Controls/Standard/Misc/Popup/PopupBehaviorStyles.axaml" />
         <StyleInclude Source="avares://SukiUI/Controls/Standard/Buttons/Button/ButtonLoadingStyles.axaml" />
         <StyleInclude Source="avares://SukiUI/Controls/Standard/Layout/TabControl/TabItemGlassStyles.xaml" />
         <StyleInclude Source="avares://SukiUI/Controls/Suki/DataDisplay/Gauges/HorizontalBarMeter/HorizontalBarMeterStyles.axaml"/>
@@ -31,8 +31,8 @@
         <ResourceDictionary>
 
             <ResourceDictionary.ThemeDictionaries>
-                <ResourceInclude x:Key="Light" Source="../ColorTheme/Light.axaml" />
-                <ResourceInclude x:Key="Dark" Source="../ColorTheme/Dark.axaml" />
+                <ResourceInclude x:Key="Light" Source="ColorTheme/Light.axaml" />
+                <ResourceInclude x:Key="Dark" Source="ColorTheme/Dark.axaml" />
             </ResourceDictionary.ThemeDictionaries>
 
             <CornerRadius x:Key="SmallCornerRadius">8</CornerRadius>

@@ -13,10 +13,10 @@ namespace SukiUI.Theme.Shadcn
     {
         public static void Configure(Application application, ThemeVariant startupTheme)
         {
-            Application.Current.Resources.MergedDictionaries.Add(new ResourceInclude(new Uri("avares://SukiUI/Theme/Shadcn/BlackWhiteTheme.axaml")
+            Application.Current.Resources.MergedDictionaries.Add(new ResourceInclude(new Uri("avares://SukiUI/Controls/Standard/Misc/Shadcn/BlackWhiteTheme.axaml")
             )
             {
-                Source = new Uri("avares://SukiUI/Theme/Shadcn/BlackWhiteTheme.axaml")
+                Source = new Uri("avares://SukiUI/Controls/Standard/Misc/Shadcn/BlackWhiteTheme.axaml")
             });
         
             var whiteTheme = new SukiColorTheme("White", new Color(255, 255, 255, 255), new Color(255, 255, 255, 255));
@@ -24,13 +24,13 @@ namespace SukiUI.Theme.Shadcn
 
             SukiTheme.GetInstance().AddColorThemes(new []{whiteTheme, blackTheme});
 
-            var BlackStyles = new StyleInclude(new Uri("avares://SukiUI/Theme/Shadcn/ShadDarkStyles.axaml"))
+            var BlackStyles = new StyleInclude(new Uri("avares://SukiUI/Controls/Standard/Misc/Shadcn/ShadDarkStyles.axaml"))
             {
-                Source = new Uri("avares://SukiUI/Theme/Shadcn/ShadDarkStyles.axaml")
+                Source = new Uri("avares://SukiUI/Controls/Standard/Misc/Shadcn/ShadDarkStyles.axaml")
             };
-            var buttonStyles = new StyleInclude(new Uri("avares://SukiUI/Theme/Shadcn/ShadButtonStyles.axaml"))
+            var buttonStyles = new StyleInclude(new Uri("avares://SukiUI/Controls/Standard/Misc/Shadcn/ShadButtonStyles.axaml"))
             {
-                Source = new Uri("avares://SukiUI/Theme/Shadcn/ShadButtonStyles.axaml")
+                Source = new Uri("avares://SukiUI/Controls/Standard/Misc/Shadcn/ShadButtonStyles.axaml")
             };
             application.Styles.Add(buttonStyles);
 
