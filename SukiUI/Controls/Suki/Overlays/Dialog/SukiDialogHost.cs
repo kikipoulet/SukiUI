@@ -20,8 +20,7 @@ namespace SukiUI.Controls
     /// Host presenting the current <see cref="ISukiDialog"/> from a
     /// <see cref="ISukiDialogManager"/>: owns the backdrop, pointer tracking (so a dialog
     /// can emerge from the invoking click) and the dismiss/pool timings. All choreography
-    /// (open / close / pinned-shake) lives in <see cref="SukiDialogMotion"/>, under
-    /// <c>ControlsAnimation/DialogAnimation</c>, alongside the press and popup motions.
+    /// (open / close / pinned-shake) lives in <see cref="SukiDialogMotion"/>, next to this host in the Dialog folder.
     /// </summary>
     public class SukiDialogHost : TemplatedControl
     {
