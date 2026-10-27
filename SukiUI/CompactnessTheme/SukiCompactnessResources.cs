@@ -13,6 +13,20 @@ namespace SukiUI.CompactnessTheme
     /// always the Normal values with the requested level written over them, so a key a level leaves
     /// out falls back to Normal instead of going missing.
     /// </summary>
+    /// <remarks>
+    /// Key grammar: <c>SukiCompactness.&lt;Control&gt;[.&lt;Class, Part or State&gt;].&lt;Property&gt;</c>.
+    /// <list type="bullet">
+    /// <item><c>SukiCompactness</c> is reserved to this system.</item>
+    /// <item>The control is its class name (<c>Button</c>, <c>ToggleSwitch</c>).</item>
+    /// <item>The middle segments are a style class as written in <c>Classes="…"</c> (<c>Large</c>), a template part
+    /// without its <c>PART_</c> prefix (<c>Track</c>) or a state (<c>Checked</c>).</item>
+    /// <item>The property is the Avalonia property name (<c>Padding</c>, <c>FontSize</c>, <c>CornerRadius</c>,
+    /// <c>Width</c>…); <c>Size</c> is only for squares (width = height); a factor with no Avalonia property keeps an
+    /// explicit name (<c>TravelScale</c>).</item>
+    /// </list>
+    /// The global radii <c>SmallCornerRadius</c> and <c>MediumCornerRadius</c> keep their historical names (applications
+    /// override them), and so do the other legacy keys such as <c>SplitButtonMinHeight</c>.
+    /// </remarks>
     internal static class SukiCompactnessResources
     {
         private const string BaseUri = "avares://SukiUI/";

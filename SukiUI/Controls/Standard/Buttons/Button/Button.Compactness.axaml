@@ -2,93 +2,95 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!-- Sizes of Button for every SukiCompactness level. Normal is the complete set (the historical
-         values); the other levels only list what differs. Key names: SukiButton<Class><Property>. -->
+         values); the other levels only list what differs. Key names follow SukiCompactness.<Control>[.<Class or Part>].<Property>
+         (see SukiCompactnessResources). -->
+
 
     <ResourceDictionary x:Key="Normal">
         <!-- default -->
-        <x:Double x:Key="SukiButtonFontSize">15</x:Double>
-        <Thickness x:Key="SukiButtonBorderThickness">1.2</Thickness>
-        <Thickness x:Key="SukiButtonPadding">20,8</Thickness>
+        <x:Double x:Key="SukiCompactness.Button.FontSize">15</x:Double>
+        <Thickness x:Key="SukiCompactness.Button.BorderThickness">1.2</Thickness>
+        <Thickness x:Key="SukiCompactness.Button.Padding">20,8</Thickness>
         <!-- busy indicator shown by ButtonExtensions.ShowProgress -->
-        <x:Double x:Key="SukiButtonProgressSize">24</x:Double>
-        <Thickness x:Key="SukiButtonProgressMargin">0,-5,-10,-5</Thickness>
+        <x:Double x:Key="SukiCompactness.Button.Progress.Height">24</x:Double>
+        <Thickness x:Key="SukiCompactness.Button.Progress.Margin">0,-5,-10,-5</Thickness>
         <!-- .Basic -->
-        <Thickness x:Key="SukiButtonBasicPadding">11,8</Thickness>
+        <Thickness x:Key="SukiCompactness.Button.Basic.Padding">11,8</Thickness>
         <!-- .Small -->
-        <x:Double x:Key="SukiButtonSmallFontSize">15</x:Double>
-        <Thickness x:Key="SukiButtonSmallPadding">10</Thickness>
+        <x:Double x:Key="SukiCompactness.Button.Small.FontSize">15</x:Double>
+        <Thickness x:Key="SukiCompactness.Button.Small.Padding">10</Thickness>
         <!-- .Large -->
-        <x:Double x:Key="SukiButtonLargeFontSize">18</x:Double>
-        <Thickness x:Key="SukiButtonLargePadding">30,12</Thickness>
+        <x:Double x:Key="SukiCompactness.Button.Large.FontSize">18</x:Double>
+        <Thickness x:Key="SukiCompactness.Button.Large.Padding">30,12</Thickness>
         <!-- .Icon -->
-        <x:Double x:Key="SukiButtonIconSize">40</x:Double>
-        <x:Double x:Key="SukiButtonIconFontSize">20</x:Double>
+        <x:Double x:Key="SukiCompactness.Button.Icon.Size">40</x:Double>
+        <x:Double x:Key="SukiCompactness.Button.Icon.FontSize">20</x:Double>
         <!-- .Card -->
-        <Thickness x:Key="SukiButtonCardPadding">20</Thickness>
-        <Thickness x:Key="SukiButtonCardMargin">7</Thickness>
+        <Thickness x:Key="SukiCompactness.Button.Card.Padding">20</Thickness>
+        <Thickness x:Key="SukiCompactness.Button.Card.Margin">7</Thickness>
         <!-- corner radii of the classes with their own value. The default and .Card radii are the global
              SmallCornerRadius / MediumCornerRadius, which follow the level (CompactnessTheme/Global.Compactness.axaml);
              .Rounded and .Icon (100) stay pills, the window controls stay chrome. -->
-        <CornerRadius x:Key="SukiButtonBasicCornerRadius">5</CornerRadius>
-        <CornerRadius x:Key="SukiButtonVoidCornerRadius">5</CornerRadius>
-        <CornerRadius x:Key="SukiButtonLargeCornerRadius">11</CornerRadius>
+        <CornerRadius x:Key="SukiCompactness.Button.Basic.CornerRadius">5</CornerRadius>
+        <CornerRadius x:Key="SukiCompactness.Button.Void.CornerRadius">5</CornerRadius>
+        <CornerRadius x:Key="SukiCompactness.Button.Large.CornerRadius">11</CornerRadius>
     </ResourceDictionary>
 
     <ResourceDictionary x:Key="SuperCompact">
-        <x:Double x:Key="SukiButtonFontSize">13</x:Double>
-        <Thickness x:Key="SukiButtonPadding">12,4</Thickness>
-        <x:Double x:Key="SukiButtonProgressSize">18</x:Double>
-        <Thickness x:Key="SukiButtonProgressMargin">0,-3,-6,-3</Thickness>
-        <Thickness x:Key="SukiButtonBasicPadding">7,4</Thickness>
-        <x:Double x:Key="SukiButtonSmallFontSize">12</x:Double>
-        <Thickness x:Key="SukiButtonSmallPadding">6</Thickness>
-        <x:Double x:Key="SukiButtonLargeFontSize">15</x:Double>
-        <Thickness x:Key="SukiButtonLargePadding">20,8</Thickness>
-        <x:Double x:Key="SukiButtonIconSize">28</x:Double>
-        <x:Double x:Key="SukiButtonIconFontSize">14</x:Double>
-        <Thickness x:Key="SukiButtonCardPadding">12</Thickness>
-        <Thickness x:Key="SukiButtonCardMargin">4</Thickness>
-        <CornerRadius x:Key="SukiButtonBasicCornerRadius">3</CornerRadius>
-        <CornerRadius x:Key="SukiButtonVoidCornerRadius">3</CornerRadius>
-        <CornerRadius x:Key="SukiButtonLargeCornerRadius">7</CornerRadius>
+        <x:Double x:Key="SukiCompactness.Button.FontSize">13</x:Double>
+        <Thickness x:Key="SukiCompactness.Button.Padding">12,4</Thickness>
+        <x:Double x:Key="SukiCompactness.Button.Progress.Height">18</x:Double>
+        <Thickness x:Key="SukiCompactness.Button.Progress.Margin">0,-3,-6,-3</Thickness>
+        <Thickness x:Key="SukiCompactness.Button.Basic.Padding">7,4</Thickness>
+        <x:Double x:Key="SukiCompactness.Button.Small.FontSize">12</x:Double>
+        <Thickness x:Key="SukiCompactness.Button.Small.Padding">6</Thickness>
+        <x:Double x:Key="SukiCompactness.Button.Large.FontSize">15</x:Double>
+        <Thickness x:Key="SukiCompactness.Button.Large.Padding">20,8</Thickness>
+        <x:Double x:Key="SukiCompactness.Button.Icon.Size">28</x:Double>
+        <x:Double x:Key="SukiCompactness.Button.Icon.FontSize">14</x:Double>
+        <Thickness x:Key="SukiCompactness.Button.Card.Padding">12</Thickness>
+        <Thickness x:Key="SukiCompactness.Button.Card.Margin">4</Thickness>
+        <CornerRadius x:Key="SukiCompactness.Button.Basic.CornerRadius">3</CornerRadius>
+        <CornerRadius x:Key="SukiCompactness.Button.Void.CornerRadius">3</CornerRadius>
+        <CornerRadius x:Key="SukiCompactness.Button.Large.CornerRadius">7</CornerRadius>
     </ResourceDictionary>
 
     <ResourceDictionary x:Key="Compact">
-        <x:Double x:Key="SukiButtonFontSize">14</x:Double>
-        <Thickness x:Key="SukiButtonPadding">16,6</Thickness>
-        <x:Double x:Key="SukiButtonProgressSize">22</x:Double>
-        <Thickness x:Key="SukiButtonProgressMargin">0,-4,-8,-4</Thickness>
-        <Thickness x:Key="SukiButtonBasicPadding">9,6</Thickness>
-        <x:Double x:Key="SukiButtonSmallFontSize">14</x:Double>
-        <Thickness x:Key="SukiButtonSmallPadding">8</Thickness>
-        <x:Double x:Key="SukiButtonLargeFontSize">16</x:Double>
-        <Thickness x:Key="SukiButtonLargePadding">24,10</Thickness>
-        <x:Double x:Key="SukiButtonIconSize">34</x:Double>
-        <x:Double x:Key="SukiButtonIconFontSize">17</x:Double>
-        <Thickness x:Key="SukiButtonCardPadding">16</Thickness>
-        <Thickness x:Key="SukiButtonCardMargin">5</Thickness>
-        <CornerRadius x:Key="SukiButtonBasicCornerRadius">4</CornerRadius>
-        <CornerRadius x:Key="SukiButtonVoidCornerRadius">4</CornerRadius>
-        <CornerRadius x:Key="SukiButtonLargeCornerRadius">9</CornerRadius>
+        <x:Double x:Key="SukiCompactness.Button.FontSize">14</x:Double>
+        <Thickness x:Key="SukiCompactness.Button.Padding">16,6</Thickness>
+        <x:Double x:Key="SukiCompactness.Button.Progress.Height">22</x:Double>
+        <Thickness x:Key="SukiCompactness.Button.Progress.Margin">0,-4,-8,-4</Thickness>
+        <Thickness x:Key="SukiCompactness.Button.Basic.Padding">9,6</Thickness>
+        <x:Double x:Key="SukiCompactness.Button.Small.FontSize">14</x:Double>
+        <Thickness x:Key="SukiCompactness.Button.Small.Padding">8</Thickness>
+        <x:Double x:Key="SukiCompactness.Button.Large.FontSize">16</x:Double>
+        <Thickness x:Key="SukiCompactness.Button.Large.Padding">24,10</Thickness>
+        <x:Double x:Key="SukiCompactness.Button.Icon.Size">34</x:Double>
+        <x:Double x:Key="SukiCompactness.Button.Icon.FontSize">17</x:Double>
+        <Thickness x:Key="SukiCompactness.Button.Card.Padding">16</Thickness>
+        <Thickness x:Key="SukiCompactness.Button.Card.Margin">5</Thickness>
+        <CornerRadius x:Key="SukiCompactness.Button.Basic.CornerRadius">4</CornerRadius>
+        <CornerRadius x:Key="SukiCompactness.Button.Void.CornerRadius">4</CornerRadius>
+        <CornerRadius x:Key="SukiCompactness.Button.Large.CornerRadius">9</CornerRadius>
     </ResourceDictionary>
 
     <ResourceDictionary x:Key="Big">
-        <x:Double x:Key="SukiButtonFontSize">17</x:Double>
-        <Thickness x:Key="SukiButtonPadding">24,11</Thickness>
-        <x:Double x:Key="SukiButtonProgressSize">28</x:Double>
-        <Thickness x:Key="SukiButtonProgressMargin">0,-6,-12,-6</Thickness>
-        <Thickness x:Key="SukiButtonBasicPadding">14,11</Thickness>
-        <x:Double x:Key="SukiButtonSmallFontSize">16</x:Double>
-        <Thickness x:Key="SukiButtonSmallPadding">12</Thickness>
-        <x:Double x:Key="SukiButtonLargeFontSize">20</x:Double>
-        <Thickness x:Key="SukiButtonLargePadding">36,15</Thickness>
-        <x:Double x:Key="SukiButtonIconSize">48</x:Double>
-        <x:Double x:Key="SukiButtonIconFontSize">24</x:Double>
-        <Thickness x:Key="SukiButtonCardPadding">26</Thickness>
-        <Thickness x:Key="SukiButtonCardMargin">9</Thickness>
-        <CornerRadius x:Key="SukiButtonBasicCornerRadius">6</CornerRadius>
-        <CornerRadius x:Key="SukiButtonVoidCornerRadius">6</CornerRadius>
-        <CornerRadius x:Key="SukiButtonLargeCornerRadius">14</CornerRadius>
+        <x:Double x:Key="SukiCompactness.Button.FontSize">17</x:Double>
+        <Thickness x:Key="SukiCompactness.Button.Padding">24,11</Thickness>
+        <x:Double x:Key="SukiCompactness.Button.Progress.Height">28</x:Double>
+        <Thickness x:Key="SukiCompactness.Button.Progress.Margin">0,-6,-12,-6</Thickness>
+        <Thickness x:Key="SukiCompactness.Button.Basic.Padding">14,11</Thickness>
+        <x:Double x:Key="SukiCompactness.Button.Small.FontSize">16</x:Double>
+        <Thickness x:Key="SukiCompactness.Button.Small.Padding">12</Thickness>
+        <x:Double x:Key="SukiCompactness.Button.Large.FontSize">20</x:Double>
+        <Thickness x:Key="SukiCompactness.Button.Large.Padding">36,15</Thickness>
+        <x:Double x:Key="SukiCompactness.Button.Icon.Size">48</x:Double>
+        <x:Double x:Key="SukiCompactness.Button.Icon.FontSize">24</x:Double>
+        <Thickness x:Key="SukiCompactness.Button.Card.Padding">26</Thickness>
+        <Thickness x:Key="SukiCompactness.Button.Card.Margin">9</Thickness>
+        <CornerRadius x:Key="SukiCompactness.Button.Basic.CornerRadius">6</CornerRadius>
+        <CornerRadius x:Key="SukiCompactness.Button.Void.CornerRadius">6</CornerRadius>
+        <CornerRadius x:Key="SukiCompactness.Button.Large.CornerRadius">14</CornerRadius>
     </ResourceDictionary>
 
 </ResourceDictionary>

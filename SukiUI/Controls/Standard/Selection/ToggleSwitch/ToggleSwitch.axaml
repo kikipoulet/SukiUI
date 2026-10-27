@@ -48,7 +48,7 @@
               and resting BoxShadow.  -->
         <Setter Property="animations:SukiToggleSwitchMotion.Enable" Value="True" />
         <!--  The knob's travel follows the track width of the current compactness level.  -->
-        <Setter Property="animations:SukiToggleSwitchMotion.TravelScale" Value="{DynamicResource SukiToggleSwitchTravelScale}" />
+        <Setter Property="animations:SukiToggleSwitchMotion.TravelScale" Value="{DynamicResource SukiCompactness.ToggleSwitch.Knob.TravelScale}" />
         <Setter Property="Template">
             <ControlTemplate>
                 <DockPanel Name="DP">
@@ -63,7 +63,7 @@
                     </DockPanel.Resources>
 
                     <ContentPresenter x:Name="PART_OffContentPresenter"
-                                      Margin="{DynamicResource SukiToggleSwitchCaptionMargin}"
+                                      Margin="{DynamicResource SukiCompactness.ToggleSwitch.Caption.Margin}"
                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                       Content="{TemplateBinding OffContent}"
@@ -98,7 +98,7 @@
 
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="{DynamicResource SukiToggleSwitchGapLength}" MaxWidth="{DynamicResource SukiToggleSwitchGap}" />
+                                <ColumnDefinition Width="{DynamicResource SukiCompactness.ToggleSwitch.Gap.Width}" MaxWidth="{DynamicResource SukiCompactness.ToggleSwitch.Gap.MaxWidth}" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
@@ -107,14 +107,14 @@
                                   Grid.RowSpan="3"
                                   Grid.Column="0"
                                   Grid.ColumnSpan="3"
-                                  Margin="{DynamicResource SukiToggleSwitchAreaMargin}"
+                                  Margin="{DynamicResource SukiCompactness.ToggleSwitch.Area.Margin}"
                                   TemplatedControl.IsTemplateFocusTarget="True" />
 
 
                             <Border Grid.Row="1"
                                     Grid.Column="0"
-                                    Width="{DynamicResource SukiToggleSwitchTrackWidth}"
-                                    Height="{DynamicResource SukiToggleSwitchTrackHeight}"
+                                    Width="{DynamicResource SukiCompactness.ToggleSwitch.Track.Width}"
+                                    Height="{DynamicResource SukiCompactness.ToggleSwitch.Track.Height}"
                                     Background="{DynamicResource SukiPrimaryColor0}"
                                     BorderThickness="0"
                                     CornerRadius="{DynamicResource MediumCornerRadius}">
@@ -128,8 +128,8 @@
 
                             <suki:GlassCard Grid.Row="1"
                                             Grid.Column="0"
-                                            Width="{DynamicResource SukiToggleSwitchGlassWidth}"
-                                            Height="{DynamicResource SukiToggleSwitchGlassHeight}"
+                                            Width="{DynamicResource SukiCompactness.ToggleSwitch.Glass.Width}"
+                                            Height="{DynamicResource SukiCompactness.ToggleSwitch.Glass.Height}"
                                            Name="GC"
                                             Classes="Control"
                                             CornerRadius="{DynamicResource MediumCornerRadius}"
@@ -138,15 +138,15 @@
                             <Border x:Name="SwitchBackground"
                                     Grid.Row="1"
                                     Grid.Column="0"
-                                    Width="{DynamicResource SukiToggleSwitchTrackWidth}"
-                                    Height="{DynamicResource SukiToggleSwitchTrackHeight}"
+                                    Width="{DynamicResource SukiCompactness.ToggleSwitch.Track.Width}"
+                                    Height="{DynamicResource SukiCompactness.ToggleSwitch.Track.Height}"
                                     Background="Transparent"
                                     BorderThickness="0"
                                     ClipToBounds="True"
                                     CornerRadius="{DynamicResource MediumCornerRadius}">
                                 <Panel Name="PanelSelected"
                                        Width="160"
-                                       Margin="{DynamicResource SukiToggleSwitchSelectedMargin}"
+                                       Margin="{DynamicResource SukiCompactness.ToggleSwitch.Selected.Margin}"
                                        HorizontalAlignment="Right">
                                     <Panel.Background>
                                         <LinearGradientBrush StartPoint="0%,50%" EndPoint="100%,50%">
@@ -178,14 +178,14 @@
                             <Canvas x:Name="PART_SwitchKnob"
                                     Grid.Row="1"
                                     Grid.Column="0"
-                                    Width="{DynamicResource SukiToggleSwitchKnobAreaSize}"
-                                    Height="{DynamicResource SukiToggleSwitchKnobAreaSize}"
+                                    Width="{DynamicResource SukiCompactness.ToggleSwitch.KnobArea.Size}"
+                                    Height="{DynamicResource SukiCompactness.ToggleSwitch.KnobArea.Size}"
                                     HorizontalAlignment="Left">
                                 <Border x:Name="PART_Knob"
-                                        Canvas.Left="{DynamicResource SukiToggleSwitchKnobLeft}"
-                                        Canvas.Top="{DynamicResource SukiToggleSwitchKnobTop}"
-                                        Width="{DynamicResource SukiToggleSwitchKnobSize}"
-                                        Height="{DynamicResource SukiToggleSwitchKnobSize}"
+                                        Canvas.Left="{DynamicResource SukiCompactness.ToggleSwitch.Knob.Left}"
+                                        Canvas.Top="{DynamicResource SukiCompactness.ToggleSwitch.Knob.Top}"
+                                        Width="{DynamicResource SukiCompactness.ToggleSwitch.Knob.Size}"
+                                        Height="{DynamicResource SukiCompactness.ToggleSwitch.Knob.Size}"
                                         Margin="0,0,0,0"
                                         BoxShadow="{DynamicResource SukiSwitchShadow}"
                                         CornerRadius="{DynamicResource MediumCornerRadius}"
@@ -216,7 +216,7 @@
         </Style>
         -->
         <Style Selector="^:checked /template/ Panel#PanelSelected">
-            <Setter Property="Margin" Value="{DynamicResource SukiToggleSwitchSelectedCheckedMargin}" />
+            <Setter Property="Margin" Value="{DynamicResource SukiCompactness.ToggleSwitch.Selected.Checked.Margin}" />
         </Style>
     </ControlTheme>
 

@@ -147,12 +147,12 @@
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
-        <Setter Property="FontSize" Value="{DynamicResource SukiButtonFontSize}" />
+        <Setter Property="FontSize" Value="{DynamicResource SukiCompactness.Button.FontSize}" />
         <Setter Property="FontWeight" Value="{DynamicResource DefaultDemiBold}" />
-        <Setter Property="BorderThickness" Value="{DynamicResource SukiButtonBorderThickness}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource SukiCompactness.Button.BorderThickness}" />
         <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
-        <Setter Property="Padding" Value="{DynamicResource SukiButtonPadding}" />
+        <Setter Property="Padding" Value="{DynamicResource SukiCompactness.Button.Padding}" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Border Name="RootBorder"
@@ -172,8 +172,8 @@
                         <Viewbox Name="PART_ExtShowProgressViewBox"
                                  Width="{TemplateBinding theme:ButtonExtensions.ShowProgress,
                                                          Converter={StaticResource WidthConverter}}"
-                                 Height="{DynamicResource SukiButtonProgressSize}"
-                                 Margin="{DynamicResource SukiButtonProgressMargin}"
+                                 Height="{DynamicResource SukiCompactness.Button.Progress.Height}"
+                                 Margin="{DynamicResource SukiCompactness.Button.Progress.Margin}"
                                  IsVisible="{TemplateBinding theme:ButtonExtensions.ShowProgress}">
                             <Viewbox.Transitions>
                                 <Transitions>
@@ -297,8 +297,8 @@
         <Style Selector="^.Basic">
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="BorderBrush" Value="Transparent" />
-            <Setter Property="Padding" Value="{DynamicResource SukiButtonBasicPadding}" />
-            <Setter Property="CornerRadius" Value="{DynamicResource SukiButtonBasicCornerRadius}" />
+            <Setter Property="Padding" Value="{DynamicResource SukiCompactness.Button.Basic.Padding}" />
+            <Setter Property="CornerRadius" Value="{DynamicResource SukiCompactness.Button.Basic.CornerRadius}" />
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor120}" />
             <!--  Events  -->
@@ -322,7 +322,7 @@
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="BorderBrush" Value="Transparent" />
             <Setter Property="Padding" Value="0" />
-            <Setter Property="CornerRadius" Value="{DynamicResource SukiButtonVoidCornerRadius}" />
+            <Setter Property="CornerRadius" Value="{DynamicResource SukiCompactness.Button.Void.CornerRadius}" />
             <Setter Property="Margin" Value="0" />
             <Setter Property="Background" Value="Transparent" />
         </Style>
@@ -454,21 +454,21 @@
             <Setter Property="CornerRadius" Value="100" />
         </Style>
         <Style Selector="^.Small">
-            <Setter Property="FontSize" Value="{DynamicResource SukiButtonSmallFontSize}" />
-            <Setter Property="Padding" Value="{DynamicResource SukiButtonSmallPadding}" />
+            <Setter Property="FontSize" Value="{DynamicResource SukiCompactness.Button.Small.FontSize}" />
+            <Setter Property="Padding" Value="{DynamicResource SukiCompactness.Button.Small.Padding}" />
         </Style>
         <Style Selector="^.Large">
-            <Setter Property="CornerRadius" Value="{DynamicResource SukiButtonLargeCornerRadius}" />
-            <Setter Property="FontSize" Value="{DynamicResource SukiButtonLargeFontSize}" />
-            <Setter Property="Padding" Value="{DynamicResource SukiButtonLargePadding}" />
+            <Setter Property="CornerRadius" Value="{DynamicResource SukiCompactness.Button.Large.CornerRadius}" />
+            <Setter Property="FontSize" Value="{DynamicResource SukiCompactness.Button.Large.FontSize}" />
+            <Setter Property="Padding" Value="{DynamicResource SukiCompactness.Button.Large.Padding}" />
         </Style>
 
         <Style Selector="^.Icon">
             <Setter Property="animations:SukiPressMotion.PressDepth" Value="0.95" />
             <Setter Property="CornerRadius" Value="100" />
-            <Setter Property="Width" Value="{DynamicResource SukiButtonIconSize}" />
-            <Setter Property="Height" Value="{DynamicResource SukiButtonIconSize}" />
-            <Setter Property="FontSize" Value="{DynamicResource SukiButtonIconFontSize}" />
+            <Setter Property="Width" Value="{DynamicResource SukiCompactness.Button.Icon.Size}" />
+            <Setter Property="Height" Value="{DynamicResource SukiCompactness.Button.Icon.Size}" />
+            <Setter Property="FontSize" Value="{DynamicResource SukiCompactness.Button.Icon.FontSize}" />
             <Setter Property="Padding" Value="0" />
         </Style>
 
@@ -526,17 +526,17 @@
         </Style>
 
         <Style Selector="^.Card">
-            <Setter Property="Padding" Value="{DynamicResource SukiButtonCardPadding}" />
+            <Setter Property="Padding" Value="{DynamicResource SukiCompactness.Button.Card.Padding}" />
             <Setter Property="CornerRadius" Value="{DynamicResource MediumCornerRadius}" />
             <Setter Property="BorderThickness" Value="1.5" />
             <Setter Property="BorderBrush" Value="{DynamicResource SukiLightBorderBrush}" />
             <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
             <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
-            <Setter Property="Margin" Value="{DynamicResource SukiButtonCardMargin}" />
+            <Setter Property="Margin" Value="{DynamicResource SukiCompactness.Button.Card.Margin}" />
             <Setter Property="Template">
                 <ControlTemplate>
                     <ContentPresenter Name="PART_ContentPresenter"
-                                      Margin="{DynamicResource SukiButtonCardMargin}"
+                                      Margin="{DynamicResource SukiCompactness.Button.Card.Margin}"
                                       Padding="{TemplateBinding Padding}"
                                       HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                       VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
