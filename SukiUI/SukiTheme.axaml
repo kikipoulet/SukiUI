@@ -35,8 +35,6 @@
                 <ResourceInclude x:Key="Dark" Source="ColorTheme/Dark.axaml" />
             </ResourceDictionary.ThemeDictionaries>
 
-            <CornerRadius x:Key="SmallCornerRadius">8</CornerRadius>
-            <CornerRadius x:Key="MediumCornerRadius">15</CornerRadius>
 
             <system:TimeSpan x:Key="LongAnimationDuration">0.5</system:TimeSpan>
             <system:TimeSpan x:Key="MediumAnimationDuration">0.35</system:TimeSpan>

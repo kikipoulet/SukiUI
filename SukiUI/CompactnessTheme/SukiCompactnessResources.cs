@@ -20,7 +20,9 @@ namespace SukiUI.CompactnessTheme
         /// <summary>Every control that takes part in the system: one line per control.</summary>
         private static readonly string[] Sources =
         [
+            "CompactnessTheme/Global.Compactness.axaml",
             "Controls/Standard/Buttons/Button/Button.Compactness.axaml",
+            "Controls/Standard/Selection/ToggleSwitch/ToggleSwitch.Compactness.axaml",
         ];
 
         private static List<ResourceDictionary>? _loaded;

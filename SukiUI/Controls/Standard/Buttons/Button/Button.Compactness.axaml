@@ -26,6 +26,12 @@
         <!-- .Card -->
         <Thickness x:Key="SukiButtonCardPadding">20</Thickness>
         <Thickness x:Key="SukiButtonCardMargin">7</Thickness>
+        <!-- corner radii of the classes with their own value. The default and .Card radii are the global
+             SmallCornerRadius / MediumCornerRadius, which follow the level (CompactnessTheme/Global.Compactness.axaml);
+             .Rounded and .Icon (100) stay pills, the window controls stay chrome. -->
+        <CornerRadius x:Key="SukiButtonBasicCornerRadius">5</CornerRadius>
+        <CornerRadius x:Key="SukiButtonVoidCornerRadius">5</CornerRadius>
+        <CornerRadius x:Key="SukiButtonLargeCornerRadius">11</CornerRadius>
     </ResourceDictionary>
 
     <ResourceDictionary x:Key="SuperCompact">
@@ -42,6 +48,9 @@
         <x:Double x:Key="SukiButtonIconFontSize">14</x:Double>
         <Thickness x:Key="SukiButtonCardPadding">12</Thickness>
         <Thickness x:Key="SukiButtonCardMargin">4</Thickness>
+        <CornerRadius x:Key="SukiButtonBasicCornerRadius">3</CornerRadius>
+        <CornerRadius x:Key="SukiButtonVoidCornerRadius">3</CornerRadius>
+        <CornerRadius x:Key="SukiButtonLargeCornerRadius">7</CornerRadius>
     </ResourceDictionary>
 
     <ResourceDictionary x:Key="Compact">
@@ -58,6 +67,9 @@
         <x:Double x:Key="SukiButtonIconFontSize">17</x:Double>
         <Thickness x:Key="SukiButtonCardPadding">16</Thickness>
         <Thickness x:Key="SukiButtonCardMargin">5</Thickness>
+        <CornerRadius x:Key="SukiButtonBasicCornerRadius">4</CornerRadius>
+        <CornerRadius x:Key="SukiButtonVoidCornerRadius">4</CornerRadius>
+        <CornerRadius x:Key="SukiButtonLargeCornerRadius">9</CornerRadius>
     </ResourceDictionary>
 
     <ResourceDictionary x:Key="Big">
@@ -74,6 +86,9 @@
         <x:Double x:Key="SukiButtonIconFontSize">24</x:Double>
         <Thickness x:Key="SukiButtonCardPadding">26</Thickness>
         <Thickness x:Key="SukiButtonCardMargin">9</Thickness>
+        <CornerRadius x:Key="SukiButtonBasicCornerRadius">6</CornerRadius>
+        <CornerRadius x:Key="SukiButtonVoidCornerRadius">6</CornerRadius>
+        <CornerRadius x:Key="SukiButtonLargeCornerRadius">14</CornerRadius>
     </ResourceDictionary>
 
 </ResourceDictionary>

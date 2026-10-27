@@ -10,7 +10,7 @@ namespace SukiUI.ControlsAnimation
     }
 
     public sealed record SukiToggleProfile(
-        [property: Description("distance in DIPs between the knob's rest poses (the template's knob travel)")]
+        [property: Description("distance in DIPs between the knob's rest poses at Normal compactness (scaled by the template's TravelScale at the other levels)")]
         double Travel,
         [property: Description("angular frequency of the toggle spring (the snap)")]
         double SpringOmega,

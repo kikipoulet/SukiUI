@@ -1,0 +1,85 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Sizes of ToggleSwitch for every SukiCompactness level. Normal is the complete set (the historical
+         values); the other levels only list what differs. Key names: SukiToggleSwitch<Part><Property>.
+
+         The track and the knob form one piece of geometry, so each level keeps them consistent:
+         - the track height is the knob area, the knob sits KnobTop below its top edge;
+         - the selected-fill margins start at the track width (the fill slides over the track);
+         - TravelScale multiplies SukiToggleProfile.Travel (the knob's travel at Normal, 18) and must
+           follow the track width (width / 40) so the knob stops at the same distance from the edge.
+         The corner radii are the global MediumCornerRadius, which stays a pill at every level. -->
+
+    <ResourceDictionary x:Key="Normal">
+        <!-- track and its glass outline -->
+        <x:Double x:Key="SukiToggleSwitchTrackWidth">40</x:Double>
+        <x:Double x:Key="SukiToggleSwitchTrackHeight">22</x:Double>
+        <x:Double x:Key="SukiToggleSwitchGlassWidth">42</x:Double>
+        <x:Double x:Key="SukiToggleSwitchGlassHeight">23</x:Double>
+        <Thickness x:Key="SukiToggleSwitchSelectedMargin">40,0,-160,0</Thickness>
+        <Thickness x:Key="SukiToggleSwitchSelectedCheckedMargin">40,0,0,0</Thickness>
+        <!-- knob -->
+        <x:Double x:Key="SukiToggleSwitchKnobAreaSize">22</x:Double>
+        <x:Double x:Key="SukiToggleSwitchKnobSize">18</x:Double>
+        <x:Double x:Key="SukiToggleSwitchKnobLeft">3</x:Double>
+        <x:Double x:Key="SukiToggleSwitchKnobTop">2</x:Double>
+        <x:Double x:Key="SukiToggleSwitchTravelScale">1</x:Double>
+        <!-- spacing around the switch -->
+        <Thickness x:Key="SukiToggleSwitchAreaMargin">0,5</Thickness>
+        <Thickness x:Key="SukiToggleSwitchCaptionMargin">0,0,7,0</Thickness>
+        <GridLength x:Key="SukiToggleSwitchGapLength">12</GridLength>
+        <x:Double x:Key="SukiToggleSwitchGap">12</x:Double>
+    </ResourceDictionary>
+
+    <ResourceDictionary x:Key="SuperCompact">
+        <x:Double x:Key="SukiToggleSwitchTrackWidth">32</x:Double>
+        <x:Double x:Key="SukiToggleSwitchTrackHeight">18</x:Double>
+        <x:Double x:Key="SukiToggleSwitchGlassWidth">34</x:Double>
+        <x:Double x:Key="SukiToggleSwitchGlassHeight">19</x:Double>
+        <Thickness x:Key="SukiToggleSwitchSelectedMargin">32,0,-160,0</Thickness>
+        <Thickness x:Key="SukiToggleSwitchSelectedCheckedMargin">32,0,0,0</Thickness>
+        <x:Double x:Key="SukiToggleSwitchKnobAreaSize">18</x:Double>
+        <x:Double x:Key="SukiToggleSwitchKnobSize">14</x:Double>
+        <x:Double x:Key="SukiToggleSwitchKnobLeft">2</x:Double>
+        <x:Double x:Key="SukiToggleSwitchTravelScale">0.8</x:Double>
+        <Thickness x:Key="SukiToggleSwitchAreaMargin">0,3</Thickness>
+        <Thickness x:Key="SukiToggleSwitchCaptionMargin">0,0,5,0</Thickness>
+        <GridLength x:Key="SukiToggleSwitchGapLength">8</GridLength>
+        <x:Double x:Key="SukiToggleSwitchGap">8</x:Double>
+    </ResourceDictionary>
+
+    <ResourceDictionary x:Key="Compact">
+        <x:Double x:Key="SukiToggleSwitchTrackWidth">36</x:Double>
+        <x:Double x:Key="SukiToggleSwitchTrackHeight">20</x:Double>
+        <x:Double x:Key="SukiToggleSwitchGlassWidth">38</x:Double>
+        <x:Double x:Key="SukiToggleSwitchGlassHeight">21</x:Double>
+        <Thickness x:Key="SukiToggleSwitchSelectedMargin">36,0,-160,0</Thickness>
+        <Thickness x:Key="SukiToggleSwitchSelectedCheckedMargin">36,0,0,0</Thickness>
+        <x:Double x:Key="SukiToggleSwitchKnobAreaSize">20</x:Double>
+        <x:Double x:Key="SukiToggleSwitchKnobSize">16</x:Double>
+        <x:Double x:Key="SukiToggleSwitchTravelScale">0.9</x:Double>
+        <Thickness x:Key="SukiToggleSwitchAreaMargin">0,4</Thickness>
+        <Thickness x:Key="SukiToggleSwitchCaptionMargin">0,0,6,0</Thickness>
+        <GridLength x:Key="SukiToggleSwitchGapLength">10</GridLength>
+        <x:Double x:Key="SukiToggleSwitchGap">10</x:Double>
+    </ResourceDictionary>
+
+    <ResourceDictionary x:Key="Big">
+        <x:Double x:Key="SukiToggleSwitchTrackWidth">48</x:Double>
+        <x:Double x:Key="SukiToggleSwitchTrackHeight">26</x:Double>
+        <x:Double x:Key="SukiToggleSwitchGlassWidth">50</x:Double>
+        <x:Double x:Key="SukiToggleSwitchGlassHeight">27</x:Double>
+        <Thickness x:Key="SukiToggleSwitchSelectedMargin">48,0,-160,0</Thickness>
+        <Thickness x:Key="SukiToggleSwitchSelectedCheckedMargin">48,0,0,0</Thickness>
+        <x:Double x:Key="SukiToggleSwitchKnobAreaSize">26</x:Double>
+        <x:Double x:Key="SukiToggleSwitchKnobSize">22</x:Double>
+        <x:Double x:Key="SukiToggleSwitchKnobLeft">4</x:Double>
+        <x:Double x:Key="SukiToggleSwitchTravelScale">1.2</x:Double>
+        <Thickness x:Key="SukiToggleSwitchAreaMargin">0,6</Thickness>
+        <Thickness x:Key="SukiToggleSwitchCaptionMargin">0,0,8,0</Thickness>
+        <GridLength x:Key="SukiToggleSwitchGapLength">14</GridLength>
+        <x:Double x:Key="SukiToggleSwitchGap">14</x:Double>
+    </ResourceDictionary>
+
+</ResourceDictionary>

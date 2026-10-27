@@ -298,7 +298,7 @@
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="BorderBrush" Value="Transparent" />
             <Setter Property="Padding" Value="{DynamicResource SukiButtonBasicPadding}" />
-            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="CornerRadius" Value="{DynamicResource SukiButtonBasicCornerRadius}" />
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor120}" />
             <!--  Events  -->
@@ -322,7 +322,7 @@
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="BorderBrush" Value="Transparent" />
             <Setter Property="Padding" Value="0" />
-            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="CornerRadius" Value="{DynamicResource SukiButtonVoidCornerRadius}" />
             <Setter Property="Margin" Value="0" />
             <Setter Property="Background" Value="Transparent" />
         </Style>
@@ -458,7 +458,7 @@
             <Setter Property="Padding" Value="{DynamicResource SukiButtonSmallPadding}" />
         </Style>
         <Style Selector="^.Large">
-            <Setter Property="CornerRadius" Value="11" />
+            <Setter Property="CornerRadius" Value="{DynamicResource SukiButtonLargeCornerRadius}" />
             <Setter Property="FontSize" Value="{DynamicResource SukiButtonLargeFontSize}" />
             <Setter Property="Padding" Value="{DynamicResource SukiButtonLargePadding}" />
         </Style>
