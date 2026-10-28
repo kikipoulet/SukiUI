@@ -1,0 +1,134 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:animations="clr-namespace:SukiUI.ControlsAnimation"
+                    xmlns:content="clr-namespace:SukiUI.Content"
+                    xmlns:converters="https://github.com/kikipoulet/SukiUI"
+                    xmlns:suki="clr-namespace:SukiUI.Controls">
+    <Design.PreviewWith>
+        <suki:SukiSideMenu>
+            <suki:SukiSideMenuItem Header="Header">
+                <suki:SukiSideMenuItem.Icon>
+                    <PathIcon Width="13"
+                              Height="13"
+                              Data="{x:Static content:Icons.Cross}" />
+                </suki:SukiSideMenuItem.Icon>
+
+            </suki:SukiSideMenuItem>
+            <suki:SukiSideMenuItem Header="Header">
+                <suki:SukiSideMenuItem.Icon>
+                    <PathIcon Width="13"
+                              Height="13"
+                              Data="{x:Static content:Icons.Cross}" />
+                </suki:SukiSideMenuItem.Icon>
+                <Grid />
+            </suki:SukiSideMenuItem>
+        </suki:SukiSideMenu>
+    </Design.PreviewWith>
+    <ControlTheme x:Key="SukiSideMenuItemStyle" TargetType="suki:SukiSideMenuItem">
+        <!--  Every movement of a row lives in SukiSideMenuItemMotion: the plates, the poses, the sub-menu.  -->
+        <Setter Property="animations:SukiSideMenuItemMotion.Enable" Value="True" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <DockPanel>
+                    <Panel Name="PART_ChildrenHost" ClipToBounds="True" DockPanel.Dock="Bottom">
+                        <ItemsPresenter Name="PART_ItemsPresenter"
+                                        Margin="{DynamicResource SukiCompactness.SukiSideMenuItem.Children.Margin}"
+                                        ItemsPanel="{TemplateBinding ItemsPanel}" />
+                    </Panel>
+                    <Border Name="PART_Border"
+                            MinWidth="85"
+                            Margin="{DynamicResource SukiCompactness.SukiSideMenuItem.Row.Margin}"
+                            Background="{DynamicResource SukiPrimaryColor0}"
+                            ClipToBounds="True"
+                            CornerRadius="{DynamicResource SukiCompactness.SukiSideMenuItem.Row.CornerRadius}"
+                            Cursor="Hand">
+                        <Panel>
+                            <!--  Under the pointer.  -->
+                            <Border Name="PART_HoverPlate"
+                                    Background="{DynamicResource SukiPrimaryColor5}"
+                                    CornerRadius="{Binding #PART_Border.CornerRadius}"
+                                    IsHitTestVisible="False"
+                                    Opacity="0" />
+                            <!--  The selection: one plate handed from row to row.  -->
+                            <Border Name="PART_SelectionPlate"
+                                    Background="{DynamicResource SukiPrimaryColor10}"
+                                    CornerRadius="{Binding #PART_Border.CornerRadius}"
+                                    IsHitTestVisible="False"
+                                    Opacity="0"
+                                    RenderTransformOrigin="50%,50%" />
+                            <Border Name="PART_Content" Padding="{DynamicResource SukiCompactness.SukiSideMenuItem.Content.Padding}">
+                                <Panel>
+                                    <DockPanel Name="PART_NormalDisplay" LastChildFill="True">
+                                        <Panel Name="PART_ChevronHost"
+                                               Margin="0,0,-8,0"
+                                               DockPanel.Dock="Right">
+                                            <ToggleButton Name="PART_ExpandedButton"
+                                                          HorizontalContentAlignment="Center"
+                                                          VerticalContentAlignment="Center"
+                                                          Classes="CircleGlass"
+                                                          Focusable="False"
+                                                          IsChecked="{TemplateBinding IsExpanded,
+                                                                                      Mode=TwoWay}"
+                                                          IsVisible="{TemplateBinding ItemCount}">
+                                                <PathIcon Width="10"
+                                                          Height="10"
+                                                          Margin="0,2,0,0"
+                                                          HorizontalAlignment="Center"
+                                                          VerticalAlignment="Center"
+                                                          Data="{x:Static content:Icons.ChevronDown}"
+                                                          Foreground="{DynamicResource SukiLowText}" />
+                                            </ToggleButton>
+                                        </Panel>
+
+                                        <ContentControl Name="PART_Icon"
+                                                        Width="{DynamicResource SukiCompactness.SukiSideMenuItem.Icon.Size}"
+                                                        Height="{DynamicResource SukiCompactness.SukiSideMenuItem.Icon.Size}"
+                                                        Content="{TemplateBinding Icon}"
+                                                        DockPanel.Dock="Left" />
+                                        <Grid Name="PART_SideDisplay" DockPanel.Dock="Right">
+                                            <ContentPresenter Name="PART_SideDisplayContent"
+                                                              Margin="5,0"
+                                                              Content="{TemplateBinding DataContext}"
+                                                              ContentTemplate="{TemplateBinding SideDisplayTemplate}"
+                                                              IsVisible="{Binding SideDisplayTemplate, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                                        </Grid>
+                                        <Viewbox Name="PART_TitleBox"
+                                                 HorizontalAlignment="Left"
+                                                 StretchDirection="DownOnly">
+                                            <TextBlock Name="PART_Header"
+                                                       Margin="{DynamicResource SukiCompactness.SukiSideMenuItem.Title.Margin}"
+                                                       VerticalAlignment="Center"
+                                                       FontSize="{TemplateBinding FontSize}"
+                                                       Text="{TemplateBinding Header}" />
+                                        </Viewbox>
+                                    </DockPanel>
+                                </Panel>
+                            </Border>
+                        </Panel>
+                    </Border>
+
+                </DockPanel>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^.Compact /template/ Border#PART_Content">
+            <Setter Property="Padding" Value="{DynamicResource SukiCompactness.SukiSideMenuItem.Compact.Content.Padding}" />
+        </Style>
+        <Style Selector="^.Compact /template/ Border#PART_Border">
+            <Setter Property="CornerRadius" Value="{DynamicResource SukiCompactness.SukiSideMenuItem.Compact.Row.CornerRadius}" />
+        </Style>
+        <Style Selector="^[IsSelected=True]">
+            <Style Selector="^ /template/ TextBlock#PART_Header">
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor120}" />
+            </Style>
+            <Style Selector="^ /template/ ContentControl#PART_Icon">
+                <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+            </Style>
+        </Style>
+        <Setter Property="FontSize" Value="{DynamicResource SukiCompactness.SukiSideMenuItem.FontSize}" />
+    </ControlTheme>
+    <ControlTheme x:Key="{x:Type suki:SukiSideMenuItem}"
+                  BasedOn="{StaticResource SukiSideMenuItemStyle}"
+                  TargetType="suki:SukiSideMenuItem" />
+</ResourceDictionary>

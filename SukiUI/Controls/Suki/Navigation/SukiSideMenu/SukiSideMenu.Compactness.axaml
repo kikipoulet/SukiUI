@@ -1,0 +1,59 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Sizes of SukiSideMenu for every SukiCompactness level; the rows have theirs in Item/SukiSideMenuItem.Compactness.axaml.
+         Normal is the complete set (the historical values); the other levels only list what differs. Key names follow
+         SukiCompactness.<Control>[.<Class, Part or State>].<Property> (see SukiCompactnessResources).
+
+         Compact sits half-way between SuperCompact and Normal; Big is roomier on every side.
+
+         The compact pane and the rows form one piece of geometry: when the pane is compact the motion slides each row
+         until its icon is centred in Pane.CompactWidth, so the compact width must leave the icon its room (icon size +
+         a margin on each side). Search.OpenWidth plus the horizontal Search.Margin must fit in the open pane
+         (OpenPaneLength, 200 at least). Durations, curves and springs are not here: they belong to SukiSideMenuProfile. -->
+
+    <ResourceDictionary x:Key="Normal">
+        <!-- the menu -->
+        <x:Double x:Key="SukiCompactness.SukiSideMenu.Pane.CompactWidth">48</x:Double>
+        <Thickness x:Key="SukiCompactness.SukiSideMenu.Toggle.Margin">7</Thickness>
+        <Thickness x:Key="SukiCompactness.SukiSideMenu.Footer.Margin">0,0,0,12</Thickness>
+        <!-- the search: a round button that stretches into a field -->
+        <x:Double x:Key="SukiCompactness.SukiSideMenu.Search.Size">42</x:Double>
+        <x:Double x:Key="SukiCompactness.SukiSideMenu.Search.OpenWidth">190</x:Double>
+        <Thickness x:Key="SukiCompactness.SukiSideMenu.Search.Margin">15,10,15,15</Thickness>
+        <CornerRadius x:Key="SukiCompactness.SukiSideMenu.Search.CornerRadius">22</CornerRadius>
+        <CornerRadius x:Key="SukiCompactness.SukiSideMenu.Search.Open.CornerRadius">12</CornerRadius>
+    </ResourceDictionary>
+
+    <ResourceDictionary x:Key="SuperCompact">
+        <x:Double x:Key="SukiCompactness.SukiSideMenu.Pane.CompactWidth">44</x:Double>
+        <Thickness x:Key="SukiCompactness.SukiSideMenu.Toggle.Margin">5</Thickness>
+        <Thickness x:Key="SukiCompactness.SukiSideMenu.Footer.Margin">0,0,0,9</Thickness>
+        <x:Double x:Key="SukiCompactness.SukiSideMenu.Search.Size">37</x:Double>
+        <Thickness x:Key="SukiCompactness.SukiSideMenu.Search.Margin">12,8,12,12</Thickness>
+        <CornerRadius x:Key="SukiCompactness.SukiSideMenu.Search.CornerRadius">19</CornerRadius>
+        <CornerRadius x:Key="SukiCompactness.SukiSideMenu.Search.Open.CornerRadius">11</CornerRadius>
+    </ResourceDictionary>
+
+    <ResourceDictionary x:Key="Compact">
+        <x:Double x:Key="SukiCompactness.SukiSideMenu.Pane.CompactWidth">46</x:Double>
+        <Thickness x:Key="SukiCompactness.SukiSideMenu.Toggle.Margin">6</Thickness>
+        <Thickness x:Key="SukiCompactness.SukiSideMenu.Footer.Margin">0,0,0,10</Thickness>
+        <x:Double x:Key="SukiCompactness.SukiSideMenu.Search.Size">40</x:Double>
+        <Thickness x:Key="SukiCompactness.SukiSideMenu.Search.Margin">14,9,14,14</Thickness>
+        <CornerRadius x:Key="SukiCompactness.SukiSideMenu.Search.CornerRadius">20</CornerRadius>
+        <CornerRadius x:Key="SukiCompactness.SukiSideMenu.Search.Open.CornerRadius">11.5</CornerRadius>
+    </ResourceDictionary>
+
+    <ResourceDictionary x:Key="Big">
+        <x:Double x:Key="SukiCompactness.SukiSideMenu.Pane.CompactWidth">56</x:Double>
+        <Thickness x:Key="SukiCompactness.SukiSideMenu.Toggle.Margin">9</Thickness>
+        <Thickness x:Key="SukiCompactness.SukiSideMenu.Footer.Margin">0,0,0,15</Thickness>
+        <x:Double x:Key="SukiCompactness.SukiSideMenu.Search.Size">48</x:Double>
+        <x:Double x:Key="SukiCompactness.SukiSideMenu.Search.OpenWidth">184</x:Double>
+        <Thickness x:Key="SukiCompactness.SukiSideMenu.Search.Margin">18,12,18,18</Thickness>
+        <CornerRadius x:Key="SukiCompactness.SukiSideMenu.Search.CornerRadius">24</CornerRadius>
+        <CornerRadius x:Key="SukiCompactness.SukiSideMenu.Search.Open.CornerRadius">14</CornerRadius>
+    </ResourceDictionary>
+
+</ResourceDictionary>

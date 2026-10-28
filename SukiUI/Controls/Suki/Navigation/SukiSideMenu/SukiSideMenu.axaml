@@ -1,5 +1,6 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:animations="clr-namespace:SukiUI.ControlsAnimation"
                     xmlns:content="clr-namespace:SukiUI.Content"
                     xmlns:suki="clr-namespace:SukiUI.Controls"
                     xmlns:theme="clr-namespace:SukiUI.Theme">
@@ -8,12 +9,17 @@
     </Design.PreviewWith>
     <ControlTheme x:Key="SukiSideMenuStyle" TargetType="suki:SukiSideMenu">
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <!--  The pane, the rows' slide and the header / footer / search folds live in SukiSideMenuMotion.  -->
+        <Setter Property="animations:SukiSideMenuMotion.Enable" Value="True" />
         <Setter Property="Template">
             <ControlTemplate>
-                <SplitView DisplayMode="CompactInline"
-                           IsPaneOpen="{TemplateBinding IsMenuExpanded}"
-                           OpenPaneLength="{TemplateBinding OpenPaneLength}">
-                    <SplitView.Pane>
+                <Grid ColumnDefinitions="Auto,*">
+                    <!--  The pane's width is driven by SukiSideMenuMotion (open <-> compact).  -->
+                    <Panel Name="PART_Pane"
+                           HorizontalAlignment="Left"
+                           Background="Transparent"
+                           ClipToBounds="True"
+                           ZIndex="100">
                         <Border
                             Margin="{Binding ShowTitlebarBackground, Converter={x:Static suki:WindowBackgroundToMarginConverter.Instance}, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type suki:SukiWindow}}}">
                             <Grid Background="Transparent">
@@ -29,7 +35,7 @@
                                                 IsAnimated="False" />
                                 <DockPanel>
                                     <Button Name="PART_SidebarToggleButton"
-                                            Margin="7"
+                                            Margin="{DynamicResource SukiCompactness.SukiSideMenu.Toggle.Margin}"
                                             HorizontalAlignment="Right"
                                             VerticalAlignment="Top"
                                             Classes="Basic"
@@ -42,52 +48,40 @@
                                                       Height="12"
                                                       Classes="Flippable"
                                                       Data="{x:Static content:Icons.ChevronLeft}"
-                                                      Foreground="{DynamicResource SukiText}">
-                                                <PathIcon.Transitions>
-                                                    <Transitions>
-                                                        <TransformOperationsTransition Property="RenderTransform"
-                                                                Duration="{StaticResource MediumAnimationDuration}" />
-                                                    </Transitions>
-                                                </PathIcon.Transitions>
-                                            </PathIcon>
+                                                      Foreground="{DynamicResource SukiText}" />
                                         </Panel>
                                     </Button>
-                                    <Grid MinHeight="{TemplateBinding HeaderMinHeight}"
-                                          DockPanel.Dock="Top"
-                                          IsVisible="{TemplateBinding IsMenuExpanded}">
-                                        <ContentPresenter Content="{TemplateBinding HeaderContent}" />
-                                    </Grid>
-                                    <ContentControl Margin="0,0,0,12"
-                                                    Content="{TemplateBinding FooterContent}"
-                                                    DockPanel.Dock="Bottom"
-                                                    IsVisible="{TemplateBinding IsMenuExpanded}" />
+                                    <!--  Header, footer and search take their room (and give it back) on the pane's spring: the folds
+                                          are what the rows below ride on, so that nothing jumps when the pane opens or closes.  -->
+                                    <Panel Name="PART_HeaderFold" ClipToBounds="True" DockPanel.Dock="Top">
+                                        <Grid Name="PART_HeaderHost" MinHeight="{TemplateBinding HeaderMinHeight}">
+                                            <ContentPresenter Content="{TemplateBinding HeaderContent}" />
+                                        </Grid>
+                                    </Panel>
+                                    <Panel Name="PART_FooterFold" ClipToBounds="True" DockPanel.Dock="Bottom">
+                                        <ContentControl Name="PART_FooterHost"
+                                                        Margin="{DynamicResource SukiCompactness.SukiSideMenu.Footer.Margin}"
+                                                        Content="{TemplateBinding FooterContent}" />
+                                    </Panel>
                                     <Grid Name="PART_Spacer"
                                           Height="15"
                                           DockPanel.Dock="Top" />
                                     <DockPanel>
-                                        <StackPanel DockPanel.Dock="Top" IsVisible="{TemplateBinding IsSearchEnabled}">
-                                            <StackPanel.Styles>
-                                                <Style
-                                                    Selector="suki|GlassCard.Search:pointerover, suki|GlassCard.Search:focus-within">
-                                                    <Setter Property="Width" Value="190" />
-                                                    <Setter Property="CornerRadius" Value="12" />
-                                                </Style>
-                                            </StackPanel.Styles>
-                                            <suki:GlassCard Width="42"
-                                                            Height="42"
-                                                            Margin="15,10,15,15"
+                                        <Panel Name="PART_SearchGate"
+                                               DockPanel.Dock="Top"
+                                               IsVisible="{TemplateBinding IsSearchEnabled}">
+                                        <Panel Name="PART_SearchFold" ClipToBounds="True">
+                                        <StackPanel>
+                                            <!--  The stretching of the search lives in SukiSideMenuSearchMotion.  -->
+                                            <suki:GlassCard Name="PART_SearchHost"
+                                                            Width="{DynamicResource SukiCompactness.SukiSideMenu.Search.Size}"
+                                                            Height="{DynamicResource SukiCompactness.SukiSideMenu.Search.Size}"
+                                                            Margin="{DynamicResource SukiCompactness.SukiSideMenu.Search.Margin}"
                                                             HorizontalAlignment="Right"
                                                             Classes="Search"
-                                                            CornerRadius="22"
+                                                            CornerRadius="{DynamicResource SukiCompactness.SukiSideMenu.Search.CornerRadius}"
                                                             IsAnimated="False"
-                                                            IsVisible="{TemplateBinding IsMenuExpanded}">
-                                                <suki:GlassCard.Transitions>
-                                                    <Transitions>
-                                                        <CornerRadiusTransition Property="CornerRadius"
-                                                                Duration="0:0:0.35" />
-                                                        <DoubleTransition Property="Width" Duration="0:0:0.35" />
-                                                    </Transitions>
-                                                </suki:GlassCard.Transitions>
+                                                            animations:SukiSideMenuSearchMotion.Enable="True">
                                                 <DockPanel Margin="-1,-1,0,0">
                                                     <PathIcon Width="13"
                                                               Height="13"
@@ -107,6 +101,8 @@
 
                                             <!--  <Border Height="1" Margin="20,0,20,15" Background="{DynamicResource SukiBorderBrush}"/> -->
                                         </StackPanel>
+                                        </Panel>
+                                        </Panel>
                                         <ScrollViewer Name="PART_ScrollViewer"
                                                       AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
                                                       Background="{TemplateBinding Background}"
@@ -117,7 +113,11 @@
                                                       IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
                                                       VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
                                                       VerticalSnapPointsType="{TemplateBinding (ScrollViewer.VerticalSnapPointsType)}">
-                                            <StackPanel theme:StackPanelExtensions.AnimatedScroll="True">
+                                            <!--  The rows keep the width of the open pane whatever the pane's width: opening or closing it
+                                                  only reveals them, nothing reflows (see SukiSideMenuItemMotion).  -->
+                                            <StackPanel MinWidth="{TemplateBinding OpenPaneLength}"
+                                                        HorizontalAlignment="Left"
+                                                        theme:StackPanelExtensions.AnimatedScroll="True">
                                                 <ItemsPresenter Name="PART_ItemsPresenter"
                                                                 Margin="{TemplateBinding Padding}"
                                                                 theme:ItemsPresenterExtensions.AnimatedScroll="True"
@@ -128,15 +128,16 @@
                                 </DockPanel>
                             </Grid>
                         </Border>
-                    </SplitView.Pane>
+                    </Panel>
                     <Border Name="ContentBorder"
+                            Grid.Column="1"
                             Margin="0,0,0,0"
                             Background="{DynamicResource SukiBackground}"
                             BorderBrush="{DynamicResource SukiBorderBrush}"
                             BorderThickness="0,0,0,0" IsVisible="{TemplateBinding IsContentVisible}">
                         <suki:SukiTransitioningContentControl Name="PART_TransitioningContentControl" />
                     </Border>
-                </SplitView>
+                </Grid>
             </ControlTemplate>
         </Setter>
         <Style Selector="^[IsToggleButtonVisible=False]">
@@ -154,9 +155,6 @@
             </Style>
         </Style>
         <Style Selector="^[IsMenuExpanded=False]">
-            <Style Selector="^ /template/ PathIcon#PART_ExpandIcon">
-                <Setter Property="RenderTransform" Value="rotate(-180deg)" />
-            </Style>
             <Style Selector="^ /template/ Grid#PART_Spacer">
                 <Setter Property="Height" Value="0" />
             </Style>

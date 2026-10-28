@@ -14,6 +14,7 @@ namespace SukiUI.ControlsAnimation
         public required SukiPresetTable<SukiCheckPreset, SukiCheckProfile> Check { get; init; }
         public required SukiPresetTable<SukiTypingPreset, SukiTypingProfile> Typing { get; init; }
         public required SukiPresetTable<SukiToastPreset, SukiToastProfile> Toast { get; init; }
+        public required SukiPresetTable<SukiSideMenuPreset, SukiSideMenuProfile> SideMenu { get; init; }
 
         /// <summary>The historical calibrations — the default profile.</summary>
         public static readonly SukiAnimationProfile Normal = new()
@@ -25,6 +26,7 @@ namespace SukiUI.ControlsAnimation
             Check = SukiCheckProfile.Normal,
             Typing = SukiTypingProfile.Normal,
             Toast = SukiToastProfile.Normal,
+            SideMenu = SukiSideMenuProfile.Normal,
         };
 
         /// <summary>The sober calibrations, family by family.</summary>
@@ -37,6 +39,7 @@ namespace SukiUI.ControlsAnimation
             Check = SukiCheckProfile.Lite,
             Typing = SukiTypingProfile.Lite,
             Toast = SukiToastProfile.Lite,
+            SideMenu = SukiSideMenuProfile.Lite,
         };
     }
 }

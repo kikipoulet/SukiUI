@@ -100,7 +100,7 @@
                 <ResourceInclude Source="avares://sukiUI/Controls/Suki/Overlays/Dialog/SukiDialog.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/Suki/Navigation/SukiSideMenu/SukiSideMenu.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/Suki/Navigation/SukiStackPage/SukiStackPage.axaml" />
-                <ResourceInclude Source="avares://sukiUI/Controls/Suki/Navigation/SukiSideMenu/SukiSideMenuItem.axaml" />
+                <ResourceInclude Source="avares://sukiUI/Controls/Suki/Navigation/SukiSideMenu/Item/SukiSideMenuItem.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/Suki/Navigation/SukiTransitioningContentControl/SukiTransitioningContentControl.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/Suki/Feedback/Stepper/Stepper.axaml" />
                 <ResourceInclude Source="avares://sukiUI/Controls/Suki/Feedback/VerticalStepper/VerticalStepper.axaml" />

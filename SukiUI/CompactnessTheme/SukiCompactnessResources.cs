@@ -38,6 +38,8 @@ namespace SukiUI.CompactnessTheme
             "Controls/Standard/Buttons/Button/Button.Compactness.axaml",
             "Controls/Standard/Selection/ToggleSwitch/ToggleSwitch.Compactness.axaml",
             "Controls/Suki/Containers/GlassCard/GlassCard.Compactness.axaml",
+            "Controls/Suki/Navigation/SukiSideMenu/SukiSideMenu.Compactness.axaml",
+            "Controls/Suki/Navigation/SukiSideMenu/Item/SukiSideMenuItem.Compactness.axaml",
         ];
 
         private static List<ResourceDictionary>? _loaded;

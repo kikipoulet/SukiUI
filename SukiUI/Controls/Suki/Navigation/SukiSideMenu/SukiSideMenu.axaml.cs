@@ -4,6 +4,7 @@ using Avalonia.Controls.Primitives;
 using System.Globalization;
 using Avalonia.Interactivity;
 using Avalonia.Data.Converters;
+using Avalonia.Threading;
 using SukiUI.Enums;
 
 namespace SukiUI.Controls;
@@ -141,6 +142,7 @@ public class SukiSideMenu : TreeView
     private bool IsSpacerVisible => !IsMenuExpanded;
 
 
+    private INameScope? _parts;
     private SukiTransitioningContentControl? _contentControl;
     private Grid? _spacer;
     private Button? _toggleButton;
@@ -149,6 +151,9 @@ public class SukiSideMenu : TreeView
     {
         SelectionMode = SelectionMode.Single | SelectionMode.AlwaysSelected;
     }
+
+    /// <summary>A named part of the applied template (the motion animates them).</summary>
+    internal Control? Part(string name) => _parts?.Find<Control>(name);
 
     private void MenuExpandedClicked()
     {
@@ -166,6 +171,7 @@ public class SukiSideMenu : TreeView
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
+        _parts = e.NameScope;
 
         if (SelectedItem is null && Items.Any())
         {
@@ -279,6 +285,46 @@ public class SukiSideMenu : TreeView
         _sideMenuItems.Concat(Items.OfType<SukiSideMenuItem>()).Distinct();
 
     private void ToggleButtonOnClick(object? sender, RoutedEventArgs e) => MenuExpandedClicked();
+
+    // ---- the selection plate's hand-off ----------------------------------------------------
+    // Rows learn that they are selected or left one after the other, in an order the menu does
+    // not control. The plate must go from one to the other as a single gesture, so rows queue
+    // here and the menu settles them together, once everything has landed: it can then tell
+    // which way the selection travelled.
+
+    private readonly List<SukiSideMenuItem> _plateQueue = new();
+
+    internal void QueuePlateSync(SukiSideMenuItem item)
+    {
+        if (!_plateQueue.Contains(item))
+            _plateQueue.Add(item);
+        if (_plateQueue.Count == 1)
+            Dispatcher.UIThread.Post(SyncPlates, DispatcherPriority.Render);
+    }
+
+    private void SyncPlates()
+    {
+        var changed = _plateQueue.Where(i => i.IsPlateActive != i.IsSelected).ToList();
+        _plateQueue.Clear();
+        if (changed.Count == 0)
+            return;
+
+        var chosen = changed.FirstOrDefault(i => i.IsSelected);
+        var left = changed.FirstOrDefault(i => !i.IsSelected);
+        var flow = 0;
+        if (chosen is not null && left is not null &&
+            CenterY(chosen) is { } chosenY && CenterY(left) is { } leftY)
+            flow = Math.Sign(chosenY - leftY);
+
+        foreach (var item in changed)
+        {
+            item.SelectionFlow = flow;
+            item.IsPlateActive = item.IsSelected;
+        }
+    }
+
+    private double? CenterY(SukiSideMenuItem item) =>
+        item.Row is { } row && row.TranslatePoint(new Point(0, row.Bounds.Height / 2), this) is { } p ? p.Y : null;
 
     private readonly List<SukiSideMenuItem> _sideMenuItems = new();
 
