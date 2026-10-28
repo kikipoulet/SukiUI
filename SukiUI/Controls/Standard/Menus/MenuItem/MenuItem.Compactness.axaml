@@ -1,0 +1,77 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Sizes of MenuItem (an item of a drop-down, submenu or context menu) for every SukiCompactness level; the
+         top-level items of a Menu bar have their own in ../Menu/Menu.Compactness.axaml. Normal is the complete set
+         (the historical values); the other levels only list what differs. Key names follow
+         SukiCompactness.<Control>[.<Class, Part or State>].<Property> (see SukiCompactnessResources).
+
+         Row is the grid that lays out a row's columns. Icon.Size is the square the icon column reserves at least
+         (MinWidth / MinHeight); the icon itself keeps its own size. RightArrow.Column.Width is the column that holds
+         the submenu chevron. The item border, the separator line between the icon and the header and the
+         Separator rows are hairlines; the popup's shadow margins and offsets are the room its shadow needs: none
+         of them follow the level. -->
+
+    <ResourceDictionary x:Key="Normal">
+        <!-- a row -->
+        <x:Double x:Key="SukiCompactness.MenuItem.FontSize">14</x:Double>
+        <Thickness x:Key="SukiCompactness.MenuItem.Row.Margin">5,10</Thickness>
+        <Thickness x:Key="SukiCompactness.MenuItem.Toggle.Margin">5,0,0,0</Thickness>
+        <Thickness x:Key="SukiCompactness.MenuItem.Icon.Margin">5,0,0,0</Thickness>
+        <x:Double x:Key="SukiCompactness.MenuItem.Icon.Size">16</x:Double>
+        <Thickness x:Key="SukiCompactness.MenuItem.HorizontalSeparator.Margin">10,0,5,-2</Thickness>
+        <Thickness x:Key="SukiCompactness.MenuItem.Header.Margin">5,0</Thickness>
+        <Thickness x:Key="SukiCompactness.MenuItem.InputGestureText.Margin">20,0,0,0</Thickness>
+        <x:Double x:Key="SukiCompactness.MenuItem.RightArrow.Column.Width">24</x:Double>
+        <x:Double x:Key="SukiCompactness.MenuItem.RightArrow.Size">8</x:Double>
+        <!-- its submenu -->
+        <CornerRadius x:Key="SukiCompactness.MenuItem.Popup.CornerRadius">5</CornerRadius>
+        <CornerRadius x:Key="SukiCompactness.MenuItem.Popup.Shadow.CornerRadius">6</CornerRadius>
+    </ResourceDictionary>
+
+    <ResourceDictionary x:Key="SuperCompact">
+        <x:Double x:Key="SukiCompactness.MenuItem.FontSize">12.5</x:Double>
+        <Thickness x:Key="SukiCompactness.MenuItem.Row.Margin">3.5,6</Thickness>
+        <Thickness x:Key="SukiCompactness.MenuItem.Toggle.Margin">3.5,0,0,0</Thickness>
+        <Thickness x:Key="SukiCompactness.MenuItem.Icon.Margin">3.5,0,0,0</Thickness>
+        <x:Double x:Key="SukiCompactness.MenuItem.Icon.Size">13.5</x:Double>
+        <Thickness x:Key="SukiCompactness.MenuItem.HorizontalSeparator.Margin">7,0,3.5,-2</Thickness>
+        <Thickness x:Key="SukiCompactness.MenuItem.Header.Margin">3.5,0</Thickness>
+        <Thickness x:Key="SukiCompactness.MenuItem.InputGestureText.Margin">14,0,0,0</Thickness>
+        <x:Double x:Key="SukiCompactness.MenuItem.RightArrow.Column.Width">19</x:Double>
+        <x:Double x:Key="SukiCompactness.MenuItem.RightArrow.Size">6.5</x:Double>
+        <CornerRadius x:Key="SukiCompactness.MenuItem.Popup.CornerRadius">3.5</CornerRadius>
+        <CornerRadius x:Key="SukiCompactness.MenuItem.Popup.Shadow.CornerRadius">4.5</CornerRadius>
+    </ResourceDictionary>
+
+    <ResourceDictionary x:Key="Compact">
+        <x:Double x:Key="SukiCompactness.MenuItem.FontSize">13</x:Double>
+        <Thickness x:Key="SukiCompactness.MenuItem.Row.Margin">4,7</Thickness>
+        <Thickness x:Key="SukiCompactness.MenuItem.Toggle.Margin">4,0,0,0</Thickness>
+        <Thickness x:Key="SukiCompactness.MenuItem.Icon.Margin">4,0,0,0</Thickness>
+        <x:Double x:Key="SukiCompactness.MenuItem.Icon.Size">14</x:Double>
+        <Thickness x:Key="SukiCompactness.MenuItem.HorizontalSeparator.Margin">8,0,4,-2</Thickness>
+        <Thickness x:Key="SukiCompactness.MenuItem.Header.Margin">4,0</Thickness>
+        <Thickness x:Key="SukiCompactness.MenuItem.InputGestureText.Margin">16,0,0,0</Thickness>
+        <x:Double x:Key="SukiCompactness.MenuItem.RightArrow.Column.Width">20</x:Double>
+        <x:Double x:Key="SukiCompactness.MenuItem.RightArrow.Size">7</x:Double>
+        <CornerRadius x:Key="SukiCompactness.MenuItem.Popup.CornerRadius">4</CornerRadius>
+        <CornerRadius x:Key="SukiCompactness.MenuItem.Popup.Shadow.CornerRadius">5</CornerRadius>
+    </ResourceDictionary>
+
+    <ResourceDictionary x:Key="Big">
+        <x:Double x:Key="SukiCompactness.MenuItem.FontSize">16</x:Double>
+        <Thickness x:Key="SukiCompactness.MenuItem.Row.Margin">6,13</Thickness>
+        <Thickness x:Key="SukiCompactness.MenuItem.Toggle.Margin">6,0,0,0</Thickness>
+        <Thickness x:Key="SukiCompactness.MenuItem.Icon.Margin">6,0,0,0</Thickness>
+        <x:Double x:Key="SukiCompactness.MenuItem.Icon.Size">20</x:Double>
+        <Thickness x:Key="SukiCompactness.MenuItem.HorizontalSeparator.Margin">12,0,6,-2</Thickness>
+        <Thickness x:Key="SukiCompactness.MenuItem.Header.Margin">6,0</Thickness>
+        <Thickness x:Key="SukiCompactness.MenuItem.InputGestureText.Margin">24,0,0,0</Thickness>
+        <x:Double x:Key="SukiCompactness.MenuItem.RightArrow.Column.Width">28</x:Double>
+        <x:Double x:Key="SukiCompactness.MenuItem.RightArrow.Size">10</x:Double>
+        <CornerRadius x:Key="SukiCompactness.MenuItem.Popup.CornerRadius">7</CornerRadius>
+        <CornerRadius x:Key="SukiCompactness.MenuItem.Popup.Shadow.CornerRadius">8</CornerRadius>
+    </ResourceDictionary>
+
+</ResourceDictionary>

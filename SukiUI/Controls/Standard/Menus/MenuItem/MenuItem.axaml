@@ -73,7 +73,7 @@
 
         <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
         <Setter Property="BorderThickness" Value="1.5" />
-        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontSize" Value="{DynamicResource SukiCompactness.MenuItem.FontSize}" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
 
@@ -96,7 +96,7 @@
                         BorderThickness="{TemplateBinding BorderThickness}"
                         ClipToBounds="True">
                     <Panel>
-                        <Grid Margin="5,10">
+                        <Grid Margin="{DynamicResource SukiCompactness.MenuItem.Row.Margin}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"
                                                   SharedSizeGroup="CheckToggle" />
@@ -113,22 +113,22 @@
 
 
                             <CheckBox Grid.Column="0" Name="PART_CheckBox"
-                                      Margin="5,0,0,0"
+                                      Margin="{DynamicResource SukiCompactness.MenuItem.Toggle.Margin}"
                                       IsChecked="{TemplateBinding IsChecked, Mode=TwoWay}"
                                       IsVisible="False" />
 
                             <RadioButton Grid.Column="0"
                                          Name="PART_RadioButton"
-                                         Margin="5,0,0,0"
+                                         Margin="{DynamicResource SukiCompactness.MenuItem.Toggle.Margin}"
                                          IsChecked="{TemplateBinding IsChecked, Mode=TwoWay}"
                                          GroupName="{TemplateBinding GroupName}"
                                          IsVisible="False" />
 
                             <ContentPresenter Grid.Column="1"
                                               Name="PART_IconPresenter"
-                                              MinHeight="16"
-                                              MinWidth="16"
-                                              Margin="5,0,0,0"
+                                              MinHeight="{DynamicResource SukiCompactness.MenuItem.Icon.Size}"
+                                              MinWidth="{DynamicResource SukiCompactness.MenuItem.Icon.Size}"
+                                              Margin="{DynamicResource SukiCompactness.MenuItem.Icon.Margin}"
                                               HorizontalAlignment="Center"
                                               VerticalAlignment="Center"
                                               IsVisible="False"
@@ -137,7 +137,7 @@
                             <Rectangle Grid.Column="2"
                                        Name="PART_HorizontalSeparator"
                                        Width="2"
-                                       Margin="10,0,5,-2"
+                                       Margin="{DynamicResource SukiCompactness.MenuItem.HorizontalSeparator.Margin}"
                                        Fill="{DynamicResource SukiLightBorderBrush}">
                                 <Rectangle.IsVisible>
                                     <MultiBinding Converter="{x:Static BoolConverters.Or}">
@@ -153,7 +153,7 @@
 
                             <ContentPresenter Grid.Column="3"
                                               Name="PART_HeaderPresenter"
-                                              Margin="5,0"
+                                              Margin="{DynamicResource SukiCompactness.MenuItem.Header.Margin}"
                                               HorizontalAlignment="Left"
                                               VerticalAlignment="Center"
                                               Content="{TemplateBinding Header}"
@@ -167,7 +167,7 @@
 
                             <TextBlock Grid.Column="4"
                                        Name="PART_InputGestureText"
-                                       Margin="20,0,0,0"
+                                       Margin="{DynamicResource SukiCompactness.MenuItem.InputGestureText.Margin}"
                                        VerticalAlignment="Center"
                                        DockPanel.Dock="Right"
                                        Foreground="{DynamicResource SukiMuteText}"
@@ -175,10 +175,10 @@
                                        Text="{TemplateBinding InputGesture, Converter={StaticResource KeyGestureConverter}}" />
 
                             <Border Grid.Column="5"
-                                    Width="24">
+                                    Width="{DynamicResource SukiCompactness.MenuItem.RightArrow.Column.Width}">
                                 <PathIcon Name="PART_RightArrow"
-                                          Width="8"
-                                          Height="8"
+                                          Width="{DynamicResource SukiCompactness.MenuItem.RightArrow.Size}"
+                                          Height="{DynamicResource SukiCompactness.MenuItem.RightArrow.Size}"
                                           HorizontalAlignment="Center"
                                           VerticalAlignment="Center"
                                           Classes="Flippable"
@@ -200,7 +200,7 @@
                                 <Panel Margin="0,-8,0,0">
                                     <Border Margin="16,8,8,8"
                                             BoxShadow="{DynamicResource SukiPopupShadow}"
-                                            CornerRadius="6" />
+                                            CornerRadius="{DynamicResource SukiCompactness.MenuItem.Popup.Shadow.CornerRadius}" />
 
                                     <Border Name="PART_Border"
                                             Margin="16,8,8,8"
@@ -209,7 +209,7 @@
                                             BorderThickness="1"
                                             BoxShadow="{DynamicResource SukiPopupShadow}"
                                             ClipToBounds="True"
-                                            CornerRadius="5">
+                                            CornerRadius="{DynamicResource SukiCompactness.MenuItem.Popup.CornerRadius}">
                                         <Panel Background="{DynamicResource PopupGradientBrush}">
                                             <ScrollViewer theme:MenuPopupSizing.ConstrainToScreen="True"
                                                           Theme="{StaticResource SukiMenuScrollViewer}">
