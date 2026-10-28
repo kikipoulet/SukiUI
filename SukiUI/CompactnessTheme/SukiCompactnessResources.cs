@@ -46,13 +46,22 @@ namespace SukiUI.CompactnessTheme
         ];
 
         private static List<ResourceDictionary>? _loaded;
+        private static readonly Dictionary<object, object?>?[] Tables =
+            new Dictionary<object, object?>?[Enum.GetValues<SukiCompactness>().Length];
 
         internal static IReadOnlyList<string> SourcePaths => Sources;
 
         /// <summary>The loaded per-control files (a dictionary of level dictionaries each).</summary>
-        internal static IReadOnlyList<ResourceDictionary> Files => _loaded ??= Load();
+        private static IReadOnlyList<ResourceDictionary> Files => _loaded ??= Load();
 
-        internal static List<KeyValuePair<object, object?>> Build(SukiCompactness level)
+        /// <summary>
+        /// Every key of one level: Normal with the level written over it. Built once per level and shared by the
+        /// global layer and every <see cref="Theme.Compactness"/> scope (the values are immutable).
+        /// </summary>
+        internal static IReadOnlyDictionary<object, object?> Table(SukiCompactness level) =>
+            Tables[(int)level] ??= Build(level);
+
+        private static Dictionary<object, object?> Build(SukiCompactness level)
         {
             var values = new Dictionary<object, object?>();
             foreach (var file in Files)
@@ -61,17 +70,19 @@ namespace SukiUI.CompactnessTheme
                 if (level != SukiCompactness.Normal)
                     Overlay(values, file, level);
             }
-            return [.. values];
+            return values;
         }
 
-        internal static ResourceDictionary? Level(ResourceDictionary file, SukiCompactness level) =>
+        private static ResourceDictionary? Level(ResourceDictionary file, SukiCompactness level) =>
             file.TryGetResource(level.ToString(), null, out var value) ? value as ResourceDictionary : null;
 
         private static void Overlay(Dictionary<object, object?> values, ResourceDictionary file, SukiCompactness level)
         {
             if (Level(file, level) is not { } dictionary) return;
+            // TryGetResource rather than the enumerated value: it resolves an entry the XAML loader deferred,
+            // and a scope hands its values out as they are
             foreach (var pair in dictionary)
-                values[pair.Key] = pair.Value;
+                values[pair.Key] = dictionary.TryGetResource(pair.Key, null, out var value) ? value : pair.Value;
         }
 
         private static List<ResourceDictionary> Load()

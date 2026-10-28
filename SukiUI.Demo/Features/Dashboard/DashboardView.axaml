@@ -204,6 +204,50 @@
                 </Grid>
             </suki:GlassCard>
 
+            <!--  compactness per control  -->
+            <suki:GlassCard Width="300"
+                            Margin="15"
+                            VerticalAlignment="Top">
+                <StackPanel>
+                    <TextBlock FontSize="16"
+                               FontWeight="DemiBold"
+                               Text="Compactness" />
+                    <TextBlock Margin="0,4,0,12"
+                               FontSize="12"
+                               Foreground="{DynamicResource SukiLowText}"
+                               Text="suki:Compactness.Level on each switch"
+                               TextWrapping="Wrap" />
+                    <Grid Margin="0,6">
+                        <TextBlock VerticalAlignment="Center" Text="SuperCompact" />
+                        <ToggleSwitch HorizontalAlignment="Right"
+                                      suki:Compactness.Level="SuperCompact"
+                                      Classes="Switch"
+                                      IsChecked="True" />
+                    </Grid>
+                    <Grid Margin="0,6">
+                        <TextBlock VerticalAlignment="Center" Text="Compact" />
+                        <ToggleSwitch HorizontalAlignment="Right"
+                                      suki:Compactness.Level="Compact"
+                                      Classes="Switch"
+                                      IsChecked="True" />
+                    </Grid>
+                    <Grid Margin="0,6">
+                        <TextBlock VerticalAlignment="Center" Text="Normal" />
+                        <ToggleSwitch HorizontalAlignment="Right"
+                                      suki:Compactness.Level="Normal"
+                                      Classes="Switch"
+                                      IsChecked="True" />
+                    </Grid>
+                    <Grid Margin="0,6">
+                        <TextBlock VerticalAlignment="Center" Text="Big" />
+                        <ToggleSwitch HorizontalAlignment="Right"
+                                      suki:Compactness.Level="Big"
+                                      Classes="Switch"
+                                      IsChecked="True" />
+                    </Grid>
+                </StackPanel>
+            </suki:GlassCard>
+
             <!--  notifications  -->
             <suki:GlassCard Width="500"
                             Margin="15"

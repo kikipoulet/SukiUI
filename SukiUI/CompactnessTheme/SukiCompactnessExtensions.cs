@@ -24,11 +24,9 @@ namespace SukiUI.CompactnessTheme
             if (owner.TryFindResource(key, owner.ActualThemeVariant, out var value))
                 return Cast<T>(key, value);
 
-            // the element is outside the theme (or the layer is not applied yet): the Normal level of the files
-            foreach (var file in SukiCompactnessResources.Files)
-                if (SukiCompactnessResources.Level(file, SukiCompactness.Normal) is { } normal &&
-                    normal.TryGetResource(key, null, out value))
-                    return Cast<T>(key, value);
+            // the element is outside the theme (or the layer is not applied yet): the Normal table
+            if (SukiCompactnessResources.Table(SukiCompactness.Normal).TryGetValue(key, out value))
+                return Cast<T>(key, value);
 
             throw new KeyNotFoundException($"No SukiCompactness resource is declared under '{key}'.");
         }

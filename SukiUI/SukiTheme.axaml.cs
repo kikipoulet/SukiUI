@@ -481,7 +481,7 @@ namespace SukiUI
         }
 
         private void ApplyCompactness(SukiCompactness compactness) =>
-            SetResources(Resources, SukiCompactnessResources.Build(compactness));
+            SetResources(Resources, SukiCompactnessResources.Table(compactness));
 
         private void ApplyLocale(string? locale)
         {
