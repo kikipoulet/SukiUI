@@ -56,7 +56,7 @@ namespace SukiUI.ControlsAnimation
         private static readonly Easing PressEasing = SukiEase.Classic.Cubic.Out;
 
         protected override SukiSideMenuProfile GetProfile(SukiSideMenuItem control) =>
-            SukiAnimationTheme.Current.SideMenu[GetPreset(control)];
+            SukiAnimationTheme.For(control).SideMenu[GetPreset(control)];
 
         protected override void Configure(MotionBuilder<SukiSideMenuItem, SukiSideMenuProfile> motion)
         {

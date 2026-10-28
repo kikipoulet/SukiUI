@@ -22,7 +22,7 @@ namespace SukiUI.ControlsAnimation
         public static void SetEnable(TextBox element, bool value) => element.SetValue(EnableProperty, value);
 
         protected override SukiTypingProfile GetProfile(TextBox control) =>
-            SukiAnimationTheme.Current.Typing[SukiTypingPreset.TextBox];
+            SukiAnimationTheme.For(control).Typing[SukiTypingPreset.TextBox];
 
         protected override void Configure(MotionBuilder<TextBox, SukiTypingProfile> motion)
         {

@@ -22,7 +22,7 @@ namespace SukiUI.ControlsAnimation
         public static void SetEnable(ContextMenu element, bool value) => element.SetValue(EnableProperty, value);
 
         protected override SukiPopupProfile GetProfile(ContextMenu control) =>
-            SukiAnimationTheme.Current.Popup[SukiPopupPreset.ContextMenu];
+            SukiAnimationTheme.For(control).Popup[SukiPopupPreset.ContextMenu];
 
         protected override void Configure(MotionBuilder<ContextMenu, SukiPopupProfile> motion)
         {

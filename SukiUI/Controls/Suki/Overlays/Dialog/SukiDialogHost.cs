@@ -28,7 +28,11 @@ namespace SukiUI.Controls
         private ContentControl? _dialogContent;
 
         // All animation state, trajectories and the shake spring live over there.
-        private readonly SukiDialogMotion _anim = new(() => SukiAnimationTheme.Current.Dialog[SukiDialogPreset.Default]);
+        private readonly SukiDialogMotion _anim;
+
+        public SukiDialogHost() => _anim = new(() => Profile);
+
+        private SukiDialogProfile Profile => SukiAnimationTheme.For(this).Dialog[SukiDialogPreset.Default];
 
         // How long the backdrop stays up after a dismissal so its opacity transition can play out.
         private const int BackdropFadeOutMilliseconds = 500;
@@ -193,7 +197,7 @@ namespace SukiUI.Controls
                 {
                     var click = e.GetPosition(this);
                     double direction = click.Y - Bounds.Height / 2.0 >= 0.0 ? -1.0 : 1.0;
-                    _anim.StartShake(content, direction * SukiAnimationTheme.Current.Dialog[SukiDialogPreset.Default].ShakeImpulse);
+                    _anim.StartShake(content, direction * Profile.ShakeImpulse);
                 }
                 return;
             }
@@ -314,7 +318,7 @@ namespace SukiUI.Controls
         // always a fixed rise from below (see SukiDialogProfile.EmergenceVertical).
         private (double Dx, double Dy) EmergenceOffset()
         {
-            var profile = SukiAnimationTheme.Current.Dialog[SukiDialogPreset.Default];
+            var profile = Profile;
             double dx = 0.0;
             if (GetPointerPositionInHost() is { } click)
                 dx = Math.Clamp(click.X - Bounds.Width / 2.0, -profile.EmergenceHorizontalMax, profile.EmergenceHorizontalMax);

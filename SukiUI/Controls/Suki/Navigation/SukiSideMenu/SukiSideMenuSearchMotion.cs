@@ -32,7 +32,7 @@ namespace SukiUI.ControlsAnimation
         public static void SetPreset(TemplatedControl element, SukiSideMenuPreset value) => element.SetValue(PresetProperty, value);
 
         protected override SukiSideMenuProfile GetProfile(GlassCard control) =>
-            SukiAnimationTheme.Current.SideMenu[GetPreset(control)];
+            SukiAnimationTheme.For(control).SideMenu[GetPreset(control)];
 
         protected override void Configure(MotionBuilder<GlassCard, SukiSideMenuProfile> motion)
         {

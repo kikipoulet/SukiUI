@@ -83,7 +83,7 @@ namespace SukiUI.ControlsAnimation
         private static readonly ConditionalWeakTable<TabControl, Strip> Strips = new();
 
         protected override SukiTabControlProfile GetProfile(TabControl control) =>
-            SukiAnimationTheme.Current.TabControl[GetPreset(control)];
+            SukiAnimationTheme.For(control).TabControl[GetPreset(control)];
 
         protected override void Configure(MotionBuilder<TabControl, SukiTabControlProfile> motion)
         {

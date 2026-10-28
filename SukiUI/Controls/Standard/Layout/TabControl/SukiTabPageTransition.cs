@@ -38,7 +38,9 @@ namespace SukiUI.ControlsAnimation
 
             var tabs = (to ?? from)?.FindAncestorOfType<TabControl>();
             var preset = tabs is null ? SukiTabControlPreset.TabControl : SukiTabControlMotion.GetPreset(tabs);
-            var profile = SukiAnimationTheme.Current.TabControl[preset];
+            var profile = (tabs ?? to ?? from) is { } scope
+                ? SukiAnimationTheme.For(scope).TabControl[preset]
+                : SukiAnimationTheme.Current.TabControl[preset];
             var vertical = tabs?.TabStripPlacement is Dock.Left or Dock.Right;
             var along = vertical ? SukiMotion.TranslateYProperty : SukiMotion.TranslateXProperty;
             var across = vertical ? SukiMotion.TranslateXProperty : SukiMotion.TranslateYProperty;

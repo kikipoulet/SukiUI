@@ -39,7 +39,7 @@ namespace SukiUI.ControlsAnimation
         private static readonly Easing PressEasing = new SukiEaseElasticIn { Damping = 2.5, Frequency = 3 };
 
         protected override SukiPressProfile GetProfile(InputElement control) =>
-            SukiAnimationTheme.Current.Press[GetPreset(control)];
+            SukiAnimationTheme.For(control).Press[GetPreset(control)];
 
         protected override void Configure(MotionBuilder<InputElement, SukiPressProfile> motion)
         {

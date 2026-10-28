@@ -41,7 +41,7 @@ namespace SukiUI.ControlsAnimation
         public static void SetTravelScale(TemplatedControl element, double value) => element.SetValue(TravelScaleProperty, value);
 
         protected override SukiToggleProfile GetProfile(ToggleButton control) =>
-            SukiAnimationTheme.Current.Toggle[GetPreset(control)];
+            SukiAnimationTheme.For(control).Toggle[GetPreset(control)];
 
         protected override void Configure(MotionBuilder<ToggleButton, SukiToggleProfile> motion)
         {

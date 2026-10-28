@@ -58,7 +58,7 @@ namespace SukiUI.ControlsAnimation
         public static void SetCloseOnOutsidePress(TemplatedControl element, bool value) => element.SetValue(CloseOnOutsidePressProperty, value);
 
         protected override SukiPopupProfile GetProfile(TemplatedControl control) =>
-            SukiAnimationTheme.Current.Popup[GetPreset(control)];
+            SukiAnimationTheme.For(control).Popup[GetPreset(control)];
 
         protected override void Configure(MotionBuilder<TemplatedControl, SukiPopupProfile> motion)
         {

@@ -59,5 +59,17 @@ namespace SukiUI.ControlsAnimation
             SideMenu = SukiSideMenuProfile.Minimal,
             TabControl = SukiTabControlProfile.Minimal,
         };
+
+        /// <summary>
+        /// A named profile, so XAML can write <c>Value="Minimal"</c>; the XAML compiler calls it, no reflection.
+        /// A custom profile (<c>Normal with { … }</c>) goes through <c>{x:Static}</c>.
+        /// </summary>
+        public static SukiAnimationProfile Parse(string name) => name switch
+        {
+            nameof(Normal) => Normal,
+            nameof(Lite) => Lite,
+            nameof(Minimal) => Minimal,
+            _ => throw new FormatException($"'{name}' is not a SukiAnimationProfile: Normal, Lite or Minimal."),
+        };
     }
 }

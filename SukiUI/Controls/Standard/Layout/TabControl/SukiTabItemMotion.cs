@@ -26,7 +26,7 @@ namespace SukiUI.ControlsAnimation
         private static readonly Easing PressEasing = SukiEase.Classic.Cubic.Out;
 
         protected override SukiTabControlProfile GetProfile(TabItem control) =>
-            SukiAnimationTheme.Current.TabControl[SukiTabControlMotion.GetPreset(control)];
+            SukiAnimationTheme.For(control).TabControl[SukiTabControlMotion.GetPreset(control)];
 
         protected override void Configure(MotionBuilder<TabItem, SukiTabControlProfile> motion)
         {

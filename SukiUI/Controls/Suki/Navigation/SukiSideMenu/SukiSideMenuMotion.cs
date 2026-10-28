@@ -42,7 +42,7 @@ namespace SukiUI.ControlsAnimation
         private static readonly string[] Folds = { "PART_HeaderFold", "PART_FooterFold", "PART_SearchFold" };
 
         protected override SukiSideMenuProfile GetProfile(SukiSideMenu control) =>
-            SukiAnimationTheme.Current.SideMenu[GetPreset(control)];
+            SukiAnimationTheme.For(control).SideMenu[GetPreset(control)];
 
         protected override void Configure(MotionBuilder<SukiSideMenu, SukiSideMenuProfile> motion)
         {

@@ -28,7 +28,7 @@ namespace SukiUI.ControlsAnimation
         private static readonly Easing PressEasing = new CubicEaseOut();
 
         protected override SukiCheckProfile GetProfile(CheckBox control) =>
-            SukiAnimationTheme.Current.Check[SukiCheckPreset.CheckBox];
+            SukiAnimationTheme.For(control).Check[SukiCheckPreset.CheckBox];
 
         protected override void Configure(MotionBuilder<CheckBox, SukiCheckProfile> motion)
         {

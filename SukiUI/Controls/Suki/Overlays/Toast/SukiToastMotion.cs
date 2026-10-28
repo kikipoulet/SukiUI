@@ -25,7 +25,8 @@ namespace SukiUI.ControlsAnimation
 
         internal SukiToastMotion(SukiToastHost host) => _host = host;
 
-        private static SukiToastProfile P() => SukiAnimationTheme.Current.Toast[SukiToastPreset.Toast];
+        // read from the host: a new toast is not in the visual tree yet when its show starts
+        private SukiToastProfile P() => SukiAnimationTheme.For(_host).Toast[SukiToastPreset.Toast];
 
         internal async void PlayShow(SukiToast toast)
         {

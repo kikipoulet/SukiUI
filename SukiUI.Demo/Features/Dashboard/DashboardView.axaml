@@ -248,6 +248,43 @@
                 </StackPanel>
             </suki:GlassCard>
 
+            <!--  animation profile per control  -->
+            <suki:GlassCard Width="300"
+                            Margin="15"
+                            VerticalAlignment="Top">
+                <StackPanel>
+                    <TextBlock FontSize="16"
+                               FontWeight="DemiBold"
+                               Text="Animation profile" />
+                    <TextBlock Margin="0,4,0,12"
+                               FontSize="12"
+                               Foreground="{DynamicResource SukiLowText}"
+                               Text="suki:SukiAnimation.Profile on each switch"
+                               TextWrapping="Wrap" />
+                    <Grid Margin="0,6">
+                        <TextBlock VerticalAlignment="Center" Text="Normal" />
+                        <ToggleSwitch HorizontalAlignment="Right"
+                                      suki:SukiAnimation.Profile="Normal"
+                                      Classes="Switch"
+                                      IsChecked="True" />
+                    </Grid>
+                    <Grid Margin="0,6">
+                        <TextBlock VerticalAlignment="Center" Text="Lite" />
+                        <ToggleSwitch HorizontalAlignment="Right"
+                                      suki:SukiAnimation.Profile="Lite"
+                                      Classes="Switch"
+                                      IsChecked="True" />
+                    </Grid>
+                    <Grid Margin="0,6">
+                        <TextBlock VerticalAlignment="Center" Text="Minimal" />
+                        <ToggleSwitch HorizontalAlignment="Right"
+                                      suki:SukiAnimation.Profile="Minimal"
+                                      Classes="Switch"
+                                      IsChecked="True" />
+                    </Grid>
+                </StackPanel>
+            </suki:GlassCard>
+
             <!--  notifications  -->
             <suki:GlassCard Width="500"
                             Margin="15"
