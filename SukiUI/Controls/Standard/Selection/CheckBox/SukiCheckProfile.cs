@@ -90,5 +90,27 @@ namespace SukiUI.ControlsAnimation
             new((SukiCheckPreset.CheckBox, CheckBoxLite));
 
         #endregion
+
+        #region Minimal
+
+        // The Lite feel, quicker: a short press, and the mark and the bar land almost at once.
+        public static readonly SukiCheckProfile CheckBoxMinimal = CheckBoxLite with
+        {
+            HoverDuration = TimeSpan.FromMilliseconds(60),
+            PressDuration = TimeSpan.FromMilliseconds(60),
+            BoxOmega = 30.0,
+            BoxDecay = 60.0,
+            DrawOmega = 50.0,
+            DrawDecay = 100.0,
+            TrailOmega = 50.0,
+            TrailDecay = 100.0,
+            BarOmega = 50.0,
+            BarDecay = 100.0,
+        };
+
+        public static readonly SukiPresetTable<SukiCheckPreset, SukiCheckProfile> Minimal =
+            new((SukiCheckPreset.CheckBox, CheckBoxMinimal));
+
+        #endregion
     }
 }

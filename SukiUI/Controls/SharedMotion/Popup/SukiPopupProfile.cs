@@ -130,5 +130,23 @@ namespace SukiUI.ControlsAnimation
             new((SukiPopupPreset.ComboBox, ComboBoxLite), (SukiPopupPreset.ContextMenu, ComboBoxLite), (SukiPopupPreset.Menu, ComboBoxLite));
 
         #endregion
+
+        #region Minimal
+
+        // A plain, short fade: no collapse (the scales stay at 1), no blur, no cascade.
+        public static readonly SukiPopupProfile ComboBoxMinimal = ComboBoxLite with
+        {
+            ClosedScaleX = 1.0,
+            ClosedScaleY = 1.0,
+            CloseScaleX = 1.0,
+            CloseScaleY = 1.0,
+            OpenOpacityDuration = TimeSpan.FromMilliseconds(120),
+            CloseOpacityDuration = TimeSpan.FromMilliseconds(90),
+        };
+
+        public static readonly SukiPresetTable<SukiPopupPreset, SukiPopupProfile> Minimal =
+            new((SukiPopupPreset.ComboBox, ComboBoxMinimal), (SukiPopupPreset.ContextMenu, ComboBoxMinimal), (SukiPopupPreset.Menu, ComboBoxMinimal));
+
+        #endregion
     }
 }

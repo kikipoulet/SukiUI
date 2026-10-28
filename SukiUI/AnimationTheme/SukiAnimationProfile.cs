@@ -41,5 +41,19 @@ namespace SukiUI.ControlsAnimation
             Toast = SukiToastProfile.Lite,
             SideMenu = SukiSideMenuProfile.Lite,
         };
+
+        /// <summary>The barest calibrations: only the press feedback and the state changes
+        /// move, quickly — no hover, no scale-in, no offset, no blur, no cascade.</summary>
+        public static readonly SukiAnimationProfile Minimal = new()
+        {
+            Press = SukiPressProfile.Minimal,
+            Popup = SukiPopupProfile.Minimal,
+            Dialog = SukiDialogProfile.Minimal,
+            Toggle = SukiToggleProfile.Minimal,
+            Check = SukiCheckProfile.Minimal,
+            Typing = SukiTypingProfile.Minimal,
+            Toast = SukiToastProfile.Minimal,
+            SideMenu = SukiSideMenuProfile.Minimal,
+        };
     }
 }

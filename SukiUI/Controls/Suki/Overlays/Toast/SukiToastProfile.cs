@@ -91,5 +91,22 @@ namespace SukiUI.ControlsAnimation
             new((SukiToastPreset.Toast, ToastLite));
 
         #endregion
+
+        #region Minimal
+
+        // The Lite recipe, shorter still: a quick fade, and the pile is pushed in a blink.
+        public static readonly SukiToastProfile ToastMinimal = ToastLite with
+        {
+            ShowDuration = TimeSpan.FromMilliseconds(150),
+            GrowDuration = TimeSpan.FromMilliseconds(200),
+            DismissFade = TimeSpan.FromMilliseconds(100),
+            DismissDuration = TimeSpan.FromMilliseconds(150),
+            DismissExitX = 0.0,
+        };
+
+        public static readonly SukiPresetTable<SukiToastPreset, SukiToastProfile> Minimal =
+            new((SukiToastPreset.Toast, ToastMinimal));
+
+        #endregion
     }
 }

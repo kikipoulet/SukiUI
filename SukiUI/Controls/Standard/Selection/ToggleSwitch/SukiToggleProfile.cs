@@ -61,5 +61,19 @@ namespace SukiUI.ControlsAnimation
             new((SukiTogglePreset.ToggleSwitch, ToggleSwitchLite));
 
         #endregion
+
+        #region Minimal
+
+        // The knob still travels (it is the state), on a stiffer critically damped spring.
+        public static readonly SukiToggleProfile ToggleSwitchMinimal = ToggleSwitchLite with
+        {
+            SpringOmega = 35.0,
+            SpringDecay = 70.0,
+        };
+
+        public static readonly SukiPresetTable<SukiTogglePreset, SukiToggleProfile> Minimal =
+            new((SukiTogglePreset.ToggleSwitch, ToggleSwitchMinimal));
+
+        #endregion
     }
 }

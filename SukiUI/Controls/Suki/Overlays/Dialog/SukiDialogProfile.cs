@@ -117,5 +117,31 @@ namespace SukiUI.ControlsAnimation
             new((SukiDialogPreset.Default, DefaultLite));
 
         #endregion
+
+        #region Minimal
+
+        // The dialog only fades in and out where it rests: no rise, no scale, no blur. The pinned
+        // shake is a single critically damped nudge, with no swing back and forth.
+        public static readonly SukiDialogProfile DefaultMinimal = DefaultLite with
+        {
+            EmergenceVertical = 0.0,
+            EmergenceHorizontalMax = 0.0,
+            OpenTransformDurationSmallMs = 150.0,
+            OpenTransformDurationLargeMs = 150.0,
+            OpenZetaSmall = 1.0,
+            OpenZetaLarge = 1.0,
+            OpenFromScaleSmall = 1.0,
+            OpenFromScaleLarge = 1.0,
+            OpenOpacityDurationMs = 120,
+            CloseScale = 1.0,
+            SurfaceTransitionDurationMs = 0,
+            GlassFadeMilliseconds = 150,
+            ShakeDecay = 30.0,
+        };
+
+        public static readonly SukiPresetTable<SukiDialogPreset, SukiDialogProfile> Minimal =
+            new((SukiDialogPreset.Default, DefaultMinimal));
+
+        #endregion
     }
 }

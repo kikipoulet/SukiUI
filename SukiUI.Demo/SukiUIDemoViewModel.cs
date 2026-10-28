@@ -55,6 +55,7 @@ namespace SukiUI.Demo
             {
                 new("Normal", SukiAnimationProfile.Normal) { IsSelected = true },
                 new("Lite", SukiAnimationProfile.Lite),
+                new("Minimal", SukiAnimationProfile.Minimal),
             };
             CompactnessLevels = new AvaloniaList<CompactnessChoice>(
                 Enum.GetValues<SukiCompactness>().Select(level => new CompactnessChoice(level) { IsSelected = level == SukiCompactness.Normal }));

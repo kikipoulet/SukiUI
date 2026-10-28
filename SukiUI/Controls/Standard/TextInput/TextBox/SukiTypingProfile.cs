@@ -46,5 +46,15 @@ namespace SukiUI.ControlsAnimation
             new((SukiTypingPreset.TextBox, TextBoxLite));
 
         #endregion
+
+        #region Minimal
+
+        // Same as Lite: Lite already has no typing dynamics.
+        public static readonly SukiTypingProfile TextBoxMinimal = TextBoxLite;
+
+        public static readonly SukiPresetTable<SukiTypingPreset, SukiTypingProfile> Minimal =
+            new((SukiTypingPreset.TextBox, TextBoxMinimal));
+
+        #endregion
     }
 }

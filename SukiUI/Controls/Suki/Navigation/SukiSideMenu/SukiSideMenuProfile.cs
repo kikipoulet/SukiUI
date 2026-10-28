@@ -197,5 +197,39 @@ namespace SukiUI.ControlsAnimation
             new((SukiSideMenuPreset.SideMenu, SideMenuLite));
 
         #endregion
+
+        #region Minimal
+
+        // The Lite menu, shorter: stiff critically damped springs, quick fades, and the pane, the
+        // sub-menus, the filter and the search all land in about 150-200 ms.
+        public static readonly SukiSideMenuProfile SideMenuMinimal = SideMenuLite with
+        {
+            HoverDuration = TimeSpan.FromMilliseconds(80),
+            PressDuration = TimeSpan.FromMilliseconds(60),
+            ReleaseOmega = 36.0,
+            ReleaseDecay = 72.0,
+            PlateGrowOmega = 36.0,
+            PlateGrowDecay = 72.0,
+            PlateDrainOmega = 36.0,
+            PlateDrainDecay = 72.0,
+            PlateFade = TimeSpan.FromMilliseconds(80),
+            PoseOmega = 36.0,
+            PoseDecay = 72.0,
+            UnrollDuration = TimeSpan.FromMilliseconds(150),
+            ChildOmega = 36.0,
+            ChildDecay = 72.0,
+            RevealDelay = TimeSpan.FromMilliseconds(40),
+            RevealDuration = TimeSpan.FromMilliseconds(100),
+            HideDuration = TimeSpan.FromMilliseconds(80),
+            PaneDuration = TimeSpan.FromMilliseconds(200),
+            RotateDuration = TimeSpan.FromMilliseconds(150),
+            FilterDuration = TimeSpan.FromMilliseconds(150),
+            SearchDuration = TimeSpan.FromMilliseconds(150),
+        };
+
+        public static readonly SukiPresetTable<SukiSideMenuPreset, SukiSideMenuProfile> Minimal =
+            new((SukiSideMenuPreset.SideMenu, SideMenuMinimal));
+
+        #endregion
     }
 }

@@ -85,5 +85,31 @@ namespace SukiUI.ControlsAnimation
             new((SukiPressPreset.Button, ButtonLite), (SukiPressPreset.ComboBox, ComboBoxLite));
 
         #endregion
+
+        #region Minimal
+
+        // Bare feedback: the press depth only (no slow sink while held), down and back in a blink.
+        public static readonly SukiPressProfile ButtonMinimal = ButtonLite with
+        {
+            ExtraDeepRange = 0.0,
+            PressDuration = TimeSpan.FromMilliseconds(60),
+            HoverDuration = TimeSpan.FromMilliseconds(60),
+            SpringOmega = 30.0,
+            SpringDecay = 60.0,
+        };
+
+        public static readonly SukiPressProfile ComboBoxMinimal = ComboBoxLite with
+        {
+            ExtraDeepRange = 0.0,
+            PressDuration = TimeSpan.FromMilliseconds(60),
+            HoverDuration = TimeSpan.FromMilliseconds(60),
+            SpringOmega = 30.0,
+            SpringDecay = 60.0,
+        };
+
+        public static readonly SukiPresetTable<SukiPressPreset, SukiPressProfile> Minimal =
+            new((SukiPressPreset.Button, ButtonMinimal), (SukiPressPreset.ComboBox, ComboBoxMinimal));
+
+        #endregion
     }
 }
