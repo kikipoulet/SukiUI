@@ -1,0 +1,86 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Sizes of ToggleSwitch for every SukiCompactness level. Normal is the complete set (the historical
+         values); the other levels only list what differs. Key names follow SukiCompactness.<Control>[.<Class, Part or State>].<Property>
+         (see SukiCompactnessResources).
+
+         The track and the knob form one piece of geometry, so each level keeps them consistent:
+         - the track height is the knob area, the knob sits Knob.Top below its top edge;
+         - the selected-fill margins start at the track width (the fill slides over the track);
+         - Knob.TravelScale multiplies SukiToggleProfile.Travel (the knob's travel at Normal, 18) and must
+           follow the track width (width / 40) so the knob stops at the same distance from the edge.
+         The corner radii are the global MediumCornerRadius, which stays a pill at every level. -->
+
+    <ResourceDictionary x:Key="Normal">
+        <!-- track and its glass outline -->
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Track.Width">40</x:Double>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Track.Height">22</x:Double>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Glass.Width">42</x:Double>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Glass.Height">23</x:Double>
+        <Thickness x:Key="SukiCompactness.ToggleSwitch.Selected.Margin">40,0,-160,0</Thickness>
+        <Thickness x:Key="SukiCompactness.ToggleSwitch.Selected.Checked.Margin">40,0,0,0</Thickness>
+        <!-- knob -->
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.KnobArea.Size">22</x:Double>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Knob.Size">18</x:Double>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Knob.Left">3</x:Double>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Knob.Top">2</x:Double>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Knob.TravelScale">1</x:Double>
+        <!-- spacing around the switch -->
+        <Thickness x:Key="SukiCompactness.ToggleSwitch.Area.Margin">0,5</Thickness>
+        <Thickness x:Key="SukiCompactness.ToggleSwitch.Caption.Margin">0,0,7,0</Thickness>
+        <GridLength x:Key="SukiCompactness.ToggleSwitch.Gap.Width">12</GridLength>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Gap.MaxWidth">12</x:Double>
+    </ResourceDictionary>
+
+    <ResourceDictionary x:Key="SuperCompact">
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Track.Width">32</x:Double>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Track.Height">18</x:Double>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Glass.Width">34</x:Double>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Glass.Height">19</x:Double>
+        <Thickness x:Key="SukiCompactness.ToggleSwitch.Selected.Margin">32,0,-160,0</Thickness>
+        <Thickness x:Key="SukiCompactness.ToggleSwitch.Selected.Checked.Margin">32,0,0,0</Thickness>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.KnobArea.Size">18</x:Double>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Knob.Size">14</x:Double>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Knob.Left">2</x:Double>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Knob.TravelScale">0.8</x:Double>
+        <Thickness x:Key="SukiCompactness.ToggleSwitch.Area.Margin">0,3</Thickness>
+        <Thickness x:Key="SukiCompactness.ToggleSwitch.Caption.Margin">0,0,5,0</Thickness>
+        <GridLength x:Key="SukiCompactness.ToggleSwitch.Gap.Width">8</GridLength>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Gap.MaxWidth">8</x:Double>
+    </ResourceDictionary>
+
+    <ResourceDictionary x:Key="Compact">
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Track.Width">36</x:Double>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Track.Height">20</x:Double>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Glass.Width">38</x:Double>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Glass.Height">21</x:Double>
+        <Thickness x:Key="SukiCompactness.ToggleSwitch.Selected.Margin">36,0,-160,0</Thickness>
+        <Thickness x:Key="SukiCompactness.ToggleSwitch.Selected.Checked.Margin">36,0,0,0</Thickness>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.KnobArea.Size">20</x:Double>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Knob.Size">16</x:Double>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Knob.TravelScale">0.9</x:Double>
+        <Thickness x:Key="SukiCompactness.ToggleSwitch.Area.Margin">0,4</Thickness>
+        <Thickness x:Key="SukiCompactness.ToggleSwitch.Caption.Margin">0,0,6,0</Thickness>
+        <GridLength x:Key="SukiCompactness.ToggleSwitch.Gap.Width">10</GridLength>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Gap.MaxWidth">10</x:Double>
+    </ResourceDictionary>
+
+    <ResourceDictionary x:Key="Big">
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Track.Width">48</x:Double>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Track.Height">26</x:Double>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Glass.Width">50</x:Double>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Glass.Height">27</x:Double>
+        <Thickness x:Key="SukiCompactness.ToggleSwitch.Selected.Margin">48,0,-160,0</Thickness>
+        <Thickness x:Key="SukiCompactness.ToggleSwitch.Selected.Checked.Margin">48,0,0,0</Thickness>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.KnobArea.Size">26</x:Double>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Knob.Size">22</x:Double>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Knob.Left">4</x:Double>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Knob.TravelScale">1.2</x:Double>
+        <Thickness x:Key="SukiCompactness.ToggleSwitch.Area.Margin">0,6</Thickness>
+        <Thickness x:Key="SukiCompactness.ToggleSwitch.Caption.Margin">0,0,8,0</Thickness>
+        <GridLength x:Key="SukiCompactness.ToggleSwitch.Gap.Width">14</GridLength>
+        <x:Double x:Key="SukiCompactness.ToggleSwitch.Gap.MaxWidth">14</x:Double>
+    </ResourceDictionary>
+
+</ResourceDictionary>

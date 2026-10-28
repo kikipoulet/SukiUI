@@ -96,4 +96,4 @@ SukiUI 允许你在三种不同的背景选项之间进行选择，分别是“�
 
 [Demo: SukiUI.Demo/SukiUIDemoView.axaml](https://github.com/kikipoulet/SukiUI/blob/main/SukiUI.Demo/SukiUIDemoView.axaml)
 
-[API: Controls/SukiWindow.axaml.cs](https://github.com/kikipoulet/SukiUI/blob/main/SukiUI/Controls/SukiWindow.axaml.cs)
+[API: Controls/SukiWindow.axaml.cs](https://github.com/kikipoulet/SukiUI/blob/main/SukiUI/Controls/Suki/Windowing/SukiWindow/SukiWindow.axaml.cs)

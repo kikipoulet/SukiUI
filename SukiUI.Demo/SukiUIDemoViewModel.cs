@@ -56,6 +56,8 @@ namespace SukiUI.Demo
                 new("Normal", SukiAnimationProfile.Normal) { IsSelected = true },
                 new("Lite", SukiAnimationProfile.Lite),
             };
+            CompactnessLevels = new AvaloniaList<CompactnessChoice>(
+                Enum.GetValues<SukiCompactness>().Select(level => new CompactnessChoice(level) { IsSelected = level == SukiCompactness.Normal }));
             _theme = SukiTheme.GetInstance();
 
             // Subscribe to the navigation service (when a page navigation is requested)
@@ -95,6 +97,8 @@ namespace SukiUI.Demo
 
         public IAvaloniaReadOnlyList<AnimationProfileChoice> AnimationProfiles { get; }
 
+        public IAvaloniaReadOnlyList<CompactnessChoice> CompactnessLevels { get; }
+
         public ISukiToastManager ToastManager { get; }
         public ISukiDialogManager DialogManager { get; }
 
@@ -131,6 +135,18 @@ namespace SukiUI.Demo
         public void ChangeTheme(SukiColorTheme theme)
         {
             _theme.ChangeColorTheme(theme);
+        }
+
+        public void UseCompactness(CompactnessChoice choice)
+        {
+            _theme.ChangeCompactness(choice.Level);
+            foreach (var level in CompactnessLevels)
+                level.IsSelected = ReferenceEquals(level, choice);
+
+            ToastManager.CreateSimpleInfoToast()
+                .WithTitle("Compactness")
+                .WithContent($"Compactness set to {choice.DisplayName}.")
+                .Queue();
         }
 
         public void UseAnimationProfile(AnimationProfileChoice choice)
@@ -236,6 +252,15 @@ namespace SukiUI.Demo
         {
             _theming.BackgroundTransitions = value;
         }
+    }
+
+    /// <summary>A selectable <see cref="SukiCompactness"/> level for the demo's "Compactness" menu.</summary>
+    public sealed partial class CompactnessChoice(SukiCompactness level) : ObservableObject
+    {
+        public string DisplayName { get; } = level.ToString();
+        public SukiCompactness Level { get; } = level;
+
+        [ObservableProperty] private bool _isSelected;
     }
 
     /// <summary>A selectable global animation profile for the demo's "Animation Mode" menu:

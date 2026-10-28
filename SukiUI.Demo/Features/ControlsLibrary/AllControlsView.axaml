@@ -19,7 +19,7 @@
              d:DesignWidth="1920"
              mc:Ignorable="d">
     <UserControl.Styles>
-        <StyleInclude Source="avares://SukiUI/Theme/TouchStyles/TouchStyles.axaml" />
+        <StyleInclude Source="avares://SukiUI/Controls/Standard/Misc/Touch/TouchStyles.axaml" />
    
 
     </UserControl.Styles>

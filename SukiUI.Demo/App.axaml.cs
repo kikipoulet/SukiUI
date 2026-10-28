@@ -103,7 +103,6 @@ public class App : Application
             .AddView<DialogsView, DialogsViewModel>(services)
             .AddView<HelpersView, HelpersViewModel>(services)
             .AddView<ColorsView, ColorsViewModel>(services)
-            .AddView<ExperimentalView, ExperimentalViewModel>(services)
             .AddView<AllControlsView, AllControlsViewModel>(services)
 
             // Add docks view for DockMvvvm

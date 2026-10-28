@@ -23,4 +23,4 @@
 
 [Demo: SukiUI.Demo/Features/ControlsLibrary/ProgressView.axaml](https://github.com/kikipoulet/SukiUI/blob/main/SukiUI.Demo/Features/ControlsLibrary/ProgressView.axaml)
 
-[API: Controls/CircleProgressBar.axaml.cs](https://github.com/kikipoulet/SukiUI/blob/main/SukiUI/Controls/CircleProgressBar.axaml.cs)
+[API: Controls/CircleProgressBar.axaml.cs](https://github.com/kikipoulet/SukiUI/blob/main/SukiUI/Controls/Suki/Feedback/CircleProgressBar/CircleProgressBar.axaml.cs)
