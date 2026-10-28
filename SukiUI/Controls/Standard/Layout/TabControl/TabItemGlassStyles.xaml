@@ -1,4 +1,5 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:animations="clr-namespace:SukiUI.ControlsAnimation"
         xmlns:suki="https://github.com/kikipoulet/SukiUI">
     <Design.PreviewWith>
         <Border Width="400" Height="400">
@@ -26,31 +27,28 @@
 
      <!-- Glass TabItems-->
     <Style Selector="TabItem.Glass">
-     <Setter Property="FontSize" Value="50" />
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="MinHeight" Value="0" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="animations:SukiTabControlMotion.Indicator" Value="Glass" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Panel>
-                    <suki:GlassCard Opacity="0" Padding="17" CornerRadius="12" >
-                        <suki:GlassCard.Transitions>
-                            <Transitions>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.5"></DoubleTransition>
-                            </Transitions>
-                        </suki:GlassCard.Transitions>
-                    </suki:GlassCard>
-                    <suki:GlassCard Opacity="0" Padding="17" CornerRadius="12" >
-                        <suki:GlassCard.Transitions>
-                            <Transitions>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.5"></DoubleTransition>
-                            </Transitions>
-                        </suki:GlassCard.Transitions>
-                    </suki:GlassCard>
+                    <!--  Where the glass card lands: the card itself is the strip's indicator.  -->
+                    <Border Name="PART_IndicatorAnchor"
+                            MinWidth="{DynamicResource SukiCompactness.TabItem.Glass.MinWidth}"
+                            MinHeight="{DynamicResource SukiCompactness.TabItem.Glass.MinHeight}" />
+                    <Border Name="PART_HoverPlate"
+                            MinWidth="{DynamicResource SukiCompactness.TabItem.Glass.MinWidth}"
+                            MinHeight="{DynamicResource SukiCompactness.TabItem.Glass.MinHeight}"
+                            Background="{DynamicResource SukiPrimaryColor5}"
+                            CornerRadius="{DynamicResource SukiCompactness.TabItem.Glass.CornerRadius}"
+                            IsHitTestVisible="False"
+                            Opacity="0" />
                     <Border Name="PART_LayoutRoot"
-                            Margin="15,0"
+                            Margin="{DynamicResource SukiCompactness.TabItem.Glass.Margin}"
                             Padding="{TemplateBinding Padding}"
                             Background="Transparent"
                             BorderBrush="{TemplateBinding BorderBrush}"
@@ -62,6 +60,7 @@
                                           HorizontalAlignment="Center"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                           HorizontalContentAlignment="Center"
+                                          RecognizesAccessKey="True"
                                           Content="{TemplateBinding Header}"
                                           ContentTemplate="{TemplateBinding HeaderTemplate}"
                                           TextBlock.FontFamily="{TemplateBinding FontFamily}"
@@ -80,10 +79,7 @@
         </Setter>
     </Style>
      
-     <Style Selector="TabItem.Glass:selected /template/ suki|GlassCard">
-         
-         <Setter Property="Opacity" Value="1"></Setter>
-     </Style>
+
     
     
    

@@ -1,4 +1,5 @@
-<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:animations="clr-namespace:SukiUI.ControlsAnimation">
     <Design.PreviewWith>
         <Border Width="400" Height="400">
             <Panel>
@@ -27,27 +28,41 @@
         </Border>
     </Design.PreviewWith>
     <ControlTheme x:Key="SukiTabItemStyle" TargetType="TabItem">
-        <Setter Property="FontSize" Value="50" />
+        <!--  Sizes follow the compactness level (TabItem.Compactness.axaml).  -->
+        <Setter Property="FontSize" Value="{DynamicResource SukiCompactness.TabItem.FontSize}" />
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Margin" Value="0" />
-        <Setter Property="MinHeight" Value="{DynamicResource TabItemMinHeight}" />
+        <!--  No MinHeight: the height is the content and the compactness level, never a resource
+              borrowed from another theme (Fluent's TabItemMinHeight held every level at 48).  -->
+        <Setter Property="MinHeight" Value="0" />
         <Setter Property="VerticalContentAlignment" Value="Bottom" />
+        <!--  Hover and press live in SukiTabItemMotion; the selection is the strip's indicator
+              (SukiTabControlMotion), which takes the bounds of PART_IndicatorAnchor.  -->
+        <Setter Property="animations:SukiTabItemMotion.Enable" Value="True" />
+        <Setter Property="animations:SukiTabControlMotion.Indicator" Value="Underline" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Border Name="PART_LayoutRoot"
-                        Margin="8,0"
+                        Margin="{DynamicResource SukiCompactness.TabItem.LayoutRoot.Margin}"
                         Padding="{TemplateBinding Padding}"
                         Background="Transparent"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding CornerRadius}">
-                    <StackPanel>
+                    <Grid RowDefinitions="*,Auto">
+                        <Border Name="PART_HoverPlate"
+                                Margin="{DynamicResource SukiCompactness.TabItem.HoverPlate.Margin}"
+                                Background="{DynamicResource SukiPrimaryColor5}"
+                                CornerRadius="{DynamicResource SmallCornerRadius}"
+                                IsHitTestVisible="False"
+                                Opacity="0" />
                         <ContentPresenter Name="PART_HeaderPresenter"
-                                          Padding="0,5"
+                                          Padding="{DynamicResource SukiCompactness.TabItem.HeaderPresenter.Padding}"
                                           HorizontalAlignment="Center"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                           HorizontalContentAlignment="Center"
+                                          RecognizesAccessKey="True"
                                           Content="{TemplateBinding Header}"
                                           ContentTemplate="{TemplateBinding HeaderTemplate}"
                                           TextBlock.FontFamily="{TemplateBinding FontFamily}"
@@ -59,71 +74,64 @@
                                 </Transitions>
                             </ContentPresenter.Transitions>
                         </ContentPresenter>
-                        <Border Name="PART_Underline"
-                                Height="3"
-                                Margin="10,0,10,0"
-                                Background="{DynamicResource SukiPrimaryColor}"
-                                CornerRadius="55"
-                                Opacity="0">
-                            <Border.Transitions>
-                                <Transitions>
-                                    <DoubleTransition Property="Opacity" Duration="0:0:0.3" />
-                                </Transitions>
-                            </Border.Transitions>
-                        </Border>
-                    </StackPanel>
+                        <!--  Where the underline lands: the indicator itself is drawn by the strip.  -->
+                        <Border Name="PART_IndicatorAnchor"
+                                Grid.Row="1"
+                                Height="{DynamicResource SukiCompactness.TabItem.IndicatorAnchor.Height}"
+                                Margin="{DynamicResource SukiCompactness.TabItem.IndicatorAnchor.Margin}" />
+                    </Grid>
                 </Border>
             </ControlTemplate>
         </Setter>
-        
+
         <Style Selector="^.Pill">
-            <Setter Property="FontSize" Value="50" />
             <Setter Property="FontWeight" Value="Bold" />
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Margin" Value="0" />
-            <Setter Property="CornerRadius" Value="100"></Setter>
-            <Setter Property="Padding" Value="8,4"></Setter>
-            <Setter Property="MinHeight" Value="{DynamicResource TabItemMinHeight}" />
+            <Setter Property="CornerRadius" Value="100" />
+            <!--  One padding for every state: the pill travels, the tabs never change size.  -->
+            <Setter Property="Padding" Value="{DynamicResource SukiCompactness.TabItem.Pill.Padding}" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="animations:SukiTabControlMotion.Indicator" Value="Pill" />
             <Setter Property="Template">
-            <ControlTemplate>
-                <Border Name="PART_LayoutRoot" 
-                        Margin="5,6,5,4" VerticalAlignment="Center"
-                        Padding="{TemplateBinding Padding}"
-                        Background="Transparent"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="100">
-                    <Border.Transitions>
-                        <Transitions>
-                            <ThicknessTransition Property="Padding" Duration="0:0:0.4" ></ThicknessTransition>
-                        </Transitions>
-                    </Border.Transitions>
-               
-                    <ContentPresenter Name="PART_HeaderPresenter"
-                                      Padding="0,5"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                      HorizontalContentAlignment="Center"
-                                      Content="{TemplateBinding Header}"
-                                      ContentTemplate="{TemplateBinding HeaderTemplate}"
-                                      TextBlock.FontFamily="{TemplateBinding FontFamily}"
-                                      TextBlock.FontSize="{TemplateBinding FontSize}"
-                                      TextBlock.FontWeight="{TemplateBinding FontWeight}">
-                            <ContentPresenter.Transitions>
-                                <Transitions>
-                                    <BrushTransition Property="Foreground" Duration="0:0:0.1" />
-                                </Transitions>
-                            </ContentPresenter.Transitions>
-                        </ContentPresenter>
-                    
-                </Border>
-            </ControlTemplate>
-        </Setter>
-        </Style>
-
-        <Style Selector="^:selected /template/ Border#PART_Underline">
-            <Setter Property="Opacity" Value="1" />
+                <ControlTemplate>
+                    <Panel>
+                        <Border Name="PART_IndicatorAnchor" Margin="{DynamicResource SukiCompactness.TabItem.Pill.Margin}" />
+                        <Border Name="PART_HoverPlate"
+                                Margin="{DynamicResource SukiCompactness.TabItem.Pill.Margin}"
+                                Background="{DynamicResource SukiPrimaryColor5}"
+                                CornerRadius="100"
+                                IsHitTestVisible="False"
+                                Opacity="0" />
+                        <Border Name="PART_LayoutRoot"
+                                Margin="{DynamicResource SukiCompactness.TabItem.Pill.Margin}"
+                                VerticalAlignment="Center"
+                                Padding="{TemplateBinding Padding}"
+                                Background="Transparent"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="100">
+                            <ContentPresenter Name="PART_HeaderPresenter"
+                                              Padding="{DynamicResource SukiCompactness.TabItem.Pill.HeaderPresenter.Padding}"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              HorizontalContentAlignment="Center"
+                                              RecognizesAccessKey="True"
+                                              Content="{TemplateBinding Header}"
+                                              ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                              TextBlock.FontFamily="{TemplateBinding FontFamily}"
+                                              TextBlock.FontSize="{TemplateBinding FontSize}"
+                                              TextBlock.FontWeight="{TemplateBinding FontWeight}">
+                                <ContentPresenter.Transitions>
+                                    <Transitions>
+                                        <BrushTransition Property="Foreground" Duration="0:0:0.1" />
+                                    </Transitions>
+                                </ContentPresenter.Transitions>
+                            </ContentPresenter>
+                        </Border>
+                    </Panel>
+                </ControlTemplate>
+            </Setter>
         </Style>
 
         <Style Selector="^ /template/ Border#PART_LayoutRoot">
@@ -144,17 +152,19 @@
                 <Setter Property="TextBlock.Foreground" Value="{DynamicResource SukiPrimaryColor120}" />
             </Style>
         </Style>
-        
+
         <Style Selector="^.Pill:selected">
-            <Setter Property="Padding" Value="16,4"></Setter>
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
             <Style Selector="^ /template/ ContentPresenter#PART_HeaderPresenter">
+                <!--  The text of the tab the pill heads for turns white once the pill starts to
+                      cover it; the tab it leaves turns back at once (the base transition).  -->
+                <Setter Property="Transitions">
+                    <Transitions>
+                        <BrushTransition Property="Foreground" Delay="0:0:0.07" Duration="0:0:0.12" />
+                    </Transitions>
+                </Setter>
                 <Setter Property="TextBlock.Foreground" Value="White" />
-            </Style>
-            <Style Selector="^ /template/ Border#PART_LayoutRoot">
-                <Setter Property="Opacity" Value="1" />
-                <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}"></Setter>
             </Style>
         </Style>
 
@@ -167,8 +177,8 @@
                 <Setter Property="DockPanel.Dock" Value="Bottom" />
                 <Setter Property="Margin" Value="0,0,0,0" />
             </Style>
-            <Style Selector="^ /template/ Border#PART_Underline">
-                <Setter Property="Margin" Value="10,0,10,0" />
+            <Style Selector="^ /template/ Border#PART_IndicatorAnchor">
+                <Setter Property="Margin" Value="{DynamicResource SukiCompactness.TabItem.IndicatorAnchor.Margin}" />
             </Style>
         </Style>
     </ControlTheme>

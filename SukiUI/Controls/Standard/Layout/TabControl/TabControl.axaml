@@ -1,4 +1,5 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:animations="clr-namespace:SukiUI.ControlsAnimation"
                     xmlns:suki="https://github.com/kikipoulet/SukiUI">
     <Design.PreviewWith>
         <Panel Background="LightGray">
@@ -20,6 +21,12 @@
         <Setter Property="Margin" Value="0" />
         <Setter Property="Padding" Value="{DynamicResource TabItemMargin}" />
         <Setter Property="Background" Value="{DynamicResource TabControlBackground}" />
+        <!--  The indicator travelling from tab to tab lives in SukiTabControlMotion, the page change
+              in SukiTabPageTransition (the TabControl hands it PART_SelectedContentHost/Host2).  -->
+        <Setter Property="animations:SukiTabControlMotion.Enable" Value="True" />
+        <Setter Property="PageTransition">
+            <animations:SukiTabPageTransition />
+        </Setter>
         <Setter Property="Template">
             <ControlTemplate>
                 <Border HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
@@ -30,7 +37,17 @@
                         CornerRadius="{TemplateBinding CornerRadius}">
                     <DockPanel>
                         <LayoutTransformControl Name="PART_LayoutTransform" DockPanel.Dock="{TemplateBinding TabStripPlacement}">
-                            <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+                            <Panel>
+                                <!--  The one indicator, under the tabs; it takes the shape the selected tab asks for.  -->
+                                <Canvas Name="PART_IndicatorLayer" IsHitTestVisible="False">
+                                    <Panel Name="PART_Indicator" Opacity="0">
+                                        <Border Name="PART_IndicatorUnderline" Classes="TabIndicatorUnderline" />
+                                        <Border Name="PART_IndicatorPill" Classes="TabIndicatorPill" IsVisible="False" />
+                                        <suki:GlassCard Name="PART_IndicatorGlass" Classes="TabIndicatorGlass" IsVisible="False" />
+                                    </Panel>
+                                </Canvas>
+                                <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+                            </Panel>
                         </LayoutTransformControl>
                         <Panel ClipToBounds="True">
                             <ContentPresenter Name="PART_SelectedContentHost2"
@@ -63,7 +80,16 @@
                         <DockPanel>
                             <LayoutTransformControl Name="PART_LayoutTransform" DockPanel.Dock="{TemplateBinding TabStripPlacement}">
                                 <suki:GlassCard HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" CornerRadius="100" Padding="2,0">
-                                <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+                                    <Panel>
+                                        <Canvas Name="PART_IndicatorLayer" IsHitTestVisible="False">
+                                            <Panel Name="PART_Indicator" Opacity="0">
+                                                <Border Name="PART_IndicatorUnderline" Classes="TabIndicatorUnderline" />
+                                                <Border Name="PART_IndicatorPill" Classes="TabIndicatorPill" IsVisible="False" />
+                                                <suki:GlassCard Name="PART_IndicatorGlass" Classes="TabIndicatorGlass" IsVisible="False" />
+                                            </Panel>
+                                        </Canvas>
+                                        <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+                                    </Panel>
                                 </suki:GlassCard>
                             </LayoutTransformControl>
                             <Panel ClipToBounds="True">
@@ -83,6 +109,21 @@
                     </Border>
                 </ControlTemplate>
             </Setter>
+        </Style>
+
+        <!--  The shapes of the indicator.  -->
+        <Style Selector="^ /template/ Border.TabIndicatorUnderline">
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
+            <Setter Property="CornerRadius" Value="55" />
+        </Style>
+        <Style Selector="^ /template/ Border.TabIndicatorPill">
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
+            <Setter Property="CornerRadius" Value="100" />
+        </Style>
+        <!--  The glass card wears the radius of the glass tabs (TabItem.Compactness.axaml).  -->
+        <Style Selector="^ /template/ suki|GlassCard.TabIndicatorGlass">
+            <Setter Property="CornerRadius" Value="{DynamicResource SukiCompactness.TabItem.Glass.CornerRadius}" />
+            <Setter Property="Padding" Value="0" />
         </Style>
 
         <Style Selector="^[TabStripPlacement=Left] /template/ LayoutTransformControl#PART_LayoutTransform">

@@ -1,0 +1,78 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Sizes of TabItem for every SukiCompactness level. Normal is the complete set (the historical
+         values); the other levels only list what differs. Key names follow
+         SukiCompactness.<Control>[.<Class, Part or State>].<Property> (see SukiCompactnessResources).
+
+         The strip's indicator takes the bounds of the selected tab's IndicatorAnchor, so the underline's
+         thickness, the pill and the glass card all follow these values. The pill radius (100) stays a pill,
+         and the hover plate of the default tabs wears the global SmallCornerRadius. -->
+
+    <ResourceDictionary x:Key="Normal">
+        <x:Double x:Key="SukiCompactness.TabItem.FontSize">14</x:Double>
+        <!-- default (underline) -->
+        <Thickness x:Key="SukiCompactness.TabItem.LayoutRoot.Margin">8,0</Thickness>
+        <Thickness x:Key="SukiCompactness.TabItem.HeaderPresenter.Padding">0,5</Thickness>
+        <Thickness x:Key="SukiCompactness.TabItem.HoverPlate.Margin">-6,2</Thickness>
+        <x:Double x:Key="SukiCompactness.TabItem.IndicatorAnchor.Height">3</x:Double>
+        <Thickness x:Key="SukiCompactness.TabItem.IndicatorAnchor.Margin">10,0</Thickness>
+        <!-- .Pill (its height is Padding + HeaderPresenter.Padding around the text) -->
+        <Thickness x:Key="SukiCompactness.TabItem.Pill.Padding">12,4</Thickness>
+        <Thickness x:Key="SukiCompactness.TabItem.Pill.HeaderPresenter.Padding">0,5</Thickness>
+        <Thickness x:Key="SukiCompactness.TabItem.Pill.Margin">5,6,5,4</Thickness>
+        <!-- .Glass (the strip's glass indicator wears the same radius) -->
+        <Thickness x:Key="SukiCompactness.TabItem.Glass.Margin">15,0</Thickness>
+        <x:Double x:Key="SukiCompactness.TabItem.Glass.MinWidth">34</x:Double>
+        <x:Double x:Key="SukiCompactness.TabItem.Glass.MinHeight">34</x:Double>
+        <CornerRadius x:Key="SukiCompactness.TabItem.Glass.CornerRadius">12</CornerRadius>
+    </ResourceDictionary>
+
+    <ResourceDictionary x:Key="SuperCompact">
+        <x:Double x:Key="SukiCompactness.TabItem.FontSize">12</x:Double>
+        <Thickness x:Key="SukiCompactness.TabItem.LayoutRoot.Margin">5,0</Thickness>
+        <Thickness x:Key="SukiCompactness.TabItem.HeaderPresenter.Padding">0,3</Thickness>
+        <Thickness x:Key="SukiCompactness.TabItem.HoverPlate.Margin">-4,1</Thickness>
+        <x:Double x:Key="SukiCompactness.TabItem.IndicatorAnchor.Height">2</x:Double>
+        <Thickness x:Key="SukiCompactness.TabItem.IndicatorAnchor.Margin">6,0</Thickness>
+        <Thickness x:Key="SukiCompactness.TabItem.Pill.Padding">10,3</Thickness>
+        <Thickness x:Key="SukiCompactness.TabItem.Pill.HeaderPresenter.Padding">0,1</Thickness>
+        <Thickness x:Key="SukiCompactness.TabItem.Pill.Margin">3</Thickness>
+        <Thickness x:Key="SukiCompactness.TabItem.Glass.Margin">10,0</Thickness>
+        <x:Double x:Key="SukiCompactness.TabItem.Glass.MinWidth">26</x:Double>
+        <x:Double x:Key="SukiCompactness.TabItem.Glass.MinHeight">26</x:Double>
+        <CornerRadius x:Key="SukiCompactness.TabItem.Glass.CornerRadius">8</CornerRadius>
+    </ResourceDictionary>
+
+    <ResourceDictionary x:Key="Compact">
+        <x:Double x:Key="SukiCompactness.TabItem.FontSize">13</x:Double>
+        <Thickness x:Key="SukiCompactness.TabItem.LayoutRoot.Margin">6,0</Thickness>
+        <Thickness x:Key="SukiCompactness.TabItem.HeaderPresenter.Padding">0,4</Thickness>
+        <Thickness x:Key="SukiCompactness.TabItem.HoverPlate.Margin">-5,2</Thickness>
+        <Thickness x:Key="SukiCompactness.TabItem.IndicatorAnchor.Margin">8,0</Thickness>
+        <Thickness x:Key="SukiCompactness.TabItem.Pill.Padding">11,4</Thickness>
+        <Thickness x:Key="SukiCompactness.TabItem.Pill.HeaderPresenter.Padding">0,3</Thickness>
+        <Thickness x:Key="SukiCompactness.TabItem.Pill.Margin">4,5,4,4</Thickness>
+        <Thickness x:Key="SukiCompactness.TabItem.Glass.Margin">12,0</Thickness>
+        <x:Double x:Key="SukiCompactness.TabItem.Glass.MinWidth">30</x:Double>
+        <x:Double x:Key="SukiCompactness.TabItem.Glass.MinHeight">30</x:Double>
+        <CornerRadius x:Key="SukiCompactness.TabItem.Glass.CornerRadius">10</CornerRadius>
+    </ResourceDictionary>
+
+    <ResourceDictionary x:Key="Big">
+        <x:Double x:Key="SukiCompactness.TabItem.FontSize">16</x:Double>
+        <Thickness x:Key="SukiCompactness.TabItem.LayoutRoot.Margin">10,0</Thickness>
+        <Thickness x:Key="SukiCompactness.TabItem.HeaderPresenter.Padding">0,7</Thickness>
+        <Thickness x:Key="SukiCompactness.TabItem.HoverPlate.Margin">-8,3</Thickness>
+        <x:Double x:Key="SukiCompactness.TabItem.IndicatorAnchor.Height">4</x:Double>
+        <Thickness x:Key="SukiCompactness.TabItem.IndicatorAnchor.Margin">12,0</Thickness>
+        <Thickness x:Key="SukiCompactness.TabItem.Pill.Padding">16,6</Thickness>
+        <Thickness x:Key="SukiCompactness.TabItem.Pill.HeaderPresenter.Padding">0,7</Thickness>
+        <Thickness x:Key="SukiCompactness.TabItem.Pill.Margin">6,8,6,6</Thickness>
+        <Thickness x:Key="SukiCompactness.TabItem.Glass.Margin">18,0</Thickness>
+        <x:Double x:Key="SukiCompactness.TabItem.Glass.MinWidth">40</x:Double>
+        <x:Double x:Key="SukiCompactness.TabItem.Glass.MinHeight">40</x:Double>
+        <CornerRadius x:Key="SukiCompactness.TabItem.Glass.CornerRadius">14</CornerRadius>
+    </ResourceDictionary>
+
+</ResourceDictionary>

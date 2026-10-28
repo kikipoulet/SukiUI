@@ -36,6 +36,7 @@ namespace SukiUI.CompactnessTheme
         [
             "CompactnessTheme/Global.Compactness.axaml",
             "Controls/Standard/Buttons/Button/Button.Compactness.axaml",
+            "Controls/Standard/Layout/TabControl/TabItem.Compactness.axaml",
             "Controls/Standard/Menus/Menu/Menu.Compactness.axaml",
             "Controls/Standard/Menus/MenuItem/MenuItem.Compactness.axaml",
             "Controls/Standard/Selection/ToggleSwitch/ToggleSwitch.Compactness.axaml",

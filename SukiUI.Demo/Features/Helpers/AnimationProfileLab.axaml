@@ -93,6 +93,31 @@
                         <Button Click="OnShowToast" Content="Show toast" />
                     </StackPanel>
                 </TabItem>
+                <TabItem Classes="Pill" Header="Tabs">
+                    <StackPanel Margin="8,16,8,8" Spacing="16">
+                        <TextBlock Opacity="0.7" Text="Switch tabs — the indicator, the hover, the press and the page slide follow the TabControl profile (this strip too)." TextWrapping="Wrap" />
+                        <TabControl>
+                            <TabItem Header="Overview">
+                                <TextBlock Margin="0,12" Text="Underline: the bar stretches toward the new tab." />
+                            </TabItem>
+                            <TabItem Header="Activity log">
+                                <TextBlock Margin="0,12" Text="A longer title: the bar changes width on the way." />
+                            </TabItem>
+                            <TabItem Header="Settings">
+                                <TextBlock Margin="0,12" Text="Third page." />
+                            </TabItem>
+                        </TabControl>
+                        <TabControl>
+                            <TabItem Classes="Glass" FontSize="16" Header="Glass">
+                                <TextBlock Margin="0,12" Text="Glass: the card travels." />
+                            </TabItem>
+                            <TabItem Classes="Glass" FontSize="16" Header="Cards">
+                                <TextBlock Margin="0,12" Text="Second glass page." />
+                            </TabItem>
+                            <TabItem Classes="Glass" FontSize="16" Header="Disabled" IsEnabled="False" />
+                        </TabControl>
+                    </StackPanel>
+                </TabItem>
             </TabControl>
 
             <suki:GlassCard Grid.Column="1"

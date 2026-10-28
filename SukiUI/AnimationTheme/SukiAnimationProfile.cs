@@ -15,6 +15,7 @@ namespace SukiUI.ControlsAnimation
         public required SukiPresetTable<SukiTypingPreset, SukiTypingProfile> Typing { get; init; }
         public required SukiPresetTable<SukiToastPreset, SukiToastProfile> Toast { get; init; }
         public required SukiPresetTable<SukiSideMenuPreset, SukiSideMenuProfile> SideMenu { get; init; }
+        public required SukiPresetTable<SukiTabControlPreset, SukiTabControlProfile> TabControl { get; init; }
 
         /// <summary>The historical calibrations — the default profile.</summary>
         public static readonly SukiAnimationProfile Normal = new()
@@ -27,6 +28,7 @@ namespace SukiUI.ControlsAnimation
             Typing = SukiTypingProfile.Normal,
             Toast = SukiToastProfile.Normal,
             SideMenu = SukiSideMenuProfile.Normal,
+            TabControl = SukiTabControlProfile.Normal,
         };
 
         /// <summary>The sober calibrations, family by family.</summary>
@@ -40,6 +42,7 @@ namespace SukiUI.ControlsAnimation
             Typing = SukiTypingProfile.Lite,
             Toast = SukiToastProfile.Lite,
             SideMenu = SukiSideMenuProfile.Lite,
+            TabControl = SukiTabControlProfile.Lite,
         };
 
         /// <summary>The barest calibrations: only the press feedback and the state changes
@@ -54,6 +57,7 @@ namespace SukiUI.ControlsAnimation
             Typing = SukiTypingProfile.Minimal,
             Toast = SukiToastProfile.Minimal,
             SideMenu = SukiSideMenuProfile.Minimal,
+            TabControl = SukiTabControlProfile.Minimal,
         };
     }
 }

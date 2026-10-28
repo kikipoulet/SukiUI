@@ -43,6 +43,10 @@ public partial class AnimationProfileLab : UserControl
             p => SukiAnimationTheme.Current.Toast[(SukiToastPreset)(object)p],
             (p, c) => SukiAnimationTheme.Current with { Toast = SukiAnimationTheme.Current.Toast.With((SukiToastPreset)(object)p, (SukiToastProfile)c) },
             f => f with { Toast = SukiAnimationProfile.Normal.Toast }),
+        new("TabControl", Enum.GetValues<SukiTabControlPreset>(),
+            p => SukiAnimationTheme.Current.TabControl[(SukiTabControlPreset)(object)p],
+            (p, c) => SukiAnimationTheme.Current with { TabControl = SukiAnimationTheme.Current.TabControl.With((SukiTabControlPreset)(object)p, (SukiTabControlProfile)c) },
+            f => f with { TabControl = SukiAnimationProfile.Normal.TabControl }),
         new("SideMenu", Enum.GetValues<SukiSideMenuPreset>(),
             p => SukiAnimationTheme.Current.SideMenu[(SukiSideMenuPreset)(object)p],
             (p, c) => SukiAnimationTheme.Current with { SideMenu = SukiAnimationTheme.Current.SideMenu.With((SukiSideMenuPreset)(object)p, (SukiSideMenuProfile)c) },
@@ -79,6 +83,7 @@ public partial class AnimationProfileLab : UserControl
     [DynamicDependency(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicProperties, typeof(SukiDialogProfile))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicProperties, typeof(SukiToggleProfile))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicProperties, typeof(SukiToastProfile))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicProperties, typeof(SukiTabControlProfile))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicProperties, typeof(SukiSideMenuProfile))]
     public AnimationProfileLab()
     {
