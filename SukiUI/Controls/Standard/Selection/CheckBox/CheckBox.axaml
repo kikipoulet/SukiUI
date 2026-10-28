@@ -43,7 +43,6 @@
                                     Background="{TemplateBinding Background}"
                                     CornerRadius="{TemplateBinding CornerRadius}"
                                     IsHitTestVisible="False"
-                                    Opacity="0"
                                     RenderTransformOrigin="50%,50%" />
                             <suki:CheckStroke Name="PART_Check"
                                               Width="12"
@@ -83,6 +82,29 @@
         </Style>
         <Style Selector="^:disabled /template/ suki|GlassCard#PART_Box">
             <Setter Property="Opacity" Value="0.7" />
+        </Style>
+
+        <!--  SukiCheckMotion poses the fill, the mark and the bar with local values, which win over the
+              setters below. Without the motion these setters show the state at once. The fill's resting
+              opacity is a style (not a template value) so the state setters can override it.  -->
+        <Style Selector="^ /template/ Border#PART_Fill">
+            <Setter Property="Opacity" Value="0" />
+        </Style>
+        <Style Selector="^[(animations|SukiCheckMotion.Enable)=False] /template/ Border#PART_Indeterminate">
+            <Setter Property="Opacity" Value="0" />
+        </Style>
+        <Style Selector="^[(animations|SukiCheckMotion.Enable)=False]:checked /template/ Border#PART_Fill">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        <Style Selector="^[(animations|SukiCheckMotion.Enable)=False]:indeterminate /template/ Border#PART_Fill">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        <Style Selector="^[(animations|SukiCheckMotion.Enable)=False]:checked /template/ suki|CheckStroke#PART_Check">
+            <Setter Property="Progress" Value="1" />
+            <Setter Property="Trail" Value="1" />
+        </Style>
+        <Style Selector="^[(animations|SukiCheckMotion.Enable)=False]:indeterminate /template/ Border#PART_Indeterminate">
+            <Setter Property="Opacity" Value="1" />
         </Style>
     </ControlTheme>
 </ResourceDictionary>

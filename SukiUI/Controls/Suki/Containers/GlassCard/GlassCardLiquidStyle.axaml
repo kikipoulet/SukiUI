@@ -21,7 +21,7 @@
     <Style Selector="suki|GlassCard">
         <Setter Property="BorderThickness" Value="1.2" />
         <Setter Property="Background" Value="{DynamicResource SukiGlassCardBackground}" />
-        <Setter Property="Padding" Value="20" />
+        <Setter Property="Padding" Value="{DynamicResource SukiCompactness.GlassCard.Padding}" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Panel Name="RootPanel" Opacity="0">

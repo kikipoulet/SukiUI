@@ -49,8 +49,22 @@ namespace SukiUI.Controls
         private static readonly double ShortLeg = Distance(Start, Corner);
         private static readonly double Length = ShortLeg + Distance(Corner, End);
 
+        // The whole mark, shared by every check box at rest (the common case). Built on first draw:
+        // geometry needs the platform, which a type initializer cannot rely on.
+        private static StreamGeometry? _fullMark;
+
+        // Rebuilt only when the brush or the thickness changes, not on every frame of the animation.
+        private Pen? _pen, _trailPen;
+
         private static double Distance(Point a, Point b) =>
             Math.Sqrt((b.X - a.X) * (b.X - a.X) + (b.Y - a.Y) * (b.Y - a.Y));
+
+        protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+        {
+            base.OnPropertyChanged(change);
+            if (change.Property == StrokeProperty || change.Property == ThicknessProperty)
+                _pen = _trailPen = null;
+        }
 
         public override void Render(DrawingContext context)
         {
@@ -60,32 +74,45 @@ namespace SukiUI.Controls
             double head = Math.Clamp(Progress, 0.0, 1.0);
             double trail = Math.Clamp(Trail, 0.0, 1.0);
             double scale = Math.Min(Bounds.Width, Bounds.Height) / 12.0;
+            // The mark is square: in non-square bounds it is centered on the longer side.
+            double offsetX = (Bounds.Width - 12.0 * scale) / 2.0;
+            double offsetY = (Bounds.Height - 12.0 * scale) / 2.0;
 
-            using (context.PushTransform(Matrix.CreateScale(scale, scale)))
+            using (context.PushTransform(Matrix.CreateScale(scale, scale) * Matrix.CreateTranslation(offsetX, offsetY)))
             {
                 // The trail fades with its own length: it never lingers as a dot at the end
                 // of the stroke while it catches up with the head.
                 double gap = Math.Abs(head - trail);
                 if (gap > MinTrailGap)
                 {
+                    _trailPen ??= CreatePen(brush, Thickness * 1.5);
                     using (context.PushOpacity(TrailOpacity * Math.Min(1.0, gap / FullTrailGap)))
-                        DrawSpan(context, brush, Thickness * 1.5, Math.Min(head, trail), Math.Max(head, trail));
+                        DrawSpan(context, _trailPen, Math.Min(head, trail), Math.Max(head, trail));
                 }
                 // Same for the stroke itself: a head about to vanish (or just born) is a round
                 // cap with no length, a bright dot — it fades out before it gets there.
                 if (head > MinHead)
                 {
+                    _pen ??= CreatePen(brush, Thickness);
                     using (context.PushOpacity(Math.Min(1.0, head / FullHead)))
-                        DrawSpan(context, brush, Thickness, 0.0, head);
+                        DrawSpan(context, _pen, 0.0, head);
                 }
             }
         }
 
-        private static void DrawSpan(DrawingContext context, IBrush brush, double thickness, double from, double to)
+        private static Pen CreatePen(IBrush brush, double thickness) =>
+            new(brush, thickness, lineCap: PenLineCap.Round, lineJoin: PenLineJoin.Round);
+
+        private static void DrawSpan(DrawingContext context, Pen pen, double from, double to)
         {
             if (to - from < 0.001)
                 return;
 
+            context.DrawGeometry(null, pen, from <= 0.0 && to >= 1.0 ? _fullMark ??= BuildSpan(0.0, 1.0) : BuildSpan(from, to));
+        }
+
+        private static StreamGeometry BuildSpan(double from, double to)
+        {
             var geometry = new StreamGeometry();
             using (var g = geometry.Open())
             {
@@ -95,9 +122,7 @@ namespace SukiUI.Controls
                 g.LineTo(PointAt(to));
                 g.EndFigure(false);
             }
-
-            context.DrawGeometry(null,
-                new Pen(brush, thickness, lineCap: PenLineCap.Round, lineJoin: PenLineJoin.Round), geometry);
+            return geometry;
         }
 
         private static Point PointAt(double t)
