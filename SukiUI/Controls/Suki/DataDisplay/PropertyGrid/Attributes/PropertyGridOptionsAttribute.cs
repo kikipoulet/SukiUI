@@ -7,19 +7,19 @@ namespace SukiUI.Controls
     public sealed class PropertyGridOptionsAttribute : Attribute
     {
         /// <summary>
-        /// The name of the collection property that supplies the options.
+        /// The name of the options collection property.
         /// </summary>
-        public string SourcePropertyName { get; }
+        public string OptionsPropertyName { get; }
 
         /// <summary>
         /// Marks a property as a combo box and identifies the options source to use.
         /// </summary>
-        /// <param name="sourcePropertyName">The options source name for the property.</param>
-        public PropertyGridOptionsAttribute(string sourcePropertyName)
+        /// <param name="optionsPropertyName">The name of the options collection property.</param>
+        public PropertyGridOptionsAttribute(string optionsPropertyName)
         {
-            ArgumentException.ThrowIfNullOrWhiteSpace(sourcePropertyName);
+            ArgumentException.ThrowIfNullOrWhiteSpace(optionsPropertyName);
 
-            SourcePropertyName = sourcePropertyName;
+            OptionsPropertyName = optionsPropertyName;
         }
     }
 }

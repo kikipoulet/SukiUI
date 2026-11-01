@@ -56,7 +56,7 @@ namespace SukiUI.Controls
                             viewModel,
                             displayName,
                             property,
-                            metadata.Options.SourcePropertyName,
+                            metadata.Options.OptionsPropertyName,
                             metadata.OptionsProperty);
                     }
                     else if (property.PropertyType == typeof(string))

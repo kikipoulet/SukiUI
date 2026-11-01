@@ -148,10 +148,10 @@ namespace SukiUI.Controls
                     
                     if (Options is not null)
                     {
-                        if (!propertiesByName.TryGetValue(Options.SourcePropertyName, out var optionsProperty))
+                        if (!propertiesByName.TryGetValue(Options.OptionsPropertyName, out var optionsProperty))
                         {
                             throw new InvalidOperationException(
-                                $"Options source '{Options.SourcePropertyName}' for property '{property.Name}' " +
+                                $"Options source '{Options.OptionsPropertyName}' for property '{property.Name}' " +
                                 $"was not found on '{property.DeclaringType?.FullName}'.");
                         }
 
