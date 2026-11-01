@@ -131,6 +131,7 @@ namespace SukiUI.Controls
                 public PropertyInfo Property { get; }
                 public string? Category { get; }
                 public string? DisplayName { get; }
+                public PropertyGridOptionsAttribute? Options { get; }
 
                 public PropertyMetadata(PropertyInfo property)
                 {
@@ -140,6 +141,7 @@ namespace SukiUI.Controls
                     Property = property;
                     Category = categoryAttribute?.Category ?? "Properties";
                     DisplayName = displayNameAttribute?.DisplayName;
+                    Options = property.GetCustomAttribute<PropertyGridOptionsAttribute>();
                 }
             }
 

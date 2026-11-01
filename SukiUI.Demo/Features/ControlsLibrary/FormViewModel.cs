@@ -75,9 +75,9 @@ public partial class FormViewModel : ObservableObject, IPropertyGridOptionSource
     [ObservableProperty] [property: Category("Category 2"), DisplayName("Orientation")]
     private Orientation _orientation;
 
-    [ObservableProperty] [property: Category("Combo Values"), DisplayName("List of Values")]
+    [ObservableProperty] [property: Category("Combo Values"), DisplayName("List of Values"), PropertyGridOptions(nameof(StatusOptions))]
     private string _status = "Draft";
-    
+
     #endregion
 
     #region IPropertyGridOptionSource Implementation
@@ -86,7 +86,7 @@ public partial class FormViewModel : ObservableObject, IPropertyGridOptionSource
     /// Values offered for <see cref="Status"/>. Kept off the public surface so the grid never
     /// mistakes them for a property of its own.
     /// </summary>
-    private ObservableCollection<string> _statusOptions { get; set; } = GetRandomStatusOptions();
+    public ObservableCollection<string> StatusOptions { get; private set; } = GetRandomStatusOptions();
 
     /// <summary>
     /// Implements <see cref="IPropertyGridOptionSource"/> to provide a list of options for the
@@ -95,11 +95,11 @@ public partial class FormViewModel : ObservableObject, IPropertyGridOptionSource
     /// <param name="propertyName">
     /// The name of the property for which to get options.
     /// </param>
-    /// <returns>A collection of available options, or null if none.</returns>
-    public IEnumerable? GetOptions(string propertyName) => propertyName switch
+    /// <returns>A collection of available options, which may be empty.</returns>
+    public IEnumerable GetOptions(string propertyName) => propertyName switch
     {
-        nameof(Status) => _statusOptions,
-        _ => null
+        nameof(StatusOptions) => StatusOptions,
+        _ => Array.Empty<string>()
     };
     
     #endregion
@@ -114,13 +114,13 @@ public partial class FormViewModel : ObservableObject, IPropertyGridOptionSource
     [property: PropertyGridIgnore]
     private void ShuffleStatusOptions()
     {
-        var shuffled = _statusOptions.OrderBy(_ => Random.Shared.Next()).ToList();
+        var shuffled = StatusOptions.OrderBy(_ => Random.Shared.Next()).ToList();
 
-        _statusOptions.Clear();
+        StatusOptions.Clear();
         
         foreach (var option in shuffled)
         {
-            _statusOptions.Add(option);
+            StatusOptions.Add(option);
         }
     }
 
@@ -132,14 +132,14 @@ public partial class FormViewModel : ObservableObject, IPropertyGridOptionSource
     [property: PropertyGridIgnore]
     private void ReplaceStatusOptions()
     {
-        _statusOptions = GetRandomStatusOptions();
+        StatusOptions = GetRandomStatusOptions();
         
-        OnPropertyChanged(nameof(_statusOptions));
+        OnPropertyChanged(nameof(StatusOptions));
 
         // Keep the selection valid now that the old values may be gone.
-        if (!_statusOptions.Contains(Status))
+        if (!StatusOptions.Contains(Status))
         {
-            Status = _statusOptions[0];
+            Status = StatusOptions[0];
         }
     }
     

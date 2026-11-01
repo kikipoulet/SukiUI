@@ -7,47 +7,40 @@ namespace SukiUI.Controls
     public sealed class ComboViewModel : PropertyViewModelBase<object?>
     {
         private readonly IPropertyGridOptionSource _optionSource;
+        private readonly string _optionsPropertyName;
 
-        private IEnumerable? _items;
-        private bool _itemsResolved;
+        private IEnumerable _items;
 
         /// <summary>
-        /// The values offered by the editor. Resolved once and reused until the ViewModel reports a
-        /// change, so binding does not query the option source on every read.
+        /// The values offered by the editor. Observable collections update the editor in place;
+        /// replacement collections are picked up when the ViewModel reports a change.
         /// </summary>
-        public IEnumerable? Items
-        {
-            get
-            {
-                if (!_itemsResolved)
-                {
-                    _items = _optionSource.GetOptions(PropertyInfo.Name);
-                    _itemsResolved = true;
-                }
-
-                return _items;
-            }
-        }
-
+        public IEnumerable Items => _items;
         public ComboViewModel(
             INotifyPropertyChanged viewmodel,
             string displayName,
             PropertyInfo propertyInfo,
+            string optionsPropertyName,
             IPropertyGridOptionSource optionSource)
             : base(viewmodel, displayName, propertyInfo)
         {
             _optionSource = optionSource;
+            _optionsPropertyName = optionsPropertyName;
+            _items = optionSource.GetOptions(_optionsPropertyName);
         }
 
         protected override void OnViewModelPropertyChanged(string? propertyName)
         {
-            var items = _optionSource.GetOptions(PropertyInfo.Name);
-            var wasResolved = _itemsResolved;
-            _itemsResolved = true;
+            if (propertyName is not (null or "") && propertyName != _optionsPropertyName)
+            {
+                return;
+            }
+
+            var items = _optionSource.GetOptions(_optionsPropertyName);
 
             // Only notify when the source actually swapped the collection. In-place edits to an
             // observable collection already reach the editor on their own.
-            if (wasResolved && ReferenceEquals(items, _items))
+            if (ReferenceEquals(items, _items))
             {
                 return;
             }

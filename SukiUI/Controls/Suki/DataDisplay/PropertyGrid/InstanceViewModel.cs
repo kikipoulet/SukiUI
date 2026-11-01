@@ -1,6 +1,8 @@
 ﻿using Avalonia.Collections;
 using SukiUI.Helpers;
+using System.Collections;
 using System.ComponentModel;
+using System.Reflection;
 
 namespace SukiUI.Controls
 {
@@ -50,10 +52,23 @@ namespace SukiUI.Controls
                     var property = metadata.Property;
                     var displayName = metadata.DisplayName ?? property.Name;
 
-                    if (viewModel is IPropertyGridOptionSource optionSource 
-                        && optionSource.GetOptions(property.Name) is not null)
+                    if (metadata.Options is not null)
                     {
-                        propertyViewModel = new ComboViewModel(viewModel, displayName, property, optionSource);
+                        if (viewModel is not IPropertyGridOptionSource optionSource)
+                        {
+                            throw new InvalidOperationException(
+                                $"Property '{property.Name}' on '{viewModel.GetType().FullName}' is marked with " +
+                                $"{nameof(PropertyGridOptionsAttribute)} but the view model does not implement " +
+                                $"{nameof(IPropertyGridOptionSource)}.");
+                        }
+
+                        ValidateOptionsConfiguration(viewModel, property, metadata.Options, optionSource);
+                        propertyViewModel = new ComboViewModel(
+                            viewModel,
+                            displayName,
+                            property,
+                            metadata.Options.SourcePropertyName,
+                            optionSource);
                     }
                     else if (property.PropertyType == typeof(string))
                     {
@@ -122,6 +137,41 @@ namespace SukiUI.Controls
             }
 
             return categoryViewModels;
+        }
+
+        private static void ValidateOptionsConfiguration(
+            INotifyPropertyChanged viewModel,
+            PropertyInfo property,
+            PropertyGridOptionsAttribute options,
+            IPropertyGridOptionSource optionSource)
+        {
+            var isCollectionProperty = property.PropertyType != typeof(string) &&
+                                       typeof(IEnumerable).IsAssignableFrom(property.PropertyType);
+
+            if (isCollectionProperty)
+            {
+                throw new InvalidOperationException(
+                    $"Property '{property.Name}' is marked with {nameof(PropertyGridOptionsAttribute)} " +
+                    "and must be a scalar property for single selection.");
+            }
+
+            var sourceProperty = viewModel.GetType().GetProperty(
+                options.SourcePropertyName,
+                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            if (sourceProperty is not null &&
+                !typeof(IEnumerable).IsAssignableFrom(sourceProperty.PropertyType))
+            {
+                throw new InvalidOperationException(
+                    $"Options source '{options.SourcePropertyName}' for property '{property.Name}' " +
+                    $"must be an enumerable property, but is '{sourceProperty.PropertyType.Name}'.");
+            }
+
+            if (optionSource.GetOptions(options.SourcePropertyName) is null)
+            {
+                throw new InvalidOperationException(
+                    $"Options source '{options.SourcePropertyName}' for property '{property.Name}' " +
+                    "returned null; it must return an enumerable collection.");
+            }
         }
 
         public void Dispose()

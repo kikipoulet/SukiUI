@@ -205,4 +205,5 @@
                       SelectedItem="{Binding Value}" />
         </Grid>
     </DataTemplate>
+
 </ResourceDictionary>
