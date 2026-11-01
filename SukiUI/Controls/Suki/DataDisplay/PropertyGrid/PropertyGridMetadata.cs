@@ -135,8 +135,8 @@ namespace SukiUI.Controls
                 public PropertyInfo? OptionsProperty { get; }
 
                 public PropertyMetadata(
-                    [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] Type type, 
-                    PropertyInfo property)
+                    PropertyInfo property,
+                    IReadOnlyDictionary<string, PropertyInfo> propertiesByName)
                 {
                     var categoryAttribute = property.GetCustomAttribute<CategoryAttribute>();
                     var displayNameAttribute = property.GetCustomAttribute<DisplayNameAttribute>();
@@ -148,19 +148,31 @@ namespace SukiUI.Controls
                     
                     if (Options is not null)
                     {
-                        OptionsProperty = type.GetProperty(Options.SourcePropertyName, BindingFlags.Instance | BindingFlags.Public)
-                            ?? throw new InvalidOperationException(
+                        if (!propertiesByName.TryGetValue(Options.SourcePropertyName, out var optionsProperty))
+                        {
+                            throw new InvalidOperationException(
                                 $"Options source '{Options.SourcePropertyName}' for property '{property.Name}' " +
                                 $"was not found on '{property.DeclaringType?.FullName}'.");
+                        }
+
+                        OptionsProperty = optionsProperty;
                     }
                 }
             }
 
             public TypeMetadata([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] Type type)
             {
-                Properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                    .Where(property => property.CanRead && property.GetCustomAttribute<PropertyGridIgnoreAttribute>() is null)
-                    .Select(property => new PropertyMetadata(type, property))
+                var readableProperties = type
+                    .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                    .Where(property => property.CanRead)
+                    .ToArray();
+                
+                var propertiesByName = readableProperties
+                    .ToDictionary(property => property.Name, StringComparer.Ordinal);
+
+                Properties = readableProperties
+                    .Where(property => property.GetCustomAttribute<PropertyGridIgnoreAttribute>() is null)
+                    .Select(property => new PropertyMetadata(property, propertiesByName))
                     .ToList();
             }
 
