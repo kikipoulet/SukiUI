@@ -1,14 +1,13 @@
 namespace SukiUI.Controls
 {
     /// <summary>
-    /// Marks a property as using a combo box editor populated by
-    /// <see cref="IPropertyGridOptionSource"/>.
+    /// Marks a property as using a combo box editor populated by a collection property.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public sealed class PropertyGridOptionsAttribute : Attribute
     {
         /// <summary>
-        /// The name passed to <see cref="IPropertyGridOptionSource.GetOptions"/>.
+        /// The name of the collection property that supplies the options.
         /// </summary>
         public string SourcePropertyName { get; }
 

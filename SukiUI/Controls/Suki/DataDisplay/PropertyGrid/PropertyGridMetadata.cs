@@ -132,8 +132,11 @@ namespace SukiUI.Controls
                 public string? Category { get; }
                 public string? DisplayName { get; }
                 public PropertyGridOptionsAttribute? Options { get; }
+                public PropertyInfo? OptionsProperty { get; }
 
-                public PropertyMetadata(PropertyInfo property)
+                public PropertyMetadata(
+                    [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] Type type, 
+                    PropertyInfo property)
                 {
                     var categoryAttribute = property.GetCustomAttribute<CategoryAttribute>();
                     var displayNameAttribute = property.GetCustomAttribute<DisplayNameAttribute>();
@@ -142,6 +145,14 @@ namespace SukiUI.Controls
                     Category = categoryAttribute?.Category ?? "Properties";
                     DisplayName = displayNameAttribute?.DisplayName;
                     Options = property.GetCustomAttribute<PropertyGridOptionsAttribute>();
+                    
+                    if (Options is not null)
+                    {
+                        OptionsProperty = type.GetProperty(Options.SourcePropertyName, BindingFlags.Instance | BindingFlags.Public)
+                            ?? throw new InvalidOperationException(
+                                $"Options source '{Options.SourcePropertyName}' for property '{property.Name}' " +
+                                $"was not found on '{property.DeclaringType?.FullName}'.");
+                    }
                 }
             }
 
@@ -149,7 +160,7 @@ namespace SukiUI.Controls
             {
                 Properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
                     .Where(property => property.CanRead && property.GetCustomAttribute<PropertyGridIgnoreAttribute>() is null)
-                    .Select(property => new PropertyMetadata(property))
+                    .Select(property => new PropertyMetadata(type, property))
                     .ToList();
             }
 

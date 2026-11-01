@@ -37,7 +37,7 @@
                 <suki:GlassCard Width="400" Padding="17" Margin="0,15,0,17" HorizontalAlignment="Right">
                     <StackPanel Spacing="18" Margin="8,0,0,5">
                         <TextBlock FontSize="16" Margin="0,8,0,0" FontWeight="DemiBold" Text="Combo Values"></TextBlock>
-                        <TextBlock TextWrapping="Wrap" Foreground="{DynamicResource SukiLowText}" Text="The &quot;List of Values&quot; options come from the ViewModel through IPropertyGridOptionSource. Shuffle reorders the existing collection in place; Replace swaps in a brand new one."></TextBlock>
+                        <TextBlock TextWrapping="Wrap" Foreground="{DynamicResource SukiLowText}" Text="The &quot;List of Values&quot; options come from the StatusOptions collection. Shuffle reorders the existing collection in place; Replace swaps in a brand new one."></TextBlock>
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <Button Classes="Flat" Content="Shuffle list" Command="{Binding Form.ShuffleStatusOptionsCommand}" />
                             <Button Content="Replace list" Command="{Binding Form.ReplaceStatusOptionsCommand}" />
