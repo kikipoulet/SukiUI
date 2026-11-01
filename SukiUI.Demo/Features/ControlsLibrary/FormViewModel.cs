@@ -1,7 +1,10 @@
 ﻿using Avalonia.Layout;
 using CommunityToolkit.Mvvm.ComponentModel;
-using System;
+using CommunityToolkit.Mvvm.Input;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using SukiUI.Controls;
+
 #pragma warning disable CS0657 // Not a valid attribute location for this declaration
 
 namespace SukiUI.Demo.Features.ControlsLibrary;
@@ -12,6 +15,8 @@ namespace SukiUI.Demo.Features.ControlsLibrary;
 /// </summary>
 public partial class FormViewModel : ObservableObject
 {
+    #region Properties
+    
     [ObservableProperty] [property: Category("Category 1"), DisplayName("Nullable name")]
     private string? _nullableName;
 
@@ -68,10 +73,79 @@ public partial class FormViewModel : ObservableObject
 
     [ObservableProperty] [property: Category("Category 2"), DisplayName("Orientation")]
     private Orientation _orientation;
+
+    [ObservableProperty] [property: Category("Combo Values"), DisplayName("List of Values"), PropertyGridOptions(nameof(StatusOptions))]
+    private string _status = "Draft";
+    
+    [ObservableProperty] [property: PropertyGridIgnore]
+    private ObservableCollection<string> _StatusOptions = GetRandomStatusOptions();
+
+    #endregion
+
+    #region Relay Commands
+    
+    /// <summary>
+    /// Reorders the existing collection. The editor watches that collection directly, so the new
+    /// order appears without the ViewModel having to notify anything.
+    /// </summary>
+    [RelayCommand]
+    [property: PropertyGridIgnore]
+    private void ShuffleStatusOptions()
+    {
+        var shuffled = StatusOptions.OrderBy(_ => Random.Shared.Next()).ToList();
+
+        StatusOptions.Clear();
+        
+        foreach (var option in shuffled)
+        {
+            StatusOptions.Add(option);
+        }
+    }
+
+    /// <summary>
+    /// Swaps in a brand-new collection of a random size. That is picked up through
+    /// <see cref="INotifyPropertyChanged"/> rather than through the collection itself.
+    /// </summary>
+    [RelayCommand]
+    [property: PropertyGridIgnore]
+    private void ReplaceStatusOptions()
+    {
+        StatusOptions = GetRandomStatusOptions();
+        
+        OnPropertyChanged(nameof(StatusOptions));
+
+        // Keep the selection valid now that the old values may be gone.
+        if (!StatusOptions.Contains(Status))
+        {
+            Status = StatusOptions[0];
+        }
+    }
+    
+    #endregion
+    
+    #region Private Helpers
+    
+    private static ObservableCollection<string> GetRandomStatusOptions()
+    {
+        string[] statusPool = 
+        [ 
+            "Draft", "In progress", "Complete", "Blocked", "In review", "Cancelled",
+            "On hold", "Deferred", "Approved", "Rejected", "Archived", "Pending", "Scheduled", 
+            "In testing", "Released", "Closed", "Open", "New", "Assigned", "Unassigned", "" +
+            "Escalated", "Resolved", "Verified", "Needs Info", "Duplicate", "Won't Fix", "Fixed", 
+        ];
+        
+        return new ObservableCollection<string>(
+            statusPool.OrderBy(_ => Random.Shared.Next()).Take(Random.Shared.Next(2, statusPool.Length + 1)));
+    }
+    
+    #endregion
 }
 
 public partial class ChildFormViewModel : ObservableObject
 {
+    #region Properties
+    
     [ObservableProperty] [property: Category("Text"), DisplayName("Name")]
     private string _name = string.Empty;
 
@@ -89,6 +163,8 @@ public partial class ChildFormViewModel : ObservableObject
 
     [ObservableProperty] [property: Category("Misc"), DisplayName("DateTimeOffset")]
     private DateTimeOffset _dateTimeOffset = DateTimeOffset.MinValue;
+    
+    #endregion
 }
 
 #pragma warning restore CS0657 // Not a valid attribute location for this declaration
