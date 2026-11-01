@@ -47,7 +47,7 @@ namespace SukiUI.Controls
 
         protected override void OnViewModelPropertyChanged(string? propertyName)
         {
-            if (propertyName is not (null or "") && propertyName != _optionsPropertyName)
+            if (string.IsNullOrEmpty(propertyName) || propertyName != _optionsPropertyName)
             {
                 return;
             }
