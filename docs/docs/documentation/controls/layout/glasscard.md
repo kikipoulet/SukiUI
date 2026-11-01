@@ -70,4 +70,4 @@ A simple Card control that can present any control inside.
 
 [Demo: SukiUI.Demo/Features/ControlsLibrary/CardsView.axaml](https://github.com/kikipoulet/SukiUI/blob/main/SukiUI.Demo/Features/ControlsLibrary/CardsView.axaml)
 
-[API: Controls/GlassMorphism/GlassCard.axaml.cs](https://github.com/kikipoulet/SukiUI/blob/main/SukiUI/Controls/GlassMorphism/GlassCard.axaml.cs)
+[API: Controls/GlassMorphism/GlassCard.axaml.cs](https://github.com/kikipoulet/SukiUI/blob/main/SukiUI/Controls/Suki/Containers/GlassCard/GlassCard.axaml.cs)

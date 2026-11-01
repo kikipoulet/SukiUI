@@ -74,7 +74,7 @@
 
     <!--  SimpleTheme palette. Consumed by the Avalonia control themes SukiUI does not
           re-template, and by SukiUI's DatePicker, TimePicker, Slider, SplitView and
-          CalendarDatePicker themes via the Theme*Brush resources in Theme/ColorsStyles.xaml.  -->
+          CalendarDatePicker themes via the Theme*Brush resources in ColorTheme/ColorsStyles.xaml.  -->
     <Color x:Key="MediumGray">#F4F4F4</Color>
     <Color x:Key="BackgroundGray">#fafafa</Color>
     <Color x:Key="BorderGray">#ebebeb</Color>

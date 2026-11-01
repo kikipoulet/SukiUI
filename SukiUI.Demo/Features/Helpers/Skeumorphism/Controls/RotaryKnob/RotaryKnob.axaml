@@ -1,0 +1,50 @@
+<UserControl x:Class="SukiUI.Demo.Features.Helpers.Skeumorphism.Controls.RotaryKnob"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://SukiUI.Demo/Features/Helpers/Skeumorphism/Controls/Shared/SkeumoMaterials.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <!-- Frame 120 x 120, axis (60,60), travel -135..+135 degrees -->
+    <Canvas Name="Scene" Width="120" Height="120" Background="Transparent" Focusable="True" Cursor="Hand"
+            PointerPressed="Scene_OnPressed" PointerMoved="Scene_OnMoved"
+            PointerReleased="Scene_OnReleased" PointerCaptureLost="Scene_OnCaptureLost"
+            PointerWheelChanged="Scene_OnWheel" KeyDown="Scene_OnKeyDown">
+
+        <!-- Wire terminal under the plate (60,122) -->
+        <Border Canvas.Left="53" Canvas.Top="108" Width="14" Height="14" CornerRadius="2,2,3,3"
+                Background="{DynamicResource SkRodV}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.7" IsHitTestVisible="False" />
+        <!-- Base plate -->
+        <Border Canvas.Left="4" Canvas.Top="4" Width="112" Height="112" CornerRadius="56"
+                Background="{DynamicResource SkBase}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="1"
+                BoxShadow="{DynamicResource SkShadow}" IsHitTestVisible="False" />
+        <Border Canvas.Left="4" Canvas.Top="4" Width="112" Height="112" CornerRadius="56"
+                Background="{StaticResource SkBevel}" IsHitTestVisible="False" />
+
+        <!-- Notches (created in code) and the accent arc from the minimum to the value -->
+        <Canvas Name="Ticks" Width="120" Height="120" IsHitTestVisible="False" />
+        <Path Name="Track" Stroke="{DynamicResource SkTrack}" StrokeThickness="4" StrokeLineCap="Round" IsHitTestVisible="False" />
+        <Path Name="ArcFill" Stroke="{DynamicResource SukiPrimaryColor}" StrokeThickness="3" StrokeLineCap="Round"
+              IsVisible="False" IsHitTestVisible="False" />
+
+        <!-- Knob body: does not rotate, so the light stays top-left -->
+        <Border Canvas.Left="27" Canvas.Top="27" Width="66" Height="66" CornerRadius="33"
+                Background="{DynamicResource SkKnob}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="1"
+                BoxShadow="{DynamicResource SkRaisedShadow}" IsHitTestVisible="False" />
+        <!-- Rotating parts: knurling and indicator (knurling created in code) -->
+        <Canvas Name="Knob" Canvas.Left="27" Canvas.Top="27" Width="66" Height="66"
+                RenderTransformOrigin="50%,50%" IsHitTestVisible="False">
+            <Canvas.RenderTransform><RotateTransform /></Canvas.RenderTransform>
+            <Border Name="Indicator" Canvas.Left="31" Canvas.Top="6" Width="4" Height="13" CornerRadius="2"
+                    Background="{DynamicResource SukiPrimaryColor}" />
+        </Canvas>
+        <!-- Top face and fixed specular highlight -->
+        <Ellipse Canvas.Left="41" Canvas.Top="41" Width="38" Height="38" Fill="{DynamicResource SkBase}"
+                 Stroke="{DynamicResource SkEdge}" StrokeThickness="0.6" Opacity="0.85" IsHitTestVisible="False" />
+        <Ellipse Canvas.Left="38" Canvas.Top="32" Width="20" Height="7" Fill="#66FFFFFF" IsHitTestVisible="False" />
+    </Canvas>
+</UserControl>

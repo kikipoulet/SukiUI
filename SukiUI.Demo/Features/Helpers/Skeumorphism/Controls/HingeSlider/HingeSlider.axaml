@@ -1,0 +1,58 @@
+<UserControl x:Class="SukiUI.Demo.Features.Helpers.Skeumorphism.Controls.HingeSlider"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:SukiUI.Demo.Features.Helpers.Skeumorphism.Controls"
+             x:DataType="controls:HingeSlider">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="HsRail" Color="#99000000" />
+                    <RadialGradientBrush x:Key="HsThumb" GradientOrigin="35%,28%">
+                        <GradientStop Offset="0" Color="#FFF4F7FC" />
+                        <GradientStop Offset="0.6" Color="#FFB9C4D8" />
+                        <GradientStop Offset="1" Color="#FF6F7C93" />
+                    </RadialGradientBrush>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="HsRail" Color="#FFE1E7F1" />
+                    <RadialGradientBrush x:Key="HsThumb" GradientOrigin="35%,28%">
+                        <GradientStop Offset="0" Color="#FFFFFFFF" />
+                        <GradientStop Offset="0.6" Color="#FFF1F4FA" />
+                        <GradientStop Offset="1" Color="#FFD3DBE8" />
+                    </RadialGradientBrush>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+            <LinearGradientBrush x:Key="HsFill" StartPoint="0%,0%" EndPoint="100%,0%">
+                <GradientStop Offset="0" Color="{DynamicResource SukiPrimaryColor75}" />
+                <GradientStop Offset="1" Color="{DynamicResource SukiPrimaryColor}" />
+            </LinearGradientBrush>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <StackPanel>
+        <!-- Track: Suki rail dug into the glass, accent fill and pearl thumb -->
+        <Grid Name="Track" Height="28" Margin="4,0" Background="Transparent" Focusable="True" Cursor="Hand"
+              PointerPressed="Track_OnPressed" PointerMoved="Track_OnMoved"
+              PointerReleased="Track_OnReleased" PointerCaptureLost="Track_OnCaptureLost"
+              KeyDown="Track_OnKeyDown" SizeChanged="Track_OnSizeChanged">
+            <Canvas Name="Ticks" IsHitTestVisible="False" />
+            <Border Name="Rail" Height="7" VerticalAlignment="Center" CornerRadius="4"
+                    Background="{DynamicResource HsRail}" IsHitTestVisible="False" />
+            <Border Name="Fill" Height="7" HorizontalAlignment="Left" VerticalAlignment="Center" CornerRadius="4"
+                    Background="{StaticResource HsFill}" IsHitTestVisible="False" />
+            <Border Name="Thumb" Width="22" Height="22" HorizontalAlignment="Left" VerticalAlignment="Center" CornerRadius="11"
+                    Background="{DynamicResource HsThumb}" BoxShadow="0 3 7 0 #AA000000" IsHitTestVisible="False">
+                <Border Name="ThumbDot" Width="7" Height="7" CornerRadius="4" Background="{DynamicResource SukiPrimaryColor}" />
+            </Border>
+        </Grid>
+
+        <!-- Captions: the consequence at each end, not the unit -->
+        <Grid Name="Captions" ColumnDefinitions="*,Auto" Margin="2,0" IsVisible="False">
+            <TextBlock FontSize="11" Foreground="{DynamicResource SukiLowText}"
+                       Text="{Binding LeftCaption, RelativeSource={RelativeSource AncestorType=controls:HingeSlider}}" />
+            <TextBlock Grid.Column="1" FontSize="11" Foreground="{DynamicResource SukiLowText}"
+                       Text="{Binding RightCaption, RelativeSource={RelativeSource AncestorType=controls:HingeSlider}}" />
+        </Grid>
+    </StackPanel>
+</UserControl>

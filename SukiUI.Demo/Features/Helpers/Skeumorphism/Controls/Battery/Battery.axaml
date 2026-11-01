@@ -1,0 +1,61 @@
+<UserControl x:Class="SukiUI.Demo.Features.Helpers.Skeumorphism.Controls.Battery"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://SukiUI.Demo/Features/Helpers/Skeumorphism/Controls/Shared/SkeumoMaterials.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <!-- Frame 120 x 180: battery pack, terminals on top (+ at x 34, − at x 86), four series cells behind a dug window -->
+    <Canvas Width="120" Height="180" IsHitTestVisible="False">
+        <!-- Terminals: screwed posts with their polarity -->
+        <Border Canvas.Left="24" Canvas.Top="6" Width="20" Height="14" CornerRadius="4,4,1,1"
+                Background="{DynamicResource SkRodV}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.8" />
+        <Ellipse Canvas.Left="29" Canvas.Top="7.5" Width="10" Height="5" Fill="{DynamicResource SkAxle}"
+                 Stroke="{DynamicResource SkEdge}" StrokeThickness="0.5" />
+        <Border Canvas.Left="76" Canvas.Top="6" Width="20" Height="14" CornerRadius="4,4,1,1"
+                Background="{DynamicResource SkRodV}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.8" />
+        <Ellipse Canvas.Left="81" Canvas.Top="7.5" Width="10" Height="5" Fill="{DynamicResource SkAxle}"
+                 Stroke="{DynamicResource SkEdge}" StrokeThickness="0.5" />
+
+        <!-- Case -->
+        <Border Canvas.Left="8" Canvas.Top="18" Width="104" Height="152" CornerRadius="16"
+                Background="{DynamicResource SkBody}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="1.2"
+                BoxShadow="{DynamicResource SkShadow}" />
+        <Border Canvas.Left="8" Canvas.Top="18" Width="104" Height="152" CornerRadius="16" Background="{StaticResource SkSheen}" />
+        <Border Canvas.Left="16" Canvas.Top="20" Width="88" Height="2.2" CornerRadius="1.1" Background="#2EFFFFFF" />
+        <!-- Grip ridges on both sides -->
+        <Path Data="M 13,60 V 130 M 16,60 V 130 M 104,60 V 130 M 107,60 V 130"
+              Stroke="{DynamicResource SkGroove}" StrokeThickness="1" />
+
+        <!-- Polarity and rating engraved on the lid -->
+        <TextBlock Canvas.Left="27" Canvas.Top="24" Width="14" TextAlignment="Center" FontSize="10" FontWeight="Bold"
+                   Foreground="{DynamicResource SkEngrave}" Text="+" />
+        <TextBlock Canvas.Left="79" Canvas.Top="24" Width="14" TextAlignment="Center" FontSize="10" FontWeight="Bold"
+                   Foreground="{DynamicResource SkEngrave}" Text="−" />
+        <!-- Charge bolt: off, yellow while charging, green when full -->
+        <Path Name="Bolt" Data="M 63,24 L 55,36 L 60,36 L 57,44 L 66,32 L 61,32 L 64,24 Z" Fill="{DynamicResource SkLedOff}" />
+
+        <!-- Window dug into the case -->
+        <Border Canvas.Left="22" Canvas.Top="48" Width="76" Height="108" CornerRadius="10"
+                Background="{DynamicResource SkRecess}" BoxShadow="{DynamicResource SkInset}" />
+        <!-- Percentage and the four cells (built in code) -->
+        <TextBlock Name="Readout" Canvas.Left="22" Canvas.Top="52" Width="76" TextAlignment="Center"
+                   FontFamily="Consolas" FontSize="11" FontWeight="Bold" Text="0%" />
+        <Canvas Name="Cells" Width="120" Height="180" />
+        <!-- Window glass -->
+        <Border Canvas.Left="22" Canvas.Top="48" Width="76" Height="108" CornerRadius="10" Background="{StaticResource SkSheen}" />
+        <Border Canvas.Left="22" Canvas.Top="48" Width="76" Height="108" CornerRadius="10"
+                BorderBrush="{DynamicResource SkGlassRim}" BorderThickness="1" />
+
+        <TextBlock Canvas.Left="8" Canvas.Top="158" Width="104" TextAlignment="Center" FontSize="5.5" LetterSpacing="1"
+                   Foreground="{DynamicResource SkEngrave}" Text="LI-ION · 12 V · 20 Ah" />
+
+        <!-- Rubber feet -->
+        <Border Canvas.Left="20" Canvas.Top="169" Width="22" Height="6" CornerRadius="0,0,3,3" Background="{DynamicResource SkRubber}" />
+        <Border Canvas.Left="78" Canvas.Top="169" Width="22" Height="6" CornerRadius="0,0,3,3" Background="{DynamicResource SkRubber}" />
+    </Canvas>
+</UserControl>

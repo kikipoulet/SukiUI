@@ -33,13 +33,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Controls\Hosts\SukiToastHost.cs">
+    <Compile Update="Controls\Suki\Overlays\Toast\SukiToastHost.cs">
       <DependentUpon>SukiToastHost.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Controls\Hosts\SukiDialogHost.cs">
+    <Compile Update="Controls\Suki\Overlays\Dialog\SukiDialogHost.cs">
       <DependentUpon>SukiDialogHost.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Controls\SukiDialog.cs">
+    <Compile Update="Controls\Suki\Overlays\Dialog\SukiDialog.cs">
       <DependentUpon>SukiDialog.axaml</DependentUpon>
     </Compile>
   </ItemGroup>

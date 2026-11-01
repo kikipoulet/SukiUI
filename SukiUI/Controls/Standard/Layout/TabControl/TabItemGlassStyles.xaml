@@ -1,0 +1,86 @@
+﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:animations="clr-namespace:SukiUI.ControlsAnimation"
+        xmlns:suki="https://github.com/kikipoulet/SukiUI">
+    <Design.PreviewWith>
+        <Border Width="400" Height="400">
+            <Panel>
+                <TabControl Margin="0,0,0,200">
+                    <TabItem Classes="Glass" Header="Arch">
+                        <Border Height="100" Background="AntiqueWhite">
+                            <TextBlock FontSize="20"
+                                       Foreground="Black"
+                                       Text="Content" />
+                        </Border>
+                    </TabItem>
+                    <TabItem Classes="Glass" Header="Leaf">
+                        <Border Height="100" Background="Green" />
+                    </TabItem>
+                    <TabItem Classes="Glass" Header="Disabled" IsEnabled="False" />
+                </TabControl>
+            </Panel>
+        </Border>
+    </Design.PreviewWith>
+
+    <Styles.Resources>
+        <Thickness x:Key="TabControlTopPlacementItemMargin">0 0 0 2</Thickness>
+    </Styles.Resources>
+
+     <!-- Glass TabItems-->
+    <Style Selector="TabItem.Glass">
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="MinHeight" Value="0" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="animations:SukiTabControlMotion.Indicator" Value="Glass" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel>
+                    <!--  Where the glass card lands: the card itself is the strip's indicator.  -->
+                    <Border Name="PART_IndicatorAnchor"
+                            MinWidth="{DynamicResource SukiCompactness.TabItem.Glass.MinWidth}"
+                            MinHeight="{DynamicResource SukiCompactness.TabItem.Glass.MinHeight}" />
+                    <Border Name="PART_HoverPlate"
+                            MinWidth="{DynamicResource SukiCompactness.TabItem.Glass.MinWidth}"
+                            MinHeight="{DynamicResource SukiCompactness.TabItem.Glass.MinHeight}"
+                            Background="{DynamicResource SukiPrimaryColor5}"
+                            CornerRadius="{DynamicResource SukiCompactness.TabItem.Glass.CornerRadius}"
+                            IsHitTestVisible="False"
+                            Opacity="0" />
+                    <Border Name="PART_LayoutRoot"
+                            Margin="{DynamicResource SukiCompactness.TabItem.Glass.Margin}"
+                            Padding="{TemplateBinding Padding}"
+                            Background="Transparent"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}">
+                   
+                        <ContentPresenter Name="PART_HeaderPresenter"
+                                          Padding="0,0"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          HorizontalContentAlignment="Center"
+                                          RecognizesAccessKey="True"
+                                          Content="{TemplateBinding Header}"
+                                          ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                          TextBlock.FontFamily="{TemplateBinding FontFamily}"
+                                          TextBlock.FontSize="{TemplateBinding FontSize}"
+                                          TextBlock.FontWeight="{TemplateBinding FontWeight}">
+                            <ContentPresenter.Transitions>
+                                <Transitions>
+                                    <BrushTransition Property="Foreground" Duration="0:0:0.1" />
+                                </Transitions>
+                            </ContentPresenter.Transitions>
+                        </ContentPresenter>
+                  
+                </Border>
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+     
+
+    
+    
+   
+</Styles>

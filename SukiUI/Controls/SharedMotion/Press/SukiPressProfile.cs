@@ -1,0 +1,115 @@
+using System;
+using System.ComponentModel;
+using SukiUI.Motion;
+
+namespace SukiUI.ControlsAnimation
+{
+    public enum SukiPressPreset
+    {
+        Button,
+        ComboBox
+    }
+
+    public sealed record SukiPressProfile(
+        [property: Description("scale the control eases toward while the pointer hovers it")]
+        double HoverScale,
+        [property: Description("how far a held press sinks past the press depth (deep floor = DefaultPressDepth - ExtraDeepRange)")]
+        double ExtraDeepRange,
+        [property: Description("duration of the initial press-down")]
+        TimeSpan PressDuration,
+        [property: Description("duration of the long-press stretch down to the deep floor")]
+        TimeSpan DeepDuration,
+        [property: Description("duration of the hover settle ramp")]
+        TimeSpan HoverDuration,
+        [property: Description("angular frequency of the release spring (how quick the rebound is)")]
+        double SpringOmega,
+        [property: Description("damping of the release spring (higher = less bounce)")]
+        double SpringDecay,
+        [property: Description("press scale used when SukiPressMotion.PressDepth is not set")]
+        double DefaultPressDepth)
+    {
+        /// <summary>The release spring (SpringOmega, SpringDecay).</summary>
+        public Spring ReleaseSpring => new(SpringOmega, SpringDecay);
+
+        #region Normal
+
+        // Lively deep press down to 0.87, springs back with a full yo-yo overshoot.
+        public static readonly SukiPressProfile Button = new(
+            HoverScale: 1.02,
+            ExtraDeepRange: 0.09,
+            PressDuration: TimeSpan.FromMilliseconds(150),
+            DeepDuration: TimeSpan.FromSeconds(2),
+            HoverDuration: TimeSpan.FromMilliseconds(150),
+            SpringOmega: 16.0,
+            SpringDecay: 9.333,
+            DefaultPressDepth: 0.96);
+
+        // Soft, shallow press with a barely-there damped rebound.
+        public static readonly SukiPressProfile ComboBox = new(
+            HoverScale: 1.02,
+            ExtraDeepRange: 0.042,
+            PressDuration: TimeSpan.FromMilliseconds(150),
+            DeepDuration: TimeSpan.FromSeconds(2),
+            HoverDuration: TimeSpan.FromMilliseconds(150),
+            SpringOmega: 12.0,
+            SpringDecay: 13.5,
+            DefaultPressDepth: 0.982);
+
+        public static readonly SukiPresetTable<SukiPressPreset, SukiPressProfile> Normal =
+            new((SukiPressPreset.Button, Button), (SukiPressPreset.ComboBox, ComboBox));
+
+        #endregion
+
+        #region Lite
+
+        // Sober button feel: no hover, quick press, fast near-bounce-free release.
+        public static readonly SukiPressProfile ButtonLite = Button with
+        {
+            HoverScale = 1.0,
+            PressDuration = TimeSpan.FromMilliseconds(80),
+            HoverDuration = TimeSpan.FromMilliseconds(80),
+            SpringDecay = 30.4,
+        };
+
+        // Sober combo feel: no hover, quick, critically damped so it never overshoots.
+        public static readonly SukiPressProfile ComboBoxLite = ComboBox with
+        {
+            HoverScale = 1.0,
+            PressDuration = TimeSpan.FromMilliseconds(80),
+            HoverDuration = TimeSpan.FromMilliseconds(80),
+            SpringOmega = 16.0,
+            SpringDecay = 30.4,
+        };
+
+        public static readonly SukiPresetTable<SukiPressPreset, SukiPressProfile> Lite =
+            new((SukiPressPreset.Button, ButtonLite), (SukiPressPreset.ComboBox, ComboBoxLite));
+
+        #endregion
+
+        #region Minimal
+
+        // Bare feedback: the press depth only (no slow sink while held), down and back in a blink.
+        public static readonly SukiPressProfile ButtonMinimal = ButtonLite with
+        {
+            ExtraDeepRange = 0.0,
+            PressDuration = TimeSpan.FromMilliseconds(60),
+            HoverDuration = TimeSpan.FromMilliseconds(60),
+            SpringOmega = 30.0,
+            SpringDecay = 60.0,
+        };
+
+        public static readonly SukiPressProfile ComboBoxMinimal = ComboBoxLite with
+        {
+            ExtraDeepRange = 0.0,
+            PressDuration = TimeSpan.FromMilliseconds(60),
+            HoverDuration = TimeSpan.FromMilliseconds(60),
+            SpringOmega = 30.0,
+            SpringDecay = 60.0,
+        };
+
+        public static readonly SukiPresetTable<SukiPressPreset, SukiPressProfile> Minimal =
+            new((SukiPressPreset.Button, ButtonMinimal), (SukiPressPreset.ComboBox, ComboBoxMinimal));
+
+        #endregion
+    }
+}

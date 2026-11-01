@@ -14,10 +14,14 @@ using SukiUI.Motion;
 
 namespace SukiUI.Demo.Features.Helpers
 {
+    // Inside the SukiUI namespace, the simple name "Motion" is the sibling namespace
+    // SukiUI.Motion: this alias names the entry class.
+    using Motion = SukiUI.Motion.Motion;
+
     /// <summary>
     /// Benchmark harness comparing the Suki press motion (shared ticker loop, the real
     /// SukiPressMotion description driven programmatically through
-    /// <see cref="SukiMotion{TSelf}.Simulate(AvaloniaObject, Avalonia.Interactivity.RoutedEvent)"/>)
+    /// <see cref="Motion.Simulate(AvaloniaObject, Avalonia.Interactivity.RoutedEvent)"/>)
     /// against plain XAML transitions (:checked -&gt; scale(0.96) on a ToggleButton, native
     /// TransformOperationsTransition). One grid of buttons; every button is "clicked"
     /// constantly (120ms press every 800ms, uniformly staggered so gestures flow
@@ -149,7 +153,7 @@ namespace SukiUI.Demo.Features.Helpers
                     bench.PhysicsButton.Classes.Add("stressBtn");
                     GridButtons.Children.Add(bench.PhysicsButton);
                     // The press motion attaches through the style's Enable wiring;
-                    // Simulate resolves the very same Mover — no duplicate.
+                    // Simulate drives the very behavior the style attached — no duplicate.
                 }
                 _buttons.Add(bench);
             }
@@ -353,7 +357,7 @@ namespace SukiUI.Demo.Features.Helpers
                     bench.Engaged = true;
                     _clicks++;
                     if (bench.PhysicsButton is { } button)
-                        SukiPressMotion.Simulate(button, InputElement.PointerPressedEvent);
+                        Motion.Simulate(button, InputElement.PointerPressedEvent);
                     else if (bench.XamlButton is { } xaml)
                         xaml.IsChecked = true;
                 }
@@ -361,7 +365,7 @@ namespace SukiUI.Demo.Features.Helpers
                 {
                     bench.Engaged = false;
                     if (bench.PhysicsButton is { } button)
-                        SukiPressMotion.Simulate(button, InputElement.PointerReleasedEvent);
+                        Motion.Simulate(button, InputElement.PointerReleasedEvent);
                     else if (bench.XamlButton is { } xaml)
                         xaml.IsChecked = false;
                 }
@@ -376,7 +380,7 @@ namespace SukiUI.Demo.Features.Helpers
                     continue;
                 bench.Engaged = false;
                 if (bench.PhysicsButton is { } button)
-                    SukiPressMotion.Simulate(button, InputElement.PointerReleasedEvent);
+                    Motion.Simulate(button, InputElement.PointerReleasedEvent);
                 if (bench.XamlButton is { } xaml)
                     xaml.IsChecked = false;
             }

@@ -1,0 +1,76 @@
+<UserControl x:Class="SukiUI.Demo.Features.Helpers.Skeumorphism.Controls.NotchSwitch"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:SukiUI.Demo.Features.Helpers.Skeumorphism.Controls"
+             x:DataType="controls:NotchSwitch">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="NsTrack" Color="#80000000" />
+                    <LinearGradientBrush x:Key="NsKnob" StartPoint="0%,0%" EndPoint="100%,0%">
+                        <GradientStop Offset="0" Color="#FF5C646E" />
+                        <GradientStop Offset="0.4" Color="#FFDDE3E9" />
+                        <GradientStop Offset="1" Color="#FF4C545E" />
+                    </LinearGradientBrush>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="NsTrack" Color="#26405070" />
+                    <LinearGradientBrush x:Key="NsKnob" StartPoint="0%,0%" EndPoint="100%,0%">
+                        <GradientStop Offset="0" Color="#FF8793AB" />
+                        <GradientStop Offset="0.4" Color="#FFF4F7FC" />
+                        <GradientStop Offset="1" Color="#FF7A869C" />
+                    </LinearGradientBrush>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <UserControl.Styles>
+        <!-- Notch labels: active = SukiText, others = SukiLowText -->
+        <Style Selector="TextBlock.NotchLabel">
+            <Setter Property="Foreground" Value="{DynamicResource SukiLowText}" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="DemiBold" />
+            <Setter Property="Width" Value="60" />
+            <Setter Property="TextAlignment" Value="Right" />
+            <Setter Property="IsHitTestVisible" Value="False" />
+        </Style>
+        <Style Selector="TextBlock.NotchLabel.Active">
+            <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+        </Style>
+    </UserControl.Styles>
+
+    <!-- Frame 150 x 100: dug Suki rail, accent fill up to the knob, 3 notches with their labels on the left -->
+    <Canvas Name="Scene" Width="150" Height="100" Background="Transparent" Focusable="True" Cursor="Hand"
+            PointerPressed="Scene_OnPressed" PointerMoved="Scene_OnMoved"
+            PointerReleased="Scene_OnReleased" PointerCaptureLost="Scene_OnCaptureLost"
+            PointerWheelChanged="Scene_OnWheel" KeyDown="Scene_OnKeyDown">
+        <Border Canvas.Left="95" Canvas.Top="16" Width="8" Height="68" CornerRadius="4"
+                Background="{DynamicResource NsTrack}"
+                BoxShadow="inset 0 1 3 0 #66000000, 0 1 0 0 #22FFFFFF"
+                IsHitTestVisible="False" />
+        <Border Name="Fill" Canvas.Left="95" Canvas.Top="77" Width="8" Height="7" CornerRadius="4" IsHitTestVisible="False">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                    <GradientStop Offset="0" Color="{DynamicResource SukiPrimaryColor}" />
+                    <GradientStop Offset="1" Color="{DynamicResource SukiPrimaryColor75}" />
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+        <TextBlock Name="TopNotchLabel" Classes="NotchLabel" Canvas.Left="16" Canvas.Top="13"
+                   Text="{Binding TopLabel, RelativeSource={RelativeSource AncestorType=controls:NotchSwitch}}" />
+        <TextBlock Name="MiddleNotchLabel" Classes="NotchLabel" Canvas.Left="16" Canvas.Top="40"
+                   Text="{Binding MiddleLabel, RelativeSource={RelativeSource AncestorType=controls:NotchSwitch}}" />
+        <TextBlock Name="BottomNotchLabel" Classes="NotchLabel" Canvas.Left="16" Canvas.Top="67"
+                   Text="{Binding BottomLabel, RelativeSource={RelativeSource AncestorType=controls:NotchSwitch}}" />
+        <!-- Knob: bottom notch by default, moved by the code -->
+        <Border Name="Knob" Canvas.Left="88" Canvas.Top="70" Width="22" Height="14" CornerRadius="4"
+                Background="{DynamicResource NsKnob}" BoxShadow="0 2 3 0 #33000000" IsHitTestVisible="False">
+            <Border.RenderTransform>
+                <TranslateTransform Y="0" />
+            </Border.RenderTransform>
+            <Border Width="10" Height="2" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Background="{DynamicResource SukiPrimaryColor}" />
+        </Border>
+    </Canvas>
+</UserControl>

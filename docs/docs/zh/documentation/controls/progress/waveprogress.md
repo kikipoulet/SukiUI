@@ -18,4 +18,4 @@
 
 [Demo: SukiUI.Demo/Features/ControlsLibrary/ProgressView.axaml](https://github.com/kikipoulet/SukiUI/blob/main/SukiUI.Demo/Features/ControlsLibrary/ProgressView.axaml)
 
-[API: Controls/WaveProgress.axaml.cs](https://github.com/kikipoulet/SukiUI/blob/main/SukiUI/Controls/WaveProgress.axaml.cs)
+[API: Controls/WaveProgress.axaml.cs](https://github.com/kikipoulet/SukiUI/blob/main/SukiUI/Controls/Suki/Feedback/WaveProgress/WaveProgress.axaml.cs)

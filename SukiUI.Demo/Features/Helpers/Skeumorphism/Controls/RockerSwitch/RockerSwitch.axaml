@@ -1,0 +1,101 @@
+<UserControl x:Class="SukiUI.Demo.Features.Helpers.Skeumorphism.Controls.RockerSwitch"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://SukiUI.Demo/Features/Helpers/Skeumorphism/Controls/Shared/SkeumoMaterials.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Dark">
+                    <!-- Paddle pressed on top (on): the upper half sinks into shadow, the lower half catches the light -->
+                    <LinearGradientBrush x:Key="SrPaddleOn" StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Offset="0" Color="#FF262D3A" />
+                        <GradientStop Offset="0.48" Color="#FF3B4558" />
+                        <GradientStop Offset="0.52" Color="#FF8D99B1" />
+                        <GradientStop Offset="1" Color="#FF586278" />
+                    </LinearGradientBrush>
+                    <LinearGradientBrush x:Key="SrPaddleOff" StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Offset="0" Color="#FF8D99B1" />
+                        <GradientStop Offset="0.48" Color="#FF586278" />
+                        <GradientStop Offset="0.52" Color="#FF3B4558" />
+                        <GradientStop Offset="1" Color="#FF262D3A" />
+                    </LinearGradientBrush>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Light">
+                    <LinearGradientBrush x:Key="SrPaddleOn" StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Offset="0" Color="#FFB0BBCE" />
+                        <GradientStop Offset="0.48" Color="#FFCBD3E0" />
+                        <GradientStop Offset="0.52" Color="#FFFFFFFF" />
+                        <GradientStop Offset="1" Color="#FFE3E9F4" />
+                    </LinearGradientBrush>
+                    <LinearGradientBrush x:Key="SrPaddleOff" StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Offset="0" Color="#FFFFFFFF" />
+                        <GradientStop Offset="0.48" Color="#FFE3E9F4" />
+                        <GradientStop Offset="0.52" Color="#FFCBD3E0" />
+                        <GradientStop Offset="1" Color="#FFB0BBCE" />
+                    </LinearGradientBrush>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <UserControl.Styles>
+        <Style Selector="TextBlock.Mark">
+            <Setter Property="Foreground" Value="{DynamicResource SukiLowText}" />
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Width" Value="40" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="IsHitTestVisible" Value="False" />
+        </Style>
+        <Style Selector="TextBlock.Mark.Active">
+            <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+        </Style>
+    </UserControl.Styles>
+
+    <!-- Frame 80 x 128: wall plate, rocker paddle, two wire terminals at the bottom (24,120) line in / (56,120) load -->
+    <Canvas Name="Scene" Width="80" Height="128" Background="Transparent" Focusable="True" Cursor="Hand"
+            PointerPressed="Scene_OnPressed" KeyDown="Scene_OnKeyDown">
+        <!-- Terminals -->
+        <Border Canvas.Left="17" Canvas.Top="110" Width="14" Height="14" CornerRadius="2,2,3,3"
+                Background="{DynamicResource SkRodV}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.7" IsHitTestVisible="False" />
+        <Ellipse Canvas.Left="20.5" Canvas.Top="115" Width="7" Height="7" Fill="{DynamicResource SkAxle}" Stroke="{DynamicResource SkEdge}" StrokeThickness="0.5" IsHitTestVisible="False" />
+        <Border Canvas.Left="49" Canvas.Top="110" Width="14" Height="14" CornerRadius="2,2,3,3"
+                Background="{DynamicResource SkRodV}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.7" IsHitTestVisible="False" />
+        <Ellipse Canvas.Left="52.5" Canvas.Top="115" Width="7" Height="7" Fill="{DynamicResource SkAxle}" Stroke="{DynamicResource SkEdge}" StrokeThickness="0.5" IsHitTestVisible="False" />
+
+        <!-- Wall plate with its two screws -->
+        <Border Canvas.Left="2" Canvas.Top="2" Width="76" Height="112" CornerRadius="12"
+                Background="{DynamicResource SkBody}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="1.1"
+                BoxShadow="{DynamicResource SkShadow}" IsHitTestVisible="False" />
+        <Border Canvas.Left="2" Canvas.Top="2" Width="76" Height="112" CornerRadius="12" Background="{StaticResource SkSheen}" IsHitTestVisible="False" />
+        <Border Canvas.Left="8" Canvas.Top="4" Width="64" Height="2" CornerRadius="1" Background="#2EFFFFFF" IsHitTestVisible="False" />
+        <Ellipse Canvas.Left="37" Canvas.Top="8" Width="6" Height="6" Fill="{DynamicResource SkAxle}" Stroke="{DynamicResource SkEdge}" StrokeThickness="0.5" IsHitTestVisible="False" />
+        <Border Canvas.Left="37.5" Canvas.Top="10.4" Width="5" Height="1.2" Background="{DynamicResource SkSlot}" IsHitTestVisible="False" />
+        <Ellipse Canvas.Left="37" Canvas.Top="102" Width="6" Height="6" Fill="{DynamicResource SkAxle}" Stroke="{DynamicResource SkEdge}" StrokeThickness="0.5" IsHitTestVisible="False" />
+        <Border Canvas.Left="37.5" Canvas.Top="104.4" Width="5" Height="1.2" Background="{DynamicResource SkSlot}" IsHitTestVisible="False" />
+
+        <!-- Rocker frame dug into the plate, then the paddle (off and on shadings, crossfaded) -->
+        <Border Canvas.Left="17" Canvas.Top="20" Width="46" Height="76" CornerRadius="9"
+                Background="{DynamicResource SkRecess}" BoxShadow="{DynamicResource SkInset}" IsHitTestVisible="False" />
+        <Border Name="PaddleOff" Canvas.Left="20" Canvas.Top="23" Width="40" Height="70" CornerRadius="7"
+                Background="{DynamicResource SrPaddleOff}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.8"
+                BoxShadow="{DynamicResource SkShadow}" IsHitTestVisible="False" />
+        <Border Name="PaddleOn" Canvas.Left="20" Canvas.Top="23" Width="40" Height="70" CornerRadius="7" Opacity="0"
+                Background="{DynamicResource SrPaddleOn}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.8"
+                IsHitTestVisible="False" />
+        <TextBlock Name="OnMark" Classes="Mark" Canvas.Left="20" Canvas.Top="34" Text="I" />
+        <TextBlock Name="OffMark" Classes="Mark" Canvas.Left="20" Canvas.Top="66" Text="O" />
+
+        <!-- Neon pilot light, warm orange when on -->
+        <Ellipse Name="PilotHalo" Canvas.Left="34" Canvas.Top="48" Width="12" Height="12" Opacity="0" IsHitTestVisible="False">
+            <Ellipse.Fill>
+                <RadialGradientBrush>
+                    <GradientStop Offset="0" Color="#B3FFB347" />
+                    <GradientStop Offset="1" Color="#00FFB347" />
+                </RadialGradientBrush>
+            </Ellipse.Fill>
+        </Ellipse>
+        <Ellipse Name="Pilot" Canvas.Left="37.5" Canvas.Top="51.5" Width="5" Height="5" Fill="{DynamicResource SkLedOff}" IsHitTestVisible="False" />
+    </Canvas>
+</UserControl>

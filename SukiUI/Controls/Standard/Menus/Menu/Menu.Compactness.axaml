@@ -1,0 +1,52 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Sizes of Menu for every SukiCompactness level; the items of a submenu have their own in
+         ../MenuItem/MenuItem.Compactness.axaml. Normal is the complete set (the historical values); the other levels
+         only list what differs. Key names follow SukiCompactness.<Control>[.<Class, Part or State>].<Property>
+         (see SukiCompactnessResources).
+
+         Item is a top-level item of the bar (the SukiTopLevelMenuItem theme), Popup the drop-down it opens. The item
+         corner radius is a token of its own (not the global SmallCornerRadius): each level has its value. The popup's
+         shadow margins are the room its shadow needs, not a size: they do not follow the level. -->
+
+    <ResourceDictionary x:Key="Normal">
+        <!-- the bar -->
+        <x:Double x:Key="SukiCompactness.Menu.Height">45</x:Double>
+        <!-- a top-level item -->
+        <Thickness x:Key="SukiCompactness.Menu.Item.Margin">5</Thickness>
+        <Thickness x:Key="SukiCompactness.Menu.Item.Padding">10,0</Thickness>
+        <CornerRadius x:Key="SukiCompactness.Menu.Item.CornerRadius">8</CornerRadius>
+        <x:Double x:Key="SukiCompactness.Menu.Item.FontSize">14</x:Double>
+        <!-- its drop-down -->
+        <CornerRadius x:Key="SukiCompactness.Menu.Popup.CornerRadius">6</CornerRadius>
+    </ResourceDictionary>
+
+    <ResourceDictionary x:Key="SuperCompact">
+        <x:Double x:Key="SukiCompactness.Menu.Height">37</x:Double>
+        <Thickness x:Key="SukiCompactness.Menu.Item.Margin">3.5</Thickness>
+        <Thickness x:Key="SukiCompactness.Menu.Item.Padding">7.5,0</Thickness>
+        <CornerRadius x:Key="SukiCompactness.Menu.Item.CornerRadius">6</CornerRadius>
+        <x:Double x:Key="SukiCompactness.Menu.Item.FontSize">12.5</x:Double>
+        <CornerRadius x:Key="SukiCompactness.Menu.Popup.CornerRadius">4.5</CornerRadius>
+    </ResourceDictionary>
+
+    <ResourceDictionary x:Key="Compact">
+        <x:Double x:Key="SukiCompactness.Menu.Height">40</x:Double>
+        <Thickness x:Key="SukiCompactness.Menu.Item.Margin">4</Thickness>
+        <Thickness x:Key="SukiCompactness.Menu.Item.Padding">8,0</Thickness>
+        <CornerRadius x:Key="SukiCompactness.Menu.Item.CornerRadius">7</CornerRadius>
+        <x:Double x:Key="SukiCompactness.Menu.Item.FontSize">13</x:Double>
+        <CornerRadius x:Key="SukiCompactness.Menu.Popup.CornerRadius">5</CornerRadius>
+    </ResourceDictionary>
+
+    <ResourceDictionary x:Key="Big">
+        <x:Double x:Key="SukiCompactness.Menu.Height">52</x:Double>
+        <Thickness x:Key="SukiCompactness.Menu.Item.Margin">6</Thickness>
+        <Thickness x:Key="SukiCompactness.Menu.Item.Padding">13,0</Thickness>
+        <CornerRadius x:Key="SukiCompactness.Menu.Item.CornerRadius">10</CornerRadius>
+        <x:Double x:Key="SukiCompactness.Menu.Item.FontSize">16</x:Double>
+        <CornerRadius x:Key="SukiCompactness.Menu.Popup.CornerRadius">8</CornerRadius>
+    </ResourceDictionary>
+
+</ResourceDictionary>

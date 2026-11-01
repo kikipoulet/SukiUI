@@ -1,0 +1,107 @@
+<UserControl x:Class="SukiUI.Demo.Features.Helpers.Skeumorphism.Controls.Fan"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://SukiUI.Demo/Features/Helpers/Skeumorphism/Controls/Shared/SkeumoMaterials.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Dark">
+                    <LinearGradientBrush x:Key="FnBlade" StartPoint="0%,0%" EndPoint="100%,100%">
+                        <GradientStop Offset="0" Color="#FF8D99B1" />
+                        <GradientStop Offset="0.45" Color="#FF586278" />
+                        <GradientStop Offset="1" Color="#FF2A3242" />
+                    </LinearGradientBrush>
+                    <SolidColorBrush x:Key="FnGrille" Color="#38FFFFFF" />
+                    <RadialGradientBrush x:Key="FnBlurDisc">
+                        <GradientStop Offset="0" Color="#00586278" />
+                        <GradientStop Offset="0.3" Color="#00586278" />
+                        <GradientStop Offset="0.4" Color="#8C6A768E" />
+                        <GradientStop Offset="0.75" Color="#73586278" />
+                        <GradientStop Offset="0.95" Color="#26586278" />
+                        <GradientStop Offset="1" Color="#00586278" />
+                    </RadialGradientBrush>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Light">
+                    <LinearGradientBrush x:Key="FnBlade" StartPoint="0%,0%" EndPoint="100%,100%">
+                        <GradientStop Offset="0" Color="#FFFFFFFF" />
+                        <GradientStop Offset="0.45" Color="#FFCBD3E0" />
+                        <GradientStop Offset="1" Color="#FF98A4B9" />
+                    </LinearGradientBrush>
+                    <SolidColorBrush x:Key="FnGrille" Color="#9998A4B9" />
+                    <RadialGradientBrush x:Key="FnBlurDisc">
+                        <GradientStop Offset="0" Color="#00CBD3E0" />
+                        <GradientStop Offset="0.3" Color="#00CBD3E0" />
+                        <GradientStop Offset="0.4" Color="#A6E3E9F4" />
+                        <GradientStop Offset="0.75" Color="#8CCBD3E0" />
+                        <GradientStop Offset="0.95" Color="#33CBD3E0" />
+                        <GradientStop Offset="1" Color="#00CBD3E0" />
+                    </RadialGradientBrush>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <!-- Frame 160 x 160, rotor center (80,80) -->
+    <Canvas Width="160" Height="160" IsHitTestVisible="False">
+        <!-- Cable gland under the housing (wire terminal at 128,166) -->
+        <Border Canvas.Left="121" Canvas.Top="154" Width="14" Height="12" CornerRadius="2,2,4,4"
+                Background="{DynamicResource SkRodV}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.7" />
+        <!-- Housing: square frame with large radii -->
+        <Border Width="160" Height="160" CornerRadius="28"
+                Background="{DynamicResource SkBody}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="1.2"
+                BoxShadow="{DynamicResource SkShadow}" />
+        <Border Width="160" Height="160" CornerRadius="28" Background="{StaticResource SkSheen}" />
+        <Border Canvas.Left="16" Canvas.Top="2" Width="128" Height="2.2" CornerRadius="1.1" Background="#2EFFFFFF" />
+        <!-- Corner screws, slots never aligned -->
+        <Ellipse Canvas.Left="9" Canvas.Top="9" Width="8" Height="8" Fill="{DynamicResource SkAxle}" Stroke="{DynamicResource SkEdge}" StrokeThickness="0.5" />
+        <Border Canvas.Left="10" Canvas.Top="12.4" Width="6" Height="1.2" Background="{DynamicResource SkSlot}" RenderTransform="rotate(25deg)" />
+        <Ellipse Canvas.Left="143" Canvas.Top="9" Width="8" Height="8" Fill="{DynamicResource SkAxle}" Stroke="{DynamicResource SkEdge}" StrokeThickness="0.5" />
+        <Border Canvas.Left="144" Canvas.Top="12.4" Width="6" Height="1.2" Background="{DynamicResource SkSlot}" RenderTransform="rotate(-30deg)" />
+        <Ellipse Canvas.Left="9" Canvas.Top="143" Width="8" Height="8" Fill="{DynamicResource SkAxle}" Stroke="{DynamicResource SkEdge}" StrokeThickness="0.5" />
+        <Border Canvas.Left="10" Canvas.Top="146.4" Width="6" Height="1.2" Background="{DynamicResource SkSlot}" RenderTransform="rotate(60deg)" />
+        <Ellipse Canvas.Left="143" Canvas.Top="143" Width="8" Height="8" Fill="{DynamicResource SkAxle}" Stroke="{DynamicResource SkEdge}" StrokeThickness="0.5" />
+        <Border Canvas.Left="144" Canvas.Top="146.4" Width="6" Height="1.2" Background="{DynamicResource SkSlot}" RenderTransform="rotate(10deg)" />
+
+        <!-- Venturi: the round opening dug into the frame -->
+        <Border Canvas.Left="12" Canvas.Top="12" Width="136" Height="136" CornerRadius="68"
+                Background="{DynamicResource SkRecess}" BoxShadow="{DynamicResource SkInset}" />
+
+        <!-- Motor glow, proportional to the speed (accent BoxShadow set in code) -->
+        <Border Name="MotorGlow" Canvas.Left="56" Canvas.Top="56" Width="48" Height="48" CornerRadius="24" Opacity="0" />
+
+        <!-- Motion blur, from slow to fast: blurred ghosts spread over the sweep of a frame,
+             then a translucent disc of the blade colour that reads as a spinning rotor (all driven by code) -->
+        <Ellipse Name="BlurDisc" Canvas.Left="12" Canvas.Top="12" Width="136" Height="136" Fill="{DynamicResource FnBlurDisc}" Opacity="0" />
+        <Canvas Name="Ghosts" Canvas.Left="12" Canvas.Top="12" Width="136" Height="136">
+            <Canvas.Effect><BlurEffect Radius="0" /></Canvas.Effect>
+        </Canvas>
+        <!-- Rotor: the sharp blades (created in code) -->
+        <Canvas Name="Rotor" Canvas.Left="12" Canvas.Top="12" Width="136" Height="136" RenderTransformOrigin="50%,50%">
+            <Canvas.RenderTransform><RotateTransform /></Canvas.RenderTransform>
+        </Canvas>
+
+        <!-- Hub: chrome cap with an accent ring -->
+        <Ellipse Name="HubRing" Canvas.Left="60" Canvas.Top="60" Width="40" Height="40"
+                 Stroke="{DynamicResource SukiPrimaryColor}" StrokeThickness="2" Opacity="0.35" />
+        <Ellipse Canvas.Left="64" Canvas.Top="64" Width="32" Height="32" Fill="{DynamicResource SkKnob}"
+                 Stroke="{DynamicResource SkEdge}" StrokeThickness="0.8" />
+        <Ellipse Canvas.Left="71" Canvas.Top="71" Width="18" Height="18" Fill="{DynamicResource SkAxle}" />
+        <Ellipse Canvas.Left="73" Canvas.Top="72" Width="7" Height="3.5" Fill="#80FFFFFF" />
+
+        <!-- Air pushed by the blades -->
+        <Canvas Name="Air" Width="160" Height="160" />
+
+        <!-- Front grille: concentric rings and struts -->
+        <Ellipse Canvas.Left="14" Canvas.Top="14" Width="132" Height="132" Stroke="{DynamicResource FnGrille}" StrokeThickness="1.4" />
+        <Ellipse Canvas.Left="34" Canvas.Top="34" Width="92" Height="92" Stroke="{DynamicResource FnGrille}" StrokeThickness="1.2" />
+        <Ellipse Canvas.Left="52" Canvas.Top="52" Width="56" Height="56" Stroke="{DynamicResource FnGrille}" StrokeThickness="1.2" />
+        <Path Data="M 33,33 L 66,66 M 127,33 L 94,66 M 33,127 L 66,94 M 127,127 L 94,94"
+              Stroke="{DynamicResource FnGrille}" StrokeThickness="1.6" StrokeLineCap="Round" />
+
+        <!-- Engraving -->
+        <TextBlock Canvas.Left="104" Canvas.Top="149" FontSize="5.5" LetterSpacing="0.8"
+                   Foreground="{DynamicResource SkEngrave}" Text="12 V DC · 0.3 A" />
+    </Canvas>
+</UserControl>

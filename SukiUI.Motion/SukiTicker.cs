@@ -63,14 +63,24 @@ namespace SukiUI.Motion
         /// <summary>Average ms per dispatch — subscriber callbacks only, scheduling excluded.</summary>
         public static double AverageDispatchMs => _dispatchCount == 0 ? 0 : _totalDispatchMs / _dispatchCount;
 
+        /// <summary>
+        /// Test seam: when set, replaces the monotonic Stopwatch clock with the returned
+        /// elapsed time since the epoch (deterministic virtual time in headless tests).
+        /// Null in production — the real clock.
+        /// </summary>
+        internal static Func<TimeSpan>? ClockOverride;
+
         /// <summary>Monotonic elapsed time since the ticker's epoch — the single time base of the layer.</summary>
-        public static TimeSpan Now => TimeSpan.FromSeconds((Stopwatch.GetTimestamp() - Epoch) * SecondsPerTick);
+        public static TimeSpan Now => ClockOverride?.Invoke()
+            ?? TimeSpan.FromSeconds((Stopwatch.GetTimestamp() - Epoch) * SecondsPerTick);
 
         /// <summary>Raw high-resolution timestamp (cheap); compare with the elapsed helpers below.</summary>
-        public static long Timestamp => Stopwatch.GetTimestamp();
+        public static long Timestamp => ClockOverride is { } clock
+            ? Epoch + (long)(clock().TotalSeconds * Stopwatch.Frequency)
+            : Stopwatch.GetTimestamp();
 
         /// <summary>Seconds elapsed since a <see cref="Timestamp"/> snapshot.</summary>
-        public static double ElapsedSeconds(long then) => (Stopwatch.GetTimestamp() - then) * SecondsPerTick;
+        public static double ElapsedSeconds(long then) => (Timestamp - then) * SecondsPerTick;
 
         /// <summary>Milliseconds elapsed since a <see cref="Timestamp"/> snapshot.</summary>
         public static double ElapsedMilliseconds(long then) => ElapsedSeconds(then) * 1000.0;
@@ -162,7 +172,7 @@ namespace SukiUI.Motion
                 // A throwing subscriber is dropped so one broken behavior can never stall
                 // the whole frame loop.
                 var now = Now;
-                long sw = Stopwatch.GetTimestamp();
+                long sw = Stopwatch.GetTimestamp(); // instrumentation measures real CPU time, never the virtual clock
                 for (int i = 0; i < _subscribers.Count; i++)
                 {
                     var token = _subscribers[i];

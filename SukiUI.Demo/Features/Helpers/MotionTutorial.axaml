@@ -1,0 +1,51 @@
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="SukiUI.Demo.Features.Helpers.MotionTutorial"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="clr-namespace:SukiUI.Demo.Features.Helpers"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--  Every lesson (text, live demo and the exact code that runs it) is built in the
+          code-behind, so the code shown on screen is the code that plays.  -->
+    <StackPanel x:Name="Lessons" Margin="50" Spacing="20">
+
+        <TextBlock Classes="h1" Margin="0,20,0,0">SukiUI.Motion</TextBlock>
+
+        <Border
+            Background="{DynamicResource SukiControlBorderBrush}"
+            Height="1"
+            Margin="0,-15,0,20" />
+
+        <TextBlock
+            Classes="h4"
+            Text="An interactive tour of the motion layer: describe where a property goes and how — with a duration or real spring physics — and the engine plays it, keeps its momentum when interrupted, and costs nothing at rest."
+            TextWrapping="Wrap" />
+
+        <!--  Behaviors attached from XAML, from a style (WobbleMotion: hover a badge) and on an
+              element (SquishMotion: press the last one).  -->
+        <WrapPanel>
+            <WrapPanel.Styles>
+                <Style Selector="Border.badge">
+                    <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
+                    <Setter Property="CornerRadius" Value="14" />
+                    <Setter Property="Padding" Value="14,6" />
+                    <Setter Property="Margin" Value="0,0,8,8" />
+                    <Setter Property="helpers:WobbleMotion.Enable" Value="True" />
+                </Style>
+                <Style Selector="Border.badge > TextBlock">
+                    <Setter Property="Foreground" Value="White" />
+                    <Setter Property="FontWeight" Value="DemiBold" />
+                    <Setter Property="FontSize" Value="12" />
+                </Style>
+            </WrapPanel.Styles>
+            <Border Classes="badge"><TextBlock Text="Springs" /></Border>
+            <Border Classes="badge"><TextBlock Text="Momentum" /></Border>
+            <Border Classes="badge"><TextBlock Text="Typed events" /></Border>
+            <Border Classes="badge" helpers:SquishMotion.Enable="True"><TextBlock Text="Press me too" /></Border>
+        </WrapPanel>
+
+    </StackPanel>
+</UserControl>

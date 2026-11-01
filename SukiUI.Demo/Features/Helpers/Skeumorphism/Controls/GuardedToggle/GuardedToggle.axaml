@@ -1,0 +1,90 @@
+<UserControl x:Class="SukiUI.Demo.Features.Helpers.Skeumorphism.Controls.GuardedToggle"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:SukiUI.Demo.Features.Helpers.Skeumorphism.Controls"
+             x:DataType="controls:GuardedToggle">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://SukiUI.Demo/Features/Helpers/Skeumorphism/Controls/Shared/SkeumoMaterials.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <UserControl.Styles>
+        <Style Selector="TextBlock.StateLabel">
+            <Setter Property="Foreground" Value="{DynamicResource SukiLowText}" />
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="LetterSpacing" Value="1" />
+            <Setter Property="Width" Value="40" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="IsHitTestVisible" Value="False" />
+        </Style>
+        <Style Selector="TextBlock.StateLabel.Active">
+            <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+        </Style>
+    </UserControl.Styles>
+
+    <!-- Frame 110 x 160. Toggle bushing (55,92): the bat lever points up (on) or down (off). Wire terminals at (30,4) and (80,4) -->
+    <Canvas Name="Scene" Width="110" Height="160" Background="Transparent" Focusable="True" Cursor="Hand"
+            PointerPressed="Scene_OnPressed" KeyDown="Scene_OnKeyDown">
+
+        <!-- Screwed base plate -->
+        <Border Canvas.Left="15" Canvas.Top="10" Width="80" Height="140" CornerRadius="14"
+                Background="{DynamicResource SkBody}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="1.2"
+                BoxShadow="{DynamicResource SkShadow}" IsHitTestVisible="False" />
+        <Border Canvas.Left="15" Canvas.Top="10" Width="80" Height="140" CornerRadius="14" Background="{StaticResource SkSheen}" IsHitTestVisible="False" />
+        <Border Canvas.Left="20" Canvas.Top="12" Width="70" Height="2.2" CornerRadius="1.1" Background="#2EFFFFFF" IsHitTestVisible="False" />
+        <!-- Screw terminals for the wires: line in (x 30), load out (x 80) -->
+        <Border Canvas.Left="23" Canvas.Top="0" Width="14" Height="13" CornerRadius="3,3,2,2"
+                Background="{DynamicResource SkRodV}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.7" IsHitTestVisible="False" />
+        <Ellipse Canvas.Left="26.5" Canvas.Top="4" Width="7" Height="7" Fill="{DynamicResource SkAxle}" Stroke="{DynamicResource SkEdge}" StrokeThickness="0.5" IsHitTestVisible="False" />
+        <Border Canvas.Left="73" Canvas.Top="0" Width="14" Height="13" CornerRadius="3,3,2,2"
+                Background="{DynamicResource SkRodV}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.7" IsHitTestVisible="False" />
+        <Ellipse Canvas.Left="76.5" Canvas.Top="4" Width="7" Height="7" Fill="{DynamicResource SkAxle}" Stroke="{DynamicResource SkEdge}" StrokeThickness="0.5" IsHitTestVisible="False" />
+        <Ellipse Canvas.Left="21" Canvas.Top="139" Width="5" Height="5" Fill="{DynamicResource SkAxle}" Stroke="{DynamicResource SkEdge}" StrokeThickness="0.5" IsHitTestVisible="False" />
+        <Ellipse Canvas.Left="84" Canvas.Top="139" Width="5" Height="5" Fill="{DynamicResource SkAxle}" Stroke="{DynamicResource SkEdge}" StrokeThickness="0.5" IsHitTestVisible="False" />
+
+        <!-- State LED -->
+        <Ellipse Name="LedHalo" Canvas.Left="50" Canvas.Top="20" Width="10" Height="10" Opacity="0" IsHitTestVisible="False" />
+        <Ellipse Name="Led" Canvas.Left="52.8" Canvas.Top="22.8" Width="4.4" Height="4.4" Fill="{DynamicResource SkLedOff}" IsHitTestVisible="False" />
+
+        <!-- Engraved states -->
+        <TextBlock Name="OnStateText" Classes="StateLabel" Canvas.Left="35" Canvas.Top="36"
+                   Text="{Binding OnLabel, RelativeSource={RelativeSource AncestorType=controls:GuardedToggle}}" />
+        <TextBlock Name="OffStateText" Classes="StateLabel" Canvas.Left="35" Canvas.Top="132"
+                   Text="{Binding OffLabel, RelativeSource={RelativeSource AncestorType=controls:GuardedToggle}}" />
+
+        <!-- Bushing: chrome nut with its threaded hole -->
+        <Ellipse Canvas.Left="39" Canvas.Top="76" Width="32" Height="32" Fill="{DynamicResource SkAxle}"
+                 Stroke="{DynamicResource SkEdge}" StrokeThickness="0.8" IsHitTestVisible="False" />
+        <Ellipse Canvas.Left="47" Canvas.Top="84" Width="16" Height="16" Fill="{DynamicResource SkRecess}" IsHitTestVisible="False" />
+
+        <!-- Bat lever: the rod shortens while it points to the viewer mid-throw (scale), the ball tip follows -->
+        <Border Name="Rod" Canvas.Left="51" Canvas.Top="92" Width="8" Height="36" CornerRadius="4"
+                Background="{DynamicResource SkRodV}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.6"
+                RenderTransformOrigin="50%,0%" IsHitTestVisible="False">
+            <Border.RenderTransform><ScaleTransform ScaleY="1" /></Border.RenderTransform>
+        </Border>
+        <Ellipse Name="Tip" Canvas.Left="47" Canvas.Top="121" Width="16" Height="16" Fill="{DynamicResource SkKnob}"
+                 Stroke="{DynamicResource SkEdge}" StrokeThickness="0.8" IsHitTestVisible="False" />
+        <Ellipse Name="TipShine" Canvas.Left="50" Canvas.Top="123" Width="6" Height="3" Fill="#80FFFFFF" IsHitTestVisible="False" />
+
+        <!-- Safety cover: glass flap hinged on top, lifted before the lever can be thrown -->
+        <Border Name="CoverHinge" Canvas.Left="29" Canvas.Top="54" Width="52" Height="7" CornerRadius="3.5"
+                Background="{DynamicResource SkRodH}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.7"
+                BoxShadow="{DynamicResource SkShadow}" IsHitTestVisible="False" />
+        <Border Name="Cover" Canvas.Left="31" Canvas.Top="58" Width="48" Height="86" CornerRadius="4,4,12,12"
+                RenderTransformOrigin="50%,0%" IsHitTestVisible="False">
+            <Border.RenderTransform><ScaleTransform ScaleY="1" /></Border.RenderTransform>
+            <Grid>
+                <Border CornerRadius="4,4,12,12" Background="{DynamicResource SkGlassBack}" Opacity="0.85" />
+                <Border CornerRadius="4,4,12,12" Background="{StaticResource SkSheen}" />
+                <Border CornerRadius="4,4,12,12" BorderBrush="{DynamicResource SkGlassRim}" BorderThickness="1.4" />
+                <Border Width="4" Margin="6,8,0,14" HorizontalAlignment="Left" CornerRadius="2" Background="#33FFFFFF" />
+                <Border Height="5" Margin="10,0,10,6" VerticalAlignment="Bottom" CornerRadius="2.5"
+                        Background="{DynamicResource SkRubber}" />
+            </Grid>
+        </Border>
+    </Canvas>
+</UserControl>

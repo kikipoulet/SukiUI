@@ -28,4 +28,4 @@
 
 [Demo: SukiUI.Demo/Features/ControlsLibrary/InfoBarView.axaml](https://github.com/kikipoulet/SukiUI/blob/main/SukiUI.Demo/Features/ControlsLibrary/InfoBarView.axaml)
 
-[API: Controls/InfoBar.axaml.cs](https://github.com/kikipoulet/SukiUI/blob/main/SukiUI/Controls/InfoBar.axaml.cs)
+[API: Controls/InfoBar.axaml.cs](https://github.com/kikipoulet/SukiUI/blob/main/SukiUI/Controls/Suki/Feedback/InfoBar/InfoBar.axaml.cs)

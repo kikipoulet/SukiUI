@@ -1,0 +1,83 @@
+<UserControl x:Class="SukiUI.Demo.Features.Helpers.Skeumorphism.Controls.Stirrer"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://SukiUI.Demo/Features/Helpers/Skeumorphism/Controls/Shared/SkeumoMaterials.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <LinearGradientBrush x:Key="StBar" StartPoint="0%,0%" EndPoint="0%,100%">
+                <GradientStop Offset="0" Color="#FFFFFFFF" />
+                <GradientStop Offset="0.5" Color="#FFE3E9F4" />
+                <GradientStop Offset="1" Color="#FF8D99B1" />
+            </LinearGradientBrush>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <!-- Frame 180 x 200: beaker (interior 92 x 106 at 44,28) on a magnetic stirrer -->
+    <Canvas Width="180" Height="200" IsHitTestVisible="False">
+        <!-- 1. Magnetic field glow under the beaker (accent BoxShadow set in code) -->
+        <Border Name="FieldGlow" Canvas.Left="56" Canvas.Top="122" Width="68" Height="12" CornerRadius="6" Opacity="0" />
+
+        <!-- Cable gland on the right flank (wire terminal at 171,166) -->
+        <Border Canvas.Left="160" Canvas.Top="159" Width="12" Height="14" CornerRadius="2,4,4,2"
+                Background="{DynamicResource SkRodH}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.7" />
+        <!-- Stirrer unit -->
+        <Border Canvas.Left="15" Canvas.Top="140" Width="150" Height="52" CornerRadius="12"
+                Background="{DynamicResource SkBody}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="1.2"
+                BoxShadow="{DynamicResource SkShadow}" />
+        <Border Canvas.Left="15" Canvas.Top="140" Width="150" Height="52" CornerRadius="12" Background="{StaticResource SkSheen}" />
+        <Border Canvas.Left="28" Canvas.Top="132" Width="124" Height="10" CornerRadius="4"
+                Background="{DynamicResource SkRodH}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.7" />
+        <Border Canvas.Left="32" Canvas.Top="133.4" Width="116" Height="1.6" CornerRadius="0.8" Background="#80FFFFFF" />
+        <!-- Display: dug window with the speed in rpm -->
+        <Border Canvas.Left="26" Canvas.Top="154" Width="58" Height="24" CornerRadius="7"
+                Background="{DynamicResource SkFace}" BoxShadow="{DynamicResource SkInset}" />
+        <TextBlock Name="RpmText" Canvas.Left="26" Canvas.Top="157" Width="44" TextAlignment="Right"
+                   FontFamily="Consolas" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource SukiPrimaryColor}" Text="0" />
+        <TextBlock Canvas.Left="72" Canvas.Top="162" FontSize="5" Foreground="{DynamicResource SkEngrave}" Text="rpm" />
+        <!-- Vents and engraving -->
+        <Path Data="M 118,156 h 3 v 22 h -3 z M 125,156 h 3 v 22 h -3 z M 132,156 h 3 v 22 h -3 z M 139,156 h 3 v 22 h -3 z M 146,156 h 3 v 22 h -3 z"
+              Fill="{DynamicResource SkRecess}" Stroke="{DynamicResource SkEdge}" StrokeThickness="0.5" />
+        <TextBlock Canvas.Left="90" Canvas.Top="157" FontSize="5" LetterSpacing="0.8" Foreground="{DynamicResource SkEngrave}" Text="MAG·STIR" />
+        <Ellipse Name="Led" Canvas.Left="96" Canvas.Top="170" Width="4.4" Height="4.4" Fill="{DynamicResource SkLedOff}" />
+
+        <!-- 3. Beaker glass: back -->
+        <Border Canvas.Left="42" Canvas.Top="26" Width="96" Height="110" CornerRadius="4,4,14,14"
+                Background="{DynamicResource SkGlassBack}" />
+
+        <!-- 4. Content: vortex liquid, swirling particles, stir bar (all built in code), clipped to the beaker -->
+        <Border Canvas.Left="44" Canvas.Top="28" Width="92" Height="106" CornerRadius="3,3,12,12" ClipToBounds="True">
+            <Canvas Width="92" Height="106">
+                <Path Name="Liquid" Fill="{StaticResource SkAccentV}" Opacity="0.95" />
+                <Path Name="LiquidShade" Fill="{DynamicResource SkLiquidShade}" />
+                <Path Name="Surface" Stroke="#80FFFFFF" StrokeThickness="1.5" />
+                <Canvas Name="Particles" Width="92" Height="106" />
+                <Border Name="StirBar" Canvas.Top="96" Width="30" Height="6" CornerRadius="3"
+                        Background="{StaticResource StBar}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.5" />
+            </Canvas>
+        </Border>
+
+        <!-- 5. Glass walls, spout, graduations -->
+        <Border Canvas.Left="42" Canvas.Top="26" Width="96" Height="110" CornerRadius="4,4,14,14"
+                BorderBrush="{DynamicResource SkGlassRim}" BorderThickness="1.6" />
+        <Border Canvas.Left="44" Canvas.Top="28" Width="92" Height="106" CornerRadius="3,3,12,12"
+                BorderBrush="{DynamicResource SkGlassInner}" BorderThickness="1" />
+        <Path Data="M 42,30 Q 36,26 34,22" Stroke="{DynamicResource SkGlassRim}" StrokeThickness="2.2" StrokeLineCap="Round" />
+        <Border Canvas.Left="50" Canvas.Top="36" Width="5" Height="88" CornerRadius="2.5" Opacity="0.7">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                    <GradientStop Offset="0" Color="#8CFFFFFF" />
+                    <GradientStop Offset="0.6" Color="#26FFFFFF" />
+                    <GradientStop Offset="1" Color="#00FFFFFF" />
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+        <Border Canvas.Left="122" Canvas.Top="54" Width="9" Height="1" Background="#59FFFFFF" />
+        <Border Canvas.Left="125" Canvas.Top="74" Width="6" Height="1" Background="#40FFFFFF" />
+        <Border Canvas.Left="122" Canvas.Top="94" Width="9" Height="1" Background="#59FFFFFF" />
+        <Border Canvas.Left="125" Canvas.Top="114" Width="6" Height="1" Background="#40FFFFFF" />
+        <Border Canvas.Left="40" Canvas.Top="24" Width="100" Height="4" CornerRadius="2"
+                Background="{DynamicResource SkGlassRim}" />
+    </Canvas>
+</UserControl>

@@ -1,0 +1,62 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Sizes of SukiSideMenuItem for every SukiCompactness level; the menu has its own in ../SukiSideMenu.Compactness.axaml.
+         Normal is the complete set (the historical values); the other levels only list what differs. Key names follow
+         SukiCompactness.<Control>[.<Class, Part or State>].<Property> (see SukiCompactnessResources).
+
+         A row's icon sits at Row.Margin.Left + Content.Padding.Left in an open pane; the title slides over the icon it
+         replaces by (Icon.Size + Title.Margin.Left), read from the template. The row corner radius is a token of its
+         own (not the global MediumCornerRadius): each level has its value. -->
+
+    <ResourceDictionary x:Key="Normal">
+        <!-- a row -->
+        <Thickness x:Key="SukiCompactness.SukiSideMenuItem.Row.Margin">15,2</Thickness>
+        <CornerRadius x:Key="SukiCompactness.SukiSideMenuItem.Row.CornerRadius">15</CornerRadius>
+        <Thickness x:Key="SukiCompactness.SukiSideMenuItem.Content.Padding">30,15,15,15</Thickness>
+        <x:Double x:Key="SukiCompactness.SukiSideMenuItem.Icon.Size">24</x:Double>
+        <Thickness x:Key="SukiCompactness.SukiSideMenuItem.Title.Margin">15,0</Thickness>
+        <x:Double x:Key="SukiCompactness.SukiSideMenuItem.FontSize">14</x:Double>
+        <Thickness x:Key="SukiCompactness.SukiSideMenuItem.Children.Margin">20,0,0,0</Thickness>
+        <!-- .Compact: a row that is tighter than its level -->
+        <Thickness x:Key="SukiCompactness.SukiSideMenuItem.Compact.Content.Padding">30,10,15,10</Thickness>
+        <CornerRadius x:Key="SukiCompactness.SukiSideMenuItem.Compact.Row.CornerRadius">12</CornerRadius>
+    </ResourceDictionary>
+
+    <ResourceDictionary x:Key="SuperCompact">
+        <Thickness x:Key="SukiCompactness.SukiSideMenuItem.Row.Margin">12,2</Thickness>
+        <CornerRadius x:Key="SukiCompactness.SukiSideMenuItem.Row.CornerRadius">13</CornerRadius>
+        <Thickness x:Key="SukiCompactness.SukiSideMenuItem.Content.Padding">26,11,13,11</Thickness>
+        <x:Double x:Key="SukiCompactness.SukiSideMenuItem.Icon.Size">21</x:Double>
+        <Thickness x:Key="SukiCompactness.SukiSideMenuItem.Title.Margin">12,0</Thickness>
+        <x:Double x:Key="SukiCompactness.SukiSideMenuItem.FontSize">13</x:Double>
+        <Thickness x:Key="SukiCompactness.SukiSideMenuItem.Children.Margin">16,0,0,0</Thickness>
+        <Thickness x:Key="SukiCompactness.SukiSideMenuItem.Compact.Content.Padding">26,8,13,8</Thickness>
+        <CornerRadius x:Key="SukiCompactness.SukiSideMenuItem.Compact.Row.CornerRadius">10</CornerRadius>
+    </ResourceDictionary>
+
+    <ResourceDictionary x:Key="Compact">
+        <Thickness x:Key="SukiCompactness.SukiSideMenuItem.Row.Margin">14,2</Thickness>
+        <CornerRadius x:Key="SukiCompactness.SukiSideMenuItem.Row.CornerRadius">14</CornerRadius>
+        <Thickness x:Key="SukiCompactness.SukiSideMenuItem.Content.Padding">28,13,14,13</Thickness>
+        <x:Double x:Key="SukiCompactness.SukiSideMenuItem.Icon.Size">22</x:Double>
+        <Thickness x:Key="SukiCompactness.SukiSideMenuItem.Title.Margin">14,0</Thickness>
+        <x:Double x:Key="SukiCompactness.SukiSideMenuItem.FontSize">13.5</x:Double>
+        <Thickness x:Key="SukiCompactness.SukiSideMenuItem.Children.Margin">18,0,0,0</Thickness>
+        <Thickness x:Key="SukiCompactness.SukiSideMenuItem.Compact.Content.Padding">28,9,14,9</Thickness>
+        <CornerRadius x:Key="SukiCompactness.SukiSideMenuItem.Compact.Row.CornerRadius">11</CornerRadius>
+    </ResourceDictionary>
+
+    <ResourceDictionary x:Key="Big">
+        <Thickness x:Key="SukiCompactness.SukiSideMenuItem.Row.Margin">18,3</Thickness>
+        <CornerRadius x:Key="SukiCompactness.SukiSideMenuItem.Row.CornerRadius">18</CornerRadius>
+        <Thickness x:Key="SukiCompactness.SukiSideMenuItem.Content.Padding">34,19,17,19</Thickness>
+        <x:Double x:Key="SukiCompactness.SukiSideMenuItem.Icon.Size">28</x:Double>
+        <Thickness x:Key="SukiCompactness.SukiSideMenuItem.Title.Margin">18,0</Thickness>
+        <x:Double x:Key="SukiCompactness.SukiSideMenuItem.FontSize">16</x:Double>
+        <Thickness x:Key="SukiCompactness.SukiSideMenuItem.Children.Margin">24,0,0,0</Thickness>
+        <Thickness x:Key="SukiCompactness.SukiSideMenuItem.Compact.Content.Padding">34,13,17,13</Thickness>
+        <CornerRadius x:Key="SukiCompactness.SukiSideMenuItem.Compact.Row.CornerRadius">14</CornerRadius>
+    </ResourceDictionary>
+
+</ResourceDictionary>

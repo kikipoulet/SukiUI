@@ -38,4 +38,4 @@
 
 [Demo: SukiUI.Demo/Features/Theming/ThemingView.axaml](https://github.com/kikipoulet/SukiUI/blob/main/SukiUI.Demo/Features/Theming/ThemingView.axaml)
 
-[API: Controls/SettingsLayout.axaml.cs](https://github.com/kikipoulet/SukiUI/blob/main/SukiUI/Controls/SettingsLayout.axaml.cs)
+[API: Controls/SettingsLayout.axaml.cs](https://github.com/kikipoulet/SukiUI/blob/main/SukiUI/Controls/Suki/Containers/SettingsLayout/SettingsLayout.axaml.cs)

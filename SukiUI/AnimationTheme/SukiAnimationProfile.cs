@@ -1,0 +1,75 @@
+namespace SukiUI.ControlsAnimation
+{
+    /// <summary>
+    /// The app-wide animation manifest: one <see cref="SukiPresetTable{TPreset,TCalib}"/> per
+    /// family, composed with <c>with</c> and switched live through <see cref="SukiAnimationTheme"/>.
+    /// The <c>required</c> members make a family missing from a profile a compile error.
+    /// </summary>
+    public sealed record SukiAnimationProfile
+    {
+        public required SukiPresetTable<SukiPressPreset, SukiPressProfile> Press { get; init; }
+        public required SukiPresetTable<SukiPopupPreset, SukiPopupProfile> Popup { get; init; }
+        public required SukiPresetTable<SukiDialogPreset, SukiDialogProfile> Dialog { get; init; }
+        public required SukiPresetTable<SukiTogglePreset, SukiToggleProfile> Toggle { get; init; }
+        public required SukiPresetTable<SukiCheckPreset, SukiCheckProfile> Check { get; init; }
+        public required SukiPresetTable<SukiTypingPreset, SukiTypingProfile> Typing { get; init; }
+        public required SukiPresetTable<SukiToastPreset, SukiToastProfile> Toast { get; init; }
+        public required SukiPresetTable<SukiSideMenuPreset, SukiSideMenuProfile> SideMenu { get; init; }
+        public required SukiPresetTable<SukiTabControlPreset, SukiTabControlProfile> TabControl { get; init; }
+
+        /// <summary>The historical calibrations — the default profile.</summary>
+        public static readonly SukiAnimationProfile Normal = new()
+        {
+            Press = SukiPressProfile.Normal,
+            Popup = SukiPopupProfile.Normal,
+            Dialog = SukiDialogProfile.Normal,
+            Toggle = SukiToggleProfile.Normal,
+            Check = SukiCheckProfile.Normal,
+            Typing = SukiTypingProfile.Normal,
+            Toast = SukiToastProfile.Normal,
+            SideMenu = SukiSideMenuProfile.Normal,
+            TabControl = SukiTabControlProfile.Normal,
+        };
+
+        /// <summary>The sober calibrations, family by family.</summary>
+        public static readonly SukiAnimationProfile Lite = new()
+        {
+            Press = SukiPressProfile.Lite,
+            Popup = SukiPopupProfile.Lite,
+            Dialog = SukiDialogProfile.Lite,
+            Toggle = SukiToggleProfile.Lite,
+            Check = SukiCheckProfile.Lite,
+            Typing = SukiTypingProfile.Lite,
+            Toast = SukiToastProfile.Lite,
+            SideMenu = SukiSideMenuProfile.Lite,
+            TabControl = SukiTabControlProfile.Lite,
+        };
+
+        /// <summary>The barest calibrations: only the press feedback and the state changes
+        /// move, quickly — no hover, no scale-in, no offset, no blur, no cascade.</summary>
+        public static readonly SukiAnimationProfile Minimal = new()
+        {
+            Press = SukiPressProfile.Minimal,
+            Popup = SukiPopupProfile.Minimal,
+            Dialog = SukiDialogProfile.Minimal,
+            Toggle = SukiToggleProfile.Minimal,
+            Check = SukiCheckProfile.Minimal,
+            Typing = SukiTypingProfile.Minimal,
+            Toast = SukiToastProfile.Minimal,
+            SideMenu = SukiSideMenuProfile.Minimal,
+            TabControl = SukiTabControlProfile.Minimal,
+        };
+
+        /// <summary>
+        /// A named profile, so XAML can write <c>Value="Minimal"</c>; the XAML compiler calls it, no reflection.
+        /// A custom profile (<c>Normal with { … }</c>) goes through <c>{x:Static}</c>.
+        /// </summary>
+        public static SukiAnimationProfile Parse(string name) => name switch
+        {
+            nameof(Normal) => Normal,
+            nameof(Lite) => Lite,
+            nameof(Minimal) => Minimal,
+            _ => throw new FormatException($"'{name}' is not a SukiAnimationProfile: Normal, Lite or Minimal."),
+        };
+    }
+}

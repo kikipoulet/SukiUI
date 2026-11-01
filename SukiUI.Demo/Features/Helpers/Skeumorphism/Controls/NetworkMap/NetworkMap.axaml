@@ -1,0 +1,214 @@
+<UserControl x:Class="SukiUI.Demo.Features.Helpers.Skeumorphism.Controls.NetworkMap"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             IsHitTestVisible="False">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://SukiUI.Demo/Features/Helpers/Skeumorphism/Controls/Shared/SkeumoMaterials.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="NmCable" Color="#FF56637C" />
+                    <SolidColorBrush x:Key="NmPaper" Color="#FFE3E9F4" />
+                    <SolidColorBrush x:Key="NmPaperLine" Color="#66667289" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="NmCable" Color="#FF8D99B1" />
+                    <SolidColorBrush x:Key="NmPaper" Color="#FFFFFFFF" />
+                    <SolidColorBrush x:Key="NmPaperLine" Color="#668D99B1" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <UserControl.Styles>
+        <!-- Active = the device is busy: the label follows the text colours, never a colour added in code -->
+        <Style Selector="TextBlock.NodeLabel">
+            <Setter Property="FontSize" Value="8" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="LetterSpacing" Value="0.8" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="Foreground" Value="{DynamicResource SukiLowText}" />
+        </Style>
+        <Style Selector="TextBlock.NodeLabel.Active">
+            <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+        </Style>
+    </UserControl.Styles>
+
+    <!-- Scene 288 x 222. Device anchors (where the cables start, hidden under each device) and the switch (144,112):
+         router (144,47), PC A (40,84), PC B (66,174), PC C (222,174).
+         The cable geometry lives in NetworkMap.Rendering.cs: it is also the route of the packets. -->
+    <Canvas Width="288" Height="222">
+        <!-- 1. Halos, cables, ripples and packets (filled in code) -->
+        <Canvas Name="HaloLayer" />
+        <Canvas Name="CableLayer" />
+
+        <!-- Uplink to the rest of the world: leaves the router and melts into the right edge of the card -->
+        <Canvas Name="UplinkLayer">
+            <Canvas.OpacityMask>
+                <LinearGradientBrush StartPoint="196,0" EndPoint="298,0">
+                    <GradientStop Offset="0" Color="#FFFFFFFF" />
+                    <GradientStop Offset="0.4" Color="#59FFFFFF" />
+                    <GradientStop Offset="1" Color="#00FFFFFF" />
+                </LinearGradientBrush>
+            </Canvas.OpacityMask>
+            <Path Data="M 150,47 C 200,47 220,34 304,34" Stroke="#40000000" StrokeThickness="6" StrokeLineCap="Round">
+                <Path.RenderTransform><TranslateTransform Y="2" /></Path.RenderTransform>
+            </Path>
+            <Path Data="M 150,47 C 200,47 220,34 304,34" Stroke="{DynamicResource NmCable}" StrokeThickness="4.2" StrokeLineCap="Round" />
+            <Path Data="M 150,47 C 200,47 220,34 304,34" Stroke="#4DFFFFFF" StrokeThickness="1.2" StrokeLineCap="Round">
+                <Path.RenderTransform><TranslateTransform Y="-1" /></Path.RenderTransform>
+            </Path>
+        </Canvas>
+
+        <Canvas Name="FxLayer" />
+        <Canvas Name="PacketLayer" />
+
+        <!-- 2. Router: low box with two antennas, engraved name, a power LED and an activity LED -->
+        <Canvas Canvas.Left="111" Canvas.Top="26" Width="66" Height="30">
+            <Border Canvas.Left="6" Canvas.Top="0" Width="4" Height="18" CornerRadius="2" RenderTransformOrigin="50%,100%"
+                    Background="{DynamicResource SkRodV}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.5,0">
+                <Border.RenderTransform><RotateTransform Angle="-14" /></Border.RenderTransform>
+            </Border>
+            <Border Canvas.Left="56" Canvas.Top="0" Width="4" Height="18" CornerRadius="2" RenderTransformOrigin="50%,100%"
+                    Background="{DynamicResource SkRodV}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.5,0">
+                <Border.RenderTransform><RotateTransform Angle="14" /></Border.RenderTransform>
+            </Border>
+            <Border Canvas.Top="12" Width="66" Height="18" CornerRadius="6"
+                    Background="{DynamicResource SkBody}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="1.2"
+                    BoxShadow="{DynamicResource SkShadow}" />
+            <Border Canvas.Top="12" Width="66" Height="18" CornerRadius="6" Background="{StaticResource SkBevel}" />
+            <Border Canvas.Left="6" Canvas.Top="13.4" Width="54" Height="1.6" CornerRadius="0.8" Background="#59FFFFFF" />
+            <TextBlock Canvas.Left="9" Canvas.Top="17.4" FontSize="6" FontWeight="SemiBold" LetterSpacing="1" Text="ROUTER"
+                       Foreground="{DynamicResource SkEngrave}" Tag="NoTranslate" />
+            <Border Canvas.Left="46.3" Canvas.Top="19.3" Width="3.4" Height="3.4" CornerRadius="2" Background="{DynamicResource SkLedOff}" />
+            <Border Name="RouterPowerOn" Canvas.Left="46.3" Canvas.Top="19.3" Width="3.4" Height="3.4" CornerRadius="2"
+                    Background="{DynamicResource SukiPrimaryColor}" Opacity="0.55" />
+            <Border Canvas.Left="53.3" Canvas.Top="19.3" Width="3.4" Height="3.4" CornerRadius="2" Background="{DynamicResource SkLedOff}" />
+            <Border Name="RouterLedOn" Canvas.Left="53.3" Canvas.Top="19.3" Width="3.4" Height="3.4" CornerRadius="2"
+                    Background="{DynamicResource SukiPrimaryColor}" Opacity="0" />
+        </Canvas>
+
+        <!-- 3. Switch: flat box, engraved name, one LED above each of its four sockets (A, B, router, C) -->
+        <Canvas Canvas.Left="100" Canvas.Top="99" Width="88" Height="26">
+            <Border Width="88" Height="26" CornerRadius="6"
+                    Background="{DynamicResource SkBody}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="1.2"
+                    BoxShadow="{DynamicResource SkShadow}" />
+            <Border Width="88" Height="26" CornerRadius="6" Background="{StaticResource SkBevel}" />
+            <Border Canvas.Left="6" Canvas.Top="1.2" Width="76" Height="1.6" CornerRadius="0.8" Background="#59FFFFFF" />
+            <TextBlock Canvas.Left="7" Canvas.Top="2.6" FontSize="5.5" FontWeight="SemiBold" LetterSpacing="1" Text="SWITCH"
+                       Foreground="{DynamicResource SkEngrave}" Tag="NoTranslate" />
+
+            <Border Canvas.Left="18.3" Canvas.Top="10.4" Width="3.4" Height="3.4" CornerRadius="2" Background="{DynamicResource SkLedOff}" />
+            <Border Name="LedOnA" Canvas.Left="18.3" Canvas.Top="10.4" Width="3.4" Height="3.4" CornerRadius="2" Background="{DynamicResource SukiPrimaryColor}" Opacity="0" />
+            <Border Canvas.Left="34.3" Canvas.Top="10.4" Width="3.4" Height="3.4" CornerRadius="2" Background="{DynamicResource SkLedOff}" />
+            <Border Name="LedOnB" Canvas.Left="34.3" Canvas.Top="10.4" Width="3.4" Height="3.4" CornerRadius="2" Background="{DynamicResource SukiPrimaryColor}" Opacity="0" />
+            <Border Canvas.Left="50.3" Canvas.Top="10.4" Width="3.4" Height="3.4" CornerRadius="2" Background="{DynamicResource SkLedOff}" />
+            <Border Name="LedOnR" Canvas.Left="50.3" Canvas.Top="10.4" Width="3.4" Height="3.4" CornerRadius="2" Background="{DynamicResource SukiPrimaryColor}" Opacity="0" />
+            <Border Canvas.Left="66.3" Canvas.Top="10.4" Width="3.4" Height="3.4" CornerRadius="2" Background="{DynamicResource SkLedOff}" />
+            <Border Name="LedOnC" Canvas.Left="66.3" Canvas.Top="10.4" Width="3.4" Height="3.4" CornerRadius="2" Background="{DynamicResource SukiPrimaryColor}" Opacity="0" />
+
+            <Border Canvas.Left="15" Canvas.Top="16" Width="10" Height="7" CornerRadius="1.5" Background="{DynamicResource SkRecess}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.5" />
+            <Border Canvas.Left="31" Canvas.Top="16" Width="10" Height="7" CornerRadius="1.5" Background="{DynamicResource SkRecess}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.5" />
+            <Border Canvas.Left="47" Canvas.Top="16" Width="10" Height="7" CornerRadius="1.5" Background="{DynamicResource SkRecess}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.5" />
+            <Border Canvas.Left="63" Canvas.Top="16" Width="10" Height="7" CornerRadius="1.5" Background="{DynamicResource SkRecess}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.5" />
+        </Canvas>
+
+        <!-- 4. Computers: monitor on a stand. The screen lights up with the accent when the computer is awake -->
+        <Canvas Canvas.Left="12" Canvas.Top="66" Width="56" Height="46">
+            <Border Canvas.Left="23" Canvas.Top="33" Width="10" Height="10" Background="{DynamicResource SkRodV}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.5,0" />
+            <Border Canvas.Left="14" Canvas.Top="41" Width="28" Height="5" CornerRadius="2.5" Background="{DynamicResource SkBody}"
+                    BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.8" BoxShadow="{DynamicResource SkShadow}" />
+            <Border Canvas.Left="2" Width="52" Height="36" CornerRadius="6" Background="{DynamicResource SkBody}"
+                    BorderBrush="{DynamicResource SkEdge}" BorderThickness="1" BoxShadow="{DynamicResource SkShadow}" />
+            <Border Canvas.Left="2" Width="52" Height="36" CornerRadius="6" Background="{StaticResource SkBevel}" />
+            <Border Canvas.Left="6.5" Canvas.Top="4" Width="43" Height="25" CornerRadius="3.5" ClipToBounds="True" Background="{DynamicResource SkFace}">
+                <Panel>
+                    <Border Name="ScreenA" Opacity="0">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                                <GradientStop Offset="0" Color="{DynamicResource SukiPrimaryColor}" />
+                                <GradientStop Offset="1" Color="{DynamicResource SukiPrimaryColor75}" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Canvas>
+                            <Border Canvas.Left="5" Canvas.Top="5" Width="20" Height="2.6" CornerRadius="1.3" Background="#66FFFFFF" />
+                            <Border Canvas.Left="5" Canvas.Top="10" Width="31" Height="2" CornerRadius="1" Background="#40FFFFFF" />
+                            <Border Canvas.Left="5" Canvas.Top="14" Width="24" Height="2" CornerRadius="1" Background="#40FFFFFF" />
+                            <Border Canvas.Top="21.5" Width="43" Height="3.5" Background="#40000000" />
+                        </Canvas>
+                    </Border>
+                    <Border Background="{StaticResource SkSheen}" />
+                    <Border CornerRadius="3.5" BoxShadow="{DynamicResource SkInset}" />
+                </Panel>
+            </Border>
+            <Border Canvas.Left="8" Canvas.Top="1.2" Width="40" Height="1.6" CornerRadius="0.8" Background="#40FFFFFF" />
+        </Canvas>
+
+        <Canvas Canvas.Left="38" Canvas.Top="156" Width="56" Height="46">
+            <Border Canvas.Left="23" Canvas.Top="33" Width="10" Height="10" Background="{DynamicResource SkRodV}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.5,0" />
+            <Border Canvas.Left="14" Canvas.Top="41" Width="28" Height="5" CornerRadius="2.5" Background="{DynamicResource SkBody}"
+                    BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.8" BoxShadow="{DynamicResource SkShadow}" />
+            <Border Canvas.Left="2" Width="52" Height="36" CornerRadius="6" Background="{DynamicResource SkBody}"
+                    BorderBrush="{DynamicResource SkEdge}" BorderThickness="1" BoxShadow="{DynamicResource SkShadow}" />
+            <Border Canvas.Left="2" Width="52" Height="36" CornerRadius="6" Background="{StaticResource SkBevel}" />
+            <Border Canvas.Left="6.5" Canvas.Top="4" Width="43" Height="25" CornerRadius="3.5" ClipToBounds="True" Background="{DynamicResource SkFace}">
+                <Panel>
+                    <Border Name="ScreenB" Opacity="0">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                                <GradientStop Offset="0" Color="{DynamicResource SukiPrimaryColor}" />
+                                <GradientStop Offset="1" Color="{DynamicResource SukiPrimaryColor75}" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Canvas>
+                            <Border Canvas.Left="5" Canvas.Top="5" Width="20" Height="2.6" CornerRadius="1.3" Background="#66FFFFFF" />
+                            <Border Canvas.Left="5" Canvas.Top="10" Width="31" Height="2" CornerRadius="1" Background="#40FFFFFF" />
+                            <Border Canvas.Left="5" Canvas.Top="14" Width="24" Height="2" CornerRadius="1" Background="#40FFFFFF" />
+                            <Border Canvas.Top="21.5" Width="43" Height="3.5" Background="#40000000" />
+                        </Canvas>
+                    </Border>
+                    <Border Background="{StaticResource SkSheen}" />
+                    <Border CornerRadius="3.5" BoxShadow="{DynamicResource SkInset}" />
+                </Panel>
+            </Border>
+            <Border Canvas.Left="8" Canvas.Top="1.2" Width="40" Height="1.6" CornerRadius="0.8" Background="#40FFFFFF" />
+        </Canvas>
+
+        <Canvas Canvas.Left="194" Canvas.Top="156" Width="56" Height="46">
+            <Border Canvas.Left="23" Canvas.Top="33" Width="10" Height="10" Background="{DynamicResource SkRodV}" BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.5,0" />
+            <Border Canvas.Left="14" Canvas.Top="41" Width="28" Height="5" CornerRadius="2.5" Background="{DynamicResource SkBody}"
+                    BorderBrush="{DynamicResource SkEdge}" BorderThickness="0.8" BoxShadow="{DynamicResource SkShadow}" />
+            <Border Canvas.Left="2" Width="52" Height="36" CornerRadius="6" Background="{DynamicResource SkBody}"
+                    BorderBrush="{DynamicResource SkEdge}" BorderThickness="1" BoxShadow="{DynamicResource SkShadow}" />
+            <Border Canvas.Left="2" Width="52" Height="36" CornerRadius="6" Background="{StaticResource SkBevel}" />
+            <Border Canvas.Left="6.5" Canvas.Top="4" Width="43" Height="25" CornerRadius="3.5" ClipToBounds="True" Background="{DynamicResource SkFace}">
+                <Panel>
+                    <Border Name="ScreenC" Opacity="0">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                                <GradientStop Offset="0" Color="{DynamicResource SukiPrimaryColor}" />
+                                <GradientStop Offset="1" Color="{DynamicResource SukiPrimaryColor75}" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Canvas>
+                            <Border Canvas.Left="5" Canvas.Top="5" Width="20" Height="2.6" CornerRadius="1.3" Background="#66FFFFFF" />
+                            <Border Canvas.Left="5" Canvas.Top="10" Width="31" Height="2" CornerRadius="1" Background="#40FFFFFF" />
+                            <Border Canvas.Left="5" Canvas.Top="14" Width="24" Height="2" CornerRadius="1" Background="#40FFFFFF" />
+                            <Border Canvas.Top="21.5" Width="43" Height="3.5" Background="#40000000" />
+                        </Canvas>
+                    </Border>
+                    <Border Background="{StaticResource SkSheen}" />
+                    <Border CornerRadius="3.5" BoxShadow="{DynamicResource SkInset}" />
+                </Panel>
+            </Border>
+            <Border Canvas.Left="8" Canvas.Top="1.2" Width="40" Height="1.6" CornerRadius="0.8" Background="#40FFFFFF" />
+        </Canvas>
+
+        <!-- 5. Labels -->
+        <TextBlock Name="LabelA" Classes="NodeLabel" Canvas.Left="12" Canvas.Top="114" Width="56" Text="PC A · .10" Tag="NoTranslate" />
+        <TextBlock Name="LabelB" Classes="NodeLabel" Canvas.Left="38" Canvas.Top="204" Width="56" Text="PC B · .12" Tag="NoTranslate" />
+        <TextBlock Name="LabelC" Classes="NodeLabel" Canvas.Left="194" Canvas.Top="204" Width="56" Text="PC C · .14" Tag="NoTranslate" />
+    </Canvas>
+</UserControl>

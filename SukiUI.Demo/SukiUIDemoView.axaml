@@ -293,6 +293,28 @@
                 </MenuItem>
             </MenuItem>
 
+            <MenuItem Header="_Compactness">
+                <MenuItem.Icon>
+                    <avalonia:MaterialIcon Kind="FormatLineSpacing" />
+                </MenuItem.Icon>
+                <MenuItem Click="CompactnessMenuItem_OnClick"
+                          Header="_Switch To..."
+                          ItemsSource="{Binding CompactnessLevels}">
+                    <MenuItem.DataTemplates>
+                        <DataTemplate DataType="{x:Type demo:CompactnessChoice}">
+                            <DockPanel>
+                                <avalonia:MaterialIcon Width="16"
+                                                       Height="16"
+                                                       DockPanel.Dock="Left"
+                                                       IsVisible="{Binding IsSelected}"
+                                                       Kind="Check" />
+                                <TextBlock Text="{Binding DisplayName}" />
+                            </DockPanel>
+                        </DataTemplate>
+                    </MenuItem.DataTemplates>
+                </MenuItem>
+            </MenuItem>
+
         </MenuItem>
         <MenuItem Header="Theme">
             <MenuItem Click="ThemeMenuItem_OnClick"

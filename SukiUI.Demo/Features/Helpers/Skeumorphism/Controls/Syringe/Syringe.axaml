@@ -1,0 +1,311 @@
+<UserControl x:Class="SukiUI.Demo.Features.Helpers.Skeumorphism.Controls.Syringe"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Dark">
+                    <LinearGradientBrush x:Key="SyBase" StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Offset="0" Color="#FF586278" />
+                        <GradientStop Offset="0.45" Color="#FF3B4558" />
+                        <GradientStop Offset="1" Color="#FF171C25" />
+                    </LinearGradientBrush>
+                    <SolidColorBrush x:Key="SyEdge" Color="#FF667289" />
+                    <LinearGradientBrush x:Key="SyRod" StartPoint="0%,0%" EndPoint="100%,0%">
+                        <GradientStop Offset="0" Color="#FF3B4558" />
+                        <GradientStop Offset="0.35" Color="#FFE3E9F4" />
+                        <GradientStop Offset="0.6" Color="#FF8590A6" />
+                        <GradientStop Offset="1" Color="#FF2A3242" />
+                    </LinearGradientBrush>
+                    <RadialGradientBrush x:Key="SyKnob" GradientOrigin="35%,30%">
+                        <GradientStop Offset="0" Color="#FF7C88A3" />
+                        <GradientStop Offset="0.4" Color="#FF3B4558" />
+                        <GradientStop Offset="0.8" Color="#FF222A38" />
+                        <GradientStop Offset="1" Color="#FF141922" />
+                    </RadialGradientBrush>
+                    <LinearGradientBrush x:Key="SyTubeH" StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Offset="0" Color="#FF3B4558" />
+                        <GradientStop Offset="0.28" Color="#FFE3E9F4" />
+                        <GradientStop Offset="0.62" Color="#FF8590A6" />
+                        <GradientStop Offset="1" Color="#FF262D3A" />
+                    </LinearGradientBrush>
+                    <LinearGradientBrush x:Key="SyGlassBack" StartPoint="0%,0%" EndPoint="100%,0%">
+                        <GradientStop Offset="0" Color="#B305080D" />
+                        <GradientStop Offset="0.3" Color="#591A2233" />
+                        <GradientStop Offset="0.7" Color="#4D1A2233" />
+                        <GradientStop Offset="1" Color="#BF05080D" />
+                    </LinearGradientBrush>
+                    <LinearGradientBrush x:Key="SyRubber" StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Offset="0" Color="#FF4A5468" />
+                        <GradientStop Offset="0.3" Color="#FF262D3A" />
+                        <GradientStop Offset="1" Color="#FF0B0F15" />
+                    </LinearGradientBrush>
+                    <SolidColorBrush x:Key="SyTubeBg" Color="#B805080D" />
+                    <SolidColorBrush x:Key="SyTubeRim" Color="#57FFFFFF" />
+                    <SolidColorBrush x:Key="SyGlassRim" Color="#47FFFFFF" />
+                    <SolidColorBrush x:Key="SyBore" Color="#BF05080D" />
+                    <SolidColorBrush x:Key="SyRecess" Color="#C705080D" />
+                    <SolidColorBrush x:Key="SyGlassInner" Color="#59000000" />
+                    <BoxShadows x:Key="SyShadow">0 3 6 0 #80000000</BoxShadows>
+                    <LinearGradientBrush x:Key="SyLiquidShade" StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Offset="0" Color="#38FFFFFF" />
+                        <GradientStop Offset="0.12" Color="#00FFFFFF" />
+                        <GradientStop Offset="0.8" Color="#00000000" />
+                        <GradientStop Offset="1" Color="#47000000" />
+                    </LinearGradientBrush>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Light">
+                    <LinearGradientBrush x:Key="SyBase" StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Offset="0" Color="#FFFFFFFF" />
+                        <GradientStop Offset="0.45" Color="#FFD9E0EC" />
+                        <GradientStop Offset="1" Color="#FFB0BBCE" />
+                    </LinearGradientBrush>
+                    <SolidColorBrush x:Key="SyEdge" Color="#FFA3AEC1" />
+                    <LinearGradientBrush x:Key="SyRod" StartPoint="0%,0%" EndPoint="100%,0%">
+                        <GradientStop Offset="0" Color="#FF98A4B9" />
+                        <GradientStop Offset="0.35" Color="#FFFFFFFF" />
+                        <GradientStop Offset="0.6" Color="#FFCBD3E0" />
+                        <GradientStop Offset="1" Color="#FF8D99B1" />
+                    </LinearGradientBrush>
+                    <RadialGradientBrush x:Key="SyKnob" GradientOrigin="35%,30%">
+                        <GradientStop Offset="0" Color="#FFDDE4F0" />
+                        <GradientStop Offset="0.35" Color="#FFB5C0D3" />
+                        <GradientStop Offset="0.8" Color="#FF8793AB" />
+                        <GradientStop Offset="1" Color="#FF65718A" />
+                    </RadialGradientBrush>
+                    <LinearGradientBrush x:Key="SyTubeH" StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Offset="0" Color="#FF98A4B9" />
+                        <GradientStop Offset="0.28" Color="#FFFFFFFF" />
+                        <GradientStop Offset="0.62" Color="#FFCBD3E0" />
+                        <GradientStop Offset="1" Color="#FF8D99B1" />
+                    </LinearGradientBrush>
+                    <LinearGradientBrush x:Key="SyGlassBack" StartPoint="0%,0%" EndPoint="100%,0%">
+                        <GradientStop Offset="0" Color="#4D6F7F9E" />
+                        <GradientStop Offset="0.3" Color="#14FFFFFF" />
+                        <GradientStop Offset="0.7" Color="#10FFFFFF" />
+                        <GradientStop Offset="1" Color="#4D6F7F9E" />
+                    </LinearGradientBrush>
+                    <LinearGradientBrush x:Key="SyRubber" StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Offset="0" Color="#FFB4BED0" />
+                        <GradientStop Offset="0.3" Color="#FF8F9BB2" />
+                        <GradientStop Offset="1" Color="#FF5E6A84" />
+                    </LinearGradientBrush>
+                    <SolidColorBrush x:Key="SyTubeBg" Color="#1A6F7F9E" />
+                    <SolidColorBrush x:Key="SyTubeRim" Color="#8C607090" />
+                    <SolidColorBrush x:Key="SyGlassRim" Color="#73607090" />
+                    <SolidColorBrush x:Key="SyBore" Color="#668A99B5" />
+                    <SolidColorBrush x:Key="SyRecess" Color="#FF5E6A84" />
+                    <SolidColorBrush x:Key="SyGlassInner" Color="#40405070" />
+                    <BoxShadows x:Key="SyShadow">0 3 6 0 #3D283250</BoxShadows>
+                    <LinearGradientBrush x:Key="SyLiquidShade" StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Offset="0" Color="#4DFFFFFF" />
+                        <GradientStop Offset="0.12" Color="#00FFFFFF" />
+                        <GradientStop Offset="0.8" Color="#00FFFFFF" />
+                        <GradientStop Offset="1" Color="#26405070" />
+                    </LinearGradientBrush>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <UserControl.Styles>
+        <!-- Valve labels: active way = SukiText, other way = SukiLowText -->
+        <Style Selector="TextBlock.WayLabel">
+            <Setter Property="Foreground" Value="{DynamicResource SukiLowText}" />
+        </Style>
+        <Style Selector="TextBlock.WayLabel.Active">
+            <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+        </Style>
+        <!-- Volume scale (created in code): follows the theme through the styles -->
+        <Style Selector="Border.ScaleTick">
+            <Setter Property="Background" Value="{DynamicResource SukiLowText}" />
+        </Style>
+        <Style Selector="TextBlock.ScaleLabel">
+            <Setter Property="Foreground" Value="{DynamicResource SukiLowText}" />
+        </Style>
+    </UserControl.Styles>
+
+    <!-- Valve on top (In on the left, Out on the right), liquid enters from the top, plunger from the bottom. Frame 300 x 290 -->
+    <Canvas Name="Scene" Width="300" Height="290" Background="Transparent"
+            PointerPressed="Scene_OnPressed" PointerMoved="Scene_OnMoved"
+            PointerReleased="Scene_OnReleased" PointerCaptureLost="Scene_OnCaptureLost">
+
+        <!-- ===== In / Out manifold: glass tube fading at both ends ===== -->
+        <Canvas Width="300" Height="60" IsHitTestVisible="False">
+            <Canvas.OpacityMask>
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
+                    <GradientStop Offset="0.187" Color="#00FFFFFF" />
+                    <GradientStop Offset="0.373" Color="#FFFFFFFF" />
+                    <GradientStop Offset="0.627" Color="#FFFFFFFF" />
+                    <GradientStop Offset="0.813" Color="#00FFFFFF" />
+                </LinearGradientBrush>
+            </Canvas.OpacityMask>
+            <Border Canvas.Left="30" Canvas.Top="15" Width="240" Height="14" CornerRadius="7"
+                    Background="{DynamicResource SyTubeBg}" BorderBrush="{DynamicResource SyTubeRim}" BorderThickness="1.2" />
+            <Border Name="ChanIn" Canvas.Left="34" Canvas.Top="18.5" Width="116" Height="7" CornerRadius="3.5" Opacity="0.7">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Offset="0" Color="{DynamicResource SukiPrimaryColor75}" />
+                        <GradientStop Offset="0.5" Color="{DynamicResource SukiPrimaryColor}" />
+                        <GradientStop Offset="1" Color="{DynamicResource SukiPrimaryColor75}" />
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+            <Border Name="ChanOut" Canvas.Left="150" Canvas.Top="18.5" Width="116" Height="7" CornerRadius="3.5" Opacity="0.1">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Offset="0" Color="{DynamicResource SukiPrimaryColor75}" />
+                        <GradientStop Offset="0.5" Color="{DynamicResource SukiPrimaryColor}" />
+                        <GradientStop Offset="1" Color="{DynamicResource SukiPrimaryColor75}" />
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+            <Border Canvas.Left="40" Canvas.Top="16.6" Width="220" Height="2" CornerRadius="1" Background="#59FFFFFF" />
+
+            <!-- Circulating liquid: body, core, sliding glints, micro-bubbles (driven by code) -->
+            <Canvas Name="StreamTube" Width="300" Height="60" Opacity="0">
+                <Line Name="TubeBody" StartPoint="34,22" EndPoint="150,22" Stroke="{DynamicResource SukiPrimaryColor}" StrokeThickness="7" StrokeLineCap="Round" Opacity="0.9" />
+                <Line Name="TubeCore" StartPoint="34,22" EndPoint="150,22" Stroke="#73FFFFFF" StrokeThickness="3.2" StrokeLineCap="Round" />
+                <Line Name="TubeGlint" StartPoint="34,21" EndPoint="150,21" Stroke="#CCFFFFFF" StrokeThickness="1.4" StrokeLineCap="Round" StrokeDashArray="2.143,10.714" />
+                <Canvas Name="TubeBubbles" Width="300" Height="60" />
+            </Canvas>
+        </Canvas>
+
+        <!-- Vertical neck to the barrel -->
+        <Border Canvas.Left="143" Canvas.Top="30" Width="14" Height="22" Background="{DynamicResource SyRod}" IsHitTestVisible="False" />
+        <Border Canvas.Left="145.5" Canvas.Top="34" Width="9" Height="18" CornerRadius="2" Background="{DynamicResource SyBore}" IsHitTestVisible="False" />
+        <Canvas Name="StreamNeck" Width="300" Height="60" Opacity="0" IsHitTestVisible="False">
+            <Line Name="NeckBody" StartPoint="150,22" EndPoint="150,52" Stroke="{DynamicResource SukiPrimaryColor}" StrokeThickness="9" Opacity="0.9" />
+            <Line Name="NeckCore" StartPoint="150,22" EndPoint="150,52" Stroke="#73FFFFFF" StrokeThickness="4" />
+            <Line Name="NeckGlint" StartPoint="149,22" EndPoint="149,52" Stroke="#CCFFFFFF" StrokeThickness="1.6" StrokeLineCap="Round" StrokeDashArray="1.875,8.75" />
+            <Canvas Name="NeckBubbles" Width="300" Height="60" />
+        </Canvas>
+
+        <TextBlock Name="LabelIn" Classes="WayLabel Active" Canvas.Left="61" Canvas.Top="-4" Width="30" TextAlignment="Center"
+                   FontSize="11" FontWeight="Medium" Text="In" IsHitTestVisible="False" />
+        <TextBlock Name="LabelOut" Classes="WayLabel" Canvas.Left="209" Canvas.Top="-4" Width="30" TextAlignment="Center"
+                   FontSize="11" FontWeight="Medium" Text="Out" IsHitTestVisible="False" />
+
+        <!-- T junction and rotor: the L bore turns to In (0) or Out (-90) -->
+        <Border Canvas.Left="136" Canvas.Top="9" Width="28" Height="26" CornerRadius="9"
+                Background="{DynamicResource SyBase}" BorderBrush="{DynamicResource SyEdge}" BorderThickness="1.1"
+                BoxShadow="{DynamicResource SyShadow}" IsHitTestVisible="False" />
+        <Border Canvas.Left="140" Canvas.Top="10.6" Width="20" Height="2" CornerRadius="1" Background="#40FFFFFF" IsHitTestVisible="False" />
+        <Grid Name="ValveRotor" Canvas.Left="138.5" Canvas.Top="10.5" Width="23" Height="23"
+              RenderTransformOrigin="50%,50%" IsHitTestVisible="False">
+            <Grid.RenderTransform>
+                <RotateTransform Angle="0" />
+            </Grid.RenderTransform>
+            <Ellipse Fill="{DynamicResource SyKnob}" Stroke="{DynamicResource SyEdge}" StrokeThickness="0.9" />
+            <Ellipse Width="18" Height="18" Fill="{DynamicResource SyRecess}" />
+            <Canvas Width="23" Height="23">
+                <Path Data="M11.5,11.5 V21.5 M11.5,11.5 H1.5" Stroke="{DynamicResource SukiPrimaryColor}" StrokeThickness="7" StrokeLineCap="Round" Opacity="0.28" />
+                <Path Data="M11.5,11.5 V21.5 M11.5,11.5 H1.5" Stroke="{DynamicResource SukiPrimaryColor}" StrokeThickness="3.4" StrokeLineCap="Round" />
+                <Path Data="M11.5,11.5 V21.5 M11.5,11.5 H1.5" Stroke="#B3FFFFFF" StrokeThickness="1" StrokeLineCap="Round" />
+            </Canvas>
+            <Ellipse Width="6.4" Height="6.4" Fill="{DynamicResource SyRod}" Stroke="{DynamicResource SyEdge}" StrokeThickness="0.6" />
+        </Grid>
+        <Ellipse Canvas.Left="141.5" Canvas.Top="12.2" Width="9" Height="3.6" Fill="#59FFFFFF" IsHitTestVisible="False" />
+        <Border Canvas.Left="140" Canvas.Top="44" Width="20" Height="6" CornerRadius="3"
+                Background="{DynamicResource SyTubeH}" BorderBrush="{DynamicResource SyEdge}" BorderThickness="0.5"
+                BoxShadow="0 2 3 0 #66000000" IsHitTestVisible="False" />
+
+        <!-- Plunger rod: behind the glass -->
+        <Border Name="Rod" Canvas.Left="143" Canvas.Top="62" Width="14" Height="0"
+                Background="{DynamicResource SyRod}" BorderBrush="{DynamicResource SyEdge}" BorderThickness="0.5,0" IsHitTestVisible="False" />
+
+        <!-- Glass barrel: back, liquid, walls and reflections -->
+        <Border Canvas.Left="120" Canvas.Top="50" Width="60" Height="200" CornerRadius="14,14,4,4"
+                Background="{DynamicResource SyGlassBack}" IsHitTestVisible="False" />
+
+        <!-- Liquid glow (accent BoxShadow set in code) -->
+        <Border Name="Aura" Canvas.Left="122" Canvas.Top="54" Width="56" Height="0" CornerRadius="12,12,0,0"
+                Opacity="0" IsHitTestVisible="False" />
+
+        <!-- Liquid: anchored on top, rounded top corners like the barrel -->
+        <Border Name="Liquid" Canvas.Left="122" Canvas.Top="50" Width="56" Height="0" Opacity="0.95"
+                CornerRadius="12,12,0,0" BoxShadow="inset 0 0 12 0 #40FFFFFF" IsHitTestVisible="False">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
+                    <GradientStop Offset="0" Color="{DynamicResource SukiPrimaryColor75}" />
+                    <GradientStop Offset="0.5" Color="{DynamicResource SukiPrimaryColor}" />
+                    <GradientStop Offset="1" Color="{DynamicResource SukiPrimaryColor75}" />
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid>
+                <!-- Bright core -->
+                <Border Width="26" HorizontalAlignment="Center">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
+                            <GradientStop Offset="0" Color="#00FFFFFF" />
+                            <GradientStop Offset="0.5" Color="#47FFFFFF" />
+                            <GradientStop Offset="1" Color="#00FFFFFF" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+                <!-- Vertical lighting: light on top, shadow at the bottom -->
+                <Border Background="{DynamicResource SyLiquidShade}" />
+                <!-- Caustic: bright band against the seal -->
+                <Border Height="10" VerticalAlignment="Bottom">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                            <GradientStop Offset="0" Color="#00FFFFFF" />
+                            <GradientStop Offset="1" Color="#47FFFFFF" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+                <!-- Suspended particles (driven by code) -->
+                <Canvas Name="LiquidParticles" />
+            </Grid>
+        </Border>
+
+        <Border Canvas.Left="120" Canvas.Top="50" Width="60" Height="200" CornerRadius="14,14,4,4"
+                BorderBrush="{DynamicResource SyGlassRim}" BorderThickness="1.6" IsHitTestVisible="False" />
+        <Border Canvas.Left="122" Canvas.Top="52" Width="56" Height="196" CornerRadius="12,12,3,3"
+                BorderBrush="{DynamicResource SyGlassInner}" BorderThickness="1" IsHitTestVisible="False" />
+        <Border Canvas.Left="126" Canvas.Top="58" Width="6" Height="168" CornerRadius="3" Opacity="0.7" IsHitTestVisible="False">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                    <GradientStop Offset="0" Color="#8CFFFFFF" />
+                    <GradientStop Offset="0.6" Color="#26FFFFFF" />
+                    <GradientStop Offset="1" Color="#00FFFFFF" />
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+        <Border Canvas.Left="168" Canvas.Top="62" Width="2" Height="150" CornerRadius="1" Background="#29FFFFFF" IsHitTestVisible="False" />
+        <Ellipse Canvas.Left="130" Canvas.Top="54.5" Width="40" Height="7" Fill="#24FFFFFF" IsHitTestVisible="False" />
+
+        <!-- Barrel head and finger collar in aluminium -->
+        <Border Canvas.Left="116" Canvas.Top="48" Width="68" Height="11" CornerRadius="5.5"
+                Background="{DynamicResource SyTubeH}" BorderBrush="{DynamicResource SyEdge}" BorderThickness="0.8"
+                BoxShadow="{DynamicResource SyShadow}" IsHitTestVisible="False" />
+        <Border Canvas.Left="119" Canvas.Top="49.5" Width="62" Height="1.6" CornerRadius="0.8" Background="#73FFFFFF" IsHitTestVisible="False" />
+        <Border Canvas.Left="109" Canvas.Top="246" Width="82" Height="9" CornerRadius="4.5"
+                Background="{DynamicResource SyTubeH}" BorderBrush="{DynamicResource SyEdge}" BorderThickness="0.8"
+                BoxShadow="{DynamicResource SyShadow}" IsHitTestVisible="False" />
+        <Border Canvas.Left="113" Canvas.Top="247.4" Width="74" Height="1.4" CornerRadius="0.7" Background="#73FFFFFF" IsHitTestVisible="False" />
+
+        <!-- Handle -->
+        <Border Name="Handle" Canvas.Left="124" Canvas.Top="262" Width="52" Height="12" CornerRadius="6"
+                Background="{DynamicResource SyTubeH}" BorderBrush="{DynamicResource SyEdge}" BorderThickness="0.8"
+                BoxShadow="{DynamicResource SyShadow}" IsHitTestVisible="False">
+            <Grid>
+                <Border Height="1.5" Margin="6,1.3,6,0" CornerRadius="0.75" VerticalAlignment="Top" Background="#80FFFFFF" />
+                <Canvas>
+                    <Path Data="M16,4 V9 M21,4 V9 M26,4 V9 M31,4 V9 M36,4 V9" Stroke="#730B0F15" StrokeThickness="1" />
+                </Canvas>
+            </Grid>
+        </Border>
+
+        <!-- Plunger seal: in front, this is the part the hand grabs -->
+        <Border Name="Plunger" Canvas.Left="122" Canvas.Top="50" Width="56" Height="12" CornerRadius="4.5"
+                Background="{DynamicResource SyRubber}" BorderBrush="{DynamicResource SyEdge}" BorderThickness="0.8"
+                BoxShadow="{DynamicResource SyShadow}" IsHitTestVisible="False">
+            <Grid>
+                <Border Height="2" Margin="2,0.5,2,0" CornerRadius="1" VerticalAlignment="Top" Background="#4DFFFFFF" />
+                <Border Height="1" Margin="1,3.5,1,0" VerticalAlignment="Top" Background="#8C667289" />
+                <Border Height="1" Margin="1,6.5,1,0" VerticalAlignment="Top" Background="#8C667289" />
+                <Border Height="4" CornerRadius="2" VerticalAlignment="Bottom" Background="{DynamicResource SukiPrimaryColor}" Opacity="0.25" />
+            </Grid>
+        </Border>
+    </Canvas>
+</UserControl>

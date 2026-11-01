@@ -1,0 +1,253 @@
+<UserControl x:Class="SukiUI.Demo.Features.Helpers.Skeumorphism.Controls.Camera"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:SukiUI.Demo.Features.Helpers.Skeumorphism.Controls">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <!-- Cell: brushed aluminium, glass and liquid -->
+            <LinearGradientBrush x:Key="CamAlu" StartPoint="0%,0%" EndPoint="100%,100%">
+                <GradientStop Offset="0" Color="#FFE8ECF2" />
+                <GradientStop Offset="0.25" Color="#FFB9C1CE" />
+                <GradientStop Offset="0.5" Color="#FFD9DEE7" />
+                <GradientStop Offset="0.78" Color="#FF9AA4B4" />
+                <GradientStop Offset="1" Color="#FF7C8799" />
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="CamAluBevel" StartPoint="0%,0%" EndPoint="0%,100%">
+                <GradientStop Offset="0" Color="#B3FFFFFF" />
+                <GradientStop Offset="0.1" Color="#00FFFFFF" />
+                <GradientStop Offset="0.9" Color="#00000000" />
+                <GradientStop Offset="1" Color="#4D000000" />
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="CamAluH" StartPoint="0%,0%" EndPoint="100%,0%">
+                <GradientStop Offset="0" Color="#FF8D99B1" />
+                <GradientStop Offset="0.3" Color="#FFF1F4FA" />
+                <GradientStop Offset="0.6" Color="#FF8590A6" />
+                <GradientStop Offset="1" Color="#FF4A5468" />
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="CamSlide" StartPoint="100%,0%" EndPoint="0%,0%">
+                <GradientStop Offset="0" Color="#FFB9CDF5" />
+                <GradientStop Offset="0.5" Color="#995F7CC0" />
+                <GradientStop Offset="1" Color="#402A3A66" />
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="CamLiquid" StartPoint="100%,0%" EndPoint="0%,0%">
+                <GradientStop Offset="0" Color="#FF3A5AA8" />
+                <GradientStop Offset="0.5" Color="#FF27407F" />
+                <GradientStop Offset="1" Color="#FF1B2A55" />
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="CamRefl" StartPoint="0%,0%" EndPoint="100%,100%">
+                <GradientStop Offset="0" Color="#33FFFFFF" />
+                <GradientStop Offset="0.28" Color="#0AFFFFFF" />
+                <GradientStop Offset="0.29" Color="#00FFFFFF" />
+                <GradientStop Offset="1" Color="#00FFFFFF" />
+            </LinearGradientBrush>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Dark">
+                    <LinearGradientBrush x:Key="CamBeam" StartPoint="100%,0%" EndPoint="0%,0%">
+                        <GradientStop Offset="0" Color="#FFDBE8FF" />
+                        <GradientStop Offset="1" Color="#005B8CFF" />
+                    </LinearGradientBrush>
+                    <SolidColorBrush x:Key="CamPulse" Color="#FF7FA3FF" />
+                    <LinearGradientBrush x:Key="CamBody" StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Offset="0" Color="#FF586278" />
+                        <GradientStop Offset="0.12" Color="#FF3B4558" />
+                        <GradientStop Offset="0.55" Color="#FF2A3242" />
+                        <GradientStop Offset="1" Color="#FF171C25" />
+                    </LinearGradientBrush>
+                    <LinearGradientBrush x:Key="CamMetal" StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Offset="0" Color="#FF8D99B1" />
+                        <GradientStop Offset="0.2" Color="#FFE3E9F4" />
+                        <GradientStop Offset="0.5" Color="#FF8590A6" />
+                        <GradientStop Offset="1" Color="#FF3B4558" />
+                    </LinearGradientBrush>
+                    <LinearGradientBrush x:Key="CamVent" StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Offset="0" Color="#FF05070A" />
+                        <GradientStop Offset="1" Color="#FF232B38" />
+                    </LinearGradientBrush>
+                    <SolidColorBrush x:Key="CamEdge" Color="#FF667289" />
+                    <SolidColorBrush x:Key="CamSlot" Color="#CC0B0F15" />
+                    <SolidColorBrush x:Key="CamCable" Color="#FF0E1218" />
+                    <SolidColorBrush x:Key="CamCableHi" Color="#FF3A4558" />
+                    <SolidColorBrush x:Key="CamGroove" Color="#B30B0F15" />
+                    <SolidColorBrush x:Key="CamEngrave" Color="#FF8FA4CC" />
+                    <SolidColorBrush x:Key="CamPlate" Color="#FF101827" />
+                    <SolidColorBrush x:Key="CamPlateText" Color="#FFCFE0FF" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Light">
+                    <LinearGradientBrush x:Key="CamBeam" StartPoint="100%,0%" EndPoint="0%,0%">
+                        <GradientStop Offset="0" Color="#FF3D63C9" />
+                        <GradientStop Offset="1" Color="#003D63C9" />
+                    </LinearGradientBrush>
+                    <SolidColorBrush x:Key="CamPulse" Color="#FF3D63C9" />
+                    <LinearGradientBrush x:Key="CamBody" StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Offset="0" Color="#FFFFFFFF" />
+                        <GradientStop Offset="0.12" Color="#FFF1F4F9" />
+                        <GradientStop Offset="0.55" Color="#FFD9E0EC" />
+                        <GradientStop Offset="1" Color="#FFB0BBCE" />
+                    </LinearGradientBrush>
+                    <LinearGradientBrush x:Key="CamMetal" StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Offset="0" Color="#FFC4CDDB" />
+                        <GradientStop Offset="0.2" Color="#FFFFFFFF" />
+                        <GradientStop Offset="0.5" Color="#FFCBD3E0" />
+                        <GradientStop Offset="1" Color="#FF98A4B9" />
+                    </LinearGradientBrush>
+                    <LinearGradientBrush x:Key="CamVent" StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Offset="0" Color="#FF8F9BB0" />
+                        <GradientStop Offset="1" Color="#FFC3CCDB" />
+                    </LinearGradientBrush>
+                    <SolidColorBrush x:Key="CamEdge" Color="#FFA3AEC1" />
+                    <SolidColorBrush x:Key="CamSlot" Color="#668D99B1" />
+                    <SolidColorBrush x:Key="CamCable" Color="#FF6B7790" />
+                    <SolidColorBrush x:Key="CamCableHi" Color="#FFA3AEC1" />
+                    <SolidColorBrush x:Key="CamGroove" Color="#554A5670" />
+                    <SolidColorBrush x:Key="CamEngrave" Color="#FF5A6580" />
+                    <SolidColorBrush x:Key="CamPlate" Color="#FF5E6A84" />
+                    <SolidColorBrush x:Key="CamPlateText" Color="#FFFFFFFF" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+            <LinearGradientBrush x:Key="CamSheen" StartPoint="0%,0%" EndPoint="100%,100%">
+                <GradientStop Offset="0" Color="#38FFFFFF" />
+                <GradientStop Offset="0.35" Color="#0AFFFFFF" />
+                <GradientStop Offset="0.36" Color="#00FFFFFF" />
+                <GradientStop Offset="1" Color="#00FFFFFF" />
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="CamRim" StartPoint="0%,0%" EndPoint="0%,100%">
+                <GradientStop Offset="0" Color="#FFE3E9F4" />
+                <GradientStop Offset="0.5" Color="#FF5A6580" />
+                <GradientStop Offset="1" Color="#FF2A3242" />
+            </LinearGradientBrush>
+            <RadialGradientBrush x:Key="CamLensGlass" GradientOrigin="38%,35%">
+                <GradientStop Offset="0" Color="#FFA9C2FF" />
+                <GradientStop Offset="0.45" Color="#FF3D63C9" />
+                <GradientStop Offset="1" Color="#FF0A1230" />
+            </RadialGradientBrush>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <!-- Short camera + cell: mockup frame 332 x 112, scaled to 268 x 93 -->
+    <Viewbox Width="268" Height="93" Stretch="Uniform" HorizontalAlignment="Center" IsHitTestVisible="False">
+        <Canvas Width="332" Height="112">
+
+            <!-- Aluminium cell: fittings -->
+            <Border Canvas.Left="45" Canvas.Top="2" Width="10" Height="9" CornerRadius="1.5"
+                    Background="{StaticResource CamAluH}" BorderBrush="{DynamicResource CamEdge}" BorderThickness="0.6" />
+            <Border Canvas.Left="47.5" Canvas.Top="9" Width="5" Height="9" Background="#599FB8FF" BorderBrush="#80A9BDE6" BorderThickness="0.5" />
+            <Border Canvas.Left="45" Canvas.Top="101" Width="10" Height="9" CornerRadius="1.5"
+                    Background="{StaticResource CamAluH}" BorderBrush="{DynamicResource CamEdge}" BorderThickness="0.6" />
+            <Border Canvas.Left="47.5" Canvas.Top="94" Width="5" Height="9" Background="#599FB8FF" BorderBrush="#80A9BDE6" BorderThickness="0.5" />
+
+            <!-- Brushed aluminium holder -->
+            <Border Canvas.Left="6" Canvas.Top="10" Width="86" Height="94" CornerRadius="9"
+                    Background="{StaticResource CamAlu}" BorderBrush="#FF6B7588" BorderThickness="1.2" />
+            <Border Canvas.Left="6" Canvas.Top="10" Width="86" Height="94" CornerRadius="9"
+                    Background="{StaticResource CamAluBevel}" />
+            <Border Canvas.Left="9" Canvas.Top="12.5" Width="80" Height="1.8" CornerRadius="0.9" Background="#99FFFFFF" />
+            <Border Canvas.Left="13" Canvas.Top="17" Width="74" Height="80" CornerRadius="6" Background="#FF3D4656" />
+            <Border Canvas.Left="13.5" Canvas.Top="17.5" Width="73" Height="79" CornerRadius="5.8" Background="#FF06080C" />
+
+            <!-- Chamber: liquid, illumination (exposure) and particles (gain) -->
+            <Border Canvas.Left="14" Canvas.Top="18" Width="72" Height="78" CornerRadius="5" ClipToBounds="True" Background="#FF0D1220">
+                <Grid>
+                    <Border Name="Liq" Background="{StaticResource CamLiquid}" />
+                    <Border Name="Inl" Background="{StaticResource CamSlide}" />
+                    <controls:CellParticles Name="Particles" />
+                </Grid>
+            </Border>
+            <Border Canvas.Left="14" Canvas.Top="18" Width="72" Height="78" CornerRadius="5"
+                    BorderBrush="#99000000" BorderThickness="2" />
+            <Border Canvas.Left="14" Canvas.Top="18" Width="72" Height="78" CornerRadius="5"
+                    Background="{StaticResource CamRefl}" BorderBrush="#4DA9BDE6" BorderThickness="0.8" />
+            <!-- Screws -->
+            <Ellipse Canvas.Left="8.2" Canvas.Top="12.2" Width="3.6" Height="3.6" Fill="{StaticResource CamAluH}" Stroke="#FF5A6478" StrokeThickness="0.5" />
+            <Ellipse Canvas.Left="86.2" Canvas.Top="12.2" Width="3.6" Height="3.6" Fill="{StaticResource CamAluH}" Stroke="#FF5A6478" StrokeThickness="0.5" />
+            <Ellipse Canvas.Left="8.2" Canvas.Top="98.2" Width="3.6" Height="3.6" Fill="{StaticResource CamAluH}" Stroke="#FF5A6478" StrokeThickness="0.5" />
+            <Ellipse Canvas.Left="86.2" Canvas.Top="98.2" Width="3.6" Height="3.6" Fill="{StaticResource CamAluH}" Stroke="#FF5A6478" StrokeThickness="0.5" />
+
+            <!-- Beam: from the lens to the cell, follows the exposure only -->
+            <Polygon Name="Beam" Fill="{DynamicResource CamBeam}" Opacity="0.4">
+                <Polygon.Effect>
+                    <BlurEffect Radius="6" />
+                </Polygon.Effect>
+            </Polygon>
+
+            <!-- Camera: mockup frame offset by (156, -38) -->
+            <Canvas Width="170" Height="150">
+                <Canvas.RenderTransform>
+                    <TranslateTransform X="156" Y="-38" />
+                </Canvas.RenderTransform>
+
+                <!-- GigE cable + data pulses -->
+                <Path Data="M156,112 C 170,112 170,138 142,144 S 100,146 68,146"
+                      Stroke="{DynamicResource CamCable}" StrokeThickness="8" StrokeLineCap="Round" />
+                <Path Data="M156,112 C 170,112 170,138 142,144 S 100,146 68,146"
+                      Stroke="{DynamicResource CamCableHi}" StrokeThickness="1.5" StrokeLineCap="Round">
+                    <Path.RenderTransform>
+                        <TranslateTransform Y="-2" />
+                    </Path.RenderTransform>
+                </Path>
+                <Ellipse Name="Pulse" Width="7" Height="7" Fill="{DynamicResource CamPulse}" Opacity="0" />
+
+                <!-- Fins and collar -->
+                <Border Canvas.Left="76" Canvas.Top="46" Width="80" Height="6" CornerRadius="2" Background="{DynamicResource CamBody}" />
+                <Border Canvas.Left="76" Canvas.Top="138" Width="80" Height="6" CornerRadius="2" Background="{DynamicResource CamBody}" />
+                <Border Canvas.Left="66" Canvas.Top="68" Width="10" Height="54" CornerRadius="2" Background="{DynamicResource CamMetal}" />
+
+                <!-- Cube, short lens and front ring -->
+                <Border Canvas.Left="76" Canvas.Top="52" Width="80" Height="86" CornerRadius="12"
+                        Background="{DynamicResource CamBody}" BorderBrush="{DynamicResource CamEdge}" BorderThickness="1.2"
+                        BoxShadow="0 3 6 0 #80000000" />
+                <Border Canvas.Left="38" Canvas.Top="64" Width="28" Height="62" CornerRadius="10"
+                        Background="{DynamicResource CamBody}" BorderBrush="{DynamicResource CamEdge}" BorderThickness="1"
+                        BoxShadow="0 3 6 0 #80000000" />
+                <Border Canvas.Left="9" Canvas.Top="70" Width="32" Height="50" CornerRadius="8"
+                        Background="{DynamicResource CamBody}" BorderBrush="{DynamicResource CamEdge}" BorderThickness="1"
+                        BoxShadow="0 3 6 0 #80000000" />
+
+                <!-- Cube details -->
+                <Path Data="M84,40 h5 v9 h-5 z M94,40 h5 v9 h-5 z M104,40 h5 v9 h-5 z M114,40 h5 v9 h-5 z M124,40 h5 v9 h-5 z M134,40 h5 v9 h-5 z M144,40 h5 v9 h-5 z"
+                      Fill="{DynamicResource CamSlot}" />
+                <Path Data="M84,58 h3 v20 h-3 z M90,58 h3 v20 h-3 z M96,58 h3 v20 h-3 z M102,58 h3 v20 h-3 z"
+                      Fill="{DynamicResource CamVent}" Stroke="{DynamicResource CamEdge}" StrokeThickness="0.6" />
+                <Border Canvas.Left="76" Canvas.Top="52" Width="80" Height="86" CornerRadius="12"
+                        Background="{StaticResource CamSheen}" />
+                <Border Canvas.Left="80" Canvas.Top="54" Width="72" Height="2.5" CornerRadius="1.2" Background="#2EFFFFFF" />
+                <Border Canvas.Left="88" Canvas.Top="84" Width="52" Height="24" CornerRadius="7"
+                        Background="{DynamicResource CamPlate}" BorderBrush="{DynamicResource SukiPrimaryColor}" BorderThickness="0.8" />
+                <TextBlock Canvas.Left="88" Canvas.Top="86" Width="52" TextAlignment="Center" FontSize="8.5" FontWeight="SemiBold"
+                           LetterSpacing="1.2" Foreground="{DynamicResource CamPlateText}" Text="CAMERA" />
+                <TextBlock Canvas.Left="88" Canvas.Top="98" Width="52" TextAlignment="Center" FontSize="5.5"
+                           LetterSpacing="0.6" Foreground="{DynamicResource SukiPrimaryColor}" Text="GigE · 5 MP" />
+                <!-- LEDs: power, link, activity -->
+                <Ellipse Canvas.Left="104" Canvas.Top="119" Width="10" Height="10" Fill="#3346D38B" />
+                <Ellipse Canvas.Left="112" Canvas.Top="119" Width="10" Height="10" Fill="#407FA3FF" />
+                <Ellipse Canvas.Left="106.8" Canvas.Top="121.8" Width="4.4" Height="4.4" Fill="#FF46D38B" />
+                <Ellipse Canvas.Left="114.8" Canvas.Top="121.8" Width="4.4" Height="4.4" Fill="#FF7FA3FF" />
+                <Ellipse Canvas.Left="122.8" Canvas.Top="121.8" Width="4.4" Height="4.4" Fill="#FF3A4558" />
+                <!-- Screws -->
+                <Ellipse Canvas.Left="77" Canvas.Top="130" Width="4" Height="4" Fill="#FF1A1F29" Stroke="#FF667289" StrokeThickness="0.6" />
+                <Ellipse Canvas.Left="145" Canvas.Top="130" Width="4" Height="4" Fill="#FF1A1F29" Stroke="#FF667289" StrokeThickness="0.6" />
+                <Ellipse Canvas.Left="145" Canvas.Top="56" Width="4" Height="4" Fill="#FF1A1F29" Stroke="#FF667289" StrokeThickness="0.6" />
+                <!-- Connector -->
+                <Border Canvas.Left="156" Canvas.Top="100" Width="10" Height="24" CornerRadius="3"
+                        Background="{DynamicResource CamMetal}" BorderBrush="{DynamicResource CamEdge}" BorderThickness="1" />
+                <Border Canvas.Left="158" Canvas.Top="105" Width="6" Height="14" CornerRadius="1.5" Background="#FF06080C" />
+
+                <!-- Front ring: reflections, knurling, light ring, lens -->
+                <Border Canvas.Left="12" Canvas.Top="72" Width="22" Height="2" CornerRadius="1" Background="#47FFFFFF" />
+                <Path Data="M20,76 V114 M24,76 V114 M28,76 V114" Stroke="{DynamicResource CamGroove}" StrokeThickness="1" />
+                <Border Name="FrontRing" Canvas.Left="33" Canvas.Top="70" Width="3" Height="50" CornerRadius="1.5"
+                        Background="{DynamicResource SukiPrimaryColor}" />
+                <Ellipse Canvas.Left="6.5" Canvas.Top="71" Width="13" Height="48" Fill="#FF10151D"
+                         Stroke="{StaticResource CamRim}" StrokeThickness="1.6" />
+                <Ellipse Canvas.Left="8.5" Canvas.Top="75" Width="9" Height="40" Fill="{StaticResource CamLensGlass}" />
+                <Ellipse Canvas.Left="10.2" Canvas.Top="83" Width="5.6" Height="24" Stroke="#4DDBE8FF" StrokeThickness="0.8" />
+                <Ellipse Name="LensGlow" Canvas.Left="9" Canvas.Top="78" Width="8" Height="34" Fill="#FFDBE8FF" Opacity="0.5" />
+                <Ellipse Canvas.Left="10.2" Canvas.Top="77" Width="2.6" Height="14" Fill="#8CFFFFFF" />
+
+                <!-- C-mount and engraving -->
+                <Path Data="M42,66 V124 M44,66 V124" Stroke="{DynamicResource CamGroove}" StrokeThickness="0.8" />
+                <TextBlock Canvas.Left="48" Canvas.Top="67" FontSize="4.5" LetterSpacing="0.6" Foreground="{DynamicResource CamEngrave}"
+                           Text="C-MOUNT · f/1.8" />
+            </Canvas>
+        </Canvas>
+    </Viewbox>
+</UserControl>

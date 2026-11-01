@@ -1,0 +1,110 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:suki="https://github.com/kikipoulet/SukiUI"
+                    xmlns:animations="clr-namespace:SukiUI.ControlsAnimation">
+    <Design.PreviewWith>
+        <Border Padding="20" Background="White">
+            <StackPanel Spacing="20">
+                <CheckBox>Unchecked</CheckBox>
+                <CheckBox IsChecked="True">Checked</CheckBox>
+                <CheckBox IsChecked="{x:Null}" IsThreeState="True">Indeterminate</CheckBox>
+                <CheckBox IsEnabled="False">Disabled</CheckBox>
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <ControlTheme x:Key="{x:Type CheckBox}" TargetType="CheckBox">
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+        <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderMidBrush}" />
+        <Setter Property="BorderThickness" Value="0.5" />
+        <Setter Property="CornerRadius" Value="6" />
+        <Setter Property="Padding" Value="10,1,0,0" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="animations:SukiCheckMotion.Enable" Value="True" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid Background="Transparent" ColumnDefinitions="Auto,*">
+                    <suki:GlassCard Name="PART_Box"
+                                    Width="20"
+                                    Height="20"
+                                    RenderTransformOrigin="50%,50%"
+                                    VerticalAlignment="Center"
+                                    Background="{DynamicResource SukiCardBackground}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    Classes="Control"
+                                    CornerRadius="{TemplateBinding CornerRadius}"
+                                    IsInteractive="True">
+                        <Panel>
+                            <Border Name="PART_Fill"
+                                    Background="{TemplateBinding Background}"
+                                    CornerRadius="{TemplateBinding CornerRadius}"
+                                    IsHitTestVisible="False"
+                                    RenderTransformOrigin="50%,50%" />
+                            <suki:CheckStroke Name="PART_Check"
+                                              Width="12"
+                                              Height="12"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Stroke="White"
+                                              Thickness="1.8"
+                                              TrailOpacity="0.35" />
+                            <Border Name="PART_Indeterminate"
+                                    Width="8"
+                                    Height="3"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="White"
+                                    CornerRadius="2"
+                                    RenderTransformOrigin="50%,50%" />
+                        </Panel>
+                    </suki:GlassCard>
+                    <ContentPresenter Name="PART_ContentPresenter"
+                                      Grid.Column="1"
+                                      Margin="{TemplateBinding Padding}"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      FontSize="{TemplateBinding FontSize}"
+                                      IsVisible="{TemplateBinding Content, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                      RecognizesAccessKey="True"
+                                      TextElement.Foreground="{TemplateBinding Foreground}" />
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^:disabled">
+            <Setter Property="Foreground" Value="{DynamicResource SukiDisabledText}" />
+        </Style>
+        <Style Selector="^:disabled /template/ suki|GlassCard#PART_Box">
+            <Setter Property="Opacity" Value="0.7" />
+        </Style>
+
+        <!--  SukiCheckMotion poses the fill, the mark and the bar with local values, which win over the
+              setters below. Without the motion these setters show the state at once. The fill's resting
+              opacity is a style (not a template value) so the state setters can override it.  -->
+        <Style Selector="^ /template/ Border#PART_Fill">
+            <Setter Property="Opacity" Value="0" />
+        </Style>
+        <Style Selector="^[(animations|SukiCheckMotion.Enable)=False] /template/ Border#PART_Indeterminate">
+            <Setter Property="Opacity" Value="0" />
+        </Style>
+        <Style Selector="^[(animations|SukiCheckMotion.Enable)=False]:checked /template/ Border#PART_Fill">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        <Style Selector="^[(animations|SukiCheckMotion.Enable)=False]:indeterminate /template/ Border#PART_Fill">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        <Style Selector="^[(animations|SukiCheckMotion.Enable)=False]:checked /template/ suki|CheckStroke#PART_Check">
+            <Setter Property="Progress" Value="1" />
+            <Setter Property="Trail" Value="1" />
+        </Style>
+        <Style Selector="^[(animations|SukiCheckMotion.Enable)=False]:indeterminate /template/ Border#PART_Indeterminate">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>

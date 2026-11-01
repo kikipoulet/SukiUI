@@ -1,0 +1,31 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Sizes of GlassCard for every SukiCompactness level. Normal is the complete set (the historical
+         values); the other levels only list what differs. Key names follow
+         SukiCompactness.<Control>[.<Class, Part or State>].<Property> (see SukiCompactnessResources).
+
+         The border thickness is a hairline and the .Control / .Discrete padding (0) is the chrome of a control's
+         background: neither follows the level. -->
+
+    <ResourceDictionary x:Key="Normal">
+        <Thickness x:Key="SukiCompactness.GlassCard.Padding">20</Thickness>
+        <CornerRadius x:Key="SukiCompactness.GlassCard.CornerRadius">20</CornerRadius>
+    </ResourceDictionary>
+
+    <ResourceDictionary x:Key="SuperCompact">
+        <Thickness x:Key="SukiCompactness.GlassCard.Padding">10</Thickness>
+        <CornerRadius x:Key="SukiCompactness.GlassCard.CornerRadius">12</CornerRadius>
+    </ResourceDictionary>
+
+    <ResourceDictionary x:Key="Compact">
+        <Thickness x:Key="SukiCompactness.GlassCard.Padding">14</Thickness>
+        <CornerRadius x:Key="SukiCompactness.GlassCard.CornerRadius">16</CornerRadius>
+    </ResourceDictionary>
+
+    <ResourceDictionary x:Key="Big">
+        <Thickness x:Key="SukiCompactness.GlassCard.Padding">26</Thickness>
+        <CornerRadius x:Key="SukiCompactness.GlassCard.CornerRadius">24</CornerRadius>
+    </ResourceDictionary>
+
+</ResourceDictionary>

@@ -1,0 +1,563 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:animations="clr-namespace:SukiUI.ControlsAnimation"
+                    xmlns:suki="https://github.com/kikipoulet/SukiUI"
+                    xmlns:theme="clr-namespace:SukiUI.Theme">
+    <Design.PreviewWith>
+        <Border MaxWidth="800" Margin="20">
+            <StackPanel Spacing="5">
+                <WrapPanel Orientation="Horizontal">
+                    <TextBlock Margin="5"
+                               VerticalAlignment="Center"
+                               FontWeight="Bold"
+                               Text="Button..............:" />
+                    <Button Margin="5" Content="Standard" />
+                    <Button Margin="5"
+                            Classes="Basic"
+                            Content="Basic" />
+                    <Button Margin="5"
+                            Classes="Void"
+                            Content="Void" />
+                    <Button Margin="5"
+                            Classes="Accent"
+                            Content="Accent" />
+                    <Button Margin="5"
+                            Classes="Discrete"
+                            Content="Discrete">
+                        <theme:ButtonExtensions.Icon>
+                            <PathIcon Data="{x:Static suki:Icons.Star}" />
+                        </theme:ButtonExtensions.Icon>
+                    </Button>
+                    <Button Margin="5"
+                            Classes="Flat"
+                            Content="Flat">
+                        <theme:ButtonExtensions.Icon>
+                            <PathIcon Data="{x:Static suki:Icons.Calendar}" />
+                        </theme:ButtonExtensions.Icon>
+                    </Button>
+                    <Button Margin="5" Classes="Outlined Icon">
+                        <PathIcon Data="{x:Static suki:Icons.Star}" />
+                    </Button>
+                    <Button Margin="5" Classes="Outlined Icon">
+                        <theme:ButtonExtensions.Icon>
+                            <PathIcon Data="{x:Static suki:Icons.Star}" />
+                        </theme:ButtonExtensions.Icon>
+                    </Button>
+                    <Button Margin="5"
+                            Classes="Flat Icon"
+                            Content="&#9729;" />
+                    <Button Margin="5"
+                            Classes="Flat Accent Icon"
+                            Content="&#9729;" />
+                    <Button Margin="5"
+                            Classes="Danger Icon"
+                            Content="&#9729;" />
+                    <Button Margin="5"
+                            Classes="Flat NoPressedAnimation"
+                            Content="NoPressedAnimation" />
+                    <Button Margin="5"
+                            Classes="Flat Accent"
+                            Content="Flat Accent" />
+                    <Button Margin="5"
+                            Classes="Outlined"
+                            Content="Outline" />
+                    <Button Margin="5"
+                            Classes="Success"
+                            Content="Success" />
+                    <Button Margin="5"
+                            Classes="Information"
+                            Content="Information" />
+                    <Button Margin="5"
+                            Classes="Warning"
+                            Content="Warning" />
+                    <Button Margin="5"
+                            Classes="Danger"
+                            Content="Danger" />
+                    <Button Margin="5"
+                            VerticalAlignment="Top"
+                            Classes="Small"
+                            Content="Small" />
+                    <Button Margin="5"
+                            VerticalAlignment="Top"
+                            Classes="Small">
+                        <theme:ButtonExtensions.Icon>
+                            <PathIcon Data="{x:Static suki:Icons.TriangleAlert}" />
+                        </theme:ButtonExtensions.Icon>
+                    </Button>
+                    <Button Margin="5"
+                            VerticalAlignment="Top"
+                            Classes="Small Flat">
+                        <theme:ButtonExtensions.Icon>
+                            <PathIcon Data="{x:Static suki:Icons.CircleHelp}" />
+                        </theme:ButtonExtensions.Icon>
+                    </Button>
+
+                </WrapPanel>
+
+                <WrapPanel Orientation="Horizontal">
+                    <Button Margin="5"
+                            Classes="Large Flat"
+                            Content="Large" />
+                    <Button Margin="5"
+                            Classes="Large Flat Rounded"
+                            Content="Large Rounded" />
+                </WrapPanel>
+
+
+                <WrapPanel Orientation="Horizontal">
+
+                    <TextBlock Margin="5"
+                               VerticalAlignment="Center"
+                               FontWeight="Bold"
+                               Text="RepeatButton: " />
+                    <RepeatButton Margin="5" Content="Standard" />
+                    <RepeatButton Margin="5"
+                                  theme:ButtonExtensions.Icon="&#9729;"
+                                  Classes="Discrete"
+                                  Content="Discrete" />
+                    <RepeatButton Margin="5"
+                                  theme:ButtonExtensions.Icon="&#9729;"
+                                  Classes="Flat"
+                                  Content="Flat" />
+                    <RepeatButton Margin="5"
+                                  Classes="Flat Accent"
+                                  Content="Flat Accent" />
+                    <RepeatButton Margin="5"
+                                  Classes="Outlined"
+                                  Content="Outline" />
+                    <RepeatButton Margin="5"
+                                  Classes="Success"
+                                  Content="Success" />
+                    <RepeatButton Margin="5"
+                                  Classes="Information"
+                                  Content="Information" />
+                    <RepeatButton Margin="5"
+                                  Classes="Warning"
+                                  Content="Warning" />
+                    <RepeatButton Margin="5"
+                                  Classes="Danger"
+                                  Content="Danger" />
+                </WrapPanel>
+            </StackPanel>
+
+        </Border>
+    </Design.PreviewWith>
+    <ControlTheme x:Key="SukiBaseButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="{DynamicResource SukiBackground}" />
+        <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="{DynamicResource SukiCompactness.Button.FontSize}" />
+        <Setter Property="FontWeight" Value="{DynamicResource DefaultDemiBold}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource SukiCompactness.Button.BorderThickness}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SukiControlBorderBrush}" />
+        <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
+        <Setter Property="Padding" Value="{DynamicResource SukiCompactness.Button.Padding}" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Name="RootBorder"
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        TextElement.Foreground="{TemplateBinding Foreground}"
+                        Transitions="{TemplateBinding Transitions}">
+                    <Border.Resources>
+                        <theme:BoolToWidthProgressConverter x:Key="WidthConverter" />
+                    </Border.Resources>
+                    <StackPanel HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                Orientation="Horizontal"
+                                Spacing="10">
+                        <Viewbox Name="PART_ExtShowProgressViewBox"
+                                 Width="{TemplateBinding theme:ButtonExtensions.ShowProgress,
+                                                         Converter={StaticResource WidthConverter}}"
+                                 Height="{DynamicResource SukiCompactness.Button.Progress.Height}"
+                                 Margin="{DynamicResource SukiCompactness.Button.Progress.Margin}"
+                                 IsVisible="{TemplateBinding theme:ButtonExtensions.ShowProgress}">
+                            <Viewbox.Transitions>
+                                <Transitions>
+                                    <DoubleTransition Property="Width" Duration="0:0:0.3" />
+                                </Transitions>
+                            </Viewbox.Transitions>
+
+                            <ContentPresenter Name="PART_ExtShowProgress" Content="{TemplateBinding theme:ButtonExtensions.ShowProgress, Converter={x:Static suki:ProgressToContentConverter.Instance}}" />
+                        </Viewbox>
+
+                        <Viewbox Name="PART_ExtIconViewBox"
+                                 Height="{TemplateBinding FontSize}"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"
+                                 IsVisible="{TemplateBinding theme:ButtonExtensions.Icon,
+                                                             Converter={x:Static ObjectConverters.IsNotNull}}">
+
+                            <ContentPresenter Name="PART_ExtIcon"
+                                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              Content="{TemplateBinding theme:ButtonExtensions.Icon}"
+                                              FontFamily="{TemplateBinding FontFamily}"
+                                              FontSize="{TemplateBinding FontSize}"
+                                              FontWeight="{TemplateBinding FontWeight}"
+                                              Foreground="{TemplateBinding Foreground}" />
+                        </Viewbox>
+
+                        <ContentPresenter Name="PART_ContentPresenter"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          FontFamily="{TemplateBinding FontFamily}"
+                                          FontSize="{TemplateBinding FontSize}"
+                                          FontWeight="{TemplateBinding FontWeight}"
+                                          Foreground="{TemplateBinding Foreground}"
+                                          IsVisible="{TemplateBinding Content,
+                                                                      Converter={x:Static ObjectConverters.IsNotNull}}"
+                                          IsHitTestVisible="False"
+                                          RecognizesAccessKey="True" />
+                    </StackPanel>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+
+    <ControlTheme x:Key="SukiButtonStyle"
+                  BasedOn="{StaticResource SukiBaseButtonStyle}"
+                  TargetType="Button">
+         <Setter Property="animations:SukiPressMotion.Enable" Value="True" />
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.1" />
+                <BrushTransition Property="Foreground" Duration="0:0:0.1" />
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.20" />
+                <DoubleTransition Property="Opacity" Duration="0:0:0.35" />
+            </Transitions>
+        </Setter>
+
+        <!--  Nested Selectors For Basic Button  -->
+        <Style Selector="^:disabled">
+            <Setter Property="Opacity" Value="{DynamicResource ThemeDisabledOpacity}" />
+        </Style>
+
+        <!--  Events For Basic Button  -->
+        <Style Selector="^:pointerover, ^:flyout-open">
+            <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor120}" />
+            <Style Selector="^ /template/ Border">
+                <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor120}" />
+            </Style>
+        </Style>
+        <Style Selector="^:pressed:pointerover">
+            <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+            <Style Selector="^ /template/ Border">
+                <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
+            </Style>
+            <Style Selector="^.Icon /template/ Border">
+                <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
+            </Style>
+        </Style>
+
+        <!--  Classes  -->
+        <Style Selector="^.NoPressedAnimation">
+            <Setter Property="animations:SukiPressMotion.Enable" Value="False" />
+            <Style Selector="^:pressed:pointerover">
+                <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
+                <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor}" />
+                <Style Selector="^ /template/ Border">
+                    <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor}" />
+                </Style>
+            </Style>
+        </Style>
+
+        <Style Selector="^.Discrete">
+            <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
+        </Style>
+
+        <!--  Classes  -->
+        <Style Selector="^.Accent">
+            <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor75}" />
+            <Style Selector="^:pointerover, ^:flyout-open">
+                <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor75}" />
+                <Style Selector="^ /template/ Border">
+                    <Setter Property="BorderBrush" Value="{DynamicResource SukiAccentColor}" />
+                </Style>
+            </Style>
+            <Style Selector="^:pressed:pointerover">
+                <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
+                <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
+                <Style Selector="^ /template/ Border">
+                    <Setter Property="BorderBrush" Value="{DynamicResource SukiAccentColor}" />
+                </Style>
+                <Style Selector="^.Icon /template/ Border">
+                    <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
+                    <Setter Property="BorderBrush" Value="{DynamicResource SukiAccentColor}" />
+                </Style>
+            </Style>
+        </Style>
+
+        <Style Selector="^.Basic">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="Padding" Value="{DynamicResource SukiCompactness.Button.Basic.Padding}" />
+            <Setter Property="CornerRadius" Value="{DynamicResource SukiCompactness.Button.Basic.CornerRadius}" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor120}" />
+            <!--  Events  -->
+            <Style Selector="^:pointerover, ^:flyout-open">
+                <Setter Property="Background" Value="Transparent" />
+            </Style>
+            <Style Selector="^.Icon:pointerover, ^.Icon:flyout-open">
+                <Setter Property="Background" Value="Transparent" />
+            </Style>
+            <Style Selector="^:pressed:pointerover">
+                <Setter Property="Background" Value="Transparent" />
+            </Style>
+
+            <!--  Color Variants  -->
+            <Style Selector="^.Accent">
+                <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
+            </Style>
+        </Style>
+
+        <Style Selector="^.Void">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="CornerRadius" Value="{DynamicResource SukiCompactness.Button.Void.CornerRadius}" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+
+        <Style Selector="^.Flat">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
+            <Setter Property="Foreground" Value="White" />
+            <!--  Nested Selectors  -->
+            <Style Selector="^ /template/ Border">
+                <Setter Property="BoxShadow" Value="{DynamicResource SukiLowShadow}" />
+            </Style>
+            <!--  Events  -->
+            <Style Selector="^:pointerover, ^:flyout-open">
+                <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor75}" />
+            </Style>
+            <Style Selector="^:pressed:pointerover">
+                <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor75}" />
+            </Style>
+
+            <!--  Color Variants  -->
+            <Style Selector="^.Accent">
+                <Setter Property="Background" Value="{DynamicResource SukiAccentColor}" />
+                <Style Selector="^:pointerover, ^:flyout-open">
+                    <Setter Property="Background" Value="{DynamicResource SukiAccentColor75}" />
+                </Style>
+                <Style Selector="^:pressed:pointerover">
+                    <Setter Property="Background" Value="{DynamicResource SukiAccentColor75}" />
+                </Style>
+
+            </Style>
+        </Style>
+
+        <Style Selector="^.Outlined">
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor120}" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{DynamicResource SukiPrimaryColor120}" />
+            <!--  Events  -->
+            <Style Selector="^:pointerover, ^:flyout-open">
+                <Setter Property="BorderBrush" Value="Transparent" />
+                <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor}" />
+                <Setter Property="Foreground" Value="White" />
+            </Style>
+            <Style Selector="^:pressed:pointerover /template/ Border">
+                <Setter Property="BorderBrush" Value="Transparent" />
+            </Style>
+
+            <!--  Color Variants  -->
+            <Style Selector="^.Accent">
+                <Setter Property="Foreground" Value="{DynamicResource SukiAccentColor}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource SukiAccentColor}" />
+                <Style Selector="^:pointerover, ^:flyout-open">
+                    <Setter Property="Foreground" Value="White" />
+                    <Setter Property="Background" Value="{DynamicResource SukiAccentColor}" />
+                </Style>
+                <Style Selector="^:pressed:pointerover">
+                    <Setter Property="Background" Value="{DynamicResource SukiAccentColor}" />
+                </Style>
+
+            </Style>
+        </Style>
+
+        <Style Selector="^.Success">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="{DynamicResource SukiSuccessColor}" />
+            <Setter Property="Foreground" Value="{DynamicResource SukiSuccessForeground}" />
+            <Style Selector="^ /template/ Border">
+                <Setter Property="BoxShadow" Value="{DynamicResource SukiLowShadow}" />
+            </Style>
+            <!--  Events  -->
+            <Style Selector="^:pointerover, ^:flyout-open">
+                <Setter Property="Background" Value="{DynamicResource SukiSuccessMediumColor}" />
+            </Style>
+            <Style Selector="^:pressed">
+                <Setter Property="Background" Value="{DynamicResource SukiSuccessDarkColor}" />
+            </Style>
+        </Style>
+
+        <Style Selector="^.Information">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="{DynamicResource SukiInformationColor}" />
+            <Setter Property="Foreground" Value="{DynamicResource SukiInformationForeground}" />
+            <Style Selector="^ /template/ Border">
+                <Setter Property="BoxShadow" Value="{DynamicResource SukiLowShadow}" />
+            </Style>
+            <!--  Events  -->
+            <Style Selector="^:pointerover, ^:flyout-open">
+                <Setter Property="Background" Value="{DynamicResource SukiInformationMediumColor}" />
+            </Style>
+            <Style Selector="^:pressed:pointerover">
+                <Setter Property="Background" Value="{DynamicResource SukiInformationDarkColor}" />
+            </Style>
+        </Style>
+
+        <Style Selector="^.Warning">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="{DynamicResource SukiWarningColor}" />
+            <Setter Property="Foreground" Value="{DynamicResource SukiWarningForeground}" />
+            <Style Selector="^ /template/ Border">
+                <Setter Property="BoxShadow" Value="{DynamicResource SukiLowShadow}" />
+            </Style>
+            <!--  Events  -->
+            <Style Selector="^:pointerover, ^:flyout-open">
+                <Setter Property="Background" Value="{DynamicResource SukiWarningMediumColor}" />
+            </Style>
+            <Style Selector="^:pressed:pointerover">
+                <Setter Property="Background" Value="{DynamicResource SukiWarningDarkColor}" />
+            </Style>
+        </Style>
+
+        <Style Selector="^.Danger">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="{DynamicResource SukiDangerColor}" />
+            <Setter Property="Foreground" Value="{DynamicResource SukiDangerForeground}" />
+            <Style Selector="^ /template/ Border">
+                <Setter Property="BoxShadow" Value="{DynamicResource SukiLowShadow}" />
+            </Style>
+            <!--  Events  -->
+            <Style Selector="^:pointerover, ^:flyout-open">
+                <Setter Property="Background" Value="{DynamicResource SukiDangerMediumColor}" />
+            </Style>
+            <Style Selector="^:pressed:pointerover">
+                <Setter Property="Background" Value="{DynamicResource SukiDangerDarkColor}" />
+            </Style>
+        </Style>
+
+        <Style Selector="^.Rounded">
+            <Setter Property="CornerRadius" Value="100" />
+        </Style>
+        <Style Selector="^.Small">
+            <Setter Property="FontSize" Value="{DynamicResource SukiCompactness.Button.Small.FontSize}" />
+            <Setter Property="Padding" Value="{DynamicResource SukiCompactness.Button.Small.Padding}" />
+        </Style>
+        <Style Selector="^.Large">
+            <Setter Property="CornerRadius" Value="{DynamicResource SukiCompactness.Button.Large.CornerRadius}" />
+            <Setter Property="FontSize" Value="{DynamicResource SukiCompactness.Button.Large.FontSize}" />
+            <Setter Property="Padding" Value="{DynamicResource SukiCompactness.Button.Large.Padding}" />
+        </Style>
+
+        <Style Selector="^.Icon">
+            <Setter Property="animations:SukiPressMotion.PressDepth" Value="0.95" />
+            <Setter Property="CornerRadius" Value="100" />
+            <Setter Property="Width" Value="{DynamicResource SukiCompactness.Button.Icon.Size}" />
+            <Setter Property="Height" Value="{DynamicResource SukiCompactness.Button.Icon.Size}" />
+            <Setter Property="FontSize" Value="{DynamicResource SukiCompactness.Button.Icon.FontSize}" />
+            <Setter Property="Padding" Value="0" />
+        </Style>
+
+        <Style Selector="^.WindowControlsButton">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="Height" Value="25" />
+            <Setter Property="Width" Value="25" />
+            <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0.01" />
+                </Transitions>
+            </Setter>
+            <Style Selector="^:pointerover, ^:flyout-open">
+                <Setter Property="Background" Value="{DynamicResource SukiPrimaryColor25}" />
+            </Style>
+            <Style Selector="^.Close">
+                <Style Selector="^:pointerover, ^:flyout-open">
+                    <Setter Property="Background" Value="#90D00000" />
+                </Style>
+                <Style Selector="^:pressed:pointerover">
+                    <Setter Property="Background" Value="#C5D30000" />
+                </Style>
+            </Style>
+        </Style>
+
+        <Style Selector="^.MacOSWindowControl">
+            <Setter Property="Width" Value="14" />
+            <Setter Property="Height" Value="14" />
+            <Setter Property="CornerRadius" Value="7" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Foreground" Value="#3C3C3C" />
+            <Setter Property="Background" Value="#8E8E93" />
+            <Style Selector="^ PathIcon">
+                <Setter Property="Width" Value="8" />
+                <Setter Property="Height" Value="8" />
+            </Style>
+            <Style Selector="^.MacOSClose">
+                <Setter Property="Background" Value="#FF5F57" />
+            </Style>
+            <Style Selector="^.MacOSMinimize">
+                <Setter Property="Background" Value="#FEBC2E" />
+            </Style>
+            <Style Selector="^.MacOSFullScreen">
+                <Setter Property="Background" Value="#28C840" />
+            </Style>
+            <Style Selector="^:pointerover">
+                <Setter Property="BorderBrush" Value="#00000030" />
+                <Setter Property="BorderThickness" Value="0.5" />
+            </Style>
+        </Style>
+
+        <Style Selector="^.Card">
+            <Setter Property="Padding" Value="{DynamicResource SukiCompactness.Button.Card.Padding}" />
+            <Setter Property="CornerRadius" Value="{DynamicResource MediumCornerRadius}" />
+            <Setter Property="BorderThickness" Value="1.5" />
+            <Setter Property="BorderBrush" Value="{DynamicResource SukiLightBorderBrush}" />
+            <Setter Property="Background" Value="{DynamicResource SukiCardBackground}" />
+            <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+            <Setter Property="Margin" Value="{DynamicResource SukiCompactness.Button.Card.Margin}" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <ContentPresenter Name="PART_ContentPresenter"
+                                      Margin="{DynamicResource SukiCompactness.Button.Card.Margin}"
+                                      Padding="{TemplateBinding Padding}"
+                                      HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      Background="{TemplateBinding Background}"
+                                      BorderBrush="{TemplateBinding BorderBrush}"
+                                      BorderThickness="{TemplateBinding BorderThickness}"
+                                      Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      CornerRadius="{TemplateBinding CornerRadius}"
+                                      Foreground="{TemplateBinding Foreground}"
+                                      RecognizesAccessKey="True"
+                                      TextElement.Foreground="{TemplateBinding Foreground}" />
+                </ControlTemplate>
+            </Setter>
+        </Style>
+    </ControlTheme>
+    <ControlTheme x:Key="{x:Type Button}"
+                  BasedOn="{StaticResource SukiButtonStyle}"
+                  TargetType="Button" />
+
+    <ControlTheme x:Key="{x:Type RepeatButton}"
+                  BasedOn="{StaticResource SukiButtonStyle}"
+                  TargetType="RepeatButton" />
+</ResourceDictionary>

@@ -22,4 +22,4 @@ already in it's stack.
 
 [Demo: SukiUI.Demo/Features/ControlsLibrary/StackPage/StackPageView.axaml](https://github.com/kikipoulet/SukiUI/blob/main/SukiUI.Demo/Features/ControlsLibrary/StackPage/StackPageView.axaml)
 
-[API: Controls/SukiStackPage.axaml.cs](https://github.com/kikipoulet/SukiUI/blob/main/SukiUI/Controls/SukiStackPage.axaml.cs)
+[API: Controls/SukiStackPage.axaml.cs](https://github.com/kikipoulet/SukiUI/blob/main/SukiUI/Controls/Suki/Navigation/SukiStackPage/SukiStackPage.axaml.cs)

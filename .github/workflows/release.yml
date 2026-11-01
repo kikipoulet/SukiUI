@@ -88,6 +88,9 @@ jobs:
             dotnet restore "$project"
           done
 
+      - name: Test ConditionalXAML
+        run: dotnet test SukiUI.ConditionalXAML.Tests -c Release -p:GeneratePackageOnBuild=false
+
       - name: Build
         env:
           VERSION: ${{ steps.version.outputs.VERSION }}
