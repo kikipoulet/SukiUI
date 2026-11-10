@@ -1,0 +1,22 @@
+name: Native AOT smoke test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  smoke:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Test easing catalog
+        run: dotnet test SukiUI.Motion.Tests -c Release
+      - name: Publish Native AOT
+        run: dotnet publish SukiUI.AotSmokeTests -c Release -r win-x64 -o artifacts/aot-smoke
+      - name: Run native executable
+        run: ./artifacts/aot-smoke/SukiUI.AotSmokeTests.exe
