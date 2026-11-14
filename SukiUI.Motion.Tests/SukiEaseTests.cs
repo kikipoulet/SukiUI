@@ -1,4 +1,5 @@
 using Avalonia.Animation.Easings;
+using System.Reflection;
 
 namespace SukiUI.Motion.Tests;
 
@@ -72,6 +73,29 @@ public class SukiEaseTests
         Assert.Equal(new[] { "Signature", "Classic", "DesignLibraries" }, groups);
         Assert.True(SukiEase.Presets.Count >= 80, $"only {SukiEase.Presets.Count} presets");
         Assert.Equal(SukiEase.Presets.Count, SukiEase.Presets.Select(p => p.Path).Distinct().Count());
+    }
+
+    [Fact]
+    public void The_catalog_contains_every_declared_preset_in_declaration_order()
+    {
+        var declared = new List<SukiEasePreset>();
+        Collect(typeof(SukiEase.Signature), "Signature");
+        Collect(typeof(SukiEase.Classic), "Classic");
+        Collect(typeof(SukiEase.DesignLibraries), "DesignLibraries");
+
+        Assert.Equal(declared.Select(p => p.Path), SukiEase.Presets.Select(p => p.Path));
+        foreach (var preset in declared)
+            Assert.Same(preset.Ease, SukiEase.Find(preset.Path));
+
+        // Reflection is only used by this untrimmed test to detect omissions when presets are added.
+        void Collect(Type group, string path)
+        {
+            foreach (var property in group.GetProperties(BindingFlags.Public | BindingFlags.Static)
+                         .Where(p => p.PropertyType == typeof(SukiEase)).OrderBy(p => p.MetadataToken))
+                declared.Add(new SukiEasePreset($"{path}.{property.Name}", (SukiEase)property.GetValue(null)!));
+            foreach (var nested in group.GetNestedTypes(BindingFlags.Public).OrderBy(t => t.MetadataToken))
+                Collect(nested, $"{path}.{nested.Name}");
+        }
     }
 
     [Theory]

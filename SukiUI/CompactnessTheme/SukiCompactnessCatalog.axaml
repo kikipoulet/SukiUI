@@ -1,0 +1,17 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:Class="SukiUI.CompactnessTheme.SukiCompactnessCatalog">
+    <!-- Every participating control, in overlay order. Keep includes here so XAML compilation
+         resolves them to direct references for trimming and Native AOT. -->
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceInclude Source="/CompactnessTheme/Global.Compactness.axaml" />
+        <ResourceInclude Source="/Controls/Standard/Buttons/Button/Button.Compactness.axaml" />
+        <ResourceInclude Source="/Controls/Standard/Layout/TabControl/TabItem.Compactness.axaml" />
+        <ResourceInclude Source="/Controls/Standard/Menus/Menu/Menu.Compactness.axaml" />
+        <ResourceInclude Source="/Controls/Standard/Menus/MenuItem/MenuItem.Compactness.axaml" />
+        <ResourceInclude Source="/Controls/Standard/Selection/ToggleSwitch/ToggleSwitch.Compactness.axaml" />
+        <ResourceInclude Source="/Controls/Suki/Containers/GlassCard/GlassCard.Compactness.axaml" />
+        <ResourceInclude Source="/Controls/Suki/Navigation/SukiSideMenu/SukiSideMenu.Compactness.axaml" />
+        <ResourceInclude Source="/Controls/Suki/Navigation/SukiSideMenu/Item/SukiSideMenuItem.Compactness.axaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

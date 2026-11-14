@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Linq;
-using System.Reflection;
 
 namespace SukiUI.Motion
 {
@@ -280,26 +277,110 @@ namespace SukiUI.Motion
 
         // ---- finding a preset by its path ---------------------------------------------------
 
+        // Direct references preserve the complete catalog under trimming and Native AOT.
+        // Keep declaration order here; Native AOT does not expose reflection MetadataToken values.
         private static readonly Lazy<IReadOnlyList<SukiEasePreset>> AllPresets = new(() =>
-        {
-            var found = new List<SukiEasePreset>();
-            Collect(typeof(Signature), nameof(Signature), found);
-            Collect(typeof(Classic), nameof(Classic), found);
-            Collect(typeof(DesignLibraries), nameof(DesignLibraries), found);
-            return found;
-        });
-
-        [UnconditionalSuppressMessage("Trimming", "IL2072", Justification = "The nested types are the preset groups of this assembly, all public.")]
-        private static void Collect(
-            [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties | DynamicallyAccessedMemberTypes.PublicNestedTypes)]
-            Type group, string path, List<SukiEasePreset> found)
-        {
-            foreach (var property in group.GetProperties(BindingFlags.Public | BindingFlags.Static)
-                         .Where(p => p.PropertyType == typeof(SukiEase)).OrderBy(p => p.MetadataToken))
-                found.Add(new SukiEasePreset($"{path}.{property.Name}", (SukiEase)property.GetValue(null)!));
-            foreach (var nested in group.GetNestedTypes(BindingFlags.Public).OrderBy(t => t.MetadataToken))
-                Collect(nested, $"{path}.{nested.Name}", found);
-        }
+            Array.AsReadOnly<SukiEasePreset>(
+            [
+                new("Signature.Smooth", Signature.Smooth),
+                new("Signature.Lively", Signature.Lively),
+                new("Signature.Springy", Signature.Springy),
+                new("Signature.Bouncy", Signature.Bouncy),
+                new("Signature.Jelly", Signature.Jelly),
+                new("Signature.Pop", Signature.Pop),
+                new("Signature.Drop", Signature.Drop),
+                new("Signature.Glide", Signature.Glide),
+                new("Signature.SoftClose", Signature.SoftClose),
+                new("Signature.Magnetic", Signature.Magnetic),
+                new("Classic.Linear", Classic.Linear),
+                new("Classic.Smoothstep", Classic.Smoothstep),
+                new("Classic.Smootherstep", Classic.Smootherstep),
+                new("Classic.Sine.In", Classic.Sine.In),
+                new("Classic.Sine.Out", Classic.Sine.Out),
+                new("Classic.Sine.InOut", Classic.Sine.InOut),
+                new("Classic.Quad.In", Classic.Quad.In),
+                new("Classic.Quad.Out", Classic.Quad.Out),
+                new("Classic.Quad.InOut", Classic.Quad.InOut),
+                new("Classic.Cubic.In", Classic.Cubic.In),
+                new("Classic.Cubic.Out", Classic.Cubic.Out),
+                new("Classic.Cubic.InOut", Classic.Cubic.InOut),
+                new("Classic.Quart.In", Classic.Quart.In),
+                new("Classic.Quart.Out", Classic.Quart.Out),
+                new("Classic.Quart.InOut", Classic.Quart.InOut),
+                new("Classic.Quint.In", Classic.Quint.In),
+                new("Classic.Quint.Out", Classic.Quint.Out),
+                new("Classic.Quint.InOut", Classic.Quint.InOut),
+                new("Classic.Expo.In", Classic.Expo.In),
+                new("Classic.Expo.Out", Classic.Expo.Out),
+                new("Classic.Expo.InOut", Classic.Expo.InOut),
+                new("Classic.Circ.In", Classic.Circ.In),
+                new("Classic.Circ.Out", Classic.Circ.Out),
+                new("Classic.Circ.InOut", Classic.Circ.InOut),
+                new("Classic.Back.In", Classic.Back.In),
+                new("Classic.Back.Out", Classic.Back.Out),
+                new("Classic.Back.InOut", Classic.Back.InOut),
+                new("Classic.Elastic.In", Classic.Elastic.In),
+                new("Classic.Elastic.Out", Classic.Elastic.Out),
+                new("Classic.Elastic.InOut", Classic.Elastic.InOut),
+                new("Classic.Bounce.In", Classic.Bounce.In),
+                new("Classic.Bounce.Out", Classic.Bounce.Out),
+                new("Classic.Bounce.InOut", Classic.Bounce.InOut),
+                new("Classic.Css.Ease", Classic.Css.Ease),
+                new("Classic.Css.EaseIn", Classic.Css.EaseIn),
+                new("Classic.Css.EaseOut", Classic.Css.EaseOut),
+                new("Classic.Css.EaseInOut", Classic.Css.EaseInOut),
+                new("DesignLibraries.Material3.Standard", DesignLibraries.Material3.Standard),
+                new("DesignLibraries.Material3.StandardDecelerate", DesignLibraries.Material3.StandardDecelerate),
+                new("DesignLibraries.Material3.StandardAccelerate", DesignLibraries.Material3.StandardAccelerate),
+                new("DesignLibraries.Material3.Emphasized", DesignLibraries.Material3.Emphasized),
+                new("DesignLibraries.Material3.EmphasizedDecelerate", DesignLibraries.Material3.EmphasizedDecelerate),
+                new("DesignLibraries.Material3.EmphasizedAccelerate", DesignLibraries.Material3.EmphasizedAccelerate),
+                new("DesignLibraries.Material3Expressive.SpatialFast", DesignLibraries.Material3Expressive.SpatialFast),
+                new("DesignLibraries.Material3Expressive.SpatialDefault", DesignLibraries.Material3Expressive.SpatialDefault),
+                new("DesignLibraries.Material3Expressive.SpatialSlow", DesignLibraries.Material3Expressive.SpatialSlow),
+                new("DesignLibraries.Material3Expressive.EffectsFast", DesignLibraries.Material3Expressive.EffectsFast),
+                new("DesignLibraries.Material3Expressive.EffectsDefault", DesignLibraries.Material3Expressive.EffectsDefault),
+                new("DesignLibraries.Material3Expressive.EffectsSlow", DesignLibraries.Material3Expressive.EffectsSlow),
+                new("DesignLibraries.Material3Expressive.StandardSpatial", DesignLibraries.Material3Expressive.StandardSpatial),
+                new("DesignLibraries.Apple.Smooth", DesignLibraries.Apple.Smooth),
+                new("DesignLibraries.Apple.Snappy", DesignLibraries.Apple.Snappy),
+                new("DesignLibraries.Apple.Bouncy", DesignLibraries.Apple.Bouncy),
+                new("DesignLibraries.Apple.Interactive", DesignLibraries.Apple.Interactive),
+                new("DesignLibraries.Compose.HighBouncy", DesignLibraries.Compose.HighBouncy),
+                new("DesignLibraries.Compose.MediumBouncy", DesignLibraries.Compose.MediumBouncy),
+                new("DesignLibraries.Compose.LowBouncy", DesignLibraries.Compose.LowBouncy),
+                new("DesignLibraries.Compose.NoBouncy", DesignLibraries.Compose.NoBouncy),
+                new("DesignLibraries.ReactSpring.Default", DesignLibraries.ReactSpring.Default),
+                new("DesignLibraries.ReactSpring.Gentle", DesignLibraries.ReactSpring.Gentle),
+                new("DesignLibraries.ReactSpring.Wobbly", DesignLibraries.ReactSpring.Wobbly),
+                new("DesignLibraries.ReactSpring.Stiff", DesignLibraries.ReactSpring.Stiff),
+                new("DesignLibraries.ReactSpring.Slow", DesignLibraries.ReactSpring.Slow),
+                new("DesignLibraries.ReactSpring.Molasses", DesignLibraries.ReactSpring.Molasses),
+                new("DesignLibraries.MaterialLegacy.FastOutSlowIn", DesignLibraries.MaterialLegacy.FastOutSlowIn),
+                new("DesignLibraries.MaterialLegacy.LinearOutSlowIn", DesignLibraries.MaterialLegacy.LinearOutSlowIn),
+                new("DesignLibraries.MaterialLegacy.FastOutLinearIn", DesignLibraries.MaterialLegacy.FastOutLinearIn),
+                new("DesignLibraries.MaterialLegacy.Sharp", DesignLibraries.MaterialLegacy.Sharp),
+                new("DesignLibraries.Fluent.DecelerateMax", DesignLibraries.Fluent.DecelerateMax),
+                new("DesignLibraries.Fluent.DecelerateMid", DesignLibraries.Fluent.DecelerateMid),
+                new("DesignLibraries.Fluent.DecelerateMin", DesignLibraries.Fluent.DecelerateMin),
+                new("DesignLibraries.Fluent.AccelerateMax", DesignLibraries.Fluent.AccelerateMax),
+                new("DesignLibraries.Fluent.AccelerateMid", DesignLibraries.Fluent.AccelerateMid),
+                new("DesignLibraries.Fluent.AccelerateMin", DesignLibraries.Fluent.AccelerateMin),
+                new("DesignLibraries.Fluent.EasyEaseMax", DesignLibraries.Fluent.EasyEaseMax),
+                new("DesignLibraries.Fluent.EasyEase", DesignLibraries.Fluent.EasyEase),
+                new("DesignLibraries.Carbon.ProductiveStandard", DesignLibraries.Carbon.ProductiveStandard),
+                new("DesignLibraries.Carbon.ProductiveEntrance", DesignLibraries.Carbon.ProductiveEntrance),
+                new("DesignLibraries.Carbon.ProductiveExit", DesignLibraries.Carbon.ProductiveExit),
+                new("DesignLibraries.Carbon.ExpressiveStandard", DesignLibraries.Carbon.ExpressiveStandard),
+                new("DesignLibraries.Carbon.ExpressiveEntrance", DesignLibraries.Carbon.ExpressiveEntrance),
+                new("DesignLibraries.Carbon.ExpressiveExit", DesignLibraries.Carbon.ExpressiveExit),
+                new("DesignLibraries.Tailwind.EaseIn", DesignLibraries.Tailwind.EaseIn),
+                new("DesignLibraries.Tailwind.EaseOut", DesignLibraries.Tailwind.EaseOut),
+                new("DesignLibraries.Tailwind.EaseInOut", DesignLibraries.Tailwind.EaseInOut),
+                new("DesignLibraries.Android.Anticipate", DesignLibraries.Android.Anticipate),
+                new("DesignLibraries.Android.Overshoot", DesignLibraries.Android.Overshoot),
+                new("DesignLibraries.Android.AnticipateOvershoot", DesignLibraries.Android.AnticipateOvershoot),
+            ]));
 
         /// <summary>Every preset, in the order of the tree, with its path.</summary>
         public static IReadOnlyList<SukiEasePreset> Presets => AllPresets.Value;

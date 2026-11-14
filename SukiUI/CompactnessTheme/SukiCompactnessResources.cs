@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml.Styling;
+using Avalonia.Markup.Xaml;
 using SukiUI.Enums;
 
 namespace SukiUI.CompactnessTheme
@@ -29,27 +29,9 @@ namespace SukiUI.CompactnessTheme
     /// </remarks>
     internal static class SukiCompactnessResources
     {
-        private const string BaseUri = "avares://SukiUI/";
-
-        /// <summary>Every control that takes part in the system: one line per control.</summary>
-        private static readonly string[] Sources =
-        [
-            "CompactnessTheme/Global.Compactness.axaml",
-            "Controls/Standard/Buttons/Button/Button.Compactness.axaml",
-            "Controls/Standard/Layout/TabControl/TabItem.Compactness.axaml",
-            "Controls/Standard/Menus/Menu/Menu.Compactness.axaml",
-            "Controls/Standard/Menus/MenuItem/MenuItem.Compactness.axaml",
-            "Controls/Standard/Selection/ToggleSwitch/ToggleSwitch.Compactness.axaml",
-            "Controls/Suki/Containers/GlassCard/GlassCard.Compactness.axaml",
-            "Controls/Suki/Navigation/SukiSideMenu/SukiSideMenu.Compactness.axaml",
-            "Controls/Suki/Navigation/SukiSideMenu/Item/SukiSideMenuItem.Compactness.axaml",
-        ];
-
         private static List<ResourceDictionary>? _loaded;
         private static readonly Dictionary<object, object?>?[] Tables =
             new Dictionary<object, object?>?[Enum.GetValues<SukiCompactness>().Length];
-
-        internal static IReadOnlyList<string> SourcePaths => Sources;
 
         /// <summary>The loaded per-control files (a dictionary of level dictionaries each).</summary>
         private static IReadOnlyList<ResourceDictionary> Files => _loaded ??= Load();
@@ -87,13 +69,18 @@ namespace SukiUI.CompactnessTheme
 
         private static List<ResourceDictionary> Load()
         {
-            var files = new List<ResourceDictionary>(Sources.Length);
-            foreach (var source in Sources)
-            {
-                var include = new ResourceInclude(new Uri(BaseUri)) { Source = new Uri(BaseUri + source) };
-                files.Add((ResourceDictionary)include.Loaded);
-            }
+            // Includes in XAML are resolved by the compiler, keeping every dictionary reachable
+            // after trimming without loading an assembly or finding XAML by URI at runtime.
+            var catalog = new SukiCompactnessCatalog();
+            var files = new List<ResourceDictionary>(catalog.MergedDictionaries.Count);
+            foreach (var dictionary in catalog.MergedDictionaries)
+                files.Add((ResourceDictionary)dictionary);
             return files;
         }
+    }
+
+    internal sealed partial class SukiCompactnessCatalog : ResourceDictionary
+    {
+        public SukiCompactnessCatalog() => AvaloniaXamlLoader.Load(this);
     }
 }
