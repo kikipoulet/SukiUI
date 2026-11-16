@@ -17,6 +17,11 @@ namespace SukiUI.Utilities.Effects
         public static readonly object StartAnimations = new(), StopAnimations = new(), 
             EnableForceSoftwareRendering = new(), DisableForceSoftwareRendering = new();
 
+        /// <summary>
+        /// Send this message before the visual is removed. The handler then frees its native resources on the render thread.
+        /// </summary>
+        public static readonly object ReleaseResources = new();
+
         public readonly record struct BaseThemeChangedMessage(ThemeVariant Variant);
 
         public readonly record struct ColorThemeChangedMessage(SukiColorTheme Theme);
@@ -56,6 +61,11 @@ namespace SukiUI.Utilities.Effects
         protected SukiColorTheme ActiveTheme { get; private set; }
         
         protected float AnimationSeconds => (float)_animationTick.Elapsed.TotalSeconds;
+
+        /// <summary>
+        /// The GPU context of the current render, or null in software rendering. Only valid inside <see cref="Render"/>.
+        /// </summary>
+        protected GRContext? GrContext { get; private set; }
         
         private readonly Stopwatch _animationTick = new();
         private readonly bool _invalidateRect;
@@ -75,10 +85,12 @@ namespace SukiUI.Utilities.Effects
             if (leaseFeature is null) throw new InvalidOperationException("Unable to lease Skia API");
             using var lease = leaseFeature.Lease();
             var rect = SKRect.Create((float)EffectiveSize.X, (float)EffectiveSize.Y);
+            GrContext = lease.GrContext;
             if(lease.GrContext is null || ForceSoftwareRendering) // GrContext is null whenever there is no hardware acceleration available
                 RenderSoftware(lease.SkCanvas, rect);
             else
                 Render(lease.SkCanvas, rect);
+            GrContext = null;
         }
         
         public override void OnMessage(object message)
@@ -101,6 +113,10 @@ namespace SukiUI.Utilities.Effects
             {
                 ForceSoftwareRendering = false;
                 Invalidate();
+            }
+            else if (message == ReleaseResources)
+            {
+                Dispose();
             }
             else if (message is BaseThemeChangedMessage baseThemeChanged)
             {
@@ -146,6 +162,10 @@ namespace SukiUI.Utilities.Effects
         protected SKShader? EffectWithUniforms(SukiEffect? effect, float alpha = 1f) => 
             effect?.ToShaderWithUniforms(AnimationSeconds, ActiveVariant, GetRenderBounds(), AnimationSpeedScale, alpha);
 
+        /// <summary>
+        /// Builds a shader with the uniforms returned by <paramref name="uniformFactory"/>.
+        /// The returned uniforms are disposed after use: the factory must create a new instance each time.
+        /// </summary>
         protected SKShader? EffectWithCustomUniforms(Func<SKRuntimeEffect,SKRuntimeEffectUniforms> uniformFactory, float alpha = 1f) =>
             EffectWithCustomUniforms(Effect, uniformFactory, alpha);
         
@@ -153,6 +173,14 @@ namespace SukiUI.Utilities.Effects
             effect?.ToShaderWithCustomUniforms(uniformFactory, AnimationSeconds, GetRenderBounds(), AnimationSpeedScale, alpha);
 
         protected virtual void EffectChanged(SukiEffect? oldValue, SukiEffect? newValue)
+        {
+            // no-op
+        }
+
+        /// <summary>
+        /// Called on the render thread when the base theme or the color theme changes.
+        /// </summary>
+        protected virtual void ThemeChanged()
         {
             // no-op
         }
@@ -166,6 +194,7 @@ namespace SukiUI.Utilities.Effects
 
         private void InvalidateTheme()
         {
+            ThemeChanged();
             if (_invalidateRect)
                 Invalidate(GetRenderBounds());
             else

@@ -31,7 +31,11 @@ namespace SukiUI.Utilities.Effects
             "uniform vec3 iBase;"
         };
 
-        private static readonly List<SukiEffect> LoadedEffects = new();
+        // One compiled effect per shader code, shared by every control that uses it.
+        // Compiling SkSL is slow, and each compiled effect holds native memory.
+        private static readonly Dictionary<string, SukiEffect> EffectsByCode = new(StringComparer.Ordinal);
+        private static readonly Dictionary<string, SukiEffect> EffectsByResourceName = new(StringComparer.Ordinal);
+        private static readonly object CacheLock = new();
         private static readonly object LifecycleLock = new();
         private static IControlledApplicationLifetime? _applicationLifetime;
 
@@ -49,7 +53,6 @@ namespace SukiUI.Utilities.Effects
             _rawShaderString = rawShaderString;
             var compiledEffect = SKRuntimeEffect.CreateShader(_shaderString, out var errors);
             Effect = compiledEffect ?? throw new ShaderCompilationException(errors);
-            LoadedEffects.Add(this);
         }
 
         static SukiEffect()
@@ -61,7 +64,7 @@ namespace SukiUI.Utilities.Effects
         /// <summary>
         /// Attempts to load and compile a ".sksl" shader file from the assembly.
         /// You don't need to provide the extension.
-        /// The shader will be pre-compiled
+        /// The shader will be pre-compiled once, then the same instance is returned for the same name.
         /// REMEMBER: For files to be discoverable in the assembly they should be marked as an embedded resource.
         /// </summary>
         /// <param name="shaderName">Name of the shader to load, with or without extension. - MUST BE .sksl</param>
@@ -72,7 +75,11 @@ namespace SukiUI.Utilities.Effects
             if (!shaderName.EndsWith(".sksl"))
                 shaderName += ".sksl";
 
-
+            lock (CacheLock)
+            {
+                if (EffectsByResourceName.TryGetValue(shaderName, out var cached))
+                    return cached;
+            }
 
             var assembly = Assembly.GetEntryAssembly();
             var resName = assembly?.GetManifestResourceNames()
@@ -101,12 +108,16 @@ namespace SukiUI.Utilities.Effects
                                ?? throw new FileNotFoundException(
                                    $"Unable to open the embedded shader resource \"{resName}\".");
             using var tr = new StreamReader(stream);
-            return FromString(tr.ReadToEnd());
+            var effect = FromString(tr.ReadToEnd());
+            lock (CacheLock)
+                EffectsByResourceName[shaderName] = effect;
+            return effect;
         }
 
         /// <summary>
         /// Attempts to compile an sksl shader from a string.
-        /// The shader will be pre-compiled and any errors will be thrown as an exception.
+        /// The shader will be pre-compiled once and any errors will be thrown as an exception.
+        /// The same instance is returned for the same shader code.
         /// REMEMBER: For files to be discoverable in the assembly they should be marked as an embedded resource.
         /// </summary>
         /// <param name="shaderString">The shader code to be compiled.</param>
@@ -114,12 +125,19 @@ namespace SukiUI.Utilities.Effects
         public static SukiEffect FromString(string shaderString)
         {
             EnsureExitSubscription();
-            var sb = new StringBuilder();
-            foreach (var uniform in Uniforms)
-                sb.AppendLine(uniform);
-            sb.Append(shaderString);
-            var withUniforms = sb.ToString();
-            return new SukiEffect(withUniforms, shaderString);
+            lock (CacheLock)
+            {
+                if (EffectsByCode.TryGetValue(shaderString, out var cached))
+                    return cached;
+
+                var sb = new StringBuilder();
+                foreach (var uniform in Uniforms)
+                    sb.AppendLine(uniform);
+                sb.Append(shaderString);
+                var effect = new SukiEffect(sb.ToString(), shaderString);
+                EffectsByCode[shaderString] = effect;
+                return effect;
+            }
         }
 
         private static void EnsureExitSubscription()
@@ -145,12 +163,19 @@ namespace SukiUI.Utilities.Effects
         /// </summary>
         internal static void EnsureDisposed()
         {
-            if (_disposed)
-                return;
-            _disposed = true;
-            foreach (var loaded in LoadedEffects)
-                loaded.Effect.Dispose();
-            LoadedEffects.Clear();
+            lock (CacheLock)
+            {
+                if (_disposed)
+                    return;
+                _disposed = true;
+                foreach (var loaded in EffectsByCode.Values)
+                {
+                    loaded._uniforms?.Dispose();
+                    loaded.Effect.Dispose();
+                }
+                EffectsByCode.Clear();
+                EffectsByResourceName.Clear();
+            }
         }
 
         public override bool Equals(object? obj)
@@ -167,6 +192,9 @@ namespace SukiUI.Utilities.Effects
         private readonly float[] _backgroundPrimaryAlloc = new float[3];
         private readonly float[] _boundsAlloc = new float[3];
 
+        // Reused for every shader built from this effect. Only the render thread uses it.
+        private SKRuntimeEffectUniforms? _uniforms;
+
         internal SKShader ToShaderWithUniforms(float timeSeconds, ThemeVariant activeVariant, Rect bounds,
             float animationScale, float alpha = 1f)
         {
@@ -181,30 +209,26 @@ namespace SukiUI.Utilities.Effects
             _boundsAlloc[0] = (float)bounds.Width;
             _boundsAlloc[1] = (float)bounds.Height;
             
-            var inputs = new SKRuntimeEffectUniforms(Effect)
-            {
-                { "iResolution", _boundsAlloc },
-                { "iTime", timeSeconds * animationScale },
-                {
-                    "iBase",
-                    activeVariant == ThemeVariant.Dark
-                        ? _backgroundAlloc
-                        : White
-                },
-                { "iAccent", _backgroundAccentAlloc },
-                { "iPrimary", _backgroundPrimaryAlloc },
-                { "iDark", activeVariant == ThemeVariant.Dark ? 1f : 0f },
-                { "iAlpha", alpha }
-            };
-           
+            var inputs = _uniforms ??= new SKRuntimeEffectUniforms(Effect);
+            inputs["iResolution"] = _boundsAlloc;
+            inputs["iTime"] = timeSeconds * animationScale;
+            inputs["iBase"] = activeVariant == ThemeVariant.Dark ? _backgroundAlloc : White;
+            inputs["iAccent"] = _backgroundAccentAlloc;
+            inputs["iPrimary"] = _backgroundPrimaryAlloc;
+            inputs["iDark"] = activeVariant == ThemeVariant.Dark ? 1f : 0f;
+            inputs["iAlpha"] = alpha;
+
+            // ToShader copies the values, so the uniforms can be changed again after this call.
             return Effect.ToShader(inputs);
         }
 
         internal SKShader ToShaderWithCustomUniforms(Func<SKRuntimeEffect,SKRuntimeEffectUniforms> uniformFactory, float timeSeconds, Rect bounds,
             float animationScale, float alpha = 1f)
         {
-            var uniforms = uniformFactory(Effect);
-            uniforms.Add("iResolution", new[] { (float)bounds.Width, (float)bounds.Height, 0f });
+            using var uniforms = uniformFactory(Effect);
+            _boundsAlloc[0] = (float)bounds.Width;
+            _boundsAlloc[1] = (float)bounds.Height;
+            uniforms.Add("iResolution", _boundsAlloc);
             uniforms.Add("iTime", timeSeconds * animationScale);
             uniforms.Add("iAlpha", alpha);
             return Effect.ToShader(uniforms);

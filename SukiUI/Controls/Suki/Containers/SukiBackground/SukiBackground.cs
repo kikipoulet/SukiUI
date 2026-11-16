@@ -127,6 +127,9 @@ namespace SukiUI.Controls
         protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
         {
             UnsubscribeFromThemeChanges();
+            // Stop the frame loop and free the cached image before the visual goes away.
+            _customVisual?.SendHandlerMessage(EffectDrawBase.StopAnimations);
+            _customVisual?.SendHandlerMessage(EffectDrawBase.ReleaseResources);
             ElementComposition.SetElementChildVisual(this, null);
             _customVisual = null;
             base.OnDetachedFromVisualTree(e);
@@ -163,6 +166,8 @@ namespace SukiUI.Controls
 
         private void HandleBackgroundStyleChanges()
         {
+            // Not attached yet: the effect is sent on attach.
+            if (_customVisual is null) return;
             SukiEffect effect;
             if (ShaderFile is not null)
                 effect = SukiEffect.FromEmbeddedResource(ShaderFile);
@@ -170,7 +175,7 @@ namespace SukiUI.Controls
                 effect = SukiEffect.FromString(ShaderCode);
             else
                 effect = SukiEffect.FromEmbeddedResource(Style.ToString());
-            _customVisual?.SendHandlerMessage(effect);
+            _customVisual.SendHandlerMessage(effect);
         }
 
         private void SubscribeToThemeChanges()
