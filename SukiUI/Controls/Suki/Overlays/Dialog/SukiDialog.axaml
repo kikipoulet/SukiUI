@@ -22,9 +22,15 @@
                                  rounded clip comes from the outer Border, same as
                                  before; the -200 margin is blur sampling bleed. -->
                             <glassMorphism:SukiBlurBackground Margin="-200"
-                                OverlayOpacity="0"
-                                IsVisible="{Binding BackgroundStyle, RelativeSource={RelativeSource TemplatedParent},
-                                    Converter={x:Static converters:SukiDialogBackgroundStyleToBoolConverter.Instance}}" />
+                                OverlayOpacity="0">
+                                <glassMorphism:SukiBlurBackground.IsVisible>
+                                    <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                        <Binding Path="ShowCardBackground" RelativeSource="{RelativeSource TemplatedParent}" />
+                                        <Binding Path="BackgroundStyle" RelativeSource="{RelativeSource TemplatedParent}"
+                                                 Converter="{x:Static converters:SukiDialogBackgroundStyleToBoolConverter.Instance}" />
+                                    </MultiBinding>
+                                </glassMorphism:SukiBlurBackground.IsVisible>
+                            </glassMorphism:SukiBlurBackground>
 
 
                           <!--  <Border IsVisible="{TemplateBinding ShowCardBackground}" CornerRadius="25"
