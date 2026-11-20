@@ -1,0 +1,221 @@
+<UserControl x:Class="SukiUI.Demo.Features.HyperGraphics.Mini3D.Mini3DPage"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             xmlns:hg="clr-namespace:SukiUI.HyperGraphics;assembly=SukiUI.HyperGraphics"
+             xmlns:mini3d="clr-namespace:SukiUI.Demo.Features.HyperGraphics.Mini3D"
+             d:DesignHeight="950"
+             d:DesignWidth="960"
+             x:DataType="mini3d:Mini3DViewModel"
+             mc:Ignorable="d">
+    <UserControl.DataContext>
+        <mini3d:Mini3DViewModel />
+    </UserControl.DataContext>
+
+    <StackPanel Margin="50,25" Spacing="20">
+        <TextBlock Classes="h2">HyperMini3D</TextBlock>
+
+        <Border Height="1"
+                Margin="0,-45,0,20"
+                Background="{DynamicResource SukiControlBorderBrush}" />
+
+        <TextBlock TextWrapping="Wrap">
+            HyperMini3D (part of SukiUI.HyperGraphics) renders lightweight stylized 3D assemblies in pure SkiaSharp without WebView, OpenGL shaders, or heavy 3D meshes. Scenes are built declaratively in C# via Model3D and Scene3D (orthographic projection, normal-based face shading, extruded 2D profiles, STL import via StlModel, flat 2D face decals, DepthGroup cavities, and painter's-algorithm depth sorting).
+        </TextBlock>
+        <TextBlock TextWrapping="Wrap">
+            Like HyperSVG, Model3DView runs its animation and projection loop directly inside Avalonia's CompositionCustomVisualHandler (Model3DEngine) on the render thread—keeping the UI thread responsive via immutable messages (Init, Animate, Rotate, Hit). When animations stop or no drag occurs, the engine freezes the frame into a cached bitmap and drops the runtime scene, dropping idle cost to that of a static Image.
+        </TextBlock>
+
+        <!-- 1. Synth Console -->
+        <Grid ColumnDefinitions="*,300" ColumnSpacing="20">
+            <suki:GlassCard Grid.Column="0" Padding="16" TextElement.Foreground="{DynamicResource SukiText}">
+                <StackPanel Spacing="10">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock VerticalAlignment="Center" FontSize="17" FontWeight="DemiBold"
+                                   Text="1. Interactive Synth Console" />
+                        <suki:GlassCard Grid.Column="1" Padding="10,3" CornerRadius="10">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <Border Width="7" Height="7" VerticalAlignment="Center" CornerRadius="4"
+                                        Background="{DynamicResource SukiPrimaryColor}" />
+                                <TextBlock FontSize="11" FontWeight="DemiBold" Text="{Binding PowerText}" />
+                            </StackPanel>
+                        </suki:GlassCard>
+                    </Grid>
+
+                    <hg:Model3DView x:Name="ConsoleView"
+                                    Height="460"
+                                    IsInteractive="True"
+                                    IsWireframe="{Binding IsWireframe}" />
+
+                    <TextBlock FontSize="12"
+                               Foreground="{DynamicResource SukiLowText}"
+                               Text="Drag to orbit · Double-click background to recenter · Click PWR/AUTO push-buttons, Dial, or Visor lid directly in 3D." />
+                </StackPanel>
+            </suki:GlassCard>
+
+            <suki:GlassCard Grid.Column="1" Padding="16" VerticalAlignment="Top"
+                            TextElement.Foreground="{DynamicResource SukiText}">
+                <StackPanel Spacing="14">
+                    <TextBlock FontSize="16" FontWeight="DemiBold" Text="Console Channels" />
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock VerticalAlignment="Center" Text="Power (PWR)" />
+                        <ToggleSwitch Grid.Column="1" IsChecked="{Binding IsPowered}"
+                                      OnContent="On" OffContent="Off" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock VerticalAlignment="Center" Text="Auto Pulse" />
+                        <ToggleSwitch Grid.Column="1" IsChecked="{Binding IsAutoRunning}"
+                                      OnContent="Run" OffContent="Idle" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock VerticalAlignment="Center" Text="Visor Lid" />
+                        <ToggleSwitch Grid.Column="1" IsChecked="{Binding IsLidOpen}"
+                                      OnContent="Open" OffContent="Closed" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock VerticalAlignment="Center" Text="Wireframe" />
+                        <ToggleSwitch Grid.Column="1" IsChecked="{Binding IsWireframe}"
+                                      OnContent="Wire" OffContent="Shaded" />
+                    </Grid>
+                </StackPanel>
+            </suki:GlassCard>
+        </Grid>
+
+        <!-- 2. Core-3D Desktop Printer -->
+        <Grid ColumnDefinitions="*,300" ColumnSpacing="20">
+            <suki:GlassCard Grid.Column="0" Padding="16" TextElement.Foreground="{DynamicResource SukiText}">
+                <StackPanel Spacing="10">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock VerticalAlignment="Center" FontSize="17" FontWeight="DemiBold"
+                                   Text="2. Desktop 3D Printer" />
+                        <suki:GlassCard Grid.Column="1" Padding="10,3" CornerRadius="10">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <Border Width="7" Height="7" VerticalAlignment="Center" CornerRadius="4"
+                                        Background="{DynamicResource SukiPrimaryColor}" />
+                                <TextBlock FontSize="11" FontWeight="DemiBold" Text="{Binding PrinterText}" />
+                            </StackPanel>
+                        </suki:GlassCard>
+                    </Grid>
+
+                    <hg:Model3DView x:Name="PrinterView"
+                                    Height="460"
+                                    IsInteractive="True"
+                                    IsWireframe="{Binding PrinterWireframe}" />
+
+                    <TextBlock FontSize="12" TextWrapping="Wrap" Foreground="{DynamicResource SukiLowText}"
+                               Text="Sliding PEI bed (Y) with thumbwheels, traversing extruder toolhead (X) with fan duct &amp; brass nozzle, dual Z leadscrews &amp; steppers, rotating side spool, and live OLED progress bar. Click the front button or printhead to pause." />
+                </StackPanel>
+            </suki:GlassCard>
+
+            <suki:GlassCard Grid.Column="1" Padding="16" VerticalAlignment="Top"
+                            TextElement.Foreground="{DynamicResource SukiText}">
+                <StackPanel Spacing="14">
+                    <TextBlock FontSize="16" FontWeight="DemiBold" Text="Printer Channels" />
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock VerticalAlignment="Center" Text="Print Job" />
+                        <ToggleSwitch Grid.Column="1" IsChecked="{Binding IsPrinting}"
+                                      OnContent="Run" OffContent="Paused" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock VerticalAlignment="Center" Text="Wireframe" />
+                        <ToggleSwitch Grid.Column="1" IsChecked="{Binding PrinterWireframe}"
+                                      OnContent="Wire" OffContent="Shaded" />
+                    </Grid>
+                </StackPanel>
+            </suki:GlassCard>
+        </Grid>
+
+        <!-- 3. Interactive PIN Safe -->
+        <Grid ColumnDefinitions="*,300" ColumnSpacing="20">
+            <suki:GlassCard Grid.Column="0" Padding="16" TextElement.Foreground="{DynamicResource SukiText}">
+                <StackPanel Spacing="10">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock VerticalAlignment="Center" FontSize="17" FontWeight="DemiBold"
+                                   Text="3. Interactive PIN Vault" />
+                        <suki:GlassCard Grid.Column="1" Padding="10,3" CornerRadius="10">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <Border Width="7" Height="7" VerticalAlignment="Center" CornerRadius="4"
+                                        Background="{DynamicResource SukiPrimaryColor}" />
+                                <TextBlock FontSize="11" FontWeight="DemiBold" Text="{Binding VaultStatusText}" />
+                            </StackPanel>
+                        </suki:GlassCard>
+                    </Grid>
+
+                    <hg:Model3DView x:Name="VaultView"
+                                    Height="460"
+                                    IsInteractive="True"
+                                    IsWireframe="{Binding VaultWireframe}" />
+
+                    <TextBlock FontSize="12" TextWrapping="Wrap" Foreground="{DynamicResource SukiLowText}"
+                               Text="Click the 3D keypad keys directly on the safe door—each button physically depresses. Peek at the yellow sticky note on the right wall (1337) to spin the wheel and swing the armored door open." />
+                </StackPanel>
+            </suki:GlassCard>
+
+            <suki:GlassCard Grid.Column="1" Padding="16" VerticalAlignment="Top"
+                            TextElement.Foreground="{DynamicResource SukiText}">
+                <StackPanel Spacing="14">
+                    <TextBlock FontSize="16" FontWeight="DemiBold" Text="Vault Controls" />
+
+                    <StackPanel Spacing="4">
+                        <TextBlock FontSize="12" Foreground="{DynamicResource SukiLowText}" Text="PIN Readout" />
+                        <TextBlock FontFamily="Consolas,Menlo,monospace" FontSize="14" FontWeight="SemiBold"
+                                   Text="{Binding VaultDisplayHint}" />
+                    </StackPanel>
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock VerticalAlignment="Center" Text="Wireframe" />
+                        <ToggleSwitch Grid.Column="1" IsChecked="{Binding VaultWireframe}"
+                                      OnContent="Wire" OffContent="Shaded" />
+                    </Grid>
+
+                    <Button HorizontalAlignment="Stretch"
+                            Classes="Flat"
+                            Command="{Binding LockVaultCommand}"
+                            Content="Lock Vault" />
+                </StackPanel>
+            </suki:GlassCard>
+        </Grid>
+
+        <!-- Minimal Code Reference -->
+        <Border Height="1"
+                Margin="0,8,0,0"
+                Background="{DynamicResource SukiControlBorderBrush}" />
+
+        <StackPanel Spacing="12">
+            <TextBlock Classes="h3" Text="Code Structure" />
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="16">
+                <suki:GlassCard Grid.Column="0" Padding="14" TextElement.Foreground="{DynamicResource SukiText}">
+                    <StackPanel Spacing="6">
+                        <TextBlock FontSize="13" FontWeight="SemiBold" Text="1. Model3D — Pure Scene Builder" />
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                            <SelectableTextBlock FontFamily="Consolas,Menlo,monospace"
+                                                 FontSize="12"
+                                                 Foreground="{DynamicResource SukiText}"
+                                                 Text="{Binding ModelSnippet}" />
+                        </ScrollViewer>
+                    </StackPanel>
+                </suki:GlassCard>
+
+                <suki:GlassCard Grid.Column="1" Padding="14" TextElement.Foreground="{DynamicResource SukiText}">
+                    <StackPanel Spacing="6">
+                        <TextBlock FontSize="13" FontWeight="SemiBold" Text="2. Model3DView — UI &amp; Channels" />
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                            <SelectableTextBlock FontFamily="Consolas,Menlo,monospace"
+                                                 FontSize="12"
+                                                 Foreground="{DynamicResource SukiText}"
+                                                 Text="{Binding ViewSnippet}" />
+                        </ScrollViewer>
+                    </StackPanel>
+                </suki:GlassCard>
+            </Grid>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:suki="https://github.com/kikipoulet/SukiUI"
              xmlns:hyper="clr-namespace:SukiUI.Demo.Features.HyperGraphics"
+             xmlns:mini3d="clr-namespace:SukiUI.Demo.Features.HyperGraphics.Mini3D"
              xmlns:skeumorphism="clr-namespace:SukiUI.Demo.Features.HyperGraphics.Skeumorphism"
              d:DesignHeight="450"
              d:DesignWidth="800"
@@ -29,6 +30,21 @@
                 <suki:SukiSideMenuItem.PageContent>
                     <ScrollViewer>
                         <skeumorphism:SkeumorphismPage />
+                    </ScrollViewer>
+                </suki:SukiSideMenuItem.PageContent>
+            </suki:SukiSideMenuItem>
+
+            <suki:SukiSideMenuItem Classes="Compact" Header="HyperMini3D">
+                <suki:SukiSideMenuItem.Icon>
+                    <PathIcon Data="{x:Static suki:Icons.ChevronRight}"
+                              Foreground="{DynamicResource SukiLowText}"
+                              Width="13" Height="13"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center" />
+                </suki:SukiSideMenuItem.Icon>
+                <suki:SukiSideMenuItem.PageContent>
+                    <ScrollViewer>
+                        <mini3d:Mini3DPage />
                     </ScrollViewer>
                 </suki:SukiSideMenuItem.PageContent>
             </suki:SukiSideMenuItem>
