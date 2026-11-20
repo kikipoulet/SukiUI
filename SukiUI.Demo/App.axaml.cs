@@ -17,6 +17,7 @@ using SukiUI.Demo.Features.CustomTheme;
 using SukiUI.Demo.Features.Dashboard;
 using SukiUI.Demo.Features.Effects;
 using SukiUI.Demo.Features.Helpers;
+using SukiUI.Demo.Features.HyperGraphics;
 using SukiUI.Demo.Features.Playground;
 using SukiUI.Demo.Features.Splash;
 using SukiUI.Demo.Features.Theming;
@@ -102,6 +103,7 @@ public class App : Application
             .AddView<StackPageView, StackPageViewModel>(services)
             .AddView<DialogsView, DialogsViewModel>(services)
             .AddView<HelpersView, HelpersViewModel>(services)
+            .AddView<HyperGraphicsView, HyperGraphicsViewModel>(services)
             .AddView<ColorsView, ColorsViewModel>(services)
             .AddView<AllControlsView, AllControlsViewModel>(services)
 

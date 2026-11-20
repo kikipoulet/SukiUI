@@ -25,6 +25,7 @@
     <PackageReference Include="Dock.Model.Avalonia" />
     <PackageReference Include="Dock.Model.Mvvm" />
     <PackageReference Include="Dock.Serializer.SystemTextJson" />
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" />
     <PackageReference Include="Markdown.Avalonia" />
     <PackageReference Include="Material.Icons.Avalonia" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
@@ -37,6 +38,7 @@
     <ProjectReference Include="..\SukiUI.ColorPicker\SukiUI.ColorPicker.csproj" />
     <ProjectReference Include="..\SukiUI.DataGrid\SukiUI.DataGrid.csproj" />
     <ProjectReference Include="..\SukiUI.Dock\SukiUI.Dock.csproj" />
+    <ProjectReference Include="..\SukiUI.HyperGraphics\SukiUI.HyperGraphics.csproj" />
     <ProjectReference Include="..\SukiUI\SukiUI.csproj" />
   </ItemGroup>
 

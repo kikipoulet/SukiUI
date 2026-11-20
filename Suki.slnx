@@ -13,6 +13,7 @@
   </Folder>
   <Project Path="SukiUI/SukiUI.csproj" />
   <Project Path="SukiUI.Motion/SukiUI.Motion.csproj" />
+  <Project Path="SukiUI.HyperGraphics/SukiUI.HyperGraphics.csproj" />
   <Project Path="SukiUI.ConditionalXAML/SukiUI.ConditionalXAML.csproj" />
   <Project Path="SukiUI.DataGrid/SukiUI.DataGrid.csproj" />
   <Project Path="SukiUI.ColorPicker/SukiUI.ColorPicker.csproj" />

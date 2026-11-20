@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <Title>SukiUI.HyperGraphics</Title>
+    <Description>High-performance GPU-atlased SVG drawing and animation runtime for Avalonia UI and SukiUI applications.</Description>
+    <PackageTags>avalonia;avaloniaui;ui;graphics;svg;skeuomorphism;skia;sukiui</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+    <PackageReference Include="Avalonia.Skia" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,398 @@
+﻿<UserControl x:Class="SukiUI.Demo.Features.HyperGraphics.Skeumorphism.SkeumorphismPage"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             xmlns:skeumorphism="clr-namespace:SukiUI.Demo.Features.HyperGraphics.Skeumorphism"
+             xmlns:controls="clr-namespace:SukiUI.Demo.Features.HyperGraphics.Skeumorphism.Controls"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             x:DataType="skeumorphism:SkeumorphismViewModel"
+             mc:Ignorable="d">
+    <UserControl.DataContext>
+        <skeumorphism:SkeumorphismViewModel />
+    </UserControl.DataContext>
+
+    <StackPanel Margin="50,25" Spacing="20">
+
+        <TextBlock Classes="h2">HyperSVG</TextBlock>
+
+        <Border Height="1"
+                Margin="0,-45,0,20"
+                Background="{DynamicResource SukiControlBorderBrush}" />
+
+        <TextBlock TextWrapping="Wrap">
+            HyperSVG (part of SukiUI.HyperGraphics) is a lightweight vector-to-atlas engine built for rich, custom-drawn Avalonia controls. You author a plain SVG with dynamic theme tokens (var(--...)), mark movable slices with data-part and data-pivot, and reserve custom Skia drawing regions with data-window. Each HyperControl&lt;TState&gt; strictly splits the control in three: public Avalonia properties on the UI thread, declarative SVG artwork in .Svg.cs, and a compositor-thread HyperStage in .Rendering.cs. Instead of mutating visual trees or running DispatcherTimers on the UI thread, CaptureState() publishes a tiny immutable TState struct across a thread-safe lock-free/guarded bridge, so UI layout and user input never block animations and fast 60/120 Hz frames never stall the UI thread.
+        </TextBlock>
+        <TextBlock TextWrapping="Wrap">
+            Every stage of the pipeline is engineered to eliminate GC pressure and GPU overhead. First-mount resource resolution is staggered through HyperMountQueue under an adaptive UI-thread millisecond budget so opening a dense page never stutters transitions. Static SVGs (HyperSource.Shared) are deduplicated and compiled off-thread by HyperVectorCompiler directly into native Skia paths and shaders, rasterized once into a shared texture atlas, and packed into shared 2048×2048 VRAM pages so contiguous layers draw via batched SKCanvas.DrawAtlas calls with minimal texture switches. During animation, HyperStage runs inside Avalonia's CompositionCustomVisualHandler: all layers, paths, and Skia paints are pre-bound once in OnBind(), OnFrame() operates with zero per-frame allocations (checked by HyperAllocGuard in Debug), and as soon as OnFrame() returns false—or when the control is hidden—frame scheduling stops completely for zero idle cost.
+        </TextBlock>
+        <TextBlock TextWrapping="Wrap">
+            Paired with the Skeumo-Suki design language, the metal takes the tint of the active theme, soft shading matches the glass cards, and the accent color stays the energy of the object. Skeuomorphism here draws a border between the abstract and the physical: a flat green indicator might mean something is open in software, while a physical gauge, valve, fan, or lamp communicates at a glance that a real device is active—and isolating drawing into HyperStage makes complex animated controls fast to craft and effortless to maintain.
+        </TextBlock>
+  
+  
+
+        <WrapPanel Orientation="Horizontal">
+            <suki:GlassCard Width="320" Margin="20" Padding="16" TextElement.Foreground="{DynamicResource SukiText}">
+                <StackPanel>
+                    <!-- Header: title + level badge -->
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock VerticalAlignment="Center" FontSize="17" FontWeight="DemiBold" Text="Tank" />
+                        <suki:GlassCard Grid.Column="1" Padding="10,3" CornerRadius="10">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <Border Width="7" Height="7" VerticalAlignment="Center" CornerRadius="4"
+                                        Background="{DynamicResource SukiPrimaryColor}" />
+                                <TextBlock FontSize="11" FontWeight="DemiBold" Text="{Binding LevelText}" />
+                            </StackPanel>
+                        </suki:GlassCard>
+                    </Grid>
+
+                    <!-- Scene: the outlet of the tank runs under the lever -->
+                    <Panel Width="288" Height="200" Margin="0,16,0,0">
+                        <controls:Tank Level="{Binding Level}"
+                                       Inflow="{Binding Inflow}"
+                                       Outflow="{Binding Outflow}" />
+                        <controls:SpringLever Margin="0,46,0,0"
+                                              HorizontalAlignment="Right"
+                                              VerticalAlignment="Top"
+                                              LeftLabel="Fill"
+                                              RightLabel="Drain"
+                                              AutomationProperties.Name="Fill and drain lever"
+                                              Value="{Binding LeverValue}"
+                                              Released="Lever_OnReleased" />
+                    </Panel>
+                </StackPanel>
+            </suki:GlassCard>
+
+            <!-- Syringe: drag the plunger, click the valve -->
+            <suki:GlassCard Width="300" Margin="20" Padding="0,16" VerticalAlignment="Top"
+                            TextElement.Foreground="{DynamicResource SukiText}">
+                <StackPanel>
+                    <Grid Margin="16,0" ColumnDefinitions="*,Auto">
+                        <TextBlock VerticalAlignment="Center" FontSize="17" FontWeight="DemiBold" Text="Syringe" />
+                        <suki:GlassCard Grid.Column="1" Padding="10,3" CornerRadius="10">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <Border Width="7" Height="7" VerticalAlignment="Center" CornerRadius="4"
+                                        Background="{DynamicResource SukiPrimaryColor}" />
+                                <TextBlock FontSize="11" FontWeight="DemiBold" Text="{Binding SyringeVolumeText}" />
+                            </StackPanel>
+                        </suki:GlassCard>
+                    </Grid>
+
+                    <controls:Syringe Margin="0,12,0,0"
+                                      Position="{Binding SyringePosition}"
+                                      Flow="{Binding SyringeFlow}"
+                                      IsValveOut="{Binding IsValveOut}"
+                                      Volume="{Binding SyringeVolume}"
+                                      PositionRequested="Syringe_OnPositionRequested"
+                                      ValveToggleRequested="Syringe_OnValveToggleRequested" />
+                </StackPanel>
+            </suki:GlassCard>
+
+            <!-- Speed: three-notch switch, drives the syringe stroke speed -->
+            <suki:GlassCard Width="300" Margin="20" Padding="16" VerticalAlignment="Top"
+                            TextElement.Foreground="{DynamicResource SukiText}">
+                <StackPanel>
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock VerticalAlignment="Center" FontSize="17" FontWeight="DemiBold" Text="Speed" />
+                        <suki:GlassCard Grid.Column="1" Padding="10,3" CornerRadius="10">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <Border Width="7" Height="7" VerticalAlignment="Center" CornerRadius="4"
+                                        Background="{DynamicResource SukiPrimaryColor}" />
+                                <TextBlock FontSize="11" FontWeight="DemiBold" Text="{Binding SpeedText}" />
+                            </StackPanel>
+                        </suki:GlassCard>
+                    </Grid>
+
+                    <suki:GlassCard Height="100" Margin="0,16,0,0" Padding="0" CornerRadius="14">
+                        <controls:NotchSwitch HorizontalAlignment="Center"
+                                              TopLabel="Fast"
+                                              MiddleLabel="Medium"
+                                              BottomLabel="Slow"
+                                              AutomationProperties.Name="Syringe speed"
+                                              SelectedIndex="{Binding SpeedIndex}" />
+                    </suki:GlassCard>
+                </StackPanel>
+            </suki:GlassCard>
+
+            <!-- Fan + rotary knob: the knob sets the speed through the wire, the motor ramps up -->
+            <suki:GlassCard Width="350" Margin="20" Padding="16" VerticalAlignment="Top"
+                            TextElement.Foreground="{DynamicResource SukiText}">
+                <StackPanel>
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock VerticalAlignment="Center" FontSize="17" FontWeight="DemiBold" Text="Fan" />
+                        <suki:GlassCard Grid.Column="1" Padding="10,3" CornerRadius="10">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <Border Width="7" Height="7" VerticalAlignment="Center" CornerRadius="4"
+                                        Background="{DynamicResource SukiPrimaryColor}" />
+                                <TextBlock FontSize="11" FontWeight="DemiBold" Text="{Binding FanRpmText}" />
+                            </StackPanel>
+                        </suki:GlassCard>
+                    </Grid>
+                    <!-- Scene 318 x 200: speed controller terminal (258,142) -> wire -> fan gland (128,166) -->
+                    <Panel Width="318" Height="200" Margin="0,20,0,0">
+                        <controls:Fan HorizontalAlignment="Left" VerticalAlignment="Top" Speed="{Binding FanSpeed}" />
+                        <controls:Wire Data="M 258,142 C 258,196 132,198 128,166" Trigger="{Binding FanSetting}" />
+                        <controls:RotaryKnob Margin="198,20,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                             Minimum="0" Maximum="10" StepCount="10"
+                                             AutomationProperties.Name="Fan speed"
+                                             Value="{Binding FanSetting}" />
+                    </Panel>
+                </StackPanel>
+            </suki:GlassCard>
+
+            <!-- Battery + guarded toggle: lift the cover, throw the switch to charge -->
+            <suki:GlassCard Width="320" Margin="20" Padding="16" VerticalAlignment="Top"
+                            TextElement.Foreground="{DynamicResource SukiText}">
+                <StackPanel>
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock VerticalAlignment="Center" FontSize="17" FontWeight="DemiBold" Text="Battery" />
+                        <suki:GlassCard Grid.Column="1" Padding="10,3" CornerRadius="10">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <Border Width="7" Height="7" VerticalAlignment="Center" CornerRadius="4"
+                                        Background="{DynamicResource SukiPrimaryColor}" />
+                                <TextBlock FontSize="11" FontWeight="DemiBold" Text="{Binding ChargeText}" />
+                            </StackPanel>
+                        </suki:GlassCard>
+                    </Grid>
+                    <!-- Scene 288 x 200: supply from the left edge -> switch (terminals 30,32 / 80,32) -> battery + (202,26);
+                         return from the battery - (254,26) to the right edge -->
+                    <Panel Width="288" Height="200" Margin="0,16,0,0">
+                        <controls:GuardedToggle Margin="0,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                                RequiresCover="True" AutomationProperties.Name="Charger"
+                                                IsOn="{Binding ChargerOn}" />
+                        <controls:Battery Margin="168,20,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                          Charge="{Binding Charge}" IsCharging="{Binding IsCharging}" />
+                        <controls:Wire Data="M -4,10 C 18,10 30,14 30,32" Insulation="Red" FadeStart="True"
+                                       Current="{Binding ChargeCurrent}" />
+                        <controls:Wire Data="M 80,32 C 80,4 202,2 202,26" Insulation="Red"
+                                       Current="{Binding ChargeCurrent}" />
+                    </Panel>
+                </StackPanel>
+            </suki:GlassCard>
+
+            <!-- Stirrer + three-position selector: OFF / SLOW / FAST, wired to the stirrer -->
+            <suki:GlassCard Width="320" Margin="20" Padding="16" VerticalAlignment="Top"
+                            TextElement.Foreground="{DynamicResource SukiText}">
+                <StackPanel>
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock VerticalAlignment="Center" FontSize="17" FontWeight="DemiBold" Text="Stirrer" />
+                        <suki:GlassCard Grid.Column="1" Padding="10,3" CornerRadius="10">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <Border Width="7" Height="7" VerticalAlignment="Center" CornerRadius="4"
+                                        Background="{DynamicResource SukiPrimaryColor}" />
+                                <TextBlock FontSize="11" FontWeight="DemiBold" Text="{Binding StirRpmText}" />
+                            </StackPanel>
+                        </suki:GlassCard>
+                    </Grid>
+                    <!-- Scene 288 x 210: selector terminal (270,198) -> wire -> stirrer gland (171,166) -->
+                    <Panel Width="288" Height="210" Margin="0,16,0,0">
+                        <controls:Stirrer HorizontalAlignment="Left" VerticalAlignment="Top"
+                                          Speed="{Binding StirSpeed}" MaxRpm="1500" />
+                        <controls:Wire Data="M 270,198 C 240,198 200,170 171,166" Trigger="{Binding StirMode}" />
+                        <controls:TriSwitch Margin="186,152,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                            LeftLabel="OFF" MiddleLabel="SLOW" RightLabel="FAST"
+                                            AutomationProperties.Name="Stir speed" SelectedIndex="{Binding StirMode}" />
+                    </Panel>
+                </StackPanel>
+            </suki:GlassCard>
+
+            <!-- Lamp + rocker switch: the switch powers the lamp through the wire -->
+            <suki:GlassCard Width="320" Margin="20" Padding="16" VerticalAlignment="Top"
+                            TextElement.Foreground="{DynamicResource SukiText}">
+                <StackPanel>
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock VerticalAlignment="Center" FontSize="17" FontWeight="DemiBold" Text="Lamp" />
+                        <suki:GlassCard Grid.Column="1" Padding="10,3" CornerRadius="10">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <Border Width="7" Height="7" VerticalAlignment="Center" CornerRadius="4"
+                                        Background="{DynamicResource SukiPrimaryColor}" />
+                                <TextBlock FontSize="11" FontWeight="DemiBold" Text="{Binding LampText}" />
+                            </StackPanel>
+                        </suki:GlassCard>
+                    </Grid>
+                    <!-- Scene 288 x 230: mains from the right edge -> switch terminal (256,180); switch (224,180) -> lamp foot (136,210) -->
+                    <Panel Width="288" Height="230" Margin="0,12,0,0">
+                        <controls:Lamp HorizontalAlignment="Left" VerticalAlignment="Top" Intensity="{Binding LampPower}" />
+                        <controls:RockerSwitch Margin="200,60,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                               AutomationProperties.Name="Lamp switch" IsOn="{Binding LampOn}" />
+                        <controls:Wire Data="M 292,224 C 272,224 256,214 256,182" Insulation="Red" FadeStart="True"
+                                       Current="{Binding LampPower}" />
+                        <controls:Wire Data="M 224,182 C 224,216 168,214 136,210" Insulation="Red"
+                                       Current="{Binding LampPower}" />
+                    </Panel>
+                </StackPanel>
+            </suki:GlassCard>
+
+            <!-- Network: the map only plays the scenario of the chosen protocol and reports its progress -->
+            <suki:GlassCard Width="320" Margin="20" Padding="16" VerticalAlignment="Top"
+                            TextElement.Foreground="{DynamicResource SukiText}">
+                <StackPanel>
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock VerticalAlignment="Center" FontSize="17" FontWeight="DemiBold" Text="Local network" />
+                        <suki:GlassCard Grid.Column="1" Padding="10,3" CornerRadius="10">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <Border Width="7" Height="7" VerticalAlignment="Center" CornerRadius="4"
+                                        Background="{DynamicResource SukiPrimaryColor}" />
+                                <TextBlock FontSize="11" FontWeight="DemiBold" Text="{Binding NetworkBadge}" />
+                            </StackPanel>
+                        </suki:GlassCard>
+                    </Grid>
+
+                    <!-- Scene 288 x 222 -->
+                    <controls:NetworkMap Margin="0,16,0,0"
+                                         HorizontalAlignment="Left"
+                                         Width="288" Height="222"
+                                         Script="{Binding NetworkScript}"
+                                         StepIndex="{Binding NetworkStepIndex, Mode=OneWayToSource}"
+                                         IsPlaying="{Binding IsNetworkPlaying, Mode=OneWayToSource}" />
+
+                    <TextBlock Height="52" Margin="0,12,0,0" FontSize="12" TextWrapping="Wrap"
+                               Classes.Playing="{Binding IsNetworkPlaying}"
+                               Text="{Binding NetworkCaption}">
+                        <TextBlock.Styles>
+                            <Style Selector="TextBlock">
+                                <Setter Property="Foreground" Value="{DynamicResource SukiLowText}" />
+                            </Style>
+                            <Style Selector="TextBlock.Playing">
+                                <Setter Property="Foreground" Value="{DynamicResource SukiText}" />
+                            </Style>
+                        </TextBlock.Styles>
+                    </TextBlock>
+
+                    <ItemsControl Margin="-3,8,-3,0" ItemsSource="{Binding NetworkProtocols}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="3" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="skeumorphism:NetworkProtocol">
+                                <Button Margin="3" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                                        Classes="Flat" Classes.Accent="{Binding IsActive}"
+                                        Padding="4,6" FontSize="12"
+                                        Command="{Binding RunCommand}"
+                                        IsEnabled="{Binding !IsBlocked}"
+                                        Content="{Binding Label}"
+                                        ToolTip.Tip="{Binding Description}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </suki:GlassCard>
+
+            <!-- AI Mascot: smooth mood blending & cursor gaze tracking -->
+            <suki:GlassCard Width="320" Margin="20" Padding="16" VerticalAlignment="Top"
+                            TextElement.Foreground="{DynamicResource SukiText}">
+                <StackPanel Spacing="12">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock VerticalAlignment="Center" FontSize="17" FontWeight="DemiBold" Text="AI Mascot" />
+                        <suki:GlassCard Grid.Column="1" Padding="10,3" CornerRadius="10">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <Border Width="7" Height="7" VerticalAlignment="Center" CornerRadius="4"
+                                        Background="{DynamicResource SukiPrimaryColor}" />
+                                <TextBlock FontSize="11" FontWeight="DemiBold" Text="{Binding MascotMoodText}" />
+                            </StackPanel>
+                        </suki:GlassCard>
+                    </Grid>
+
+                    <controls:AiMascot Width="160" Height="160"
+                                       HorizontalAlignment="Center"
+                                       Mood="{Binding MascotMood}"
+                                       FollowPointer="{Binding MascotFollowPointer}" />
+
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                        <ComboBox Grid.Column="0"
+                                  HorizontalAlignment="Stretch"
+                                  ItemsSource="{Binding MascotMoods}"
+                                  SelectedItem="{Binding MascotMood}" />
+                        <CheckBox Grid.Column="1"
+                                  VerticalAlignment="Center"
+                                  Content="Follow cursor"
+                                  IsChecked="{Binding MascotFollowPointer}" />
+                    </Grid>
+                </StackPanel>
+            </suki:GlassCard>
+        </WrapPanel>
+
+        <!-- Minimal 3-file HyperSVG example -->
+        <Border Height="1"
+                Margin="0,10,0,0"
+                Background="{DynamicResource SukiControlBorderBrush}" />
+
+        <StackPanel Spacing="12">
+            <TextBlock Classes="h3" Text="Minimal Example" />
+            <TextBlock TextWrapping="Wrap" Foreground="{DynamicResource SukiLowText}">
+                Every HyperControl&lt;TState&gt; splits into three small files: the Avalonia control surface (state &amp; input), the declarative SVG atlas source, and the render-thread animation stage. Click the beacon below or use the toggle to see it spin down and idle.
+            </TextBlock>
+
+            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="20" RowSpacing="16">
+                <suki:GlassCard Grid.Column="0" Width="220" Padding="16" VerticalAlignment="Top"
+                                TextElement.Foreground="{DynamicResource SukiText}">
+                    <StackPanel Spacing="14">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <TextBlock VerticalAlignment="Center" FontSize="16" FontWeight="DemiBold" Text="PulseBeacon" />
+                            <suki:GlassCard Grid.Column="1" Padding="10,3" CornerRadius="10">
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <Border Width="7" Height="7" VerticalAlignment="Center" CornerRadius="4"
+                                            Background="{DynamicResource SukiPrimaryColor}" />
+                                    <TextBlock FontSize="11" FontWeight="DemiBold" Text="{Binding BeaconStatusText}" />
+                                </StackPanel>
+                            </suki:GlassCard>
+                        </Grid>
+
+                        <controls:PulseBeacon HorizontalAlignment="Center"
+                                              Width="140" Height="140"
+                                              Cursor="Hand"
+                                              IsActive="{Binding BeaconActive, Mode=TwoWay}" />
+
+                        <ToggleSwitch HorizontalAlignment="Center"
+                                      IsChecked="{Binding BeaconActive}"
+                                      OnContent="Running"
+                                      OffContent="Paused" />
+                    </StackPanel>
+                </suki:GlassCard>
+
+                <StackPanel Grid.Column="1" Spacing="12">
+                    <suki:GlassCard Padding="14" TextElement.Foreground="{DynamicResource SukiText}">
+                        <StackPanel Spacing="6">
+                            <TextBlock FontSize="13" FontWeight="SemiBold" Text="1. PulseBeacon.cs — Properties &amp; Immutable State" />
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                                <SelectableTextBlock FontFamily="Consolas,Menlo,monospace"
+                                                     FontSize="12"
+                                                     Foreground="{DynamicResource SukiText}"
+                                                     Text="{Binding MinimalCsCode}" />
+                            </ScrollViewer>
+                        </StackPanel>
+                    </suki:GlassCard>
+
+                    <suki:GlassCard Padding="14" TextElement.Foreground="{DynamicResource SukiText}">
+                        <StackPanel Spacing="6">
+                            <TextBlock FontSize="13" FontWeight="SemiBold" Text="2. PulseBeacon.Svg.cs — Declarative SVG &amp; Slices" />
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                                <SelectableTextBlock FontFamily="Consolas,Menlo,monospace"
+                                                     FontSize="12"
+                                                     Foreground="{DynamicResource SukiText}"
+                                                     Text="{Binding MinimalSvgCode}" />
+                            </ScrollViewer>
+                        </StackPanel>
+                    </suki:GlassCard>
+
+                    <suki:GlassCard Padding="14" TextElement.Foreground="{DynamicResource SukiText}">
+                        <StackPanel Spacing="6">
+                            <TextBlock FontSize="13" FontWeight="SemiBold" Text="3. PulseBeacon.Rendering.cs — Compositor Stage" />
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                                <SelectableTextBlock FontFamily="Consolas,Menlo,monospace"
+                                                     FontSize="12"
+                                                     Foreground="{DynamicResource SukiText}"
+                                                     Text="{Binding MinimalRenderingCode}" />
+                            </ScrollViewer>
+                        </StackPanel>
+                    </suki:GlassCard>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </StackPanel>
+</UserControl>
