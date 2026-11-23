@@ -4,8 +4,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:suki="https://github.com/kikipoulet/SukiUI"
-             xmlns:hg="clr-namespace:SukiUI.HyperGraphics;assembly=SukiUI.HyperGraphics"
              xmlns:mini3d="clr-namespace:SukiUI.Demo.Features.HyperGraphics.Mini3D"
+             xmlns:controls="clr-namespace:SukiUI.Demo.Features.HyperGraphics.Mini3D.Controls"
              d:DesignHeight="950"
              d:DesignWidth="960"
              x:DataType="mini3d:Mini3DViewModel"
@@ -25,8 +25,32 @@
             HyperMini3D (part of SukiUI.HyperGraphics) renders lightweight stylized 3D assemblies in pure SkiaSharp without WebView, OpenGL shaders, or heavy 3D meshes. Scenes are built declaratively in C# via Model3D and Scene3D (orthographic projection, normal-based face shading, extruded 2D profiles, STL import via StlModel, flat 2D face decals, DepthGroup cavities, and painter's-algorithm depth sorting).
         </TextBlock>
         <TextBlock TextWrapping="Wrap">
-            Like HyperSVG, Model3DView runs its animation and projection loop directly inside Avalonia's CompositionCustomVisualHandler (Model3DEngine) on the render thread—keeping the UI thread responsive via immutable messages (Init, Animate, Rotate, Hit). When animations stop or no drag occurs, the engine freezes the frame into a cached bitmap and drops the runtime scene, dropping idle cost to that of a static Image.
+            Like HyperSVG, each reusable control splits cleanly in two: an Avalonia contract (.cs) inheriting Model3DControl&lt;TScene&gt; with bindable StyledProperties and click handling, and a pure Avalonia-free .Scene.cs Model3D builder. Model3DView runs its animation and projection loop directly inside Avalonia's CompositionCustomVisualHandler (Model3DEngine) on the render thread, freezing idle frames into a cached bitmap so idle cost drops to that of a static Image.
         </TextBlock>
+
+        <suki:GlassCard Padding="16,12" TextElement.Foreground="{DynamicResource SukiText}">
+            <Grid ColumnDefinitions="*,240,42" ColumnSpacing="16">
+                <StackPanel VerticalAlignment="Center" Spacing="2">
+                    <TextBlock FontSize="14" FontWeight="SemiBold" Text="Curve Tessellation Quality (0–100)" />
+                    <TextBlock FontSize="12" Foreground="{DynamicResource SukiLowText}"
+                               Text="Path2D.Circle / Arc automatically adapt segment counts and smooth seam shading to Quality (toggle Wireframe to inspect facet density)." />
+                </StackPanel>
+                <Slider Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Minimum="0"
+                        Maximum="100"
+                        TickFrequency="1"
+                        IsSnapToTickEnabled="True"
+                        Value="{Binding SelectedQuality}" />
+                <TextBlock Grid.Column="2"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"
+                           FontFamily="Consolas,Menlo,monospace"
+                           FontSize="13"
+                           FontWeight="SemiBold"
+                           Text="{Binding SelectedQuality}" />
+            </Grid>
+        </suki:GlassCard>
 
         <!-- 1. Synth Console -->
         <Grid ColumnDefinitions="*,300" ColumnSpacing="20">
@@ -44,10 +68,15 @@
                         </suki:GlassCard>
                     </Grid>
 
-                    <hg:Model3DView x:Name="ConsoleView"
-                                    Height="460"
-                                    IsInteractive="True"
-                                    IsWireframe="{Binding IsWireframe}" />
+                    <controls:SynthConsole Height="460"
+                                           IsInteractive="True"
+                                           IsWireframe="{Binding IsWireframe}"
+                                           Quality="{Binding SelectedQuality}"
+                                           IsPowered="{Binding IsPowered}"
+                                           IsAutoRunning="{Binding IsAutoRunning}"
+                                           IsLidOpen="{Binding IsLidOpen}"
+                                           DialTurns="{Binding DialTurns}"
+                                           Level="{Binding Level}" />
 
                     <TextBlock FontSize="12"
                                Foreground="{DynamicResource SukiLowText}"
@@ -103,10 +132,15 @@
                         </suki:GlassCard>
                     </Grid>
 
-                    <hg:Model3DView x:Name="PrinterView"
-                                    Height="460"
-                                    IsInteractive="True"
-                                    IsWireframe="{Binding PrinterWireframe}" />
+                    <controls:Printer3D Height="460"
+                                        IsInteractive="True"
+                                        IsWireframe="{Binding PrinterWireframe}"
+                                        Quality="{Binding SelectedQuality}"
+                                        IsPrinting="{Binding IsPrinting}"
+                                        BedY="{Binding BedY}"
+                                        ToolX="{Binding ToolX}"
+                                        SpoolTurns="{Binding SpoolTurns}"
+                                        Progress="{Binding PrintProgress}" />
 
                     <TextBlock FontSize="12" TextWrapping="Wrap" Foreground="{DynamicResource SukiLowText}"
                                Text="Sliding PEI bed (Y) with thumbwheels, traversing extruder toolhead (X) with fan duct &amp; brass nozzle, dual Z leadscrews &amp; steppers, rotating side spool, and live OLED progress bar. Click the front button or printhead to pause." />
@@ -149,10 +183,13 @@
                         </suki:GlassCard>
                     </Grid>
 
-                    <hg:Model3DView x:Name="VaultView"
-                                    Height="460"
-                                    IsInteractive="True"
-                                    IsWireframe="{Binding VaultWireframe}" />
+                    <controls:SafeVault Height="460"
+                                        IsInteractive="True"
+                                        IsWireframe="{Binding VaultWireframe}"
+                                        Quality="{Binding SelectedQuality}"
+                                        IsUnlocked="{Binding IsVaultUnlocked}"
+                                        IsError="{Binding IsVaultError}"
+                                        PinReadout="{Binding VaultDisplayHint}" />
 
                     <TextBlock FontSize="12" TextWrapping="Wrap" Foreground="{DynamicResource SukiLowText}"
                                Text="Click the 3D keypad keys directly on the safe door—each button physically depresses. Peek at the yellow sticky note on the right wall (1337) to spin the wheel and swing the armored door open." />
@@ -184,6 +221,68 @@
             </suki:GlassCard>
         </Grid>
 
+        <!-- 4. GT Sports Car -->
+        <Grid ColumnDefinitions="*,300" ColumnSpacing="20">
+            <suki:GlassCard Grid.Column="0" Padding="16" TextElement.Foreground="{DynamicResource SukiText}">
+                <StackPanel Spacing="10">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock VerticalAlignment="Center" FontSize="17" FontWeight="DemiBold"
+                                   Text="4. GT Sports Car (Loft, Lathe &amp; Bezier)" />
+                        <suki:GlassCard Grid.Column="1" Padding="10,3" CornerRadius="10">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <Border Width="7" Height="7" VerticalAlignment="Center" CornerRadius="4"
+                                        Background="{DynamicResource SukiPrimaryColor}" />
+                                <TextBlock FontSize="11" FontWeight="DemiBold" Text="{Binding CarStatusText}" />
+                            </StackPanel>
+                        </suki:GlassCard>
+                    </Grid>
+
+                    <controls:SportsCar Height="460"
+                                        IsInteractive="True"
+                                        IsWireframe="{Binding CarWireframe}"
+                                        Quality="{Binding SelectedQuality}"
+                                        IsLightsOn="{Binding IsCarLightsOn}"
+                                        IsAeroDeployed="{Binding IsCarAeroDeployed}"
+                                        IsDriving="{Binding IsCarDriving}"
+                                        WheelTurns="{Binding CarWheelTurns}" />
+
+                    <TextBlock FontSize="12" TextWrapping="Wrap" Foreground="{DynamicResource SukiLowText}"
+                               Text="Sculpted purely in C# using Path2D.Quadratic/Cubic, multi-section Loft (fuselage, wheel-arch flanks, tumblehome cabin), Lathe wheels, and RoundedBox splitters—all smoothed automatically and scaled by Quality. Click headlights/cabin, rear GT wing, or wheels in 3D." />
+                </StackPanel>
+            </suki:GlassCard>
+
+            <suki:GlassCard Grid.Column="1" Padding="16" VerticalAlignment="Top"
+                            TextElement.Foreground="{DynamicResource SukiText}">
+                <StackPanel Spacing="14">
+                    <TextBlock FontSize="16" FontWeight="DemiBold" Text="GT Channels" />
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock VerticalAlignment="Center" Text="LED Lights" />
+                        <ToggleSwitch Grid.Column="1" IsChecked="{Binding IsCarLightsOn}"
+                                      OnContent="On" OffContent="Off" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock VerticalAlignment="Center" Text="Active GT Wing" />
+                        <ToggleSwitch Grid.Column="1" IsChecked="{Binding IsCarAeroDeployed}"
+                                      OnContent="Up" OffContent="Stowed" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock VerticalAlignment="Center" Text="Wheel Spin" />
+                        <ToggleSwitch Grid.Column="1" IsChecked="{Binding IsCarDriving}"
+                                      OnContent="Drive" OffContent="Park" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock VerticalAlignment="Center" Text="Wireframe" />
+                        <ToggleSwitch Grid.Column="1" IsChecked="{Binding CarWireframe}"
+                                      OnContent="Wire" OffContent="Shaded" />
+                    </Grid>
+                </StackPanel>
+            </suki:GlassCard>
+        </Grid>
+
         <!-- Minimal Code Reference -->
         <Border Height="1"
                 Margin="0,8,0,0"
@@ -194,7 +293,7 @@
             <Grid ColumnDefinitions="*,*" ColumnSpacing="16">
                 <suki:GlassCard Grid.Column="0" Padding="14" TextElement.Foreground="{DynamicResource SukiText}">
                     <StackPanel Spacing="6">
-                        <TextBlock FontSize="13" FontWeight="SemiBold" Text="1. Model3D — Pure Scene Builder" />
+                        <TextBlock FontSize="13" FontWeight="SemiBold" Text="1. Control.Scene.cs — Pure Model3D Builder" />
                         <ScrollViewer HorizontalScrollBarVisibility="Auto">
                             <SelectableTextBlock FontFamily="Consolas,Menlo,monospace"
                                                  FontSize="12"
@@ -206,7 +305,7 @@
 
                 <suki:GlassCard Grid.Column="1" Padding="14" TextElement.Foreground="{DynamicResource SukiText}">
                     <StackPanel Spacing="6">
-                        <TextBlock FontSize="13" FontWeight="SemiBold" Text="2. Model3DView — UI &amp; Channels" />
+                        <TextBlock FontSize="13" FontWeight="SemiBold" Text="2. Control.cs — Avalonia Contract" />
                         <ScrollViewer HorizontalScrollBarVisibility="Auto">
                             <SelectableTextBlock FontFamily="Consolas,Menlo,monospace"
                                                  FontSize="12"

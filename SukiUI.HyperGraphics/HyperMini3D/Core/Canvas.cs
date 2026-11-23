@@ -52,7 +52,7 @@ public sealed class Canvas2D
 
     public Mark Polygon(Path2D path)
     {
-        var src = path.Points;
+        var src = path.Resolve(_info.Quality);
         var pts = new Vector2[src.Count];
         for (var i = 0; i < src.Count; i++) pts[i] = L(src[i].A, src[i].B);
         return Add(new[] { pts });
@@ -64,13 +64,24 @@ public sealed class Canvas2D
     public Mark Rect((double A, double B) from, (double A, double B) to) =>
         Add(new[] { new[] { L(from.A, from.B), L(to.A, from.B), L(to.A, to.B), L(from.A, to.B) } });
 
-    /// <summary>Rectangle a coins arrondis entre deux coins opposes, segments par coin.</summary>
-    public Mark RoundRect((double A, double B) from, (double A, double B) to, double radius, int segments = 4) =>
-        Add(new[] { RoundRectPoints(Math.Min(from.A, to.A), Math.Max(from.A, to.A), Math.Min(from.B, to.B), Math.Max(from.B, to.B), radius, segments) });
+    /// <summary>Rectangle a coins arrondis entre deux coins opposes ; sans segments, suit le rayon et la qualite.</summary>
+    public Mark RoundRect((double A, double B) from, (double A, double B) to, double radius, int? segments = null)
+    {
+        var n = segments ?? Math.Max(3, Path2D.ResolveSegments(radius, 90, _info.Quality));
+        return Add(new[] { RoundRectPoints(Math.Min(from.A, to.A), Math.Max(from.A, to.A), Math.Min(from.B, to.B), Math.Max(from.B, to.B), radius, n) });
+    }
 
-    public Mark Circle(double a, double b, double r, int segments = 16) => Add(new[] { EllipsePoints(a, b, r, r, segments) });
+    public Mark Circle(double a, double b, double r, int? segments = null)
+    {
+        var n = segments ?? Path2D.ResolveSegments(r, 360, _info.Quality);
+        return Add(new[] { EllipsePoints(a, b, r, r, n) });
+    }
 
-    public Mark Ellipse(double a, double b, double ra, double rb, int segments = 24) => Add(new[] { EllipsePoints(a, b, ra, rb, segments) });
+    public Mark Ellipse(double a, double b, double ra, double rb, int? segments = null)
+    {
+        var n = segments ?? Path2D.ResolveSegments(Math.Max(ra, rb), 360, _info.Quality);
+        return Add(new[] { EllipsePoints(a, b, ra, rb, n) });
+    }
 
     /// <summary>
     ///     Texte sur une ligne, (a, b) = debut de la ligne de base, size = hauteur de police en unites modele
@@ -173,13 +184,14 @@ public sealed class Canvas3D
     public Mark Line(params (double X, double Y, double Z)[] points) => Add(MapPoints(points), true);
 
     /// <summary>Courbe de Bezier quadratique de a a b, tiree vers control (cable, tuyau).</summary>
-    public Mark Bezier((double X, double Y, double Z) a, (double X, double Y, double Z) control, (double X, double Y, double Z) b, int segments = 10)
+    public Mark Bezier((double X, double Y, double Z) a, (double X, double Y, double Z) control, (double X, double Y, double Z) b, int? segments = null)
     {
+        var n = segments ?? (int)Math.Round(8 + Math.Clamp(_info.Quality, 0, 100) / 100.0 * 24);
         Vector3 pa = M.V(a.X, a.Y, a.Z), pm = M.V(control.X, control.Y, control.Z), pb = M.V(b.X, b.Y, b.Z);
-        var pts = new Vector3[segments + 1];
-        for (var i = 0; i <= segments; i++)
+        var pts = new Vector3[n + 1];
+        for (var i = 0; i <= n; i++)
         {
-            var t = i / (double)segments;
+            var t = i / (double)n;
             var u = (float)(1 - t);
             var tt = (float)t;
             pts[i] = u * u * pa + 2 * u * tt * pm + tt * tt * pb;

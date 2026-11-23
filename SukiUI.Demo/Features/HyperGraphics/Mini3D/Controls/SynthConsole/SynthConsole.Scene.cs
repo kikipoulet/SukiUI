@@ -2,14 +2,14 @@ using System;
 using SkiaSharp;
 using SukiUI.HyperGraphics;
 
-namespace SukiUI.Demo.Features.HyperGraphics.Mini3D;
+namespace SukiUI.Demo.Features.HyperGraphics.Mini3D.Controls;
 
 /// <summary>
 /// Detailed procedural 3D synthesizer deck built for the HyperMini3D demo.
 /// Features fixed tactile pushbuttons on dedicated pedestals, physical drum pads,
 /// side cheek guards, rear I/O ports, live OLED spectrum + peak hold, and hinged VU visor.
 /// </summary>
-public sealed class SynthConsoleModel : Model3D
+public sealed class SynthConsoleScene : Model3D
 {
     private static readonly SKColor Chassis = Rgb(232, 238, 248);
     private static readonly SKColor Bezel = Rgb(210, 219, 235);
@@ -176,15 +176,15 @@ public sealed class SynthConsoleModel : Model3D
         s.Box((154, 42, 48), (210, 98, 56), Bezel, open: Side.Bottom);
 
         // Extruded fluted rotary dial
-        var knobPath = new Path2D().Arc(182, 70, 24, 0, 337.5, 15);
+        var knobPath = new Path2D().Circle(182, 70, 24);
         var dialGroup = s.Group().Pivot((182, 70, 56), Axis.Z).RotateWith("dial", 0, 360).Clickable("dial");
         var dial = dialGroup.Extrude(knobPath, Axis.Z, 56, 73, Rgb(242, 246, 253), rim: Rgb(168, 178, 198));
         dial.Face(Side.Top).Draw(g =>
         {
-            g.Circle(182, 70, 18, 16).Fill(DarkScreen);
-            g.Circle(182, 70, 12, 16).Stroke(Accent, 1.5).Glow("power", 0.55);
+            g.Circle(182, 70, 18).Fill(DarkScreen);
+            g.Circle(182, 70, 12).Stroke(Accent, 1.5).Glow("power", 0.55);
             g.RoundRect((180, 72), (184, 87), 1.5).Fill(AccentSoft).Glow("power", 0.85);
-            g.Circle(182, 70, 4.5, 10).Fill(Bezel);
+            g.Circle(182, 70, 4.5).Fill(Bezel);
         });
 
         // Rear hinge pillar + articulated flip-up visor with dual VU meters

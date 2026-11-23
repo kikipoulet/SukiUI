@@ -2,7 +2,7 @@ using System;
 using SkiaSharp;
 using SukiUI.HyperGraphics;
 
-namespace SukiUI.Demo.Features.HyperGraphics.Mini3D;
+namespace SukiUI.Demo.Features.HyperGraphics.Mini3D.Controls;
 
 /// <summary>
 /// Interactive armored PIN-code safe vault:
@@ -10,7 +10,7 @@ namespace SukiUI.Demo.Features.HyperGraphics.Mini3D;
 /// Enter 1337 (hint on the right sticky note) to spin the 3-spoke vault wheel and swing
 /// open the heavy armored door, revealing locking bolts, gold bars, and a glowing energy core.
 /// </summary>
-public sealed class SafeVaultModel : Model3D
+public sealed class SafeVaultScene : Model3D
 {
     private static readonly SKColor ArmorLight = Rgb(220, 227, 240);
     private static readonly SKColor ArmorMid = Rgb(184, 194, 214);
@@ -114,14 +114,14 @@ public sealed class SafeVaultModel : Model3D
         // Steel shelf dividing cavity
         cavity.Box((17, 30, 92), (163, 143, 98), ShelfSteel);
 
-        // Glowing octahedral energy relic on top shelf
-        var relic = cavity.Extrude(new Path2D().Arc(90, 86, 22, 0, 315, 8), Axis.Z, 98, 144, Accent, rim: AccentSoft);
+        // Glowing octahedral energy relic on top shelf (explicit 8-sided crystal)
+        var relic = cavity.Extrude(new Path2D().Circle(90, 86, 22, segments: 8), Axis.Z, 98, 144, Accent, rim: AccentSoft);
         relic.Face(Side.Top).Draw(g => g.Circle(90, 86, 13, 8).Fill(SKColors.White).Glow("openGlow", 0.95));
         cavity.Box((72, 68, 144), (108, 104, 152), Gold, open: Side.Bottom);
 
         // Exterior cylindrical hinge barrels on left edge
-        s.Extrude(new Path2D().Arc(12, 0, 5, 0, 324, 10), Axis.Z, 40, 66, ArmorMid, rim: DoorSlate);
-        s.Extrude(new Path2D().Arc(12, 0, 5, 0, 324, 10), Axis.Z, 134, 160, ArmorMid, rim: DoorSlate);
+        s.Extrude(new Path2D().Circle(12, 0, 5), Axis.Z, 40, 66, ArmorMid, rim: DoorSlate);
+        s.Extrude(new Path2D().Circle(12, 0, 5), Axis.Z, 134, 160, ArmorMid, rim: DoorSlate);
 
         // Swinging armored vault door (pivots outward & left around (10, 0, 100))
         var doorGroup = s.Group().Pivot((10, 0, 100), Axis.Z).RotateWith("door", 0, -106);
@@ -177,17 +177,17 @@ public sealed class SafeVaultModel : Model3D
 
         // Spinning 3-spoke vault wheel (mounted on door.Front so it always sorts cleanly above the door!)
         var wheelGroup = doorGroup.Group().MountTo(front).Pivot((49, -4, 91), Axis.Y).RotateWith("wheelRot", 0, 140).Clickable("wheel");
-        var wheel = wheelGroup.Extrude(new Path2D().Arc(49, 91, 22, 0, 336, 15), Axis.Y, -6, -0.5, ArmorLight, rim: ArmorMid);
+        var wheel = wheelGroup.Extrude(new Path2D().Circle(49, 91, 22), Axis.Y, -6, -0.5, ArmorLight, rim: ArmorMid);
         wheel.Face(Side.Front).Draw(g =>
         {
-            g.Circle(49, 91, 17, 14).Fill(DoorSlate).Stroke(ArmorMid, 0.9);
+            g.Circle(49, 91, 17).Fill(DoorSlate).Stroke(ArmorMid, 0.9);
             for (var i = 0; i < 3; i++)
             {
                 var a = (i * 120.0 + 30.0) * Deg;
                 g.Line((49, 91), (49 + 16 * Math.Cos(a), 91 + 16 * Math.Sin(a))).Stroke(ArmorLight, 3.0);
             }
-            g.Circle(49, 91, 5.5, 12).Fill(ArmorLight);
-            g.Circle(49, 91, 2.5, 10).FillWith("unlocked", Crimson, Emerald).Glow("unlocked", 0.9);
+            g.Circle(49, 91, 5.5).Fill(ArmorLight);
+            g.Circle(49, 91, 2.5).FillWith("unlocked", Crimson, Emerald).Glow("unlocked", 0.9);
         });
 
         // 12 Physically animated 3D keypad buttons (mounted on door.Front so ALL 12 always sort cleanly above the door!)

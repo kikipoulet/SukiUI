@@ -11,10 +11,11 @@ namespace SukiUI.HyperGraphics;
 /// </summary>
 public static class Model3DValidator
 {
-    public static IReadOnlyList<string> Check(Model3D model, int faceBudget = 600)
+    public static IReadOnlyList<string> Check(Model3D model, int? faceBudget = null)
     {
+        var budget = faceBudget ?? (int)Math.Round(800 + model.Quality / 100.0 * 3200);
         var warnings = new List<string>();
-        var scene = new Scene3D();
+        var scene = new Scene3D(model.Quality);
         Geometry geometry;
         try
         {
@@ -32,8 +33,8 @@ public static class Model3DValidator
         using (geometry)
         {
             var faces = scene.AllFaces().ToList();
-            if (faces.Count > faceBudget)
-                warnings.Add($"{faces.Count} faces : au-dela du budget de {faceBudget} (rotation plus lente). Simplifier les profils ou les arcs.");
+            if (faces.Count > budget)
+                warnings.Add($"{faces.Count} faces : au-dela du budget de {budget} (rotation plus lente). Simplifier les profils ou les arcs.");
 
             foreach (var face in faces)
             {

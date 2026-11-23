@@ -52,7 +52,7 @@ public partial class DashboardViewModel : DemoPageBase
     private void ShowDialog()
     {
         _dialogManager.CreateDialog()
-            .ShowCardBackground(true)
+            .ShowCardBackground(false)
             .WithViewModel(dialog => new DialogViewModel(dialog))
             .Dismiss().ByClickingBackground()
             .TryShow();

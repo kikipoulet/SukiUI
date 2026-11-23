@@ -49,10 +49,12 @@ internal sealed class Face
     public Func<Channels, bool>? HideDecals;
     public FaceDrawing? Dynamic;
     /// <summary>
-    ///     Maillage importe (STL) : SharpEdges[i] = arete P[i] -> P[i + 1] vive. Les autres aretes prennent la couleur
-    ///     de la face (cache les jours entre triangles). Null : contour complet, comme avant.
+    ///     Maillage importe (STL) ou extrusion lisse : SharpEdges[i] = arete P[i] -> P[i + 1] vive. Les autres aretes
+    ///     prennent la couleur de la face (ou s'affichent si <see cref="SeamPeers"/>[i] passe dos a la camera).
     /// </summary>
     public bool[]? SharpEdges;
+    /// <summary>Face voisine sur une arete lisse, pour tracer le contour silhouette quand elle passe dos a l'oeil.</summary>
+    public Face?[]? SeamPeers;
 
     // Repere de la pose de repos : les decalques y sont exprimes une fois pour toutes
     public Vector3 RestO, RestU, RestV, RestN;
@@ -281,6 +283,7 @@ internal sealed class ModelInfo
     public GroundSpec? Ground;
     public SKColor Edge = new(61, 74, 107);
     public bool HasTargets;
+    public int Quality = 50;
 
     public int Channel(string name) =>
         Index.TryGetValue(name, out var i)

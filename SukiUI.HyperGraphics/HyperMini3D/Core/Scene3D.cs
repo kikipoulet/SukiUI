@@ -58,7 +58,7 @@ public abstract class Container3D
     /// </summary>
     public Body3D Extrude(Path2D profile, Axis along, double from, double to, SKColor color, SKColor? rim = null, double opacity = 1)
     {
-        var pts = profile.Points;
+        var pts = profile.Resolve(Scene.Info.Quality);
         if (pts.Count < 3) throw new ArgumentException("Mini3D : Extrude demande un profil d'au moins 3 points.");
         double area = 0;
         for (var i = 0; i < pts.Count; i++)
@@ -96,6 +96,7 @@ public abstract class Container3D
             new() { P = capTo, N = Map(0, 0, sg), C = color, Op = opacity },
             new() { P = capFrom, N = Map(0, 0, -sg), C = color, Op = opacity },
         };
+        var rimFaces = new List<(Face Face, double NA, double NB)>(pts.Count);
         for (var i = 0; i < pts.Count; i++)
         {
             var a = pts[i];
@@ -103,15 +104,551 @@ public abstract class Container3D
             double da = b.A - a.A, db = b.B - a.B, len = Math.Sqrt(da * da + db * db);
             if (len < .01) continue;
             var n = clockwise ? (A: -db / len, B: da / len) : (A: db / len, B: -da / len);
-            faces.Add(new Face
+            var rimFace = new Face
             {
                 P = new[] { Map(a.A, a.B, to), Map(a.A, a.B, from), Map(b.A, b.B, from), Map(b.A, b.B, to) },
                 N = Map(n.A, n.B, 0), C = rim ?? color, Op = opacity,
-            });
+            };
+            faces.Add(rimFace);
+            rimFaces.Add((rimFace, n.A, n.B));
+        }
+        const double smoothCos = 0.848; // cos(32 deg) : cercles (>=12 cotes) lisses, hexagones/octogones vifs
+        if (rimFaces.Count >= 3)
+        {
+            for (var k = 0; k < rimFaces.Count; k++)
+            {
+                var prev = (k - 1 + rimFaces.Count) % rimFaces.Count;
+                var next = (k + 1) % rimFaces.Count;
+                var cur = rimFaces[k];
+                var pPrev = rimFaces[prev];
+                var pNext = rimFaces[next];
+                var smooth0 = cur.NA * pPrev.NA + cur.NB * pPrev.NB >= smoothCos;
+                var smooth2 = cur.NA * pNext.NA + cur.NB * pNext.NB >= smoothCos;
+                if (smooth0 || smooth2)
+                {
+                    cur.Face.SharpEdges = new[] { !smooth0, true, !smooth2, true };
+                    cur.Face.SeamPeers = new Face?[] { smooth0 ? pPrev.Face : null, null, smooth2 ? pNext.Face : null, null };
+                }
+            }
         }
         foreach (var face in faces) face.Rest();
         Add(faces, false);
         return Scene.Register(new Body3D(Scene, faces, (minV.X, minV.Y, minV.Z), (maxV.X, maxV.Y, maxV.Z), this));
+    }
+
+    /// <summary>
+    ///     Extrusion multi-sections (loft) le long d'un axe : relie une suite de coupes <c>(At, Profile)</c> par une
+    ///     surface lissee (aretes douces automatiques + silhouette). Les coordonnees de chaque profil suivent la meme
+    ///     convention que <see cref="Extrude"/> : (Y, Z) le long de X, (X, Z) le long de Y, (X, Y) le long de Z.
+    /// </summary>
+    public Body3D Loft(Axis along, SKColor color, params (double At, Path2D Profile)[] sections)
+        => Loft(along, color, rim: null, opacity: 1, capStart: true, capEnd: true, sections);
+
+    /// <summary>Version complete de <c>Loft</c> avec couleur de tranche, opacite et option de fermeture des bouts.</summary>
+    public Body3D Loft(Axis along, SKColor color, SKColor? rim, double opacity, bool capStart, bool capEnd,
+        params (double At, Path2D Profile)[] sections)
+        => BuildLoft(along, color, rim, opacity, capStart, capEnd, smooth: false, stepsPerSpan: null, sections);
+
+    /// <summary>
+    ///     Loft lisse le long de l'axe par spline cubique monotone (PCHIP) entre les coupes : produit des surfaces
+    ///     a double courbure (capots, toits, coques) dont la finesse longitudinale suit <see cref="Model3D.Quality"/>.
+    /// </summary>
+    public Body3D SmoothLoft(Axis along, SKColor color, params (double At, Path2D Profile)[] sections)
+        => BuildLoft(along, color, rim: null, opacity: 1, capStart: true, capEnd: true, smooth: true, stepsPerSpan: null, sections);
+
+    /// <summary>Version complete de <c>SmoothLoft</c> avec tranche, opacite, bouts et pas par intervalle.</summary>
+    public Body3D SmoothLoft(Axis along, SKColor color, SKColor? rim, double opacity, bool capStart, bool capEnd,
+        int? stepsPerSpan, params (double At, Path2D Profile)[] sections)
+        => BuildLoft(along, color, rim, opacity, capStart, capEnd, smooth: true, stepsPerSpan, sections);
+
+    private Body3D BuildLoft(Axis along, SKColor color, SKColor? rim, double opacity, bool capStart, bool capEnd,
+        bool smooth, int? stepsPerSpan, params (double At, Path2D Profile)[] sections)
+    {
+        if (sections.Length < 2) throw new ArgumentException("Mini3D : Loft demande au moins 2 sections.");
+
+        var quality = Scene.Info.Quality;
+        int[]? sharedCounts = null;
+        var firstProf = sections[0].Profile;
+        if (sections.All(s => s.Profile.HasSameStructure(firstProf)))
+        {
+            sharedCounts = firstProf.ResolveCommandSegments(quality);
+            for (var i = 1; i < sections.Length; i++)
+            {
+                var c = sections[i].Profile.ResolveCommandSegments(quality);
+                for (var k = 0; k < sharedCounts.Length; k++)
+                    if (c[k] > sharedCounts[k]) sharedCounts[k] = c[k];
+            }
+        }
+
+        var wantNegArea = along == Axis.Y;
+        var resolved = new List<(double At, List<(double A, double B)> Pts)>(sections.Length);
+        var maxPts = 0;
+        foreach (var (at, prof) in sections)
+        {
+            var pts = prof.Resolve(quality, sharedCounts);
+            if (pts.Count < 3) throw new ArgumentException("Mini3D : chaque section de Loft doit avoir au moins 3 points.");
+            var area = SignedArea(pts);
+            if (wantNegArea ? area > 0 : area < 0) pts.Reverse();
+            resolved.Add((at, pts));
+            if (pts.Count > maxPts) maxPts = pts.Count;
+        }
+        if (resolved[0].At > resolved[^1].At) resolved.Reverse();
+
+        var sameCount = resolved.All(s => s.Pts.Count == maxPts);
+        var cols = maxPts;
+        var ctrlRows = resolved.Count;
+        var ctrlPts = new List<(double A, double B)>[ctrlRows];
+        var ctrlAt = new double[ctrlRows];
+        for (var r = 0; r < ctrlRows; r++)
+        {
+            ctrlPts[r] = sameCount ? resolved[r].Pts : ResampleClosed(resolved[r].Pts, cols);
+            ctrlAt[r] = resolved[r].At;
+        }
+
+        var subSteps = smooth && ctrlRows >= 2
+            ? Math.Max(1, stepsPerSpan ?? ResolveLoftSteps(quality))
+            : 1;
+        var rows = (ctrlRows - 1) * subSteps + 1;
+        var grid = new Vector3[rows, cols];
+        var minV = new Vector3(float.MaxValue);
+        var maxV = new Vector3(float.MinValue);
+
+        if (subSteps == 1)
+        {
+            for (var r = 0; r < ctrlRows; r++)
+            {
+                var t = ctrlAt[r];
+                var pts = ctrlPts[r];
+                for (var c = 0; c < cols; c++)
+                {
+                    var v = MapAlong(along, pts[c].A, pts[c].B, t);
+                    grid[r, c] = v;
+                    minV = Vector3.Min(minV, v);
+                    maxV = Vector3.Max(maxV, v);
+                }
+            }
+        }
+        else
+        {
+            var slopesA = new double[ctrlRows, cols];
+            var slopesB = new double[ctrlRows, cols];
+            ComputePchipSlopes(ctrlAt, ctrlPts, cols, slopesA, slopesB);
+
+            var outRow = 0;
+            for (var seg = 0; seg < ctrlRows - 1; seg++)
+            {
+                var t0 = ctrlAt[seg];
+                var dt = ctrlAt[seg + 1] - t0;
+                var limit = seg == ctrlRows - 2 ? subSteps + 1 : subSteps;
+                for (var s = 0; s < limit; s++)
+                {
+                    var u = (double)s / subSteps;
+                    var u2 = u * u;
+                    var u3 = u2 * u;
+                    var h00 = 2 * u3 - 3 * u2 + 1;
+                    var h10 = u3 - 2 * u2 + u;
+                    var h01 = -2 * u3 + 3 * u2;
+                    var h11 = u3 - u2;
+                    var t = t0 + u * dt;
+
+                    for (var c = 0; c < cols; c++)
+                    {
+                        var a0 = ctrlPts[seg][c].A;
+                        var a1 = ctrlPts[seg + 1][c].A;
+                        var b0 = ctrlPts[seg][c].B;
+                        var b1 = ctrlPts[seg + 1][c].B;
+                        var a = h00 * a0 + h10 * dt * slopesA[seg, c] + h01 * a1 + h11 * dt * slopesA[seg + 1, c];
+                        var b = h00 * b0 + h10 * dt * slopesB[seg, c] + h01 * b1 + h11 * dt * slopesB[seg + 1, c];
+                        var v = MapAlong(along, a, b, t);
+                        grid[outRow, c] = v;
+                        minV = Vector3.Min(minV, v);
+                        maxV = Vector3.Max(maxV, v);
+                    }
+                    outRow++;
+                }
+            }
+        }
+
+        var sideColor = rim ?? color;
+        var sideFaces = BuildGridTriangles(grid, rows, cols, closedRows: false, closedCols: true, sideColor, opacity);
+        // Align side triangle winding with outward cap winding ((e_A x e_B) . e_t > 0 => side normals point outward)
+        FlipTriangles(sideFaces);
+        var allFaces = new List<Face>(sideFaces.Count + 2);
+
+        var startP = new Vector3[cols];
+        for (var c = 0; c < cols; c++) startP[c] = grid[0, cols - 1 - c];
+        var endP = new Vector3[cols];
+        for (var c = 0; c < cols; c++) endP[c] = grid[rows - 1, c];
+
+        Face? startCap = null, endCap = null;
+        if (capStart)
+        {
+            startCap = new Face { P = startP, N = MapAlong(along, 0, 0, -1), C = color, Op = opacity };
+            allFaces.Add(startCap);
+        }
+        if (capEnd)
+        {
+            endCap = new Face { P = endP, N = MapAlong(along, 0, 0, 1), C = color, Op = opacity };
+            allFaces.Add(endCap);
+        }
+        allFaces.AddRange(sideFaces);
+
+        // Compute signed volume on the closed boundary even when caps are omitted so open lofts keep outward normals
+        EnsureOutwardVolume(sideFaces, startCap, endCap, capStart ? null : startP, capEnd ? null : endP);
+        WireSmoothSeams(sideFaces);
+        foreach (var f in allFaces) f.Rest();
+
+        Add(allFaces, false);
+        return Scene.Register(new Body3D(Scene, allFaces, (minV.X, minV.Y, minV.Z), (maxV.X, maxV.Y, maxV.Z), this));
+    }
+
+    private static int ResolveLoftSteps(int quality)
+    {
+        var q = Math.Clamp(quality, 0, 100);
+        if (q <= 20) return 1;
+        return 2;
+    }
+
+    private static void ComputePchipSlopes(double[] at, List<(double A, double B)>[] pts, int cols,
+        double[,] slopesA, double[,] slopesB)
+    {
+        var n = at.Length;
+        for (var c = 0; c < cols; c++)
+        {
+            if (n == 2)
+            {
+                var dt = at[1] - at[0];
+                var sa = Math.Abs(dt) > 1e-6 ? (pts[1][c].A - pts[0][c].A) / dt : 0;
+                var sb = Math.Abs(dt) > 1e-6 ? (pts[1][c].B - pts[0][c].B) / dt : 0;
+                slopesA[0, c] = slopesA[1, c] = sa;
+                slopesB[0, c] = slopesB[1, c] = sb;
+                continue;
+            }
+
+            for (var k = 0; k < n; k++)
+            {
+                if (k == 0)
+                {
+                    slopesA[0, c] = PchipEndSlope(at[1] - at[0], at[2] - at[1], pts[1][c].A - pts[0][c].A, pts[2][c].A - pts[1][c].A);
+                    slopesB[0, c] = PchipEndSlope(at[1] - at[0], at[2] - at[1], pts[1][c].B - pts[0][c].B, pts[2][c].B - pts[1][c].B);
+                }
+                else if (k == n - 1)
+                {
+                    slopesA[k, c] = PchipEndSlope(at[k] - at[k - 1], at[k - 1] - at[k - 2], pts[k][c].A - pts[k - 1][c].A, pts[k - 1][c].A - pts[k - 2][c].A);
+                    slopesB[k, c] = PchipEndSlope(at[k] - at[k - 1], at[k - 1] - at[k - 2], pts[k][c].B - pts[k - 1][c].B, pts[k - 1][c].B - pts[k - 2][c].B);
+                }
+                else
+                {
+                    slopesA[k, c] = PchipInteriorSlope(at[k] - at[k - 1], at[k + 1] - at[k], pts[k][c].A - pts[k - 1][c].A, pts[k + 1][c].A - pts[k][c].A);
+                    slopesB[k, c] = PchipInteriorSlope(at[k] - at[k - 1], at[k + 1] - at[k], pts[k][c].B - pts[k - 1][c].B, pts[k + 1][c].B - pts[k][c].B);
+                }
+            }
+        }
+    }
+
+    private static double PchipInteriorSlope(double h0, double h1, double d0, double d1)
+    {
+        if (Math.Abs(h0) < 1e-6 || Math.Abs(h1) < 1e-6) return 0;
+        var s0 = d0 / h0;
+        var s1 = d1 / h1;
+        if (s0 * s1 <= 0) return 0;
+        var w0 = 2 * h1 + h0;
+        var w1 = h1 + 2 * h0;
+        return (w0 + w1) / (w0 / s0 + w1 / s1);
+    }
+
+    private static double PchipEndSlope(double h0, double h1, double d0, double d1)
+    {
+        if (Math.Abs(h0) < 1e-6) return 0;
+        var s0 = d0 / h0;
+        if (Math.Abs(h1) < 1e-6) return s0;
+        var s1 = d1 / h1;
+        var d = ((2 * h0 + h1) * s0 - h0 * s1) / (h0 + h1);
+        if (d * s0 <= 0) return 0;
+        if (s0 * s1 <= 0 && Math.Abs(d) > Math.Abs(3 * s0)) return 3 * s0;
+        return d;
+    }
+
+    /// <summary>
+    ///     Surface de revolution (lathe) obtenue en faisant tourner un profil 2D <c>(Rayon, PositionAxe)</c>
+    ///     autour d'un axe passant par <paramref name="center"/> :
+    ///     <c>Axis.X</c> -> centre <c>(Y, Z)</c> ; <c>Axis.Y</c> -> centre <c>(X, Z)</c> ; <c>Axis.Z</c> -> centre <c>(X, Y)</c>.
+    ///     Le decoupage angulaire s'adapte automatiquement au rayon maximal et a <see cref="Model3D.Quality"/>.
+    /// </summary>
+    public Body3D Lathe(Path2D profile, Axis around, (double A, double B) center, SKColor color,
+        double fromDeg = 0, double toDeg = 360, int? segments = null, double opacity = 1)
+    {
+        var pts = profile.Resolve(Scene.Info.Quality);
+        if (pts.Count < 2) throw new ArgumentException("Mini3D : Lathe demande un profil d'au moins 2 points.");
+
+        var maxR = 0.0;
+        foreach (var p in pts) maxR = Math.Max(maxR, Math.Abs(p.A));
+        var sweep = Math.Abs(toDeg - fromDeg);
+        var full = Math.Abs(sweep - 360.0) < 1e-3;
+        var segs = Math.Max(full ? 3 : 1, segments ?? Path2D.ResolveSegments(maxR, sweep, Scene.Info.Quality));
+        var closedProfile = Math.Abs(pts[0].A) > 1e-3 && Math.Abs(pts[^1].A) > 1e-3;
+
+        var rows = full ? segs : segs + 1;
+        var cols = pts.Count;
+        var grid = new Vector3[rows, cols];
+        var minV = new Vector3(float.MaxValue);
+        var maxV = new Vector3(float.MinValue);
+
+        for (var r = 0; r < rows; r++)
+        {
+            var deg = fromDeg + (toDeg - fromDeg) * r / segs;
+            var rad = deg * M.Deg;
+            double cs = Math.Cos(rad), sn = Math.Sin(rad);
+            for (var c = 0; c < cols; c++)
+            {
+                var radR = Math.Max(0, pts[c].A);
+                var axisT = pts[c].B;
+                var a = center.A + radR * cs;
+                var b = center.B + radR * sn;
+                var v = MapAlong(around, a, b, axisT);
+                grid[r, c] = v;
+                minV = Vector3.Min(minV, v);
+                maxV = Vector3.Max(maxV, v);
+            }
+        }
+
+        var sideFaces = BuildGridTriangles(grid, rows, cols, closedRows: full, closedCols: closedProfile, color, opacity);
+        if (sideFaces.Count == 0) throw new ArgumentException("Mini3D : Lathe degeneree (aucune face).");
+
+        if (full)
+        {
+            EnsureOutwardVolume(sideFaces, null, null, null, null);
+        }
+        else
+        {
+            var area = SignedArea(pts);
+            if (area * Math.Sign(toDeg - fromDeg) < 0) FlipTriangles(sideFaces);
+        }
+
+        WireSmoothSeams(sideFaces);
+        foreach (var f in sideFaces) f.Rest();
+        Add(sideFaces, false);
+        return Scene.Register(new Body3D(Scene, sideFaces, (minV.X, minV.Y, minV.Z), (maxV.X, maxV.Y, maxV.Z), this));
+    }
+
+    /// <summary>
+    ///     Boite aux coins et bords arrondis de <paramref name="min"/> a <paramref name="max"/>,
+    ///     sensible a <see cref="Model3D.Quality"/>.
+    /// </summary>
+    public Body3D RoundedBox((double X, double Y, double Z) min, (double X, double Y, double Z) max,
+        double radius, SKColor color, double opacity = 1)
+    {
+        var dx = max.X - min.X;
+        var dy = max.Y - min.Y;
+        var dz = max.Z - min.Z;
+        if (dx <= 0 || dy <= 0 || dz <= 0)
+            throw new ArgumentException($"Mini3D : RoundedBox vide ou inversee, min {min} doit etre < max {max}.");
+
+        var r = Math.Min(radius, Math.Min(dx, Math.Min(dy, dz)) * 0.45);
+        if (r <= 0.1) return Box(min, max, color, opacity: opacity);
+
+        var t = Math.Clamp(Scene.Info.Quality, 0, 100) / 100.0;
+        var arcSegs = Math.Max(2, (int)Math.Round(2 + t * 3));
+        var bevelSegs = Math.Max(1, (int)Math.Round(1 + t));
+
+        Path2D MakeRectProfile(double insetXY)
+        {
+            var x0 = min.X + insetXY;
+            var x1 = max.X - insetXY;
+            var y0 = min.Y + insetXY;
+            var y1 = max.Y - insetXY;
+            var cr = Math.Max(0.2, r - insetXY);
+            return new Path2D()
+                .Arc(x1 - cr, y0 + cr, cr, -90, 0, arcSegs)
+                .Arc(x1 - cr, y1 - cr, cr, 0, 90, arcSegs)
+                .Arc(x0 + cr, y1 - cr, cr, 90, 180, arcSegs)
+                .Arc(x0 + cr, y0 + cr, cr, 180, 270, arcSegs);
+        }
+
+        var sections = new List<(double At, Path2D Profile)>(2 * bevelSegs + 2);
+        for (var i = 0; i <= bevelSegs; i++)
+        {
+            var a = (90.0 * i / bevelSegs) * M.Deg;
+            var z = min.Z + r * (1.0 - Math.Cos(a));
+            var inset = r * (1.0 - Math.Sin(a));
+            sections.Add((z, MakeRectProfile(inset)));
+        }
+        for (var i = 0; i <= bevelSegs; i++)
+        {
+            var a = (90.0 * i / bevelSegs) * M.Deg;
+            var z = max.Z - r + r * Math.Sin(a);
+            if (i == 0 && Math.Abs(sections[^1].At - z) < 1e-4) continue;
+            var inset = r * (1.0 - Math.Cos(a));
+            sections.Add((z, MakeRectProfile(inset)));
+        }
+        return Loft(Axis.Z, color, sections.ToArray());
+    }
+
+    private static Vector3 MapAlong(Axis along, double a, double b, double t) => along switch
+    {
+        Axis.X => M.V(t, a, b),
+        Axis.Y => M.V(a, t, b),
+        _ => M.V(a, b, t),
+    };
+
+    private static double SignedArea(List<(double A, double B)> pts)
+    {
+        double area = 0;
+        for (var i = 0; i < pts.Count; i++)
+        {
+            var a = pts[i];
+            var b = pts[(i + 1) % pts.Count];
+            area += a.A * b.B - b.A * a.B;
+        }
+        return area;
+    }
+
+    private static List<(double A, double B)> ResampleClosed(List<(double A, double B)> pts, int targetCount)
+    {
+        var cum = new double[pts.Count + 1];
+        for (var i = 0; i < pts.Count; i++)
+        {
+            var a = pts[i];
+            var b = pts[(i + 1) % pts.Count];
+            cum[i + 1] = cum[i] + Math.Sqrt((b.A - a.A) * (b.A - a.A) + (b.B - a.B) * (b.B - a.B));
+        }
+        var total = cum[^1];
+        if (total < 1e-6) return pts;
+
+        var res = new List<(double A, double B)>(targetCount);
+        var seg = 0;
+        for (var k = 0; k < targetCount; k++)
+        {
+            var d = total * k / targetCount;
+            while (seg + 1 < cum.Length - 1 && cum[seg + 1] < d) seg++;
+            var len = cum[seg + 1] - cum[seg];
+            var u = len > 1e-9 ? (d - cum[seg]) / len : 0;
+            var a = pts[seg];
+            var b = pts[(seg + 1) % pts.Count];
+            res.Add((a.A + (b.A - a.A) * u, a.B + (b.B - a.B) * u));
+        }
+        return res;
+    }
+
+    private static List<Face> BuildGridTriangles(Vector3[,] grid, int rows, int cols,
+        bool closedRows, bool closedCols, SKColor color, double opacity)
+    {
+        var rMax = closedRows ? rows : rows - 1;
+        var cMax = closedCols ? cols : cols - 1;
+        var faces = new List<Face>(rMax * cMax * 2);
+
+        void TryAdd(Vector3 p0, Vector3 p1, Vector3 p2)
+        {
+            var n = Vector3.Cross(p1 - p0, p2 - p0);
+            var len = n.Length();
+            if (len < 1e-4f) return;
+            faces.Add(new Face { P = new[] { p0, p1, p2 }, N = n / len, C = color, Op = opacity });
+        }
+
+        for (var r = 0; r < rMax; r++)
+        {
+            var r1 = (r + 1) % rows;
+            for (var c = 0; c < cMax; c++)
+            {
+                var c1 = (c + 1) % cols;
+                var p00 = grid[r, c];
+                var p10 = grid[r1, c];
+                var p11 = grid[r1, c1];
+                var p01 = grid[r, c1];
+
+                // Choix de la diagonale la plus courte pour eviter les triangles etires
+                if ((p00 - p11).LengthSquared() <= (p10 - p01).LengthSquared())
+                {
+                    TryAdd(p00, p10, p11);
+                    TryAdd(p00, p11, p01);
+                }
+                else
+                {
+                    TryAdd(p00, p10, p01);
+                    TryAdd(p10, p11, p01);
+                }
+            }
+        }
+        return faces;
+    }
+
+    private static void EnsureOutwardVolume(List<Face> sideFaces, Face? startCap, Face? endCap,
+        Vector3[]? virtualStartCap, Vector3[]? virtualEndCap)
+    {
+        if (sideFaces.Count == 0) return;
+        var origin = sideFaces[0].P[0];
+        double vol = 0;
+
+        void Accum(Vector3[] p)
+        {
+            var p0 = p[0] - origin;
+            for (var i = 1; i + 1 < p.Length; i++)
+                vol += Vector3.Dot(p0, Vector3.Cross(p[i] - origin, p[i + 1] - origin));
+        }
+
+        foreach (var f in sideFaces) Accum(f.P);
+        if (startCap != null) Accum(startCap.P);
+        else if (virtualStartCap != null) Accum(virtualStartCap);
+        if (endCap != null) Accum(endCap.P);
+        else if (virtualEndCap != null) Accum(virtualEndCap);
+        if (vol >= 0) return;
+
+        FlipTriangles(sideFaces);
+        if (startCap != null)
+        {
+            Array.Reverse(startCap.P);
+            startCap.N = -startCap.N;
+        }
+        if (endCap != null)
+        {
+            Array.Reverse(endCap.P);
+            endCap.N = -endCap.N;
+        }
+    }
+
+    private static void FlipTriangles(List<Face> faces)
+    {
+        foreach (var f in faces)
+        {
+            (f.P[1], f.P[2]) = (f.P[2], f.P[1]);
+            f.N = -f.N;
+        }
+    }
+
+    private static void WireSmoothSeams(List<Face> faces)
+    {
+        const float smoothCos = 0.848f; // cos(32 deg)
+        var edges = new Dictionary<(long, long, long, long, long, long), (Face F, int E)>(faces.Count * 2);
+
+        static (long, long, long) Key(Vector3 v) =>
+            ((long)Math.Round(v.X * 100), (long)Math.Round(v.Y * 100), (long)Math.Round(v.Z * 100));
+
+        static (long, long, long, long, long, long) EdgeKey((long X, long Y, long Z) a, (long X, long Y, long Z) b)
+            => a.CompareTo(b) <= 0 ? (a.X, a.Y, a.Z, b.X, b.Y, b.Z) : (b.X, b.Y, b.Z, a.X, a.Y, a.Z);
+
+        foreach (var f in faces)
+        {
+            f.SharpEdges = new[] { true, true, true };
+            f.SeamPeers = new Face?[3];
+            for (var e = 0; e < 3; e++)
+            {
+                var k = EdgeKey(Key(f.P[e]), Key(f.P[(e + 1) % 3]));
+                if (edges.TryGetValue(k, out var peer))
+                {
+                    if (Vector3.Dot(f.N, peer.F.N) >= smoothCos)
+                    {
+                        f.SharpEdges[e] = false;
+                        peer.F.SharpEdges![peer.E] = false;
+                        f.SeamPeers[e] = peer.F;
+                        peer.F.SeamPeers![peer.E] = f;
+                    }
+                }
+                else
+                {
+                    edges[k] = (f, e);
+                }
+            }
+        }
     }
 
     private static (double, double, double) Min((double X, double Y, double Z)[] p) => (p.Min(q => q.X), p.Min(q => q.Y), p.Min(q => q.Z));
@@ -131,7 +668,11 @@ public sealed class Scene3D : Container3D
     internal List<(int Small, int Host, int Face)>? MountPlan;
     private (double Z, double? Step, (double, double)? X, (double, double)? Y, bool Shadow, (double, double)? From, (double, double)? To)? _ground;
 
-    internal Scene3D() : base(null) => Geometry = new Geometry(Info);
+    internal Scene3D(int quality = 50) : base(null)
+    {
+        Info.Quality = Math.Clamp(quality, 0, 100);
+        Geometry = new Geometry(Info);
+    }
 
     private protected override void Add(List<Face> faces, bool wall) => Geometry.Faces.AddRange(faces);
 

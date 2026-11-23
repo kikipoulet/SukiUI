@@ -17,13 +17,17 @@ namespace SukiUI.HyperGraphics;
 ///     Cote thread UI, cette vue ne calcule ni ne dessine rien : elle envoie des messages au moteur (thread de rendu).
 ///     Au repos, l'image est figee en bitmap : meme cout qu'une Image. Cachee ou detachee, elle ne garde rien.
 /// </summary>
-public sealed class Model3DView : Control, ICustomHitTest
+public class Model3DView : Control, ICustomHitTest
 {
     public static readonly StyledProperty<bool> IsInteractiveProperty =
         AvaloniaProperty.Register<Model3DView, bool>(nameof(IsInteractive), true);
 
     public static readonly StyledProperty<bool> IsWireframeProperty =
         AvaloniaProperty.Register<Model3DView, bool>(nameof(IsWireframe));
+
+    public static readonly StyledProperty<int?> QualityProperty =
+        AvaloniaProperty.Register<Model3DView, int?>(nameof(Quality),
+            coerce: (_, v) => v is { } q ? Math.Clamp(q, 0, 100) : null);
 
     private const double ClickTolerance = 4, YawPerPixel = .008, PitchPerPixel = .006;
     private static readonly TimeSpan SettleDelay = TimeSpan.FromMilliseconds(500);
@@ -65,6 +69,13 @@ public sealed class Model3DView : Control, ICustomHitTest
         set => SetValue(IsWireframeProperty, value);
     }
 
+    /// <summary>Qualite de rendu de 0 a 100 (surcharge <see cref="Model3D.Quality"/> quand non null).</summary>
+    public int? Quality
+    {
+        get => GetValue(QualityProperty);
+        set => SetValue(QualityProperty, value);
+    }
+
     /// <summary>Modele affiche. Le changer reconstruit le moteur (les entrees reprennent leurs valeurs initiales).</summary>
     public Model3D? Model
     {
@@ -98,6 +109,7 @@ public sealed class Model3DView : Control, ICustomHitTest
 
     private void Attach()
     {
+        OnBeforeAttach();
         _attached = true;
         WatchAncestors();
         var compositor = ElementComposition.GetElementVisual(this)?.Compositor;
@@ -108,7 +120,7 @@ public sealed class Model3DView : Control, ICustomHitTest
         ElementComposition.SetElementChildVisual(this, _visual);
         _active = ComputeActive();
         Send(new ActiveMessage(_active));
-        Send(new InitMessage((double[])_inputs.Clone(), IsWireframe, IsDark, Intro: true));
+        Send(new InitMessage((double[])_inputs.Clone(), IsWireframe, IsDark, Intro: true, Quality));
     }
 
     /// <summary>Hors de l'arbre visuel, ne garde rien : le moteur libere tout, le visuel est retire.</summary>
@@ -131,12 +143,12 @@ public sealed class Model3DView : Control, ICustomHitTest
 
     private bool IsDark => ActualThemeVariant == ThemeVariant.Dark;
 
-    private void SendFlags() => Send(new FlagsMessage(IsWireframe, IsDark));
+    private void SendFlags() => Send(new FlagsMessage(IsWireframe, IsDark, Quality));
 
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
         base.OnPropertyChanged(change);
-        if (change.Property == IsWireframeProperty) SendFlags();
+        if (change.Property == IsWireframeProperty || change.Property == QualityProperty) SendFlags();
         else if (change.Property == IsInteractiveProperty && !IsInteractive) EndInteraction();
         else if (change.Property == BoundsProperty && _visual != null) _visual.Size = new Vector(Bounds.Width, Bounds.Height);
         else if (change.Property == IsVisibleProperty || change.Property == OpacityProperty) UpdateActivity();
@@ -204,10 +216,16 @@ public sealed class Model3DView : Control, ICustomHitTest
                 Cursor = over ? _handCursor ??= new Cursor(StandardCursorType.Hand) : null;
                 break;
             case HitReply { Click: true, Target: { } id }:
-                Clicked?.Invoke(this, new Model3DClickedEventArgs(id));
+                OnModelClicked(id);
                 break;
         }
     }
+
+    protected virtual void OnBeforeAttach() { }
+
+    /// <summary>Appele sur le thread UI lorsqu'une piece <c>Clickable(id)</c> est cliquee.</summary>
+    protected virtual void OnModelClicked(string id) =>
+        Clicked?.Invoke(this, new Model3DClickedEventArgs(id));
 
     private void CancelSettle()
     {

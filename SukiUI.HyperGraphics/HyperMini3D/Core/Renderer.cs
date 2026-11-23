@@ -15,12 +15,15 @@ namespace SukiUI.HyperGraphics;
 internal sealed class Renderer : IDisposable
 {
     private static readonly SKColor WireColor = new(0x37, 0x8A, 0xDD);
+    private static readonly Comparer<(float MinX, int Idx)> ByMinXComparer =
+        Comparer<(float MinX, int Idx)>.Create(static (x, y) => x.MinX.CompareTo(y.MinX));
 
     private readonly Model3D _model;
     public readonly ModelInfo Info;
     public readonly Channels Channels;
     public double Yaw, Pitch;
     public bool Wire, Dark;
+    public int? Quality;
     public double Scale = 1;
     public Vector2 Offset;
 
@@ -41,6 +44,21 @@ internal sealed class Renderer : IDisposable
     private int _orderCount = -1;
     private long _orderCameraVersion = -1, _orderMotionVersion = -1;
     private bool _orderWire;
+    private (float MinX, float MaxX, float MinY, float MaxY)[] _rects = Array.Empty<(float, float, float, float)>();
+    private OrderEntry[] _sorted = Array.Empty<OrderEntry>();
+    private int[] _inDeg = Array.Empty<int>();
+    private List<int>[] _out = Array.Empty<List<int>>();
+    private (float MinX, int Idx)[] _byMinX = Array.Empty<(float, int)>();
+    private int[] _tIndex = Array.Empty<int>();
+    private int[] _tLow = Array.Empty<int>();
+    private int[] _tStack = Array.Empty<int>();
+    private int[] _dfsV = Array.Empty<int>();
+    private int[] _dfsEdge = Array.Empty<int>();
+    private int[] _sccId = Array.Empty<int>();
+    private int[] _sccInDeg = Array.Empty<int>();
+    private bool[] _tOnStack = Array.Empty<bool>();
+    private List<int>[] _sccNodes = Array.Empty<List<int>>();
+    private readonly PriorityQueue<int, int> _pq = new();
 
     public Renderer(Model3D model)
     {
@@ -68,7 +86,7 @@ internal sealed class Renderer : IDisposable
         SetCamera();
         Info.Evaluate(Channels);
 
-        var geometry = _geometry ??= _model.Compile();
+        var geometry = _geometry ??= _model.Compile(Quality);
         geometry.Pose(Channels);
         DrawGround(canvas);
         var faces = geometry.Faces;
@@ -90,6 +108,7 @@ internal sealed class Renderer : IDisposable
                 order[count++] = new OrderEntry(Depth(group.Anchor), faces.Count + i, null, group);
             }
             Array.Sort(order, 0, count);
+            if (!Wire && count > 1 && count <= 8000) RefineOrder(order, count);
             _orderCount = count;
             _orderWire = Wire;
             _orderCameraVersion = _cameraVersion;
@@ -119,6 +138,21 @@ internal sealed class Renderer : IDisposable
         _orderCount = -1;
         _orderCameraVersion = -1;
         _orderMotionVersion = -1;
+        _rects = Array.Empty<(float, float, float, float)>();
+        _sorted = Array.Empty<OrderEntry>();
+        _inDeg = Array.Empty<int>();
+        _out = Array.Empty<List<int>>();
+        _byMinX = Array.Empty<(float, int)>();
+        _tIndex = Array.Empty<int>();
+        _tLow = Array.Empty<int>();
+        _tStack = Array.Empty<int>();
+        _dfsV = Array.Empty<int>();
+        _dfsEdge = Array.Empty<int>();
+        _sccId = Array.Empty<int>();
+        _sccInDeg = Array.Empty<int>();
+        _tOnStack = Array.Empty<bool>();
+        _sccNodes = Array.Empty<List<int>>();
+        _pq.Clear();
         _grid?.Dispose();
         _grid = null;
         _shadow?.Dispose();
@@ -185,6 +219,295 @@ internal sealed class Renderer : IDisposable
     }
 
     // ---------------------------------------------------------------- peintre
+
+    /// <summary>
+    ///     Affinage topologique (Newell) apres le tri par centroide : lorsqu'une face B recouvre a l'ecran une face A
+    ///     mais que A est entierement du cote avant du plan de B (ou B du cote arriere du plan de A), B doit etre
+    ///     peinte avant A meme si son centroide etait plus proche de la camera (ex. petit bouton sur grand chassis).
+    /// </summary>
+    private void RefineOrder(OrderEntry[] order, int count)
+    {
+        if (_rects.Length < count) _rects = new (float, float, float, float)[count];
+        if (_byMinX.Length < count) _byMinX = new (float, int)[count];
+        var rectCount = 0;
+        for (var i = 0; i < count; i++)
+        {
+            if (order[i].Face is not { } face || face.P.Length == 0) continue;
+            if (face.Screen.Length != face.P.Length) face.Screen = new Vector2[face.P.Length];
+            float minX = float.MaxValue, maxX = float.MinValue, minY = float.MaxValue, maxY = float.MinValue;
+            for (var k = 0; k < face.P.Length; k++)
+            {
+                var s = face.Screen[k] = Project(face.P[k]);
+                if (s.X < minX) minX = s.X;
+                if (s.X > maxX) maxX = s.X;
+                if (s.Y < minY) minY = s.Y;
+                if (s.Y > maxY) maxY = s.Y;
+            }
+            _rects[i] = (minX, maxX, minY, maxY);
+            _byMinX[rectCount++] = (minX, i);
+        }
+        if (rectCount < 2) return;
+        Array.Sort(_byMinX, 0, rectCount, ByMinXComparer);
+
+        if (_out.Length < count)
+        {
+            var old = _out.Length;
+            Array.Resize(ref _out, count);
+            Array.Resize(ref _sccNodes, count);
+            for (var i = old; i < count; i++)
+            {
+                _out[i] = new List<int>();
+                _sccNodes[i] = new List<int>();
+            }
+            _inDeg = new int[count];
+            _sorted = new OrderEntry[count];
+            _tIndex = new int[count];
+            _tLow = new int[count];
+            _tStack = new int[count];
+            _dfsV = new int[count];
+            _dfsEdge = new int[count];
+            _sccId = new int[count];
+            _sccInDeg = new int[count];
+            _tOnStack = new bool[count];
+        }
+        else
+        {
+            Array.Clear(_inDeg, 0, count);
+            for (var i = 0; i < count; i++) _out[i].Clear();
+        }
+
+        var hasBackEdge = false;
+        for (var p = 0; p < rectCount; p++)
+        {
+            var u = _byMinX[p].Idx;
+            var ru = _rects[u];
+            var fu = order[u].Face!;
+            for (var q = p + 1; q < rectCount; q++)
+            {
+                if (_byMinX[q].MinX >= ru.MaxX) break;
+                var v = _byMinX[q].Idx;
+                var rv = _rects[v];
+                if (ru.MaxY <= rv.MinY || rv.MaxY <= ru.MinY) continue;
+                var fv = order[v].Face!;
+                if (fu.Screen.Length == 3 && fv.Screen.Length == 3 && !TrianglesOverlap2D(fu.Screen, fv.Screen))
+                    continue;
+
+                int i, j;
+                Face a, b;
+                if (u < v) { i = u; j = v; a = fu; b = fv; }
+                else { i = v; j = u; a = fv; b = fu; }
+
+                var ab = MustDrawBefore(a, b);
+                var ba = MustDrawBefore(b, a);
+                if (ab && !ba)
+                {
+                    _out[i].Add(j);
+                    _inDeg[j]++;
+                }
+                else if (ba && !ab)
+                {
+                    _out[j].Add(i);
+                    _inDeg[i]++;
+                    hasBackEdge = true;
+                }
+            }
+        }
+        if (!hasBackEdge) return;
+
+        // Kahn fast-path; fall back to Tarjan SCC condensation DAG only if a topological cycle exists so
+        // cycles in one mesh region never bypass valid ordering constraints elsewhere.
+        _pq.Clear();
+        for (var i = 0; i < count; i++)
+            if (_inDeg[i] == 0) _pq.Enqueue(i, i);
+
+        var written = 0;
+        while (_pq.Count > 0)
+        {
+            var u = _pq.Dequeue();
+            _sorted[written++] = order[u];
+            foreach (var v in _out[u])
+                if (--_inDeg[v] == 0) _pq.Enqueue(v, v);
+        }
+
+        if (written == count)
+        {
+            Array.Copy(_sorted, order, count);
+            return;
+        }
+
+        RefineOrderWithScc(order, count);
+    }
+
+    private void RefineOrderWithScc(OrderEntry[] order, int count)
+    {
+        Array.Fill(_tIndex, -1, 0, count);
+        Array.Clear(_tOnStack, 0, count);
+
+        var nextIndex = 0;
+        var stackTop = 0;
+        var sccCount = 0;
+        for (var start = 0; start < count; start++)
+        {
+            if (_tIndex[start] != -1) continue;
+            var dfsTop = 1;
+            _dfsV[0] = start;
+            _dfsEdge[0] = 0;
+            _tIndex[start] = _tLow[start] = nextIndex++;
+            _tStack[stackTop++] = start;
+            _tOnStack[start] = true;
+
+            while (dfsTop > 0)
+            {
+                var top = dfsTop - 1;
+                var u = _dfsV[top];
+                var ei = _dfsEdge[top];
+                var adj = _out[u];
+                if (ei < adj.Count)
+                {
+                    _dfsEdge[top] = ei + 1;
+                    var w = adj[ei];
+                    if (_tIndex[w] == -1)
+                    {
+                        _tIndex[w] = _tLow[w] = nextIndex++;
+                        _tStack[stackTop++] = w;
+                        _tOnStack[w] = true;
+                        _dfsV[dfsTop] = w;
+                        _dfsEdge[dfsTop] = 0;
+                        dfsTop++;
+                    }
+                    else if (_tOnStack[w] && _tIndex[w] < _tLow[u])
+                    {
+                        _tLow[u] = _tIndex[w];
+                    }
+                }
+                else
+                {
+                    dfsTop--;
+                    if (_tLow[u] == _tIndex[u])
+                    {
+                        _sccNodes[sccCount].Clear();
+                        while (true)
+                        {
+                            var w = _tStack[--stackTop];
+                            _tOnStack[w] = false;
+                            _sccId[w] = sccCount;
+                            if (w == u) break;
+                        }
+                        sccCount++;
+                    }
+                    if (dfsTop > 0)
+                    {
+                        var parent = _dfsV[dfsTop - 1];
+                        if (_tLow[u] < _tLow[parent]) _tLow[parent] = _tLow[u];
+                    }
+                }
+            }
+        }
+
+        // Traversing 0..count-1 preserves ascending initial centroid-depth order inside each SCC.
+        for (var i = 0; i < count; i++) _sccNodes[_sccId[i]].Add(i);
+
+        Array.Clear(_sccInDeg, 0, sccCount);
+        for (var u = 0; u < count; u++)
+        {
+            var cu = _sccId[u];
+            foreach (var v in _out[u])
+            {
+                var cv = _sccId[v];
+                if (cu != cv) _sccInDeg[cv]++;
+            }
+        }
+
+        _pq.Clear();
+        for (var c = 0; c < sccCount; c++)
+            if (_sccInDeg[c] == 0) _pq.Enqueue(c, _sccNodes[c][0]);
+
+        var written = 0;
+        while (_pq.Count > 0)
+        {
+            var c = _pq.Dequeue();
+            var nodes = _sccNodes[c];
+            for (var i = 0; i < nodes.Count; i++)
+            {
+                var u = nodes[i];
+                _sorted[written++] = order[u];
+                foreach (var v in _out[u])
+                {
+                    var cv = _sccId[v];
+                    if (cv != c && --_sccInDeg[cv] == 0)
+                        _pq.Enqueue(cv, _sccNodes[cv][0]);
+                }
+            }
+        }
+        Array.Copy(_sorted, order, count);
+    }
+
+    private static bool TrianglesOverlap2D(Vector2[] a, Vector2[] b)
+    {
+        return !SeparatedByEdges(a, b) && !SeparatedByEdges(b, a);
+    }
+
+    private static bool SeparatedByEdges(Vector2[] edgesFrom, Vector2[] other)
+    {
+        for (var i = 0; i < 3; i++)
+        {
+            var p = edgesFrom[i];
+            var q = edgesFrom[(i + 1) % 3];
+            var nx = -(q.Y - p.Y);
+            var ny = q.X - p.X;
+            var len = MathF.Sqrt(nx * nx + ny * ny);
+            if (len < 1e-5f) continue;
+
+            float minA = float.MaxValue, maxA = float.MinValue;
+            for (var k = 0; k < 3; k++)
+            {
+                var d = edgesFrom[k].X * nx + edgesFrom[k].Y * ny;
+                if (d < minA) minA = d;
+                if (d > maxA) maxA = d;
+            }
+            float minB = float.MaxValue, maxB = float.MinValue;
+            for (var k = 0; k < 3; k++)
+            {
+                var d = other[k].X * nx + other[k].Y * ny;
+                if (d < minB) minB = d;
+                if (d > maxB) maxB = d;
+            }
+            var eps = 1e-3f * len;
+            if (maxA <= minB + eps || maxB <= minA + eps) return true;
+        }
+        return false;
+    }
+
+    private static bool MustDrawBefore(Face back, Face front)
+    {
+        const float eps = 1e-3f;
+        const float minSep = 1e-2f;
+
+        // Tous les sommets de front sont du cote avant (+normal) du plan de back
+        var bn = back.N;
+        var bp0 = back.P[0];
+        var maxFront = float.MinValue;
+        var allFront = true;
+        foreach (var p in front.P)
+        {
+            var d = Vector3.Dot(p - bp0, bn);
+            if (d < -eps) { allFront = false; break; }
+            if (d > maxFront) maxFront = d;
+        }
+        if (allFront && maxFront > minSep) return true;
+
+        // Symetrique : tous les sommets de back sont du cote arriere (-normal) du plan de front
+        var fn = front.N;
+        var fp0 = front.P[0];
+        var minBack = float.MaxValue;
+        foreach (var p in back.P)
+        {
+            var d = Vector3.Dot(p - fp0, fn);
+            if (d > eps) return false;
+            if (d < minBack) minBack = d;
+        }
+        return minBack < -minSep;
+    }
 
     private void SortFaces(List<Face> faces, ref DepthItem<Face>[] order)
     {
@@ -275,7 +598,7 @@ internal sealed class Renderer : IDisposable
                 _edges.Rewind();
                 for (var i = 0; i < sharp.Length; i++)
                 {
-                    if (!sharp[i]) continue;
+                    if (!sharp[i] && (f.SeamPeers?[i] is not { } peer || Vector3.Dot(peer.N, _eye) > 1e-4f)) continue;
                     var a = f.Screen[i];
                     var b = f.Screen[(i + 1) % f.Screen.Length];
                     _edges.MoveTo(a.X, a.Y);

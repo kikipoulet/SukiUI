@@ -2,14 +2,14 @@ using System;
 using SkiaSharp;
 using SukiUI.HyperGraphics;
 
-namespace SukiUI.Demo.Features.HyperGraphics.Mini3D;
+namespace SukiUI.Demo.Features.HyperGraphics.Mini3D.Controls;
 
 /// <summary>
 /// Detailed CoreXY-style desktop 3D printer: dual Z-towers with vertical leadscrews,
 /// stepper motors &amp; GT2 belts, leveling wheels beneath a sliding heated PEI bed with a
 /// 3-tier printed totem, traversing hotend with fan duct &amp; brass nozzle, and rotating spool.
 /// </summary>
-public sealed class Printer3DModel : Model3D
+public sealed class Printer3DScene : Model3D
 {
     private static readonly SKColor FrameLight = Rgb(232, 238, 248);
     private static readonly SKColor Trim = Rgb(204, 214, 232);
@@ -111,10 +111,10 @@ public sealed class Printer3DModel : Model3D
 
         // Sliding heated print bed with 4 leveling thumbwheels & 3-tier extruded totem
         var bedGroup = s.Group().MoveWith("bedY", (0, -24, 0));
-        bedGroup.Extrude(new Path2D().Arc(58, 56, 7, 0, 315, 8), Axis.Z, 46, 50, DarkSlate);
-        bedGroup.Extrude(new Path2D().Arc(162, 56, 7, 0, 315, 8), Axis.Z, 46, 50, DarkSlate);
-        bedGroup.Extrude(new Path2D().Arc(58, 152, 7, 0, 315, 8), Axis.Z, 46, 50, DarkSlate);
-        bedGroup.Extrude(new Path2D().Arc(162, 152, 7, 0, 315, 8), Axis.Z, 46, 50, DarkSlate);
+        bedGroup.Extrude(new Path2D().Circle(58, 56, 7), Axis.Z, 46, 50, DarkSlate);
+        bedGroup.Extrude(new Path2D().Circle(162, 56, 7), Axis.Z, 46, 50, DarkSlate);
+        bedGroup.Extrude(new Path2D().Circle(58, 152, 7), Axis.Z, 46, 50, DarkSlate);
+        bedGroup.Extrude(new Path2D().Circle(162, 152, 7), Axis.Z, 46, 50, DarkSlate);
 
         var bed = bedGroup.Box((48, 46, 50), (172, 162, 58), DarkSlate);
         bed.Face(Side.Top).Draw(g =>
@@ -128,10 +128,10 @@ public sealed class Printer3DModel : Model3D
             g.Text("PEI", (148, 56), 5.8).Fill(Trim);
         });
 
-        // Multi-tier 3D printed calibration prism on the bed
-        bedGroup.Extrude(new Path2D().Arc(110, 104, 19, 0, 300, 6), Axis.Z, 58, 70, Accent, rim: AccentSoft);
-        bedGroup.Extrude(new Path2D().Arc(110, 104, 13, 0, 300, 6), Axis.Z, 70, 79, AccentSoft, rim: Accent);
-        bedGroup.Extrude(new Path2D().Arc(110, 104, 6.5, 0, 300, 6), Axis.Z, 79, 85, Accent, rim: AccentSoft);
+        // Multi-tier 3D printed calibration prism on the bed (explicit 6-sided hexagon)
+        bedGroup.Extrude(new Path2D().Circle(110, 104, 19, segments: 6), Axis.Z, 58, 70, Accent, rim: AccentSoft);
+        bedGroup.Extrude(new Path2D().Circle(110, 104, 13, segments: 6), Axis.Z, 70, 79, AccentSoft, rim: Accent);
+        bedGroup.Extrude(new Path2D().Circle(110, 104, 6.5, segments: 6), Axis.Z, 79, 85, Accent, rim: AccentSoft);
 
         // Rigid Z-towers + Dual Z-stepper motors + Z-leadscrews
         var leftTower = s.Box((12, 114, 42), (32, 142, 232), FrameLight, open: Side.Bottom);
@@ -143,10 +143,10 @@ public sealed class Printer3DModel : Model3D
         var screwSteel = Rgb(126, 140, 168);
         s.Box((12, 144, 42), (32, 166, 64), StepperBlack, open: Side.Bottom);
         s.Box((188, 144, 42), (208, 166, 64), StepperBlack, open: Side.Bottom);
-        s.Extrude(new Path2D().Arc(36, 128, 3.8, 0, 315, 8), Axis.Z, 42, 54, Brass);
-        s.Extrude(new Path2D().Arc(36, 128, 2.5, 0, 315, 8), Axis.Z, 54, 232, screwSteel);
-        s.Extrude(new Path2D().Arc(184, 128, 3.8, 0, 315, 8), Axis.Z, 42, 54, Brass);
-        s.Extrude(new Path2D().Arc(184, 128, 2.5, 0, 315, 8), Axis.Z, 54, 232, screwSteel);
+        s.Extrude(new Path2D().Circle(36, 128, 3.8), Axis.Z, 42, 54, Brass);
+        s.Extrude(new Path2D().Circle(36, 128, 2.5), Axis.Z, 54, 232, screwSteel);
+        s.Extrude(new Path2D().Circle(184, 128, 3.8), Axis.Z, 42, 54, Brass);
+        s.Extrude(new Path2D().Circle(184, 128, 2.5), Axis.Z, 54, 232, screwSteel);
 
         // X-bridge + X-stepper motor
         s.Box((4, 118, 118), (11.5, 138, 138), StepperBlack);
@@ -187,13 +187,13 @@ public sealed class Printer3DModel : Model3D
         // Part-cooling fan duct + orange silicone heater block + brass nozzle (clears print height 83)
         toolGroup.Box((48, 86, 94), (56, 106, 106), Trim, open: Side.Top);
         toolGroup.Box((60, 92, 96), (76, 106, 106), Silicone, open: Side.Top);
-        toolGroup.Extrude(new Path2D().Arc(68, 99, 3.8, 0, 315, 8), Axis.Z, 86, 96, Brass, rim: Rgb(186, 130, 30));
+        toolGroup.Extrude(new Path2D().Circle(68, 99, 3.8), Axis.Z, 86, 96, Brass, rim: Rgb(186, 130, 30));
 
         // Rotating side spool holder + extruded filament spool
         s.Box((208, 122, 178), (216.5, 134, 190), DarkSlate, open: Side.Left);
         var spoolGroup = s.Group().Pivot((232, 128, 184), Axis.X).RotateWith("spool", 0, 360);
-        var flangeShape = new Path2D().Arc(128, 184, 24, 0, 330, 12);
-        var coreShape = new Path2D().Arc(128, 184, 19, 0, 330, 12);
+        var flangeShape = new Path2D().Circle(128, 184, 24);
+        var coreShape = new Path2D().Circle(128, 184, 19);
         spoolGroup.Extrude(flangeShape, Axis.X, 217, 220, DarkSlate, rim: Steel);
         spoolGroup.Extrude(coreShape, Axis.X, 220, 234, Accent, rim: AccentSoft);
         spoolGroup.Extrude(flangeShape, Axis.X, 234, 237, DarkSlate, rim: Steel);

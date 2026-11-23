@@ -10,8 +10,8 @@ namespace SukiUI.HyperGraphics;
 
 // ---------------------------------------------------------------- protocole UI -> moteur (messages immuables)
 
-/// <summary>Etat complet (attachement) : valeurs des entrees (sautees), filaire, theme, intro.</summary>
-internal sealed record InitMessage(double[] Inputs, bool Wire, bool Dark, bool Intro);
+/// <summary>Etat complet (attachement) : valeurs des entrees (sautees), filaire, theme, intro, qualite.</summary>
+internal sealed record InitMessage(double[] Inputs, bool Wire, bool Dark, bool Intro, int? Quality);
 
 /// <summary>Entree (indice dans ModelInfo.Inputs) vers To, animee sur la duree declaree par le modele, ou sautee.</summary>
 internal sealed record AnimateMessage(int Input, double To, bool Animate);
@@ -21,7 +21,7 @@ internal sealed record RotateMessage(double Yaw, double Pitch);
 
 internal sealed record DragMessage(bool Dragging);
 
-internal sealed record FlagsMessage(bool Wire, bool Dark);
+internal sealed record FlagsMessage(bool Wire, bool Dark, int? Quality);
 
 internal sealed record ActiveMessage(bool Active);
 
@@ -93,6 +93,11 @@ internal sealed class Model3DEngine : CompositionCustomVisualHandler
                 Array.Copy(m.Inputs, 0, _values, FirstInput, Math.Min(m.Inputs.Length, _info.Inputs.Count));
                 _renderer.Wire = m.Wire;
                 _renderer.Dark = m.Dark;
+                if (_renderer.Quality != m.Quality)
+                {
+                    _renderer.Quality = m.Quality;
+                    _renderer.DropScene();
+                }
                 _lastHover = false;
                 // Vue cachee a l'attachement (fondu de page) : l'intro attend la premiere activation
                 _introPending = m.Intro && _info.Intro != null;
@@ -116,9 +121,14 @@ internal sealed class Model3DEngine : CompositionCustomVisualHandler
                 _idleSent = false;
                 NotifyIdle();
                 break;
-            case FlagsMessage m when m.Wire != _renderer.Wire || m.Dark != _renderer.Dark:
+            case FlagsMessage m when m.Wire != _renderer.Wire || m.Dark != _renderer.Dark || m.Quality != _renderer.Quality:
                 _renderer.Wire = m.Wire;
                 _renderer.Dark = m.Dark;
+                if (_renderer.Quality != m.Quality)
+                {
+                    _renderer.Quality = m.Quality;
+                    _renderer.DropScene();
+                }
                 Changed();
                 break;
             case ActiveMessage m when m.Active != _active:
