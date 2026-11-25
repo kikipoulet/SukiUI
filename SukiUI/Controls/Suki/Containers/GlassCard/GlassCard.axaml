@@ -1,6 +1,17 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:suki="clr-namespace:SukiUI.Controls">
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Light">
+            <Color x:Key="SukiGlassCardBlurBackground">#59FFFFFF</Color>
+            <Color x:Key="SukiGlassCardBlurHigherContrastBackground">#73FFFFFF</Color>
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Dark">
+            <Color x:Key="SukiGlassCardBlurBackground">#99262B3A</Color>
+            <Color x:Key="SukiGlassCardBlurHigherContrastBackground">#B3262B3A</Color>
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+
     <Transitions x:Key="SukiGlassCardBorderTransitions">
         <BrushTransition Property="{x:Static Border.BorderBrushProperty}" Duration="0:0:0.15" />
         <DoubleTransition Property="{x:Static Visual.OpacityProperty}" Duration="0:0:0.15" />
@@ -17,6 +28,17 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Panel Name="RootPanel" Opacity="0">
+                    <Border Name="PART_BlurBackground"
+                            IsVisible="{TemplateBinding BlurBackground}"
+                            ClipToBounds="True"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Background="Transparent"
+                            BackdropEffectCache="Retained">
+                        <Border.BackdropEffect>
+                            <BlurEffect Radius="85" />
+                        </Border.BackdropEffect>
+                    </Border>
+
                     <suki:GlassCardBorder Name="PART_BorderCard"
                                           Classes="GlassCardBorderPartCard"
                                           RenderTransformOrigin="50%,50%"
@@ -67,6 +89,12 @@
         <Style Selector="^[IsOpaque=True] /template/ Border.GlassCardBorderPartCard">
             <Setter Property="Opacity" Value="1" />
             <Setter Property="Background" Value="{DynamicResource SukiGlassCardOpaqueBackground}" />
+        </Style>
+        <Style Selector="^[BlurBackgroundTint=Tint] /template/ Border#PART_BlurBackground">
+            <Setter Property="Background" Value="{DynamicResource SukiGlassCardBlurBackground}" />
+        </Style>
+        <Style Selector="^[BlurBackgroundTint=HigherContrastTint] /template/ Border#PART_BlurBackground">
+            <Setter Property="Background" Value="{DynamicResource SukiGlassCardBlurHigherContrastBackground}" />
         </Style>
         <Style Selector="^[IsInteractive=True]:pointerover /template/ Border#PART_ClipBorder">
             <Setter Property="BorderBrush" Value="{DynamicResource SukiPrimaryColor50}" />

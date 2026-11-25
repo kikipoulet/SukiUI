@@ -15,6 +15,13 @@ using SukiUI.Helpers;
 
 namespace SukiUI.Controls;
 
+public enum GlassCardBlurBackgroundTint
+{
+    NoTint,
+    Tint,
+    HigherContrastTint
+}
+
 public class GlassCard : ContentControl
 {
     private ContextMenu? _attachedContextMenu;
@@ -59,6 +66,24 @@ public class GlassCard : ContentControl
     {
         get => GetValue(IsOpaqueProperty);
         set => SetValue(IsOpaqueProperty, value);
+    }
+
+    public static readonly StyledProperty<bool> BlurBackgroundProperty =
+        AvaloniaProperty.Register<GlassCard, bool>(nameof(BlurBackground), false);
+
+    public bool BlurBackground
+    {
+        get => GetValue(BlurBackgroundProperty);
+        set => SetValue(BlurBackgroundProperty, value);
+    }
+
+    public static readonly StyledProperty<GlassCardBlurBackgroundTint> BlurBackgroundTintProperty =
+        AvaloniaProperty.Register<GlassCard, GlassCardBlurBackgroundTint>(nameof(BlurBackgroundTint), GlassCardBlurBackgroundTint.NoTint);
+
+    public GlassCardBlurBackgroundTint BlurBackgroundTint
+    {
+        get => GetValue(BlurBackgroundTintProperty);
+        set => SetValue(BlurBackgroundTintProperty, value);
     }
 
     public static readonly StyledProperty<bool> IsInteractiveProperty = AvaloniaProperty.Register<GlassCard, bool>(nameof(IsInteractive));

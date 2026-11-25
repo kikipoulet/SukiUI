@@ -2,8 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:suki="https://github.com/kikipoulet/SukiUI"
                     xmlns:dialogs="clr-namespace:SukiUI.Dialogs"
-                    xmlns:converters="clr-namespace:SukiUI.Converters"
-                    xmlns:glassMorphism="clr-namespace:SukiUI.Controls.GlassMorphism">
+                    xmlns:converters="clr-namespace:SukiUI.Converters">
     <ControlTheme TargetType="suki:SukiDialog" x:Key="SukiDialogTheme">
         <Setter Property="ClipToBounds" Value="False" />
         <Setter Property="Template">
@@ -15,39 +14,14 @@
                             MinWidth="450"
                             CornerRadius="25">
                         <Panel>
-
-                            <!-- The glass sits DIRECTLY in the panel, under everything:
-                                 it must never live under an ancestor Effect (its custom
-                                 draw op would render inside the effect buffer). The
-                                 rounded clip comes from the outer Border, same as
-                                 before; the -200 margin is blur sampling bleed. -->
-                            <glassMorphism:SukiBlurBackground Margin="-200"
-                                OverlayOpacity="0">
-                                <glassMorphism:SukiBlurBackground.IsVisible>
-                                    <MultiBinding Converter="{x:Static BoolConverters.And}">
-                                        <Binding Path="ShowCardBackground" RelativeSource="{RelativeSource TemplatedParent}" />
-                                        <Binding Path="BackgroundStyle" RelativeSource="{RelativeSource TemplatedParent}"
-                                                 Converter="{x:Static converters:SukiDialogBackgroundStyleToBoolConverter.Instance}" />
-                                    </MultiBinding>
-                                </glassMorphism:SukiBlurBackground.IsVisible>
-                            </glassMorphism:SukiBlurBackground>
-
-
-                          <!--  <Border IsVisible="{TemplateBinding ShowCardBackground}" CornerRadius="25"
-                                    Background="{DynamicResource SukiCardBackground}">
-                                <Panel Background="{DynamicResource PopupGradientBrush}" Margin="-5">
-                                </Panel>
-                            </Border> -->
-
-                            <!-- The depth-of-field blur is applied HERE by the host, never on
-                                 the content control: the glass overlay above must not render
-                                 under an ancestor Effect (its custom draw op would land in the
-                                 effect buffer and break). The card chrome is INSIDE so the
-                                 whole card sweeps, content included. -->
                             <Border x:Name="PART_DialogSurface">
                                 <Panel>
-                                    <suki:GlassCard IsVisible="{TemplateBinding ShowCardBackground}" IsAnimated="False"
-                                                    ClipToBounds="True" CornerRadius="25" />
+                                    <suki:GlassCard IsVisible="{TemplateBinding ShowCardBackground}"
+                                                    IsAnimated="False"
+                                                    ClipToBounds="True"
+                                                    CornerRadius="25"
+                                                    BlurBackground="{Binding BackgroundStyle, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static converters:SukiDialogBackgroundStyleToBoolConverter.Instance}}"
+                                                    BlurBackgroundTint="HigherContrastTint" />
                                     <Grid RowDefinitions="Auto,Auto,*,Auto"
                                           ColumnDefinitions="*"
                                           Margin="30,5,30,5"
