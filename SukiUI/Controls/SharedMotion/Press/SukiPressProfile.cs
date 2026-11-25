@@ -33,15 +33,15 @@ namespace SukiUI.ControlsAnimation
 
         #region Normal
 
-        // Lively deep press down to 0.87, springs back with a full yo-yo overshoot.
+        // Lively deep press down to 0.87, snaps back with a single subtle overshoot.
         public static readonly SukiPressProfile Button = new(
             HoverScale: 1.02,
             ExtraDeepRange: 0.09,
             PressDuration: TimeSpan.FromMilliseconds(150),
             DeepDuration: TimeSpan.FromSeconds(2),
             HoverDuration: TimeSpan.FromMilliseconds(150),
-            SpringOmega: 16.0,
-            SpringDecay: 9.333,
+            SpringOmega: 18.0,
+            SpringDecay: 23.4,
             DefaultPressDepth: 0.96);
 
         // Soft, shallow press with a barely-there damped rebound.
@@ -68,6 +68,7 @@ namespace SukiUI.ControlsAnimation
             HoverScale = 1.0,
             PressDuration = TimeSpan.FromMilliseconds(80),
             HoverDuration = TimeSpan.FromMilliseconds(80),
+            SpringOmega = 16.0,
             SpringDecay = 30.4,
         };
 
