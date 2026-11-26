@@ -637,7 +637,6 @@ internal static class HyperAtlasCache
         if (disposedAny)
         {
             grContext.Flush();
-            grContext.PurgeResources();
         }
     }
 

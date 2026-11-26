@@ -3,6 +3,7 @@ using Avalonia.Controls;
 
 namespace SukiUI.Controls.GlassMorphism
 {
+    [Obsolete("Use GlassCard.BlurBackground or Avalonia's native BackdropEffect instead.")]
     public partial class SukiBlurBackground : UserControl
     {
         public static readonly StyledProperty<bool> IsDynamicProperty = AvaloniaProperty.Register<SukiBlurBackground, bool>(
