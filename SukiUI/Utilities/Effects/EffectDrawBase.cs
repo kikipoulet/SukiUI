@@ -71,6 +71,10 @@ namespace SukiUI.Utilities.Effects
         private readonly bool _invalidateRect;
         private bool _isDisposed;
 
+        // Keep the frame loop going only while the visual is actually drawn (hidden = no OnRender = no more frames)
+        private bool _drawnSinceLastFrame;
+        private bool _framesPaused;
+
         protected EffectDrawBase(bool invalidateRect = true)
         {
             _invalidateRect = invalidateRect;
@@ -81,6 +85,13 @@ namespace SukiUI.Utilities.Effects
 
         public override void OnRender(ImmediateDrawingContext context)
         {
+            _drawnSinceLastFrame = true;
+            if (_framesPaused && AnimationEnabled)
+            {
+                _framesPaused = false;
+                RegisterForNextAnimationFrameUpdate();
+            }
+
             var leaseFeature = context.TryGetFeature<ISkiaSharpApiLeaseFeature>();
             if (leaseFeature is null) throw new InvalidOperationException("Unable to lease Skia API");
             using var lease = leaseFeature.Lease();
@@ -98,6 +109,8 @@ namespace SukiUI.Utilities.Effects
             if (message == StartAnimations)
             {
                 AnimationEnabled = true;
+                _drawnSinceLastFrame = true;
+                _framesPaused = false;
                 RegisterForNextAnimationFrameUpdate();
             }
             else if (message == StopAnimations)
@@ -137,6 +150,13 @@ namespace SukiUI.Utilities.Effects
         public override void OnAnimationFrameUpdate()
         {
             if (!AnimationEnabled) return;
+            if (!_drawnSinceLastFrame)
+            {
+                // not drawn since last frame (hidden), stop until the next OnRender
+                _framesPaused = true;
+                return;
+            }
+            _drawnSinceLastFrame = false;
             if(_invalidateRect)
                 Invalidate(GetRenderBounds());
             else
